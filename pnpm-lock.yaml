@@ -287,8 +287,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: 0.6.8
-        version: 0.6.8(react-dom@18.3.1)(react@18.3.1)
+        specifier: 0.6.9
+        version: 0.6.9(react-dom@18.3.1)(react@18.3.1)
       rc-slider:
         specifier: 10.6.2
         version: 10.6.2(react-dom@18.3.1)(react@18.3.1)
@@ -890,56 +890,57 @@ packages:
     dev: true
 
   /@aria-ui/collection@0.0.3:
-    resolution: {integrity: sha512-20mUHlpTCYQnv1LTGMkCy1SLCxRK5pxHrvTr2beaaCgBKPjMEB3MlemL0PbIj3WsXbCldsvLBWX1L67FgWowSg==}
+    resolution: {integrity: sha512-20mUHlpTCYQnv1LTGMkCy1SLCxRK5pxHrvTr2beaaCgBKPjMEB3MlemL0PbIj3WsXbCldsvLBWX1L67FgWowSg==, tarball: https://registry.npmjs.org/@aria-ui/collection/-/collection-0.0.3.tgz}
     dev: false
 
-  /@aria-ui/core@0.0.12:
-    resolution: {integrity: sha512-1OSoctlqeBm9pvUZV5/llbBmVlFhBK6gzjZCoBz0pwPeQlpKTof7Q8Qvf/RoNqO9hyLEpr+VmzVBSmuiupiChg==}
+  /@aria-ui/core@0.0.13:
+    resolution: {integrity: sha512-cdr56c9ap2yU17bElEOndynJ65JEPF6V+vzy06xbSnQrykysB453SQF4QqTQ2xFMRpFfznfArXkebPG2w9QxLw==, tarball: https://registry.npmjs.org/@aria-ui/core/-/core-0.0.13.tgz}
     dependencies:
       '@dddstack/ariatype-aria-attributes': 2.0.0
       '@dddstack/ariatype-aria-roles': 2.0.0
       '@preact/signals-core': 1.6.0
+      server-dom-shim: 1.0.2
     dev: false
 
-  /@aria-ui/listbox@0.0.11:
-    resolution: {integrity: sha512-8wPeyBn0FUt52s65l/6iK0UfY0stkBIyTJyZA71utzdvKZCCLPb9HP5iYA/IAvkWJs+Hdchy8Txu3sZ2T8/T5Q==}
+  /@aria-ui/listbox@0.0.12:
+    resolution: {integrity: sha512-YsaV3KnCRGpzbUt7t+XyMQRgeHp1c5x0c+JydAfaItJu6eDrzXtfH4vnfVKlH87KssF8c6oFttNT9Z0R1Hs0Ow==, tarball: https://registry.npmjs.org/@aria-ui/listbox/-/listbox-0.0.12.tgz}
     dependencies:
       '@aria-ui/collection': 0.0.3
-      '@aria-ui/core': 0.0.12
-      '@aria-ui/presence': 0.0.7
+      '@aria-ui/core': 0.0.13
+      '@aria-ui/presence': 0.0.8
       immer: 10.0.4
     dev: false
 
-  /@aria-ui/overlay@0.0.12:
-    resolution: {integrity: sha512-dJV8y25I98bNHl3a+09rYQtN4K6Fl8xihqMUrZ1RSMOb2JvIbx5IqeO7xLa0QIkfQlrSGumPwsnAT/7B3Feclw==}
+  /@aria-ui/overlay@0.0.13:
+    resolution: {integrity: sha512-nyJOJU/7XcFAn1sbl7FYTE9JnhiUVNz3LA0PtyQpPwcNjkBJZbHbTtAnNK7IX5Eb5caH3FYBZaIAUu2SAzRifg==, tarball: https://registry.npmjs.org/@aria-ui/overlay/-/overlay-0.0.13.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.12
+      '@aria-ui/core': 0.0.13
       '@floating-ui/dom': 1.6.4
-      '@zag-js/dom-query': 0.46.0
+      '@zag-js/dom-query': 0.49.0
     dev: false
 
-  /@aria-ui/popover@0.0.11:
-    resolution: {integrity: sha512-gABdBZZE/eqFA3oFS2DndvmKdWVB5C2BmWOUGasmWbbLvJbbv42/x6qIDOtwAu0Y+gvW9W8QcnSqewNNT5kVUw==}
+  /@aria-ui/popover@0.0.12:
+    resolution: {integrity: sha512-848rkaEdl0Spj0uAdyKWK9/MfvRCnkdZ8UpKCVj4VehQU/txsRQdgOYQVQqQws+rQpfDEewGqyrhxg9gUM9wGA==, tarball: https://registry.npmjs.org/@aria-ui/popover/-/popover-0.0.12.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.12
-      '@aria-ui/overlay': 0.0.12
-      '@aria-ui/presence': 0.0.7
-      '@zag-js/dismissable': 0.46.0
-      '@zag-js/tabbable': 0.46.0
+      '@aria-ui/core': 0.0.13
+      '@aria-ui/overlay': 0.0.13
+      '@aria-ui/presence': 0.0.8
+      '@zag-js/dismissable': 0.49.0
+      '@zag-js/tabbable': 0.49.0
     dev: false
 
-  /@aria-ui/presence@0.0.7:
-    resolution: {integrity: sha512-fe+3zCEXsR3DjQc8V1sCwDqoG5qpB6KxDH7B3j4lucKLRx4klM7I+YWVwhVB54CP9izYC0AXHZnXQIdIqrmreQ==}
+  /@aria-ui/presence@0.0.8:
+    resolution: {integrity: sha512-0qWdsLXCpBn7PdTE6jE2kVnqr4m23W+m8e8ZSmyz1vmkxwDNjdheqgISXI9pVxdf1SsWqsX9pNwbGz2oxTGzww==, tarball: https://registry.npmjs.org/@aria-ui/presence/-/presence-0.0.8.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.12
+      '@aria-ui/core': 0.0.13
     dev: false
 
-  /@aria-ui/tooltip@0.0.13:
-    resolution: {integrity: sha512-uLNckj4qrzu1+gMBZ7otTqp13SDGWQKL/Jz6hqopgMsfG2GgkjbCkkCiaOhg03T7duDDbtJaC08P62jKTJFM8A==}
+  /@aria-ui/tooltip@0.0.14:
+    resolution: {integrity: sha512-71Qf1+Rq3krhiDN8eHMmkqVgBDkJ+eXINognUG5X/EbD9Bi8DuQziyFuxbZCIB6Ni6dNZJLbmfa0kNSf84w7bA==, tarball: https://registry.npmjs.org/@aria-ui/tooltip/-/tooltip-0.0.14.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.12
-      '@aria-ui/overlay': 0.0.12
-      '@aria-ui/presence': 0.0.7
+      '@aria-ui/core': 0.0.13
+      '@aria-ui/overlay': 0.0.13
+      '@aria-ui/presence': 0.0.8
       nanoid: 5.0.7
     dev: false
 
@@ -3087,27 +3088,27 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
 
   /@dddstack/ariatype-aria-attributes-drag-and-drop@2.0.0:
-    resolution: {integrity: sha512-sPtyhpHfnxWhzuK6oIWddX32Sirfi74LOaMdQ2x/LkphQe1STvEe7jnSD+k3SWQ8gv/DzFhacS/OwyMXlc6lnA==}
+    resolution: {integrity: sha512-sPtyhpHfnxWhzuK6oIWddX32Sirfi74LOaMdQ2x/LkphQe1STvEe7jnSD+k3SWQ8gv/DzFhacS/OwyMXlc6lnA==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-attributes-drag-and-drop/-/ariatype-aria-attributes-drag-and-drop-2.0.0.tgz}
     dev: false
 
   /@dddstack/ariatype-aria-attributes-global@2.0.0:
-    resolution: {integrity: sha512-4pNlL89Gj7IgLBnDJAw8EhCTPSefV3zcejXCwikRob6WlDlKI2zQRbKynzmKqK1V3VFkyCX662FBpUWm3p1gEg==}
+    resolution: {integrity: sha512-4pNlL89Gj7IgLBnDJAw8EhCTPSefV3zcejXCwikRob6WlDlKI2zQRbKynzmKqK1V3VFkyCX662FBpUWm3p1gEg==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-attributes-global/-/ariatype-aria-attributes-global-2.0.0.tgz}
     dev: false
 
   /@dddstack/ariatype-aria-attributes-live-region@2.0.0:
-    resolution: {integrity: sha512-sTMnDbgDFcY/WB8sQdqH6vurd2dt+SnoV1rgzqZh8QlOAbaVtzJuPpXV39SnhUBKlBOV2hC23XLelki5jOplWA==}
+    resolution: {integrity: sha512-sTMnDbgDFcY/WB8sQdqH6vurd2dt+SnoV1rgzqZh8QlOAbaVtzJuPpXV39SnhUBKlBOV2hC23XLelki5jOplWA==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-attributes-live-region/-/ariatype-aria-attributes-live-region-2.0.0.tgz}
     dev: false
 
   /@dddstack/ariatype-aria-attributes-relationship@2.0.0:
-    resolution: {integrity: sha512-4G5EI9iJ6KJnR038kYiyj5veunXx0zDo/6mlZnkZ4lI2qafVTAmoyUEYRuvMQEkaUBGb2CeDRK4UX036DV/Xwg==}
+    resolution: {integrity: sha512-4G5EI9iJ6KJnR038kYiyj5veunXx0zDo/6mlZnkZ4lI2qafVTAmoyUEYRuvMQEkaUBGb2CeDRK4UX036DV/Xwg==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-attributes-relationship/-/ariatype-aria-attributes-relationship-2.0.0.tgz}
     dev: false
 
   /@dddstack/ariatype-aria-attributes-widget@2.0.0:
-    resolution: {integrity: sha512-ILeZ94JgQ0nzpaVsc0iyTdGf8bjqF2UAJ0W+So2lRl9iLmtmt2HGnNJMysj+s4YCempun5NN8xvjpyI21lhvoQ==}
+    resolution: {integrity: sha512-ILeZ94JgQ0nzpaVsc0iyTdGf8bjqF2UAJ0W+So2lRl9iLmtmt2HGnNJMysj+s4YCempun5NN8xvjpyI21lhvoQ==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-attributes-widget/-/ariatype-aria-attributes-widget-2.0.0.tgz}
     dev: false
 
   /@dddstack/ariatype-aria-attributes@2.0.0:
-    resolution: {integrity: sha512-LaTn6dfD3wBQB39lbBA7zc7eAX6e10yFPnvH/I0CkX72JqfXaybme/mn6t0vwNwNtGOpWxoD9JISuAwtX/uFhA==}
+    resolution: {integrity: sha512-LaTn6dfD3wBQB39lbBA7zc7eAX6e10yFPnvH/I0CkX72JqfXaybme/mn6t0vwNwNtGOpWxoD9JISuAwtX/uFhA==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-attributes/-/ariatype-aria-attributes-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-attributes-drag-and-drop': 2.0.0
       '@dddstack/ariatype-aria-attributes-global': 2.0.0
@@ -3117,47 +3118,47 @@ packages:
     dev: false
 
   /@dddstack/ariatype-aria-roles-composite@2.0.0:
-    resolution: {integrity: sha512-NKb3ZtoZXQvwH7YbpoW/OW0oLNFlynOYiNSd+o4LIfKydBNPy1qHVc6XPerAocSGwWR3gef/NqGg+F1Pb89/Ig==}
+    resolution: {integrity: sha512-NKb3ZtoZXQvwH7YbpoW/OW0oLNFlynOYiNSd+o4LIfKydBNPy1qHVc6XPerAocSGwWR3gef/NqGg+F1Pb89/Ig==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-composite/-/ariatype-aria-roles-composite-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-generic': 2.0.0
     dev: false
 
   /@dddstack/ariatype-aria-roles-document-structure@2.0.0:
-    resolution: {integrity: sha512-Bcx30ymR40Ry8QvxL1au4OKggDesE2NcQ070teLdFNy44GFrNRjsZEbuLBklRxny8rmusoaDPRdaeX7FvXBUyg==}
+    resolution: {integrity: sha512-Bcx30ymR40Ry8QvxL1au4OKggDesE2NcQ070teLdFNy44GFrNRjsZEbuLBklRxny8rmusoaDPRdaeX7FvXBUyg==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-document-structure/-/ariatype-aria-roles-document-structure-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-generic': 2.0.0
     dev: false
 
   /@dddstack/ariatype-aria-roles-generic@2.0.0:
-    resolution: {integrity: sha512-FmPtcV5bYdYRgQAEMoWDJb7yJVQtt2XxDVPWjEllb3ClEMzo/WTSztFaEBZyU60JxhDDqmdcRAwpV8aZVRBBNQ==}
+    resolution: {integrity: sha512-FmPtcV5bYdYRgQAEMoWDJb7yJVQtt2XxDVPWjEllb3ClEMzo/WTSztFaEBZyU60JxhDDqmdcRAwpV8aZVRBBNQ==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-generic/-/ariatype-aria-roles-generic-2.0.0.tgz}
     dev: false
 
   /@dddstack/ariatype-aria-roles-landmark@2.0.0:
-    resolution: {integrity: sha512-jMulAkMBoxpkcaax7jp22tUOSLWPX+27fRZ40VlI2J5BM7/su9rVEqaAlZY7A7l+p3qq90Xc1XC3yMusxKmtsQ==}
+    resolution: {integrity: sha512-jMulAkMBoxpkcaax7jp22tUOSLWPX+27fRZ40VlI2J5BM7/su9rVEqaAlZY7A7l+p3qq90Xc1XC3yMusxKmtsQ==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-landmark/-/ariatype-aria-roles-landmark-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-generic': 2.0.0
     dev: false
 
   /@dddstack/ariatype-aria-roles-live-region@2.0.0:
-    resolution: {integrity: sha512-9lFnJeHu0c+U5Fz7S2qhzp1dvRbRAqQFi+9Gxx3ENvWOGYYAvDOa9zXyyVDMSj5G9MmLFulRCf6Awe90ISy+Jg==}
+    resolution: {integrity: sha512-9lFnJeHu0c+U5Fz7S2qhzp1dvRbRAqQFi+9Gxx3ENvWOGYYAvDOa9zXyyVDMSj5G9MmLFulRCf6Awe90ISy+Jg==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-live-region/-/ariatype-aria-roles-live-region-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-generic': 2.0.0
     dev: false
 
   /@dddstack/ariatype-aria-roles-widget@2.0.0:
-    resolution: {integrity: sha512-Alxl7cvfOLi1fpfk5PENjzeyY6hbSsr44+xIPpd7+VHdee0qpDI0x92sLiXcCTCsOR5KpGBCkOHQxOqUCUoWIQ==}
+    resolution: {integrity: sha512-Alxl7cvfOLi1fpfk5PENjzeyY6hbSsr44+xIPpd7+VHdee0qpDI0x92sLiXcCTCsOR5KpGBCkOHQxOqUCUoWIQ==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-widget/-/ariatype-aria-roles-widget-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-generic': 2.0.0
     dev: false
 
   /@dddstack/ariatype-aria-roles-window@2.0.0:
-    resolution: {integrity: sha512-PHyVqw32xnXsxGp4DSHiii0L6HxLblmCkRrnvI/LykzZtQ0EeCYE3VAMzx1XG/BGl/oKQJP/my0K2D6ZknMFpg==}
+    resolution: {integrity: sha512-PHyVqw32xnXsxGp4DSHiii0L6HxLblmCkRrnvI/LykzZtQ0EeCYE3VAMzx1XG/BGl/oKQJP/my0K2D6ZknMFpg==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles-window/-/ariatype-aria-roles-window-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-generic': 2.0.0
     dev: false
 
   /@dddstack/ariatype-aria-roles@2.0.0:
-    resolution: {integrity: sha512-/TOgMxehpTq3+kBoYvnG53iAeJH3y9TWlMO8Aroc19P4zqq8OHYlJzIQxMtKa9LhvdK7Z8Kcr1f4WDhW7Rd4dw==}
+    resolution: {integrity: sha512-/TOgMxehpTq3+kBoYvnG53iAeJH3y9TWlMO8Aroc19P4zqq8OHYlJzIQxMtKa9LhvdK7Z8Kcr1f4WDhW7Rd4dw==, tarball: https://registry.npmjs.org/@dddstack/ariatype-aria-roles/-/ariatype-aria-roles-2.0.0.tgz}
     dependencies:
       '@dddstack/ariatype-aria-roles-composite': 2.0.0
       '@dddstack/ariatype-aria-roles-document-structure': 2.0.0
@@ -6153,7 +6154,7 @@ packages:
     dev: true
 
   /@preact/signals-core@1.6.0:
-    resolution: {integrity: sha512-O/XGxwP85h1F7+ouqTMOIZ3+V1whfaV9ToIVcuyGriD4JkSD00cQo54BKdqjvBJxbenvp7ynfqRHEwI6e+NIhw==}
+    resolution: {integrity: sha512-O/XGxwP85h1F7+ouqTMOIZ3+V1whfaV9ToIVcuyGriD4JkSD00cQo54BKdqjvBJxbenvp7ynfqRHEwI6e+NIhw==, tarball: https://registry.npmjs.org/@preact/signals-core/-/signals-core-1.6.0.tgz}
     dev: false
 
   /@prisma/client@5.13.0(prisma@5.13.0):
@@ -6196,11 +6197,11 @@ packages:
     dependencies:
       '@prisma/debug': 5.13.0
 
-  /@prosekit/basic@0.3.4:
-    resolution: {integrity: sha512-75aezW5iEiwOnWhF0gRdI1XoYpH/gKbxitEAFIlpJgoiu5OC8HnOd8qIdoXYWoBKcPsFg6kBlaGE0ct1K52DaA==}
+  /@prosekit/basic@0.3.5:
+    resolution: {integrity: sha512-6XjU6RAMaPpXnDbXhDN8WQZ0OKGnjUWEvd1ZhDwkld+xnvWanFvc+8OtX57JLAEATVhUw3W2XZ4kcSyvUr+a2Q==, tarball: https://registry.npmjs.org/@prosekit/basic/-/basic-0.3.5.tgz}
     dependencies:
       '@prosekit/core': 0.4.2
-      '@prosekit/extensions': 0.4.6
+      '@prosekit/extensions': 0.4.7
       '@prosekit/pm': 0.1.3
     transitivePeerDependencies:
       - '@types/hast'
@@ -6215,24 +6216,24 @@ packages:
     dev: false
 
   /@prosekit/core@0.4.2:
-    resolution: {integrity: sha512-eU7lBK1jyrL4ZwSlrzDDu1gAvkdeg6+Nz2wGVq9sR+xvS7I1YVjsXdx3Sv/nzPVsD+fV8nJ9tEaTPPG6pkb83Q==}
+    resolution: {integrity: sha512-eU7lBK1jyrL4ZwSlrzDDu1gAvkdeg6+Nz2wGVq9sR+xvS7I1YVjsXdx3Sv/nzPVsD+fV8nJ9tEaTPPG6pkb83Q==, tarball: https://registry.npmjs.org/@prosekit/core/-/core-0.4.2.tgz}
     dependencies:
       '@prosekit/pm': 0.1.3
       clsx: 2.1.1
       orderedmap: 2.1.1
-      type-fest: 4.17.0
+      type-fest: 4.18.1
     dev: false
 
-  /@prosekit/extensions@0.4.6:
-    resolution: {integrity: sha512-epB9SmNCCKkUxeV+K/k4cHVrChTrv/Bi76ookzKZ5jUzWK/9ajxC4yNYydF8W+YNQvGzE1UTy5pL3YB4xF8G4w==}
+  /@prosekit/extensions@0.4.7:
+    resolution: {integrity: sha512-kfQjN0Cl+UIXncUkW8xU73fIlbI3TLRa81hh5Ofj1NJN6z5vE6SqHGp8LtwU3s1dy6ZwAOrauqfuQIbwJO2V+A==, tarball: https://registry.npmjs.org/@prosekit/extensions/-/extensions-0.4.7.tgz}
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
       prosemirror-dropcursor: 1.8.1
       prosemirror-flat-list: 0.5.0
-      prosemirror-highlight: 0.5.0(shiki@1.3.0)
+      prosemirror-highlight: 0.5.0(shiki@1.4.0)
       prosemirror-tables: 1.3.7
-      shiki: 1.3.0
+      shiki: 1.4.0
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6246,9 +6247,9 @@ packages:
     dev: false
 
   /@prosekit/lit@0.3.1:
-    resolution: {integrity: sha512-bMec3TxaTXwinJC3bgsn1yJh9YIO2O7aMaTuuYzYsyVw5bq+chZC0tXlnDTxZjVAAZTZG1VUJtzgifOIML41vg==}
+    resolution: {integrity: sha512-bMec3TxaTXwinJC3bgsn1yJh9YIO2O7aMaTuuYzYsyVw5bq+chZC0tXlnDTxZjVAAZTZG1VUJtzgifOIML41vg==, tarball: https://registry.npmjs.org/@prosekit/lit/-/lit-0.3.1.tgz}
     dependencies:
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6262,7 +6263,7 @@ packages:
     dev: false
 
   /@prosekit/pm@0.1.3:
-    resolution: {integrity: sha512-wvW+ajPxX8UjIEBFVWL5Kqrn+ktH8FEvWZS25GqkEgLhd/QQZU9JTOBVXNOlYX/1ENmXmootE51t136HXtGOjg==}
+    resolution: {integrity: sha512-wvW+ajPxX8UjIEBFVWL5Kqrn+ktH8FEvWZS25GqkEgLhd/QQZU9JTOBVXNOlYX/1ENmXmootE51t136HXtGOjg==, tarball: https://registry.npmjs.org/@prosekit/pm/-/pm-0.1.3.tgz}
     dependencies:
       prosemirror-commands: 1.5.2
       prosemirror-history: 1.4.0
@@ -6271,11 +6272,11 @@ packages:
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.5
+      prosemirror-view: 1.33.6
     dev: false
 
   /@prosekit/preact@0.3.3:
-    resolution: {integrity: sha512-V+fbXWTUmIb8Oy9pPq83FoZlzmbM0RAnZjz+gx57f0KYb8sIwqjCIIHn9iNEJSk48lxjG2Jq8/i6Fpo7CemrPg==}
+    resolution: {integrity: sha512-V+fbXWTUmIb8Oy9pPq83FoZlzmbM0RAnZjz+gx57f0KYb8sIwqjCIIHn9iNEJSk48lxjG2Jq8/i6Fpo7CemrPg==, tarball: https://registry.npmjs.org/@prosekit/preact/-/preact-0.3.3.tgz}
     peerDependencies:
       preact: '>= 10.11.0'
     peerDependenciesMeta:
@@ -6284,7 +6285,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
       react-merge-refs: 2.1.1
     transitivePeerDependencies:
       - '@types/hast'
@@ -6299,7 +6300,7 @@ packages:
     dev: false
 
   /@prosekit/react@0.3.4(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-6C6pRWIA+pap+ISDMmI22f2GbIlJbUZLKK0z0QZFWMxkKNA1V3AbuQ8cVLSmt9VajhwveRI91kd234thrvKvJA==}
+    resolution: {integrity: sha512-6C6pRWIA+pap+ISDMmI22f2GbIlJbUZLKK0z0QZFWMxkKNA1V3AbuQ8cVLSmt9VajhwveRI91kd234thrvKvJA==, tarball: https://registry.npmjs.org/@prosekit/react/-/react-0.3.4.tgz}
     peerDependencies:
       react: '>= 18.2.0'
       react-dom: '>= 18.2.0'
@@ -6311,7 +6312,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
       '@prosemirror-adapter/core': 0.2.6
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6329,7 +6330,7 @@ packages:
     dev: false
 
   /@prosekit/solid@0.3.2:
-    resolution: {integrity: sha512-AKqu3mGzfgAXe8FxQXepIfdMtDwW7hPovgblTZYeuv27vgmox0pDbkDRN6QqvBro1Cz+YaL7BOl8N+8vcfGQfQ==}
+    resolution: {integrity: sha512-AKqu3mGzfgAXe8FxQXepIfdMtDwW7hPovgblTZYeuv27vgmox0pDbkDRN6QqvBro1Cz+YaL7BOl8N+8vcfGQfQ==, tarball: https://registry.npmjs.org/@prosekit/solid/-/solid-0.3.2.tgz}
     peerDependencies:
       solid-js: '>= 1.7.0'
     peerDependenciesMeta:
@@ -6338,7 +6339,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6352,7 +6353,7 @@ packages:
     dev: false
 
   /@prosekit/svelte@0.3.2:
-    resolution: {integrity: sha512-t4Gm/b/3QLDvH3PqBrBETlabSbSRv209lRKxDfHxlHRwd3YbdLTMr08I54XwvlvNFSRhAZhQ1BeO8wNS0qbQ+Q==}
+    resolution: {integrity: sha512-t4Gm/b/3QLDvH3PqBrBETlabSbSRv209lRKxDfHxlHRwd3YbdLTMr08I54XwvlvNFSRhAZhQ1BeO8wNS0qbQ+Q==, tarball: https://registry.npmjs.org/@prosekit/svelte/-/svelte-0.3.2.tgz}
     peerDependencies:
       svelte: '>= 3.0.0'
     peerDependenciesMeta:
@@ -6361,7 +6362,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6375,7 +6376,7 @@ packages:
     dev: false
 
   /@prosekit/vue@0.3.2:
-    resolution: {integrity: sha512-BwNBfdcl3EDiNQEW4cqVWokvv+rbOr4TzO03A6sQgvOYGDBF4VXrV3ETZPXpgq6F/vJOeKfJejDgMFWg4OtzMg==}
+    resolution: {integrity: sha512-BwNBfdcl3EDiNQEW4cqVWokvv+rbOr4TzO03A6sQgvOYGDBF4VXrV3ETZPXpgq6F/vJOeKfJejDgMFWg4OtzMg==, tarball: https://registry.npmjs.org/@prosekit/vue/-/vue-0.3.2.tgz}
     peerDependencies:
       vue: '>= 3.0.0'
     peerDependenciesMeta:
@@ -6384,7 +6385,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
       '@prosemirror-adapter/core': 0.2.6
     transitivePeerDependencies:
       - '@types/hast'
@@ -6398,21 +6399,21 @@ packages:
       - shikiji
     dev: false
 
-  /@prosekit/web@0.1.3:
-    resolution: {integrity: sha512-CfXd32V4BGiJM+ZC3RlUSnHkNMweUci0PsS9AsLIIM/o9EGvDNmGRjg1Z7rVzu8GXVc69bR3Lfb0yuQqeiTtcw==}
+  /@prosekit/web@0.1.4:
+    resolution: {integrity: sha512-oEzr9scXR8BBqBFTigTWj92TLlphzM5Tagt7j1H5zdCrxOkMnqBuekbCmk0ZEhzMLbTNvVi9uoYMQw/u7vA9fw==, tarball: https://registry.npmjs.org/@prosekit/web/-/web-0.1.4.tgz}
     dependencies:
       '@aria-ui/collection': 0.0.3
-      '@aria-ui/core': 0.0.12
-      '@aria-ui/listbox': 0.0.11
-      '@aria-ui/overlay': 0.0.12
-      '@aria-ui/popover': 0.0.11
-      '@aria-ui/presence': 0.0.7
-      '@aria-ui/tooltip': 0.0.13
+      '@aria-ui/core': 0.0.13
+      '@aria-ui/listbox': 0.0.12
+      '@aria-ui/overlay': 0.0.13
+      '@aria-ui/popover': 0.0.12
+      '@aria-ui/presence': 0.0.8
+      '@aria-ui/tooltip': 0.0.14
       '@floating-ui/dom': 1.6.4
       '@prosekit/core': 0.4.2
-      '@prosekit/extensions': 0.4.6
+      '@prosekit/extensions': 0.4.7
       '@prosekit/pm': 0.1.3
-      '@zag-js/dom-query': 0.48.0
+      '@zag-js/dom-query': 0.49.0
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6426,7 +6427,7 @@ packages:
     dev: false
 
   /@prosemirror-adapter/core@0.2.6:
-    resolution: {integrity: sha512-7GXWQBR/bd6ngvek8SgtlEVC0x3KL7LKZ5cxyZl4IBAlRDbITQWsuKLChEXNan9A6+9Ry4a46crbDGTQlzooOg==}
+    resolution: {integrity: sha512-7GXWQBR/bd6ngvek8SgtlEVC0x3KL7LKZ5cxyZl4IBAlRDbITQWsuKLChEXNan9A6+9Ry4a46crbDGTQlzooOg==, tarball: https://registry.npmjs.org/@prosemirror-adapter/core/-/core-0.2.6.tgz}
     dependencies:
       tslib: 2.6.2
     dev: false
@@ -8122,8 +8123,8 @@ packages:
       - supports-color
     dev: false
 
-  /@shikijs/core@1.3.0:
-    resolution: {integrity: sha512-7fedsBfuILDTBmrYZNFI8B6ATTxhQAasUHllHmjvSZPnoq4bULWoTpHwmuQvZ8Aq03/tAa2IGo6RXqWtHdWaCA==}
+  /@shikijs/core@1.4.0:
+    resolution: {integrity: sha512-CxpKLntAi64h3j+TwWqVIQObPTED0FyXLHTTh3MKXtqiQNn2JGcMQQ362LftDbc9kYbDtrksNMNoVmVXzKFYUQ==, tarball: https://registry.npmjs.org/@shikijs/core/-/core-1.4.0.tgz}
     dev: false
 
   /@sideway/address@4.1.5:
@@ -10268,60 +10269,56 @@ packages:
       - zod
     dev: false
 
-  /@zag-js/dismissable@0.46.0:
-    resolution: {integrity: sha512-lL6g0rjIXQhFbiakaUDIIX2JTGvkMiKLRM99e3zyh7XGsC1o79UieBRuCLX8yCs00jAPORvFIZg8oehT2jD7Kw==}
+  /@zag-js/dismissable@0.49.0:
+    resolution: {integrity: sha512-jN9hKG22g2XumdZB+E9Jdr9BQqz0EVFt2iiEcCrgrh/PKXLRTMh+RT0Fp5NhQKiNVu9MLLJmbcTjXaDxBZM8bg==, tarball: https://registry.npmjs.org/@zag-js/dismissable/-/dismissable-0.49.0.tgz}
     dependencies:
-      '@zag-js/dom-event': 0.46.0
-      '@zag-js/dom-query': 0.46.0
-      '@zag-js/interact-outside': 0.46.0
-      '@zag-js/utils': 0.46.0
+      '@zag-js/dom-event': 0.49.0
+      '@zag-js/dom-query': 0.49.0
+      '@zag-js/interact-outside': 0.49.0
+      '@zag-js/utils': 0.49.0
     dev: false
 
-  /@zag-js/dom-event@0.46.0:
-    resolution: {integrity: sha512-EN3c8n8Mp7tRVW/m3Rl5IOXGfVxIsKTBh4HZ81q2z463TyWvdDelc/OAVv7nTMrkhV9dOuwgG53TSmSqlsft8A==}
+  /@zag-js/dom-event@0.49.0:
+    resolution: {integrity: sha512-vzaeuPbMSF2vHx+IxbDUTbeU+vG5uZUyJP5hwBFALYLxz0VGozVjCNzwD/0WHLRxRF+gsplwYWV1eH8fy1HBeA==, tarball: https://registry.npmjs.org/@zag-js/dom-event/-/dom-event-0.49.0.tgz}
     dependencies:
-      '@zag-js/dom-query': 0.46.0
-      '@zag-js/text-selection': 0.46.0
-      '@zag-js/types': 0.46.0
+      '@zag-js/dom-query': 0.49.0
+      '@zag-js/text-selection': 0.49.0
+      '@zag-js/types': 0.49.0
     dev: false
 
-  /@zag-js/dom-query@0.46.0:
-    resolution: {integrity: sha512-aUZsDq22ibtYK2Pp/h6J3c9fZvKyQOn/BnVRO3rmAShC8JSZajElRPkTpRNWJiFErP2uMGPrjjkmlhKh2J0Yew==}
+  /@zag-js/dom-query@0.49.0:
+    resolution: {integrity: sha512-lA+8ZdfU27GcoMZFRUANYfd6FI2ukPNwlecpJp8E9t4BVZK2o5V7xpAaN99m1TePw5JlcZ7gGXe4I82Ej11Yjg==, tarball: https://registry.npmjs.org/@zag-js/dom-query/-/dom-query-0.49.0.tgz}
     dev: false
 
-  /@zag-js/dom-query@0.48.0:
-    resolution: {integrity: sha512-pUM+BHOZIWPtHgqEqBXN+1YJzhYhn6F8er3Rfr27chlgE+76bLkT8k7FRnp2TQW30uur9TqM2RTdWlvpw7Wjrw==}
-    dev: false
-
-  /@zag-js/interact-outside@0.46.0:
-    resolution: {integrity: sha512-MPoHNFhdREBv1iw6OV2R8lwKcasyNcNEsXYdIOO0sYsFifkcsuHlwFhKh/8sLFhhVTw6kndmHAcaoHIKVsW5CA==}
+  /@zag-js/interact-outside@0.49.0:
+    resolution: {integrity: sha512-wBUBcCnGHMp+bfp8eZ9GX+GsfJWDIptkEHdwdPYM8ZRPdl8EkM4TyHnhTSxvQsgQImG/ujbRoVbJOCIUz5H2pg==, tarball: https://registry.npmjs.org/@zag-js/interact-outside/-/interact-outside-0.49.0.tgz}
     dependencies:
-      '@zag-js/dom-event': 0.46.0
-      '@zag-js/dom-query': 0.46.0
-      '@zag-js/tabbable': 0.46.0
-      '@zag-js/utils': 0.46.0
+      '@zag-js/dom-event': 0.49.0
+      '@zag-js/dom-query': 0.49.0
+      '@zag-js/tabbable': 0.49.0
+      '@zag-js/utils': 0.49.0
     dev: false
 
-  /@zag-js/tabbable@0.46.0:
-    resolution: {integrity: sha512-Cj/2Dlh62OXhUbMewlS59iK7uMHywlwgQMFpYs1JCt0eQfWndB3VvhRFgNDEfOdtZVOBZacKMIBfcByFbNTnmQ==}
+  /@zag-js/tabbable@0.49.0:
+    resolution: {integrity: sha512-GwJAuBWTU7dvj7GVcM1KLt6th1kraIewr+A3q7SKXb3e/SyIZ7MbORQDVnEU/LIyhyUz9cwAoHNrgO+3V0ph9A==, tarball: https://registry.npmjs.org/@zag-js/tabbable/-/tabbable-0.49.0.tgz}
     dependencies:
-      '@zag-js/dom-query': 0.46.0
+      '@zag-js/dom-query': 0.49.0
     dev: false
 
-  /@zag-js/text-selection@0.46.0:
-    resolution: {integrity: sha512-pogyMjj1xt1TwHhZLcE1y3550Ok79a3ES3j8bKBFxSxTz+KVyRY7L4oMTNfcfZShjBvBj8F7oznNALnSyk2+Rw==}
+  /@zag-js/text-selection@0.49.0:
+    resolution: {integrity: sha512-TG9Qs8rmFPBvpVcSzuTz5bbXmJXCE8jQnF1j156Jl7P1GYIKuVVaf5z18lgEqq2GIt3TZ74kIdBMdE6aPDdF0A==, tarball: https://registry.npmjs.org/@zag-js/text-selection/-/text-selection-0.49.0.tgz}
     dependencies:
-      '@zag-js/dom-query': 0.46.0
+      '@zag-js/dom-query': 0.49.0
     dev: false
 
-  /@zag-js/types@0.46.0:
-    resolution: {integrity: sha512-4qr0VzcD4gkGnsa4uRnFirtEZEoLbpnKHEkOLa2BGs7Z616m/tIb2UkysJ29WS2nSwSsek+V+ob6NyVl0VECGQ==}
+  /@zag-js/types@0.49.0:
+    resolution: {integrity: sha512-hDJG3sF6LXH4C9XFZroJSgeUuSbBAzrxjqEZKs3PG9B4JXjuuZhDW3/Ky12/QTINzomcAae8yfl2CTnuNfcYCA==, tarball: https://registry.npmjs.org/@zag-js/types/-/types-0.49.0.tgz}
     dependencies:
       csstype: 3.1.3
     dev: false
 
-  /@zag-js/utils@0.46.0:
-    resolution: {integrity: sha512-hW0Um/u/6ypOu0u39sHKOnyUUcBUYMIqkrOVA1Ssr2hWNyoi6UiM5ntgcV3UQ6xbIB52NGR5vUl63HPHxqWKDQ==}
+  /@zag-js/utils@0.49.0:
+    resolution: {integrity: sha512-6THHmxmj39te5i96sUuIirMGchmYalpR6VQPLPzciTQYkOb+sonygAWYJzAsDtQkoomT8M/0NQ6BW/Ly8uD7sg==, tarball: https://registry.npmjs.org/@zag-js/utils/-/utils-0.49.0.tgz}
     dev: false
 
   /JSONStream@1.3.5:
@@ -15108,7 +15105,7 @@ packages:
     dev: true
 
   /immer@10.0.4:
-    resolution: {integrity: sha512-cuBuGK40P/sk5IzWa9QPUaAdvPHjkk1c+xYsd9oZw+YQQEV+10G0P5uMpGctZZKnyQ+ibRO08bD25nWLmYi2pw==}
+    resolution: {integrity: sha512-cuBuGK40P/sk5IzWa9QPUaAdvPHjkk1c+xYsd9oZw+YQQEV+10G0P5uMpGctZZKnyQ+ibRO08bD25nWLmYi2pw==, tarball: https://registry.npmjs.org/immer/-/immer-10.0.4.tgz}
     dev: false
 
   /immutable@3.7.6:
@@ -17378,7 +17375,7 @@ packages:
     hasBin: true
 
   /nanoid@5.0.7:
-    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==, tarball: https://registry.npmjs.org/nanoid/-/nanoid-5.0.7.tgz}
     engines: {node: ^18 || >=20}
     hasBin: true
     dev: false
@@ -17884,7 +17881,7 @@ packages:
       wcwidth: 1.0.1
 
   /orderedmap@2.1.1:
-    resolution: {integrity: sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==}
+    resolution: {integrity: sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==, tarball: https://registry.npmjs.org/orderedmap/-/orderedmap-2.1.1.tgz}
     dev: false
 
   /ordinal@1.0.3:
@@ -18638,8 +18635,8 @@ packages:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
     dev: false
 
-  /prosekit@0.6.8(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-c4t3ofWJp2TuK9UAbLpJ2cPw/tmC6M7d3h2kvo/g8HMxuKxaz01xk5psmcjSiLFwPGbRkDQSNov5aa1EpbzORA==}
+  /prosekit@0.6.9(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-pWFZX2R6UmB+sefuBg84dBdlKnkUg2YN7BAaNAKbgB6Qme9a8TuJK+SBqms6tCMYRp0NwY0vxv+Pn1lp9883SA==, tarball: https://registry.npmjs.org/prosekit/-/prosekit-0.6.9.tgz}
     peerDependencies:
       preact: '>= 10.11.0'
       react: '>= 18.2.0'
@@ -18661,9 +18658,9 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@prosekit/basic': 0.3.4
+      '@prosekit/basic': 0.3.5
       '@prosekit/core': 0.4.2
-      '@prosekit/extensions': 0.4.6
+      '@prosekit/extensions': 0.4.7
       '@prosekit/lit': 0.3.1
       '@prosekit/pm': 0.1.3
       '@prosekit/preact': 0.3.3
@@ -18671,7 +18668,7 @@ packages:
       '@prosekit/solid': 0.3.2
       '@prosekit/svelte': 0.3.2
       '@prosekit/vue': 0.3.2
-      '@prosekit/web': 0.1.3
+      '@prosekit/web': 0.1.4
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
@@ -18687,7 +18684,7 @@ packages:
     dev: false
 
   /prosemirror-commands@1.5.2:
-    resolution: {integrity: sha512-hgLcPaakxH8tu6YvVAaILV2tXYsW3rAdDR8WNkeKGcgeMVQg3/TMhPdVoh7iAmfgVjZGtcOSjKiQaoeKjzd2mQ==}
+    resolution: {integrity: sha512-hgLcPaakxH8tu6YvVAaILV2tXYsW3rAdDR8WNkeKGcgeMVQg3/TMhPdVoh7iAmfgVjZGtcOSjKiQaoeKjzd2mQ==, tarball: https://registry.npmjs.org/prosemirror-commands/-/prosemirror-commands-1.5.2.tgz}
     dependencies:
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
@@ -18695,26 +18692,26 @@ packages:
     dev: false
 
   /prosemirror-dropcursor@1.8.1:
-    resolution: {integrity: sha512-M30WJdJZLyXHi3N8vxN6Zh5O8ZBbQCz0gURTfPmTIBNQ5pxrdU7A58QkNqfa98YEjSAL1HUyyU34f6Pm5xBSGw==}
+    resolution: {integrity: sha512-M30WJdJZLyXHi3N8vxN6Zh5O8ZBbQCz0gURTfPmTIBNQ5pxrdU7A58QkNqfa98YEjSAL1HUyyU34f6Pm5xBSGw==, tarball: https://registry.npmjs.org/prosemirror-dropcursor/-/prosemirror-dropcursor-1.8.1.tgz}
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.5
+      prosemirror-view: 1.33.6
     dev: false
 
   /prosemirror-flat-list@0.5.0:
-    resolution: {integrity: sha512-atRnGz7OPOw+NTc+D/RBjG5xL/UhiVI3dhkMtevNKw2lokHq5aRKJnDEcy02u25vP8MBwbugQxhvBoZrA6/ynw==}
+    resolution: {integrity: sha512-atRnGz7OPOw+NTc+D/RBjG5xL/UhiVI3dhkMtevNKw2lokHq5aRKJnDEcy02u25vP8MBwbugQxhvBoZrA6/ynw==, tarball: https://registry.npmjs.org/prosemirror-flat-list/-/prosemirror-flat-list-0.5.0.tgz}
     dependencies:
       prosemirror-commands: 1.5.2
       prosemirror-inputrules: 1.4.0
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.5
+      prosemirror-view: 1.33.6
     dev: false
 
-  /prosemirror-highlight@0.5.0(shiki@1.3.0):
-    resolution: {integrity: sha512-jGj2E3WHoh6N85nlCyjjpFNsv3a6pvMXVpiz9hJfHDYmUtnSyWZNXB0rQabHOKdBYfynsbhy1SUiRRNdni0woA==}
+  /prosemirror-highlight@0.5.0(shiki@1.4.0):
+    resolution: {integrity: sha512-jGj2E3WHoh6N85nlCyjjpFNsv3a6pvMXVpiz9hJfHDYmUtnSyWZNXB0rQabHOKdBYfynsbhy1SUiRRNdni0woA==, tarball: https://registry.npmjs.org/prosemirror-highlight/-/prosemirror-highlight-0.5.0.tgz}
     peerDependencies:
       '@types/hast': ^3.0.0
       highlight.js: ^11.9.0
@@ -18748,64 +18745,64 @@ packages:
       shikiji:
         optional: true
     dependencies:
-      shiki: 1.3.0
+      shiki: 1.4.0
     dev: false
 
   /prosemirror-history@1.4.0:
-    resolution: {integrity: sha512-UUiGzDVcqo1lovOPdi9YxxUps3oBFWAIYkXLu3Ot+JPv1qzVogRbcizxK3LhHmtaUxclohgiOVesRw5QSlMnbQ==}
+    resolution: {integrity: sha512-UUiGzDVcqo1lovOPdi9YxxUps3oBFWAIYkXLu3Ot+JPv1qzVogRbcizxK3LhHmtaUxclohgiOVesRw5QSlMnbQ==, tarball: https://registry.npmjs.org/prosemirror-history/-/prosemirror-history-1.4.0.tgz}
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.5
+      prosemirror-view: 1.33.6
       rope-sequence: 1.3.4
     dev: false
 
   /prosemirror-inputrules@1.4.0:
-    resolution: {integrity: sha512-6ygpPRuTJ2lcOXs9JkefieMst63wVJBgHZGl5QOytN7oSZs3Co/BYbc3Yx9zm9H37Bxw8kVzCnDsihsVsL4yEg==}
+    resolution: {integrity: sha512-6ygpPRuTJ2lcOXs9JkefieMst63wVJBgHZGl5QOytN7oSZs3Co/BYbc3Yx9zm9H37Bxw8kVzCnDsihsVsL4yEg==, tarball: https://registry.npmjs.org/prosemirror-inputrules/-/prosemirror-inputrules-1.4.0.tgz}
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
     dev: false
 
   /prosemirror-keymap@1.2.2:
-    resolution: {integrity: sha512-EAlXoksqC6Vbocqc0GtzCruZEzYgrn+iiGnNjsJsH4mrnIGex4qbLdWWNza3AW5W36ZRrlBID0eM6bdKH4OStQ==}
+    resolution: {integrity: sha512-EAlXoksqC6Vbocqc0GtzCruZEzYgrn+iiGnNjsJsH4mrnIGex4qbLdWWNza3AW5W36ZRrlBID0eM6bdKH4OStQ==, tarball: https://registry.npmjs.org/prosemirror-keymap/-/prosemirror-keymap-1.2.2.tgz}
     dependencies:
       prosemirror-state: 1.4.3
       w3c-keyname: 2.2.8
     dev: false
 
   /prosemirror-model@1.20.0:
-    resolution: {integrity: sha512-q7AY7vMjKYqDCeoedgUiAgrLabliXxndJuuFmcmc2+YU1SblvnOiG2WEACF2lwAZsMlfLpiAilA3L+TWlDqIsQ==}
+    resolution: {integrity: sha512-q7AY7vMjKYqDCeoedgUiAgrLabliXxndJuuFmcmc2+YU1SblvnOiG2WEACF2lwAZsMlfLpiAilA3L+TWlDqIsQ==, tarball: https://registry.npmjs.org/prosemirror-model/-/prosemirror-model-1.20.0.tgz}
     dependencies:
       orderedmap: 2.1.1
     dev: false
 
   /prosemirror-state@1.4.3:
-    resolution: {integrity: sha512-goFKORVbvPuAQaXhpbemJFRKJ2aixr+AZMGiquiqKxaucC6hlpHNZHWgz5R7dS4roHiwq9vDctE//CZ++o0W1Q==}
+    resolution: {integrity: sha512-goFKORVbvPuAQaXhpbemJFRKJ2aixr+AZMGiquiqKxaucC6hlpHNZHWgz5R7dS4roHiwq9vDctE//CZ++o0W1Q==, tarball: https://registry.npmjs.org/prosemirror-state/-/prosemirror-state-1.4.3.tgz}
     dependencies:
       prosemirror-model: 1.20.0
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.5
+      prosemirror-view: 1.33.6
     dev: false
 
   /prosemirror-tables@1.3.7:
-    resolution: {integrity: sha512-oEwX1wrziuxMtwFvdDWSFHVUWrFJWt929kVVfHvtTi8yvw+5ppxjXZkMG/fuTdFo+3DXyIPSKfid+Be1npKXDA==}
+    resolution: {integrity: sha512-oEwX1wrziuxMtwFvdDWSFHVUWrFJWt929kVVfHvtTi8yvw+5ppxjXZkMG/fuTdFo+3DXyIPSKfid+Be1npKXDA==, tarball: https://registry.npmjs.org/prosemirror-tables/-/prosemirror-tables-1.3.7.tgz}
     dependencies:
       prosemirror-keymap: 1.2.2
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.33.5
+      prosemirror-view: 1.33.6
     dev: false
 
   /prosemirror-transform@1.8.0:
-    resolution: {integrity: sha512-BaSBsIMv52F1BVVMvOmp1yzD3u65uC3HTzCBQV1WDPqJRQ2LuHKcyfn0jwqodo8sR9vVzMzZyI+Dal5W9E6a9A==}
+    resolution: {integrity: sha512-BaSBsIMv52F1BVVMvOmp1yzD3u65uC3HTzCBQV1WDPqJRQ2LuHKcyfn0jwqodo8sR9vVzMzZyI+Dal5W9E6a9A==, tarball: https://registry.npmjs.org/prosemirror-transform/-/prosemirror-transform-1.8.0.tgz}
     dependencies:
       prosemirror-model: 1.20.0
     dev: false
 
-  /prosemirror-view@1.33.5:
-    resolution: {integrity: sha512-AbYYLgg2h5CLARLcTtbNrMARlMwV51jTrezcJkV0NS9J4vi28+rhJ45iIWVSjCcRY209BoySDuJ58b8wIFqdmQ==}
+  /prosemirror-view@1.33.6:
+    resolution: {integrity: sha512-zRLUNgLIQfd8IfGprsXxWTjdA8xEAFJe8cDNrOptj6Mop9sj+BMeVbJvceyAYCm5G2dOdT2prctH7K9dfnpIMw==, tarball: https://registry.npmjs.org/prosemirror-view/-/prosemirror-view-1.33.6.tgz}
     dependencies:
       prosemirror-model: 1.20.0
       prosemirror-state: 1.4.3
@@ -19149,7 +19146,7 @@ packages:
     dev: false
 
   /react-merge-refs@2.1.1:
-    resolution: {integrity: sha512-jLQXJ/URln51zskhgppGJ2ub7b2WFKGq3cl3NYKtlHoTG+dN2q7EzWrn3hN3EgPsTMvpR9tpq5ijdp7YwFZkag==}
+    resolution: {integrity: sha512-jLQXJ/URln51zskhgppGJ2ub7b2WFKGq3cl3NYKtlHoTG+dN2q7EzWrn3hN3EgPsTMvpR9tpq5ijdp7YwFZkag==, tarball: https://registry.npmjs.org/react-merge-refs/-/react-merge-refs-2.1.1.tgz}
     dev: false
 
   /react-native-webview@11.26.1(react-native@0.74.0)(react@18.3.1):
@@ -19839,7 +19836,7 @@ packages:
     dev: true
 
   /rope-sequence@1.3.4:
-    resolution: {integrity: sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==}
+    resolution: {integrity: sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==, tarball: https://registry.npmjs.org/rope-sequence/-/rope-sequence-1.3.4.tgz}
     dev: false
 
   /rpc-websockets@7.10.0:
@@ -20035,6 +20032,12 @@ packages:
       - supports-color
     dev: false
 
+  /server-dom-shim@1.0.2:
+    resolution: {integrity: sha512-6MTS2ouF/fXZMUdPzAzPOXgeuIwj3wNianF4BYEmFC5XdCLIAkNkUSxHk0kW58nObQnyHc6wp4wL7xdt3m7X+Q==, tarball: https://registry.npmjs.org/server-dom-shim/-/server-dom-shim-1.0.2.tgz}
+    dependencies:
+      '@lit-labs/ssr-dom-shim': 1.2.0
+    dev: false
+
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
 
@@ -20110,10 +20113,10 @@ packages:
       rechoir: 0.6.2
     dev: true
 
-  /shiki@1.3.0:
-    resolution: {integrity: sha512-9aNdQy/etMXctnPzsje1h1XIGm9YfRcSksKOGqZWXA/qP9G18/8fpz5Bjpma8bOgz3tqIpjERAd6/lLjFyzoww==}
+  /shiki@1.4.0:
+    resolution: {integrity: sha512-5WIn0OL8PWm7JhnTwRWXniy6eEDY234mRrERVlFa646V2ErQqwIFd2UML7e0Pq9eqSKLoMa3Ke+xbsF+DAuy+Q==, tarball: https://registry.npmjs.org/shiki/-/shiki-1.4.0.tgz}
     dependencies:
-      '@shikijs/core': 1.3.0
+      '@shikijs/core': 1.4.0
     dev: false
 
   /side-channel@1.0.6:
@@ -21210,8 +21213,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-fest@4.17.0:
-    resolution: {integrity: sha512-9flrz1zkfLRH3jO3bLflmTxryzKMxVa7841VeMgBaNQGY6vH4RCcpN/sQLB7mQQYh1GZ5utT2deypMuCy4yicw==}
+  /type-fest@4.18.1:
+    resolution: {integrity: sha512-qXhgeNsX15bM63h5aapNFcQid9jRF/l3ojDoDFmekDQEUufZ9U4ErVt6SjDxnHp48Ltrw616R8yNc3giJ3KvVQ==, tarball: https://registry.npmjs.org/type-fest/-/type-fest-4.18.1.tgz}
     engines: {node: '>=16'}
     dev: false
 
@@ -22047,7 +22050,7 @@ packages:
     dev: false
 
   /w3c-keyname@2.2.8:
-    resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
+    resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==, tarball: https://registry.npmjs.org/w3c-keyname/-/w3c-keyname-2.2.8.tgz}
     dev: false
 
   /wagmi@2.8.0(@tanstack/react-query@5.32.1)(@types/react@18.3.1)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)(typescript@5.4.5)(viem@2.9.31)(zod@3.23.6):
