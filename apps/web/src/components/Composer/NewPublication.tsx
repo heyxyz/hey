@@ -32,7 +32,7 @@ import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useUnmountEffect } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
@@ -60,14 +60,16 @@ import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import type { TextEditorHandle } from './TextEditor';
-
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import LinkPreviews from './LinkPreviews';
 import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
-import TextEditor from './TextEditor';
+import {
+  TextEditor,
+  useTextEditorContext,
+  withTextEditorContext
+} from './TextEditor';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
 
@@ -171,7 +173,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
-  const editorRef = useRef<TextEditorHandle>(null);
+  const editor = useTextEditorContext();
 
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
@@ -539,7 +541,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           title="Transaction failed!"
         />
       ) : null}
-      <TextEditor defaultMarkdown={publicationContent} editorRef={editorRef} />
+      <TextEditor defaultMarkdown={publicationContent} />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
           {publicationContentError}
@@ -565,7 +567,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <EmojiPicker
             setEmoji={(emoji: string) => {
               setShowEmojiPicker(false);
-              editorRef.current?.insertText(emoji);
+              editor?.insertText(emoji);
             }}
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
@@ -580,7 +582,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ) : null}
           <PollSettings />
           {!isComment && <LivestreamSettings />}
-          {isPro && <DraftSettings editorRef={editorRef} />}
+          {isPro && <DraftSettings />}
         </div>
         <div className="ml-auto mt-2 sm:mt-0">
           <Button
@@ -601,4 +603,4 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 };
 
-export default NewPublication;
+export default withTextEditorContext(NewPublication);
