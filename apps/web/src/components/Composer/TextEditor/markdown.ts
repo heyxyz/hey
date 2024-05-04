@@ -6,11 +6,14 @@ import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
 import { unified } from 'unified';
 
+import { remarkLinkProtocol } from './remarkLinkProtocol';
+
 export const markdownFromHTML = (html: string): string => {
   return unified()
     .use(rehypeParse)
     .use(rehypeRemark)
     .use(remarkGfm)
+    .use(remarkLinkProtocol)
     .use(remarkStringify)
     .processSync(html)
     .toString();
