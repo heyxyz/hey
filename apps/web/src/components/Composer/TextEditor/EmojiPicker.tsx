@@ -1,5 +1,6 @@
 import type { Emoji } from '@hey/types/misc';
 
+import { Regex } from '@hey/data/regex';
 import cn from '@hey/ui/cn';
 import { useEditor } from 'prosekit/react';
 import {
@@ -55,7 +56,7 @@ const EmojiPicker = () => {
       )}
       offset={10}
       onQueryChange={setQuery}
-      regex={/:\w*$/}
+      regex={Regex.emoji}
     >
       <AutocompleteList filter={null}>
         {emojis.map((emoji) => (
