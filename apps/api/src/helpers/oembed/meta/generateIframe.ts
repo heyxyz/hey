@@ -1,13 +1,4 @@
-const knownSites = [
-  'youtube.com',
-  'youtu.be',
-  'tape.xyz',
-  'twitch.tv',
-  'kick.com',
-  'open.spotify.com',
-  'soundcloud.com',
-  'oohlala.xyz'
-];
+import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 
 // URLs that are manually picked to be embedded that dont have embed metatags
 const pickUrlSites = ['open.spotify.com', 'kick.com'];
@@ -41,7 +32,7 @@ const generateIframe = (
   // Remove query params from url
   const cleanedUrl = skipClean ? url : (pickedUrl?.split('?')[0] as string);
 
-  if (!knownSites.includes(hostname) || !pickedUrl) {
+  if (!ALLOWED_HTML_HOSTS.includes(hostname) || !pickedUrl) {
     return null;
   }
 

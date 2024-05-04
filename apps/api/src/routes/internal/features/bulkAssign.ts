@@ -1,6 +1,7 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import prisma from 'src/helpers/prisma';
@@ -40,11 +41,15 @@ export const post: Handler = async (req, res) => {
 
   try {
     const parsedIds = JSON.parse(ids) as string[];
-
-    // remove duplicates that already have the feature
-    const profiles = await prisma.profileFeature.findMany({
-      where: { featureId, profileId: { in: parsedIds } }
-    });
+    const profiles = await heyPg.query(
+      `
+        SELECT *
+        FROM "ProfileFeature"
+        WHERE "featureId" = $1
+        AND "profileId" IN (${parsedIds.map((id) => `'${id}'`).join(',')});
+      `,
+      [featureId]
+    );
 
     const idsToAssign = parsedIds.filter(
       (profile_id) =>
@@ -56,7 +61,7 @@ export const post: Handler = async (req, res) => {
       skipDuplicates: true
     });
 
-    logger.info(`Bulk assigned features for ${ids.length} profiles`);
+    logger.info(`Bulk assigned features for ${parsedIds.length} profiles`);
 
     return res.status(200).json({ assigned: result.count, success: true });
   } catch (error) {
