@@ -17,7 +17,7 @@ export const useEmojiQuery = (query: string): Emoji[] => {
   });
 
   return useMemo(() => {
-    if (!emojis || query.length <= 2) {
+    if (!emojis) {
       return [];
     }
 
