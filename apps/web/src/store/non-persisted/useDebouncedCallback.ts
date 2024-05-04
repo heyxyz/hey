@@ -1,7 +1,7 @@
 import { useDebounce } from '@uidotdev/usehooks';
 import { useCallback, useEffect, useState } from 'react';
 
-export function useDebouncedCallback(callback: VoidFunction, delay: number) {
+export const useDebouncedCallback = (callback: VoidFunction, delay: number) => {
   const [changeSignal, setChangeSignal] = useState(-1);
   const debouncedChangeSignal = useDebounce(changeSignal, delay);
 
@@ -16,4 +16,4 @@ export function useDebouncedCallback(callback: VoidFunction, delay: number) {
   }, [debouncedChangeSignal, callback]);
 
   return increaseChanges;
-}
+};

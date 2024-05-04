@@ -1,7 +1,7 @@
-import type { EditorRef } from '@components/Composer/TextEditor';
 import type { Draft } from '@hey/types/hey';
 import type { FC } from 'react';
 
+import { useTextEditorContext } from '@components/Composer/TextEditor';
 import Loader from '@components/Shared/Loader';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
@@ -16,13 +16,13 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 interface ListProps {
-  editorRef: EditorRef;
   setShowModal: (showModal: boolean) => void;
 }
 
-const List: FC<ListProps> = ({ editorRef, setShowModal }) => {
+const List: FC<ListProps> = ({ setShowModal }) => {
   const { setDraftId, setPublicationContent } = usePublicationStore();
   const { setCollectModule } = useCollectModuleStore((state) => state);
+  const editor = useTextEditorContext();
 
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [deleting, setDeleting] = useState(false);
@@ -93,7 +93,7 @@ const List: FC<ListProps> = ({ editorRef, setShowModal }) => {
   };
 
   const onSelectDraft = (draft: Draft) => {
-    editorRef.current?.setMarkdown(draft.content);
+    editor?.setMarkdown(draft.content);
 
     setPublicationContent(draft.content);
 
