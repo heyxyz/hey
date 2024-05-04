@@ -22,10 +22,11 @@ interface ListProps {
 const List: FC<ListProps> = ({ setShowModal }) => {
   const { setDraftId, setPublicationContent } = usePublicationStore();
   const { setCollectModule } = useCollectModuleStore((state) => state);
-  const editor = useTextEditorContext();
 
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [deleting, setDeleting] = useState(false);
+
+  const editor = useTextEditorContext();
 
   const getDrafts = async (): Promise<[] | Draft[]> => {
     try {
