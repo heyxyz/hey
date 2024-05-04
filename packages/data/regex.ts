@@ -6,7 +6,7 @@ const RESTRICTED_SYMBOLS = '☑️✓✔✅';
 // line or right after a whilespace.
 const MATCH_BEHIND = regexLookbehindAvailable ? '(?<=^|\\s)' : '';
 
-const MENTION_NAMESPACE = '\\w+//';
+const MENTION_NAMESPACE = '\\w+\\/';
 const MENTION_BODY = '([\\dA-Za-z]\\w{2,25})';
 
 export const Regex = {
