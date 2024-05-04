@@ -14,7 +14,7 @@ import {
 } from 'prosekit/react/autocomplete';
 import { useState } from 'react';
 
-import type { TextEditorExtension } from './extension';
+import type { EditorExtension } from './extension';
 import type { MentionProfile } from './useMentionQuery';
 
 import { useMentionQuery } from './useMentionQuery';
@@ -57,7 +57,7 @@ const MentionItem = ({
 };
 
 const MentionPicker = () => {
-  const editor = useEditor<TextEditorExtension>();
+  const editor = useEditor<EditorExtension>();
 
   const handleUserInsert = (profile: MentionProfile) => {
     editor.commands.insertMention({

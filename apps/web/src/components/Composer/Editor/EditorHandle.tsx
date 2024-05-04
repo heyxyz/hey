@@ -4,14 +4,14 @@ import type { FC } from 'react';
 import { nodeFromHTML } from 'prosekit/core';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import type { TextEditorExtension } from './extension';
+import type { EditorExtension } from './extension';
 
 import { htmlFromMarkdown } from './markdown';
 
 /**
  * Some methods for operating the editor from outside the editor component.
  */
-export interface TextEditorHandle {
+export interface EditorHandle {
   /**
    * Insert text at the current text cursor position.
    */
@@ -23,13 +23,13 @@ export interface TextEditorHandle {
   setMarkdown: (markdown: string) => void;
 }
 
-const HandleContext = createContext<null | TextEditorHandle>(null);
-const SetHandleContext = createContext<
-  ((handle: TextEditorHandle) => void) | null
->(null);
+const HandleContext = createContext<EditorHandle | null>(null);
+const SetHandleContext = createContext<((handle: EditorHandle) => void) | null>(
+  null
+);
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
-  const [handle, setHandle] = useState<null | TextEditorHandle>(null);
+  const [handle, setHandle] = useState<EditorHandle | null>(null);
 
   return (
     <HandleContext.Provider value={handle}>
@@ -43,18 +43,18 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 /**
  * A hook for accessing the text editor handle.
  */
-export const useTextEditorContext = (): null | TextEditorHandle => {
+export const useEditorContext = (): EditorHandle | null => {
   return useContext(HandleContext);
 };
 
 /**
  * A hook to register the text editor handle.
  */
-export const useTextEditorHandle = (editor: Editor<TextEditorExtension>) => {
+export const useEditorHandle = (editor: Editor<EditorExtension>) => {
   const setHandle = useContext(SetHandleContext);
 
   useEffect(() => {
-    const handle: TextEditorHandle = {
+    const handle: EditorHandle = {
       insertText: (text: string): void => {
         if (!editor.mounted) {
           return;
@@ -84,10 +84,10 @@ export const useTextEditorHandle = (editor: Editor<TextEditorExtension>) => {
 /**
  * A higher-order component for providing the text editor handle.
  */
-export const withTextEditorContext = <Props extends object>(
+export const withEditorContext = <Props extends object>(
   Component: FC<Props>
 ): FC<Props> => {
-  const WithTextEditorContext: FC<Props> = (props: Props) => {
+  const WithEditorContext: FC<Props> = (props: Props) => {
     return (
       <Provider>
         <Component {...props} />
@@ -95,5 +95,5 @@ export const withTextEditorContext = <Props extends object>(
     );
   };
 
-  return WithTextEditorContext;
+  return WithEditorContext;
 };

@@ -105,7 +105,7 @@ const defineMention = () => {
   return union([defineMentionSpec(), defineMentionCommands()]);
 };
 
-export const defineTextEditorExtension = () => {
+export const defineEditorExtension = () => {
   return union([
     defineDoc(),
     defineText(),
@@ -128,4 +128,4 @@ export const defineTextEditorExtension = () => {
   ]);
 };
 
-export type TextEditorExtension = ReturnType<typeof defineTextEditorExtension>;
+export type EditorExtension = ReturnType<typeof defineEditorExtension>;
