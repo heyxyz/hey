@@ -4,7 +4,7 @@ import EmojiPicker from './EmojiPicker';
 import InlineMenu from './InlineMenu';
 import MentionPicker from './MentionPicker';
 
-const TextEditorMenus: FC = () => {
+const EditorMenus: FC = () => {
   return (
     <>
       <InlineMenu />
@@ -14,4 +14,4 @@ const TextEditorMenus: FC = () => {
   );
 };
 
-export default TextEditorMenus;
+export default EditorMenus;

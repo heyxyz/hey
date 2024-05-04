@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 
-import type { TextEditorExtension } from './extension';
+import type { EditorExtension } from './extension';
 
 /**
  * Define a ProseKit extension for handling drop and paste events.
@@ -42,7 +42,7 @@ const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
   return union([dropExtension, pasteExtension]);
 };
 
-export const usePaste = (editor: Editor<TextEditorExtension>) => {
+export const usePaste = (editor: Editor<EditorExtension>) => {
   const { attachments } = usePublicationAttachmentStore((state) => state);
   const { handleUploadAttachments } = useUploadAttachments();
 

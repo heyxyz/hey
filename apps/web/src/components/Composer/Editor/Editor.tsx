@@ -7,8 +7,8 @@ import { ProseKit } from 'prosekit/react';
 import { useMemo, useRef } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import { useTextEditorHandle } from './EditorHandle';
-import { defineTextEditorExtension } from './extension';
+import { useEditorHandle } from './EditorHandle';
+import { defineEditorExtension } from './extension';
 import { htmlFromMarkdown } from './markdown';
 import { useContentChange } from './useContentChange';
 import { usePaste } from './usePaste';
@@ -16,11 +16,11 @@ import { usePaste } from './usePaste';
 // Some components use DOM API (e.g. class CustomElement extends HTMLElement).
 // It would throw error when importing in server-side. We only import it in
 // client-side.
-const TextEditorMenus = dynamic(() => import('./TextEditorMenus'), {
+const EditorMenus = dynamic(() => import('./EditorMenus'), {
   ssr: false
 });
 
-const TextEditor = (props: {
+const Editor = (props: {
   /**
    * The initial content of the editor in Markdown format.
    */
@@ -36,13 +36,13 @@ const TextEditor = (props: {
   }, []);
 
   const editor = useMemo(() => {
-    const extension = defineTextEditorExtension();
+    const extension = defineEditorExtension();
     return createEditor({ defaultHTML, extension });
   }, [defaultHTML]);
 
   useContentChange(editor);
   usePaste(editor);
-  useTextEditorHandle(editor);
+  useEditorHandle(editor);
 
   return (
     <ProseKit editor={editor}>
@@ -53,7 +53,7 @@ const TextEditor = (props: {
           src={getAvatar(currentProfile)}
         />
         <div className="flex flex-1 flex-col">
-          <TextEditorMenus />
+          <EditorMenus />
           <div
             className="relative mt-[8.5px] box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
             ref={editor.mount}
@@ -64,4 +64,4 @@ const TextEditor = (props: {
   );
 };
 
-export default TextEditor;
+export default Editor;
