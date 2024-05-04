@@ -72,6 +72,7 @@
     "remark-stringify": "^11.0.0",
     "strip-markdown": "^6.0.0",
     "unified": "^11.0.4",
+    "unist-util-visit-parents": "^6.0.1",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
