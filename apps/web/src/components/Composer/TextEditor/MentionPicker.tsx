@@ -79,7 +79,7 @@ const MentionPicker = () => {
       )}
       offset={10}
       onQueryChange={setQueryString}
-      regex={Regex.editorMention}
+      regex={Regex.mentionEditor}
     >
       <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
         {results.map((user) => (

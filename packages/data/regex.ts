@@ -11,9 +11,7 @@ const MENTION_BODY = '([\\dA-Za-z]\\w{2,25})';
 
 export const Regex = {
   cashtag: /(\$\w*[A-Za-z]\w*)/g,
-  // Match string like @someone.
-  editorMention: new RegExp(`${MATCH_BEHIND}@$${MENTION_BODY}`, 'g'),
-  emoji: /:\w*/g,
+  emoji: new RegExp(`${MATCH_BEHIND}:\\w*`, 'g'),
   ethereumAddress: /^(0x)?[\da-f]{40}$/i,
   handle: /^[\dA-Za-z]\w{4,25}$/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
@@ -22,6 +20,8 @@ export const Regex = {
     `${MATCH_BEHIND}@${MENTION_NAMESPACE}${MENTION_BODY}`,
     'g'
   ),
+  // Match string like @someone.
+  mentionEditor: new RegExp(`${MATCH_BEHIND}@$${MENTION_BODY}`, 'g'),
   profileNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, 'gu'),
   profileNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   txHash: /^0x[\dA-Fa-f]{64}$/,
