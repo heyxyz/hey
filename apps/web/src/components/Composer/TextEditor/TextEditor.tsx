@@ -7,12 +7,10 @@ import { ProseKit } from 'prosekit/react';
 import { useMemo, useRef } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import type { TextEditorHandle } from './useEditorHandle';
-
+import { useTextEditorHandle } from './EditorHandle';
 import { defineTextEditorExtension } from './extension';
 import { htmlFromMarkdown } from './markdown';
 import { useContentChange } from './useContentChange';
-import { useEditorHandle } from './useEditorHandle';
 import { usePaste } from './usePaste';
 
 // Some components use DOM API (e.g. class CustomElement extends HTMLElement).
@@ -27,11 +25,6 @@ const TextEditor = (props: {
    * The initial content of the editor in Markdown format.
    */
   defaultMarkdown?: string;
-
-  /**
-   * An imperative handle to operate the editor.
-   */
-  editorRef: React.Ref<TextEditorHandle>;
 }) => {
   const { currentProfile } = useProfileStore();
 
@@ -49,7 +42,7 @@ const TextEditor = (props: {
 
   useContentChange(editor);
   usePaste(editor);
-  useEditorHandle(editor, props.editorRef);
+  useTextEditorHandle(editor);
 
   return (
     <ProseKit editor={editor}>
