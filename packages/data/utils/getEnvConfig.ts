@@ -17,6 +17,18 @@ const getEnvConfig = (): {
 } => {
   switch (LENS_NETWORK) {
     case 'testnet':
+      return {
+        defaultCollectToken: TestnetContracts.DefaultToken,
+        heyApiEndpoint: HeyEndpoint.Testnet,
+        heyLensSignup: TestnetContracts.HeyLensSignup,
+        heyPro: TestnetContracts.HeyPro,
+        heyTipping: TestnetContracts.HeyTipping,
+        lensApiEndpoint: LensEndpoint.Testnet,
+        lensHandles: TestnetContracts.LensHandles,
+        lensHub: TestnetContracts.LensHub,
+        permissionlessCreator: TestnetContracts.PermissionlessCreator,
+        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
+      };
     case 'staging':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
