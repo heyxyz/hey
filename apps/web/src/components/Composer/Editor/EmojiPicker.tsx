@@ -38,11 +38,7 @@ const EmojiPicker = () => {
   const editor = useEditor<EditorExtension>();
 
   const handleInsert = (emoji: Emoji) => {
-    editor.commands.insertMention({
-      id: emoji.emoji,
-      kind: 'emoji',
-      value: emoji.emoji
-    });
+    editor.commands.insertText({ text: emoji.emoji });
   };
 
   const [query, setQuery] = useState('');
