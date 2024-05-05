@@ -10,11 +10,11 @@ import { createEditor } from 'prosekit/core';
 import { ProseKit } from 'prosekit/react';
 import { useMemo, useRef } from 'react';
 import useContentChange from 'src/hooks/prosekit/useContentChange';
+import { usePaste } from 'src/hooks/prosekit/usePaste';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import { useEditorHandle } from './EditorHandle';
-import { usePaste } from './usePaste';
 
 // Lazy load EditorMenus to reduce bundle size
 const EditorMenus = dynamic(() => import('./EditorMenus'), { ssr: false });
