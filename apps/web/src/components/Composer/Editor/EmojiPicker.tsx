@@ -1,4 +1,5 @@
 import type { Emoji } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import { Regex } from '@hey/data/regex';
 import cn from '@hey/ui/cn';
@@ -14,13 +15,12 @@ import type { EditorExtension } from './extension';
 
 import { useEmojiQuery } from './useEmojiQuery';
 
-const EmojiItem = ({
-  emoji,
-  onSelect
-}: {
+interface EmojiItemProps {
   emoji: Emoji;
   onSelect: VoidFunction;
-}) => {
+}
+
+const EmojiItem: FC<EmojiItemProps> = ({ emoji, onSelect }) => {
   return (
     <AutocompleteItem
       className="focusable-dropdown-item m-1 block cursor-pointer rounded-lg p-2 outline-none"
@@ -28,26 +28,27 @@ const EmojiItem = ({
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji.emoji}</span>
-        <span className="text-sm capitalize">{emoji.aliases[0]}</span>
+        <span className="text-sm capitalize">
+          {emoji.aliases[0].split('_').join(' ')}
+        </span>
       </div>
     </AutocompleteItem>
   );
 };
 
-const EmojiPicker = () => {
+const EmojiPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
+  const [query, setQuery] = useState('');
+  const emojis = useEmojiQuery(query);
 
   const handleInsert = (emoji: Emoji) => {
     editor.commands.insertText({ text: emoji.emoji });
   };
 
-  const [query, setQuery] = useState('');
-  const emojis = useEmojiQuery(query);
-
   return (
     <AutocompletePopover
       className={cn(
-        'relative z-10 box-border block w-52 select-none overflow-auto whitespace-nowrap rounded-xl border bg-white p-1 shadow-sm dark:border-gray-700 dark:bg-gray-900',
+        'z-10 w-52 select-none rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900',
         emojis.length === 0 && 'hidden'
       )}
       offset={10}

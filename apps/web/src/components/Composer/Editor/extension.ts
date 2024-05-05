@@ -79,7 +79,7 @@ const defineMentionSpec = () => {
       const value = attrs.value.toString();
 
       const children =
-        attrs.kind === 'user'
+        attrs.kind === 'profile'
           ? [
               ['span', '@'],
               // Hide the "lens/" part inside the editor, but it's still part
