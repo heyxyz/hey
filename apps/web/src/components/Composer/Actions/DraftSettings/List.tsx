@@ -1,14 +1,13 @@
 import type { Draft } from '@hey/types/hey';
 import type { FC } from 'react';
 
+import { useEditorContext } from '@components/Composer/Editor';
 import Loader from '@components/Shared/Loader';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import { $convertFromMarkdownString } from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -27,7 +26,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [deleting, setDeleting] = useState(false);
 
-  const [editor] = useLexicalComposerContext();
+  const editor = useEditorContext();
 
   const getDrafts = async (): Promise<[] | Draft[]> => {
     try {
@@ -95,9 +94,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   };
 
   const onSelectDraft = (draft: Draft) => {
-    editor.update(() => {
-      $convertFromMarkdownString(draft.content);
-    });
+    editor?.setMarkdown(draft.content);
 
     setPublicationContent(draft.content);
 
