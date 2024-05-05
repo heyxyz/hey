@@ -88,6 +88,18 @@ export const get: Handler = async (_, res) => {
         GROUP BY referrer
         ORDER BY count DESC
         LIMIT 10
+      `,
+      `
+        SELECT version, users
+        FROM (
+          SELECT version, count(Distinct fingerprint) AS users, MAX(created) AS latest_activity
+          FROM events
+          WHERE fingerprint IS NOT NULL
+          AND version != '' AND version != '0000000'
+          GROUP BY version
+          ORDER BY latest_activity DESC
+        ) AS recent_versions
+        LIMIT 20;
       `
     ];
 
@@ -115,7 +127,8 @@ export const get: Handler = async (_, res) => {
       impressionsToday: results[4],
       referrers: results[7],
       success: true,
-      topEvents: results[2]
+      topEvents: results[2],
+      versions: results[8]
     });
   } catch (error) {
     return catchedError(res, error);
