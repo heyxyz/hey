@@ -16,9 +16,9 @@ export const get: Handler = async (req, res) => {
     );
 
     return res.status(200).json({
-      cached: score[0].total_score,
+      cached: score[0].total_count,
       success: true,
-      volume: score[0].total_count
+      volume: score[0].total_score
     });
   } catch (error) {
     catchedError(res, error);
