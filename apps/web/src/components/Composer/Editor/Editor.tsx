@@ -48,7 +48,7 @@ const Editor = (props: {
           className="mr-3 size-11 rounded-full border bg-gray-200 dark:border-gray-700"
           src={getAvatar(currentProfile)}
         />
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col overflow-x-hidden">
           <EditorMenus />
           <div
             className="relative mt-[8.5px] box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
