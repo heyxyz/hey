@@ -1,7 +1,7 @@
 import type { Emoji } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import { Regex } from '@hey/data/regex';
+import { EditorRegex } from '@hey/data/regex';
 import cn from '@hey/ui/cn';
 import { useEditor } from 'prosekit/react';
 import {
@@ -53,7 +53,7 @@ const EmojiPicker: FC = () => {
       )}
       offset={10}
       onQueryChange={setQuery}
-      regex={Regex.emoji}
+      regex={EditorRegex.emoji}
     >
       <AutocompleteList filter={null}>
         {emojis.map((emoji) => (

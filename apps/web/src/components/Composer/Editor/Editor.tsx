@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { htmlFromMarkdown } from '@helpers/markdown';
 import getAvatar from '@hey/helpers/getAvatar';
 import { Image } from '@hey/ui';
 import dynamic from 'next/dynamic';
@@ -12,7 +13,6 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import { useEditorHandle } from './EditorHandle';
 import { defineEditorExtension } from './extension';
-import { htmlFromMarkdown } from './markdown';
 import { useContentChange } from './useContentChange';
 import { usePaste } from './usePaste';
 

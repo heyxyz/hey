@@ -11,7 +11,6 @@ const MENTION_BODY = '([\\dA-Za-z]\\w{2,25})';
 
 export const Regex = {
   cashtag: /(\$\w*[A-Za-z]\w*)/g,
-  emoji: new RegExp(`${MATCH_BEHIND}:\\w*`, 'g'),
   ethereumAddress: /^(0x)?[\da-f]{40}$/i,
   handle: /^[\dA-Za-z]\w{4,25}$/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
@@ -21,10 +20,14 @@ export const Regex = {
     'g'
   ),
   // Match string like @someone.
-  mentionEditor: new RegExp(`${MATCH_BEHIND}@${MENTION_BODY}`, 'g'),
   profileNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, 'gu'),
   profileNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   txHash: /^0x[\dA-Fa-f]{64}$/,
   // modified version of https://stackoverflow.com/a/6041965/961254 to support unicode international characters
   url: /\b(http|https):\/\/([\p{L}\p{N}_-]+(?:(?:\.[\p{L}\p{N}_-]+)+))([\p{L}\p{N}_.,@?^=%&:\/~+#-]*[\p{L}\p{N}_@?^=%&\/~+#-])/gu
+};
+
+export const EditorRegex = {
+  emoji: new RegExp(`${MATCH_BEHIND}:\\w*`, 'g'),
+  mention: new RegExp(`${MATCH_BEHIND}@${MENTION_BODY}`, 'g')
 };

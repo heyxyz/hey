@@ -5,13 +5,7 @@ import { InlinePopover } from 'prosekit/react/inline-popover';
 
 import type { EditorExtension } from './extension';
 
-import {
-  BoldIcon,
-  CodeIcon,
-  ItalicIcon,
-  StrikethroughIcon,
-  UnderlineIcon
-} from './icons';
+import { BoldIcon, ItalicIcon } from './icons';
 import Toggle from './Toggle';
 
 const InlineMenu: FC = () => {
@@ -35,30 +29,30 @@ const InlineMenu: FC = () => {
       >
         <ItalicIcon className="size-4" />
       </Toggle>
-      <Toggle
+      {/* <Toggle
         disabled={!editor.commands.toggleUnderline.canApply()}
         onClick={() => editor.commands.toggleUnderline()}
         pressed={editor.marks.underline.isActive()}
         tooltip="Underline"
       >
         <UnderlineIcon className="size-4" />
-      </Toggle>
-      <Toggle
+      </Toggle> */}
+      {/* <Toggle
         disabled={!editor.commands.toggleCode.canApply()}
         onClick={() => editor.commands.toggleCode()}
         pressed={editor.marks.code.isActive()}
         tooltip="Code"
       >
         <CodeIcon className="size-4" />
-      </Toggle>
-      <Toggle
+      </Toggle> */}
+      {/* <Toggle
         disabled={!editor.commands.toggleStrike.canApply()}
         onClick={() => editor.commands.toggleStrike()}
         pressed={editor.marks.strike.isActive()}
         tooltip="Strikethrough"
       >
         <StrikethroughIcon className="size-4" />
-      </Toggle>
+      </Toggle> */}
     </InlinePopover>
   );
 };
