@@ -10,10 +10,9 @@ import {
   AutocompletePopover
 } from 'prosekit/react/autocomplete';
 import { useState } from 'react';
+import useEmojiQuery from 'src/hooks/prosekit/useEmojiQuery';
 
 import type { EditorExtension } from './extension';
-
-import { useEmojiQuery } from './useEmojiQuery';
 
 interface EmojiItemProps {
   emoji: Emoji;
