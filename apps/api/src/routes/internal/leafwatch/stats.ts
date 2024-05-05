@@ -99,7 +99,7 @@ export const get: Handler = async (_, res) => {
           GROUP BY version
           ORDER BY latest_activity DESC
         ) AS recent_versions
-        LIMIT 20;
+        LIMIT 20
       `
     ];
 
