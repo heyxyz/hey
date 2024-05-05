@@ -5,7 +5,7 @@ import { ListDOMSerializer } from 'prosekit/extensions/list';
 
 import type { EditorExtension } from './extension';
 
-import { htmlFromMarkdown, markdownFromHTML } from './markdown';
+import { htmlFromMarkdown, markdownFromHTML } from '../../../helpers/markdown';
 
 /**
  * Get the editor content in markdown format.
