@@ -20,11 +20,6 @@ export const useMentionQuery = (query: string): MentionProfile[] => {
   const [searchUsers] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
-    if (!query) {
-      setResults([]);
-      return;
-    }
-
     let cancelled = false;
 
     const request: ProfileSearchRequest = {
