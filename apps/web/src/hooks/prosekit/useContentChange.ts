@@ -1,4 +1,4 @@
-import type { EditorExtension } from '@components/Composer/Editor/extension';
+import type { EditorExtension } from '@helpers/prosekit/extension';
 import type { Editor } from 'prosekit/core';
 
 import { getMarkdownContent } from '@components/Composer/Editor/markdownContent';

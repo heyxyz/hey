@@ -1,9 +1,8 @@
+import type { EditorExtension } from '@helpers/prosekit/extension';
 import type { Editor } from 'prosekit/core';
 import type { FC } from 'react';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-
-import type { EditorExtension } from './extension';
 
 import { setMarkdownContent } from './markdownContent';
 

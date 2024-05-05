@@ -1,11 +1,11 @@
+import type { EditorExtension } from '@helpers/prosekit/extension';
+
 import { defineDOMEventHandler, type Editor, union } from 'prosekit/core';
 import { useExtension } from 'prosekit/react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-
-import type { EditorExtension } from './extension';
 
 /**
  * Define a ProseKit extension for handling drop and paste events.
