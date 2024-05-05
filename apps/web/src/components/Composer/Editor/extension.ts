@@ -13,7 +13,6 @@ import {
   union
 } from 'prosekit/core';
 import { defineBold } from 'prosekit/extensions/bold';
-import { defineCode } from 'prosekit/extensions/code';
 import { defineHeading } from 'prosekit/extensions/heading';
 import { defineItalic } from 'prosekit/extensions/italic';
 import { defineLinkMarkRule, defineLinkSpec } from 'prosekit/extensions/link';
@@ -21,8 +20,6 @@ import { defineMarkRule } from 'prosekit/extensions/mark-rule';
 import { defineMentionCommands } from 'prosekit/extensions/mention';
 import { defineModClickPrevention } from 'prosekit/extensions/mod-click-prevention';
 import { definePlaceholder } from 'prosekit/extensions/placeholder';
-import { defineStrike } from 'prosekit/extensions/strike';
-import { defineUnderline } from 'prosekit/extensions/underline';
 import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
 
 const defineHashtag = () => {
@@ -117,9 +114,6 @@ export const defineEditorExtension = () => {
     defineBaseCommands(),
     defineItalic(),
     defineBold(),
-    defineStrike(),
-    defineUnderline(),
-    defineCode(),
     defineHashtag(),
     defineCashtag(),
     defineAutoLink(),

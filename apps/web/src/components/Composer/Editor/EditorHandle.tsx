@@ -7,18 +7,8 @@ import type { EditorExtension } from './extension';
 
 import { setMarkdownContent } from './markdownContent';
 
-/**
- * Some methods for operating the editor from outside the editor component.
- */
-export interface EditorHandle {
-  /**
-   * Insert text at the current text cursor position.
-   */
+interface EditorHandle {
   insertText: (text: string) => void;
-
-  /**
-   * Replace the current document with the given markdown.
-   */
   setMarkdown: (markdown: string) => void;
 }
 
