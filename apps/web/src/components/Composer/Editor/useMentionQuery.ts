@@ -17,7 +17,7 @@ export type MentionProfile = {
 
 export const useMentionQuery = (query: string): MentionProfile[] => {
   const [results, setResults] = useState<MentionProfile[]>([]);
-  const [searchUsers] = useSearchProfilesLazyQuery();
+  const [searchProfiles] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
     if (!query) {
@@ -32,7 +32,7 @@ export const useMentionQuery = (query: string): MentionProfile[] => {
       query
     };
 
-    searchUsers({ variables: { request } }).then(({ data }) => {
+    searchProfiles({ variables: { request } }).then(({ data }) => {
       if (cancelled) {
         return;
       }
@@ -55,7 +55,7 @@ export const useMentionQuery = (query: string): MentionProfile[] => {
     return () => {
       cancelled = true;
     };
-  }, [query, searchUsers]);
+  }, [query, searchProfiles]);
 
   return results;
 };
