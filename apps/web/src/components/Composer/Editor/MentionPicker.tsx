@@ -23,10 +23,10 @@ import { useMentionQuery } from './useMentionQuery';
 
 interface MentionItemProps {
   onSelect: VoidFunction;
-  user: MentionProfile;
+  profile: MentionProfile;
 }
 
-const MentionItem: FC<MentionItemProps> = ({ onSelect, user }) => {
+const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
   return (
     <div className="m-0 p-0">
       <AutocompleteItem
@@ -34,23 +34,23 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, user }) => {
         onSelect={onSelect}
       >
         <img
-          alt={user.handle}
+          alt={profile.handle}
           className="size-7 rounded-full"
-          height="32"
-          src={user.picture}
-          width="32"
+          height="28"
+          src={profile.picture}
+          width="28"
         />
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
-            <span>{user.name}</span>
-            {isVerified(user.id) ? (
+            <span>{profile.name}</span>
+            {isVerified(profile.id) ? (
               <CheckBadgeIcon className="text-brand-500 size-4" />
             ) : null}
-            {hasMisused(user.id) ? (
+            {hasMisused(profile.id) ? (
               <ExclamationCircleIcon className="size-4 text-red-500" />
             ) : null}
           </div>
-          <span className="text-xs">{user.displayHandle}</span>
+          <span className="text-xs">{profile.displayHandle}</span>
         </div>
       </AutocompleteItem>
     </div>
