@@ -34,7 +34,7 @@ export const MAX_UINT256 = 2n ** 256n - 1n;
 
 // Git
 export const GIT_COMMIT_SHA =
-  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || '0000000';
 
 // Misc
 export const WMATIC_ADDRESS = IS_MAINNET
