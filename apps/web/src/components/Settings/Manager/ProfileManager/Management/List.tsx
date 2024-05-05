@@ -3,6 +3,7 @@ import type {
   Profile,
   ProfilesManagedRequest
 } from '@hey/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
@@ -15,7 +16,7 @@ import {
   useUnhideManagedProfileMutation
 } from '@hey/lens';
 import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';
 import { useAccount } from 'wagmi';

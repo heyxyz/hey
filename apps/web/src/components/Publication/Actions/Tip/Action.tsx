@@ -1,5 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { AllowedToken } from '@hey/types/hey';
+import type { FC } from 'react';
+import type { Address } from 'viem';
 
 import errorToast from '@helpers/errorToast';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
@@ -19,7 +21,7 @@ import formatAddress from '@hey/helpers/formatAddress';
 import { Button, HelpTooltip, Input, Select, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
-import { type FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
@@ -28,7 +30,7 @@ import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
-import { type Address, formatUnits } from 'viem';
+import { formatUnits } from 'viem';
 import {
   useAccount,
   useBalance,

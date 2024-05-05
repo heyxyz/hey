@@ -13,7 +13,7 @@ import Code from './Code';
 import MarkupLink from './MarkupLink';
 
 const plugins = [
-  [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+  [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'delete'] }],
   remarkBreaks,
   linkifyRegex(Regex.url),
   linkifyRegex(Regex.mention),
