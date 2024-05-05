@@ -103,7 +103,7 @@ const PreferencesProvider: FC = () => {
   // Fetch allowed tokens
   useQuery({
     queryFn: () => getAllTokens().then((tokens) => setAllowedTokens(tokens)),
-    queryKey: ['getAllTokens']
+    queryKey: ['getAllTokensPreference']
   });
 
   const getFiatRates = async (): Promise<FiatRate[]> => {

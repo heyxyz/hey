@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object, string } from 'zod';
 
@@ -37,7 +37,10 @@ export const post: Handler = async (req, res) => {
   const { enabled, id } = body as ExtensionRequest;
 
   try {
-    await prisma.feature.update({ data: { enabled }, where: { id } });
+    await heyPg.query(`UPDATE "Feature" SET enabled = $1 WHERE id = $2`, [
+      enabled,
+      id
+    ]);
     logger.info(`Killed feature ${id}`);
 
     return res.status(200).json({ enabled, success: true });
