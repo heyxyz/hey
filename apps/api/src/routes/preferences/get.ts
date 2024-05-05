@@ -37,8 +37,6 @@ export const get: Handler = async (req, res) => {
       [id as string]
     );
 
-    console.log(features);
-
     const response: Preferences = {
       appIcon: preference[0]?.appIcon || 0,
       email: email[0]?.email || null,
