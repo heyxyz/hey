@@ -1,9 +1,12 @@
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { useModuleMetadataQuery } from '@hey/lens';
+import { ErrorMessage } from '@hey/ui';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { encodeAbiParameters, isAddress, toBytes, toHex } from 'viem';
@@ -62,26 +65,25 @@ const RentableBillboardConfig: FC = () => {
   const { costPerSecond, currency, enabled, expiresAt, reset, setEnabled } =
     useRentableBillboardActionStore();
 
+  const { data, error, loading } = useModuleMetadataQuery({
+    skip: !enabled,
+    variables: {
+      request: { implementation: VerifiedOpenActionModules.RentableBillboard }
+    }
+  });
+
   const onSave = () => {
     setOpenAction({
       address: VerifiedOpenActionModules.RentableBillboard,
       data: encodeAbiParameters(
-        [
-          { name: 'currency', type: 'address' },
-          { name: 'allowOpenAction', type: 'bool' },
-          { name: 'expireAt', type: 'uint16' },
-          { name: 'costPerSecond', type: 'uint256' },
-          { name: 'clientFeePerActBps', type: 'uint16' },
-          { name: 'referralFeePerActBps', type: 'uint16' },
-          { name: 'interestMerkleRoot', type: 'bytes32' }
-        ],
+        JSON.parse(data?.moduleMetadata?.metadata.initializeCalldataABI),
         [
           currency.token as Address,
           false,
-          0,
-          10n,
-          0,
-          0,
+          '1000',
+          '0',
+          '500',
+          '0',
           toHex(toBytes('', { size: 32 }))
         ]
       )
@@ -107,22 +109,34 @@ const RentableBillboardConfig: FC = () => {
       {enabled && (
         <>
           <div className="divider" />
-          <div className="m-5">
-            <TokenConfig />
-            <CostConfig />
-            <TimeConfig />
-          </div>
-          <div className="divider" />
-          <div className="m-5">
-            <SaveOrCancel
-              onSave={onSave}
-              saveDisabled={
-                !isAddress(currency.token) ||
-                expiresAt.getTime() < Date.now() ||
-                costPerSecond <= 0
-              }
+          {loading ? (
+            <Loader className="my-10" />
+          ) : error ? (
+            <ErrorMessage
+              className="m-5"
+              error={error}
+              title="Failed to load module"
             />
-          </div>
+          ) : (
+            <>
+              <div className="m-5">
+                <TokenConfig />
+                <CostConfig />
+                <TimeConfig />
+              </div>
+              <div className="divider" />
+              <div className="m-5">
+                <SaveOrCancel
+                  onSave={onSave}
+                  saveDisabled={
+                    !isAddress(currency.token) ||
+                    expiresAt.getTime() < Date.now() ||
+                    costPerSecond <= 0
+                  }
+                />
+              </div>
+            </>
+          )}
         </>
       )}
     </>
