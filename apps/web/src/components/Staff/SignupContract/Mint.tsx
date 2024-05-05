@@ -2,7 +2,11 @@ import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import { HeyLensSignup } from '@hey/abis';
-import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
+import {
+  HANDLE_PREFIX,
+  HEY_LENS_SIGNUP,
+  ZERO_ADDRESS
+} from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { Button, Card, Form, Input, useZodForm } from '@hey/ui';
 import { useState } from 'react';
@@ -63,7 +67,7 @@ const Mint: FC = () => {
       >
         <Input
           placeholder="To Handle"
-          prefix="@lens/"
+          prefix={`@${HANDLE_PREFIX}`}
           {...form.register('handle')}
         />
         <Input placeholder="To Address" {...form.register('address')} />

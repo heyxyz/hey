@@ -1,5 +1,6 @@
 import type { MentionAttrs } from 'prosekit/extensions/mention';
 
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import {
   defineBaseCommands,
@@ -82,7 +83,7 @@ const defineMentionSpec = () => {
               // Hide the "lens/" part inside the editor, but it's still part
               // of the HTML output so that we can keep it when converting
               // HTML to Markdown.
-              ['span', { class: 'hidden' }, 'lens/'],
+              ['span', { class: 'hidden' }, HANDLE_PREFIX],
               ['span', value]
             ]
           : [['span', value]];
