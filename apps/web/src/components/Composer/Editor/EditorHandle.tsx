@@ -1,12 +1,11 @@
 import type { Editor } from 'prosekit/core';
 import type { FC } from 'react';
 
-import { nodeFromHTML } from 'prosekit/core';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { EditorExtension } from './extension';
 
-import { htmlFromMarkdown } from './markdown';
+import { setMarkdownContent } from './markdownContent';
 
 /**
  * Some methods for operating the editor from outside the editor component.
@@ -63,17 +62,7 @@ export const useEditorHandle = (editor: Editor<EditorExtension>) => {
         editor.commands.insertText({ text });
       },
       setMarkdown: (markdown: string): void => {
-        if (!editor.mounted) {
-          return;
-        }
-
-        const html = htmlFromMarkdown(markdown);
-        const { view } = editor;
-        const { state } = view;
-        const doc = nodeFromHTML(html, { schema: state.schema });
-        view.dispatch(
-          state.tr.replaceWith(0, state.doc.content.size, doc.content)
-        );
+        setMarkdownContent(editor, markdown);
       }
     };
 
