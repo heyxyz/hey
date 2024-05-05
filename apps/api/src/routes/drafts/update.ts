@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -44,28 +44,33 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
 
-    const baseData = {
-      ...(collectModule && { collectModule }),
-      content
-    };
-
     if (id) {
-      const result = await prisma.draftPublication.update({
-        data: baseData,
-        where: { id: id as string }
-      });
+      const result = await heyPg.query(
+        `
+          UPDATE "DraftPublication"
+          SET "content" = $1, "collectModule" = $2
+          WHERE "id" = $3
+          RETURNING *;
+        `,
+        [content, collectModule, id as string]
+      );
 
-      logger.info(`Draft updated for ${payload.id} - ${result.id}`);
+      logger.info(`Draft updated for ${payload.id} - ${result[0]?.id}`);
 
-      return res.status(200).json({ result, success: true });
+      return res.status(200).json({ result: result[0], success: true });
     } else {
-      const result = await prisma.draftPublication.create({
-        data: { profileId: payload.id, ...baseData }
-      });
+      const result = await heyPg.query(
+        `
+          INSERT INTO "DraftPublication" ("profileId", "content", "collectModule", "updatedAt")
+          VALUES ($1, $2, $3, now())
+          RETURNING *;
+        `,
+        [payload.id, content, collectModule]
+      );
 
-      logger.info(`Draft created for ${payload.id} - ${result.id}`);
+      logger.info(`Draft created for ${payload.id} - ${result[0]?.id}`);
 
-      return res.status(200).json({ result, success: true });
+      return res.status(200).json({ result: result[0], success: true });
     }
   } catch (error) {
     return catchedError(res, error);
