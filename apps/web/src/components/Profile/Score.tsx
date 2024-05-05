@@ -1,8 +1,9 @@
+import type { FC } from 'react';
+
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getScore from '@hey/helpers/api/getScore';
 import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
-import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 import { MetaDetails } from './Details';
