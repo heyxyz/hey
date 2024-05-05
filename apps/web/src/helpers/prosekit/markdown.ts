@@ -1,3 +1,4 @@
+import { remarkLinkProtocol } from '@components/Composer/Editor/remarkLinkProtocol';
 import rehypeParse from 'rehype-parse';
 import rehypeRemark from 'rehype-remark';
 import remarkGfm from 'remark-gfm';
@@ -5,8 +6,6 @@ import remarkHtml from 'remark-html';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
 import { unified } from 'unified';
-
-import { remarkLinkProtocol } from '../components/Composer/Editor/remarkLinkProtocol';
 
 export const markdownFromHTML = (html: string): string => {
   return unified()

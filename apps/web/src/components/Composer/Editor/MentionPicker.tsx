@@ -1,3 +1,4 @@
+import type { EditorExtension } from '@helpers/prosekit/extension';
 import type { FC } from 'react';
 import type { MentionProfile } from 'src/hooks/prosekit/useMentionQuery';
 
@@ -18,8 +19,6 @@ import {
 } from 'prosekit/react/autocomplete';
 import { useState } from 'react';
 import useMentionQuery from 'src/hooks/prosekit/useMentionQuery';
-
-import type { EditorExtension } from './extension';
 
 interface MentionItemProps {
   onSelect: VoidFunction;

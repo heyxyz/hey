@@ -1,3 +1,4 @@
+import type { EditorExtension } from '@helpers/prosekit/extension';
 import type { Emoji } from '@hey/types/misc';
 import type { FC } from 'react';
 
@@ -11,8 +12,6 @@ import {
 } from 'prosekit/react/autocomplete';
 import { useState } from 'react';
 import useEmojiQuery from 'src/hooks/prosekit/useEmojiQuery';
-
-import type { EditorExtension } from './extension';
 
 interface EmojiItemProps {
   emoji: Emoji;
