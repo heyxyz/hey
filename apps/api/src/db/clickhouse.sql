@@ -16,6 +16,7 @@ CREATE TABLE events (
   city Nullable(String),
   region Nullable(String),
   country LowCardinality(String),
+  version LowCardinality(String),
   utm_source Nullable(String),
   utm_medium Nullable(String),
   utm_campaign Nullable(String),
