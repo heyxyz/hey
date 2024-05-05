@@ -59,18 +59,17 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
 
 const MentionPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
+  const [queryString, setQueryString] = useState<string>('');
+  const results = useMentionQuery(queryString);
 
-  const handleUserInsert = (profile: MentionProfile) => {
+  const handleProfileInsert = (profile: MentionProfile) => {
     editor.commands.insertMention({
       id: profile.id.toString(),
-      kind: 'user',
+      kind: 'profile',
       value: profile.handle
     });
     editor.commands.insertText({ text: ' ' });
   };
-
-  const [queryString, setQueryString] = useState<string>('');
-  const results = useMentionQuery(queryString);
 
   return (
     <AutocompletePopover
@@ -83,11 +82,11 @@ const MentionPicker: FC = () => {
       regex={Regex.mentionEditor}
     >
       <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
-        {results.map((user) => (
+        {results.map((profile) => (
           <MentionItem
-            key={user.id}
-            onSelect={() => handleUserInsert(user)}
-            user={user}
+            key={profile.id}
+            onSelect={() => handleProfileInsert(profile)}
+            profile={profile}
           />
         ))}
       </AutocompleteList>
