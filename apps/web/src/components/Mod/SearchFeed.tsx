@@ -8,16 +8,23 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import {
-  CustomFiltersType,
-  LimitType,
-  useSearchPublicationsQuery
-} from '@hey/lens';
+import { LimitType, useSearchPublicationsQuery } from '@hey/lens';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
+import { useModFilterStore } from './Filter';
+
 const SearchFeed: FC = () => {
+  const {
+    apps,
+    customFilters,
+    mainContentFocus,
+    publicationTypes,
+    refresh,
+    setRefreshing
+  } = useModFilterStore();
+
   const [query, setQuery] = useState('');
   const [value, setValue] = useState('');
 
@@ -25,18 +32,32 @@ const SearchFeed: FC = () => {
   const request: PublicationSearchRequest = {
     limit: LimitType.Fifty,
     query,
-    where: { customFilters: [CustomFiltersType.Gardeners] }
+    where: {
+      customFilters,
+      metadata: {
+        mainContentFocus,
+        ...(apps && { publishedOn: apps })
+      },
+      publicationTypes: publicationTypes as any
+    }
   };
 
-  const { data, error, fetchMore, loading } = useSearchPublicationsQuery({
-    skip: !query,
-    variables: { request }
-  });
+  const { data, error, fetchMore, loading, refetch } =
+    useSearchPublicationsQuery({
+      skip: !query,
+      variables: { request }
+    });
 
   const search = data?.searchPublications;
   const publications = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  useEffect(() => {
+    setRefreshing(true);
+    refetch().finally(() => setRefreshing(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const onEndReached = async () => {
     if (!hasMore) {
