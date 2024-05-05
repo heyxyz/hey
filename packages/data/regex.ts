@@ -7,7 +7,6 @@ const RESTRICTED_SYMBOLS = '☑️✓✔✅';
 const MATCH_BEHIND = regexLookbehindAvailable ? '(?<=^|\\s)' : '';
 
 const MENTION_NAMESPACE = '\\w+\\/';
-const MENTION_BODY = '([\\dA-Za-z]\\w{2,25})';
 
 export const Regex = {
   cashtag: /(\$\w*[A-Za-z]\w*)/g,
@@ -17,11 +16,11 @@ export const Regex = {
   hashtag: /(#\w*[A-Za-z]\w*)/g,
   // Match string like @lens/someone.
   mention: new RegExp(
-    `${MATCH_BEHIND}@${MENTION_NAMESPACE}${MENTION_BODY}`,
+    `${MATCH_BEHIND}@${MENTION_NAMESPACE}([\\dA-Za-z]\\w{2,25})`,
     'g'
   ),
   // Match string like @someone.
-  mentionEditor: new RegExp(`${MATCH_BEHIND}@${MENTION_BODY}`, 'g'),
+  mentionEditor: new RegExp(`${MATCH_BEHIND}@([\\dA-Za-z]\\w{0,25})?`, 'g'),
   profileNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, 'gu'),
   profileNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   txHash: /^0x[\dA-Fa-f]{64}$/,

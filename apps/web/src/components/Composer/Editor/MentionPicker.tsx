@@ -69,7 +69,8 @@ const MentionPicker = () => {
   };
 
   const [queryString, setQueryString] = useState<string>('');
-  const results = useMentionQuery(queryString);
+  const [open, setOpen] = useState(false);
+  const results = useMentionQuery(queryString, open);
 
   return (
     <AutocompletePopover
@@ -78,6 +79,7 @@ const MentionPicker = () => {
         results.length === 0 && 'hidden'
       )}
       offset={10}
+      onOpenChange={setOpen}
       onQueryChange={setQueryString}
       regex={Regex.mentionEditor}
     >

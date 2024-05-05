@@ -15,11 +15,19 @@ export type MentionProfile = {
   picture: string;
 };
 
-export const useMentionQuery = (query: string): MentionProfile[] => {
+export const useMentionQuery = (
+  query: string,
+  enabled: boolean
+): MentionProfile[] => {
   const [results, setResults] = useState<MentionProfile[]>([]);
   const [searchUsers] = useSearchProfilesLazyQuery();
 
   useEffect(() => {
+    // Only send search request if enabled
+    if (!enabled) {
+      return;
+    }
+
     let cancelled = false;
 
     const request: ProfileSearchRequest = {
@@ -50,7 +58,7 @@ export const useMentionQuery = (query: string): MentionProfile[] => {
     return () => {
       cancelled = true;
     };
-  }, [query, searchUsers]);
+  }, [enabled, query, searchUsers]);
 
   return results;
 };
