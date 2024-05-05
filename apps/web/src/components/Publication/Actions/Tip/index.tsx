@@ -1,4 +1,5 @@
 import type { MirrorablePublication } from '@hey/lens';
+import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
@@ -11,7 +12,7 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import party from 'party-js';
-import { type FC, useRef } from 'react';
+import { useRef } from 'react';
 import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
 
 import Action from './Action';

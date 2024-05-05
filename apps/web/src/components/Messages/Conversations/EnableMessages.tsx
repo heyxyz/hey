@@ -1,10 +1,12 @@
+import type { FC } from 'react';
+
 import { Leafwatch } from '@helpers/leafwatch';
 import { loadKeys, storeKeys } from '@helpers/xmtp/keys';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { MESSAGES } from '@hey/data/tracking';
 import { Button, EmptyState } from '@hey/ui';
 import { Client, useClient } from '@xmtp/react-sdk';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useWalletClient } from 'wagmi';
 
