@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import { Regex } from '@hey/data/regex';
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
@@ -45,12 +45,18 @@ export const post: Handler = async (req, res) => {
   const { contractAddress, decimals, name, symbol } = body as ExtensionRequest;
 
   try {
-    const token = await prisma.allowedToken.create({
-      data: { contractAddress, decimals, name, symbol }
-    });
-    logger.info(`Created a token ${token.id}`);
+    const token = await heyPg.query(
+      `
+        INSERT INTO "AllowedToken" ("contractAddress", "decimals", "name", "symbol")
+        VALUES ($1, $2, $3, $4)
+        RETURNING *;
+      `,
+      [contractAddress, decimals, name, symbol]
+    );
 
-    return res.status(200).json({ success: true, token });
+    logger.info(`Created a token ${token[0]?.id}`);
+
+    return res.status(200).json({ success: true, token: token[0] });
   } catch (error) {
     return catchedError(res, error);
   }

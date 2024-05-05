@@ -99,7 +99,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
     setPublicationContent(draft.content);
 
     if (draft.collectModule) {
-      setCollectModule(JSON.parse(draft.collectModule as any));
+      setCollectModule(draft.collectModule as any);
     }
 
     setDraftId(draft.id);

@@ -2,10 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object } from 'zod';
 
@@ -42,22 +42,29 @@ export const post: Handler = async (req, res) => {
     const profile_id = payload.id;
 
     if (enabled) {
-      await prisma.profileFeature.create({
-        data: { featureId: STAFF_MODE_FEATURE_ID, profileId: profile_id }
-      });
+      await heyPg.query(
+        `
+          INSERT INTO "ProfileFeature" ("profileId", "featureId")
+          VALUES ($1, $2)
+          ON CONFLICT ("profileId", "featureId") DO UPDATE
+          SET enabled = true, "createdAt" = now()
+        `,
+        [profile_id, STAFF_MODE_FEATURE_ID]
+      );
+
       logger.info(`Enabled staff mode for ${profile_id}`);
 
       return res.status(200).json({ enabled, success: true });
     }
 
-    await prisma.profileFeature.delete({
-      where: {
-        profileId_featureId: {
-          featureId: STAFF_MODE_FEATURE_ID,
-          profileId: profile_id
-        }
-      }
-    });
+    await heyPg.query(
+      `
+        DELETE FROM "ProfileFeature"
+        WHERE "profileId" = $1 AND "featureId" = $2
+      `,
+      [profile_id, STAFF_MODE_FEATURE_ID]
+    );
+
     logger.info(`Disabled staff mode for ${profile_id}`);
 
     return res.status(200).json({ enabled, success: true });
