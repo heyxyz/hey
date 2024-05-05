@@ -15,6 +15,7 @@ const ProProvider: FC = () => {
       getPro(sessionProfileId).then((data) => {
         setIsPro(data.isPro);
         setProExpiresAt(data.expiresAt);
+        return data;
       }),
     queryKey: ['getPro', sessionProfileId || '']
   });
