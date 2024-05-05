@@ -2,7 +2,6 @@ import type {
   MirrorablePublication,
   ReportPublicationRequest
 } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
 
 import { Leafwatch } from '@helpers/leafwatch';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
@@ -12,6 +11,7 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
@@ -30,12 +30,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     publication.operations?.hasReported
   );
   const [createReport, { loading }] = useReportPublicationMutation();
-
-  const updateCache = (cache: ApolloCache<any>) => {
-    if (pathname === '/mod') {
-      cache.evict({ id: cache.identify(publication) });
-    }
-  };
+  const { cache } = useApolloClient();
 
   const reportPublication = async ({
     subreason,
@@ -44,6 +39,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     subreason: string;
     type: string;
   }) => {
+    if (pathname === '/mod') {
+      cache.evict({ id: cache.identify(publication) });
+    }
+
     // Variables
     const request: ReportPublicationRequest = {
       for: publication.id,
@@ -54,7 +53,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
 
     return await createReport({
       onCompleted: () => setShowGardenerActionsAlert(false, null),
-      update: updateCache,
       variables: { request }
     });
   };
