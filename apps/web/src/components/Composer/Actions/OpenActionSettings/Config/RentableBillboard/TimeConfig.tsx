@@ -1,5 +1,6 @@
+import type { FC } from 'react';
+
 import { Input } from '@hey/ui';
-import { type FC } from 'react';
 
 import { useRentableBillboardActionStore } from '.';
 
