@@ -16,7 +16,6 @@ import NewAttachments from '@components/Composer/NewAttachments';
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
-import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import uploadToArweave from '@helpers/uploadToArweave';
@@ -31,10 +30,7 @@ import { ReferenceModuleType } from '@hey/lens';
 import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
-import { $convertFromMarkdownString } from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useUnmountEffect } from 'framer-motion';
-import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -66,7 +62,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
-import Editor from './Editor';
+import { Editor, useEditorContext, withEditorContext } from './Editor';
 import LinkPreviews from './LinkPreviews';
 import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
@@ -109,7 +105,7 @@ const DraftSettings = dynamic(
 );
 
 interface NewPublicationProps {
-  publication: MirrorablePublication;
+  publication?: MirrorablePublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
@@ -173,7 +169,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
-  const [editor] = useLexicalComposerContext();
+  const editor = useEditorContext();
+
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
 
@@ -188,16 +185,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const noOpenAction = !openAction;
   // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
   const useMomoka = isComment
-    ? publication.momoka?.proof
+    ? publication?.momoka?.proof
     : isQuote
       ? quotedPublication?.momoka?.proof
       : noCollect && noOpenAction;
 
   const reset = () => {
-    editor.update(() => {
-      $getRoot().clear();
-    });
-
+    editor?.setMarkdown('');
     setPublicationContent('');
     setShowPollEditor(false);
     resetPollConfig();
@@ -241,7 +235,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      comment_on: isComment ? publication.id : null,
+      comment_on: isComment ? publication?.id : null,
       publication_collect_module: collectModule.type,
       publication_has_attachments: attachments.length > 0,
       publication_has_poll: showPollEditor,
@@ -289,13 +283,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   useEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
-
-  useEffect(() => {
-    editor.update(() => {
-      $convertFromMarkdownString(publicationContent);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const getAnimationUrl = () => {
     const fallback =
@@ -404,7 +391,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | MomokaCommentRequest
         | MomokaPostRequest
         | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: publication.id }),
+        ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
@@ -449,7 +436,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | OnchainPostRequest
         | OnchainQuoteRequest = {
         contentURI: `ar://${arweaveId}`,
-        ...(isComment && { commentOn: publication.id }),
+        ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,
         ...(onlyFollowers && {
@@ -551,7 +538,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           title="Transaction failed!"
         />
       ) : null}
-      <Editor />
+      <Editor defaultMarkdown={publicationContent} />
       {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
           {publicationContentError}
@@ -575,20 +562,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            setEmoji={(emoji) => {
+            setEmoji={(emoji: string) => {
               setShowEmojiPicker(false);
-              editor.update(() => {
-                // @ts-ignore
-                const index = editor?._editorState?._selection?.focus?.offset;
-                const updatedContent =
-                  publicationContent.substring(0, index) +
-                  emoji +
-                  publicationContent.substring(
-                    index,
-                    publicationContent.length
-                  );
-                $convertFromMarkdownString(updatedContent);
-              });
+              editor?.insertText(emoji);
             }}
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
@@ -624,4 +600,4 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 };
 
-export default withLexicalContext(NewPublication);
+export default withEditorContext(NewPublication);

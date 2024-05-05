@@ -65,12 +65,38 @@ body {
   @apply bg-gray-100 dark:bg-gray-800;
 }
 
+.focusable-dropdown-item[data-focused] {
+  @apply bg-gray-200 dark:bg-gray-700;
+}
+
 .divider {
   @apply border-b dark:border-gray-700;
 }
 
 .ld-text-gray-500 {
   @apply text-gray-500 dark:text-gray-200;
+}
+
+.ProseMirror {
+  & code {
+    @apply rounded-lg bg-gray-300 px-[5px] py-[2px] text-sm dark:bg-gray-700;
+  }
+
+  & a,
+  span[data-hashtag],
+  span[data-cashtag],
+  span[data-mention='user'] {
+    @apply text-brand-500;
+  }
+
+  & .prosekit-virtual-selection {
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  & .prosekit-placeholder::before {
+    @apply opacity-50;
+  }
 }
 
 .text-md {
@@ -97,10 +123,6 @@ iframe {
 
 .plyr--audio.plyr--full-ui input[type='range'] {
   @apply !text-white;
-}
-
-div[data-lexical-editor='true'] {
-  @apply outline-none;
 }
 
 .pb-safe {
