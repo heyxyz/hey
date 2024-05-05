@@ -5,7 +5,6 @@ import parseJwt from '@hey/helpers/parseJwt';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -70,9 +69,13 @@ export const post: Handler = async (req, res) => {
     );
 
     if (existingResponse[0]?.id) {
-      await prisma.pollResponse.delete({
-        where: { id: existingResponse[0].id }
-      });
+      await heyPg.query(
+        `
+          DELETE FROM "PollResponse"
+          WHERE "id" = $1;
+        `,
+        [existingResponse[0].id]
+      );
     }
     // End: Check if the poll exists and delete the existing response
 
