@@ -191,6 +191,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       : noCollect && noOpenAction;
 
   const reset = () => {
+    editor?.setMarkdown('');
     setPublicationContent('');
     setShowPollEditor(false);
     resetPollConfig();
