@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
-import { htmlFromMarkdown } from '@helpers/markdown';
+import { defineEditorExtension } from '@helpers/prosekit/extension';
+import { htmlFromMarkdown } from '@helpers/prosekit/markdown';
 import getAvatar from '@hey/helpers/getAvatar';
 import { Image } from '@hey/ui';
 import dynamic from 'next/dynamic';
@@ -13,7 +14,6 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import { useEditorHandle } from './EditorHandle';
-import { defineEditorExtension } from './extension';
 import { usePaste } from './usePaste';
 
 // Lazy load EditorMenus to reduce bundle size

@@ -1,9 +1,8 @@
+import type { EditorExtension } from '@helpers/prosekit/extension';
 import type { FC } from 'react';
 
 import { useEditor } from 'prosekit/react';
 import { InlinePopover } from 'prosekit/react/inline-popover';
-
-import type { EditorExtension } from './extension';
 
 import { BoldIcon, ItalicIcon } from './icons';
 import Toggle from './Toggle';
