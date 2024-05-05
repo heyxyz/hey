@@ -8,12 +8,12 @@ import 'prosekit/basic/style.css';
 import { createEditor } from 'prosekit/core';
 import { ProseKit } from 'prosekit/react';
 import { useMemo, useRef } from 'react';
+import useContentChange from 'src/hooks/prosekit/useContentChange';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import { useEditorHandle } from './EditorHandle';
 import { defineEditorExtension } from './extension';
-import { useContentChange } from './useContentChange';
 import { usePaste } from './usePaste';
 
 // Lazy load EditorMenus to reduce bundle size
