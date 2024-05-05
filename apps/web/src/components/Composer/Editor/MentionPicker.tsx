@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
@@ -19,17 +21,16 @@ import type { MentionProfile } from './useMentionQuery';
 
 import { useMentionQuery } from './useMentionQuery';
 
-const MentionItem = ({
-  onSelect,
-  user
-}: {
+interface MentionItemProps {
   onSelect: VoidFunction;
   user: MentionProfile;
-}) => {
+}
+
+const MentionItem: FC<MentionItemProps> = ({ onSelect, user }) => {
   return (
     <div className="m-0 p-0">
       <AutocompleteItem
-        className="focusable-dropdown-item m-1.5 flex items-center space-x-2 rounded-lg px-3 py-1 dark:text-white"
+        className="focusable-dropdown-item m-1.5 flex cursor-pointer items-center space-x-2 rounded-lg px-3 py-1 dark:text-white"
         onSelect={onSelect}
       >
         <img
@@ -56,14 +57,14 @@ const MentionItem = ({
   );
 };
 
-const MentionPicker = () => {
+const MentionPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
 
   const handleUserInsert = (profile: MentionProfile) => {
     editor.commands.insertMention({
       id: profile.id.toString(),
       kind: 'user',
-      value: profile.name
+      value: profile.handle
     });
     editor.commands.insertText({ text: ' ' });
   };

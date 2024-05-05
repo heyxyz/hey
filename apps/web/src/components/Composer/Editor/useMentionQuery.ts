@@ -41,12 +41,12 @@ export const useMentionQuery = (query: string): MentionProfile[] => {
       const profileSearchResult = search;
       const profiles = profileSearchResult?.items as Profile[];
       const profilesResults = (profiles ?? []).map(
-        (user): MentionProfile => ({
-          displayHandle: getProfile(user).slugWithPrefix,
-          handle: user.handle?.fullHandle,
-          id: user?.id,
-          name: getProfile(user).displayName,
-          picture: getAvatar(user)
+        (profile): MentionProfile => ({
+          displayHandle: getProfile(profile).slugWithPrefix,
+          handle: getProfile(profile).slug,
+          id: profile?.id,
+          name: getProfile(profile).displayName,
+          picture: getAvatar(profile)
         })
       );
       setResults(profilesResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
