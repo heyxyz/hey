@@ -2,6 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';
@@ -41,38 +42,53 @@ export const post: Handler = async (req, res) => {
   try {
     const payload = parseJwt(accessToken);
 
-    // Begin: Check if the poll expired
-    const pollData = await prisma.poll.findUnique({
-      where: { id: poll }
-    });
+    const expired = await heyPg.exists(
+      `
+        SELECT * FROM "Poll"
+        WHERE id = $1
+        AND ("endsAt" < CURRENT_TIMESTAMP OR "endsAt" IS NULL)
+        LIMIT 1;
+      `,
+      [poll]
+    );
 
-    if ((pollData?.endsAt as Date).getTime() < Date.now()) {
+    if (expired) {
       return res.status(400).json({ error: 'Poll expired.', success: false });
     }
     // End: Check if the poll expired
 
     // Begin: Check if the poll exists and delete the existing response
-    const existingResponse = await prisma.pollResponse.findFirst({
-      where: {
-        option: { pollId: poll },
-        profileId: payload.id
-      }
-    });
+    const existingResponse = await heyPg.query(
+      `
+        SELECT pr.*
+        FROM "PollResponse" AS pr
+        JOIN "PollOption" AS o ON pr."optionId" = o.id
+        WHERE o."pollId" = $1 AND pr."profileId" = $2
+        LIMIT 1;
+      `,
+      [poll, payload.id]
+    );
 
-    if (existingResponse) {
+    if (existingResponse[0]?.id) {
       await prisma.pollResponse.delete({
-        where: { id: existingResponse.id }
+        where: { id: existingResponse[0].id }
       });
     }
     // End: Check if the poll exists and delete the existing response
 
-    const data = await prisma.pollResponse.create({
-      data: { optionId: option, profileId: payload.id }
-    });
+    const data = await heyPg.query(
+      `
+        INSERT INTO "PollResponse" ("optionId", "profileId")
+        VALUES ($1, $2)
+        ON CONFLICT ("optionId", "profileId") DO NOTHING
+        RETURNING *;
+      `,
+      [option, payload.id]
+    );
 
-    logger.info(`Responded to a poll ${option}:${data.id}`);
+    logger.info(`Responded to a poll ${option}:${data[0]?.id}`);
 
-    return res.status(200).json({ id: data.id, success: true });
+    return res.status(200).json({ id: data[0]?.id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

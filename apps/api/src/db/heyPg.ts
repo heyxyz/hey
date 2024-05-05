@@ -53,11 +53,29 @@ class Database {
     };
   }
 
+  public async exists(
+    query: DatabaseQuery,
+    params: DatabaseParams = null
+  ): Promise<boolean> {
+    const result = await this.oneOrNone(query, params);
+    return result !== null;
+  }
+
   public multi(
     query: DatabaseQuery,
     params: DatabaseParams = null
   ): Promise<any[][]> {
     return this._readDb.multi(query, params);
+  }
+
+  public oneOrNone(
+    query: DatabaseQuery,
+    params: DatabaseParams = null
+  ): Promise<null | Record<string, any> | Record<string, any>[]> {
+    return this._readDb.oneOrNone<Record<string, any> | Record<string, any>[]>(
+      query,
+      params
+    );
   }
 
   public query(
