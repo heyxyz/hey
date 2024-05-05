@@ -56,7 +56,7 @@ describe('oembed/index', () => {
     expect(response.data.oembed.nft.collectionName).toEqual('Intern Card');
     expect(response.data.oembed.nft.chain).toEqual('base');
     expect(response.data.oembed.nft.mediaUrl).toEqual(
-      'https://zora.co/api/thumbnail/8453/0xbb89e4e207d447242260dea7cf0da86ce76d49cd/1'
+      'https://zora.co/api/thumbnail/fc/8453/0xbb89e4e207d447242260dea7cf0da86ce76d49cd/1'
     );
     expect(response.data.oembed.nft.sourceUrl).toEqual(
       'https://zora.co/collect/base:0xbb89e4e207d447242260dea7cf0da86ce76d49cd/1'
