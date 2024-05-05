@@ -1,24 +1,26 @@
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Tooltip } from '@hey/ui';
 
-const Toggle = ({
-  children,
-  disabled,
-  onClick,
-  pressed,
-  tooltip
-}: {
+interface ToggleProps {
   children: ReactNode;
   disabled?: boolean;
   onClick?: VoidFunction;
   pressed: boolean;
   tooltip?: string;
+}
+
+const Toggle: FC<ToggleProps> = ({
+  children,
+  disabled = false,
+  onClick,
+  pressed,
+  tooltip
 }) => {
   return (
     <Tooltip content={tooltip} placement="top">
       <button
-        className="outline-unset focus-visible:outline-unset flex items-center justify-center rounded-md bg-transparent p-2 font-medium transition hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-gray-900 disabled:pointer-events-none disabled:opacity-50 hover:disabled:opacity-50 data-[state=on]:bg-gray-200/60 dark:hover:bg-gray-800 dark:focus-visible:ring-gray-300 dark:data-[state=on]:bg-gray-700/60"
+        className="flex items-center justify-center rounded-lg bg-transparent p-2 hover:bg-gray-100 data-[state=on]:bg-gray-200 dark:hover:bg-gray-800 dark:data-[state=on]:bg-gray-700"
         data-state={pressed ? 'on' : 'off'}
         disabled={disabled}
         onClick={() => onClick?.()}
