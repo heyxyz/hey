@@ -46,8 +46,6 @@ const usePublicationMetadata = () => {
         locale: getUserLocale()
       };
 
-      console.log(baseMetadata, localBaseMetadata);
-
       // Slice the first attachment because we upload the asset
       const attachmentsToBeUploaded = attachments
         .map((attachment) => ({
