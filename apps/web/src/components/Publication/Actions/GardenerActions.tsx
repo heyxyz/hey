@@ -2,6 +2,7 @@ import type {
   MirrorablePublication,
   ReportPublicationRequest
 } from '@hey/lens';
+import type { FC, ReactNode } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
@@ -15,7 +16,6 @@ import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
-import { type FC, type ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 

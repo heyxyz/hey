@@ -1,11 +1,11 @@
 import type { GlobalProfileStats } from '@hey/types/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
 
 interface ProfileStatsProps {
   profileId: string;

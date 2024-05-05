@@ -1,4 +1,5 @@
 import type { FollowRevenueRequest } from '@hey/lens';
+import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
@@ -6,7 +7,6 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import humanize from '@hey/helpers/humanize';
 import { useFollowRevenuesQuery } from '@hey/lens';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 interface SuperFollowRevenueProps {

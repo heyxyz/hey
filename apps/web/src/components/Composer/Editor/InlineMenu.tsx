@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import { useEditor } from 'prosekit/react';
 import { InlinePopover } from 'prosekit/react/inline-popover';
 
@@ -12,7 +14,7 @@ import {
 } from './icons';
 import Toggle from './Toggle';
 
-const InlineMenu = () => {
+const InlineMenu: FC = () => {
   const editor = useEditor<EditorExtension>({ update: true });
 
   return (

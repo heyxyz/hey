@@ -1,4 +1,5 @@
 import type { AnyPublication, PublicationsRequest } from '@hey/lens';
+import type { FC } from 'react';
 import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
@@ -11,7 +12,7 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { type FC, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
