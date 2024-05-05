@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { EditorRegex } from '@hey/data/regex';
 import hasMisused from '@hey/helpers/hasMisused';
+import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useEditor } from 'prosekit/react';
 import {
@@ -33,9 +34,9 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
         className="focusable-dropdown-item m-1.5 flex cursor-pointer items-center space-x-2 rounded-lg px-3 py-1 dark:text-white"
         onSelect={onSelect}
       >
-        <img
+        <Image
           alt={profile.handle}
-          className="size-7 rounded-full"
+          className="size-7 rounded-full border bg-gray-200 dark:border-gray-700"
           height="28"
           src={profile.picture}
           width="28"
@@ -74,7 +75,7 @@ const MentionPicker: FC = () => {
   return (
     <AutocompletePopover
       className={cn(
-        'bg-brand sticky z-40 m-0 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900',
+        'z-10 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900',
         results.length === 0 && 'hidden'
       )}
       offset={10}
