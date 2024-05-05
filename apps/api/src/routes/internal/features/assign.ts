@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { boolean, object, string } from 'zod';
 
@@ -40,17 +40,29 @@ export const post: Handler = async (req, res) => {
 
   try {
     if (enabled) {
-      await prisma.profileFeature.create({
-        data: { featureId: id, profileId: profile_id }
-      });
+      await heyPg.query(
+        `
+          INSERT INTO "ProfileFeature" ("featureId", "profileId")
+          VALUES ($1, $2)
+          ON CONFLICT ("profileId", "featureId") DO UPDATE
+          SET enabled = true, "createdAt" = now()
+        `,
+        [id, profile_id]
+      );
+
       logger.info(`Enabled features for ${profile_id}`);
 
       return res.status(200).json({ enabled, success: true });
     }
 
-    await prisma.profileFeature.delete({
-      where: { profileId_featureId: { featureId: id, profileId: profile_id } }
-    });
+    await heyPg.query(
+      `
+        DELETE FROM "ProfileFeature"
+        WHERE "profileId" = $1 AND "featureId" = $2
+      `,
+      [profile_id, id]
+    );
+
     logger.info(`Disabled features for ${profile_id}`);
 
     return res.status(200).json({ enabled, success: true });
