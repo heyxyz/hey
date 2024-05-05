@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import ProfileStats from './ProfileStats';
 import SuperFollowRevenue from './SuperFollowRevenue';

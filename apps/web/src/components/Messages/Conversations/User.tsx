@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
 import type { CachedConversation } from '@xmtp/react-sdk';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
@@ -17,7 +18,7 @@ import getStampFyiURL from '@hey/helpers/getStampFyiURL';
 import hasMisused from '@hey/helpers/hasMisused';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { Image } from '@hey/ui';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 
 import LatestMessage from './LatestMessage';
 

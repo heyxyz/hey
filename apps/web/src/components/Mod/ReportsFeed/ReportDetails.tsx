@@ -1,4 +1,5 @@
 import type { ModReport, Profile } from '@hey/lens';
+import type { FC } from 'react';
 
 import Reports from '@components/Mod/ReportsFeed/Reports';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
@@ -8,7 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import { Button, Modal } from '@hey/ui';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 
 import Dispute from './Dispute';
 

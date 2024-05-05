@@ -1,6 +1,8 @@
+import type { FC } from 'react';
+
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Input } from '@hey/ui';
-import { type FC, useRef } from 'react';
+import { useRef } from 'react';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
