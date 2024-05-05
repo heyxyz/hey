@@ -287,8 +287,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: 0.6.9
-        version: 0.6.9(react-dom@18.3.1)(react@18.3.1)
+        specifier: 0.6.10
+        version: 0.6.10(react-dom@18.3.1)(react@18.3.1)
       rc-slider:
         specifier: 10.6.2
         version: 10.6.2(react-dom@18.3.1)(react@18.3.1)
@@ -893,8 +893,8 @@ packages:
     resolution: {integrity: sha512-20mUHlpTCYQnv1LTGMkCy1SLCxRK5pxHrvTr2beaaCgBKPjMEB3MlemL0PbIj3WsXbCldsvLBWX1L67FgWowSg==, tarball: https://registry.npmjs.org/@aria-ui/collection/-/collection-0.0.3.tgz}
     dev: false
 
-  /@aria-ui/core@0.0.13:
-    resolution: {integrity: sha512-cdr56c9ap2yU17bElEOndynJ65JEPF6V+vzy06xbSnQrykysB453SQF4QqTQ2xFMRpFfznfArXkebPG2w9QxLw==, tarball: https://registry.npmjs.org/@aria-ui/core/-/core-0.0.13.tgz}
+  /@aria-ui/core@0.0.14:
+    resolution: {integrity: sha512-1oVRaG4mHIUe+H/wEib8FI7Y8CIcQNVfaZZ0nky4QHsflzJujkRtUW8W7b7dLh2ThE3+d7gUIwJv/ILHzgJYXQ==, tarball: https://registry.npmjs.org/@aria-ui/core/-/core-0.0.14.tgz}
     dependencies:
       '@dddstack/ariatype-aria-attributes': 2.0.0
       '@dddstack/ariatype-aria-roles': 2.0.0
@@ -902,45 +902,45 @@ packages:
       server-dom-shim: 1.0.2
     dev: false
 
-  /@aria-ui/listbox@0.0.12:
-    resolution: {integrity: sha512-YsaV3KnCRGpzbUt7t+XyMQRgeHp1c5x0c+JydAfaItJu6eDrzXtfH4vnfVKlH87KssF8c6oFttNT9Z0R1Hs0Ow==, tarball: https://registry.npmjs.org/@aria-ui/listbox/-/listbox-0.0.12.tgz}
+  /@aria-ui/listbox@0.0.13:
+    resolution: {integrity: sha512-7wULQl0QE/+g009rULHrisDLiRKX51X5k5bkYrNqANZTCna9h4mroF24113mGjyn9C07sGS/LrimfkucoSanBg==, tarball: https://registry.npmjs.org/@aria-ui/listbox/-/listbox-0.0.13.tgz}
     dependencies:
       '@aria-ui/collection': 0.0.3
-      '@aria-ui/core': 0.0.13
-      '@aria-ui/presence': 0.0.8
+      '@aria-ui/core': 0.0.14
+      '@aria-ui/presence': 0.0.9
       immer: 10.0.4
     dev: false
 
-  /@aria-ui/overlay@0.0.13:
-    resolution: {integrity: sha512-nyJOJU/7XcFAn1sbl7FYTE9JnhiUVNz3LA0PtyQpPwcNjkBJZbHbTtAnNK7IX5Eb5caH3FYBZaIAUu2SAzRifg==, tarball: https://registry.npmjs.org/@aria-ui/overlay/-/overlay-0.0.13.tgz}
+  /@aria-ui/overlay@0.0.14:
+    resolution: {integrity: sha512-F88gzaRGYOZNNFvteqzC2UA8C9891IEQvnbLTisZXr8iNRMBVfh+dJeNGipE5ELKbwaOP+xR9CeMUoT0U/lhxg==, tarball: https://registry.npmjs.org/@aria-ui/overlay/-/overlay-0.0.14.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.13
+      '@aria-ui/core': 0.0.14
       '@floating-ui/dom': 1.6.4
       '@zag-js/dom-query': 0.49.0
     dev: false
 
-  /@aria-ui/popover@0.0.12:
-    resolution: {integrity: sha512-848rkaEdl0Spj0uAdyKWK9/MfvRCnkdZ8UpKCVj4VehQU/txsRQdgOYQVQqQws+rQpfDEewGqyrhxg9gUM9wGA==, tarball: https://registry.npmjs.org/@aria-ui/popover/-/popover-0.0.12.tgz}
+  /@aria-ui/popover@0.0.13:
+    resolution: {integrity: sha512-ai5kIH1lUz68dKEV5McEPHO2mDE2AN4xWyP6dayTPTHQAr5eUSIUct23nIwNExCkzHdheNZiTbEJOIhQbyYfoQ==, tarball: https://registry.npmjs.org/@aria-ui/popover/-/popover-0.0.13.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.13
-      '@aria-ui/overlay': 0.0.13
-      '@aria-ui/presence': 0.0.8
+      '@aria-ui/core': 0.0.14
+      '@aria-ui/overlay': 0.0.14
+      '@aria-ui/presence': 0.0.9
       '@zag-js/dismissable': 0.49.0
       '@zag-js/tabbable': 0.49.0
     dev: false
 
-  /@aria-ui/presence@0.0.8:
-    resolution: {integrity: sha512-0qWdsLXCpBn7PdTE6jE2kVnqr4m23W+m8e8ZSmyz1vmkxwDNjdheqgISXI9pVxdf1SsWqsX9pNwbGz2oxTGzww==, tarball: https://registry.npmjs.org/@aria-ui/presence/-/presence-0.0.8.tgz}
+  /@aria-ui/presence@0.0.9:
+    resolution: {integrity: sha512-KwzkQEHlfTwhzK5RV2r4lO1IeQO2eI/i42mVtZdLDz2BDuRqr4MV+q0SvAkQo62ZmuqN7XIqDAHDi4YxWwNxTA==, tarball: https://registry.npmjs.org/@aria-ui/presence/-/presence-0.0.9.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.13
+      '@aria-ui/core': 0.0.14
     dev: false
 
-  /@aria-ui/tooltip@0.0.14:
-    resolution: {integrity: sha512-71Qf1+Rq3krhiDN8eHMmkqVgBDkJ+eXINognUG5X/EbD9Bi8DuQziyFuxbZCIB6Ni6dNZJLbmfa0kNSf84w7bA==, tarball: https://registry.npmjs.org/@aria-ui/tooltip/-/tooltip-0.0.14.tgz}
+  /@aria-ui/tooltip@0.0.15:
+    resolution: {integrity: sha512-wRPzR9b2dgJ6rAlFZ2dgSxL9/WYK9gBwC0omH/LoNAUEnIw6ukhd4P4wIiqD0u4OejAno/qpsqKR9HOnANjIow==, tarball: https://registry.npmjs.org/@aria-ui/tooltip/-/tooltip-0.0.15.tgz}
     dependencies:
-      '@aria-ui/core': 0.0.13
-      '@aria-ui/overlay': 0.0.13
-      '@aria-ui/presence': 0.0.8
+      '@aria-ui/core': 0.0.14
+      '@aria-ui/overlay': 0.0.14
+      '@aria-ui/presence': 0.0.9
       nanoid: 5.0.7
     dev: false
 
@@ -6155,7 +6155,7 @@ packages:
   /@prosekit/lit@0.3.1:
     resolution: {integrity: sha512-bMec3TxaTXwinJC3bgsn1yJh9YIO2O7aMaTuuYzYsyVw5bq+chZC0tXlnDTxZjVAAZTZG1VUJtzgifOIML41vg==, tarball: https://registry.npmjs.org/@prosekit/lit/-/lit-0.3.1.tgz}
     dependencies:
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6191,7 +6191,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
       react-merge-refs: 2.1.1
     transitivePeerDependencies:
       - '@types/hast'
@@ -6218,7 +6218,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
       '@prosemirror-adapter/core': 0.2.6
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -6245,7 +6245,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6268,7 +6268,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -6291,7 +6291,7 @@ packages:
     dependencies:
       '@prosekit/core': 0.4.2
       '@prosekit/pm': 0.1.3
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
       '@prosemirror-adapter/core': 0.2.6
     transitivePeerDependencies:
       - '@types/hast'
@@ -6305,16 +6305,16 @@ packages:
       - shikiji
     dev: false
 
-  /@prosekit/web@0.1.4:
-    resolution: {integrity: sha512-oEzr9scXR8BBqBFTigTWj92TLlphzM5Tagt7j1H5zdCrxOkMnqBuekbCmk0ZEhzMLbTNvVi9uoYMQw/u7vA9fw==, tarball: https://registry.npmjs.org/@prosekit/web/-/web-0.1.4.tgz}
+  /@prosekit/web@0.1.5:
+    resolution: {integrity: sha512-SB7RnosmkxL7uVVd9b7jWCzeEsIUx2D90IxXu2HN0VTtpXkt2+wHD7W0/0vpNPmtzSdlleMUVgj+AOHaJPpNQQ==, tarball: https://registry.npmjs.org/@prosekit/web/-/web-0.1.5.tgz}
     dependencies:
       '@aria-ui/collection': 0.0.3
-      '@aria-ui/core': 0.0.13
-      '@aria-ui/listbox': 0.0.12
-      '@aria-ui/overlay': 0.0.13
-      '@aria-ui/popover': 0.0.12
-      '@aria-ui/presence': 0.0.8
-      '@aria-ui/tooltip': 0.0.14
+      '@aria-ui/core': 0.0.14
+      '@aria-ui/listbox': 0.0.13
+      '@aria-ui/overlay': 0.0.14
+      '@aria-ui/popover': 0.0.13
+      '@aria-ui/presence': 0.0.9
+      '@aria-ui/tooltip': 0.0.15
       '@floating-ui/dom': 1.6.4
       '@prosekit/core': 0.4.2
       '@prosekit/extensions': 0.4.7
@@ -18463,8 +18463,8 @@ packages:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
     dev: false
 
-  /prosekit@0.6.9(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-pWFZX2R6UmB+sefuBg84dBdlKnkUg2YN7BAaNAKbgB6Qme9a8TuJK+SBqms6tCMYRp0NwY0vxv+Pn1lp9883SA==, tarball: https://registry.npmjs.org/prosekit/-/prosekit-0.6.9.tgz}
+  /prosekit@0.6.10(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-ReMwYHJdToj3GXUnsj6QGGbIPYJHXwM5KlwP6fkKLAHkd+Fo5Y3ZGdySP9sr/4bzHaKYSMuyXwm08N91u15LZQ==, tarball: https://registry.npmjs.org/prosekit/-/prosekit-0.6.10.tgz}
     peerDependencies:
       preact: '>= 10.11.0'
       react: '>= 18.2.0'
@@ -18496,7 +18496,7 @@ packages:
       '@prosekit/solid': 0.3.2
       '@prosekit/svelte': 0.3.2
       '@prosekit/vue': 0.3.2
-      '@prosekit/web': 0.1.4
+      '@prosekit/web': 0.1.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
