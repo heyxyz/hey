@@ -38,7 +38,7 @@
     "linkedom": "^0.16.11",
     "pg-promise": "^11.6.0",
     "request-ip": "^3.3.0",
-    "tsx": "^4.9.0",
+    "tsx": "^4.9.1",
     "typescript": "^5.4.5",
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
