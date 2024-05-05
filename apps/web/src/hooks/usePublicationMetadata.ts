@@ -38,10 +38,15 @@ const usePublicationMetadata = () => {
 
       const localBaseMetadata = {
         appId: APP_NAME,
-        attributes: attributes?.length ? attributes : undefined,
+        attributes:
+          (attributes || [])?.length > 0 || baseMetadata.attributes?.length > 0
+            ? [...(baseMetadata.attributes || []), ...(attributes || [])]
+            : undefined,
         id: uuid(),
         locale: getUserLocale()
       };
+
+      console.log(baseMetadata, localBaseMetadata);
 
       // Slice the first attachment because we upload the asset
       const attachmentsToBeUploaded = attachments
