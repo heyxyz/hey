@@ -41,15 +41,11 @@ const Mod: NextPage = () => {
         {feedType === ModFeedType.REPORTS && <ReportsFeed />}
       </GridItemEight>
       <GridItemFour>
-        {feedType === ModFeedType.LATEST && <Filter />}
+        {(feedType === ModFeedType.LATEST ||
+          feedType === ModFeedType.SEARCH) && <Filter />}
         {feedType === ModFeedType.PROFILES && (
           <Card className="p-5">
             <div>All the profiles</div>
-          </Card>
-        )}
-        {feedType === ModFeedType.SEARCH && (
-          <Card className="p-5">
-            <div>Search for Publications</div>
           </Card>
         )}
         {feedType === ModFeedType.REPORTS && (
