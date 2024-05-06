@@ -11,7 +11,7 @@ import {
   DocumentTextIcon,
   NoSymbolIcon
 } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
@@ -42,11 +42,13 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { cache } = useApolloClient();
 
   const reportPublication = async ({
+    reason,
     subreason,
-    type
+    suspended
   }: {
+    reason: string;
     subreason: string;
-    type: string;
+    suspended?: boolean;
   }) => {
     if (pathname === '/mod') {
       cache.evict({ id: cache.identify(publication) });
@@ -55,8 +57,12 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     // Variables
     const request: ReportPublicationRequest = {
       for: publication.id,
+      ...(suspended && { additionalComments: `Suspended on ${APP_NAME}` }),
       reason: {
-        [type]: { reason: type.replace('Reason', '').toUpperCase(), subreason }
+        [reason]: {
+          reason: reason.replace('Reason', '').toUpperCase(),
+          subreason
+        }
       }
     };
 
@@ -82,7 +88,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   };
 
   interface ReportButtonProps {
-    config: { subreason: string; type: string }[];
+    config: { reason: string; subreason: string }[];
     icon: ReactNode;
     label: string;
     onClick?: () => void;
@@ -107,8 +113,14 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         onClick?.();
         toast.promise(
           Promise.all(
-            config.map(async ({ subreason, type }) => {
-              await reportPublication({ subreason, type });
+            config.map(async ({ reason, subreason }) => {
+              await reportPublication({
+                reason,
+                subreason,
+                suspended:
+                  type === 'suspend' &&
+                  subreason === PublicationReportingSpamSubreason.Misleading
+              });
             })
           ),
           {
@@ -137,8 +149,8 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       <ReportButton
         config={[
           {
-            subreason: PublicationReportingSpamSubreason.LowSignal,
-            type: 'spamReason'
+            reason: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.LowSignal
           }
         ]}
         icon={<DocumentTextIcon className="size-4" />}
@@ -148,8 +160,8 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       <ReportButton
         config={[
           {
-            subreason: PublicationReportingSpamSubreason.FakeEngagement,
-            type: 'spamReason'
+            reason: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.FakeEngagement
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
@@ -159,12 +171,12 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       <ReportButton
         config={[
           {
-            subreason: PublicationReportingSpamSubreason.FakeEngagement,
-            type: 'spamReason'
+            reason: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.FakeEngagement
           },
           {
-            subreason: PublicationReportingSpamSubreason.LowSignal,
-            type: 'spamReason'
+            reason: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.LowSignal
           }
         ]}
         icon={<BanknotesIcon className="size-4" />}
@@ -175,16 +187,16 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         <ReportButton
           config={[
             {
-              subreason: PublicationReportingSpamSubreason.FakeEngagement,
-              type: 'spamReason'
+              reason: 'spamReason',
+              subreason: PublicationReportingSpamSubreason.FakeEngagement
             },
             {
-              subreason: PublicationReportingSpamSubreason.LowSignal,
-              type: 'spamReason'
+              reason: 'spamReason',
+              subreason: PublicationReportingSpamSubreason.LowSignal
             },
             {
-              subreason: PublicationReportingSpamSubreason.Misleading,
-              type: 'spamReason'
+              reason: 'spamReason',
+              subreason: PublicationReportingSpamSubreason.Misleading
             }
           ]}
           icon={<NoSymbolIcon className="size-4" />}
