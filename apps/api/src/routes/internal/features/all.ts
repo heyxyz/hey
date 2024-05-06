@@ -19,6 +19,7 @@ export const get: Handler = async (req, res) => {
       GROUP BY F."id"
       ORDER BY F.priority DESC;    
     `);
+
     logger.info('All features fetched');
 
     return res.status(200).json({ features: data, success: true });
