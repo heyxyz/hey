@@ -83,16 +83,14 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
       </div>
       {Boolean(uiData) && Boolean(nft) && !isLoading ? (
         <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
-          <div className="flex items-center space-x-2">
-            {uiData && nft.creatorAddress ? (
-              <ActionInfo
-                collectionName={nft.collectionName}
-                creatorAddress={nft.creatorAddress}
-                hidePrice
-                uiData={uiData}
-              />
-            ) : null}
-          </div>
+          {uiData && nft.creatorAddress ? (
+            <ActionInfo
+              collectionName={nft.collectionName}
+              creatorAddress={nft.creatorAddress}
+              hidePrice
+              uiData={uiData}
+            />
+          ) : null}
           {openActionEmbedLoading ? (
             <Spinner size="xs" />
           ) : openActionEmbed ? (
