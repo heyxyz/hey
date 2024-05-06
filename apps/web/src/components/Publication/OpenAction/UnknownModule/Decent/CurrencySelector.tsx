@@ -124,7 +124,6 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                   <p className="text-sm opacity-50">Polygon</p>
                 </div>
               </div>
-
               <div className="flex flex-col items-end justify-center gap-1 leading-none">
                 {isLoading ? (
                   <div className="shimmer h-4 w-16 rounded-lg bg-gray-200" />
