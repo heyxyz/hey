@@ -32,7 +32,7 @@ export const get: Handler = async (req, res) => {
       isSuspended: profileFeature[0]?.featureId === SUSPENDED_FEATURE_ID
     };
 
-    logger.info('Profile flags fetched');
+    logger.info(`Profile flags fetched for ${id}`);
 
     return res
       .status(200)

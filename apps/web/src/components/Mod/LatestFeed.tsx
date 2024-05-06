@@ -5,7 +5,7 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import GardenerActions from '@components/Publication/Actions/GardenerActions';
+import HigherActions from '@components/Publication/Actions/HigherActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
@@ -110,11 +110,7 @@ const LatestFeed: FC = () => {
               showThread={false}
             />
             <div className="divider" />
-            <div className="m-5">
-              <GardenerActions
-                publication={publication as MirrorablePublication}
-              />
-            </div>
+            <HigherActions publication={publication as MirrorablePublication} />
           </Card>
         );
       }}

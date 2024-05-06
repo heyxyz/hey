@@ -44,8 +44,7 @@ export const post: Handler = async (req, res) => {
         `
           INSERT INTO "ProfileFeature" ("featureId", "profileId")
           VALUES ($1, $2)
-          ON CONFLICT ("profileId", "featureId") DO UPDATE
-          SET enabled = true, "createdAt" = now()
+          ON CONFLICT ("profileId", "featureId") DO NOTHING;
         `,
         [id, profile_id]
       );
