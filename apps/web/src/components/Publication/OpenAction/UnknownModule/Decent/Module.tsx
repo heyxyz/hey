@@ -139,10 +139,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   useEffect(() => {
     if (allowedTokens && allowedTokens.length && !loadingCurrency) {
-      setLoadingCurrencyDetails(false);
-    } else {
-      setLoadingCurrencyDetails(true);
+      return setLoadingCurrencyDetails(false);
     }
+
+    return setLoadingCurrencyDetails(true);
   }, [allowedTokens, loadingCurrency]);
 
   useEffect(() => {
@@ -201,9 +201,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     : 0;
 
   const formattedTotalFees = bridgeFee + formattedTotalAmount * 0.05;
-
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
-
   const nftChainInfo = actionData?.uiData.dstChainId
     ? {
         logo: getNftChainInfo(
@@ -338,7 +336,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               setShowCurrencySelector(false);
             }}
           >
-            <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
+            <ChevronLeftIcon className="mt-0.5 size-4 stroke-black" />
           </button>
         ) : isModalCollapsed ? (
           <button
@@ -347,7 +345,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               setIsModalCollapsed(false);
             }}
           >
-            <ChevronLeftIcon className="mt-[2px] w-4" strokeWidth={3} />
+            <ChevronLeftIcon className="mt-0.5 size-4 stroke-black" />
           </button>
         ) : null
       }
@@ -447,12 +445,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             </div>
             <div className="ld-text-gray-500 flex items-center justify-between text-base">
               <div className="flex items-center gap-2">
-                <Squares2X2Icon className="w-5" />
+                <Squares2X2Icon className="size-5" />
                 <p>{formattedNftSchema}</p>
               </div>
               {nft.mintCount && (
                 <div className="flex items-center gap-2">
-                  <UserIcon className="w-5" />
+                  <UserIcon className="size-5" />
                   <p>{nft.mintCount} minted</p>
                 </div>
               )}
@@ -483,24 +481,24 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <p className="ld-text-gray-500">Quantity</p>
               <div className="flex items-center gap-4">
                 <button
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
+                  className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
                   disabled={selectedQuantity === 1}
                   onClick={(e) => {
                     stopEventPropagation(e);
                     setSelectedQuantity(selectedQuantity - 1);
                   }}
                 >
-                  <MinusIcon className="w-3 text-gray-600" strokeWidth={3} />
+                  <MinusIcon className="size-3 text-gray-600" strokeWidth={3} />
                 </button>
-                <span className="w-4 text-center">{selectedQuantity}</span>
+                <span className="size-4 text-center">{selectedQuantity}</span>
                 <button
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
+                  className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
                   onClick={(e) => {
                     stopEventPropagation(e);
                     setSelectedQuantity(selectedQuantity + 1);
                   }}
                 >
-                  <PlusIcon className="w-3 text-gray-600" strokeWidth={3} />
+                  <PlusIcon className="size-3 text-gray-600" strokeWidth={3} />
                 </button>
               </div>
             </div>
@@ -582,7 +580,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 }}
               >
                 Select another token{' '}
-                <ChevronRightIcon className="w-2" strokeWidth={3} />
+                <ChevronRightIcon className="size-2 stroke-black" />
               </button>
             </div>
           </div>

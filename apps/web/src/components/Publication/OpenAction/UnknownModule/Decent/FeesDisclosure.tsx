@@ -29,9 +29,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
       <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
         <Disclosure.Button
           className="flex items-baseline gap-1 space-x-1"
-          onClick={(e) => {
-            stopEventPropagation(e);
-          }}
+          onClick={stopEventPropagation}
         >
           Fees <ChevronDownIcon className="size-3" strokeWidth={3} />
         </Disclosure.Button>

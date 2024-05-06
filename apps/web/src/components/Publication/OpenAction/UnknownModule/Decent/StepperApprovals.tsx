@@ -79,7 +79,6 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
             : 'Approving token allowance'
         }
       />
-
       {step === 'Allowance' ? (
         <Button
           className="w-full justify-center"

@@ -41,6 +41,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({
       />
     );
   }
+
   return (
     <FeedEmbed
       mirrorPublication={mirrorPublication}
