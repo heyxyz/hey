@@ -9,7 +9,7 @@ import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useAccount, useBalance } from 'wagmi';
 
-const OA_SUPPORTED_CURRENCY_ADDRESSES: Record<string, `0x${string}`> = {
+const SUPPORTED_CURRENCIES: Record<string, `0x${string}`> = {
   USDC: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
   WETH: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
   WMATIC: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
@@ -29,39 +29,36 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
       address,
       chainId: 137,
       query: { refetchInterval: 10000 },
-      token: OA_SUPPORTED_CURRENCY_ADDRESSES.WMATIC
+      token: SUPPORTED_CURRENCIES.WMATIC
     });
 
   const wmaticPriceUsd =
     fiatRates.find(
-      (rate) =>
-        rate.address === OA_SUPPORTED_CURRENCY_ADDRESSES.WMATIC.toLowerCase()
+      (rate) => rate.address === SUPPORTED_CURRENCIES.WMATIC.toLowerCase()
     )?.fiat || 0;
 
   const { data: wethBalanceData, isLoading: wethBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
-    token: OA_SUPPORTED_CURRENCY_ADDRESSES.WETH
+    token: SUPPORTED_CURRENCIES.WETH
   });
 
   const wethPriceUsd =
     fiatRates.find(
-      (rate) =>
-        rate.address === OA_SUPPORTED_CURRENCY_ADDRESSES.WETH.toLowerCase()
+      (rate) => rate.address === SUPPORTED_CURRENCIES.WETH.toLowerCase()
     )?.fiat || 0;
 
   const { data: usdcBalanceData, isLoading: usdcBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
-    token: OA_SUPPORTED_CURRENCY_ADDRESSES.USDC
+    token: SUPPORTED_CURRENCIES.USDC
   });
 
   const usdcPriceUsd =
     fiatRates.find(
-      (rate) =>
-        rate.address === OA_SUPPORTED_CURRENCY_ADDRESSES.USDC.toLowerCase()
+      (rate) => rate.address === SUPPORTED_CURRENCIES.USDC.toLowerCase()
     )?.fiat || 0;
 
   const balanceData = {
@@ -93,9 +90,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
   return (
     <div className="flex h-[80vh] w-full flex-col gap-2 p-5">
       {allowedTokens
-        .filter((t) =>
-          Object.keys(OA_SUPPORTED_CURRENCY_ADDRESSES).includes(t.symbol)
-        )
+        .filter((t) => Object.keys(SUPPORTED_CURRENCIES).includes(t.symbol))
         .map((token) => {
           return (
             <div
