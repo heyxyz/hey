@@ -1,11 +1,12 @@
 import type { RewardPool } from '@hey/types/misc';
 import type { FC } from 'react';
+import type { Address } from 'viem';
 
 import { GiftIcon } from '@heroicons/react/24/outline';
 import getSwapRewardPool from '@hey/helpers/getSwapRewardPool';
 import humanize from '@hey/helpers/humanize';
 import { useEffect, useState } from 'react';
-import { type Address, formatUnits, isAddress } from 'viem';
+import { formatUnits, isAddress } from 'viem';
 
 import { useSwapActionStore } from '.';
 import RewardConfig from './RewardConfig';
