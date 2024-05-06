@@ -18,7 +18,11 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { MAX_UINT256, ZERO_ADDRESS } from '@hey/data/constants';
+import {
+  DEFAULT_DECENT_OA_TOKEN,
+  MAX_UINT256,
+  ZERO_ADDRESS
+} from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getNftChainId from '@hey/helpers/getNftChainId';
 import getNftChainInfo from '@hey/helpers/getNftChainInfo';
@@ -63,14 +67,6 @@ const generateOptimisticNftMintOA = ({
     txHash,
     type: OptmisticPublicationType.NftMintOA
   };
-};
-
-const DEFAULT_TOKEN: AllowedToken = {
-  contractAddress: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
-  decimals: 18,
-  id: 'WMATIC',
-  name: 'Wrapped MATIC',
-  symbol: 'WMATIC'
 };
 
 interface DecentOpenActionModuleProps {
@@ -189,7 +185,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const getTokenDetails = (currencyAddress: Address) => {
     return (
       allowedTokens?.find((t) => t.contractAddress === currencyAddress) ||
-      DEFAULT_TOKEN
+      (DEFAULT_DECENT_OA_TOKEN as AllowedToken)
     );
   };
   const { decimals } = getTokenDetails(selectedNftOaCurrency);
