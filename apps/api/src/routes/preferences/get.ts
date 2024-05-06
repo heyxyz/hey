@@ -50,7 +50,7 @@ export const get: Handler = async (req, res) => {
       )
     };
 
-    logger.info('Profile preferences fetched');
+    logger.info(`Profile preferences fetched for ${id}`);
 
     return res.status(200).json({ result: response, success: true });
   } catch (error) {
