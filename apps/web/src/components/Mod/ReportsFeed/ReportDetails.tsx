@@ -1,11 +1,14 @@
-import type { ModReport, Profile } from '@hey/lens';
+import type { MirrorablePublication, ModReport, Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import Reports from '@components/Mod/ReportsFeed/Reports';
+import SuspendButton from '@components/Publication/Actions/HigherActions/SuspendButton';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import {
   ChatBubbleOvalLeftEllipsisIcon,
-  FlagIcon
+  EyeIcon,
+  FlagIcon,
+  HandRaisedIcon
 } from '@heroicons/react/24/outline';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import { Button, Modal } from '@hey/ui';
@@ -49,7 +52,12 @@ const ReportDetails: FC<ReportDetailsProps> = ({
       </div>
       <div className="flex flex-col space-y-3">
         {!hideViewReportsButton ? (
-          <Button onClick={() => setShowReportsModal(true)} outline size="sm">
+          <Button
+            icon={<EyeIcon className="size-4" />}
+            onClick={() => setShowReportsModal(true)}
+            outline
+            size="sm"
+          >
             View other reports
           </Button>
         ) : null}
@@ -63,6 +71,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           <Reports publicationId={report.reportedPublication?.id} />
         </Modal>
         <Button
+          icon={<HandRaisedIcon className="size-4 text-red-500" />}
           onClick={() => setShowDisputeModal(true)}
           outline
           size="sm"
@@ -78,6 +87,10 @@ const ReportDetails: FC<ReportDetailsProps> = ({
         >
           <Dispute report={report} setShowDisputeModal={setShowDisputeModal} />
         </Modal>
+        <SuspendButton
+          publication={report.reportedPublication as MirrorablePublication}
+          title="Suspend the profile"
+        />
       </div>
     </div>
   );

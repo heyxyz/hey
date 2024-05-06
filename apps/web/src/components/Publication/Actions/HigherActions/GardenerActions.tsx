@@ -4,14 +4,9 @@ import type {
 } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import {
-  BanknotesIcon,
-  DocumentTextIcon,
-  NoSymbolIcon
-} from '@heroicons/react/24/outline';
-import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import { APP_NAME } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
@@ -22,11 +17,11 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import { useToggle } from '@uidotdev/usehooks';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+
+import SuspendButton from './SuspendButton';
 
 interface GardenerActionsProps {
   publication: MirrorablePublication;
@@ -34,7 +29,6 @@ interface GardenerActionsProps {
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const { staffMode } = useFeatureFlagsStore();
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
   const [hasReported, toggletHasReported] = useToggle(
     publication.operations?.hasReported
@@ -42,7 +36,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const [createReport, { loading }] = useReportPublicationMutation();
   const { cache } = useApolloClient();
 
-  const reportPublication = async ({
+  const reportPublicationOnLens = async ({
     subreason,
     suspended
   }: {
@@ -68,17 +62,35 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     });
   };
 
-  const updateFeatureFlag = (id: string) => {
+  const reportPublication = ({
+    subreasons,
+    type
+  }: {
+    subreasons: PublicationReportingSpamSubreason[];
+    type: string;
+  }) => {
+    Leafwatch.track(GARDENER.REPORT, {
+      publication_id: publication.id,
+      type
+    });
     toast.promise(
-      axios.post(
-        `${HEY_API_URL}/internal/features/assign`,
-        { enabled: true, id, profile_id: publication.by.id },
-        { headers: getAuthApiHeaders() }
+      Promise.all(
+        subreasons.map(async (subreason) => {
+          await reportPublicationOnLens({
+            subreason,
+            suspended:
+              type === 'suspend' &&
+              subreason === PublicationReportingSpamSubreason.Misleading
+          });
+        })
       ),
       {
-        error: 'Error suspending profile',
-        loading: 'Suspending profile...',
-        success: 'Profile suspended'
+        error: 'Error reporting publication',
+        loading: 'Reporting publication...',
+        success: () => {
+          toggletHasReported();
+          return 'Publication reported successfully';
+        }
       }
     );
   };
@@ -86,7 +98,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   interface ReportButtonProps {
     icon: ReactNode;
     label: string;
-    onClick?: () => void;
     subreasons: PublicationReportingSpamSubreason[];
     type: string;
   }
@@ -94,43 +105,16 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const ReportButton: FC<ReportButtonProps> = ({
     icon,
     label,
-    onClick,
     subreasons,
     type
   }) => (
     <Button
       disabled={loading || hasReported}
       icon={icon}
-      onClick={() => {
-        Leafwatch.track(GARDENER.REPORT, {
-          publication_id: publication.id,
-          type
-        });
-        onClick?.();
-        toast.promise(
-          Promise.all(
-            subreasons.map(async (subreason) => {
-              await reportPublication({
-                subreason,
-                suspended:
-                  type === 'suspend' &&
-                  subreason === PublicationReportingSpamSubreason.Misleading
-              });
-            })
-          ),
-          {
-            error: 'Error reporting publication',
-            loading: 'Reporting publication...',
-            success: () => {
-              toggletHasReported();
-              return 'Publication reported successfully';
-            }
-          }
-        );
-      }}
+      onClick={() => reportPublication({ subreasons, type })}
       outline
       size="sm"
-      variant={type === 'suspend' ? 'danger' : 'warning'}
+      variant="warning"
     >
       {label}
     </Button>
@@ -162,21 +146,19 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         ]}
         type="both"
       />
-      {staffMode && (
-        <ReportButton
-          icon={<NoSymbolIcon className="size-4" />}
-          label="Suspend"
-          onClick={() =>
-            updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')
-          }
-          subreasons={[
-            PublicationReportingSpamSubreason.FakeEngagement,
-            PublicationReportingSpamSubreason.LowSignal,
-            PublicationReportingSpamSubreason.Misleading
-          ]}
-          type="suspend"
-        />
-      )}
+      <SuspendButton
+        onClick={() => {
+          reportPublication({
+            subreasons: [
+              PublicationReportingSpamSubreason.FakeEngagement,
+              PublicationReportingSpamSubreason.LowSignal,
+              PublicationReportingSpamSubreason.Misleading
+            ],
+            type: 'suspend'
+          });
+        }}
+        publication={publication}
+      />
     </span>
   );
 };
