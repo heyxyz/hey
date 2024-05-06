@@ -28,6 +28,6 @@ export const Regex = {
 };
 
 export const EditorRegex = {
-  emoji: new RegExp(`${MATCH_BEHIND}:\\w*`, 'g'),
-  mention: new RegExp(`${MATCH_BEHIND}@${MENTION_BODY}`, 'g')
+  emoji: new RegExp(`${MATCH_BEHIND}:\\w*$`, 'g'),
+  mention: new RegExp(`${MATCH_BEHIND}@${MENTION_BODY}$`, 'g')
 };
