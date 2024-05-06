@@ -1,9 +1,9 @@
 import type { CachedMessageWithId } from '@xmtp/react-sdk';
+import type { FC } from 'react';
 
 import getTimeFromNow from '@hey/helpers/datetime/getTimeFromNow';
 import cn from '@hey/ui/cn';
 import { ContentTypeText, hasReaction, useReactions } from '@xmtp/react-sdk';
-import { type FC } from 'react';
 import { useAccount } from 'wagmi';
 
 interface MessagesProps {

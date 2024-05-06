@@ -91,6 +91,7 @@ const PreferencesProvider: FC = () => {
     queryFn: () =>
       getScore(sessionProfileId).then((score) => {
         setScore(score.score);
+        return score;
       }),
     queryKey: ['getScore', sessionProfileId]
   });
@@ -102,8 +103,12 @@ const PreferencesProvider: FC = () => {
 
   // Fetch allowed tokens
   useQuery({
-    queryFn: () => getAllTokens().then((tokens) => setAllowedTokens(tokens)),
-    queryKey: ['getAllTokens']
+    queryFn: () =>
+      getAllTokens().then((tokens) => {
+        setAllowedTokens(tokens);
+        return tokens;
+      }),
+    queryKey: ['getAllTokensPreference']
   });
 
   const getFiatRates = async (): Promise<FiatRate[]> => {
@@ -118,7 +123,11 @@ const PreferencesProvider: FC = () => {
 
   // Fetch fiat rates
   useQuery({
-    queryFn: () => getFiatRates().then((rates) => setFiatRates(rates)),
+    queryFn: () =>
+      getFiatRates().then((rates) => {
+        setFiatRates(rates);
+        return rates;
+      }),
     queryKey: ['getFiatRates']
   });
 

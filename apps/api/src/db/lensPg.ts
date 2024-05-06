@@ -47,7 +47,7 @@ class Database {
     const pgp = pgPromise({
       error: (error: any) => {
         const errorMessage = error.message || error;
-        logger.error(`POSTGRES ERROR WITH TRACE: ${errorMessage}`);
+        logger.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
 

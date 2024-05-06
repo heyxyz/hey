@@ -1,15 +1,18 @@
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
+import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { SWR_CACHE_AGE_1_SEC_30_DAYS } from 'src/helpers/constants';
-import prisma from 'src/helpers/prisma';
 
 export const get: Handler = async (_, res) => {
   try {
-    const data = await prisma.allowedToken.findMany({
-      orderBy: { priority: 'desc' }
-    });
+    const data = await heyPg.query(`
+      SELECT *
+      FROM "AllowedToken"
+      ORDER BY priority DESC;
+    `);
+
     logger.info('All tokens fetched');
 
     return res

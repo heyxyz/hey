@@ -1,14 +1,11 @@
 import type {
   AnyPublication,
-  CustomFiltersType,
   MirrorablePublication,
-  ModExplorePublicationRequest,
-  ModExplorePublicationType,
-  PublicationMetadataMainFocusType
+  ModExplorePublicationRequest
 } from '@hey/lens';
 import type { FC } from 'react';
 
-import GardenerActions from '@components/Publication/Actions/GardenerActions';
+import HigherActions from '@components/Publication/Actions/HigherActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
@@ -22,25 +19,20 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
+import { useModFilterStore } from './Filter';
+
 const SKIPPED_PROFILE_IDS = IS_MAINNET ? ['0x027290'] : [];
 
-interface LatestFeedProps {
-  apps: null | string[];
-  customFilters: CustomFiltersType[];
-  mainContentFocus: PublicationMetadataMainFocusType[];
-  publicationTypes: ModExplorePublicationType[];
-  refresh: boolean;
-  setRefreshing: (refreshing: boolean) => void;
-}
+const LatestFeed: FC = () => {
+  const {
+    apps,
+    customFilters,
+    mainContentFocus,
+    publicationTypes,
+    refresh,
+    setRefreshing
+  } = useModFilterStore();
 
-const LatestFeed: FC<LatestFeedProps> = ({
-  apps,
-  customFilters,
-  mainContentFocus,
-  publicationTypes,
-  refresh,
-  setRefreshing
-}) => {
   // Variables
   const request: ModExplorePublicationRequest = {
     limit: LimitType.Fifty,
@@ -118,11 +110,7 @@ const LatestFeed: FC<LatestFeedProps> = ({
               showThread={false}
             />
             <div className="divider" />
-            <div className="m-5">
-              <GardenerActions
-                publication={publication as MirrorablePublication}
-              />
-            </div>
+            <HigherActions publication={publication as MirrorablePublication} />
           </Card>
         );
       }}

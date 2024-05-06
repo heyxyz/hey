@@ -3,6 +3,7 @@ import type { OG } from '@hey/types/misc';
 
 import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
 import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
+import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getFavicon from '@hey/helpers/getFavicon';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -11,19 +12,20 @@ import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
 
 import Embed from './Embed';
+import EmptyOembed from './EmptyOembed';
 import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
-  className?: string;
+  onLoad?: (og: OG) => void;
   openActionEmbed?: boolean;
   openActionEmbedLoading?: boolean;
   publication?: AnyPublication;
-  url?: string;
+  url: string;
 }
 
 const Oembed: FC<OembedProps> = ({
-  className = '',
+  onLoad,
   openActionEmbed,
   openActionEmbedLoading,
   publication,
@@ -50,8 +52,25 @@ const Oembed: FC<OembedProps> = ({
     }
   }, [publication]);
 
+  useEffect(() => {
+    if (onLoad) {
+      onLoad(data as OG);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   if (isLoading || error || !data) {
-    return null;
+    if (error) {
+      return null;
+    }
+
+    const hostname = new URL(url).hostname.replace('www.', '');
+
+    if (ALLOWED_HTML_HOSTS.includes(hostname)) {
+      return <div className="shimmer mt-4 h-[415px] w-full rounded-xl" />;
+    }
+
+    return <EmptyOembed url={url} />;
   }
 
   const og: OG = {
@@ -59,7 +78,6 @@ const Oembed: FC<OembedProps> = ({
     favicon: getFavicon(data.url),
     html: data?.html,
     image: data?.image,
-    isLarge: data?.isLarge,
     nft: data?.nft,
     site: data?.site,
     title: data?.title,
@@ -89,24 +107,26 @@ const Oembed: FC<OembedProps> = ({
     return null;
   }
 
-  return (
-    <div className={className}>
-      {embedDecentOpenAction ? (
-        <DecentOpenAction
-          og={og}
-          openActionEmbed={Boolean(openActionEmbed)}
-          openActionEmbedLoading={Boolean(openActionEmbedLoading)}
-          publication={currentPublication}
-        />
-      ) : og.html ? (
-        <Player og={og} />
-      ) : og.nft ? (
-        <Nft nft={og.nft} />
-      ) : (
-        <Embed og={og} publicationId={currentPublication?.id} />
-      )}
-    </div>
-  );
+  if (embedDecentOpenAction) {
+    return (
+      <DecentOpenAction
+        og={og}
+        openActionEmbed={Boolean(openActionEmbed)}
+        openActionEmbedLoading={Boolean(openActionEmbedLoading)}
+        publication={currentPublication}
+      />
+    );
+  }
+
+  if (og.html) {
+    return <Player og={og} />;
+  }
+
+  if (og.nft) {
+    return <Nft nft={og.nft} />;
+  }
+
+  return <Embed og={og} publicationId={currentPublication?.id} />;
 };
 
 export default Oembed;

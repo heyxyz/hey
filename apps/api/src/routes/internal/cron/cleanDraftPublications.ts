@@ -37,14 +37,14 @@ export const post: Handler = async (req, res) => {
   }
 
   try {
-    // Cleanup Draft Publications that are older than 30 days
+    // Cleanup Draft Publications that are older than 100 days
     const { count } = await prisma.draftPublication.deleteMany({
       where: {
-        updatedAt: { lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }
+        updatedAt: { lt: new Date(Date.now() - 100 * 24 * 60 * 60 * 1000) }
       }
     });
     logger.info(
-      `Cleaned up ${count} draft publications that are older than 30 days`
+      `Cleaned up ${count} draft publications that are older than 100 days`
     );
 
     return res.status(200).json({ success: true });

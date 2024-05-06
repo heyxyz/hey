@@ -19,6 +19,7 @@ type ExtensionRequest = {
   properties?: string;
   referrer?: string;
   url: string;
+  version: string;
 };
 
 const validationSchema = object({
@@ -27,7 +28,8 @@ const validationSchema = object({
   platform: string(),
   properties: any(),
   referrer: string().nullable().optional(),
-  url: string()
+  url: string(),
+  version: string().nullable().optional()
 });
 
 export const post: Handler = async (req, res) => {
@@ -44,7 +46,7 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  const { fingerprint, name, platform, properties, referrer, url } =
+  const { fingerprint, name, platform, properties, referrer, url, version } =
     body as ExtensionRequest;
 
   if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
@@ -110,6 +112,7 @@ export const post: Handler = async (req, res) => {
           utm_medium: utmMedium || null,
           utm_source: utmSource || null,
           utm_term: utmTerm || null,
+          version: version || null,
           wallet: payload.evmAddress || null
         }
       ]
