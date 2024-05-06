@@ -4,8 +4,14 @@ import type {
 } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import {
+  BanknotesIcon,
+  DocumentTextIcon,
+  NoSymbolIcon
+} from '@heroicons/react/24/outline';
+import { HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
@@ -15,9 +21,11 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import { useToggle } from '@uidotdev/usehooks';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface GardenerActionsProps {
   publication: MirrorablePublication;
@@ -25,6 +33,7 @@ interface GardenerActionsProps {
 
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { pathname } = useRouter();
+  const { staffMode } = useFeatureFlagsStore();
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
   const [hasReported, toggletHasReported] = useToggle(
     publication.operations?.hasReported
@@ -57,10 +66,26 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     });
   };
 
+  const updateFeatureFlag = (id: string) => {
+    toast.promise(
+      axios.post(
+        `${HEY_API_URL}/internal/features/assign`,
+        { enabled: true, id, profile_id: publication.by.id },
+        { headers: getAuthApiHeaders() }
+      ),
+      {
+        error: 'Error suspending profile',
+        loading: 'Suspending profile...',
+        success: 'Profile suspended'
+      }
+    );
+  };
+
   interface ReportButtonProps {
     config: { subreason: string; type: string }[];
     icon: ReactNode;
     label: string;
+    onClick?: () => void;
     type: string;
   }
 
@@ -68,6 +93,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     config,
     icon,
     label,
+    onClick,
     type
   }) => (
     <Button
@@ -78,7 +104,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
           publication_id: publication.id,
           type
         });
-
+        onClick?.();
         toast.promise(
           Promise.all(
             config.map(async ({ subreason, type }) => {
@@ -97,7 +123,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       }}
       outline
       size="sm"
-      variant="warning"
+      variant={type === 'suspend' ? 'danger' : 'warning'}
     >
       {label}
     </Button>
@@ -145,6 +171,30 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         label="Both"
         type="both"
       />
+      {staffMode && (
+        <ReportButton
+          config={[
+            {
+              subreason: PublicationReportingSpamSubreason.FakeEngagement,
+              type: 'spamReason'
+            },
+            {
+              subreason: PublicationReportingSpamSubreason.LowSignal,
+              type: 'spamReason'
+            },
+            {
+              subreason: PublicationReportingSpamSubreason.Misleading,
+              type: 'spamReason'
+            }
+          ]}
+          icon={<NoSymbolIcon className="size-4" />}
+          label="Suspend"
+          onClick={() =>
+            updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')
+          }
+          type="suspend"
+        />
+      )}
     </span>
   );
 };
