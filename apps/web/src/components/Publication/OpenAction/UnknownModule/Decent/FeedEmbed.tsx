@@ -116,9 +116,8 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
           ...prevNft,
           chain: actionData.uiData.dstChainId.toString() || prevNft.chain,
           collectionName: actionData.uiData.nftName || prevNft.collectionName,
-          creatorAddress:
-            `0x${actionData.uiData.nftCreatorAddress}` ||
-            prevNft.creatorAddress,
+          creatorAddress: (actionData.uiData.nftCreatorAddress ||
+            prevNft.creatorAddress) as `0x{string}`,
           mediaUrl:
             sanitizeDStorageUrl(actionData.uiData.nftUri) || prevNft.mediaUrl,
           schema: actionData.uiData.tokenStandard || prevNft.schema

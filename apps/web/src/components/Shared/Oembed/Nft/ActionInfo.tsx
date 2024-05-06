@@ -81,7 +81,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
           <p className="opacity-50">
             by{' '}
             {profileExists
-              ? getProfile(data?.defaultProfile as Profile).slug
+              ? `@` + getProfile(data?.defaultProfile as Profile).slug
               : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
           </p>
         </span>
