@@ -1,6 +1,6 @@
 import { formatUnits } from 'viem';
 
-interface BalanceData {
+export interface BalanceData {
   decimals: number;
   fiatRate: number;
   value: bigint;
