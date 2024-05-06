@@ -1,8 +1,8 @@
 import type { Nft, OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
-import errorToast from '@helpers/errorToast';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { ZERO_ADDRESS } from '@hey/data/constants';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
@@ -10,7 +10,7 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Image, Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 
 import {
   OPEN_ACTION_EMBED_TOOLTIP,
@@ -29,23 +29,25 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
   openActionEmbed,
   openActionEmbedLoading
 }) => {
-  const fetchUiData = async () => {
+  const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
+
+  const getUiData = async () => {
     const nftOpenActionKit = getNftOpenActionKit();
     try {
       const uiDataResult = await nftOpenActionKit.generateUiData({
         contentURI: og.url
       });
+
       return uiDataResult;
     } catch (error) {
-      errorToast(error);
       return null;
     }
   };
 
   const { data: uiData, isLoading } = useQuery({
     enabled: Boolean(og.url),
-    queryFn: fetchUiData,
-    queryKey: ['fetchUiData', og.url]
+    queryFn: getUiData,
+    queryKey: ['getUiData', og.url]
   });
 
   const nft: Nft = {
@@ -65,8 +67,6 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
     schema: uiData?.tokenStandard || og.nft?.schema || '',
     sourceUrl: og.url
   };
-
-  const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
