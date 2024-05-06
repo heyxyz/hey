@@ -47,7 +47,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
     const hostname = new URL(url).hostname.replace('www.', '');
 
     if (ALLOWED_HTML_HOSTS.includes(hostname)) {
-      return <div className="shimmer h-[415px] w-full rounded-xl" />;
+      return <div className="shimmer mt-4 h-[415px] w-full rounded-xl" />;
     }
 
     return <EmptyOembed url={url} />;
