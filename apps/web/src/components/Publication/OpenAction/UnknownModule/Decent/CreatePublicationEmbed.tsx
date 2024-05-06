@@ -93,7 +93,6 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
               />
             ) : null}
           </div>
-
           {openActionEmbedLoading ? (
             <Spinner size="xs" />
           ) : openActionEmbed ? (
