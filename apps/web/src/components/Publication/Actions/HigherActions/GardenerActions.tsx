@@ -15,6 +15,7 @@ import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { GARDENER } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
+  PublicationReportingReason,
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@hey/lens';
@@ -42,12 +43,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { cache } = useApolloClient();
 
   const reportPublication = async ({
-    reason,
     subreason,
     suspended
   }: {
-    reason: string;
-    subreason: string;
+    subreason: PublicationReportingSpamSubreason;
     suspended?: boolean;
   }) => {
     if (pathname === '/mod') {
@@ -59,10 +58,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       for: publication.id,
       ...(suspended && { additionalComments: `Suspended on ${APP_NAME}` }),
       reason: {
-        [reason]: {
-          reason: reason.replace('Reason', '').toUpperCase(),
-          subreason
-        }
+        spamReason: { reason: PublicationReportingReason.Spam, subreason }
       }
     };
 
@@ -88,18 +84,18 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   };
 
   interface ReportButtonProps {
-    config: { reason: string; subreason: string }[];
     icon: ReactNode;
     label: string;
     onClick?: () => void;
+    subreasons: PublicationReportingSpamSubreason[];
     type: string;
   }
 
   const ReportButton: FC<ReportButtonProps> = ({
-    config,
     icon,
     label,
     onClick,
+    subreasons,
     type
   }) => (
     <Button
@@ -113,9 +109,8 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         onClick?.();
         toast.promise(
           Promise.all(
-            config.map(async ({ reason, subreason }) => {
+            subreasons.map(async (subreason) => {
               await reportPublication({
-                reason,
                 subreason,
                 suspended:
                   type === 'suspend' &&
@@ -147,63 +142,38 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       onClick={stopEventPropagation}
     >
       <ReportButton
-        config={[
-          {
-            reason: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.LowSignal
-          }
-        ]}
         icon={<DocumentTextIcon className="size-4" />}
         label="Spam"
+        subreasons={[PublicationReportingSpamSubreason.LowSignal]}
         type="spam"
       />
       <ReportButton
-        config={[
-          {
-            reason: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.FakeEngagement
-          }
-        ]}
         icon={<BanknotesIcon className="size-4" />}
         label="Un-sponsor"
+        subreasons={[PublicationReportingSpamSubreason.FakeEngagement]}
         type="un-sponsor"
       />
       <ReportButton
-        config={[
-          {
-            reason: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.FakeEngagement
-          },
-          {
-            reason: 'spamReason',
-            subreason: PublicationReportingSpamSubreason.LowSignal
-          }
-        ]}
         icon={<BanknotesIcon className="size-4" />}
         label="Both"
+        subreasons={[
+          PublicationReportingSpamSubreason.FakeEngagement,
+          PublicationReportingSpamSubreason.LowSignal
+        ]}
         type="both"
       />
       {staffMode && (
         <ReportButton
-          config={[
-            {
-              reason: 'spamReason',
-              subreason: PublicationReportingSpamSubreason.FakeEngagement
-            },
-            {
-              reason: 'spamReason',
-              subreason: PublicationReportingSpamSubreason.LowSignal
-            },
-            {
-              reason: 'spamReason',
-              subreason: PublicationReportingSpamSubreason.Misleading
-            }
-          ]}
           icon={<NoSymbolIcon className="size-4" />}
           label="Suspend"
           onClick={() =>
             updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')
           }
+          subreasons={[
+            PublicationReportingSpamSubreason.FakeEngagement,
+            PublicationReportingSpamSubreason.LowSignal,
+            PublicationReportingSpamSubreason.Misleading
+          ]}
           type="suspend"
         />
       )}
