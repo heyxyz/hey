@@ -123,6 +123,11 @@ const List: FC = () => {
                         {feature.key}
                       </b>
                       <Badge variant="secondary">{feature.type}</Badge>
+                      {feature.assigned !== '0' && (
+                        <Badge variant="warning">
+                          {feature.assigned} assigned
+                        </Badge>
+                      )}
                     </div>
                   }
                   on={feature.enabled}

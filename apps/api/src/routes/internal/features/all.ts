@@ -13,9 +13,11 @@ export const get: Handler = async (req, res) => {
 
   try {
     const data = await heyPg.query(`
-      SELECT *
-      FROM "Feature"
-      ORDER BY priority DESC;
+      SELECT F.*, COUNT(PF."profileId") AS assigned
+      FROM "Feature" F
+      LEFT JOIN "ProfileFeature" PF ON F."id" = PF."featureId"
+      GROUP BY F."id"
+      ORDER BY F.priority DESC;    
     `);
     logger.info('All features fetched');
 
