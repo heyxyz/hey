@@ -20,9 +20,9 @@ interface CurrencySelectorProps {
 }
 
 const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
+  const { fiatRates } = useRatesStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { address } = useAccount();
-  const { fiatRates } = useRatesStore();
 
   const { data: wmaticBalanceData, isLoading: wmaticBalanceLoading } =
     useBalance({
@@ -32,11 +32,6 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
       token: SUPPORTED_CURRENCIES.WMATIC
     });
 
-  const wmaticPriceUsd =
-    fiatRates.find(
-      (rate) => rate.address === SUPPORTED_CURRENCIES.WMATIC.toLowerCase()
-    )?.fiat || 0;
-
   const { data: wethBalanceData, isLoading: wethBalanceLoading } = useBalance({
     address,
     chainId: 137,
@@ -44,17 +39,22 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
     token: SUPPORTED_CURRENCIES.WETH
   });
 
-  const wethPriceUsd =
-    fiatRates.find(
-      (rate) => rate.address === SUPPORTED_CURRENCIES.WETH.toLowerCase()
-    )?.fiat || 0;
-
   const { data: usdcBalanceData, isLoading: usdcBalanceLoading } = useBalance({
     address,
     chainId: 137,
     query: { refetchInterval: 10000 },
     token: SUPPORTED_CURRENCIES.USDC
   });
+
+  const wmaticPriceUsd =
+    fiatRates.find(
+      (rate) => rate.address === SUPPORTED_CURRENCIES.WMATIC.toLowerCase()
+    )?.fiat || 0;
+
+  const wethPriceUsd =
+    fiatRates.find(
+      (rate) => rate.address === SUPPORTED_CURRENCIES.WETH.toLowerCase()
+    )?.fiat || 0;
 
   const usdcPriceUsd =
     fiatRates.find(
@@ -83,7 +83,6 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
   };
 
   const balances = formatTokenBalances(balanceData);
-
   const isLoading =
     wmaticBalanceLoading || wethBalanceLoading || usdcBalanceLoading;
 
