@@ -4,7 +4,7 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
-import type { PublicationInfo } from 'nft-openaction-kit';
+import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
@@ -49,7 +49,7 @@ const formatPublicationData = (
   };
 };
 
-interface DecentOpenActionProps {
+interface FeedEmbedProps {
   isFullPublication?: boolean;
   mirrorPublication?: AnyPublication;
   og: OG;
@@ -58,7 +58,7 @@ interface DecentOpenActionProps {
   publication: AnyPublication;
 }
 
-const FeedEmbed: FC<DecentOpenActionProps> = ({
+const FeedEmbed: FC<FeedEmbedProps> = ({
   mirrorPublication,
   og,
   openActionEmbed,
@@ -93,7 +93,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
     (module) => module.contract.address === VerifiedOpenActionModules.DecentNFT
   );
 
-  const fetchActionData = async () => {
+  const getActionData = async (): Promise<ActionData> => {
     const nftOpenActionKit = getNftOpenActionKit();
     const pubInfo = formatPublicationData(targetPublication);
 
@@ -112,7 +112,6 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
         srcChainId: CHAIN.id.toString()
       })
       .then((actionData) => {
-        console.log(actionData);
         setNft((prevNft) => ({
           ...prevNft,
           chain: actionData.uiData.dstChainId.toString() || prevNft.chain,
@@ -124,6 +123,7 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
             sanitizeDStorageUrl(actionData.uiData.nftUri) || prevNft.mediaUrl,
           schema: actionData.uiData.tokenStandard || prevNft.schema
         }));
+
         return actionData;
       });
   };
@@ -138,9 +138,9 @@ const FeedEmbed: FC<DecentOpenActionProps> = ({
       Boolean(selectedNftOaCurrency) &&
       Boolean(address) &&
       Boolean(targetPublication),
-    queryFn: fetchActionData,
+    queryFn: getActionData,
     queryKey: [
-      'fetchActionData',
+      'getActionData',
       selectedNftOaCurrency,
       selectedQuantity,
       address,
