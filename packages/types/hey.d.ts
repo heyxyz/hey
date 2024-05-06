@@ -9,6 +9,7 @@ export type StaffPick = {
 };
 
 export type Feature = {
+  assigned: string;
   createdAt: Date;
   enabled: boolean;
   id: string;
