@@ -39,6 +39,7 @@ import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Image, Modal } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -408,12 +409,24 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     src={prevImageUrl}
                   />
                 )}
-                <Image
-                  alt={actionData?.uiData.nftName}
-                  className={`aspect-[1.5] max-h-[350px] w-full rounded-xl object-contain ${isImageLoading ? 'invisible' : 'visible'}`}
-                  onLoad={handleImageLoaded}
-                  src={currentImageUrl}
-                />
+                <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-xl">
+                  <Image
+                    alt={`Blurred background for ${nft.collectionName}`}
+                    className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg filter"
+                    src={currentImageUrl}
+                  />
+                  <Image
+                    alt={nft.collectionName}
+                    className={cn(
+                      'relative aspect-[1.5] h-full w-full object-contain transition-opacity duration-500',
+                      isImageLoading
+                        ? 'invisible opacity-0'
+                        : 'visible opacity-100'
+                    )}
+                    onLoad={handleImageLoaded}
+                    src={currentImageUrl}
+                  />
+                </div>
                 {isImageLoading && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="spinner">Loading...</div>{' '}

@@ -158,15 +158,20 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
   return (
     <>
       <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
-        <div className="relative">
+        <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-t-xl">
           <Image
-            alt={nft.mediaUrl.length ? nft.collectionName : undefined}
+            alt={nft.collectionName}
+            className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg filter"
+            src={nft.mediaUrl}
+          />
+          <Image
+            alt={nft.collectionName}
             className={cn(
-              'h-[350px] max-h-[350px] w-full rounded-t-xl object-contain',
-              isNftCoverLoaded ? 'visible' : 'invisible'
+              'relative h-full w-full object-contain transition-opacity duration-500',
+              isNftCoverLoaded ? 'visible opacity-100' : 'invisible opacity-0'
             )}
             onLoad={() => setIsNftCoverLoaded(true)}
-            src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
+            src={nft.mediaUrl}
           />
         </div>
         {actionData && Boolean(nft) && !loadingActionData ? (
