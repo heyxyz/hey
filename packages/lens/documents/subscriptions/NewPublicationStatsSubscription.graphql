@@ -1,5 +1,6 @@
 subscription NewPublicationStatsSubscription($for: PublicationId!) {
   newPublicationStats(for: $for) {
+    id
     reactions
   }
 }

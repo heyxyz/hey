@@ -58,7 +58,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
           fields: {
             reactions: () => data.data?.newPublicationStats.reactions || 0
           },
-          id: cache.identify(targetPublication.stats)
+          id: `PublicationStats:${data.data?.newPublicationStats.id}`
         });
       }
     },
