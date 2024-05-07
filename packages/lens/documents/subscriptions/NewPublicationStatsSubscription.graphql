@@ -2,5 +2,9 @@ subscription NewPublicationStatsSubscription($for: PublicationId!) {
   newPublicationStats(for: $for) {
     id
     reactions
+    comments
+    mirrors
+    quotes
+    countOpenActions
   }
 }

@@ -56,6 +56,11 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       if (data.data?.newPublicationStats) {
         cache.modify({
           fields: {
+            comments: () => data.data?.newPublicationStats.comments || 0,
+            countOpenActions: () =>
+              data.data?.newPublicationStats.countOpenActions || 0,
+            mirrors: () => data.data?.newPublicationStats.mirrors || 0,
+            quotes: () => data.data?.newPublicationStats.quotes || 0,
             reactions: () => data.data?.newPublicationStats.reactions || 0
           },
           id: `PublicationStats:${data.data?.newPublicationStats.id}`
