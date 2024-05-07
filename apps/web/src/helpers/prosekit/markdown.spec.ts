@@ -15,7 +15,7 @@ describe('markdownFromHTML', () => {
   test('should not escape mention handles with _', () => {
     const html =
       '<p>A normal handle: <span>@lens/foo</span></p>' +
-      '<p>A handle with underscore: <span>@lens/foo_bar</span></p>' 
+      '<p>A handle with underscore: <span>@lens/foo_bar</span></p>';
     const markdown = markdownFromHTML(html);
     expect(markdown).toContain('@lens/foo');
     expect(markdown).toContain('@lens/foo_bar');
