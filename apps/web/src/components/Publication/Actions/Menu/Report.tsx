@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
@@ -8,7 +8,7 @@ import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface ReportProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const Report: FC<ReportProps> = ({ publication }) => {
