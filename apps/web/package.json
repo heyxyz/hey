@@ -12,6 +12,7 @@
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "start": "next start --port 4783",
+    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -92,6 +93,7 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
   }
 }
