@@ -4,7 +4,7 @@ import { createClient } from 'graphql-ws';
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    keepAlive: 5000,
+    keepAlive: 10000,
     url: LENS_API_URL.replace('http', 'ws')
   })
 );

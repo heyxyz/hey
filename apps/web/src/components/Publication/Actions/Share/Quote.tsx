@@ -21,7 +21,6 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPublication } = usePublicationStore();
   const { isSuspended } = useProfileRestriction();
-
   const publicationType = publication.__typename;
 
   if (publication.operations.canQuote === TriStateValue.No) {
