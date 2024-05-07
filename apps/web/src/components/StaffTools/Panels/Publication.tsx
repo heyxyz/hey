@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
@@ -8,23 +8,17 @@ import {
   TagIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import {
-  isCommentPublication,
-  isMirrorPublication
-} from '@hey/helpers/publicationHelpers';
+import { isCommentPublication } from '@hey/helpers/publicationHelpers';
 import { Card } from '@hey/ui';
 
 interface PublicationStaffToolProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   publication
 }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const isComment = isCommentPublication(targetPublication);
+  const isComment = isCommentPublication(publication);
 
   return (
     <Card
@@ -48,29 +42,29 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
           <MetaDetails
             icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
             title="Comment on"
-            value={targetPublication?.commentOn?.id}
+            value={publication?.commentOn?.id}
           >
-            {targetPublication?.commentOn?.id}
+            {publication?.commentOn?.id}
           </MetaDetails>
         ) : null}
-        {targetPublication?.openActionModules?.length ? (
+        {publication?.openActionModules?.length ? (
           <MetaDetails
             icon={<RectangleStackIcon className="ld-text-gray-500 size-4" />}
             noFlex
             title="Open action modules"
           >
-            {(targetPublication?.openActionModules || []).map((module) => (
+            {(publication?.openActionModules || []).map((module) => (
               <div key={module.__typename}>{module.__typename}</div>
             ))}
           </MetaDetails>
         ) : null}
-        {(targetPublication?.metadata.tags || []).length > 0 ? (
+        {(publication?.metadata.tags || []).length > 0 ? (
           <MetaDetails
             icon={<TagIcon className="ld-text-gray-500 size-4" />}
             noFlex
             title="Tags"
           >
-            {(targetPublication?.metadata?.tags || []).map((tag) => (
+            {(publication?.metadata?.tags || []).map((tag) => (
               <div key={tag}>{tag}</div>
             ))}
           </MetaDetails>

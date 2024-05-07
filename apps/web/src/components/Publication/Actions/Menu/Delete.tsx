@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
@@ -8,7 +8,7 @@ import cn from '@hey/ui/cn';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
 interface DeleteProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const Delete: FC<DeleteProps> = ({ publication }) => {

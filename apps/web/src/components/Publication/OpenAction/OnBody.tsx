@@ -1,24 +1,19 @@
 import type {
-  AnyPublication,
+  MirrorablePublication,
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { FC } from 'react';
 
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 
 import SwapOpenAction from './UnknownModule/Swap';
 
 interface OpenActionOnBodyProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-
-  const module = targetPublication.openActionModules.find(
+  const module = publication.openActionModules.find(
     (module) => module.contract.address === VerifiedOpenActionModules.Swap
   );
 
@@ -31,7 +26,7 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
       {module.contract.address === VerifiedOpenActionModules.Swap && (
         <SwapOpenAction
           module={module as UnknownOpenActionModuleSettings}
-          publication={targetPublication}
+          publication={publication}
         />
       )}
     </div>
