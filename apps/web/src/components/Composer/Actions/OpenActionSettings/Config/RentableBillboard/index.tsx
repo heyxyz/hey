@@ -9,7 +9,13 @@ import { useModuleMetadataQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
-import { encodeAbiParameters, isAddress, toBytes, toHex } from 'viem';
+import {
+  encodeAbiParameters,
+  isAddress,
+  parseEther,
+  toBytes,
+  toHex
+} from 'viem';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
@@ -78,13 +84,13 @@ const RentableBillboardConfig: FC = () => {
       data: encodeAbiParameters(
         JSON.parse(data?.moduleMetadata?.metadata.initializeCalldataABI),
         [
-          currency.token as Address,
-          false,
-          '1000',
-          '0',
-          '500',
-          '0',
-          toHex(toBytes('', { size: 32 }))
+          currency.token as Address, // currency
+          true, // allowOpenAction
+          parseEther('1').toString(), // costPerSecond
+          0, // expiresAt
+          250, // clientFeePerActBps
+          0, // referralFeePerActBps
+          toHex(toBytes('', { size: 32 })) // interestMerkleRoot
         ]
       )
     });
