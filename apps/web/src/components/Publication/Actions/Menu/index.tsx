@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
@@ -19,7 +19,7 @@ import Share from './Share';
 import Translate from './Translate';
 
 interface PublicationMenuProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {

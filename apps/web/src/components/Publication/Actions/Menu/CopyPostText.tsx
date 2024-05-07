@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
@@ -6,22 +6,18 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const publicationType = targetPublication.__typename;
+  const publicationType = publication.__typename;
   const filteredContent =
-    getPublicationData(targetPublication.metadata)?.content || '';
+    getPublicationData(publication.metadata)?.content || '';
 
   return (
     <Menu.Item

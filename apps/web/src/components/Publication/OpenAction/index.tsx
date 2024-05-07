@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
@@ -9,7 +9,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
@@ -19,23 +18,20 @@ import { useState } from 'react';
 import CollectModule from './CollectModule';
 
 interface OpenActionProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
   showCount: boolean;
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const openActions = targetPublication.openActionModules.filter((module) =>
+  const openActions = publication.openActionModules.filter((module) =>
     allowedOpenActionModules.includes(module.type)
   );
 
   const hasActed =
-    targetPublication.operations.hasActed.value ||
-    hasOptimisticallyCollected(targetPublication.id);
-  const { countOpenActions } = targetPublication.stats;
+    publication.operations.hasActed.value ||
+    hasOptimisticallyCollected(publication.id);
+  const { countOpenActions } = publication.stats;
 
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
