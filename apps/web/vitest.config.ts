@@ -1,5 +1,9 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  test: { globals: true, testTimeout: 30000, alias: { '@helpers': '/src/helpers' } },
+  test: {
+    alias: { '@helpers': '/src/helpers' },
+    globals: true,
+    testTimeout: 30000
+  }
 });
