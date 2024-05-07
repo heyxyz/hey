@@ -1,10 +1,9 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { TriStateValue } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
@@ -14,7 +13,7 @@ import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestric
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface QuoteProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
@@ -23,12 +22,9 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   const { setQuotedPublication } = usePublicationStore();
   const { isSuspended } = useProfileRestriction();
 
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const publicationType = targetPublication.__typename;
+  const publicationType = publication.__typename;
 
-  if (targetPublication.operations.canQuote === TriStateValue.No) {
+  if (publication.operations.canQuote === TriStateValue.No) {
     return null;
   }
 

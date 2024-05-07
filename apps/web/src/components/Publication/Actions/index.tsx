@@ -1,10 +1,12 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
+import { useApolloClient } from '@apollo/client';
 import getPublicationViewCountById from '@hey/helpers/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/helpers/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { useNewPublicationStatsSubscriptionSubscription } from '@hey/lens';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -33,6 +35,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const { currentProfile } = useProfileStore();
   const { gardenerMode } = useFeatureFlagsStore();
   const { publicationViews } = useImpressionsStore();
+
+  const { cache } = useApolloClient();
+
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
 
   const canMirror = currentProfile
@@ -46,6 +51,21 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     targetPublication.id
   );
 
+  useNewPublicationStatsSubscriptionSubscription({
+    onData: ({ data }) => {
+      if (data.data?.newPublicationStats) {
+        cache.modify({
+          fields: {
+            reactions: () => data.data?.newPublicationStats.reactions || 0
+          },
+          id: cache.identify(targetPublication.stats)
+        });
+      }
+    },
+    skip: !targetPublication.id,
+    variables: { for: targetPublication.id }
+  });
+
   return (
     <span
       className="-ml-2 mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
@@ -53,11 +73,11 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     >
       <Comment publication={targetPublication} showCount={showCount} />
       {canMirror ? (
-        <ShareMenu publication={publication} showCount={showCount} />
+        <ShareMenu publication={targetPublication} showCount={showCount} />
       ) : null}
       <Like publication={targetPublication} showCount={showCount} />
       {canAct ? (
-        <OpenAction publication={publication} showCount={showCount} />
+        <OpenAction publication={targetPublication} showCount={showCount} />
       ) : null}
       {canTip ? (
         <Tip publication={targetPublication} showCount={showCount} />

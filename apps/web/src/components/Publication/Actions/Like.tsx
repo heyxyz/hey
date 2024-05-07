@@ -1,6 +1,5 @@
 import type { ApolloCache } from '@apollo/client';
 import type { MirrorablePublication, ReactionRequest } from '@hey/lens';
-import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
@@ -18,6 +17,7 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
+import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -34,9 +34,14 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const [hasReacted, toggleReact] = useToggle(
     publication.operations.hasReacted
   );
-  const [reactions, { decrement, increment }] = useCounter(
+  const [reactions, { decrement, increment, set }] = useCounter(
     publication.stats.reactions
   );
+
+  useEffect(() => {
+    set(publication.stats.reactions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publication.stats.reactions]);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({

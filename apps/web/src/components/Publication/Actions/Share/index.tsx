@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
@@ -7,7 +7,6 @@ import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirr
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -19,21 +18,17 @@ import Quote from './Quote';
 import UndoMirror from './UndoMirror';
 
 interface ShareMenuProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
   showCount: boolean;
 }
 
 const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
   const hasShared =
-    targetPublication.operations.hasMirrored ||
-    targetPublication.operations.hasQuoted ||
-    hasOptimisticallyMirrored(targetPublication.id);
-  const shares =
-    targetPublication.stats.mirrors + targetPublication.stats.quotes;
+    publication.operations.hasMirrored ||
+    publication.operations.hasQuoted ||
+    hasOptimisticallyMirrored(publication.id);
+  const shares = publication.stats.mirrors + publication.stats.quotes;
 
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
@@ -79,18 +74,18 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
           >
             <Mirror
               isLoading={isLoading}
-              publication={targetPublication}
+              publication={publication}
               setIsLoading={setIsLoading}
             />
-            {targetPublication.operations.hasMirrored &&
-              targetPublication.id !== publication.id && (
+            {publication.operations.hasMirrored &&
+              publication.id !== publication.id && (
                 <UndoMirror
                   isLoading={isLoading}
                   publication={publication}
                   setIsLoading={setIsLoading}
                 />
               )}
-            <Quote publication={targetPublication} />
+            <Quote publication={publication} />
           </Menu.Items>
         </MenuTransition>
       </Menu>
