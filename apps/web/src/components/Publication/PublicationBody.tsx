@@ -127,9 +127,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           <Video src={metadata.liveURL || metadata.playbackURL} />
         </div>
       ) : null}
-      {showOembed ? <Oembed publication={publication} url={urls[0]} /> : null}
+      {showOembed ? (
+        <Oembed publication={targetPublication} url={urls[0]} />
+      ) : null}
       {showSharingLink ? (
-        <Oembed publication={publication} url={metadata.sharingLink} />
+        <Oembed publication={targetPublication} url={metadata.sharingLink} />
       ) : null}
       {showQuote && <Quote publication={targetPublication.quoteOn} />}
       <Metadata metadata={targetPublication.metadata} />

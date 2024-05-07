@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
@@ -10,7 +10,7 @@ import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
 
 interface ShareProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const Share: FC<ShareProps> = ({ publication }) => {

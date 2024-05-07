@@ -1,3 +1,7 @@
+import type {
+  MirrorablePublication,
+  PublicationNotInterestedRequest
+} from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
@@ -6,11 +10,8 @@ import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
-  type AnyPublication,
-  type PublicationNotInterestedRequest,
   useAddPublicationNotInterestedMutation,
   useUndoPublicationNotInterestedMutation
 } from '@hey/lens';
@@ -18,14 +19,11 @@ import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-  const notInterested = targetPublication.operations.isNotInterested;
+  const notInterested = publication.operations.isNotInterested;
 
   const request: PublicationNotInterestedRequest = {
     on: publication.id
@@ -38,7 +36,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
           return { ...existingValue, isNotInterested: notInterested };
         }
       },
-      id: cache.identify(targetPublication)
+      id: cache.identify(publication)
     });
   };
 

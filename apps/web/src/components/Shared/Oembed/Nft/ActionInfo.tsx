@@ -79,7 +79,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
             {truncateByWords(collectionName, 4)}
           </h2>
           <p className="opacity-50">
-            by{' '}
+            by {loading && 'looooo'}
             {profileExists
               ? `@` + getProfile(data?.defaultProfile as Profile).slug
               : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
