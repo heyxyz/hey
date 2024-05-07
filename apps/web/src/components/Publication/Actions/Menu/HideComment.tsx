@@ -1,6 +1,6 @@
 import type {
-  AnyPublication,
   HideCommentRequest,
+  MirrorablePublication,
   UnhideCommentRequest
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
@@ -12,7 +12,6 @@ import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useHideCommentMutation, useUnhideCommentMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
@@ -20,14 +19,11 @@ import { toast } from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface HideCommentProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const HideComment: FC<HideCommentProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
   const request: HideCommentRequest | UnhideCommentRequest = {
@@ -68,7 +64,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
     variables: { request }
   });
 
-  const canHideComment = currentProfile?.id !== targetPublication?.by?.id;
+  const canHideComment = currentProfile?.id !== publication?.by?.id;
 
   if (!canHideComment) {
     return null;

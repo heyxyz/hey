@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { Menu } from '@headlessui/react';
@@ -6,22 +6,18 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import urlcat from 'urlcat';
 
 interface TranslateProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const Translate: FC<TranslateProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
   const filteredContent =
-    getPublicationData(targetPublication.metadata)?.content || '';
+    getPublicationData(publication.metadata)?.content || '';
 
   if (filteredContent.length < 1) {
     return null;

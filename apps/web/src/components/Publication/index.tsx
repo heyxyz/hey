@@ -182,7 +182,9 @@ const ViewPublication: NextPage = () => {
           profilesMentioned={targetPublication.profilesMentioned}
         />
         <OnchainMeta publication={targetPublication} />
-        {staffMode ? <PublicationStaffTool publication={publication} /> : null}
+        {staffMode ? (
+          <PublicationStaffTool publication={targetPublication} />
+        ) : null}
         <Footer />
       </GridItemFour>
     </GridLayout>
