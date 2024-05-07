@@ -128,10 +128,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         </div>
       ) : null}
       {showOembed ? (
-        <Oembed publicationId={publication.id} url={urls[0]} />
+        <Oembed publicationId={targetPublication.id} url={urls[0]} />
       ) : null}
       {showSharingLink ? (
-        <Oembed publicationId={publication.id} url={metadata.sharingLink} />
+        <Oembed
+          publicationId={targetPublication.id}
+          url={metadata.sharingLink}
+        />
       ) : null}
       {showQuote && <Quote publication={targetPublication.quoteOn} />}
       <Metadata metadata={targetPublication.metadata} />
