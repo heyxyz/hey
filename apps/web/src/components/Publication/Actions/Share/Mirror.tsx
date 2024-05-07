@@ -1,5 +1,5 @@
 import type {
-  AnyPublication,
+  MirrorablePublication,
   MomokaMirrorRequest,
   OnchainMirrorRequest
 } from '@hey/lens';
@@ -19,7 +19,6 @@ import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
 import getSignature from '@hey/helpers/getSignature';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
@@ -42,7 +41,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface MirrorProps {
   isLoading: boolean;
-  publication: AnyPublication;
+  publication: MirrorablePublication;
   setIsLoading: (isLoading: boolean) => void;
 }
 
@@ -55,15 +54,12 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     lensHubOnchainSigNonce
   } = useNonceStore();
   const { addTransaction } = useTransactionStore();
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
   const hasMirrored =
-    targetPublication.operations.hasMirrored ||
-    hasOptimisticallyMirrored(targetPublication.id);
+    publication.operations.hasMirrored ||
+    hasOptimisticallyMirrored(publication.id);
 
   const [shares, { increment }] = useCounter(
-    targetPublication.stats.mirrors + targetPublication.stats.quotes
+    publication.stats.mirrors + publication.stats.quotes
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -80,7 +76,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     txId?: string;
   }): OptimisticTransaction => {
     return {
-      mirrorOn: targetPublication?.id,
+      mirrorOn: publication?.id,
       txHash,
       txId,
       type: OptmisticPublicationType.Mirror
@@ -94,11 +90,11 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
           return { ...existingValue, hasMirrored: true };
         }
       },
-      id: cache.identify(targetPublication)
+      id: cache.identify(publication)
     });
     cache.modify({
       fields: { mirrors: () => shares + 1 },
-      id: cache.identify(targetPublication.stats)
+      id: cache.identify(publication.stats)
     });
   };
 
@@ -232,7 +228,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     onError
   });
 
-  if (targetPublication.operations.canMirror === TriStateValue.No) {
+  if (publication.operations.canMirror === TriStateValue.No) {
     return null;
   }
 
