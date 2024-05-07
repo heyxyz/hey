@@ -1,5 +1,6 @@
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 
+import isVerified from '@helpers/isVerified';
 import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
 import { LimitType, useSearchProfilesLazyQuery } from '@hey/lens';
@@ -13,6 +14,7 @@ export type MentionProfile = {
   id: string;
   name: string;
   picture: string;
+  pqScore: number;
 };
 
 const useMentionQuery = (query: string): MentionProfile[] => {
@@ -25,18 +27,12 @@ const useMentionQuery = (query: string): MentionProfile[] => {
       return;
     }
 
-    let cancelled = false;
-
     const request: ProfileSearchRequest = {
       limit: LimitType.Ten,
       query
     };
 
     searchProfiles({ variables: { request } }).then(({ data }) => {
-      if (cancelled) {
-        return;
-      }
-
       const search = data?.searchProfiles;
       const profileSearchResult = search;
       const profiles = profileSearchResult?.items as Profile[];
@@ -46,15 +42,27 @@ const useMentionQuery = (query: string): MentionProfile[] => {
           handle: getProfile(profile).slug,
           id: profile?.id,
           name: getProfile(profile).displayName,
-          picture: getAvatar(profile)
+          picture: getAvatar(profile),
+          pqScore: profile.stats.lensClassifierScore || 0
         })
       );
-      setResults(profilesResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
-    });
 
-    return () => {
-      cancelled = true;
-    };
+      setResults(
+        profilesResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT).sort((a, b) => {
+          // Convert boolean to number: true -> 1, false -> 0
+          const verifiedA = isVerified(a.id) ? 1 : 0;
+          const verifiedB = isVerified(b.id) ? 1 : 0;
+
+          // Primary sort by verification status (descending: verified first)
+          if (verifiedA !== verifiedB) {
+            return verifiedB - verifiedA;
+          }
+
+          // Secondary sort by pqScore (descending)
+          return b.pqScore - a.pqScore;
+        })
+      );
+    });
   }, [query, searchProfiles]);
 
   return results;
