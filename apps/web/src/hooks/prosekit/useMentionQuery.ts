@@ -28,7 +28,7 @@ const useMentionQuery = (query: string): MentionProfile[] => {
     }
 
     const request: ProfileSearchRequest = {
-      limit: LimitType.Ten,
+      limit: LimitType.Fifty,
       query
     };
 
