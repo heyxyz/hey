@@ -12,6 +12,7 @@
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "start": "next start --port 4783",
+    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -85,13 +86,14 @@
     "@hey/types": "workspace:*",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
-    "@types/node": "^20.12.9",
+    "@types/node": "^20.12.9",    
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
   }
 }
