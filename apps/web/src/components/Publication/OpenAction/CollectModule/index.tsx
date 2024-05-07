@@ -242,7 +242,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             countOpenActions={countOpenActions}
             onCollectSuccess={() => increment()}
             openAction={openAction}
-            publication={publication}
+            publication={targetPublication}
           />
         </div>
       </div>

@@ -1,8 +1,8 @@
 import type {
   ActOnOpenActionLensManagerRequest,
-  AnyPublication,
   ApprovedAllowanceAmountResult,
   LegacyCollectRequest,
+  MirrorablePublication,
   OpenActionModule
 } from '@hey/lens';
 import type { OptimisticTransaction } from '@hey/types/misc';
@@ -26,7 +26,6 @@ import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions'
 import getCollectModuleData from '@hey/helpers/getCollectModuleData';
 import getOpenActionActOnKey from '@hey/helpers/getOpenActionActOnKey';
 import getSignature from '@hey/helpers/getSignature';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
@@ -61,7 +60,7 @@ interface CollectActionProps {
   noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
   openAction: OpenActionModule;
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
@@ -85,15 +84,11 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const { id: sessionProfileId } = getCurrentSession();
 
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    targetPublication.operations.hasActed.value ||
-      hasOptimisticallyCollected(targetPublication.id)
+    publication.operations.hasActed.value ||
+      hasOptimisticallyCollected(publication.id)
   );
 
   const { address } = useAccount();
@@ -130,10 +125,10 @@ const CollectAction: FC<CollectActionProps> = ({
     openAction.__typename === 'SimpleCollectOpenActionSettings';
   const isFollowersOnly = collectModule?.followerOnly;
   const isFollowedByMe = isFollowersOnly
-    ? targetPublication?.by.operations.isFollowedByMe.value
+    ? publication?.by.operations.isFollowedByMe.value
     : true;
   const isFollowFinalizedOnchain = isFollowersOnly
-    ? !isFollowPending(targetPublication.by.id)
+    ? !isFollowPending(publication.by.id)
     : true;
 
   const canUseManager =
@@ -150,7 +145,7 @@ const CollectAction: FC<CollectActionProps> = ({
     txId?: string;
   }): OptimisticTransaction => {
     return {
-      collectOn: targetPublication?.id,
+      collectOn: publication?.id,
       txHash,
       txId,
       type: OptmisticPublicationType.Collect
@@ -164,11 +159,11 @@ const CollectAction: FC<CollectActionProps> = ({
           return { ...existingValue, hasActed: { value: true } };
         }
       },
-      id: cache.identify(targetPublication)
+      id: cache.identify(publication)
     });
     cache.modify({
       fields: { countOpenActions: () => countOpenActions + 1 },
-      id: cache.identify(targetPublication.stats)
+      id: cache.identify(publication.stats)
     });
   };
 
@@ -195,7 +190,7 @@ const CollectAction: FC<CollectActionProps> = ({
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       amount,
       collect_module: openAction?.type,
-      publication_id: targetPublication?.id
+      publication_id: publication?.id
     });
   };
 
@@ -377,7 +372,7 @@ const CollectAction: FC<CollectActionProps> = ({
       setIsLoading(true);
       if (isLegacyCollectModule) {
         const legcayCollectRequest: LegacyCollectRequest = {
-          on: targetPublication?.id
+          on: publication?.id
         };
 
         if (canUseManager) {
@@ -394,7 +389,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
-        for: targetPublication?.id
+        for: publication?.id
       };
 
       if (canUseManager) {
@@ -477,7 +472,7 @@ const CollectAction: FC<CollectActionProps> = ({
       <FollowUnfollowButton
         buttonClassName="w-full mt-5"
         followTitle="Follow to collect"
-        profile={targetPublication.by}
+        profile={publication.by}
       />
     );
   }

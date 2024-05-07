@@ -1,3 +1,7 @@
+import type {
+  MirrorablePublication,
+  PublicationBookmarkRequest
+} from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
@@ -7,11 +11,8 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import {
-  type AnyPublication,
-  type PublicationBookmarkRequest,
   useAddPublicationBookmarkMutation,
   useRemovePublicationBookmarkMutation
 } from '@hey/lens';
@@ -21,20 +22,16 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 
 interface BookmarkProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
-
   const [hasBookmarked, toggleHasBookmarked] = useToggle(
-    targetPublication.operations.hasBookmarked
+    publication.operations.hasBookmarked
   );
   const [bookmarks, { decrement, increment }] = useCounter(
-    targetPublication.stats.bookmarks
+    publication.stats.bookmarks
   );
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -44,18 +41,18 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           return { ...existingValue, hasBookmarked: !hasBookmarked };
         }
       },
-      id: cache.identify(targetPublication)
+      id: cache.identify(publication)
     });
     cache.modify({
       fields: {
         bookmarks: () => (hasBookmarked ? bookmarks - 1 : bookmarks + 1)
       },
-      id: cache.identify(targetPublication.stats)
+      id: cache.identify(publication.stats)
     });
 
     // Remove bookmarked publication from bookmarks feed
     if (pathname === '/bookmarks') {
-      cache.evict({ id: cache.identify(targetPublication) });
+      cache.evict({ id: cache.identify(publication) });
     }
   };
 
@@ -63,13 +60,13 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  const request: PublicationBookmarkRequest = { on: targetPublication.id };
+  const request: PublicationBookmarkRequest = { on: publication.id };
 
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success('Publication bookmarked!');
       Leafwatch.track(PUBLICATION.BOOKMARK, {
-        publication_id: targetPublication.id
+        publication_id: publication.id
       });
     },
     onError: (error) => {
@@ -85,7 +82,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     onCompleted: () => {
       toast.success('Removed publication bookmark!');
       Leafwatch.track(PUBLICATION.REMOVE_BOOKMARK, {
-        publication_id: targetPublication.id
+        publication_id: publication.id
       });
     },
     onError: (error) => {
