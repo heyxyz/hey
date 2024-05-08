@@ -103,6 +103,9 @@ const RentableBillboardConfig: FC = () => {
   });
 
   const onSave = () => {
+    const epoch = expiresAt.getTime();
+    const epochInSeconds = epoch / 1000;
+
     setOpenAction({
       address: VerifiedOpenActionModules.RentableBillboard,
       data: encodeAbiParameters(
@@ -111,7 +114,7 @@ const RentableBillboardConfig: FC = () => {
           currency.token as Address, // currency
           true, // allowOpenAction
           parseEther(costPerSecond.toString()).toString(), // costPerSecond
-          0, // expiresAt
+          epochInSeconds, // expiresAt
           250, // clientFeePerActBps
           0, // referralFeePerActBps
           toHex(toBytes('', { size: 32 })) // interestMerkleRoot
