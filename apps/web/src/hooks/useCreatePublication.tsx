@@ -126,6 +126,7 @@ const useCreatePublication = ({
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
+      __mode: 'prepared',
       abi: LensHub,
       address: LENS_HUB,
       args,
@@ -162,7 +163,7 @@ const useCreatePublication = ({
     const { id, typedData } = generatedData;
     await handleWrongNetwork();
 
-    if (canBroadcast) {
+    if (!canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
       if (isMomokaPublication) {
         return await broadcastOnMomoka({
