@@ -5,7 +5,7 @@ import type {
 import type { FC } from 'react';
 
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Card } from '@hey/ui';
+import { Button, Card } from '@hey/ui';
 
 interface RentableBillboardOpenActionProps {
   module: UnknownOpenActionModuleSettings;
@@ -17,11 +17,18 @@ const RentableBillboardOpenAction: FC<RentableBillboardOpenActionProps> = ({
   publication
 }) => {
   return (
-    <div className="w-fit max-w-sm space-y-5" onClick={stopEventPropagation}>
-      <Card className="p-5" forceRounded>
-        gm
-      </Card>
-    </div>
+    <Card
+      className="space-y-4 p-10 text-center"
+      forceRounded
+      onClick={stopEventPropagation}
+    >
+      <div>
+        <b>
+          This post space is available for rent! Rent now to promote your post.
+        </b>
+      </div>
+      <Button>Rent now</Button>
+    </Card>
   );
 };
 
