@@ -101,7 +101,7 @@ const ApproveDelegatedExecutor: FC<ApproveDelegatedExecutorProps> = ({
     if (transactionHash && isSuccess) {
       setShowForm(true);
     }
-  }, [isSuccess]);
+  }, [isSuccess, setShowForm, transactionHash]);
 
   if (transactionHash && !isSuccess) {
     return <Loader className="my-10" message="Adding manager..." />;
