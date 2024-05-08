@@ -16,6 +16,8 @@ const getAllowanceOpenAction = (
   switch (address) {
     case VerifiedOpenActionModules.Swap:
       return { name: 'Swap Open Action' };
+    case VerifiedOpenActionModules.RentableBillboard:
+      return { name: 'Rentable Billboard' };
 
     default:
       return { name: 'Unknown Open Action' };
