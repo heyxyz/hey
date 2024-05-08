@@ -43,7 +43,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
