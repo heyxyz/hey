@@ -2,7 +2,7 @@ import { IS_MAINNET } from './constants';
 
 export const VerifiedOpenActionModules = {
   RentableBillboard: IS_MAINNET
-    ? '0x6487b9c720203ce95332cd06dcc18a78102a31d1'
+    ? '0x6f7B96f99a3904581470002cEE1c5182d8743f34'
     : '0x6487b9c720203ce95332cd06dcc18a78102a31d1',
   Swap: IS_MAINNET
     ? '0x3394E78a3389b1f0216F30fA0613f4975D0573C3'
