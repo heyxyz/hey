@@ -1,14 +1,16 @@
-import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { LensHub } from '@hey/abis';
+import { DEFAULT_COLLECT_TOKEN, LENS_HUB } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
+import { type FC, useEffect, useState } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import {
   encodeAbiParameters,
   isAddress,
@@ -16,9 +18,11 @@ import {
   toBytes,
   toHex
 } from 'viem';
+import { useReadContract } from 'wagmi';
 import { create } from 'zustand';
 
 import SaveOrCancel from '../../SaveOrCancel';
+import ApproveDelegatedExecutor from './ApproveDelegatedExecutor';
 import CostConfig from './CostConfig';
 import TimeConfig from './TimeConfig';
 import TokenConfig from './TokenConfig';
@@ -67,11 +71,31 @@ const store = create<State>((set) => ({
 export const useRentableBillboardActionStore = createTrackedSelector(store);
 
 const RentableBillboardConfig: FC = () => {
+  const { currentProfile } = useProfileStore();
   const { setOpenAction, setShowModal } = useOpenActionStore();
   const { costPerSecond, currency, enabled, expiresAt, reset, setEnabled } =
     useRentableBillboardActionStore();
+  const [showForm, setShowForm] = useState(false);
 
-  const { data, error, loading } = useModuleMetadataQuery({
+  const {
+    data: isDelegatedExecutorApproved,
+    isLoading: delegatedExecutorApprovedLoading
+  } = useReadContract({
+    abi: LensHub,
+    address: LENS_HUB,
+    args: [currentProfile?.id, VerifiedOpenActionModules.RentableBillboard],
+    functionName: 'isDelegatedExecutorApproved'
+  });
+
+  useEffect(() => {
+    setShowForm(isDelegatedExecutorApproved === true);
+  }, [isDelegatedExecutorApproved]);
+
+  const {
+    data,
+    error,
+    loading: moduleMetadataLoading
+  } = useModuleMetadataQuery({
     skip: !enabled,
     variables: {
       request: { implementation: VerifiedOpenActionModules.RentableBillboard }
@@ -86,7 +110,7 @@ const RentableBillboardConfig: FC = () => {
         [
           currency.token as Address, // currency
           true, // allowOpenAction
-          parseEther('1').toString(), // costPerSecond
+          parseEther(costPerSecond.toString()).toString(), // costPerSecond
           0, // expiresAt
           250, // clientFeePerActBps
           0, // referralFeePerActBps
@@ -115,7 +139,7 @@ const RentableBillboardConfig: FC = () => {
       {enabled && (
         <>
           <div className="divider" />
-          {loading ? (
+          {moduleMetadataLoading || delegatedExecutorApprovedLoading ? (
             <Loader className="my-10" />
           ) : error ? (
             <ErrorMessage
@@ -123,7 +147,7 @@ const RentableBillboardConfig: FC = () => {
               error={error}
               title="Failed to load module"
             />
-          ) : (
+          ) : showForm ? (
             <>
               <div className="m-5">
                 <TokenConfig />
@@ -142,6 +166,8 @@ const RentableBillboardConfig: FC = () => {
                 />
               </div>
             </>
+          ) : (
+            <ApproveDelegatedExecutor setShowForm={setShowForm} />
           )}
         </>
       )}
