@@ -4,6 +4,7 @@ import type {
 } from '@hey/lens';
 import type { FC } from 'react';
 
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 
 import RentableBillboardOpenAction from './UnknownModule/RentableBillboard';
@@ -32,13 +33,14 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
           publication={publication}
         />
       )}
-      {module.contract.address ===
-        VerifiedOpenActionModules.RentableBillboard && (
-        <RentableBillboardOpenAction
-          module={module as UnknownOpenActionModuleSettings}
-          publication={publication}
-        />
-      )}
+      {isFeatureAvailable('rent-ads') &&
+        module.contract.address ===
+          VerifiedOpenActionModules.RentableBillboard && (
+          <RentableBillboardOpenAction
+            module={module as UnknownOpenActionModuleSettings}
+            publication={publication}
+          />
+        )}
     </div>
   );
 };
