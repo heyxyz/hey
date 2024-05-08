@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 
+import RentableBillboardOpenAction from './UnknownModule/RentableBillboard';
 import SwapOpenAction from './UnknownModule/Swap';
 
 interface OpenActionOnBodyProps {
@@ -14,7 +15,9 @@ interface OpenActionOnBodyProps {
 
 const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
   const module = publication.openActionModules.find(
-    (module) => module.contract.address === VerifiedOpenActionModules.Swap
+    (module) =>
+      module.contract.address === VerifiedOpenActionModules.Swap ||
+      module.contract.address === VerifiedOpenActionModules.RentableBillboard
   );
 
   if (!module) {
@@ -25,6 +28,13 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
     <div className="mt-3">
       {module.contract.address === VerifiedOpenActionModules.Swap && (
         <SwapOpenAction
+          module={module as UnknownOpenActionModuleSettings}
+          publication={publication}
+        />
+      )}
+      {module.contract.address ===
+        VerifiedOpenActionModules.RentableBillboard && (
+        <RentableBillboardOpenAction
           module={module as UnknownOpenActionModuleSettings}
           publication={publication}
         />
