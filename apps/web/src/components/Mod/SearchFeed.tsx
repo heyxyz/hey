@@ -4,9 +4,7 @@ import type { FC } from 'react';
 import HigherActions from '@components/Publication/Actions/HigherActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { Leafwatch } from '@helpers/leafwatch';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { GARDENER } from '@hey/data/tracking';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { LimitType, useSearchPublicationsQuery } from '@hey/lens';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
@@ -26,7 +24,6 @@ const SearchFeed: FC = () => {
   } = useModFilterStore();
 
   const [query, setQuery] = useState('');
-  const [value, setValue] = useState('');
 
   // Variables
   const request: PublicationSearchRequest = {
@@ -71,24 +68,21 @@ const SearchFeed: FC = () => {
 
   const Search = () => {
     return (
-      <form
+      <div
         className="flex items-center space-x-2"
-        onSubmit={() => {
-          Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: value });
-          setQuery(value);
-        }}
+        // onSubmit={() => {
+        //   Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: value });
+        //   setQuery(value);
+        // }}
       >
         <Input
-          autoFocus
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
+          onChange={(event) => setQuery(event.target.value)}
           placeholder="Search Publications"
           type="text"
-          value={value}
+          value={query}
         />
         <Button size="lg">Search</Button>
-      </form>
+      </div>
     );
   };
 
