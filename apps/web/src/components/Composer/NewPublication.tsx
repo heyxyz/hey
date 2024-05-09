@@ -33,6 +33,7 @@ import { ReferenceModuleType } from '@hey/lens';
 import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
+import { useQuery } from '@tanstack/react-query';
 import { useUnmountEffect } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
@@ -112,8 +113,6 @@ interface NewPublicationProps {
   publication?: MirrorablePublication;
 }
 
-const nftOpenActionKit = getNftOpenActionKit();
-
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileRestriction();
@@ -174,9 +173,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
-  const [openActionEmbedLoading, setOpenActionEmbedLoading] =
-    useState<boolean>(false);
-  const [openActionEmbed, setOpenActionEmbed] = useState<any | undefined>();
 
   const editor = useEditorContext();
 
@@ -293,35 +289,41 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setPublicationContentError('');
   }, [audioPublication]);
 
-  useEffect(() => {
-    const fetchOpenActionEmbed = async () => {
-      setOpenActionEmbedLoading(true);
-      const publicationContentUrls = getURLs(publicationContent);
+  const fetchOpenActionEmbed = async (
+    publicationContent: string
+  ): Promise<any | undefined> => {
+    const nftOpenActionKit = getNftOpenActionKit();
+    const publicationContentUrls = getURLs(publicationContent);
 
-      try {
-        const calldata = await nftOpenActionKit.detectAndReturnCalldata({
-          contentURI: publicationContentUrls[0],
-          publishingClientProfileId: HEY_REFERRAL_PROFILE_ID
-        });
-        if (calldata) {
-          setOpenActionEmbed({
-            unknownOpenAction: {
-              address: VerifiedOpenActionModules.DecentNFT,
-              data: calldata
-            }
-          });
-        } else {
-          setOpenActionEmbed(undefined);
-        }
-      } catch (error_) {
-        setOpenActionEmbed(undefined);
-        setOpenActionEmbedLoading(false);
+    try {
+      const calldata = await nftOpenActionKit.detectAndReturnCalldata({
+        contentURI: publicationContentUrls[0],
+        publishingClientProfileId: HEY_REFERRAL_PROFILE_ID
+      });
+
+      if (calldata) {
+        return {
+          unknownOpenAction: {
+            address: VerifiedOpenActionModules.DecentNFT,
+            data: calldata
+          }
+        };
+      } else {
+        return undefined;
       }
-      setOpenActionEmbedLoading(false);
-    };
+    } catch (error) {
+      console.error('Error fetching open action embed:', error);
+      return undefined;
+    }
+  };
 
-    fetchOpenActionEmbed();
-  }, [publicationContent]);
+  const { data: openActionEmbed, isLoading: openActionEmbedLoading } = useQuery(
+    {
+      enabled: Boolean(publicationContent),
+      queryFn: () => fetchOpenActionEmbed(publicationContent),
+      queryKey: ['fetchOpenActionEmbed', publicationContent]
+    }
+  );
 
   const getAnimationUrl = () => {
     const fallback =
