@@ -16,17 +16,17 @@ import EmptyOembed from './EmptyOembed';
 import Player from './Player';
 
 interface OembedProps {
+  nftOpenActionEmbed?: boolean;
+  nftOpenActionEmbedLoading?: boolean;
   onLoad?: (og: OG) => void;
-  openActionEmbed?: boolean;
-  openActionEmbedLoading?: boolean;
   publication?: AnyPublication;
   url: string;
 }
 
 const Oembed: FC<OembedProps> = ({
+  nftOpenActionEmbed,
+  nftOpenActionEmbedLoading,
   onLoad,
-  openActionEmbed,
-  openActionEmbedLoading,
   publication,
   url
 }) => {
@@ -100,7 +100,7 @@ const Oembed: FC<OembedProps> = ({
   // display NFT mint / purchase embed if open action is attached to publication or new publication is being created with action attached
   // action is only available on Polygon mainnet
   const embedDecentOpenAction: boolean =
-    IS_MAINNET && (canPerformDecentAction || Boolean(openActionEmbed));
+    IS_MAINNET && (canPerformDecentAction || Boolean(nftOpenActionEmbed));
 
   if (!og.title && !og.html && !og.nft && !embedDecentOpenAction) {
     return null;
@@ -110,8 +110,8 @@ const Oembed: FC<OembedProps> = ({
     return (
       <DecentOpenAction
         og={og}
-        openActionEmbed={Boolean(openActionEmbed)}
-        openActionEmbedLoading={Boolean(openActionEmbedLoading)}
+        openActionEmbed={Boolean(nftOpenActionEmbed)}
+        openActionEmbedLoading={Boolean(nftOpenActionEmbedLoading)}
         publication={currentPublication}
       />
     );

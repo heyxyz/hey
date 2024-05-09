@@ -13,6 +13,7 @@ import type { NewAttachment } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import NewAttachments from '@components/Composer/NewAttachments';
+import OpenActionOnBody from '@components/Publication/OpenAction/OnBody';
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
@@ -68,7 +69,6 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import { Editor, useEditorContext, withEditorContext } from './Editor';
-import LinkPreviews from './LinkPreviews';
 import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
 
@@ -289,7 +289,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setPublicationContentError('');
   }, [audioPublication]);
 
-  const fetchOpenActionEmbed = async (
+  const fetchnftOpenActionEmbed = async (
     publicationContent: string
   ): Promise<any | undefined> => {
     const nftOpenActionKit = getNftOpenActionKit();
@@ -317,13 +317,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
-  const { data: openActionEmbed, isLoading: openActionEmbedLoading } = useQuery(
-    {
+  const { data: nftOpenActionEmbed, isLoading: nftOpenActionEmbedLoading } =
+    useQuery({
       enabled: Boolean(publicationContent),
-      queryFn: () => fetchOpenActionEmbed(publicationContent),
-      queryKey: ['fetchOpenActionEmbed', publicationContent]
-    }
-  );
+      queryFn: () => fetchnftOpenActionEmbed(publicationContent),
+      queryKey: ['fetchnftOpenActionEmbed', publicationContent]
+    });
 
   const getAnimationUrl = () => {
     const fallback =
@@ -418,8 +417,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       // Payload for the open action module
       const openActionModules = [];
 
-      if (Boolean(openActionEmbed)) {
-        openActionModules.push(openActionEmbed);
+      if (Boolean(nftOpenActionEmbed)) {
+        openActionModules.push(nftOpenActionEmbed);
       }
 
       if (Boolean(collectModule.type)) {
@@ -442,7 +441,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (useMomoka && !openActionEmbed) {
+      if (useMomoka && !nftOpenActionEmbed) {
         if (canUseLensManager) {
           if (isComment) {
             return await createCommentOnMomka(
@@ -593,10 +592,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       <OpenActions />
-      <LinkPreviews
-        openActionEmbed={!!openActionEmbed}
-        openActionEmbedLoading={openActionEmbedLoading}
-      />
+      {Boolean(nftOpenActionEmbed) ? (
+        <OpenActionOnBody
+          nftOpenActionEmbed={nftOpenActionEmbed}
+          nftOpenActionEmbedLoading={nftOpenActionEmbedLoading}
+          publication={publication as MirrorablePublication}
+        />
+      ) : null}
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
