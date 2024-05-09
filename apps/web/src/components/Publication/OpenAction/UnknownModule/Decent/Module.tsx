@@ -125,7 +125,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
     useActOnUnknownOpenAction({
-      signlessApproved: false, // TODO: set when new contract added to verified-modules
+      signlessApproved: true,
       successToast: 'Initiated transaction'
     });
 
