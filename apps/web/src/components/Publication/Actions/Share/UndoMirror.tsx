@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
@@ -67,11 +67,11 @@ const UndoMirror: FC<MirrorProps> = ({
   };
 
   return (
-    <Menu.Item
+    <MenuItem
       as="div"
-      className={({ active }) =>
+      className={({ focus }) =>
         cn(
-          { 'dropdown-active': active },
+          { 'dropdown-active': focus },
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
@@ -82,7 +82,7 @@ const UndoMirror: FC<MirrorProps> = ({
         <ArrowsRightLeftIcon className="size-4" />
         <div>Undo mirror</div>
       </div>
-    </Menu.Item>
+    </MenuItem>
   );
 };
 

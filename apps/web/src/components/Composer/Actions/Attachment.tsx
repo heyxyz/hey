@@ -1,7 +1,7 @@
 import type { ChangeEvent, FC, MutableRefObject } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import {
   MusicalNoteIcon,
   PhotoIcon,
@@ -98,7 +98,7 @@ const Attachment: FC = () => {
   return (
     <Tooltip content="Media" placement="top">
       <Menu as="div">
-        <Menu.Button
+        <MenuButton
           aria-label="More"
           as={motion.button}
           className="rounded-full outline-offset-8"
@@ -110,18 +110,18 @@ const Attachment: FC = () => {
           ) : (
             <PhotoIcon className="size-5" />
           )}
-        </Menu.Button>
+        </MenuButton>
         <MenuTransition show={showMenu}>
-          <Menu.Items
+          <MenuItems
             className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             ref={dropdownRef}
             static
           >
-            <Menu.Item
+            <MenuItem
               as="label"
-              className={({ active }) =>
+              className={({ focus }) =>
                 cn(
-                  { 'dropdown-active': active },
+                  { 'dropdown-active': focus },
                   'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
                 )
               }
@@ -139,12 +139,12 @@ const Attachment: FC = () => {
                 onChange={handleAttachment}
                 type="file"
               />
-            </Menu.Item>
-            <Menu.Item
+            </MenuItem>
+            <MenuItem
               as="label"
-              className={({ active }) =>
+              className={({ focus }) =>
                 cn(
-                  { 'dropdown-active': active },
+                  { 'dropdown-active': focus },
                   'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
                 )
               }
@@ -161,12 +161,12 @@ const Attachment: FC = () => {
                 onChange={handleAttachment}
                 type="file"
               />
-            </Menu.Item>
-            <Menu.Item
+            </MenuItem>
+            <MenuItem
               as="label"
-              className={({ active }) =>
+              className={({ focus }) =>
                 cn(
-                  { 'dropdown-active': active },
+                  { 'dropdown-active': focus },
                   'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
                 )
               }
@@ -183,8 +183,8 @@ const Attachment: FC = () => {
                 onChange={handleAttachment}
                 type="file"
               />
-            </Menu.Item>
-          </Menu.Items>
+            </MenuItem>
+          </MenuItems>
         </MenuTransition>
       </Menu>
     </Tooltip>

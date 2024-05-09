@@ -1,4 +1,10 @@
-import { Listbox, Transition } from '@headlessui/react';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition
+} from '@headlessui/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { forwardRef, Fragment, useState } from 'react';
@@ -37,7 +43,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <Listbox onChange={onChange} value={defaultValue || selected?.value}>
         <div className="relative">
-          <Listbox.Button
+          <ListboxButton
             className={cn(
               'flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800',
               className
@@ -54,7 +60,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               <span>{selected?.label}</span>
             </span>
             <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
-          </Listbox.Button>
+          </ListboxButton>
           <Transition
             as={Fragment}
             enter="transition ease-out duration-100"
@@ -64,7 +70,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Listbox.Options className="no-scrollbar absolute z-[5] mt-2 max-h-60 w-full overflow-auto rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+            <ListboxOptions className="no-scrollbar absolute z-[5] mt-2 max-h-60 w-full overflow-auto rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
               {showSearch ? (
                 <div className="mx-4 mt-4">
                   <Input
@@ -84,10 +90,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   option.label.toLowerCase().includes(searchValue.toLowerCase())
                 )
                 .map((option, id) => (
-                  <Listbox.Option
-                    className={({ active }: { active: boolean }) =>
+                  <ListboxOption
+                    className={({ focus }: { focus: boolean }) =>
                       cn(
-                        { 'dropdown-active': active },
+                        { 'dropdown-active': focus },
                         'm-2 cursor-pointer rounded-lg'
                       )
                     }
@@ -121,9 +127,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                         ) : null}
                       </div>
                     )}
-                  </Listbox.Option>
+                  </ListboxOption>
                 ))}
-            </Listbox.Options>
+            </ListboxOptions>
           </Transition>
         </div>
       </Listbox>
