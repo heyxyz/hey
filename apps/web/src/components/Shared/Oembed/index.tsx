@@ -13,7 +13,6 @@ import { type FC, useEffect, useState } from 'react';
 
 import Embed from './Embed';
 import EmptyOembed from './EmptyOembed';
-import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
@@ -120,10 +119,6 @@ const Oembed: FC<OembedProps> = ({
 
   if (og.html) {
     return <Player og={og} />;
-  }
-
-  if (og.nft) {
-    return <Nft nft={og.nft} />;
   }
 
   return <Embed og={og} publicationId={currentPublication?.id} />;
