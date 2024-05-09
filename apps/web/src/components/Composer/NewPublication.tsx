@@ -69,6 +69,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import { Editor, useEditorContext, withEditorContext } from './Editor';
+import LinkPreviews from './LinkPreviews';
 import OpenActions from './OpenActions';
 import Discard from './Post/Discard';
 
@@ -598,7 +599,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           nftOpenActionEmbedLoading={nftOpenActionEmbedLoading}
           publication={publication as MirrorablePublication}
         />
-      ) : null}
+      ) : (
+        <LinkPreviews />
+      )}
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
