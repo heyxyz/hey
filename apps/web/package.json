@@ -61,7 +61,7 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.0",
-    "react-tracked": "^1.7.14",
+    "react-tracked": "^2.0.0",
     "react-virtuoso": "^4.7.10",
     "rehype-parse": "^9.0.0",
     "rehype-remark": "^10.0.0",
