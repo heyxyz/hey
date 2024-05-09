@@ -70,7 +70,7 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
-      <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-xl">
+      <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-t-xl">
         <Image
           alt={`Blurred background for ${nft.collectionName}`}
           className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg filter"
