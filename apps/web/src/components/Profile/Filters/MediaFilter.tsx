@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -19,21 +19,21 @@ const MediaFilter = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md hover:bg-gray-300/20">
+      <MenuButton className="rounded-md hover:bg-gray-300/20">
         <Tooltip content="Filter" placement="top">
           <AdjustmentsVerticalIcon className="size-5" />
         </Tooltip>
-      </Menu.Button>
+      </MenuButton>
       <MenuTransition>
-        <Menu.Items
+        <MenuItems
           className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          <Menu.Item
+          <MenuItem
             as="label"
-            className={({ active }) =>
+            className={({ focus }) =>
               cn(
-                { 'dropdown-active': active },
+                { 'dropdown-active': focus },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
@@ -44,12 +44,12 @@ const MediaFilter = () => {
               name="images"
               onChange={handleChange}
             />
-          </Menu.Item>
-          <Menu.Item
+          </MenuItem>
+          <MenuItem
             as="label"
-            className={({ active }) =>
+            className={({ focus }) =>
               cn(
-                { 'dropdown-active': active },
+                { 'dropdown-active': focus },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
@@ -60,12 +60,12 @@ const MediaFilter = () => {
               name="video"
               onChange={handleChange}
             />
-          </Menu.Item>
-          <Menu.Item
+          </MenuItem>
+          <MenuItem
             as="label"
-            className={({ active }) =>
+            className={({ focus }) =>
               cn(
-                { 'dropdown-active': active },
+                { 'dropdown-active': focus },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
@@ -76,8 +76,8 @@ const MediaFilter = () => {
               name="audio"
               onChange={handleChange}
             />
-          </Menu.Item>
-        </Menu.Items>
+          </MenuItem>
+        </MenuItems>
       </MenuTransition>
     </Menu>
   );

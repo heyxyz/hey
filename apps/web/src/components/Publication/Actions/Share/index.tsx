@@ -2,7 +2,7 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/helpers/humanize';
@@ -35,7 +35,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   return (
     <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
-        <Menu.Button
+        <MenuButton
           aria-label="Mirror"
           as={motion.button}
           className={cn(
@@ -66,9 +66,9 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
               <ArrowsRightLeftIcon className={iconClassName} />
             </Tooltip>
           )}
-        </Menu.Button>
+        </MenuButton>
         <MenuTransition>
-          <Menu.Items
+          <MenuItems
             className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
@@ -86,7 +86,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
                 />
               )}
             <Quote publication={publication} />
-          </Menu.Items>
+          </MenuItems>
         </MenuTransition>
       </Menu>
       {shares > 0 && !showCount ? (

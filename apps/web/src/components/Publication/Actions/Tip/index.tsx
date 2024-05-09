@@ -2,7 +2,7 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getPublicationTipById from '@hey/helpers/getPublicationTipById';
 import nFormatter from '@hey/helpers/nFormatter';
@@ -48,7 +48,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
   return (
     <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
-        <Menu.Button
+        <MenuButton
           aria-label="Tip"
           as={motion.button}
           className={cn(
@@ -66,13 +66,13 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
               className={cn({ 'text-brand-500': tip?.tipped }, iconClassName)}
             />
           </Tooltip>
-        </Menu.Button>
+        </MenuButton>
         <MenuTransition>
-          <Menu.Items
+          <MenuItems
             className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
-            <Menu.Item>
+            <MenuItem>
               {({ close }) => (
                 <Action
                   closePopover={close}
@@ -80,8 +80,8 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
                   triggerConfetti={triggerConfetti}
                 />
               )}
-            </Menu.Item>
-          </Menu.Items>
+            </MenuItem>
+          </MenuItems>
         </MenuTransition>
       </Menu>
       {(tip?.count || 0) > 0 && !showCount ? (

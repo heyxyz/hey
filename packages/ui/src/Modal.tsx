@@ -1,6 +1,12 @@
 import type { FC, ReactNode } from 'react';
 
-import { Dialog, Transition } from '@headlessui/react';
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild
+} from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 
@@ -24,25 +30,18 @@ export const Modal: FC<ModalProps> = ({
   title
 }) => {
   return (
-    <Transition.Root as={Fragment} show={show}>
+    <Transition as={Fragment} show={show}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto p-4 text-center sm:block sm:p-0"
         onClose={() => onClose?.()}
       >
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-100"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-100"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
-        </Transition.Child>
         <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
-        <Transition.Child
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80"
+        />
+        <TransitionChild
           as={Fragment}
           enter="ease-out duration-100"
           enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -51,7 +50,7 @@ export const Modal: FC<ModalProps> = ({
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
-          <div
+          <DialogPanel
             className={cn(
               { 'sm:max-w-5xl': size === 'lg' },
               { 'sm:max-w-3xl': size === 'md' },
@@ -61,7 +60,7 @@ export const Modal: FC<ModalProps> = ({
             )}
           >
             {title ? (
-              <div className="divider flex items-center justify-between px-5 py-3.5">
+              <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
                 <div className="flex items-center space-x-2 font-bold">
                   {icon}
                   <div>{title}</div>
@@ -75,12 +74,12 @@ export const Modal: FC<ModalProps> = ({
                     <XMarkIcon className="size-5" />
                   </button>
                 ) : null}
-              </div>
+              </DialogTitle>
             ) : null}
             {children}
-          </div>
-        </Transition.Child>
+          </DialogPanel>
+        </TransitionChild>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 };

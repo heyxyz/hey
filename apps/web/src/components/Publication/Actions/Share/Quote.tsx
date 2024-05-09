@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { TriStateValue } from '@hey/lens';
@@ -28,11 +28,11 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   }
 
   return (
-    <Menu.Item
+    <MenuItem
       as="div"
-      className={({ active }) =>
+      className={({ focus }) =>
         cn(
-          { 'dropdown-active': active },
+          { 'dropdown-active': focus },
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
@@ -56,7 +56,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
           {publicationType === 'Comment' ? 'Quote comment' : 'Quote post'}
         </div>
       </div>
-    </Menu.Item>
+    </MenuItem>
   );
 };
 

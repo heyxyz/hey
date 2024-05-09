@@ -1,7 +1,11 @@
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/Staff/MetaDetails';
-import { Disclosure } from '@headlessui/react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel
+} from '@headlessui/react';
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
@@ -145,7 +149,7 @@ const Rank: FC<RankProps> = ({
           )}
         </MetaDetails>
         <Disclosure>
-          <Disclosure.Button>
+          <DisclosureButton>
             <MetaDetails
               icon={<CheckCircleIcon className="ld-text-gray-500 size-4" />}
               title="Gitcoin Score"
@@ -171,8 +175,8 @@ const Rank: FC<RankProps> = ({
                 'Not scored'
               )}
             </MetaDetails>
-          </Disclosure.Button>
-          <Disclosure.Panel>
+          </DisclosureButton>
+          <DisclosurePanel>
             {gitcoinScore?.stamp_scores &&
             Object.keys(gitcoinScore?.stamp_scores).length > 0 ? (
               <div className="ld-text-gray-500 ml-5 space-y-1 text-xs">
@@ -186,7 +190,7 @@ const Rank: FC<RankProps> = ({
                 })}
               </div>
             ) : null}
-          </Disclosure.Panel>
+          </DisclosurePanel>
         </Disclosure>
       </div>
     </>
