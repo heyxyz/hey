@@ -5,7 +5,7 @@ import type {
 import type { ApolloCache } from '@hey/lens/apollo';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
@@ -107,11 +107,11 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   };
 
   return (
-    <Menu.Item
+    <MenuItem
       as="div"
-      className={({ active }) =>
+      className={({ focus }) =>
         cn(
-          { 'dropdown-active': active },
+          { 'dropdown-active': focus },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
@@ -133,7 +133,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           </>
         )}
       </div>
-    </Menu.Item>
+    </MenuItem>
   );
 };
 

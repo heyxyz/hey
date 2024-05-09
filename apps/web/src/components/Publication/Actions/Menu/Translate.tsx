@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { Leafwatch } from '@helpers/leafwatch';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -30,11 +30,11 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
   };
 
   return (
-    <Menu.Item
+    <MenuItem
       as={Link}
-      className={({ active }) =>
+      className={({ focus }) =>
         cn(
-          { 'dropdown-active': active },
+          { 'dropdown-active': focus },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
@@ -51,7 +51,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
         <LanguageIcon className="size-4" />
         <div>Translate</div>
       </div>
-    </Menu.Item>
+    </MenuItem>
   );
 };
 
