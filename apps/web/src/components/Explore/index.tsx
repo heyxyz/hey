@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import WhoToFollow from '@components/Home/Sidebar/WhoToFollow';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
-import { Tab } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Leafwatch } from '@helpers/leafwatch';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
 import { ExplorePublicationsOrderByType } from '@hey/lens';
@@ -38,7 +38,7 @@ const Explore: NextPage = () => {
   return (
     <GridLayout>
       <GridItemEight className="space-y-5">
-        <Tab.Group
+        <TabGroup
           defaultIndex={Number(router.query.tab)}
           onChange={(index) => {
             router.replace(
@@ -48,7 +48,7 @@ const Explore: NextPage = () => {
             );
           }}
         >
-          <Tab.List className="divider space-x-8">
+          <TabList className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
                 className={({ selected }) =>
@@ -68,16 +68,16 @@ const Explore: NextPage = () => {
                 {tab.name}
               </Tab>
             ))}
-          </Tab.List>
+          </TabList>
           <FeedFocusType focus={focus} setFocus={setFocus} />
-          <Tab.Panels>
+          <TabPanels>
             {tabs.map((tab) => (
-              <Tab.Panel key={tab.type}>
+              <TabPanel key={tab.type}>
                 <Feed feedType={tab.type} focus={focus} />
-              </Tab.Panel>
+              </TabPanel>
             ))}
-          </Tab.Panels>
-        </Tab.Group>
+          </TabPanels>
+        </TabGroup>
       </GridItemEight>
       <GridItemFour>
         {currentProfile ? <WhoToFollow /> : null}

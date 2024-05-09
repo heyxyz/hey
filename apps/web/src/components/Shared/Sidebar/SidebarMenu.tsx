@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useRouter } from 'next/router';
@@ -23,7 +23,7 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
       <Menu as="div" className="relative">
         {({ open }) => (
           <>
-            <Menu.Button
+            <MenuButton
               className={cn(
                 'flex w-full items-center space-x-2 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800',
                 {
@@ -36,17 +36,17 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
             >
               {selectedItem.icon}
               <div>{selectedItem.title}</div>
-            </Menu.Button>
+            </MenuButton>
             <MenuTransition>
-              <Menu.Items className="absolute z-10 mt-2 w-full" static>
+              <MenuItems className="absolute z-10 mt-2 w-full" static>
                 <Card forceRounded>
                   {menuItems.map((item) => (
-                    <Menu.Item
+                    <MenuItem
                       as={NextLink}
-                      className={({ active }: { active: boolean }) =>
+                      className={({ focus }: { focus: boolean }) =>
                         cn(
                           {
-                            'dropdown-active': active || selectedItem === item
+                            'dropdown-active': focus || selectedItem === item
                           },
                           'm-2 flex items-center space-x-2 rounded-lg p-2'
                         )
@@ -57,10 +57,10 @@ const SidebarMenu: FC<SidebarProps> = ({ items }) => {
                     >
                       {item.icon}
                       <div>{item.title}</div>
-                    </Menu.Item>
+                    </MenuItem>
                   ))}
                 </Card>
-              </Menu.Items>
+              </MenuItems>
             </MenuTransition>
           </>
         )}

@@ -39,7 +39,7 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
   );
 
   return (
-    <div className="mt-3 flex flex-wrap gap-3 px-5 sm:mt-0 sm:px-0">
+    <div className="mx-5 my-5 flex flex-wrap gap-3 sm:mx-0">
       <FeedLink name="All posts" />
       <FeedLink name="Text" type={PublicationMetadataMainFocusType.TextOnly} />
       <FeedLink name="Video" type={PublicationMetadataMainFocusType.Video} />
