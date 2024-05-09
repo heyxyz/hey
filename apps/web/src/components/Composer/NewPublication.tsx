@@ -418,17 +418,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       // Payload for the open action module
       const openActionModules = [];
 
-      if (openActionEmbed) {
+      if (Boolean(openActionEmbed)) {
         openActionModules.push(openActionEmbed);
       }
 
-      if (collectModule.type) {
+      if (Boolean(collectModule.type)) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule, currentProfile)
         });
       }
 
-      if (openAction) {
+      if (Boolean(openAction)) {
         openActionModules.push({ unknownOpenAction: openAction });
       }
 
