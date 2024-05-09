@@ -53,7 +53,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     >
       <Comment publication={targetPublication} showCount={showCount} />
       {canMirror ? (
-        <ShareMenu publication={targetPublication} showCount={showCount} />
+        <ShareMenu publication={publication} showCount={showCount} />
       ) : null}
       <Like publication={targetPublication} showCount={showCount} />
       {canAct ? (
