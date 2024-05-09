@@ -2,26 +2,10 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import { NodeIrys } from '@irys/sdk';
+import { signMetadata } from '@lens-protocol/metadata';
 import catchedError from 'src/helpers/catchedError';
 import { noBody } from 'src/helpers/responses';
 import { privateKeyToAccount } from 'viem/accounts';
-
-const sortObject = (obj: any): any => {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map(sortObject);
-  }
-
-  return Object.keys(obj)
-    .sort()
-    .reduce((result, key) => {
-      result[key] = sortObject(obj[key]);
-      return result;
-    }, {} as any);
-};
 
 export const post: Handler = async (req, res) => {
   const { body } = req;
@@ -40,11 +24,11 @@ export const post: Handler = async (req, res) => {
     });
 
     const account = privateKeyToAccount(`0x${process.env.PRIVATE_KEY}`);
-    const stringified = JSON.stringify(sortObject(body.lens));
-    const signature = await account.signMessage({ message: stringified });
-    body.signature = signature;
+    const signed = await signMetadata(body, (message) =>
+      account.signMessage({ message })
+    );
 
-    const receipt = await client.upload(JSON.stringify(body), {
+    const receipt = await client.upload(JSON.stringify(signed), {
       tags: [
         { name: 'content-type', value: 'application/json' },
         { name: 'App-Name', value: 'Hey.xyz' }
