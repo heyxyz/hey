@@ -2,8 +2,8 @@ import type { Amount } from '@hey/lens';
 import type { UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
-import LoginButton from '@components/Shared/Navbar/LoginButton';
-import MetaDetails from '@components/Shared/Staff/MetaDetails';
+import LoginButton from '@components/Shared/LoginButton';
+import MetaDetails from '@components/Shared/MetaDetails';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { LAYERZEROSCAN_URL, POLYGONSCAN_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
