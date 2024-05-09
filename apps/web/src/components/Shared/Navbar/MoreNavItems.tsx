@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import cn from '@hey/ui/cn';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -14,7 +14,7 @@ const MoreNavItems: FC = () => {
     <Menu as="div">
       {({ open }) => (
         <>
-          <Menu.Button
+          <MenuButton
             className={cn(
               'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
               {
@@ -25,34 +25,34 @@ const MoreNavItems: FC = () => {
             )}
           >
             More
-          </Menu.Button>
+          </MenuButton>
           <MenuTransition>
-            <Menu.Items
+            <MenuItems
               className="absolute mt-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
               static
             >
               {currentProfile ? (
                 <>
-                  <Menu.Item
+                  <MenuItem
                     as="div"
-                    className={({ active }: { active: boolean }) =>
-                      cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                    className={({ focus }: { focus: boolean }) =>
+                      cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
                     }
                   >
                     <Bookmarks />
-                  </Menu.Item>
+                  </MenuItem>
                   <div className="divider" />
                 </>
               ) : null}
-              <Menu.Item
+              <MenuItem
                 as="div"
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                className={({ focus }: { focus: boolean }) =>
+                  cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
                 }
               >
                 <Support />
-              </Menu.Item>
-            </Menu.Items>
+              </MenuItem>
+            </MenuItems>
           </MenuTransition>
         </>
       )}

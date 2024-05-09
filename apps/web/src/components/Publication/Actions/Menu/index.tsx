@@ -2,7 +2,7 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
@@ -28,7 +28,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button as={Fragment}>
+      <MenuButton as={Fragment}>
         <button
           aria-label="More"
           className="rounded-full p-1.5 hover:bg-gray-300/20"
@@ -39,9 +39,9 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
             className={cn('ld-text-gray-500', iconClassName)}
           />
         </button>
-      </Menu.Button>
+      </MenuButton>
       <MenuTransition>
-        <Menu.Items
+        <MenuItems
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
@@ -60,7 +60,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           <Share publication={publication} />
           <Translate publication={publication} />
           <CopyPostText publication={publication} />
-        </Menu.Items>
+        </MenuItems>
       </MenuTransition>
     </Menu>
   );

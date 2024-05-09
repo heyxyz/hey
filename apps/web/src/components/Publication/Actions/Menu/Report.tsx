@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
@@ -15,11 +15,11 @@ const Report: FC<ReportProps> = ({ publication }) => {
   const { setShowPublicationReportModal } = useGlobalModalStateStore();
 
   return (
-    <Menu.Item
+    <MenuItem
       as="div"
-      className={({ active }) =>
+      className={({ focus }) =>
         cn(
-          { 'dropdown-active': active },
+          { 'dropdown-active': focus },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-red-500'
         )
       }
@@ -32,7 +32,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
         <ExclamationTriangleIcon className="size-4" />
         <div>Report post</div>
       </div>
-    </Menu.Item>
+    </MenuItem>
   );
 };
 
