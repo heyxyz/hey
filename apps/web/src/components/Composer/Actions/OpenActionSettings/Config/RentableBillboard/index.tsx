@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
@@ -7,7 +8,7 @@ import { DEFAULT_COLLECT_TOKEN, LENS_HUB } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { useModuleMetadataQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
