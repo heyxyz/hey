@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hey/lens": "workspace:*",
-    "@lens-protocol/metadata": "^1.1.6"
+    "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
