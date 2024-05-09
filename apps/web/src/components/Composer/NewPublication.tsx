@@ -13,7 +13,6 @@ import type { NewAttachment } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import NewAttachments from '@components/Composer/NewAttachments';
-import OpenActionOnBody from '@components/Publication/OpenAction/OnBody';
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
@@ -592,12 +591,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
-      <OpenActions />
       {Boolean(nftOpenActionEmbed) ? (
-        <OpenActionOnBody
+        <OpenActions
           nftOpenActionEmbed={nftOpenActionEmbed}
           nftOpenActionEmbedLoading={nftOpenActionEmbedLoading}
-          publication={publication as MirrorablePublication}
         />
       ) : (
         <LinkPreviews />
