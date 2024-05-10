@@ -1,12 +1,13 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -18,24 +19,28 @@ import Quote from './Quote';
 import UndoMirror from './UndoMirror';
 
 interface ShareMenuProps {
-  publication: MirrorablePublication;
+  publication: AnyPublication;
   showCount: boolean;
 }
 
 const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
   const hasShared =
-    publication.operations.hasMirrored ||
-    publication.operations.hasQuoted ||
+    targetPublication.operations.hasMirrored ||
+    targetPublication.operations.hasQuoted ||
     hasOptimisticallyMirrored(publication.id);
-  const shares = publication.stats.mirrors + publication.stats.quotes;
+  const shares =
+    targetPublication.stats.mirrors + targetPublication.stats.quotes;
 
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
     <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
-        <Menu.Button
+        <MenuButton
           aria-label="Mirror"
           as={motion.button}
           className={cn(
@@ -66,27 +71,27 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
               <ArrowsRightLeftIcon className={iconClassName} />
             </Tooltip>
           )}
-        </Menu.Button>
+        </MenuButton>
         <MenuTransition>
-          <Menu.Items
+          <MenuItems
             className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
             <Mirror
               isLoading={isLoading}
-              publication={publication}
+              publication={targetPublication}
               setIsLoading={setIsLoading}
             />
-            {publication.operations.hasMirrored &&
-              publication.id !== publication.id && (
+            {targetPublication.operations.hasMirrored &&
+              targetPublication.id !== publication.id && (
                 <UndoMirror
                   isLoading={isLoading}
                   publication={publication}
                   setIsLoading={setIsLoading}
                 />
               )}
-            <Quote publication={publication} />
-          </Menu.Items>
+            <Quote publication={targetPublication} />
+          </MenuItems>
         </MenuTransition>
       </Menu>
       {shares > 0 && !showCount ? (

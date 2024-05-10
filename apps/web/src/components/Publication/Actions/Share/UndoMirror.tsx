@@ -1,12 +1,13 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { useHidePublicationMutation } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import cn from '@hey/ui/cn';
@@ -15,7 +16,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MirrorProps {
   isLoading: boolean;
-  publication: MirrorablePublication;
+  publication: AnyPublication;
   setIsLoading: (isLoading: boolean) => void;
 }
 
@@ -27,10 +28,14 @@ const UndoMirror: FC<MirrorProps> = ({
   const { currentProfile } = useProfileStore();
   const { cache } = useApolloClient();
 
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
   const updateCache = () => {
     cache.modify({
-      fields: { mirrors: () => publication.stats.mirrors - 1 },
-      id: cache.identify(publication.stats)
+      fields: { mirrors: () => targetPublication.stats.mirrors - 1 },
+      id: cache.identify(targetPublication.stats)
     });
     cache.evict({
       id: `${publication?.__typename}:${publication?.id}`
@@ -67,11 +72,11 @@ const UndoMirror: FC<MirrorProps> = ({
   };
 
   return (
-    <Menu.Item
+    <MenuItem
       as="div"
-      className={({ active }) =>
+      className={({ focus }) =>
         cn(
-          { 'dropdown-active': active },
+          { 'dropdown-active': focus },
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
@@ -82,7 +87,7 @@ const UndoMirror: FC<MirrorProps> = ({
         <ArrowsRightLeftIcon className="size-4" />
         <div>Undo mirror</div>
       </div>
-    </Menu.Item>
+    </MenuItem>
   );
 };
 

@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import isFeatureEnabled from '@helpers/isFeatureEnabled';
 import { FeatureFlag } from '@hey/data/feature-flags';
@@ -60,15 +60,15 @@ const SignedUser: FC = () => {
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">
-        <Menu.Button className="flex self-center rounded-full">
+        <MenuButton className="flex self-center rounded-full">
           <Avatar />
-        </Menu.Button>
+        </MenuButton>
         <MenuTransition>
-          <Menu.Items
+          <MenuItems
             className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
             static
           >
-            <Menu.Item
+            <MenuItem
               as={NextLink}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
               href={getProfile(currentProfile).link}
@@ -82,111 +82,111 @@ const SignedUser: FC = () => {
                   />
                 </div>
               </div>
-            </Menu.Item>
+            </MenuItem>
             <div className="divider" />
-            <Menu.Item
+            <MenuItem
               as="div"
-              className={({ active }: { active: boolean }) =>
+              className={({ focus }: { focus: boolean }) =>
                 cn(
-                  { 'dropdown-active': active },
+                  { 'dropdown-active': focus },
                   'm-2 rounded-lg border dark:border-gray-700'
                 )
               }
             >
               <SwitchProfile />
-            </Menu.Item>
+            </MenuItem>
             <div className="divider" />
-            <Menu.Item
+            <MenuItem
               as={NextLink}
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'menu-item')
+              className={({ focus }: { focus: boolean }) =>
+                cn({ 'dropdown-active': focus }, 'menu-item')
               }
               href={getProfile(currentProfile).link}
             >
               <YourProfile />
-            </Menu.Item>
-            <Menu.Item
+            </MenuItem>
+            <MenuItem
               as={NextLink}
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'menu-item')
+              className={({ focus }: { focus: boolean }) =>
+                cn({ 'dropdown-active': focus }, 'menu-item')
               }
               href="/settings"
             >
               <Settings />
-            </Menu.Item>
+            </MenuItem>
             {isFeatureEnabled(KillSwitch.Invites) && (
-              <Menu.Item
+              <MenuItem
                 as="div"
-                className={({ active }: { active: boolean }) =>
-                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                className={({ focus }: { focus: boolean }) =>
+                  cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
                 }
               >
                 <Invites />
-              </Menu.Item>
+              </MenuItem>
             )}
-            <Menu.Item
+            <MenuItem
               as="div"
-              className={({ active }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              className={({ focus }) =>
+                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
               }
             >
               <Logout />
-            </Menu.Item>
+            </MenuItem>
             <div className="divider" />
-            <Menu.Item
+            <MenuItem
               as="div"
-              className={({ active }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              className={({ focus }) =>
+                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
               }
             >
               <ThemeSwitch />
-            </Menu.Item>
-            <Menu.Item
+            </MenuItem>
+            <MenuItem
               as="div"
-              className={({ active }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              className={({ focus }) =>
+                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
               }
             >
               <OptimisticTransactions />
-            </Menu.Item>
+            </MenuItem>
             {isFeatureAvailable(FeatureFlag.Gardener) ? (
-              <Menu.Item
+              <MenuItem
                 as="div"
-                className={({ active }) =>
+                className={({ focus }) =>
                   cn(
-                    { 'bg-yellow-100 dark:bg-yellow-800': active },
+                    { 'bg-yellow-100 dark:bg-yellow-800': focus },
                     'm-2 rounded-lg'
                   )
                 }
               >
                 <GardenerMode />
-              </Menu.Item>
+              </MenuItem>
             ) : null}
             {isFeatureAvailable(FeatureFlag.Staff) ? (
-              <Menu.Item
+              <MenuItem
                 as="div"
-                className={({ active }) =>
+                className={({ focus }) =>
                   cn(
-                    { 'bg-yellow-100 dark:bg-yellow-800': active },
+                    { 'bg-yellow-100 dark:bg-yellow-800': focus },
                     'm-2 rounded-lg'
                   )
                 }
               >
                 <StaffMode />
-              </Menu.Item>
+              </MenuItem>
             ) : null}
             <div className="divider" />
-            <Menu.Item
+            <MenuItem
               as="div"
-              className={({ active }) =>
-                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              className={({ focus }) =>
+                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
               }
             >
               <Score />
-            </Menu.Item>
+            </MenuItem>
             <div className="divider" />
             <AppVersion />
-          </Menu.Items>
+          </MenuItems>
         </MenuTransition>
       </Menu>
     </>

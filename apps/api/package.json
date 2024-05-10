@@ -21,13 +21,14 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.569.0",
-    "@aws-sdk/client-sts": "^3.569.0",
+    "@aws-sdk/client-ses": "^3.572.0",
+    "@aws-sdk/client-sts": "^3.572.0",
     "@clickhouse/client": "^1.0.1",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@irys/sdk": "^0.1.23",
+    "@irys/sdk": "^0.1.24",
+    "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.13.0",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
@@ -43,16 +44,16 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.32",
+    "viem": "^2.10.3",
     "vite-express": "^0.16.0",
-    "zod": "^3.23.6"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.15",
-    "@types/node": "^20.12.9",
+    "@types/node": "^20.12.11",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^9.0.8",
