@@ -1,25 +1,28 @@
+import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
 import SwapOpenAction from '@components/Publication/OpenAction/UnknownModule/Swap';
-import Oembed from '@components/Shared/Oembed';
+import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getURLs from '@hey/helpers/getURLs';
 import { type UnknownOpenActionModuleSettings } from '@hey/lens';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
+import { useQuery } from '@tanstack/react-query';
 import { type FC, useEffect } from 'react';
+import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
-type OpenActionsProps = {
-  nftOpenActionEmbed?: boolean;
-  nftOpenActionEmbedLoading?: boolean;
+type OpenActionProps = {
+  setHasOpenAction: (hasOpenAction: boolean) => void;
+  setPublicationNftOpenActionModule: (nftOpenActionEmbed: any) => void;
 };
 
-const OpenActions: FC<OpenActionsProps> = ({
-  nftOpenActionEmbed,
-  nftOpenActionEmbedLoading
+const OpenActions: FC<OpenActionProps> = ({
+  setHasOpenAction,
+  setPublicationNftOpenActionModule
 }) => {
   const { openAction, reset } = useOpenActionStore();
 
@@ -29,6 +32,43 @@ const OpenActions: FC<OpenActionsProps> = ({
     usePublicationAttributesStore();
 
   const urls = getURLs(publicationContent);
+  const hasSwapOpenAction =
+    openAction?.address === VerifiedOpenActionModules.Swap;
+
+  const fetchnftOpenActionEmbed = async (
+    publicationContent: string
+  ): Promise<any | undefined> => {
+    const nftOpenActionKit = getNftOpenActionKit();
+    const publicationContentUrls = getURLs(publicationContent);
+
+    try {
+      const calldata = await nftOpenActionKit.detectAndReturnCalldata({
+        contentURI: publicationContentUrls[0],
+        publishingClientProfileId: HEY_REFERRAL_PROFILE_ID
+      });
+
+      if (calldata) {
+        return {
+          unknownOpenAction: {
+            address: VerifiedOpenActionModules.DecentNFT,
+            data: calldata
+          }
+        };
+      } else {
+        return undefined;
+      }
+    } catch (error) {
+      console.error('Error fetching open action embed:', error);
+      return undefined;
+    }
+  };
+
+  const { data: nftOpenActionEmbed, isLoading: nftOpenActionEmbedLoading } =
+    useQuery({
+      enabled: Boolean(publicationContent),
+      queryFn: () => fetchnftOpenActionEmbed(publicationContent),
+      queryKey: ['fetchnftOpenActionEmbed', publicationContent]
+    });
 
   useEffect(() => {
     if (urls.length) {
@@ -37,10 +77,24 @@ const OpenActions: FC<OpenActionsProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urls.length]);
 
-  const hasSwapOpenAction =
-    openAction?.address === VerifiedOpenActionModules.Swap;
+  useEffect(() => {
+    if (Boolean(nftOpenActionEmbed)) {
+      setPublicationNftOpenActionModule(nftOpenActionEmbed);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nftOpenActionEmbed]);
+
+  useEffect(() => {
+    if (hasSwapOpenAction || Boolean(nftOpenActionEmbed)) {
+      setHasOpenAction(true);
+    } else {
+      setHasOpenAction(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasSwapOpenAction, nftOpenActionEmbed]);
 
   if (
+    !Boolean(nftOpenActionEmbed) ||
     !urls.length ||
     attachments.length ||
     quotedPublication ||
@@ -52,7 +106,7 @@ const OpenActions: FC<OpenActionsProps> = ({
   if (Boolean(nftOpenActionEmbed)) {
     return (
       <div className="relative m-5">
-        <Oembed
+        <DecentOpenAction
           nftOpenActionEmbed={nftOpenActionEmbed}
           nftOpenActionEmbedLoading={nftOpenActionEmbedLoading}
           url={urls[0]}

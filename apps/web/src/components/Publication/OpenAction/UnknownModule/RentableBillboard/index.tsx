@@ -1,9 +1,21 @@
+import type {
+  MirrorablePublication,
+  UnknownOpenActionModuleSettings
+} from '@hey/lens';
 import type { FC } from 'react';
 
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card } from '@hey/ui';
 
-const RentableBillboardOpenAction: FC = () => {
+interface RentableBillboardOpenActionProps {
+  module: UnknownOpenActionModuleSettings;
+  publication?: MirrorablePublication;
+}
+
+const RentableBillboardOpenAction: FC<RentableBillboardOpenActionProps> = ({
+  module,
+  publication
+}) => {
   return (
     <Card
       className="space-y-4 p-10 text-center"

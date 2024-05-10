@@ -1,12 +1,9 @@
 import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 
-import DecentOpenAction from '@components/Publication/OpenAction/UnknownModule/Decent';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getFavicon from '@hey/helpers/getFavicon';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC, useEffect, useState } from 'react';
@@ -16,20 +13,12 @@ import EmptyOembed from './EmptyOembed';
 import Player from './Player';
 
 interface OembedProps {
-  nftOpenActionEmbed?: boolean;
-  nftOpenActionEmbedLoading?: boolean;
   onLoad?: (og: OG) => void;
   publication?: AnyPublication;
   url: string;
 }
 
-const Oembed: FC<OembedProps> = ({
-  nftOpenActionEmbed,
-  nftOpenActionEmbedLoading,
-  onLoad,
-  publication,
-  url
-}) => {
+const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -83,38 +72,8 @@ const Oembed: FC<OembedProps> = ({
     url: url as string
   };
 
-  const targetPublication =
-    currentPublication && isMirrorPublication(currentPublication)
-      ? currentPublication.mirrorOn
-      : currentPublication;
-
-  // Check if the publication has an NFT minting open action module
-  const canPerformDecentAction: boolean = Boolean(
-    targetPublication &&
-      targetPublication.openActionModules.some(
-        (module) =>
-          module.contract.address === VerifiedOpenActionModules.DecentNFT
-      )
-  );
-
-  // display NFT mint / purchase embed if open action is attached to publication or new publication is being created with action attached
-  // action is only available on Polygon mainnet
-  const embedDecentOpenAction: boolean =
-    IS_MAINNET && (canPerformDecentAction || Boolean(nftOpenActionEmbed));
-
-  if (!og.title && !og.html && !og.nft && !embedDecentOpenAction) {
+  if (!og.title && !og.html && !og.nft) {
     return null;
-  }
-
-  if (embedDecentOpenAction) {
-    return (
-      <DecentOpenAction
-        og={og}
-        openActionEmbed={Boolean(nftOpenActionEmbed)}
-        openActionEmbedLoading={Boolean(nftOpenActionEmbedLoading)}
-        publication={currentPublication}
-      />
-    );
   }
 
   if (og.html) {
