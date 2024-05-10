@@ -481,7 +481,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   className="size-4 rounded-full"
                   src={nftChainInfo.logo}
                 />
-                <p>Minted on {nftChainInfo.name}</p>
+                <p>{nftChainInfo.name}</p>
               </div>
             ) : null}
           </div>
