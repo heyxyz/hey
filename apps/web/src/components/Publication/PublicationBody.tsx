@@ -1,4 +1,4 @@
-import type { AnyPublication, MirrorablePublication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import Attachments from '@components/Shared/Attachments';
@@ -87,10 +87,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       metadata.attributes,
       KNOWN_ATTRIBUTES.HIDE_OEMBED
     ) === 'true';
-  const hasOpenAction =
-    (publication as MirrorablePublication).openActionModules.length > 0;
   const showOembed =
-    !hasOpenAction &&
     !hideOembed &&
     !showSharingLink &&
     hasURLs &&
