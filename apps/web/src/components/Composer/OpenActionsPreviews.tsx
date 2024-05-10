@@ -149,31 +149,31 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     );
   }
 
-  if (!hasSwapOpenAction) {
-    return null;
+  if (hasSwapOpenAction) {
+    return (
+      <div className="relative m-5 w-fit">
+        <SwapOpenAction
+          module={
+            {
+              contract: { address: openAction.address },
+              initializeCalldata: openAction.data
+            } as UnknownOpenActionModuleSettings
+          }
+        />
+        <div className="absolute -right-5 -top-5 m-2">
+          <button
+            className="rounded-full bg-gray-900 p-1.5 opacity-75"
+            onClick={() => reset()}
+            type="button"
+          >
+            <XMarkIcon className="size-4 text-white" />
+          </button>
+        </div>
+      </div>
+    );
   }
 
-  return (
-    <div className="relative m-5 w-fit">
-      <SwapOpenAction
-        module={
-          {
-            contract: { address: openAction.address },
-            initializeCalldata: openAction.data
-          } as UnknownOpenActionModuleSettings
-        }
-      />
-      <div className="absolute -right-5 -top-5 m-2">
-        <button
-          className="rounded-full bg-gray-900 p-1.5 opacity-75"
-          onClick={() => reset()}
-          type="button"
-        >
-          <XMarkIcon className="size-4 text-white" />
-        </button>
-      </div>
-    </div>
-  );
+  return null;
 };
 
 export default OpenActionsPreviews;
