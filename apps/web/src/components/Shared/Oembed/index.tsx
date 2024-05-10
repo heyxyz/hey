@@ -1,12 +1,13 @@
 import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 import getFavicon from '@hey/helpers/getFavicon';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Embed from './Embed';
 import EmptyOembed from './EmptyOembed';

@@ -5,6 +5,7 @@ import type {
 } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { ActionData, PublicationInfo } from 'nft-openaction-kit';
+import type { FC } from 'react';
 
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
@@ -19,7 +20,7 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CHAIN, HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';

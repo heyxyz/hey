@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 import Loader from '@components/Shared/Loader';
 import errorToast from '@helpers/errorToast';
 import { LensHub } from '@hey/abis';
@@ -5,7 +7,7 @@ import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { Button } from '@hey/ui';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';

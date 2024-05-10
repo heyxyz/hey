@@ -1,5 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import EmptyOembed from '@components/Shared/Oembed/EmptyOembed';
 import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
@@ -11,7 +12,7 @@ import getURLs from '@hey/helpers/getURLs';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import FeedEmbed from './FeedEmbed';
 
