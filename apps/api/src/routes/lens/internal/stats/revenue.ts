@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 
+import { APP_NAME } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/helpers/constants';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -16,7 +16,7 @@ export const get: Handler = async (req, res) => {
         SUM(r.amount / POWER(10, c.decimals)) AS revenue
       FROM app.profile_revenue_record r
       JOIN enabled.currency c ON r.currency = c.currency
-      WHERE r.app = 'hey' 
+      WHERE r.app = '${APP_NAME.toLowerCase()}' 
         AND r.fiat_price_snapshot IS NOT NULL
         AND DATE_TRUNC('month', r.block_timestamp) = DATE_TRUNC('month', CURRENT_DATE)
       GROUP BY DATE_TRUNC('month', r.block_timestamp), c.name, c.symbol
@@ -25,10 +25,7 @@ export const get: Handler = async (req, res) => {
 
     logger.info('Lens: Fetched app revenue');
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
-      .json({ result, success: true });
+    return res.status(200).json({ result, success: true });
   } catch (error) {
     catchedError(res, error);
   }
