@@ -36,7 +36,10 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
       {isFeatureAvailable('rent-ads') &&
         module.contract.address ===
           VerifiedOpenActionModules.RentableBillboard && (
-          <RentableBillboardOpenAction />
+          <RentableBillboardOpenAction
+            module={module as UnknownOpenActionModuleSettings}
+            publication={publication}
+          />
         )}
     </div>
   );
