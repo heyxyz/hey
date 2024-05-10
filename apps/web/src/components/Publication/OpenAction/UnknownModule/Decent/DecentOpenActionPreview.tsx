@@ -12,21 +12,15 @@ import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import {
-  OPEN_ACTION_EMBED_TOOLTIP,
-  OPEN_ACTION_NO_EMBED_TOOLTIP,
-  openActionCTA
-} from '.';
+import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
 
-interface CreatePublicationEmbedProps {
+interface DecentOpenActionPreviewProps {
   og: OG;
-  openActionEmbed: boolean;
   openActionEmbedLoading: boolean;
 }
 
-const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
+const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
   og,
-  openActionEmbed,
   openActionEmbedLoading
 }) => {
   const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
@@ -99,21 +93,12 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
           ) : null}
           {openActionEmbedLoading ? (
             <Spinner size="xs" />
-          ) : openActionEmbed ? (
+          ) : (
             <Tooltip
               content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
               placement="top"
             >
               <Button size="lg">{openActionCTA(uiData?.platformName)}</Button>
-            </Tooltip>
-          ) : (
-            <Tooltip
-              content={<span>{OPEN_ACTION_NO_EMBED_TOOLTIP}</span>}
-              placement="top"
-            >
-              <Button disabled={true} size="lg">
-                {openActionCTA(uiData?.platformName)}
-              </Button>
             </Tooltip>
           )}
         </div>
@@ -124,4 +109,4 @@ const CreatePublicationEmbed: FC<CreatePublicationEmbedProps> = ({
   );
 };
 
-export default CreatePublicationEmbed;
+export default DecentOpenActionPreview;

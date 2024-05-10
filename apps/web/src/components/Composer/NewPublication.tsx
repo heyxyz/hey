@@ -17,28 +17,23 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import errorToast from '@helpers/errorToast';
-import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
 import uploadToArweave from '@helpers/uploadToArweave';
 import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
 import collectModuleParams from '@hey/helpers/collectModuleParams';
 import getProfile from '@hey/helpers/getProfile';
-import getURLs from '@hey/helpers/getURLs';
 import removeQuoteOn from '@hey/helpers/removeQuoteOn';
 import { ReferenceModuleType } from '@hey/lens';
 import { Button, Card, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
-import { useQuery } from '@tanstack/react-query';
 import { useUnmountEffect } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useCreatePublication from 'src/hooks/useCreatePublication';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
@@ -69,7 +64,7 @@ import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import { Editor, useEditorContext, withEditorContext } from './Editor';
 import LinkPreviews from './LinkPreviews';
-import OpenActions from './OpenActions';
+import OpenActionsPreviews from './OpenActionsPreviews';
 import Discard from './Post/Discard';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
@@ -173,6 +168,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+  const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
 
   const editor = useEditorContext();
 
@@ -289,41 +285,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setPublicationContentError('');
   }, [audioPublication]);
 
-  const fetchnftOpenActionEmbed = async (
-    publicationContent: string
-  ): Promise<any | undefined> => {
-    const nftOpenActionKit = getNftOpenActionKit();
-    const publicationContentUrls = getURLs(publicationContent);
-
-    try {
-      const calldata = await nftOpenActionKit.detectAndReturnCalldata({
-        contentURI: publicationContentUrls[0],
-        publishingClientProfileId: HEY_REFERRAL_PROFILE_ID
-      });
-
-      if (calldata) {
-        return {
-          unknownOpenAction: {
-            address: VerifiedOpenActionModules.DecentNFT,
-            data: calldata
-          }
-        };
-      } else {
-        return undefined;
-      }
-    } catch (error) {
-      console.error('Error fetching open action embed:', error);
-      return undefined;
-    }
-  };
-
-  const { data: nftOpenActionEmbed, isLoading: nftOpenActionEmbedLoading } =
-    useQuery({
-      enabled: Boolean(publicationContent),
-      queryFn: () => fetchnftOpenActionEmbed(publicationContent),
-      queryKey: ['fetchnftOpenActionEmbed', publicationContent]
-    });
-
   const getAnimationUrl = () => {
     const fallback =
       'ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4';
@@ -417,7 +378,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       // Payload for the open action module
       const openActionModules = [];
 
-      if (Boolean(nftOpenActionEmbed)) {
+      if (nftOpenActionEmbed) {
         openActionModules.push(nftOpenActionEmbed);
       }
 
@@ -591,14 +552,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
-      {Boolean(nftOpenActionEmbed) ? (
-        <OpenActions
-          nftOpenActionEmbed={nftOpenActionEmbed}
-          nftOpenActionEmbedLoading={nftOpenActionEmbedLoading}
-        />
-      ) : (
-        <LinkPreviews />
-      )}
+      <OpenActionsPreviews setNftOpenActionEmbed={setNftOpenActionEmbed} />
+      {!nftOpenActionEmbed ? <LinkPreviews /> : null}
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>

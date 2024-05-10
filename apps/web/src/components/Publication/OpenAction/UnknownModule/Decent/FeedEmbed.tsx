@@ -16,7 +16,7 @@ import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Image, Spinner, Tooltip } from '@hey/ui';
+import { Button, Card, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { type FC, useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ import { CHAIN, HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';
 
-import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
+import { openActionCTA } from '.';
 import DecentOpenActionModule from './Module';
 
 const formatPublicationData = (
@@ -53,16 +53,12 @@ interface FeedEmbedProps {
   isFullPublication?: boolean;
   mirrorPublication?: AnyPublication;
   og: OG;
-  openActionEmbed: boolean;
-  openActionEmbedLoading: boolean;
   publication: AnyPublication;
 }
 
 const FeedEmbed: FC<FeedEmbedProps> = ({
   mirrorPublication,
   og,
-  openActionEmbed,
-  openActionEmbedLoading,
   publication
 }) => {
   const { address } = useAccount();
@@ -184,29 +180,18 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
                 uiData={actionData?.uiData}
               />
             ) : null}
-
-            {openActionEmbedLoading ? (
-              <Spinner size="xs" />
-            ) : openActionEmbed ? (
-              <Tooltip content={OPEN_ACTION_EMBED_TOOLTIP} placement="top">
-                <Button className="w-full sm:w-auto" size="lg">
-                  {openActionCTA(actionData.uiData.platformName)}
-                </Button>
-              </Tooltip>
-            ) : (
-              <Button
-                className="w-full sm:w-auto"
-                onClick={() => {
-                  setShowOpenActionModal(true);
-                  Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
-                    publication_id: publication.id
-                  });
-                }}
-                size="lg"
-              >
-                {openActionCTA(actionData.uiData.platformName)}
-              </Button>
-            )}
+            <Button
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setShowOpenActionModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
+                  publication_id: publication.id
+                });
+              }}
+              size="lg"
+            >
+              {openActionCTA(actionData.uiData.platformName)}
+            </Button>
           </div>
         ) : loadingActionData ? (
           <DecentOpenActionShimmer />

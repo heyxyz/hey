@@ -8,6 +8,7 @@ import Oembed from '@components/Shared/Oembed';
 import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
+import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getPublicationAttribute from '@hey/helpers/getPublicationAttribute';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import getURLs from '@hey/helpers/getURLs';
@@ -87,7 +88,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       metadata.attributes,
       KNOWN_ATTRIBUTES.HIDE_OEMBED
     ) === 'true';
+  const hasDecentOpenAction = targetPublication.openActionModules.some(
+    (module) => module.contract.address === VerifiedOpenActionModules.DecentNFT
+  );
   const showOembed =
+    !hasDecentOpenAction &&
     !hideOembed &&
     !showSharingLink &&
     hasURLs &&
