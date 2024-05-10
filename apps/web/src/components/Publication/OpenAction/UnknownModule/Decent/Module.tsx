@@ -153,8 +153,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   }, [relayStatus]);
 
   useEffect(() => {
-    if (actionData?.uiData.nftUri) {
-      const newImageUrl = sanitizeDStorageUrl(actionData.uiData.nftUri);
+    if (nft?.mediaUrl) {
+      const newImageUrl = sanitizeDStorageUrl(nft.mediaUrl);
       if (newImageUrl !== currentImageUrl) {
         setImageLoading(true);
         setPrevImageUrl(currentImageUrl);
@@ -162,7 +162,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData]);
+  }, [nft]);
 
   const usdPrice =
     fiatRates.find(

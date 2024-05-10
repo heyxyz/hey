@@ -288,8 +288,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
       nft-openaction-kit:
-        specifier: ^1.0.23
-        version: 1.0.23(typescript@5.4.5)(zod@3.23.8)
+        specifier: github:hanahem/nft-openaction-kit#feat/ipfs-fix
+        version: github.com/hanahem/nft-openaction-kit/ccb2cc795cc2cfc580ad307bba8631dc6904bef4(typescript@5.4.5)(zod@3.23.8)
       party-js:
         specifier: ^2.2.0
         version: 2.2.0
@@ -17802,19 +17802,6 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /nft-openaction-kit@1.0.23(typescript@5.4.5)(zod@3.23.8):
-    resolution: {integrity: sha512-85a2h/2/jHJpvo5yqXt5m6F9MkPLz6jn8C7Y3gtb7aTp4JIOh2YuaUe2AqsRUrk9hA48/XIur1yuiYe7RmZFeQ==}
-    dependencies:
-      axios: 1.6.8(debug@4.3.4)
-      viem: 2.10.2(typescript@5.4.5)(zod@3.23.8)
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
   /no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
@@ -23054,4 +23041,20 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: false
+
+  github.com/hanahem/nft-openaction-kit/ccb2cc795cc2cfc580ad307bba8631dc6904bef4(typescript@5.4.5)(zod@3.23.8):
+    resolution: {tarball: https://codeload.github.com/hanahem/nft-openaction-kit/tar.gz/ccb2cc795cc2cfc580ad307bba8631dc6904bef4}
+    id: github.com/hanahem/nft-openaction-kit/ccb2cc795cc2cfc580ad307bba8631dc6904bef4
+    name: nft-openaction-kit
+    version: 1.0.23
+    dependencies:
+      axios: 1.6.8(debug@4.3.4)
+      viem: 2.10.2(typescript@5.4.5)(zod@3.23.8)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - typescript
+      - utf-8-validate
+      - zod
     dev: false
