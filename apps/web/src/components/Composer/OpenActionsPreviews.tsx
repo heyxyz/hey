@@ -1,4 +1,6 @@
+import type { UnknownOpenActionModuleSettings } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import DecentOpenActionPreview from '@components/Publication/OpenAction/UnknownModule/Decent/DecentOpenActionPreview';
 import SwapOpenAction from '@components/Publication/OpenAction/UnknownModule/Swap';
@@ -8,11 +10,10 @@ import { HEY_API_URL, KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getFavicon from '@hey/helpers/getFavicon';
 import getURLs from '@hey/helpers/getURLs';
-import { type UnknownOpenActionModuleSettings } from '@hey/lens';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
