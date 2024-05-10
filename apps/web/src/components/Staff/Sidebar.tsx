@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import Sidebar from '@components/Shared/Sidebar';
 import {
   AdjustmentsHorizontalIcon,
+  ChartBarIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
   UserIcon,
@@ -14,6 +15,11 @@ const settingsSidebarItems = [
     icon: <ClipboardIcon className="size-4" />,
     title: 'Overview',
     url: '/staff'
+  },
+  {
+    icon: <ChartBarIcon className="size-4" />,
+    title: 'Stats',
+    url: '/staff/stats'
   },
   {
     icon: <UserIcon className="size-4" />,
