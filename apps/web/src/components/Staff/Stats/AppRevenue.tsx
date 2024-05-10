@@ -10,7 +10,9 @@ const AppRevenue: FC = () => {
   const getAppRevenue = async (): Promise<
     { currency: string; month: string; revenue: string; symbol: string }[]
   > => {
-    const response = await axios.get(`${HEY_API_URL}/lens/internal/revenue`);
+    const response = await axios.get(
+      `${HEY_API_URL}/lens/internal/stats/revenue`
+    );
     return response.data.result;
   };
 
@@ -34,6 +36,7 @@ const AppRevenue: FC = () => {
 
   return (
     <>
+      <div className="divider" />
       <CardHeader title={`${APP_NAME} Revenue`} />
       <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
         {data.map((revenue, index) => (

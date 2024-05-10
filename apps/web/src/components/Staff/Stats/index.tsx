@@ -12,6 +12,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
 import AppRevenue from './AppRevenue';
+import PublicationStats from './PublicationStats';
 
 const Stats: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -33,6 +34,7 @@ const Stats: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
+          <PublicationStats />
           <AppRevenue />
         </Card>
       </GridItemEight>
