@@ -8,13 +8,15 @@ import axios from 'axios';
  * @param request Incoming request
  * @returns Response
  */
-const validateLensAccount = async (request: Request) => {
+const validateLensAccount = async (
+  request: Request
+): Promise<200 | 400 | 401 | 500> => {
   const accessToken = request.headers['x-access-token'] as string;
   const network = request.headers['x-lens-network'] as string;
   const allowedNetworks = ['mainnet', 'testnet'];
 
   if (!accessToken || !network || !allowedNetworks.includes(network)) {
-    return false;
+    return 400;
   }
 
   const isMainnet = network === 'mainnet';
@@ -37,10 +39,12 @@ const validateLensAccount = async (request: Request) => {
     );
 
     if (data.data.verify) {
-      return true;
+      return 200;
     }
+
+    return 401;
   } catch {
-    return false;
+    return 500;
   }
 };
 
