@@ -14,14 +14,14 @@ import validateLensAccount from './validateLensAccount';
 const validateIsGardener = async (request: Request) => {
   const validateLensAccountStatus = await validateLensAccount(request);
   if (validateLensAccountStatus !== 200) {
-    return false;
+    return validateLensAccountStatus;
   }
 
   try {
     const accessToken = request.headers['x-access-token'] as string;
 
     if (!accessToken) {
-      return false;
+      return 400;
     }
 
     const payload = parseJwt(accessToken);
@@ -38,12 +38,12 @@ const validateIsGardener = async (request: Request) => {
     );
 
     if (data[0]?.enabled) {
-      return true;
+      return 200;
     }
 
-    return false;
+    return 401;
   } catch {
-    return false;
+    return 500;
   }
 };
 
