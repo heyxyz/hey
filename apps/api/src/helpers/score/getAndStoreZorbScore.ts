@@ -43,12 +43,14 @@ const getAndStoreZorbScore = async (id: string, address: Address) => {
         [id]
       );
 
-      logger.info(`BJ - Zorb holder score upserted for ${address}`);
+      logger.info(`BJ - Zorb holder score upserted for ${id} - ${address}`);
     }
 
     return true;
   } catch {
-    logger.error(`BJ - Failed to get and store Zorb score for ${address}`);
+    logger.error(
+      `BJ - Failed to get and store Zorb score for ${id} - ${address}`
+    );
     return false;
   }
 };
