@@ -16,6 +16,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import CrispProvider from './CrispProvider';
 import LeafwatchProvider from './LeafwatchProvider';
+import LensAuthProvider from './LensAuthProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
 import PreferencesProvider from './PreferencesProvider';
@@ -39,6 +40,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
+          <LensAuthProvider />
           <LensSubscriptionsProvider />
           <OptimisticTransactionsProvider />
           <QueryClientProvider client={queryClient}>
