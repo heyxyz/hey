@@ -10,5 +10,6 @@ export enum Errors {
   SignWallet = 'Please sign in your wallet.',
   SomethingWentWrong = 'Something went wrong!',
   Suspended = 'Your profile has been suspended!',
+  Unauthorized = 'Unauthorized!',
   UnpredictableGasLimit = 'Unpredictable gas limit!'
 }
