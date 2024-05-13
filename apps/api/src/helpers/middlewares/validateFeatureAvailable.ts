@@ -12,7 +12,8 @@ import validateLensAccount from './validateLensAccount';
  * @returns Response
  */
 const validateFeatureAvailable = async (request: Request, id: string) => {
-  if (!(await validateLensAccount(request))) {
+  const validateLensAccountStatus = await validateLensAccount(request);
+  if (validateLensAccountStatus !== 200) {
     return false;
   }
 
