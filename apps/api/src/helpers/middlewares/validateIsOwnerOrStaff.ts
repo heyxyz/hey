@@ -16,20 +16,21 @@ const validateIsOwnerOrStaff = async (request: Request, id: string) => {
   const accessToken = request.headers['x-access-token'] as string;
 
   if (!accessToken) {
-    return false;
+    return 400;
   }
 
   try {
     const payload = parseJwt(accessToken);
 
     // Check if the profile is staff or the owner of the profile
-    if (payload.id !== id && !(await validateIsStaff(request))) {
-      return false;
+    const validateIsStaffStatus = await validateIsStaff(request);
+    if (payload.id !== id && validateIsStaffStatus !== 200) {
+      return 401;
     }
 
-    return true;
+    return 200;
   } catch {
-    return false;
+    return 500;
   }
 };
 

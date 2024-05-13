@@ -28,8 +28,9 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  if (!(await validateIsStaff(req))) {
-    return notAllowed(res);
+  const validateIsStaffStatus = await validateIsStaff(req);
+  if (validateIsStaffStatus !== 200) {
+    return notAllowed(res, validateIsStaffStatus);
   }
 
   const { id } = body as ExtensionRequest;

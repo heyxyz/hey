@@ -10,8 +10,9 @@ import { notAllowed } from 'src/helpers/responses';
 export const post: Handler = async (req, res) => {
   const accessToken = req.headers['x-access-token'] as string;
 
-  if (!(await validateLensAccount(req))) {
-    return notAllowed(res);
+  const validateLensAccountStatus = await validateLensAccount(req);
+  if (validateLensAccountStatus !== 200) {
+    return notAllowed(res, validateLensAccountStatus);
   }
 
   try {
