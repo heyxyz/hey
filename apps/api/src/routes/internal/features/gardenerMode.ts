@@ -31,8 +31,9 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  if (!(await validateIsGardener(req))) {
-    return notAllowed(res);
+  const validateIsGardenerStatus = await validateIsGardener(req);
+  if (validateIsGardenerStatus !== 200) {
+    return notAllowed(res, validateIsGardenerStatus);
   }
 
   const { enabled } = body as ExtensionRequest;

@@ -29,8 +29,9 @@ export const post: Handler = async (req, res) => {
     return invalidBody(res);
   }
 
-  if (!(await validateLensAccount(req))) {
-    return notAllowed(res);
+  const validateLensAccountStatus = await validateLensAccount(req);
+  if (validateLensAccountStatus !== 200) {
+    return notAllowed(res, validateLensAccountStatus);
   }
 
   const { id } = body as ExtensionRequest;
