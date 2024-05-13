@@ -32,6 +32,12 @@ const nextConfig = {
       },
       {
         destination:
+          'https://zora.co/collect/zora:0xf2086c0eaa8b34b0eef73920d0b1b53f4146e2e4/1',
+        permanent: true,
+        source: '/zorb'
+      },
+      {
+        destination:
           'https://explorer.gitcoin.co/#/round/42161/25/1?utm_source=hey.xyz',
         permanent: true,
         source: '/gitcoin'
