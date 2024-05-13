@@ -14,8 +14,12 @@ export const get: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  if (!(await validateIsOwnerOrStaff(req, id as string))) {
-    return notAllowed(res);
+  const validateIsOwnerOrStaffStatus = await validateIsOwnerOrStaff(
+    req,
+    id as string
+  );
+  if (validateIsOwnerOrStaffStatus !== 200) {
+    return notAllowed(res, validateIsOwnerOrStaffStatus);
   }
 
   try {
