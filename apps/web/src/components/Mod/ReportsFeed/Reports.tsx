@@ -1,6 +1,7 @@
-import type { ModReport, ModReportsRequest } from '@hey/lens';
+import type { AnyPublication, ModReport, ModReportsRequest } from '@hey/lens';
 import type { FC } from 'react';
 
+import SinglePublication from '@components/Publication/SinglePublication';
 import Loader from '@components/Shared/Loader';
 import { LimitType, useModLatestReportsQuery } from '@hey/lens';
 import { Card, ErrorMessage } from '@hey/ui';
@@ -66,6 +67,13 @@ const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
         itemContent={(index, report) => {
           return (
             <Card>
+              <SinglePublication
+                isFirst
+                publication={report.reportedPublication as AnyPublication}
+                showActions={false}
+                showThread={false}
+              />
+              <div className="divider" />
               <ReportDetails
                 hideViewReportsButton
                 report={report as ModReport}

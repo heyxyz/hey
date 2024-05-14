@@ -48,6 +48,12 @@ const allocations = [
     icon: `${STATIC_IMAGES_URL}/brands/gitcoin.png`,
     id: 'GG20',
     name: 'Gitcoin Grants Round 20'
+  },
+  {
+    description: 'Hey Zorb Holder',
+    icon: `${STATIC_IMAGES_URL}/badges/zorb.png`,
+    id: 'ZorbHolder',
+    name: 'Hey Zorb Holder'
   }
 ];
 

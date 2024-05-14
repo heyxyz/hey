@@ -140,12 +140,12 @@ model CachedProfileScore {
 }
 
 model AdjustedProfileScore {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   profileId String
   score     Int
-  reason    String?
+  reason    String
   createdAt DateTime @default(now())
 
+  @@id([profileId, reason])
   // Indexes
   @@index([profileId])
   @@index([createdAt])

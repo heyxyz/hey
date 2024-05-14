@@ -10,6 +10,7 @@ import {
   SWR_CACHE_AGE_1_HOUR_12_HRS
 } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
+import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -22,13 +23,8 @@ export const get: Handler = async (req, res) => {
   try {
     const [cachedProfile, pro] = await heyPg.multi(
       `
-        SELECT * FROM "CachedProfileScore"
-        WHERE "id" = $1
-        LIMIT 1;
-
-        SELECT * FROM "Pro"
-        WHERE "id" = $1
-        LIMIT 1;
+        SELECT * FROM "CachedProfileScore" WHERE "id" = $1 LIMIT 1;
+        SELECT * FROM "Pro" WHERE "id" = $1 LIMIT 1;
       `,
       [id as string]
     );
@@ -56,13 +52,20 @@ export const get: Handler = async (req, res) => {
     });
     const scoreQuery = scoreQueryRequest.data.toString();
 
-    const [scores, adjustedScores] = await Promise.all([
+    const [scores, lensProfile, adjustedScores] = await Promise.all([
       lensPg.query(scoreQuery),
+      lensPg.query(
+        `SELECT owned_by FROM profile.record WHERE profile_id = $1`,
+        [id as string]
+      ),
       heyPg.query(
         `SELECT * FROM "AdjustedProfileScore" WHERE "profileId" = $1`,
         [id as string]
       )
     ]);
+
+    // Background job to calculate adjustments
+    calculateAdjustments(id as string, lensProfile[0]?.owned_by);
 
     const sum = adjustedScores.reduce((acc, score) => acc + score.score, 0);
 

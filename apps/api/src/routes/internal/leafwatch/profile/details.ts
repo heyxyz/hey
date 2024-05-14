@@ -14,8 +14,9 @@ export const get: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  if (!(await validateIsStaff(req))) {
-    return notAllowed(res);
+  const validateIsStaffStatus = await validateIsStaff(req);
+  if (validateIsStaffStatus !== 200) {
+    return notAllowed(res, validateIsStaffStatus);
   }
 
   try {
