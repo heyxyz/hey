@@ -41,7 +41,7 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Image, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
@@ -118,6 +118,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const [currentImageUrl, setCurrentImageUrl] = useState('');
   const [prevImageUrl, setPrevImageUrl] = useState('');
   const [isImageLoading, setImageLoading] = useState(false);
+  const [nftChainInfo, setNftChainInfo] = useState<{
+    logo: string;
+    name: string;
+  } | null>(null);
+  const [platformName, setPlatformName] = useState('');
 
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
@@ -200,26 +205,28 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const formattedTotalFees = bridgeFee + formattedTotalAmount * 0.05;
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
-  const nftChainInfo = useMemo(() => {
-    if (actionData?.uiData.dstChainId) {
-      const chainIdStr = actionData.uiData.dstChainId.toString();
-      const chainInfo = getNftChainInfo(getNftChainId(chainIdStr));
-      return {
-        logo: chainInfo.logo,
-        name: chainInfo.name
-      };
-    }
-    return null;
-  }, [actionData?.uiData.dstChainId]);
-  const platformName = useMemo(() => {
-    if (actionData?.uiData.platformName) {
-      return actionData?.uiData.platformName;
-    }
-    return '';
-  }, [actionData?.uiData.platformName]);
 
   const amount = formattedTotalAmount || 0;
   const assetAddress = selectedNftOaCurrency;
+
+  useEffect(() => {
+    if (actionData?.uiData.dstChainId && nftChainInfo === null) {
+      const chainIdStr = actionData.uiData.dstChainId.toString();
+      const chainInfo = getNftChainInfo(getNftChainId(chainIdStr));
+      setNftChainInfo({
+        logo: chainInfo.logo,
+        name: chainInfo.name
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionData?.uiData.dstChainId]);
+
+  useEffect(() => {
+    if (actionData?.uiData.platformName && !platformName.length) {
+      setPlatformName(actionData?.uiData.platformName);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionData?.uiData.dstChainId]);
 
   useEffect(() => {
     const fetchPermit2Allowance = async () => {
@@ -485,11 +492,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             {nftChainInfo ? (
               <div className="ld-text-gray-500 flex items-center justify-start gap-1 text-base">
                 <img
-                  alt={nftChainInfo.name}
+                  alt={nftChainInfo?.name || 'NFT Chain'}
                   className="size-4 rounded-full"
-                  src={nftChainInfo.logo}
+                  src={nftChainInfo?.logo}
                 />
-                <p>{nftChainInfo.name}</p>
+                <p>{nftChainInfo?.name}</p>
               </div>
             ) : null}
           </div>
