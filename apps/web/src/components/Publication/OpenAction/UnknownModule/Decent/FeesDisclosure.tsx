@@ -1,6 +1,10 @@
 import type { FC } from 'react';
 
-import { Disclosure } from '@headlessui/react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel
+} from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HelpTooltip } from '@hey/ui'; // Assuming HelpTooltip is from @hey/ui
 import type { ActionData } from 'nft-openaction-kit';
@@ -27,18 +31,18 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
   return (
     <Disclosure>
       <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
-        <Disclosure.Button
+        <DisclosureButton
           className="flex items-baseline gap-1 space-x-1"
           onClick={stopEventPropagation}
         >
           Fees <ChevronDownIcon className="size-3" strokeWidth={3} />
-        </Disclosure.Button>
+        </DisclosureButton>
         <div>
           {loadingCurrencyDetails ? '--' : formattedTotalFees.toFixed(4)}{' '}
           {tokenSymbol}
         </div>
       </div>
-      <Disclosure.Panel className="mt-2 space-y-2">
+      <DisclosurePanel className="mt-2 space-y-2">
         <div className="ld-text-gray-500 flex items-center justify-between">
           <span>
             {actionData?.actArgumentsFormatted.dstChainId === 137
@@ -65,7 +69,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
             {tokenSymbol}
           </span>
         </div>
-      </Disclosure.Panel>
+      </DisclosurePanel>
     </Disclosure>
   );
 };
