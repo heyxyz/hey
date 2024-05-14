@@ -587,7 +587,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             ) : null}
             <div className="flex w-full items-center justify-center text-center text-sm">
               <button
-                className="lg-text-gray-500 flex items-baseline justify-center gap-1"
+                className="flex items-baseline justify-center gap-1 opacity-70"
                 onClick={(e) => {
                   stopEventPropagation(e);
                   setShowCurrencySelector(true);
