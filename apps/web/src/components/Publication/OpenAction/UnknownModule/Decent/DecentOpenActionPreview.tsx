@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
+import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { ZERO_ADDRESS } from '@hey/data/constants';
 import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
@@ -82,12 +83,13 @@ const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
         />
       </div>
       {Boolean(uiData) && Boolean(nft) && !isLoading ? (
-        <div className="flex items-center justify-between border-t p-4 dark:border-gray-700">
+        <div className="flex items-center justify-between border-t px-4 py-2 dark:border-gray-700">
           {uiData && nft.creatorAddress ? (
             <ActionInfo
               collectionName={nft.collectionName}
               creatorAddress={nft.creatorAddress}
               hidePrice
+              isPreview
               uiData={uiData}
             />
           ) : null}
@@ -98,7 +100,12 @@ const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
               content={<span>{OPEN_ACTION_EMBED_TOOLTIP}</span>}
               placement="top"
             >
-              <Button size="lg">{openActionCTA(uiData?.platformName)}</Button>
+              <Button
+                icon={<CursorArrowRaysIcon className="size-5" />}
+                size="md"
+              >
+                {openActionCTA(uiData?.platformName)}
+              </Button>
             </Tooltip>
           )}
         </div>

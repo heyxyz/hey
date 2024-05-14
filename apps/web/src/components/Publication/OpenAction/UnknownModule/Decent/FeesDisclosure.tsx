@@ -38,7 +38,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
           Fees <ChevronDownIcon className="size-3" strokeWidth={3} />
         </DisclosureButton>
         {loadingCurrencyDetails ? (
-          <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+          <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
         ) : (
           <span>
             {formattedTotalFees.toFixed(4)} {tokenSymbol}
@@ -52,9 +52,13 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
               ? 'Transaction Fee'
               : 'Bridge Fee'}
           </span>
-          <span>
-            {loadingCurrencyDetails ? '--' : bridgeFee.toFixed(4)} {tokenSymbol}
-          </span>
+          {loadingCurrencyDetails ? (
+            <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
+          ) : (
+            <span>
+              {bridgeFee.toFixed(4)} {tokenSymbol}
+            </span>
+          )}
         </div>
         <div className="ld-text-gray-500 flex items-center justify-between">
           <div className="flex items-center gap-1 space-x-1">
@@ -66,7 +70,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
             </HelpTooltip>
           </div>
           {loadingCurrencyDetails ? (
-            <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+            <span className="shimmer h-6 w-28 rounded-lg bg-gray-200" />
           ) : (
             <span>
               {(formattedTotalAmount * 0.05).toFixed(4)} {tokenSymbol}

@@ -74,11 +74,11 @@ const DecentAction: FC<DecentActionProps> = ({
     return (
       <div
         className={cn(
-          'shimmer flex h-[34px] w-28 items-center justify-center rounded-lg',
+          'shimmer flex h-[38px] items-center justify-center rounded-full px-5 py-1.5',
           className
         )}
       >
-        <p>Switching currencies</p>
+        <p className="opacity-50">Computing price...</p>
       </div>
     );
   }
@@ -107,6 +107,7 @@ const DecentAction: FC<DecentActionProps> = ({
           stopEventPropagation(e);
           act();
         }}
+        size="lg"
       >
         {loadingState
           ? 'Pending'

@@ -41,7 +41,7 @@ import { OptmisticPublicationType } from '@hey/types/enums';
 import { Image, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
@@ -200,16 +200,23 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const formattedTotalFees = bridgeFee + formattedTotalAmount * 0.05;
   const formattedNftSchema = nft.schema === 'erc1155' ? 'ERC-1155' : 'ERC-721';
-  const nftChainInfo = actionData?.uiData.dstChainId
-    ? {
-        logo: getNftChainInfo(
-          getNftChainId(actionData.uiData.dstChainId.toString())
-        ).logo,
-        name: getNftChainInfo(
-          getNftChainId(actionData.uiData.dstChainId.toString())
-        ).name
-      }
-    : null;
+  const nftChainInfo = useMemo(() => {
+    if (actionData?.uiData.dstChainId) {
+      const chainIdStr = actionData.uiData.dstChainId.toString();
+      const chainInfo = getNftChainInfo(getNftChainId(chainIdStr));
+      return {
+        logo: chainInfo.logo,
+        name: chainInfo.name
+      };
+    }
+    return null;
+  }, [actionData?.uiData.dstChainId]);
+  const platformName = useMemo(() => {
+    if (actionData?.uiData.platformName) {
+      return actionData?.uiData.platformName;
+    }
+    return '';
+  }, [actionData?.uiData.platformName]);
 
   const amount = formattedTotalAmount || 0;
   const assetAddress = selectedNftOaCurrency;
@@ -471,7 +478,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   rel="noreferrer noopener"
                   target="_blank"
                 >
-                  Open in {actionData?.uiData.platformName}
+                  Open in {platformName}
                 </Link>
               </div>
             </div>
@@ -518,7 +525,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
                 {loadingCurrencyDetails ? (
-                  <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                  <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
                 ) : (
                   <div>
                     {(formattedTotalAmount - formattedTotalFees).toFixed(4)}{' '}
@@ -540,7 +547,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 </span>
                 <div className="flex flex-col items-end">
                   {loadingCurrencyDetails ? (
-                    <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                    <span className="shimmer h-7 w-36 rounded-lg bg-gray-200" />
                   ) : (
                     <p>
                       {formattedTotalAmount.toFixed(4)}{' '}
@@ -548,9 +555,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     </p>
                   )}
                   {loadingCurrencyDetails ? (
-                    <div className="shimmer mt-1 h-4 w-12 rounded-lg bg-gray-200" />
+                    <div className="shimmer mt-1 h-5 w-16 rounded-lg bg-gray-200" />
                   ) : (
-                    <div className="ld-text-gray-500 text-sm">
+                    <div className="ld-text-gray-500 mt-1 text-sm">
                       ~$
                       {(formattedTotalAmount * usdPrice).toFixed(4)}{' '}
                     </div>

@@ -87,6 +87,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
             stopEventPropagation(e);
             approveOA();
           }}
+          size="lg"
         >
           {isApprovalLoading
             ? 'Approving...'
@@ -100,6 +101,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
             stopEventPropagation(e);
             approvePermit2();
           }}
+          size="lg"
         >
           <div>
             {isPermit2Loading

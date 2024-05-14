@@ -7,6 +7,7 @@ import getProfile from '@hey/helpers/getProfile';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 
@@ -26,6 +27,7 @@ interface ActionInfoProps {
   collectionName: string;
   creatorAddress: Address;
   hidePrice?: boolean;
+  isPreview?: boolean;
   uiData: UIData;
 }
 
@@ -34,6 +36,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
   collectionName,
   creatorAddress,
   hidePrice,
+  isPreview,
   uiData
 }) => {
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
@@ -41,7 +44,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
   const { allowedTokens } = useAllowedTokensStore();
 
   const { data, loading } = useDefaultProfileQuery({
-    skip: !creatorAddress,
+    skip: !creatorAddress || isPreview,
     variables: { request: { for: creatorAddress } }
   });
 
@@ -61,7 +64,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
   const profileExists = Boolean(data?.defaultProfile);
 
   return (
-    <div className="flex items-start gap-4">
+    <div className={cn('flex items-start', isPreview ? 'gap-2' : 'gap-4')}>
       <div className="flex flex-col items-start justify-start">
         <Image
           alt={uiData.platformName}
@@ -74,16 +77,20 @@ const ActionInfo: FC<ActionInfoProps> = ({
       </div>
       <div className="flex flex-col items-start gap-1 sm:gap-0">
         <span className="block sm:inline-flex sm:gap-2">
-          <h2 className="sm:hidden">{truncateByWords(collectionName, 3)}</h2>
-          <h2 className="hidden sm:block">
+          <h2 className="font-semibold sm:hidden">
+            {truncateByWords(collectionName, 3)}
+          </h2>
+          <h2 className="hidden font-semibold sm:block">
             {truncateByWords(collectionName, 4)}
           </h2>
-          <p className="opacity-50">
-            by {loading && 'looooo'}
-            {profileExists
-              ? `@` + getProfile(data?.defaultProfile as Profile).slug
-              : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
-          </p>
+          {!isPreview && (
+            <p className="opacity-50">
+              by {loading && '...'}
+              {profileExists
+                ? `@` + getProfile(data?.defaultProfile as Profile).slug
+                : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
+            </p>
+          )}
         </span>
         {formattedPrice && !hidePrice && (
           <p className="opacity-50">
