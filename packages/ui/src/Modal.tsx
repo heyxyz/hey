@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode, SyntheticEvent } from 'react';
 
 import {
   Dialog,
@@ -29,6 +29,11 @@ export const Modal: FC<ModalProps> = ({
   size = 'sm',
   title
 }) => {
+  const handleClose = (e: SyntheticEvent) => {
+    e.stopPropagation(); // This stops the event from propagating further
+    onClose?.();
+  };
+
   return (
     <Transition as={Fragment} show={show}>
       <Dialog
@@ -40,6 +45,7 @@ export const Modal: FC<ModalProps> = ({
         <div
           aria-hidden="true"
           className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80"
+          onClick={handleClose}
         />
         <TransitionChild
           as={Fragment}
