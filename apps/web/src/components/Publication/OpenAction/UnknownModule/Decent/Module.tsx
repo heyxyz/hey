@@ -517,14 +517,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             <div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
-                <div>
-                  {loadingCurrencyDetails
-                    ? '--'
-                    : (formattedTotalAmount - formattedTotalFees).toFixed(
-                        4
-                      )}{' '}
-                  {getTokenDetails(selectedNftOaCurrency).symbol}
-                </div>
+                {loadingCurrencyDetails ? (
+                  <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                ) : (
+                  <div>
+                    {(formattedTotalAmount - formattedTotalFees).toFixed(4)}{' '}
+                    {getTokenDetails(selectedNftOaCurrency).symbol}
+                  </div>
+                )}
               </div>
               <FeesDisclosure
                 actionData={actionData}
@@ -539,18 +539,22 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   Total
                 </span>
                 <div className="flex flex-col items-end">
-                  <p>
-                    {loadingCurrencyDetails
-                      ? '--'
-                      : formattedTotalAmount.toFixed(4)}{' '}
-                    {getTokenDetails(selectedNftOaCurrency).symbol}
-                  </p>
-                  <div className="ld-text-gray-500 text-sm">
-                    ~$
-                    {loadingCurrencyDetails
-                      ? '--'
-                      : (formattedTotalAmount * usdPrice).toFixed(4)}{' '}
-                  </div>
+                  {loadingCurrencyDetails ? (
+                    <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                  ) : (
+                    <p>
+                      {formattedTotalAmount.toFixed(4)}{' '}
+                      {getTokenDetails(selectedNftOaCurrency).symbol}
+                    </p>
+                  )}
+                  {loadingCurrencyDetails ? (
+                    <div className="shimmer mt-1 h-4 w-12 rounded-lg bg-gray-200" />
+                  ) : (
+                    <div className="ld-text-gray-500 text-sm">
+                      ~$
+                      {(formattedTotalAmount * usdPrice).toFixed(4)}{' '}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

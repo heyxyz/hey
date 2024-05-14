@@ -37,10 +37,13 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
         >
           Fees <ChevronDownIcon className="size-3" strokeWidth={3} />
         </DisclosureButton>
-        <div>
-          {loadingCurrencyDetails ? '--' : formattedTotalFees.toFixed(4)}{' '}
-          {tokenSymbol}
-        </div>
+        {loadingCurrencyDetails ? (
+          <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+        ) : (
+          <span>
+            {formattedTotalFees.toFixed(4)} {tokenSymbol}
+          </span>
+        )}
       </div>
       <DisclosurePanel className="mt-2 space-y-2">
         <div className="ld-text-gray-500 flex items-center justify-between">
@@ -62,12 +65,13 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
               </div>
             </HelpTooltip>
           </div>
-          <span>
-            {loadingCurrencyDetails
-              ? '--'
-              : (formattedTotalAmount * 0.05).toFixed(4)}{' '}
-            {tokenSymbol}
-          </span>
+          {loadingCurrencyDetails ? (
+            <span className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+          ) : (
+            <span>
+              {(formattedTotalAmount * 0.05).toFixed(4)} {tokenSymbol}
+            </span>
+          )}
         </div>
       </DisclosurePanel>
     </Disclosure>
