@@ -500,7 +500,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 >
                   <MinusIcon className="size-3 text-gray-600" strokeWidth={3} />
                 </button>
-                <span className="size-4 text-center">{selectedQuantity}</span>
+                <span className="size-6 text-center">{selectedQuantity}</span>
                 <button
                   className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
                   onClick={(e) => {
