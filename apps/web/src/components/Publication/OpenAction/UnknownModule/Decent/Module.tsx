@@ -125,8 +125,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
     useActOnUnknownOpenAction({
+      onSuccess: onClose,
       signlessApproved: true,
-      successToast: 'Initiated transaction'
+      successToast: 'NFT has been minted!'
     });
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
