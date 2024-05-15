@@ -48,14 +48,17 @@ const ActionInfo: FC<ActionInfoProps> = ({
     variables: { request: { for: creatorAddress } }
   });
 
-  const formattedPrice = formatPrice(
-    Number(actionData?.actArgumentsFormatted.paymentToken.amount) /
-      Math.pow(
-        10,
-        allowedTokens?.find((t) => t.contractAddress === selectedNftOaCurrency)
-          ?.decimals || 18
+  const formattedPrice = actionData?.actArgumentsFormatted?.paymentToken?.amount
+    ? formatPrice(
+        Number(actionData?.actArgumentsFormatted.paymentToken.amount) /
+          Math.pow(
+            10,
+            allowedTokens?.find(
+              (t) => t.contractAddress === selectedNftOaCurrency
+            )?.decimals || 18
+          )
       )
-  );
+    : null;
 
   if (!creatorAddress && loading) {
     return null;

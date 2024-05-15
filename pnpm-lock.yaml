@@ -288,8 +288,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
       nft-openaction-kit:
-        specifier: ^1.0.25
-        version: 1.0.25(typescript@5.4.5)(zod@3.23.8)
+        specifier: ^1.0.27
+        version: 1.0.27(typescript@5.4.5)(zod@3.23.8)
       party-js:
         specifier: ^2.2.0
         version: 2.2.0
@@ -18467,8 +18467,8 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /nft-openaction-kit@1.0.25(typescript@5.4.5)(zod@3.23.8):
-    resolution: {integrity: sha512-/L82ibBkOGix/gAkSWFQcMxm/EFjuQok7XK0YgDqa82B4TJvE/VpNruwGgwze9GOtVLZ6wwZoE2gR18OY/GB6w==}
+  /nft-openaction-kit@1.0.27(typescript@5.4.5)(zod@3.23.8):
+    resolution: {integrity: sha512-wk30kPNQM0Kx3z80s74/ZuPvyaVKT1NT/VGsizrubZQc5zJxcG6xGTwX/XKwzzl7N3casdlpTsr8NRZCtKLqWQ==}
     dependencies:
       axios: 1.6.8(debug@4.3.4)
       viem: 2.10.5(typescript@5.4.5)(zod@3.23.8)
