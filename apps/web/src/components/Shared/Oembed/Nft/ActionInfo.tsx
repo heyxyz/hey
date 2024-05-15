@@ -28,7 +28,7 @@ interface ActionInfoProps {
   creatorAddress: Address;
   hidePrice?: boolean;
   isPreview?: boolean;
-  uiData: UIData;
+  uiData?: UIData;
 }
 
 const ActionInfo: FC<ActionInfoProps> = ({
@@ -70,11 +70,11 @@ const ActionInfo: FC<ActionInfoProps> = ({
     <div className={cn('flex items-start', isPreview ? 'gap-2' : 'gap-4')}>
       <div className="flex flex-col items-start justify-start">
         <Image
-          alt={uiData.platformName}
+          alt={uiData?.platformName}
           className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
           height={24}
           loading="lazy"
-          src={uiData.platformLogoUrl}
+          src={uiData?.platformLogoUrl}
           width={24}
         />
       </div>

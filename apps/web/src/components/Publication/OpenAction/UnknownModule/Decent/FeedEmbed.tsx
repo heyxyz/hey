@@ -215,13 +215,13 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
           <div className="flex flex-col items-start justify-between gap-4 border-t p-4 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
             {nft.creatorAddress ? (
               <ActionInfo
-                actionData={actionData}
+                actionData={actionData as ActionData | undefined}
                 collectionName={nft.collectionName}
                 creatorAddress={nft.creatorAddress}
                 uiData={
                   dataType === ActionDataResponseType.FULL
-                    ? actionData?.uiData
-                    : actionData
+                    ? (actionData as ActionData)?.uiData
+                    : (actionData as UIData)
                 }
               />
             ) : null}
@@ -236,7 +236,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
                 }}
                 size="lg"
               >
-                {openActionCTA(actionData.platformName)}
+                {openActionCTA((actionData as ActionData).uiData?.platformName)}
               </Button>
             ) : (
               <Tooltip
@@ -259,7 +259,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
       </Card>
       {Boolean(actionData) && dataType === ActionDataResponseType.FULL ? (
         <DecentOpenActionModule
-          actionData={actionData}
+          actionData={actionData as ActionData}
           loadingCurrency={loadingActionData}
           module={module as UnknownOpenActionModuleSettings}
           nft={nft}
