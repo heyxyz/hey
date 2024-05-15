@@ -7,7 +7,9 @@ import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import {
   SCORE_WORKER_URL,
-  SWR_CACHE_AGE_1_HOUR_12_HRS
+  SUSPENDED_FEATURE_ID,
+  SWR_CACHE_AGE_1_HOUR_12_HRS,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
 } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
@@ -21,13 +23,21 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [cachedProfile, pro] = await heyPg.multi(
+    const [cachedProfile, pro, suspended] = await heyPg.multi(
       `
         SELECT * FROM "CachedProfileScore" WHERE "id" = $1 LIMIT 1;
         SELECT * FROM "Pro" WHERE "id" = $1 LIMIT 1;
+        SELECT * FROM "ProfileFeature" WHERE enabled = TRUE AND "featureId" = $2 AND "profileId" = $1;
       `,
-      [id as string]
+      [id as string, SUSPENDED_FEATURE_ID]
     );
+
+    if (suspended.length > 0) {
+      return res
+        .status(200)
+        .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+        .json({ score: 0, success: true });
+    }
 
     if (
       cachedProfile[0]?.expiresAt &&
