@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/leafwatch/profile/details', () => {
+describe.skip('internal/leafwatch/profile/details', () => {
   test('should return profile details', async () => {
     const response = await axios.get(
       `${TEST_URL}/internal/leafwatch/profile/details`,

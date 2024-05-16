@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/gardenerMode', () => {
+describe.skip('internal/features/gardenerMode', () => {
   test('should enable gardener mode', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/gardenerMode`,

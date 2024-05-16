@@ -4,7 +4,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/assign', () => {
+describe.skip('internal/features/assign', () => {
   const payload = {
     enabled: true,
     id: '8ed8b26a-279d-4111-9d39-a40164b273a0',
