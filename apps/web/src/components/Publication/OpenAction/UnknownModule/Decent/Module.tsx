@@ -319,7 +319,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           nonce: BigInt(permit2Data.nonce),
           signature: permit2Data.signature as `0x${string}`
         });
-        await actOnUnknownOpenAction({
+
+        return await actOnUnknownOpenAction({
           address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
           data: updatedCalldata,
           publicationId: publication.id,
