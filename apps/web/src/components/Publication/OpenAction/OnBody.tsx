@@ -7,6 +7,7 @@ import type { FC } from 'react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 
+import DecentOpenAction from './UnknownModule/Decent';
 import RentableBillboardOpenAction from './UnknownModule/RentableBillboard';
 import SwapOpenAction from './UnknownModule/Swap';
 
@@ -18,7 +19,8 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
   const module = publication.openActionModules.find(
     (module) =>
       module.contract.address === VerifiedOpenActionModules.Swap ||
-      module.contract.address === VerifiedOpenActionModules.RentableBillboard
+      module.contract.address === VerifiedOpenActionModules.RentableBillboard ||
+      module.contract.address === VerifiedOpenActionModules.DecentNFT
   );
 
   if (!module) {
@@ -41,6 +43,9 @@ const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
             publication={publication}
           />
         )}
+      {module.contract.address === VerifiedOpenActionModules.DecentNFT && (
+        <DecentOpenAction publication={publication} />
+      )}
     </div>
   );
 };

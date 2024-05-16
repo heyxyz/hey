@@ -65,7 +65,7 @@ import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import { Editor, useEditorContext, withEditorContext } from './Editor';
 import LinkPreviews from './LinkPreviews';
-import OpenActions from './OpenActions';
+import OpenActionsPreviews from './OpenActionsPreviews';
 import Discard from './Post/Discard';
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
@@ -169,6 +169,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+  const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
@@ -388,13 +389,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Payload for the open action module
       const openActionModules = [];
-      if (collectModule.type) {
+
+      if (nftOpenActionEmbed) {
+        openActionModules.push(nftOpenActionEmbed);
+      }
+
+      if (Boolean(collectModule.type)) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule, currentProfile)
         });
       }
 
-      if (openAction) {
+      if (Boolean(openAction)) {
         openActionModules.push({ unknownOpenAction: openAction });
       }
 
@@ -408,7 +414,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (useMomoka) {
+      if (useMomoka && !nftOpenActionEmbed) {
         if (canUseLensManager) {
           if (isComment) {
             return await createCommentOnMomka(
@@ -558,8 +564,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
-      <OpenActions />
-      <LinkPreviews />
+      <OpenActionsPreviews setNftOpenActionEmbed={setNftOpenActionEmbed} />
+      {!nftOpenActionEmbed ? <LinkPreviews /> : null}
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>

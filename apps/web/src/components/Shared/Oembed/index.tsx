@@ -1,3 +1,4 @@
+import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
@@ -6,20 +7,19 @@ import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 import getFavicon from '@hey/helpers/getFavicon';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Embed from './Embed';
 import EmptyOembed from './EmptyOembed';
-import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
   onLoad?: (og: OG) => void;
-  publicationId?: string;
+  publication?: AnyPublication;
   url: string;
 }
 
-const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
+const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -31,6 +31,15 @@ const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
     queryKey: ['getOembed', url],
     refetchOnMount: false
   });
+
+  const [currentPublication, setCurrentPublication] =
+    useState<AnyPublication>();
+
+  useEffect(() => {
+    if (publication) {
+      setCurrentPublication(publication);
+    }
+  }, [publication]);
 
   useEffect(() => {
     if (onLoad) {
@@ -64,7 +73,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
     url: url as string
   };
 
-  if (!og.title && !og.html && !og.nft) {
+  if (!og.title && !og.html) {
     return null;
   }
 
@@ -72,11 +81,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publicationId, url }) => {
     return <Player og={og} />;
   }
 
-  if (og.nft) {
-    return <Nft nft={og.nft} publicationId={publicationId} />;
-  }
-
-  return <Embed og={og} publicationId={publicationId} />;
+  return <Embed og={og} publicationId={currentPublication?.id} />;
 };
 
 export default Oembed;

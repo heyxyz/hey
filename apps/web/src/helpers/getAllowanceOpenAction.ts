@@ -19,6 +19,9 @@ const getAllowanceOpenAction = (
     case VerifiedOpenActionModules.RentableBillboard:
       return { name: 'Rentable Billboard' };
 
+    case VerifiedOpenActionModules.DecentNFT:
+      return { name: 'NFT Mint Open Action' };
+
     default:
       return { name: 'Unknown Open Action' };
   }

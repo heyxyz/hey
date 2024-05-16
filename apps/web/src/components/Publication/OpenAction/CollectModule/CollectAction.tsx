@@ -10,7 +10,7 @@ import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import LoginButton from '@components/Shared/Navbar/LoginButton';
+import LoginButton from '@components/Shared/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import errorToast from '@helpers/errorToast';

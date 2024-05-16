@@ -21,7 +21,7 @@ const getAllowancePayload = (currency: string) => {
 const OpenActions: FC = () => {
   const { currentProfile } = useProfileStore();
   const { allowedTokens } = useAllowedTokensStore();
-  const [selectedCurrency, setSelectedCurrency] = useState(
+  const [selectedNftOaCurrency, setSelectedNftOaCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
   const [currencyLoading, setCurrencyLoading] = useState(false);
@@ -56,7 +56,7 @@ const OpenActions: FC = () => {
           iconClassName="size-4"
           onChange={(value) => {
             setCurrencyLoading(true);
-            setSelectedCurrency(value);
+            setSelectedNftOaCurrency(value);
             refetch({
               request: getAllowancePayload(value)
             }).finally(() => setCurrencyLoading(false));
@@ -65,7 +65,7 @@ const OpenActions: FC = () => {
             allowedTokens?.map((token) => ({
               icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
               label: token.name,
-              selected: token.contractAddress === selectedCurrency,
+              selected: token.contractAddress === selectedNftOaCurrency,
               value: token.contractAddress
             })) || [{ label: 'Loading...', value: 'Loading...' }]
           }

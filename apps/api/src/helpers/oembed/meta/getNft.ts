@@ -17,42 +17,55 @@ const getNft = (document: Document, sourceUrl: string): Nft | null => {
     return metaTag ? metaTag.getAttribute('content') : null;
   };
 
-  const collectionName = getMeta('eth:nft:collection') as string;
+  let collectionName = getMeta('eth:nft:collection') as string;
+  const contractAddress = getMeta('eth:nft:contract_address') as Address;
   const creatorAddress = getMeta('eth:nft:creator_address') as Address;
-  const chain = getMeta('eth:nft:chain') || getMeta('nft:chain');
-  const mediaUrl = (getMeta('og:image') ||
+  let chain = getMeta('eth:nft:chain') || getMeta('nft:chain');
+  let mediaUrl = (getMeta('og:image') ||
     getMeta('eth:nft:media_url')) as string;
+  const description = getMeta('og:description') as string;
+  const mintCount = getMeta('eth:nft:mint_count') as string;
+  const mintStatus = getMeta('eth:nft:status');
+  const mintUrl = getMeta('eth:nft:mint_url') as string;
+  const schema = getMeta('eth:nft:schema') as string;
+  const endTime = getMeta('eth:nft:endtime');
 
   if (!collectionName || !mediaUrl) {
     const hasFCFrame = getMeta('fc:frame:button:1:action') === 'mint';
 
     if (hasFCFrame) {
       const target = getMeta('fc:frame:button:1:target');
-      const collectionName = getMeta('og:title') as string;
+      collectionName = getMeta('og:title') as string;
 
-      const chain = target?.startsWith('eip')
+      chain = target?.startsWith('eip')
         ? getNftChainId(target.split(':')[1])
         : null;
-      const mediaUrl = (getMeta('fc:frame:image') ||
-        getMeta('og:image')) as string;
+      mediaUrl = (getMeta('fc:frame:image') || getMeta('og:image')) as string;
 
       if (!collectionName || !mediaUrl) {
         return null;
       }
-
-      return {
-        chain,
-        collectionName,
-        creatorAddress: null,
-        mediaUrl,
-        sourceUrl
-      };
     }
+  }
 
+  if (!collectionName && !contractAddress && !creatorAddress && !schema) {
     return null;
   }
 
-  return { chain, collectionName, creatorAddress, mediaUrl, sourceUrl };
+  return {
+    chain,
+    collectionName,
+    contractAddress,
+    creatorAddress,
+    description,
+    endTime,
+    mediaUrl,
+    mintCount,
+    mintStatus,
+    mintUrl,
+    schema,
+    sourceUrl
+  };
 };
 
 export default getNft;
