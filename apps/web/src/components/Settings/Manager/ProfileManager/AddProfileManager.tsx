@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import errorToast from '@helpers/errorToast';
@@ -26,7 +26,7 @@ import { isAddress } from 'viem';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 
 interface AddProfileManagerProps {
-  setShowAddManagerModal: (show: boolean) => void;
+  setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const AddProfileManager: FC<AddProfileManagerProps> = ({

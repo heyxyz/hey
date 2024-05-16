@@ -1,5 +1,5 @@
 import type { AllowedToken } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
@@ -23,8 +23,8 @@ const createTokenSchema = object({
 });
 
 interface CreateProps {
-  setShowCreateModal: (show: boolean) => void;
-  setTokens: (tokens: any) => void;
+  setShowCreateModal: Dispatch<SetStateAction<boolean>>;
+  setTokens: Dispatch<SetStateAction<AllowedToken[]>>;
   tokens: AllowedToken[];
 }
 
