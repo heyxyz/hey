@@ -78,7 +78,7 @@ const DecentAction: FC<DecentActionProps> = ({
           className
         )}
       >
-        <p className="opacity-50">Computing price...</p>
+        <p className="ld-text-gray-500">Computing price...</p>
       </div>
     );
   }

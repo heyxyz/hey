@@ -391,9 +391,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             creator: getProfile(creatorProfileData?.defaultProfile as Profile)
               .slug,
             name: actionData?.uiData.nftName || '',
-            price:
-              formattedTotalAmount.toFixed(4) +
-              getTokenDetails(selectedNftOaCurrency).symbol,
+            price: formattedTotalAmount.toFixed(4),
             schema: formattedNftSchema,
             uri: sanitizeDStorageUrl(actionData?.uiData.nftUri)
           }}
@@ -404,9 +402,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         <>
           <div className="space-y-2 p-5">
             <div>
-              <h2 className="text-xl">{actionData?.uiData.nftName}</h2>
+              <b className="text-xl">{actionData?.uiData.nftName}</b>
               {creatorProfileData ? (
-                <p className="opacity-50">
+                <p className="ld-text-gray-500">
                   by{' '}
                   {creatorProfileExists
                     ? getProfile(creatorProfileData.defaultProfile as Profile)
@@ -455,7 +453,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     : truncateByWords(nft.description, 30)}
                   {nft.description.trim().split(/\s+/).length > 30 ? (
                     <button
-                      className="ml-1 opacity-50"
+                      className="ld-text-gray-500 ml-1"
                       onClick={(e) => {
                         stopEventPropagation(e);
                         setShowLongDescription((v) => !v);
