@@ -9,7 +9,6 @@ import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import { getAddress } from 'viem';
 
-// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { address, id } = req.query;
 
