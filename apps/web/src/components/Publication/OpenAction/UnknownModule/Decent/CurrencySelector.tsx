@@ -68,7 +68,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
     wmaticBalanceLoading || wethBalanceLoading || usdcBalanceLoading;
 
   return (
-    <div className="flex h-[80vh] w-full flex-col gap-2 p-5">
+    <div className="flex h-[80vh] w-full flex-col space-y-2 p-5">
       {allowedTokens
         .filter((t) =>
           Object.keys(SUPPORTED_DECENT_OA_TOKENS).includes(t.symbol)
@@ -83,7 +83,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                 onSelectCurrency(token.contractAddress as Address);
               }}
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center space-x-2">
                 <div className="relative">
                   <img
                     alt={token.symbol}
@@ -102,14 +102,14 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                     width={16}
                   />
                 </div>
-                <div className="flex flex-col items-start justify-center leading-none">
-                  <p>{token.symbol}</p>
-                  <p className="ld-text-gray-500 text-sm">Polygon</p>
+                <div>
+                  <b>{token.symbol}</b>
+                  <p className="ld-text-gray-500 text-xs">Polygon</p>
                 </div>
               </div>
-              <div className="flex flex-col items-end justify-center gap-1 leading-none">
+              <div className="text-right">
                 {isLoading ? (
-                  <div className="shimmer h-4 w-16 rounded-lg bg-gray-200" />
+                  <div className="shimmer mb-3 ml-auto h-4 w-16 rounded-lg bg-gray-200" />
                 ) : (
                   <p>
                     {balances[token.symbol as keyof typeof balances]?.token ||
@@ -117,7 +117,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                   </p>
                 )}
                 {isLoading ? (
-                  <div className="shimmer h-4 w-12 rounded-lg bg-gray-200" />
+                  <div className="shimmer ml-auto h-4 w-12 rounded-lg bg-gray-200" />
                 ) : (
                   <p className="text-sm opacity-50">
                     $
