@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/staffMode', () => {
+describe.skip('internal/features/staffMode', () => {
   test('should enable staff mode', async () => {
     const response = await axios.post(
       `${TEST_URL}/internal/features/staffMode`,

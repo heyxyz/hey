@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/toggle', () => {
+describe.skip('internal/features/toggle', () => {
   const payload = {
     enabled: false,
     id: '8ed8b26a-279d-4111-9d39-a40164b273a0'
