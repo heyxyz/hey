@@ -5,7 +5,7 @@ import {
   DisclosureButton,
   DisclosurePanel
 } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { ArrowUpRightIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { HelpTooltip } from '@hey/ui'; // Assuming HelpTooltip is from @hey/ui
 import type { ActionData } from 'nft-openaction-kit';
 
@@ -46,36 +46,43 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
           </span>
         )}
       </div>
-      <DisclosurePanel className="mt-2 space-y-2 text-sm">
+      <DisclosurePanel className="mt-1.5 space-y-1 text-sm">
         <div className="ld-text-gray-500 flex items-center justify-between">
-          <span>
-            {actionData?.actArgumentsFormatted.dstChainId === 137
-              ? 'Transaction Fee'
-              : 'Bridge Fee'}
+          <span className="flex items-center space-x-2">
+            <ArrowUpRightIcon className="size-3" />
+            <p>
+              {actionData?.actArgumentsFormatted.dstChainId === 137
+                ? 'Transaction Fee'
+                : 'Bridge Fee'}
+            </p>
           </span>
           {loadingCurrencyDetails ? (
-            <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
+            <span className="shimmer h-4 w-24 rounded-lg bg-gray-200" />
           ) : (
-            <span>
+            <p>
               {bridgeFee.toFixed(4)} {tokenSymbol}
-            </span>
+            </p>
           )}
         </div>
         <div className="ld-text-gray-500 flex items-center justify-between">
-          <div className="flex items-center gap-1 space-x-1">
-            <span>Lens Creator Fee</span>
+          <div className="flex items-center space-x-2">
+            <span className="flex items-center space-x-2">
+              <ArrowUpRightIcon className="size-3" />
+              <p>Lens Creator Fee</p>
+            </span>
             <HelpTooltip>
-              <div className="whitespace-pre-wrap px-2 py-3 leading-tight">
-                {`Lens creator fee is distributed between publication creator,\napplication, Lens treasury, and mirror (if applicable)`}
+              <div className="max-w-xs py-1 leading-5">
+                Lens creator fee is distributed between publication creator,
+                application, Lens treasury, and mirror (if applicable)
               </div>
             </HelpTooltip>
           </div>
           {loadingCurrencyDetails ? (
-            <span className="shimmer h-6 w-28 rounded-lg bg-gray-200" />
+            <span className="shimmer h-4 w-28 rounded-lg bg-gray-200" />
           ) : (
-            <span>
+            <p>
               {(formattedTotalAmount * 0.05).toFixed(4)} {tokenSymbol}
-            </span>
+            </p>
           )}
         </div>
       </DisclosurePanel>
