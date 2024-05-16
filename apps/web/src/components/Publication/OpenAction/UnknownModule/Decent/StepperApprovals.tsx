@@ -10,7 +10,7 @@ const permit2Copy = (selectedCurrencySymbol: string) =>
 const approveTokenCopy = (selectedCurrencySymbol: string) =>
   `Approve ${selectedCurrencySymbol} token allowance to cross-chain NFT open action contract with signature.`;
 
-type StepperApprovalsProps = {
+interface StepperApprovalsProps {
   approveOA: () => void;
   approvePermit2: () => void;
   isApprovalLoading: boolean;
@@ -24,7 +24,7 @@ type StepperApprovalsProps = {
   };
   selectedCurrencySymbol: string;
   step: 'Allowance' | 'Permit2';
-};
+}
 
 const StepperApprovals: FC<StepperApprovalsProps> = ({
   approveOA,
