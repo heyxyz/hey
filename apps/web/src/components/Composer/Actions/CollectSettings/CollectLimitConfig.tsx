@@ -1,3 +1,4 @@
+import type { CollectModuleType } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
@@ -6,7 +7,7 @@ import { Input } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 interface CollectLimitConfigProps {
-  setCollectType: (data: any) => void;
+  setCollectType: (data: CollectModuleType) => void;
 }
 
 const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
