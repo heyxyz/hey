@@ -4,7 +4,7 @@ import type {
   OnchainMirrorRequest
 } from '@hey/lens';
 import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { useApolloClient } from '@apollo/client';
 import { MenuItem } from '@headlessui/react';
@@ -42,7 +42,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 interface MirrorProps {
   isLoading: boolean;
   publication: MirrorablePublication;
-  setIsLoading: (isLoading: boolean) => void;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {

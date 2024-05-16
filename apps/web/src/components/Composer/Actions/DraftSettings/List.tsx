@@ -1,5 +1,5 @@
 import type { Draft } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { useEditorContext } from '@components/Composer/Editor';
 import Loader from '@components/Shared/Loader';
@@ -16,7 +16,7 @@ import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCo
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
 interface ListProps {
-  setShowModal: (showModal: boolean) => void;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const List: FC<ListProps> = ({ setShowModal }) => {
