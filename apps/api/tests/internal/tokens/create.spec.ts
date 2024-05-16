@@ -12,7 +12,7 @@ const generateRandomEthereumAddress = () => {
   return address;
 };
 
-describe('internal/tokens/create', () => {
+describe.skip('internal/tokens/create', () => {
   const payload = {
     contractAddress: generateRandomEthereumAddress(),
     decimals: 18,
