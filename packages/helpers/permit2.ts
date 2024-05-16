@@ -1,7 +1,7 @@
 import type { Address, Hex, WalletClient } from 'viem';
 
 import { Bridge, Swap } from '@hey/abis';
-import { IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET, PERMIT_2_ADDRESS } from '@hey/data/constants';
 import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@hey/data/rpcs';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import {
@@ -13,8 +13,6 @@ import {
   parseAbi
 } from 'viem';
 import { polygon, polygonAmoy } from 'viem/chains';
-
-import { PERMIT_2_ADDRESS } from '../../apps/web/src/constants';
 
 const timeToMilliseconds = (
   value: number,
