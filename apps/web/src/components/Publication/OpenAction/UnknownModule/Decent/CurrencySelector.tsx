@@ -104,7 +104,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                 </div>
                 <div className="flex flex-col items-start justify-center leading-none">
                   <p>{token.symbol}</p>
-                  <p className="text-sm opacity-50">Polygon</p>
+                  <p className="ld-text-gray-500 text-sm">Polygon</p>
                 </div>
               </div>
               <div className="flex flex-col items-end justify-center gap-1 leading-none">

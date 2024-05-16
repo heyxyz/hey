@@ -36,21 +36,22 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
   step
 }) => {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 p-4">
+    <div className="w-full space-y-4 p-5">
       <div className="flex w-full items-start justify-between">
-        <div className="flex items-center justify-start gap-4">
+        <div className="flex items-center justify-start space-x-4">
           <img
             alt={nftDetails.name}
             className="aspect-[1.5] max-h-[50px] w-auto rounded-xl object-cover"
             src={nftDetails.uri}
           />
-          <div className="flex flex-col items-start justify-center">
+          <div>
             <p className="text-lg font-bold">{nftDetails.name}</p>
             <p className="text-sm">{nftDetails.creator}</p>
           </div>
         </div>
-        <div className="text-gray-600 dark:text-gray-100">
-          {nftDetails.price}
+        <div className="ld-text-gray-500 flex items-center space-x-1">
+          <b>{nftDetails.price}</b>
+          <p>{selectedCurrencySymbol}</p>
         </div>
       </div>
       <WarningMessage

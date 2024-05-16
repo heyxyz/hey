@@ -32,10 +32,11 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
     <Disclosure>
       <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
         <DisclosureButton
-          className="flex items-baseline gap-1 space-x-1"
+          className="flex items-center space-x-1.5"
           onClick={stopEventPropagation}
         >
-          Fees <ChevronDownIcon className="size-3" strokeWidth={3} />
+          <span>Fees</span>
+          <ChevronDownIcon className="size-3" strokeWidth={3} />
         </DisclosureButton>
         {loadingCurrencyDetails ? (
           <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
@@ -45,7 +46,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
           </span>
         )}
       </div>
-      <DisclosurePanel className="mt-2 space-y-2">
+      <DisclosurePanel className="mt-2 space-y-2 text-sm">
         <div className="ld-text-gray-500 flex items-center justify-between">
           <span>
             {actionData?.actArgumentsFormatted.dstChainId === 137
