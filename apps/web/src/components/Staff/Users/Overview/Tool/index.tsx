@@ -1,8 +1,8 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
+import MetaDetails from '@components/Shared/MetaDetails';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
-import MetaDetails from '@components/Shared/Staff/MetaDetails';
 import UserProfile from '@components/Shared/UserProfile';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import MetaTags from '@components/Common/MetaTags';
-import LoginButton from '@components/Shared/Navbar/LoginButton';
+import LoginButton from '@components/Shared/LoginButton';
 import { APP_NAME } from '@hey/data/constants';
 
 const NotLoggedIn: FC = () => {

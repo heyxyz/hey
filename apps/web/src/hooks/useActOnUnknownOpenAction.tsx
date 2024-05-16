@@ -1,4 +1,7 @@
-import type { ActOnOpenActionLensManagerRequest } from '@hey/lens';
+import type {
+  ActOnOpenActionLensManagerRequest,
+  OnchainReferrer
+} from '@hey/lens';
 import type { Address } from 'viem';
 
 import errorToast from '@helpers/errorToast';
@@ -37,6 +40,8 @@ const useActOnUnknownOpenAction = ({
     lensHubOnchainSigNonce
   } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
+  const [relayStatus, setRelayStatus] = useState<string | undefined>();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseLensManager } =
@@ -93,23 +98,34 @@ const useActOnUnknownOpenAction = ({
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        const { id, typedData } = createActOnOpenActionTypedData;
-        await handleWrongNetwork();
+        try {
+          const { id, typedData } = createActOnOpenActionTypedData;
+          await handleWrongNetwork();
 
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return await write({ args: [typedData.value] });
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData));
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            });
+            if (data?.broadcastOnchain.__typename === 'RelayError') {
+              const txResult = await write({ args: [typedData.value] });
+              setTxHash(txResult);
+              return txResult;
+            }
+            if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
+              setRelayStatus(data?.broadcastOnchain.txId);
+            }
+            incrementLensHubOnchainSigNonce();
+
+            return;
           }
-          incrementLensHubOnchainSigNonce();
 
-          return;
+          const txResult = await write({ args: [typedData.value] });
+          setTxHash(txResult);
+          return txResult;
+        } catch (error) {
+          onError(error);
         }
-
-        return await write({ args: [typedData.value] });
       },
       onError
     });
@@ -131,6 +147,10 @@ const useActOnUnknownOpenAction = ({
       return;
     }
 
+    if (data?.actOnOpenAction.__typename === 'RelaySuccess') {
+      setRelayStatus(data?.actOnOpenAction.txId);
+    }
+
     if (
       !data?.actOnOpenAction ||
       data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'
@@ -142,18 +162,21 @@ const useActOnUnknownOpenAction = ({
   const actOnUnknownOpenAction = async ({
     address,
     data,
-    publicationId
+    publicationId,
+    referrers
   }: {
     address: Address;
     data: string;
     publicationId: string;
+    referrers?: OnchainReferrer[];
   }) => {
     try {
       setIsLoading(true);
 
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { unknownOpenAction: { address, data } },
-        for: publicationId
+        for: publicationId,
+        referrers
       };
 
       if (canUseLensManager && signlessApproved) {
@@ -171,7 +194,7 @@ const useActOnUnknownOpenAction = ({
     }
   };
 
-  return { actOnUnknownOpenAction, isLoading };
+  return { actOnUnknownOpenAction, isLoading, relayStatus, txHash };
 };
 
 export default useActOnUnknownOpenAction;

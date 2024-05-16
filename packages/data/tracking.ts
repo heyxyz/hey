@@ -59,6 +59,9 @@ export const PUBLICATION = {
   NEW_QUOTE: 'New quote',
   NOT_INTERESTED: 'Not interested publication',
   OPEN_ACTIONS: {
+    DECENT: {
+      OPEN_DECENT: 'Open decent.xyz open action modal'
+    },
     SWAP: { SWAP: 'Swap OA: Swap' }
   },
   OPEN_GIFS: 'Open GIFs modal',

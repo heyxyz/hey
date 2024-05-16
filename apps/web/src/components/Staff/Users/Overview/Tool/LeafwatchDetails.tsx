@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import MetaDetails from '@components/Shared/Staff/MetaDetails';
+import MetaDetails from '@components/Shared/MetaDetails';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   ComputerDesktopIcon,
