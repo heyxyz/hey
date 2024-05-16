@@ -468,12 +468,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               )}
             </div>
             <div className="ld-text-gray-500 flex items-center justify-between text-base">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center space-x-2">
                 <Squares2X2Icon className="size-4" />
                 <p className="text-sm">{formattedNftSchema}</p>
               </div>
               {nft.mintCount && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center space-x-2">
                   <UserIcon className="size-5" />
                   <p>{nft.mintCount} minted</p>
                 </div>
@@ -506,7 +506,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           {nft.schema === 'erc1155' ? (
             <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
               <p className="ld-text-gray-500">Quantity</p>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center space-x-4">
                 <button
                   className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
                   disabled={selectedQuantity === 1}
@@ -552,7 +552,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 tokenSymbol={getTokenDetails(selectedNftOaCurrency).symbol}
               />
               <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600 dark:text-gray-100">
-                <span className="flex items-baseline justify-start gap-1 space-x-1">
+                <span className="flex items-baseline justify-start space-x-1">
                   Total
                 </span>
                 <div className="flex flex-col items-end">
