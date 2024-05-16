@@ -29,20 +29,20 @@ describe('oembed/index', () => {
 
   test('should return nft', async () => {
     const response = await axios.get(`${TEST_URL}/oembed`, {
-      params: { url: 'https://app.manifold.xyz/c/totesemosh' }
+      params: { url: 'https://www.sound.xyz/yo/hey-the-revolution-begins' }
     });
 
     expect(response.data.oembed.nft.collectionName).toEqual(
-      'Totes Emosh (Scene 2)'
+      'Hey, The Revolution Begins'
     );
     expect(response.data.oembed.nft.creatorAddress).toEqual(
-      '0x3585ca22df80d70f6d1cc0867d8387c360181349'
+      '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef'
     );
     expect(response.data.oembed.nft.mediaUrl).toEqual(
-      'https://d1updk8hq321rl.cloudfront.net/optimized/85ae2690f4fa0c82f2e66334c20ad64df02ea18865319130a8aecf6b917fdb7c/w_1024.jpg'
+      'https://opengraph.sound.xyz/v1/release/e080681f-acc0-44c5-9191-802b4d298174'
     );
     expect(response.data.oembed.nft.sourceUrl).toEqual(
-      'https://app.manifold.xyz/c/totesemosh'
+      'https://www.sound.xyz/yo/hey-the-revolution-begins'
     );
   });
 

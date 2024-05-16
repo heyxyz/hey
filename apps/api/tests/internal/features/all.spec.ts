@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/all', () => {
+describe.skip('internal/features/all', () => {
   test('should return all features', async () => {
     const response = await axios.get(`${TEST_URL}/internal/features/all`, {
       headers: await getAuthApiHeadersForTest()

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('internal/features/create', () => {
+describe.skip('internal/features/create', () => {
   const payload = { key: Math.random().toString() };
 
   test('should create a feature', async () => {

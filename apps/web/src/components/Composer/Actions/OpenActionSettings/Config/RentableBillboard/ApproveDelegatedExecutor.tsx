@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import errorToast from '@helpers/errorToast';
@@ -16,7 +16,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransaction, useWriteContract } from 'wagmi';
 
 interface ApproveDelegatedExecutorProps {
-  setShowForm: (showForm: boolean) => void;
+  setShowForm: Dispatch<SetStateAction<boolean>>;
 }
 
 const ApproveDelegatedExecutor: FC<ApproveDelegatedExecutorProps> = ({

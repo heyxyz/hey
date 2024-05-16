@@ -19,13 +19,15 @@ export const PROFILE = {
   FOLLOW: 'Follow profile',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
+  RECOMMENDED: 'Recommended the profile',
   REPORT: 'Report profile',
   SUPER_FOLLOW: 'Super follow profile',
   SWITCH_PROFILE: 'Switch profile',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE_STATS_TAB: 'Switch profile stats tab',
   UNBLOCK: 'Unblock profile',
-  UNFOLLOW: 'Unfollow profile'
+  UNFOLLOW: 'Unfollow profile',
+  UNRECOMENDED: 'Unrecommended the profile'
 };
 
 export const PUBLICATION = {

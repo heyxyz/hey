@@ -24,6 +24,7 @@ import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
 import collectModuleParams from '@hey/helpers/collectModuleParams';
+import getMentions from '@hey/helpers/getMentions';
 import getProfile from '@hey/helpers/getProfile';
 import removeQuoteOn from '@hey/helpers/removeQuoteOn';
 import { ReferenceModuleType } from '@hey/lens';
@@ -169,6 +170,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState('');
   const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
+  const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
 
@@ -284,6 +286,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   useEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
+
+  useEffect(() => {
+    if (getMentions(publicationContent).length > 50) {
+      setExceededMentionsLimit(true);
+      setPublicationContentError('You can only mention 50 people at a time!');
+    } else {
+      setExceededMentionsLimit(false);
+      setPublicationContentError('');
+    }
+  }, [publicationContent]);
 
   const getAnimationUrl = () => {
     const fallback =
@@ -593,7 +605,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ||
               isUploading ||
               isSubmitDisabledByPoll ||
-              videoThumbnail.uploading
+              videoThumbnail.uploading ||
+              exceededMentionsLimit
             }
             onClick={createPublication}
           >

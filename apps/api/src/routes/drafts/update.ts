@@ -20,7 +20,6 @@ const validationSchema = object({
   id: string().nullable()
 });
 
-// TODO: add tests
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
