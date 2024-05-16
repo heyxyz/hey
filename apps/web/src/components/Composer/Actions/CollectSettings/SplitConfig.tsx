@@ -1,3 +1,4 @@
+import type { CollectModuleType } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
@@ -11,7 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import splitNumber from '@hey/helpers/splitNumber';
-import { OpenActionModuleType } from '@hey/lens';
+import { CollectOpenActionModuleType } from '@hey/lens';
 import { Button, Input } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -19,7 +20,7 @@ import { isAddress } from 'viem';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
-  setCollectType: (data: any) => void;
+  setCollectType: (data: CollectModuleType) => void;
 }
 
 const SplitConfig: FC<SplitConfigProps> = ({
@@ -90,8 +91,8 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
             type:
               recipients.length > 0
-                ? OpenActionModuleType.SimpleCollectOpenActionModule
-                : OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+                ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
+                : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
           });
         }}
       />

@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
 import {
@@ -17,7 +17,7 @@ import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
   feedType: string;
-  setFeedType?: (type: ProfileFeedType) => void;
+  setFeedType?: Dispatch<SetStateAction<ProfileFeedType>>;
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
