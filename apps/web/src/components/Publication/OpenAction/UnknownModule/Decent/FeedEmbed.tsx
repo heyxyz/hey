@@ -12,7 +12,7 @@ import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenAction
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { ZERO_ADDRESS } from '@hey/data/constants';
+import { REWARDS_PROFILE_ID, ZERO_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -22,7 +22,7 @@ import { Button, Card, Image, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { CHAIN, HEY_REFERRAL_PROFILE_ID } from 'src/constants';
+import { CHAIN } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';
 
@@ -118,7 +118,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
 
     return await nftOpenActionKit
       .actionDataFromPost({
-        executingClientProfileId: HEY_REFERRAL_PROFILE_ID,
+        executingClientProfileId: REWARDS_PROFILE_ID,
         mirrorerProfileId: mirrorPublication?.by.id,
         mirrorPubId: mirrorPublication?.id,
         paymentToken: selectedNftOaCurrency,
