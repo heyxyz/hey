@@ -85,11 +85,7 @@ const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
       {Boolean(uiData) && Boolean(nft) && !isLoading ? (
         <div className="flex items-center justify-between border-t px-4 py-2 dark:border-gray-700">
           {uiData ? (
-            <ActionInfo
-              collectionName={nft.collectionName}
-              hidePrice
-              uiData={uiData}
-            />
+            <ActionInfo collectionName={nft.collectionName} uiData={uiData} />
           ) : null}
           {openActionEmbedLoading ? (
             <Spinner size="xs" />

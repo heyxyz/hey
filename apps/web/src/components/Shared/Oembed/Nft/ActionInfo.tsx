@@ -1,10 +1,8 @@
-import type { ActionData, UIData } from 'nft-openaction-kit';
+import type { UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { Image } from '@hey/ui';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 
 const formatPrice = (value: Number) => {
   const num = Number(value);
@@ -18,33 +16,11 @@ const formatPrice = (value: Number) => {
 };
 
 interface ActionInfoProps {
-  actionData?: ActionData;
   collectionName: string;
-  hidePrice?: boolean;
   uiData?: UIData;
 }
 
-const ActionInfo: FC<ActionInfoProps> = ({
-  actionData,
-  collectionName,
-  hidePrice,
-  uiData
-}) => {
-  const { selectedNftOaCurrency } = useNftOaCurrencyStore();
-  const { allowedTokens } = useAllowedTokensStore();
-
-  const formattedPrice = actionData?.actArgumentsFormatted?.paymentToken?.amount
-    ? formatPrice(
-        Number(actionData?.actArgumentsFormatted.paymentToken.amount) /
-          Math.pow(
-            10,
-            allowedTokens?.find(
-              (t) => t.contractAddress === selectedNftOaCurrency
-            )?.decimals || 18
-          )
-      )
-    : null;
-
+const ActionInfo: FC<ActionInfoProps> = ({ collectionName, uiData }) => {
   return (
     <div className="flex items-center space-x-2">
       <Image

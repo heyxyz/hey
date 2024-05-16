@@ -214,7 +214,6 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
         {actionData && Boolean(nft) && !loadingActionData ? (
           <div className="flex flex-col items-start justify-between gap-4 border-t px-4 py-2 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
             <ActionInfo
-              actionData={actionData as ActionData | undefined}
               collectionName={nft.collectionName}
               uiData={
                 dataType === ActionDataResponseType.FULL
