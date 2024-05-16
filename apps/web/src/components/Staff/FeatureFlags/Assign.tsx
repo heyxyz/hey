@@ -1,5 +1,5 @@
 import type { Feature } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
@@ -19,7 +19,7 @@ const assignFeatureSchema = object({
 
 interface AssignProps {
   feature: Feature;
-  setShowAssignModal: (show: boolean) => void;
+  setShowAssignModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
