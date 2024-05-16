@@ -1,13 +1,8 @@
-import type { Profile } from '@hey/lens';
 import type { ActionData, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
-import type { Address } from 'viem';
 
-import getProfile from '@hey/helpers/getProfile';
 import truncateByWords from '@hey/helpers/truncateByWords';
-import { useDefaultProfileQuery } from '@hey/lens';
 import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 
@@ -25,28 +20,18 @@ const formatPrice = (value: Number) => {
 interface ActionInfoProps {
   actionData?: ActionData;
   collectionName: string;
-  creatorAddress: Address;
   hidePrice?: boolean;
-  isPreview?: boolean;
   uiData?: UIData;
 }
 
 const ActionInfo: FC<ActionInfoProps> = ({
   actionData,
   collectionName,
-  creatorAddress,
   hidePrice,
-  isPreview,
   uiData
 }) => {
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
-
   const { allowedTokens } = useAllowedTokensStore();
-
-  const { data, loading } = useDefaultProfileQuery({
-    skip: !creatorAddress || isPreview,
-    variables: { request: { for: creatorAddress } }
-  });
 
   const formattedPrice = actionData?.actArgumentsFormatted?.paymentToken?.amount
     ? formatPrice(
@@ -60,43 +45,22 @@ const ActionInfo: FC<ActionInfoProps> = ({
       )
     : null;
 
-  if (!creatorAddress && loading) {
-    return null;
-  }
-
-  const profileExists = Boolean(data?.defaultProfile);
-
   return (
-    <div className={cn('flex items-start', isPreview ? 'gap-2' : 'gap-4')}>
-      <div className="flex flex-col items-start justify-start">
-        <Image
-          alt={uiData?.platformName}
-          className="size-6 rounded-full border bg-gray-200 dark:border-gray-700"
-          height={24}
-          loading="lazy"
-          src={uiData?.platformLogoUrl}
-          width={24}
-        />
-      </div>
-      <div className="flex flex-col items-start gap-1 sm:gap-0">
-        <span className="block sm:inline-flex sm:gap-2">
-          <h2 className="font-semibold sm:hidden">
-            {truncateByWords(collectionName, 3)}
-          </h2>
-          <h2 className="hidden font-semibold sm:block">
-            {truncateByWords(collectionName, 4)}
-          </h2>
-          {!isPreview && (
-            <p className="opacity-50">
-              by {loading && '...'}
-              {profileExists
-                ? `@` + getProfile(data?.defaultProfile as Profile).slug
-                : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
-            </p>
-          )}
-        </span>
+    <div className="flex items-center space-x-2">
+      <Image
+        alt={uiData?.platformName}
+        className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
+        height={20}
+        loading="lazy"
+        src={uiData?.platformLogoUrl}
+        width={20}
+      />
+      <div className="flex items-center space-x-2">
+        <h2 className="text-sm font-bold">
+          {truncateByWords(collectionName, 3)}
+        </h2>
         {formattedPrice && !hidePrice && (
-          <p className="opacity-50">
+          <p className="ld-text-gray-500">
             {formattedPrice}{' '}
             {allowedTokens?.find(
               (t) => t.contractAddress === selectedNftOaCurrency

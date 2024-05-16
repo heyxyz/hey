@@ -212,29 +212,27 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
           />
         </div>
         {actionData && Boolean(nft) && !loadingActionData ? (
-          <div className="flex flex-col items-start justify-between gap-4 border-t p-4 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
-            {nft.creatorAddress ? (
-              <ActionInfo
-                actionData={actionData as ActionData | undefined}
-                collectionName={nft.collectionName}
-                creatorAddress={nft.creatorAddress}
-                uiData={
-                  dataType === ActionDataResponseType.FULL
-                    ? (actionData as ActionData)?.uiData
-                    : (actionData as UIData)
-                }
-              />
-            ) : null}
+          <div className="flex flex-col items-start justify-between gap-4 border-t px-4 py-2 sm:flex-row sm:items-center sm:gap-0 dark:border-gray-700">
+            <ActionInfo
+              actionData={actionData as ActionData | undefined}
+              collectionName={nft.collectionName}
+              uiData={
+                dataType === ActionDataResponseType.FULL
+                  ? (actionData as ActionData)?.uiData
+                  : (actionData as UIData)
+              }
+            />
             {dataType === ActionDataResponseType.FULL ? (
               <Button
-                className="w-full sm:w-auto"
+                className="px-4 py-1"
+                icon={<CursorArrowRaysIcon className="size-4" />}
                 onClick={() => {
                   setShowOpenActionModal(true);
                   Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
                     publication_id: publication.id
                   });
                 }}
-                size="lg"
+                size="sm"
               >
                 {openActionCTA((actionData as ActionData).uiData?.platformName)}
               </Button>
@@ -244,11 +242,12 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
                 placement="top"
               >
                 <Button
+                  className="px-4 py-1"
                   disabled
-                  icon={<CursorArrowRaysIcon className="size-5" />}
-                  size="md"
+                  icon={<CursorArrowRaysIcon className="size-4" />}
+                  size="sm"
                 >
-                  {'Mint'}
+                  Mint
                 </Button>
               </Tooltip>
             )}

@@ -84,12 +84,10 @@ const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
       </div>
       {Boolean(uiData) && Boolean(nft) && !isLoading ? (
         <div className="flex items-center justify-between border-t px-4 py-2 dark:border-gray-700">
-          {uiData && nft.creatorAddress ? (
+          {uiData ? (
             <ActionInfo
               collectionName={nft.collectionName}
-              creatorAddress={nft.creatorAddress}
               hidePrice
-              isPreview
               uiData={uiData}
             />
           ) : null}
@@ -101,8 +99,9 @@ const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
               placement="top"
             >
               <Button
-                icon={<CursorArrowRaysIcon className="size-5" />}
-                size="md"
+                className="px-4 py-1"
+                icon={<CursorArrowRaysIcon className="size-4" />}
+                size="sm"
               >
                 {openActionCTA(uiData?.platformName)}
               </Button>
