@@ -4,17 +4,6 @@ import type { FC } from 'react';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { Image } from '@hey/ui';
 
-const formatPrice = (value: Number) => {
-  const num = Number(value);
-  if (num < 1) {
-    if (num < 0.0001) {
-      return '<0.0001';
-    }
-    return num.toFixed(3);
-  }
-  return Math.round(num).toString();
-};
-
 interface ActionInfoProps {
   collectionName: string;
   uiData?: UIData;
