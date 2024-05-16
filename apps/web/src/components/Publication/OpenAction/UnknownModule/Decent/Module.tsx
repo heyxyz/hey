@@ -469,8 +469,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             </div>
             <div className="ld-text-gray-500 flex items-center justify-between text-base">
               <div className="flex items-center gap-2">
-                <Squares2X2Icon className="size-5" />
-                <p>{formattedNftSchema}</p>
+                <Squares2X2Icon className="size-4" />
+                <p className="text-sm">{formattedNftSchema}</p>
               </div>
               {nft.mintCount && (
                 <div className="flex items-center gap-2">
@@ -478,9 +478,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   <p>{nft.mintCount} minted</p>
                 </div>
               )}
-              <div className="flex items-center gap-2">
-                <ArrowTopRightOnSquareIcon className="size-5" />
+              <div className="flex items-center space-x-2">
+                <ArrowTopRightOnSquareIcon className="size-4" />
                 <Link
+                  className="text-sm"
                   href={nft.mintUrl || nft.sourceUrl}
                   rel="noreferrer noopener"
                   target="_blank"
@@ -490,13 +491,15 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               </div>
             </div>
             {nftChainInfo ? (
-              <div className="ld-text-gray-500 flex items-center justify-start gap-1 text-base">
+              <div className="flex items-center justify-start space-x-2">
                 <img
                   alt={nftChainInfo?.name || 'NFT Chain'}
                   className="size-4 rounded-full"
+                  height={16}
                   src={nftChainInfo?.logo}
+                  width={16}
                 />
-                <p>{nftChainInfo?.name}</p>
+                <p className="ld-text-gray-500 text-sm">{nftChainInfo?.name}</p>
               </div>
             ) : null}
           </div>
