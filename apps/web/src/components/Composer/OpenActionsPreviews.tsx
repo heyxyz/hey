@@ -6,7 +6,11 @@ import DecentOpenActionPreview from '@components/Publication/OpenAction/UnknownM
 import SwapOpenAction from '@components/Publication/OpenAction/UnknownModule/Swap';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL, KNOWN_ATTRIBUTES } from '@hey/data/constants';
+import {
+  HEY_API_URL,
+  KNOWN_ATTRIBUTES,
+  REWARDS_PROFILE_ID
+} from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getFavicon from '@hey/helpers/getFavicon';
 import getURLs from '@hey/helpers/getURLs';
@@ -14,7 +18,6 @@ import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { HEY_REFERRAL_PROFILE_ID } from 'src/constants';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
@@ -49,7 +52,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     try {
       const calldata = await nftOpenActionKit.detectAndReturnCalldata({
         contentURI: publicationContentUrls[0],
-        publishingClientProfileId: HEY_REFERRAL_PROFILE_ID
+        publishingClientProfileId: REWARDS_PROFILE_ID
       });
 
       if (calldata) {

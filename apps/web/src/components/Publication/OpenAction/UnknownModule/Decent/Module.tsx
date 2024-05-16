@@ -21,6 +21,7 @@ import {
 import {
   DEFAULT_DECENT_OA_TOKEN,
   MAX_UINT256,
+  PERMIT_2_ADDRESS,
   ZERO_ADDRESS
 } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
@@ -43,7 +44,7 @@ import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { CHAIN, PERMIT_2_ADDRESS } from 'src/constants';
+import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
