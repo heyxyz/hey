@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface CategoriesProps {
-  // setSearchText: (searchText: string) => void;
   setSearchText: Dispatch<SetStateAction<string>>;
 }
 
