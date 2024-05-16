@@ -34,8 +34,6 @@ export const get: Handler = async (req, res) => {
       [id, formattedAddress, HEY_LENS_SIGNUP]
     );
 
-    console.log(data);
-
     const isHeyProfile = data[0]?.result;
 
     logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
