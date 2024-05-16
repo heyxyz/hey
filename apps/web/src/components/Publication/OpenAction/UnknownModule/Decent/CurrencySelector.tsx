@@ -68,7 +68,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
     wmaticBalanceLoading || wethBalanceLoading || usdcBalanceLoading;
 
   return (
-    <div className="flex h-[80vh] w-full flex-col space-y-2 p-5">
+    <div className="h-[80vh] w-full space-y-2 p-5">
       {allowedTokens
         .filter((t) =>
           Object.keys(SUPPORTED_DECENT_OA_TOKENS).includes(t.symbol)
