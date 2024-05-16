@@ -55,19 +55,7 @@ const ActionInfo: FC<ActionInfoProps> = ({
         src={uiData?.platformLogoUrl}
         width={20}
       />
-      <div className="flex items-center space-x-2">
-        <h2 className="text-sm font-bold">
-          {truncateByWords(collectionName, 3)}
-        </h2>
-        {formattedPrice && !hidePrice && (
-          <p className="ld-text-gray-500">
-            {formattedPrice}{' '}
-            {allowedTokens?.find(
-              (t) => t.contractAddress === selectedNftOaCurrency
-            )?.symbol || 'WMATIC'}
-          </p>
-        )}
-      </div>
+      <b className="text-sm">{truncateByWords(collectionName, 3)}</b>
     </div>
   );
 };

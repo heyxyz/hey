@@ -5,10 +5,7 @@ const DecentOpenActionShimmer: FC = () => {
     <div className="flex items-center space-x-2 border-t px-4 py-2 dark:border-gray-700">
       <div className="shimmer size-5 rounded-full" />
       <div className="flex w-full items-center justify-between">
-        <div className="item flex space-x-3">
-          <div className="shimmer h-3 w-24 rounded-lg" />
-          <div className="shimmer h-3 w-16 rounded-lg" />
-        </div>
+        <div className="shimmer h-3 w-24 rounded-lg" />
         <div className="shimmer h-[30px] w-[85px] rounded-full" />
       </div>
     </div>
