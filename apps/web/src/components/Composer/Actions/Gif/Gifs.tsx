@@ -1,5 +1,5 @@
 import type { IGif } from '@hey/types/giphy';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { GIPHY_KEY } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
@@ -8,8 +8,8 @@ import axios from 'axios';
 interface CategoriesProps {
   debouncedGifInput: string;
   setGifAttachment: (gif: IGif) => void;
-  setSearchText: (searchText: string) => void;
-  setShowModal: (showModal: boolean) => void;
+  setSearchText: Dispatch<SetStateAction<string>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const Gifs: FC<CategoriesProps> = ({

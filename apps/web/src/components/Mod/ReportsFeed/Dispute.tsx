@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import errorToast from '@helpers/errorToast';
@@ -18,7 +18,7 @@ const disputeSchema = object({
 
 interface DisputeProps {
   report: ModReport;
-  setShowDisputeModal: (show: boolean) => void;
+  setShowDisputeModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
