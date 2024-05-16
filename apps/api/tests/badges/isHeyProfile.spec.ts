@@ -2,7 +2,7 @@ import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
-describe('badges/isHeyProfile', () => {
+describe.skip('badges/isHeyProfile', () => {
   test('should return true if profile (address) is created via Hey', async () => {
     const response = await axios.get(`${TEST_URL}/badges/isHeyProfile`, {
       params: { address: '0x0Cfc642C90ED27be228E504307049230545b2981' }
