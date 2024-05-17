@@ -41,6 +41,7 @@ import { useDefaultProfileQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Image, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -213,26 +214,29 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData?.uiData.dstChainId]);
 
-  useEffect(() => {
-    const fetchPermit2Allowance = async () => {
-      setPermit2Data(undefined);
-      if (address && Boolean(assetAddress)) {
-        const allowanceData = await getPermit2Allowance({
-          owner: address as `0x${string}`,
-          spender: PERMIT_2_ADDRESS,
-          token: assetAddress as `0x${string}`
-        });
-        const approvedAmount = allowanceData;
-        if (Number(approvedAmount) > amount) {
-          setPermit2Allowed(true);
-        } else {
-          setPermit2Allowed(false);
-        }
+  const fetchPermit2Allowance = async () => {
+    setPermit2Data(undefined);
+    if (address && Boolean(assetAddress)) {
+      const allowanceData = await getPermit2Allowance({
+        owner: address as `0x${string}`,
+        spender: PERMIT_2_ADDRESS,
+        token: assetAddress as `0x${string}`
+      });
+      const approvedAmount = allowanceData;
+      if (Number(approvedAmount) > amount) {
+        setPermit2Allowed(true);
+      } else {
+        setPermit2Allowed(false);
       }
-    };
+    }
 
-    fetchPermit2Allowance();
-  }, [amount, assetAddress, address]);
+    return;
+  };
+
+  useQuery({
+    queryFn: fetchPermit2Allowance,
+    queryKey: ['fetchPermit2Allowance', amount, assetAddress, address]
+  });
 
   const approvePermit2 = async () => {
     if (walletClient) {
@@ -259,6 +263,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           setPermit2Allowed(false);
         }
         setIsPermit2Loading(false);
+
+        return toast.success('Approved Permit2');
       } catch (error) {
         setIsPermit2Loading(false);
         return toast.error('Failed to approve Permit2');
@@ -288,6 +294,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         setIsModalCollapsed(false);
         setIsApprovalLoading(false);
         setIsApproved(true);
+
+        return toast.success('Approved module');
       } catch (error) {
         setIsApprovalLoading(false);
         return toast.error('Failed to approve module');
