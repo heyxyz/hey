@@ -88,8 +88,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
 }) => {
   const { address } = useAccount();
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
-  const { selectedQuantity, setShowOpenActionModal, showOpenActionModal } =
-    useNftOpenActionStore();
+  const { selectedQuantity, setShowOpenActionModal } = useNftOpenActionStore();
 
   const [nft, setNft] = useState({
     chain: og.nft?.chain || null,
@@ -200,7 +199,13 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
   });
 
   const actionData = actionDataResponse?.data;
-  const dataType = actionDataResponse?.type;
+  const [dataType, setDataType] = useState(actionDataResponse?.type);
+
+  useEffect(() => {
+    if (actionDataResponse?.type) {
+      setDataType(actionDataResponse?.type);
+    }
+  }, [actionDataResponse?.type]);
 
   useEffect(() => {
     refetch();
@@ -273,7 +278,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
           <DecentOpenActionShimmer />
         ) : null}
       </Card>
-      {Boolean(actionData) && dataType === ActionDataResponseType.FULL ? (
+      {dataType === ActionDataResponseType.FULL ? (
         <DecentOpenActionModule
           actionData={actionData as ActionData}
           module={module as UnknownOpenActionModuleSettings}
