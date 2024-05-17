@@ -126,7 +126,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const { actOnUnknownOpenAction, isLoading, txId } = useActOnUnknownOpenAction(
     {
-      onSuccess: onClose,
+      onSuccess: () => {
+        setPermit2Data(undefined);
+        setIsApproved(false);
+        onClose();
+      },
       signlessApproved: true,
       successToast: 'NFT has been minted!'
     }
