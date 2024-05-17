@@ -1,6 +1,8 @@
 import type { WalletClient } from 'viem';
 
+import { IS_MAINNET } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { polygon, polygonAmoy } from 'viem/chains';
 import { describe, expect, it, vi } from 'vitest';
 
 import {
@@ -83,7 +85,7 @@ describe('constructPermit2Sig', () => {
       token: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
     });
     expect(sigData.domain).toEqual({
-      chainId: 137,
+      chainId: IS_MAINNET ? polygon.id : polygonAmoy.id,
       name: 'Permit2',
       verifyingContract: '0x000000000022D473030F116dDEE9F6B43aC78BA3'
     });
