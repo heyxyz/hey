@@ -34,11 +34,15 @@ import DecentOpenActionModule from './Module';
 interface State {
   selectedQuantity: number;
   setSelectedQuantity: (selectedQuantity: number) => void;
+  setShowOpenActionModal: (showOpenActionModal: boolean) => void;
+  showOpenActionModal: boolean;
 }
 
 const store = create<State>((set) => ({
   selectedQuantity: 1,
-  setSelectedQuantity: (selectedQuantity) => set({ selectedQuantity })
+  setSelectedQuantity: (selectedQuantity) => set({ selectedQuantity }),
+  setShowOpenActionModal: (showOpenActionModal) => set({ showOpenActionModal }),
+  showOpenActionModal: false
 }));
 
 export const useNftOpenActionStore = createTrackedSelector(store);
@@ -84,9 +88,9 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
 }) => {
   const { address } = useAccount();
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
-  const { selectedQuantity } = useNftOpenActionStore();
+  const { selectedQuantity, setShowOpenActionModal, showOpenActionModal } =
+    useNftOpenActionStore();
 
-  const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const [nft, setNft] = useState({
     chain: og.nft?.chain || null,
     collectionName: og.nft?.collectionName || '',
@@ -274,9 +278,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
           actionData={actionData as ActionData}
           module={module as UnknownOpenActionModuleSettings}
           nft={nft}
-          onClose={() => setShowOpenActionModal(false)}
           publication={targetPublication}
-          show={showOpenActionModal}
         />
       ) : null}
     </>
