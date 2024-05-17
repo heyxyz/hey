@@ -41,7 +41,7 @@ const useActOnUnknownOpenAction = ({
   } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>();
-  const [relayStatus, setRelayStatus] = useState<string | undefined>();
+  const [txId, setTxId] = useState<string | undefined>();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseLensManager } =
@@ -113,7 +113,7 @@ const useActOnUnknownOpenAction = ({
               return txResult;
             }
             if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
-              setRelayStatus(data?.broadcastOnchain.txId);
+              setTxId(data?.broadcastOnchain.txId);
             }
             incrementLensHubOnchainSigNonce();
 
@@ -148,7 +148,7 @@ const useActOnUnknownOpenAction = ({
     }
 
     if (data?.actOnOpenAction.__typename === 'RelaySuccess') {
-      setRelayStatus(data?.actOnOpenAction.txId);
+      setTxId(data?.actOnOpenAction.txId);
     }
 
     if (
@@ -194,7 +194,7 @@ const useActOnUnknownOpenAction = ({
     }
   };
 
-  return { actOnUnknownOpenAction, isLoading, relayStatus, txHash };
+  return { actOnUnknownOpenAction, isLoading, txHash, txId };
 };
 
 export default useActOnUnknownOpenAction;

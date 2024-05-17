@@ -16,7 +16,6 @@ interface FeesDisclosureProps {
   bridgeFee: number;
   formattedTotalAmount: number;
   formattedTotalFees: number;
-  loadingCurrencyDetails: boolean;
   tokenSymbol: string;
 }
 
@@ -25,7 +24,6 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
   bridgeFee,
   formattedTotalAmount,
   formattedTotalFees,
-  loadingCurrencyDetails,
   tokenSymbol
 }) => {
   return (
@@ -38,13 +36,9 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
           <span>Fees</span>
           <ChevronDownIcon className="size-3" strokeWidth={3} />
         </DisclosureButton>
-        {loadingCurrencyDetails ? (
-          <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
-        ) : (
-          <span>
-            {formattedTotalFees.toFixed(4)} {tokenSymbol}
-          </span>
-        )}
+        <span>
+          {formattedTotalFees.toFixed(4)} {tokenSymbol}
+        </span>
       </div>
       <DisclosurePanel className="mt-1.5 space-y-1 text-sm">
         <div className="ld-text-gray-500 flex items-center justify-between">
@@ -56,13 +50,9 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
                 : 'Bridge Fee'}
             </p>
           </span>
-          {loadingCurrencyDetails ? (
-            <span className="shimmer h-4 w-24 rounded-lg bg-gray-200" />
-          ) : (
-            <p>
-              {bridgeFee.toFixed(4)} {tokenSymbol}
-            </p>
-          )}
+          <p>
+            {bridgeFee.toFixed(4)} {tokenSymbol}
+          </p>
         </div>
         <div className="ld-text-gray-500 flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -77,13 +67,9 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
               </div>
             </HelpTooltip>
           </div>
-          {loadingCurrencyDetails ? (
-            <span className="shimmer h-4 w-28 rounded-lg bg-gray-200" />
-          ) : (
-            <p>
-              {(formattedTotalAmount * 0.05).toFixed(4)} {tokenSymbol}
-            </p>
-          )}
+          <p>
+            {(formattedTotalAmount * 0.05).toFixed(4)} {tokenSymbol}
+          </p>
         </div>
       </DisclosurePanel>
     </Disclosure>
