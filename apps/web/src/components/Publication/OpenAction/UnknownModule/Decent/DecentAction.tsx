@@ -70,29 +70,16 @@ const DecentAction: FC<DecentActionProps> = ({
     );
   }
 
-  if (loadingCurrency) {
+  if (allowanceLoading || loadingCurrency) {
     return (
-      <div
-        className={cn(
-          'shimmer flex h-[38px] items-center justify-center rounded-full px-5 py-1.5',
-          className
-        )}
-      >
-        <p className="ld-text-gray-500">Computing price...</p>
-      </div>
-    );
-  }
-
-  if (allowanceLoading) {
-    return (
-      <div className={cn('shimmer h-[34px] w-28 rounded-lg', className)} />
+      <div className={cn('shimmer h-[38px] w-28 rounded-full', className)} />
     );
   }
 
   if (!hasAmount) {
     return (
-      <Button className="w-full" disabled={true} size="lg">
-        {`Insufficient ${assetSymbol} balance`}
+      <Button className="w-full" disabled size="lg">
+        Insufficient {assetSymbol} balance
       </Button>
     );
   }
