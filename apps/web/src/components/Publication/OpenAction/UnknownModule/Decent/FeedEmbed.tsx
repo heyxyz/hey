@@ -198,8 +198,14 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
     ]
   });
 
-  const actionData = actionDataResponse?.data;
+  const [actionData, setActionData] = useState(actionDataResponse?.data);
   const [dataType, setDataType] = useState(actionDataResponse?.type);
+
+  useEffect(() => {
+    if (actionDataResponse?.data) {
+      setActionData(actionDataResponse?.data);
+    }
+  }, [actionDataResponse?.data]);
 
   useEffect(() => {
     if (actionDataResponse?.type) {
