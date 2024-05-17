@@ -64,7 +64,7 @@ const useActOnUnknownOpenAction = ({
 
     onSuccess?.();
     setIsLoading(false);
-    toast.success(successToast || 'Success!');
+    toast.success(successToast || 'Success!', { duration: 5000 });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
