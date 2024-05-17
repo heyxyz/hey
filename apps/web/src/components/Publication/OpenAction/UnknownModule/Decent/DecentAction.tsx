@@ -3,13 +3,9 @@ import type { UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
 import LoginButton from '@components/Shared/LoginButton';
-import MetaDetails from '@components/Shared/MetaDetails';
-import { LinkIcon } from '@heroicons/react/24/outline';
-import { LAYERZEROSCAN_URL, POLYGONSCAN_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -23,7 +19,6 @@ interface DecentActionProps {
   isReadyToMint?: boolean;
   loadingCurrency?: boolean;
   moduleAmount?: Amount;
-  txHash?: string;
   uiData?: UIData;
 }
 
@@ -35,7 +30,6 @@ const DecentAction: FC<DecentActionProps> = ({
   isReadyToMint,
   loadingCurrency,
   moduleAmount,
-  txHash,
   uiData
 }) => {
   const { address } = useAccount();
@@ -85,54 +79,22 @@ const DecentAction: FC<DecentActionProps> = ({
   }
 
   return (
-    <>
-      <Button
-        className={className}
-        disabled={loadingState}
-        icon={loadingState ? <Spinner size="xs" /> : null}
-        onClick={(e) => {
-          stopEventPropagation(e);
-          act();
-        }}
-        size="lg"
-      >
-        {loadingState
-          ? 'Pending'
-          : !isReadyToMint
-            ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
-            : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
-      </Button>
-      {txHash ? (
-        <>
-          <MetaDetails
-            icon={<LinkIcon className="ld-text-gray-500 size-4" />}
-            title="PolygonScan"
-            value={`${POLYGONSCAN_URL}/tx/${txHash}`}
-          >
-            <Link
-              href={`${POLYGONSCAN_URL}/tx/${txHash}`}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Open
-            </Link>
-          </MetaDetails>
-          <MetaDetails
-            icon={<LinkIcon className="ld-text-gray-500 size-4" />}
-            title="LayerZeroScan"
-            value={`${LAYERZEROSCAN_URL}/tx/${txHash}`}
-          >
-            <Link
-              href={`${LAYERZEROSCAN_URL}tx/${txHash}`}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Open
-            </Link>
-          </MetaDetails>
-        </>
-      ) : null}
-    </>
+    <Button
+      className={className}
+      disabled={loadingState}
+      icon={loadingState ? <Spinner size="xs" /> : null}
+      onClick={(e) => {
+        stopEventPropagation(e);
+        act();
+      }}
+      size="lg"
+    >
+      {loadingState
+        ? 'Pending'
+        : !isReadyToMint
+          ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
+          : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
+    </Button>
   );
 };
 

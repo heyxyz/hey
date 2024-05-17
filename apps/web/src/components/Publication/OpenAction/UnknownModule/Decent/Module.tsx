@@ -129,7 +129,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { actOnUnknownOpenAction, isLoading, relayStatus, txHash } =
+  const { actOnUnknownOpenAction, isLoading, relayStatus } =
     useActOnUnknownOpenAction({
       onSuccess: onClose,
       signlessApproved: true,
@@ -598,7 +598,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   },
                   value: formattedTotalAmount.toFixed(4)
                 }}
-                txHash={txHash}
                 uiData={actionData?.uiData}
               />
             ) : null}
