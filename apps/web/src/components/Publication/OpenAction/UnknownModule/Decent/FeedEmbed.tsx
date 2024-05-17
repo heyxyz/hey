@@ -22,12 +22,26 @@ import { Button, Card, Image, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { createTrackedSelector } from 'react-tracked';
 import { CHAIN } from 'src/constants';
 import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
 import { useAccount } from 'wagmi';
+import { create } from 'zustand';
 
 import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from '.';
 import DecentOpenActionModule from './Module';
+
+interface State {
+  selectedQuantity: number;
+  setSelectedQuantity: (selectedQuantity: number) => void;
+}
+
+const store = create<State>((set) => ({
+  selectedQuantity: 1,
+  setSelectedQuantity: (selectedQuantity) => set({ selectedQuantity })
+}));
+
+export const useNftOpenActionStore = createTrackedSelector(store);
 
 enum ActionDataResponseType {
   FULL = 'FULL',
@@ -70,9 +84,9 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
 }) => {
   const { address } = useAccount();
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
+  const { selectedQuantity } = useNftOpenActionStore();
 
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [nft, setNft] = useState({
     chain: og.nft?.chain || null,
     collectionName: og.nft?.collectionName || '',
@@ -262,8 +276,6 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
           nft={nft}
           onClose={() => setShowOpenActionModal(false)}
           publication={targetPublication}
-          selectedQuantity={selectedQuantity}
-          setSelectedQuantity={setSelectedQuantity}
           show={showOpenActionModal}
         />
       ) : null}
