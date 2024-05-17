@@ -154,7 +154,7 @@ export const constructPermit2Sig = ({
   const PERMIT2_DOMAIN_NAME = 'Permit2';
   const permit2Address = PERMIT_2_ADDRESS;
   const domain = {
-    chainId: IS_MAINNET ? 137 : 80001,
+    chainId: IS_MAINNET ? polygon.id : polygonAmoy.id,
     name: PERMIT2_DOMAIN_NAME,
     verifyingContract: permit2Address as `0x${string}`
   };
