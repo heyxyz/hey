@@ -262,12 +262,12 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         } else {
           setPermit2Allowed(false);
         }
-        setIsPermit2Loading(false);
 
         return toast.success('Approved Permit2');
       } catch (error) {
-        setIsPermit2Loading(false);
         return toast.error('Failed to approve Permit2');
+      } finally {
+        setIsPermit2Loading(false);
       }
     }
   };
@@ -292,13 +292,13 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           signature: permit2Signature.signature
         });
         setIsModalCollapsed(false);
-        setIsApprovalLoading(false);
         setIsApproved(true);
 
         return toast.success('Approved module');
       } catch (error) {
-        setIsApprovalLoading(false);
         return toast.error('Failed to approve module');
+      } finally {
+        setIsApprovalLoading(false);
       }
     }
   };
