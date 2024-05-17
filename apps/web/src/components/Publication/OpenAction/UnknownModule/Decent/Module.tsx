@@ -60,13 +60,12 @@ import FeesDisclosure from './FeesDisclosure';
 import StepperApprovals from './StepperApprovals';
 
 const generateOptimisticNftMintOA = ({
-  txHash
+  txId
 }: {
-  txHash?: string;
-  txId?: string;
+  txId: string;
 }): OptimisticTransaction => {
   return {
-    txHash,
+    txId,
     type: OptmisticPublicationType.NftMintOA
   };
 };
@@ -253,6 +252,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           token: assetAddress as `0x${string}`
         });
         const approvedAmount = allowanceData;
+
         if (Number(approvedAmount) > amount) {
           setPermit2Allowed(true);
         } else {
