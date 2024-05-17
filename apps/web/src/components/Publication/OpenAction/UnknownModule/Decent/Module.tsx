@@ -437,7 +437,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 </div>
                 {isImageLoading && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="spinner">Loading...</div>{' '}
+                    <div>Loading...</div>
                   </div>
                 )}
               </div>
@@ -468,7 +468,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               {nft.mintCount && (
                 <div className="flex items-center space-x-2">
                   <UserIcon className="size-5" />
-                  <p>{nft.mintCount} minted</p>
+                  <p className="text-sm">{nft.mintCount} minted</p>
                 </div>
               )}
               <div className="flex items-center space-x-2">
