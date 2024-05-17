@@ -258,7 +258,6 @@ const FeedEmbed: FC<FeedEmbedProps> = ({
       {Boolean(actionData) && dataType === ActionDataResponseType.FULL ? (
         <DecentOpenActionModule
           actionData={actionData as ActionData}
-          loadingCurrency={loadingActionData}
           module={module as UnknownOpenActionModuleSettings}
           nft={nft}
           onClose={() => setShowOpenActionModal(false)}
