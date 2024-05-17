@@ -74,7 +74,8 @@ const useActOnUnknownOpenAction = ({
         onError(error);
         decrementLensHubOnchainSigNonce();
       },
-      onSuccess: () => {
+      onSuccess: (hash: string) => {
+        setTxHash(hash as `0x${string}`);
         onCompleted();
         incrementLensHubOnchainSigNonce();
       }
