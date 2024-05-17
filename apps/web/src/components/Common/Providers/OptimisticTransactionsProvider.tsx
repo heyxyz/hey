@@ -8,47 +8,50 @@ import {
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
-const OptimisticTransactionsProvider: FC = () => {
-  const { removeTransaction, setIndexedPostHash, txnQueue } =
-    useTransactionStore();
+const Transaction = ({
+  transaction
+}: {
+  transaction: OptimisticTransaction;
+}) => {
+  const { removeTransaction, setIndexedPostHash } = useTransactionStore();
 
-  const Transaction = ({
-    transaction
-  }: {
-    transaction: OptimisticTransaction;
-  }) => {
-    useLensTransactionStatusQuery({
-      fetchPolicy: 'no-cache',
-      notifyOnNetworkStatusChange: true,
-      onCompleted: ({ lensTransactionStatus }) => {
+  useLensTransactionStatusQuery({
+    fetchPolicy: 'no-cache',
+    notifyOnNetworkStatusChange: true,
+    onCompleted: ({ lensTransactionStatus }) => {
+      if (
+        lensTransactionStatus?.status === LensTransactionStatusType.Failed ||
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+      ) {
+        // Trigger Profile feed refetch
         if (
-          lensTransactionStatus?.status === LensTransactionStatusType.Failed ||
-          lensTransactionStatus?.status === LensTransactionStatusType.Complete
+          transaction.type === OptmisticPublicationType.Post &&
+          lensTransactionStatus.txHash
         ) {
-          // Trigger Profile feed refetch
-          if (
-            transaction.type === OptmisticPublicationType.Post &&
-            lensTransactionStatus.txHash
-          ) {
-            setIndexedPostHash(lensTransactionStatus.txHash);
-          }
+          setIndexedPostHash(lensTransactionStatus.txHash);
+        }
 
-          return removeTransaction(
-            (transaction.txId || transaction.txHash) as string
-          );
-        }
-      },
-      pollInterval: 3000,
-      variables: {
-        request: {
-          ...(transaction.txId && { forTxId: transaction.txId }),
-          ...(transaction.txHash && { forTxHash: transaction.txHash })
-        }
+        return removeTransaction(
+          (transaction.txId || transaction.txHash) as string
+        );
       }
-    });
+    },
+    pollInterval: 3000,
+    variables: {
+      request: {
+        ...(transaction.txId && { forTxId: transaction.txId }),
+        ...(transaction.txHash && { forTxHash: transaction.txHash })
+      }
+    }
+  });
 
-    return null;
-  };
+  return null;
+};
+
+const OptimisticTransactionsProvider: FC = () => {
+  const { txnQueue } = useTransactionStore();
+
+  console.log(txnQueue);
 
   return txnQueue.map((txn) => (
     <Transaction key={txn.txId || txn.txHash} transaction={txn} />
