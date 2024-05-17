@@ -138,7 +138,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   });
 
   useEffect(() => {
-    if (txId && !txId.startsWith('0x')) {
+    if (txId) {
       addTransaction(generateOptimisticNftMintOA({ txId }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
