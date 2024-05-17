@@ -2,10 +2,13 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { LensTransactionStatusType } from '@hey/lens';
+import {
+  LensTransactionStatusType,
+  useLensTransactionStatusQuery
+} from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import useTransactionStatus from 'src/hooks/useTransactionStatus';
+import { useState } from 'react';
 
 interface IndexStatusProps {
   message?: string;
@@ -20,10 +23,30 @@ const IndexStatus: FC<IndexStatusProps> = ({
   txHash,
   txId
 }) => {
-  const { data, hide, loading } = useTransactionStatus({
-    reload,
-    txHash,
-    txId
+  const [hide, setHide] = useState(false);
+  const [pollInterval, setPollInterval] = useState(500);
+  const { data, loading } = useLensTransactionStatusQuery({
+    notifyOnNetworkStatusChange: true,
+    onCompleted: ({ lensTransactionStatus }) => {
+      if (
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+      ) {
+        setPollInterval(0);
+        if (reload) {
+          location.reload();
+        }
+        setTimeout(() => {
+          setHide(true);
+        }, 5000);
+      }
+    },
+    pollInterval,
+    variables: {
+      request: {
+        ...(txHash && { forTxHash: txHash }),
+        ...(txId && { forTxId: txId })
+      }
+    }
   });
 
   return (

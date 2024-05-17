@@ -17,7 +17,6 @@ interface DecentActionProps {
   className?: string;
   isLoading?: boolean;
   isReadyToMint?: boolean;
-  loadingCurrency?: boolean;
   moduleAmount?: Amount;
   uiData?: UIData;
 }
@@ -28,7 +27,6 @@ const DecentAction: FC<DecentActionProps> = ({
   className = '',
   isLoading = false,
   isReadyToMint,
-  loadingCurrency,
   moduleAmount,
   uiData
 }) => {
@@ -38,7 +36,6 @@ const DecentAction: FC<DecentActionProps> = ({
   const assetAddress = moduleAmount?.asset?.contract.address;
   const assetDecimals = moduleAmount?.asset?.decimals || 18;
   const assetSymbol = moduleAmount?.asset?.symbol;
-  const loadingState: boolean = isLoading;
 
   const { data: balanceData } = useBalance({
     address,
@@ -64,7 +61,7 @@ const DecentAction: FC<DecentActionProps> = ({
     );
   }
 
-  if (allowanceLoading || loadingCurrency) {
+  if (allowanceLoading) {
     return (
       <div className={cn('shimmer h-[38px] w-28 rounded-full', className)} />
     );
@@ -81,15 +78,15 @@ const DecentAction: FC<DecentActionProps> = ({
   return (
     <Button
       className={className}
-      disabled={loadingState}
-      icon={loadingState ? <Spinner size="xs" /> : null}
+      disabled={isLoading}
+      icon={isLoading ? <Spinner size="xs" /> : null}
       onClick={(e) => {
         stopEventPropagation(e);
         act();
       }}
       size="lg"
     >
-      {loadingState
+      {isLoading
         ? 'Pending'
         : !isReadyToMint
           ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`

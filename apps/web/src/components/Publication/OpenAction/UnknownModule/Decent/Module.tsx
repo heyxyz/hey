@@ -73,7 +73,6 @@ const generateOptimisticNftMintOA = ({
 
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
-  loadingCurrency?: boolean;
   module: UnknownOpenActionModuleSettings;
   nft: Nft;
   onClose: () => void;
@@ -91,7 +90,6 @@ interface Permit2Data {
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
-  loadingCurrency,
   nft,
   onClose,
   publication,
@@ -107,9 +105,6 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const [isApprovalLoading, setIsApprovalLoading] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
-  const [loadingCurrencyDetails, setLoadingCurrencyDetails] = useState(
-    loadingCurrency || !allowedTokens || !allowedTokens.length
-  );
   const [showLongDescription, setShowLongDescription] = useState(false);
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
   const [isModalCollapsed, setIsModalCollapsed] = useState(false);
@@ -129,12 +124,13 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { actOnUnknownOpenAction, isLoading, relayStatus } =
-    useActOnUnknownOpenAction({
+  const { actOnUnknownOpenAction, isLoading, txId } = useActOnUnknownOpenAction(
+    {
       onSuccess: onClose,
       signlessApproved: true,
       successToast: 'NFT has been minted!'
-    });
+    }
+  );
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData.nftCreatorAddress,
@@ -142,22 +138,11 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   });
 
   useEffect(() => {
-    if (allowedTokens && allowedTokens.length && !loadingCurrency) {
-      return setLoadingCurrencyDetails(false);
-    }
-
-    return setLoadingCurrencyDetails(true);
-  }, [allowedTokens, loadingCurrency]);
-
-  useEffect(() => {
-    if (relayStatus) {
-      if (!relayStatus.startsWith('0x')) {
-        addTransaction(generateOptimisticNftMintOA({ txId: relayStatus }));
-      }
-      localStorage.setItem(`pendingTx`, relayStatus);
+    if (txId && !txId.startsWith('0x')) {
+      addTransaction(generateOptimisticNftMintOA({ txId }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [relayStatus]);
+  }, [txId]);
 
   useEffect(() => {
     if (nft?.mediaUrl) {
@@ -534,21 +519,16 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
             <div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
                 <span className="space-x-1">Price</span>
-                {loadingCurrencyDetails ? (
-                  <span className="shimmer h-6 w-24 rounded-lg bg-gray-200" />
-                ) : (
-                  <div>
-                    {(formattedTotalAmount - formattedTotalFees).toFixed(4)}{' '}
-                    {getTokenDetails(selectedNftOaCurrency).symbol}
-                  </div>
-                )}
+                <div>
+                  {(formattedTotalAmount - formattedTotalFees).toFixed(4)}{' '}
+                  {getTokenDetails(selectedNftOaCurrency).symbol}
+                </div>
               </div>
               <FeesDisclosure
                 actionData={actionData}
                 bridgeFee={bridgeFee}
                 formattedTotalAmount={formattedTotalAmount}
                 formattedTotalFees={formattedTotalFees}
-                loadingCurrencyDetails={loadingCurrencyDetails}
                 tokenSymbol={getTokenDetails(selectedNftOaCurrency).symbol}
               />
               <div className="mt-4 flex items-start justify-between space-y-0.5 text-xl text-gray-600 dark:text-gray-100">
@@ -556,22 +536,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                   Total
                 </span>
                 <div className="flex flex-col items-end">
-                  {loadingCurrencyDetails ? (
-                    <span className="shimmer h-7 w-36 rounded-lg bg-gray-200" />
-                  ) : (
-                    <p>
-                      {formattedTotalAmount.toFixed(4)}{' '}
-                      {getTokenDetails(selectedNftOaCurrency).symbol}
-                    </p>
-                  )}
-                  {loadingCurrencyDetails ? (
-                    <div className="shimmer mt-1 h-5 w-16 rounded-lg bg-gray-200" />
-                  ) : (
-                    <div className="ld-text-gray-500 mt-1 text-sm">
-                      ~$
-                      {(formattedTotalAmount * usdPrice).toFixed(4)}{' '}
-                    </div>
-                  )}
+                  <p>
+                    {formattedTotalAmount.toFixed(4)}{' '}
+                    {getTokenDetails(selectedNftOaCurrency).symbol}
+                  </p>
+                  <div className="ld-text-gray-500 mt-1 text-sm">
+                    ~$
+                    {(formattedTotalAmount * usdPrice).toFixed(4)}{' '}
+                  </div>
                 </div>
               </div>
             </div>
@@ -583,9 +555,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                     : () => setIsModalCollapsed(!isModalCollapsed)
                 }
                 className="w-full justify-center"
-                isLoading={isLoading || loadingCurrencyDetails}
+                isLoading={isLoading}
                 isReadyToMint={isApproved && permit2Allowed}
-                loadingCurrency={loadingCurrencyDetails}
                 moduleAmount={{
                   asset: {
                     contract: {
