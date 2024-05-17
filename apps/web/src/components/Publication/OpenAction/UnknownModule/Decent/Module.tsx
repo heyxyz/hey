@@ -81,19 +81,16 @@ interface DecentOpenActionModuleProps {
   actionData?: ActionData;
   module: UnknownOpenActionModuleSettings;
   nft: Nft;
-  onClose: () => void;
   publication: MirrorablePublication;
-  show: boolean;
 }
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
   nft,
-  onClose,
-  publication,
-  show
+  publication
 }) => {
-  const { selectedQuantity } = useNftOpenActionStore();
+  const { selectedQuantity, setShowOpenActionModal, showOpenActionModal } =
+    useNftOpenActionStore();
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
   const { addTransaction } = useTransactionStore();
@@ -126,7 +123,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       onSuccess: () => {
         setPermit2Data(undefined);
         setIsApproved(false);
-        onClose();
+        setShowOpenActionModal(false);
       },
       signlessApproved: true,
       successToast: 'NFT has been minted successfully!'
@@ -359,9 +356,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       }
       onClose={() => {
         setIsModalCollapsed(false);
-        onClose();
+        setShowOpenActionModal(false);
       }}
-      show={show}
+      show={showOpenActionModal}
       title={
         showCurrencySelector
           ? 'Select token'
