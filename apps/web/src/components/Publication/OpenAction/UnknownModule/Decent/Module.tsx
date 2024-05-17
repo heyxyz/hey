@@ -6,7 +6,7 @@ import type {
 import type { AllowedToken } from '@hey/types/hey';
 import type { Nft, OptimisticTransaction } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import {
@@ -57,6 +57,7 @@ import { useAccount, useWalletClient } from 'wagmi';
 
 import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
+import { useNftOpenActionStore } from './FeedEmbed';
 import FeesDisclosure from './FeesDisclosure';
 import StepperApprovals from './StepperApprovals';
 
@@ -83,8 +84,6 @@ interface DecentOpenActionModuleProps {
   nft: Nft;
   onClose: () => void;
   publication: MirrorablePublication;
-  selectedQuantity: number;
-  setSelectedQuantity: Dispatch<SetStateAction<number>>;
   show: boolean;
 }
 
@@ -93,10 +92,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   nft,
   onClose,
   publication,
-  selectedQuantity,
-  setSelectedQuantity,
   show
 }) => {
+  const { selectedQuantity, setSelectedQuantity } = useNftOpenActionStore();
+
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
   const { addTransaction } = useTransactionStore();
