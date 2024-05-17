@@ -13,8 +13,6 @@ import {
   ArrowTopRightOnSquareIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  MinusIcon,
-  PlusIcon,
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
@@ -59,6 +57,7 @@ import CurrencySelector from './CurrencySelector';
 import DecentAction from './DecentAction';
 import { useNftOpenActionStore } from './FeedEmbed';
 import FeesDisclosure from './FeesDisclosure';
+import QuantityConfig from './QuantityConfig';
 import StepperApprovals from './StepperApprovals';
 
 const generateOptimisticNftMintOA = ({
@@ -495,33 +494,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
               </div>
             ) : null}
           </div>
-          {nft.schema === 'erc1155' ? (
-            <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
-              <p className="ld-text-gray-500">Quantity</p>
-              <div className="flex items-center space-x-4">
-                <button
-                  className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-50"
-                  disabled={selectedQuantity === 1}
-                  onClick={(e) => {
-                    stopEventPropagation(e);
-                    setSelectedQuantity(selectedQuantity - 1);
-                  }}
-                >
-                  <MinusIcon className="size-3 text-gray-600" strokeWidth={3} />
-                </button>
-                <span className="size-6 text-center">{selectedQuantity}</span>
-                <button
-                  className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
-                  onClick={(e) => {
-                    stopEventPropagation(e);
-                    setSelectedQuantity(selectedQuantity + 1);
-                  }}
-                >
-                  <PlusIcon className="size-3 text-gray-600" strokeWidth={3} />
-                </button>
-              </div>
-            </div>
-          ) : null}
+          {nft.schema === 'erc1155' ? <QuantityConfig /> : null}
           <div className="space-y-5 p-5 pt-2">
             <div>
               <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
@@ -579,16 +552,16 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 uiData={actionData?.uiData}
               />
             ) : null}
-            <div className="flex w-full items-center justify-center text-center text-sm">
+            <div className="flex w-full items-center justify-center">
               <button
-                className="flex items-baseline justify-center gap-1 opacity-70"
+                className="ld-text-gray-500 flex items-center space-x-1"
                 onClick={(e) => {
                   stopEventPropagation(e);
                   setShowCurrencySelector(true);
                 }}
               >
-                Select another token{' '}
-                <ChevronRightIcon className="size-2 stroke-black" />
+                <span className="text-sm">Select another token</span>
+                <ChevronRightIcon className="size-3 stroke-black" />
               </button>
             </div>
           </div>
