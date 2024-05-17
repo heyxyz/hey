@@ -6,7 +6,7 @@ import type {
 import type { AllowedToken } from '@hey/types/hey';
 import type { Nft, OptimisticTransaction } from '@hey/types/misc';
 import type { ActionData } from 'nft-openaction-kit';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import type { Address } from 'viem';
 
 import {
@@ -71,6 +71,12 @@ const generateOptimisticNftMintOA = ({
   };
 };
 
+interface Permit2Data {
+  deadline: number;
+  nonce: number;
+  signature: string;
+}
+
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
   module: UnknownOpenActionModuleSettings;
@@ -78,14 +84,8 @@ interface DecentOpenActionModuleProps {
   onClose: () => void;
   publication: MirrorablePublication;
   selectedQuantity: number;
-  setSelectedQuantity: Dispatch<number>;
+  setSelectedQuantity: Dispatch<SetStateAction<number>>;
   show: boolean;
-}
-
-interface Permit2Data {
-  deadline: number;
-  nonce: number;
-  signature: string;
 }
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
