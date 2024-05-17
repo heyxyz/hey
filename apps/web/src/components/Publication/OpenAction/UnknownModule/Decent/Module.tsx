@@ -93,8 +93,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   publication,
   show
 }) => {
-  const { selectedQuantity, setSelectedQuantity } = useNftOpenActionStore();
-
+  const { selectedQuantity } = useNftOpenActionStore();
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
   const { addTransaction } = useTransactionStore();
@@ -130,7 +129,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         onClose();
       },
       signlessApproved: true,
-      successToast: 'NFT has been minted!'
+      successToast: 'NFT has been minted successfully!'
     }
   );
 
