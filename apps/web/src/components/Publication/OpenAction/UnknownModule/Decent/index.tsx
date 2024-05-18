@@ -82,6 +82,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
       </Card>
     );
   }
+
   if (error || !data || !embedDecentOpenAction || !og.nft) {
     return null;
   }
