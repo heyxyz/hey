@@ -2,14 +2,15 @@ import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import EmptyOembed from '@components/Shared/Oembed/EmptyOembed';
+import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import getFavicon from '@hey/helpers/getFavicon';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import getURLs from '@hey/helpers/getURLs';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -72,7 +73,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
     url: url
   };
 
-  const canPerformDecentAction: boolean = Boolean(
+  const canPerformDecentAction = Boolean(
     targetPublication &&
       targetPublication.openActionModules.some(
         (module) =>
@@ -80,27 +81,17 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
       )
   );
 
-  const embedDecentOpenAction: boolean = IS_MAINNET && canPerformDecentAction;
+  const embedDecentOpenAction = IS_MAINNET && canPerformDecentAction;
 
-  if (isLoading || error || !data) {
-    if (error) {
-      return null;
-    }
-
-    const hostname = new URL(url).hostname.replace('www.', '');
-
-    if (ALLOWED_HTML_HOSTS.includes(hostname)) {
-      return <div className="shimmer mt-4 h-[415px] w-full rounded-xl" />;
-    }
-
-    return <EmptyOembed url={url} />;
+  if (isLoading) {
+    return (
+      <Card forceRounded onClick={stopEventPropagation}>
+        <div className="shimmer h-[350px] max-h-[350px] rounded-t-xl" />
+        <DecentOpenActionShimmer />
+      </Card>
+    );
   }
-
-  if (!og.title && !og.html && !og.nft && !embedDecentOpenAction) {
-    return null;
-  }
-
-  if (!embedDecentOpenAction) {
+  if (error || !data || !embedDecentOpenAction || !og.nft) {
     return null;
   }
 
