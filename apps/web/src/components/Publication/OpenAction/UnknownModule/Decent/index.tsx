@@ -1,14 +1,12 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication, MirrorablePublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getFavicon from '@hey/helpers/getFavicon';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import getURLs from '@hey/helpers/getURLs';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -28,14 +26,11 @@ export const openActionCTA = (platformName?: string): string => {
     : 'Mint';
 };
 interface DecentOpenActionProps {
-  publication: AnyPublication;
+  publication: MirrorablePublication;
 }
 
 const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-  const { metadata } = targetPublication;
+  const { metadata } = publication;
   const filteredContent = getPublicationData(metadata)?.content || '';
 
   const urls = getURLs(filteredContent);
@@ -62,23 +57,19 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
     }
   }, [publication]);
 
-  const og: OG = {
+  const og = {
     description: data?.description,
-    favicon: data?.url ? getFavicon(data.url) : null,
-    html: data?.html,
     image: data?.image,
     nft: data?.nft,
-    site: data?.site,
     title: data?.title,
     url: url
-  };
+  } as OG;
 
   const canPerformDecentAction = Boolean(
-    targetPublication &&
-      targetPublication.openActionModules.some(
-        (module) =>
-          module.contract.address === VerifiedOpenActionModules.DecentNFT
-      )
+    publication.openActionModules.some(
+      (module) =>
+        module.contract.address === VerifiedOpenActionModules.DecentNFT
+    )
   );
 
   const embedDecentOpenAction = IS_MAINNET && canPerformDecentAction;
