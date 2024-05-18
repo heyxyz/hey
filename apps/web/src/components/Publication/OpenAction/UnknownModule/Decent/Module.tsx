@@ -79,6 +79,7 @@ interface Permit2Data {
 
 interface DecentOpenActionModuleProps {
   actionData?: ActionData;
+  loadingActionData: boolean;
   module: UnknownOpenActionModuleSettings;
   nft: Nft;
   publication: MirrorablePublication;
@@ -86,11 +87,16 @@ interface DecentOpenActionModuleProps {
 
 const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   actionData,
+  loadingActionData,
   nft,
   publication
 }) => {
-  const { activeOpenActionModal, selectedQuantity, setActiveOpenActionModal } =
-    useNftOpenActionStore();
+  const {
+    activeOpenActionModal,
+    selectedQuantity,
+    setActiveOpenActionModal,
+    setSelectedQuantity
+  } = useNftOpenActionStore();
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
   const { addTransaction } = useTransactionStore();
@@ -123,6 +129,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       onSuccess: () => {
         setPermit2Data(undefined);
         setIsApproved(false);
+        setSelectedQuantity(1);
         setActiveOpenActionModal(null);
       },
       signlessApproved: true,
@@ -131,8 +138,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   );
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
-    skip: !actionData?.uiData.nftCreatorAddress,
-    variables: { request: { for: actionData?.uiData.nftCreatorAddress } }
+    skip: !actionData?.uiData?.nftCreatorAddress,
+    variables: { request: { for: actionData?.uiData?.nftCreatorAddress } }
   });
 
   useEffect(() => {
@@ -165,10 +172,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const creatorProfileExists =
     creatorProfileData && creatorProfileData.defaultProfile;
-  const creatorAddress = actionData?.uiData.nftCreatorAddress || ZERO_ADDRESS;
+  const creatorAddress = actionData?.uiData?.nftCreatorAddress || ZERO_ADDRESS;
 
-  const totalAmount = actionData
-    ? BigInt(actionData.actArgumentsFormatted.paymentToken.amount) *
+  const totalAmount = !!actionData?.actArgumentsFormatted?.paymentToken?.amount
+    ? BigInt(actionData?.actArgumentsFormatted?.paymentToken?.amount) *
       BigInt(selectedQuantity)
     : BigInt(0);
 
@@ -183,7 +190,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const formattedTotalAmount = Number(totalAmount) / Math.pow(10, decimals);
 
   const bridgeFee = actionData
-    ? (actionData.actArgumentsFormatted.bridgeFeeNative * maticUsdPrice) /
+    ? (actionData.actArgumentsFormatted?.bridgeFeeNative * maticUsdPrice) /
       usdPrice
     : 0;
 
@@ -194,8 +201,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   const assetAddress = selectedNftOaCurrency;
 
   useEffect(() => {
-    if (actionData?.uiData.dstChainId && nftChainInfo === null) {
-      const chainIdStr = actionData.uiData.dstChainId.toString();
+    if (actionData?.uiData?.dstChainId && nftChainInfo === null) {
+      const chainIdStr = actionData.uiData?.dstChainId.toString();
       const chainInfo = getNftChainInfo(getNftChainId(chainIdStr));
       setNftChainInfo({
         logo: chainInfo.logo,
@@ -203,14 +210,14 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData?.uiData.dstChainId]);
+  }, [actionData?.uiData?.dstChainId]);
 
   useEffect(() => {
-    if (actionData?.uiData.platformName && !platformName.length) {
-      setPlatformName(actionData?.uiData.platformName);
+    if (actionData?.uiData?.platformName && !platformName.length) {
+      setPlatformName(actionData?.uiData?.platformName);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData?.uiData.dstChainId]);
+  }, [actionData?.uiData?.dstChainId]);
 
   const fetchPermit2Allowance = async () => {
     setPermit2Data(undefined);
@@ -275,8 +282,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       setIsApprovalLoading(true);
       try {
         const signatureAmount = permit2SignatureAmount({
-          chainId: actionData.uiData.dstChainId,
-          data: actionData.actArguments.actionModuleData
+          chainId: actionData.uiData?.dstChainId,
+          data: actionData.actArguments?.actionModuleData
         });
         await handleWrongNetwork();
         const permit2Signature = await signPermitSignature(
@@ -305,8 +312,8 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     if (actionData && permit2Data) {
       try {
         const updatedCalldata = await updateWrapperParams({
-          chainId: actionData.uiData.dstChainId,
-          data: actionData.actArguments.actionModuleData,
+          chainId: actionData.uiData?.dstChainId,
+          data: actionData.actArguments?.actionModuleData,
           deadline: BigInt(permit2Data.deadline),
           nonce: BigInt(permit2Data.nonce),
           signature: permit2Data.signature as `0x${string}`
@@ -316,7 +323,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           address: VerifiedOpenActionModules.DecentNFT as `0x${string}`,
           data: updatedCalldata,
           publicationId: publication.id,
-          referrers: actionData.actArguments.referrerProfileIds.map((id) => ({
+          referrers: actionData.actArguments?.referrerProfileIds?.map((id) => ({
             profileId: '0x' + id.toString(16).padStart(2, '0')
           }))
         });
@@ -356,14 +363,15 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       }
       onClose={() => {
         setIsModalCollapsed(false);
+        setSelectedQuantity(1);
         setActiveOpenActionModal(null);
       }}
       show={activeOpenActionModal === publication.id}
       title={
         showCurrencySelector
           ? 'Select token'
-          : actionData?.uiData.platformName
-            ? `Mint on ${actionData?.uiData.platformName}`
+          : actionData?.uiData?.platformName
+            ? `Mint on ${actionData?.uiData?.platformName}`
             : 'Mint NFT'
       }
     >
@@ -383,10 +391,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
           nftDetails={{
             creator: getProfile(creatorProfileData?.defaultProfile as Profile)
               .slug,
-            name: actionData?.uiData.nftName || '',
+            name: actionData?.uiData?.nftName || '',
             price: formattedTotalAmount.toFixed(4),
             schema: formattedNftSchema,
-            uri: sanitizeDStorageUrl(actionData?.uiData.nftUri)
+            uri: sanitizeDStorageUrl(actionData?.uiData?.nftUri)
           }}
           selectedCurrencySymbol={getTokenDetails(selectedNftOaCurrency).symbol}
           step={!permit2Allowed ? 'Permit2' : 'Allowance'}
@@ -395,7 +403,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         <>
           <div className="space-y-2 p-5">
             <div>
-              <b className="text-xl">{actionData?.uiData.nftName}</b>
+              <b className="text-xl">{actionData?.uiData?.nftName}</b>
               {creatorProfileData ? (
                 <p className="ld-text-gray-500">
                   by{' '}
@@ -536,6 +544,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 }
                 className="w-full justify-center"
                 isLoading={isLoading}
+                isLoadingActionData={loadingActionData}
                 isReadyToMint={isApproved && permit2Allowed}
                 moduleAmount={{
                   asset: {

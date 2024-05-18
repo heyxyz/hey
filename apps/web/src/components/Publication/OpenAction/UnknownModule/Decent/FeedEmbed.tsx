@@ -264,14 +264,13 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
           <DecentOpenActionShimmer />
         ) : null}
       </Card>
-      {dataType === ActionDataResponseType.FULL ? (
-        <DecentOpenActionModule
-          actionData={actionData as ActionData}
-          module={module as UnknownOpenActionModuleSettings}
-          nft={nft}
-          publication={publication}
-        />
-      ) : null}
+      <DecentOpenActionModule
+        actionData={actionData as ActionData | undefined}
+        loadingActionData={loadingActionData}
+        module={module as UnknownOpenActionModuleSettings}
+        nft={nft}
+        publication={publication}
+      />
     </>
   );
 };

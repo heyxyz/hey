@@ -16,6 +16,7 @@ interface DecentActionProps {
   allowanceLoading?: boolean;
   className?: string;
   isLoading?: boolean;
+  isLoadingActionData?: boolean;
   isReadyToMint?: boolean;
   moduleAmount?: Amount;
   uiData?: UIData;
@@ -26,6 +27,7 @@ const DecentAction: FC<DecentActionProps> = ({
   allowanceLoading,
   className = '',
   isLoading = false,
+  isLoadingActionData = false,
   isReadyToMint,
   moduleAmount,
   uiData
@@ -78,8 +80,8 @@ const DecentAction: FC<DecentActionProps> = ({
   return (
     <Button
       className={className}
-      disabled={isLoading}
-      icon={isLoading ? <Spinner size="xs" /> : null}
+      disabled={isLoading || isLoadingActionData}
+      icon={isLoading || isLoadingActionData ? <Spinner size="xs" /> : null}
       onClick={(e) => {
         stopEventPropagation(e);
         act();
@@ -88,9 +90,11 @@ const DecentAction: FC<DecentActionProps> = ({
     >
       {isLoading
         ? 'Pending'
-        : !isReadyToMint
-          ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
-          : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
+        : isLoadingActionData
+          ? 'Loading...'
+          : !isReadyToMint
+            ? `Approve ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`
+            : `${openActionCTA(uiData?.platformName)} for ${moduleAmount?.value} ${moduleAmount?.asset.symbol}`}
     </Button>
   );
 };
