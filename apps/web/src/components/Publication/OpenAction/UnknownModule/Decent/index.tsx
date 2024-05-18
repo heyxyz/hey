@@ -1,4 +1,4 @@
-import type { AnyPublication, MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
@@ -11,7 +11,6 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 import FeedEmbed from './FeedEmbed';
 
@@ -48,15 +47,6 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
     refetchOnMount: false
   });
 
-  const [currentPublication, setCurrentPublication] =
-    useState<AnyPublication>(publication);
-
-  useEffect(() => {
-    if (publication) {
-      setCurrentPublication(publication);
-    }
-  }, [publication]);
-
   const og = {
     description: data?.description,
     image: data?.image,
@@ -87,7 +77,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
     return null;
   }
 
-  return <FeedEmbed og={og} publication={currentPublication} />;
+  return <FeedEmbed og={og} publication={publication} />;
 };
 
 export default DecentOpenAction;
