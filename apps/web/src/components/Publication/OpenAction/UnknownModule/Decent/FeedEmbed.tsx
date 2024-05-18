@@ -3,6 +3,7 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
+import type { PublicationId } from '@lens-protocol/metadata';
 import type { ActionData, PublicationInfo, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
@@ -30,17 +31,20 @@ import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from '.';
 import DecentOpenActionModule from './Module';
 
 interface State {
+  activeOpenActionModal: null | PublicationId;
   selectedQuantity: number;
+  setActiveOpenActionModal: (
+    activeOpenActionModal: null | PublicationId
+  ) => void;
   setSelectedQuantity: (selectedQuantity: number) => void;
-  setShowOpenActionModal: (showOpenActionModal: boolean) => void;
-  showOpenActionModal: boolean;
 }
 
 const store = create<State>((set) => ({
+  activeOpenActionModal: null,
   selectedQuantity: 1,
-  setSelectedQuantity: (selectedQuantity) => set({ selectedQuantity }),
-  setShowOpenActionModal: (showOpenActionModal) => set({ showOpenActionModal }),
-  showOpenActionModal: false
+  setActiveOpenActionModal: (activeOpenActionModal) =>
+    set({ activeOpenActionModal }),
+  setSelectedQuantity: (selectedQuantity) => set({ selectedQuantity })
 }));
 
 export const useNftOpenActionStore = createTrackedSelector(store);
@@ -80,7 +84,8 @@ interface FeedEmbedProps {
 const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
   const { address } = useAccount();
   const { selectedNftOaCurrency } = useNftOaCurrencyStore();
-  const { selectedQuantity, setShowOpenActionModal } = useNftOpenActionStore();
+  const { selectedQuantity, setActiveOpenActionModal } =
+    useNftOpenActionStore();
 
   const [nft, setNft] = useState({
     chain: og.nft?.chain || null,
@@ -174,7 +179,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
       Boolean(module) &&
       Boolean(selectedNftOaCurrency) &&
       Boolean(address) &&
-      Boolean(publication),
+      Boolean(publication.id),
     queryFn: getActionData,
     queryKey: [
       'getActionData',
@@ -185,20 +190,8 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
     ]
   });
 
-  const [actionData, setActionData] = useState(actionDataResponse?.data);
-  const [dataType, setDataType] = useState(actionDataResponse?.type);
-
-  useEffect(() => {
-    if (actionDataResponse?.data) {
-      setActionData(actionDataResponse?.data);
-    }
-  }, [actionDataResponse?.data]);
-
-  useEffect(() => {
-    if (actionDataResponse?.type) {
-      setDataType(actionDataResponse?.type);
-    }
-  }, [actionDataResponse?.type]);
+  const actionData = actionDataResponse?.data;
+  const dataType = actionDataResponse?.type;
 
   useEffect(() => {
     refetch();
@@ -242,7 +235,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
                 className="px-4 py-1"
                 icon={<CursorArrowRaysIcon className="size-4" />}
                 onClick={() => {
-                  setShowOpenActionModal(true);
+                  setActiveOpenActionModal(publication.id);
                   Leafwatch.track(PUBLICATION.OPEN_ACTIONS.DECENT.OPEN_DECENT, {
                     publication_id: publication.id
                   });

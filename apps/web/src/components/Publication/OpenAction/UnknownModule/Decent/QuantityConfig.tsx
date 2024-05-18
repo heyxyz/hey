@@ -6,8 +6,7 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useNftOpenActionStore } from './FeedEmbed';
 
 const QuantityConfig: FC = () => {
-  const { selectedQuantity, setSelectedQuantity, setShowOpenActionModal } =
-    useNftOpenActionStore();
+  const { selectedQuantity, setSelectedQuantity } = useNftOpenActionStore();
 
   return (
     <div className="flex items-center justify-between border-y border-zinc-200 px-5 py-4">
@@ -18,7 +17,6 @@ const QuantityConfig: FC = () => {
           disabled={selectedQuantity === 1}
           onClick={(e) => {
             stopEventPropagation(e);
-            setShowOpenActionModal(true);
             setSelectedQuantity(selectedQuantity - 1);
           }}
         >
@@ -29,7 +27,6 @@ const QuantityConfig: FC = () => {
           className="flex size-6 items-center justify-center rounded-full bg-gray-200 disabled:opacity-40"
           onClick={(e) => {
             stopEventPropagation(e);
-            setShowOpenActionModal(true);
             setSelectedQuantity(selectedQuantity + 1);
           }}
         >

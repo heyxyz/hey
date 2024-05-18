@@ -89,7 +89,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
   nft,
   publication
 }) => {
-  const { selectedQuantity, setShowOpenActionModal, showOpenActionModal } =
+  const { activeOpenActionModal, selectedQuantity, setActiveOpenActionModal } =
     useNftOpenActionStore();
   const { selectedNftOaCurrency, setSelectedNftOaCurrency } =
     useNftOaCurrencyStore();
@@ -123,7 +123,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       onSuccess: () => {
         setPermit2Data(undefined);
         setIsApproved(false);
-        setShowOpenActionModal(false);
+        setActiveOpenActionModal(null);
       },
       signlessApproved: true,
       successToast: 'NFT has been minted successfully!'
@@ -356,9 +356,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       }
       onClose={() => {
         setIsModalCollapsed(false);
-        setShowOpenActionModal(false);
+        setActiveOpenActionModal(null);
       }}
-      show={showOpenActionModal}
+      show={activeOpenActionModal === publication.id}
       title={
         showCurrencySelector
           ? 'Select token'
