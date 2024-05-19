@@ -3,7 +3,6 @@ import type {
   UnknownOpenActionModuleSettings
 } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
-import type { PublicationId } from '@lens-protocol/metadata';
 import type { ActionData, PublicationInfo, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
@@ -31,11 +30,9 @@ import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from '.';
 import DecentOpenActionModule from './Module';
 
 interface State {
-  activeOpenActionModal: null | PublicationId;
+  activeOpenActionModal: null | string;
   selectedQuantity: number;
-  setActiveOpenActionModal: (
-    activeOpenActionModal: null | PublicationId
-  ) => void;
+  setActiveOpenActionModal: (activeOpenActionModal: null | string) => void;
   setSelectedQuantity: (selectedQuantity: number) => void;
 }
 
