@@ -40,7 +40,7 @@
     "@xmtp/content-type-reaction": "^1.1.7",
     "@xmtp/react-sdk": "^6.0.1",
     "alchemy-sdk": "^3.3.1",
-    "axios": "^1.6.8",
+    "axios": "^1.7.0",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.3",
     "crisp-sdk-web": "^1.0.25",
@@ -78,7 +78,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.10.11",
+    "viem": "^2.11.0",
     "wagmi": "^2.9.2",
     "zod": "^3.23.8",
     "zustand": "^4.5.2"
