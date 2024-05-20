@@ -204,9 +204,10 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
         <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-t-xl">
           <Image
             alt={nft.collectionName}
-            className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg filter"
+            className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl filter"
             src={nft.mediaUrl}
           />
+          <div className="absolute inset-0 bg-white opacity-20" />
           <Image
             alt={nft.collectionName}
             className={cn(
