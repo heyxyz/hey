@@ -119,6 +119,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     name: string;
   } | null>(null);
   const [platformName, setPlatformName] = useState('');
+  const [nftName, setNftName] = useState('');
 
   const { data: walletClient } = useWalletClient();
   const { address } = useAccount();
@@ -139,7 +140,9 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
 
   const { data: creatorProfileData } = useDefaultProfileQuery({
     skip: !actionData?.uiData?.nftCreatorAddress,
-    variables: { request: { for: actionData?.uiData?.nftCreatorAddress } }
+    variables: {
+      request: { for: actionData?.uiData?.nftCreatorAddress }
+    }
   });
 
   useEffect(() => {
@@ -218,6 +221,13 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData?.uiData?.dstChainId]);
+
+  useEffect(() => {
+    if (actionData?.uiData?.nftName && !nftName.length) {
+      setNftName(actionData.uiData.nftName);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [actionData?.uiData?.nftName]);
 
   const fetchPermit2Allowance = async () => {
     setPermit2Data(undefined);
@@ -403,16 +413,20 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         <>
           <div className="space-y-2 p-5">
             <div>
-              <b className="text-xl">{actionData?.uiData?.nftName}</b>
+              <b className="text-xl">{nftName}</b>
               {creatorProfileData ? (
                 <p className="ld-text-gray-500">
                   by{' '}
                   {creatorProfileExists
                     ? getProfile(creatorProfileData.defaultProfile as Profile)
                         .slug
-                    : `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`}
+                    : !creatorAddress
+                      ? `${creatorAddress.slice(0, 6)}...${creatorAddress.slice(-4)}`
+                      : '...'}
                 </p>
-              ) : null}
+              ) : (
+                <p className="ld-text-gray-500">{'by ...'}</p>
+              )}
             </div>
             <div className="pt-2">
               <div className="relative">
