@@ -426,9 +426,10 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
                 <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-xl">
                   <Image
                     alt={`Blurred background for ${nft.collectionName}`}
-                    className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg filter"
+                    className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl filter"
                     src={currentImageUrl}
                   />
+                  <div className="absolute inset-0 bg-white opacity-20" />
                   <Image
                     alt={nft.collectionName}
                     className={cn(
