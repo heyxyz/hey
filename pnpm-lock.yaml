@@ -58,8 +58,8 @@ importers:
         specifier: ^5.14.0
         version: 5.14.0(prisma@5.14.0)
       axios:
-        specifier: ^1.6.8
-        version: 1.6.8(debug@4.3.4)
+        specifier: ^1.7.0
+        version: 1.7.0(debug@4.3.4)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -100,8 +100,8 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.10.11
-        version: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+        specifier: ^2.11.0
+        version: 2.11.0(typescript@5.4.5)(zod@3.23.8)
       vite-express:
         specifier: ^0.16.0
         version: 0.16.0
@@ -220,7 +220,7 @@ importers:
         version: link:../../packages/ui
       '@layerzerolabs/scan-client':
         specifier: ^0.0.8
-        version: 0.0.8(axios@1.6.8)
+        version: 0.0.8(axios@1.7.0)
       '@lens-protocol/metadata':
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
@@ -255,8 +255,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       axios:
-        specifier: ^1.6.8
-        version: 1.6.8(debug@4.3.4)
+        specifier: ^1.7.0
+        version: 1.7.0(debug@4.3.4)
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
@@ -369,11 +369,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.10.11
-        version: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+        specifier: ^2.11.0
+        version: 2.11.0(typescript@5.4.5)(zod@3.23.8)
       wagmi:
         specifier: ^2.9.2
-        version: 2.9.2(@tanstack/react-query@5.37.1)(@types/react@18.3.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8)
+        version: 2.9.2(@tanstack/react-query@5.37.1)(@types/react@18.3.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -545,8 +545,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       axios:
-        specifier: ^1.6.8
-        version: 1.6.8(debug@4.3.4)
+        specifier: ^1.7.0
+        version: 1.7.0(debug@4.3.4)
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
@@ -557,8 +557,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       viem:
-        specifier: ^2.10.11
-        version: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+        specifier: ^2.11.0
+        version: 2.11.0(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -626,8 +626,8 @@ importers:
         specifier: workspace:*
         version: link:../data
       axios:
-        specifier: ^1.6.8
-        version: 1.6.8(debug@4.3.4)
+        specifier: ^1.7.0
+        version: 1.7.0(debug@4.3.4)
       graphql-ws:
         specifier: ^5.16.0
         version: 5.16.0(graphql@16.8.1)
@@ -3964,8 +3964,8 @@ packages:
       '@floating-ui/utils': 0.2.2
     dev: false
 
-  /@floating-ui/react-dom@2.0.9(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-q0umO0+LQK4+p6aGyvzASqKbKOJcAHJ7ycE9CuUvfx3s9zTHWmGJTPOIlM/hmSBfUfg/XfY5YhLBLR/LHwShQQ==}
+  /@floating-ui/react-dom@2.1.0(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-lNzj5EQmEKn5FFKc04+zasr09h/uX8RtJRNj5gUXsSQIXHVWTVh+hVAg1vOMCexkX8EgvemMvIFpQfkosnVNyA==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -3975,13 +3975,13 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /@floating-ui/react@0.26.15(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-WKmfLkxTwCm09Dxq4LpjL3EPbZVSp5wvnap1jmculsfnzg2Ag/pCkP+OPyjE5dFMXqX97hsLIqJehboZ5XAHXw==}
+  /@floating-ui/react@0.26.16(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-HEf43zxZNAI/E781QIVpYSF3K2VH4TTYZpqecjdsFkjsaU1EbaWcM++kw0HXFffj7gDUcBFevX8s0rQGQpxkow==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@floating-ui/react-dom': 2.0.9(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@floating-ui/utils': 0.2.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -4726,7 +4726,7 @@ packages:
       react: ^18
       react-dom: ^18
     dependencies:
-      '@floating-ui/react': 0.26.15(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react': 0.26.16(react-dom@18.3.1)(react@18.3.1)
       '@react-aria/focus': 3.17.0(react@18.3.1)
       '@react-aria/interactions': 3.21.2(react@18.3.1)
       '@tanstack/react-virtual': 3.5.0(react-dom@18.3.1)(react@18.3.1)
@@ -4775,7 +4775,7 @@ packages:
     dependencies:
       asn1.js: 5.4.1
       async-retry: 1.3.3
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       base64-js: 1.5.1
       bignumber.js: 9.1.2
     transitivePeerDependencies:
@@ -4787,7 +4787,7 @@ packages:
     engines: {node: '>=16.10.0'}
     dependencies:
       async-retry: 1.3.3
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
     transitivePeerDependencies:
       - debug
     dev: false
@@ -4812,7 +4812,7 @@ packages:
       algosdk: 1.24.1
       arbundles: 0.10.1(arweave@1.15.1)
       async-retry: 1.3.3
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       base64url: 3.0.1
       bignumber.js: 9.1.2
       bs58: 5.0.0
@@ -4956,12 +4956,12 @@ packages:
     resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
     dev: false
 
-  /@layerzerolabs/scan-client@0.0.8(axios@1.6.8):
+  /@layerzerolabs/scan-client@0.0.8(axios@1.7.0):
     resolution: {integrity: sha512-V9vvt9GW0+AHoWXfOSNmZ9WUa28fVBmC93J/f9RLeDMEy5VR8srW2Du5pf1mMAg6ncEL0kQ1xkVCu+X6ARFBtQ==}
     peerDependencies:
       axios: '*'
     dependencies:
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
     dev: false
 
   /@lens-protocol/metadata@1.2.0(zod@3.23.8):
@@ -6387,11 +6387,11 @@ packages:
     resolution: {integrity: sha512-ytPc6eLGcHHnapAZ9S+5qsdomhjo6QBHTDRRBFfTxXIpsicMhVPouPgmUPebZZZGX7vt9USA+Z+0M0dSVtSUEA==}
     dev: true
 
-  /@openzeppelin/defender-admin-client@1.54.3(debug@4.3.4):
-    resolution: {integrity: sha512-9ZgB6UekFRMZBGxMcAV93g6ErHWTo46JhQImY0Qfbtsu58cPaNwQHLJOjjlrMy5yTIVi+P8QXm4V9rAQ4H7BdA==}
+  /@openzeppelin/defender-admin-client@1.54.4(debug@4.3.4):
+    resolution: {integrity: sha512-WbHevtyrTTYIoCNO0jjdIZdQ1lAXZBIXXM4dhk/vqn3B7PnY+dvwjaR9YYEpZ/kjEQCcDUSm++njBJ/h7tTnhw==}
     dependencies:
-      '@openzeppelin/defender-base-client': 1.54.2(debug@4.3.4)
-      axios: 1.6.8(debug@4.3.4)
+      '@openzeppelin/defender-base-client': 1.54.4(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       ethers: 5.7.2
       lodash: 4.17.21
       node-fetch: 2.7.0
@@ -6402,12 +6402,12 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@openzeppelin/defender-base-client@1.54.2(debug@4.3.4):
-    resolution: {integrity: sha512-0k2Md6WKKkLTbsygz4UYWojJAkgrNLrishmosUIBCjaiGcAXMopgnRgX6V4WjnWkyI8RVEqb9H6IZY+8BNk6Bw==}
+  /@openzeppelin/defender-base-client@1.54.3(debug@4.3.4):
+    resolution: {integrity: sha512-0I45oXopLsKUfxafWbPmicxnANZEGSs3XWDTR3ZqS89GlDwh9YHB7Ke04lkEvdqOuxUEdoy6xvGgElglBWybJw==}
     dependencies:
       amazon-cognito-identity-js: 6.3.12
       async-retry: 1.3.3
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       lodash: 4.17.21
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -6420,7 +6420,7 @@ packages:
     dependencies:
       amazon-cognito-identity-js: 6.3.12
       async-retry: 1.3.3
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       lodash: 4.17.21
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -6428,8 +6428,8 @@ packages:
       - encoding
     dev: true
 
-  /@openzeppelin/defender-sdk-base-client@1.13.0:
-    resolution: {integrity: sha512-XyCHF4Q//rInmJG6XM9x4JDiERJTCjmGX7FOmtbXYAKTTE5ygUvFU7gXJ5oxtbB2anPU3OJIPM25Shkd3+7dKw==}
+  /@openzeppelin/defender-sdk-base-client@1.13.1:
+    resolution: {integrity: sha512-FI7YdfgDf0px+cXbXyDkS0mpqzyySHeLkKj90ymzAy1/sGYKHNC03vyzMnMfIRuxa4bF15wdL4MCpA60PSWGpQ==}
     dependencies:
       amazon-cognito-identity-js: 6.3.12
       async-retry: 1.3.3
@@ -6437,22 +6437,22 @@ packages:
       - encoding
     dev: true
 
-  /@openzeppelin/defender-sdk-deploy-client@1.13.0(debug@4.3.4):
-    resolution: {integrity: sha512-igLut1lIV52DWV9Bn8MrESgCvCQSOunqRZkSLC/KGCbEUTEyNoAHNsGMu9Z+K11RYCD0CHGnfAi0ODLsbrq6QA==}
+  /@openzeppelin/defender-sdk-deploy-client@1.13.1(debug@4.3.4):
+    resolution: {integrity: sha512-zQEoURBRMknrOXLDNzK3gXiHfQbDImLKtEVPBOybya/MYqququBdNkRmPpSkJ45LHVbuxWyqRkkGFQp8+l/UQg==}
     dependencies:
-      '@openzeppelin/defender-sdk-base-client': 1.13.0
-      axios: 1.6.8(debug@4.3.4)
+      '@openzeppelin/defender-sdk-base-client': 1.13.1
+      axios: 1.7.0(debug@4.3.4)
       lodash: 4.17.21
     transitivePeerDependencies:
       - debug
       - encoding
     dev: true
 
-  /@openzeppelin/defender-sdk-network-client@1.13.0(debug@4.3.4):
-    resolution: {integrity: sha512-Rv9QBEBvEi407zZzCPnOrL8y8ByyQo7fwni5EBoRJQPj1HeM4uhZkLRNpq8YZOjjNhu648SP+L4F8Bbtdzmd9w==}
+  /@openzeppelin/defender-sdk-network-client@1.13.1(debug@4.3.4):
+    resolution: {integrity: sha512-QR9dTZ6MuJ5o+GwAKH4Hxy+xuElI0iCwpVqN/ntHG0Ar7neHoq/f7jPtk04/DgEmrwTUMLzTKpZWmUO1fxiEMA==}
     dependencies:
-      '@openzeppelin/defender-sdk-base-client': 1.13.0
-      axios: 1.6.8(debug@4.3.4)
+      '@openzeppelin/defender-sdk-base-client': 1.13.1
+      axios: 1.7.0(debug@4.3.4)
       lodash: 4.17.21
     transitivePeerDependencies:
       - debug
@@ -6473,11 +6473,11 @@ packages:
     dependencies:
       '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@6.12.1)(hardhat@2.22.4)
       '@nomicfoundation/hardhat-verify': 2.0.7(hardhat@2.22.4)
-      '@openzeppelin/defender-admin-client': 1.54.3(debug@4.3.4)
-      '@openzeppelin/defender-base-client': 1.54.4(debug@4.3.4)
-      '@openzeppelin/defender-sdk-base-client': 1.13.0
-      '@openzeppelin/defender-sdk-deploy-client': 1.13.0(debug@4.3.4)
-      '@openzeppelin/defender-sdk-network-client': 1.13.0(debug@4.3.4)
+      '@openzeppelin/defender-admin-client': 1.54.4(debug@4.3.4)
+      '@openzeppelin/defender-base-client': 1.54.3(debug@4.3.4)
+      '@openzeppelin/defender-sdk-base-client': 1.13.1
+      '@openzeppelin/defender-sdk-deploy-client': 1.13.1(debug@4.3.4)
+      '@openzeppelin/defender-sdk-network-client': 1.13.1(debug@4.3.4)
       '@openzeppelin/upgrades-core': 1.33.1
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
@@ -7343,7 +7343,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.24.5
-      '@floating-ui/react-dom': 2.0.9(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@radix-ui/react-arrow': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.3.2)(react@18.3.1)
       '@radix-ui/react-context': 1.0.1(@types/react@18.3.2)(react@18.3.1)
@@ -7373,7 +7373,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.24.5
-      '@floating-ui/react-dom': 2.0.9(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.0(react-dom@18.3.1)(react@18.3.1)
       '@radix-ui/react-arrow': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
       '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.3.2)(react@18.3.1)
       '@radix-ui/react-context': 1.0.1(@types/react@18.3.2)(react@18.3.1)
@@ -10436,7 +10436,7 @@ packages:
       pretty-format: 29.7.0
     dev: true
 
-  /@wagmi/connectors@5.0.2(@types/react@18.3.2)(@wagmi/core@2.10.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8):
+  /@wagmi/connectors@5.0.2(@types/react@18.3.2)(@wagmi/core@2.10.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8):
     resolution: {integrity: sha512-2YgcgVn6S8kuOe/PVweK0ucxNqO651VqlPWD+MrPxEVwcpEPLNKvtrYdLRDTSnwwUEqEzgnDwEAhcrniK76+Kw==}
     peerDependencies:
       '@wagmi/core': 2.10.2
@@ -10450,12 +10450,12 @@ packages:
       '@metamask/sdk': 0.20.3(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)
       '@safe-global/safe-apps-provider': 0.18.1(typescript@5.4.5)(zod@3.23.8)
       '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.4.5)(zod@3.23.8)
-      '@wagmi/core': 2.10.2(@types/react@18.3.2)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8)
+      '@wagmi/core': 2.10.2(@types/react@18.3.2)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8)
       '@walletconnect/ethereum-provider': 2.13.0(@types/react@18.3.2)(react@18.3.1)
       '@walletconnect/modal': 2.6.2(@types/react@18.3.2)(react@18.3.1)
       cbw-sdk: /@coinbase/wallet-sdk@3.9.3
       typescript: 5.4.5
-      viem: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+      viem: 2.11.0(typescript@5.4.5)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10484,7 +10484,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@2.10.2(@types/react@18.3.2)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8):
+  /@wagmi/core@2.10.2(@types/react@18.3.2)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8):
     resolution: {integrity: sha512-SfQ1F7Azjlx4cKGfmg9+GEUGbukCxraoLYZyCUgTLpKw2OY+4sHsPRwHQENQt/YRWKMyG3/byEYRna2Kv1anpw==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -10499,7 +10499,7 @@ packages:
       eventemitter3: 5.0.1
       mipd: 0.0.5(typescript@5.4.5)(zod@3.23.8)
       typescript: 5.4.5
-      viem: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+      viem: 2.11.0(typescript@5.4.5)(zod@3.23.8)
       zustand: 4.4.1(@types/react@18.3.2)(react@18.3.1)
     transitivePeerDependencies:
       - '@types/react'
@@ -11414,7 +11414,7 @@ packages:
       '@ethersproject/units': 5.7.0
       '@ethersproject/wallet': 5.7.0
       '@ethersproject/web': 5.7.1
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       sturdy-websocket: 0.2.1
       websocket: 1.0.35
     transitivePeerDependencies:
@@ -11898,8 +11898,8 @@ packages:
       - debug
     dev: false
 
-  /axios@1.6.8(debug@4.3.4):
-    resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
+  /axios@1.7.0(debug@4.3.4):
+    resolution: {integrity: sha512-IiB0wQeKyPRdsFVhBgIo31FbzOyf2M6wYl7/NVutFwFBRMiAbjNiydJIHKeLmPugF4kJLfA1uWZ82Is2QzqqFA==}
     dependencies:
       follow-redirects: 1.15.6(debug@4.3.4)
       form-data: 4.0.0
@@ -14373,7 +14373,7 @@ packages:
         optional: true
     dependencies:
       '@solidity-parser/parser': 0.14.5
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       cli-table3: 0.5.1
       colors: 1.4.0
       ethereum-cryptography: 1.2.0
@@ -18357,8 +18357,8 @@ packages:
   /nft-openaction-kit@1.0.28(typescript@5.4.5)(zod@3.23.8):
     resolution: {integrity: sha512-j1FeSGHxBRd+3HITQYFweC/Bnn65oSLfIe9TrnE82q8FyDieBB2O0hMn2W0za9iEraAe8w/qgCXY6zjDwLiX5Q==}
     dependencies:
-      axios: 1.6.8(debug@4.3.4)
-      viem: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+      axios: 1.7.0(debug@4.3.4)
+      viem: 2.11.0(typescript@5.4.5)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -19879,13 +19879,13 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.5
       classnames: 2.5.1
-      rc-util: 5.40.1(react-dom@18.3.1)(react@18.3.1)
+      rc-util: 5.41.0(react-dom@18.3.1)(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /rc-util@5.40.1(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-wsYjO59DpyyZdMe1yCSqHiHU8sWjkP1wIfj2mR0aHaNmFFgw727kkOFY7FBukg4rXhIw131549SLxQXQoIB73A==}
+  /rc-util@5.41.0(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-xtlCim9RpmVv0Ar2Nnc3WfJCxjQkTf3xHPWoFdjp1fSs2NirQwqiQrfqdU9HUe0kdfb168M/T8Dq0IaX50xeKg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -22766,8 +22766,8 @@ packages:
       - zod
     dev: false
 
-  /viem@2.10.11(typescript@5.4.5)(zod@3.23.8):
-    resolution: {integrity: sha512-V+y+INWpprABSAf35b2SwqCA97WUyhgtmoPPae6jN1yo+V7tNXg3rUvRukT1/9CD9f8QnhfpiZXkVSgtXbINRg==}
+  /viem@2.11.0(typescript@5.4.5)(zod@3.23.8):
+    resolution: {integrity: sha512-JwGxcpr3pUlquXWkRdXAWTOaY3RDPftrkxksiIWlPEgLWRYOLuFkJyxmvLTE6ZY3njww8vmZP97UqBt0R+B/xw==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -22948,7 +22948,7 @@ packages:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
     dev: false
 
-  /wagmi@2.9.2(@tanstack/react-query@5.37.1)(@types/react@18.3.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8):
+  /wagmi@2.9.2(@tanstack/react-query@5.37.1)(@types/react@18.3.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8):
     resolution: {integrity: sha512-FUSYm0RY2Zo7qL3LKDymtAk+oAiLJc0UUhfAEGhAgYBYqYXsDEpPoZM14i8zi6t4FMGlMONuyOTb0sediCJN1g==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -22960,12 +22960,12 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 5.37.1(react@18.3.1)
-      '@wagmi/connectors': 5.0.2(@types/react@18.3.2)(@wagmi/core@2.10.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8)
-      '@wagmi/core': 2.10.2(@types/react@18.3.2)(react@18.3.1)(typescript@5.4.5)(viem@2.10.11)(zod@3.23.8)
+      '@wagmi/connectors': 5.0.2(@types/react@18.3.2)(@wagmi/core@2.10.2)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.1)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8)
+      '@wagmi/core': 2.10.2(@types/react@18.3.2)(react@18.3.1)(typescript@5.4.5)(viem@2.11.0)(zod@3.23.8)
       react: 18.3.1
       typescript: 5.4.5
       use-sync-external-store: 1.2.0(react@18.3.1)
-      viem: 2.10.11(typescript@5.4.5)(zod@3.23.8)
+      viem: 2.11.0(typescript@5.4.5)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -23000,7 +23000,7 @@ packages:
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
-      axios: 1.6.8(debug@4.3.4)
+      axios: 1.7.0(debug@4.3.4)
       joi: 17.13.1
       lodash: 4.17.21
       minimist: 1.2.8
