@@ -68,10 +68,11 @@ const DecentOpenActionPreview: FC<DecentOpenActionPreviewProps> = ({
       <div className="relative h-[350px] max-h-[350px] w-full overflow-hidden rounded-t-xl">
         <Image
           alt={`Blurred background for ${nft.collectionName}`}
-          className="absolute inset-0 h-full w-full scale-110 object-cover blur-lg filter"
+          className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl filter"
           onLoad={() => setIsNftCoverLoaded(true)}
           src={nft.mediaUrl.length ? nft.mediaUrl : undefined}
         />
+        <div className="absolute inset-0 bg-white opacity-20" />
         <Image
           alt={nft.collectionName}
           className={cn(
