@@ -16,7 +16,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.0.1",
+    "@clickhouse/client": "^1.0.2",
     "@hey/helpers": "workspace:*",
     "dotenv": "^16.4.5",
     "pg": "^8.11.5",
