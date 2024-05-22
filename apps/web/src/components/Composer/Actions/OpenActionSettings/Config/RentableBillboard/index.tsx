@@ -12,13 +12,7 @@ import { useEffect, useState } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import {
-  encodeAbiParameters,
-  isAddress,
-  parseEther,
-  toBytes,
-  toHex
-} from 'viem';
+import { encodeAbiParameters, isAddress, parseEther } from 'viem';
 import { useReadContract } from 'wagmi';
 import { create } from 'zustand';
 
@@ -105,7 +99,7 @@ const RentableBillboardConfig: FC = () => {
 
   const onSave = () => {
     const epoch = expiresAt.getTime();
-    const epochInSeconds = epoch / 1000;
+    const epochInSeconds = Math.floor(epoch / 1000);
 
     setOpenAction({
       address: VerifiedOpenActionModules.RentableBillboard,
@@ -118,7 +112,7 @@ const RentableBillboardConfig: FC = () => {
           epochInSeconds, // expiresAt
           250, // clientFeePerActBps
           0, // referralFeePerActBps
-          toHex(toBytes('', { size: 32 })) // interestMerkleRoot
+          '0xd9c33124af8e3435bd3b3ca2a3e551d6eb4d7f356d17594e715a3b6bb8abfe79' // Profiles with Lens reputation score above 7500
         ]
       )
     });
