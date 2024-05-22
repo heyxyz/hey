@@ -8,6 +8,7 @@ import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/helpers/responses';
+import sendSlackMessage from 'src/helpers/slack';
 import UAParser from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
@@ -116,6 +117,16 @@ export const post: Handler = async (req, res) => {
           wallet: payload.evmAddress || null
         }
       ]
+    });
+
+    sendSlackMessage({
+      channel: '#events',
+      color: '#22c55e',
+      fields: [
+        { short: true, title: 'Event', value: name },
+        { short: true, title: 'Actor', value: payload.id || '0x00' }
+      ],
+      text: ''
     });
 
     logger.info('Ingested event to Leafwatch');
