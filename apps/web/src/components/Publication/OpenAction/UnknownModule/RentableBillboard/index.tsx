@@ -29,7 +29,7 @@ const RentableBillboardOpenAction: FC<RentableBillboardOpenActionProps> = ({
   module,
   publication
 }) => {
-  const { actOnUnknownOpenAction, isLoading } = useActOnUnknownOpenAction({
+  const { actOnUnknownOpenAction } = useActOnUnknownOpenAction({
     onSuccess: () => {},
     signlessApproved: module.signlessApproved,
     successToast: "You've successfully swapped!"
