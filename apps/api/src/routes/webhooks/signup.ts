@@ -2,20 +2,17 @@ import type { Handler } from 'express';
 
 import { Errors } from '@hey/data';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
 import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import { object, string } from 'zod';
+import { any, object } from 'zod';
 
 type ExtensionRequest = {
-  event: { activity: { hash: string }[] };
+  event: { activity: any };
 };
 
 const validationSchema = object({
-  event: object({
-    activity: object({ hash: string().regex(Regex.txHash) })
-  })
+  event: object({ activity: any() })
 });
 
 export const post: Handler = async (req, res) => {
