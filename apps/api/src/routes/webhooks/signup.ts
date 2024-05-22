@@ -38,12 +38,15 @@ export const post: Handler = async (req, res) => {
   const { event } = body as ExtensionRequest;
 
   try {
-    await axios.post(process.env.SLACK_WEBHOOK_URL!, {
-      channel: '#signups',
-      icon_emoji: ':hey:',
-      text: `A new profile has been signed up to :hey:\n\n${POLYGONSCAN_URL}/tx/${event.activity[0].hash}`,
-      username: 'Hey'
-    });
+    await axios.post(
+      `${process.env.SLACK_WEBHOOK_URL}/B074BSCRYBY/oje0JD1ymgzB6ZTMNe0zBvRM`,
+      {
+        channel: '#signups',
+        icon_emoji: ':hey:',
+        text: `A new profile has been signed up to :hey:\n\n${POLYGONSCAN_URL}/tx/${event.activity[0].hash}`,
+        username: 'Hey'
+      }
+    );
 
     return res.status(200).json({ success: true });
   } catch (error) {
