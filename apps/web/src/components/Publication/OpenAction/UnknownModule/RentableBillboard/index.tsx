@@ -35,11 +35,10 @@ const RentableBillboardOpenAction: FC<RentableBillboardOpenActionProps> = ({
     successToast: "You've successfully swapped!"
   });
 
-  const { data: moduleMetadata, loading: moduleMetadataLoading } =
-    useModuleMetadataQuery({
-      skip: !Boolean(module?.contract.address),
-      variables: { request: { implementation: module?.contract.address } }
-    });
+  const { data: moduleMetadata } = useModuleMetadataQuery({
+    skip: !Boolean(module?.contract.address),
+    variables: { request: { implementation: module?.contract.address } }
+  });
 
   const metadata = moduleMetadata?.moduleMetadata?.metadata;
 
