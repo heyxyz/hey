@@ -2,9 +2,9 @@ import type { Handler } from 'express';
 
 import { Errors } from '@hey/data';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
+import sendSlackMessage from 'src/helpers/slack';
 import { any, object } from 'zod';
 
 type ExtensionRequest = {
@@ -38,15 +38,18 @@ export const post: Handler = async (req, res) => {
   const { event } = body as ExtensionRequest;
 
   try {
-    await axios.post(
-      `${process.env.SLACK_WEBHOOK_URL}/B074BSCRYBY/oje0JD1ymgzB6ZTMNe0zBvRM`,
-      {
-        channel: '#signups',
-        icon_emoji: ':hey:',
-        text: `A new profile has been signed up to :hey:\n\n${POLYGONSCAN_URL}/tx/${event.activity[0].hash}`,
-        username: 'Hey'
-      }
-    );
+    await sendSlackMessage({
+      channel: '#signups',
+      color: '#22c55e',
+      fields: [
+        {
+          short: false,
+          title: 'Transaction',
+          value: `${POLYGONSCAN_URL}/tx/${event.activity[0].hash}`
+        }
+      ],
+      text: ':tada: A new profile has been signed up to :hey:'
+    });
 
     return res.status(200).json({ success: true });
   } catch (error) {
