@@ -23,6 +23,7 @@ import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
@@ -69,6 +70,7 @@ const Action: FC<ActionProps> = ({
   usePreventScrollOnNumberInput(inputRef);
 
   const { isSuspended } = useProfileRestriction();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { address } = useAccount();
   const { data: balanceData } = useBalance({
@@ -154,7 +156,7 @@ const Action: FC<ActionProps> = ({
 
     try {
       setIsLoading(true);
-
+      await handleWrongNetwork();
       await writeContractAsync({
         abi: [
           {
