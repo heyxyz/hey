@@ -9,12 +9,12 @@ import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
 type ExtensionRequest = {
-  event: { data: { block: { hash: string } } };
+  event: { activity: { hash: string }[] };
 };
 
 const validationSchema = object({
   event: object({
-    data: object({ block: object({ hash: string().regex(Regex.txHash) }) })
+    activity: object({ hash: string().regex(Regex.txHash) })
   })
 });
 
@@ -44,7 +44,7 @@ export const post: Handler = async (req, res) => {
     await axios.post(process.env.SLACK_WEBHOOK_URL!, {
       channel: '#signups',
       icon_emoji: ':hey:',
-      text: `A new profile has been signed up to :hey:\n\n${POLYGONSCAN_URL}/tx/${event.data.block.hash}`,
+      text: `A new profile has been signed up to :hey:\n\n${POLYGONSCAN_URL}/tx/${event.activity[0].hash}`,
       username: 'Hey'
     });
 
