@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
-    "@aws-sdk/client-s3": "^3.577.0",
-    "@aws-sdk/lib-storage": "^3.578.0",
+    "@aws-sdk/client-s3": "^3.582.0",
+    "@aws-sdk/lib-storage": "^3.582.0",
     "@headlessui/react": "^2.0.3",
     "@heroicons/react": "^2.1.3",
     "@hey/abis": "workspace:*",
@@ -79,7 +79,7 @@
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.1",
     "viem": "^2.12.0",
-    "wagmi": "^2.9.4",
+    "wagmi": "^2.9.5",
     "zod": "^3.23.8",
     "zustand": "^4.5.2"
   },
