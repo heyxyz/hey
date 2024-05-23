@@ -187,6 +187,12 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
     ]
   });
 
+  const { data: uiData } = useQuery({
+    queryFn: getUiData,
+    queryKey: ['uiData', publication.id],
+    staleTime: Infinity
+  });
+
   const actionData = actionDataResponse?.data;
   const dataType = actionDataResponse?.type;
 
@@ -268,6 +274,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
         module={module as UnknownOpenActionModuleSettings}
         nft={nft}
         publication={publication}
+        uiData={uiData}
       />
     </>
   );
