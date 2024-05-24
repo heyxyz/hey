@@ -10,6 +10,7 @@ Sentry.init({
     'User rejected the request',
     'wss://relay.walletconnect.org',
     'To use QR modal, please install @walletconnect/modal package',
+    'WebSocket connection failed for host: wss://relay.walletconnect.com',
     'No matching key',
     'unknown ProviderEvent',
     'No internet connection detected',
