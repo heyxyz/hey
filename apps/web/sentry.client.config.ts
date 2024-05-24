@@ -15,7 +15,8 @@ Sentry.init({
     'unknown ProviderEvent',
     'No internet connection detected',
     'No injected ethereum object.',
-    "Cannot read properties of null (reading 'onError')"
+    "Cannot read properties of null (reading 'onError')",
+    'Request Aborted'
   ],
   integrations: [Sentry.browserProfilingIntegration()],
   profilesSampleRate: 1.0,
