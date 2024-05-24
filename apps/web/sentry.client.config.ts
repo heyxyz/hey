@@ -17,5 +17,7 @@ Sentry.init({
     'No injected ethereum object.',
     "Cannot read properties of null (reading 'onError')"
   ],
-  tracesSampleRate: 1
+  integrations: [Sentry.browserProfilingIntegration()],
+  profilesSampleRate: 1.0,
+  tracesSampleRate: 1.0
 });
