@@ -12,7 +12,9 @@ Sentry.init({
     'To use QR modal, please install @walletconnect/modal package',
     'No matching key',
     'unknown ProviderEvent',
-    'No internet connection detected'
+    'No internet connection detected',
+    'No injected ethereum object.',
+    "Cannot read properties of null (reading 'onError')"
   ],
   tracesSampleRate: 1
 });
