@@ -19,7 +19,7 @@ interface DecentActionProps {
   isLoadingActionData?: boolean;
   isReadyToMint?: boolean;
   moduleAmount?: Amount;
-  uiData?: UIData;
+  uiData?: null | UIData;
 }
 
 const DecentAction: FC<DecentActionProps> = ({
