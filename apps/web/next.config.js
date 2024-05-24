@@ -5,6 +5,9 @@ const allowedBots =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    instrumentationHook: true
+  },
   headers() {
     return [
       {
