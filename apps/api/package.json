@@ -17,7 +17,6 @@
     "prisma:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
     "prisma:seed": "ts-node ./src/db/seed.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
-    "cron": "NODE_ENV=production tsx src/cron/index.ts",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
