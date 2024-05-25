@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 
-import New from '@components/Shared/Badges/New';
 import { Leafwatch } from '@helpers/leafwatch';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
@@ -57,7 +56,6 @@ const SetProfile: FC = () => {
         />
         <div>
           <Link
-            className="flex items-center space-x-2"
             href="/settings/interests"
             onClick={() =>
               Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
@@ -67,7 +65,6 @@ const SetProfile: FC = () => {
               finished={Boolean(currentProfile?.interests?.length)}
               title="Select profile interests"
             />
-            <New />
           </Link>
         </div>
       </div>
