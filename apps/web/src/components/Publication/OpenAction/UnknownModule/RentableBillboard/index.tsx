@@ -49,8 +49,6 @@ const RentableBillboardOpenAction: FC<RentableBillboardOpenActionProps> = ({
       return toast.error('Failed to load module metadata');
     }
 
-    console.log(abi);
-
     const data = {
       adContentUri: '',
       adPubId: '0x01',
@@ -74,8 +72,6 @@ const RentableBillboardOpenAction: FC<RentableBillboardOpenActionProps> = ({
       merkleProofIndex: 1467,
       openActionModule: ZERO_ADDRESS
     };
-
-    console.log(data);
 
     const calldata = encodeAbiParameters(abi, [
       data.adPubId,

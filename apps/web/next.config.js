@@ -21,6 +21,7 @@ const nextConfig = {
       }
     ];
   },
+  productionBrowserSourceMaps: true,
   reactStrictMode: false,
   redirects() {
     return [
