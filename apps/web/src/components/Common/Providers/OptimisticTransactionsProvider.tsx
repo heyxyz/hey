@@ -51,8 +51,6 @@ const Transaction = ({
 const OptimisticTransactionsProvider: FC = () => {
   const { txnQueue } = useTransactionStore();
 
-  console.log(txnQueue);
-
   return txnQueue.map((txn) => (
     <Transaction key={txn.txId || txn.txHash} transaction={txn} />
   ));
