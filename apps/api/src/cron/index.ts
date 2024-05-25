@@ -24,27 +24,27 @@ const setupCron = () => {
     await replicateGardeners();
   });
 
-  cron.schedule('*/5 * * * * ', async () => {
+  cron.schedule('*/10 * * * * *', async () => {
     await deletePublications();
   });
 
-  cron.schedule('*/1 * * * * ', async () => {
+  cron.schedule('*/1 * * * *', async () => {
     await replicatePublications();
   });
 
-  cron.schedule('*/5 * * * * ', async () => {
+  cron.schedule('*/5 * * * *', async () => {
     await cleanClickhouse();
   });
 
-  cron.schedule('*/5 * * * * ', async () => {
+  cron.schedule('*/5 * * * *', async () => {
     await cleanDraftPublications();
   });
 
-  cron.schedule('*/5 * * * * ', async () => {
+  cron.schedule('*/5 * * * *', async () => {
     await cleanEmailTokens();
   });
 
-  cron.schedule('*/5 * * * * ', async () => {
+  cron.schedule('*/5 * * * *', async () => {
     await cleanPreferences();
   });
 
