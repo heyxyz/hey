@@ -20,5 +20,6 @@ Sentry.init({
   ],
   integrations: [Sentry.browserProfilingIntegration()],
   profilesSampleRate: 1.0,
+  tracePropagationTargets: ['hey.xyz'],
   tracesSampleRate: 1.0
 });
