@@ -1,6 +1,9 @@
 import { createClient } from '@clickhouse/client';
+import dotenv from 'dotenv';
 
 import { CLICKHOUSE_URL } from './constants';
+
+dotenv.config({ override: true });
 
 const createClickhouseClient = (username?: string, password?: string) => {
   password = password || process.env.CLICKHOUSE_PASSWORD;
