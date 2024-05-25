@@ -1,3 +1,5 @@
+import { LENS_NETWORK } from '@hey/data/constants';
+import logger from '@hey/helpers/logger';
 import dotenv from 'dotenv';
 import cron from 'node-cron';
 
@@ -11,30 +13,40 @@ import replicatePublications from './replicatePublications';
 
 dotenv.config({ override: true });
 
-cron.schedule('*/5 * * * *', async () => {
-  await replicateGardeners();
-});
+const initCron = () => {
+  if (LENS_NETWORK !== 'mainnet') {
+    return;
+  }
 
-cron.schedule('*/5 * * * * ', async () => {
-  await deletePublications();
-});
+  logger.info('Cron jobs are started...');
 
-cron.schedule('*/1 * * * * ', async () => {
-  await replicatePublications();
-});
+  cron.schedule('*/5 * * * *', async () => {
+    await replicateGardeners();
+  });
 
-cron.schedule('*/5 * * * * ', async () => {
-  await cleanClickhouse();
-});
+  cron.schedule('*/5 * * * * ', async () => {
+    await deletePublications();
+  });
 
-cron.schedule('*/5 * * * * ', async () => {
-  await cleanDraftPublications();
-});
+  cron.schedule('*/1 * * * * ', async () => {
+    await replicatePublications();
+  });
 
-cron.schedule('*/5 * * * * ', async () => {
-  await cleanEmailTokens();
-});
+  cron.schedule('*/5 * * * * ', async () => {
+    await cleanClickhouse();
+  });
 
-cron.schedule('*/5 * * * * ', async () => {
-  await cleanPreferences();
-});
+  cron.schedule('*/5 * * * * ', async () => {
+    await cleanDraftPublications();
+  });
+
+  cron.schedule('*/5 * * * * ', async () => {
+    await cleanEmailTokens();
+  });
+
+  cron.schedule('*/5 * * * * ', async () => {
+    await cleanPreferences();
+  });
+};
+
+export default initCron;
