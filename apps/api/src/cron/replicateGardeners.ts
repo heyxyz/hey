@@ -19,9 +19,9 @@ const replicateGardeners = async () => {
       `,
       [profile.profile_id, '0a441129-182a-4a3f-83cf-a13c5ad8282b', true]
     );
-    logger.info(`Cron: Inserted profile ${profile.profile_id}`);
   }
 
+  logger.info(`Cron: Inserted profile ${profiles.length} profiles`);
   logger.info(
     'Cron: Deleting old profiles that are not in the gardener list anymore...'
   );

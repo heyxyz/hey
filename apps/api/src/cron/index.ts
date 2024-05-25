@@ -13,7 +13,7 @@ import replicatePublications from './replicatePublications';
 
 dotenv.config({ override: true });
 
-const initCron = () => {
+const setupCron = () => {
   if (LENS_NETWORK !== 'mainnet') {
     return;
   }
@@ -47,6 +47,8 @@ const initCron = () => {
   cron.schedule('*/5 * * * * ', async () => {
     await cleanPreferences();
   });
+
+  return;
 };
 
-export default initCron;
+export default setupCron;
