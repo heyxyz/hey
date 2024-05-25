@@ -1,13 +1,7 @@
 import logger from '@hey/helpers/logger';
-import * as dotenv from 'dotenv';
-import pg from 'pg';
+import lensPg from 'src/db/lensPg';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
 
-import createClickhouseClient from './createClickhouseClient';
-
-dotenv.config({ override: true });
-
-const { Client } = pg;
-const client = new Client({ connectionString: process.env.LENS_DATABASE_URL });
 const clickhouse = createClickhouseClient();
 
 const getLastBlockNumber = async () => {
@@ -21,13 +15,11 @@ const getLastBlockNumber = async () => {
   return parseInt(result[0].max_block_number);
 };
 
-const main = async () => {
+const replicatePublications = async () => {
   const START_BLOCK_NUMBER = await getLastBlockNumber();
   const END_BLOCK_NUMBER = START_BLOCK_NUMBER + 50000;
 
-  await client.connect();
-
-  const res = await client.query(
+  const publications = await lensPg.query(
     `
       SELECT
         pr.publication_id,
@@ -48,10 +40,8 @@ const main = async () => {
     `
   );
 
-  await client.end();
-
   logger.info(
-    `Inserting ${res.rows.length} publications - From block ${START_BLOCK_NUMBER} to ${END_BLOCK_NUMBER}`
+    `Cron: Inserting ${publications.length} publications - From block ${START_BLOCK_NUMBER} to ${END_BLOCK_NUMBER}`
   );
 
   // Define a batch size
@@ -59,7 +49,7 @@ const main = async () => {
   let batches = [];
   let currentBatch = [];
 
-  for (const row of res.rows) {
+  for (const row of publications) {
     // Create the data object for each row
     const value = {
       block_number: row.block_number,
@@ -97,18 +87,18 @@ const main = async () => {
       })
       .then((result) =>
         logger.info(
-          `Inserted batch of ${batch.length} publications, last block: ${batch[batch.length - 1].block_number}, last ID: ${batch[batch.length - 1].id} - ${result.query_id}`
+          `Cron: Inserted batch of ${batch.length} publications, last block: ${batch[batch.length - 1].block_number}, last ID: ${batch[batch.length - 1].id} - ${result.query_id}`
         )
       );
   });
 
   Promise.all(insertPromises)
     .then(() => {
-      logger.info('All batches have been inserted successfully.');
+      logger.info('Cron: All batches have been inserted successfully.');
     })
     .catch((error) => {
-      logger.error(`Error inserting batches: ${error}`);
+      logger.error(`Cron: Error inserting batches: ${error}`);
     });
 };
 
-main();
+export default replicatePublications;

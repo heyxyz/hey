@@ -1,21 +1,12 @@
 import logger from '@hey/helpers/logger';
-import * as dotenv from 'dotenv';
-
-import createClickhouseClient from './createClickhouseClient';
-
-dotenv.config({ override: true });
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
 
 const clickhouse = createClickhouseClient();
 
 const getAllDuplicatePublications = async () => {
   const rows = await clickhouse.query({
     format: 'JSONEachRow',
-    query: `
-      SELECT id
-      FROM publications
-      GROUP BY id
-      HAVING count(*) > 1;
-    `
+    query: `SELECT id FROM publications GROUP BY id HAVING count(*) > 1;`
   });
 
   const result = await rows.json<{ id: string }>();
@@ -24,15 +15,15 @@ const getAllDuplicatePublications = async () => {
   return ids;
 };
 
-const main = async () => {
+const deletePublications = async () => {
   const duplicates = await getAllDuplicatePublications();
 
   if (duplicates.length === 0) {
-    logger.info('No duplicate publications found.');
+    logger.info('Cron: No duplicate publications found.');
     return;
   }
 
-  logger.info(`Found ${duplicates.length} duplicate publications`);
+  logger.info(`Cron: Found ${duplicates.length} duplicate publications`);
 
   duplicates.map(async (duplicate) => {
     const res = await clickhouse.query({
@@ -40,8 +31,10 @@ const main = async () => {
       query: `ALTER TABLE publications DELETE WHERE id = '${duplicate}'`
     });
 
-    logger.info(`Deleted publication with id ${duplicate} - ${res.query_id}`);
+    logger.info(
+      `Cron: Deleted publication with id ${duplicate} - ${res.query_id}`
+    );
   });
 };
 
-main();
+export default deletePublications;
