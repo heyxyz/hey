@@ -22,33 +22,38 @@ const setupCron = () => {
 
   cron.schedule('*/5 * * * *', async () => {
     await replicateGardeners();
+    return;
   });
 
   cron.schedule('*/10 * * * * *', async () => {
     await deletePublications();
+    return;
   });
 
   cron.schedule('*/1 * * * *', async () => {
     await replicatePublications();
+    return;
   });
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanClickhouse();
+    return;
   });
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanDraftPublications();
+    return;
   });
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanEmailTokens();
+    return;
   });
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanPreferences();
+    return;
   });
-
-  return;
 };
 
 export default setupCron;
