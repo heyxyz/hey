@@ -32,8 +32,7 @@ const PreferencesProvider: FC = () => {
     setHighSignalNotificationFilter
   } = usePreferencesStore();
   const { setRestriction } = useProfileRestriction();
-  const { setFeatureFlags, setGardenerMode, setStaffMode } =
-    useFeatureFlagsStore();
+  const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
 
   // Fetch preferences and set initial values
   useQuery({
@@ -54,9 +53,6 @@ const PreferencesProvider: FC = () => {
           // Feature flags
           setFeatureFlags(preferences.features);
           setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
-          setGardenerMode(
-            preferences?.features.includes(FeatureFlag.GardenerMode)
-          );
           setRestriction({
             isCommentSuspended: preferences.features.includes(
               FeatureFlag.CommentSuspended

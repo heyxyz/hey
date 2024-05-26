@@ -18,7 +18,6 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
-import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Settings from './NavItems/Settings';
@@ -112,17 +111,6 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isFeatureAvailable(FeatureFlag.Gardener) ? (
-            <>
-              <div
-                className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                onClick={closeDrawer}
-              >
-                <GardenerMode className={cn(itemClass, 'px-4 py-3')} />
-              </div>
-              <div className="divider" />
-            </>
-          ) : null}
           {isFeatureAvailable(FeatureFlag.Staff) ? (
             <>
               <div

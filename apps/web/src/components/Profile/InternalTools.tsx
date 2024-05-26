@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { Card } from '@hey/ui';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import CreatorTool from './CreatorTool';
 import GardenerTool from './GardenerTool';
@@ -14,8 +13,7 @@ interface InternalToolsProps {
 }
 
 const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
-  const { gardenerMode } = useFeatureFlagsStore();
-  const hasGardenerToolAccess = gardenerMode;
+  const hasGardenerToolAccess = isFeatureAvailable(FeatureFlag.Gardener);
   const hasCreatorToolAccess = isFeatureAvailable(FeatureFlag.Staff);
 
   if (!hasGardenerToolAccess && !hasCreatorToolAccess) {
