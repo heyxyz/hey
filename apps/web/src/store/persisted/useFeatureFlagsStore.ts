@@ -7,11 +7,9 @@ import createIdbStorage from '../helpers/createIdbStorage';
 
 interface State {
   featureFlags: string[];
-  gardenerMode: boolean;
   hydrateFeatureFlags: () => string[];
   resetFeatureFlags: () => void;
   setFeatureFlags: (featureFlags: string[]) => void;
-  setGardenerMode: (gardenerMode: boolean) => void;
   setStaffMode: (staffMode: boolean) => void;
   staffMode: boolean;
 }
@@ -20,16 +18,13 @@ const store = create(
   persist<State>(
     (set, get) => ({
       featureFlags: [],
-      gardenerMode: false,
       hydrateFeatureFlags: () => get().featureFlags,
       resetFeatureFlags: () =>
         set(() => ({
           featureFlags: [],
-          gardenerMode: false,
           staffMode: false
         })),
       setFeatureFlags: (featureFlags) => set(() => ({ featureFlags })),
-      setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       staffMode: false
     }),

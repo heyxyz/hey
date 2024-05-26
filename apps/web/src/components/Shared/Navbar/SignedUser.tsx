@@ -19,7 +19,6 @@ import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
-import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
@@ -149,19 +148,6 @@ const SignedUser: FC = () => {
             >
               <OptimisticTransactions />
             </MenuItem>
-            {isFeatureAvailable(FeatureFlag.Gardener) ? (
-              <MenuItem
-                as="div"
-                className={({ focus }) =>
-                  cn(
-                    { 'bg-yellow-100 dark:bg-yellow-800': focus },
-                    'm-2 rounded-lg'
-                  )
-                }
-              >
-                <GardenerMode />
-              </MenuItem>
-            ) : null}
             {isFeatureAvailable(FeatureFlag.Staff) ? (
               <MenuItem
                 as="div"

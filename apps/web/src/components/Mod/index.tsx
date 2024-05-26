@@ -3,14 +3,15 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import List from '@components/Staff/Users/List';
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { ModFeedType } from '@hey/data/enums';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import FeedType from './FeedType';
 import Filter from './Filter';
@@ -19,14 +20,13 @@ import ReportsFeed from './ReportsFeed';
 import SearchFeed from './SearchFeed';
 
 const Mod: NextPage = () => {
-  const { gardenerMode } = useFeatureFlagsStore();
   const [feedType, setFeedType] = useState<ModFeedType>(ModFeedType.LATEST);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
   }, []);
 
-  if (!gardenerMode) {
+  if (!isFeatureAvailable(FeatureFlag.Gardener)) {
     return <Custom404 />;
   }
 
