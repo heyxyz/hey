@@ -1,5 +1,6 @@
 import { LENS_NETWORK } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
+import * as Sentry from '@sentry/node';
 import dotenv from 'dotenv';
 import cron from 'node-cron';
 
@@ -13,6 +14,8 @@ import replicateLensPublications from './replicateLensPublications';
 
 dotenv.config({ override: true });
 
+const cronWithCheckIn = Sentry.cron.instrumentNodeCron(cron);
+
 const main = () => {
   if (LENS_NETWORK !== 'mainnet') {
     return;
@@ -20,40 +23,68 @@ const main = () => {
 
   logger.info('Cron jobs are started...');
 
-  cron.schedule('*/5 * * * *', async () => {
-    await replicateGardeners();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/5 * * * *',
+    async () => {
+      await replicateGardeners();
+      return;
+    },
+    { name: 'replicateGardeners' }
+  );
 
-  cron.schedule('*/10 * * * * *', async () => {
-    await deleteLensPublications();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/10 * * * * *',
+    async () => {
+      await deleteLensPublications();
+      return;
+    },
+    { name: 'deleteLensPublications' }
+  );
 
-  cron.schedule('*/1 * * * *', async () => {
-    await replicateLensPublications();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/1 * * * *',
+    async () => {
+      await replicateLensPublications();
+      return;
+    },
+    { name: 'replicateLensPublications' }
+  );
 
-  cron.schedule('*/5 * * * *', async () => {
-    await cleanClickhouse();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/5 * * * *',
+    async () => {
+      await cleanClickhouse();
+      return;
+    },
+    { name: 'cleanClickhouse' }
+  );
 
-  cron.schedule('*/5 * * * *', async () => {
-    await cleanDraftPublications();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/5 * * * *',
+    async () => {
+      await cleanDraftPublications();
+      return;
+    },
+    { name: 'cleanDraftPublications' }
+  );
 
-  cron.schedule('*/5 * * * *', async () => {
-    await cleanEmailTokens();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/5 * * * *',
+    async () => {
+      await cleanEmailTokens();
+      return;
+    },
+    { name: 'cleanEmailTokens' }
+  );
 
-  cron.schedule('*/5 * * * *', async () => {
-    await cleanPreferences();
-    return;
-  });
+  cronWithCheckIn.schedule(
+    '*/5 * * * *',
+    async () => {
+      await cleanPreferences();
+      return;
+    },
+    { name: 'cleanPreferences' }
+  );
 };
 
 main();
