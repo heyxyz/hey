@@ -33,7 +33,7 @@ const main = () => {
   );
 
   cronWithCheckIn.schedule(
-    '*/10 * * * * *',
+    '*/1  * * * *',
     async () => {
       await deleteLensPublications();
       return;
@@ -42,7 +42,7 @@ const main = () => {
   );
 
   cronWithCheckIn.schedule(
-    '*/1 * * * *',
+    '*/2 * * * *',
     async () => {
       await replicateLensPublications();
       return;
