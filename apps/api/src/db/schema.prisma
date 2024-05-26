@@ -48,6 +48,7 @@ model Feature {
 enum FeatureType {
   FEATURE
   PERMISSION
+  STATUS
   COHORT
   MODE
 }
