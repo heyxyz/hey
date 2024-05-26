@@ -5,6 +5,7 @@ import Feed from '@components/Comment/Feed';
 import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
 import NewPublication from '@components/Composer/NewPublication';
+import CommentSuspendedWarning from '@components/Shared/CommentSuspendedWarning';
 import CommentWarning from '@components/Shared/CommentWarning';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
@@ -63,7 +64,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter();
 
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isCommentSuspended, isSuspended } = useProfileRestriction();
   const { staffMode } = useFeatureFlagsStore();
   const { showNewPostModal } = useGlobalModalStateStore();
 
@@ -122,6 +123,7 @@ const ViewPublication: NextPage = () => {
     : publication;
   const canComment =
     targetPublication?.operations.canComment === TriStateValue.Yes;
+  const suspended = isSuspended || isCommentSuspended;
 
   return (
     <GridLayout>
@@ -150,10 +152,11 @@ const ViewPublication: NextPage = () => {
                 publication={publication}
               />
             </Card>
+            {suspended ? <CommentSuspendedWarning /> : null}
             {currentProfile &&
             !publication.isHidden &&
             !showNewPostModal &&
-            !isSuspended ? (
+            !suspended ? (
               canComment ? (
                 <NewPublication publication={targetPublication} />
               ) : (
