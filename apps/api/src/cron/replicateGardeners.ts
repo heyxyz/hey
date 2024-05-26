@@ -21,7 +21,7 @@ const replicateGardeners = async () => {
     );
   }
 
-  logger.info(`Cron: Inserted profile ${profiles.length} profiles`);
+  logger.info(`Cron: Inserted ${profiles.length} gardener profiles`);
   logger.info(
     'Cron: Deleting old profiles that are not in the gardener list anymore...'
   );
