@@ -34,3 +34,6 @@ setupRoutes().catch(() => {
 
 // Initialize cron jobs
 setupCron();
+
+// Call setupRoutes to start the server
+setupRoutes();
