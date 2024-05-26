@@ -17,7 +17,7 @@
     "prisma:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
     "prisma:seed": "ts-node ./src/db/seed.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
-    "cron": "NODE_ENV=production tsx src/cron/index.ts", 
+    "cron": "NODE_ENV=production tsx src/cron/index.ts",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
@@ -31,6 +31,7 @@
     "@irys/sdk": "^0.2.0",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.14.0",
+    "@sentry/node": "^8.4.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
