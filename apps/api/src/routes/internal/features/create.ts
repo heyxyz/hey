@@ -38,8 +38,8 @@ export const post: Handler = async (req, res) => {
   try {
     const feature = await heyPg.query(
       `
-        INSERT INTO "Feature" ("key")
-        VALUES ($1)
+        INSERT INTO "Feature" ("key", "priority")
+        VALUES ($1, 1000)
         RETURNING *;
       `,
       [key]
