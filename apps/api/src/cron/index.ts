@@ -13,7 +13,7 @@ import replicatePublications from './replicatePublications';
 
 dotenv.config({ override: true });
 
-const setupCron = () => {
+const main = () => {
   if (LENS_NETWORK !== 'mainnet') {
     return;
   }
@@ -56,4 +56,4 @@ const setupCron = () => {
   });
 };
 
-export default setupCron;
+main();
