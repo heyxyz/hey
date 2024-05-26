@@ -15,7 +15,7 @@ const getAllDuplicatePublications = async () => {
   return ids;
 };
 
-const deletePublications = async () => {
+const deleteLensPublications = async () => {
   const duplicates = await getAllDuplicatePublications();
 
   if (duplicates.length === 0) {
@@ -37,4 +37,4 @@ const deletePublications = async () => {
   });
 };
 
-export default deletePublications;
+export default deleteLensPublications;
