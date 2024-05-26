@@ -15,7 +15,7 @@ const getLastBlockNumber = async () => {
   return parseInt(result[0].max_block_number);
 };
 
-const replicatePublications = async () => {
+const replicateLensPublications = async () => {
   const START_BLOCK_NUMBER = await getLastBlockNumber();
   const END_BLOCK_NUMBER = START_BLOCK_NUMBER + 50000;
 
@@ -101,4 +101,4 @@ const replicatePublications = async () => {
     });
 };
 
-export default replicatePublications;
+export default replicateLensPublications;
