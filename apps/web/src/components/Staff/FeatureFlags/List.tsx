@@ -116,7 +116,7 @@ const List: FC = () => {
                       <b
                         className={cn(
                           (feature.key === FeatureFlag.Suspended ||
-                            feature.key === FeatureFlag.Flagged) &&
+                            feature.key === FeatureFlag.CommentSuspended) &&
                             'text-red-500'
                         )}
                       >
