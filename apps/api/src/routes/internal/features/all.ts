@@ -18,7 +18,7 @@ export const get: Handler = async (req, res) => {
       FROM "Feature" F
       LEFT JOIN "ProfileFeature" PF ON F."id" = PF."featureId"
       GROUP BY F."id"
-      ORDER BY F.priority DESC;    
+      ORDER BY F.priority ASC;
     `);
 
     logger.info('All features fetched');
