@@ -91,15 +91,13 @@ const nextConfig = {
   transpilePackages: ['data']
 };
 
-module.exports = withSentryConfig(
-  nextConfig,
-  { org: 'heyverse', project: 'web', silent: true },
-  {
-    automaticVercelMonitors: true,
-    disableLogger: true,
-    hideSourceMaps: false,
-    transpileClientSDK: true,
-    tunnelRoute: '/monitoring',
-    widenClientFileUpload: true
-  }
-);
+module.exports = withSentryConfig(nextConfig, {
+  automaticVercelMonitors: true,
+  disableLogger: true,
+  hideSourceMaps: true,
+  org: 'heyverse',
+  project: 'web',
+  silent: !process.env.CI,
+  tunnelRoute: '/monitoring',
+  widenClientFileUpload: true
+});
