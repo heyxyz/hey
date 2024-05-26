@@ -58,7 +58,9 @@ const PreferencesProvider: FC = () => {
             preferences?.features.includes(FeatureFlag.GardenerMode)
           );
           setRestriction({
-            isFlagged: preferences.features.includes(FeatureFlag.Flagged),
+            isCommentSuspended: preferences.features.includes(
+              FeatureFlag.CommentSuspended
+            ),
             isSuspended: preferences.features.includes(FeatureFlag.Suspended)
           });
 
