@@ -5,8 +5,6 @@ import express from 'express';
 import { router } from 'express-file-routing';
 import ViteExpress from 'vite-express';
 
-import setupCron from './cron';
-
 // Load environment variables
 dotenv.config({ override: true });
 
@@ -31,9 +29,3 @@ const setupRoutes = async () => {
 setupRoutes().catch(() => {
   logger.error('Error setting up routes');
 });
-
-// Initialize cron jobs
-setupCron();
-
-// Call setupRoutes to start the server
-setupRoutes();
