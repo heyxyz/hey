@@ -14,7 +14,7 @@ export type Feature = {
   enabled: boolean;
   id: string;
   key: string;
-  type: 'FEATURE' | 'MODE' | 'PERMISSION';
+  type: 'COHORT' | 'FEATURE' | 'MODE' | 'PERMISSION' | 'STATUS';
 };
 
 export type AllowedToken = {
