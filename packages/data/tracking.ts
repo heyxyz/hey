@@ -174,8 +174,7 @@ export const GARDENER = {
     P2P_UNRECOMMEND: 'P2P unrecommend profile'
   },
   REPORT: 'Gardener report',
-  SEARCH_PUBLICATION: 'Gardener search publication',
-  TOGGLE_MODE: 'Toggle gardener mode'
+  SEARCH_PUBLICATION: 'Gardener search publication'
 };
 
 export const STAFFTOOLS = {

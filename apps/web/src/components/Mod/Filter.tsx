@@ -8,8 +8,6 @@ import {
 } from '@hey/lens';
 import { Button, Card, Checkbox } from '@hey/ui';
 import { createTrackedSelector } from 'react-tracked';
-import Custom404 from 'src/pages/404';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { create } from 'zustand';
 
 const FILTER_APPS = knownApps;
@@ -58,7 +56,6 @@ const store = create<State>((set) => ({
 export const useModFilterStore = createTrackedSelector(store);
 
 const Filter: FC = () => {
-  const { gardenerMode } = useFeatureFlagsStore();
   const {
     apps,
     customFilters,
@@ -72,10 +69,6 @@ const Filter: FC = () => {
     setPublicationTypes,
     setRefresh
   } = useModFilterStore();
-
-  if (!gardenerMode) {
-    return <Custom404 />;
-  }
 
   const toggleMainContentFocus = (focus: PublicationMetadataMainFocusType) => {
     if (mainContentFocus.includes(focus)) {

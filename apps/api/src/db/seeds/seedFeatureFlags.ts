@@ -2,7 +2,6 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 
 import {
   GARDENER_FEATURE_ID,
-  GARDENER_MODE_FEATURE_ID,
   STAFF_FEATURE_ID,
   STAFF_MODE_FEATURE_ID,
   STAFF_PICK_FEATURE_ID,
@@ -21,11 +20,6 @@ const seedFeatureFlags = async (): Promise<number> => {
       {
         id: STAFF_MODE_FEATURE_ID,
         key: FeatureFlag.StaffMode,
-        type: 'MODE'
-      },
-      {
-        id: GARDENER_MODE_FEATURE_ID,
-        key: FeatureFlag.GardenerMode,
         type: 'MODE'
       },
       {
