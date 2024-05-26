@@ -2,29 +2,29 @@ import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 
 interface State {
-  isFlagged: boolean;
+  isCommentSuspended: boolean;
   isSuspended: boolean;
   resetRestriction: () => void;
   setRestriction: ({
-    isFlagged,
+    isCommentSuspended,
     isSuspended
   }: {
-    isFlagged: boolean;
+    isCommentSuspended: boolean;
     isSuspended: boolean;
   }) => void;
 }
 
 const store = create<State>((set) => ({
-  isFlagged: false,
+  isCommentSuspended: false,
   isSuspended: false,
   resetRestriction: () =>
     set(() => ({
-      isFlagged: false,
+      isCommentSuspended: false,
       isSuspended: false
     })),
-  setRestriction: ({ isFlagged, isSuspended }) =>
+  setRestriction: ({ isCommentSuspended, isSuspended }) =>
     set(() => ({
-      isFlagged,
+      isCommentSuspended,
       isSuspended
     }))
 }));
