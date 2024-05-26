@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 
-import SuspendButton from './SuspendButton';
+import SuspendButtons from './SuspendButtons';
 
 interface GardenerActionsProps {
   publication: MirrorablePublication;
@@ -146,7 +146,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         ]}
         type="both"
       />
-      <SuspendButton
+      <SuspendButtons
         onClick={() => {
           reportPublication({
             subreasons: [

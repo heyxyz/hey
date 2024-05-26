@@ -2,24 +2,19 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { NoSymbolIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
-interface SuspendButtonProps {
+interface SuspendButtonsProps {
   onClick?: () => void;
   publication: MirrorablePublication;
-  title?: string;
 }
 
-const SuspendButton: FC<SuspendButtonProps> = ({
-  onClick,
-  publication,
-  title = 'Suspend'
-}) => {
+const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
   const { staffMode } = useFeatureFlagsStore();
 
   if (!staffMode) {
@@ -43,17 +38,33 @@ const SuspendButton: FC<SuspendButtonProps> = ({
   };
 
   return (
-    <Button
-      className="flex justify-center"
-      icon={<NoSymbolIcon className="size-4" />}
-      onClick={() => updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')}
-      outline
-      size="sm"
-      variant="danger"
-    >
-      {title}
-    </Button>
+    <>
+      <Button
+        className="flex justify-center"
+        icon={<NoSymbolIcon className="size-4" />}
+        onClick={() =>
+          updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')
+        }
+        outline
+        size="sm"
+        variant="danger"
+      >
+        Profile Suspend
+      </Button>
+      <Button
+        className="flex justify-center"
+        icon={<ChatBubbleLeftIcon className="size-4" />}
+        onClick={() =>
+          updateFeatureFlag('df931ea4-109f-4fde-a8b5-4b2170730e8c')
+        }
+        outline
+        size="sm"
+        variant="danger"
+      >
+        Comment Suspend
+      </Button>
+    </>
   );
 };
 
-export default SuspendButton;
+export default SuspendButtons;
