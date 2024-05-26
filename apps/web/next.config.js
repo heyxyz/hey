@@ -96,7 +96,7 @@ module.exports = withSentryConfig(
   {
     automaticVercelMonitors: true,
     disableLogger: true,
-    hideSourceMaps: true,
+    hideSourceMaps: false,
     transpileClientSDK: true,
     tunnelRoute: '/monitoring',
     widenClientFileUpload: true
