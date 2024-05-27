@@ -1,4 +1,4 @@
-const hre = require('hardhat');
+import hre from 'hardhat';
 
 async function deployProxy() {
   const owner = '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF';
@@ -11,9 +11,9 @@ async function deployProxy() {
     monthlyPrice,
     yearlyPrice
   ]);
-  await deployProxy.waitForDeployment();
+  await deployProxy.deployed();
 
-  console.log(`HeyPro deployed to ${await deployProxy.getAddress()}`);
+  console.log(`HeyPro deployed to ${await deployProxy.address}`);
 }
 
 deployProxy().catch((error) => {

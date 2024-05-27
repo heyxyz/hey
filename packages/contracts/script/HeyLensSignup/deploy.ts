@@ -1,4 +1,4 @@
-const hre = require('hardhat');
+import hre from 'hardhat';
 
 async function deployProxy() {
   const owner = '0x698386C93513d6D0C58f296633A7A3e529bd4026';
@@ -14,9 +14,9 @@ async function deployProxy() {
     lensPermissionlessCreator,
     signupPrice
   ]);
-  await deployProxy.waitForDeployment();
+  await deployProxy.deployed();
 
-  console.log(`HeyLensSignup deployed to ${await deployProxy.getAddress()}`);
+  console.log(`HeyLensSignup deployed to ${await deployProxy.address}`);
 }
 
 deployProxy().catch((error) => {

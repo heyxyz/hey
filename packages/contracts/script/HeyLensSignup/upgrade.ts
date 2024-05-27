@@ -1,4 +1,4 @@
-const hre = require('hardhat');
+import hre from 'hardhat';
 
 async function upgradeProxy() {
   const PROXY_ADDRESS = '0x82Bcb5DA51c6F3D0Ce942bDBEbb0B8A7774d62e8';

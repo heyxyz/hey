@@ -3,13 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
+  },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-toolbox": "2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
-    "@openzeppelin/hardhat-upgrades": "^3.1.0",
+    "@openzeppelin/hardhat-upgrades": "1.28.0",
+    "@typechain/hardhat": "^9.1.0",
     "dotenv": "^16.4.5",
-    "hardhat": "^2.22.4"
+    "ethers": "^6.12.1",
+    "hardhat": "^2.22.4",
+    "typescript": "^5.4.5"
   }
 }
