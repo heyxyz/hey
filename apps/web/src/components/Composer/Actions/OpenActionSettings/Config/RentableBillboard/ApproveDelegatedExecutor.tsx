@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransaction, useWriteContract } from 'wagmi';
 
@@ -23,7 +23,7 @@ const ApproveDelegatedExecutor: FC<ApproveDelegatedExecutorProps> = ({
   setShowForm
 }) => {
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const { decrementLensHubOnchainSigNonce, incrementLensHubOnchainSigNonce } =
     useNonceStore();
   const [transactionHash, setTransactionHash] = useState<`0x${string}` | null>(

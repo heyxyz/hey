@@ -56,7 +56,7 @@ import {
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -82,7 +82,7 @@ type FormData = z.infer<typeof editProfileSchema>;
 
 const ProfileSettingsForm: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture

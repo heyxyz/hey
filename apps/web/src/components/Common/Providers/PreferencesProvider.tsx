@@ -11,7 +11,7 @@ import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -31,7 +31,7 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter
   } = usePreferencesStore();
-  const { setRestriction } = useProfileRestriction();
+  const { setStatus } = useProfileStatus();
   const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
 
   // Fetch preferences and set initial values
@@ -53,7 +53,7 @@ const PreferencesProvider: FC = () => {
           // Feature flags
           setFeatureFlags(preferences.features);
           setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
-          setRestriction({
+          setStatus({
             isCommentSuspended: preferences.features.includes(
               FeatureFlag.CommentSuspended
             ),

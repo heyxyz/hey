@@ -18,7 +18,7 @@ import cn from '@hey/ui/cn';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
@@ -63,7 +63,7 @@ const Pro: NextPage = () => {
     null
   );
 
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   useEffect(() => {
