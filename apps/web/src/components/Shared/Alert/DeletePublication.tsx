@@ -8,7 +8,7 @@ import { useHidePublicationMutation } from '@hey/lens';
 import { Alert } from '@hey/ui';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 
 const DeletePublication: FC = () => {
   const {
@@ -16,7 +16,7 @@ const DeletePublication: FC = () => {
     setShowPublicationDeleteAlert,
     showPublicationDeleteAlert
   } = useGlobalAlertStateStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
 
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {

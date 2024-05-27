@@ -11,7 +11,7 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { object, string } from 'zod';
 
 const inviteSchema = object({
@@ -26,7 +26,7 @@ interface InviteProps {
 }
 
 const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const [inviting, setInviting] = useState(false);
   const [totalInvitesLeft, setTotalInvitesLeft] = useState(invitesLeft);
 

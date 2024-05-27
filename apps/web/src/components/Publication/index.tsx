@@ -30,7 +30,7 @@ import { createTrackedSelector } from 'react-tracked';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
@@ -64,7 +64,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter();
 
   const { currentProfile } = useProfileStore();
-  const { isCommentSuspended, isSuspended } = useProfileRestriction();
+  const { isCommentSuspended, isSuspended } = useProfileStatus();
   const { staffMode } = useFeatureFlagsStore();
   const { showNewPostModal } = useGlobalModalStateStore();
 
