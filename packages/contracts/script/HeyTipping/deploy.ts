@@ -5,7 +5,7 @@ async function deployProxy() {
   const feesBps = '500'; // 5%
 
   const HeyTipping = await hre.ethers.getContractFactory('HeyTipping');
-  const deployProxy = await hre.upgrades.deployProxy(HeyTipping, [
+  const deployProxy = await hre.upgrades.deployProxy(HeyTipping as any, [
     owner,
     feesBps
   ]);

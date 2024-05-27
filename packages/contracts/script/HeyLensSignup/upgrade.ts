@@ -5,7 +5,7 @@ async function upgradeProxy() {
 
   const HeyLensSignupV2 =
     await hre.ethers.getContractFactory('HeyLensSignupV2');
-  await hre.upgrades.upgradeProxy(PROXY_ADDRESS, HeyLensSignupV2);
+  await hre.upgrades.upgradeProxy(PROXY_ADDRESS, HeyLensSignupV2 as any);
   console.log('Proxy upgraded');
 }
 

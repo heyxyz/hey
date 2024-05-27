@@ -17,9 +17,8 @@
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "@openzeppelin/hardhat-upgrades": "1.28.0",
-    "@typechain/hardhat": "^9.1.0",
     "dotenv": "^16.4.5",
-    "ethers": "^6.12.1",
+    "ethers": "5.7.2",
     "hardhat": "^2.22.4",
     "typescript": "^5.4.5"
   }
