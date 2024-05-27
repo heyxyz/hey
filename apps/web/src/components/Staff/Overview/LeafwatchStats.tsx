@@ -16,7 +16,6 @@ import ActiveUsers from './ActiveUsers';
 import EventsToday from './EventsToday';
 import ImpressionsToday from './ImpressionsToday';
 import Referrers from './Referrers';
-import Versions from './Versions';
 
 export interface StatsType {
   dau: {
@@ -56,10 +55,6 @@ export interface StatsType {
   topEvents: {
     count: string;
     name: string;
-  }[];
-  versions: {
-    users: string;
-    version: string;
   }[];
 }
 
@@ -171,7 +166,6 @@ const LeafwatchStats: FC = () => {
       <ImpressionsToday impressionsToday={data.impressionsToday} />
       <ActiveUsers activeUsers={data.dau} />
       <Referrers referrers={data.referrers} />
-      <Versions versions={data.versions} />
     </>
   );
 };
