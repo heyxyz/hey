@@ -24,6 +24,7 @@ contract HeyPro is
     uint256 indexed profileId,
     uint256 indexed newExpiryDate
   );
+  event SubscriptionCanceled(uint256 indexed profileId);
 
   error InvalidFunds(string message);
   error TransferFailed(string message);
@@ -88,12 +89,20 @@ contract HeyPro is
     _transferFunds();
   }
 
-  // Only owner can extend subscription for pro to any profile for any duration
   function subscribePro(
-    uint256 profileId,
-    uint256 duration
+    uint256 profileId
   ) external onlyOwner whenNotPaused nonReentrant {
-    extendSubscription(profileId, duration);
+    extendSubscription(profileId, 1000);
+  }
+
+  function cancelSubscription(uint256 profileId) external {
+    require(
+      msg.sender == profileToAddress[profileId],
+      'You are not the owner of this subscription.'
+    );
+    proExpiresAt[profileId] = block.timestamp; // Effectively ends the subscription immediately
+
+    emit SubscriptionCanceled(profileId);
   }
 
   function _transferFunds() private {
