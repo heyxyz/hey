@@ -8,7 +8,11 @@ import {
   KeyIcon,
   UserCircleIcon
 } from '@heroicons/react/24/outline';
-import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
+import {
+  AdjustmentsVerticalIcon,
+  CheckCircleIcon,
+  XCircleIcon
+} from '@heroicons/react/24/solid';
 
 interface OnchainIdentitiesProps {
   onchainIdentity: ProfileOnchainIdentity;
@@ -33,19 +37,31 @@ const OnchainIdentities: FC<OnchainIdentitiesProps> = ({ onchainIdentity }) => {
           icon={<UserCircleIcon className="ld-text-gray-500 size-4" />}
           title="Has POH"
         >
-          {onchainIdentity.proofOfHumanity ? 'Yes' : 'No'}
+          {onchainIdentity.proofOfHumanity ? (
+            <CheckCircleIcon className="size-4 text-green-500" />
+          ) : (
+            <XCircleIcon className="size-4 text-red-500" />
+          )}
         </MetaDetails>
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
           title="Sybil verified"
         >
-          {onchainIdentity.sybilDotOrg.verified ? 'Yes' : 'No'}
+          {onchainIdentity.sybilDotOrg.verified ? (
+            <CheckCircleIcon className="size-4 text-green-500" />
+          ) : (
+            <XCircleIcon className="size-4 text-red-500" />
+          )}
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="ld-text-gray-500 size-4" />}
           title="Worldcoin verified"
         >
-          {onchainIdentity.worldcoin.isHuman ? 'Yes' : 'No'}
+          {onchainIdentity.worldcoin.isHuman ? (
+            <CheckCircleIcon className="size-4 text-green-500" />
+          ) : (
+            <XCircleIcon className="size-4 text-red-500" />
+          )}
         </MetaDetails>
       </div>
     </>
