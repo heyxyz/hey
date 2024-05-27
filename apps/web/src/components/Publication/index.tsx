@@ -6,7 +6,6 @@ import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
 import NewPublication from '@components/Composer/NewPublication';
 import CommentSuspendedWarning from '@components/Shared/CommentSuspendedWarning';
-import CommentWarning from '@components/Shared/CommentWarning';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
@@ -19,7 +18,6 @@ import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   HiddenCommentsType,
   LimitType,
-  TriStateValue,
   usePublicationQuery,
   usePublicationsQuery
 } from '@hey/lens';
@@ -121,8 +119,6 @@ const ViewPublication: NextPage = () => {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const canComment =
-    targetPublication?.operations.canComment === TriStateValue.Yes;
   const suspended = isSuspended || isCommentSuspended;
 
   return (
@@ -157,11 +153,7 @@ const ViewPublication: NextPage = () => {
             !publication.isHidden &&
             !showNewPostModal &&
             !suspended ? (
-              canComment ? (
-                <NewPublication publication={targetPublication} />
-              ) : (
-                <CommentWarning />
-              )
+              <NewPublication publication={targetPublication} />
             ) : null}
             <Feed
               isHidden={publication.isHidden}
