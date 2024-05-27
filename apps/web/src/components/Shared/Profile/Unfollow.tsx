@@ -24,7 +24,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 import { useSignTypedData, useWriteContract } from 'wagmi';
@@ -44,7 +44,7 @@ const Unfollow: FC<UnfollowProps> = ({
 }) => {
   const { pathname } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();

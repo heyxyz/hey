@@ -22,7 +22,7 @@ import {
 } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -38,7 +38,7 @@ interface ReportProfileProps {
 }
 
 const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 

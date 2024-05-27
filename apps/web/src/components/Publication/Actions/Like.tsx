@@ -19,7 +19,7 @@ import cn from '@hey/ui/cn';
 import { useCounter, useToggle } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface LikeProps {
@@ -29,7 +29,7 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
 
   const [hasReacted, toggleReact] = useToggle(
     publication.operations.hasReacted

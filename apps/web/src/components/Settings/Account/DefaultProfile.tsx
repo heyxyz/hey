@@ -16,12 +16,12 @@ import {
 import { Button, Card, CardHeader, Select } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const DefaultProfile: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
   const [selectedProfileId, setSelectedProfileId] = useState<null | string>(
     null
   );
