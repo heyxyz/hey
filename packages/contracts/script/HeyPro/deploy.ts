@@ -6,7 +6,7 @@ async function deployProxy() {
   const yearlyPrice = '90000000000000000000'; // 90 MATIC
 
   const HeyPro = await hre.ethers.getContractFactory('HeyPro');
-  const deployProxy = await hre.upgrades.deployProxy(HeyPro, [
+  const deployProxy = await hre.upgrades.deployProxy(HeyPro as any, [
     owner,
     monthlyPrice,
     yearlyPrice
