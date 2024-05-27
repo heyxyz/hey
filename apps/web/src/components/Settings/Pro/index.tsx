@@ -11,6 +11,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import AppIcon from './AppIcon';
+import Overview from './Overview';
 
 const ProSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -29,7 +30,8 @@ const ProSettings: NextPage = () => {
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
-      <GridItemEight>
+      <GridItemEight className="space-y-5">
+        <Overview />
         <AppIcon />
       </GridItemEight>
     </GridLayout>

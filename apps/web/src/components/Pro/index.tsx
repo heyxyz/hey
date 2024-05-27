@@ -1,28 +1,19 @@
 import type { NextPage } from 'next';
 
-import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import { HeyPro } from '@hey/abis';
-import { Errors } from '@hey/data';
 import {
   APP_NAME,
-  HEY_PRO,
   PRO_TIER_PRICES,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import formatDate from '@hey/helpers/datetime/formatDate';
-import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
+import { useEffect } from 'react';
 import { useProStore } from 'src/store/non-persisted/useProStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { parseEther } from 'viem';
-import { useTransaction, useWriteContract } from 'wagmi';
+
+import ExtendButton from './ExtendButton';
 
 const tiers = [
   {
@@ -55,72 +46,11 @@ const tiers = [
 ];
 
 const Pro: NextPage = () => {
-  const { currentProfile } = useProfileStore();
-  const { isPro, proExpiresAt } = useProStore();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [transactionHash, setTransactionHash] = useState<`0x${string}` | null>(
-    null
-  );
-
-  const { isSuspended } = useProfileStatus();
-  const handleWrongNetwork = useHandleWrongNetwork();
+  const { proExpiresAt } = useProStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
   }, []);
-
-  const { isFetching: transactionLoading, isSuccess } = useTransaction({
-    hash: transactionHash as `0x${string}`,
-    query: { enabled: Boolean(transactionHash) }
-  });
-
-  useEffect(() => {
-    if (isSuccess) {
-      location.reload();
-    }
-  }, [isSuccess]);
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError: errorToast,
-      onSuccess: (hash: string) => {
-        // Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
-        setTransactionHash(hash as `0x${string}`);
-      }
-    }
-  });
-
-  const upgrade = async (id: 'annually' | 'monthly') => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
-    try {
-      setIsLoading(true);
-      await handleWrongNetwork();
-
-      return await writeContractAsync({
-        abi: HeyPro,
-        address: HEY_PRO,
-        args: [currentProfile.id],
-        functionName: id === 'monthly' ? 'subscribeMonthly' : 'subscribeYearly',
-        value: parseEther(
-          id === 'monthly'
-            ? PRO_TIER_PRICES.monthly.toString()
-            : PRO_TIER_PRICES.annually.toString()
-        )
-      });
-    } catch (error) {
-      errorToast(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="px-6 py-20">
@@ -188,19 +118,10 @@ const Pro: NextPage = () => {
                 Your Pro expires at <b>{formatDate(proExpiresAt)}</b>
               </div>
             ) : null}
-            <Button
-              className="mt-3 w-full"
-              disabled={isLoading || transactionLoading}
-              onClick={() => upgrade(tier.id as 'annually' | 'monthly')}
+            <ExtendButton
               outline={!tier.featured}
-              size="lg"
-            >
-              {transactionLoading
-                ? 'Transaction pending...'
-                : isPro
-                  ? `Extend a ${tier.id === 'monthly' ? 'Month' : 'Year'}`
-                  : 'Upgrade to Pro'}
-            </Button>
+              tier={tier.id as 'annually' | 'monthly'}
+            />
           </div>
         ))}
       </div>
