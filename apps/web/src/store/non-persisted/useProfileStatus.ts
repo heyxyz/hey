@@ -4,8 +4,8 @@ import { create } from 'zustand';
 interface State {
   isCommentSuspended: boolean;
   isSuspended: boolean;
-  resetRestriction: () => void;
-  setRestriction: ({
+  resetStatus: () => void;
+  setStatus: ({
     isCommentSuspended,
     isSuspended
   }: {
@@ -17,16 +17,16 @@ interface State {
 const store = create<State>((set) => ({
   isCommentSuspended: false,
   isSuspended: false,
-  resetRestriction: () =>
+  resetStatus: () =>
     set(() => ({
       isCommentSuspended: false,
       isSuspended: false
     })),
-  setRestriction: ({ isCommentSuspended, isSuspended }) =>
+  setStatus: ({ isCommentSuspended, isSuspended }) =>
     set(() => ({
       isCommentSuspended,
       isSuspended
     }))
 }));
 
-export const useProfileRestriction = createTrackedSelector(store);
+export const useProfileStatus = createTrackedSelector(store);

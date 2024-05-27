@@ -18,7 +18,7 @@ import {
 import { Button } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface P2PRecommendationProps {
@@ -27,7 +27,7 @@ interface P2PRecommendationProps {
 
 const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
   const { currentProfile } = useProfileStore();
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
 
   const [hasRecommended, setHasRecommended] = useState(
     profile.peerToPeerRecommendedByMe

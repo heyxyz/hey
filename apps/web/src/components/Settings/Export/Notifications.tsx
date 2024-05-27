@@ -8,13 +8,13 @@ import { useNotificationsLazyQuery } from '@hey/lens';
 import { Button, Card, CardHeader } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useProfileRestriction } from 'src/store/non-persisted/useProfileRestriction';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 
 const Notifications: FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
-  const { isSuspended } = useProfileRestriction();
+  const { isSuspended } = useProfileStatus();
 
   const [exportNotificiations] = useNotificationsLazyQuery({
     fetchPolicy: 'network-only'

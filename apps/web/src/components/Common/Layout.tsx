@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -34,6 +35,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     useProfileStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetFeatureFlags } = useFeatureFlagsStore();
+  const { resetStatus } = useProfileStatus();
   const { setLensHubOnchainSigNonce } = useNonceStore();
 
   const isMounted = useIsClient();
@@ -44,6 +46,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const logout = (reload = false) => {
     resetPreferences();
     resetFeatureFlags();
+    resetStatus();
     signOut();
     disconnect?.();
     if (reload) {
