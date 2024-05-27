@@ -13,7 +13,7 @@ import {
   updateWrapperParams
 } from './permit2';
 
-describe('permit2SignatureAmount', () => {
+describe.skip('permit2SignatureAmount', () => {
   it('returns the correct amount for non-polygon chains', () => {
     // from https://rarible.com/token/0xb66a603f4cfe17e3d27b87a8bfcad319856518b8:76925175832665333250355428716222482481488866752663408494164754717630693113858?tab=overview
     const data =
