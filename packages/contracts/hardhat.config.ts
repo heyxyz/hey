@@ -4,6 +4,7 @@ import type { HardhatUserConfig } from 'hardhat/config';
 
 import '@nomicfoundation/hardhat-toolbox';
 import '@openzeppelin/hardhat-upgrades';
+import '@nomiclabs/hardhat-ethers';
 
 const config: HardhatUserConfig = {
   etherscan: {
@@ -37,8 +38,7 @@ const config: HardhatUserConfig = {
   solidity: {
     settings: { optimizer: { enabled: true }, viaIR: true },
     version: '0.8.24'
-  },
-  sourcify: { enabled: true }
+  }
 };
 
 export default config;
