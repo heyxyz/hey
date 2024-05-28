@@ -7,9 +7,9 @@ import createApprovedAuthenticationsFieldPolicy from './createApprovedAuthentica
 import createExploreProfilesFieldPolicy from './createExploreProfilesFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
-import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
 import createFollowersFieldPolicy from './createFollowersFieldPolicy';
 import createFollowingFieldPolicy from './createFollowingFieldPolicy';
+import createForYouFieldPolicy from './createForYouFieldPolicy';
 import createLatestPaidActionsFieldPolicy from './createLatestPaidActionsFieldPolicy';
 import createModLatestReportsFieldPolicy from './createModLatestReportsFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
@@ -34,9 +34,9 @@ const cache = new InMemoryCache({
         exploreProfiles: createExploreProfilesFieldPolicy(),
         explorePublications: createExplorePublicationsFieldPolicy(),
         feed: createFeedFieldPolicy(),
-        feedHighlights: createFeedHighlightsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
+        forYou: createForYouFieldPolicy(),
         latestPaidActions: createLatestPaidActionsFieldPolicy(),
         modExplorePublications: createExplorePublicationsFieldPolicy(),
         modFollowers: createFollowersFieldPolicy(),
