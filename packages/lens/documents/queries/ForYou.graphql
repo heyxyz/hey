@@ -1,0 +1,18 @@
+query ForYou($request: PublicationForYouRequest!) {
+  forYou(request: $request) {
+    items {
+      publication {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Quote {
+          ...QuoteFields
+        }
+      }
+      source
+    }
+    pageInfo {
+      next
+    }
+  }
+}
