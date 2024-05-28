@@ -1,6 +1,6 @@
 export enum HomeFeedType {
   FOLLOWING = 'FOLLOWING',
-  FORYOU = 'FORYOU',
+  HIGHLIGHTS = 'HIGHLIGHTS',
   PREMIUM = 'PREMIUM'
 }
 export enum ModFeedType {
