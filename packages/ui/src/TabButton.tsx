@@ -6,6 +6,7 @@ import cn from '../cn';
 
 interface TabButtonProps {
   active: boolean;
+  badge?: ReactNode;
   className?: string;
   icon?: ReactNode;
   name: string;
@@ -16,6 +17,7 @@ interface TabButtonProps {
 
 const TabButton: FC<TabButtonProps> = ({
   active,
+  badge,
   className = '',
   icon,
   name,
@@ -48,6 +50,7 @@ const TabButton: FC<TabButtonProps> = ({
     >
       {icon}
       <span className={cn({ 'hidden sm:block': !showOnSm })}>{name}</span>
+      {badge}
     </button>
   );
 };
