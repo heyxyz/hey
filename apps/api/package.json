@@ -31,7 +31,7 @@
     "@irys/sdk": "^0.2.0",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.14.0",
-    "@sentry/node": "^8.4.0",
+    "@sentry/node": "^8.5.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -47,7 +47,7 @@
     "ua-parser-js": "^1.0.37",
     "urlcat": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.12.4",
+    "viem": "^2.13.1",
     "vite-express": "^0.16.0",
     "zod": "^3.23.8"
   },
