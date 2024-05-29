@@ -10,7 +10,6 @@ export const get: Handler = (req, res) => {
   try {
     const sitemaps = [
       'https://api.hey.xyz/sitemap/profiles.xml',
-      'https://api.hey.xyz/sitemap/publications.xml',
       'https://api.hey.xyz/sitemap/others.xml'
     ];
 
