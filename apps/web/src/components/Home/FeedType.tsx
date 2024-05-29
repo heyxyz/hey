@@ -31,6 +31,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
             setFeedType(HomeFeedType.FORYOU);
             Leafwatch.track(HOME.SWITCH_FORYOU_FEED);
           }}
+          showOnSm
         />
       )}
       <TabButton
@@ -40,6 +41,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           setFeedType(HomeFeedType.FOLLOWING);
           Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
         }}
+        showOnSm
       />
       <TabButton
         active={feedType === HomeFeedType.PREMIUM}
@@ -48,6 +50,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           setFeedType(HomeFeedType.PREMIUM);
           Leafwatch.track(HOME.SWITCH_PREMIUM_FEED);
         }}
+        showOnSm
       />
     </div>
   );
