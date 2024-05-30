@@ -18,7 +18,7 @@ const Title: FC = () => <p className="text-lg font-semibold">Who to Follow</p>;
 
 const WhoToFollow: FC = () => {
   const { currentProfile } = useProfileStore();
-  const [showSuggestedModal, setShowSuggestedModal] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const { data, error, loading } = useProfileRecommendationsQuery({
     variables: {
@@ -84,7 +84,7 @@ const WhoToFollow: FC = () => {
         <button
           className="ld-text-gray-500 font-bold"
           onClick={() => {
-            setShowSuggestedModal(true);
+            setShowMore(true);
             Leafwatch.track(PROFILE.OPEN_RECOMMENDED_PROFILES);
           }}
           type="button"
@@ -94,8 +94,8 @@ const WhoToFollow: FC = () => {
       </Card>
       <Modal
         icon={<UsersIcon className="size-5" />}
-        onClose={() => setShowSuggestedModal(false)}
-        show={showSuggestedModal}
+        onClose={() => setShowMore(false)}
+        show={showMore}
         title="Suggested for you"
       >
         <Suggested profiles={recommendedProfiles as Profile[]} />
