@@ -17,6 +17,7 @@ import {
 } from 'chart.js';
 import { useTheme } from 'next-themes';
 import { Bar } from 'react-chartjs-2';
+import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import colors from 'tailwindcss/colors';
 
 ChartJS.register(
@@ -28,23 +29,22 @@ ChartJS.register(
   Legend
 );
 
-interface ImpressionsProps {
-  profileId: string;
-}
-
-const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
+const SignupsGraph: FC = () => {
   const { resolvedTheme } = useTheme();
+  const { fiatRates } = useRatesStore();
 
-  const getImpressionsStats = async (): Promise<
+  const maticPrice =
+    fiatRates.find((rate) => rate.symbol === 'MATIC')?.fiat || 0;
+
+  const getSignupsStats = async (): Promise<
     { count: number; date: string }[] | null
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/stats/profile/impressions`,
-        { params: { id: profileId } }
+        `${HEY_API_URL}/lens/internal/stats/signups`
       );
 
-      return response.data?.impressions || null;
+      return response.data?.result || null;
     } catch {
       return null;
     }
@@ -52,15 +52,15 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
 
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
-    queryFn: getImpressionsStats,
-    queryKey: ['getImpressionsStats', profileId],
+    queryFn: getSignupsStats,
+    queryKey: ['getSignupsStats'],
     refetchInterval: 1000
   });
 
   if (isLoading) {
     return (
       <Card>
-        <Loader className="my-10" message="Loading impression stats..." />
+        <Loader className="my-10" message="Loading signup stats..." />
       </Card>
     );
   }
@@ -70,14 +70,12 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage error={error} title="Failed to load impression stats" />
-    );
+    return <ErrorMessage error={error} title="Failed to load signup stats" />;
   }
 
   return (
     <Card>
-      <CardHeader title="Impressions Stats" />
+      <CardHeader body="Signups per day for last 30 days" title="Signups" />
       <div className="m-5">
         <Bar
           data={{
@@ -89,13 +87,11 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
                     : colors['zinc']['400'],
                 borderColor:
                   resolvedTheme === 'dark' ? colors['white'] : colors['black'],
-                data: data.map((impression) => impression.count),
-                label: 'Impressions'
+                data: data.map((signup) => signup.count),
+                label: 'Signups'
               }
             ],
-            labels: data.map((impression) =>
-              formatDate(impression.date, 'MMM D')
-            )
+            labels: data.map((signup) => formatDate(signup.date, 'MMM D'))
           }}
           options={{
             plugins: {
@@ -110,4 +106,4 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
   );
 };
 
-export default Impressions;
+export default SignupsGraph;

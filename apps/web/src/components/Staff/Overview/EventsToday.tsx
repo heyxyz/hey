@@ -49,7 +49,7 @@ const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
                 backgroundColor:
                   resolvedTheme === 'dark'
                     ? colors['zinc']['900']
-                    : colors['zinc']['200'],
+                    : colors['zinc']['400'],
                 borderColor:
                   resolvedTheme === 'dark' ? colors['white'] : colors['black'],
                 data: eventsToday.map((event) => event.count),
