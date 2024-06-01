@@ -87,7 +87,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
               <CheckCircleIcon
                 className={cn(
                   voted ? 'text-green-500' : 'text-gray-500',
-                  'size-6 '
+                  'size-6'
                 )}
               />
             )}
@@ -110,7 +110,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
           </button>
         ))}
       </div>
-      <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
+      <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700">
         <div className="flex items-center space-x-2 text-xs text-gray-500">
           <Bars3BottomLeftIcon className="size-4" />
           <span>
