@@ -4,6 +4,7 @@ import session from 'express-session';
 
 import handleDiscord from './handleDiscord';
 import handleGitHub from './handleGitHub';
+import handleX from './handleX';
 import passport from './passport';
 
 const connectionRoutes = (app: Express) => {
@@ -19,6 +20,7 @@ const connectionRoutes = (app: Express) => {
 
   handleGitHub(app);
   handleDiscord(app);
+  handleX(app);
 };
 
 export default connectionRoutes;

@@ -29,6 +29,16 @@ const Connect: FC = () => {
       >
         Discord
       </Button>
+      <Button
+        onClick={() => {
+          window.open(
+            `${HEY_API_URL}/connections/x?accessToken=${accessToken}`,
+            '_blank'
+          );
+        }}
+      >
+        X
+      </Button>
     </div>
   );
 };
