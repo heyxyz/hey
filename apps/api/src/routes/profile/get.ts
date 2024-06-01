@@ -20,8 +20,7 @@ export const get: Handler = async (req, res) => {
         `
           SELECT * FROM "ProfileFeature"
           WHERE enabled = TRUE
-          AND "featureId" = $2
-          AND "profileId" = $1;
+          AND "featureId" = $2 AND "profileId" = $1;
           SELECT "publicationId" FROM "PinnedPublication" WHERE id = $1;
           SELECT "githubId", "username" FROM "GitHubConnection" WHERE id = $1;
           SELECT "discordId", "username" FROM "DiscordConnection" WHERE id = $1;
