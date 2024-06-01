@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 import { Strategy as DiscordStrategy } from 'passport-discord';
 import { Strategy as GitHubStrategy } from 'passport-github2';
+import { Strategy as XStrategy } from 'passport-twitter';
 
 dotenv.config({ override: true });
 
@@ -29,6 +30,24 @@ passport.use(
       callbackURL: 'http://localhost:4784/connections/discord/callback',
       clientID: process.env.DISCORD_CLIENT_ID!,
       clientSecret: process.env.DISCORD_CLIENT_SECRET!
+    },
+    (
+      _accessToken: string,
+      _refreshToken: string,
+      profile: any,
+      done: Function
+    ) => {
+      return done(null, profile);
+    }
+  )
+);
+
+passport.use(
+  new XStrategy(
+    {
+      callbackURL: 'http://localhost:4784/connections/x/callback',
+      consumerKey: process.env.X_CONSUMER_KEY!,
+      consumerSecret: process.env.X_CONSUMER_SECRET!
     },
     (
       _accessToken: string,
