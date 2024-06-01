@@ -170,6 +170,15 @@ model Tip {
   createdAt     DateTime @default(now())
 }
 
+model PinnedPublication {
+  id            String   @id
+  publicationId String
+  createdAt     DateTime @default(now())
+
+  // Indexes
+  @@index([publicationId])
+}
+
 model GitHubConnection {
   id        String   @id
   githubId  String

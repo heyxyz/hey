@@ -34,8 +34,6 @@ const handleX = (app: Express) => {
       failureMessage: 'Failed to authenticate'
     }),
     async (req, res) => {
-      console.log(req);
-
       if (!req.user) {
         logger.error('X: No user data received');
         return res.status(500).send('No user data received');
