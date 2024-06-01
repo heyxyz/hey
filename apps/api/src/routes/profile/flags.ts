@@ -1,4 +1,4 @@
-import type { ProfileFlags } from '@hey/types/hey';
+import type { ProfileDetails } from '@hey/types/hey';
 import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
@@ -28,7 +28,7 @@ export const get: Handler = async (req, res) => {
       [SUSPENDED_FEATURE_ID, id as string]
     );
 
-    const response: ProfileFlags = {
+    const response: ProfileDetails = {
       isSuspended: profileFeature[0]?.featureId === SUSPENDED_FEATURE_ID
     };
 

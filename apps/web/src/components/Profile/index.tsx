@@ -11,7 +11,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import getProfileFlags from '@hey/helpers/api/getProfileFlags';
+import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import getProfile from '@hey/helpers/getProfile';
 import { useProfileQuery } from '@hey/lens';
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -93,10 +93,10 @@ const ViewProfile: NextPage = () => {
 
   const profile = data?.profile as Profile;
 
-  const { data: profileFlags } = useQuery({
+  const { data: profileDetails } = useQuery({
     enabled: Boolean(profile?.id),
-    queryFn: () => getProfileFlags(profile?.id || ''),
-    queryKey: ['getProfileFlags', id]
+    queryFn: () => getProfileDetails(profile?.id || ''),
+    queryKey: ['getProfileDetails', id]
   });
 
   if (!isReady || loading) {
@@ -115,7 +115,7 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
-  const isSuspended = staffMode ? false : profileFlags?.isSuspended;
+  const isSuspended = staffMode ? false : profileDetails?.isSuspended;
 
   return (
     <>
@@ -140,7 +140,7 @@ const ViewProfile: NextPage = () => {
             <SuspendedDetails profile={profile as Profile} />
           ) : (
             <Details
-              isSuspended={profileFlags?.isSuspended || false}
+              isSuspended={profileDetails?.isSuspended || false}
               profile={profile as Profile}
             />
           )}
