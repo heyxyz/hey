@@ -2,10 +2,8 @@ import type { NextPage } from 'next';
 
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
-import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HomeFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
@@ -19,13 +17,9 @@ import Sidebar from './Sidebar';
 import Timeline from './Timeline';
 
 const Home: NextPage = () => {
-  const forYouEnabled =
-    isFeatureAvailable(FeatureFlag.Gardener) ||
-    isFeatureAvailable(FeatureFlag.LensTeam);
-
   const { currentProfile } = useProfileStore();
   const [feedType, setFeedType] = useState<HomeFeedType>(
-    forYouEnabled ? HomeFeedType.FORYOU : HomeFeedType.FOLLOWING
+    HomeFeedType.FOLLOWING
   );
 
   useEffect(() => {
