@@ -80,7 +80,12 @@ export type Preferences = {
 };
 
 export type ProfileDetails = {
+  connections: {
+    discord: { id: string; username: string } | null;
+    github: { id: string; username: string } | null;
+  };
   isSuspended: boolean;
+  pinnedPublication: null | string;
 };
 
 type UniswapToken = {

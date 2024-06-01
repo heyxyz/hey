@@ -12,7 +12,7 @@ const getProfileDetails = async (
   id: string
 ): Promise<null | ProfileDetails> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/profile/flags`, {
+    const response = await axios.get(`${HEY_API_URL}/profile/get`, {
       params: { id }
     });
 
