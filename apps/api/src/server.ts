@@ -7,6 +7,7 @@ import { router } from 'express-file-routing';
 import ViteExpress from 'vite-express';
 
 import '../instrument.mjs';
+import connectionRoutes from './helpers/connections/connectionRoutes';
 
 // Load environment variables
 dotenv.config({ override: true });
@@ -24,6 +25,7 @@ const setupRoutes = async () => {
   // Route configuration
   app.use('/signup', express.raw({ type: 'application/json' }), await router());
   app.use('/', express.json({ limit: '1mb' }), await router());
+  connectionRoutes(app);
 
   // Start the server
   ViteExpress.listen(app, 4784, () => {
