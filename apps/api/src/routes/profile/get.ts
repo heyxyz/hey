@@ -18,17 +18,17 @@ export const get: Handler = async (req, res) => {
     const [profileFeature, pinnedPublication, github, discord] =
       await heyPg.multi(
         `
-        SELECT * FROM "ProfileFeature"
-        WHERE enabled = TRUE
-        AND "featureId" = $2
-        AND "profileId" = $1;
+          SELECT * FROM "ProfileFeature"
+          WHERE enabled = TRUE
+          AND "featureId" = $2
+          AND "profileId" = $1;
 
-        SELECT "publicationId" FROM "PinnedPublication" WHERE id = $1;
+          SELECT "publicationId" FROM "PinnedPublication" WHERE id = $1;
 
-        SELECT "githubId", "username" FROM "GitHubConnection" WHERE id = $1;
+          SELECT "githubId", "username" FROM "GitHubConnection" WHERE id = $1;
 
-        SELECT "discordId", "username" FROM "DiscordConnection" WHERE id = $1;
-      `,
+          SELECT "discordId", "username" FROM "DiscordConnection" WHERE id = $1;
+        `,
         [id as string, SUSPENDED_FEATURE_ID]
       );
 
