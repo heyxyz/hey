@@ -17,7 +17,6 @@ import {
 } from 'chart.js';
 import { useTheme } from 'next-themes';
 import { Bar } from 'react-chartjs-2';
-import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import colors from 'tailwindcss/colors';
 
 ChartJS.register(
@@ -31,10 +30,6 @@ ChartJS.register(
 
 const SignupsGraph: FC = () => {
   const { resolvedTheme } = useTheme();
-  const { fiatRates } = useRatesStore();
-
-  const maticPrice =
-    fiatRates.find((rate) => rate.symbol === 'MATIC')?.fiat || 0;
 
   const getSignupsStats = async (): Promise<
     { count: number; date: string }[] | null

@@ -22,6 +22,15 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
 
   return (
     <div className="flex gap-3 overflow-x-auto px-5 sm:px-0">
+      <TabButton
+        active={feedType === HomeFeedType.FOLLOWING}
+        name={fallbackToCuratedFeed ? 'Curated Feed' : 'Following'}
+        onClick={() => {
+          setFeedType(HomeFeedType.FOLLOWING);
+          Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
+        }}
+        showOnSm
+      />
       {enabled && (
         <TabButton
           active={feedType === HomeFeedType.FORYOU}
@@ -34,15 +43,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           showOnSm
         />
       )}
-      <TabButton
-        active={feedType === HomeFeedType.FOLLOWING}
-        name={fallbackToCuratedFeed ? 'Curated Feed' : 'Following'}
-        onClick={() => {
-          setFeedType(HomeFeedType.FOLLOWING);
-          Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
-        }}
-        showOnSm
-      />
       <TabButton
         active={feedType === HomeFeedType.PREMIUM}
         name="Premium"
