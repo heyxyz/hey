@@ -176,3 +176,10 @@ model GitHubConnection {
   username  String
   createdAt DateTime @default(now())
 }
+
+model DiscordConnection {
+  id        String   @id
+  discordId String
+  username  String
+  createdAt DateTime @default(now())
+}

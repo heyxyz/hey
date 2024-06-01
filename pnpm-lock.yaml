@@ -90,6 +90,9 @@ importers:
       passport:
         specifier: ^0.7.0
         version: 0.7.0
+      passport-discord:
+        specifier: ^0.1.4
+        version: 0.1.4
       passport-github2:
         specifier: ^0.1.12
         version: 0.1.12
@@ -148,6 +151,9 @@ importers:
       '@types/passport':
         specifier: ^1.0.16
         version: 1.0.16
+      '@types/passport-discord':
+        specifier: ^0.1.13
+        version: 0.1.13
       '@types/passport-github2':
         specifier: ^1.2.9
         version: 1.2.9
@@ -9895,6 +9901,14 @@ packages:
     resolution: {integrity: sha512-sNJTN6nxoicS3pwMqUU+ToO0Uf0RobYFr7hNjUnQTQ2WiQ6pyox4J05KTJm60Bn+XpmzWgmHwaogqcI3aJZENQ==}
     dev: true
 
+  /@types/passport-discord@0.1.13:
+    resolution: {integrity: sha512-A9fGTf69C19xQr4BQUHvK+/DpGuSLF/v/MEMdw4Z46sQd0dqeP+4ysBZqF5rXxaCWVcJKBxXUpV8MpW5jwWVIQ==}
+    dependencies:
+      '@types/express': 4.17.21
+      '@types/passport': 1.0.16
+      '@types/passport-oauth2': 1.4.17
+    dev: true
+
   /@types/passport-github2@1.2.9:
     resolution: {integrity: sha512-/nMfiPK2E6GKttwBzwj0Wjaot8eHrM57hnWxu52o6becr5/kXlH/4yE2v2rh234WGvSgEEzIII02Nc5oC5xEHA==}
     dependencies:
@@ -18915,6 +18929,12 @@ packages:
       no-case: 3.0.4
       tslib: 2.6.2
     dev: true
+
+  /passport-discord@0.1.4:
+    resolution: {integrity: sha512-VJWPYqSOmh7SaCLw/C+k1ZqCzJnn2frrmQRx1YrcPJ3MQ+Oa31XclbbmqFICSvl8xv3Fqd6YWQ4H4p1MpIN9rA==}
+    dependencies:
+      passport-oauth2: 1.8.0
+    dev: false
 
   /passport-github2@0.1.12:
     resolution: {integrity: sha512-3nPUCc7ttF/3HSP/k9sAXjz3SkGv5Nki84I05kSQPo01Jqq1NzJACgMblCK0fGcv9pKCG/KXU3AJRDGLqHLoIw==}
