@@ -22,11 +22,8 @@ export const get: Handler = async (req, res) => {
           WHERE enabled = TRUE
           AND "featureId" = $2
           AND "profileId" = $1;
-
           SELECT "publicationId" FROM "PinnedPublication" WHERE id = $1;
-
           SELECT "githubId", "username" FROM "GitHubConnection" WHERE id = $1;
-
           SELECT "discordId", "username" FROM "DiscordConnection" WHERE id = $1;
         `,
         [id as string, SUSPENDED_FEATURE_ID]
