@@ -169,3 +169,17 @@ model Tip {
   txHash        String
   createdAt     DateTime @default(now())
 }
+
+model GitHubConnection {
+  id        String   @id
+  githubId  String
+  username  String
+  createdAt DateTime @default(now())
+}
+
+model DiscordConnection {
+  id        String   @id
+  discordId String
+  username  String
+  createdAt DateTime @default(now())
+}
