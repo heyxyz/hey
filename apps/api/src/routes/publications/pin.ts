@@ -42,13 +42,13 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     if (pin) {
-      await prisma.pinnedPublication.delete({ where: { id } });
-    } else {
       await prisma.pinnedPublication.upsert({
         create: { id: payload.id, publicationId: id },
         update: { id: payload.id, publicationId: id },
-        where: { id }
+        where: { id: payload.id }
       });
+    } else {
+      await prisma.pinnedPublication.delete({ where: { id: payload.id } });
     }
 
     logger.info(`Publication ${id} ${pin ? 'pinned' : 'unpinned'}`);
