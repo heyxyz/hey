@@ -3,7 +3,6 @@ import type { FC } from 'react';
 
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
-import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
@@ -13,7 +12,6 @@ import {
   ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
-  LinkIcon,
   NoSymbolIcon,
   QueueListIcon,
   ShareIcon,
@@ -45,12 +43,6 @@ const SettingsSidebar: FC = () => {
       icon: <StarIcon className="size-4" />,
       title: 'Pro',
       url: '/settings/pro'
-    },
-    {
-      enabled: isFeatureAvailable('connections'),
-      icon: <LinkIcon className="size-4" />,
-      title: 'Connections',
-      url: '/settings/connections'
     },
     {
       icon: <AtSymbolIcon className="size-4" />,
