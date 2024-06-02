@@ -176,6 +176,7 @@ const ViewProfile: NextPage = () => {
               feedType === ProfileFeedType.Collects ? (
                 <Feed
                   handle={getProfile(profile).slugWithPrefix}
+                  pinnedPublicationId={profileDetails?.pinnedPublication}
                   profileId={profile.id}
                   type={feedType}
                 />
