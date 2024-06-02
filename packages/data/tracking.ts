@@ -67,6 +67,7 @@ export const PUBLICATION = {
   OPEN_GIFS: 'Open GIFs modal',
   OPEN_LIKES: 'Open likes modal',
   OPEN_NFT: 'Open NFT',
+  PIN: 'Pin publication',
   REMOVE_BOOKMARK: 'Remove bookmark publication',
   REPORT: 'Report publication',
   SHARE: 'Share publication',
@@ -79,6 +80,7 @@ export const PUBLICATION = {
   UNDO_MIRROR: 'Undo mirror publication',
   UNDO_NOT_INTERESTED: 'Undo not interested publication',
   UNLIKE: 'Unlike publication',
+  UNPIN: 'Unpin publication',
   WIDGET: {
     POLL: { VOTE: 'Vote on poll' }
   }
