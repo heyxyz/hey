@@ -87,8 +87,6 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
                   resolvedTheme === 'dark'
                     ? colors['zinc']['900']
                     : colors['zinc']['400'],
-                borderColor:
-                  resolvedTheme === 'dark' ? colors['white'] : colors['black'],
                 data: data.map((impression) => impression.count),
                 label: 'Impressions'
               }
@@ -98,10 +96,7 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
             )
           }}
           options={{
-            plugins: {
-              legend: { display: false },
-              title: { display: false }
-            },
+            plugins: { legend: { display: false } },
             responsive: true
           }}
         />
