@@ -1,5 +1,5 @@
 import type { AnyPublication, FeedItem } from '@hey/lens';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
@@ -16,6 +16,7 @@ import PublicationType from './Type';
 
 interface SinglePublicationProps {
   feedItem?: FeedItem;
+  header?: ReactNode;
   isFirst?: boolean;
   isLast?: boolean;
   publication: AnyPublication;
@@ -27,6 +28,7 @@ interface SinglePublicationProps {
 
 const SinglePublication: FC<SinglePublicationProps> = ({
   feedItem,
+  header,
   isFirst = false,
   isLast = false,
   publication,
@@ -47,6 +49,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       publication={rootPublication}
     >
+      {header}
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (

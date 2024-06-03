@@ -2,7 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { QueueListIcon } from '@heroicons/react/24/outline';
-import getProfileFlags from '@hey/helpers/api/getProfileFlags';
+import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import getAppName from '@hey/helpers/getAppName';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
@@ -43,13 +43,13 @@ const FullPublication: FC<FullPublicationProps> = ({
 
   usePushToImpressions(targetPublication.id);
 
-  const { data: profileFlags } = useQuery({
+  const { data: profileDetails } = useQuery({
     enabled: Boolean(by.id),
-    queryFn: () => getProfileFlags(by.id || ''),
-    queryKey: ['getProfileFlags', by.id]
+    queryFn: () => getProfileDetails(by.id || ''),
+    queryKey: ['getProfileDetailsOnPublication', by.id]
   });
 
-  const isSuspended = staffMode ? false : profileFlags?.isSuspended;
+  const isSuspended = staffMode ? false : profileDetails?.isSuspended;
 
   if (isSuspended) {
     return (

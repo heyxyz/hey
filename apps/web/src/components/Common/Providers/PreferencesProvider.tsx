@@ -7,10 +7,12 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
 import getPreferences from '@hey/helpers/api/getPreferences';
+import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
@@ -31,6 +33,7 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter
   } = usePreferencesStore();
+  const { setPinnedPublication } = useProfileDetailsStore();
   const { setStatus } = useProfileStatus();
   const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
 
@@ -71,17 +74,17 @@ const PreferencesProvider: FC = () => {
     queryKey: ['getPreferences', sessionProfileId || '']
   });
 
-  // Fetch verified members
-  const getVerifiedMembers = async () => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/misc/verified`);
-      const { data } = response;
-      setVerifiedMembers(data.result || []);
-      return true;
-    } catch {
-      return false;
-    }
-  };
+  // Fetch profile details
+  useQuery({
+    enabled: Boolean(sessionProfileId),
+    queryFn: () =>
+      getProfileDetails(sessionProfileId).then((details) => {
+        setPinnedPublication(details?.pinnedPublication || null);
+
+        return true;
+      }),
+    queryKey: ['getProfileDetailsOfCurrentUser', sessionProfileId || '']
+  });
 
   // Fetch score
   useQuery({
@@ -93,6 +96,18 @@ const PreferencesProvider: FC = () => {
       }),
     queryKey: ['getScore', sessionProfileId]
   });
+
+  // Fetch verified members
+  const getVerifiedMembers = async () => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/misc/verified`);
+      const { data } = response;
+      setVerifiedMembers(data.result || []);
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
   useQuery({
     queryFn: getVerifiedMembers,

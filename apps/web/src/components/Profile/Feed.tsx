@@ -4,11 +4,15 @@ import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import {
+  PaperAirplaneIcon,
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
+  usePublicationQuery,
   usePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
@@ -25,6 +29,8 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   handle: string;
+  pinnedPublicationId: null | string;
+  profileDetailsLoading: boolean;
   profileId: string;
   type:
     | ProfileFeedType.Collects
@@ -33,7 +39,13 @@ interface FeedProps {
     | ProfileFeedType.Replies;
 }
 
-const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
+const Feed: FC<FeedProps> = ({
+  handle,
+  pinnedPublicationId,
+  profileDetailsLoading,
+  profileId,
+  type
+}) => {
   const { currentProfile } = useProfileStore();
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
@@ -91,6 +103,12 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
     }
   };
 
+  const { data: pinnedPublicationData, loading: pinnedPublicationLoading } =
+    usePublicationQuery({
+      skip: !pinnedPublicationId,
+      variables: { request: { forId: pinnedPublicationId } }
+    });
+
   const { data, error, fetchMore, loading, refetch } = usePublicationsQuery({
     onCompleted: async ({ publications }) => {
       const ids =
@@ -139,7 +157,7 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
     await fetchAndStoreTips(ids);
   };
 
-  if (loading) {
+  if (loading || profileDetailsLoading || pinnedPublicationLoading) {
     return <PublicationsShimmer />;
   }
 
@@ -174,6 +192,23 @@ const Feed: FC<FeedProps> = ({ handle, profileId, type }) => {
 
   return (
     <Card>
+      {pinnedPublicationData?.publication ? (
+        <>
+          <SinglePublication
+            header={
+              <div className="ld-text-gray-500 mb-5 flex items-center space-x-2">
+                <PaperAirplaneIcon className="size-4" />
+                <b className="text-sm">
+                  Pinned {pinnedPublicationData.publication.__typename}
+                </b>
+              </div>
+            }
+            publication={pinnedPublicationData.publication as AnyPublication}
+            showThread={false}
+          />
+          <div className="divider" />
+        </>
+      ) : null}
       <Virtuoso
         className="virtual-divider-list-window"
         computeItemKey={(index, publication) => `${publication.id}-${index}`}

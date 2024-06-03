@@ -1,16 +1,18 @@
-import type { ProfileFlags } from '@hey/types/hey';
+import type { ProfileDetails } from '@hey/types/hey';
 
 import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
- * Get profile flags
+ * Get profile details
  * @param id profile id
- * @returns profile flags
+ * @returns profile details
  */
-const getProfileFlags = async (id: string): Promise<null | ProfileFlags> => {
+const getProfileDetails = async (
+  id: string
+): Promise<null | ProfileDetails> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/profile/flags`, {
+    const response = await axios.get(`${HEY_API_URL}/profile/get`, {
       params: { id }
     });
 
@@ -20,4 +22,4 @@ const getProfileFlags = async (id: string): Promise<null | ProfileFlags> => {
   }
 };
 
-export default getProfileFlags;
+export default getProfileDetails;

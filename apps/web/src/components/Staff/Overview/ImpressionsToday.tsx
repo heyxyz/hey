@@ -49,7 +49,7 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
                 backgroundColor:
                   resolvedTheme === 'dark'
                     ? colors['zinc']['900']
-                    : colors['zinc']['200'],
+                    : colors['zinc']['400'],
                 borderColor:
                   resolvedTheme === 'dark' ? colors['white'] : colors['black'],
                 data: impressionsToday.map((impression) => impression.count),
@@ -62,10 +62,7 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
             )
           }}
           options={{
-            plugins: {
-              legend: { display: false },
-              title: { display: false }
-            },
+            plugins: { legend: { display: false } },
             responsive: true
           }}
         />

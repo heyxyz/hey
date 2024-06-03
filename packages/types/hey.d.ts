@@ -79,8 +79,9 @@ export type Preferences = {
   highSignalNotificationFilter: boolean;
 };
 
-export type ProfileFlags = {
+export type ProfileDetails = {
   isSuspended: boolean;
+  pinnedPublication: null | string;
 };
 
 type UniswapToken = {

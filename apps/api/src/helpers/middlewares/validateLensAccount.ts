@@ -1,7 +1,6 @@
 import type { Request } from 'express';
 
-import LensEndpoint from '@hey/data/lens-endpoints';
-import axios from 'axios';
+import validateLensAccessToken from './validateLensAccessToken';
 
 /**
  * Middleware to validate Lens access token
@@ -19,33 +18,7 @@ const validateLensAccount = async (
     return 400;
   }
 
-  const isMainnet = network === 'mainnet';
-  try {
-    const { data } = await axios.post(
-      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
-      {
-        query: `
-          query Verify {
-            verify(request: { accessToken: "${accessToken}" })
-          }
-        `
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'User-agent': 'Hey.xyz'
-        }
-      }
-    );
-
-    if (data.data.verify) {
-      return 200;
-    }
-
-    return 401;
-  } catch {
-    return 500;
-  }
+  return await validateLensAccessToken(accessToken, network);
 };
 
 export default validateLensAccount;
