@@ -99,8 +99,8 @@ const ViewProfile: NextPage = () => {
 
   const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
     enabled: Boolean(profile?.id),
-    queryFn: () => getProfileDetails(profile?.id || ''),
-    queryKey: ['getProfileDetails', profile?.id]
+    queryFn: () => getProfileDetails(profile?.id),
+    queryKey: ['getProfileDetailsOnProfile', profile?.id]
   });
 
   if (!isReady || profileLoading) {
