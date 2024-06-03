@@ -1,7 +1,6 @@
 import type { CollectModuleType } from '@hey/types/hey';
 import type { FC } from 'react';
 
-import Beta from '@components/Shared/Badges/Beta';
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
@@ -75,12 +74,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
     <div className="mt-5">
       <ToggleWithHelper
         description="Set multiple recipients for the collect fee"
-        heading={
-          <div className="flex items-center space-x-2">
-            <span>Split revenue</span>
-            <Beta />
-          </div>
-        }
+        heading="Split revenue"
         icon={<UsersIcon className="size-5" />}
         on={recipients.length > 0}
         setOn={() => {
