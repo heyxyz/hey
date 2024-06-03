@@ -16,9 +16,9 @@ dotenv.config({ override: true });
 const cronWithCheckIn = Sentry.cron.instrumentNodeCron(cron);
 
 const main = () => {
-  if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
-    return;
-  }
+  // if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
+  //   return;
+  // }
 
   logger.info('Cron jobs are started...');
 
