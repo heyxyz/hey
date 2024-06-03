@@ -80,7 +80,11 @@ const ViewProfile: NextPage = () => {
       : ProfileFeedType.Feed
     : ProfileFeedType.Feed;
 
-  const { data, error, loading } = useProfileQuery({
+  const {
+    data,
+    error,
+    loading: profileLoading
+  } = useProfileQuery({
     skip: id ? !id : !handle,
     variables: {
       request: {
@@ -93,13 +97,13 @@ const ViewProfile: NextPage = () => {
 
   const profile = data?.profile as Profile;
 
-  const { data: profileDetails } = useQuery({
+  const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
     enabled: Boolean(profile?.id),
     queryFn: () => getProfileDetails(profile?.id || ''),
     queryKey: ['getProfileDetails', id]
   });
 
-  if (!isReady || loading) {
+  if (!isReady || profileLoading || profileDetailsLoading) {
     return (
       <ProfilePageShimmer
         profileList={showFollowing || showFollowers || showMutuals}
