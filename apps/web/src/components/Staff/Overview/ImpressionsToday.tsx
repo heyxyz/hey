@@ -62,10 +62,7 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
             )
           }}
           options={{
-            plugins: {
-              legend: { display: false },
-              title: { display: false }
-            },
+            plugins: { legend: { display: false } },
             responsive: true
           }}
         />

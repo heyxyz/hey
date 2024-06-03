@@ -62,10 +62,7 @@ const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
             )
           }}
           options={{
-            plugins: {
-              legend: { display: false },
-              title: { display: false }
-            },
+            plugins: { legend: { display: false } },
             responsive: true
           }}
         />

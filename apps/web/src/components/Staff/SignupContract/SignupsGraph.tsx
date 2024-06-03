@@ -32,7 +32,7 @@ const SignupsGraph: FC = () => {
   const { resolvedTheme } = useTheme();
 
   const getSignupsStats = async (): Promise<
-    { count: number; date: string }[] | null
+    { date: string; mint_count: number; signups_count: number }[] | null
   > => {
     try {
       const response = await axios.get(
@@ -69,35 +69,59 @@ const SignupsGraph: FC = () => {
   }
 
   return (
-    <Card>
-      <CardHeader body="Signups per day for last 30 days" title="Signups" />
-      <div className="m-5">
-        <Bar
-          data={{
-            datasets: [
-              {
-                backgroundColor:
-                  resolvedTheme === 'dark'
-                    ? colors['zinc']['900']
-                    : colors['zinc']['400'],
-                borderColor:
-                  resolvedTheme === 'dark' ? colors['white'] : colors['black'],
-                data: data.map((signup) => signup.count),
-                label: 'Signups'
-              }
-            ],
-            labels: data.map((signup) => formatDate(signup.date, 'MMM D'))
-          }}
-          options={{
-            plugins: {
-              legend: { display: false },
-              title: { display: false }
-            },
-            responsive: true
-          }}
+    <>
+      <Card>
+        <CardHeader body="Signups per day for last 30 days" title="Signups" />
+        <div className="m-5">
+          <Bar
+            data={{
+              datasets: [
+                {
+                  backgroundColor:
+                    resolvedTheme === 'dark'
+                      ? colors['zinc']['900']
+                      : colors['zinc']['400'],
+                  data: data.map((signup) => signup.signups_count),
+                  label: 'Signups'
+                }
+              ],
+              labels: data.map((signup) => formatDate(signup.date, 'MMM D'))
+            }}
+            options={{
+              plugins: { legend: { display: false } },
+              responsive: true
+            }}
+          />
+        </div>
+      </Card>
+      <Card>
+        <CardHeader
+          body="NFT mints per day for last 30 days"
+          title="NFT Mints"
         />
-      </div>
-    </Card>
+        <div className="m-5">
+          <Bar
+            data={{
+              datasets: [
+                {
+                  backgroundColor:
+                    resolvedTheme === 'dark'
+                      ? colors['zinc']['900']
+                      : colors['zinc']['400'],
+                  data: data.map((signup) => signup.mint_count),
+                  label: 'Mints'
+                }
+              ],
+              labels: data.map((signup) => formatDate(signup.date, 'MMM D'))
+            }}
+            options={{
+              plugins: { legend: { display: false } },
+              responsive: true
+            }}
+          />
+        </div>
+      </Card>
+    </>
   );
 };
 
