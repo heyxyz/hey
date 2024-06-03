@@ -396,7 +396,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       if (Boolean(collectModule.type)) {
         openActionModules.push({
-          collectOpenAction: collectModuleParams(collectModule, currentProfile)
+          collectOpenAction: collectModuleParams(collectModule)
         });
       }
 

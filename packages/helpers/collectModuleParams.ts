@@ -1,7 +1,6 @@
 import type {
   AmountInput,
   CollectActionModuleInput,
-  Profile,
   RecipientDataInput
 } from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
@@ -9,14 +8,14 @@ import type { CollectModuleType } from '@hey/types/hey';
 import { CollectOpenActionModuleType } from '@hey/lens';
 
 const collectModuleParams = (
-  collectModule: CollectModuleType,
-  currentProfile: Profile
+  collectModule: CollectModuleType
 ): CollectActionModuleInput | null => {
   const {
     amount,
     collectLimit,
     endsAt,
     followerOnly,
+    recipient,
     recipients,
     referralFee
   } = collectModule;
@@ -32,8 +31,8 @@ const collectModuleParams = (
         simpleCollectOpenAction: {
           ...baseCollectModuleParams,
           ...(amount && {
-            amount: amount,
-            recipient: currentProfile?.ownedBy.address,
+            amount,
+            recipient,
             referralFee: referralFee
           })
         }
