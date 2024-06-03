@@ -1,3 +1,6 @@
+import '../instrument.mjs';
+
+// eslint-disable-next-line perfectionist/sort-imports
 import logger from '@hey/helpers/logger';
 import * as Sentry from '@sentry/node';
 import cors from 'cors';
@@ -5,8 +8,6 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { router } from 'express-file-routing';
 import ViteExpress from 'vite-express';
-
-import '../instrument.mjs';
 
 // Load environment variables
 dotenv.config({ override: true });
