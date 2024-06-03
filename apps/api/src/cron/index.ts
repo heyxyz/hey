@@ -84,4 +84,6 @@ const main = () => {
 
 if (process.env.NEXT_PUBLIC_LENS_NETWORK === 'mainnet') {
   main();
+} else {
+  logger.info('Cron jobs are not running on testnet');
 }
