@@ -155,7 +155,7 @@ const Feed: FC<FeedProps> = ({
     await fetchAndStoreTips(ids);
   };
 
-  if (loading && pinnedPublicationLoading) {
+  if (loading || pinnedPublicationLoading) {
     return <PublicationsShimmer />;
   }
 
