@@ -83,7 +83,7 @@ const PreferencesProvider: FC = () => {
 
         return true;
       }),
-    queryKey: ['getProfileDetails', sessionProfileId || '']
+    queryKey: ['getProfileDetailsOfCurrentUser', sessionProfileId || '']
   });
 
   // Fetch score

@@ -46,7 +46,7 @@ const FullPublication: FC<FullPublicationProps> = ({
   const { data: profileDetails } = useQuery({
     enabled: Boolean(by.id),
     queryFn: () => getProfileDetails(by.id || ''),
-    queryKey: ['getProfileDetails', by.id]
+    queryKey: ['getProfileDetailsOnPublication', by.id]
   });
 
   const isSuspended = staffMode ? false : profileDetails?.isSuspended;
