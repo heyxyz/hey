@@ -3,10 +3,6 @@ import { describe, expect, test } from 'vitest';
 import collectModuleParams from './collectModuleParams';
 
 describe('collectModuleParams', () => {
-  const mockProfile: any = {
-    ownedBy: { address: 'mockAddress' }
-  };
-
   test('should return null when given an unsupported collect module type', () => {
     const unsupportedType = 'UnsupportedCollectModuleType';
     const collectModule: any = {
@@ -18,7 +14,7 @@ describe('collectModuleParams', () => {
       type: unsupportedType
     };
 
-    expect(collectModuleParams(collectModule, mockProfile)).toBeNull();
+    expect(collectModuleParams(collectModule)).toBeNull();
   });
 
   test('should return the correct params for CollectOpenActionModuleType.SimpleCollectOpenActionModule', () => {
@@ -42,9 +38,7 @@ describe('collectModuleParams', () => {
       }
     };
 
-    expect(collectModuleParams(collectModule, mockProfile)).toEqual(
-      expectedParams
-    );
+    expect(collectModuleParams(collectModule)).toEqual(expectedParams);
   });
 
   test('should return the correct params for CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule', () => {
@@ -81,8 +75,6 @@ describe('collectModuleParams', () => {
       }
     };
 
-    expect(collectModuleParams(collectModule, mockProfile)).toEqual(
-      expectedParams
-    );
+    expect(collectModuleParams(collectModule)).toEqual(expectedParams);
   });
 });
