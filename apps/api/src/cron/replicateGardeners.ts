@@ -3,6 +3,10 @@ import heyPg from 'src/db/heyPg';
 import lensPg from 'src/db/lensPg';
 
 const replicateGardeners = async () => {
+  if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
+    return;
+  }
+
   const profiles = await lensPg.query(
     `SELECT * FROM custom_filters.reporting_gardener_profile`
   );
