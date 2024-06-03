@@ -29,7 +29,8 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   handle: string;
-  pinnedPublicationId?: null | string;
+  pinnedPublicationId: null | string;
+  profileDetailsLoading: boolean;
   profileId: string;
   type:
     | ProfileFeedType.Collects
@@ -41,6 +42,7 @@ interface FeedProps {
 const Feed: FC<FeedProps> = ({
   handle,
   pinnedPublicationId,
+  profileDetailsLoading,
   profileId,
   type
 }) => {
@@ -155,7 +157,7 @@ const Feed: FC<FeedProps> = ({
     await fetchAndStoreTips(ids);
   };
 
-  if (loading || pinnedPublicationLoading) {
+  if (loading || profileDetailsLoading || pinnedPublicationLoading) {
     return <PublicationsShimmer />;
   }
 

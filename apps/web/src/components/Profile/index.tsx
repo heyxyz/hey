@@ -103,7 +103,7 @@ const ViewProfile: NextPage = () => {
     queryKey: ['getProfileDetails', id]
   });
 
-  if (!isReady || profileLoading || profileDetailsLoading) {
+  if (!isReady || profileLoading) {
     return (
       <ProfilePageShimmer
         profileList={showFollowing || showFollowers || showMutuals}
@@ -180,7 +180,10 @@ const ViewProfile: NextPage = () => {
               feedType === ProfileFeedType.Collects ? (
                 <Feed
                   handle={getProfile(profile).slugWithPrefix}
-                  pinnedPublicationId={profileDetails?.pinnedPublication}
+                  pinnedPublicationId={
+                    profileDetails?.pinnedPublication || null
+                  }
+                  profileDetailsLoading={profileDetailsLoading}
                   profileId={profile.id}
                   type={feedType}
                 />
