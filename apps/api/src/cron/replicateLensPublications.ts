@@ -16,6 +16,10 @@ const getLastBlockNumber = async () => {
 };
 
 const replicateLensPublications = async () => {
+  if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
+    return;
+  }
+
   const START_BLOCK_NUMBER = await getLastBlockNumber();
   const END_BLOCK_NUMBER = START_BLOCK_NUMBER + 50000;
 
