@@ -18,19 +18,6 @@ const cronWithCheckIn = Sentry.cron.instrumentNodeCron(cron);
 const main = () => {
   logger.info('Cron jobs are started...');
 
-  if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
-    cronWithCheckIn.schedule(
-      '*/5 * * * *',
-      () => {
-        logger.info('Cron: This is test cron');
-        return;
-      },
-      { name: 'testCron' }
-    );
-
-    return;
-  }
-
   cronWithCheckIn.schedule(
     '*/5 * * * *',
     async () => {
@@ -95,4 +82,6 @@ const main = () => {
   );
 };
 
-main();
+if (process.env.NEXT_PUBLIC_LENS_NETWORK === 'mainnet') {
+  main();
+}
