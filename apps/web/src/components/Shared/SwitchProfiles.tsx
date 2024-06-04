@@ -92,8 +92,9 @@ const SwitchProfiles: FC = () => {
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
+      const identityToken = auth.data?.authenticate.identityToken;
       signOut();
-      signIn({ accessToken, refreshToken });
+      signIn({ accessToken, identityToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
       location.reload();
     } catch (error) {
