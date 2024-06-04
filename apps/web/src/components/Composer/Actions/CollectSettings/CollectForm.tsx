@@ -12,7 +12,6 @@ import { isAddress } from 'viem';
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
 import FollowersConfig from './FollowersConfig';
-import RecipientConfig from './RecipientConfig';
 import ReferralConfig from './ReferralConfig';
 import SplitConfig from './SplitConfig';
 import TimeLimitConfig from './TimeLimitConfig';
@@ -29,17 +28,17 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
 
   const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients || [];
-  const { amount, recipient } = collectModule;
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
-  const hasInvalidRecipient = Boolean(amount?.value)
-    ? !recipient || !isAddress(recipient)
-    : false;
+
   const hasEmptyRecipients = recipients.some(
     (recipient) => !recipient.recipient
   );
   const hasInvalidEthAddressInRecipients = recipients.some(
     (recipient) => recipient.recipient && !isAddress(recipient.recipient)
   );
+  const hasZeroSplits = recipients.some((recipient) => recipient.split === 0);
+  const hasImproperSplits = recipients.length > 1 && splitTotal !== 100;
+
   const isRecipientsDuplicated = () => {
     const recipientsSet = new Set(
       recipients.map((recipient) => recipient.recipient)
@@ -81,7 +80,6 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             {collectModule.amount?.value ? (
               <>
                 <ReferralConfig setCollectType={setCollectType} />
-                <RecipientConfig setCollectType={setCollectType} />
                 <SplitConfig
                   isRecipientsDuplicated={isRecipientsDuplicated}
                   setCollectType={setCollectType}
@@ -116,10 +114,9 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
               collectModule.type !== null) ||
-            splitTotal > 100 ||
+            hasImproperSplits ||
             hasEmptyRecipients ||
-            recipients.length === 1 ||
-            hasInvalidRecipient ||
+            hasZeroSplits ||
             hasInvalidEthAddressInRecipients ||
             isRecipientsDuplicated()
           }
