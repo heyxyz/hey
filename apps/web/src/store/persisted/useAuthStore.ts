@@ -5,14 +5,20 @@ import { persist } from 'zustand/middleware';
 
 interface Tokens {
   accessToken: null | string;
+  identityToken: null | string;
   refreshToken: null | string;
 }
 
 interface State {
   accessToken: Tokens['accessToken'];
   hydrateAuthTokens: () => Tokens;
+  identityToken: Tokens['identityToken'];
   refreshToken: Tokens['refreshToken'];
-  signIn: (tokens: { accessToken: string; refreshToken: string }) => void;
+  signIn: (tokens: {
+    accessToken: string;
+    identityToken: string;
+    refreshToken: string;
+  }) => void;
   signOut: () => void;
 }
 
@@ -23,12 +29,14 @@ const store = create(
       hydrateAuthTokens: () => {
         return {
           accessToken: get().accessToken,
+          identityToken: get().identityToken,
           refreshToken: get().refreshToken
         };
       },
+      identityToken: null,
       refreshToken: null,
-      signIn: ({ accessToken, refreshToken }) =>
-        set({ accessToken, refreshToken }),
+      signIn: ({ accessToken, identityToken, refreshToken }) =>
+        set({ accessToken, identityToken, refreshToken }),
       signOut: async () => {
         // Clear Localstorage
         const allLocalstorageStores = Object.values(Localstorage).filter(
@@ -61,7 +69,10 @@ const store = create(
   )
 );
 
-export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
-  store.getState().signIn(tokens);
+export const signIn = (tokens: {
+  accessToken: string;
+  identityToken: string;
+  refreshToken: string;
+}) => store.getState().signIn(tokens);
 export const signOut = () => store.getState().signOut();
 export const hydrateAuthTokens = () => store.getState().hydrateAuthTokens();
