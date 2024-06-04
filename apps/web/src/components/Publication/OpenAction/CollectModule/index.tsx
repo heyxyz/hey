@@ -19,7 +19,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { POLYGONSCAN_URL, REWARDS_ADDRESS } from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import formatAddress from '@hey/helpers/formatAddress';
 import getProfile from '@hey/helpers/getProfile';
@@ -63,8 +63,17 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const usdPrice = collectModule?.amount?.asFiat?.value;
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
+  const recipients =
+    (collectModule.__typename ===
+      'MultirecipientFeeCollectOpenActionSettings' &&
+      collectModule?.recipients) ||
+    [];
+  const recipientsWithoutFees = recipients?.filter(
+    (split) => split.recipient !== REWARDS_ADDRESS
+  );
   const isMultirecipientFeeCollectModule =
-    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
+    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings' &&
+    recipientsWithoutFees.length > 1;
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency);
