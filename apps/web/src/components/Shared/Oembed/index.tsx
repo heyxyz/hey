@@ -65,6 +65,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
   const og: OG = {
     description: data?.description,
     favicon: getFavicon(data.url),
+    frame: data?.frame,
     html: data?.html,
     image: data?.image,
     nft: data?.nft,

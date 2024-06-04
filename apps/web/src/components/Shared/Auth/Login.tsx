@@ -97,7 +97,8 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
-      signIn({ accessToken, refreshToken });
+      const identityToken = auth.data?.authenticate.identityToken;
+      signIn({ accessToken, identityToken, refreshToken });
       Leafwatch.track(AUTH.LOGIN, { profile_id: id, source: 'login' });
       location.reload();
     } catch {}
