@@ -29,6 +29,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients || [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
+
   const hasEmptyRecipients = recipients.some(
     (recipient) => !recipient.recipient
   );
@@ -36,6 +37,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (recipient) => recipient.recipient && !isAddress(recipient.recipient)
   );
   const hasZeroSplits = recipients.some((recipient) => recipient.split === 0);
+  const hasImproperSplits = recipients.length > 1 && splitTotal !== 100;
+
   const isRecipientsDuplicated = () => {
     const recipientsSet = new Set(
       recipients.map((recipient) => recipient.recipient)
@@ -111,7 +114,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
               collectModule.type !== null) ||
-            splitTotal !== 100 ||
+            hasImproperSplits ||
             hasEmptyRecipients ||
             hasZeroSplits ||
             hasInvalidEthAddressInRecipients ||
