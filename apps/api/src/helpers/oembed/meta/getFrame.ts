@@ -9,7 +9,10 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   };
 
   const version = getMeta('of:accepts:lens');
+  const authenticated = getMeta('of:authenticated') === 'true';
   const image = getMeta('of:image') || getMeta('og:image');
+  const imageAspectRatio = (getMeta('of:image:aspect_ratio') ||
+    '1.91:1') as Frame['imageAspectRatio'];
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
 
@@ -18,19 +21,28 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     const button = getMeta(`of:button:${i}`);
     const action = getMeta(`of:button:${i}:action`) as ButtonType;
     const target = getMeta(`of:button:${i}:target`) as string;
+    const postUrl = getMeta(`of:button:${i}:post_url`) || url;
 
     if (!button) {
       break;
     }
 
-    buttons.push({ action, button, target });
+    buttons.push({ action, button, postUrl, target });
   }
 
   if (!version || !postUrl || !image || buttons.length === 0) {
     return null;
   }
 
-  return { buttons, frameUrl, image, postUrl, version };
+  return {
+    authenticated,
+    buttons,
+    frameUrl,
+    image,
+    imageAspectRatio,
+    postUrl,
+    version
+  };
 };
 
 export default getFrame;
