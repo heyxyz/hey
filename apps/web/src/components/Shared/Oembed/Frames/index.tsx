@@ -11,6 +11,7 @@ import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FrameProps {
@@ -19,6 +20,7 @@ interface FrameProps {
 }
 
 const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
+  const { identityToken } = hydrateAuthTokens();
   const { currentProfile } = useProfileStore();
   const [frameData, setFrameData] = useState<IFrame | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +47,12 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
 
       const { data }: { data: { frame: IFrame } } = await axios.post(
         `${HEY_API_URL}/frames/post`,
-        { buttonIndex: index + 1, postUrl, publicationId },
+        {
+          buttonIndex: index + 1,
+          identityToken,
+          postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
+          pubId: publicationId
+        },
         { headers: getAuthApiHeaders() }
       );
 
