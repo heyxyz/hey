@@ -12,6 +12,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
 import AppRevenue from './AppRevenue';
+import HeyRevenue from './HeyRevenue';
 import PublicationStats from './PublicationStats';
 
 const Stats: NextPage = () => {
@@ -32,7 +33,8 @@ const Stats: NextPage = () => {
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
-      <GridItemEight>
+      <GridItemEight className="space-y-5">
+        <HeyRevenue />
         <Card>
           <PublicationStats />
           <AppRevenue />
