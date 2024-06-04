@@ -1,27 +1,30 @@
 import type { Handler } from 'express';
 
+import { IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import axios from 'axios';
 import { parseHTML } from 'linkedom';
 import catchedError from 'src/helpers/catchedError';
 import { HEY_USER_AGENT } from 'src/helpers/constants';
+import signFrameAction from 'src/helpers/frames/signFrameAction';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import getFrame from 'src/helpers/oembed/meta/getFrame';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
-import { polygon } from 'viem/chains';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
   buttonIndex: number;
+  identityToken: string;
   postUrl: string;
-  publicationId: string;
+  pubId: string;
 };
 
 const validationSchema = object({
   buttonIndex: number(),
+  identityToken: string(),
   postUrl: string(),
-  publicationId: string()
+  pubId: string()
 });
 
 export const post: Handler = async (req, res) => {
@@ -43,26 +46,36 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res, validateLensAccountStatus);
   }
 
-  const { buttonIndex, postUrl, publicationId } = body as ExtensionRequest;
+  const { buttonIndex, identityToken, postUrl, pubId } =
+    body as ExtensionRequest;
 
   try {
     const payload = parseJwt(accessToken);
-    const { evmAddress, id } = payload;
+    const { id } = payload;
 
-    const untrustedData = {
-      address: evmAddress,
+    const request = {
+      actionResponse: '',
       buttonIndex,
-      fid: id,
-      network: polygon.id,
+      inputText: '',
       profileId: id,
-      publicationId,
-      timestamp: Date.now(),
+      pubId,
+      specVersion: 'vNext',
+      state: '',
       url: postUrl
     };
 
+    const signature = await signFrameAction(
+      request,
+      accessToken,
+      IS_MAINNET ? 'mainnet' : 'testnet'
+    );
+
+    const trustedData = { messageBytes: signature };
+    const untrustedData = { identityToken, ...request };
+
     const { data } = await axios.post(
       postUrl,
-      { trustedData: untrustedData, untrustedData },
+      { trustedData, untrustedData },
       { headers: { 'User-Agent': HEY_USER_AGENT } }
     );
 
@@ -70,7 +83,9 @@ export const post: Handler = async (req, res) => {
 
     logger.info(`Open frame button clicked by ${id} on ${postUrl}`);
 
-    return res.status(200).json({ frame: getFrame(document), success: true });
+    return res
+      .status(200)
+      .json({ frame: getFrame(document, postUrl), success: true });
   } catch (error) {
     return catchedError(res, error);
   }
