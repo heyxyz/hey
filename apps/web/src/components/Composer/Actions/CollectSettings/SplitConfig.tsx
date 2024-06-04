@@ -176,6 +176,11 @@ const SplitConfig: FC<SplitConfigProps> = ({
               Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
             </div>
           ) : null}
+          {splitTotal < 100 ? (
+            <div className="text-sm font-bold text-red-500">
+              Splits cannot be less than 100%. Total: <span>{splitTotal}</span>%
+            </div>
+          ) : null}
           {isRecipientsDuplicated() ? (
             <div className="text-sm font-bold text-red-500">
               Duplicate recipient address found

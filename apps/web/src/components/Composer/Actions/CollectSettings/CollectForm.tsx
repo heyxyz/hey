@@ -3,7 +3,6 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import LicensePicker from '@components/Composer/LicensePicker';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import collectModuleParams from '@hey/helpers/collectModuleParams';
 import { CollectOpenActionModuleType } from '@hey/lens';
 import { Button } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
@@ -62,13 +61,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
 
   return (
     <>
-      {collectModule.type} - {JSON.stringify(collectModule.recipients)}
+      {/* {collectModule.type} - {JSON.stringify(collectModule.recipients)}
       <br />
       <b>------------------</b>
       {JSON.stringify(
         collectModuleParams(collectModule)?.multirecipientCollectOpenAction
           ?.recipients
-      )}
+      )} */}
       <div className="p-5">
         <ToggleWithHelper
           description="This post can be collected"
@@ -119,7 +118,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
               collectModule.type !== null) ||
-            splitTotal > 100 ||
+            splitTotal !== 100 ||
             hasEmptyRecipients ||
             hasZeroSplits ||
             hasInvalidEthAddressInRecipients ||
