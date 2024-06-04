@@ -1,6 +1,9 @@
 import type { Handler } from 'express';
 
-import { HEY_LENS_SIGNUP } from '@hey/data/constants';
+import {
+  HEY_LENS_SIGNUP,
+  HEY_MEMBERSHIP_NFT_PUBLICATION_ID
+} from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
@@ -30,7 +33,7 @@ export const get: Handler = async (req, res) => {
         GROUP BY date
         ORDER BY date;
       `,
-      [HEY_LENS_SIGNUP, '0x020b69-0x01']
+      [HEY_LENS_SIGNUP, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
     );
 
     const formattedResult = result[0].map((row, index) => ({
