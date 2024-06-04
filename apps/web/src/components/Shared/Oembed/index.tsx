@@ -2,6 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { HEY_API_URL } from '@hey/data/constants';
 import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
 import getFavicon from '@hey/helpers/getFavicon';
@@ -83,7 +84,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
     return <Player og={og} />;
   }
 
-  if (og.frame) {
+  if (og.frame && isFeatureAvailable('frames')) {
     return <Frame frame={og.frame} publicationId={currentPublication?.id} />;
   }
 
