@@ -1,7 +1,6 @@
 import type { Nft, OG } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
@@ -14,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { OPEN_ACTION_EMBED_TOOLTIP, openActionCTA } from '.';
+import ActionInfo from './ActionInfo';
 
 interface DecentOpenActionPreviewProps {
   og: OG;

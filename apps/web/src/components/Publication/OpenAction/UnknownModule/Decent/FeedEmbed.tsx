@@ -6,7 +6,6 @@ import type { OG } from '@hey/types/misc';
 import type { ActionData, PublicationInfo, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
-import ActionInfo from '@components/Shared/Oembed/Nft/ActionInfo';
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
@@ -27,6 +26,7 @@ import { useAccount } from 'wagmi';
 import { create } from 'zustand';
 
 import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from '.';
+import ActionInfo from './ActionInfo';
 import DecentOpenActionModule from './Module';
 
 interface State {
