@@ -28,11 +28,33 @@ const collectModuleParams = (
   const adminFeePercentage = 5;
   const userPercentage = 100 - adminFeePercentage;
 
-  const adjustedSplits = recipients?.map((split) => ({
-    recipient: split.recipient,
-    split: split.split * (userPercentage / 100)
-  }));
+  // Calculate adjusted splits and convert to whole numbers
+  let totalPercentage = 0;
+  const adjustedSplits = recipients?.map((split) => {
+    let adjustedSplit = Math.floor(split.split * (userPercentage / 100));
+    totalPercentage += adjustedSplit;
+    return {
+      recipient: split.recipient,
+      split: adjustedSplit
+    };
+  });
 
+  if (adjustedSplits && adjustedSplits.length > 0) {
+    // Ensure no split is zero and adjust the first recipient's split if necessary
+    let sumNonZeroAdjustments = 0;
+    for (const split of adjustedSplits) {
+      if (split.split === 0 && userPercentage - totalPercentage > 0) {
+        split.split++;
+        sumNonZeroAdjustments++;
+      }
+    }
+
+    // Adjust the first recipient's split to ensure total is 100%
+    adjustedSplits[0].split +=
+      userPercentage - totalPercentage - sumNonZeroAdjustments;
+  }
+
+  // Add the admin fee split
   adjustedSplits?.push({
     recipient: REWARDS_ADDRESS,
     split: adminFeePercentage
