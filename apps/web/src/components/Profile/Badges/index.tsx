@@ -1,7 +1,7 @@
 import type { ProfileOnchainIdentity } from '@hey/lens';
 import type { FC } from 'react';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -46,6 +46,7 @@ const Badges: FC<BadgesProps> = ({ address, id, onchainIdentity }) => {
   };
 
   const { data: hasHeyNft } = useQuery({
+    enabled: IS_MAINNET,
     queryFn: getHasHeyNft,
     queryKey: ['getHasHeyNft', id]
   });
