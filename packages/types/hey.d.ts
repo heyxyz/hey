@@ -36,7 +36,6 @@ export type CollectModuleType = {
   collectLimit?: null | string;
   endsAt?: null | string;
   followerOnly?: boolean;
-  recipient?: null | string;
   recipients?: RecipientDataInput[];
   referralFee?: number;
   type?:
