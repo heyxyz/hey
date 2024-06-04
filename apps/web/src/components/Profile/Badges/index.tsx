@@ -38,7 +38,7 @@ const Badges: FC<BadgesProps> = ({ address, id, onchainIdentity }) => {
   // Begin: Check has Hey NFT
   const getHasHeyNft = async (): Promise<boolean> => {
     const response = await axios.get(`${HEY_API_URL}/badges/hasHeyNft`, {
-      params: { address }
+      params: { id }
     });
     const { data } = response;
 
@@ -47,7 +47,7 @@ const Badges: FC<BadgesProps> = ({ address, id, onchainIdentity }) => {
 
   const { data: hasHeyNft } = useQuery({
     queryFn: getHasHeyNft,
-    queryKey: ['getHasHeyNft', address]
+    queryKey: ['getHasHeyNft', id]
   });
   // End: Check has Hey NFT
 
