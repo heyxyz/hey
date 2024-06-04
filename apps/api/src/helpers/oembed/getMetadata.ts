@@ -20,8 +20,7 @@ const getMetadata = async (url: string): Promise<OG> => {
     headers: { 'User-Agent': HEY_USER_AGENT }
   });
 
-  const html = data;
-  const { document } = parseHTML(html);
+  const { document } = parseHTML(data);
   const image = getImage(document) as string;
 
   const metadata: OG = {
