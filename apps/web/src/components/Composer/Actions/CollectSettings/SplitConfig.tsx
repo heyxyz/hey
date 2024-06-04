@@ -11,8 +11,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import splitNumber from '@hey/helpers/splitNumber';
-import { CollectOpenActionModuleType } from '@hey/lens';
 import { Button, Input } from '@hey/ui';
+import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
@@ -29,9 +29,13 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const { currentProfile } = useProfileStore();
   const { collectModule } = useCollectModuleStore((state) => state);
 
+  const currentAddress = currentProfile?.ownedBy.address || '';
   const recipients = collectModule.recipients || [];
-  const hasRecipients = (recipients || []).length > 0;
-  const splitTotal = recipients?.reduce((acc, curr) => acc + curr.split, 0);
+  const [isToggleOn, setIsToggleOn] = useState(
+    recipients.length > 1 ||
+      (recipients.length === 1 && recipients[0].recipient !== currentAddress)
+  );
+  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
@@ -70,27 +74,35 @@ const SplitConfig: FC<SplitConfigProps> = ({
     onChangeRecipientOrSplit(index, value, 'recipient');
   };
 
+  const removeRecipient = (index: number) => {
+    const updatedRecipients = recipients.filter((_, i) => i !== index);
+    if (updatedRecipients.length === 0) {
+      setCollectType({
+        recipients: [{ recipient: currentAddress, split: 100 }]
+      });
+      setIsToggleOn(false);
+    } else {
+      setCollectType({ recipients: updatedRecipients });
+    }
+  };
+
+  const toggleSplit = () => {
+    setCollectType({
+      recipients: [{ recipient: currentAddress, split: 100 }]
+    });
+    setIsToggleOn(!isToggleOn);
+  };
+
   return (
     <div className="mt-5">
       <ToggleWithHelper
         description="Set multiple recipients for the collect fee"
         heading="Split revenue"
         icon={<UsersIcon className="size-5" />}
-        on={recipients.length > 0}
-        setOn={() => {
-          setCollectType({
-            recipients:
-              recipients.length > 0
-                ? []
-                : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
-            type:
-              recipients.length > 0
-                ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
-                : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-          });
-        }}
+        on={isToggleOn}
+        setOn={toggleSplit}
       />
-      {hasRecipients ? (
+      {isToggleOn ? (
         <div className="ml-8 mt-4 space-y-3">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
@@ -127,14 +139,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                     value={recipient.split}
                   />
                 </div>
-                <button
-                  onClick={() => {
-                    setCollectType({
-                      recipients: recipients.filter((_, i) => i !== index)
-                    });
-                  }}
-                  type="button"
-                >
+                <button onClick={() => removeRecipient(index)} type="button">
                   <XCircleIcon className="size-5" />
                 </button>
               </div>
