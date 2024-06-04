@@ -24,7 +24,6 @@ import NftsMinted from './NftsMinted';
 import ProfilesCreated from './ProfilesCreated';
 import RelayerBalance from './RelayerBalance';
 import SignupPrice from './SignupPrice';
-import SignupsGraph from './SignupsGraph';
 
 const relayAddresses: Address[] = [
   '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF',
@@ -62,7 +61,6 @@ const SignupContract: NextPage = () => {
             <ProfilesCreated />
           </div>
         </Card>
-        <SignupsGraph />
         <Card className="space-y-5 p-5">
           {relayAddresses.map((address, index) => (
             <RelayerBalance address={address} index={index} key={address} />
