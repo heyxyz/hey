@@ -84,7 +84,6 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             {collectModule.amount?.value ? (
               <>
                 <ReferralConfig setCollectType={setCollectType} />
-                {/* <RecipientConfig setCollectType={setCollectType} /> */}
                 <SplitConfig
                   isRecipientsDuplicated={isRecipientsDuplicated}
                   setCollectType={setCollectType}
