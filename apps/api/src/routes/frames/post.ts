@@ -79,7 +79,7 @@ export const post: Handler = async (req, res) => {
 
     const { data } = await axios.post(
       postUrl,
-      { trustedData, untrustedData },
+      { clientProtocol: 'lens@1.0.0', trustedData, untrustedData },
       { headers: { 'User-Agent': HEY_USER_AGENT } }
     );
 
