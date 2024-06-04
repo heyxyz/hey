@@ -87,6 +87,9 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
+  const hasHeyFees = recipients.some(
+    (split) => split.recipient === REWARDS_ADDRESS
+  );
 
   return (
     <>
@@ -167,12 +170,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                       {(amount * 0.05).toFixed(2)} {currency} (5%)
                     </b>
                   </div>
-                  <div className="flex items-start justify-between space-x-10">
-                    <div>{APP_NAME}</div>
-                    <b>
-                      {(amount * 0.05).toFixed(2)} {currency} (5%)
-                    </b>
-                  </div>
+                  {hasHeyFees && (
+                    <div className="flex items-start justify-between space-x-10">
+                      <div>{APP_NAME}</div>
+                      <b>
+                        {(amount * 0.05).toFixed(2)} {currency} (5%)
+                      </b>
+                    </div>
+                  )}
                 </div>
               </HelpTooltip>
             </div>
