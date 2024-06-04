@@ -19,7 +19,11 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL, REWARDS_ADDRESS } from '@hey/data/constants';
+import {
+  APP_NAME,
+  POLYGONSCAN_URL,
+  REWARDS_ADDRESS
+} from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import formatAddress from '@hey/helpers/formatAddress';
 import getProfile from '@hey/helpers/getProfile';
@@ -157,8 +161,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               <HelpTooltip>
                 <div className="py-1">
                   <b>Collect Fees</b>
-                  <div className="flex items-start space-x-10">
+                  <div className="flex items-start justify-between space-x-10">
                     <div>Lens Protocol</div>
+                    <b>
+                      {(amount * 0.05).toFixed(2)} {currency} (5%)
+                    </b>
+                  </div>
+                  <div className="flex items-start justify-between space-x-10">
+                    <div>{APP_NAME}</div>
                     <b>
                       {(amount * 0.05).toFixed(2)} {currency} (5%)
                     </b>
