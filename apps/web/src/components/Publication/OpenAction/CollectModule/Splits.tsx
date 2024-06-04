@@ -2,7 +2,7 @@ import type { Profile, RecipientDataOutput } from '@hey/lens';
 import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { POLYGONSCAN_URL, REWARDS_ADDRESS } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
 import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
@@ -33,10 +33,27 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
     }
   };
 
+  // Filter out the admin fee recipient
+  const filteredRecipients = recipients.filter(
+    (recipient) => recipient.recipient !== REWARDS_ADDRESS
+  );
+
+  // Calculate the total split of the filtered recipients
+  const totalSplit = filteredRecipients.reduce(
+    (acc, recipient) => acc + recipient.split,
+    0
+  );
+
+  // Recalculate the splits so they sum up to 100%
+  const adjustedRecipients = filteredRecipients.map((recipient) => ({
+    ...recipient,
+    split: (recipient.split / totalSplit) * 100
+  }));
+
   return (
     <div className="space-y-2 pt-3">
       <div className="mb-2 font-bold">Fee recipients</div>
-      {recipients.map((recipient) => {
+      {adjustedRecipients.map((recipient) => {
         const { recipient: address, split } = recipient;
         const profile = getProfileByAddress(address) as Profile;
 
@@ -74,7 +91,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 </>
               )}
             </div>
-            <div className="font-bold">{split}%</div>
+            <div className="font-bold">{split.toFixed(2)}%</div>
           </div>
         );
       })}
