@@ -1,8 +1,10 @@
 import type { OG } from '@hey/types/misc';
 
 import getFavicon from '@hey/helpers/getFavicon';
+import axios from 'axios';
 import { parseHTML } from 'linkedom';
 
+import { HEY_USER_AGENT } from '../constants';
 import getProxyUrl from './getProxyUrl';
 import generateIframe from './meta/generateIframe';
 import getDescription from './meta/getDescription';
@@ -14,12 +16,11 @@ import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
 
 const getMetadata = async (url: string): Promise<OG> => {
-  const { html } = await fetch(url, {
-    headers: { 'User-Agent': 'HeyBot/0.1 (like TwitterBot)' }
-  }).then(async (res) => ({
-    html: await res.text()
-  }));
+  const { data } = await axios.get(url, {
+    headers: { 'User-Agent': HEY_USER_AGENT }
+  });
 
+  const html = data;
   const { document } = parseHTML(html);
   const image = getImage(document) as string;
 
