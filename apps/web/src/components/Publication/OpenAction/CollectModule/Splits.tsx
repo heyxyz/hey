@@ -12,6 +12,7 @@ import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
 import getStampFyiURL from '@hey/helpers/getStampFyiURL';
 import { useProfilesQuery } from '@hey/lens';
+import { Image } from '@hey/ui';
 import Link from 'next/link';
 
 interface SplitsProps {
@@ -72,7 +73,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 </>
               ) : (
                 <>
-                  <img
+                  <Image
                     alt="Avatar"
                     className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
                     src={profile ? getAvatar(profile) : getStampFyiURL(address)}
