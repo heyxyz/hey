@@ -33,12 +33,12 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
             amount: enabled
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' },
-            recipient: enabled ? null : currentProfile?.ownedBy.address,
+            recipients: enabled
+              ? []
+              : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
             type: enabled
               ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
-              : collectModule.recipients?.length
-                ? CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-                : CollectOpenActionModuleType.SimpleCollectOpenActionModule
+              : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
           });
         }}
       />
