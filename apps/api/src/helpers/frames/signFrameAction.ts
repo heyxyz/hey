@@ -24,6 +24,7 @@ const signFrameAction = async (
   network: string
 ): Promise<{
   signature: string;
+  signedTypedData: { value: any };
 } | null> => {
   const allowedNetworks = ['mainnet', 'testnet'];
 
@@ -40,6 +41,19 @@ const signFrameAction = async (
           mutation SignFrameAction($request: FrameLensManagerEIP712Request!) {
             signFrameAction(request: $request) {
               signature
+              signedTypedData {
+                value {
+                  actionResponse
+                  buttonIndex
+                  deadline
+                  inputText
+                  profileId
+                  pubId
+                  specVersion
+                  state
+                  url
+                }
+              }
             }
           }
         `,
@@ -66,7 +80,8 @@ const signFrameAction = async (
     );
 
     return data.data.signFrameAction;
-  } catch {
+  } catch (error) {
+    console.log(error);
     return null;
   }
 };

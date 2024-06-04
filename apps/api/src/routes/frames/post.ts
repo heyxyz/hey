@@ -59,7 +59,7 @@ export const post: Handler = async (req, res) => {
       inputText: '',
       profileId: id,
       pubId,
-      specVersion: 'vNext',
+      specVersion: '1.0.0',
       state: '',
       url: postUrl
     };
@@ -70,8 +70,12 @@ export const post: Handler = async (req, res) => {
       IS_MAINNET ? 'mainnet' : 'testnet'
     );
 
-    const trustedData = { messageBytes: signature };
-    const untrustedData = { identityToken, ...request };
+    const trustedData = { messageBytes: signature?.signature };
+    const untrustedData = {
+      identityToken,
+      unixTimestamp: Math.floor(Date.now() / 1000),
+      ...signature?.signedTypedData.value
+    };
 
     const { data } = await axios.post(
       postUrl,
