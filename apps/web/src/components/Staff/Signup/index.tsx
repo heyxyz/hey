@@ -30,7 +30,7 @@ const relayAddresses: Address[] = [
   '0x1A15ACfd4293Da7F6dD964f065A0b418355B2b92'
 ];
 
-const SignupContract: NextPage = () => {
+const Signup: NextPage = () => {
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
 
@@ -47,13 +47,13 @@ const SignupContract: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Staff Tools • Signup Contract • ${APP_NAME}`} />
+      <MetaTags title={`Staff Tools • Signup • ${APP_NAME}`} />
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Card>
-          <CardHeader title="Signup Contract" />
+          <CardHeader title="Signup Stats" />
           <div className="m-5 space-y-5">
             <LensCredits />
             <SignupPrice />
@@ -72,4 +72,4 @@ const SignupContract: NextPage = () => {
   );
 };
 
-export default SignupContract;
+export default Signup;

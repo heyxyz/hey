@@ -38,8 +38,8 @@ const settingsSidebarItems = [
   },
   {
     icon: <UserPlusIcon className="size-4" />,
-    title: 'Signup Contract',
-    url: '/staff/signup-contract'
+    title: 'Signup',
+    url: '/staff/signup'
   }
 ];
 
