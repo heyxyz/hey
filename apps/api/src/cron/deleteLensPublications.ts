@@ -16,6 +16,10 @@ const getAllDuplicatePublications = async () => {
 };
 
 const deleteLensPublications = async () => {
+  if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
+    return;
+  }
+
   const duplicates = await getAllDuplicatePublications();
 
   if (duplicates.length === 0) {

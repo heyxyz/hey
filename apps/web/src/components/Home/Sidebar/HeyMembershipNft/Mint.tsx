@@ -5,7 +5,10 @@ import CollectAction from '@components/Publication/OpenAction/CollectModule/Coll
 import Loader from '@components/Shared/Loader';
 import { signatureFont } from '@helpers/fonts';
 import { Errors } from '@hey/data';
-import { APP_NAME, IS_MAINNET } from '@hey/data/constants';
+import {
+  APP_NAME,
+  HEY_MEMBERSHIP_NFT_PUBLICATION_ID
+} from '@hey/data/constants';
 import { usePublicationQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -18,7 +21,7 @@ interface MintProps {
 const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { forId: IS_MAINNET ? '0x020b69-0x01' : '0x06-0x05' }
+      request: { forId: HEY_MEMBERSHIP_NFT_PUBLICATION_ID }
     }
   });
 

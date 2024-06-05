@@ -19,7 +19,11 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import {
+  APP_NAME,
+  POLYGONSCAN_URL,
+  REWARDS_ADDRESS
+} from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import formatAddress from '@hey/helpers/formatAddress';
 import getProfile from '@hey/helpers/getProfile';
@@ -63,8 +67,17 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const usdPrice = collectModule?.amount?.asFiat?.value;
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
+  const recipients =
+    (collectModule.__typename ===
+      'MultirecipientFeeCollectOpenActionSettings' &&
+      collectModule?.recipients) ||
+    [];
+  const recipientsWithoutFees = recipients?.filter(
+    (split) => split.recipient !== REWARDS_ADDRESS
+  );
   const isMultirecipientFeeCollectModule =
-    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
+    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings' &&
+    recipientsWithoutFees.length > 1;
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency);
@@ -74,6 +87,9 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
+  const hasHeyFees = recipients.some(
+    (split) => split.recipient === REWARDS_ADDRESS
+  );
 
   return (
     <>
@@ -148,12 +164,20 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               <HelpTooltip>
                 <div className="py-1">
                   <b>Collect Fees</b>
-                  <div className="flex items-start space-x-10">
+                  <div className="flex items-start justify-between space-x-10">
                     <div>Lens Protocol</div>
                     <b>
                       {(amount * 0.05).toFixed(2)} {currency} (5%)
                     </b>
                   </div>
+                  {hasHeyFees && (
+                    <div className="flex items-start justify-between space-x-10">
+                      <div>{APP_NAME}</div>
+                      <b>
+                        {(amount * 0.05).toFixed(2)} {currency} (5%)
+                      </b>
+                    </div>
+                  )}
                 </div>
               </HelpTooltip>
             </div>

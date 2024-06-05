@@ -1,4 +1,3 @@
-import { LENS_NETWORK } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import * as Sentry from '@sentry/node';
 import dotenv from 'dotenv';
@@ -17,10 +16,6 @@ dotenv.config({ override: true });
 const cronWithCheckIn = Sentry.cron.instrumentNodeCron(cron);
 
 const main = () => {
-  if (LENS_NETWORK !== 'mainnet') {
-    return;
-  }
-
   logger.info('Cron jobs are started...');
 
   cronWithCheckIn.schedule(

@@ -8,14 +8,18 @@ import { CollectOpenActionModuleType } from '@hey/lens';
 import { Input, Select } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface AmountConfigProps {
   setCollectType: (data: CollectModuleType) => void;
 }
 
 const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
+  const { currentProfile } = useProfileStore();
   const { collectModule } = useCollectModuleStore((state) => state);
   const { allowedTokens } = useAllowedTokensStore();
+
+  const enabled = Boolean(collectModule.amount?.value);
 
   return (
     <div>
@@ -23,17 +27,18 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
         description="Get paid whenever someone collects your post"
         heading="Charge for collecting"
         icon={<CurrencyDollarIcon className="size-5" />}
-        on={Boolean(collectModule.amount?.value)}
+        on={enabled}
         setOn={() => {
           setCollectType({
-            amount: collectModule.amount?.value
+            amount: enabled
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' },
-            type: collectModule.amount?.value
+            recipients: enabled
+              ? []
+              : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
+            type: enabled
               ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
-              : collectModule.recipients?.length
-                ? CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-                : CollectOpenActionModuleType.SimpleCollectOpenActionModule
+              : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
           });
         }}
       />

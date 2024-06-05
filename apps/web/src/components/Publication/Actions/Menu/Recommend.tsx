@@ -3,6 +3,7 @@ import type {
   PeerToPeerRecommendRequest
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
+import type { FC } from 'react';
 
 import { MenuItem } from '@headlessui/react';
 import errorToast from '@helpers/errorToast';
@@ -15,7 +16,6 @@ import {
   usePeerToPeerUnrecommendMutation
 } from '@hey/lens';
 import cn from '@hey/ui/cn';
-import { type FC } from 'react';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {
