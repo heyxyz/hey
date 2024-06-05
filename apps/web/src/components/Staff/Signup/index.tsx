@@ -37,7 +37,7 @@ const Signup: NextPage = () => {
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
       page: 'staff-tools',
-      subpage: 'singup-contract'
+      subpage: 'singup'
     });
   }, []);
 
