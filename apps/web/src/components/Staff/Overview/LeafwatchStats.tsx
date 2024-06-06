@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import {
   ExploreProfilesOrderByType,
@@ -64,7 +65,9 @@ const LeafwatchStats: FC = () => {
   const getStats = async (): Promise<StatsType> => {
     const response: {
       data: StatsType;
-    } = await axios.get(`${HEY_API_URL}/internal/leafwatch/stats`);
+    } = await axios.get(`${HEY_API_URL}/internal/leafwatch/stats`, {
+      headers: getAuthApiHeaders()
+    });
 
     return response.data;
   };
@@ -79,7 +82,9 @@ const LeafwatchStats: FC = () => {
     cached: number;
     volume: number;
   }> => {
-    const response = await axios.get(`${HEY_API_URL}/internal/score/volume`);
+    const response = await axios.get(`${HEY_API_URL}/internal/score/volume`, {
+      headers: getAuthApiHeaders()
+    });
 
     return response.data;
   };
