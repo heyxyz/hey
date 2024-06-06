@@ -54,7 +54,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
-        { params: { id: profileId } }
+        { headers: getAuthApiHeaders(), params: { id: profileId } }
       );
       const { data } = response;
 

@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   BanknotesIcon,
   HandRaisedIcon,
@@ -32,7 +33,7 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
-        { params: { id: profile.id } }
+        { headers: getAuthApiHeaders(), params: { id: profile.id } }
       );
 
       return response.data.haveUsedHey;
