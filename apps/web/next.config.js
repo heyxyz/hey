@@ -1,13 +1,8 @@
-const { withSentryConfig } = require('@sentry/nextjs');
-
 const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    instrumentationHook: true
-  },
+module.exports = {
   headers() {
     return [
       {
@@ -90,14 +85,3 @@ const nextConfig = {
   },
   transpilePackages: ['data']
 };
-
-module.exports = withSentryConfig(nextConfig, {
-  automaticVercelMonitors: true,
-  disableLogger: true,
-  hideSourceMaps: true,
-  org: 'heyverse',
-  project: 'web',
-  silent: !process.env.CI,
-  tunnelRoute: '/monitoring',
-  widenClientFileUpload: true
-});
