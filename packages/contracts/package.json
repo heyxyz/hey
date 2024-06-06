@@ -1,5 +1,5 @@
 {
-  "name": "@hey/contracts",
+  "name": "@good/contracts",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@good/config": "workspace:*",
     "@nomicfoundation/hardhat-toolbox": "2.0.2",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@openzeppelin/contracts": "^5.0.2",

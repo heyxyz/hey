@@ -1,13 +1,13 @@
 import type { ChangeEvent, FC, Ref } from 'react';
 
+import { ATTACHMENT } from '@good/data/constants';
+import imageKit from '@good/helpers/imageKit';
+import sanitizeDStorageUrl from '@good/helpers/sanitizeDStorageUrl';
+import { Image, Spinner } from '@good/ui';
+import cn from '@good/ui/cn';
 import errorToast from '@helpers/errorToast';
 import { uploadFileToIPFS } from '@helpers/uploadToIPFS';
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import { ATTACHMENT } from '@hey/data/constants';
-import imageKit from '@hey/helpers/imageKit';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import { Image, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useState } from 'react';
 
 interface CoverImageProps {

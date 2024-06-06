@@ -1,11 +1,11 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import UserProfile from '@components/Shared/UserProfile';
+import { ProfileLinkSource } from '@good/data/tracking';
+import { EmptyState } from '@good/ui';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { EmptyState } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

@@ -1,9 +1,9 @@
-import type { GlobalProfileStats } from '@hey/types/lens';
+import type { GlobalProfileStats } from '@good/types/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
+import { GOOD_API_URL, IS_MAINNET } from '@good/data/constants';
+import { Card, CardHeader, ErrorMessage, NumberedStat } from '@good/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ const ProfileStats: FC<ProfileStatsProps> = ({ profileId }) => {
   const getProfileStats = async (): Promise<GlobalProfileStats | null> => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/lens/stats/profile/all`,
+        `${GOOD_API_URL}/lens/stats/profile/all`,
         { params: { id: profileId } }
       );
 

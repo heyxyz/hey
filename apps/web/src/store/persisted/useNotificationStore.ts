@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { Localstorage } from '@good/data/storage';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';

@@ -1,6 +1,8 @@
 import type { FC, ReactNode } from 'react';
 
 import Video from '@components/Shared/Video';
+import { GOOD_API_URL } from '@good/data/constants';
+import { Card, Spinner, Tooltip } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   ClipboardDocumentIcon,
@@ -9,8 +11,6 @@ import {
   VideoCameraSlashIcon
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Card, Spinner, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -43,7 +43,7 @@ const LivestreamEditor: FC = () => {
     try {
       setCreating(true);
       const response = await axios.post(
-        `${HEY_API_URL}/live/create`,
+        `${GOOD_API_URL}/live/create`,
         { record },
         { headers: getAuthApiHeaders() }
       );
@@ -93,11 +93,11 @@ const LivestreamEditor: FC = () => {
             <Card className="space-y-2 p-3">
               <div className="flex items-center space-x-1">
                 <b>Stream URL:</b>
-                <div className="">rtmp://rtmp.hey.xyz/live</div>
+                <div className="">rtmp://rtmp.bcharity.net/live</div>
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
-                      'rtmp://rtmp.hey.xyz/live'
+                      'rtmp://rtmp.bcharity.net/live'
                     );
                     toast.success('Copied to clipboard!');
                   }}

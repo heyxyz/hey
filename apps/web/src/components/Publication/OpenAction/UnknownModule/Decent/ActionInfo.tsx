@@ -1,8 +1,8 @@
 import type { UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
-import truncateByWords from '@hey/helpers/truncateByWords';
-import { Image } from '@hey/ui';
+import truncateByWords from '@good/helpers/truncateByWords';
+import { Image } from '@good/ui';
 
 interface ActionInfoProps {
   collectionName: string;

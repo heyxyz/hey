@@ -1,4 +1,4 @@
-import type { UniswapQuote } from '@hey/types/hey';
+import type { UniswapQuote } from '@good/types/good';
 
 import axios from 'axios';
 import { parseUnits } from 'viem';
@@ -29,7 +29,7 @@ const getUniswapQuote = async (
   };
 
   const { data } = await axios.post(
-    'https://quote.heyxyz.workers.dev',
+    'https://quote.bcharity-net.workers.dev',
     payload
   );
   const { quote } = data;

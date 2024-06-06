@@ -1,14 +1,14 @@
-import type { Profile } from '@hey/lens';
-import type { StaffPick } from '@hey/types/hey';
+import type { Profile } from '@good/lens';
+import type { StaffPick } from '@good/types/good';
 import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { GOOD_API_URL } from '@good/data/constants';
+import { ProfileLinkSource } from '@good/data/tracking';
+import { useStaffPicksQuery } from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { useStaffPicksQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -26,7 +26,7 @@ const StaffPicks: FC = () => {
   const getStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
       data: { result: StaffPick[] };
-    } = await axios.get(`${HEY_API_URL}/staff-picks`);
+    } = await axios.get(`${GOOD_API_URL}/staff-picks`);
 
     return response.data.result;
   };

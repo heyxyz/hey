@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import getNftChainInfo from './getNftChainInfo';

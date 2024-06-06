@@ -1,14 +1,14 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
+import { GOOD_API_URL } from '@good/data/constants';
+import { PUBLICATION } from '@good/data/tracking';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import cn from '@good/ui/cn';
 import { MenuItem } from '@headlessui/react';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import cn from '@hey/ui/cn';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
@@ -24,7 +24,7 @@ const Pin: FC<PinProps> = ({ publication }) => {
   const pinPublication = async (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/publications/pin`,
+        `${GOOD_API_URL}/publications/pin`,
         { id, pin: !isPinned },
         { headers: await getAuthApiHeaders() }
       ),

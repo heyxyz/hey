@@ -1,12 +1,12 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { AnyPublication, Profile } from '@good/lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 
+import { PUBLICATION } from '@good/data/tracking';
+import getProfile from '@good/helpers/getProfile';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import { Leafwatch } from '@helpers/leafwatch';
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
-import { PUBLICATION } from '@hey/data/tracking';
-import getProfile from '@hey/helpers/getProfile';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useRef, useState } from 'react';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { object, string } from 'zod';

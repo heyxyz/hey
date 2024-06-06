@@ -4,16 +4,16 @@ import MetaTags from '@components/Common/MetaTags';
 import Interests from '@components/Settings/Interests/Interests';
 import Beta from '@components/Shared/Badges/Beta';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import { APP_NAME } from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
 import {
   Card,
   CardHeader,
   GridItemEight,
   GridItemFour,
   GridLayout
-} from '@hey/ui';
+} from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

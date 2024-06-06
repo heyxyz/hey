@@ -22,11 +22,11 @@ const Links: FC = () => {
         <p className="mb-3 font-bold">Monitoring 📈</p>
         <ul className="mb-4 mt-0 list-disc space-y-1 pl-5">
           <ListItem
-            link="https://hey.metabaseapp.com/public/dashboard/3ee79f5b-07d7-43d7-9237-58c6442a1ad8#refresh=2"
+            link="https://good.metabaseapp.com/public/dashboard/3ee79f5b-07d7-43d7-9237-58c6442a1ad8#refresh=2"
             title="Leafwatch Overview"
           />
           <ListItem
-            link="https://hey.metabaseapp.com/public/dashboard/060b9379-028c-4bb2-8d93-7927fcfed024#refresh=2"
+            link="https://good.metabaseapp.com/public/dashboard/060b9379-028c-4bb2-8d93-7927fcfed024#refresh=2"
             title="Leafwatch Impressions"
           />
           <ListItem
@@ -51,7 +51,7 @@ const Links: FC = () => {
             title="Railway"
           />
           <ListItem
-            link="https://vercel.com/heyxyz/web/deployments"
+            link="https://vercel.com/bcharity-net/web/deployments"
             title="Vercel"
           />
         </ul>
@@ -60,7 +60,7 @@ const Links: FC = () => {
         <p className="mb-4 font-bold">Forms 📜</p>
         <ul className="mb-3 mt-0 list-disc space-y-1 pl-5">
           <ListItem
-            link="https://hey.xyz/-/token-request"
+            link="https://bcharity.net/-/token-request"
             title="Token Allowlist Request"
           />
         </ul>

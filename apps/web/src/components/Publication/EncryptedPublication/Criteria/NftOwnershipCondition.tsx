@@ -1,4 +1,4 @@
-import type { NftOwnershipCondition as NftOwnershipConditionType } from '@hey/lens';
+import type { NftOwnershipCondition as NftOwnershipConditionType } from '@good/lens';
 import type { FC } from 'react';
 
 import useContractMetadata from 'src/hooks/alchemy/useContractMetadata';

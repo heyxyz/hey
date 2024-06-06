@@ -1,5 +1,5 @@
-import type { OpenAction } from '@hey/data/enums';
-import type { UnknownOpenActionModuleInput } from '@hey/lens';
+import type { OpenAction } from '@good/data/enums';
+import type { UnknownOpenActionModuleInput } from '@good/lens';
 
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';

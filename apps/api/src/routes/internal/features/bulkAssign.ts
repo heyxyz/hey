@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import goodPg from 'src/db/goodPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import prisma from 'src/helpers/prisma';
@@ -42,7 +42,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     const parsedIds = JSON.parse(ids) as string[];
-    const profiles = await heyPg.query(
+    const profiles = await goodPg.query(
       `
         SELECT *
         FROM "ProfileFeature"

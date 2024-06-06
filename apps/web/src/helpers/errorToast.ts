@@ -1,4 +1,4 @@
-import { Errors } from '@hey/data/errors';
+import { Errors } from '@good/data/errors';
 import { toast } from 'react-hot-toast';
 
 /**

@@ -1,4 +1,4 @@
-import { TEST_WALLET_ADDRESS } from '@hey/data/constants';
+import { TEST_WALLET_ADDRESS } from '@good/data/constants';
 
 import { prisma } from '../seed';
 

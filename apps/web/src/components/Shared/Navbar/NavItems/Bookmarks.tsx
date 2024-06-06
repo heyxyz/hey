@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import cn from '@good/ui/cn';
 import { BookmarkIcon } from '@heroicons/react/24/outline';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 
 interface BookmarksProps {

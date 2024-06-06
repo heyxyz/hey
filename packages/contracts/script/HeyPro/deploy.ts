@@ -5,15 +5,15 @@ async function deployProxy() {
   const monthlyPrice = '8000000000000000000'; // 8 MATIC
   const yearlyPrice = '90000000000000000000'; // 90 MATIC
 
-  const HeyPro = await hre.ethers.getContractFactory('HeyPro');
-  const deployProxy = await hre.upgrades.deployProxy(HeyPro as any, [
+  const GoodPro = await hre.ethers.getContractFactory('GoodPro');
+  const deployProxy = await hre.upgrades.deployProxy(GoodPro as any, [
     owner,
     monthlyPrice,
     yearlyPrice
   ]);
   await deployProxy.deployed();
 
-  console.log(`HeyPro deployed to ${await deployProxy.address}`);
+  console.log(`GoodPro deployed to ${await deployProxy.address}`);
 }
 
 deployProxy().catch((error) => {

@@ -1,7 +1,7 @@
-import type { Preferences } from '@hey/types/hey';
+import type { Preferences } from '@good/types/good';
 
-import { TEST_LENS_ID } from '@hey/data/constants';
-import getAuthApiHeadersForTest from '@hey/helpers/getAuthApiHeadersForTest';
+import { TEST_LENS_ID } from '@good/data/constants';
+import getAuthApiHeadersForTest from '@good/helpers/getAuthApiHeadersForTest';
 import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';

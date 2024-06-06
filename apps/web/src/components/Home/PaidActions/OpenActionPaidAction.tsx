@@ -10,13 +10,13 @@ import type {
   LegacyTimedFeeCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   SimpleCollectOpenActionSettings
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import getCollectModuleData from '@hey/helpers/getCollectModuleData';
-import getTokenImage from '@hey/helpers/getTokenImage';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import getCollectModuleData from '@good/helpers/getCollectModuleData';
+import getTokenImage from '@good/helpers/getTokenImage';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];

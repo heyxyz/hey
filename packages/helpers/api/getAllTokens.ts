@@ -1,6 +1,6 @@
-import type { AllowedToken } from '@hey/types/hey';
+import type { AllowedToken } from '@good/types/good';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import axios from 'axios';
 
 /**
@@ -9,7 +9,7 @@ import axios from 'axios';
  */
 const getAllTokens = async (): Promise<AllowedToken[]> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/tokens/all`);
+    const response = await axios.get(`${GOOD_API_URL}/tokens/all`);
     const { data } = response;
 
     return data?.tokens || [];

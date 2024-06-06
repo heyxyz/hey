@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import cn from '@good/ui/cn';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface SwitchProfileProps {

@@ -1,16 +1,16 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
+import { PUBLICATION } from '@good/data/tracking';
+import allowedOpenActionModules from '@good/helpers/allowedOpenActionModules';
+import humanize from '@good/helpers/humanize';
+import nFormatter from '@good/helpers/nFormatter';
+import { Modal, Tooltip } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
 import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
-import { PUBLICATION } from '@hey/data/tracking';
-import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
-import humanize from '@hey/helpers/humanize';
-import nFormatter from '@hey/helpers/nFormatter';
-import { Modal, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import plur from 'plur';
 import { useState } from 'react';

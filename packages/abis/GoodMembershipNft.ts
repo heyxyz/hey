@@ -1,4 +1,4 @@
-export const HeyMembershipNft = [
+export const GoodMembershipNft = [
   {
     inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
     name: 'balanceOf',

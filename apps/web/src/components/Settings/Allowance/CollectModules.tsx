@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
-import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@good/data/constants';
+import allowedOpenActionModules from '@good/helpers/allowedOpenActionModules';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery
-} from '@hey/lens';
-import { CardHeader, ErrorMessage, Select } from '@hey/ui';
+} from '@good/lens';
+import { CardHeader, ErrorMessage, Select } from '@good/ui';
 import { useState } from 'react';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

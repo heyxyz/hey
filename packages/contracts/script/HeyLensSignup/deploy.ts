@@ -8,15 +8,15 @@ async function deployProxy() {
     '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872';
   const signupPrice = '1000000000000000000';
 
-  const HeyLensSignup = await hre.ethers.getContractFactory('HeyLensSignupV2');
-  const deployProxy = await hre.upgrades.deployProxy(HeyLensSignup as any, [
+  const GoodLensSignup = await hre.ethers.getContractFactory('GoodLensSignupV2');
+  const deployProxy = await hre.upgrades.deployProxy(GoodLensSignup as any, [
     owner,
     lensPermissionlessCreator,
     signupPrice
   ]);
   await deployProxy.deployed();
 
-  console.log(`HeyLensSignup deployed to ${await deployProxy.address}`);
+  console.log(`GoodLensSignup deployed to ${await deployProxy.address}`);
 }
 
 deployProxy().catch((error) => {

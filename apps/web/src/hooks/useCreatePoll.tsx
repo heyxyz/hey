@@ -1,5 +1,5 @@
+import { GOOD_API_URL } from '@good/data/constants';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
 
@@ -11,7 +11,7 @@ const useCreatePoll = () => {
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
     const response = await axios.post(
-      `${HEY_API_URL}/polls/create`,
+      `${GOOD_API_URL}/polls/create`,
       {
         length: pollConfig.length,
         options: pollConfig.options

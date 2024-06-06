@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 import normalizeWheel from 'normalize-wheel';
 import { Component, createRef } from 'react';
 

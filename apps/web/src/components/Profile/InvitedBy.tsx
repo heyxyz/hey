@@ -1,11 +1,11 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getProfile from '@good/helpers/getProfile';
+import { Image } from '@good/ui';
 import Link from 'next/link';
 
 interface InvitedByProps {

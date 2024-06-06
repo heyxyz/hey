@@ -1,8 +1,8 @@
-import type { PublicationMetadata } from '@hey/lens';
-import type { MetadataAsset } from '@hey/types/misc';
+import type { PublicationMetadata } from '@good/lens';
+import type { MetadataAsset } from '@good/types/misc';
 
-import ALLOWED_APP_FOR_TITLE from '@hey/data/allowed-app-for-title';
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
+import ALLOWED_APP_FOR_TITLE from '@good/data/allowed-app-for-title';
+import { PLACEHOLDER_IMAGE } from '@good/data/constants';
 
 import getAttachmentsData from './getAttachmentsData';
 

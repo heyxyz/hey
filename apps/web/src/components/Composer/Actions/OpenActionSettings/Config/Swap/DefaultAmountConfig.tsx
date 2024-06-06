@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { KNOWN_ATTRIBUTES } from '@good/data/constants';
+import { Input } from '@good/ui';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
-import { Input } from '@hey/ui';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
 

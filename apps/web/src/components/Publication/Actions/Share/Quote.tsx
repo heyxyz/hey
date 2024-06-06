@@ -1,11 +1,11 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
+import { Errors } from '@good/data';
+import { TriStateValue } from '@good/lens';
+import cn from '@good/ui/cn';
 import { MenuItem } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data';
-import { TriStateValue } from '@hey/lens';
-import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';

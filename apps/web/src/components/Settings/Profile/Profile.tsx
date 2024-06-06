@@ -1,5 +1,5 @@
-import type { Area } from '@hey/image-cropper/types';
-import type { OnchainSetProfileMetadataRequest } from '@hey/lens';
+import type { Area } from '@good/image-cropper/types';
+import type { OnchainSetProfileMetadataRequest } from '@good/lens';
 import type {
   MetadataAttribute,
   ProfileOptions
@@ -9,34 +9,29 @@ import type { z } from 'zod';
 
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import uploadCroppedImage, { readFile } from '@helpers/profilePictureUtils';
-import uploadToArweave from '@helpers/uploadToArweave';
-import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
+import { LensHub } from '@good/abis';
 import {
   AVATAR,
   COVER,
   LENS_HUB,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { Regex } from '@hey/data/regex';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfileAttribute from '@hey/helpers/getProfileAttribute';
-import getSignature from '@hey/helpers/getSignature';
-import imageKit from '@hey/helpers/imageKit';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import trimify from '@hey/helpers/trimify';
-import { getCroppedImg } from '@hey/image-cropper/cropUtils';
+} from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { Regex } from '@good/data/regex';
+import { SETTINGS } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getAvatar from '@good/helpers/getAvatar';
+import getProfileAttribute from '@good/helpers/getProfileAttribute';
+import getSignature from '@good/helpers/getSignature';
+import imageKit from '@good/helpers/imageKit';
+import sanitizeDStorageUrl from '@good/helpers/sanitizeDStorageUrl';
+import trimify from '@good/helpers/trimify';
+import { getCroppedImg } from '@good/image-cropper/cropUtils';
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
-} from '@hey/lens';
+} from '@good/lens';
 import {
   Button,
   Card,
@@ -48,7 +43,12 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@hey/ui';
+} from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import uploadCroppedImage, { readFile } from '@helpers/profilePictureUtils';
+import uploadToArweave from '@helpers/uploadToArweave';
+import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import {
   MetadataAttributeType,
   profile as profileMetadata

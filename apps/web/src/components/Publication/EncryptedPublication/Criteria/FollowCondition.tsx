@@ -1,4 +1,4 @@
-import type { FollowCondition as FollowConditionType } from '@hey/lens';
+import type { FollowCondition as FollowConditionType } from '@good/lens';
 import type { FC } from 'react';
 
 import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';

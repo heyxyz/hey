@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { OpenAction } from '@hey/data/enums';
+import { OpenAction } from '@good/data/enums';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';
 
 import RentableBillboardConfig from './Config/RentableBillboard';

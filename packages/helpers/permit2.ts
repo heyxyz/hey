@@ -1,9 +1,9 @@
 import type { Address, Hex, WalletClient } from 'viem';
 
-import { Bridge, Swap } from '@hey/abis';
-import { IS_MAINNET, PERMIT_2_ADDRESS } from '@hey/data/constants';
-import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@hey/data/rpcs';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { Bridge, Swap } from '@good/abis';
+import { IS_MAINNET, PERMIT_2_ADDRESS } from '@good/data/constants';
+import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@good/data/rpcs';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
 import {
   createPublicClient,
   decodeAbiParameters,

@@ -1,9 +1,9 @@
-import type { AnyPublication, FeedItem } from '@hey/lens';
+import type { AnyPublication, FeedItem } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 import { memo } from 'react';
 import usePushToImpressions from 'src/hooks/usePushToImpressions';
 

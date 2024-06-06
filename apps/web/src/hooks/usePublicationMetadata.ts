@@ -1,5 +1,5 @@
+import { APP_NAME } from '@good/data/constants';
 import getUserLocale from '@helpers/getUserLocale';
-import { APP_NAME } from '@hey/data/constants';
 import {
   audio,
   image,

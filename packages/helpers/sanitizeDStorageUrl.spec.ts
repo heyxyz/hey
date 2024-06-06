@@ -1,4 +1,4 @@
-import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@hey/data/constants';
+import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@good/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import sanitizeDStorageUrl from './sanitizeDStorageUrl';

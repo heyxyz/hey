@@ -2,7 +2,7 @@ import {
   IPFS_GATEWAY,
   LENS_MEDIA_SNAPSHOT_URL,
   PLACEHOLDER_IMAGE
-} from '@hey/data/constants';
+} from '@good/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import imageKit from './imageKit';
@@ -13,7 +13,7 @@ describe('imageKit', () => {
     expect(result).toEqual('');
   });
 
-  test('should return the same url if it includes hey-assets.b-cdn.net', () => {
+  test('should return the same url if it includes good-assets.b-cdn.net', () => {
     const url = PLACEHOLDER_IMAGE;
     const result = imageKit(url);
     expect(result).toEqual(url);
@@ -36,7 +36,7 @@ describe('imageKit', () => {
   });
 
   test('should return the original url if name is not provided', () => {
-    const originalUrl = 'https://hey.com/some-image.jpg';
+    const originalUrl = 'https://good.com/some-image.jpg';
 
     expect(imageKit(originalUrl)).toBe(originalUrl);
   });

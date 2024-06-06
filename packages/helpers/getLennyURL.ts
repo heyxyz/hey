@@ -1,4 +1,4 @@
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import urlcat from 'urlcat';
 
 /**
@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
  * @returns The lenny avatar URL.
  */
 const getLennyURL = (id: string): string => {
-  return urlcat(`${HEY_API_URL}/avatar`, { id });
+  return urlcat(`${GOOD_API_URL}/avatar`, { id });
 };
 
 export default getLennyURL;

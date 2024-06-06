@@ -5,8 +5,8 @@ import {
   PublicationReportingIllegalSubreason,
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
-} from '@hey/lens';
-import { Select } from '@hey/ui';
+} from '@good/lens';
+import { Select } from '@good/ui';
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;

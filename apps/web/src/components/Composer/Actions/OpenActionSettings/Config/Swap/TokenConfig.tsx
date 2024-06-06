@@ -1,10 +1,10 @@
-import type { UniswapQuote } from '@hey/types/hey';
+import type { UniswapQuote } from '@good/types/good';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import { WMATIC_ADDRESS } from '@hey/data/constants';
-import getUniswapQuote from '@hey/helpers/getUniswapQuote';
-import { Input } from '@hey/ui';
+import { WMATIC_ADDRESS } from '@good/data/constants';
+import getUniswapQuote from '@good/helpers/getUniswapQuote';
+import { Input } from '@good/ui';
 import { useEffect, useState } from 'react';
 import { CHAIN } from 'src/constants';
 import { isAddress } from 'viem';

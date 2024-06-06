@@ -1,8 +1,8 @@
-import type { ProfileDetails } from '@hey/types/hey';
+import type { ProfileDetails } from '@good/types/good';
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import goodPg from 'src/db/goodPg';
 import catchedError from 'src/helpers/catchedError';
 import { SUSPENDED_FEATURE_ID } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
@@ -15,7 +15,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [profileFeature, pinnedPublication] = await heyPg.multi(
+    const [profileFeature, pinnedPublication] = await goodPg.multi(
       `
         SELECT * FROM "ProfileFeature"
         WHERE enabled = TRUE

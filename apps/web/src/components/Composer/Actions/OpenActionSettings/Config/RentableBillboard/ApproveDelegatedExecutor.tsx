@@ -1,12 +1,12 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { LensHub } from '@good/abis';
+import { Errors } from '@good/data';
+import { LENS_HUB } from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
+import { Button } from '@good/ui';
 import errorToast from '@helpers/errorToast';
-import { LensHub } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { LENS_HUB } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

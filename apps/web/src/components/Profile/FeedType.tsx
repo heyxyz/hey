@@ -1,5 +1,7 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import { PROFILE } from '@good/data/tracking';
+import { TabButton } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   ChartBarIcon,
@@ -8,8 +10,6 @@ import {
   PencilSquareIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
 import { ProfileFeedType } from 'src/enums';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 

@@ -1,13 +1,13 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
+import { PUBLICATION } from '@good/data/tracking';
+import getPublicationData from '@good/helpers/getPublicationData';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import cn from '@good/ui/cn';
 import { MenuItem } from '@headlessui/react';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {

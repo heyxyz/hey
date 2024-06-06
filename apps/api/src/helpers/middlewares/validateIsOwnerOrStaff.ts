@@ -1,6 +1,6 @@
 import type { Request } from 'express';
 
-import parseJwt from '@hey/helpers/parseJwt';
+import parseJwt from '@good/helpers/parseJwt';
 
 import validateIsStaff from './validateIsStaff';
 

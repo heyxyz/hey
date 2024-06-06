@@ -2,23 +2,17 @@ import type {
   MirrorablePublication,
   MomokaMirrorRequest,
   OnchainMirrorRequest
-} from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
+} from '@good/lens';
+import type { OptimisticTransaction } from '@good/types/misc';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { useApolloClient } from '@apollo/client';
-import { MenuItem } from '@headlessui/react';
-import checkAndToastDispatcherError from '@helpers/checkAndToastDispatcherError';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { LENS_HUB } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { PUBLICATION } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
@@ -27,9 +21,15 @@ import {
   useCreateOnchainMirrorTypedDataMutation,
   useMirrorOnchainMutation,
   useMirrorOnMomokaMutation
-} from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import cn from '@hey/ui/cn';
+} from '@good/lens';
+import { OptmisticPublicationType } from '@good/types/enums';
+import cn from '@good/ui/cn';
+import { MenuItem } from '@headlessui/react';
+import checkAndToastDispatcherError from '@helpers/checkAndToastDispatcherError';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { useCounter } from '@uidotdev/usehooks';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

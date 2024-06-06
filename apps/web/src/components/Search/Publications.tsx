@@ -1,16 +1,16 @@
-import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
+import type { AnyPublication, PublicationSearchRequest } from '@good/lens';
 import type { FC } from 'react';
 import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   LimitType,
   useSearchPublicationsQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';

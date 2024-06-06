@@ -2,11 +2,11 @@ import type {
   AmountInput,
   CollectActionModuleInput,
   RecipientDataInput
-} from '@hey/lens';
-import type { CollectModuleType } from '@hey/types/hey';
+} from '@good/lens';
+import type { CollectModuleType } from '@good/types/good';
 
-import { REWARDS_ADDRESS } from '@hey/data/constants';
-import { CollectOpenActionModuleType } from '@hey/lens';
+import { REWARDS_ADDRESS } from '@good/data/constants';
+import { CollectOpenActionModuleType } from '@good/lens';
 
 const collectModuleParams = (
   collectModule: CollectModuleType

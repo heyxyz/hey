@@ -1,6 +1,6 @@
 import type { NftContract } from 'alchemy-sdk';
 
-import { ALCHEMY_API_KEY } from '@hey/data/constants';
+import { ALCHEMY_API_KEY } from '@good/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import { Alchemy } from 'alchemy-sdk';
 

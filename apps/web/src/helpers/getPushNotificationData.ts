@@ -1,4 +1,4 @@
-import type { Notification } from '@hey/lens';
+import type { Notification } from '@good/lens';
 
 /**
  * Get push notification data

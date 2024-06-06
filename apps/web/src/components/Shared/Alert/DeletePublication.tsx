@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import { Errors } from '@good/data';
+import { PUBLICATION } from '@good/data/tracking';
+import { useHidePublicationMutation } from '@good/lens';
+import { Alert } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
-import { PUBLICATION } from '@hey/data/tracking';
-import { useHidePublicationMutation } from '@hey/lens';
-import { Alert } from '@hey/ui';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';

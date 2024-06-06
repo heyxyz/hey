@@ -1,5 +1,5 @@
 export const apps = [
-  'hey',
+  'good',
   'tape',
   'orb',
   'phaver',

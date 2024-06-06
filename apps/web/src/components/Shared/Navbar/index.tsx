@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import cn from '@good/ui/cn';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

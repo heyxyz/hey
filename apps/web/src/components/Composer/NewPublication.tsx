@@ -7,29 +7,29 @@ import type {
   OnchainPostRequest,
   OnchainQuoteRequest,
   Quote
-} from '@hey/lens';
-import type { IGif } from '@hey/types/giphy';
-import type { NewAttachment } from '@hey/types/misc';
+} from '@good/lens';
+import type { IGif } from '@good/types/giphy';
+import type { NewAttachment } from '@good/types/misc';
 import type { FC } from 'react';
 
 import NewAttachments from '@components/Composer/NewAttachments';
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
+import { KNOWN_ATTRIBUTES } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { PUBLICATION } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import collectModuleParams from '@good/helpers/collectModuleParams';
+import getMentions from '@good/helpers/getMentions';
+import getProfile from '@good/helpers/getProfile';
+import removeQuoteOn from '@good/helpers/removeQuoteOn';
+import { ReferenceModuleType } from '@good/lens';
+import { Button, Card, ErrorMessage } from '@good/ui';
+import cn from '@good/ui/cn';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import uploadToArweave from '@helpers/uploadToArweave';
-import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import collectModuleParams from '@hey/helpers/collectModuleParams';
-import getMentions from '@hey/helpers/getMentions';
-import getProfile from '@hey/helpers/getProfile';
-import removeQuoteOn from '@hey/helpers/removeQuoteOn';
-import { ReferenceModuleType } from '@hey/lens';
-import { Button, Card, ErrorMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useUnmountEffect } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -56,8 +56,8 @@ import {
 } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -379,7 +379,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         marketplace: {
           animation_url: getAnimationUrl(),
           description: processedPublicationContent,
-          external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
+          external_url: `https://bcharity.net${getProfile(currentProfile).link}`,
           name: title
         }
       };

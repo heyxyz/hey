@@ -1,4 +1,4 @@
-import type { ApprovedModuleAllowanceAmountQuery } from '@hey/lens';
+import type { ApprovedModuleAllowanceAmountQuery } from '@good/lens';
 import type { FC } from 'react';
 
 import Module from './Module';

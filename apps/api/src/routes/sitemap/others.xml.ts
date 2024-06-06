@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { buildUrlsetXml } from 'src/helpers/sitemap/buildSitemap';
 
@@ -9,13 +9,13 @@ export const get: Handler = (req, res) => {
 
   try {
     const sitemaps = [
-      'https://hey.xyz',
-      'https://hey.xyz/explore',
-      'https://hey.xyz/pro',
-      'https://hey.xyz/thanks',
-      'https://hey.xyz/terms',
-      'https://hey.xyz/privacy',
-      'https://hey.xyz/rules'
+      'https://bcharity.net',
+      'https://bcharity.net/explore',
+      'https://bcharity.net/pro',
+      'https://bcharity.net/thanks',
+      'https://bcharity.net/terms',
+      'https://bcharity.net/privacy',
+      'https://bcharity.net/rules'
     ];
 
     const entries = sitemaps.map((sitemap) => ({ loc: sitemap }));

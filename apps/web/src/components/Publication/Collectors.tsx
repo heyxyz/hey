@@ -1,16 +1,16 @@
-import type { Profile, WhoActedOnPublicationRequest } from '@hey/lens';
+import type { Profile, WhoActedOnPublicationRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { ArrowLeftIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
+import { ProfileLinkSource } from '@good/data/tracking';
 import {
   LimitType,
   OpenActionCategoryType,
   useWhoActedOnPublicationQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
+import { ArrowLeftIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

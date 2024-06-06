@@ -1,4 +1,4 @@
-import { OpenActionModuleType } from '@hey/lens';
+import { OpenActionModuleType } from '@good/lens';
 
 const allowedOpenActionModules = [
   OpenActionModuleType.SimpleCollectOpenActionModule,

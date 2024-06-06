@@ -1,4 +1,4 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
+import type { MarkupLinkProps } from '@good/types/misc';
 
 import Cashtag from './Cashtag';
 import ExternalLink from './ExternalLink';

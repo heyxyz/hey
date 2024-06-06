@@ -1,5 +1,5 @@
 {
-  "name": "@hey/types",
+  "name": "@good/types",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -12,11 +12,11 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/lens": "workspace:*",
+    "@good/lens": "workspace:*",
     "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@good/config": "workspace:*",
     "typescript": "^5.4.5"
   }
 }

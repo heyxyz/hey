@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Input } from '@hey/ui';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import { Input } from '@good/ui';
 import { useRef } from 'react';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';

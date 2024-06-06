@@ -1,8 +1,8 @@
 import type { IDatabase, IFormatting, IHelpers, IMain } from 'pg-promise';
-import type { IConnectionParameters } from 'pg-promise/typescript/pg-subset';
 import type pg from 'pg-promise/typescript/pg-subset';
+import type { IConnectionParameters } from 'pg-promise/typescript/pg-subset';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import dotenv from 'dotenv';
 import pgPromise from 'pg-promise';
 
@@ -46,7 +46,7 @@ class Database {
     const pgp = pgPromise({
       error: (error: any) => {
         const errorMessage = error.message || error;
-        logger.error(`HEY POSTGRES ERROR WITH TRACE: ${errorMessage}`);
+        logger.error(`GOOD POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
 

@@ -1,15 +1,15 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import getPublicationTipById from '@good/helpers/getPublicationTipById';
+import nFormatter from '@good/helpers/nFormatter';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { TipIcon } from '@good/icons';
+import { Tooltip } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import getPublicationTipById from '@hey/helpers/getPublicationTipById';
-import nFormatter from '@hey/helpers/nFormatter';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { TipIcon } from '@hey/icons';
-import { Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import party from 'party-js';
 import { useRef } from 'react';

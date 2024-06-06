@@ -1,10 +1,10 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Fragment } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

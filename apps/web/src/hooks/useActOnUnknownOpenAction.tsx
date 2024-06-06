@@ -1,19 +1,19 @@
 import type {
   ActOnOpenActionLensManagerRequest,
   OnchainReferrer
-} from '@hey/lens';
+} from '@good/lens';
 import type { Address } from 'viem';
 
-import errorToast from '@helpers/errorToast';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { LENS_HUB } from '@good/data/constants';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
-} from '@hey/lens';
+} from '@good/lens';
+import errorToast from '@helpers/errorToast';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';

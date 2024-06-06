@@ -1,8 +1,8 @@
 {
-	"id": "xyz.hey",
-	"name": "Hey",
-	"short_name": "Hey",
-	"description": "Social network built on Lens Protocol",
+	"id": "net.good",
+	"name": "Good",
+	"short_name": "Good",
+	"description": "Social network for the public good built on Lens Protocol",
 	"start_url": "/",
 	"background_color": "#ffffff",
 	"theme_color": "#ffffff",

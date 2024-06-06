@@ -1,10 +1,10 @@
-import type { ActedNotification as TActedNotification } from '@hey/lens';
+import type { ActedNotification as TActedNotification } from '@good/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
+import getPublicationData from '@good/helpers/getPublicationData';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import Link from 'next/link';
 import plur from 'plur';
 import usePushToImpressions from 'src/hooks/usePushToImpressions';

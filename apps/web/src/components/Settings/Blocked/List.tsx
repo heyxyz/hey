@@ -1,11 +1,11 @@
-import type { Profile, WhoHaveBlockedRequest } from '@hey/lens';
+import type { Profile, WhoHaveBlockedRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import { LimitType, useWhoHaveBlockedQuery } from '@good/lens';
+import { Button, EmptyState, ErrorMessage } from '@good/ui';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
-import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
-import { Button, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

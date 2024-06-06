@@ -1,9 +1,9 @@
+import type { Emoji } from '@good/types/misc';
 import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { Emoji } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import { EditorRegex } from '@hey/data/regex';
-import cn from '@hey/ui/cn';
+import { EditorRegex } from '@good/data/regex';
+import cn from '@good/ui/cn';
 import { useEditor } from 'prosekit/react';
 import {
   AutocompleteItem,

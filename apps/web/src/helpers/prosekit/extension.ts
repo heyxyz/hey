@@ -1,7 +1,7 @@
 import type { MentionAttrs } from 'prosekit/extensions/mention';
 
-import { HANDLE_PREFIX } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
+import { HANDLE_PREFIX } from '@good/data/constants';
+import { Regex } from '@good/data/regex';
 import {
   defineBaseCommands,
   defineBaseKeymap,

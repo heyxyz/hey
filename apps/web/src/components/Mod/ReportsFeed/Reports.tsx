@@ -1,10 +1,10 @@
-import type { AnyPublication, ModReport, ModReportsRequest } from '@hey/lens';
+import type { AnyPublication, ModReport, ModReportsRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import Loader from '@components/Shared/Loader';
-import { LimitType, useModLatestReportsQuery } from '@hey/lens';
-import { Card, ErrorMessage } from '@hey/ui';
+import { LimitType, useModLatestReportsQuery } from '@good/lens';
+import { Card, ErrorMessage } from '@good/ui';
 import { Virtuoso } from 'react-virtuoso';
 
 import ReportDetails from './ReportDetails';

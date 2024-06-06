@@ -1,4 +1,4 @@
-import type { ThirdTierCondition as ThirdTierConditionType } from '@hey/lens';
+import type { ThirdTierCondition as ThirdTierConditionType } from '@good/lens';
 import type { FC } from 'react';
 
 import CollectCondition from './CollectCondition';

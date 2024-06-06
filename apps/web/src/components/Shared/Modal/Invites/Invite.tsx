@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 
+import { Errors } from '@good/data';
+import { ADDRESS_PLACEHOLDER, STATIC_IMAGES_URL } from '@good/data/constants';
+import { Regex } from '@good/data/regex';
+import { INVITE } from '@good/data/tracking';
+import { useInviteMutation } from '@good/lens';
+import { Button, Form, Input, useZodForm } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
-import { ADDRESS_PLACEHOLDER, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
-import { INVITE } from '@hey/data/tracking';
-import { useInviteMutation } from '@hey/lens';
-import { Button, Form, Input, useZodForm } from '@hey/ui';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

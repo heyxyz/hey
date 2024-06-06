@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Select } from '@hey/ui';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import { Select } from '@good/ui';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 import { useRentableBillboardActionStore } from '.';

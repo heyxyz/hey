@@ -1,5 +1,5 @@
-import type { ProfileInterestTypes } from '@hey/lens';
-import type { ProfileInterest } from '@hey/types/misc';
+import type { ProfileInterestTypes } from '@good/lens';
+import type { ProfileInterest } from '@good/types/misc';
 
 /**
  * Sanitizes an array of profile interests by grouping them into categories and subcategories.

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { useGenerateLensApiRelayAddressQuery } from '@hey/lens';
+import { useGenerateLensApiRelayAddressQuery } from '@good/lens';
 import { createTrackedSelector } from 'react-tracked';
 import { CHAIN } from 'src/constants';
 import { useAccount, useChainId } from 'wagmi';

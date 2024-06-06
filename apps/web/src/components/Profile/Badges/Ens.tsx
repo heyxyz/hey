@@ -1,8 +1,8 @@
-import type { ProfileOnchainIdentity } from '@hey/lens';
+import type { ProfileOnchainIdentity } from '@good/lens';
 import type { FC } from 'react';
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Tooltip } from '@hey/ui';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import { Tooltip } from '@good/ui';
 
 interface EnsProps {
   onchainIdentity: ProfileOnchainIdentity;

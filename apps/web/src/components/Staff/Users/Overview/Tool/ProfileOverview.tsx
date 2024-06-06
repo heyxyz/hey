@@ -1,8 +1,11 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
+import { APP_NAME, GOOD_API_URL } from '@good/data/constants';
+import formatAddress from '@good/helpers/formatAddress';
+import getFollowModule from '@good/helpers/getFollowModule';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   BanknotesIcon,
@@ -17,9 +20,6 @@ import {
   ShieldCheckIcon,
   XCircleIcon
 } from '@heroicons/react/24/solid';
-import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
-import formatAddress from '@hey/helpers/formatAddress';
-import getFollowModule from '@hey/helpers/getFollowModule';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -29,22 +29,22 @@ interface ProfileOverviewProps {
 }
 
 const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
-  const getHaveUsedHey = async () => {
+  const getHaveUsedGood = async () => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
+        `${GOOD_API_URL}/internal/leafwatch/profile/haveUsedGood`,
         { headers: getAuthApiHeaders(), params: { id: profile.id } }
       );
 
-      return response.data.haveUsedHey;
+      return response.data.haveUsedGood;
     } catch {
       return false;
     }
   };
 
-  const { data: haveUsedHey } = useQuery({
-    queryFn: getHaveUsedHey,
-    queryKey: ['getHaveUsedHey', profile.id]
+  const { data: haveUsedGood } = useQuery({
+    queryFn: getHaveUsedGood,
+    queryKey: ['getHaveUsedGood', profile.id]
   });
 
   return (
@@ -55,7 +55,7 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
         <div className="text-lg font-bold">Profile Overview</div>
       </div>
       <div className="mt-3 space-y-2">
-        {haveUsedHey ? (
+        {haveUsedGood ? (
           <MetaDetails
             icon={
               <img

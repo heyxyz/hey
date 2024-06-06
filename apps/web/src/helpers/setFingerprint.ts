@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { Localstorage } from '@good/data/storage';
 import { getCurrentBrowserFingerPrint } from '@rajesh896/broprint.js';
 
 const setFingerprint = async () => {

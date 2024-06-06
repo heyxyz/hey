@@ -1,15 +1,15 @@
 import type { FC } from 'react';
 
+import { HelpTooltip } from '@good/ui'; // Assuming HelpTooltip is from @good/ui
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { HelpTooltip } from '@hey/ui'; // Assuming HelpTooltip is from @hey/ui
 import type { ActionData } from 'nft-openaction-kit';
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 
 interface FeesDisclosureProps {
   actionData?: ActionData;

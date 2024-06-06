@@ -1,14 +1,14 @@
-import type { IPFSResponse } from '@hey/types/misc';
+import type { IPFSResponse } from '@good/types/misc';
 
 import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import {
   EVER_API,
-  HEY_API_URL,
+  GOOD_API_URL,
   S3_BUCKET,
   THIRDWEB_CLIENT_ID
-} from '@hey/data/constants';
-import { KillSwitch } from '@hey/data/kill-switches';
+} from '@good/data/constants';
+import { KillSwitch } from '@good/data/kill-switches';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
@@ -23,7 +23,7 @@ const FALLBACK_TYPE = 'image/jpeg';
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-  const token = await axios.get(`${HEY_API_URL}/sts/token`);
+  const token = await axios.get(`${GOOD_API_URL}/sts/token`);
   const client = new S3({
     credentials: {
       accessKeyId: token.data?.accessKeyId,
@@ -94,7 +94,7 @@ const uploadToIPFS = async (
         const file = data[i];
         const params = {
           Body: file,
-          Bucket: S3_BUCKET.HEY_MEDIA,
+          Bucket: S3_BUCKET.GOOD_MEDIA,
           ContentType: file.type,
           Key: uuid()
         };

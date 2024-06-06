@@ -1,19 +1,19 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
+import { Errors } from '@good/data/errors';
+import { SETTINGS } from '@good/data/tracking';
+import getAvatar from '@good/helpers/getAvatar';
+import getProfile from '@good/helpers/getProfile';
 import {
   useDefaultProfileQuery,
   useProfilesQuery,
   useSetDefaultProfileMutation
-} from '@hey/lens';
-import { Button, Card, CardHeader, Select } from '@hey/ui';
+} from '@good/lens';
+import { Button, Card, CardHeader, Select } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';

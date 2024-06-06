@@ -1,9 +1,9 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@good/data/feature-flags';
+import { Card } from '@good/ui';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { Card } from '@hey/ui';
 
 import CreatorTool from './CreatorTool';
 import GardenerTool from './GardenerTool';

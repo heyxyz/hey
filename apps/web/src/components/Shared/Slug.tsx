@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 
 interface SlugProps {
   className?: string;

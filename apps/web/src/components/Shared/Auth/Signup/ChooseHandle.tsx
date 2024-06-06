@@ -1,5 +1,18 @@
 import type { FC } from 'react';
 
+import { GoodLensSignup } from '@good/abis';
+import {
+  APP_NAME,
+  GOOD_LENS_SIGNUP,
+  HANDLE_PREFIX,
+  IS_MAINNET,
+  SIGNUP_PRICE,
+  ZERO_ADDRESS
+} from '@good/data/constants';
+import { Regex } from '@good/data/regex';
+import { AUTH } from '@good/data/tracking';
+import { useHandleToAddressQuery } from '@good/lens';
+import { Button, Form, Input, Spinner, useZodForm } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
@@ -9,19 +22,6 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from '@heroicons/react/24/outline';
-import { HeyLensSignup } from '@hey/abis';
-import {
-  APP_NAME,
-  HANDLE_PREFIX,
-  HEY_LENS_SIGNUP,
-  IS_MAINNET,
-  SIGNUP_PRICE,
-  ZERO_ADDRESS
-} from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
-import { AUTH } from '@hey/data/tracking';
-import { useHandleToAddressQuery } from '@hey/lens';
-import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import Script from 'next/script';
 import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -114,8 +114,8 @@ const ChooseHandle: FC = () => {
       await handleWrongNetwork();
 
       return await writeContractAsync({
-        abi: HeyLensSignup,
-        address: HEY_LENS_SIGNUP,
+        abi: GoodLensSignup,
+        address: GOOD_LENS_SIGNUP,
         args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
         functionName: 'createProfileWithHandleUsingCredits',
         value: parseEther(SIGNUP_PRICE.toString())
@@ -142,7 +142,7 @@ const ChooseHandle: FC = () => {
     window.createLemonSqueezy?.();
     window.LemonSqueezy?.Setup?.({ eventHandler });
     window.LemonSqueezy?.Url?.Open?.(
-      urlcat('https://heyverse.lemonsqueezy.com/checkout/buy/:product', {
+      urlcat('https://goodverse.lemonsqueezy.com/checkout/buy/:product', {
         'checkout[custom][address]': address,
         'checkout[custom][delegatedExecutor]': delegatedExecutor,
         'checkout[custom][handle]': handle.toLowerCase(),

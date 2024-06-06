@@ -3,8 +3,8 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import {
   ProfileReportingFraudSubreason,
   ProfileReportingSpamSubreason
-} from '@hey/lens';
-import { Select } from '@hey/ui';
+} from '@good/lens';
+import { Select } from '@good/ui';
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;

@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 import type { Address } from 'viem';
 
-import { HEY_LENS_SIGNUP } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+import { GOOD_LENS_SIGNUP } from '@good/data/constants';
+import logger from '@good/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
@@ -31,20 +31,20 @@ export const get: Handler = async (req, res) => {
             AND o.onboarded_by_address = $3
         ) AS result;
       `,
-      [id, formattedAddress, HEY_LENS_SIGNUP]
+      [id, formattedAddress, GOOD_LENS_SIGNUP]
     );
 
-    const isHeyProfile = data[0]?.result;
+    const isGoodProfile = data[0]?.result;
 
-    logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
+    logger.info(`Good profile badge fetched for ${id || formattedAddress}`);
 
     return res
       .status(200)
       .setHeader(
         'Cache-Control',
-        isHeyProfile ? CACHE_AGE_INDEFINITE : 'no-cache'
+        isGoodProfile ? CACHE_AGE_INDEFINITE : 'no-cache'
       )
-      .json({ isHeyProfile, success: true });
+      .json({ isGoodProfile, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

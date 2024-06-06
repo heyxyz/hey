@@ -1,7 +1,8 @@
-import type { Preferences } from '@hey/types/hey';
+import type { Preferences } from '@good/types/good';
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
 import {
   BellIcon,
   CursorArrowRaysIcon,
@@ -13,7 +14,6 @@ import {
   Cog6ToothIcon,
   XCircleIcon
 } from '@heroicons/react/24/solid';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
 
 interface ProfilePreferencesProps {
   preferences: Preferences;

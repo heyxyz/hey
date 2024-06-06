@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';

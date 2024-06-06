@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import ExtendButton from '@components/Pro/ExtendButton';
-import { APP_NAME } from '@hey/data/constants';
-import getNumberOfDaysFromDate from '@hey/helpers/datetime/getNumberOfDaysFromDate';
-import { Card, CardHeader } from '@hey/ui';
+import { APP_NAME } from '@good/data/constants';
+import getNumberOfDaysFromDate from '@good/helpers/datetime/getNumberOfDaysFromDate';
+import { Card, CardHeader } from '@good/ui';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 
 const getColor = (days: number) => {

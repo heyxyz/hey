@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
 import CountdownTimer from '@components/Shared/CountdownTimer';
+import { APP_NAME, STATIC_IMAGES_URL } from '@good/data/constants';
+import { MISCELLANEOUS } from '@good/data/tracking';
+import { Button, Card } from '@good/ui';
 import { rubikMonoOneFont } from '@helpers/fonts';
 import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { MISCELLANEOUS } from '@hey/data/tracking';
-import { Button, Card } from '@hey/ui';
 import Link from 'next/link';
 
 const Gitcoin: FC = () => {
@@ -29,7 +29,7 @@ const Gitcoin: FC = () => {
         <div>
           <Link
             className="font-bold underline"
-            href="https://hey.xyz/gitcoin"
+            href="https://bcharity.net/gitcoin"
             onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
             target="_blank"
           >

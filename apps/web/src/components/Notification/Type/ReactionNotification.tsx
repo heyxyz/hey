@@ -1,9 +1,9 @@
-import type { ReactionNotification as TReactionNotification } from '@hey/lens';
+import type { ReactionNotification as TReactionNotification } from '@good/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
+import getPublicationData from '@good/helpers/getPublicationData';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/helpers/getPublicationData';
 import Link from 'next/link';
 import plur from 'plur';
 import usePushToImpressions from 'src/hooks/usePushToImpressions';

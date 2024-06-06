@@ -1,17 +1,17 @@
-import type { CollectModuleType } from '@hey/types/hey';
+import type { CollectModuleType } from '@good/types/good';
 import type { FC } from 'react';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { ADDRESS_PLACEHOLDER } from '@good/data/constants';
+import splitNumber from '@good/helpers/splitNumber';
+import { Button, Input } from '@good/ui';
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
-import splitNumber from '@hey/helpers/splitNumber';
-import { Button, Input } from '@hey/ui';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

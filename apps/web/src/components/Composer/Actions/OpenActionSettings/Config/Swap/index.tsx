@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { DEFAULT_COLLECT_TOKEN, KNOWN_ATTRIBUTES } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { DEFAULT_COLLECT_TOKEN, KNOWN_ATTRIBUTES } from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';

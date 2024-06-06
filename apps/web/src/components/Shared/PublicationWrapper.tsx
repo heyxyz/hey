@@ -1,7 +1,7 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 

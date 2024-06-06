@@ -1,23 +1,23 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import Slug from '@components/Shared/Slug';
+import formatAddress from '@good/helpers/formatAddress';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getProfile from '@good/helpers/getProfile';
+import getStampFyiURL from '@good/helpers/getStampFyiURL';
+import hasMisused from '@good/helpers/hasMisused';
+import { useDefaultProfileQuery } from '@good/lens';
+import { Image } from '@good/ui';
 import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import formatAddress from '@hey/helpers/formatAddress';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import getStampFyiURL from '@hey/helpers/getStampFyiURL';
-import hasMisused from '@hey/helpers/hasMisused';
-import { useDefaultProfileQuery } from '@hey/lens';
-import { Image } from '@hey/ui';
 import { useState } from 'react';
 
 import LatestMessage from './LatestMessage';

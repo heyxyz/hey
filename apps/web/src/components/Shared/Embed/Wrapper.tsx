@@ -1,8 +1,8 @@
 import type { FC, ReactNode } from 'react';
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Card } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Card } from '@good/ui';
+import cn from '@good/ui/cn';
 
 interface WrapperProps {
   children: ReactNode;

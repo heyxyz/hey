@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@good/data/constants';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -16,7 +16,7 @@ const MetaTags: FC<MetaTagsProps> = ({
   title = APP_NAME
 }) => {
   const { asPath } = useRouter();
-  const url = `https://hey.xyz${asPath}`;
+  const url = `https://bcharity.net${asPath}`;
 
   return (
     <Head>
@@ -27,7 +27,7 @@ const MetaTags: FC<MetaTagsProps> = ({
         name="viewport"
       />
       <meta
-        content="hey,hey.xyz,social media profile,social media,lenster,user profile,lens,lens protocol,decentralized,web3,Yoginth,@yoginth"
+        content="good,bcharity.net,social media profile,social media,lenster,user profile,lens,lens protocol,decentralized,web3,Yoginth,@yoginth"
         name="keywords"
       />
       <link href={url} rel="canonical" />
@@ -45,7 +45,7 @@ const MetaTags: FC<MetaTagsProps> = ({
       <meta content={DEFAULT_OG} property="twitter:image" />
       <meta content="400" property="twitter:image:width" />
       <meta content="400" property="twitter:image:height" />
-      <meta content="heydotxyz" property="twitter:creator" />
+      <meta content="gooddotxyz" property="twitter:creator" />
 
       {creator ? (
         <>
@@ -62,8 +62,8 @@ const MetaTags: FC<MetaTagsProps> = ({
       />
 
       {/* Prefetch and Preconnect */}
-      <link href="https://hey-assets.b-cdn.net" rel="preconnect" />
-      <link href="https://hey-assets.b-cdn.net" rel="dns-prefetch" />
+      <link href="https://good-assets.b-cdn.net" rel="preconnect" />
+      <link href="https://good-assets.b-cdn.net" rel="dns-prefetch" />
 
       {/* Icons */}
       <link href="/ati.png" rel="apple-touch-icon" sizes="180x180" />
@@ -72,8 +72,8 @@ const MetaTags: FC<MetaTagsProps> = ({
 
       {/* PWA config */}
       <link href="/manifest.json" rel="manifest" />
-      <meta content="Hey" name="application-name" />
-      <meta content="Hey" name="apple-mobile-web-app-title" />
+      <meta content="Good" name="application-name" />
+      <meta content="Good" name="apple-mobile-web-app-title" />
       <meta content="yes" name="mobile-web-app-capable" />
       <meta content="yes" name="apple-mobile-web-app-capable" />
       <meta content="default" name="apple-mobile-web-app-status-bar-style" />

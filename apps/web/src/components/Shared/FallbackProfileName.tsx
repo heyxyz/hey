@@ -1,8 +1,8 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
-import getProfile from '@hey/helpers/getProfile';
-import cn from '@hey/ui/cn';
+import getProfile from '@good/helpers/getProfile';
+import cn from '@good/ui/cn';
 import Link from 'next/link';
 
 import Slug from './Slug';

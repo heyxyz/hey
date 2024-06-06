@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
-import { apps as knownApps } from '@hey/data/apps';
+import { apps as knownApps } from '@good/data/apps';
 import {
   CustomFiltersType,
   ModExplorePublicationType,
   PublicationMetadataMainFocusType
-} from '@hey/lens';
-import { Button, Card, Checkbox } from '@hey/ui';
+} from '@good/lens';
+import { Button, Card, Checkbox } from '@good/ui';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 

@@ -1,14 +1,14 @@
-import type { Nft, OG } from '@hey/types/misc';
+import type { Nft, OG } from '@good/types/misc';
 import type { FC } from 'react';
 
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
+import { ZERO_ADDRESS } from '@good/data/constants';
+import sanitizeDStorageUrl from '@good/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Button, Card, Image, Spinner, Tooltip } from '@good/ui';
+import cn from '@good/ui/cn';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { ZERO_ADDRESS } from '@hey/data/constants';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Image, Spinner, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 

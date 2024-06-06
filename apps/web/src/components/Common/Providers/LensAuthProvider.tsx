@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import { useVerifyQuery } from '@good/lens';
 import getCurrentSession from '@helpers/getCurrentSession';
-import { useVerifyQuery } from '@hey/lens';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
 // This will refresh the access token if it's expired

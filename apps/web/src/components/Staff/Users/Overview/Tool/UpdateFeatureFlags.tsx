@@ -1,13 +1,13 @@
-import type { Feature } from '@hey/types/hey';
+import type { Feature } from '@good/types/good';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { GOOD_API_URL } from '@good/data/constants';
+import { STAFFTOOLS } from '@good/data/tracking';
+import getAllFeatureFlags from '@good/helpers/api/getAllFeatureFlags';
+import { Toggle } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllFeatureFlags from '@hey/helpers/api/getAllFeatureFlags';
-import { Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -47,7 +47,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/assign`,
+        `${GOOD_API_URL}/internal/features/assign`,
         { enabled, id, profile_id: profileId },
         { headers: getAuthApiHeaders() }
       ),

@@ -1,4 +1,4 @@
-import { PROFILE, PUBLICATION } from '@hey/data/tracking';
+import { PROFILE, PUBLICATION } from '@good/data/tracking';
 
 const filteredEvents = [
   PROFILE.FOLLOW,

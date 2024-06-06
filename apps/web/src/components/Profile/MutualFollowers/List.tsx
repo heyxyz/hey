@@ -1,11 +1,11 @@
-import type { MutualFollowersRequest, Profile } from '@hey/lens';
+import type { MutualFollowersRequest, Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { LimitType, useMutualFollowersQuery } from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
 import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
-import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

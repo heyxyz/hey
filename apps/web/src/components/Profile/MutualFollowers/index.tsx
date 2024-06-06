@@ -1,11 +1,11 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { StackedAvatars } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import getAvatar from '@good/helpers/getAvatar';
+import getProfile from '@good/helpers/getProfile';
+import { LimitType, useMutualFollowersQuery } from '@good/lens';
+import { StackedAvatars } from '@good/ui';
+import cn from '@good/ui/cn';
 import Link from 'next/link';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

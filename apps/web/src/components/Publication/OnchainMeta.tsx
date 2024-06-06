@@ -1,13 +1,13 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import {
   ARWEAVE_GATEWAY,
   IPFS_GATEWAY,
   POLYGONSCAN_URL
-} from '@hey/data/constants';
-import { Card } from '@hey/ui';
+} from '@good/data/constants';
+import { Card } from '@good/ui';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import urlcat from 'urlcat';
 

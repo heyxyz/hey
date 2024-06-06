@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
 import {
-  HEY_LENS_SIGNUP,
-  HEY_MEMBERSHIP_NFT_PUBLICATION_ID
-} from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+  GOOD_LENS_SIGNUP,
+  GOOD_MEMBERSHIP_NFT_PUBLICATION_ID
+} from '@good/data/constants';
+import logger from '@good/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
@@ -40,7 +40,7 @@ export const get: Handler = async (req, res) => {
         GROUP BY date
         ORDER BY date;
       `,
-      [HEY_LENS_SIGNUP, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
+      [GOOD_LENS_SIGNUP, GOOD_MEMBERSHIP_NFT_PUBLICATION_ID]
     );
 
     const formattedResult = result[0].map((row, index) => ({

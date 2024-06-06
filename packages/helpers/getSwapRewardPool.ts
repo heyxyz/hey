@@ -1,4 +1,4 @@
-import type { RewardPool } from '@hey/types/misc';
+import type { RewardPool } from '@good/types/misc';
 import type { Address } from 'viem';
 
 import axios from 'axios';

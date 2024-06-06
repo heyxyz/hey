@@ -1,6 +1,6 @@
-import type { Preferences } from '@hey/types/hey';
+import type { Preferences } from '@good/types/good';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import axios from 'axios';
 
 /**
@@ -15,7 +15,7 @@ const getPreferences = async (
 ): Promise<Preferences> => {
   try {
     const response: { data: { result: Preferences } } = await axios.get(
-      `${HEY_API_URL}/preferences/get`,
+      `${GOOD_API_URL}/preferences/get`,
       { headers, params: { id } }
     );
 

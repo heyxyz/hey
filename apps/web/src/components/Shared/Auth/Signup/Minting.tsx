@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
+import { POLYGONSCAN_URL } from '@good/data/constants';
+import { useProfileQuery } from '@good/lens';
+import { Spinner } from '@good/ui';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
-import { useProfileQuery } from '@hey/lens';
-import { Spinner } from '@hey/ui';
 import Link from 'next/link';
 
 import { useSignupStore } from '.';

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { CardHeader } from '@hey/ui';
+import { CardHeader } from '@good/ui';
 
 import type { StatsType } from './LeafwatchStats';
 

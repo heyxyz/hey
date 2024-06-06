@@ -1,13 +1,13 @@
-import type { Frame as IFrame } from '@hey/types/misc';
+import type { Frame as IFrame } from '@good/types/misc';
 import type { FC } from 'react';
 
+import { Errors } from '@good/data';
+import { GOOD_API_URL } from '@good/data/constants';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Button, Card } from '@good/ui';
+import cn from '@good/ui/cn';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { LinkIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data';
-import { HEY_API_URL } from '@hey/data/constants';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -46,7 +46,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       setIsLoading(true);
 
       const { data }: { data: { frame: IFrame } } = await axios.post(
-        `${HEY_API_URL}/frames/post`,
+        `${GOOD_API_URL}/frames/post`,
         {
           buttonIndex: index + 1,
           identityToken,

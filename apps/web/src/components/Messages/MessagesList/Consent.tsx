@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import { MESSAGES } from '@good/data/tracking';
+import { Button } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
-import { MESSAGES } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
 import { useClient, useConsent } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';

@@ -1,13 +1,13 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import PageMetatags from '@components/Shared/PageMetatags';
+import { useCurrentProfileQuery } from '@good/lens';
 import getCurrentSession from '@helpers/getCurrentSession';
 import getToastOptions from '@helpers/getToastOptions';
-import { useCurrentProfileQuery } from '@hey/lens';
 import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';

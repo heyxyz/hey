@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 
 /**
  * Check if the user can use the lens manager or broadcast

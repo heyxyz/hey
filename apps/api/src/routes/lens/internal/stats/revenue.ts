@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import { APP_NAME } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+import { APP_NAME } from '@good/data/constants';
+import logger from '@good/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';

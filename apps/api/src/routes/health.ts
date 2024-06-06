@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
 import axios from 'axios';
-import heyPg from 'src/db/heyPg';
+import goodPg from 'src/db/goodPg';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SCORE_WORKER_URL } from 'src/helpers/constants';
@@ -19,8 +19,8 @@ const measureQueryTime = async (
 export const get: Handler = async (_, res) => {
   try {
     // Prepare promises with timings embedded
-    const heyPromise = measureQueryTime(() =>
-      heyPg.query(`SELECT 1 as count;`)
+    const goodPromise = measureQueryTime(() =>
+      goodPg.query(`SELECT 1 as count;`)
     );
     const lensPromise = measureQueryTime(() =>
       lensPg.query(`SELECT 1 as count;`)
@@ -39,22 +39,22 @@ export const get: Handler = async (_, res) => {
     );
 
     // Execute all promises simultaneously
-    const [heyResult, lensResult, clickhouseResult, scoreWorkerResult] =
+    const [goodResult, lensResult, clickhouseResult, scoreWorkerResult] =
       await Promise.all([
-        heyPromise,
+        goodPromise,
         lensPromise,
         clickhousePromise,
         scoreWorkerPromise
       ]);
 
     // Check responses
-    const [hey, heyTime] = heyResult;
+    const [good, goodTime] = goodResult;
     const [lens, lensTime] = lensResult;
     const [clickhouseRows, clickhouseTime] = clickhouseResult;
     const [scoreWorker, scoreWorkerTime] = scoreWorkerResult;
 
     if (
-      Number(hey[0].count) !== 1 ||
+      Number(good[0].count) !== 1 ||
       Number(lens[0].count) !== 1 ||
       scoreWorker.data.split(' ')[0] !== 'WITH' ||
       !clickhouseRows.json
@@ -67,7 +67,7 @@ export const get: Handler = async (_, res) => {
       ping: 'pong',
       responseTimes: {
         clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
-        hey: `${Number(heyTime / BigInt(1000000))}ms`,
+        good: `${Number(goodTime / BigInt(1000000))}ms`,
         lens: `${Number(lensTime / BigInt(1000000))}ms`,
         scoreWorker: `${Number(scoreWorkerTime / BigInt(1000000))}ms`
       }

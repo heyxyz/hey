@@ -1,8 +1,8 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
+import type { MarkupLinkProps } from '@good/types/misc';
 import type { FC } from 'react';
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import truncateUrl from '@hey/helpers/truncateUrl';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import truncateUrl from '@good/helpers/truncateUrl';
 import Link from 'next/link';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {

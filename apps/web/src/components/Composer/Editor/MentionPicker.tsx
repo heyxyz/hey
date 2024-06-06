@@ -2,15 +2,15 @@ import type { EditorExtension } from '@helpers/prosekit/extension';
 import type { FC } from 'react';
 import type { MentionProfile } from 'src/hooks/prosekit/useMentionQuery';
 
+import { EditorRegex } from '@good/data/regex';
+import hasMisused from '@good/helpers/hasMisused';
+import { Image } from '@good/ui';
+import cn from '@good/ui/cn';
 import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { EditorRegex } from '@hey/data/regex';
-import hasMisused from '@hey/helpers/hasMisused';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useEditor } from 'prosekit/react';
 import {
   AutocompleteItem,

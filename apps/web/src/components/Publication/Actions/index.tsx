@@ -1,12 +1,12 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@good/data/feature-flags';
+import getPublicationViewCountById from '@good/helpers/getPublicationViewCountById';
+import isOpenActionAllowed from '@good/helpers/isOpenActionAllowed';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import getPublicationViewCountById from '@hey/helpers/getPublicationViewCountById';
-import isOpenActionAllowed from '@hey/helpers/isOpenActionAllowed';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

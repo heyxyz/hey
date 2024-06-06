@@ -2,7 +2,7 @@ import type {
   AmountInput,
   CollectOpenActionModuleType,
   RecipientDataInput
-} from '@hey/lens';
+} from '@good/lens';
 
 export type StaffPick = {
   profileId: string;

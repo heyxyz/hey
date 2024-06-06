@@ -1,14 +1,14 @@
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
-import { HeyLensSignup } from '@hey/abis';
+import { GoodLensSignup } from '@good/abis';
 import {
+  GOOD_LENS_SIGNUP,
   HANDLE_PREFIX,
-  HEY_LENS_SIGNUP,
   ZERO_ADDRESS
-} from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
-import { Button, Card, Form, Input, useZodForm } from '@hey/ui';
+} from '@good/data/constants';
+import { Regex } from '@good/data/regex';
+import { Button, Card, Form, Input, useZodForm } from '@good/ui';
+import errorToast from '@helpers/errorToast';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useWriteContract } from 'wagmi';
@@ -40,8 +40,8 @@ const Mint: FC = () => {
     try {
       setIsLoading(true);
       return await writeContractAsync({
-        abi: HeyLensSignup,
-        address: HEY_LENS_SIGNUP,
+        abi: GoodLensSignup,
+        address: GOOD_LENS_SIGNUP,
         args: [
           [address, ZERO_ADDRESS, '0x'],
           handle.toLowerCase(),

@@ -1,7 +1,7 @@
 import type { WalletClient } from 'viem';
 
-import { IS_MAINNET } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { IS_MAINNET } from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
 import { polygon, polygonAmoy } from 'viem/chains';
 import { describe, expect, it, vi } from 'vitest';
 

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import cn from '@hey/ui/cn';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';

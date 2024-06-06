@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import { EmptyState } from '@good/ui';
 import { CircleStackIcon } from '@heroicons/react/24/outline';
-import { EmptyState } from '@hey/ui';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
 import Transaction from './Transaction';

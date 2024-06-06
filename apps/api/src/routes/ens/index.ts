@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { resolverAbi } from 'src/helpers/ens/resolverAbi';
 import { invalidBody, noBody } from 'src/helpers/responses';

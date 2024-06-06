@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Login from '@components/Shared/Auth/Login';
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME } from '@good/data/constants';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useAccount } from 'wagmi';

@@ -1,4 +1,4 @@
-import getAuthApiHeadersForTest from '@hey/helpers/getAuthApiHeadersForTest';
+import getAuthApiHeadersForTest from '@good/helpers/getAuthApiHeadersForTest';
 import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
@@ -11,7 +11,7 @@ describe('live/create', () => {
       { headers: await getAuthApiHeadersForTest() }
     );
 
-    expect(response.data.result.createdByTokenName).toEqual('Hey Live');
+    expect(response.data.result.createdByTokenName).toEqual('Good Live');
   });
 
   test('should fail if not authenticated', async () => {

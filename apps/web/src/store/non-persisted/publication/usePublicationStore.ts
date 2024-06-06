@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';

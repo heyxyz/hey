@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import { APP_NAME, GOOD_API_URL, STATIC_IMAGES_URL } from '@good/data/constants';
+import { SETTINGS } from '@good/data/tracking';
+import { Card, CardHeader, Tooltip } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/24/outline';
 import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
-import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { SETTINGS } from '@hey/data/tracking';
-import { Card, CardHeader, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -28,7 +28,7 @@ const AppIcon: FC = () => {
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/preferences/update`,
+        `${GOOD_API_URL}/preferences/update`,
         { appIcon: id },
         { headers: getAuthApiHeaders() }
       ),

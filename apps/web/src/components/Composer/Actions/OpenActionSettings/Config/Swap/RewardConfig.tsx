@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Input } from '@hey/ui';
+import { Input } from '@good/ui';
 
 import { useSwapActionStore } from '.';
 

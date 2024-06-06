@@ -1,4 +1,4 @@
-import { resolveEns } from '@hey/helpers/resolveEns';
+import { resolveEns } from '@good/helpers/resolveEns';
 import { useQuery } from '@tanstack/react-query';
 
 interface UseEnsNameProps {

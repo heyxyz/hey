@@ -1,13 +1,13 @@
-import type { ProfileActionHistoryRequest } from '@hey/lens';
+import type { ProfileActionHistoryRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { POLYGONSCAN_URL } from '@good/data/constants';
+import formatDate from '@good/helpers/datetime/formatDate';
+import formatAddress from '@good/helpers/formatAddress';
+import { LimitType, useProfileActionHistoryQuery } from '@good/lens';
+import { EmptyState, ErrorMessage } from '@good/ui';
 import { QueueListIcon } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import formatAddress from '@hey/helpers/formatAddress';
-import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

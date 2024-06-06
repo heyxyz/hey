@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
-import { LensHub } from '@hey/abis';
-import { IPFS_GATEWAY, IS_MAINNET, LENS_HUB } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+import { LensHub } from '@good/abis';
+import { IPFS_GATEWAY, IS_MAINNET, LENS_HUB } from '@good/data/constants';
+import logger from '@good/helpers/logger';
 import { CACHE_AGE_INDEFINITE_ON_DISK } from 'src/helpers/constants';
 import getRpc from 'src/helpers/getRpc';
 import { noBody } from 'src/helpers/responses';

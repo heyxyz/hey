@@ -1,7 +1,7 @@
-import type { RelayErrorReasonType } from '@hey/lens';
+import type { RelayErrorReasonType } from '@good/lens';
 
-import { Errors } from '@hey/data/errors';
-import { LensProfileManagerRelayErrorReasonType } from '@hey/lens';
+import { Errors } from '@good/data/errors';
+import { LensProfileManagerRelayErrorReasonType } from '@good/lens';
 import { toast } from 'react-hot-toast';
 
 /**

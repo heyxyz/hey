@@ -1,4 +1,4 @@
-import type { PrimaryPublication } from '@hey/lens';
+import type { PrimaryPublication } from '@good/lens';
 import type { FC } from 'react';
 
 import PublicationWrapper from '@components/Shared/PublicationWrapper';

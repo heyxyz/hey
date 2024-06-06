@@ -1,5 +1,5 @@
-# Hey Contracts
+# Good Contracts
 
-- [`HeyLensSignup.sol`](contracts/HeyLensSignup/README.md) - Contract for permissionless signup to Hey with Lens Protocol.
-- [`HeyPro.sol`](contracts/HeyPro/README.md) - Contract for Hey Pro.
-- [`HeyTipping.sol`](contracts/HeyTipping/README.md) - Contract for tipping with ERC20 tokens.
+- [`GoodLensSignup.sol`](contracts/GoodLensSignup/README.md) - Contract for permissionless signup to Good with Lens Protocol.
+- [`GoodPro.sol`](contracts/GoodPro/README.md) - Contract for Good Pro.
+- [`GoodTipping.sol`](contracts/GoodTipping/README.md) - Contract for tipping with ERC20 tokens.

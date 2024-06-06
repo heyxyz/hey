@@ -1,12 +1,12 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import New from '@components/Shared/Badges/New';
+import { HomeFeedType } from '@good/data/enums';
+import { FeatureFlag } from '@good/data/feature-flags';
+import { HOME } from '@good/data/tracking';
+import { TabButton } from '@good/ui';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HomeFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { HOME } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface FeedTypeProps {

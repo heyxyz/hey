@@ -1,21 +1,21 @@
 import type {
   MirrorablePublication,
   PublicationNotInterestedRequest
-} from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
+} from '@good/lens';
+import type { ApolloCache } from '@good/lens/apollo';
 import type { FC } from 'react';
 
+import { PUBLICATION } from '@good/data/tracking';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import {
+  useAddPublicationNotInterestedMutation,
+  useUndoPublicationNotInterestedMutation
+} from '@good/lens';
+import cn from '@good/ui/cn';
 import { MenuItem } from '@headlessui/react';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import {
-  useAddPublicationNotInterestedMutation,
-  useUndoPublicationNotInterestedMutation
-} from '@hey/lens';
-import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {

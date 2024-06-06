@@ -1,4 +1,4 @@
-import type { FeatureFlag } from '@hey/data/feature-flags';
+import type { FeatureFlag } from '@good/data/feature-flags';
 
 import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 

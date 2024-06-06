@@ -1,21 +1,21 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { SETTINGS } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
-} from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
+} from '@good/lens';
+import { Button, Spinner } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

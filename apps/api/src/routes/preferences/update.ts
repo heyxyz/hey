@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
+import logger from '@good/helpers/logger';
+import parseJwt from '@good/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';

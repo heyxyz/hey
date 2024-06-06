@@ -1,4 +1,4 @@
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';

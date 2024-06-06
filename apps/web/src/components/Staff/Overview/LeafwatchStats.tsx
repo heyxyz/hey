@@ -1,14 +1,14 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import {
   ExploreProfilesOrderByType,
   LimitType,
   useExploreProfilesQuery
-} from '@hey/lens';
-import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
+} from '@good/lens';
+import { CardHeader, ErrorMessage, NumberedStat } from '@good/ui';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -65,7 +65,7 @@ const LeafwatchStats: FC = () => {
   const getStats = async (): Promise<StatsType> => {
     const response: {
       data: StatsType;
-    } = await axios.get(`${HEY_API_URL}/internal/leafwatch/stats`, {
+    } = await axios.get(`${GOOD_API_URL}/internal/leafwatch/stats`, {
       headers: getAuthApiHeaders()
     });
 
@@ -82,7 +82,7 @@ const LeafwatchStats: FC = () => {
     cached: number;
     volume: number;
   }> => {
-    const response = await axios.get(`${HEY_API_URL}/internal/score/volume`, {
+    const response = await axios.get(`${GOOD_API_URL}/internal/score/volume`, {
       headers: getAuthApiHeaders()
     });
 

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from '@good/data/constants';
 
 import { Modal } from './Modal';
 

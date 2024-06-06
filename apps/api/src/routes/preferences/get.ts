@@ -1,8 +1,8 @@
-import type { Preferences } from '@hey/types/hey';
+import type { Preferences } from '@good/types/good';
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import goodPg from 'src/db/goodPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsOwnerOrStaff from 'src/helpers/middlewares/validateIsOwnerOrStaff';
 import { noBody, notAllowed } from 'src/helpers/responses';
@@ -23,7 +23,7 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [preference, features, email, membershipNft] = await heyPg.multi(
+    const [preference, features, email, membershipNft] = await goodPg.multi(
       `
         SELECT * FROM "Preference" WHERE id = $1;
 

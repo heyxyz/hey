@@ -1,11 +1,11 @@
 import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 
 import DecentOpenAction from './UnknownModule/Decent';
 import RentableBillboardOpenAction from './UnknownModule/RentableBillboard';

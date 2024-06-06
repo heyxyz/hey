@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
+import { GOOD_API_URL } from '@good/data/constants';
+import { Alert } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Alert } from '@hey/ui';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
@@ -37,7 +37,7 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
         id: draftId
       };
 
-      await axios.post(`${HEY_API_URL}/drafts/update`, draft, {
+      await axios.post(`${GOOD_API_URL}/drafts/update`, draft, {
         headers: getAuthApiHeaders()
       });
       onDiscard();

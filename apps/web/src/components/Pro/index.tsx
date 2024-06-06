@@ -1,15 +1,15 @@
 import type { NextPage } from 'next';
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { CheckIcon } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
   PRO_TIER_PRICES,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import cn from '@hey/ui/cn';
+} from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
+import formatDate from '@good/helpers/datetime/formatDate';
+import cn from '@good/ui/cn';
+import { Leafwatch } from '@helpers/leafwatch';
+import { CheckIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 

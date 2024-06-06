@@ -1,4 +1,4 @@
-import type { Profile, RecipientDataOutput } from '@hey/lens';
+import type { Profile, RecipientDataOutput } from '@good/lens';
 import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
@@ -6,13 +6,13 @@ import {
   APP_NAME,
   POLYGONSCAN_URL,
   REWARDS_ADDRESS
-} from '@hey/data/constants';
-import formatAddress from '@hey/helpers/formatAddress';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import getStampFyiURL from '@hey/helpers/getStampFyiURL';
-import { useProfilesQuery } from '@hey/lens';
-import { Image } from '@hey/ui';
+} from '@good/data/constants';
+import formatAddress from '@good/helpers/formatAddress';
+import getAvatar from '@good/helpers/getAvatar';
+import getProfile from '@good/helpers/getProfile';
+import getStampFyiURL from '@good/helpers/getStampFyiURL';
+import { useProfilesQuery } from '@good/lens';
+import { Image } from '@good/ui';
 import Link from 'next/link';
 
 interface SplitsProps {
@@ -51,7 +51,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
               <div className="divider mb-2 mt-3" />
               <div className="flex items-center justify-between text-sm">
                 <div className="ld-text-gray-500 flex w-full items-center space-x-2">
-                  <img alt="Hey" className="size-4" src="/logo.png" />
+                  <img alt="Good" className="size-4" src="/logo.png" />
                   <b>{APP_NAME} Fees</b>
                 </div>
                 <div className="font-bold">{split}%</div>

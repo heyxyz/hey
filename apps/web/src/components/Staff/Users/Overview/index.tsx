@@ -1,15 +1,13 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import StaffSidebar from '@components/Staff/Sidebar';
 import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
-import { Leafwatch } from '@helpers/leafwatch';
-import { UserIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { useProfileQuery } from '@hey/lens';
+import { APP_NAME } from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
+import { useProfileQuery } from '@good/lens';
 import {
   Card,
   EmptyState,
@@ -17,7 +15,9 @@ import {
   GridItemEight,
   GridItemFour,
   GridLayout
-} from '@hey/ui';
+} from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
+import { UserIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';

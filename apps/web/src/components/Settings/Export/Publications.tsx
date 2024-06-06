@@ -1,11 +1,11 @@
-import type { PublicationsRequest } from '@hey/lens';
+import type { PublicationsRequest } from '@good/lens';
 import type { FC } from 'react';
 
+import { SETTINGS } from '@good/data/tracking';
+import downloadJson from '@good/helpers/downloadJson';
+import { LimitType, usePublicationsLazyQuery } from '@good/lens';
+import { Button, Card, CardHeader } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
-import { SETTINGS } from '@hey/data/tracking';
-import downloadJson from '@hey/helpers/downloadJson';
-import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
-import { Button, Card, CardHeader } from '@hey/ui';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

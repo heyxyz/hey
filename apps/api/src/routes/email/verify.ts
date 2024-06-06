@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
@@ -19,7 +19,7 @@ export const get: Handler = async (req, res) => {
 
     logger.info(`Email verified for ${result.email}`);
 
-    return res.redirect('https://hey.xyz');
+    return res.redirect('https://bcharity.net');
   } catch (error) {
     return res.status(400).send('Something went wrong');
   }

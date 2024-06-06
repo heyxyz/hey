@@ -1,7 +1,7 @@
 import type {
   SecondTierCondition as SecondTierConditionType,
   ThirdTierCondition as ThirdTierConditionType
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
 import ThirdTierCondition from './ThirdTierCondition';

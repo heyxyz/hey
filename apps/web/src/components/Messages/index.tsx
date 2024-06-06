@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
+import { APP_NAME } from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
+import { EmptyState } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
 import { loadKeys } from '@helpers/xmtp/keys';
 import { InboxIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { EmptyState } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useClient } from '@xmtp/react-sdk';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';

@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
+import { AUTH } from '@good/data/tracking';
+import { Button } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
-import { AUTH } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 
 interface LoginButtonProps {

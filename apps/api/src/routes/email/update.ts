@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
-import { APP_NAME } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
+import { APP_NAME } from '@good/data/constants';
+import logger from '@good/helpers/logger';
+import parseJwt from '@good/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';
@@ -72,10 +72,10 @@ export const post: Handler = async (req, res) => {
       body: `
         <html>
           <body>
-            <p>Welcome to Hey!</p> 
+            <p>Welcome to Good!</p> 
             <br>
             <p>Please click the link below to verify your email address: ${result.email}</p>
-            <a href="https://api.hey.xyz/email/verify?token=${result.verificationToken}">Verify Email →</a>
+            <a href="https://api.bcharity.net/email/verify?token=${result.verificationToken}">Verify Email →</a>
             <br>
             <p>If you didn't request this email, please ignore this email.</p>
             <br>

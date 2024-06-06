@@ -1,12 +1,12 @@
-import type { Emoji } from '@hey/types/misc';
+import type { Emoji } from '@good/types/misc';
 import type { ChangeEvent, FC } from 'react';
 
+import { STATIC_ASSETS_URL } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { ErrorMessage, Input } from '@good/ui';
+import cn from '@good/ui/cn';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { STATIC_ASSETS_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { ErrorMessage, Input } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';

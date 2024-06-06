@@ -1,9 +1,9 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
+import { Card } from '@good/ui';
 import { LockClosedIcon } from '@heroicons/react/24/solid';
-import { Card } from '@hey/ui';
 
 import Criteria from './Criteria';
 

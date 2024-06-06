@@ -1,6 +1,6 @@
 import type { Response } from 'express';
 
-import { Errors } from '@hey/data';
+import { Errors } from '@good/data';
 
 const getMessageByStatus = (status: number) => {
   switch (status) {

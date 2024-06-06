@@ -1,5 +1,5 @@
-import { GIT_COMMIT_SHA, HEY_API_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { GIT_COMMIT_SHA, GOOD_API_URL } from '@good/data/constants';
+import { Localstorage } from '@good/data/storage';
 
 import getAuthApiHeaders from './getAuthApiHeaders';
 
@@ -33,7 +33,7 @@ export const Leafwatch = {
     worker.onmessage = (event: MessageEvent) => {
       const response = event.data;
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${HEY_API_URL}/leafwatch/events`);
+      xhr.open('POST', `${GOOD_API_URL}/leafwatch/events`);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('x-access-token', response.accessToken);
       xhr.setRequestHeader('x-lens-network', response.network);

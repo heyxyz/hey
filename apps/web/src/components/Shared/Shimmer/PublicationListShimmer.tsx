@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import { Card } from '@good/ui';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { Card } from '@hey/ui';
 
 import PublicationShimmer from './PublicationShimmer';
 

@@ -1,18 +1,18 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
 import {
-  HEY_API_URL,
+  GOOD_API_URL,
   STAFF_PICK_FEATURE_ID,
   VERIFIED_FEATURE_ID
-} from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { CREATORTOOLS } from '@hey/data/tracking';
-import getPreferences from '@hey/helpers/api/getPreferences';
-import { Toggle } from '@hey/ui';
+} from '@good/data/constants';
+import { FeatureFlag } from '@good/data/feature-flags';
+import { CREATORTOOLS } from '@good/data/tracking';
+import getPreferences from '@good/helpers/api/getPreferences';
+import { Toggle } from '@good/ui';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -49,7 +49,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/assign`,
+        `${GOOD_API_URL}/internal/features/assign`,
         { enabled, id, profile_id: profile.id },
         { headers: getAuthApiHeaders() }
       ),

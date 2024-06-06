@@ -1,11 +1,11 @@
-import type { Area, Point, Size } from '@hey/image-cropper/types';
+import type { Area, Point, Size } from '@good/image-cropper/types';
 import type { Dispatch, FC } from 'react';
 
+import ImageCropper from '@good/image-cropper/ImageCropper';
 import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline';
-import ImageCropper from '@hey/image-cropper/ImageCropper';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { useEffect, useRef, useState } from 'react';

@@ -1,19 +1,19 @@
-import type { UnknownOpenActionModuleSettings } from '@hey/lens';
-import type { OG } from '@hey/types/misc';
+import type { UnknownOpenActionModuleSettings } from '@good/lens';
+import type { OG } from '@good/types/misc';
 import type { FC } from 'react';
 
 import DecentOpenActionPreview from '@components/Publication/OpenAction/UnknownModule/Decent/DecentOpenActionPreview';
 import SwapOpenAction from '@components/Publication/OpenAction/UnknownModule/Swap';
-import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
-  HEY_API_URL,
+  GOOD_API_URL,
   KNOWN_ATTRIBUTES,
   REWARDS_PROFILE_ID
-} from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getFavicon from '@hey/helpers/getFavicon';
-import getURLs from '@hey/helpers/getURLs';
+} from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
+import getFavicon from '@good/helpers/getFavicon';
+import getURLs from '@good/helpers/getURLs';
+import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -81,7 +81,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
   const { data } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
-      const response = await axios.get(`${HEY_API_URL}/oembed`, {
+      const response = await axios.get(`${GOOD_API_URL}/oembed`, {
         params: { url }
       });
       return response.data.oembed;

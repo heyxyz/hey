@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 
+import { APP_NAME } from '@good/data/constants';
+import { MISCELLANEOUS } from '@good/data/tracking';
+import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
 import showCrisp from '@helpers/showCrisp';
-import { APP_NAME } from '@hey/data/constants';
-import { MISCELLANEOUS } from '@hey/data/tracking';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
@@ -26,7 +26,7 @@ const Footer: FC = () => {
         </Link>
         <Link
           className="outline-offset-4"
-          href="https://hey.xyz/discord"
+          href="https://bcharity.net/discord"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
           rel="noreferrer noopener"
           target="_blank"
@@ -35,7 +35,7 @@ const Footer: FC = () => {
         </Link>
         <Link
           className="outline-offset-4"
-          href="https://status.hey.xyz"
+          href="https://status.bcharity.net"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
           rel="noreferrer noopener"
           target="_blank"
@@ -44,7 +44,7 @@ const Footer: FC = () => {
         </Link>
         <Link
           className="outline-offset-4"
-          href="https://feedback.hey.xyz"
+          href="https://feedback.bcharity.net"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)}
           rel="noreferrer noopener"
           target="_blank"
@@ -56,7 +56,7 @@ const Footer: FC = () => {
         </Link>
         <Link
           className="outline-offset-4"
-          href="https://github.com/heyxyz/hey"
+          href="https://github.com/bcharity-net/good"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
           rel="noreferrer noopener"
           target="_blank"

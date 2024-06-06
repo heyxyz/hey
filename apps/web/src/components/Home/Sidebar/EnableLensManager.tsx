@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager';
-import { APP_NAME } from '@hey/data/constants';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import { Card } from '@hey/ui';
+import { APP_NAME } from '@good/data/constants';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import { Card } from '@good/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useAccount } from 'wagmi';
 

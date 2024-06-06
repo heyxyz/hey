@@ -1,4 +1,4 @@
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from '@good/data/constants';
 
 const canvasImageFromVideo = (
   file: File,

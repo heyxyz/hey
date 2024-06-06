@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import MetaTags from '@components/Common/MetaTags';
+import { APP_NAME, STATIC_IMAGES_URL } from '@good/data/constants';
+import { Button } from '@good/ui';
 import { HomeIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Button } from '@hey/ui';
 import Link from 'next/link';
 
 const Custom404: FC = () => {

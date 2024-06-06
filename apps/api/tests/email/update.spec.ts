@@ -1,11 +1,11 @@
-import getAuthApiHeadersForTest from '@hey/helpers/getAuthApiHeadersForTest';
+import getAuthApiHeadersForTest from '@good/helpers/getAuthApiHeadersForTest';
 import axios from 'axios';
 import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('email/update', () => {
   const payload = {
-    email: 'vitest@hey.xyz',
+    email: 'vitest@bcharity.net',
     resend: false
   };
 

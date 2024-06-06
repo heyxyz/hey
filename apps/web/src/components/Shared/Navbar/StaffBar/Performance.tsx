@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 import { useEffect, useState } from 'react';
 
 import { Badge } from '.';

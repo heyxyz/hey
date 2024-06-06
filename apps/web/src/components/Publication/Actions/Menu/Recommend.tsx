@@ -1,21 +1,21 @@
 import type {
   MirrorablePublication,
   PeerToPeerRecommendRequest
-} from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
+} from '@good/lens';
+import type { ApolloCache } from '@good/lens/apollo';
 import type { FC } from 'react';
 
+import { PROFILE } from '@good/data/tracking';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import {
+  usePeerToPeerRecommendMutation,
+  usePeerToPeerUnrecommendMutation
+} from '@good/lens';
+import cn from '@good/ui/cn';
 import { MenuItem } from '@headlessui/react';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { SparklesIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import {
-  usePeerToPeerRecommendMutation,
-  usePeerToPeerUnrecommendMutation
-} from '@hey/lens';
-import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
 
 interface NotInterestedProps {

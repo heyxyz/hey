@@ -1,4 +1,4 @@
-import type { ButtonType, Frame } from '@hey/types/misc';
+import type { ButtonType, Frame } from '@good/types/misc';
 import type { Document } from 'linkedom';
 
 const getFrame = (document: Document, url?: string): Frame | null => {

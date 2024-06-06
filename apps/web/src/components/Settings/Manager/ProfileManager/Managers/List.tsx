@@ -1,26 +1,26 @@
-import type { ProfileManagersRequest } from '@hey/lens';
+import type { ProfileManagersRequest } from '@good/lens';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import WalletProfile from '@components/Shared/WalletProfile';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { LENS_HUB } from '@hey/data/constants';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { Errors } from '@good/data';
+import { LENS_HUB } from '@good/data/constants';
+import { SETTINGS } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
+} from '@good/lens';
+import { useApolloClient } from '@good/lens/apollo';
+import { Button, EmptyState, ErrorMessage, Spinner } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Virtuoso } from 'react-virtuoso';

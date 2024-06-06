@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 
 export type Typename<T = string> = { [key in '__typename']?: T };
 

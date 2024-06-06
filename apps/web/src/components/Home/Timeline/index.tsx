@@ -1,15 +1,15 @@
-import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
+import type { AnyPublication, FeedItem, FeedRequest } from '@good/lens';
 import type { FC } from 'react';
 import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { GOOD_CURATED_ID } from '@good/data/constants';
+import { FeedEventItemType, useFeedQuery } from '@good/lens';
+import { OptmisticPublicationType } from '@good/types/enums';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import { HEY_CURATED_ID } from '@hey/data/constants';
-import { FeedEventItemType, useFeedQuery } from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { memo, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
@@ -37,7 +37,7 @@ const Timeline: FC = () => {
         FeedEventItemType.Quote,
         FeedEventItemType.Reaction
       ],
-      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id
+      for: fallbackToCuratedFeed ? GOOD_CURATED_ID : currentProfile?.id
     }
   };
 

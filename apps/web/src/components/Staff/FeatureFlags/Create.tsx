@@ -1,11 +1,11 @@
-import type { Feature } from '@hey/types/hey';
+import type { Feature } from '@good/types/good';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import { GOOD_API_URL } from '@good/data/constants';
+import { STAFFTOOLS } from '@good/data/tracking';
+import { Button, Form, Input, useZodForm } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -36,7 +36,7 @@ const Create: FC<CreateProps> = ({
     setCreating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/create`,
+        `${GOOD_API_URL}/internal/features/create`,
         { key },
         { headers: getAuthApiHeaders() }
       ),

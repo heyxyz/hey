@@ -1,4 +1,4 @@
-import type { FeedItem } from '@hey/lens';
+import type { FeedItem } from '@good/lens';
 import type { FC } from 'react';
 
 import Profiles from '@components/Shared/Profiles';

@@ -1,18 +1,18 @@
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
 import {
   DEFAULT_COLLECT_TOKEN,
   REWARDS_ADDRESS,
   ZERO_ADDRESS
-} from '@hey/data/constants';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+} from '@good/data/constants';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import {
+  useModuleMetadataQuery,
   type MirrorablePublication,
-  type UnknownOpenActionModuleSettings,
-  useModuleMetadataQuery
-} from '@hey/lens';
-import { Card } from '@hey/ui';
+  type UnknownOpenActionModuleSettings
+} from '@good/lens';
+import { Card } from '@good/ui';
+import errorToast from '@helpers/errorToast';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
 import useActOnUnknownOpenAction from 'src/hooks/useActOnUnknownOpenAction';

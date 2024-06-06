@@ -1,4 +1,4 @@
-import { FeatureFlag } from '@hey/data/feature-flags';
+import { FeatureFlag } from '@good/data/feature-flags';
 
 import {
   GARDENER_FEATURE_ID,

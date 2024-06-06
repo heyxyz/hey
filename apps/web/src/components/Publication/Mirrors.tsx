@@ -1,15 +1,15 @@
-import type { Profile, ProfilesRequest } from '@hey/lens';
+import type { Profile, ProfilesRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { ProfileLinkSource } from '@good/data/tracking';
+import { LimitType, useProfilesQuery } from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
 import {
   ArrowLeftIcon,
   ArrowsRightLeftIcon
 } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { LimitType, useProfilesQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

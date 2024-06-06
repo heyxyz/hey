@@ -1,4 +1,4 @@
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 
 const clickhouse = createClickhouseClient();

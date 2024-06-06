@@ -1,4 +1,4 @@
-import type { ProfileOwnershipCondition as ProfileOwnershipConditionType } from '@hey/lens';
+import type { ProfileOwnershipCondition as ProfileOwnershipConditionType } from '@good/lens';
 import type { FC } from 'react';
 
 import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';

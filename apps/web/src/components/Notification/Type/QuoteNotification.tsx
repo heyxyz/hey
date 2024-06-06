@@ -1,9 +1,9 @@
-import type { QuoteNotification as TQuoteNotification } from '@hey/lens';
+import type { QuoteNotification as TQuoteNotification } from '@good/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
+import getPublicationData from '@good/helpers/getPublicationData';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/helpers/getPublicationData';
 import Link from 'next/link';
 import usePushToImpressions from 'src/hooks/usePushToImpressions';
 

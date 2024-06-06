@@ -1,7 +1,7 @@
-import LensEndpoint from '@hey/data/lens-endpoints';
+import LensEndpoint from '@good/data/lens-endpoints';
 import axios from 'axios';
 
-import { HEY_USER_AGENT } from '../constants';
+import { GOOD_USER_AGENT } from '../constants';
 
 /**
  * Middleware to validate Lens access token for connections
@@ -33,7 +33,7 @@ const validateLensAccessToken = async (
       {
         headers: {
           'Content-Type': 'application/json',
-          'User-agent': HEY_USER_AGENT
+          'User-agent': GOOD_USER_AGENT
         }
       }
     );

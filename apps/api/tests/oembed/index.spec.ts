@@ -29,11 +29,11 @@ describe('oembed/index', () => {
 
   test('should return nft', async () => {
     const response = await axios.get(`${TEST_URL}/oembed`, {
-      params: { url: 'https://www.sound.xyz/yo/hey-the-revolution-begins' }
+      params: { url: 'https://www.sound.xyz/yo/good-the-revolution-begins' }
     });
 
     expect(response.data.oembed.nft.collectionName).toEqual(
-      'Hey, The Revolution Begins'
+      'Good, The Revolution Begins'
     );
     expect(response.data.oembed.nft.creatorAddress).toEqual(
       '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef'
@@ -42,7 +42,7 @@ describe('oembed/index', () => {
       'https://opengraph.sound.xyz/v1/release/e080681f-acc0-44c5-9191-802b4d298174'
     );
     expect(response.data.oembed.nft.sourceUrl).toEqual(
-      'https://www.sound.xyz/yo/hey-the-revolution-begins'
+      'https://www.sound.xyz/yo/good-the-revolution-begins'
     );
   });
 

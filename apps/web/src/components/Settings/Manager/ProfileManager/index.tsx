@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import { Button, Card, Modal, TabButton } from '@good/ui';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { Button, Card, Modal, TabButton } from '@hey/ui';
 import { useState } from 'react';
 
 import AddProfileManager from './AddProfileManager';

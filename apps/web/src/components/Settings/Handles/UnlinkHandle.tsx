@@ -1,22 +1,22 @@
-import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
+import type { UnlinkHandleFromProfileRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
-import { TokenHandleRegistry } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { TokenHandleRegistry } from '@good/abis';
+import { Errors } from '@good/data';
+import { TOKEN_HANDLE_REGISTRY } from '@good/data/constants';
+import { SETTINGS } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   useBroadcastOnchainMutation,
   useCreateUnlinkHandleFromProfileTypedDataMutation,
   useUnlinkHandleFromProfileMutation
-} from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
+} from '@good/lens';
+import { Button, Spinner } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

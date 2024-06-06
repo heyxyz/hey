@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Card } from '@hey/ui';
+import { Card } from '@good/ui';
 
 interface HiddenPublicationProps {
   type?: string;

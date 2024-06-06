@@ -1,9 +1,9 @@
-import type { InvitedResult } from '@hey/lens';
+import type { InvitedResult } from '@good/lens';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { useInvitedProfilesQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import { useInvitedProfilesQuery } from '@good/lens';
+import { ErrorMessage } from '@good/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Invite from './Invite';

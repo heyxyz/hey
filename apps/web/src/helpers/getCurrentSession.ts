@@ -1,4 +1,4 @@
-import parseJwt from '@hey/helpers/parseJwt';
+import parseJwt from '@good/helpers/parseJwt';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
 /**

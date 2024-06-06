@@ -1,13 +1,13 @@
-import type { ProfileOnchainIdentity } from '@hey/lens';
+import type { ProfileOnchainIdentity } from '@good/lens';
 import type { FC } from 'react';
 
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
+import { GOOD_API_URL, IS_MAINNET } from '@good/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import Ens from './Ens';
-import HeyNft from './HeyNft';
-import HeyProfile from './HeyProfile';
+import GoodNft from './GoodNft';
+import GoodProfile from './GoodProfile';
 import ProofOfHumanity from './ProofOfHumanity';
 import Sybil from './Sybil';
 import Worldcoin from './Worldcoin';
@@ -18,46 +18,46 @@ interface BadgesProps {
 }
 
 const Badges: FC<BadgesProps> = ({ id, onchainIdentity }) => {
-  // Begin: Get isHeyProfile
-  const getIsHeyProfile = async (): Promise<boolean> => {
-    const response = await axios.get(`${HEY_API_URL}/badges/isHeyProfile`, {
+  // Begin: Get isGoodProfile
+  const getIsGoodProfile = async (): Promise<boolean> => {
+    const response = await axios.get(`${GOOD_API_URL}/badges/isGoodProfile`, {
       params: { id }
     });
     const { data } = response;
 
-    return data?.isHeyProfile || false;
+    return data?.isGoodProfile || false;
   };
 
-  const { data: isHeyProfile } = useQuery({
-    queryFn: getIsHeyProfile,
-    queryKey: ['getIsHeyProfile', id]
+  const { data: isGoodProfile } = useQuery({
+    queryFn: getIsGoodProfile,
+    queryKey: ['getIsGoodProfile', id]
   });
-  // End: Get isHeyProfile
+  // End: Get isGoodProfile
 
-  // Begin: Check has Hey NFT
-  const getHasHeyNft = async (): Promise<boolean> => {
-    const response = await axios.get(`${HEY_API_URL}/badges/hasHeyNft`, {
+  // Begin: Check has Good NFT
+  const getHasGoodNft = async (): Promise<boolean> => {
+    const response = await axios.get(`${GOOD_API_URL}/badges/hasGoodNft`, {
       params: { id }
     });
     const { data } = response;
 
-    return data?.hasHeyNft || false;
+    return data?.hasGoodNft || false;
   };
 
-  const { data: hasHeyNft } = useQuery({
+  const { data: hasGoodNft } = useQuery({
     enabled: IS_MAINNET,
-    queryFn: getHasHeyNft,
-    queryKey: ['getHasHeyNft', id]
+    queryFn: getHasGoodNft,
+    queryKey: ['getHasGoodNft', id]
   });
-  // End: Check has Hey NFT
+  // End: Check has Good NFT
 
   const hasOnChainIdentity =
     onchainIdentity?.proofOfHumanity ||
     onchainIdentity?.sybilDotOrg?.verified ||
     onchainIdentity?.ens?.name ||
     onchainIdentity?.worldcoin?.isHuman ||
-    isHeyProfile ||
-    hasHeyNft;
+    isGoodProfile ||
+    hasGoodNft;
 
   if (!hasOnChainIdentity) {
     return null;
@@ -71,8 +71,8 @@ const Badges: FC<BadgesProps> = ({ id, onchainIdentity }) => {
         <Ens onchainIdentity={onchainIdentity} />
         <Sybil onchainIdentity={onchainIdentity} />
         <Worldcoin onchainIdentity={onchainIdentity} />
-        {isHeyProfile && <HeyProfile />}
-        {hasHeyNft && <HeyNft />}
+        {isGoodProfile && <GoodProfile />}
+        {hasGoodNft && <GoodNft />}
       </div>
     </>
   );

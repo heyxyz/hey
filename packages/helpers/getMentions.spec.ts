@@ -10,7 +10,7 @@ describe('getAttachmentsData', () => {
   });
 
   test('should return an array with a single mention', () => {
-    const text = 'Hey @lens/johnsmith! How are you?';
+    const text = 'Good @lens/johnsmith! How are you?';
     const result = getMentions(text);
     expect(result).toEqual([
       {
@@ -25,7 +25,7 @@ describe('getAttachmentsData', () => {
   });
 
   test('should return an array with multiple mentions', () => {
-    const text = 'Hello @lens/john, @hey/jane, and @tape/doe!';
+    const text = 'Hello @lens/john, @good/jane, and @tape/doe!';
     const result = getMentions(text);
     expect(result).toEqual([
       {
@@ -39,7 +39,7 @@ describe('getAttachmentsData', () => {
       {
         profile: {},
         snapshotHandleMentioned: {
-          fullHandle: 'hey/jane',
+          fullHandle: 'good/jane',
           localName: 'jane'
         },
         stillOwnsHandle: true

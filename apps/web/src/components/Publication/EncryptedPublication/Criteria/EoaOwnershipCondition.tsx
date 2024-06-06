@@ -1,8 +1,8 @@
-import type { EoaOwnershipCondition as EoaOwnershipConditionType } from '@hey/lens';
+import type { EoaOwnershipCondition as EoaOwnershipConditionType } from '@good/lens';
 import type { FC } from 'react';
 
-import formatAddress from '@hey/helpers/formatAddress';
-import { Tooltip } from '@hey/ui';
+import formatAddress from '@good/helpers/formatAddress';
+import { Tooltip } from '@good/ui';
 import useEnsName from 'src/hooks/useEnsName';
 
 interface EoaOwnershipConditionProps {

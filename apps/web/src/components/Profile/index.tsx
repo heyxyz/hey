@@ -1,20 +1,20 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
-import { Leafwatch } from '@helpers/leafwatch';
-import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
   HANDLE_PREFIX,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import getProfileDetails from '@hey/helpers/api/getProfileFlags';
-import getProfile from '@hey/helpers/getProfile';
-import { useProfileQuery } from '@hey/lens';
-import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+} from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
+import getProfileDetails from '@good/helpers/api/getProfileFlags';
+import getProfile from '@good/helpers/getProfile';
+import { useProfileQuery } from '@good/lens';
+import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
+import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

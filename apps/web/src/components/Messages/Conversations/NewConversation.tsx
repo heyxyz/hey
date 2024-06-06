@@ -1,9 +1,9 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
+import { Modal } from '@good/ui';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { Modal } from '@hey/ui';
 import { useClient, useConversation } from '@xmtp/react-sdk';
 import { useState } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';

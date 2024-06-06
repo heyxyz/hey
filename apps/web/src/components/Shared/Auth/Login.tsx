@@ -2,23 +2,23 @@ import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfilesManagedRequest
-} from '@hey/lens';
+} from '@good/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { KeyIcon } from '@heroicons/react/24/outline';
-import { XCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { AUTH } from '@hey/data/tracking';
+import { Errors } from '@good/data/errors';
+import { AUTH } from '@good/data/tracking';
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@hey/lens';
-import { Button, Card } from '@hey/ui';
+} from '@good/lens';
+import { Button, Card } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { KeyIcon } from '@heroicons/react/24/outline';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';

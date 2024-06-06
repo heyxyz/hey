@@ -1,7 +1,7 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 import type { FC } from 'react';
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import { useRouter } from 'next/router';
 
 import Commented from './Commented';

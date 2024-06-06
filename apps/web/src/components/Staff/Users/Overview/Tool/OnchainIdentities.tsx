@@ -1,4 +1,4 @@
-import type { ProfileOnchainIdentity } from '@hey/lens';
+import type { ProfileOnchainIdentity } from '@good/lens';
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';

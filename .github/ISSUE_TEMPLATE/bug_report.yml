@@ -1,5 +1,5 @@
 name: 'Bug Report'
-description: 'Report a reproducible bug in the Hey'
+description: 'Report a reproducible bug in the Good'
 labels: 'needs review'
 body:
   - type: markdown

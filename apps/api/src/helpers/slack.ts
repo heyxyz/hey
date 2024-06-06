@@ -1,4 +1,4 @@
-import { BRAND_COLOR } from '@hey/data/constants';
+import { BRAND_COLOR } from '@good/data/constants';
 import axios from 'axios';
 
 const SLACK_CHANNELS = [

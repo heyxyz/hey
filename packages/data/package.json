@@ -1,5 +1,5 @@
 {
-  "name": "@hey/data",
+  "name": "@good/data",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -14,7 +14,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@good/config": "workspace:*",
     "@types/node": "^20.14.2",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"

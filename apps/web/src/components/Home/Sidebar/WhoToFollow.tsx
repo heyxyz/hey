@@ -1,14 +1,14 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { PROFILE, ProfileLinkSource } from '@good/data/tracking';
+import { LimitType, useProfileRecommendationsQuery } from '@good/lens';
+import { Card, ErrorMessage, Modal } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { PROFILE, ProfileLinkSource } from '@hey/data/tracking';
-import { LimitType, useProfileRecommendationsQuery } from '@hey/lens';
-import { Card, ErrorMessage, Modal } from '@hey/ui';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

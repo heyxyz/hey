@@ -1,14 +1,14 @@
 import { LENS_NETWORK } from '../constants';
 import { MainnetContracts, TestnetContracts } from '../contracts';
-import HeyEndpoint from '../hey-endpoints';
+import GoodEndpoint from '../good-endpoints';
 import LensEndpoint from '../lens-endpoints';
 
 const getEnvConfig = (): {
   defaultCollectToken: string;
-  heyApiEndpoint: string;
-  heyLensSignup: `0x${string}`;
-  heyPro: `0x${string}`;
-  heyTipping: `0x${string}`;
+  goodApiEndpoint: string;
+  goodLensSignup: `0x${string}`;
+  goodPro: `0x${string}`;
+  goodTipping: `0x${string}`;
   lensApiEndpoint: string;
   lensHandles: `0x${string}`;
   lensHub: `0x${string}`;
@@ -19,10 +19,10 @@ const getEnvConfig = (): {
     case 'testnet':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Testnet,
-        heyLensSignup: TestnetContracts.HeyLensSignup,
-        heyPro: TestnetContracts.HeyPro,
-        heyTipping: TestnetContracts.HeyTipping,
+        goodApiEndpoint: GoodEndpoint.Testnet,
+        goodLensSignup: TestnetContracts.GoodLensSignup,
+        goodPro: TestnetContracts.GoodPro,
+        goodTipping: TestnetContracts.GoodTipping,
         lensApiEndpoint: LensEndpoint.Testnet,
         lensHandles: TestnetContracts.LensHandles,
         lensHub: TestnetContracts.LensHub,
@@ -32,10 +32,10 @@ const getEnvConfig = (): {
     case 'staging':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Staging,
-        heyLensSignup: TestnetContracts.HeyLensSignup,
-        heyPro: TestnetContracts.HeyPro,
-        heyTipping: TestnetContracts.HeyTipping,
+        goodApiEndpoint: GoodEndpoint.Staging,
+        goodLensSignup: TestnetContracts.GoodLensSignup,
+        goodPro: TestnetContracts.GoodPro,
+        goodTipping: TestnetContracts.GoodTipping,
         lensApiEndpoint: LensEndpoint.Staging,
         lensHandles: TestnetContracts.LensHandles,
         lensHub: TestnetContracts.LensHub,
@@ -45,10 +45,10 @@ const getEnvConfig = (): {
     default:
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Mainnet,
-        heyLensSignup: MainnetContracts.HeyLensSignup,
-        heyPro: MainnetContracts.HeyPro,
-        heyTipping: MainnetContracts.HeyTipping,
+        goodApiEndpoint: GoodEndpoint.Mainnet,
+        goodLensSignup: MainnetContracts.GoodLensSignup,
+        goodPro: MainnetContracts.GoodPro,
+        goodTipping: MainnetContracts.GoodTipping,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHandles: MainnetContracts.LensHandles,
         lensHub: MainnetContracts.LensHub,

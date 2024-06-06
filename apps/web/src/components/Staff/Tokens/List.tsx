@@ -1,14 +1,14 @@
-import type { AllowedToken } from '@hey/types/hey';
+import type { AllowedToken } from '@good/types/good';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { GOOD_API_URL } from '@good/data/constants';
+import { STAFFTOOLS } from '@good/data/tracking';
+import getAllTokens from '@good/helpers/api/getAllTokens';
+import { Button, Card, EmptyState, ErrorMessage, Modal } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllTokens from '@hey/helpers/api/getAllTokens';
-import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -32,7 +32,7 @@ const List: FC = () => {
   const deleteToken = (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/tokens/delete`,
+        `${GOOD_API_URL}/internal/tokens/delete`,
         { id },
         { headers: getAuthApiHeaders() }
       ),

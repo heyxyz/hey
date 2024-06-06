@@ -2,25 +2,25 @@ import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfilesManagedRequest
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
+import { Errors } from '@good/data/errors';
+import { PROFILE } from '@good/data/tracking';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getProfile from '@good/helpers/getProfile';
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@hey/lens';
-import { ErrorMessage, Image, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@good/lens';
+import { ErrorMessage, Image, Spinner } from '@good/ui';
+import cn from '@good/ui/cn';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { signIn, signOut } from 'src/store/persisted/useAuthStore';

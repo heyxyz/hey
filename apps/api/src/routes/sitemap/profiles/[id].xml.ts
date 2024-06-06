@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
@@ -43,7 +43,7 @@ export const get: Handler = async (req, res) => {
         .replace('T', ' ')
         .replace('.000Z', '')
         .split(' ')[0],
-      loc: `https://hey.xyz/u/${handle.local_name}`
+      loc: `https://bcharity.net/u/${handle.local_name}`
     }));
 
     const xml = buildUrlsetXml(entries);

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { APP_NAME, DESCRIPTION } from '@hey/data/constants';
+import { APP_NAME, DESCRIPTION } from '@good/data/constants';
 import { useRouter } from 'next/router';
 
 import MetaTags from '../Common/MetaTags';

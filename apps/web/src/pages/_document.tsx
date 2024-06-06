@@ -1,6 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-class HeyDocument extends Document {
+class GoodDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -9,8 +9,8 @@ class HeyDocument extends Document {
           <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
 
           {/* Prefetch and Preconnect */}
-          <link href="https://hey-assets.b-cdn.net" rel="preconnect" />
-          <link href="https://hey-assets.b-cdn.net" rel="dns-prefetch" />
+          <link href="https://good-assets.b-cdn.net" rel="preconnect" />
+          <link href="https://good-assets.b-cdn.net" rel="dns-prefetch" />
 
           {/* Icons */}
           <link href="/ati.png" rel="apple-touch-icon" sizes="180x180" />
@@ -19,8 +19,8 @@ class HeyDocument extends Document {
 
           {/* PWA config */}
           <link href="/manifest.json" rel="manifest" />
-          <meta content="Hey" name="application-name" />
-          <meta content="Hey" name="apple-mobile-web-app-title" />
+          <meta content="Good" name="application-name" />
+          <meta content="Good" name="apple-mobile-web-app-title" />
           <meta content="yes" name="mobile-web-app-capable" />
           <meta content="yes" name="apple-mobile-web-app-capable" />
           <meta
@@ -38,4 +38,4 @@ class HeyDocument extends Document {
   }
 }
 
-export default HeyDocument;
+export default GoodDocument;

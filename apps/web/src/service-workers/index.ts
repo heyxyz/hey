@@ -1,6 +1,6 @@
 declare let self: ServiceWorkerGlobalScope;
 
-const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
+const impressionsEndpoint = 'https://api.bcharity.net/leafwatch/impressions';
 const publicationsVisibilityInterval = 5000;
 let viewerId: null | string = null;
 const visiblePublicationsSet = new Set();
@@ -40,4 +40,5 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
 
-export {};
+export { };
+

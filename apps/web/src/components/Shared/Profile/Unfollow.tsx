@@ -1,23 +1,23 @@
-import type { Profile, UnfollowRequest } from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
+import type { Profile, UnfollowRequest } from '@good/lens';
+import type { OptimisticTransaction } from '@good/types/misc';
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LensHub } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { LENS_HUB } from '@hey/data/constants';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { Errors } from '@good/data';
+import { LENS_HUB } from '@good/data/constants';
+import { PROFILE } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Button } from '@hey/ui';
+} from '@good/lens';
+import { useApolloClient } from '@good/lens/apollo';
+import { OptmisticPublicationType } from '@good/types/enums';
+import { Button } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

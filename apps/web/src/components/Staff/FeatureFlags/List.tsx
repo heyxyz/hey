@@ -1,18 +1,18 @@
-import type { Feature } from '@hey/types/hey';
+import type { Feature } from '@good/types/good';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { GOOD_API_URL } from '@good/data/constants';
+import { FeatureFlag } from '@good/data/feature-flags';
+import { STAFFTOOLS } from '@good/data/tracking';
+import getAllFeatureFlags from '@good/helpers/api/getAllFeatureFlags';
+import formatDate from '@good/helpers/datetime/formatDate';
+import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@good/ui';
+import cn from '@good/ui/cn';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllFeatureFlags from '@hey/helpers/api/getAllFeatureFlags';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -41,7 +41,7 @@ const List: FC = () => {
     setKilling(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/toggle`,
+        `${GOOD_API_URL}/internal/features/toggle`,
         { enabled, id },
         { headers: getAuthApiHeaders() }
       ),
@@ -68,7 +68,7 @@ const List: FC = () => {
   const deleteFeatureFlag = (id: string) => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/delete`,
+        `${GOOD_API_URL}/internal/features/delete`,
         { id },
         { headers: getAuthApiHeaders() }
       ),

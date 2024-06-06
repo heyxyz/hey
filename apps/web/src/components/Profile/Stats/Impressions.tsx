@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { Card, CardHeader, ErrorMessage } from '@hey/ui';
+import { GOOD_API_URL, IS_MAINNET } from '@good/data/constants';
+import formatDate from '@good/helpers/datetime/formatDate';
+import { Card, CardHeader, ErrorMessage } from '@good/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import {
@@ -40,7 +40,7 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/stats/profile/impressions`,
+        `${GOOD_API_URL}/stats/profile/impressions`,
         { params: { id: profileId } }
       );
 

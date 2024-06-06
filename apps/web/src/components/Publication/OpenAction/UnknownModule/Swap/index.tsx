@@ -1,25 +1,25 @@
 import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
-} from '@hey/lens';
-import type { UniswapQuote } from '@hey/types/hey';
+} from '@good/lens';
+import type { UniswapQuote } from '@good/types/good';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import {
   KNOWN_ATTRIBUTES,
   REWARDS_ADDRESS,
   WMATIC_ADDRESS
-} from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import getPublicationAttribute from '@hey/helpers/getPublicationAttribute';
-import getUniswapQuote from '@hey/helpers/getUniswapQuote';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useModuleMetadataQuery } from '@hey/lens';
-import { Card } from '@hey/ui';
+} from '@good/data/constants';
+import { PUBLICATION } from '@good/data/tracking';
+import getPublicationAttribute from '@good/helpers/getPublicationAttribute';
+import getUniswapQuote from '@good/helpers/getUniswapQuote';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { useModuleMetadataQuery } from '@good/lens';
+import { Card } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN } from 'src/constants';
@@ -236,7 +236,7 @@ const SwapOpenAction: FC<SwapOpenActionProps> = ({ module, publication }) => {
               <img
                 alt="WMATIC"
                 className="size-5 rounded-full"
-                src="https://hey-assets.b-cdn.net/images/tokens/wmatic.svg"
+                src="https://good-assets.b-cdn.net/images/tokens/wmatic.svg"
               />
               <b>WMATIC</b>
             </div>

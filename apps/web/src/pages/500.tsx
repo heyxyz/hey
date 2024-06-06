@@ -1,16 +1,16 @@
 import type { FC } from 'react';
 
 import MetaTags from '@components/Common/MetaTags';
-import { heyFont } from '@helpers/fonts';
+import { APP_NAME } from '@good/data/constants';
+import { Button } from '@good/ui';
+import cn from '@good/ui/cn';
+import { goodFont } from '@helpers/fonts';
 import { HomeIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 
 const Custom500: FC = () => {
   return (
-    <div className={cn('page-center flex-col', heyFont.className)}>
+    <div className={cn('page-center flex-col', goodFont.className)}>
       <MetaTags title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">

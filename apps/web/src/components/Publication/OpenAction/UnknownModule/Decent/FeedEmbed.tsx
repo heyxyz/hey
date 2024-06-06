@@ -1,22 +1,22 @@
 import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
-} from '@hey/lens';
-import type { OG } from '@hey/types/misc';
+} from '@good/lens';
+import type { OG } from '@good/types/misc';
 import type { ActionData, PublicationInfo, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
+import { REWARDS_PROFILE_ID, ZERO_ADDRESS } from '@good/data/constants';
+import { PUBLICATION } from '@good/data/tracking';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
+import sanitizeDStorageUrl from '@good/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Button, Card, Image, Tooltip } from '@good/ui';
+import cn from '@good/ui/cn';
 import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { REWARDS_PROFILE_ID, ZERO_ADDRESS } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Image, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { createTrackedSelector } from 'react-tracked';

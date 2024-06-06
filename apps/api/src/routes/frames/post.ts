@@ -1,12 +1,12 @@
 import type { Handler } from 'express';
 
-import { IS_MAINNET } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
+import { IS_MAINNET } from '@good/data/constants';
+import logger from '@good/helpers/logger';
+import parseJwt from '@good/helpers/parseJwt';
 import axios from 'axios';
 import { parseHTML } from 'linkedom';
 import catchedError from 'src/helpers/catchedError';
-import { HEY_USER_AGENT } from 'src/helpers/constants';
+import { GOOD_USER_AGENT } from 'src/helpers/constants';
 import signFrameAction from 'src/helpers/frames/signFrameAction';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import getFrame from 'src/helpers/oembed/meta/getFrame';
@@ -80,7 +80,7 @@ export const post: Handler = async (req, res) => {
     const { data } = await axios.post(
       postUrl,
       { clientProtocol: 'lens@1.0.0', trustedData, untrustedData },
-      { headers: { 'User-Agent': HEY_USER_AGENT } }
+      { headers: { 'User-Agent': GOOD_USER_AGENT } }
     );
 
     const { document } = parseHTML(data);

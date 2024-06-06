@@ -1,10 +1,10 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
+import { IS_MAINNET } from '@good/data/constants';
+import getPreferences from '@good/helpers/api/getPreferences';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { IS_MAINNET } from '@hey/data/constants';
-import getPreferences from '@hey/helpers/api/getPreferences';
 import { useQuery } from '@tanstack/react-query';
 
 import FeatureFlags from './FeatureFlags';

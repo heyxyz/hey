@@ -1,14 +1,14 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { OG } from '@hey/types/misc';
+import type { MirrorablePublication } from '@good/lens';
+import type { OG } from '@good/types/misc';
 import type { FC } from 'react';
 
 import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import getURLs from '@hey/helpers/getURLs';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Card } from '@hey/ui';
+import { GOOD_API_URL, IS_MAINNET } from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
+import getPublicationData from '@good/helpers/getPublicationData';
+import getURLs from '@good/helpers/getURLs';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Card } from '@good/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -38,7 +38,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
-      const response = await axios.get(`${HEY_API_URL}/oembed`, {
+      const response = await axios.get(`${GOOD_API_URL}/oembed`, {
         params: { url }
       });
       return response.data.oembed;

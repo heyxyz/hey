@@ -1,9 +1,21 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import Slug from '@components/Shared/Slug';
+import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@good/data/constants';
+import formatDate from '@good/helpers/datetime/formatDate';
+import getAvatar from '@good/helpers/getAvatar';
+import getFavicon from '@good/helpers/getFavicon';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getMentions from '@good/helpers/getMentions';
+import getMisuseDetails from '@good/helpers/getMisuseDetails';
+import getProfile from '@good/helpers/getProfile';
+import getProfileAttribute from '@good/helpers/getProfileAttribute';
+import hasMisused from '@good/helpers/hasMisused';
+import { FollowModuleType } from '@good/lens';
+import { Button, Image, LightBox, Tooltip } from '@good/ui';
 import isVerified from '@helpers/isVerified';
 import {
   ClockIcon,
@@ -17,18 +29,6 @@ import {
   ExclamationCircleIcon,
   EyeSlashIcon
 } from '@heroicons/react/24/solid';
-import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import getAvatar from '@hey/helpers/getAvatar';
-import getFavicon from '@hey/helpers/getFavicon';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getMentions from '@hey/helpers/getMentions';
-import getMisuseDetails from '@hey/helpers/getMisuseDetails';
-import getProfile from '@hey/helpers/getProfile';
-import getProfileAttribute from '@hey/helpers/getProfileAttribute';
-import hasMisused from '@hey/helpers/hasMisused';
-import { FollowModuleType } from '@hey/lens';
-import { Button, Image, LightBox, Tooltip } from '@hey/ui';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

@@ -1,18 +1,18 @@
-import type { Comment, PublicationsRequest } from '@hey/lens';
+import type { Comment, PublicationsRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import { useHiddenCommentFeedStore } from '@components/Publication';
 import SinglePublication from '@components/Publication/SinglePublication';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import getAvatar from '@hey/helpers/getAvatar';
+import getAvatar from '@good/helpers/getAvatar';
 import {
   CommentRankingFilterType,
   CustomFiltersType,
   HiddenCommentsType,
   LimitType,
   usePublicationsQuery
-} from '@hey/lens';
-import { Card, StackedAvatars } from '@hey/ui';
+} from '@good/lens';
+import { Card, StackedAvatars } from '@good/ui';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';

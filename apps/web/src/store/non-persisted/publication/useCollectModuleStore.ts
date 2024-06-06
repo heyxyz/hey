@@ -1,4 +1,4 @@
-import type { CollectModuleType } from '@hey/types/hey';
+import type { CollectModuleType } from '@good/types/good';
 
 import { create } from 'zustand';
 

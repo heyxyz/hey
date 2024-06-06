@@ -1,6 +1,6 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
-import LensEndpoint from '@hey/data/lens-endpoints';
+import LensEndpoint from '@good/data/lens-endpoints';
 
 const config: CodegenConfig = {
   customFetch: 'node-fetch',

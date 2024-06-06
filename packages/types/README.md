@@ -1,1 +1,1 @@
-# @hey/types
+# @good/types

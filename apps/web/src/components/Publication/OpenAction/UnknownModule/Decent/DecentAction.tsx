@@ -1,11 +1,11 @@
-import type { Amount } from '@hey/lens';
+import type { Amount } from '@good/lens';
 import type { UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 
 import LoginButton from '@components/Shared/LoginButton';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Button, Spinner } from '@good/ui';
+import cn from '@good/ui/cn';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 

@@ -1,25 +1,25 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
+import type { MirrorablePublication } from '@good/lens';
+import type { AllowedToken } from '@good/types/good';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import errorToast from '@helpers/errorToast';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HeyTipping } from '@hey/abis';
-import { Errors } from '@hey/data';
+import { GoodTipping } from '@good/abis';
+import { Errors } from '@good/data';
 import {
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
-  HEY_API_URL,
-  HEY_TIPPING,
+  GOOD_API_URL,
+  GOOD_TIPPING,
   MAX_UINT256,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import formatAddress from '@hey/helpers/formatAddress';
-import { Button, HelpTooltip, Input, Select, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@good/data/constants';
+import { PUBLICATION } from '@good/data/tracking';
+import formatAddress from '@good/helpers/formatAddress';
+import { Button, HelpTooltip, Input, Select, Spinner } from '@good/ui';
+import cn from '@good/ui/cn';
+import errorToast from '@helpers/errorToast';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -80,8 +80,8 @@ const Action: FC<ActionProps> = ({
   });
 
   const { data, isLoading: isGettingAllowance } = useReadContract({
-    abi: HeyTipping,
-    address: HEY_TIPPING,
+    abi: GoodTipping,
+    address: GOOD_TIPPING,
     args: [selectedCurrency?.contractAddress, address],
     functionName: 'checkAllowance',
     query: { refetchInterval: 2000 }
@@ -170,7 +170,7 @@ const Action: FC<ActionProps> = ({
           }
         ],
         address: selectedCurrency?.contractAddress as Address,
-        args: [HEY_TIPPING, MAX_UINT256],
+        args: [GOOD_TIPPING, MAX_UINT256],
         functionName: 'approve'
       });
       Leafwatch.track(PUBLICATION.TIP.ENABLE, {
@@ -194,8 +194,8 @@ const Action: FC<ActionProps> = ({
       setIsLoading(true);
 
       const hash = await writeContractAsync({
-        abi: HeyTipping,
-        address: HEY_TIPPING,
+        abi: GoodTipping,
+        address: GOOD_TIPPING,
         args: [
           selectedCurrency?.contractAddress,
           publication.by.ownedBy.address,
@@ -208,7 +208,7 @@ const Action: FC<ActionProps> = ({
       });
 
       await axios.post(
-        `${HEY_API_URL}/tips/create`,
+        `${GOOD_API_URL}/tips/create`,
         {
           amount: cryptoRate - cryptoRate * 0.05,
           fromAddress: address,

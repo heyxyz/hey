@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import { APP_NAME, GOOD_API_URL } from '@good/data/constants';
+import { MISCELLANEOUS, PUBLICATION } from '@good/data/tracking';
+import { Button, Card, Modal } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
-import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
-import { Button, Card, Modal } from '@hey/ui';
 import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -13,7 +13,7 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 
 import Mint from './Mint';
 
-const HeyMembershipNft: FC = () => {
+const GoodMembershipNft: FC = () => {
   const {
     hasDismissedOrMintedMembershipNft,
     setHasDismissedOrMintedMembershipNft
@@ -24,9 +24,9 @@ const HeyMembershipNft: FC = () => {
     return null;
   }
 
-  const updateHeyMemberNftStatus = () => {
+  const updateGoodMemberNftStatus = () => {
     toast.promise(
-      axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
+      axios.post(`${GOOD_API_URL}/preferences/updateNftStatus`, undefined, {
         headers: getAuthApiHeaders()
       }),
       {
@@ -44,13 +44,13 @@ const HeyMembershipNft: FC = () => {
   return (
     <Card as="aside" className="ld-text-gray-500 mb-4">
       <img
-        alt="Hey NFT"
+        alt="Good NFT"
         className="h-48 w-full rounded-t-xl object-cover"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
       />
       <div className="p-5">
         <p className="mb-1 text-lg font-bold">
-          Hey! Grab your special {APP_NAME} NFT here.
+          Good! Grab your special {APP_NAME} NFT here.
         </p>
         <p className="mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe
@@ -75,13 +75,13 @@ const HeyMembershipNft: FC = () => {
             show={showMintModal}
             title={`Special ${APP_NAME} NFT`}
           >
-            <Mint onCollectSuccess={updateHeyMemberNftStatus} />
+            <Mint onCollectSuccess={updateGoodMemberNftStatus} />
           </Modal>
           <button
             className="text-sm underline"
             onClick={() => {
               Leafwatch.track(MISCELLANEOUS.DISMISSED_MEMBERSHIP_NFT_BANNER);
-              updateHeyMemberNftStatus();
+              updateGoodMemberNftStatus();
             }}
             type="button"
           >
@@ -93,4 +93,4 @@ const HeyMembershipNft: FC = () => {
   );
 };
 
-export default memo(HeyMembershipNft);
+export default memo(GoodMembershipNft);

@@ -1,5 +1,5 @@
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
+import { GOOD_API_URL } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
  */
 const uploadToArweave = async (data: any): Promise<string> => {
   try {
-    const upload = await axios.post(`${HEY_API_URL}/metadata`, { ...data });
+    const upload = await axios.post(`${GOOD_API_URL}/metadata`, { ...data });
     const { id }: { id: string } = upload.data;
 
     return id;

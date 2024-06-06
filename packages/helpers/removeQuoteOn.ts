@@ -1,4 +1,4 @@
-import type { Quote } from '@hey/lens';
+import type { Quote } from '@good/lens';
 
 /**
  * Removes the `quoteOn` property from a Quote object.

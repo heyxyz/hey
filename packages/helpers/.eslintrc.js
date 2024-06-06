@@ -1,3 +1,3 @@
 module.exports = {
-  extends: [require.resolve('@hey/config/eslint/base.js')]
+  extends: [require.resolve('@good/config/eslint/base.js')]
 };

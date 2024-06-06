@@ -1,10 +1,10 @@
 // DB URLs
-export const CLICKHOUSE_URL = 'http://clickhouse.hey.xyz:8123';
+export const CLICKHOUSE_URL = 'http://clickhouse.bcharity.net:8123';
 
 // API URLs
-export const SCORE_WORKER_URL = 'https://score.heyxyz.workers.dev';
+export const SCORE_WORKER_URL = 'https://score.bcharity-net.workers.dev';
 
-export const HEY_USER_AGENT = 'HeyBot/0.1 (like TwitterBot)';
+export const GOOD_USER_AGENT = 'GoodBot/0.1 (like TwitterBot)';
 
 // DB Feature IDs
 export const STAFF_FEATURE_ID = 'eea3b2d2-a60c-4e41-8130-1cb34cc37810';

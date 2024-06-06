@@ -1,25 +1,22 @@
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
+import { LensHub } from '@good/abis';
 import {
   ADDRESS_PLACEHOLDER,
   DEFAULT_COLLECT_TOKEN,
   LENS_HUB,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { Regex } from '@hey/data/regex';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+} from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { Regex } from '@good/data/regex';
+import { SETTINGS } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getSignature from '@good/helpers/getSignature';
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
-} from '@hey/lens';
+} from '@good/lens';
 import {
   Button,
   Card,
@@ -28,7 +25,10 @@ import {
   Input,
   Select,
   useZodForm
-} from '@hey/ui';
+} from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

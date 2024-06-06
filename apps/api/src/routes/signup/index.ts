@@ -1,9 +1,9 @@
 import type { Handler } from 'express';
 import type { Address } from 'viem';
 
-import { HeyLensSignup } from '@hey/abis';
-import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+import { GoodLensSignup } from '@good/abis';
+import { GOOD_LENS_SIGNUP, ZERO_ADDRESS } from '@good/data/constants';
+import logger from '@good/helpers/logger';
 import crypto from 'crypto';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
@@ -101,8 +101,8 @@ export const post: Handler = async (req, res) => {
     });
 
     const hash = await client.writeContract({
-      abi: HeyLensSignup,
-      address: HEY_LENS_SIGNUP,
+      abi: GoodLensSignup,
+      address: GOOD_LENS_SIGNUP,
       args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
       functionName: 'createProfileWithHandle'
     });

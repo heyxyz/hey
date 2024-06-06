@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import { Tooltip } from '@hey/ui';
+import { Tooltip } from '@good/ui';
 
 interface ToggleProps {
   children: ReactNode;

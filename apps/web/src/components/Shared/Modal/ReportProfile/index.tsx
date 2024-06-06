@@ -1,15 +1,11 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data';
-import { PROFILE } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useReportProfileMutation } from '@hey/lens';
+import { Errors } from '@good/data';
+import { PROFILE } from '@good/data/tracking';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { useReportProfileMutation } from '@good/lens';
 import {
   Button,
   Card,
@@ -19,7 +15,11 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@hey/ui';
+} from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';

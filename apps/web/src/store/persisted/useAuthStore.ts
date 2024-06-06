@@ -1,4 +1,4 @@
-import { IndexDB, Localstorage } from '@hey/data/storage';
+import { IndexDB, Localstorage } from '@good/data/storage';
 import { delMany } from 'idb-keyval';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';

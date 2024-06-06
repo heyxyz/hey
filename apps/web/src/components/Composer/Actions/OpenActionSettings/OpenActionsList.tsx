@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import { OpenAction } from '@good/data/enums';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import {
   BanknotesIcon,
   BuildingStorefrontIcon
 } from '@heroicons/react/24/outline';
-import { OpenAction } from '@hey/data/enums';
 import {
   ScreenType,
   useOpenActionStore

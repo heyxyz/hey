@@ -1,24 +1,24 @@
-import type { BlockRequest, UnblockRequest } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
+import type { BlockRequest, UnblockRequest } from '@good/lens';
+import type { ApolloCache } from '@good/lens/apollo';
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LensHub } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { LENS_HUB } from '@hey/data/constants';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getProfile from '@hey/helpers/getProfile';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { Errors } from '@good/data';
+import { LENS_HUB } from '@good/data/constants';
+import { PROFILE } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getProfile from '@good/helpers/getProfile';
+import getSignature from '@good/helpers/getSignature';
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
   useCreateBlockProfilesTypedDataMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
-} from '@hey/lens';
-import { Alert } from '@hey/ui';
+} from '@good/lens';
+import { Alert } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

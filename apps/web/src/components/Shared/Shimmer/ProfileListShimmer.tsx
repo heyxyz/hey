@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
+import { Card } from '@good/ui';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { Card } from '@hey/ui';
 
 const ProfileListShimmer: FC = () => {
   return (

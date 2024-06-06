@@ -1,6 +1,6 @@
-import type { AllowedToken } from '@hey/types/hey';
+import type { AllowedToken } from '@good/types/good';
 
-import { IndexDB } from '@hey/data/storage';
+import { IndexDB } from '@good/data/storage';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';

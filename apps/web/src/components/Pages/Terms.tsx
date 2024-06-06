@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 
 import Footer from '@components/Shared/Footer';
+import { PAGEVIEW } from '@good/data/tracking';
 import { Leafwatch } from '@helpers/leafwatch';
 import showCrisp from '@helpers/showCrisp';
-import { PAGEVIEW } from '@hey/data/tracking';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -36,7 +36,7 @@ const Terms: NextPage = () => {
               <div className="mb-5 text-xl font-bold">1. Overview</div>
               <div className="space-y-5">
                 <p className="leading-7">
-                  The website hey.xyz” (the “Site”) offers information, tools
+                  The website bcharity.net” (the “Site”) offers information, tools
                   and services to you to allow you to interact with the Lens
                   Protocol - a composable and decentralised social graph
                   protocol.
@@ -332,7 +332,7 @@ const Terms: NextPage = () => {
                 13. Contact Information
               </div>
               <p className="leading-7">
-                Questions about the Terms should be sent to us at terms@hey.xyz
+                Questions about the Terms should be sent to us at terms@bcharity.net
               </p>
               {/* 13. Contact Information ends */}
             </div>

@@ -39,19 +39,19 @@ module.exports = {
       },
       {
         destination:
-          'https://explorer.gitcoin.co/#/round/42161/25/1?utm_source=hey.xyz',
+          'https://explorer.gitcoin.co/#/round/42161/25/1?utm_source=bcharity.net',
         permanent: true,
         source: '/gitcoin'
       },
       // Forms
       {
         destination:
-          'https://hey.height.app/?taskForm=Token-Allowlist-Request-mwarXOg6ks0A',
+          'https://good.height.app/?taskForm=Token-Allowlist-Request-mwarXOg6ks0A',
         permanent: true,
         source: '/-/token-request'
       },
       {
-        destination: 'https://tana.pub/EltxDvrSt3Yn/hey-changelog',
+        destination: 'https://tana.pub/EltxDvrSt3Yn/good-changelog',
         permanent: true,
         source: '/-/changelog'
       },

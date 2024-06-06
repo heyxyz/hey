@@ -1,4 +1,4 @@
-import { FollowModuleType, OpenActionModuleType } from '@hey/lens';
+import { FollowModuleType, OpenActionModuleType } from '@good/lens';
 
 /**
  * Returns the name and field of the specified module.

@@ -1,6 +1,6 @@
-import type { PublicationTip } from '@hey/types/hey';
+import type { PublicationTip } from '@good/types/good';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import axios from 'axios';
 
 /**
@@ -15,7 +15,7 @@ const getPublicationsTips = async (
 ): Promise<PublicationTip[]> => {
   try {
     const response = await axios.post(
-      `${HEY_API_URL}/tips/get`,
+      `${GOOD_API_URL}/tips/get`,
       { ids },
       { headers }
     );

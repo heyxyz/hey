@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
+import { GOOD_API_URL } from '@good/data/constants';
+import humanize from '@good/helpers/humanize';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import {
   ComputerDesktopIcon,
@@ -10,8 +12,6 @@ import {
   MapPinIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -31,7 +31,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   } | null> => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/profile/details`,
+        `${GOOD_API_URL}/internal/leafwatch/profile/details`,
         { headers: getAuthApiHeaders(), params: { id: profileId } }
       );
       const { data } = response;
@@ -53,7 +53,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   } | null> => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
+        `${GOOD_API_URL}/internal/leafwatch/profile/impressions`,
         { headers: getAuthApiHeaders(), params: { id: profileId } }
       );
       const { data } = response;

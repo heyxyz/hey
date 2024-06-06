@@ -1,5 +1,5 @@
-import type { BalanceData } from '@hey/helpers/formatTokenBalances';
-import type { FiatRate } from '@hey/types/lens';
+import type { BalanceData } from '@good/helpers/formatTokenBalances';
+import type { FiatRate } from '@good/types/lens';
 
 interface BalanceInfo {
   decimals?: number;

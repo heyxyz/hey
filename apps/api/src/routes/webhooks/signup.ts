@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import { Errors } from '@hey/data';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { Errors } from '@good/data';
+import { POLYGONSCAN_URL } from '@good/data/constants';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import sendSlackMessage from 'src/helpers/slack';
@@ -48,7 +48,7 @@ export const post: Handler = async (req, res) => {
           value: `${POLYGONSCAN_URL}/tx/${event.activity[0].hash}`
         }
       ],
-      text: ':tada: A new profile has been signed up to :hey:'
+      text: ':tada: A new profile has been signed up to :good:'
     });
 
     return res.status(200).json({ success: true });

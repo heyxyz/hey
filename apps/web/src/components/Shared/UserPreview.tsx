@@ -1,21 +1,21 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
 import MutualFollowers from '@components/Profile/MutualFollowers';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getMentions from '@good/helpers/getMentions';
+import getProfile from '@good/helpers/getProfile';
+import hasMisused from '@good/helpers/hasMisused';
+import nFormatter from '@good/helpers/nFormatter';
+import truncateByWords from '@good/helpers/truncateByWords';
+import { useProfileLazyQuery } from '@good/lens';
+import { Card, Image } from '@good/ui';
 import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getMentions from '@hey/helpers/getMentions';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import nFormatter from '@hey/helpers/nFormatter';
-import truncateByWords from '@hey/helpers/truncateByWords';
-import { useProfileLazyQuery } from '@hey/lens';
-import { Card, Image } from '@hey/ui';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import plur from 'plur';
 import { useState } from 'react';

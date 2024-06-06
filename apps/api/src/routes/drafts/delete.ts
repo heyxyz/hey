@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import goodPg from 'src/db/goodPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
@@ -37,7 +37,7 @@ export const post: Handler = async (req, res) => {
   const { id } = body as ExtensionRequest;
 
   try {
-    const result = await heyPg.query(
+    const result = await goodPg.query(
       `
         DELETE FROM "DraftPublication"
         WHERE "id" = $1

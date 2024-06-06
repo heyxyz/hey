@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@good/data/feature-flags';
+import { Tooltip } from '@good/ui';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { Tooltip } from '@hey/ui';
 import Link from 'next/link';
 
 const ModIcon: FC = () => {

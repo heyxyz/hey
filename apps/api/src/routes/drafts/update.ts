@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import parseJwt from '@good/helpers/parseJwt';
+import goodPg from 'src/db/goodPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
@@ -45,7 +45,7 @@ export const post: Handler = async (req, res) => {
     const payload = parseJwt(accessToken);
 
     if (id) {
-      const result = await heyPg.query(
+      const result = await goodPg.query(
         `
           UPDATE "DraftPublication"
           SET "content" = $1, "collectModule" = $2
@@ -59,7 +59,7 @@ export const post: Handler = async (req, res) => {
 
       return res.status(200).json({ result: result[0], success: true });
     } else {
-      const result = await heyPg.query(
+      const result = await goodPg.query(
         `
           INSERT INTO "DraftPublication" ("profileId", "content", "collectModule", "updatedAt")
           VALUES ($1, $2, $3, now())

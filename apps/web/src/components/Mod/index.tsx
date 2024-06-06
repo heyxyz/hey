@@ -3,13 +3,13 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import List from '@components/Staff/Users/List';
+import { APP_NAME } from '@good/data/constants';
+import { ModFeedType } from '@good/data/enums';
+import { FeatureFlag } from '@good/data/feature-flags';
+import { PAGEVIEW } from '@good/data/tracking';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@good/ui';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { ModFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 

@@ -1,6 +1,6 @@
-import type { KillSwitch } from '@hey/data/kill-switches';
+import type { KillSwitch } from '@good/data/kill-switches';
 
-import { enabledKillSwitches } from '@hey/data/kill-switches';
+import { enabledKillSwitches } from '@good/data/kill-switches';
 
 /**
  * Checks if a feature is enabled globally

@@ -1,4 +1,4 @@
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import dotenv from 'dotenv';
 import cron from 'node-cron';
 

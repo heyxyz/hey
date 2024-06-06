@@ -1,8 +1,8 @@
-import type { FollowNotification as TFollowNotification } from '@hey/lens';
+import type { FollowNotification as TFollowNotification } from '@good/lens';
 import type { FC } from 'react';
 
+import getProfile from '@good/helpers/getProfile';
 import { UserPlusIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/helpers/getProfile';
 import { useRouter } from 'next/router';
 import plur from 'plur';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

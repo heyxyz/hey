@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 import type { NextPage } from 'next';
 
 import Feed from '@components/Comment/Feed';
@@ -9,19 +9,19 @@ import CommentSuspendedWarning from '@components/Shared/CommentSuspendedWarning'
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW, ProfileLinkSource } from '@hey/data/tracking';
-import getProfile from '@hey/helpers/getProfile';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import { APP_NAME } from '@good/data/constants';
+import { PAGEVIEW, ProfileLinkSource } from '@good/data/tracking';
+import getProfile from '@good/helpers/getProfile';
+import getPublicationData from '@good/helpers/getPublicationData';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
 import {
   HiddenCommentsType,
   LimitType,
   usePublicationQuery,
   usePublicationsQuery
-} from '@hey/lens';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+} from '@good/lens';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';

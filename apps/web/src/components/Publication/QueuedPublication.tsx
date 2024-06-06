@@ -1,18 +1,18 @@
-import type { Profile } from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
+import type { Profile } from '@good/lens';
+import type { OptimisticTransaction } from '@good/types/misc';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import getMentions from '@hey/helpers/getMentions';
+import getMentions from '@good/helpers/getMentions';
 import {
   LensTransactionStatusType,
   PublicationDocument,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Card, Tooltip } from '@hey/ui';
+} from '@good/lens';
+import { useApolloClient } from '@good/lens/apollo';
+import { Card, Tooltip } from '@good/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface QueuedPublicationProps {

@@ -1,12 +1,12 @@
-import type { Profile, ProfileMentioned } from '@hey/lens';
+import type { Profile, ProfileMentioned } from '@good/lens';
 import type { FC } from 'react';
 
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { ProfileLinkSource } from '@good/data/tracking';
+import { useProfilesQuery } from '@good/lens';
+import { Card, ErrorMessage, Modal } from '@good/ui';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { useProfilesQuery } from '@hey/lens';
-import { Card, ErrorMessage, Modal } from '@hey/ui';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

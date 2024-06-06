@@ -1,4 +1,4 @@
-import { OpenActionModuleType } from '@hey/lens';
+import { OpenActionModuleType } from '@good/lens';
 import { describe, expect, test } from 'vitest';
 
 import getOpenActionActOnKey from './getOpenActionActOnKey';

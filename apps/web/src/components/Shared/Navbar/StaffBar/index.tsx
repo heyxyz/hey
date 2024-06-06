@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react';
 
+import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@good/data/constants';
+import cn from '@good/ui/cn';
 import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import urlcat from 'urlcat';
 
@@ -41,7 +41,7 @@ const StaffBar: FC = () => {
         {GIT_COMMIT_SHA ? (
           <Link
             className="flex items-center space-x-1"
-            href={urlcat('https://github.com/heyxyz/hey/commit/:sha', {
+            href={urlcat('https://github.com/bcharity-net/good/commit/:sha', {
               sha: GIT_COMMIT_SHA
             })}
             rel="noreferrer noopener"

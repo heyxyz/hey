@@ -1,17 +1,17 @@
-import type { MirrorablePublication, ModReport, Profile } from '@hey/lens';
+import type { MirrorablePublication, ModReport, Profile } from '@good/lens';
 import type { FC } from 'react';
 
 import Reports from '@components/Mod/ReportsFeed/Reports';
 import SuspendButtons from '@components/Publication/Actions/HigherActions/SuspendButtons';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import formatDate from '@good/helpers/datetime/formatDate';
+import { Button, Modal } from '@good/ui';
 import {
   ChatBubbleOvalLeftEllipsisIcon,
   EyeIcon,
   FlagIcon,
   HandRaisedIcon
 } from '@heroicons/react/24/outline';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { Button, Modal } from '@hey/ui';
 import { useState } from 'react';
 
 import Dispute from './Dispute';

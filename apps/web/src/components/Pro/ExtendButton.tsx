@@ -1,17 +1,17 @@
 import type { FC } from 'react';
 
+import { GoodPro } from '@good/abis';
+import { Errors } from '@good/data';
+import { GOOD_PRO, PRO_TIER_PRICES } from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
+import { Button } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HeyPro } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { HEY_PRO, PRO_TIER_PRICES } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
+import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
 import { useTransaction, useWriteContract } from 'wagmi';
@@ -77,8 +77,8 @@ const ExtendButton: FC<ExtendButtonProps> = ({
       await handleWrongNetwork();
 
       return await writeContractAsync({
-        abi: HeyPro,
-        address: HEY_PRO,
+        abi: GoodPro,
+        address: GOOD_PRO,
         args: [currentProfile.id],
         functionName: id === 'monthly' ? 'subscribeMonthly' : 'subscribeYearly',
         value: parseEther(

@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
+import getAvatar from '@good/helpers/getAvatar';
+import { Image } from '@good/ui';
 import { defineEditorExtension } from '@helpers/prosekit/extension';
 import { htmlFromMarkdown } from '@helpers/prosekit/markdown';
-import getAvatar from '@hey/helpers/getAvatar';
-import { Image } from '@hey/ui';
 import dynamic from 'next/dynamic';
 import 'prosekit/basic/style.css';
 import { createEditor } from 'prosekit/core';

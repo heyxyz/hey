@@ -1,15 +1,15 @@
-import type { PublicationMetadataMainFocusType } from '@hey/lens';
+import type { PublicationMetadataMainFocusType } from '@good/lens';
 import type { NextPage } from 'next';
 
 import WhoToFollow from '@components/Home/Sidebar/WhoToFollow';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
+import { EXPLORE, PAGEVIEW } from '@good/data/tracking';
+import { ExplorePublicationsOrderByType } from '@good/lens';
+import { GridItemEight, GridItemFour, GridLayout } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Leafwatch } from '@helpers/leafwatch';
-import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
-import { ExplorePublicationsOrderByType } from '@hey/lens';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

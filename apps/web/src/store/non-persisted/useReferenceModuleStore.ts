@@ -1,4 +1,4 @@
-import { ReferenceModuleType } from '@hey/lens';
+import { ReferenceModuleType } from '@good/lens';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 

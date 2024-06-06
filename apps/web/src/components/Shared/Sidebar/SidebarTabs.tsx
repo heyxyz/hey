@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 

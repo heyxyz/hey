@@ -1,10 +1,10 @@
-import type { CollectModuleType } from '@hey/types/hey';
+import type { CollectModuleType } from '@good/types/good';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import LicensePicker from '@components/Composer/LicensePicker';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectOpenActionModuleType } from '@hey/lens';
-import { Button } from '@hey/ui';
+import { CollectOpenActionModuleType } from '@good/lens';
+import { Button } from '@good/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { isAddress } from 'viem';

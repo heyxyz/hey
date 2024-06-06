@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import humanize from '@hey/helpers/humanize';
+import humanize from '@good/helpers/humanize';
 
 import { Card } from './Card';
 

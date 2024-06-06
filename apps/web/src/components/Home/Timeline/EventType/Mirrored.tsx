@@ -1,4 +1,4 @@
-import type { Mirror } from '@hey/lens';
+import type { Mirror } from '@good/lens';
 import type { FC } from 'react';
 
 import Profiles from '@components/Shared/Profiles';

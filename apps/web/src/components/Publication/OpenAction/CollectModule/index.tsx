@@ -5,11 +5,24 @@ import type {
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
   SimpleCollectOpenActionSettings
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import Slug from '@components/Shared/Slug';
+import {
+  APP_NAME,
+  POLYGONSCAN_URL,
+  REWARDS_ADDRESS
+} from '@good/data/constants';
+import formatDate from '@good/helpers/datetime/formatDate';
+import formatAddress from '@good/helpers/formatAddress';
+import getProfile from '@good/helpers/getProfile';
+import getTokenImage from '@good/helpers/getTokenImage';
+import humanize from '@good/helpers/humanize';
+import nFormatter from '@good/helpers/nFormatter';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
+import { HelpTooltip, Tooltip, WarningMessage } from '@good/ui';
 import {
   BanknotesIcon,
   CheckCircleIcon,
@@ -19,19 +32,6 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import {
-  APP_NAME,
-  POLYGONSCAN_URL,
-  REWARDS_ADDRESS
-} from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import formatAddress from '@hey/helpers/formatAddress';
-import getProfile from '@hey/helpers/getProfile';
-import getTokenImage from '@hey/helpers/getTokenImage';
-import humanize from '@hey/helpers/humanize';
-import nFormatter from '@hey/helpers/nFormatter';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
@@ -87,7 +87,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-  const hasHeyFees = recipients.some(
+  const hasGoodFees = recipients.some(
     (split) => split.recipient === REWARDS_ADDRESS
   );
 
@@ -170,7 +170,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                       {(amount * 0.05).toFixed(2)} {currency} (5%)
                     </b>
                   </div>
-                  {hasHeyFees && (
+                  {hasGoodFees && (
                     <div className="flex items-start justify-between space-x-10">
                       <div>{APP_NAME}</div>
                       <b>

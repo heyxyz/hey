@@ -1,5 +1,5 @@
 {
-  "name": "@hey/lens",
+  "name": "@good/lens",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
-    "@hey/data": "workspace:*",
+    "@good/data": "workspace:*",
     "axios": "^1.7.2",
     "graphql-ws": "^5.16.0"
   },
@@ -24,7 +24,7 @@
     "@graphql-codegen/typescript": "^4.0.7",
     "@graphql-codegen/typescript-operations": "^4.2.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
-    "@hey/config": "workspace:*",
+    "@good/config": "workspace:*",
     "@parcel/watcher": "^2.4.1",
     "@types/node": "^20.14.2",
     "typescript": "^5.4.5"

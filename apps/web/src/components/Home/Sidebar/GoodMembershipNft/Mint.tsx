@@ -1,17 +1,17 @@
-import type { Post } from '@hey/lens';
+import type { Post } from '@good/lens';
 import type { FC } from 'react';
 
 import CollectAction from '@components/Publication/OpenAction/CollectModule/CollectAction';
 import Loader from '@components/Shared/Loader';
-import { signatureFont } from '@helpers/fonts';
-import { Errors } from '@hey/data';
+import { Errors } from '@good/data';
 import {
   APP_NAME,
-  HEY_MEMBERSHIP_NFT_PUBLICATION_ID
-} from '@hey/data/constants';
-import { usePublicationQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
+  GOOD_MEMBERSHIP_NFT_PUBLICATION_ID
+} from '@good/data/constants';
+import { usePublicationQuery } from '@good/lens';
+import { ErrorMessage } from '@good/ui';
+import cn from '@good/ui/cn';
+import { signatureFont } from '@helpers/fonts';
 import Link from 'next/link';
 
 interface MintProps {
@@ -21,7 +21,7 @@ interface MintProps {
 const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { forId: HEY_MEMBERSHIP_NFT_PUBLICATION_ID }
+      request: { forId: GOOD_MEMBERSHIP_NFT_PUBLICATION_ID }
     }
   });
 
@@ -61,7 +61,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
           vibrant future of{' '}
           <Link
             className="font-bold"
-            href="https://github.com/heyxyz/hey"
+            href="https://github.com/bcharity-net/good"
             target="_blank"
           >
             open-source
@@ -76,7 +76,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
         >
           <div>-</div>
           <img className="size-6" src="/logo.png" />
-          <div>Team Hey</div>
+          <div>Team Good</div>
         </div>
       </div>
       <div className="mt-6">

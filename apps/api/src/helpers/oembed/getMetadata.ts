@@ -1,10 +1,10 @@
-import type { OG } from '@hey/types/misc';
+import type { OG } from '@good/types/misc';
 
-import getFavicon from '@hey/helpers/getFavicon';
+import getFavicon from '@good/helpers/getFavicon';
 import axios from 'axios';
 import { parseHTML } from 'linkedom';
 
-import { HEY_USER_AGENT } from '../constants';
+import { GOOD_USER_AGENT } from '../constants';
 import getProxyUrl from './getProxyUrl';
 import generateIframe from './meta/generateIframe';
 import getDescription from './meta/getDescription';
@@ -17,7 +17,7 @@ import getTitle from './meta/getTitle';
 
 const getMetadata = async (url: string): Promise<OG> => {
   const { data } = await axios.get(url, {
-    headers: { 'User-Agent': HEY_USER_AGENT }
+    headers: { 'User-Agent': GOOD_USER_AGENT }
   });
 
   const { document } = parseHTML(data);

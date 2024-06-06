@@ -1,10 +1,10 @@
-import type { Poll as TPoll } from '@hey/types/hey';
+import type { Poll as TPoll } from '@good/types/good';
 import type { FC } from 'react';
 
 import Wrapper from '@components/Shared/Embed/Wrapper';
+import { GOOD_API_URL } from '@good/data/constants';
+import { Spinner } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ interface SnapshotProps {
 const Poll: FC<SnapshotProps> = ({ id }) => {
   const getPoll = async (): Promise<null | TPoll> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/polls/get`, {
+      const response = await axios.get(`${GOOD_API_URL}/polls/get`, {
         headers: { ...getAuthApiHeaders(), 'X-Skip-Cache': true },
         params: { id }
       });

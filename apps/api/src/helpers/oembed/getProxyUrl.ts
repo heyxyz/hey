@@ -1,4 +1,4 @@
-import { HEY_IMAGEKIT_URL } from '@hey/data/constants';
+import { GOOD_IMAGEKIT_URL } from '@good/data/constants';
 
 const directUrls = [
   'zora.co/api/thumbnail', // Zora
@@ -17,7 +17,7 @@ const getProxyUrl = (url: string) => {
     return url;
   }
 
-  return `${HEY_IMAGEKIT_URL}/oembed/tr:di-placeholder.webp,h-400,w-400/${url}`;
+  return `${GOOD_IMAGEKIT_URL}/oembed/tr:di-placeholder.webp,h-400,w-400/${url}`;
 };
 
 export default getProxyUrl;

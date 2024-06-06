@@ -1,9 +1,9 @@
-import type { CommentNotification as TCommentNotification } from '@hey/lens';
+import type { CommentNotification as TCommentNotification } from '@good/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
+import getPublicationData from '@good/helpers/getPublicationData';
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/helpers/getPublicationData';
 import Link from 'next/link';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';

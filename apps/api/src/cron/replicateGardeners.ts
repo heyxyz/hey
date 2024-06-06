@@ -1,5 +1,5 @@
-import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import goodPg from 'src/db/goodPg';
 import lensPg from 'src/db/lensPg';
 
 const replicateGardeners = async () => {
@@ -16,7 +16,7 @@ const replicateGardeners = async () => {
   );
 
   for (const profile of profiles) {
-    await heyPg.query(
+    await goodPg.query(
       `
         INSERT INTO "ProfileFeature" ("profileId", "featureId", "enabled", "createdAt")
         VALUES ($1, $2, $3, now())
@@ -34,7 +34,7 @@ const replicateGardeners = async () => {
     'Cron: replicateGardeners - Deleting old profiles that are not in the gardener list anymore...'
   );
 
-  const deletedProfiles = await heyPg.query(
+  const deletedProfiles = await goodPg.query(
     `
       DELETE FROM "ProfileFeature"
       WHERE "profileId" != ALL($1)

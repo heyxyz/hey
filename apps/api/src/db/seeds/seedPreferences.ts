@@ -1,4 +1,4 @@
-import { TEST_LENS_ID } from '@hey/data/constants';
+import { TEST_LENS_ID } from '@good/data/constants';
 
 import { prisma } from '../seed';
 

@@ -1,4 +1,4 @@
-import type { NewAttachment } from '@hey/types/misc';
+import type { NewAttachment } from '@good/types/misc';
 
 import { create } from 'zustand';
 

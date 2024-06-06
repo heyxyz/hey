@@ -2,13 +2,37 @@ import type {
   MirrorablePublication,
   Profile,
   UnknownOpenActionModuleSettings
-} from '@hey/lens';
-import type { AllowedToken } from '@hey/types/hey';
-import type { Nft, OptimisticTransaction } from '@hey/types/misc';
+} from '@good/lens';
+import type { AllowedToken } from '@good/types/good';
+import type { Nft, OptimisticTransaction } from '@good/types/misc';
 import type { ActionData, UIData } from 'nft-openaction-kit';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
+import {
+  DEFAULT_DECENT_OA_TOKEN,
+  MAX_UINT256,
+  PERMIT_2_ADDRESS,
+  ZERO_ADDRESS
+} from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
+import formatAddress from '@good/helpers/formatAddress';
+import getNftChainId from '@good/helpers/getNftChainId';
+import getNftChainInfo from '@good/helpers/getNftChainInfo';
+import getProfile from '@good/helpers/getProfile';
+import {
+  getPermit2Allowance,
+  permit2SignatureAmount,
+  signPermitSignature,
+  updateWrapperParams
+} from '@good/helpers/permit2';
+import sanitizeDStorageUrl from '@good/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import truncateByWords from '@good/helpers/truncateByWords';
+import { useDefaultProfileQuery } from '@good/lens';
+import { OptmisticPublicationType } from '@good/types/enums';
+import { Image, Modal } from '@good/ui';
+import cn from '@good/ui/cn';
 import {
   ArrowTopRightOnSquareIcon,
   ChevronLeftIcon,
@@ -16,30 +40,6 @@ import {
   Squares2X2Icon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import {
-  DEFAULT_DECENT_OA_TOKEN,
-  MAX_UINT256,
-  PERMIT_2_ADDRESS,
-  ZERO_ADDRESS
-} from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import formatAddress from '@hey/helpers/formatAddress';
-import getNftChainId from '@hey/helpers/getNftChainId';
-import getNftChainInfo from '@hey/helpers/getNftChainInfo';
-import getProfile from '@hey/helpers/getProfile';
-import {
-  getPermit2Allowance,
-  permit2SignatureAmount,
-  signPermitSignature,
-  updateWrapperParams
-} from '@hey/helpers/permit2';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import truncateByWords from '@hey/helpers/truncateByWords';
-import { useDefaultProfileQuery } from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Image, Modal } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';

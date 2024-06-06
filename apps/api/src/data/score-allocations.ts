@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
 
 const allocations = [
   {
@@ -50,10 +50,10 @@ const allocations = [
     name: 'Gitcoin Grants Round 20'
   },
   {
-    description: 'Hey Zorb Holder',
+    description: 'Good Zorb Holder',
     icon: `${STATIC_IMAGES_URL}/badges/zorb.png`,
     id: 'ZorbHolder',
-    name: 'Hey Zorb Holder'
+    name: 'Good Zorb Holder'
   }
 ];
 

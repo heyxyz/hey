@@ -2,16 +2,16 @@ import type { NextPage } from 'next';
 import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import { APP_NAME } from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
 import {
   Card,
   CardHeader,
   GridItemEight,
   GridItemFour,
   GridLayout
-} from '@hey/ui';
+} from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';

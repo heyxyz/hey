@@ -1,6 +1,6 @@
-import type { ProfileMentioned } from '@hey/lens';
+import type { ProfileMentioned } from '@good/lens';
 
-import { Regex } from '@hey/data/regex';
+import { Regex } from '@good/data/regex';
 
 const getMentions = (text: string): [] | ProfileMentioned[] => {
   if (!text) {

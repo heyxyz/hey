@@ -1,6 +1,6 @@
-import type { Feature } from '@hey/types/hey';
+import type { Feature } from '@good/types/good';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import axios from 'axios';
 
 /**
@@ -9,7 +9,7 @@ import axios from 'axios';
  * @returns all features
  */
 const getAllFeatureFlags = async (headers: any): Promise<Feature[]> => {
-  const response = await axios.get(`${HEY_API_URL}/internal/features/all`, {
+  const response = await axios.get(`${GOOD_API_URL}/internal/features/all`, {
     headers
   });
   const { data } = response;

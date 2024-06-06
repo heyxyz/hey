@@ -2,20 +2,20 @@ import type {
   AnyPublication,
   MirrorablePublication,
   ModExplorePublicationRequest
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
 import HigherActions from '@components/Publication/Actions/HigherActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET } from '@good/data/constants';
 import {
   ExplorePublicationsOrderByType,
   LimitType,
   useModExplorePublicationsQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 

@@ -1,16 +1,16 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
 import Source from '@components/Publication/Source';
+import { apps } from '@good/data/apps';
+import formatRelativeOrAbsolute from '@good/helpers/datetime/formatRelativeOrAbsolute';
+import getProfile from '@good/helpers/getProfile';
+import hasMisused from '@good/helpers/hasMisused';
 import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { apps } from '@hey/data/apps';
-import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
 import Link from 'next/link';
 import { memo } from 'react';
 

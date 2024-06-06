@@ -4,11 +4,11 @@ import {
   ARWEAVE_GATEWAY,
   IPFS_GATEWAY,
   VIDEO_THUMBNAIL
-} from '@hey/data/constants';
-import imageKit from '@hey/helpers/imageKit';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import cn from '@hey/ui/cn';
+} from '@good/data/constants';
+import imageKit from '@good/helpers/imageKit';
+import sanitizeDStorageUrl from '@good/helpers/sanitizeDStorageUrl';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import cn from '@good/ui/cn';
 import { Player } from '@livepeer/react';
 import { memo } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

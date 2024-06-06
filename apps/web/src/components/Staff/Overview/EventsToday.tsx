@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { CardHeader } from '@hey/ui';
+import formatDate from '@good/helpers/datetime/formatDate';
+import { CardHeader } from '@good/ui';
 import {
   CategoryScale,
   Chart as ChartJS,

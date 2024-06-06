@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 
 import Footer from '@components/Shared/Footer';
+import { APP_NAME } from '@good/data/constants';
+import { PAGEVIEW } from '@good/data/tracking';
 import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -46,7 +46,7 @@ const Privacy: NextPage = () => {
                   This Privacy Policy (the “Privacy Policy”) provides a
                   comprehensive description of how {APP_NAME} (“we,” “our,” or
                   “us”) collects, uses, and shares information about you in
-                  connection with the website at hey.xyz”, as well as your
+                  connection with the website at bcharity.net”, as well as your
                   rights and choices regarding such information.
                 </p>
                 <p className="leading-7">
@@ -224,7 +224,7 @@ const Privacy: NextPage = () => {
               <p className="leading-7">
                 If you have any questions or comments about this Privacy Policy,
                 our data practices, or our compliance with applicable law,
-                please contact us at privacy@hey.xyz
+                please contact us at privacy@bcharity.net
               </p>
               {/* 10. Contact ends */}
             </div>

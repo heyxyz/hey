@@ -1,4 +1,4 @@
-import type { OpenActionProfileActed } from '@hey/lens';
+import type { OpenActionProfileActed } from '@good/lens';
 import type { FC } from 'react';
 
 import Profiles from '@components/Shared/Profiles';

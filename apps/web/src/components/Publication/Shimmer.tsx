@@ -6,7 +6,7 @@ import PublicationListShimmer from '@components/Shared/Shimmer/PublicationListSh
 import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@good/ui';
 
 interface PublicationPageShimmerProps {
   profileList?: boolean;

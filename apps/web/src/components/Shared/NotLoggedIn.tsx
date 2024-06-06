@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import MetaTags from '@components/Common/MetaTags';
 import LoginButton from '@components/Shared/LoginButton';
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME } from '@good/data/constants';
 
 const NotLoggedIn: FC = () => {
   return (

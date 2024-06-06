@@ -1,8 +1,8 @@
-import type { IGif } from '@hey/types/giphy';
+import type { IGif } from '@good/types/giphy';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Input } from '@hey/ui';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import { Input } from '@good/ui';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useState } from 'react';
 

@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
-import cn from '@hey/ui/cn';
+import cn from '@good/ui/cn';
 import { useMessages } from '@xmtp/react-sdk';
 import { useEffect, useRef } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';

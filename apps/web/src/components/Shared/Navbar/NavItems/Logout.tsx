@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import { AUTH } from '@good/data/tracking';
+import { useRevokeAuthenticationMutation } from '@good/lens';
+import cn from '@good/ui/cn';
 import errorToast from '@helpers/errorToast';
 import getCurrentSession from '@helpers/getCurrentSession';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
-import { AUTH } from '@hey/data/tracking';
-import { useRevokeAuthenticationMutation } from '@hey/lens';
-import cn from '@hey/ui/cn';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';

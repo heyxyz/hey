@@ -1,5 +1,5 @@
 {
-  "extends": "@hey/config/base.tsconfig.json",
+  "extends": "@good/config/base.tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "noEmit": false,

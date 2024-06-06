@@ -4,9 +4,9 @@ import {
   TEST_NON_STAFF_LENS_ID,
   TEST_PK,
   TEST_WALLET_ADDRESS
-} from '@hey/data/constants';
-import LensEndpoint from '@hey/data/lens-endpoints';
-import { AuthenticateDocument, ChallengeDocument } from '@hey/lens';
+} from '@good/data/constants';
+import LensEndpoint from '@good/data/lens-endpoints';
+import { AuthenticateDocument, ChallengeDocument } from '@good/lens';
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { polygonAmoy } from 'viem/chains';

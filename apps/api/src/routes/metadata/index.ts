@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import { NodeIrys } from '@irys/sdk';
 import { signMetadata } from '@lens-protocol/metadata';
 import catchedError from 'src/helpers/catchedError';
@@ -31,7 +31,7 @@ export const post: Handler = async (req, res) => {
     const receipt = await client.upload(JSON.stringify(signed), {
       tags: [
         { name: 'content-type', value: 'application/json' },
-        { name: 'App-Name', value: 'Hey.xyz' }
+        { name: 'App-Name', value: 'Good.xyz' }
       ]
     });
 

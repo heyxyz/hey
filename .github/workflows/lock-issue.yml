@@ -20,7 +20,7 @@ jobs:
           issue-comment: |
             This issue has been locked since it has been closed for more than 10 days.
 
-            If you found a concrete bug or regression related to it, please open a new [bug report](https://github.com/heyxyz/hey/issues/new/choose).
+            If you found a concrete bug or regression related to it, please open a new [bug report](https://github.com/bcharity-net/good/issues/new/choose).
           issue-lock-reason: ''
           issue-inactive-days: '10'
           process-only: 'issues'

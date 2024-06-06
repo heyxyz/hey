@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 
 import sanitizeDisplayName from './sanitizeDisplayName';
 

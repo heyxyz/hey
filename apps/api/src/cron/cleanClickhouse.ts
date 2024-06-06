@@ -1,4 +1,4 @@
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 
 const clickhouse = createClickhouseClient();
@@ -9,10 +9,10 @@ const cleanClickhouse = async () => {
   }
 
   await clickhouse.command({
-    query: "ALTER TABLE events DELETE WHERE url NOT LIKE '%hey.xyz%';"
+    query: "ALTER TABLE events DELETE WHERE url NOT LIKE '%bcharity.net%';"
   });
   logger.info(
-    'Cron: cleanClickhouse - Cleaned non hey.xyz events from Clickhouse'
+    'Cron: cleanClickhouse - Cleaned non bcharity.net events from Clickhouse'
   );
 };
 

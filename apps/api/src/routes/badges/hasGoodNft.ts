@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 import type { Address } from 'viem';
 
-import { HEY_MEMBERSHIP_NFT_PUBLICATION_ID } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+import { GOOD_MEMBERSHIP_NFT_PUBLICATION_ID } from '@good/data/constants';
+import logger from '@good/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
@@ -31,17 +31,17 @@ export const get: Handler = async (req, res) => {
             AND o.publication_id = $3
         ) AS result;
       `,
-      [id, formattedAddress, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
+      [id, formattedAddress, GOOD_MEMBERSHIP_NFT_PUBLICATION_ID]
     );
 
-    const hasHeyNft = data[0]?.result;
+    const hasGoodNft = data[0]?.result;
 
-    logger.info(`Hey NFT badge fetched for ${id || formattedAddress}`);
+    logger.info(`Good NFT badge fetched for ${id || formattedAddress}`);
 
     return res
       .status(200)
-      .setHeader('Cache-Control', hasHeyNft ? CACHE_AGE_INDEFINITE : 'no-cache')
-      .json({ hasHeyNft, success: true });
+      .setHeader('Cache-Control', hasGoodNft ? CACHE_AGE_INDEFINITE : 'no-cache')
+      .json({ hasGoodNft, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

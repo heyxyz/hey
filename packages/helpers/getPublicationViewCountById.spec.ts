@@ -1,4 +1,4 @@
-import type { PublicationViewCount } from '@hey/types/hey';
+import type { PublicationViewCount } from '@good/types/good';
 
 import { describe, expect, test } from 'vitest';
 

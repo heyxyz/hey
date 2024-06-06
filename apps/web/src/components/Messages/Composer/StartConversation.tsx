@@ -3,15 +3,15 @@ import type { ChangeEvent, FC } from 'react';
 import type { Address } from 'viem';
 
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
+import { MESSAGES } from '@good/data/tracking';
+import { Button, EmptyState, Input } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   ArrowRightCircleIcon,
   EnvelopeIcon,
   NoSymbolIcon
 } from '@heroicons/react/24/outline';
-import { MESSAGES } from '@hey/data/tracking';
-import { Button, EmptyState, Input } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import {
   useCanMessage,
   useConsent,

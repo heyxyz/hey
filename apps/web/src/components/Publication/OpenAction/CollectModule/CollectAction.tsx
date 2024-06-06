@@ -4,8 +4,8 @@ import type {
   LegacyCollectRequest,
   MirrorablePublication,
   OpenActionModule
-} from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
+} from '@good/lens';
+import type { OptimisticTransaction } from '@good/types/misc';
 import type { FC, ReactNode } from 'react';
 
 import { useApolloClient } from '@apollo/client';
@@ -13,19 +13,14 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import LoginButton from '@components/Shared/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
-import errorToast from '@helpers/errorToast';
-import getCurrentSession from '@helpers/getCurrentSession';
-import { Leafwatch } from '@helpers/leafwatch';
-import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { Errors } from '@hey/data';
-import { LENS_HUB } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getCollectModuleData from '@hey/helpers/getCollectModuleData';
-import getOpenActionActOnKey from '@hey/helpers/getOpenActionActOnKey';
-import getSignature from '@hey/helpers/getSignature';
+import { LensHub } from '@good/abis';
+import { Errors } from '@good/data';
+import { LENS_HUB } from '@good/data/constants';
+import { PUBLICATION } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import getCollectModuleData from '@good/helpers/getCollectModuleData';
+import getOpenActionActOnKey from '@good/helpers/getOpenActionActOnKey';
+import getSignature from '@good/helpers/getSignature';
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
@@ -33,10 +28,15 @@ import {
   useCreateActOnOpenActionTypedDataMutation,
   useCreateLegacyCollectTypedDataMutation,
   useLegacyCollectMutation
-} from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@good/lens';
+import { OptmisticPublicationType } from '@good/types/enums';
+import { Button, Spinner, WarningMessage } from '@good/ui';
+import cn from '@good/ui/cn';
+import errorToast from '@helpers/errorToast';
+import getCurrentSession from '@helpers/getCurrentSession';
+import { Leafwatch } from '@helpers/leafwatch';
+import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

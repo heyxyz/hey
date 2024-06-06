@@ -1,6 +1,6 @@
-import type { ProfileDetails } from '@hey/types/hey';
+import type { ProfileDetails } from '@good/types/good';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { GOOD_API_URL } from '@good/data/constants';
 import axios from 'axios';
 
 /**
@@ -12,7 +12,7 @@ const getProfileDetails = async (
   id: string
 ): Promise<null | ProfileDetails> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/profile/get`, {
+    const response = await axios.get(`${GOOD_API_URL}/profile/get`, {
       params: { id }
     });
 

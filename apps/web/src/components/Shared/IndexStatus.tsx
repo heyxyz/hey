@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
-} from '@hey/lens';
-import { Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@good/lens';
+import { Spinner } from '@good/ui';
+import cn from '@good/ui/cn';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 
 interface IndexStatusProps {

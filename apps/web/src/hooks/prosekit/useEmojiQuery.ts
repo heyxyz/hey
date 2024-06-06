@@ -1,6 +1,6 @@
-import type { Emoji } from '@hey/types/misc';
+import type { Emoji } from '@good/types/misc';
 
-import { STATIC_ASSETS_URL } from '@hey/data/constants';
+import { STATIC_ASSETS_URL } from '@good/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useMemo } from 'react';

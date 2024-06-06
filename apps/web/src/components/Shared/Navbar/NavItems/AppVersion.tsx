@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { APP_VERSION } from '@hey/data/constants';
+import { APP_VERSION } from '@good/data/constants';
 import Link from 'next/link';
 import urlcat from 'urlcat';
 
@@ -13,7 +13,7 @@ const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
     <div className="px-6 py-3 text-xs">
       <Link
         className="font-mono"
-        href={urlcat('https://github.com/heyxyz/hey/releases/tag/:version', {
+        href={urlcat('https://github.com/bcharity-net/good/releases/tag/:version', {
           version: `v${APP_VERSION}`
         })}
         onClick={onClick}

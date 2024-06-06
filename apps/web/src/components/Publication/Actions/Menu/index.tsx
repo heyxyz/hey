@@ -1,11 +1,11 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import cn from '@hey/ui/cn';
 import { Fragment } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

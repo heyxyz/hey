@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import { Card } from '@good/ui';
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
-import { Card } from '@hey/ui';
 
 const CommentWarning: FC = () => {
   return (

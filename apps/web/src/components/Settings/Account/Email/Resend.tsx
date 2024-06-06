@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import { GOOD_API_URL } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { SETTINGS } from '@good/data/tracking';
+import { Button } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -42,7 +42,7 @@ const Resend: FC = () => {
     try {
       setIsLoading(true);
       await axios.post(
-        `${HEY_API_URL}/email/update`,
+        `${GOOD_API_URL}/email/update`,
         { email, resend: true },
         { headers: getAuthApiHeaders() }
       );

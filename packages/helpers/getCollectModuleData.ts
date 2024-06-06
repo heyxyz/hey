@@ -9,7 +9,7 @@ import type {
   MultirecipientFeeCollectOpenActionSettings,
   RecipientDataOutput,
   SimpleCollectOpenActionSettings
-} from '@hey/lens';
+} from '@good/lens';
 
 const getCollectModuleData = (
   collectModule:

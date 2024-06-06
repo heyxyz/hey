@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
-import { CRISP_WEBSITE_ID } from '@hey/data/constants';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
+import { CRISP_WEBSITE_ID } from '@good/data/constants';
+import getAvatar from '@good/helpers/getAvatar';
+import getProfile from '@good/helpers/getProfile';
 import { Crisp } from 'crisp-sdk-web';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -11,7 +11,7 @@ const CrispProvider: FC = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
-    if (location.hostname !== 'hey.xyz') {
+    if (location.hostname !== 'bcharity.net') {
       return;
     }
 

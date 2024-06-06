@@ -1,11 +1,11 @@
-import type { AnyPublication, ModReport, ModReportsRequest } from '@hey/lens';
+import type { AnyPublication, ModReport, ModReportsRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import { LimitType, useModLatestReportsQuery } from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
 import { FlagIcon } from '@heroicons/react/24/outline';
-import { LimitType, useModLatestReportsQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 
 import ReportDetails from './ReportDetails';

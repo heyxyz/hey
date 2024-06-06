@@ -1,14 +1,14 @@
 import type { FC } from 'react';
 
-import { HeyLensSignup } from '@hey/abis';
-import { HEY_LENS_SIGNUP } from '@hey/data/constants';
-import { NumberedStat } from '@hey/ui';
+import { GoodLensSignup } from '@good/abis';
+import { GOOD_LENS_SIGNUP } from '@good/data/constants';
+import { NumberedStat } from '@good/ui';
 import { useReadContract } from 'wagmi';
 
 const SignupPrice: FC = () => {
   const { data } = useReadContract({
-    abi: HeyLensSignup,
-    address: HEY_LENS_SIGNUP,
+    abi: GoodLensSignup,
+    address: GOOD_LENS_SIGNUP,
     functionName: 'signupPrice',
     query: { refetchInterval: 10000 }
   });

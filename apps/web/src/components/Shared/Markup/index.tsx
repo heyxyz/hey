@@ -1,8 +1,8 @@
-import type { ProfileMentioned } from '@hey/lens';
+import type { ProfileMentioned } from '@good/lens';
 import type { FC } from 'react';
 
-import { Regex } from '@hey/data/regex';
-import trimify from '@hey/helpers/trimify';
+import { Regex } from '@good/data/regex';
+import trimify from '@good/helpers/trimify';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error

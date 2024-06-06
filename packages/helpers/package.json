@@ -1,5 +1,5 @@
 {
-  "name": "@hey/helpers",
+  "name": "@good/helpers",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
-    "@hey/data": "workspace:*",
-    "@hey/lens": "workspace:*",
-    "@hey/types": "workspace:*",
+    "@good/data": "workspace:*",
+    "@good/lens": "workspace:*",
+    "@good/types": "workspace:*",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "omit-deep": "^0.3.0",
@@ -23,7 +23,7 @@
     "viem": "^2.13.6"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@good/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"

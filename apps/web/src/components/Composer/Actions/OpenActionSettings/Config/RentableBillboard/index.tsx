@@ -3,11 +3,11 @@ import type { Address } from 'viem';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { LensHub } from '@hey/abis';
-import { DEFAULT_COLLECT_TOKEN, LENS_HUB } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import { useModuleMetadataQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import { LensHub } from '@good/abis';
+import { DEFAULT_COLLECT_TOKEN, LENS_HUB } from '@good/data/constants';
+import { VerifiedOpenActionModules } from '@good/data/verified-openaction-modules';
+import { useModuleMetadataQuery } from '@good/lens';
+import { ErrorMessage } from '@good/ui';
 import { useEffect, useState } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import { useOpenActionStore } from 'src/store/non-persisted/publication/useOpenActionStore';

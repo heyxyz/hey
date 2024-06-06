@@ -1,6 +1,6 @@
-import type { MetadataAttribute } from '@hey/lens';
+import type { MetadataAttribute } from '@good/lens';
 
-import { MetadataAttributeType } from '@hey/lens';
+import { MetadataAttributeType } from '@good/lens';
 import { describe, expect, test } from 'vitest';
 
 import getPublicationAttribute from './getPublicationAttribute';

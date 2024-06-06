@@ -1,15 +1,15 @@
-import type { BalanceData } from '@hey/helpers/formatTokenBalances';
+import type { BalanceData } from '@good/helpers/formatTokenBalances';
 import type { FC } from 'react';
 import type { Address } from 'viem';
 
-import getBalanceData from '@helpers/getBalanceData';
 import {
   STATIC_IMAGES_URL,
   SUPPORTED_DECENT_OA_TOKENS
-} from '@hey/data/constants';
-import formatTokenBalances from '@hey/helpers/formatTokenBalances';
-import getTokenImage from '@hey/helpers/getTokenImage';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+} from '@good/data/constants';
+import formatTokenBalances from '@good/helpers/formatTokenBalances';
+import getTokenImage from '@good/helpers/getTokenImage';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import getBalanceData from '@helpers/getBalanceData';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useAccount, useBalance } from 'wagmi';

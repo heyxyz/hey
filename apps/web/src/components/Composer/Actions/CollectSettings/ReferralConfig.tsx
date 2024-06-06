@@ -1,10 +1,10 @@
-import type { CollectModuleType } from '@hey/types/hey';
+import type { CollectModuleType } from '@good/types/good';
 import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { CollectOpenActionModuleType } from '@good/lens';
+import { Input } from '@good/ui';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { CollectOpenActionModuleType } from '@hey/lens';
-import { Input } from '@hey/ui';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 
 interface ReferralConfigProps {

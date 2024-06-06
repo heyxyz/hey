@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
-import { ALL_EVENTS } from '@hey/data/tracking';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
+import { ALL_EVENTS } from '@good/data/tracking';
+import logger from '@good/helpers/logger';
+import parseJwt from '@good/helpers/parseJwt';
 import requestIp from 'request-ip';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';

@@ -1,7 +1,7 @@
 import type {
   MirrorablePublication,
   SecondTierCondition as SecondTierConditionType
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
 import SecondTierCondition from './SecondTierCondition';

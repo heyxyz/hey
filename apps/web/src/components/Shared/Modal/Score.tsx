@@ -1,10 +1,10 @@
-import type { ScoreAllocation } from '@hey/types/hey';
+import type { ScoreAllocation } from '@good/types/good';
 import type { FC } from 'react';
 
+import { APP_NAME, GOOD_API_URL, STATIC_IMAGES_URL } from '@good/data/constants';
+import humanize from '@good/helpers/humanize';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
-import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
-import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ const Score: FC = () => {
     profileId: null | string
   ): Promise<ScoreAllocation[]> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/score/allocations`, {
+      const response = await axios.get(`${GOOD_API_URL}/score/allocations`, {
         params: { id: profileId }
       });
       return response.data.result;

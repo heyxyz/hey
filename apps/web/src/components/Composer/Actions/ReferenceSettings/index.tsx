@@ -1,6 +1,9 @@
 import type { FC, ReactNode } from 'react';
 
 import MenuTransition from '@components/Shared/MenuTransition';
+import { ReferenceModuleType } from '@good/lens';
+import { Tooltip } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import {
   GlobeAltIcon,
@@ -9,9 +12,6 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ReferenceModuleType } from '@hey/lens';
-import { Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 

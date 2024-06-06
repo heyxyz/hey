@@ -1,8 +1,8 @@
-import type { OpenAction } from '@hey/data/enums';
+import type { OpenAction } from '@good/data/enums';
 import type { FC, ReactNode } from 'react';
 
+import { Card } from '@good/ui';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
-import { Card } from '@hey/ui';
 import {
   ScreenType,
   useOpenActionStore

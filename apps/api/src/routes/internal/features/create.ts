@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
+import logger from '@good/helpers/logger';
+import goodPg from 'src/db/goodPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
@@ -36,7 +36,7 @@ export const post: Handler = async (req, res) => {
   const { key } = body as ExtensionRequest;
 
   try {
-    const feature = await heyPg.query(
+    const feature = await goodPg.query(
       `
         INSERT INTO "Feature" ("key", "priority")
         VALUES ($1, 1000)

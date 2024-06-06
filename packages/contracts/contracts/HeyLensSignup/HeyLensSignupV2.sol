@@ -19,7 +19,7 @@ interface ILensPermissionlessCreator {
   ) external returns (uint256, uint256);
 }
 
-contract HeyLensSignupV2 is Initializable, OwnableUpgradeable {
+contract GoodLensSignupV2 is Initializable, OwnableUpgradeable {
   ILensPermissionlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
   uint256 public profilesCreatedViaCard;
@@ -28,7 +28,7 @@ contract HeyLensSignupV2 is Initializable, OwnableUpgradeable {
   mapping(address => bool) public allowedAddresses;
 
   modifier onlyAllowed() {
-    require(allowedAddresses[msg.sender], 'HeyLensSignup: Not allowed');
+    require(allowedAddresses[msg.sender], 'GoodLensSignup: Not allowed');
     _;
   }
 

@@ -2,14 +2,14 @@ import type { FC } from 'react';
 
 import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
+import { APP_NAME } from '@good/data/constants';
+import { Modal } from '@good/ui';
 import {
   ArrowRightCircleIcon,
   CircleStackIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { Modal } from '@hey/ui';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';

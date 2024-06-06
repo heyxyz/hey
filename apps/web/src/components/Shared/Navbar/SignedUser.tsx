@@ -1,16 +1,16 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
+import { FeatureFlag } from '@good/data/feature-flags';
+import { KillSwitch } from '@good/data/kill-switches';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getProfile from '@good/helpers/getProfile';
+import { Image } from '@good/ui';
+import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import isFeatureEnabled from '@helpers/isFeatureEnabled';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { KillSwitch } from '@hey/data/kill-switches';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 

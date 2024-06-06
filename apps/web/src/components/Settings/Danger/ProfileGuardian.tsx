@@ -1,16 +1,10 @@
 import type { FC } from 'react';
 
 import IndexStatus from '@components/Shared/IndexStatus';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import {
-  ExclamationTriangleIcon,
-  LockOpenIcon
-} from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+import { LensHub } from '@good/abis';
+import { LENS_HUB } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { SETTINGS } from '@good/data/tracking';
 import {
   Button,
   Card,
@@ -18,7 +12,13 @@ import {
   Modal,
   Spinner,
   WarningMessage
-} from '@hey/ui';
+} from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import {
+  ExclamationTriangleIcon,
+  LockOpenIcon
+} from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';

@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
-import { Errors } from '@hey/data/errors';
-import logger from '@hey/helpers/logger';
+import { Errors } from '@good/data/errors';
+import logger from '@good/helpers/logger';
 import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';

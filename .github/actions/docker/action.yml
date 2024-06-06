@@ -35,4 +35,4 @@ runs:
         context: .
         file: ${{ inputs.docker_file }}
         push: true
-        tags: heyxyz/${{ inputs.image_name }}:latest
+        tags: bcharity-net/${{ inputs.image_name }}:latest

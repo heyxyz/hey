@@ -11,4 +11,4 @@ Disallow: /search?q=
 User-agent: nsa
 Disallow: /
 
-Sitemap: https://api.hey.xyz/sitemap/sitemap.xml
+Sitemap: https://api.bcharity.net/sitemap/sitemap.xml

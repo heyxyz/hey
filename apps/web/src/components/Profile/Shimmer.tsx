@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { GridItemEight, GridItemFour, GridLayout } from '@good/ui';
 
 interface ProfilePageShimmerProps {
   profileList?: boolean;

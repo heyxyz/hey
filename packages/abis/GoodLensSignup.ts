@@ -1,4 +1,4 @@
-export const HeyLensSignup = [
+export const GoodLensSignup = [
   { inputs: [], name: 'InvalidFunds', type: 'error' },
   { inputs: [], name: 'InvalidInitialization', type: 'error' },
   { inputs: [], name: 'NotAllowed', type: 'error' },

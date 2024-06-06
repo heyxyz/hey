@@ -1,14 +1,14 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import errorToast from '@helpers/errorToast';
-import formatDate from '@hey/helpers/datetime/formatDate';
+import formatDate from '@good/helpers/datetime/formatDate';
 import {
+  useModDisputeReportMutation,
   type ModReport,
-  type Profile,
-  useModDisputeReportMutation
-} from '@hey/lens';
-import { Button, Form, TextArea, useZodForm } from '@hey/ui';
+  type Profile
+} from '@good/lens';
+import { Button, Form, TextArea, useZodForm } from '@good/ui';
+import errorToast from '@helpers/errorToast';
 import toast from 'react-hot-toast';
 import { object, string } from 'zod';
 

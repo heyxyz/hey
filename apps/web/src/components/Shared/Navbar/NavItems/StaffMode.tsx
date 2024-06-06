@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import { GOOD_API_URL } from '@good/data/constants';
+import { STAFFTOOLS } from '@good/data/tracking';
+import cn from '@good/ui/cn';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -21,7 +21,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const toggleStaffMode = () => {
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/staffMode`,
+        `${GOOD_API_URL}/internal/features/staffMode`,
         { enabled: !staffMode },
         { headers: getAuthApiHeaders() }
       ),

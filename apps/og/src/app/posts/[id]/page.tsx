@@ -1,18 +1,18 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from '@good/lens';
 import type { Metadata } from 'next';
 
-import getCollectModuleMetadata from '@helpers/getCollectModuleMetadata';
-import getPublicationOGImages from '@helpers/getPublicationOGImages';
-import { APP_NAME } from '@hey/data/constants';
-import getProfile from '@hey/helpers/getProfile';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import { APP_NAME } from '@good/data/constants';
+import getProfile from '@good/helpers/getProfile';
+import getPublicationData from '@good/helpers/getPublicationData';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
 import {
   LimitType,
   PublicationDocument,
   PublicationsDocument
-} from '@hey/lens';
-import { apolloClient } from '@hey/lens/apollo';
+} from '@good/lens';
+import { apolloClient } from '@good/lens/apollo';
+import getCollectModuleMetadata from '@helpers/getCollectModuleMetadata';
+import getPublicationOGImages from '@helpers/getPublicationOGImages';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -44,17 +44,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = (filteredContent || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz/posts/${targetPublication.id}` },
+    alternates: { canonical: `https://bcharity.net/posts/${targetPublication.id}` },
     applicationName: APP_NAME,
     authors: {
       name: displayName,
-      url: `https://hey.xyz${link}`
+      url: `https://bcharity.net${link}`
     },
     creator: displayName,
     description: description,
     keywords: [
-      'hey',
-      'hey.xyz',
+      'good',
+      'bcharity.net',
       'social media post',
       'social media',
       'lenster',
@@ -71,13 +71,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       displayName,
       slugWithPrefix
     ],
-    metadataBase: new URL(`https://hey.xyz/posts/${targetPublication.id}`),
+    metadataBase: new URL(`https://bcharity.net/posts/${targetPublication.id}`),
     openGraph: {
       description: description,
       images: getPublicationOGImages(metadata) as any,
-      siteName: 'Hey',
+      siteName: 'Good',
       type: 'article',
-      url: `https://hey.xyz/posts/${targetPublication.id}`
+      url: `https://bcharity.net/posts/${targetPublication.id}`
     },
     other: {
       'count:actions': targetPublication.stats.countOpenActions,
@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: title,
     twitter: {
       card: assetIsAudio ? 'summary' : 'summary_large_image',
-      site: '@heydotxyz'
+      site: '@gooddotxyz'
     }
   };
 }
@@ -118,7 +118,7 @@ export default async function Page({ params }: Props) {
     return <h1>{params.id}</h1>;
   }
 
-  const postUrl = `https://hey.xyz/posts/${metadata.other?.['lens:id']}`;
+  const postUrl = `https://bcharity.net/posts/${metadata.other?.['lens:id']}`;
 
   return (
     <>
@@ -162,7 +162,7 @@ export default async function Page({ params }: Props) {
 
             return (
               <li key={publication.id}>
-                <a href={`https://hey.xyz/posts/${publication.id}`}>
+                <a href={`https://bcharity.net/posts/${publication.id}`}>
                   {filteredContent}
                 </a>
               </li>

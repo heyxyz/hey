@@ -12,7 +12,7 @@ export const hashflags: Record<string, string> = {
   eth: 'ethereum',
   ethereum: 'ethereum',
   hashtag: 'hashtag',
-  hey: 'hey',
+  good: 'good',
   lens: 'lens',
   tape: 'tape',
   voted: 'voted',

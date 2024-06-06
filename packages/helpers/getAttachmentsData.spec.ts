@@ -1,4 +1,4 @@
-import type { PublicationMetadataMedia } from '@hey/lens';
+import type { PublicationMetadataMedia } from '@good/lens';
 
 import { describe, expect, test } from 'vitest';
 

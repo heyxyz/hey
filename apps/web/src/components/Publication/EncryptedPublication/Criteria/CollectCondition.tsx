@@ -1,4 +1,4 @@
-import type { CollectCondition as CollectConditionType } from '@hey/lens';
+import type { CollectCondition as CollectConditionType } from '@good/lens';
 import type { FC } from 'react';
 
 import Link from 'next/link';

@@ -1,4 +1,4 @@
-import { OpenActionModuleType } from '@hey/lens';
+import { OpenActionModuleType } from '@good/lens';
 
 /**
  * Returns the name of the specified module to be used in the actOn key.

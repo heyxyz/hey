@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
+import { Errors } from '@good/data';
+import { SETTINGS } from '@good/data/tracking';
+import downloadJson from '@good/helpers/downloadJson';
+import { useNotificationsLazyQuery } from '@good/lens';
+import { Button, Card, CardHeader } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
-import { SETTINGS } from '@hey/data/tracking';
-import downloadJson from '@hey/helpers/downloadJson';
-import { useNotificationsLazyQuery } from '@hey/lens';
-import { Button, Card, CardHeader } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';

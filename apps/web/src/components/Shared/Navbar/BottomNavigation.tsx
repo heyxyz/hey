@@ -1,5 +1,10 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getProfile from '@good/helpers/getProfile';
+import { Image } from '@good/ui';
+import cn from '@good/ui/cn';
 import {
   BellIcon,
   HomeIcon,
@@ -10,11 +15,6 @@ import {
   HomeIcon as HomeIconSolid,
   Squares2X2Icon as Squares2X2IconSolid
 } from '@heroicons/react/24/solid';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

@@ -1,7 +1,7 @@
-import type { IGif } from '@hey/types/giphy';
+import type { IGif } from '@good/types/giphy';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import { GIPHY_KEY } from '@hey/data/constants';
+import { GIPHY_KEY } from '@good/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 

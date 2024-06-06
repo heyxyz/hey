@@ -1,6 +1,6 @@
-import type { OptimisticTransaction } from '@hey/types/misc';
+import type { OptimisticTransaction } from '@good/types/misc';
 
-import { IndexDB } from '@hey/data/storage';
+import { IndexDB } from '@good/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

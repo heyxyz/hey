@@ -7,17 +7,17 @@ import type {
   NotificationRequest,
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC } from 'react';
 
-import { BellIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   NotificationType,
   useNotificationsQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
+import cn from '@good/ui/cn';
+import { BellIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';

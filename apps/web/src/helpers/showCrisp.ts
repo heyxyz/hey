@@ -1,4 +1,4 @@
-import { MISCELLANEOUS } from '@hey/data/tracking';
+import { MISCELLANEOUS } from '@good/data/tracking';
 import { Crisp } from 'crisp-sdk-web';
 
 import { Leafwatch } from './leafwatch';

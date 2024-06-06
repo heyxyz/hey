@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { useUserRateLimitQuery } from '@hey/lens';
-import { Card, CardHeader, ErrorMessage } from '@hey/ui';
+import { useUserRateLimitQuery } from '@good/lens';
+import { Card, CardHeader, ErrorMessage } from '@good/ui';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const ProgressBar: FC<{ max: number; value: number }> = ({ max, value }) => {

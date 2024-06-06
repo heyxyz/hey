@@ -1,12 +1,12 @@
-import type { AllowedToken } from '@hey/types/hey';
+import type { AllowedToken } from '@good/types/good';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import { GOOD_API_URL } from '@good/data/constants';
+import { Regex } from '@good/data/regex';
+import { STAFFTOOLS } from '@good/data/tracking';
+import { Button, Form, Input, useZodForm } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -44,7 +44,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     setCreating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/tokens/create`,
+        `${GOOD_API_URL}/internal/tokens/create`,
         { contractAddress, decimals: parseInt(decimals), name, symbol },
         { headers: getAuthApiHeaders() }
       ),

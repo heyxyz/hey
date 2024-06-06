@@ -1,5 +1,5 @@
 {
-  "name": "@hey/icons",
+  "name": "@good/icons",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -15,7 +15,7 @@
     "react": "^18.3.1"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@good/config": "workspace:*",
     "@types/react": "^18.3.3",
     "typescript": "^5.4.5"
   }

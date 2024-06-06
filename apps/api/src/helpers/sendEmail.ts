@@ -1,5 +1,5 @@
 import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 
 const sesClient = new SESClient({
   credentials: {
@@ -24,7 +24,7 @@ const sendEmail = async ({
       Body: { Html: { Charset: 'UTF-8', Data: body } },
       Subject: { Charset: 'UTF-8', Data: subject }
     },
-    Source: 'no-reply@hey.xyz'
+    Source: 'no-reply@bcharity.net'
   };
 
   try {

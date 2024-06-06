@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
+import { Modal, Tooltip } from '@good/ui';
 import { SquaresPlusIcon } from '@heroicons/react/24/outline';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
-import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import {
   ScreenType,

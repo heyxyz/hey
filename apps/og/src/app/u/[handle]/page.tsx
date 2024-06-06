@@ -1,18 +1,18 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { AnyPublication, Profile } from '@good/lens';
 import type { Metadata } from 'next';
 
-import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import { APP_NAME, HANDLE_PREFIX } from '@good/data/constants';
+import getAvatar from '@good/helpers/getAvatar';
+import getProfile from '@good/helpers/getProfile';
+import getPublicationData from '@good/helpers/getPublicationData';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
 import {
   LimitType,
   ProfileDocument,
-  PublicationsDocument,
-  PublicationType
-} from '@hey/lens';
-import { apolloClient } from '@hey/lens/apollo';
+  PublicationType,
+  PublicationsDocument
+} from '@good/lens';
+import { apolloClient } from '@good/lens/apollo';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -36,13 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = (profile?.metadata?.bio || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz${link}` },
+    alternates: { canonical: `https://bcharity.net${link}` },
     applicationName: APP_NAME,
     creator: displayName,
     description: description,
     keywords: [
-      'hey',
-      'hey.xyz',
+      'good',
+      'bcharity.net',
       'social media profile',
       'social media',
       'lenster',
@@ -55,13 +55,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       displayName,
       slugWithPrefix
     ],
-    metadataBase: new URL(`https://hey.xyz${link}`),
+    metadataBase: new URL(`https://bcharity.net${link}`),
     openGraph: {
       description: description,
       images: [getAvatar(profile)],
-      siteName: 'Hey',
+      siteName: 'Good',
       type: 'profile',
-      url: `https://hey.xyz${link}`
+      url: `https://bcharity.net${link}`
     },
     other: {
       'count:followers': profile.stats.followers,
@@ -71,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     publisher: displayName,
     title: title,
-    twitter: { card: 'summary', site: '@heydotxyz' }
+    twitter: { card: 'summary', site: '@gooddotxyz' }
   };
 }
 
@@ -98,7 +98,7 @@ export default async function Page({ params }: Props) {
     return <h1>{params.handle}</h1>;
   }
 
-  const profileUrl = `https://hey.xyz/u/${metadata.other?.['lens:handle']}`;
+  const profileUrl = `https://bcharity.net/u/${metadata.other?.['lens:handle']}`;
 
   return (
     <>
@@ -131,7 +131,7 @@ export default async function Page({ params }: Props) {
 
             return (
               <li key={publication.id}>
-                <a href={`https://hey.xyz/posts/${publication.id}`}>
+                <a href={`https://bcharity.net/posts/${publication.id}`}>
                   {filteredContent}
                 </a>
               </li>

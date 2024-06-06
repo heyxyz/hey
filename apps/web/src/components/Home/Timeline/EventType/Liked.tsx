@@ -1,4 +1,4 @@
-import type { ReactionEvent } from '@hey/lens';
+import type { ReactionEvent } from '@good/lens';
 import type { FC } from 'react';
 
 import Profiles from '@components/Shared/Profiles';

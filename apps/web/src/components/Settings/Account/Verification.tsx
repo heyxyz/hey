@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
+import getNumberOfDaysFromDate from '@good/helpers/datetime/getNumberOfDaysFromDate';
+import { Button, Card } from '@good/ui';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
-import getNumberOfDaysFromDate from '@hey/helpers/datetime/getNumberOfDaysFromDate';
-import { Button, Card } from '@hey/ui';
 import { Crisp } from 'crisp-sdk-web';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';

@@ -7,7 +7,7 @@ import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 import '@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol';
 
-contract HeyPro is
+contract GoodPro is
   Initializable,
   OwnableUpgradeable,
   ReentrancyGuardUpgradeable,

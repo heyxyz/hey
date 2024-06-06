@@ -1,11 +1,11 @@
-import type { AnyPublication, LatestActed, PaginatedRequest } from '@hey/lens';
+import type { AnyPublication, LatestActed, PaginatedRequest } from '@good/lens';
 import type { FC } from 'react';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PaidActionsShimmer from '@components/Shared/Shimmer/PaidActionsShimmer';
+import { LimitType, useLatestPaidActionsQuery } from '@good/lens';
+import { Card, EmptyState, ErrorMessage } from '@good/ui';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { LimitType, useLatestPaidActionsQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { Virtuoso } from 'react-virtuoso';
 
 import OpenActionPaidAction from './OpenActionPaidAction';

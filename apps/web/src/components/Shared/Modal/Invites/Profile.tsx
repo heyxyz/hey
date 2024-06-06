@@ -1,11 +1,11 @@
-import type { InvitedResult } from '@hey/lens';
+import type { InvitedResult } from '@good/lens';
 import type { FC } from 'react';
 
 import Slug from '@components/Shared/Slug';
+import formatDate from '@good/helpers/datetime/formatDate';
+import formatAddress from '@good/helpers/formatAddress';
+import getProfile from '@good/helpers/getProfile';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import formatAddress from '@hey/helpers/formatAddress';
-import getProfile from '@hey/helpers/getProfile';
 import Link from 'next/link';
 
 interface ProfileProps {

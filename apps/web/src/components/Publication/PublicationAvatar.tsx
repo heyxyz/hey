@@ -1,13 +1,13 @@
-import type { AnyPublication, FeedItem } from '@hey/lens';
+import type { AnyPublication, FeedItem } from '@good/lens';
 import type { FC } from 'react';
 
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getProfile from '@good/helpers/getProfile';
+import { isMirrorPublication } from '@good/helpers/publicationHelpers';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
+import { Image } from '@good/ui';
+import cn from '@good/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { memo } from 'react';

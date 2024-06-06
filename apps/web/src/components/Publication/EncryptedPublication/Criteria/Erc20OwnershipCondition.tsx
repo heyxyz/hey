@@ -1,7 +1,7 @@
-import type { Erc20OwnershipCondition as Erc20OwnershipConditionType } from '@hey/lens';
+import type { Erc20OwnershipCondition as Erc20OwnershipConditionType } from '@good/lens';
 import type { FC } from 'react';
 
-import { ComparisonOperatorConditionType } from '@hey/lens';
+import { ComparisonOperatorConditionType } from '@good/lens';
 
 interface Erc20OwnershipConditionProps {
   condition: Erc20OwnershipConditionType;

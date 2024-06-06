@@ -1,6 +1,6 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
-import { LENS_API_URL } from '@hey/data/constants';
-import parseJwt from '@hey/helpers/parseJwt';
+import { LENS_API_URL } from '@good/data/constants';
+import parseJwt from '@good/helpers/parseJwt';
 import axios from 'axios';
 import {
   hydrateAuthTokens,

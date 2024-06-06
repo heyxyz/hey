@@ -1,10 +1,10 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
 import Slug from '@components/Shared/Slug';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import getProfile from '@good/helpers/getProfile';
+import { Image } from '@good/ui';
 
 export const MetaDetails = ({
   children,

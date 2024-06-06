@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import { Errors } from '@good/data';
+import { STATIC_IMAGES_URL } from '@good/data/constants';
+import { AUTH } from '@good/data/tracking';
+import { useAuthenticateMutation, useChallengeLazyQuery } from '@good/lens';
+import { Button, Spinner } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { AUTH } from '@hey/data/tracking';
-import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { signIn } from 'src/store/persisted/useAuthStore';
@@ -63,7 +63,7 @@ const Success: FC = () => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <div className="text-xl font-bold">Waaa-hey! You got your profile!</div>
+      <div className="text-xl font-bold">Waaa-good! You got your profile!</div>
       <div className="ld-text-gray-500 mt-3 text-center font-semibold">
         Welcome to decentralised social where everything is sooooooooooooo much
         better! 🎉

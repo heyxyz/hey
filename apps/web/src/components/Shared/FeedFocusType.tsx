@@ -1,9 +1,9 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import { EXPLORE } from '@good/data/tracking';
+import { PublicationMetadataMainFocusType } from '@good/lens';
+import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
-import { EXPLORE } from '@hey/data/tracking';
-import { PublicationMetadataMainFocusType } from '@hey/lens';
-import cn from '@hey/ui/cn';
 
 interface FeedLinkProps {
   name: string;

@@ -1,13 +1,13 @@
-import type { UniswapQuote } from '@hey/types/hey';
+import type { UniswapQuote } from '@good/types/good';
 import type { FC } from 'react';
 
+import { Card, HelpTooltip } from '@good/ui';
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel
 } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
-import { Card, HelpTooltip } from '@hey/ui';
 
 interface DetailsProps {
   calculatedQuote: null | UniswapQuote;

@@ -19,7 +19,7 @@ export const BrowserPush = {
       }
 
       const response = event.data;
-      new Notification('Hey', {
+      new Notification('Good', {
         body: response.title,
         icon: '/logo.png'
       });

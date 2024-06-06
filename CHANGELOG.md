@@ -1,3 +1,3 @@
 # Changelog
 
-Visit [releases](https://github.com/heyxyz/hey/releases) for full changelog.
+Visit [releases](https://github.com/bcharity-net/good/releases) for full changelog.

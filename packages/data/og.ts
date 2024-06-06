@@ -9,4 +9,4 @@ export const ALLOWED_HTML_HOSTS = [
   'oohlala.xyz'
 ];
 
-export const IGNORED_NFT_HOSTS = ['hey.xyz'];
+export const IGNORED_NFT_HOSTS = ['bcharity.net'];

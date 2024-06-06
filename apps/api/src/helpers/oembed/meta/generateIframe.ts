@@ -1,4 +1,4 @@
-import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
+import { ALLOWED_HTML_HOSTS } from '@good/data/og';
 
 // URLs that are manually picked to be embedded that dont have embed metatags
 const pickUrlSites = ['open.spotify.com', 'kick.com'];
@@ -55,7 +55,7 @@ const generateIframe = (
     case 'twitch.tv': {
       const twitchEmbedUrl = pickedUrl.replace(
         '&player=facebook&autoplay=true&parent=meta.tag',
-        '&player=hey&autoplay=false&parent=hey.xyz'
+        '&player=good&autoplay=false&parent=bcharity.net'
       );
       if (twitchRegex.test(cleanedUrl)) {
         return `<iframe src="${twitchEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 
 import { useNftOpenActionStore } from './FeedEmbed';
 

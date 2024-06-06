@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
@@ -22,7 +22,7 @@ export const get: Handler = async (req, res) => {
     const totalBatches = Math.ceil(totalHandles / SITEMAP_BATCH_SIZE);
 
     const entries = Array.from({ length: totalBatches }, (_, index) => ({
-      loc: `https://api.hey.xyz/sitemap/profiles/${index + 1}.xml`
+      loc: `https://api.bcharity.net/sitemap/profiles/${index + 1}.xml`
     }));
     const xml = buildSitemapXml(entries);
 

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Card, CardHeader } from '@hey/ui';
+import { Card, CardHeader } from '@good/ui';
 import toast from 'react-hot-toast';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 

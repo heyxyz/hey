@@ -9,7 +9,7 @@ const truncateUrl = (url: string, maxLength: number): string => {
   const strippedUrl = url
     .replace(/^(http|https):\/\//, '')
     .replace(/^www\./, '');
-  if (new URL(url).hostname.endsWith('hey.xyz')) {
+  if (new URL(url).hostname.endsWith('bcharity.net')) {
     return strippedUrl;
   }
   if (strippedUrl.length > maxLength) {

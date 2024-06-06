@@ -1,21 +1,21 @@
 import type {
   MirrorablePublication,
   ReportPublicationRequest
-} from '@hey/lens';
+} from '@good/lens';
 import type { FC, ReactNode } from 'react';
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { GARDENER } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { APP_NAME } from '@good/data/constants';
+import { GARDENER } from '@good/data/tracking';
+import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import {
   PublicationReportingReason,
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button } from '@hey/ui';
+} from '@good/lens';
+import { useApolloClient } from '@good/lens/apollo';
+import { Button } from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';

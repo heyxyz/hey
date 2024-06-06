@@ -1,8 +1,8 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from '@good/lens';
 import type { FC } from 'react';
 
+import { Tooltip } from '@good/ui';
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
 

@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { buildSitemapXml } from 'src/helpers/sitemap/buildSitemap';
 
@@ -9,8 +9,8 @@ export const get: Handler = (req, res) => {
 
   try {
     const sitemaps = [
-      'https://api.hey.xyz/sitemap/profiles.xml',
-      'https://api.hey.xyz/sitemap/others.xml'
+      'https://api.bcharity.net/sitemap/profiles.xml',
+      'https://api.bcharity.net/sitemap/others.xml'
     ];
 
     const entries = sitemaps.map((sitemap) => ({

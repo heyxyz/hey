@@ -1,4 +1,4 @@
-import logger from '@hey/helpers/logger';
+import logger from '@good/helpers/logger';
 import prisma from 'src/helpers/prisma';
 
 const cleanDraftPublications = async () => {

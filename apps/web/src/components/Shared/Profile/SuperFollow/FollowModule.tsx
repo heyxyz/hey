@@ -2,34 +2,34 @@ import type {
   ApprovedAllowanceAmountResult,
   FeeFollowModuleSettings,
   Profile
-} from '@hey/lens';
+} from '@good/lens';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import Loader from '@components/Shared/Loader';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import Slug from '@components/Shared/Slug';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB, POLYGONSCAN_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import formatAddress from '@hey/helpers/formatAddress';
-import getProfile from '@hey/helpers/getProfile';
-import getSignature from '@hey/helpers/getSignature';
-import getTokenImage from '@hey/helpers/getTokenImage';
+import { LensHub } from '@good/abis';
+import { LENS_HUB, POLYGONSCAN_URL } from '@good/data/constants';
+import { Errors } from '@good/data/errors';
+import { PROFILE } from '@good/data/tracking';
+import checkDispatcherPermissions from '@good/helpers/checkDispatcherPermissions';
+import formatAddress from '@good/helpers/formatAddress';
+import getProfile from '@good/helpers/getProfile';
+import getSignature from '@good/helpers/getSignature';
+import getTokenImage from '@good/helpers/getTokenImage';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useProfileQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
+} from '@good/lens';
+import { useApolloClient } from '@good/lens/apollo';
+import { Button, Spinner, WarningMessage } from '@good/ui';
+import errorToast from '@helpers/errorToast';
+import { Leafwatch } from '@helpers/leafwatch';
+import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

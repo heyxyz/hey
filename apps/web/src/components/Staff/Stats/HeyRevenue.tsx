@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { APP_NAME, GOOD_API_URL, IS_MAINNET } from '@good/data/constants';
+import formatDate from '@good/helpers/datetime/formatDate';
+import { Card, CardHeader, ErrorMessage } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { Card, CardHeader, ErrorMessage } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import {
@@ -28,13 +28,13 @@ ChartJS.register(
   Legend
 );
 
-const HeyRevenue: FC = () => {
+const GoodRevenue: FC = () => {
   const getSignupsStats = async (): Promise<
     { date: string; mint_count: number; signups_count: number }[] | null
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/lens/internal/stats/heyRevenue`,
+        `${GOOD_API_URL}/lens/internal/stats/goodRevenue`,
         { headers: getAuthApiHeaders() }
       );
 
@@ -109,4 +109,4 @@ const HeyRevenue: FC = () => {
   );
 };
 
-export default HeyRevenue;
+export default GoodRevenue;

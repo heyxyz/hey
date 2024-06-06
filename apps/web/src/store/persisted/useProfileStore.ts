@@ -1,6 +1,6 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 
-import { IndexDB } from '@hey/data/storage';
+import { IndexDB } from '@good/data/storage';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';

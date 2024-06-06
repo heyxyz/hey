@@ -1,8 +1,8 @@
 import {
-  HEY_IMAGEKIT_URL,
+  GOOD_IMAGEKIT_URL,
   IPFS_GATEWAY,
   LENS_MEDIA_SNAPSHOT_URL
-} from '@hey/data/constants';
+} from '@good/data/constants';
 
 /**
  * Transforms the URL of an image to use ImageKit.
@@ -24,7 +24,7 @@ const imageKit = (url: string, name?: string): string => {
   }
 
   if (url.includes(IPFS_GATEWAY)) {
-    return name ? `${HEY_IMAGEKIT_URL}/fallback/${name},q-80/${url}` : url;
+    return name ? `${GOOD_IMAGEKIT_URL}/fallback/${name},q-80/${url}` : url;
   }
 
   return url;

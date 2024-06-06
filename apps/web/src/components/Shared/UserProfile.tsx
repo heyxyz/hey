@@ -1,20 +1,20 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@good/lens';
 import type { FC } from 'react';
 
+import formatRelativeOrAbsolute from '@good/helpers/datetime/formatRelativeOrAbsolute';
+import getAvatar from '@good/helpers/getAvatar';
+import getLennyURL from '@good/helpers/getLennyURL';
+import getMentions from '@good/helpers/getMentions';
+import getProfile from '@good/helpers/getProfile';
+import hasMisused from '@good/helpers/hasMisused';
+import humanize from '@good/helpers/humanize';
+import { Image } from '@good/ui';
+import cn from '@good/ui/cn';
 import isVerified from '@helpers/isVerified';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getMentions from '@hey/helpers/getMentions';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import humanize from '@hey/helpers/humanize';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { memo } from 'react';
 

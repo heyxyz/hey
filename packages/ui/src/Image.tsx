@@ -5,7 +5,7 @@ import type {
   SyntheticEvent
 } from 'react';
 
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from '@good/data/constants';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 export const Image = forwardRef(function Image(
