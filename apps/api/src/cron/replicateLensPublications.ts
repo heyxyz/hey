@@ -45,7 +45,7 @@ const replicateLensPublications = async () => {
   );
 
   logger.info(
-    `Cron: Inserting ${publications.length} publications - From block ${START_BLOCK_NUMBER} to ${END_BLOCK_NUMBER}`
+    `Cron: replicateLensPublications - Inserting ${publications.length} publications - From block ${START_BLOCK_NUMBER} to ${END_BLOCK_NUMBER}`
   );
 
   // Define a batch size
@@ -91,17 +91,21 @@ const replicateLensPublications = async () => {
       })
       .then((result) =>
         logger.info(
-          `Cron: Inserted batch of ${batch.length} publications, last block: ${batch[batch.length - 1].block_number}, last ID: ${batch[batch.length - 1].id} - ${result.query_id}`
+          `Cron: replicateLensPublications - Inserted batch of ${batch.length} publications, last block: ${batch[batch.length - 1].block_number}, last ID: ${batch[batch.length - 1].id} - ${result.query_id}`
         )
       );
   });
 
   Promise.all(insertPromises)
     .then(() => {
-      logger.info('Cron: All batches have been inserted successfully.');
+      logger.info(
+        'Cron: replicateLensPublications - All batches have been inserted successfully.'
+      );
     })
     .catch((error) => {
-      logger.error(`Cron: Error inserting batches: ${error}`);
+      logger.error(
+        `Cron: replicateLensPublications - Error inserting batches: ${error}`
+      );
     });
 };
 

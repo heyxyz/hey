@@ -23,11 +23,15 @@ const deleteLensPublications = async () => {
   const duplicates = await getAllDuplicatePublications();
 
   if (duplicates.length === 0) {
-    logger.info('Cron: No duplicate publications found.');
+    logger.info(
+      'Cron: deleteLensPublications - No duplicate publications found.'
+    );
     return;
   }
 
-  logger.info(`Cron: Found ${duplicates.length} duplicate publications`);
+  logger.info(
+    `Cron: deleteLensPublications - Found ${duplicates.length} duplicate publications`
+  );
 
   duplicates.map(async (duplicate) => {
     const res = await clickhouse.query({
@@ -36,7 +40,7 @@ const deleteLensPublications = async () => {
     });
 
     logger.info(
-      `Cron: Deleted publication with id ${duplicate} - ${res.query_id}`
+      `Cron: deleteLensPublications - Deleted publication with id ${duplicate} - ${res.query_id}`
     );
   });
 };

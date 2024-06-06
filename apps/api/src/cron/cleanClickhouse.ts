@@ -11,7 +11,9 @@ const cleanClickhouse = async () => {
   await clickhouse.command({
     query: "ALTER TABLE events DELETE WHERE url NOT LIKE '%hey.xyz%';"
   });
-  logger.info('Cron: Cleaned non hey.xyz events from Clickhouse');
+  logger.info(
+    'Cron: cleanClickhouse - Cleaned non hey.xyz events from Clickhouse'
+  );
 };
 
 export default cleanClickhouse;
