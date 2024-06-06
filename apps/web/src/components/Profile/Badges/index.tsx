@@ -13,12 +13,11 @@ import Sybil from './Sybil';
 import Worldcoin from './Worldcoin';
 
 interface BadgesProps {
-  address: string;
   id: string;
   onchainIdentity: ProfileOnchainIdentity;
 }
 
-const Badges: FC<BadgesProps> = ({ address, id, onchainIdentity }) => {
+const Badges: FC<BadgesProps> = ({ id, onchainIdentity }) => {
   // Begin: Get isHeyProfile
   const getIsHeyProfile = async (): Promise<boolean> => {
     const response = await axios.get(`${HEY_API_URL}/badges/isHeyProfile`, {
