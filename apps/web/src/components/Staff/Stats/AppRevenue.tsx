@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
+import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -11,7 +12,8 @@ const AppRevenue: FC = () => {
     { currency: string; month: string; revenue: string; symbol: string }[]
   > => {
     const response = await axios.get(
-      `${HEY_API_URL}/lens/internal/stats/revenue`
+      `${HEY_API_URL}/lens/internal/stats/revenue`,
+      { headers: getAuthApiHeaders() }
     );
     return response.data.result;
   };
@@ -23,7 +25,11 @@ const AppRevenue: FC = () => {
   });
 
   if (isLoading) {
-    return <Loader className="my-10" message="Loading revenue stats..." />;
+    return (
+      <Card>
+        <Loader className="my-10" message="Loading revenue stats..." />
+      </Card>
+    );
   }
 
   if (error) {
@@ -31,12 +37,11 @@ const AppRevenue: FC = () => {
   }
 
   if (!data) {
-    return <div className="m-5">No data...</div>;
+    return null;
   }
 
   return (
-    <>
-      <div className="divider" />
+    <Card>
       <CardHeader title={`${APP_NAME} Revenue`} />
       <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
         {data.map((revenue, index) => (
@@ -59,7 +64,7 @@ const AppRevenue: FC = () => {
           </div>
         ))}
       </div>
-    </>
+    </Card>
   );
 };
 

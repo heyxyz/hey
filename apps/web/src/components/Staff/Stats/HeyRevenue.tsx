@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
@@ -33,7 +34,8 @@ const HeyRevenue: FC = () => {
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/lens/internal/stats/heyRevenue`
+        `${HEY_API_URL}/lens/internal/stats/heyRevenue`,
+        { headers: getAuthApiHeaders() }
       );
 
       return response.data?.result || null;
@@ -60,10 +62,6 @@ const HeyRevenue: FC = () => {
     );
   }
 
-  if (!data) {
-    return null;
-  }
-
   if (error) {
     return (
       <ErrorMessage
@@ -71,6 +69,10 @@ const HeyRevenue: FC = () => {
         title={`Failed to load ${APP_NAME} revenue stats`}
       />
     );
+  }
+
+  if (!data) {
+    return null;
   }
 
   return (

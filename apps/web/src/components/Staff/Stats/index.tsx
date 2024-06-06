@@ -4,7 +4,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -35,10 +35,8 @@ const Stats: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <HeyRevenue />
-        <Card>
-          <PublicationStats />
-          <AppRevenue />
-        </Card>
+        <PublicationStats />
+        <AppRevenue />
       </GridItemEight>
     </GridLayout>
   );

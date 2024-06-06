@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
-import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
+import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -19,7 +20,8 @@ const PublicationStats: FC = () => {
     reactions: number;
   }> => {
     const response = await axios.get(
-      `${HEY_API_URL}/lens/internal/stats/publication`
+      `${HEY_API_URL}/lens/internal/stats/publication`,
+      { headers: getAuthApiHeaders() }
     );
     return response.data.result;
   };
@@ -31,7 +33,11 @@ const PublicationStats: FC = () => {
   });
 
   if (isLoading) {
-    return <Loader className="my-10" message="Loading publication stats..." />;
+    return (
+      <Card>
+        <Loader className="my-10" message="Loading publication stats..." />
+      </Card>
+    );
   }
 
   if (error) {
@@ -41,11 +47,11 @@ const PublicationStats: FC = () => {
   }
 
   if (!data) {
-    return <div className="m-5">No data...</div>;
+    return null;
   }
 
   return (
-    <>
+    <Card>
       <CardHeader title="Publication Stats" />
       <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
         <NumberedStat
@@ -60,7 +66,7 @@ const PublicationStats: FC = () => {
         <NumberedStat count={data.actions.toString()} name="Actions" />
         <NumberedStat count={data.bookmarks.toString()} name="Bookmarks" />
       </div>
-    </>
+    </Card>
   );
 };
 
