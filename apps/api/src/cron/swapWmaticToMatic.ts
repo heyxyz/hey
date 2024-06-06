@@ -70,7 +70,7 @@ const swapWmaticToMatic = async () => {
 
   const wmaticBalanceFormatted = formatEther(wmaticBalance);
 
-  if (parseInt(wmaticBalanceFormatted) < 9) {
+  if (parseInt(wmaticBalanceFormatted) < 50) {
     logger.info(
       `Cron: WMATIC is below the threshold - ${wmaticBalanceFormatted} < 50`
     );
