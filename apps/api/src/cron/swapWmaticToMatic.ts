@@ -15,7 +15,7 @@ const swapWmaticToMatic = async () => {
     return;
   }
 
-  logger.info('Cron: Swapping WMATIC for MATIC');
+  logger.info('Cron: swapWmaticToMatic - Swapping WMATIC for MATIC');
 
   const abi = [
     {
@@ -48,7 +48,7 @@ const swapWmaticToMatic = async () => {
   const isLessThanFiveMatic = parseInt(formatEther(relayAdminBalance)) < 5;
 
   if (isLessThanFiveMatic) {
-    logger.info('Cron: Not enough MATIC to swap');
+    logger.info('Cron: swapWmaticToMatic - Not enough MATIC to swap');
     return;
   }
 
@@ -72,7 +72,7 @@ const swapWmaticToMatic = async () => {
 
   if (parseInt(wmaticBalanceFormatted) < 50) {
     logger.info(
-      `Cron: WMATIC is below the threshold - ${wmaticBalanceFormatted} < 50`
+      `Cron: swapWmaticToMatic - WMATIC is below the threshold - ${wmaticBalanceFormatted} < 50`
     );
     return;
   }
@@ -85,7 +85,7 @@ const swapWmaticToMatic = async () => {
   });
 
   logger.info(
-    `Swapped ${formatEther(wmaticBalance)} WMATIC for MATIC - ${POLYGONSCAN_URL}/tx/${hash}`
+    `Cron: swapWmaticToMatic - Swapped ${formatEther(wmaticBalance)} WMATIC for MATIC - ${POLYGONSCAN_URL}/tx/${hash}`
   );
 };
 
