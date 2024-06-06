@@ -10,7 +10,7 @@ const LensAuthProvider: FC = () => {
   const { accessToken } = hydrateAuthTokens();
 
   useVerifyQuery({
-    pollInterval: 10000,
+    pollInterval: 8000,
     skip: !id,
     variables: { request: { accessToken } }
   });
