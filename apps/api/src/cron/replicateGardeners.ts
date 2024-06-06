@@ -11,7 +11,9 @@ const replicateGardeners = async () => {
     `SELECT * FROM custom_filters.reporting_gardener_profile`
   );
 
-  logger.info(`Cron: Inserting / Updating ${profiles.length} profiles...`);
+  logger.info(
+    `Cron: replicateGardeners - Inserting / Updating ${profiles.length} profiles...`
+  );
 
   for (const profile of profiles) {
     await heyPg.query(
@@ -25,9 +27,11 @@ const replicateGardeners = async () => {
     );
   }
 
-  logger.info(`Cron: Inserted ${profiles.length} gardener profiles`);
   logger.info(
-    'Cron: Deleting old profiles that are not in the gardener list anymore...'
+    `Cron: replicateGardeners - Inserted ${profiles.length} gardener profiles`
+  );
+  logger.info(
+    'Cron: replicateGardeners - Deleting old profiles that are not in the gardener list anymore...'
   );
 
   const deletedProfiles = await heyPg.query(
@@ -42,7 +46,7 @@ const replicateGardeners = async () => {
     ]
   );
   logger.info(
-    `Cron: Deleted ${deletedProfiles} old profiles that are no longer a gardener`
+    `Cron: replicateGardeners - Deleted ${deletedProfiles} old profiles that are no longer a gardener`
   );
 };
 
