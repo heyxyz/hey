@@ -31,7 +31,6 @@
     "@irys/sdk": "^0.2.1",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.15.0",
-    "@sentry/node": "^8.7.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
