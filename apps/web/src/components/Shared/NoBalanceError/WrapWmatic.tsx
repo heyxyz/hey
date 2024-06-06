@@ -37,16 +37,8 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
         {
           anonymous: false,
           inputs: [
-            {
-              indexed: true,
-              name: 'dst',
-              type: 'address'
-            },
-            {
-              indexed: false,
-              name: 'wad',
-              type: 'uint256'
-            }
+            { indexed: true, name: 'dst', type: 'address' },
+            { indexed: false, name: 'wad', type: 'uint256' }
           ],
           name: 'Deposit',
           type: 'event'
