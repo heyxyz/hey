@@ -47,6 +47,3 @@ sw.js
 
 # Node build artifacts
 dist
-
-# Sentry Config File
-.sentryclirc
