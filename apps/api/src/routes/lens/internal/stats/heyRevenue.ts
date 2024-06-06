@@ -7,9 +7,16 @@ import {
 import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import { notAllowed } from 'src/helpers/responses';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
+  const validateIsStaffStatus = await validateIsStaff(req);
+  if (validateIsStaffStatus !== 200) {
+    return notAllowed(res, validateIsStaffStatus);
+  }
+
   try {
     const result = await lensPg.multi(
       `
