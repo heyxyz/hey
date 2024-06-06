@@ -9,6 +9,7 @@ import cleanPreferences from './cleanPreferences';
 import deleteLensPublications from './deleteLensPublications';
 import replicateGardeners from './replicateGardeners';
 import replicateLensPublications from './replicateLensPublications';
+import swapWmaticToMatic from './swapWmaticToMatic';
 
 dotenv.config({ override: true });
 
@@ -48,6 +49,10 @@ const main = () => {
   cron.schedule('*/5 * * * *', async () => {
     await cleanPreferences();
     return;
+  });
+
+  cron.schedule('*/10 * * * * *', async () => {
+    await swapWmaticToMatic();
   });
 };
 
