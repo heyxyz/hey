@@ -271,11 +271,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           <InvitedBy profile={profile.invitedBy} />
         </>
       ) : null}
-      <Badges
-        address={profile.ownedBy.address}
-        id={profile.id}
-        onchainIdentity={profile.onchainIdentity}
-      />
+      <Badges id={profile.id} onchainIdentity={profile.onchainIdentity} />
       <InternalTools profile={profile} />
     </div>
   );
