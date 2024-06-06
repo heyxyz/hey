@@ -1,8 +1,4 @@
-import '../instrument.mjs';
-
-// eslint-disable-next-line perfectionist/sort-imports
 import logger from '@hey/helpers/logger';
-import * as Sentry from '@sentry/node';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -17,9 +13,6 @@ const app = express();
 // Middleware configuration
 app.use(cors());
 app.disable('x-powered-by');
-
-// Setup Sentry
-Sentry.setupExpressErrorHandler(app);
 
 const setupRoutes = async () => {
   // Route configuration

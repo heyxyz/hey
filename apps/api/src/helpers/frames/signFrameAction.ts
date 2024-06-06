@@ -80,8 +80,7 @@ const signFrameAction = async (
     );
 
     return data.data.signFrameAction;
-  } catch (error) {
-    console.log(error);
+  } catch {
     return null;
   }
 };
