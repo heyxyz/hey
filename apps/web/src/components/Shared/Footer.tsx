@@ -16,7 +16,7 @@ const Footer: FC = () => {
     <footer className={cn(staffMode ? 'top-28' : 'top-20', 'sticky text-sm')}>
       <div className="mt-4 flex flex-wrap gap-x-[12px] gap-y-2 px-3 lg:px-0">
         <span className="ld-text-gray-500 font-bold">
-          &copy; {new Date().getFullYear()} {APP_NAME}.xyz
+          &copy; {new Date().getFullYear()} {APP_NAME}
         </span>
         <Link className="outline-offset-4" href="/terms">
           Terms
@@ -26,7 +26,7 @@ const Footer: FC = () => {
         </Link>
         <Link
           className="outline-offset-4"
-          href="https://bcharity.net/discord"
+          href="https://discord.com/invite/NPeA8FJwye"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
           rel="noreferrer noopener"
           target="_blank"
