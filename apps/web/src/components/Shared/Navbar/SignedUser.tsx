@@ -64,7 +64,7 @@ const SignedUser: FC = () => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+            className="absolute right-0 bottom-12 mb-8 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
             static
           >
             <MenuItem

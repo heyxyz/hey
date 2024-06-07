@@ -13,7 +13,6 @@ import FeedType from './FeedType';
 import ForYou from './ForYou';
 import Hero from './Hero';
 import PaidActions from './PaidActions';
-import Sidebar from './Sidebar';
 import Timeline from './Timeline';
 
 const Home: NextPage = () => {
@@ -49,9 +48,6 @@ const Home: NextPage = () => {
             <ExploreFeed />
           )}
         </GridItemEight>
-        <GridItemFour>
-          <Sidebar />
-        </GridItemFour>
       </GridLayout>
     </>
   );

@@ -20,6 +20,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
+import Sidebar from '../Home/Sidebar';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
@@ -98,11 +99,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       />
       <GlobalModals />
       <GlobalAlerts />
-      <div className="flex min-h-screen flex-col pb-14 md:pb-0">
+      <div className="flex min-h-screen pb-14 md:pb-0">
         <Navbar />
         <GlobalBanners />
         <BottomNavigation />
-        {children}
+        <div className='grow'>
+          {children}
+        </div>
+        <div className="w-80 grow-0">
+          <Sidebar />
+        </div>
       </div>
     </>
   );
