@@ -22,7 +22,7 @@ import AppVersion from './NavItems/AppVersion';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
-import Score from './NavItems/Score';
+// import Score from './NavItems/Score';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -168,7 +168,7 @@ const SignedUser: FC = () => {
                 cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
               }
             >
-              <Score />
+              {/* <Score /> */}
             </MenuItem>
             <div className="divider" />
             <AppVersion />
