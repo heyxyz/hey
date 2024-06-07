@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import { STATIC_IMAGES_URL } from '@good/data/constants';
 import cn from '@good/ui/cn';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -82,16 +81,15 @@ const Navbar: FC = () => {
               )}
             </button>
             <Link
-              className="hidden rounded-full outline-offset-8 md:block"
+              // className="hidden rounded-full outline-offset-8 md:block"
               href="/"
             >
-              <img
-                alt="Logo"
-                className="size-8"
-                height={32}
-                src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
-                width={32}
-              />
+              <div className="inline-flex flex-grow justify-between items-center font-bold text-white-900">
+                <div className="text-3xl font-black">
+                  <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
+                </div>
+                <span className="flex fle-grow ml-3 mr-3">Goodcast</span>
+              </div>
             </Link>
             <div className="hidden sm:ml-6 md:block">
               <div className="flex items-center space-x-4">
@@ -110,7 +108,7 @@ const Navbar: FC = () => {
               alt="Logo"
               className="size-7"
               height={32}
-              src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
+              src= "/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
               width={32}
             />
           </Link>

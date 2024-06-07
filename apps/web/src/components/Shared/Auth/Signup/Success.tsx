@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import { Errors } from '@good/data';
-import { STATIC_IMAGES_URL } from '@good/data/constants';
 import { AUTH } from '@good/data/tracking';
 import { useAuthenticateMutation, useChallengeLazyQuery } from '@good/lens';
 import { Button, Spinner } from '@good/ui';
@@ -70,8 +69,8 @@ const Success: FC = () => {
       </div>
       <img
         alt="Dizzy emoji"
-        className="mx-auto mt-8 size-14"
-        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
+        className="mx-auto mt-8 size-12"
+        src="/logo1.svg" // {`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
       />
       <Button
         className="mt-5"
