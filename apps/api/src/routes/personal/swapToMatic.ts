@@ -1,4 +1,5 @@
 import type { Handler } from 'express';
+import type { Address } from 'viem';
 
 import { Errors } from '@hey/data';
 import logger from '@hey/helpers/logger';
@@ -54,7 +55,9 @@ export const post: Handler = async (req, res) => {
   }
 
   try {
-    const account = privateKeyToAccount(`0x${process.env.ADMIN_PRIVATE_KEY}`);
+    const account = privateKeyToAccount(
+      process.env.ADMIN_PRIVATE_KEY as Address
+    );
     const client = createWalletClient({
       account,
       chain: polygon,
