@@ -3,14 +3,14 @@
 #/ Usage: script/release
 #/ Release to all environments.
 
-git config user.name good
-git config user.email good@bcharity.net
+git config user.name admin
+git config user.email admin@bcharity.net
 
 branches=("testnet" "staging")
 
 for branch in "${branches[@]}"
 do
-    echo "Releasing to $branch 🚀"
+    echo "Releasing to $branch"
     git pull origin main >> /dev/null
     git checkout $branch
     git merge main
@@ -18,4 +18,4 @@ do
     git checkout main
 done
 
-echo "Done 🎉"
+echo "Done"

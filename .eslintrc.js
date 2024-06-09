@@ -1,10 +1,18 @@
 module.exports = {
-  "extends": [
-    "plugin:perfectionist/recommended-alphabetical"
-  ],
-  "plugins": ["perfectionist"],
+  // "extends": [
+  //   "plugin:perfectionist/recommended-alphabetical"
+  // ],
+  // "plugins": ["perfectionist"],
+  // "rules": {
+  //   "perfectionist/sort-interfaces": "error"
+  // },
   "rules": {
-    "perfectionist/sort-interfaces": "error"
+    "prettier/prettier": [
+      "error", 
+      {
+        "endOfLine": "off"
+      }
+    ]
   },
   settings: {
     next: {
