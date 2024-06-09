@@ -93,7 +93,6 @@ export const post: Handler = async (req, res) => {
 
   try {
     const account = privateKeyToAccount(randomPrivateKey as Address);
-
     const client = createWalletClient({
       account,
       chain: test_mode ? polygonAmoy : polygon,
