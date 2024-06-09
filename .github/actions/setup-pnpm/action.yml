@@ -3,21 +3,21 @@ name: Docker Build and Push
 runs:
   using: 'composite'
   steps:
-    - name: Setup pnpm 🌸
+    - name: Setup pnpm
       uses: pnpm/action-setup@v2.2.4
 
-    - name: Setup node 🍀
+    - name: Setup node
       uses: actions/setup-node@v3
       with:
         check-latest: true
         node-version-file: '.nvmrc'
         cache: 'pnpm'
 
-    - name: Install dependencies 📦
+    - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
 
-    - name: Setup Env 🌐
+    - name: Setup Env
       shell: bash
       run: |
         cd apps/web; cp .env.example .env
@@ -25,6 +25,6 @@ runs:
         cd apps/api; cp .env.example .env
         cd ../../
 
-    - name: Codgen 🧬
+    - name: Codgen
       shell: bash
       run: pnpm codegen

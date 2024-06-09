@@ -17,15 +17,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 🚪
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js, pnpm and dependencies 🌸
+      - name: Setup Node.js, pnpm and dependencies
         uses: ./.github/actions/setup-pnpm
 
-      - name: Typecheck 🔡
+      - name: Typecheck
         run: pnpm typecheck:affected
 
   lint:
@@ -37,25 +37,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js, pnpm and dependencies 🌸
+      - name: Setup Node.js, pnpm and dependencies
         uses: ./.github/actions/setup-pnpm
 
-      - name: Lint 🪩
+      - name: Lint
         run: pnpm lint:affected
 
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🚪
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js, pnpm and dependencies 🌸
+      - name: Setup Node.js, pnpm and dependencies
         uses: ./.github/actions/setup-pnpm
 
-      - name: Prettier ✨
+      - name: Prettier
         run: pnpm prettier:affected
 
   build:
@@ -67,10 +67,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js, pnpm and dependencies 🌸
+      - name: Setup Node.js, pnpm and dependencies
         uses: ./.github/actions/setup-pnpm
 
-      - name: Build 🎁
+      - name: Build
         run: pnpm build
 
   test:
@@ -89,12 +89,12 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - name: Checkout 🚪
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js, pnpm and dependencies 🌸
+      - name: Setup Node.js, pnpm and dependencies
         uses: ./.github/actions/setup-pnpm
 
       - name: Migration 🚚
@@ -105,10 +105,10 @@ jobs:
           pnpm prisma:migrate
           pnpm prisma:seed
 
-      - name: Build 🎁
+      - name: Build
         run: pnpm build
 
-      - name: Run Tests 🧪
+      - name: Run Tests
         env:
           NEXT_PUBLIC_LENS_NETWORK: 'testnet'
           DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres'

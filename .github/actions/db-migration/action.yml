@@ -8,22 +8,22 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Setup pnpm 🌸
+    - name: Setup pnpm
       uses: pnpm/action-setup@v2.2.4
 
-    - name: Setup node 🍀
+    - name: Setup node
       uses: actions/setup-node@v3
       with:
         check-latest: true
         node-version-file: '.nvmrc'
         cache: 'pnpm'
 
-    - name: Install dependencies 📦
+    - name: Install dependencies
       shell: bash
       working-directory: ./apps/api
       run: pnpm i
 
-    - name: Migrate 🚀
+    - name: Migrate
       shell: bash
       working-directory: ./apps/api
       env:

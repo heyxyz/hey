@@ -10,11 +10,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🚪
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.BIGINT_GH_TOKEN }}
+          token: ${{ secrets.BCHARITYFI_GH_TOKEN }}
 
-      - name: Release 🚀
+      - name: Release
         run: ./script/release
