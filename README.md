@@ -5,8 +5,8 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://bcharity.net/u/good">
-        <img src="https://lens-badge.vercel.app/api/badge/lens/good" alt="Lens">
+    <a href="https://bcharity.net/u/bcharity">
+        <img src="https://lens-badge.vercel.app/api/badge/lens/bcharity" alt="Lens">
     </a>
     <a href="https://vercel.com/bcharity?utm_source=Good&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=bcharity" alt="Vercel">
