@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 import type { Address } from 'viem';
 
-import { Errors } from '@hey/data';
-import logger from '@hey/helpers/logger';
+import { Errors } from '@good/data';
+import logger from '@good/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { createWalletClient, http } from 'viem';
