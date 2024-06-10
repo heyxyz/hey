@@ -5,8 +5,8 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://bcharity.net/u/good">
-        <img src="https://lens-badge.vercel.app/api/badge/lens/good" alt="Lens">
+    <a href="https://bcharity.net/u/bcharity">
+        <img src="https://lens-badge.vercel.app/api/badge/lens/bcharity" alt="Lens">
     </a>
     <a href="https://vercel.com/bcharity?utm_source=Good&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=bcharity" alt="Vercel">
@@ -39,14 +39,14 @@
     <a href="https://github.com/bcharity-net/good/issues/new"><b>Issues</b></a>
 </div>
 
-##  About Good
+## About Good
 
 Good is a cutting-edge social media for the public good that leverages the power of [Lens Protocol](https://lens.xyz) and [hey.xyz](https://hey.xyz/) to create a decentralized and permissionless platform for the public to interact, share, and engage with one another. With a focus on privacy, security, and user control, Good aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
 
 ## 📦 Environments
 
-| Name    | Link                    |
-| ------- | ----------------------- |
+| Name    | Link                         |
+| ------- | ---------------------------- |
 | Mainnet | https://bcharity.net         |
 | Testnet | https://testnet.bcharity.net |
 | Staging | https://staging.bcharity.net |

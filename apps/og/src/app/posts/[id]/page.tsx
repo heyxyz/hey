@@ -44,7 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = (filteredContent || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://bcharity.net/posts/${targetPublication.id}` },
+    alternates: {
+      canonical: `https://bcharity.net/posts/${targetPublication.id}`
+    },
     applicationName: APP_NAME,
     authors: {
       name: displayName,

@@ -1,6 +1,10 @@
 import type { FC } from 'react';
 
-import { APP_NAME, GOOD_API_URL, STATIC_IMAGES_URL } from '@good/data/constants';
+import {
+  APP_NAME,
+  GOOD_API_URL,
+  STATIC_IMAGES_URL
+} from '@good/data/constants';
 import { SETTINGS } from '@good/data/tracking';
 import { Card, CardHeader, Tooltip } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';

@@ -5,24 +5,24 @@
 
 # Delete update-dependencies branch if it exists
 if git branch | grep -q "update-dependencies"; then
-  echo "Deleting update-dependencies branch 🗑"
+  echo "Deleting update-dependencies branch"
   git branch -D update-dependencies
-  echo "Branch deleted 🎉"
+  echo "Branch deleted"
 fi
 
 # Create update-dependencies branch
-echo "Creating update-dependencies branch 🌱"
+echo "Creating update-dependencies branch"
 git checkout -b update-dependencies
-echo "Branch created 🎉"
+echo "Branch created"
 
 # Update dependencies in package.json
-echo "Updating dependencies in package.json 📦"
+echo "Updating dependencies in package.json"
 pnpm update --interactive --recursive --latest
 # Clean up pnpm-lock.yaml file and install dependencies
 script/clean && pnpm install
 # Git operations
 git add -A
-git commit -am "chore: update dependencies 📦"
+git commit -am "chore: update dependencies"
 git push origin update-dependencies
 gh pr create --fill
-echo "Dependencies updated 🎉"
+echo "Dependencies updated"

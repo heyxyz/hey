@@ -22,7 +22,7 @@ import AppVersion from './NavItems/AppVersion';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
-import Score from './NavItems/Score';
+// import Score from './NavItems/Score';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -64,7 +64,7 @@ const SignedUser: FC = () => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="absolute right-0 bottom-12 mb-8 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+            className="absolute bottom-12 right-0 mb-8 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
             static
           >
             <MenuItem
@@ -168,7 +168,7 @@ const SignedUser: FC = () => {
                 cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
               }
             >
-              <Score />
+              {/* <Score /> */}
             </MenuItem>
             <div className="divider" />
             <AppVersion />

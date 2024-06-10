@@ -9,8 +9,8 @@ import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import LoginButton from '../LoginButton';
-import SignedUser from './SignedUser';
 import MoreNavItems from './MoreNavItems';
+import SignedUser from './SignedUser';
 // import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
@@ -45,15 +45,12 @@ const Navbar: FC = () => {
   const { pathname } = useRouter();
 
   return (
-    <header className="sticky top-0 z-10 bg-white dark:bg-black w-48 md:w-16 lg:w-48 h-screen overflow-y-scroll">
+    <header className="sticky top-0 z-10 h-screen w-48 overflow-y-scroll bg-white md:w-16 lg:w-48 dark:bg-black">
       {/* {staffMode ? <StaffBar /> : null} */}
-      <div className="h-screen flex flex-col">
-        <Link
-          className="rounded-full outline-offset-8 my-12"
-          href="/"
-        >
+      <div className="flex h-screen flex-col">
+        <Link className="my-12 rounded-full outline-offset-8" href="/">
           <img
-            alt="Logo"  
+            alt="Logo"
             className="size-8"
             height={32}
             src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
@@ -66,7 +63,7 @@ const Navbar: FC = () => {
           name="Explore"
           url="/explore"
         />
-        <div className='relative'>
+        <div className="relative">
           <MoreNavItems />
         </div>
         <NavItem
@@ -79,7 +76,7 @@ const Navbar: FC = () => {
           name="Notifications"
           url="/notifications"
         />
-        <div className='relative pb-8 self-stretch flex justify-center items-center mt-auto'>
+        <div className="relative mt-auto flex items-center justify-center self-stretch pb-8">
           {currentProfile ? <SignedUser /> : <LoginButton />}
         </div>
       </div>

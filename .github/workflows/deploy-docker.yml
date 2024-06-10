@@ -14,10 +14,10 @@ jobs:
     name: API
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🚪
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build and push API image 🚀
+      - name: Build and push API image
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -25,7 +25,7 @@ jobs:
           image_name: api
           docker_file: ./apps/api/Dockerfile
 
-      - name: Trigger API Deployment 🚀
+      - name: Trigger API Deployment
         uses: indiesdev/curl@v1.1
         with:
           url: https://api.bcharity.net/internal/railway/triggerDeployments

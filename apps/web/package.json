@@ -1,6 +1,6 @@
 {
   "name": "@good/web",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {

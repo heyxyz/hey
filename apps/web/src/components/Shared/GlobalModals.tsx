@@ -2,7 +2,6 @@ import type { FC } from 'react';
 
 import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
-import { APP_NAME } from '@good/data/constants';
 import { Modal } from '@good/ui';
 import {
   ArrowRightCircleIcon,
@@ -24,7 +23,7 @@ import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import Invites from './Modal/Invites';
 import OptimisticTransactions from './Modal/OptimisticTransactions';
 import ReportProfile from './Modal/ReportProfile';
-import Score from './Modal/Score';
+// import Score from './Modal/Score';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
@@ -41,7 +40,7 @@ const GlobalModals: FC = () => {
     setShowProfileSwitchModal,
     setShowPublicationReportModal,
     setShowReportProfileModal,
-    setShowScoreModal,
+    // setShowScoreModal,
     showAuthModal,
     showInvitesModal,
     showNewPostModal,
@@ -152,14 +151,14 @@ const GlobalModals: FC = () => {
       >
         <OptimisticTransactions />
       </Modal>
-      <Modal
+      {/* <Modal
         onClose={() => setShowScoreModal(false, null, null)}
         show={showScoreModal}
         size="xs"
         title={`${APP_NAME} score`}
       >
         <Score />
-      </Modal>
+      </Modal> */}
     </>
   );
 };

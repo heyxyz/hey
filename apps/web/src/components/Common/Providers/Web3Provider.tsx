@@ -2,7 +2,7 @@ import type { FC, ReactNode } from 'react';
 
 import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@good/data/constants';
 import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@good/data/rpcs';
-import { WagmiProvider, createConfig, fallback, http } from 'wagmi';
+import { createConfig, fallback, http, WagmiProvider } from 'wagmi';
 import { polygon, polygonAmoy } from 'wagmi/chains';
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 

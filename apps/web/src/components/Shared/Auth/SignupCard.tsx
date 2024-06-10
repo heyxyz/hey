@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { APP_NAME, STATIC_IMAGES_URL } from '@good/data/constants';
+import { APP_NAME } from '@good/data/constants';
 import { AUTH } from '@good/data/tracking';
 import { Button, Card } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
@@ -16,8 +16,8 @@ const SignupCard: FC = () => {
     <Card as="aside" className="mb-4 space-y-4 p-5">
       <img
         alt="Dizzy emoji"
-        className="mx-auto size-14"
-        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
+        className="mx-auto size-8"
+        src="/logo1.svg" //{`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
       />
       <div className="space-y-3 text-center">
         <div className="font-bold">Get your {APP_NAME} profile now!</div>

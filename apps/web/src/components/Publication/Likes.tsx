@@ -5,8 +5,8 @@ import UserProfile from '@components/Shared/UserProfile';
 import { ProfileLinkSource } from '@good/data/tracking';
 import {
   LimitType,
-  useWhoReactedPublicationQuery,
   type Profile,
+  useWhoReactedPublicationQuery,
   type WhoReactedPublicationRequest
 } from '@good/lens';
 import { Card, EmptyState, ErrorMessage } from '@good/ui';

@@ -10,10 +10,10 @@ jobs:
     name: Cleanup
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🚪
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cleanup ✨
+      - name: Cleanup
         run: |
           gh extension install actions/gh-actions-cache
 
