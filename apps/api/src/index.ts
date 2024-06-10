@@ -18,12 +18,13 @@ const setupRoutes = async () => {
   // Route configuration
   app.use('/signup', express.raw({ type: 'application/json' }), await router());
   app.use('/', express.json({ limit: '1mb' }), await router());
+  
 
   // Start the server
 
-  // ViteExpress.listen(app, 4784, () => {
-  //   logger.info('Server is listening on port 4784...');
-  // });
+  ViteExpress.listen(app, 4784, () => {
+    logger.info('Server is listening on port 4784...');
+  });
 };
 
 (async () => await setupRoutes())();
