@@ -1,0 +1,41 @@
+import type { Handler } from 'express';
+
+import logger from '@good/helpers/logger';
+import allocations from 'api/data/score-allocations';
+import goodPg from 'api/db/goodPg';
+import catchedError from 'api/helpers/catchedError';
+import { noBody } from 'api/helpers/responses';
+
+// TODO: add tests
+export const get: Handler = async (req, res) => {
+  const { id } = req.query;
+
+  if (!id) {
+    return noBody(res);
+  }
+
+  try {
+    const adjustedProfileScore = await goodPg.query(
+      `
+        SELECT *
+        FROM "AdjustedProfileScore"
+        WHERE "profileId" = $1
+        AND "reason" IN (${allocations.map((allocation) => `'${allocation.id}'`).join(',')});
+      `,
+      [id as string]
+    );
+
+    const result = adjustedProfileScore.map(({ reason, score }) => ({
+      ...allocations.find((allocation) => allocation.id === reason),
+      score
+    }));
+
+    logger.info(
+      `Lens: Fetched ${adjustedProfileScore.length} allocations for ${id}`
+    );
+
+    return res.status(200).json({ result, success: true });
+  } catch (error) {
+    catchedError(res, error);
+  }
+};

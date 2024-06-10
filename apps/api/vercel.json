@@ -1,9 +1,16 @@
 {
   "version": 2,
+  "installCommand": "pnpm install",
+  "devCommand": "NODE_ENV=production tsx api/index.ts",
+  "functions": {
+    "api/routes/**/*.ts": {
+      "runtime": "@vercel/node@3.1.7"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/src/server.ts"
+      "destination": "api/index.ts"
     }
   ]
 }
