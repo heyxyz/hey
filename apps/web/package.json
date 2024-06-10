@@ -4,8 +4,9 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "next build",
-    "dev": "next dev --port 4783",
+    "build": "pnpm build:sw; next build",
+    "build:sw": "node script/build-sw.mjs",
+    "dev": "next dev --port 4783 --turbo",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
