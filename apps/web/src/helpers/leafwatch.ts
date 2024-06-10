@@ -19,7 +19,7 @@ export const Leafwatch = {
     const fingerprint = localStorage.getItem(Localstorage.FingerprintStore);
 
     worker.postMessage({
-      accessToken: getAuthApiHeaders()['X-Access-Token'] || undefined,
+      accessToken: getAuthApiHeaders()['X-Identity-Token'] || undefined,
       fingerprint: fingerprint || undefined,
       name,
       network: getAuthApiHeaders()['X-Lens-Network'] || undefined,
