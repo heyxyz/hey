@@ -8,7 +8,7 @@ import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import UAParser from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
