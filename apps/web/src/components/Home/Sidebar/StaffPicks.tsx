@@ -49,11 +49,9 @@ const StaffPicks: FC = () => {
   };
 
   const batchRanges = dividePicks(picks || [], 3); // We want to divide into three batches
-
   const batchVariables = batchRanges.map((range) =>
     picks?.slice(range.start, range.end).map((pick) => pick.profileId)
   );
-
   const canLoadStaffPicks = batchVariables.every(
     (batch) => (batch || []).length > 0
   );
