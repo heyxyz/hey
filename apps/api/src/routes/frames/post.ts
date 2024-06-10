@@ -15,14 +15,12 @@ import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
   buttonIndex: number;
-  identityToken: string;
   postUrl: string;
   pubId: string;
 };
 
 const validationSchema = object({
   buttonIndex: number(),
-  identityToken: string(),
   postUrl: string(),
   pubId: string()
 });
@@ -34,7 +32,6 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -46,11 +43,12 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res, validateLensAccountStatus);
   }
 
-  const { buttonIndex, identityToken, postUrl, pubId } =
-    body as ExtensionRequest;
+  const { buttonIndex, postUrl, pubId } = body as ExtensionRequest;
 
   try {
-    const payload = parseJwt(accessToken);
+    const accessToken = req.headers['x-access-token'] as string;
+    const identityToken = req.headers['x-identity-token'] as string;
+    const payload = parseJwt(identityToken);
     const { id } = payload;
 
     const request = {
