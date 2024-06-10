@@ -13,10 +13,9 @@ export const get: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  const accessToken = req.headers['x-access-token'] as string;
-
   try {
-    const payload = parseJwt(accessToken);
+    const identityToken = req.headers['x-identity-token'] as string;
+    const payload = parseJwt(identityToken);
 
     const data = await prisma.poll.findUnique({
       select: {
