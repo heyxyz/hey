@@ -1,4 +1,5 @@
 import logger from '@good/helpers/logger';
+import exp from 'constants';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -22,13 +23,18 @@ const setupRoutes = async () => {
 
   // Start the server
 
-  ViteExpress.listen(app, 4784, () => {
-    logger.info('Server is listening on port 4784...');
-  });
+  // ViteExpress.listen(app, 4784, () => {
+  //   logger.info('Server is listening on port 4784...');
+  // });
 };
 
+console.log('setting up routes');
 (async () => await setupRoutes())();
 
+console.log('listening');
+app.listen(4784)
+
+console.log('exporting');
 export { app };
 // Initialize routes
 // setupRoutes().catch(() => {
