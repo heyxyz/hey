@@ -54,12 +54,16 @@ const StaffPicks: FC = () => {
     picks?.slice(range.start, range.end).map((pick) => pick.profileId)
   );
 
+  const canLoadStaffPicks = batchVariables.every(
+    (batch) => (batch || []).length > 0
+  );
+
   const {
     data: staffPicks,
     error: profilesError,
     loading: profilesLoading
   } = useStaffPicksQuery({
-    skip: picks?.length === 0,
+    skip: !canLoadStaffPicks,
     variables: {
       batch1: batchVariables[0] || [],
       batch2: batchVariables[1] || [],
