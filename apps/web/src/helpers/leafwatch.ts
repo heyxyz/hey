@@ -35,8 +35,7 @@ export const Leafwatch = {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `${HEY_API_URL}/leafwatch/events`);
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('x-access-token', response.accessToken);
-      xhr.setRequestHeader('x-lens-network', response.network);
+      xhr.setRequestHeader('x-identity-token', response.accessToken);
       xhr.send(JSON.stringify(response));
     };
   }

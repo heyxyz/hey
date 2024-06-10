@@ -1,24 +1,24 @@
 import type { Request } from 'express';
 
-import validateLensAccessToken from './validateLensAccessToken';
+import validateLensToken from './validateLensToken';
 
 /**
- * Middleware to validate Lens access token
+ * Middleware to validate Lens account
  * @param request Incoming request
  * @returns Response
  */
 const validateLensAccount = async (
   request: Request
 ): Promise<200 | 400 | 401 | 500> => {
-  const accessToken = request.headers['x-access-token'] as string;
+  const identityToken = request.headers['x-identity-token'] as string;
   const network = request.headers['x-lens-network'] as string;
   const allowedNetworks = ['mainnet', 'testnet'];
 
-  if (!accessToken || !network || !allowedNetworks.includes(network)) {
+  if (!identityToken || !network || !allowedNetworks.includes(network)) {
     return 400;
   }
 
-  return await validateLensAccessToken(accessToken, network);
+  return await validateLensToken(identityToken, network);
 };
 
 export default validateLensAccount;
