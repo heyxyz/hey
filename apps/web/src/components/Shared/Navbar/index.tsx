@@ -67,7 +67,7 @@ const Navbar: FC = () => {
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
       <div className="container mx-auto max-w-screen-xl px-5">
-        <div className="relative flex flex-col h-14 items-center justify-between sm:h-16">
+        <div className="relative flex h-14 flex-col items-center justify-between sm:h-16">
           <div className="flex flex-col items-center justify-start">
             <button
               className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden"
@@ -84,11 +84,11 @@ const Navbar: FC = () => {
               // className="hidden rounded-full outline-offset-8 md:block"
               href="/"
             >
-              <div className="inline-flex flex-grow justify-between items-center font-bold text-white-900">
+              <div className="text-white-900 inline-flex flex-grow items-center justify-between font-bold">
                 <div className="text-3xl font-black">
-                  <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
+                  <img alt="Logo" className="h-12 w-12" src="/logo1.svg" />
                 </div>
-                <span className="flex fle-grow ml-3 mr-3">Goodcast</span>
+                <span className="fle-grow ml-3 mr-3 flex">Goodcast</span>
               </div>
             </Link>
             <div className="hidden sm:ml-6 md:block">
@@ -108,7 +108,7 @@ const Navbar: FC = () => {
               alt="Logo"
               className="size-7"
               height={32}
-              src= "/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
+              src="/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
               width={32}
             />
           </Link>
