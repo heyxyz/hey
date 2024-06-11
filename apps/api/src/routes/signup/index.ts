@@ -3,40 +3,28 @@ import type { Address } from 'viem';
 
 import { HeyLensSignup } from '@hey/abis';
 import { HEY_LENS_SIGNUP, ZERO_ADDRESS } from '@hey/data/constants';
+import { POYGON_WRITE_RPCS } from '@hey/data/rpcs';
 import logger from '@hey/helpers/logger';
 import crypto from 'crypto';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
-import getRpc from 'src/helpers/getRpc';
 import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
-import { createWalletClient } from 'viem';
+import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { polygon, polygonAmoy } from 'viem/chains';
 import { boolean, number, object, string } from 'zod';
 
 type ExtensionRequest = {
-  data: {
-    attributes: {
-      order_number: number;
-      user_email: string;
-    };
-  };
+  data: { attributes: { order_number: number; user_email: string } };
   meta: {
-    custom_data: {
-      address: string;
-      delegatedExecutor: string;
-      handle: string;
-    };
+    custom_data: { address: string; delegatedExecutor: string; handle: string };
     test_mode: boolean;
   };
 };
 
 const validationSchema = object({
   data: object({
-    attributes: object({
-      order_number: number(),
-      user_email: string()
-    })
+    attributes: object({ order_number: number(), user_email: string() })
   }),
   meta: object({
     custom_data: object({
@@ -96,7 +84,7 @@ export const post: Handler = async (req, res) => {
     const client = createWalletClient({
       account,
       chain: test_mode ? polygonAmoy : polygon,
-      transport: getRpc({ mainnet: !test_mode })
+      transport: http(POYGON_WRITE_RPCS)
     });
 
     const hash = await client.writeContract({
