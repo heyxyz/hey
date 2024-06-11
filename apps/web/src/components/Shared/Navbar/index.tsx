@@ -1,22 +1,27 @@
 import type { FC } from 'react';
 
-import { STATIC_IMAGES_URL } from '@good/data/constants';
+import NotificationIcon from '@components/Notification/NotificationIcon';
 import cn from '@good/ui/cn';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-// import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import LoginButton from '../LoginButton';
+import MenuItems from './MenuItems';
+import MessagesIcon from './MessagesIcon';
+import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
-import SignedUser from './SignedUser';
-// import StaffBar from './StaffBar';
+import Search from './Search';
+import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
-  // const { staffMode } = useFeatureFlagsStore();
+  const { staffMode } = useFeatureFlagsStore();
   const { appIcon } = usePreferencesStore();
+  const [showSearch, setShowSearch] = useState(false);
 
   interface NavItemProps {
     current: boolean;
@@ -42,44 +47,88 @@ const Navbar: FC = () => {
     );
   };
 
-  const { pathname } = useRouter();
+  const NavItems = () => {
+    const { pathname } = useRouter();
 
-  return (
-    <header className="sticky top-0 z-10 h-screen w-48 overflow-y-scroll bg-white md:w-16 lg:w-48 dark:bg-black">
-      {/* {staffMode ? <StaffBar /> : null} */}
-      <div className="flex h-screen flex-col">
-        <Link className="my-12 rounded-full outline-offset-8" href="/">
-          <img
-            alt="Logo"
-            className="size-8"
-            height={32}
-            src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
-            width={32}
-          />
-        </Link>
+    return (
+      <>
         <NavItem current={pathname === '/'} name="Home" url="/" />
         <NavItem
           current={pathname === '/explore'}
           name="Explore"
           url="/explore"
         />
-        <div className="relative">
-          <MoreNavItems />
-        </div>
-        <NavItem
-          current={pathname === '/messages'}
-          name="Messages"
-          url="/messages"
-        />
-        <NavItem
-          current={pathname === '/notifications'}
-          name="Notifications"
-          url="/notifications"
-        />
-        <div className="relative mt-auto flex items-center justify-center self-stretch pb-8">
-          {currentProfile ? <SignedUser /> : <LoginButton />}
+        <MoreNavItems />
+      </>
+    );
+  };
+
+  return (
+    <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
+      {staffMode ? <StaffBar /> : null}
+      <div className="container mx-auto max-w-screen-xl px-5">
+        <div className="relative flex flex-col h-14 items-center justify-between sm:h-16">
+          <div className="flex flex-col items-center justify-start">
+            <button
+              className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden"
+              onClick={() => setShowSearch(!showSearch)}
+              type="button"
+            >
+              {showSearch ? (
+                <XMarkIcon className="size-6" />
+              ) : (
+                <MagnifyingGlassIcon className="size-6" />
+              )}
+            </button>
+            <Link
+              // className="hidden rounded-full outline-offset-8 md:block"
+              href="/"
+            >
+              <div className="inline-flex flex-grow justify-between items-center font-bold text-white-900">
+                <div className="text-3xl font-black">
+                  <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
+                </div>
+                <span className="flex fle-grow ml-3 mr-3">Goodcast</span>
+              </div>
+            </Link>
+            <div className="hidden sm:ml-6 md:block">
+              <div className="flex flex-col items-center space-x-4">
+                <div className="hidden md:block">
+                  <Search />
+                </div>
+                <NavItems />
+              </div>
+            </div>
+          </div>
+          <Link
+            className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
+            href="/"
+          >
+            <img
+              alt="Logo"
+              className="size-7"
+              height={32}
+              src= "/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
+              width={32}
+            />
+          </Link>
+          <div className="flex items-center gap-4">
+            {currentProfile ? (
+              <>
+                <ModIcon />
+                <MessagesIcon />
+                <NotificationIcon />
+              </>
+            ) : null}
+            <MenuItems />
+          </div>
         </div>
       </div>
+      {showSearch ? (
+        <div className="m-3 md:hidden">
+          <Search />
+        </div>
+      ) : null}
     </header>
   );
 };
