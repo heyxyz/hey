@@ -1,6 +1,7 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
 
 import Cashtag from './Cashtag';
+import Club from './Club';
 import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';
 import Mention from './Mention';
@@ -11,6 +12,10 @@ const MarkupLink = ({ mentions, title }: MarkupLinkProps) => {
   }
 
   if (title.startsWith('@')) {
+    if (title.startsWith('@club/')) {
+      return <Club title={title} />;
+    }
+
     return <Mention mentions={mentions} title={title} />;
   }
 
