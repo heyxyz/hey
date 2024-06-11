@@ -16,18 +16,16 @@ const Club: FC<MarkupLinkProps> = ({ title }) => {
   const clubHandle = `/${club}`;
 
   return (
-    <span>
-      <a
-        className="cursor-pointer outline-none focus:underline"
-        onClick={(event) => {
-          toast.success('Clubs coming soon to Hey!');
-          stopEventPropagation(event);
-          Leafwatch.track(PUBLICATION.CLICK_CLUB, { club: clubHandle });
-        }}
-      >
-        {clubHandle}
-      </a>
-    </span>
+    <a
+      className="cursor-pointer outline-none focus:underline"
+      onClick={(event) => {
+        toast.success('Clubs coming soon to Hey!');
+        stopEventPropagation(event);
+        Leafwatch.track(PUBLICATION.CLICK_CLUB, { club: clubHandle });
+      }}
+    >
+      {clubHandle}
+    </a>
   );
 };
 
