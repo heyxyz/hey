@@ -52,7 +52,6 @@ export interface Frame {
   }[];
   frameUrl: string;
   image: string;
-  imageAspectRatio: '1:1' | '1.91:1';
   postUrl: string;
   version: string;
 }
