@@ -26,7 +26,7 @@ const NotificationIcon: FC = () => {
       {lastOpenedNotificationId !== latestNotificationId && (
         <span className="size-2 rounded-full bg-red-500 px-2 py-1"></span>
       )}
-      <span>Notifications</span> 
+      <span className="text-white">Notifications</span> 
     </Link>
   );
 };

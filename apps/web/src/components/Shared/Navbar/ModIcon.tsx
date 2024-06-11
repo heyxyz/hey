@@ -12,7 +12,7 @@ const ModIcon: FC = () => {
   }
 
   return (
-    <Tooltip content="Moderation" placement="bottom">
+    <Tooltip content="Moderation" placement="top">
       <Link
         className="hidden rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
         href="/mod"

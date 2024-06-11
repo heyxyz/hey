@@ -10,7 +10,7 @@ const MessagesIcon: FC = () => {
       href="/messages"
     >
       <EnvelopeIcon className="size-6" /> 
-      <span>Messages</span> 
+      <span className="text-white">Messages</span> 
     </Link>
   );
 };

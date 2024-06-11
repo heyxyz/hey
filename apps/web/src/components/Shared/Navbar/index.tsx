@@ -46,7 +46,7 @@ const Navbar: FC = () => {
         href={url}
       >
        {icon} 
-        <span>{name}</span> 
+        <span className="text-white" >{name}</span> 
       </Link>
     );
   };
@@ -117,7 +117,7 @@ const Navbar: FC = () => {
                 <MoreNavItems />
                 <div className = ' w-full'>
                   <button
-                  className="inline-flex items-center justify-center rounded-full text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"                 
+                  className=" mt-3 inline-flex items-center justify-center rounded-full text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"                 
                   type="button"
                   style={{ backgroundColor: '#da5597'
                   }}
@@ -138,14 +138,17 @@ const Navbar: FC = () => {
               width={32}
             />
           </Link>
-          <div className="flex items-start justify-start gap-4">
+          <div id = "profile" className=" mt-10 flex items-start justify-end gap-4">
             {currentProfile ? (
               <>
                 <ModIcon />
               </>
+              
             ) : null}
             <MenuItems />
               </div>
+              <span>@{currentProfile.handle?.localName}</span>
+
             </div> 
           </div>
           </div>
