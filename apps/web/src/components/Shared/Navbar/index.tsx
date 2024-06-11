@@ -2,7 +2,7 @@ import type { FC, ReactNode  } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import cn from '@good/ui/cn';
-import { MagnifyingGlassIcon, XMarkIcon, HomeIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon, HomeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -115,10 +115,21 @@ const Navbar: FC = () => {
                 <NotificationIcon />
                 <MessagesIcon />
                 <MoreNavItems />
+                <div className = ' w-full'>
+                  <button
+                  className="inline-flex items-center justify-center rounded-full text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"                 
+                  type="button"
+                  style={{ backgroundColor: '#da5597'
+                  }}
+                  >
+                    Post
+                  </button>
+                </div>
                 <Link
             className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
             href="/"
           >
+      
             <img
               alt="Logo"
               className="size-7"
@@ -144,7 +155,9 @@ const Navbar: FC = () => {
         <div className="m-3 md:hidden">
           <Search />
         </div>
+        
       ) : null}
+    
     </header>
   );
 };
