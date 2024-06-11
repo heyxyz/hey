@@ -21,7 +21,7 @@ const MenuItems: FC = () => {
   }
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex flex-col items-center space-x-2">
       <SignupButton />
       <LoginButton />
     </div>

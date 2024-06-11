@@ -67,8 +67,8 @@ const Navbar: FC = () => {
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
       <div className="container mx-auto max-w-screen-xl px-5">
-        <div className="relative flex h-14 items-center justify-between sm:h-16">
-          <div className="flex items-center justify-start">
+        <div className="relative flex flex-col h-14 items-center justify-between sm:h-16">
+          <div className="flex flex-col items-center justify-start">
             <button
               className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden"
               onClick={() => setShowSearch(!showSearch)}
@@ -92,7 +92,7 @@ const Navbar: FC = () => {
               </div>
             </Link>
             <div className="hidden sm:ml-6 md:block">
-              <div className="flex items-center space-x-4">
+              <div className="flex flex-col items-center space-x-4">
                 <div className="hidden md:block">
                   <Search />
                 </div>
