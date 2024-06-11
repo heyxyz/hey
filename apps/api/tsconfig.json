@@ -6,5 +6,5 @@
     "outDir": "dist",
     "baseUrl": "."
   },
-  "include": ["**/*.ts", "api"]
+  "include": ["next-env.d.ts", "**/*.ts", "src"]
 }

@@ -3,7 +3,7 @@ import type { Preferences } from '@good/types/good';
 import { TEST_LENS_ID } from '@good/data/constants';
 import getAuthApiHeadersForTest from '@good/helpers/getAuthApiHeadersForTest';
 import axios from 'axios';
-import { TEST_URL } from 'api/helpers/constants';
+import { TEST_URL } from 'src/helpers/constants';
 import { describe, expect, test } from 'vitest';
 
 describe('preferences/get', () => {
