@@ -17,7 +17,6 @@ const plugins = [
   remarkBreaks,
   linkifyRegex(Regex.url),
   linkifyRegex(Regex.mention),
-  linkifyRegex(Regex.club),
   linkifyRegex(Regex.hashtag),
   linkifyRegex(Regex.cashtag)
 ];
