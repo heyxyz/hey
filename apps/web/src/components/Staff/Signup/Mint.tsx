@@ -67,7 +67,7 @@ const Mint: FC = () => {
         }
       >
         <Input
-          placeholder="To Handle"
+          placeholder="wagmi"
           prefix={`@${HANDLE_PREFIX}`}
           {...form.register('handle')}
         />
