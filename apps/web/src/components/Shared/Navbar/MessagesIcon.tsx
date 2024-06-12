@@ -19,7 +19,7 @@ const MessagesIcon: FC = () => {
       ) : (
         <EnvelopeIconOutline className="size-8" />
       )}
-      <span className="text-white text-xl">Messages</span>
+      <span className={`text-white text-xl ${isMessagesPage ? 'font-bold' : ''}`}>Messages</span>
     </Link>
   );
 };
