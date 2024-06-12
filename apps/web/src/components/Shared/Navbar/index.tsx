@@ -147,7 +147,7 @@ const Navbar: FC = () => {
             ) : null}
             <MenuItems />
               </div>
-              <span>@{currentProfile.handle?.localName}</span>
+              <span>@{currentProfile?.handle?.localName}</span>
 
             </div> 
           </div>
