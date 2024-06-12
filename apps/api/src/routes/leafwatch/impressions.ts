@@ -68,7 +68,9 @@ export const post: Handler = async (req, res) => {
       table: 'impressions',
       values
     });
-    logger.info('Ingested impressions to Leafwatch');
+    logger.info(
+      `Ingested ${result.summary?.result_rows} impressions to Leafwatch`
+    );
 
     return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {
