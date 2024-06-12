@@ -24,26 +24,5 @@ export const Leafwatch = {
         url: window.location.href
       });
     }
-
-    // worker.postMessage({
-    //   accessToken: getAuthApiHeaders()['X-Identity-Token'] || undefined,
-    //   fingerprint: fingerprint || undefined,
-    //   name,
-    //   network: getAuthApiHeaders()['X-Lens-Network'] || undefined,
-    //   platform: 'web',
-    //   properties,
-    //   referrer: referrerDomain,
-    //   url: window.location.href,
-    //   version: GIT_COMMIT_SHA
-    // });
-
-    // worker.onmessage = (event: MessageEvent) => {
-    //   const response = event.data;
-    //   const xhr = new XMLHttpRequest();
-    //   xhr.open('POST', `${HEY_API_URL}/leafwatch/events`);
-    //   xhr.setRequestHeader('Content-Type', 'application/json');
-    //   xhr.setRequestHeader('x-identity-token', response.accessToken);
-    //   xhr.send(JSON.stringify(response));
-    // };
   }
 };
