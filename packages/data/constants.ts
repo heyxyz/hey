@@ -52,6 +52,7 @@ export const TEST_NON_STAFF_LENS_ID = '0x5d';
 export const GOOD_CURATED_ID = '0x049af3';
 export const ZERO_PUBLICATION_ID = '0x00-0x00';
 export const HANDLE_PREFIX = 'lens/';
+export const CLUB_HANDLE_PREFIX = 'club/';
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
 export const PRO_TIER_PRICES = {
   annually: 90,

@@ -4,18 +4,18 @@ import axios from 'axios';
 import { GOOD_USER_AGENT } from '../constants';
 
 /**
- * Middleware to validate Lens access token for connections
- * @param accessToken Incoming access token
+ * Middleware to validate Lens identity token for connections
+ * @param identityToken Incoming identity token
  * @param network Incoming network
  * @returns Response
  */
-const validateLensAccessToken = async (
-  accessToken: string,
+const validateLensToken = async (
+  identityToken: string,
   network: string
 ): Promise<200 | 400 | 401 | 500> => {
   const allowedNetworks = ['mainnet', 'testnet'];
 
-  if (!accessToken || !network || !allowedNetworks.includes(network)) {
+  if (!identityToken || !network || !allowedNetworks.includes(network)) {
     return 400;
   }
 
@@ -26,7 +26,7 @@ const validateLensAccessToken = async (
       {
         query: `
           query Verify {
-            verify(request: { accessToken: "${accessToken}" })
+            verify(request: { identityToken: "${identityToken}" })
           }
         `
       },
@@ -48,4 +48,4 @@ const validateLensAccessToken = async (
   }
 };
 
-export default validateLensAccessToken;
+export default validateLensToken;

@@ -7,7 +7,7 @@ import {
   ZERO_ADDRESS
 } from '@good/data/constants';
 import { Regex } from '@good/data/regex';
-import { Button, Card, Form, Input, useZodForm } from '@good/ui';
+import { Button, Card, CardHeader, Form, Input, useZodForm } from '@good/ui';
 import errorToast from '@helpers/errorToast';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -57,16 +57,17 @@ const Mint: FC = () => {
   };
 
   return (
-    <Card className="p-5">
+    <Card>
+      <CardHeader title="Staff Mint" />
       <Form
-        className="space-y-5"
+        className="m-5 space-y-5"
         form={form}
         onSubmit={async ({ address, handle }) =>
           await handleMint(handle, address)
         }
       >
         <Input
-          placeholder="To Handle"
+          placeholder="wagmi"
           prefix={`@${HANDLE_PREFIX}`}
           {...form.register('handle')}
         />
