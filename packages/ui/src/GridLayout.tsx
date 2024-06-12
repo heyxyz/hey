@@ -29,7 +29,7 @@ export const GridLayout: FC<GridProps> = ({
 
 export const GridItemTwo: FC<GridProps> = ({ children, className = '' }) => {
   return (
-    <div className={cn('col-span-11 md:col-span-11 lg:col-span-2', className)}>
+    <div className={cn('col-span-11 md:col-span-11 lg:col-span-2 text-left', className)}>
       {children}
     </div>
   );

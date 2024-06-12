@@ -35,7 +35,7 @@ const Navbar: FC = () => {
     return (
       <Link
         className={cn(
-          '"cursor-pointer rounded-md px-2 py-1 flex items-start space-x-2 hover:bg-gray-300/20 md:flex',
+          '"cursor-pointer rounded-md px-2 py-1 mb-4 flex items-start space-x-2 hover:bg-gray-300/20 md:flex',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
@@ -46,7 +46,7 @@ const Navbar: FC = () => {
         href={url}
       >
        {icon} 
-        <span className="text-white" >{name}</span> 
+        <span className="text-white text-xl" >{name}</span> 
       </Link>
     );
   };
@@ -60,7 +60,7 @@ const Navbar: FC = () => {
         current={pathname === '/'} 
         name="Home"
          url="/" 
-         icon = {<HomeIcon className="size-6" />}
+         icon = {<HomeIcon className="size-8" />}
          />
 
 
@@ -68,7 +68,7 @@ const Navbar: FC = () => {
           current={pathname === '/explore'}
           name="Explore"
           url="/explore"
-          icon = {<MagnifyingGlassIcon className="size-6" />}
+          icon = {<MagnifyingGlassIcon className="size-8" />}
         />
 
 
@@ -81,7 +81,6 @@ const Navbar: FC = () => {
       {staffMode ? <StaffBar /> : null}
       <div className="container mx-auto max-w-screen-xl px-5">
         <div className="relative flex flex-col h-14 items-start justify-start sm:h-16">
-          <div className="flex flex-col items-start justify-start">
             
             <button
               className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
@@ -91,7 +90,7 @@ const Navbar: FC = () => {
               {showSearch ? (
                 <XMarkIcon className="size-6" />
               ) : (
-                <MagnifyingGlassIcon className="size-6" />
+                <MagnifyingGlassIcon className="size-8" />
               )}
             </button>
             
@@ -107,7 +106,7 @@ const Navbar: FC = () => {
               </div>
             </Link>
             <div className="hidden sm:ml-6 md:block pt-5">
-              <div className="flex flex-col items-start space-x-4">
+              <div className="flex flex-col items-start -space-x-12">
                 <div className="hidden md:block">
                   {/* <Search /> */}
                 </div>
@@ -148,6 +147,7 @@ const Navbar: FC = () => {
             <MenuItems />
               </div>
               <span>@{currentProfile?.handle?.localName}</span>
+              <div className="flex flex-col items-start justify-start">
 
             </div> 
           </div>

@@ -17,7 +17,7 @@ const MoreNavItems: FC = () => {
         <>
            <MenuButton
             className={cn(
-              'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3 flex items-center space-x-2',
+              'w-full cursor-pointer rounded-md mb-4 px-2 py-1 text-left text-sm tracking-wide md:px-3 flex items-center space-x-2',
               {
                 'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': open,
                 'text-white-700 hover:bg-gray-200 hover:text-black dark:text-white-300 dark:hover:bg-gray-800 dark:hover:text-white':
@@ -25,8 +25,8 @@ const MoreNavItems: FC = () => {
               },
             )}
           >
-            <EllipsisHorizontalCircleIcon className="size-6 ml-[-3px]" /> 
-            <span>More</span>
+            <EllipsisHorizontalCircleIcon className="size-8 ml-[-3px]" /> 
+            <span className="text-xl">More</span>
           </MenuButton>
           <MenuTransition>
             <MenuItems

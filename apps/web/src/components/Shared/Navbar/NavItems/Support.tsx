@@ -25,7 +25,7 @@ const Support: FC<SupportProps> = ({ className = '', onClick }) => {
       }}
     >
       <div className="flex items-center space-x-1.5">
-        <HandRaisedIcon className="size-4" />
+        <HandRaisedIcon className="size-8" />
         <div>Support</div>
       </div>
       <ArrowTopRightOnSquareIcon className="size-4 md:hidden" />
