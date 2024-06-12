@@ -2,7 +2,18 @@ import type { FC, ReactNode  } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import cn from '@good/ui/cn';
-import { MagnifyingGlassIcon, XMarkIcon, HomeIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import {
+  MagnifyingGlassIcon as MagnifyingGlassIconOutline,
+  XMarkIcon as XMarkIconOutline,
+  HomeIcon as HomeIconOutline,
+  EllipsisHorizontalIcon
+} from '@heroicons/react/24/outline';
+import {
+  HomeIcon as HomeIconSolid,
+  MagnifyingGlassIcon as MagnifyingGlassIconSolid,
+  XMarkIcon as XMarkIconSolid
+} from '@heroicons/react/24/solid';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -60,7 +71,7 @@ const Navbar: FC = () => {
         current={pathname === '/'} 
         name="Home"
          url="/" 
-         icon = {<HomeIcon className="size-8" />}
+         icon={pathname === '/' ? <HomeIconSolid className="size-8" /> : <HomeIconOutline className="size-8" />}
          />
 
 
@@ -68,7 +79,7 @@ const Navbar: FC = () => {
           current={pathname === '/explore'}
           name="Explore"
           url="/explore"
-          icon = {<MagnifyingGlassIcon className="size-8" />}
+          icon = {pathname ==='/explore' ?<MagnifyingGlassIconSolid className="size-8" /> :<MagnifyingGlassIconOutline className="size-8" />}
         />
 
 
@@ -88,9 +99,9 @@ const Navbar: FC = () => {
               type="button"
             >
               {showSearch ? (
-                <XMarkIcon className="size-6" />
+                <XMarkIconSolid className="size-6" />
               ) : (
-                <MagnifyingGlassIcon className="size-8" />
+                <MagnifyingGlassIconSolid className="size-8" />
               )}
             </button>
                 <Link
