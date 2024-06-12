@@ -93,7 +93,6 @@ const Navbar: FC = () => {
                 <MagnifyingGlassIcon className="size-8" />
               )}
             </button>
-            
                 <Link
                   // className="hidden rounded-full outline-offset-8 md:block"
                   href="/"
@@ -125,33 +124,25 @@ const Navbar: FC = () => {
                     
                   </button>
                 </div>
+                {/**Profile section of navbar */}
                 <Link
-            className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
-            href="/"
-          >
-      
-            <img
-              alt="Logo"
-              className="size-7"
-              height={32}
-              src= "/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
-              width={32}
-            />
-          </Link>
-          <div id = "profile" className=" mt-10 flex items-start justify-end gap-4">
-            {currentProfile ? (
-              <>
-                <ModIcon />
-              </>
-              
-            ) : null}
-            <MenuItems />
+              className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
+              href="/"
+            >
+              <img
+                alt="Logo"
+                className="size-7"
+                height={32}
+                src="/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
+                width={32}
+              />
+            </Link>
+            <div id="profile" className=" fixed bottom-0  items-start justify-between gap-4">
+              <div className="flex  items-center gap-2"> 
+                <MenuItems/> {/* Profile Section */}
+                  <ModIcon /> 
               </div>
-              <span>@{currentProfile?.handle?.localName}</span>
-              <EllipsisHorizontalIcon className="size-6"/>
-              <div className="flex flex-col items-start justify-start">
-
-            </div> 
+            </div>         
           </div>
           </div>
         </div>
