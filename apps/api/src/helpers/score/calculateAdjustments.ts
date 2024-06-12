@@ -1,9 +1,11 @@
 import type { Address } from 'viem';
 
-import getAndStoreZorbScore from './getAndStoreZorbScore';
+import getAndStoreHeyNativeMintNftScore from './getAndStoreHeyNativeMintNftScore';
+import getAndStoreHeyZorbNftScore from './getAndStoreHeyZorbNftScore';
 
 const calculateAdjustments = (id: string, address: Address) => {
-  getAndStoreZorbScore(id, address);
+  getAndStoreHeyZorbNftScore(id, address);
+  getAndStoreHeyNativeMintNftScore(id, address);
 
   return true;
 };
