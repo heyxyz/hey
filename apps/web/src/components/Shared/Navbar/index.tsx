@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC, ReactNode  } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import cn from '@good/ui/cn';
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon, HomeIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -17,6 +17,7 @@ import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
 
+
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
   const { staffMode } = useFeatureFlagsStore();
@@ -27,22 +28,25 @@ const Navbar: FC = () => {
     current: boolean;
     name: string;
     url: string;
+    icon: ReactNode;
   }
-
-  const NavItem = ({ current, name, url }: NavItemProps) => {
+  
+  const NavItem: FC<NavItemProps> = ({ current, name, url, icon }) => {
     return (
       <Link
         className={cn(
-          'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+          '"cursor-pointer rounded-md px-2 py-1 flex items-start space-x-2 hover:bg-gray-300/20 md:flex',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
               !current
           }
         )}
+        
         href={url}
       >
-        {name}
+       {icon} 
+        <span>{name}</span> 
       </Link>
     );
   };
@@ -52,13 +56,22 @@ const Navbar: FC = () => {
 
     return (
       <>
-        <NavItem current={pathname === '/'} name="Home" url="/" />
+        <NavItem 
+        current={pathname === '/'} 
+        name="Home"
+         url="/" 
+         icon = {<HomeIcon className="size-6" />}
+         />
+
+
         <NavItem
           current={pathname === '/explore'}
           name="Explore"
           url="/explore"
+          icon = {<MagnifyingGlassIcon className="size-6" />}
         />
-        <MoreNavItems />
+
+
       </>
     );
   };
@@ -67,10 +80,11 @@ const Navbar: FC = () => {
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
       <div className="container mx-auto max-w-screen-xl px-5">
-        <div className="relative flex h-14 flex-col items-center justify-between sm:h-16">
-          <div className="flex flex-col items-center justify-start">
+        <div className="relative flex flex-col h-14 items-start justify-start sm:h-16">
+          <div className="flex flex-col items-start justify-start">
+            
             <button
-              className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden"
+              className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
               onClick={() => setShowSearch(!showSearch)}
               type="button"
             >
@@ -80,27 +94,25 @@ const Navbar: FC = () => {
                 <MagnifyingGlassIcon className="size-6" />
               )}
             </button>
+            
             <Link
               // className="hidden rounded-full outline-offset-8 md:block"
               href="/"
             >
-              <div className="text-white-900 inline-flex flex-grow items-center justify-between font-bold">
-                <div className="text-3xl font-black">
-                  <img alt="Logo" className="h-12 w-12" src="/logo1.svg" />
-                </div>
+              <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
                 <span className="fle-grow ml-3 mr-3 flex">Goodcast</span>
               </div>
             </Link>
-            <div className="hidden sm:ml-6 md:block">
-              <div className="flex flex-col items-center space-x-4">
+            <div className="hidden sm:ml-6 md:block pt-5">
+              <div className="flex flex-col items-start space-x-4">
                 <div className="hidden md:block">
-                  <Search />
+                  {/* <Search /> */}
                 </div>
                 <NavItems />
-              </div>
-            </div>
-          </div>
-          <Link
+                <NotificationIcon />
+                <MessagesIcon />
+                <MoreNavItems />
+                <Link
             className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
             href="/"
           >
@@ -112,15 +124,16 @@ const Navbar: FC = () => {
               width={32}
             />
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-start justify-start gap-4">
             {currentProfile ? (
               <>
                 <ModIcon />
-                <MessagesIcon />
-                <NotificationIcon />
               </>
             ) : null}
             <MenuItems />
+              </div>
+            </div> 
+          </div>
           </div>
         </div>
       </div>
