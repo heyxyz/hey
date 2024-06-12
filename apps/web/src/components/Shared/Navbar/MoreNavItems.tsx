@@ -8,29 +8,30 @@ import { EllipsisHorizontalCircleIcon } from '@heroicons/react/24/outline';
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
 import Support from './NavItems/Support';
+
 const MoreNavItems: FC = () => {
   const { currentProfile } = useProfileStore();
 
   return (
-    <Menu as="div">
+    <Menu as="div" className="relative">
       {({ open }) => (
         <>
-           <MenuButton
+          <MenuButton
             className={cn(
               'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm tracking-wide md:px-3 flex items-center space-x-2',
               {
                 'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': open,
                 'text-white-700 hover:bg-gray-200 hover:text-black dark:text-white-300 dark:hover:bg-gray-800 dark:hover:text-white':
-                  !open
-              },
+                  !open,
+              }
             )}
           >
-            <EllipsisHorizontalCircleIcon className="size-8 ml-[-3px]" /> 
+            <EllipsisHorizontalCircleIcon className="size-8 ml-[-3px]" />
             <span className="text-xl">More</span>
           </MenuButton>
           <MenuTransition>
             <MenuItems
-              className="absolute rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+              className="absolute bottom-full mb-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
               static
             >
               {currentProfile ? (

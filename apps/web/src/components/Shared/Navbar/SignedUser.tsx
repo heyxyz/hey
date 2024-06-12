@@ -63,7 +63,8 @@ const SignedUser: FC = () => {
       </button>
       <Menu as="div" className="hidden md:block relative">
       <div className="flex bottom-0 items-center">
-        <MenuButton className=" flex items-center rounded-full hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white">
+        <MenuButton 
+        className=" flex items-center rounded-full hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white ">
           <Avatar />
           <span className="text-sm">@{currentProfile?.handle?.localName}</span>
           <EllipsisHorizontalIcon className="size-6 ml-2" />
@@ -71,7 +72,7 @@ const SignedUser: FC = () => {
       </div>
         <MenuTransition>
           <MenuItems
-            className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+            className="absolute bottom-full mb-2 absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
             static
           >
             <MenuItem
