@@ -2,7 +2,7 @@ import type { FC, ReactNode  } from 'react';
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import cn from '@good/ui/cn';
-import { MagnifyingGlassIcon, XMarkIcon, HomeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon, HomeIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -79,7 +79,7 @@ const Navbar: FC = () => {
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
-      <div className="container mx-auto max-w-screen-xl px-5">
+      <div className="container mx-auto max-w-screen-xl">
         <div className="relative flex flex-col h-14 items-start justify-start sm:h-16">
             
             <button
@@ -94,19 +94,19 @@ const Navbar: FC = () => {
               )}
             </button>
             
-            <Link
-              // className="hidden rounded-full outline-offset-8 md:block"
-              href="/"
-            >
+                <Link
+                  // className="hidden rounded-full outline-offset-8 md:block"
+                  href="/"
+                >
               <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
-                <div className="text-3xl font-black">
+                <div className="text-3xl font-black -space-x-4">
                   <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
                 </div>
-                <span className="flex fle-grow ml-3 mr-3">Goodcast</span>
+                <span className="flex flex-grow ml-3 mr-3">Goodcast</span>
               </div>
             </Link>
             <div className="hidden sm:ml-6 md:block pt-5">
-              <div className="flex flex-col items-start -space-x-12">
+              <div className="flex flex-col items-start -space-x-6 ">
                 <div className="hidden md:block">
                   {/* <Search /> */}
                 </div>
@@ -121,7 +121,8 @@ const Navbar: FC = () => {
                   style={{ backgroundColor: '#da5597'
                   }}
                   >
-                    Post
+                    <span className = "text-xl">Post</span>
+                    
                   </button>
                 </div>
                 <Link
@@ -147,6 +148,7 @@ const Navbar: FC = () => {
             <MenuItems />
               </div>
               <span>@{currentProfile?.handle?.localName}</span>
+              <EllipsisHorizontalIcon className="size-6"/>
               <div className="flex flex-col items-start justify-start">
 
             </div> 
