@@ -116,7 +116,7 @@ const Navbar: FC = () => {
                 <MoreNavItems />
                 <div className = ' w-full'>
                   <button
-                  className=" mt-3 inline-flex items-center justify-center rounded-full text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"                 
+                  className=" mt-5 inline-flex items-center justify-center rounded-full text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"                 
                   type="button"
                   style={{ backgroundColor: '#da5597'
                   }}
