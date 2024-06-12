@@ -11,22 +11,6 @@ const ServiceWorkerProvider: FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .getRegistrations()
-        .then((registrations) => {
-          for (let registration of registrations) {
-            registration.unregister();
-          }
-          console.log('Service Worker unregistered');
-        })
-        .catch((error) => {
-          console.log('Service Worker unregistration failed: ', error);
-        });
-    }
-  }, []);
-
   return null;
 };
 
