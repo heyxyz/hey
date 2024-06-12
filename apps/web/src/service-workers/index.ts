@@ -3,8 +3,8 @@ declare let self: ServiceWorkerGlobalScope;
 const eventsEndpoint = 'https://api.hey.xyz/leafwatch/events';
 const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
 
-const eventsIngestionInterval = 5000;
-const publicationsVisibilityInterval = 5000;
+const eventsIngestionInterval = 10000;
+const publicationsVisibilityInterval = 10000;
 
 let viewerId: null | string = null;
 const visiblePublicationsSet = new Set();
