@@ -61,5 +61,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
+const serviceWorkerVersion = '1.0.0';
+console.log(`Service Worker Version: ${serviceWorkerVersion}`);
 
 export {};
