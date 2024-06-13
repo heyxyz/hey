@@ -67,7 +67,7 @@ const SignedUser: FC = () => {
         className=" flex items-center rounded-full hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white ">
           <Avatar />
           <span className="text-sm">@{currentProfile?.handle?.localName}</span>
-          <EllipsisHorizontalIcon className="size-6 ml-2" />
+          <EllipsisHorizontalIcon className="size-6 ml-1" />
         </MenuButton>
       </div>
         <MenuTransition>

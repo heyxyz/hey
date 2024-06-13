@@ -1,4 +1,6 @@
 import type { FC, ReactNode  } from 'react';
+import { useEffect } from 'react';
+
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import cn from '@good/ui/cn';
@@ -34,6 +36,20 @@ const Navbar: FC = () => {
   const { staffMode } = useFeatureFlagsStore();
   const { appIcon } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
+  const [isShortScreen, setIsShortScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsShortScreen(window.innerHeight < 500); 
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
 
   interface NavItemProps {
     current: boolean;
@@ -82,17 +98,15 @@ const Navbar: FC = () => {
           url="/explore"
           icon = {pathname ==='/explore' ?<MagnifyingGlassIconSolid className="size-8" /> :<MagnifyingGlassIconOutline className="size-8" />}
         />
-
-
       </>
     );
   };
 
   return (
-    <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
+    <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black ">
       {staffMode ? <StaffBar /> : null}
-      <div className="container mx-auto max-w-screen-xl">
-        <div className="relative flex flex-col h-14 items-start justify-start sm:h-16">
+      <div className="flex container mx-auto max-w-screen-xl ">
+        <div className=" relative flex flex-col h-full items-start justify-start ">
             
             <button
               className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
@@ -110,52 +124,49 @@ const Navbar: FC = () => {
                   href="/"
                 >
               <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
-                <div className="text-3xl font-black -space-x-4">
+                <div className="text-3xl font-black ml-6">
                   <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
                 </div>
                 <span className="flex flex-grow ml-3 mr-3">Goodcast</span>
               </div>
-            </Link>
-            <div className="hidden sm:ml-6 md:block pt-5">
-              <div className="flex flex-col items-start -space-x-6 ">
-                <div className="hidden md:block">
-                  {/* <Search /> */}
+              </Link>
+              <div className="hidden sm:ml-6 md:block pt-5  overflow-y-auto max-h-[70vh] overflow-x-hidden">
+                <div className="flex flex-col items-start relative h-fit ">
+                  <div className="hidden md:block">
+                    {/* <Search /> */}
+                  </div>
+                  <NavItems />
+                  <NotificationIcon />
+                  <MessagesIcon />
+                  <MoreNavItems />
+                  <div className="w-full">
+                    <button
+                      className="mt-5 inline-flex items-center justify-center rounded-full text-black dark:text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"
+                      type="button"
+                      style={{ backgroundColor: '#da5597' }}
+                    >
+                      <span className="text-xl">Post</span>
+                    </button>
+                  </div>
+              {/**Profile section of navbar */}
+              <div className={isShortScreen ? "flex items-start mt-4 justify-between" : "fixed  bottom-0  md:fixed"}>
+              <Link className={cn('md:hidden max-h-[100vh]', !currentProfile?.id && 'ml-[60px]')} href="/">
+                <img
+                  alt="Logo"
+                  className="size-7"
+                  height={32}
+                  src="/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
+                  width={32}
+                />
+              </Link>
+              <div id="profile" className="flex items-start mt-4 items-start justify-between">
+              <div className="flex items-center gap-2">
+                  <MenuItems /> {/* Profile Submenu Section */}
+                  <ModIcon />
                 </div>
-                <NavItems />
-                <NotificationIcon />
-                <MessagesIcon />
-                <MoreNavItems />
-                <div className = ' w-full'>
-                  <button
-                  className=" mt-5 inline-flex items-center justify-center rounded-full text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"                 
-                  type="button"
-                  style={{ backgroundColor: '#da5597'
-                  }}
-                  >
-                    <span className = "text-xl">Post</span>
-                    
-                  </button>
-                </div>
-                {/**Profile section of navbar */}
-                <Link
-              className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
-              href="/"
-            >
-              <img
-                alt="Logo"
-                className="size-7"
-                height={32}
-                src="/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
-                width={32}
-              />
-            </Link>
-            <div id="profile" className=" fixed bottom-0  items-start justify-between gap-4">
-              <div className="flex  items-center gap-2"> 
-                <MenuItems/> {/* Profile Section */}
-                  <ModIcon /> 
               </div>
-            </div>         
-          </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -163,9 +174,7 @@ const Navbar: FC = () => {
         <div className="m-3 md:hidden">
           <Search />
         </div>
-        
       ) : null}
-    
     </header>
   );
 };

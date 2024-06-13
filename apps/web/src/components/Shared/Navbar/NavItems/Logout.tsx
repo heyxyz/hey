@@ -64,7 +64,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
       }}
       type="button"
     >
-      <ArrowRightStartOnRectangleIcon className="size-4" />
+      <ArrowRightStartOnRectangleIcon className="size-4 ml-2" />
       <div>Logout</div>
     </button>
   );

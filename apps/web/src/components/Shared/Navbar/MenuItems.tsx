@@ -21,10 +21,14 @@ const MenuItems: FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center space-x-2">
-      <SignupButton />
-      <LoginButton />
-    </div>
+        <div className="hidden md:block relative">
+          <div className = "mb-4">
+            <SignupButton />
+          </div>
+          <div>         
+             <LoginButton />
+          </div>
+        </div>
   );
 };
 
