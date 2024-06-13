@@ -149,7 +149,7 @@ const Navbar: FC = () => {
                     </button>
                   </div>
               {/**Profile section of navbar */}
-              <div className={isShortScreen ? "flex items-start mt-4 justify-between" : "relative bottom-0 md:fixed"}>
+              <div className={isShortScreen ? "flex items-start mt-4 justify-between" : "fixed  bottom-0  md:fixed"}>
               <Link className={cn('md:hidden max-h-[100vh]', !currentProfile?.id && 'ml-[60px]')} href="/">
                 <img
                   alt="Logo"
