@@ -1,6 +1,5 @@
 import type { Profile } from '@hey/lens';
 
-import { HEY_API_URL } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
 import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
@@ -22,7 +21,7 @@ export default async function Page({ params }: Props) {
     variables: { request: { forProfileId: id } }
   });
 
-  const { data: rates } = await axios.get(`${HEY_API_URL}/lens/rate`);
+  const { data: rates } = await axios.get('https://api.hey.xyz/lens/rate');
 
   if (!data.profile) {
     return <h1>404</h1>;
