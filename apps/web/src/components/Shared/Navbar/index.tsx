@@ -56,7 +56,9 @@ const Navbar: FC = () => {
         href={url}
       >
         {icon}
-        <span className={`text-white text-xl ${current ? 'font-bold' : ''}`}>{name}</span>
+        <div className={`dark:text-white text-black`}>
+          <span className={` text-xl ${current ? 'font-bold' : ''}`}>{name}</span>
+        </div>
       </Link>
     );
   };
