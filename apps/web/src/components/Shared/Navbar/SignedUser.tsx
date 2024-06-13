@@ -6,13 +6,15 @@ import { KillSwitch } from '@good/data/kill-switches';
 import getAvatar from '@good/helpers/getAvatar';
 import getLennyURL from '@good/helpers/getLennyURL';
 import getProfile from '@good/helpers/getProfile';
-import { Image } from '@good/ui';
+import { Image, Tooltip } from '@good/ui';
 import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import isFeatureEnabled from '@helpers/isFeatureEnabled';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import {EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -36,7 +38,7 @@ const SignedUser: FC = () => {
   const Avatar = () => (
     <Image
       alt={currentProfile?.id}
-      className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
+      className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
       onError={({ currentTarget }) => {
         currentTarget.src = getLennyURL(currentProfile?.id);
       }}
@@ -57,14 +59,20 @@ const SignedUser: FC = () => {
         type="button"
       >
         <Avatar />
+        
       </button>
-      <Menu as="div" className="hidden md:block">
-        <MenuButton className="flex self-center rounded-full">
+      <Menu as="div" className="hidden md:block relative">
+      <div className="flex bottom-0 items-center">
+        <MenuButton 
+        className=" flex items-center rounded-full hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white ">
           <Avatar />
+          <span className="text-sm">@{currentProfile?.handle?.localName}</span>
+          <EllipsisHorizontalIcon className="size-6 ml-2" />
         </MenuButton>
+      </div>
         <MenuTransition>
           <MenuItems
-            className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+            className="absolute bottom-full mb-2 absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
             static
           >
             <MenuItem

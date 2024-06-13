@@ -25,7 +25,7 @@ export const Badge: FC<BadgeProps> = ({ children }) => (
 
 const StaffBar: FC = () => {
   return (
-    <div className="flex items-center justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
+    <div className="flex items-center justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800 ">
       <div className="mr-5 flex flex-wrap items-center gap-2">
         <Performance />
         <div className="flex items-center space-x-1">
