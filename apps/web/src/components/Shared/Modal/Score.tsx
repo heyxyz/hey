@@ -1,7 +1,11 @@
 import type { ScoreAllocation } from '@good/types/good';
 import type { FC } from 'react';
 
-import { APP_NAME, GOOD_API_URL, STATIC_IMAGES_URL } from '@good/data/constants';
+import {
+  APP_NAME,
+  GOOD_API_URL,
+  STATIC_IMAGES_URL
+} from '@good/data/constants';
 import humanize from '@good/helpers/humanize';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';

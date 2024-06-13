@@ -1,5 +1,8 @@
+export const POYGON_WRITE_RPCS =
+  'https://lb.nodies.app/v1/c4af832850924699b25128e185bde36e';
+
 export const POLYGON_RPCS = [
-  'https://lb.nodies.app/v1/c4af832850924699b25128e185bde36e',
+  POYGON_WRITE_RPCS,
   'https://polygon-pokt.nodies.app',
   'https://rpc.ankr.com/polygon',
   'https://1rpc.io/matic',

@@ -17,14 +17,13 @@ const validateIsGardener = async (request: Request) => {
     return validateLensAccountStatus;
   }
 
+  const identityToken = request.headers['x-identity-token'] as string;
+  if (!identityToken) {
+    return 400;
+  }
+
   try {
-    const accessToken = request.headers['x-access-token'] as string;
-
-    if (!accessToken) {
-      return 400;
-    }
-
-    const payload = parseJwt(accessToken);
+    const payload = parseJwt(identityToken);
     const data = await goodPg.query(
       `
         SELECT enabled

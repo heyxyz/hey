@@ -9,15 +9,14 @@ import { notAllowed } from 'src/helpers/responses';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
-  const accessToken = req.headers['x-access-token'] as string;
-
   const validateLensAccountStatus = await validateLensAccount(req);
   if (validateLensAccountStatus !== 200) {
     return notAllowed(res, validateLensAccountStatus);
   }
 
   try {
-    const payload = parseJwt(accessToken);
+    const identityToken = req.headers['x-identity-token'] as string;
+    const payload = parseJwt(identityToken);
 
     const result = await goodPg.query(
       `

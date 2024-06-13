@@ -1,6 +1,10 @@
 import type { FC, ReactNode } from 'react';
 
-import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@good/data/constants';
+import {
+  GIT_COMMIT_SHA,
+  IS_MAINNET,
+  IS_PRODUCTION
+} from '@good/data/constants';
 import cn from '@good/ui/cn';
 import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';

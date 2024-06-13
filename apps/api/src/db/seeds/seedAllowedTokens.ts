@@ -18,7 +18,7 @@ const seedAllowedTokens = async (): Promise<number> => {
         symbol: 'DAI'
       },
       {
-        contractAddress: '0x08632C91F3e30515CB417217084554632Cf92161',
+        contractAddress: '0x2d4139144F9Dc09C4A97Dd1fFA83acAf60ff275E',// '0x08632C91F3e30515CB417217084554632Cf92161',
         createdAt: new Date('2023-11-18 10:50:31.888'),
         decimals: 18,
         name: 'Good',

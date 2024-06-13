@@ -22,13 +22,13 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.590.0",
-    "@aws-sdk/client-sts": "^3.590.0",
-    "@clickhouse/client": "^1.0.2",
+    "@aws-sdk/client-ses": "^3.592.0",
+    "@aws-sdk/client-sts": "^3.592.0",
+    "@clickhouse/client": "^1.1.0",
     "@good/abis": "workspace:*",
     "@good/data": "workspace:*",
     "@good/helpers": "workspace:*",
-    "@irys/sdk": "^0.2.1",
+    "@irys/sdk": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.15.0",
     "axios": "^1.7.2",
@@ -42,13 +42,13 @@
     "node-cron": "^3.0.3",
     "pg-promise": "^11.8.0",
     "request-ip": "^3.3.0",
-    "tsx": "^4.11.2",
+    "tsx": "^4.15.2",
     "typescript": "^5.4.5",
-    "ua-parser-js": "^1.0.38",
+    "ua-parser-js": "2.0.0-beta.3",
     "urlcat": "^3.1.0",
-    "uuid": "^9.0.1",
-    "viem": "^2.13.6",
-    "vite-express": "^0.16.0",
+    "uuid": "^10.0.0",
+    "viem": "^2.13.8",
+    "vite-express": "^0.17.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -66,7 +66,7 @@
     "prisma": "^5.15.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.2.12",
+    "vite": "^5.2.13",
     "vitest": "^1.6.0"
   }
 }

@@ -2,9 +2,10 @@ import type { NextPage } from 'next';
 
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
+import Navbar from '@components/Shared/Navbar';
 import { HomeFeedType } from '@good/data/enums';
 import { PAGEVIEW } from '@good/data/tracking';
-import { GridItemEight, GridItemFour, GridItemTwo, GridLayout } from '@good/ui';
+import { GridItemEight, GridItemTwo, GridLayout } from '@good/ui';
 import { Leafwatch } from '@helpers/leafwatch';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -15,7 +16,6 @@ import Hero from './Hero';
 import PaidActions from './PaidActions';
 import Sidebar from './Sidebar';
 import Timeline from './Timeline';
-import Navbar from '@components/Shared/Navbar';
 
 const Home: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       {!loggedInWithProfile && <Hero />}
       <GridLayout>
         <GridItemTwo>
-        <Navbar />
+          <Navbar />
         </GridItemTwo>
 
         <GridItemEight className="space-y-5">

@@ -19,7 +19,7 @@ export const Leafwatch = {
     const fingerprint = localStorage.getItem(Localstorage.FingerprintStore);
 
     worker.postMessage({
-      accessToken: getAuthApiHeaders()['X-Access-Token'] || undefined,
+      accessToken: getAuthApiHeaders()['X-Identity-Token'] || undefined,
       fingerprint: fingerprint || undefined,
       name,
       network: getAuthApiHeaders()['X-Lens-Network'] || undefined,
@@ -35,8 +35,7 @@ export const Leafwatch = {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `${GOOD_API_URL}/leafwatch/events`);
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('x-access-token', response.accessToken);
-      xhr.setRequestHeader('x-lens-network', response.network);
+      xhr.setRequestHeader('x-identity-token', response.accessToken);
       xhr.send(JSON.stringify(response));
     };
   }

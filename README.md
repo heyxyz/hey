@@ -1,6 +1,6 @@
 <div align="center">
     <img src="https://github.com/BCharity-Net/good/blob/main/apps/web/public/icon-128x128.png" alt="Goodcast Logo">
-    <h1>Good</h1>
+    <h1>Goodcast</h1>
     <strong>Decentralized, and permissionless social media app for the public good</strong>
 </div>
 <br>
@@ -39,14 +39,14 @@
     <a href="https://github.com/bcharity-net/good/issues/new"><b>Issues</b></a>
 </div>
 
-##  About Good
+##  About Goodcast
 
-Good is a cutting-edge social media for the public good that leverages the power of [Lens Protocol](https://lens.xyz) and [hey.xyz](https://hey.xyz/) to create a decentralized and permissionless platform for the public to interact, share, and engage with one another. With a focus on privacy, security, and user control, Good aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
+Goodcast is a cutting-edge social media for the public good that leverages the power of [Lens Protocol](https://lens.xyz) and [hey.xyz](https://hey.xyz/) to create a decentralized and permissionless platform for the public to interact, share, and engage with one another. With a focus on privacy, security, and user control, Good aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
 
 ## 📦 Environments
 
-| Name    | Link                    |
-| ------- | ----------------------- |
+| Name    | Link                         |
+| ------- | ---------------------------- |
 | Mainnet | https://bcharity.net         |
 | Testnet | https://testnet.bcharity.net |
 | Staging | https://staging.bcharity.net |
@@ -69,4 +69,4 @@ We love contributors! Feel free to contribute to this project but please read th
 
 ## ⚖️ License
 
-Good is open-sourced software licensed under the © [AGPLv3](LICENSE).
+Goodcast is open-sourced software licensed under the © [AGPLv3](LICENSE).

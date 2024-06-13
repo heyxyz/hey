@@ -5,34 +5,25 @@ import goodPg from 'src/db/goodPg';
 import { createPublicClient, http } from 'viem';
 import { zora } from 'viem/chains';
 
-const getAndStoreZorbScore = async (id: string, address: Address) => {
+import { zoraBalanceOfABI } from './zoraBalanceOfABI';
+
+const getAndStoreHeyZorbNftScore = async (id: string, address: Address) => {
   try {
     const client = createPublicClient({
       chain: zora,
       transport: http('https://rpc.zora.energy')
     });
 
-    const zorbBalance = await client.readContract({
-      abi: [
-        {
-          inputs: [
-            { internalType: 'address', name: 'account', type: 'address' },
-            { internalType: 'uint256', name: 'id', type: 'uint256' }
-          ],
-          name: 'balanceOf',
-          outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-          stateMutability: 'view',
-          type: 'function'
-        }
-      ],
+    const tokenBalance = await client.readContract({
+      abi: zoraBalanceOfABI,
       address: '0xF2086c0EAA8b34b0Eef73920D0b1B53f4146e2e4',
       args: [address as Address, 1n],
       functionName: 'balanceOf'
     });
 
-    const hasZorb = zorbBalance === 1n;
+    const hasNft = tokenBalance === 1n;
 
-    if (hasZorb) {
+    if (hasNft) {
       await goodPg.query(
         `
           INSERT INTO "AdjustedProfileScore" (score, reason, "profileId")
@@ -43,16 +34,18 @@ const getAndStoreZorbScore = async (id: string, address: Address) => {
         [id]
       );
 
-      logger.info(`BJ - Zorb holder score upserted for ${id} - ${address}`);
+      logger.info(
+        `BJ - Hey Zorb NFT holder score upserted for ${id} - ${address}`
+      );
     }
 
     return true;
   } catch {
     logger.error(
-      `BJ - Failed to get and store Zorb score for ${id} - ${address}`
+      `BJ - Failed to get and store Hey Zorb NFT score for ${id} - ${address}`
     );
     return false;
   }
 };
 
-export default getAndStoreZorbScore;
+export default getAndStoreHeyZorbNftScore;

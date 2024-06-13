@@ -17,7 +17,6 @@ import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   CheckIcon,
-  CreditCardIcon,
   ExclamationTriangleIcon,
   FaceFrownIcon,
   FaceSmileIcon
@@ -206,7 +205,7 @@ const ChooseHandle: FC = () => {
           )}
         </div>
         <div className="flex items-center space-x-3">
-          <Button
+          {/* <Button
             className="w-full justify-center"
             disabled={disabled}
             icon={<CreditCardIcon className="size-5" />}
@@ -214,7 +213,7 @@ const ChooseHandle: FC = () => {
             type="button"
           >
             Buy with Card
-          </Button>
+          </Button> */}
           {hasBalance ? (
             <Button
               className="w-full justify-center"

@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 import { POLYGONSCAN_URL } from '@good/data/constants';
 import {
-  OpenActionModuleType,
-  type ApprovedAllowanceAmountResult
+  type ApprovedAllowanceAmountResult,
+  OpenActionModuleType
 } from '@good/lens';
 import { Card } from '@good/ui';
 import getAllowanceModule from '@helpers/getAllowanceModule';
