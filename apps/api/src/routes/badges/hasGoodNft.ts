@@ -40,7 +40,10 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', hasGoodNft ? CACHE_AGE_INDEFINITE : 'no-cache')
+      .setHeader(
+        'Cache-Control',
+        hasGoodNft ? CACHE_AGE_INDEFINITE : 'no-cache'
+      )
       .json({ hasGoodNft, success: true });
   } catch (error) {
     return catchedError(res, error);
