@@ -1,55 +1,78 @@
 import { APP_NAME } from '@hey/data/constants';
+import { POYGON_WRITE_RPC } from '@hey/data/rpcs';
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
-import lensPg from 'src/db/lensPg';
-import { type Address, getAddress } from 'viem';
+import {
+  type Address,
+  createPublicClient,
+  decodeEventLog,
+  http,
+  parseAbi
+} from 'viem';
+import { polygon } from 'viem/chains';
 
 import sendEmail from '../sendEmail';
 
-const getProfileId = async (
-  formattedAddress: string
-): Promise<null | string> => {
-  const result = await lensPg.query(
-    `
-      SELECT profile_id, owned_by 
-      FROM profile.record
-      WHERE block_timestamp = (SELECT MAX(block_timestamp) FROM profile.record WHERE owned_by = $1)
-      AND owned_by = $1
-    `,
-    [formattedAddress]
-  );
+const MAX_RETRIES = 10;
+const RETRY_DELAY_MS = 2000;
 
-  return result[0]?.profile_id || null;
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const fetchTransactionReceiptWithRetry = async (
+  client: any,
+  hash: Address,
+  retries: number = MAX_RETRIES
+): Promise<any> => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await client.getTransactionReceipt({ hash });
+    } catch (error) {
+      if (attempt < retries) {
+        logger.error(
+          `sendSignupInvoice: Attempt ${attempt} failed. Retrying in ${RETRY_DELAY_MS / 1000} seconds...`
+        );
+        await sleep(RETRY_DELAY_MS);
+      } else {
+        throw new Error(`sendSignupInvoice: Failed after ${retries} attempts`);
+      }
+    }
+  }
 };
 
-const sendSignupInvoice = async (address: Address) => {
-  if (!address) {
+const sendSignupInvoice = async (hash: Address, address: Address) => {
+  if (!hash) {
     return;
   }
 
-  const formattedAddress = getAddress(address as Address);
-  let profileId: null | string = null;
-  let attempts = 0;
+  logger.info(`sendSignupInvoice: Fetching transaction receipt for ${hash}`);
 
-  while (!profileId && attempts < 5) {
-    attempts++;
-    logger.info(
-      `sendSignupInvoice: Attempt ${attempts}: Fetching profile ID for ${formattedAddress}...`
-    );
-    profileId = await getProfileId(formattedAddress);
+  const client = createPublicClient({
+    chain: polygon,
+    transport: http(POYGON_WRITE_RPC)
+  });
 
-    if (!profileId) {
-      logger.info(
-        `sendSignupInvoice: No profile ID found for ${formattedAddress}, retrying...`
-      );
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Add delay between retries if necessary
-    }
-  }
+  const receipt = await fetchTransactionReceiptWithRetry(client, hash);
 
-  if (!profileId) {
-    logger.error(
-      `sendSignupInvoice: Failed to find profile ID for ${formattedAddress} after ${attempts} attempts.`
-    );
+  const log = receipt.logs.find(
+    (log: any) =>
+      log.topics[0] ===
+      '0x30a132e912787e50de6193fe56a96ea6188c0bbf676679d630a25d3293c3e19a'
+  );
+
+  const data = log?.data;
+  const decodedData = decodeEventLog({
+    abi: parseAbi([
+      'event HandleMinted(string handle, string namespace, uint256 handleId, address to, uint256 timestamp)'
+    ]),
+    data,
+    topics: [
+      '0x30a132e912787e50de6193fe56a96ea6188c0bbf676679d630a25d3293c3e19a'
+    ]
+  });
+
+  const handle = decodedData.args?.handle;
+
+  if (!handle) {
     return;
   }
 
@@ -58,7 +81,7 @@ const sendSignupInvoice = async (address: Address) => {
     (rate: any) => rate.symbol === 'WMATIC'
   ).fiat;
 
-  logger.info(`sendSignupInvoice: Sending signup invoice for ${profileId}`);
+  logger.info(`sendSignupInvoice: Sending signup invoice for @${handle}`);
 
   await sendEmail({
     body: `
@@ -66,7 +89,7 @@ const sendSignupInvoice = async (address: Address) => {
         <body>
           <p>Welcome to Hey!</p> 
           <p>Here is your invoice for ${APP_NAME} profile signup.</p>
-          <a href="https://invoice.hey.xyz/signup/${profileId}?rate=${maticRate}">Open Invoice →</a>
+          <a href="https://invoice.hey.xyz/signup/${handle}?rate=${maticRate}">Open Invoice →</a>
           <br>
           <br>
           <p>Thanks,</p>
@@ -74,13 +97,11 @@ const sendSignupInvoice = async (address: Address) => {
         </body>
       </html>
     `,
-    recipient: `${formattedAddress}@skiff.com`,
-    subject: `Invoice #${parseInt(profileId)} for ${APP_NAME} Profile Signup`
+    recipient: `${address}@skiff.com`,
+    subject: `Invoice for @${handle} for ${APP_NAME} Profile Signup`
   });
 
-  logger.info(
-    `sendSignupInvoice: Signup Invoice #${parseInt(profileId)} sent for ${profileId}`
-  );
+  logger.info(`sendSignupInvoice: Signup Invoice for @${handle} sent`);
 };
 
 export default sendSignupInvoice;
