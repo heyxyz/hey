@@ -7,9 +7,9 @@ import {
 } from '@good/data/constants';
 import stopEventPropagation from '@good/helpers/stopEventPropagation';
 import {
-  useModuleMetadataQuery,
   type MirrorablePublication,
-  type UnknownOpenActionModuleSettings
+  type UnknownOpenActionModuleSettings,
+  useModuleMetadataQuery
 } from '@good/lens';
 import { Card } from '@good/ui';
 import errorToast from '@helpers/errorToast';

@@ -13,14 +13,13 @@ import validateIsStaff from './validateIsStaff';
 const validateIsOwnerOrStaff = async (request: Request, id: string) => {
   // Add validateLensAccount middleware to validate the access token
 
-  const accessToken = request.headers['x-access-token'] as string;
-
-  if (!accessToken) {
+  const identityToken = request.headers['x-identity-token'] as string;
+  if (!identityToken) {
     return 400;
   }
 
   try {
-    const payload = parseJwt(accessToken);
+    const payload = parseJwt(identityToken);
 
     // Check if the profile is staff or the owner of the profile
     const validateIsStaffStatus = await validateIsStaff(request);

@@ -8,7 +8,7 @@ import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import UAParser from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
@@ -39,7 +39,6 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -85,7 +84,8 @@ export const post: Handler = async (req, res) => {
     const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
-    const payload = parseJwt(accessToken);
+    const identityToken = req.headers['x-identity-token'] as string;
+    const payload = parseJwt(identityToken);
 
     const client = createClickhouseClient();
     const result = await client.insert({

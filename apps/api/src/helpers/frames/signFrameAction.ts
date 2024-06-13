@@ -74,7 +74,7 @@ const signFrameAction = async (
         headers: {
           'Content-Type': 'application/json',
           'User-agent': GOOD_USER_AGENT,
-          'X-Access-Token': `Bearer ${accessToken}`
+          'X-Access-Token': accessToken
         }
       }
     );

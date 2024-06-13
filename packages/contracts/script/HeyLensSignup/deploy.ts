@@ -8,7 +8,8 @@ async function deployProxy() {
     '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872';
   const signupPrice = '1000000000000000000';
 
-  const GoodLensSignup = await hre.ethers.getContractFactory('GoodLensSignupV2');
+  const GoodLensSignup =
+    await hre.ethers.getContractFactory('GoodLensSignupV2');
   const deployProxy = await hre.upgrades.deployProxy(GoodLensSignup as any, [
     owner,
     lensPermissionlessCreator,

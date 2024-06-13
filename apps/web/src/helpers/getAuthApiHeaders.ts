@@ -8,6 +8,7 @@ import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 const getAuthApiHeaders = () => {
   return {
     'X-Access-Token': hydrateAuthTokens().accessToken,
+    'X-Identity-Token': hydrateAuthTokens().identityToken,
     'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
   };
 };

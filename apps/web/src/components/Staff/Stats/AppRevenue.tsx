@@ -1,7 +1,11 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import { APP_NAME, GOOD_API_URL, STATIC_IMAGES_URL } from '@good/data/constants';
+import {
+  APP_NAME,
+  GOOD_API_URL,
+  STATIC_IMAGES_URL
+} from '@good/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@good/ui';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { useQuery } from '@tanstack/react-query';

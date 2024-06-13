@@ -27,7 +27,6 @@ export const post: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  const accessToken = req.headers['x-access-token'] as string;
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -42,7 +41,8 @@ export const post: Handler = async (req, res) => {
   const { collectModule, content, id } = body as ExtensionRequest;
 
   try {
-    const payload = parseJwt(accessToken);
+    const identityToken = req.headers['x-identity-token'] as string;
+    const payload = parseJwt(identityToken);
 
     if (id) {
       const result = await goodPg.query(

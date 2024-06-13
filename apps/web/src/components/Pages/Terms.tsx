@@ -36,9 +36,9 @@ const Terms: NextPage = () => {
               <div className="mb-5 text-xl font-bold">1. Overview</div>
               <div className="space-y-5">
                 <p className="leading-7">
-                  The website bcharity.net” (the “Site”) offers information, tools
-                  and services to you to allow you to interact with the Lens
-                  Protocol - a composable and decentralised social graph
+                  The website bcharity.net” (the “Site”) offers information,
+                  tools and services to you to allow you to interact with the
+                  Lens Protocol - a composable and decentralised social graph
                   protocol.
                 </p>
                 <p className="leading-7">
@@ -332,7 +332,8 @@ const Terms: NextPage = () => {
                 13. Contact Information
               </div>
               <p className="leading-7">
-                Questions about the Terms should be sent to us at terms@bcharity.net
+                Questions about the Terms should be sent to us at
+                terms@bcharity.net
               </p>
               {/* 13. Contact Information ends */}
             </div>

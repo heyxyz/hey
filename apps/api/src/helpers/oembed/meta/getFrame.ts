@@ -11,8 +11,6 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   const version = getMeta('of:accepts:lens');
   const authenticated = getMeta('of:authenticated') === 'true';
   const image = getMeta('of:image') || getMeta('og:image');
-  const imageAspectRatio = (getMeta('of:image:aspect_ratio') ||
-    '1.91:1') as Frame['imageAspectRatio'];
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
 
@@ -39,7 +37,6 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     buttons,
     frameUrl,
     image,
-    imageAspectRatio,
     postUrl,
     version
   };

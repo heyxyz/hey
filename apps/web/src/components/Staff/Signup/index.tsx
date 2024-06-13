@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import type { Address } from 'viem';
 
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@good/data/constants';
@@ -22,13 +21,7 @@ import LensCredits from './LensCredits';
 import Mint from './Mint';
 import NftsMinted from './NftsMinted';
 import ProfilesCreated from './ProfilesCreated';
-import RelayerBalance from './RelayerBalance';
 import SignupPrice from './SignupPrice';
-
-const relayAddresses: Address[] = [
-  '0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF',
-  '0x1A15ACfd4293Da7F6dD964f065A0b418355B2b92'
-];
 
 const Signup: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -60,11 +53,6 @@ const Signup: NextPage = () => {
             <NftsMinted />
             <ProfilesCreated />
           </div>
-        </Card>
-        <Card className="space-y-5 p-5">
-          {relayAddresses.map((address, index) => (
-            <RelayerBalance address={address} index={index} key={address} />
-          ))}
         </Card>
         <Mint />
       </GridItemEight>

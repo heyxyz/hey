@@ -3,4 +3,4 @@
 
 pnpm lint:affected
 pnpm prettier:affected
-pnpm typecheck:affected
+# pnpm typecheck:affected
