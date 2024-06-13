@@ -1,5 +1,6 @@
 import { APP_NAME } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
+import axios from 'axios';
 import lensPg from 'src/db/lensPg';
 import { type Address, getAddress } from 'viem';
 
@@ -28,6 +29,10 @@ const sendSignupInvoice = async (address: Address) => {
   );
 
   const profileId = result[0]?.profile_id;
+  const { data: rates } = await axios.get('https://api.hey.xyz/lens/rate');
+  const maticRate = rates.result.find(
+    (rate: any) => rate.symbol === 'WMATIC'
+  ).fiat;
 
   logger.info(`Sending signup invoice for ${profileId}`);
 
@@ -38,7 +43,7 @@ const sendSignupInvoice = async (address: Address) => {
           <p>Welcome to Hey!</p> 
           <br>
           <p>Here is your invoice for ${APP_NAME} profile signup.</p>
-          <a href="https://invoice.hey.xyz/signup/${profileId}">Open Invoice →</a>
+          <a href="https://invoice.hey.xyz/signup/${profileId}?rate=${maticRate}">Open Invoice →</a>
           <br>
           <p>Thanks,</p>
           <p>${APP_NAME} team</p>
