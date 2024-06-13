@@ -15,6 +15,8 @@ import sendEmail from '../sendEmail';
 
 const MAX_RETRIES = 10;
 const RETRY_DELAY_MS = 2000;
+const TOPIC =
+  '0x30a132e912787e50de6193fe56a96ea6188c0bbf676679d630a25d3293c3e19a';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -53,11 +55,7 @@ const sendSignupInvoice = async (hash: Address, address: Address) => {
 
   const receipt = await fetchTransactionReceiptWithRetry(client, hash);
 
-  const log = receipt.logs.find(
-    (log: any) =>
-      log.topics[0] ===
-      '0x30a132e912787e50de6193fe56a96ea6188c0bbf676679d630a25d3293c3e19a'
-  );
+  const log = receipt.logs.find((log: any) => log.topics[0] === TOPIC);
 
   const data = log?.data;
   const decodedData = decodeEventLog({
@@ -65,9 +63,7 @@ const sendSignupInvoice = async (hash: Address, address: Address) => {
       'event HandleMinted(string handle, string namespace, uint256 handleId, address to, uint256 timestamp)'
     ]),
     data,
-    topics: [
-      '0x30a132e912787e50de6193fe56a96ea6188c0bbf676679d630a25d3293c3e19a'
-    ]
+    topics: [TOPIC]
   });
 
   const handle = decodedData.args?.handle;
