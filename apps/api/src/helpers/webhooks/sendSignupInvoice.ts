@@ -51,7 +51,7 @@ const sendSignupInvoice = async (address: Address) => {
       </html>
     `,
     recipient: `${formattedAddress}@skiff.com`,
-    subject: `Invoice for ${APP_NAME} Profile Signup`
+    subject: `Invoice #${parseInt(profileId)} for ${APP_NAME} Profile Signup`
   });
 
   logger.info(`Signup Invoice #${parseInt(profileId)} sent for ${profileId}`);
