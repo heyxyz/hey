@@ -10,11 +10,10 @@ import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { UAParser } from 'ua-parser-js';
 import urlcat from 'urlcat';
-import { any, array, object, string } from 'zod';
+import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
   fingerprint?: string;
-  identityToken?: string;
   name: string;
   platform: 'mobile' | 'web';
   properties?: string;
@@ -23,23 +22,20 @@ type ExtensionRequest = {
   version: string;
 };
 
-const validationSchema = array(
-  object({
-    fingerprint: string().nullable().optional(),
-    identityToken: string().nullable().optional(),
-    name: string().min(1, { message: 'Name is required!' }),
-    platform: string(),
-    properties: any(),
-    referrer: string().nullable().optional(),
-    url: string(),
-    version: string().nullable().optional()
-  })
-);
+const validationSchema = object({
+  fingerprint: string().nullable().optional(),
+  name: string().min(1, { message: 'Name is required!' }),
+  platform: string(),
+  properties: any(),
+  referrer: string().nullable().optional(),
+  url: string(),
+  version: string().nullable().optional()
+});
 
 export const post: Handler = async (req, res) => {
   const { body } = req;
 
-  if (!body || !Array.isArray(body)) {
+  if (!body) {
     return noBody(res);
   }
 
@@ -47,6 +43,13 @@ export const post: Handler = async (req, res) => {
 
   if (!validation.success) {
     return invalidBody(res);
+  }
+
+  const { fingerprint, name, platform, properties, referrer, url, version } =
+    body as ExtensionRequest;
+
+  if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
+    return res.status(400).json({ error: 'Invalid event!', success: false });
   }
 
   const ip = requestIp.getClientIp(req);
@@ -74,63 +77,48 @@ export const post: Handler = async (req, res) => {
       return catchedError(res, error);
     }
 
+    // Extract UTM parameters
+    const parsedUrl = new URL(url);
+    const utmSource = parsedUrl.searchParams.get('utm_source') || null;
+    const utmMedium = parsedUrl.searchParams.get('utm_medium') || null;
+    const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
+    const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
+    const utmContent = parsedUrl.searchParams.get('utm_content') || null;
+    const identityToken = req.headers['x-identity-token'] as string;
+    const payload = parseJwt(identityToken);
+
     const client = createClickhouseClient();
-    const values = body.map((event) => {
-      const {
-        fingerprint,
-        identityToken,
-        name,
-        platform,
-        properties,
-        referrer,
-        url,
-        version
-      } = event as ExtensionRequest;
-      if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
-        throw new Error('Invalid event!');
-      }
-
-      // Extract UTM parameters
-      const parsedUrl = new URL(url);
-      const utmSource = parsedUrl.searchParams.get('utm_source') || null;
-      const utmMedium = parsedUrl.searchParams.get('utm_medium') || null;
-      const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
-      const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
-      const utmContent = parsedUrl.searchParams.get('utm_content') || null;
-      const payload = parseJwt(identityToken as string);
-
-      return {
-        actor: payload.id || null,
-        browser: ua.browser.name || null,
-        browser_version: ua.browser.version || null,
-        city: ipData?.city || null,
-        country: ipData?.country || null,
-        fingerprint: fingerprint || null,
-        ip: ip || null,
-        name,
-        os: ua.os.name || null,
-        platform: platform || null,
-        properties: properties || null,
-        referrer: referrer || null,
-        region: ipData?.regionName || null,
-        url: url || null,
-        utm_campaign: utmCampaign || null,
-        utm_content: utmContent || null,
-        utm_medium: utmMedium || null,
-        utm_source: utmSource || null,
-        utm_term: utmTerm || null,
-        version: version || null,
-        wallet: payload.evmAddress || null
-      };
-    });
-
     const result = await client.insert({
       format: 'JSONEachRow',
       table: 'events',
-      values
+      values: [
+        {
+          actor: payload.id || null,
+          browser: ua.browser.name || null,
+          browser_version: ua.browser.version || null,
+          city: ipData?.city || null,
+          country: ipData?.country || null,
+          fingerprint: fingerprint || null,
+          ip: ip || null,
+          name,
+          os: ua.os.name || null,
+          platform: platform || null,
+          properties: properties || null,
+          referrer: referrer || null,
+          region: ipData?.regionName || null,
+          url: url || null,
+          utm_campaign: utmCampaign || null,
+          utm_content: utmContent || null,
+          utm_medium: utmMedium || null,
+          utm_source: utmSource || null,
+          utm_term: utmTerm || null,
+          version: version || null,
+          wallet: payload.evmAddress || null
+        }
+      ]
     });
 
-    logger.info(`Ingested ${result.summary?.result_rows} events to Leafwatch`);
+    logger.info('Ingested event to Leafwatch');
 
     return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {
