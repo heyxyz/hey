@@ -22,7 +22,7 @@ const ServiceWorkerProvider: FC = () => {
                 ) {
                   // New update available
                   console.log(
-                    'New Service Worker available. Refresh the page to update.'
+                    'New ServiceWorker available. Refresh the page to update.'
                   );
                 }
               };
