@@ -6,7 +6,7 @@ const ServiceWorkerProvider: FC = () => {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       // Register the service worker
-      (navigator.serviceWorker as ServiceWorkerContainer)
+      navigator.serviceWorker
         .register('/sw.js', { scope: '/' })
         .then((registration) => {
           console.log('ServiceWorker registered successfully!');
@@ -28,6 +28,13 @@ const ServiceWorkerProvider: FC = () => {
               };
             }
           };
+
+          // Ensure the service worker is ready before sending the first message
+          navigator.serviceWorker.ready.then(() => {
+            if (navigator.serviceWorker.controller) {
+              console.log('Service Worker is ready to receive messages.');
+            }
+          });
         })
         .catch(console.error);
     }
