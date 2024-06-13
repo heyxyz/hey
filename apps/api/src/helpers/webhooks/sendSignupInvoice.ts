@@ -6,29 +6,51 @@ import { type Address, getAddress } from 'viem';
 
 import sendEmail from '../sendEmail';
 
+const getProfileId = async (
+  formattedAddress: string
+): Promise<null | string> => {
+  const result = await lensPg.query(
+    `
+      SELECT profile_id, owned_by 
+      FROM profile.record
+      WHERE block_timestamp = (SELECT MAX(block_timestamp) FROM profile.record WHERE owned_by = $1)
+      AND owned_by = $1
+    `,
+    [formattedAddress]
+  );
+
+  return result[0]?.profile_id || null;
+};
+
 const sendSignupInvoice = async (address: Address) => {
   if (!address) {
     return;
   }
 
   const formattedAddress = getAddress(address as Address);
+  let profileId: null | string = null;
+  let attempts = 0;
 
-  const result = await lensPg.query(
-    `
-      SELECT profile_id, owned_by 
-      FROM profile.record
-      WHERE
-        block_timestamp = (
-          SELECT MAX(block_timestamp)
-          FROM profile.record
-          WHERE owned_by = $1
-        )
-      AND owned_by = $1
-    `,
-    [formattedAddress]
-  );
+  while (!profileId && attempts < 5) {
+    attempts++;
+    logger.info(
+      `Attempt ${attempts}: Fetching profile ID for ${formattedAddress}...`
+    );
+    profileId = await getProfileId(formattedAddress);
 
-  const profileId = result[0]?.profile_id;
+    if (!profileId) {
+      logger.info(`No profile ID found for ${formattedAddress}, retrying...`);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Add delay between retries if necessary
+    }
+  }
+
+  if (!profileId) {
+    logger.error(
+      `Failed to find profile ID for ${formattedAddress} after ${attempts} attempts.`
+    );
+    return;
+  }
+
   const { data: rates } = await axios.get('https://api.hey.xyz/lens/rate');
   const maticRate = rates.result.find(
     (rate: any) => rate.symbol === 'WMATIC'
