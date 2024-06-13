@@ -43,7 +43,7 @@ yarn-error.log*
 .idea
 
 # Service Workers
-sw.js
+swv1.js
 
 # Node build artifacts
 dist
