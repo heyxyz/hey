@@ -41,9 +41,9 @@ const sendSignupInvoice = async (address: Address) => {
       <html>
         <body>
           <p>Welcome to Hey!</p> 
-          <br>
           <p>Here is your invoice for ${APP_NAME} profile signup.</p>
           <a href="https://invoice.hey.xyz/signup/${profileId}?rate=${maticRate}">Open Invoice →</a>
+          <br>
           <br>
           <p>Thanks,</p>
           <p>${APP_NAME} team</p>
