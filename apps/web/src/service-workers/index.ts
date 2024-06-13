@@ -56,8 +56,6 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('message', (event) => {
-  console.log('SW: ', event.data.type);
-
   // Impression tracking
   if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
     visiblePublicationsSet.add(event.data.id);
