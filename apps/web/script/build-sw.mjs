@@ -3,7 +3,7 @@ import esbuild from 'esbuild';
 
 dotenv.config();
 
-const outfile = 'public/swv1.js';
+const outfile = 'public/sw.js';
 
 esbuild.build({
   allowOverwrite: true,
