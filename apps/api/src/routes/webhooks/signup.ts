@@ -5,6 +5,7 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import sendSlackMessage from 'src/helpers/slack';
+import sendSignupInvoice from 'src/helpers/webhooks/sendSignupInvoice';
 import { any, object } from 'zod';
 
 type ExtensionRequest = {
@@ -38,6 +39,7 @@ export const post: Handler = async (req, res) => {
   const { event } = body as ExtensionRequest;
 
   try {
+    sendSignupInvoice(event.activity[0].fromAddress);
     await sendSlackMessage({
       channel: '#signups',
       color: '#22c55e',
