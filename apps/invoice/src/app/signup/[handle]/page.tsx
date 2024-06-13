@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
 
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
 import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
@@ -19,7 +20,7 @@ export default async function Page({ params, searchParams }: Props) {
 
   const { data } = await apolloClient().query({
     query: ProfileDocument,
-    variables: { request: { forHandle: handle } }
+    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
   });
 
   if (!data.profile) {
