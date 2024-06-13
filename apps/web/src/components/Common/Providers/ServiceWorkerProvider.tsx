@@ -16,7 +16,7 @@ const ServiceWorkerProvider: FC = () => {
 
       // Register the service worker
       (navigator.serviceWorker as ServiceWorkerContainer)
-        .register('/swv1.js', { scope: '/' })
+        .register('/sw.js', { scope: '/' })
         .then(() => {
           console.log('ServiceWorker registered successfully!');
         })
