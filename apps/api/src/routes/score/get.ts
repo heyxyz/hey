@@ -8,8 +8,8 @@ import catchedError from 'src/helpers/catchedError';
 import {
   SCORE_WORKER_URL,
   SUSPENDED_FEATURE_ID,
-  SWR_CACHE_AGE_10_MINS_30_DAYS,
-  SWR_CACHE_AGE_1_HOUR_12_HRS
+  SWR_CACHE_AGE_1_HOUR_12_HRS,
+  SWR_CACHE_AGE_10_MINS_30_DAYS
 } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
