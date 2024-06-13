@@ -35,7 +35,7 @@ const NotificationIcon: FC = () => {
       {lastOpenedNotificationId !== latestNotificationId && (
         <span className="size-2 rounded-full bg-red-500 px-2 py-1"></span>
       )}
-      <span className={`text-white text-xl ${isNotificationPage ? 'font-bold' : ''}`}>
+      <span className={`dark:text-white text-black text-xl ${isNotificationPage ? 'font-bold' : ''}`}>
         Notifications
       </span>
     </Link>
