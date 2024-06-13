@@ -116,10 +116,10 @@ const Navbar: FC = () => {
                 <span className="flex flex-grow ml-3 mr-3">Goodcast</span>
               </div>
             </Link>
-            <div className="hidden sm:ml-6 md:block pt-5  overflow-y-auto max-h-[80vh]">
 
-{/**Margin left */}
-  <div className="flex flex-col items-start ">
+
+<div className="hidden sm:ml-6 md:block pt-5  overflow-y-auto max-h-[80vh]">
+  <div className="flex flex-col items-start relative ">
     <div className="hidden md:block">
       {/* <Search /> */}
     </div>
@@ -136,6 +136,8 @@ const Navbar: FC = () => {
         <span className="text-xl">Post</span>
       </button>
     </div>
+
+    <div className="fixed bottom-0">
     {/**Profile section of navbar */}
     <Link className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')} href="/">
       <img
@@ -146,11 +148,12 @@ const Navbar: FC = () => {
         width={32}
       />
     </Link>
-    <div id="profile" className="fixed bottom-0 items-start justify-between gap-4">
+    <div id="profile" className="flex items-start mt-4 items-start justify-between ">
       <div className="flex items-center gap-2">
         <MenuItems /> {/* Profile Submenu Section */}
         <ModIcon />
       </div>
+    </div>
     </div>
   </div>
 </div>

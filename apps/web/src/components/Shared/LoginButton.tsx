@@ -26,15 +26,7 @@ const LoginButton: FC<LoginButtonProps> = ({
       className={cn(
         isFullWidth ? 'flex w-full items-center justify-center' : className
       )}
-      icon={
-        <img
-          alt="Lens Logo"
-          className="mr-0.5 h-3"
-          height={12}
-          src="/lens.svg"
-          width={19}
-        />
-      }
+
       onClick={(e) => {
         e.stopPropagation();
         setShowAuthModal(true);
