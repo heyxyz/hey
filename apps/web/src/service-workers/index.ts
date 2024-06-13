@@ -68,7 +68,7 @@ self.addEventListener('message', (event) => {
   }
 });
 
-const serviceWorkerVersion = '1.0.1';
+const serviceWorkerVersion = '1.0.2';
 console.log(`Service Worker Version: ${serviceWorkerVersion}`);
 
 export {};
