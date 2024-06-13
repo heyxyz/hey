@@ -47,6 +47,14 @@ const handleActivate = async (): Promise<void> => {
   await self.clients.claim();
 };
 
+self.addEventListener('install', () => {
+  self.skipWaiting(); // Force the waiting service worker to become the active service worker
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(handleActivate());
+});
+
 self.addEventListener('message', (event) => {
   // Impression tracking
   if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
@@ -60,8 +68,7 @@ self.addEventListener('message', (event) => {
   }
 });
 
-self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
-const serviceWorkerVersion = '1.0.0';
+const serviceWorkerVersion = '1.0.1';
 console.log(`Service Worker Version: ${serviceWorkerVersion}`);
 
 export {};

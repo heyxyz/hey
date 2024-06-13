@@ -8,8 +8,26 @@ const ServiceWorkerProvider: FC = () => {
       // Register the service worker
       (navigator.serviceWorker as ServiceWorkerContainer)
         .register('/sw.js', { scope: '/' })
-        .then(() => {
+        .then((registration) => {
           console.log('ServiceWorker registered successfully!');
+
+          // Check for updates
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            if (installingWorker) {
+              installingWorker.onstatechange = () => {
+                if (
+                  installingWorker.state === 'installed' &&
+                  navigator.serviceWorker.controller
+                ) {
+                  // New update available
+                  console.log(
+                    'New Service Worker available. Refresh the page to update.'
+                  );
+                }
+              };
+            }
+          };
         })
         .catch(console.error);
     }
