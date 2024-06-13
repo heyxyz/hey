@@ -3,14 +3,15 @@ import type { Profile } from '@hey/lens';
 import getProfile from '@hey/helpers/getProfile';
 import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
-import axios from 'axios';
 
 interface Props {
   params: { id: string };
+  searchParams: { rate: string };
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams }: Props) {
   const { id } = params;
+  const { rate } = searchParams;
 
   if (!id) {
     return <h1>404</h1>;
@@ -21,16 +22,12 @@ export default async function Page({ params }: Props) {
     variables: { request: { forProfileId: id } }
   });
 
-  const { data: rates } = await axios.get('https://api.hey.xyz/lens/rate');
-
   if (!data.profile) {
     return <h1>404</h1>;
   }
 
   const profile = data.profile as Profile;
-  const maticRate = rates.result.find(
-    (rate: any) => rate.symbol === 'WMATIC'
-  ).fiat;
+  const maticRate = parseFloat(rate || '1');
   const { displayName } = getProfile(profile);
 
   return (
@@ -78,11 +75,7 @@ export default async function Page({ params }: Props) {
               <h3 className="text-lg font-semibold text-gray-800">
                 {displayName}
               </h3>
-              <address className="mt-2 not-italic text-gray-500">
-                {profile.ownedBy.address}@skiff.com
-              </address>
             </div>
-
             <div className="space-y-2 sm:text-end">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
                 <dl className="grid gap-x-3 sm:grid-cols-5">
@@ -96,7 +89,6 @@ export default async function Page({ params }: Props) {
               </div>
             </div>
           </div>
-
           <div className="mt-6">
             <div className="space-y-4 rounded-lg border p-4">
               <div className="hidden sm:grid sm:grid-cols-5">
@@ -124,7 +116,6 @@ export default async function Page({ params }: Props) {
               </div>
             </div>
           </div>
-
           <div className="mt-8 flex justify-end">
             <div className="w-full max-w-2xl space-y-2 sm:text-end">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
@@ -141,14 +132,6 @@ export default async function Page({ params }: Props) {
                   </dt>
                   <dd className="col-span-2 text-gray-500">${maticRate * 8}</dd>
                 </dl>
-
-                {/* <dl className="grid gap-x-3 sm:grid-cols-5">
-                  <dt className="col-span-3 font-semibold text-gray-800">
-                    Tax:
-                  </dt>
-                  <dd className="col-span-2 text-gray-500">$39.00</dd>
-                </dl> */}
-
                 <dl className="grid gap-x-3 sm:grid-cols-5">
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Amount paid:
