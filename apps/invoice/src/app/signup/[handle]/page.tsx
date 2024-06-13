@@ -5,21 +5,21 @@ import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 
 interface Props {
-  params: { id: string };
+  params: { handle: string };
   searchParams: { rate: string };
 }
 
 export default async function Page({ params, searchParams }: Props) {
-  const { id } = params;
+  const { handle } = params;
   const { rate } = searchParams;
 
-  if (!id) {
+  if (!handle) {
     return <h1>404</h1>;
   }
 
   const { data } = await apolloClient().query({
     query: ProfileDocument,
-    variables: { request: { forProfileId: id } }
+    variables: { request: { forHandle: handle } }
   });
 
   if (!data.profile) {

@@ -39,7 +39,7 @@ export const post: Handler = async (req, res) => {
   const { event } = body as ExtensionRequest;
 
   try {
-    sendSignupInvoice(event.activity[0].fromAddress);
+    sendSignupInvoice(event.activity[0].hash, event.activity[0].fromAddress);
     await sendSlackMessage({
       channel: '#signups',
       color: '#22c55e',
