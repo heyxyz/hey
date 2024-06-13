@@ -34,19 +34,21 @@ const sendSignupInvoice = async (address: Address) => {
   while (!profileId && attempts < 5) {
     attempts++;
     logger.info(
-      `Attempt ${attempts}: Fetching profile ID for ${formattedAddress}...`
+      `sendSignupInvoice: Attempt ${attempts}: Fetching profile ID for ${formattedAddress}...`
     );
     profileId = await getProfileId(formattedAddress);
 
     if (!profileId) {
-      logger.info(`No profile ID found for ${formattedAddress}, retrying...`);
+      logger.info(
+        `sendSignupInvoice: No profile ID found for ${formattedAddress}, retrying...`
+      );
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Add delay between retries if necessary
     }
   }
 
   if (!profileId) {
     logger.error(
-      `Failed to find profile ID for ${formattedAddress} after ${attempts} attempts.`
+      `sendSignupInvoice: Failed to find profile ID for ${formattedAddress} after ${attempts} attempts.`
     );
     return;
   }
@@ -56,7 +58,7 @@ const sendSignupInvoice = async (address: Address) => {
     (rate: any) => rate.symbol === 'WMATIC'
   ).fiat;
 
-  logger.info(`Sending signup invoice for ${profileId}`);
+  logger.info(`sendSignupInvoice: Sending signup invoice for ${profileId}`);
 
   await sendEmail({
     body: `
@@ -76,7 +78,9 @@ const sendSignupInvoice = async (address: Address) => {
     subject: `Invoice #${parseInt(profileId)} for ${APP_NAME} Profile Signup`
   });
 
-  logger.info(`Signup Invoice #${parseInt(profileId)} sent for ${profileId}`);
+  logger.info(
+    `sendSignupInvoice: Signup Invoice #${parseInt(profileId)} sent for ${profileId}`
+  );
 };
 
 export default sendSignupInvoice;
