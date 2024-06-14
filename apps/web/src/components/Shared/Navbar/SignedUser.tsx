@@ -6,15 +6,14 @@ import { KillSwitch } from '@good/data/kill-switches';
 import getAvatar from '@good/helpers/getAvatar';
 import getLennyURL from '@good/helpers/getLennyURL';
 import getProfile from '@good/helpers/getProfile';
-import { Image, Tooltip } from '@good/ui';
+import { Image } from '@good/ui';
 import cn from '@good/ui/cn';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import isFeatureEnabled from '@helpers/isFeatureEnabled';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import {EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -59,20 +58,20 @@ const SignedUser: FC = () => {
         type="button"
       >
         <Avatar />
-        
       </button>
-      <Menu as="div" className="hidden md:block relative">
-      <div className="flex bottom-0 items-center">
-        <MenuButton 
-        className=" flex items-center rounded-full hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white ">
-          <Avatar />
-          <span className="text-sm">@{currentProfile?.handle?.localName}</span>
-          <EllipsisHorizontalIcon className="size-6 ml-1" />
-        </MenuButton>
-      </div>
+      <Menu as="div" className="relative hidden md:block">
+        <div className="bottom-0 flex items-center">
+          <MenuButton className="flex items-center rounded-full hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white">
+            <Avatar />
+            <span className="text-sm">
+              @{currentProfile?.handle?.localName}
+            </span>
+            <EllipsisHorizontalIcon className="ml-1 size-6" />
+          </MenuButton>
+        </div>
         <MenuTransition>
           <MenuItems
-            className="absolute bottom-full mb-2 absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
+            className="absolute bottom-full right-0 mb-2 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
             static
           >
             <MenuItem

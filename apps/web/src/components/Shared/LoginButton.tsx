@@ -26,7 +26,6 @@ const LoginButton: FC<LoginButtonProps> = ({
       className={cn(
         isFullWidth ? 'flex w-full items-center justify-center' : className
       )}
-
       onClick={(e) => {
         e.stopPropagation();
         setShowAuthModal(true);

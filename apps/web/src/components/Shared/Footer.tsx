@@ -4,7 +4,6 @@ import { APP_NAME } from '@good/data/constants';
 import { MISCELLANEOUS } from '@good/data/tracking';
 import cn from '@good/ui/cn';
 import { Leafwatch } from '@helpers/leafwatch';
-import showCrisp from '@helpers/showCrisp';
 import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
@@ -63,9 +62,9 @@ const Footer: FC = () => {
         >
           GitHub
         </Link>
-        <button className="outline-offset-4" onClick={showCrisp}>
+        <Link className="outline-offset-4" href="/support">
           Support
-        </button>
+        </Link>
       </div>
       <div className="mt-4">
         <Link

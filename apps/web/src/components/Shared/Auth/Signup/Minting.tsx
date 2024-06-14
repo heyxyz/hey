@@ -1,21 +1,13 @@
 import type { FC } from 'react';
 
-import { POLYGONSCAN_URL } from '@good/data/constants';
 import { useProfileQuery } from '@good/lens';
 import { Spinner } from '@good/ui';
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 
 import { useSignupStore } from '.';
 
 const Minting: FC = () => {
-  const {
-    choosedHandle,
-    mintViaCard,
-    setProfileId,
-    setScreen,
-    transactionHash
-  } = useSignupStore();
+  const { choosedHandle, setProfileId, setScreen, transactionHash } =
+    useSignupStore();
 
   useProfileQuery({
     notifyOnNetworkStatusChange: true,
@@ -26,7 +18,7 @@ const Minting: FC = () => {
       }
     },
     pollInterval: 3000,
-    skip: mintViaCard ? false : !transactionHash,
+    skip: !transactionHash,
     variables: { request: { forHandle: choosedHandle } }
   });
 
@@ -37,16 +29,6 @@ const Minting: FC = () => {
         This will take a few seconds to a few minutes. Please be patient.
       </div>
       <Spinner className="mt-8" />
-      {!mintViaCard && (
-        <Link
-          className="mt-5 flex items-center space-x-1 text-sm underline"
-          href={`${POLYGONSCAN_URL}/tx/${transactionHash}`}
-          target="_blank"
-        >
-          <span>View transaction</span>
-          <ArrowTopRightOnSquareIcon className="size-4" />
-        </Link>
-      )}
     </div>
   );
 };
