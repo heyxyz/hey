@@ -1,9 +1,6 @@
 import type { FC } from 'react';
 
-import {
-  ArrowTopRightOnSquareIcon,
-  HandRaisedIcon
-} from '@heroicons/react/24/outline';
+import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
 
 interface SupportProps {
@@ -18,11 +15,8 @@ const Support: FC<SupportProps> = ({ className = '' }) => {
         className
       )}
     >
-      <div className="flex items-center space-x-1.5">
-        <HandRaisedIcon className="size-4" />
-        <div>Support</div>
-      </div>
-      <ArrowTopRightOnSquareIcon className="size-4 md:hidden" />
+      <HandRaisedIcon className="size-4" />
+      <div>Support</div>
     </div>
   );
 };
