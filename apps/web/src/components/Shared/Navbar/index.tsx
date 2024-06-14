@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 
 
 import NotificationIcon from '@components/Notification/NotificationIcon';
+import NavPost from '@components/Composer/Post/NavPost';
+
 import cn from '@good/ui/cn';
 import {
   MagnifyingGlassIcon as MagnifyingGlassIconOutline,
@@ -22,6 +24,7 @@ import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+
 
 import MenuItems from './MenuItems';
 import MessagesIcon from './MessagesIcon';
@@ -140,13 +143,7 @@ const Navbar: FC = () => {
                   <MessagesIcon />
                   <MoreNavItems />
                   <div className="w-full">
-                    <button
-                      className="mt-5 inline-flex items-center justify-center rounded-full text-black dark:text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"
-                      type="button"
-                      style={{ backgroundColor: '#da5597' }}
-                    >
-                      <span className="text-xl">Post</span>
-                    </button>
+                    <NavPost/>
                   </div>
               {/**Profile section of navbar */}
               <div className={isShortScreen ? "flex items-start mt-4 justify-between" : "fixed  bottom-0  md:fixed"}>
