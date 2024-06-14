@@ -1,35 +1,85 @@
-import type { FC, ReactNode  } from 'react';
-import { useEffect } from 'react';
-
-
-import NotificationIcon from '@components/Notification/NotificationIcon';
+import type { FC, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import cn from '@good/ui/cn';
 import {
   MagnifyingGlassIcon as MagnifyingGlassIconOutline,
-  XMarkIcon as XMarkIconOutline,
   HomeIcon as HomeIconOutline,
+  BellIcon as BellIconOutline,
+  EnvelopeIcon as EnvelopeIconOutline,
   EllipsisHorizontalIcon
 } from '@heroicons/react/24/outline';
 import {
   HomeIcon as HomeIconSolid,
   MagnifyingGlassIcon as MagnifyingGlassIconSolid,
-  XMarkIcon as XMarkIconSolid
+  BellIcon as BellIconSolid,
+  EnvelopeIcon as EnvelopeIconSolid
 } from '@heroicons/react/24/solid';
 
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
-import MenuItems from './MenuItems';
-import MessagesIcon from './MessagesIcon';
-import ModIcon from './ModIcon';
-import MoreNavItems from './MoreNavItems';
-import Search from './Search';
-import StaffBar from './StaffBar';
+const NavbarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 
+  @media (max-width: 1024px) {
+    .nav-text,
+    .auth-buttons {
+      display: none;
+    }
+  }
+`;
+
+const BottomButtonsContainer = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+`;
+
+const PostButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #da5597;
+  color: white;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+`;
+
+const SignupButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+`;
+
+const LoginButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  width: 100%;
+  padding: 0.25rem;
+  font-size: 0.875rem;
+`;
 
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -40,16 +90,13 @@ const Navbar: FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsShortScreen(window.innerHeight < 500); 
+      setIsShortScreen(window.innerHeight < 500);
     };
 
     handleResize();
-
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
 
   interface NavItemProps {
     current: boolean;
@@ -58,7 +105,6 @@ const Navbar: FC = () => {
     icon: ReactNode;
   }
 
-  
   const NavItem: FC<NavItemProps> = ({ current, name, url, icon }) => {
     return (
       <Link
@@ -72,8 +118,8 @@ const Navbar: FC = () => {
         href={url}
       >
         {icon}
-        <div className={`dark:text-white text-black`}>
-          <span className={` text-xl ${current ? 'font-bold' : ''}`}>{name}</span>
+        <div className="nav-text dark:text-white text-black">
+          <span className={`text-xl ${current ? 'font-bold' : ''}`}>{name}</span>
         </div>
       </Link>
     );
@@ -81,95 +127,84 @@ const Navbar: FC = () => {
 
   const NavItems = () => {
     const { pathname } = useRouter();
-
     return (
       <>
         <NavItem 
-        current={pathname === '/'} 
-        name="Home"
-         url="/" 
-         icon={pathname === '/' ? <HomeIconSolid className="size-8" /> : <HomeIconOutline className="size-8" />}
-         />
-
-
+          current={pathname === '/'} 
+          name="Home"
+          url="/" 
+          icon={pathname === '/' ? <HomeIconSolid className="size-8" /> : <HomeIconOutline className="size-8" />}
+        />
         <NavItem
           current={pathname === '/explore'}
           name="Explore"
           url="/explore"
-          icon = {pathname ==='/explore' ?<MagnifyingGlassIconSolid className="size-8" /> :<MagnifyingGlassIconOutline className="size-8" />}
+          icon={pathname === '/explore' ? <MagnifyingGlassIconSolid className="size-8" /> : <MagnifyingGlassIconOutline className="size-8" />}
+        />
+        <NavItem 
+          current={pathname === '/notifications'} 
+          name="Notifications"
+          url="/notifications" 
+          icon={pathname === '/notifications' ? <BellIconSolid className="size-8" /> : <BellIconOutline className="size-8" />}
+        />
+        <NavItem 
+          current={pathname === '/messages'} 
+          name="Messages"
+          url="/messages" 
+          icon={pathname === '/messages' ? <EnvelopeIconSolid className="size-8" /> : <EnvelopeIconOutline className="size-8" />}
+        />
+        <NavItem 
+          current={pathname === '/more'} 
+          name="More"
+          url="/more" 
+          icon={<EllipsisHorizontalIcon className="size-8" />}
         />
       </>
     );
   };
 
   return (
-    <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black ">
+    <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
-      <div className="flex container mx-auto max-w-screen-xl ">
-        <div className=" relative flex flex-col h-full items-start justify-start ">
-            
-            <button
-              className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
-              onClick={() => setShowSearch(!showSearch)}
-              type="button"
-            >
-              {showSearch ? (
-                <XMarkIconSolid className="size-6" />
-              ) : (
-                <MagnifyingGlassIconSolid className="size-8" />
-              )}
-            </button>
-                <Link
-                  // className="hidden rounded-full outline-offset-8 md:block"
-                  href="/"
-                >
-              <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
-                <div className="text-3xl font-black ml-6">
-                  <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
-                </div>
-                <span className="flex flex-grow ml-3 mr-3">Goodcast</span>
+      <NavbarContainer className="container mx-auto max-w-screen-xl">
+        <div className="relative flex flex-col h-full items-start justify-start">
+          <button
+            className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
+            onClick={() => setShowSearch(!showSearch)}
+            type="button"
+          >
+            {showSearch ? (
+              <XMarkIconSolid className="size-6" />
+            ) : (
+              <MagnifyingGlassIconSolid className="size-8" />
+            )}
+          </button>
+          <Link href="/">
+            <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
+              <div className="text-3xl font-black ml-6">
+                <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
               </div>
-              </Link>
-              <div className="hidden sm:ml-6 md:block pt-5  overflow-y-auto max-h-[70vh] overflow-x-hidden">
-                <div className="flex flex-col items-start relative h-fit ">
-                  <div className="hidden md:block">
-                    {/* <Search /> */}
-                  </div>
-                  <NavItems />
-                  <NotificationIcon />
-                  <MessagesIcon />
-                  <MoreNavItems />
-                  <div className="w-full">
-                    <button
-                      className="mt-5 inline-flex items-center justify-center rounded-full text-black dark:text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"
-                      type="button"
-                      style={{ backgroundColor: '#da5597' }}
-                    >
-                      <span className="text-xl">Post</span>
-                    </button>
-                  </div>
-              {/**Profile section of navbar */}
-              <div className={isShortScreen ? "flex items-start mt-4 justify-between" : "fixed  bottom-0  md:fixed"}>
-              <Link className={cn('md:hidden max-h-[100vh]', !currentProfile?.id && 'ml-[60px]')} href="/">
-                <img
-                  alt="Logo"
-                  className="size-7"
-                  height={32}
-                  src="/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
-                  width={32}
-                />
-              </Link>
-              <div id="profile" className="flex items-start mt-4 items-start justify-between">
-              <div className="flex items-center gap-2">
-                  <MenuItems /> {/* Profile Submenu Section */}
-                  <ModIcon />
+              <span className="nav-text flex flex-grow ml-3 mr-3">Goodcast</span>
+            </div>
+          </Link>
+          <div className="hidden sm:ml-6 md:block pt-5 overflow-y-auto max-h-[70vh] pr-4">
+            <div className="flex flex-col items-start relative h-fit">
+              <NavItems />
+              <div className="w-full mt-5">
+                <PostButton>Post</PostButton>
+                <div className="auth-buttons">
+                  <Link href="/signup">
+                    <SignupButton>Signup</SignupButton>
+                  </Link>
+                  <Link href="/login">
+                    <LoginButton>Login</LoginButton>
+                  </Link>
                 </div>
-              </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </NavbarContainer>
       {showSearch ? (
         <div className="m-3 md:hidden">
           <Search />
