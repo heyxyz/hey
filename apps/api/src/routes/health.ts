@@ -1,10 +1,11 @@
 import type { Handler } from 'express';
 
+import { IS_MAINNET } from '@good/data/constants';
+import LensEndpoint from '@good/data/lens-endpoints';
 import axios from 'axios';
 import goodPg from 'src/db/goodPg';
-import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
-import { SCORE_WORKER_URL } from 'src/helpers/constants';
+import { GOOD_USER_AGENT, SCORE_WORKER_URL } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 
 const measureQueryTime = async (
@@ -16,15 +17,36 @@ const measureQueryTime = async (
   return [result, endTime - startTime];
 };
 
+const pingLensAPI = async (): Promise<string | unknown> => {
+  const pingQuery = {
+    query: `
+      query Ping {
+        ping
+      }
+    `
+  };
+
+  const { data } = await axios.post(
+    IS_MAINNET ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
+    pingQuery,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'User-agent': GOOD_USER_AGENT
+      }
+    }
+  );
+
+  return data?.data?.ping;
+};
+
 export const get: Handler = async (_, res) => {
   try {
     // Prepare promises with timings embedded
     const goodPromise = measureQueryTime(() =>
       goodPg.query(`SELECT 1 as count;`)
     );
-    const lensPromise = measureQueryTime(() =>
-      lensPg.query(`SELECT 1 as count;`)
-    );
+    const lensPromise = measureQueryTime(pingLensAPI);
     const clickhouseClient = createClickhouseClient();
     const clickhousePromise = measureQueryTime(() =>
       clickhouseClient.query({
@@ -55,7 +77,7 @@ export const get: Handler = async (_, res) => {
 
     if (
       Number(good[0].count) !== 1 ||
-      Number(lens[0].count) !== 1 ||
+      lens !== 'pong' ||
       scoreWorker.data.split(' ')[0] !== 'WITH' ||
       !clickhouseRows.json
     ) {

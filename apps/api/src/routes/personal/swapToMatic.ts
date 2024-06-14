@@ -2,7 +2,7 @@ import type { Handler } from 'express';
 import type { Address } from 'viem';
 
 import { Errors } from '@good/data';
-import { POYGON_WRITE_RPCS } from '@good/data/rpcs';
+import { POYGON_WRITE_RPC } from '@good/data/rpcs';
 import logger from '@good/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
@@ -61,7 +61,7 @@ export const post: Handler = async (req, res) => {
     const client = createWalletClient({
       account,
       chain: polygon,
-      transport: http(POYGON_WRITE_RPCS)
+      transport: http(POYGON_WRITE_RPC)
     });
 
     const bigintAmount = BigInt(amount);

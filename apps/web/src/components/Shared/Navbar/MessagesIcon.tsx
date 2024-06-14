@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Tooltip } from '@good/ui';
+
 import { EnvelopeIcon as EnvelopeIconOutline } from '@heroicons/react/24/outline';
 import { EnvelopeIcon as EnvelopeIconSolid } from '@heroicons/react/24/solid';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ const MessagesIcon: FC = () => {
 
   return (
     <Link
-      className="cursor-pointer rounded-md mb-4 px-2 py-1 flex items-start space-x-2 hover:bg-gray-300/20 md:flex"
+      className="mb-4 flex cursor-pointer items-start space-x-2 rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
       href="/messages"
     >
       {isMessagesPage ? (
@@ -19,7 +19,11 @@ const MessagesIcon: FC = () => {
       ) : (
         <EnvelopeIconOutline className="size-8" />
       )}
-      <span className={`dark:text-white text-black text-xl ${isMessagesPage ? 'font-bold' : ''}`}>Messages</span>
+      <span
+        className={`text-xl text-black dark:text-white ${isMessagesPage ? 'font-bold' : ''}`}
+      >
+        Messages
+      </span>
     </Link>
   );
 };
