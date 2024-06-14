@@ -11,12 +11,7 @@ import {
 } from 'viem';
 import { polygon } from 'viem/chains';
 
-import {
-  notionLink,
-  notionNumber,
-  notionText,
-  notionTitle
-} from '../notion/notionBlocks';
+import { notionLink, notionNumber, notionTitle } from '../notion/notionBlocks';
 import pushToNotionDatabase from '../notion/pushToNotionDatabase';
 import sendSlackMessage from '../slack';
 
@@ -94,7 +89,6 @@ const saveSignupInvoiceToNotion = async (hash: Address, address: Address) => {
     );
 
     await pushToNotionDatabase('bd37bf6ef3a949f78c6e35d68603edb1', {
-      Address: notionText(address || 'N/A'),
       Amount: notionNumber(maticRate * 8),
       Hash: notionTitle(hash),
       Invoice: notionLink(
