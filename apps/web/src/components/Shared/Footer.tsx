@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
-import showCrisp from '@helpers/showCrisp';
 import { APP_NAME } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
@@ -63,9 +62,9 @@ const Footer: FC = () => {
         >
           GitHub
         </Link>
-        <button className="outline-offset-4" onClick={showCrisp}>
+        <Link className="outline-offset-4" href="/support">
           Support
-        </button>
+        </Link>
       </div>
       <div className="mt-4">
         <Link
