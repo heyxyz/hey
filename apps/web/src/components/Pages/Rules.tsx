@@ -4,8 +4,8 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@good/data/constants';
 import { PAGEVIEW } from '@good/data/tracking';
 import { Leafwatch } from '@helpers/leafwatch';
-import showCrisp from '@helpers/showCrisp';
 import { useEffect } from 'react';
+import Link from 'next/link'
 
 const Rules: NextPage = () => {
   useEffect(() => {
@@ -115,8 +115,7 @@ const Rules: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold">Feedback</div>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please{' '}
-                <button onClick={showCrisp}>Contact us</button>.
+                questions, please <Link href="/support">Contact us</Link>.
               </p>
               {/* Feedback ends */}
             </div>

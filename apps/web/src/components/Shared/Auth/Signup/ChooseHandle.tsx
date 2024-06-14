@@ -24,7 +24,6 @@ import {
 import Script from 'next/script';
 import { useState } from 'react';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import urlcat from 'urlcat';
 import { formatUnits, parseEther } from 'viem';
 import { useAccount, useBalance, useWriteContract } from 'wagmi';
 import { object, string } from 'zod';
@@ -64,13 +63,8 @@ const newProfileSchema = object({
 });
 
 const ChooseHandle: FC = () => {
-  const {
-    delegatedExecutor,
-    setChoosedHandle,
-    setMintViaCard,
-    setScreen,
-    setTransactionHash
-  } = useSignupStore();
+  const { delegatedExecutor, setChoosedHandle, setScreen, setTransactionHash } =
+    useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
@@ -126,37 +120,6 @@ const ChooseHandle: FC = () => {
     }
   };
 
-  const eventHandler = ({ event }: { data: any; event: any }) => {
-    if (event === 'Checkout.Success' && window.LemonSqueezy) {
-      Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'card' });
-      setMintViaCard(true);
-      setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
-      setScreen('minting');
-
-      window.LemonSqueezy?.Url?.Close();
-    }
-  };
-
-  const handleBuy = () => {
-    window.createLemonSqueezy?.();
-    window.LemonSqueezy?.Setup?.({ eventHandler });
-    window.LemonSqueezy?.Url?.Open?.(
-      urlcat('https://goodverse.lemonsqueezy.com/checkout/buy/:product', {
-        'checkout[custom][address]': address,
-        'checkout[custom][delegatedExecutor]': delegatedExecutor,
-        'checkout[custom][handle]': handle.toLowerCase(),
-        desc: 0,
-        discount: 0,
-        embed: 1,
-        logo: 0,
-        media: 0,
-        product: IS_MAINNET
-          ? '9636e45f-0c7b-4896-bfd2-6245c3c5c879'
-          : 'bc50d61b-dde2-477d-bb89-5453d0c665d8'
-      })
-    );
-  };
-
   const disabled =
     !canCheck || !isAvailable || isLoading || !delegatedExecutor || isInvalid;
 
@@ -205,15 +168,6 @@ const ChooseHandle: FC = () => {
           )}
         </div>
         <div className="flex items-center space-x-3">
-          {/* <Button
-            className="w-full justify-center"
-            disabled={disabled}
-            icon={<CreditCardIcon className="size-5" />}
-            onClick={handleBuy}
-            type="button"
-          >
-            Buy with Card
-          </Button> */}
           {hasBalance ? (
             <Button
               className="w-full justify-center"
