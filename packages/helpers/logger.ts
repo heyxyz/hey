@@ -3,9 +3,9 @@ class Logger {
     return `\x1b[${colorCode}m${level}\x1b[0m: ${message}`;
   }
 
-  error(message: string) {
+  error(message: string, error?: Error) {
     const formattedMessage = this.formatMessage('ERROR', message, '1;31');
-    console.error(formattedMessage);
+    console.error(formattedMessage, error);
   }
 
   info(message: string) {
