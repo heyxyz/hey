@@ -34,6 +34,12 @@ const NavbarContainer = styled.div`
       display: none;
     }
   }
+
+  @media (max-width: 430px) {
+    .hide-on-mobile {
+      display: none;
+    }
+  }
 `;
 
 const BottomButtonsContainer = styled.div`
@@ -52,6 +58,30 @@ const PostButton = styled.button`
   padding: 0.75rem;
   margin-bottom: 1rem;
   font-size: 1.25rem;
+
+  @media (max-width: 430px) {
+    display: none;
+  }
+`;
+
+const MobilePostButton = styled.button`
+  display: none;
+
+  @media (max-width: 430px) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #da5597;
+    color: white;
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    bottom: 80px;  /* Adjust this value to raise the button */
+    right: 20px;
+    z-index: 10;
+    font-size: 2rem;
+  }
 `;
 
 const SignupButton = styled.button`
@@ -169,7 +199,7 @@ const Navbar: FC = () => {
       <NavbarContainer className="container mx-auto max-w-screen-xl">
         <div className="relative flex flex-col h-full items-start justify-start">
           <button
-            className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
+            className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden hide-on-mobile"
             onClick={() => setShowSearch(!showSearch)}
             type="button"
           >
@@ -179,7 +209,7 @@ const Navbar: FC = () => {
               <MagnifyingGlassIconSolid className="size-8" />
             )}
           </button>
-          <Link href="/">
+          <Link href="/" className="hide-on-mobile">
             <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
               <div className="text-3xl font-black ml-6">
                 <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
@@ -190,7 +220,7 @@ const Navbar: FC = () => {
           <div className="hidden sm:ml-6 md:block pt-5 overflow-y-auto max-h-[70vh] pr-4">
             <div className="flex flex-col items-start relative h-fit">
               <NavItems />
-              <div className="w-full mt-5">
+              <div className="w-full mt-5 desktop-post-button">
                 <PostButton>Post</PostButton>
                 <div className="auth-buttons">
                   <Link href="/signup">
@@ -205,6 +235,7 @@ const Navbar: FC = () => {
           </div>
         </div>
       </NavbarContainer>
+      <MobilePostButton className="mobile-post-button">+</MobilePostButton>
       {showSearch ? (
         <div className="m-3 md:hidden">
           <Search />
