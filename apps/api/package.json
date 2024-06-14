@@ -29,6 +29,7 @@
     "@hey/helpers": "workspace:*",
     "@irys/sdk": "^0.2.3",
     "@lens-protocol/metadata": "^1.2.0",
+    "@notionhq/client": "^2.2.15",
     "@prisma/client": "^5.15.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
