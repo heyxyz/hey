@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
-import { CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@good/data/tracking';
 import getNumberOfDaysFromDate from '@good/helpers/datetime/getNumberOfDaysFromDate';
 import { Button, Card } from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';

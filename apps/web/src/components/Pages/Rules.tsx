@@ -4,8 +4,8 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@good/data/constants';
 import { PAGEVIEW } from '@good/data/tracking';
 import { Leafwatch } from '@helpers/leafwatch';
+import Link from 'next/link';
 import { useEffect } from 'react';
-import Link from 'next/link'
 
 const Rules: NextPage = () => {
   useEffect(() => {

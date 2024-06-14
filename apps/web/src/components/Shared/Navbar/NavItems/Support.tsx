@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import cn from '@good/ui/cn';
+import { HandRaisedIcon } from '@heroicons/react/24/outline';
 
 interface SupportProps {
   className?: string;

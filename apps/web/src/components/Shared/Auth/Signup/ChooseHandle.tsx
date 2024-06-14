@@ -5,7 +5,6 @@ import {
   APP_NAME,
   GOOD_LENS_SIGNUP,
   HANDLE_PREFIX,
-  IS_MAINNET,
   SIGNUP_PRICE,
   ZERO_ADDRESS
 } from '@good/data/constants';
