@@ -8,7 +8,6 @@ import { goodFont } from '@helpers/fonts';
 
 import '../styles.css';
 
-
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Providers>
