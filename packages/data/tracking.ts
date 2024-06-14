@@ -105,6 +105,7 @@ export const EXPLORE = {
 
 export const SETTINGS = {
   ACCOUNT: {
+    REQUEST_VERIFICATION: 'Request verification',
     RESEND_EMAIL_VERIFICATION: 'Resend email verification',
     SET_DEFAULT_PROFILE: 'Set default profile',
     SET_EMAIL: 'Set email',
@@ -226,7 +227,6 @@ export const MISCELLANEOUS = {
     OPEN_FEEDBACK: 'Open feedback',
     OPEN_GITHUB: 'Open GitHub',
     OPEN_STATUS: 'Open status',
-    OPEN_SUPPORT: 'Open support',
     OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin'
