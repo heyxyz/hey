@@ -18,22 +18,21 @@ const Sidebar: FC = () => {
   const loggedOut = !loggedInWithProfile;
 
   return (
-    <>
-      {/* <Gitcoin /> */}
-      {loggedOut && <SignupCard />}
-      {loggedInWithProfile && IS_MAINNET && <GoodMembershipNft />}
-      {/* Onboarding steps */}
-      {loggedInWithProfile && (
-        <>
-          <EnableLensManager />
-          <SetProfile />
-        </>
-      )}
-      {/* Recommendations */}
-      <StaffPicks />
-      {loggedInWithProfile && <WhoToFollow />}
-      <Footer />
-    </>
+    <div className="hidden lg:block">
+    {loggedOut && <SignupCard />}
+    {loggedInWithProfile && IS_MAINNET && <GoodMembershipNft />}
+    {/* Onboarding steps */}
+    {loggedInWithProfile && (
+      <>
+        <EnableLensManager />
+        <SetProfile />
+      </>
+    )}
+    {/* Recommendations */}
+    <StaffPicks />
+    {loggedInWithProfile && <WhoToFollow />}
+    <Footer />
+  </div>
   );
 };
 
