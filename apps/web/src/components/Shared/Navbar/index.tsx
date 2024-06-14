@@ -22,11 +22,15 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
+import MoreNavItems from './MoreNavItems';
+
 const NavbarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  margin: 0;
+  padding: 0;
 
   @media (max-width: 1024px) {
     .nav-text,
@@ -138,6 +142,7 @@ const Navbar: FC = () => {
   const NavItem: FC<NavItemProps> = ({ current, name, url, icon }) => {
     return (
       <Link
+        href={url}
         className={cn(
           'cursor-pointer rounded-md px-2 py-1 mb-4 flex items-start space-x-2 hover:bg-gray-300/20 md:flex',
           {
@@ -145,7 +150,6 @@ const Navbar: FC = () => {
             'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white': !current
           }
         )}
-        href={url}
       >
         {icon}
         <div className="nav-text dark:text-white text-black">
@@ -183,12 +187,9 @@ const Navbar: FC = () => {
           url="/messages" 
           icon={pathname === '/messages' ? <EnvelopeIconSolid className="size-8" /> : <EnvelopeIconOutline className="size-8" />}
         />
-        <NavItem 
-          current={pathname === '/more'} 
-          name="More"
-          url="/more" 
-          icon={<EllipsisHorizontalIcon className="size-8" />}
-        />
+        <div className="relative">
+          <MoreNavItems />
+        </div>
       </>
     );
   };
