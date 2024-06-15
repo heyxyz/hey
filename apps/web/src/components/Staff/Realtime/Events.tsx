@@ -32,11 +32,15 @@ const Events: FC = () => {
     <Card>
       <CardHeader title="Publication Stats" />
       <div>
-        <ul>
-          {events.map((event, index: any) => (
-            <li key={index}>{event.name}</li>
-          ))}
-        </ul>
+        {events.length === 0 ? (
+          <div className="p-5 italic">Waiting for events...</div>
+        ) : (
+          <ul className="p-5">
+            {events.map((event, index: any) => (
+              <li key={index}>{event.name}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </Card>
   );
