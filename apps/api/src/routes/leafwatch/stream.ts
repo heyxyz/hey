@@ -1,21 +1,19 @@
 import type { Handler } from 'express';
 
-let sseClients = require('../../helpers/leafwatch/sseClients');
+import catchedError from 'src/helpers/catchedError';
+import createClickhouseClient from 'src/helpers/createClickhouseClient';
 
-export const get: Handler = (req, res) => {
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  res.flushHeaders();
+export const get: Handler = async (req, res) => {
+  try {
+    const client = createClickhouseClient();
+    const rows = await client.query({
+      format: 'JSONEachRow',
+      query: `SELECT * FROM events ORDER BY created DESC LIMIT 50;`
+    });
+    const result = await rows.json<any>();
 
-  sseClients.push(res);
-
-  const heartbeat = setInterval(() => {
-    res.write(': heartbeat\n\n');
-  }, 2000);
-
-  req.on('close', () => {
-    clearInterval(heartbeat);
-    sseClients = sseClients.filter((client: any) => client !== res);
-  });
+    return res.status(200).json({ result, success: true });
+  } catch (error) {
+    return catchedError(res, error);
+  }
 };
