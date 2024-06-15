@@ -12,6 +12,8 @@ import { UAParser } from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
+let sseClients = require('../../helpers/leafwatch/sseClients');
+
 type ExtensionRequest = {
   fingerprint?: string;
   name: string;
@@ -87,36 +89,40 @@ export const post: Handler = async (req, res) => {
     const identityToken = req.headers['x-identity-token'] as string;
     const payload = parseJwt(identityToken);
 
+    const values = {
+      actor: payload.id || null,
+      browser: ua.browser.name || null,
+      browser_version: ua.browser.version || null,
+      city: ipData?.city || null,
+      country: ipData?.country || null,
+      fingerprint: fingerprint || null,
+      ip: ip || null,
+      name,
+      os: ua.os.name || null,
+      platform: platform || null,
+      properties: properties || null,
+      referrer: referrer || null,
+      region: ipData?.regionName || null,
+      url: url || null,
+      utm_campaign: utmCampaign || null,
+      utm_content: utmContent || null,
+      utm_medium: utmMedium || null,
+      utm_source: utmSource || null,
+      utm_term: utmTerm || null,
+      version: version || null,
+      wallet: payload.evmAddress || null
+    };
+
     const client = createClickhouseClient();
     const result = await client.insert({
       format: 'JSONEachRow',
       table: 'events',
-      values: [
-        {
-          actor: payload.id || null,
-          browser: ua.browser.name || null,
-          browser_version: ua.browser.version || null,
-          city: ipData?.city || null,
-          country: ipData?.country || null,
-          fingerprint: fingerprint || null,
-          ip: ip || null,
-          name,
-          os: ua.os.name || null,
-          platform: platform || null,
-          properties: properties || null,
-          referrer: referrer || null,
-          region: ipData?.regionName || null,
-          url: url || null,
-          utm_campaign: utmCampaign || null,
-          utm_content: utmContent || null,
-          utm_medium: utmMedium || null,
-          utm_source: utmSource || null,
-          utm_term: utmTerm || null,
-          version: version || null,
-          wallet: payload.evmAddress || null
-        }
-      ]
+      values: [values]
     });
+
+    for (const client of sseClients) {
+      client.write(`data: ${JSON.stringify(values)}\n\n`);
+    }
 
     logger.info('Ingested event to Leafwatch');
 
