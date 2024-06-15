@@ -6,6 +6,7 @@ import {
   ChartBarIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
+  SignalIcon,
   UserIcon,
   UserPlusIcon
 } from '@heroicons/react/24/outline';
@@ -20,6 +21,11 @@ const settingsSidebarItems = [
     icon: <ChartBarIcon className="size-4" />,
     title: 'Stats',
     url: '/staff/stats'
+  },
+  {
+    icon: <SignalIcon className="size-4" />,
+    title: 'Realtime',
+    url: '/staff/realtime'
   },
   {
     icon: <UserIcon className="size-4" />,
