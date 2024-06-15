@@ -31,7 +31,7 @@
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.4",
     "start-server-and-test": "^2.0.4",
-    "turbo": "^2.0.3"
+    "turbo": "^2.0.4"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {
