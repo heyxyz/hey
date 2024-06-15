@@ -12,7 +12,7 @@ export const get: Handler = (req, res) => {
 
   const heartbeat = setInterval(() => {
     res.write(': heartbeat\n\n');
-  }, 20000);
+  }, 2000);
 
   req.on('close', () => {
     clearInterval(heartbeat);

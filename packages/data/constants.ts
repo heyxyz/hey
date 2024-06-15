@@ -13,6 +13,9 @@ export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const HEY_API_URL = IS_PRODUCTION
   ? getEnvConfig().heyApiEndpoint
   : 'http://localhost:4784';
+export const HEY_MAINNET_RAILWAY_URL = IS_PRODUCTION
+  ? 'https://hey-api-mainnet.up.railway.app'
+  : 'http://localhost:4784';
 export const LENS_HUB = getEnvConfig().lensHub;
 export const LENS_HANDLES = getEnvConfig().lensHandles;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;

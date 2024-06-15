@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_MAINNET_RAILWAY_URL } from '@hey/data/constants';
 import { Card, CardHeader } from '@hey/ui';
 import { useEffect, useState } from 'react';
 
 interface Event {
   actor: string;
+  date: Date;
   name: string;
 }
 
@@ -13,13 +14,16 @@ const Events: FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    const eventSource = new EventSource(`${HEY_API_URL}/leafwatch/stream`);
+    const eventSource = new EventSource(
+      `${HEY_MAINNET_RAILWAY_URL}/leafwatch/stream`
+    );
 
     eventSource.onmessage = function (event) {
       const newEvent = JSON.parse(event.data);
+      newEvent.date = new Date();
       setEvents((prevEvents: Event[]) => {
         const updatedEvents = [newEvent, ...prevEvents];
-        return updatedEvents.slice(0, 50); // Limit to last 50 events
+        return updatedEvents.slice(0, 50);
       });
     };
 
@@ -35,9 +39,11 @@ const Events: FC = () => {
         {events.length === 0 ? (
           <div className="p-5 italic">Waiting for events...</div>
         ) : (
-          <ul className="p-5">
+          <ul className="divide-y">
             {events.map((event, index: any) => (
-              <li key={index}>{event.name}</li>
+              <li className="px-5 py-2" key={index}>
+                <div>{event.name}</div>
+              </li>
             ))}
           </ul>
         )}
