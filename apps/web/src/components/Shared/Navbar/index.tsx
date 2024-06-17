@@ -1,28 +1,29 @@
 import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import styled from 'styled-components';
+
+import Search from '@components/Search';
 import cn from '@good/ui/cn';
 import {
-  MagnifyingGlassIcon as MagnifyingGlassIconOutline,
-  HomeIcon as HomeIconOutline,
   BellIcon as BellIconOutline,
   EnvelopeIcon as EnvelopeIconOutline,
-  EllipsisHorizontalIcon
+  HomeIcon as HomeIconOutline,
+  MagnifyingGlassIcon as MagnifyingGlassIconOutline
 } from '@heroicons/react/24/outline';
 import {
+  BellIcon as BellIconSolid,
+  EnvelopeIcon as EnvelopeIconSolid,
   HomeIcon as HomeIconSolid,
   MagnifyingGlassIcon as MagnifyingGlassIconSolid,
-  BellIcon as BellIconSolid,
-  EnvelopeIcon as EnvelopeIconSolid
+  XMarkIcon as XMarkIconSolid,
 } from '@heroicons/react/24/solid';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import styled from 'styled-components';
 
 import MoreNavItems from './MoreNavItems';
-import Search from '@components/Search';
 import StaffBar from './StaffBar';
 
 const NavbarContainer = styled.div`
@@ -82,7 +83,7 @@ const MobilePostButton = styled.button`
     width: 56px;
     height: 56px;
     position: fixed;
-    bottom: 80px;  /* Adjust this value to raise the button */
+    bottom: 80px; /* Adjust this value to raise the button */
     right: 20px;
     z-index: 10;
     font-size: 2rem;
@@ -140,10 +141,9 @@ const Navbar: FC = () => {
     url: string;
   }
 
-  const NavItem: FC<NavItemProps> = ({ current, name, url, icon }) => {
+  const NavItem: FC<NavItemProps> = ({ current, icon, name, url }) => {
     return (
       <Link
-        href={url}
         className={cn(
           'mb-4 flex cursor-pointer items-start space-x-2 rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex',
           {
@@ -152,10 +152,13 @@ const Navbar: FC = () => {
               !current
           }
         )}
+        href={url}
       >
         {icon}
-        <div className="nav-text dark:text-white text-black">
-          <span className={`text-xl ${current ? 'font-bold' : ''}`}>{name}</span>
+        <div className="nav-text text-black dark:text-white">
+          <span className={`text-xl ${current ? 'font-bold' : ''}`}>
+            {name}
+          </span>
         </div>
       </Link>
     );
@@ -165,29 +168,53 @@ const Navbar: FC = () => {
     const { pathname } = useRouter();
     return (
       <>
-        <NavItem 
-          current={pathname === '/'} 
+        <NavItem
+          current={pathname === '/'}
+          icon={
+            pathname === '/' ? (
+              <HomeIconSolid className="size-8" />
+            ) : (
+              <HomeIconOutline className="size-8" />
+            )
+          }
           name="Home"
-          url="/" 
-          icon={pathname === '/' ? <HomeIconSolid className="size-8" /> : <HomeIconOutline className="size-8" />}
+          url="/"
         />
         <NavItem
           current={pathname === '/explore'}
+          icon={
+            pathname === '/explore' ? (
+              <MagnifyingGlassIconSolid className="size-8" />
+            ) : (
+              <MagnifyingGlassIconOutline className="size-8" />
+            )
+          }
           name="Explore"
           url="/explore"
-          icon={pathname === '/explore' ? <MagnifyingGlassIconSolid className="size-8" /> : <MagnifyingGlassIconOutline className="size-8" />}
         />
-        <NavItem 
-          current={pathname === '/notifications'} 
+        <NavItem
+          current={pathname === '/notifications'}
+          icon={
+            pathname === '/notifications' ? (
+              <BellIconSolid className="size-8" />
+            ) : (
+              <BellIconOutline className="size-8" />
+            )
+          }
           name="Notifications"
-          url="/notifications" 
-          icon={pathname === '/notifications' ? <BellIconSolid className="size-8" /> : <BellIconOutline className="size-8" />}
+          url="/notifications"
         />
-        <NavItem 
-          current={pathname === '/messages'} 
+        <NavItem
+          current={pathname === '/messages'}
+          icon={
+            pathname === '/messages' ? (
+              <EnvelopeIconSolid className="size-8" />
+            ) : (
+              <EnvelopeIconOutline className="size-8" />
+            )
+          }
           name="Messages"
-          url="/messages" 
-          icon={pathname === '/messages' ? <EnvelopeIconSolid className="size-8" /> : <EnvelopeIconOutline className="size-8" />}
+          url="/messages"
         />
         <div className="relative">
           <MoreNavItems />
@@ -200,9 +227,9 @@ const Navbar: FC = () => {
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
       <NavbarContainer className="container mx-auto max-w-screen-xl">
-        <div className="relative flex flex-col h-full items-start justify-start">
+        <div className="relative flex h-full flex-col items-start justify-start">
           <button
-            className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden hide-on-mobile"
+            className="hide-on-mobile inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
             onClick={() => setShowSearch(!showSearch)}
             type="button"
           >
@@ -212,18 +239,20 @@ const Navbar: FC = () => {
               <MagnifyingGlassIconSolid className="size-8" />
             )}
           </button>
-          <Link href="/" className="hide-on-mobile">
-            <div className="inline-flex flex-grow justify-start items-start font-bold text-white-900">
-              <div className="text-3xl font-black ml-6">
-                <img className="w-12 h-12" src="/logo1.svg" alt="Logo" />
+          <Link className="hide-on-mobile" href="/">
+            <div className="text-white-900 inline-flex flex-grow items-start justify-start font-bold">
+              <div className="ml-6 text-3xl font-black">
+                <img alt="Logo" className="h-12 w-12" src="/logo1.svg" />
               </div>
-              <span className="nav-text flex flex-grow ml-3 mr-3">Goodcast</span>
+              <span className="nav-text ml-3 mr-3 flex flex-grow">
+                Goodcast
+              </span>
             </div>
           </Link>
-          <div className="hidden sm:ml-6 md:block pt-5 overflow-y-auto max-h-[70vh] pr-4">
-            <div className="flex flex-col items-start relative h-fit">
+          <div className="hidden max-h-[70vh] overflow-y-auto pr-4 pt-5 sm:ml-6 md:block">
+            <div className="relative flex h-fit flex-col items-start">
               <NavItems />
-              <div className="w-full mt-5 desktop-post-button">
+              <div className="desktop-post-button mt-5 w-full">
                 <PostButton>Post</PostButton>
                 <div className="auth-buttons">
                   <Link href="/signup">
