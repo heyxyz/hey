@@ -7,6 +7,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
+import MoreLink from './NavItems/MoreLink';
 import Support from './NavItems/Support';
 
 const MoreNavItems: FC = () => {
@@ -43,6 +44,33 @@ const MoreNavItems: FC = () => {
                     }
                   >
                     <Bookmarks />
+                  </MenuItem>
+                  <MenuItem
+                    as="div"
+                    className={({ focus }: { focus: boolean }) =>
+                      cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                    }
+                  >
+                    <MoreLink href="https://gitcoin.co" text="Gitcoin" />
+                  </MenuItem>
+                  <MenuItem
+                    as="div"
+                    className={({ focus }: { focus: boolean }) =>
+                      cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                    }
+                  >
+                    <MoreLink href="https://giveth.io" text="Giveth" />
+                  </MenuItem>
+                  <MenuItem
+                    as="div"
+                    className={({ focus }: { focus: boolean }) =>
+                      cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                    }
+                  >
+                    <MoreLink
+                      href="https://thegivingblock.com"
+                      text="The Giving Block"
+                    />
                   </MenuItem>
                   <div className="divider" />
                 </>
