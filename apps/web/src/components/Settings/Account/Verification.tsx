@@ -1,10 +1,12 @@
 import type { FC } from 'react';
 
+import { SETTINGS } from '@good/data/tracking';
 import getNumberOfDaysFromDate from '@good/helpers/datetime/getNumberOfDaysFromDate';
 import { Button, Card } from '@good/ui';
+import { Leafwatch } from '@helpers/leafwatch';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Crisp } from 'crisp-sdk-web';
+import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
 
@@ -75,25 +77,9 @@ const Verification: FC = () => {
             className="!mt-4"
             disabled={!hasAllRequirements}
             onClick={() => {
-              Crisp.chat.show();
-              Crisp.message.show('picker', {
-                choices: [
-                  { label: 'Creator', selected: false, value: 'creator' },
-                  {
-                    label: 'Journalist',
-                    selected: false,
-                    value: 'journalist'
-                  },
-                  {
-                    label: 'Public Figure',
-                    selected: false,
-                    value: 'public-figure'
-                  },
-                  { label: 'Other', selected: false, value: 'other' }
-                ],
-                id: 'verification-request',
-                text: 'Hi, why do you think you should be verified? And tell us more about yourself.'
-              });
+              // TODO: Migrate to Hey API
+              Leafwatch.track(SETTINGS.ACCOUNT.REQUEST_VERIFICATION);
+              toast.success('Verification request sent to staff!');
             }}
           >
             Request for profile verification

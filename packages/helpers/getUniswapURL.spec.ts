@@ -7,7 +7,7 @@ describe('getUniswapURL', () => {
     const amount = 123.45;
     const outputCurrency = '0x0123456789abcdef';
     const expectedURL =
-      'https://app.uniswap.org/#/swap?chain=polygon_mumbai&exactAmount=123.45&exactField=output&outputCurrency=0x0123456789abcdef';
+      'https://app.uniswap.org/#/swap?chain=polygon&exactAmount=123.45&exactField=output&outputCurrency=0x0123456789abcdef';
     const result = getUniswapURL(amount, outputCurrency);
     expect(result).toBe(expectedURL);
   });
@@ -16,7 +16,7 @@ describe('getUniswapURL', () => {
     const amount = 0;
     const outputCurrency = '0x0123456789abcdef';
     const expectedURL =
-      'https://app.uniswap.org/#/swap?chain=polygon_mumbai&exactAmount=0&exactField=output&outputCurrency=0x0123456789abcdef';
+      'https://app.uniswap.org/#/swap?chain=polygon&exactAmount=0&exactField=output&outputCurrency=0x0123456789abcdef';
     const result = getUniswapURL(amount, outputCurrency);
     expect(result).toBe(expectedURL);
   });
@@ -26,7 +26,7 @@ describe('getUniswapURL', () => {
     const outputCurrency = '';
     // Note: The resulting URL will still contain "&outputCurrency=", but with an empty value.
     const expectedURL =
-      'https://app.uniswap.org/#/swap?chain=polygon_mumbai&exactAmount=123.45&exactField=output&outputCurrency=';
+      'https://app.uniswap.org/#/swap?chain=polygon&exactAmount=123.45&exactField=output&outputCurrency=';
     const result = getUniswapURL(amount, outputCurrency);
     expect(result).toBe(expectedURL);
   });

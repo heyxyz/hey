@@ -17,7 +17,6 @@ module.exports = {
     ];
   },
   poweredByHeader: false,
-  productionBrowserSourceMaps: true,
   reactStrictMode: false,
   redirects() {
     return [

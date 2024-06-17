@@ -18,8 +18,7 @@ const Sidebar: FC = () => {
   const loggedOut = !loggedInWithProfile;
 
   return (
-    <>
-      {/* <Gitcoin /> */}
+    <div className="hidden lg:block">
       {loggedOut && <SignupCard />}
       {loggedInWithProfile && IS_MAINNET && <GoodMembershipNft />}
       {/* Onboarding steps */}
@@ -33,7 +32,7 @@ const Sidebar: FC = () => {
       <StaffPicks />
       {loggedInWithProfile && <WhoToFollow />}
       <Footer />
-    </>
+    </div>
   );
 };
 

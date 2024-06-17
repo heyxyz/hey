@@ -17,12 +17,13 @@ import {
   BellIcon as BellIconSolid,
   EnvelopeIcon as EnvelopeIconSolid
 } from '@heroicons/react/24/solid';
-
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 import MoreNavItems from './MoreNavItems';
+import Search from '@components/Search';
+import StaffBar from './StaffBar';
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -134,9 +135,9 @@ const Navbar: FC = () => {
 
   interface NavItemProps {
     current: boolean;
+    icon: ReactNode;
     name: string;
     url: string;
-    icon: ReactNode;
   }
 
   const NavItem: FC<NavItemProps> = ({ current, name, url, icon }) => {
@@ -144,10 +145,11 @@ const Navbar: FC = () => {
       <Link
         href={url}
         className={cn(
-          'cursor-pointer rounded-md px-2 py-1 mb-4 flex items-start space-x-2 hover:bg-gray-300/20 md:flex',
+          'mb-4 flex cursor-pointer items-start space-x-2 rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
-            'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white': !current
+            'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
+              !current
           }
         )}
       >

@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 import { APP_NAME } from '@good/data/constants';
 import { GridItemEight, GridLayout } from '@good/ui';
-import showCrisp from '@helpers/showCrisp';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 
 const Suspended: FC = () => {
@@ -26,10 +26,8 @@ const Suspended: FC = () => {
           <div className="text-sm text-gray-500">
             Because of that, your profile may limit your ability to interact
             with {APP_NAME} and other users.{' '}
-            <button className="underline" onClick={showCrisp}>
-              Contact us
-            </button>{' '}
-            if you think this is a mistake.
+            <Link href="/support">Contact us</Link> if you think this is a
+            mistake.
           </div>
         </GridItemEight>
       </GridLayout>
