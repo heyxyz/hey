@@ -1,13 +1,16 @@
 import type { FC, ReactNode } from 'react';
 
-import NavPost from '@components/Composer/Post/NavPost';
-import NotificationIcon from '@components/Notification/NotificationIcon';
+import Search from '@components/Search';
 import cn from '@good/ui/cn';
 import {
+  BellIcon as BellIconOutline,
+  EnvelopeIcon as EnvelopeIconOutline,
   HomeIcon as HomeIconOutline,
   MagnifyingGlassIcon as MagnifyingGlassIconOutline
 } from '@heroicons/react/24/outline';
 import {
+  BellIcon as BellIconSolid,
+  EnvelopeIcon as EnvelopeIconSolid,
   HomeIcon as HomeIconSolid,
   MagnifyingGlassIcon as MagnifyingGlassIconSolid,
   XMarkIcon as XMarkIconSolid
@@ -18,13 +21,101 @@ import { useEffect, useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import styled from 'styled-components';
 
-import MenuItems from './MenuItems';
-import MessagesIcon from './MessagesIcon';
-import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
-import Search from './Search';
 import StaffBar from './StaffBar';
+
+const NavbarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  @media (max-width: 1024px) {
+    .nav-text,
+    .auth-buttons {
+      display: none;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .hide-on-mobile {
+      display: none;
+    }
+  }
+`;
+
+const BottomButtonsContainer = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+`;
+
+const PostButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #da5597;
+  color: white;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+
+  @media (max-width: 430px) {
+    display: none;
+  }
+`;
+
+const MobilePostButton = styled.button`
+  display: none;
+
+  @media (max-width: 430px) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #da5597;
+    color: white;
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    bottom: 80px; /* Adjust this value to raise the button */
+    right: 20px;
+    z-index: 10;
+    font-size: 2rem;
+  }
+`;
+
+const SignupButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+`;
+
+const LoginButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  width: 100%;
+  padding: 0.25rem;
+  font-size: 0.875rem;
+`;
 
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -39,9 +130,7 @@ const Navbar: FC = () => {
     };
 
     handleResize();
-
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -66,7 +155,7 @@ const Navbar: FC = () => {
         href={url}
       >
         {icon}
-        <div className={`text-black dark:text-white`}>
+        <div className="nav-text text-black dark:text-white">
           <span className={`text-xl ${current ? 'font-bold' : ''}`}>
             {name}
           </span>
@@ -77,7 +166,6 @@ const Navbar: FC = () => {
 
   const NavItems = () => {
     const { pathname } = useRouter();
-
     return (
       <>
         <NavItem
@@ -92,7 +180,6 @@ const Navbar: FC = () => {
           name="Home"
           url="/"
         />
-
         <NavItem
           current={pathname === '/explore'}
           icon={
@@ -105,6 +192,33 @@ const Navbar: FC = () => {
           name="Explore"
           url="/explore"
         />
+        <NavItem
+          current={pathname === '/notifications'}
+          icon={
+            pathname === '/notifications' ? (
+              <BellIconSolid className="size-8" />
+            ) : (
+              <BellIconOutline className="size-8" />
+            )
+          }
+          name="Notifications"
+          url="/notifications"
+        />
+        <NavItem
+          current={pathname === '/messages'}
+          icon={
+            pathname === '/messages' ? (
+              <EnvelopeIconSolid className="size-8" />
+            ) : (
+              <EnvelopeIconOutline className="size-8" />
+            )
+          }
+          name="Messages"
+          url="/messages"
+        />
+        <div className="relative">
+          <MoreNavItems />
+        </div>
       </>
     );
   };
@@ -112,10 +226,10 @@ const Navbar: FC = () => {
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {staffMode ? <StaffBar /> : null}
-      <div className="container mx-auto flex max-w-screen-xl">
+      <NavbarContainer className="container mx-auto max-w-screen-xl">
         <div className="relative flex h-full flex-col items-start justify-start">
           <button
-            className="inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
+            className="hide-on-mobile inline-flex items-start justify-start rounded-md text-gray-500 focus:outline-none md:hidden"
             onClick={() => setShowSearch(!showSearch)}
             type="button"
           >
@@ -125,64 +239,35 @@ const Navbar: FC = () => {
               <MagnifyingGlassIconSolid className="size-8" />
             )}
           </button>
-          <Link
-            // className="hidden rounded-full outline-offset-8 md:block"
-            href="/"
-          >
+          <Link className="hide-on-mobile" href="/">
             <div className="text-white-900 inline-flex flex-grow items-start justify-start font-bold">
               <div className="ml-6 text-3xl font-black">
                 <img alt="Logo" className="h-12 w-12" src="/logo1.svg" />
               </div>
-              <span className="ml-3 mr-3 flex flex-grow">Goodcast</span>
+              <span className="nav-text ml-3 mr-3 flex flex-grow">
+                Goodcast
+              </span>
             </div>
           </Link>
-          <div className="hidden max-h-[70vh] overflow-y-auto overflow-x-hidden pt-5 sm:ml-6 md:block">
+          <div className="hidden max-h-[70vh] overflow-y-auto pr-4 pt-5 sm:ml-6 md:block">
             <div className="relative flex h-fit flex-col items-start">
-              <div className="hidden md:block">{/* <Search /> */}</div>
               <NavItems />
-              <NotificationIcon />
-              <MessagesIcon />
-              <MoreNavItems />
-              <div className="w-full">
-                <NavPost />
-              </div>
-              {/**Profile section of navbar */}
-              <div
-                className={
-                  isShortScreen
-                    ? 'mt-4 flex items-start justify-between'
-                    : 'fixed bottom-0 md:fixed'
-                }
-              >
-                <Link
-                  className={cn(
-                    'max-h-[100vh] md:hidden',
-                    !currentProfile?.id && 'ml-[60px]'
-                  )}
-                  href="/"
-                >
-                  <img
-                    alt="Logo"
-                    className="size-7"
-                    height={32}
-                    src="/logo.png" //{`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
-                    width={32}
-                  />
-                </Link>
-                <div
-                  className="mt-4 flex items-start justify-between"
-                  id="profile"
-                >
-                  <div className="flex items-center gap-2">
-                    <MenuItems /> {/* Profile Submenu Section */}
-                    <ModIcon />
-                  </div>
+              <div className="desktop-post-button mt-5 w-full">
+                <PostButton>Post</PostButton>
+                <div className="auth-buttons">
+                  <Link href="/signup">
+                    <SignupButton>Signup</SignupButton>
+                  </Link>
+                  <Link href="/login">
+                    <LoginButton>Login</LoginButton>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </NavbarContainer>
+      <MobilePostButton className="mobile-post-button">+</MobilePostButton>
       {showSearch ? (
         <div className="m-3 md:hidden">
           <Search />

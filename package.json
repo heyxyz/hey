@@ -24,9 +24,11 @@
     "root": true
   },
   "dependencies": {
-    "@good/abis": "workspace:^"
+    "@good/abis": "workspace:^",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.34",
     "eslint-plugin-perfectionist": "^2.10.0",
     "husky": "^9.0.11",
     "prettier": "^3.3.2",
