@@ -13,7 +13,7 @@ import {
   EnvelopeIcon as EnvelopeIconSolid,
   HomeIcon as HomeIconSolid,
   MagnifyingGlassIcon as MagnifyingGlassIconSolid,
-  XMarkIcon as XMarkIconSolid,
+  XMarkIcon as XMarkIconSolid
 } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
