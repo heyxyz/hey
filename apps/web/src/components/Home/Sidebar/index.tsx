@@ -19,20 +19,20 @@ const Sidebar: FC = () => {
 
   return (
     <div className="hidden lg:block">
-    {loggedOut && <SignupCard />}
-    {loggedInWithProfile && IS_MAINNET && <GoodMembershipNft />}
-    {/* Onboarding steps */}
-    {loggedInWithProfile && (
-      <>
-        <EnableLensManager />
-        <SetProfile />
-      </>
-    )}
-    {/* Recommendations */}
-    <StaffPicks />
-    {loggedInWithProfile && <WhoToFollow />}
-    <Footer />
-  </div>
+      {loggedOut && <SignupCard />}
+      {loggedInWithProfile && IS_MAINNET && <GoodMembershipNft />}
+      {/* Onboarding steps */}
+      {loggedInWithProfile && (
+        <>
+          <EnableLensManager />
+          <SetProfile />
+        </>
+      )}
+      {/* Recommendations */}
+      <StaffPicks />
+      {loggedInWithProfile && <WhoToFollow />}
+      <Footer />
+    </div>
   );
 };
 

@@ -1,17 +1,12 @@
 import type { FC } from 'react';
 
-import getAvatar from '@good/helpers/getAvatar';
-import getLennyURL from '@good/helpers/getLennyURL';
-import getProfile from '@good/helpers/getProfile';
-import { Card, Image } from '@good/ui';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-const navPost: FC = () => {
+const NavPost: FC = () => {
   const { isReady, push, query } = useRouter();
   const { currentProfile } = useProfileStore();
   const { setShowNewPostModal } = useGlobalModalStateStore();
@@ -45,14 +40,14 @@ const navPost: FC = () => {
 
   return (
     <button
-    className="mt-5 inline-flex items-center justify-center rounded-full text-black dark:text-white bg-custom-pink focus:outline-none px-4 py-2 w-full"
-    type="button"
-    style={{ backgroundColor: '#da5597' }}
-    onClick = {openModal}
-  >
-    <span className="text-xl">Post</span>
-  </button>
+      className="bg-custom-pink mt-5 inline-flex w-full items-center justify-center rounded-full px-4 py-2 text-black focus:outline-none dark:text-white"
+      onClick={openModal}
+      style={{ backgroundColor: '#da5597' }}
+      type="button"
+    >
+      <span className="text-xl">Post</span>
+    </button>
   );
 };
 
-export default navPost;
+export default NavPost;
