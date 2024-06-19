@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { Errors } from '@hey/data';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import saveSignupInvoiceToNotion from 'src/helpers/webhooks/saveSignupInvoiceToNotion';
+import sendSignupNotificationToSlack from 'src/helpers/webhooks/sendSignupNotificationToSlack';
 import { any, object } from 'zod';
 
 type ExtensionRequest = {
@@ -37,10 +37,7 @@ export const post: Handler = (req, res) => {
   const { event } = body as ExtensionRequest;
 
   try {
-    saveSignupInvoiceToNotion(
-      event.activity[0].hash,
-      event.activity[0].fromAddress
-    );
+    sendSignupNotificationToSlack(event.activity[0].hash);
 
     return res.status(200).json({ success: true });
   } catch (error) {
