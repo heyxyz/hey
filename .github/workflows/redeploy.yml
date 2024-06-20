@@ -1,0 +1,23 @@
+name: Redeploy API
+
+on:
+  schedule:
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger API Deployment 🚀
+        uses: indiesdev/curl@v1.1
+        with:
+          url: https://api.hey.xyz/internal/railway/triggerDeployments
+          method: 'POST'
+          body: '{ "secret": "${{ secrets.SECRET }}", "serviceId": "4a2a1bfb-e499-4c71-bf7f-d9ad47443c31" }'
+          headers: '{ "Content-Type": "application/json", "Referer": "https://hey.xyz" }'
