@@ -40,7 +40,7 @@ const Events: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Publication Stats" />
+      <CardHeader title="Realtime Events" />
       <div>
         {events.length === 0 ? (
           <div className="p-5 italic">Waiting for events...</div>
