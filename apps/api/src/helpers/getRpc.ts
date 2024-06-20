@@ -1,14 +1,15 @@
-import type { FallbackTransport } from 'viem';
+import type { HttpTransport } from 'viem';
 
-import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@hey/data/rpcs';
-import { fallback, http } from 'viem';
+import { HEY_API_URL } from '@hey/data/constants';
+import { http } from 'viem';
+import { polygon, polygonAmoy } from 'viem/chains';
 
-const getRpc = ({ mainnet }: { mainnet: boolean }): FallbackTransport => {
+const getRpc = ({ mainnet }: { mainnet: boolean }): HttpTransport => {
   if (mainnet) {
-    return fallback(POLYGON_RPCS.map((rpc) => http(rpc)));
+    return http(`${HEY_API_URL}/rpc?chain=${polygon.id}`);
   }
 
-  return fallback(POLYGON_AMOY_RPCS.map((rpc) => http(rpc)));
+  return http(`${HEY_API_URL}/rpc?chain=${polygonAmoy.id}`);
 };
 
 export default getRpc;
