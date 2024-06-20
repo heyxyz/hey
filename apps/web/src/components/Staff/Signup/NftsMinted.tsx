@@ -16,7 +16,7 @@ const NftsMinted: FC = () => {
   return (
     <NumberedStat
       count={totalSupply?.toString() || '0'}
-      name={`Total Membership NFTs`}
+      name="Total Membership NFTs"
       suffix="NFTs"
     />
   );
