@@ -1,46 +1,18 @@
 import type { Handler } from 'express';
 
+import {
+  ARBITRUM_RPCS,
+  ETHEREUM_RPCS,
+  POLYGON_AMOY_RPCS,
+  POLYGON_RPCS,
+  ZORA_RPCS
+} from '@hey/data/rpcs';
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
 import { arbitrum, mainnet, polygon, polygonAmoy, zora } from 'viem/chains';
 
-export const POLYGON_WRITE_RPC =
-  'https://polygon-mainnet.g.alchemy.com/v2/N_HuqeYE3mr_enxw-BGFI2rOm1U7bhGy';
-
-export const POLYGON_RPCS = [
-  'https://lb.nodies.app/v1/c4af832850924699b25128e185bde36e',
-  'https://polygon-pokt.nodies.app',
-  'https://rpc.ankr.com/polygon',
-  'https://1rpc.io/matic',
-  'https://polygon-bor-rpc.publicnode.com'
-];
-
-export const POLYGON_AMOY_RPCS = [
-  'https://rpc-amoy.polygon.technology',
-  'https://lb.nodies.app/v1/1c9670faa1fb4c59ac4b0185ec9f19b7',
-  'https://polygon-amoy-bor-rpc.publicnode.com'
-];
-
-const ETHEREUM_RPCS = [
-  'https://rpc-endpoints.superfluid.dev/eth-mainnet',
-  'https://eth-pokt.nodies.app',
-  'https://eth.drpc.org'
-];
-
-const ZORA_RPCS = ['https://rpc.zora.energy', 'https://zora.drpc.org'];
-
-const ARBITRUM_RPCS = [
-  'https://rpc-endpoints.superfluid.dev/arbitrum-one',
-  'https://arb-pokt.nodies.app',
-  'https://arbitrum.drpc.org'
-];
-
 const getRpcUrls = (chain: number) => {
-  if (chain === polygon.id) {
-    return POLYGON_RPCS;
-  }
-
   if (chain === polygonAmoy.id) {
     return POLYGON_AMOY_RPCS;
   }
@@ -57,7 +29,7 @@ const getRpcUrls = (chain: number) => {
     return ARBITRUM_RPCS;
   }
 
-  return [POLYGON_WRITE_RPC];
+  return POLYGON_RPCS;
 };
 
 const tryRpcs = async (rpcs: string[], body: any) => {
