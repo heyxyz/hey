@@ -1,8 +1,10 @@
 import type { FC } from 'react';
 
 import { HEY_API_URL } from '@hey/data/constants';
+import { AUTH } from '@hey/data/tracking';
 import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
 import { Card, CardHeader } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -48,7 +50,10 @@ const Events: FC = () => {
           <ul className="divide-y">
             {events.map((event, index: any) => (
               <li
-                className="flex items-center justify-between px-5 py-2"
+                className={cn(
+                  'flex items-center justify-between px-5 py-2',
+                  event.name === AUTH.SIGNUP && 'bg-green-100'
+                )}
                 key={index}
               >
                 <div className="flex items-center space-x-2">
