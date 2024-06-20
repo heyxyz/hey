@@ -16,7 +16,7 @@ const Followers: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowersRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     of: currentProfile?.id
   };
 
