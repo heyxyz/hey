@@ -16,10 +16,15 @@ const getFrame = (document: Document, url?: string): Frame | null => {
 
   let buttons: Frame['buttons'] = [];
   for (let i = 1; i < 5; i++) {
-    const button = getMeta(`of:button:${i}`);
-    const action = getMeta(`of:button:${i}:action`) as ButtonType;
-    const target = getMeta(`of:button:${i}:target`) as string;
-    const postUrl = getMeta(`of:button:${i}:post_url`) || url;
+    const button = getMeta(`of:button:${i}`) || getMeta(`fc:frame:button:${i}`);
+    const action = (getMeta(`of:button:${i}:action`) ||
+      getMeta(`fc:frame:button:${i}:action`)) as ButtonType;
+    const target = (getMeta(`of:button:${i}:target`) ||
+      getMeta(`fc:frame:button:${i}:target`)) as string;
+    const postUrl =
+      getMeta(`of:button:${i}:post_url`) ||
+      getMeta(`fc:frame:button:${i}:post_url`) ||
+      url;
 
     if (!button) {
       break;
