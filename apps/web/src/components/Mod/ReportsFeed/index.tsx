@@ -58,7 +58,12 @@ const ReportsFeed: FC = () => {
       }
       data={reports}
       endReached={onEndReached}
-      itemContent={(index, report) => {
+      itemContent={(_, report) => {
+        // TODO: Fix this when Lens team gives us the correct solution
+        if (!report.reportedPublication) {
+          return null;
+        }
+
         return (
           <Card>
             <SinglePublication
