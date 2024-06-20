@@ -9,8 +9,9 @@ import { Fragment } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Block from './Block';
+import CopyAddress from './CopyAddress';
+import CopyLink from './CopyLink';
 import Report from './Report';
-import Share from './Share';
 
 interface ProfileMenuProps {
   profile: Profile;
@@ -36,7 +37,8 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          <Share profile={profile} />
+          <CopyLink profile={profile} />
+          <CopyAddress profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (
             <>
               <Block profile={profile} />

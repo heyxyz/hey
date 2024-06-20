@@ -14,6 +14,7 @@ export const AUTH = {
 
 export const PROFILE = {
   BLOCK: 'Block profile',
+  COPY_PROFILE_ADDRESS: 'Copy profile address',
   COPY_PROFILE_LINK: 'Copy profile link',
   DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   FOLLOW: 'Follow profile',
