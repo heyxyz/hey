@@ -16,7 +16,7 @@ const ProfilesCreated: FC = () => {
   return (
     <NumberedStat
       count={totalProfilesCreated?.toString() || '0'}
-      name={`Total Profiles`}
+      name="Total Profiles"
       suffix="Profiles"
     />
   );
