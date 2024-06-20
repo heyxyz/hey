@@ -10,6 +10,7 @@ import {
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
+import { SWR_CACHE_AGE_1_SEC_1_SEC } from 'src/helpers/constants';
 import { arbitrum, mainnet, polygon, polygonAmoy, zora } from 'viem/chains';
 
 const getRpcUrls = (chain: number) => {
@@ -64,7 +65,10 @@ export const post: Handler = async (req, res) => {
   try {
     const rpcUrls = getRpcUrls(chainId);
     const result = await tryRpcs(rpcUrls, req.body);
-    return res.status(200).json(result);
+    return res
+      .setHeader('Cache-Control', SWR_CACHE_AGE_1_SEC_1_SEC)
+      .status(200)
+      .json(result);
   } catch (error) {
     return catchedError(res, error);
   }
