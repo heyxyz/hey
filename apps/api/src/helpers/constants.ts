@@ -21,6 +21,9 @@ export const SWR_CACHE_AGE_1_HOUR_12_HRS =
 // Cache for 1 second, stale for 30 days
 export const SWR_CACHE_AGE_1_SEC_30_DAYS =
   'public, s-maxage=1, stale-while-revalidate=2592000';
+// Cache for 1 second, stale for 1 second
+export const SWR_CACHE_AGE_1_SEC_1_SEC =
+  'public, s-maxage=1, stale-while-revalidate=1';
 // Cache for 10 seconds, stale for 30 days
 export const SWR_CACHE_AGE_10_SECS_30_DAYS =
   'public, s-maxage=10, stale-while-revalidate=2592000';
