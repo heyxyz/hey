@@ -19,7 +19,7 @@ const LensCredits: FC = () => {
   return (
     <NumberedStat
       count={credits || '0'}
-      name={`Lens Credits Balance`}
+      name="Lens Credits Balance"
       suffix="Credits"
     />
   );

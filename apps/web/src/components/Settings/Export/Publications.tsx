@@ -16,7 +16,7 @@ const Publications: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     where: { from: currentProfile?.id }
   };
 
