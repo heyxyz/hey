@@ -10,11 +10,11 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';
 
-interface ShareProps {
+interface CopyLinkProps {
   profile: Profile;
 }
 
-const Share: FC<ShareProps> = ({ profile }) => {
+const CopyLink: FC<CopyLinkProps> = ({ profile }) => {
   return (
     <MenuItem
       as="div"
@@ -29,7 +29,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
         await navigator.clipboard.writeText(
           `${location.origin}${getProfile(profile).link}`
         );
-        toast.success('Copied to clipboard!');
+        toast.success('Link copied to clipboard!');
         Leafwatch.track(PROFILE.COPY_PROFILE_LINK, { profile_id: profile.id });
       }}
     >
@@ -39,4 +39,4 @@ const Share: FC<ShareProps> = ({ profile }) => {
   );
 };
 
-export default Share;
+export default CopyLink;
