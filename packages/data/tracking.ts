@@ -189,9 +189,6 @@ export const STAFFTOOLS = {
     DELETE: 'Staff Tool: Delete feature flag',
     KILL: 'Staff Tool: Kill feature flag'
   },
-  SIGNUP_CONTRACT: {
-    REFILL: 'Staff Tool: Refill relayer'
-  },
   STAFF_PICKS: {
     CREATE: 'Staff Tool: Create staff pick',
     DELETE: 'Staff Tool: Delete staff pick'
