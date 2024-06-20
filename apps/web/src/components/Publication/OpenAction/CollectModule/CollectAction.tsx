@@ -73,6 +73,8 @@ const CollectAction: FC<CollectActionProps> = ({
   openAction,
   publication
 }) => {
+  const collectModule = getCollectModuleData(openAction as any);
+
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
   const {
@@ -87,8 +89,10 @@ const CollectAction: FC<CollectActionProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    publication.operations.hasActed.value ||
-      hasOptimisticallyCollected(publication.id)
+    collectModule?.amount || 0 > 0
+      ? false
+      : publication.operations.hasActed.value ||
+          hasOptimisticallyCollected(publication.id)
   );
 
   const { address } = useAccount();
@@ -98,8 +102,6 @@ const CollectAction: FC<CollectActionProps> = ({
   // Lens manager
   const { canBroadcast, canUseLensManager } =
     checkDispatcherPermissions(currentProfile);
-
-  const collectModule = getCollectModuleData(openAction as any);
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = collectModule?.collectLimit;
@@ -182,7 +184,8 @@ const CollectAction: FC<CollectActionProps> = ({
       return;
     }
 
-    setHasActed(true);
+    // Should not disable the button if it's a paid collect module
+    setHasActed(amount > 0 ? false : true);
     setIsLoading(false);
     onCollectSuccess?.();
     updateCache();
