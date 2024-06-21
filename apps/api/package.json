@@ -30,6 +30,7 @@
     "@irys/sdk": "^0.2.4",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.15.1",
+    "@stackso/js-core": "^0.3.1",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
