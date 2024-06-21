@@ -97,7 +97,7 @@ export const get: Handler = async (req, res) => {
       [
         id as string,
         score < 0 ? 0 : score,
-        new Date(Date.now() + 12 * 60 * 60 * 1000) // 12 hours
+        new Date(Date.now() + 6 * 60 * 60 * 1000) // 6 hours
       ]
     );
 
