@@ -9,33 +9,43 @@ const stack = new StackClient({
 });
 
 const syncToStack = async (address: Address, score: number) => {
-  try {
-    const oldPoints = await stack.getPoints(address);
-    const upsertingPoints = score - oldPoints;
+  const maxRetries = 5;
+  let attempt = 0;
+  let success = false;
 
-    if (upsertingPoints > 0) {
-      const { messageId } = await stack.track('UPDATE', {
-        account: address,
-        points: upsertingPoints
-      });
+  while (attempt < maxRetries && !success) {
+    attempt++;
+    try {
+      const oldPoints = await stack.getPoints(address);
+      const upsertingPoints = score - oldPoints;
 
-      logger.info(
-        `Stack: Synced points to Stack for ${address} - ${oldPoints} -> ${score} - ${messageId}`
+      if (upsertingPoints > 0) {
+        const { messageId } = await stack.track('UPDATE', {
+          account: address,
+          points: upsertingPoints
+        });
+
+        logger.info(
+          `Stack: Synced points to Stack for ${address} - ${oldPoints} -> ${score} - ${messageId}`
+        );
+
+        success = true;
+        return true;
+      }
+
+      logger.info(`Stack: Skipped syncing to Stack for ${address}`);
+      success = true;
+      return true;
+    } catch (error) {
+      logger.error(
+        `Stack: Failed to sync points to Stack for ${address} on attempt ${attempt}`,
+        error as Error
       );
 
-      return true;
+      if (attempt >= maxRetries) {
+        return false;
+      }
     }
-
-    logger.info(`Stack: Skipped syncing to Stack for ${address}`);
-
-    return true;
-  } catch (error) {
-    logger.error(
-      `Stack: Failed to sync points to Stack for ${address}`,
-      error as Error
-    );
-
-    return false;
   }
 };
 
