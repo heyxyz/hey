@@ -1,12 +1,14 @@
 import type { Address, Hex, WalletClient } from 'viem';
 
 import { Bridge, Swap } from '@hey/abis';
-import { HEY_API_URL, IS_MAINNET, PERMIT_2_ADDRESS } from '@hey/data/constants';
+import { IS_MAINNET, PERMIT_2_ADDRESS } from '@hey/data/constants';
+import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '@hey/data/rpcs';
 import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
 import {
   createPublicClient,
   decodeAbiParameters,
   encodeAbiParameters,
+  fallback,
   http,
   parseAbi
 } from 'viem';
@@ -120,8 +122,8 @@ export const getPermit2Allowance = async ({
   const client = createPublicClient({
     chain: IS_MAINNET ? polygon : polygonAmoy,
     transport: IS_MAINNET
-      ? http(`${HEY_API_URL}/rpc?chain=${polygon.id}`)
-      : http(`${HEY_API_URL}/rpc?chain=${polygonAmoy.id}`)
+      ? fallback(POLYGON_RPCS.map((rpc) => http(rpc)))
+      : fallback(POLYGON_AMOY_RPCS.map((rpc) => http(rpc)))
   });
 
   if (hash) {
