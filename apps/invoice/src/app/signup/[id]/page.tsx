@@ -1,26 +1,25 @@
 import type { Profile } from '@hey/lens';
 
-import { HANDLE_PREFIX } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
 import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 
 interface Props {
-  params: { handle: string };
+  params: { id: string };
   searchParams: { rate: string };
 }
 
 export default async function Page({ params, searchParams }: Props) {
-  const { handle } = params;
+  const { id } = params;
   const { rate } = searchParams;
 
-  if (!handle) {
+  if (!id) {
     return <h1>404</h1>;
   }
 
   const { data } = await apolloClient().query({
     query: ProfileDocument,
-    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+    variables: { request: { forProfileId: id } }
   });
 
   if (!data.profile) {
@@ -28,7 +27,7 @@ export default async function Page({ params, searchParams }: Props) {
   }
 
   const profile = data.profile as Profile;
-  const maticRate = parseFloat(rate || '1');
+  const inrRate = parseFloat(rate || '60');
   const { displayName } = getProfile(profile);
 
   return (
@@ -112,8 +111,8 @@ export default async function Page({ params, searchParams }: Props) {
                   Lens Profile
                 </b>
                 <p className="text-gray-800">1</p>
-                <p className="text-gray-800">5</p>
-                <p className="text-end text-gray-800">${maticRate * 8}</p>
+                <p className="text-gray-800">₹{inrRate * 8}</p>
+                <p className="text-end text-gray-800">₹{inrRate * 8}</p>
               </div>
             </div>
           </div>
@@ -124,20 +123,20 @@ export default async function Page({ params, searchParams }: Props) {
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Subtotal:
                   </dt>
-                  <dd className="col-span-2 text-gray-500">${maticRate * 8}</dd>
+                  <dd className="col-span-2 text-gray-500">₹{inrRate * 8}</dd>
                 </dl>
 
                 <dl className="grid gap-x-3 sm:grid-cols-5">
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Total:
                   </dt>
-                  <dd className="col-span-2 text-gray-500">${maticRate * 8}</dd>
+                  <dd className="col-span-2 text-gray-500">₹{inrRate * 8}</dd>
                 </dl>
                 <dl className="grid gap-x-3 sm:grid-cols-5">
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Amount paid:
                   </dt>
-                  <dd className="col-span-2 text-gray-500">${maticRate * 8}</dd>
+                  <dd className="col-span-2 text-gray-500">₹{inrRate * 8}</dd>
                 </dl>
               </div>
             </div>
