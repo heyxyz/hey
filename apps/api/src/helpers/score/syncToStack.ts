@@ -9,25 +9,34 @@ const stack = new StackClient({
 });
 
 const syncToStack = async (address: Address, score: number) => {
-  const oldPoints = await stack.getPoints(address);
-  const upsertingPoints = score - oldPoints;
+  try {
+    const oldPoints = await stack.getPoints(address);
+    const upsertingPoints = score - oldPoints;
 
-  if (upsertingPoints > 0) {
-    const { messageId } = await stack.track('UPDATE', {
-      account: address,
-      points: upsertingPoints
-    });
+    if (upsertingPoints > 0) {
+      const { messageId } = await stack.track('UPDATE', {
+        account: address,
+        points: upsertingPoints
+      });
 
-    logger.info(
-      `Stack: Synced points to Stack for ${address} - ${oldPoints} -> ${score} - ${messageId}`
-    );
+      logger.info(
+        `Stack: Synced points to Stack for ${address} - ${oldPoints} -> ${score} - ${messageId}`
+      );
+
+      return true;
+    }
+
+    logger.info(`Stack: Skipped syncing to Stack for ${address}`);
 
     return true;
+  } catch (error) {
+    logger.error(
+      `Stack: Failed to sync points to Stack for ${address}`,
+      error as Error
+    );
+
+    return false;
   }
-
-  logger.info(`Stack: Skipped syncing to Stack for ${address}`);
-
-  return true;
 };
 
 export default syncToStack;
