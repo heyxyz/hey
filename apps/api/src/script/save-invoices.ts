@@ -6,10 +6,10 @@ import puppeteer from 'puppeteer';
 import lensPg from '../db/lensPg';
 
 const baseUrl = 'https://invoice.hey.xyz/signup/';
-const rate = 0.63;
+const rate = 63;
 const outputDir = path.join(__dirname, 'pdfs');
-const startDate = new Date('2024-06-01');
-const endDate = new Date('2024-06-21');
+const startDate = new Date('2024-02-20');
+const endDate = new Date('2024-02-29');
 
 const getProfiles = async () => {
   const profiles = await lensPg.query(
