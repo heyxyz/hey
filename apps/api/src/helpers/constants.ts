@@ -38,5 +38,4 @@ export const CACHE_AGE_INDEFINITE_ON_DISK =
   'public, s-maxage=31536000, max-age=31536000, must-revalidate';
 
 // Tests
-export const TEST_URL = 'http://127.0.0.1:4784';
 export const SITEMAP_BATCH_SIZE = 50000;
