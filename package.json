@@ -16,7 +16,6 @@
     "prettier:fix": "turbo run prettier:fix --parallel",
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "start-server-and-test start '4784' test:dev",
     "typecheck": "turbo run typecheck --parallel",
     "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]"
   },
@@ -30,7 +29,6 @@
     "husky": "^9.0.11",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "start-server-and-test": "^2.0.4",
     "turbo": "^2.0.4"
   },
   "packageManager": "pnpm@9.1.4",
