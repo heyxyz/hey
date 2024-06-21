@@ -1,26 +1,25 @@
 import type { Profile } from '@hey/lens';
 
-import { HANDLE_PREFIX } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
 import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 
 interface Props {
-  params: { handle: string };
+  params: { id: string };
   searchParams: { rate: string };
 }
 
 export default async function Page({ params, searchParams }: Props) {
-  const { handle } = params;
+  const { id } = params;
   const { rate } = searchParams;
 
-  if (!handle) {
+  if (!id) {
     return <h1>404</h1>;
   }
 
   const { data } = await apolloClient().query({
     query: ProfileDocument,
-    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+    variables: { request: { forProfileId: id } }
   });
 
   if (!data.profile) {

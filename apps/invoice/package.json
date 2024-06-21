@@ -10,7 +10,6 @@
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "save-invoices": "ts-node script/save-invoices.ts",
     "start": "next start --port 4786",
     "typecheck": "tsc --pretty"
   },
@@ -21,7 +20,6 @@
     "@hey/lens": "workspace:*",
     "axios": "^1.7.2",
     "next": "^14.2.4",
-    "puppeteer": "^22.12.0",
     "react": "^18.3.1"
   },
   "devDependencies": {

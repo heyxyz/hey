@@ -18,7 +18,8 @@
     "prisma:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
     "prisma:seed": "ts-node ./src/db/seed.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
-    "typecheck": "tsc --pretty"
+    "typecheck": "tsc --pretty",
+    "save-invoices": "ts-node ./src/script/save-invoices.ts"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.600.0",
@@ -41,6 +42,7 @@
     "linkedom": "^0.18.3",
     "node-cron": "^3.0.3",
     "pg-promise": "^11.8.0",
+    "puppeteer": "^22.12.0",
     "request-ip": "^3.3.0",
     "tsx": "^4.15.6",
     "typescript": "^5.5.2",
