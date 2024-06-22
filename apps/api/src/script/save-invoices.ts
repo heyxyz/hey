@@ -5,12 +5,12 @@ import puppeteer from 'puppeteer';
 
 import lensPg from '../db/lensPg';
 
-const baseUrl = 'https://invoice.hey.xyz/signup/';
-const rate = 83;
+const baseUrl = 'http://localhost:4786/signup/';
+const rate = 80;
 const outputDir = path.join(__dirname, 'pdfs');
-const startDate = '2024-04-01 00:16:54';
-const endDate = '2024-04-30 23:30:09';
-const batchSize = 5;
+const startDate = '2024-05-01 00:38:20';
+const endDate = '2024-05-31 23:44:38';
+const batchSize = 7;
 
 const getProfiles = async () => {
   const profiles = await lensPg.query(
