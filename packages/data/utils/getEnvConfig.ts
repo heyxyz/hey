@@ -32,7 +32,7 @@ const getEnvConfig = (): {
     case 'staging':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Staging,
+        heyApiEndpoint: HeyEndpoint.Testnet,
         heyLensSignup: TestnetContracts.HeyLensSignup,
         heyPro: TestnetContracts.HeyPro,
         heyTipping: TestnetContracts.HeyTipping,
