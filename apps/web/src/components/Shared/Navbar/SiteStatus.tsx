@@ -12,10 +12,6 @@ const SiteStatus: FC = () => {
         data: { attributes: { status: 'down' } }[];
       };
 
-      console.log(
-        data.data.some((monitor) => monitor.attributes.status === 'down')
-      );
-
       const isAnyServiceDown = data.data.some(
         (monitor) => monitor.attributes.status === 'down'
       );
