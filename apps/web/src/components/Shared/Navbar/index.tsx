@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import MenuItems from './MenuItems';
@@ -16,11 +15,11 @@ import MessagesIcon from './MessagesIcon';
 import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
+import SiteStatus from './SiteStatus';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { staffMode } = useFeatureFlagsStore();
   const { appIcon } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
 
@@ -66,7 +65,8 @@ const Navbar: FC = () => {
 
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
-      {staffMode ? <StaffBar /> : null}
+      <SiteStatus />
+      <StaffBar />
       <div className="container mx-auto max-w-screen-xl px-5">
         <div className="relative flex h-14 items-center justify-between sm:h-16">
           <div className="flex items-center justify-start">
