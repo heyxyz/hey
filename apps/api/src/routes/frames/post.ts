@@ -60,11 +60,11 @@ export const post: Handler = async (req, res) => {
     const request = {
       actionResponse: '',
       buttonIndex,
-      inputText: inputText ?? '',
+      inputText: inputText || '',
       profileId: id,
       pubId,
       specVersion: '1.0.0',
-      state: state ?? '',
+      state: state || '',
       url: postUrl
     };
 
