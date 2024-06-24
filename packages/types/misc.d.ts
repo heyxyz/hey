@@ -52,8 +52,9 @@ export interface Frame {
   }[];
   frameUrl: string;
   image: string;
+  lensVersion: null | string;
+  ofVersion: null | string;
   postUrl: string;
-  version: string;
 }
 
 export interface OG {
