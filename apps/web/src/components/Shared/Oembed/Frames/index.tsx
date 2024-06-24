@@ -15,7 +15,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useChainId, useSendTransaction } from 'wagmi';
+import { useChainId, useSendTransaction, useSwitchChain } from 'wagmi';
 
 interface FrameProps {
   frame: IFrame;
@@ -26,11 +26,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
   const { currentProfile } = useProfileStore();
   const [frameData, setFrameData] = useState<IFrame | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    data: writeData,
-    isPending: writePending,
-    sendTransactionAsync
-  } = useSendTransaction({
+  const { switchChainAsync } = useSwitchChain();
+  const { sendTransactionAsync } = useSendTransaction({
     mutation: { onError: errorToast }
   });
   const chain = useChainId();
@@ -104,7 +101,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       const targetChain = parseInt(txnData.chainId.replace('eip155:', ''));
 
       if (targetChain !== chain) {
-        return toast.error(`Wrong network! Switch to Chain ID: ${targetChain}`);
+        await switchChainAsync({ chainId: targetChain });
       }
 
       const hash = await sendTransactionAsync({
@@ -113,9 +110,22 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         value: BigInt(txnData.params.value)
       });
 
-      console.log(hash);
+      toast.success(`Transaction sent to ${targetChain} chain - ${hash}`);
 
-      // return setFrameData(data.frame);
+      const txnPostUrl = buttons[index].postUrl || postUrl;
+
+      const { data: postedData }: { data: { frame: IFrame } } =
+        await axios.post(
+          `${HEY_API_URL}/frames/post`,
+          { buttonIndex: index + 1, postUrl: txnPostUrl, pubId: publicationId },
+          { headers: getAuthApiHeaders() }
+        );
+
+      if (!postedData.frame) {
+        return toast.error(Errors.SomethingWentWrongWithFrame);
+      }
+
+      return setFrameData(postedData.frame);
     } catch {
       toast.error(Errors.SomethingWentWrongWithFrame);
     } finally {
