@@ -56,6 +56,7 @@ export interface Frame {
   lensFramesVersion: null | string;
   openFramesVersion: null | string;
   postUrl: string;
+  state: null | string;
 }
 
 export interface OG {
