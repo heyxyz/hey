@@ -52,6 +52,7 @@ export interface Frame {
   }[];
   frameUrl: string;
   image: string;
+  inputText: null | string;
   lensVersion: null | string;
   ofVersion: null | string;
   postUrl: string;

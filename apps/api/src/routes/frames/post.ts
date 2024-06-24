@@ -15,6 +15,7 @@ import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
   buttonIndex: number;
+  inputText?: string;
   postUrl: string;
   pubId: string;
 };
@@ -43,7 +44,7 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res, validateLensAccountStatus);
   }
 
-  const { buttonIndex, postUrl, pubId } = body as ExtensionRequest;
+  const { buttonIndex, inputText, postUrl, pubId } = body as ExtensionRequest;
 
   try {
     const accessToken = req.headers['x-access-token'] as string;
@@ -54,7 +55,7 @@ export const post: Handler = async (req, res) => {
     const request = {
       actionResponse: '',
       buttonIndex,
-      inputText: '',
+      inputText: inputText ?? '',
       profileId: id,
       pubId,
       specVersion: '1.0.0',
