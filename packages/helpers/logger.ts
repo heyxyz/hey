@@ -1,16 +1,36 @@
+import { WinstonTransport as AxiomTransport } from '@axiomhq/winston';
+import dotenv from 'dotenv';
+import winston from 'winston';
+
+dotenv.config({ override: true });
+
 class Logger {
-  private formatMessage(level: string, message: string, colorCode: string) {
-    return `\x1b[${colorCode}m${level}\x1b[0m: ${message}`;
+  private logger: winston.Logger;
+
+  constructor() {
+    this.logger = winston.createLogger({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.json(),
+        winston.format.timestamp(),
+        winston.format.printf(({ level, message }) => {
+          return `${level}: ${message}`;
+        })
+      ),
+      level: 'info',
+      transports: [
+        new winston.transports.Console(),
+        new AxiomTransport({ dataset: 'hey', token: process.env.AXIOM_TOKEN! })
+      ]
+    });
   }
 
   error(message: string, error?: Error) {
-    const formattedMessage = this.formatMessage('ERROR', message, '1;31');
-    console.error(formattedMessage, error);
+    this.logger.error(message, error);
   }
 
   info(message: string) {
-    const formattedMessage = this.formatMessage('INFO', message, '1;34');
-    console.log(formattedMessage);
+    this.logger.info(message);
   }
 }
 
