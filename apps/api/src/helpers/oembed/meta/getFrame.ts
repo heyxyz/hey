@@ -13,24 +13,28 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   const image = getMeta('of:image') || getMeta('og:image');
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
+  const inputText = getMeta('of:input:text') || 'fc:input:text';
 
   let buttons: Frame['buttons'] = [];
   for (let i = 1; i < 5; i++) {
     const button = getMeta(`of:button:${i}`) || getMeta(`fc:frame:button:${i}`);
     const action = (getMeta(`of:button:${i}:action`) ||
-      getMeta(`fc:frame:button:${i}:action`)) as ButtonType;
+      getMeta(`fc:frame:button:${i}:action`) ||
+      'post') as ButtonType;
     const target = (getMeta(`of:button:${i}:target`) ||
       getMeta(`fc:frame:button:${i}:target`)) as string;
-    const postUrl =
+
+    // Button post_url -> OpenFrame post_url -> frame url
+    const buttonPostUrl =
       getMeta(`of:button:${i}:post_url`) ||
       getMeta(`fc:frame:button:${i}:post_url`) ||
-      url;
+      postUrl;
 
     if (!button) {
       break;
     }
 
-    buttons.push({ action, button, postUrl, target });
+    buttons.push({ action, button, postUrl: buttonPostUrl, target });
   }
 
   // Frames must be OpenFrame with accepted protocol of Lens (profile authentication) or anonymous (no authentication)
@@ -48,6 +52,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     buttons,
     frameUrl,
     image,
+    inputText,
     lensVersion,
     ofVersion,
     postUrl
