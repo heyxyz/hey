@@ -1,5 +1,4 @@
 import type { ButtonType, Frame } from '@hey/types/misc';
-import type { Document } from 'linkedom';
 
 const getFrame = (document: Document, url?: string): Frame | null => {
   const getMeta = (key: string) => {
@@ -8,8 +7,9 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     return metaTag ? metaTag.getAttribute('content') : null;
   };
 
-  const version = getMeta('of:accepts:lens');
-  const authenticated = getMeta('of:authenticated') === 'true';
+  const ofVersion = getMeta('of:version');
+  const lensVersion = getMeta('of:accepts:lens');
+  const acceptsAnonymous = getMeta('of:accepts:anonymous');
   const image = getMeta('of:image') || getMeta('og:image');
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
@@ -33,17 +33,24 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     buttons.push({ action, button, postUrl, target });
   }
 
-  if (!version || !postUrl || !image || buttons.length === 0) {
+  // Frames must be OpenFrame with accepted protocol of Lens (profile authentication) or anonymous (no authentication)
+  if (!lensVersion && !acceptsAnonymous) {
+    return null;
+  }
+
+  // Frame must contain valid elements
+  if (!postUrl || !image || buttons.length === 0) {
     return null;
   }
 
   return {
-    authenticated,
+    authenticated: !acceptsAnonymous,
     buttons,
     frameUrl,
     image,
-    postUrl,
-    version
+    lensVersion,
+    ofVersion,
+    postUrl
   };
 };
 
