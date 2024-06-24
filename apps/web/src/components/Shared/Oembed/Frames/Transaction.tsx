@@ -7,6 +7,8 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
+import getNftChainId from '@hey/helpers/getNftChainId';
+import getNftChainInfo from '@hey/helpers/getNftChainInfo';
 import { Button } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
@@ -72,6 +74,10 @@ const Transaction: FC<TransactionProps> = ({
 
   const txnData = showTransaction.transaction;
   const chainId = parseInt(txnData.chainId.replace('eip155:', ''));
+  const chainData = {
+    logo: getNftChainInfo(getNftChainId(chainId.toString())).logo,
+    name: getNftChainInfo(getNftChainId(chainId.toString())).name
+  };
 
   if (!SUPPORTED_CHAINS.includes(chainId as any)) {
     return <div className="m-5">Chain not supported</div>;
@@ -148,15 +154,11 @@ const Transaction: FC<TransactionProps> = ({
     <div className="m-5">
       <div>
         <div className="flex items-center justify-between gap-x-10">
-          <b>Domain</b>
-          <span className="ld-text-gray-500 truncate">
-            {showTransaction.frame.postUrl}
-          </span>
-        </div>
-        <div className="divider my-1" />
-        <div className="flex items-center justify-between gap-x-10">
           <b>Network</b>
-          <span className="ld-text-gray-500 truncate">{chainId}</span>
+          <span className="ld-text-gray-500 flex items-center gap-x-2 truncate">
+            <img alt={chainData.name} className="size-4" src={chainData.logo} />
+            <span>{chainData.name}</span>
+          </span>
         </div>
         <div className="divider my-1" />
         <div className="flex items-center justify-between gap-x-10">
