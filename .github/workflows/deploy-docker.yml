@@ -23,6 +23,7 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: api
+          tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
 
       - name: Trigger API Deployment 🚀
