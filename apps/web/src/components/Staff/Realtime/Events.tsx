@@ -85,7 +85,10 @@ const Events: FC = () => {
                 {event.name == PAGEVIEW && (
                   <div className="ld-text-gray-500 linkify truncate text-sm">
                     <Link href={event.url} target="_blank">
-                      {event.url}
+                      {event.url.replace(
+                        'https://hey.xyz//',
+                        'https://hey.xyz/'
+                      )}
                     </Link>
                   </div>
                 )}
