@@ -1,5 +1,3 @@
-import type { Document } from 'linkedom';
-
 const getTitle = (document: Document): null | string => {
   const og =
     document.querySelector('meta[name="og:title"]') ||
