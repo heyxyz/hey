@@ -1,5 +1,4 @@
 import type { ButtonType, Frame } from '@hey/types/misc';
-import type { Document } from 'linkedom';
 
 const getFrame = (document: Document, url?: string): Frame | null => {
   const getMeta = (key: string) => {
@@ -8,42 +7,57 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     return metaTag ? metaTag.getAttribute('content') : null;
   };
 
-  const version = getMeta('of:accepts:lens');
-  const authenticated = getMeta('of:authenticated') === 'true';
+  const openFramesVersion = getMeta('of:version');
+  const lensFramesVersion = getMeta('of:accepts:lens');
+  const acceptsAnonymous = getMeta('of:accepts:anonymous');
   const image = getMeta('of:image') || getMeta('og:image');
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
+  const inputText = getMeta('of:input:text') || getMeta('fc:input:text');
+  const state = getMeta('of:state') || getMeta('fc:state');
 
   let buttons: Frame['buttons'] = [];
   for (let i = 1; i < 5; i++) {
     const button = getMeta(`of:button:${i}`) || getMeta(`fc:frame:button:${i}`);
     const action = (getMeta(`of:button:${i}:action`) ||
-      getMeta(`fc:frame:button:${i}:action`)) as ButtonType;
+      getMeta(`fc:frame:button:${i}:action`) ||
+      'post') as ButtonType;
     const target = (getMeta(`of:button:${i}:target`) ||
       getMeta(`fc:frame:button:${i}:target`)) as string;
-    const postUrl =
+
+    // Button post_url -> OpenFrame post_url -> frame url
+    const buttonPostUrl =
       getMeta(`of:button:${i}:post_url`) ||
       getMeta(`fc:frame:button:${i}:post_url`) ||
-      url;
+      postUrl;
 
     if (!button) {
       break;
     }
 
-    buttons.push({ action, button, postUrl, target });
+    buttons.push({ action, button, postUrl: buttonPostUrl, target });
   }
 
-  if (!version || !postUrl || !image || buttons.length === 0) {
+  // Frames must be OpenFrame with accepted protocol of Lens (profile authentication) or anonymous (no authentication)
+  if (!lensFramesVersion && !acceptsAnonymous) {
+    return null;
+  }
+
+  // Frame must contain valid elements
+  if (!postUrl || !image || buttons.length === 0) {
     return null;
   }
 
   return {
-    authenticated,
+    authenticated: !acceptsAnonymous,
     buttons,
     frameUrl,
     image,
+    inputText,
+    lensFramesVersion,
+    openFramesVersion,
     postUrl,
-    version
+    state
   };
 };
 
