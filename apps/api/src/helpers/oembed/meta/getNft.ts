@@ -1,5 +1,4 @@
 import type { Nft } from '@hey/types/misc';
-import type { Document } from 'linkedom';
 import type { Address } from 'viem';
 
 import { IGNORED_NFT_HOSTS } from '@hey/data/og';
