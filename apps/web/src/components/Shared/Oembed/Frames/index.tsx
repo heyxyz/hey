@@ -1,7 +1,6 @@
-import type { Frame as IFrame } from '@hey/types/misc';
+import type { FrameTransaction, Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import errorToast from '@helpers/errorToast';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { BoltIcon, LinkIcon } from '@heroicons/react/24/outline';
@@ -9,13 +8,14 @@ import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card } from '@hey/ui';
+import { Button, Card, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useChainId, useSendTransaction, useSwitchChain } from 'wagmi';
+
+import Transaction from './Transaction';
 
 interface FrameProps {
   frame: IFrame;
@@ -26,11 +26,12 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
   const { currentProfile } = useProfileStore();
   const [frameData, setFrameData] = useState<IFrame | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { switchChainAsync } = useSwitchChain();
-  const { sendTransactionAsync } = useSendTransaction({
-    mutation: { onError: errorToast }
-  });
-  const chain = useChainId();
+  const [showTransaction, setShowTransaction] = useState<{
+    frame: IFrame | null;
+    index: number;
+    show: boolean;
+    transaction: FrameTransaction | null;
+  }>({ frame: null, index: 0, show: false, transaction: null });
 
   useEffect(() => {
     if (frame) {
@@ -93,39 +94,18 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      if (!data.frame.transaction) {
-        return toast.error(Errors.SomethingWentWrongWithFrame);
-      }
-
       const txnData = data.frame.transaction;
-      const targetChain = parseInt(txnData.chainId.replace('eip155:', ''));
 
-      await switchChainAsync({ chainId: targetChain });
-
-      const hash = await sendTransactionAsync({
-        data: txnData.params.data,
-        to: txnData.params.to,
-        value: BigInt(txnData.params.value)
-      });
-
-      toast.success(`Transaction sent to ${targetChain} chain - ${hash}`);
-
-      const { data: postedData }: { data: { frame: IFrame } } =
-        await axios.post(
-          `${HEY_API_URL}/frames/post`,
-          {
-            buttonIndex: index + 1,
-            postUrl: buttons[index].postUrl || postUrl,
-            pubId: publicationId
-          },
-          { headers: getAuthApiHeaders() }
-        );
-
-      if (!postedData.frame) {
+      if (!txnData) {
         return toast.error(Errors.SomethingWentWrongWithFrame);
       }
 
-      return setFrameData(postedData.frame);
+      return setShowTransaction({
+        frame: frameData,
+        index,
+        show: true,
+        transaction: txnData
+      });
     } catch {
       toast.error(Errors.SomethingWentWrongWithFrame);
     } finally {
@@ -194,6 +174,27 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           </Button>
         ))}
       </div>
+      {showTransaction.show ? (
+        <Modal
+          onClose={() =>
+            setShowTransaction({
+              frame: null,
+              index: 0,
+              show: false,
+              transaction: null
+            })
+          }
+          show={showTransaction.show}
+          title="Transaction"
+        >
+          <Transaction
+            publicationId={publicationId}
+            setFrameData={setFrameData}
+            setShowTransaction={setShowTransaction}
+            showTransaction={showTransaction}
+          />
+        </Modal>
+      ) : null}
     </Card>
   );
 };
