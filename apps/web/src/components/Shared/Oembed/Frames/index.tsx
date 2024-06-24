@@ -1,6 +1,7 @@
 import type { Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import errorToast from '@helpers/errorToast';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { BoltIcon, LinkIcon } from '@heroicons/react/24/outline';
@@ -14,6 +15,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useChainId, useSendTransaction } from 'wagmi';
 
 interface FrameProps {
   frame: IFrame;
@@ -24,6 +26,14 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
   const { currentProfile } = useProfileStore();
   const [frameData, setFrameData] = useState<IFrame | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: writeData,
+    isPending: writePending,
+    sendTransactionAsync
+  } = useSendTransaction({
+    mutation: { onError: errorToast }
+  });
+  const chain = useChainId();
 
   useEffect(() => {
     if (frame) {
@@ -56,12 +66,58 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       );
 
       if (!data.frame) {
-        return toast.error(Errors.SomethingWentWrong);
+        return toast.error(Errors.SomethingWentWrongWithFrame);
       }
 
       return setFrameData(data.frame);
     } catch {
-      toast.error(Errors.SomethingWentWrong);
+      toast.error(Errors.SomethingWentWrongWithFrame);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onTransaction = async (index: number) => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    try {
+      setIsLoading(true);
+
+      const { data }: { data: { frame: IFrame } } = await axios.post(
+        `${HEY_API_URL}/frames/post`,
+        {
+          buttonAction: 'tx',
+          buttonIndex: index + 1,
+          postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
+          pubId: publicationId
+        },
+        { headers: getAuthApiHeaders() }
+      );
+
+      if (!data.frame.transaction) {
+        return toast.error(Errors.SomethingWentWrongWithFrame);
+      }
+
+      const txnData = data.frame.transaction;
+      const targetChain = parseInt(txnData.chainId.replace('eip155:', ''));
+
+      if (targetChain !== chain) {
+        return toast.error(`Wrong network! Switch to Chain ID: ${targetChain}`);
+      }
+
+      const hash = await sendTransactionAsync({
+        data: txnData.params.data,
+        to: txnData.params.to,
+        value: BigInt(txnData.params.value)
+      });
+
+      console.log(hash);
+
+      // return setFrameData(data.frame);
+    } catch {
+      toast.error(Errors.SomethingWentWrongWithFrame);
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +169,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
               } else if (action === 'post') {
                 onPost(index);
               } else if (action === 'tx') {
-                toast.success('WIP');
+                onTransaction(index);
               }
             }}
             outline
