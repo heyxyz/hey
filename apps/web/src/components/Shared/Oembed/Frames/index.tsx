@@ -110,12 +110,14 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
 
       toast.success(`Transaction sent to ${targetChain} chain - ${hash}`);
 
-      const txnPostUrl = buttons[index].postUrl || postUrl;
-
       const { data: postedData }: { data: { frame: IFrame } } =
         await axios.post(
           `${HEY_API_URL}/frames/post`,
-          { buttonIndex: index + 1, postUrl: txnPostUrl, pubId: publicationId },
+          {
+            buttonIndex: index + 1,
+            postUrl: buttons[index].postUrl || postUrl,
+            pubId: publicationId
+          },
           { headers: getAuthApiHeaders() }
         );
 
