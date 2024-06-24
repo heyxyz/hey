@@ -7,8 +7,8 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     return metaTag ? metaTag.getAttribute('content') : null;
   };
 
-  const ofVersion = getMeta('of:version');
-  const lensVersion = getMeta('of:accepts:lens');
+  const openFramesVersion = getMeta('of:version');
+  const lensFramesVersion = getMeta('of:accepts:lens');
   const acceptsAnonymous = getMeta('of:accepts:anonymous');
   const image = getMeta('of:image') || getMeta('og:image');
   const postUrl = getMeta('of:post_url') || url;
@@ -38,7 +38,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   }
 
   // Frames must be OpenFrame with accepted protocol of Lens (profile authentication) or anonymous (no authentication)
-  if (!lensVersion && !acceptsAnonymous) {
+  if (!lensFramesVersion && !acceptsAnonymous) {
     return null;
   }
 
@@ -53,8 +53,8 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     frameUrl,
     image,
     inputText,
-    lensVersion,
-    ofVersion,
+    lensFramesVersion,
+    openFramesVersion,
     postUrl
   };
 };
