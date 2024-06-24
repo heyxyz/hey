@@ -1,3 +1,4 @@
+import type { ButtonType } from '@hey/types/misc';
 import type { Handler } from 'express';
 
 import { IS_MAINNET } from '@hey/data/constants';
@@ -14,12 +15,14 @@ import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
+  buttonAction?: ButtonType;
   buttonIndex: number;
   postUrl: string;
   pubId: string;
 };
 
 const validationSchema = object({
+  buttonAction: string().optional(),
   buttonIndex: number(),
   postUrl: string(),
   pubId: string()
@@ -43,7 +46,8 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res, validateLensAccountStatus);
   }
 
-  const { buttonIndex, postUrl, pubId } = body as ExtensionRequest;
+  const { buttonAction, buttonIndex, postUrl, pubId } =
+    body as ExtensionRequest;
 
   try {
     const accessToken = req.headers['x-access-token'] as string;
@@ -81,9 +85,15 @@ export const post: Handler = async (req, res) => {
       { headers: { 'User-Agent': HEY_USER_AGENT } }
     );
 
-    const { document } = parseHTML(data);
-
     logger.info(`Open frame button clicked by ${id} on ${postUrl}`);
+
+    if (buttonAction === 'tx') {
+      return res
+        .status(200)
+        .json({ frame: { transaction: data }, success: true });
+    }
+
+    const { document } = parseHTML(data);
 
     return res
       .status(200)
