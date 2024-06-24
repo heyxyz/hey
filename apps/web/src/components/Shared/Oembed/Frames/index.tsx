@@ -2,9 +2,11 @@ import type { Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
-import { LinkIcon } from '@heroicons/react/24/outline';
+import { Leafwatch } from '@helpers/leafwatch';
+import { BoltIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -83,19 +85,23 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       >
         {buttons.map(({ action, button, target }, index) => (
           <Button
-            className="justify-center"
+            className="flex items-center justify-center space-x-2"
             disabled={isLoading || !publicationId || !currentProfile}
             icon={
-              (action === 'link' ||
-                action === 'post_redirect' ||
-                action === 'mint') && <LinkIcon className="size-4" />
+              action === 'link' ||
+              action === 'post_redirect' ||
+              action === 'mint' ? (
+                <LinkIcon className="size-4" />
+              ) : action === 'tx' ? (
+                <BoltIcon className="size-4" />
+              ) : null
             }
             key={index}
             onClick={() => {
-              // Leafwatch.track(PUBLICATION.CLICK_PORTAL_BUTTON, {
-              //   action,
-              //   publication_id: publicationId
-              // });
+              Leafwatch.track(PUBLICATION.CLICK_FRAME_BUTTON, {
+                action,
+                publication_id: publicationId
+              });
 
               if (
                 action === 'link' ||
@@ -106,6 +112,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
                 window.open(url, '_blank');
               } else if (action === 'post') {
                 onPost(index);
+              } else if (action === 'tx') {
+                toast.success('WIP');
               }
             }}
             outline
@@ -116,7 +124,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
                 : 'button'
             }
           >
-            {button}
+            <span>{button}</span>
           </Button>
         ))}
       </div>
