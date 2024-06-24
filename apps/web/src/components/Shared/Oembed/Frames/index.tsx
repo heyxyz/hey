@@ -8,7 +8,7 @@ import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Modal } from '@hey/ui';
+import { Button, Card, Input, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -130,13 +130,15 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         src={image}
       />
       {inputTextLabel && (
-        <input
-          className="mt-2 w-full rounded border p-2"
-          onChange={(e) => setInputText(e.target.value)}
-          placeholder={inputTextLabel}
-          type="text"
-          value={inputText}
-        />
+        <div className="mx-5 mt-5">
+          <Input
+            className="w-full rounded border"
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder={inputTextLabel}
+            type="text"
+            value={inputText}
+          />
+        </div>
       )}
       <div
         className={cn(
