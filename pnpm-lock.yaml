@@ -349,8 +349,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: 0.7.7
-        version: 0.7.7(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.8.1
+        version: 0.8.1(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-slider:
         specifier: 10.6.2
         version: 10.6.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -421,8 +421,8 @@ importers:
         specifier: ^2.16.1
         version: 2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8)
       wagmi:
-        specifier: ^2.10.4
-        version: 2.10.4(@tanstack/query-core@5.45.0)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
+        specifier: ^2.10.5
+        version: 2.10.5(@tanstack/query-core@5.45.0)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -817,23 +817,23 @@ packages:
   '@aria-ui/collection@0.0.3':
     resolution: {integrity: sha512-20mUHlpTCYQnv1LTGMkCy1SLCxRK5pxHrvTr2beaaCgBKPjMEB3MlemL0PbIj3WsXbCldsvLBWX1L67FgWowSg==}
 
-  '@aria-ui/core@0.0.14':
-    resolution: {integrity: sha512-1oVRaG4mHIUe+H/wEib8FI7Y8CIcQNVfaZZ0nky4QHsflzJujkRtUW8W7b7dLh2ThE3+d7gUIwJv/ILHzgJYXQ==}
+  '@aria-ui/core@0.0.16':
+    resolution: {integrity: sha512-g+jsR6ItqLvw4Rxxg3V6ZgHReZV6e2mv1FUwmh6boj4dvvxdci44NoBeH9UNZl0Ej+s6fvHOFqrAoYdD4KY6Sw==}
 
-  '@aria-ui/listbox@0.0.13':
-    resolution: {integrity: sha512-7wULQl0QE/+g009rULHrisDLiRKX51X5k5bkYrNqANZTCna9h4mroF24113mGjyn9C07sGS/LrimfkucoSanBg==}
+  '@aria-ui/listbox@0.0.15':
+    resolution: {integrity: sha512-HZ3+WEu2SLpqPMv9BoBAE3gCzyaVfJlhHWRNdeS/QspBAhviw9TtQPB1OesOiA4d78SlqyGhz7Jo82HFo+I2/Q==}
 
-  '@aria-ui/overlay@0.0.15':
-    resolution: {integrity: sha512-amzUZ/tBpIlS30bM0C9kBkP21IzK5n83D09F67IiDdbubwlEWISbJOMH4qsM83EYnUbD8UMBDgI7qhYeHsdFMg==}
+  '@aria-ui/overlay@0.0.17':
+    resolution: {integrity: sha512-nziUsgOiPEVYu9os3uUZPKro/xSl9bTlYSWh4sdjF+PoQZPzr0J+sp97W27blhLCFeqTA8MxmOigKQRmaMXnMw==}
 
-  '@aria-ui/popover@0.0.14':
-    resolution: {integrity: sha512-vym3EopMmXXbUiO8R+SPR0BQoiCe6az8vJ5aLkEPU5jnRDIS1ssucL3YBrwjGkPedthbrnmFSs3lkbyYsla8mA==}
+  '@aria-ui/popover@0.0.17':
+    resolution: {integrity: sha512-++DJmE3Q1+aOGXd2O6l7OVsTyJP01bYdCmp5vZjDyfQ5HM3nAYROdgBKa8musylvnJab94UNvsLMlZMCtmRzDQ==}
 
-  '@aria-ui/presence@0.0.9':
-    resolution: {integrity: sha512-KwzkQEHlfTwhzK5RV2r4lO1IeQO2eI/i42mVtZdLDz2BDuRqr4MV+q0SvAkQo62ZmuqN7XIqDAHDi4YxWwNxTA==}
+  '@aria-ui/presence@0.0.11':
+    resolution: {integrity: sha512-i/7SjAB5Eg1XpRCRNylQUyzC+lvWlLwL5yOFNFpKwqNi+FAsnxye5ay4AaJMuHRcV2i8qD8iOKoG9WOn1AiMBg==}
 
-  '@aria-ui/tooltip@0.0.16':
-    resolution: {integrity: sha512-CqrNIsI8CjIAJVz6vS1Z6lvoaN++qr7999infjlIbs8HdPDS6OrCp1bxCK7d1UNQJG1WuJ/27NYrt0uIWV4/Ww==}
+  '@aria-ui/tooltip@0.0.19':
+    resolution: {integrity: sha512-dy8RR0ce3aqB4PQ8ZcxhPttnWPHd4g2uKSx8LASPVp2jsuU3d1CWLH7prdnuFW77MRfVddRkgQ2/0FsMsUDKcg==}
 
   '@aws-crypto/crc32@5.2.0':
     resolution: {integrity: sha512-nLbCWqQNgUiwwtFsen1AdzAtvuLRsQS8rYgMuxCrdKf9kOssamGLuPwyTY9wyYblNr9+1XM8v6zoDTPPSIeANg==}
@@ -3055,31 +3055,31 @@ packages:
   '@prisma/get-platform@5.15.1':
     resolution: {integrity: sha512-oFccp7bYys+ZYkmtYzjR+0cRrGKvSuF+h5QhSkyEsYQ9kzJzQRvuWt2SiHRPt8xOQ4MTmujM+bP5uOexnnAHdQ==}
 
-  '@prosekit/basic@0.3.8':
-    resolution: {integrity: sha512-UfgU+6ySSZ0cIAgSivgMwLfT1dN2YLxk/2TA4EK3GQbdEjHx9sYz5fkfqWj91MiuVMl/+edv7rzc02NR8txhBw==}
+  '@prosekit/basic@0.3.10':
+    resolution: {integrity: sha512-GmFLjAlBuagABVMyvKFwhIOnQZE9H30pA+GrGERXuaEcuWh/uqAMFC3RmO8hLwFUYWri4FrINJMBz59Rxo7CrA==}
 
-  '@prosekit/core@0.5.5':
-    resolution: {integrity: sha512-+vJfE3s/GrNJ3BAhdZCQ6/0xlpgqo5lc5LtZXr/1v0n2u9j0lsaznmwo5yw4ppk3QJxxlDBFNDnAD6OnYMjeJA==}
+  '@prosekit/core@0.6.1':
+    resolution: {integrity: sha512-6QXemjzfpN3TvgB0caRsja+EHpQV+a4YVJtm+jCETBVGwvzSGhylhVtcJRV1e7K43C0AS+U2p+/qndecKF6MAA==}
 
-  '@prosekit/extensions@0.5.3':
-    resolution: {integrity: sha512-shUkx0zpoVWyQkaCqNmeFwhfzxJvYAUGaBYQXwyAK77vOUKXlX9UQhBfSx0N9gC++9Z+zJsiO6KJnPjTexbT/Q==}
+  '@prosekit/extensions@0.6.1':
+    resolution: {integrity: sha512-GcxJqVI/SS3WSJ5DWqL7rV/w+aCq2HoHIMztqwkEZ9qZrcBWwuoH3jIzG/1NTqrWY8XqNn5BQFyOh3UllbKUFQ==}
 
-  '@prosekit/lit@0.3.3':
-    resolution: {integrity: sha512-7FyP4eg3m64WWu6Xg2zozoqXTjK8lzZLSLXgfF5IOyMSlwx2F2ac0qDHzhJikTeC1zZb17BQpUj22t6QlpE6KQ==}
+  '@prosekit/lit@0.3.5':
+    resolution: {integrity: sha512-BWPVoVcFO7kdqay6HfNuNln2BMbE44OrjvY5jRlfSoEEiZqc0C6RZ5DABQa6Y6eJWc/ND6oio3JISe7JrkoSvA==}
 
   '@prosekit/pm@0.1.5':
     resolution: {integrity: sha512-b93cQjJA+e/uN0ZSvLZYd//j4zDXJnyobNRBD4dfg20TdDzmktDThI84IQW/Y66wSnz9ja5f5fmNDI3m0xP2tg==}
 
-  '@prosekit/preact@0.3.6':
-    resolution: {integrity: sha512-jki/Gh4i6GUe2VyDosvbb6rRaz3yQTV0msI8XY3yPe4clmCsnbbeGHxiuzWnw9mH+0yi7v3+y5Ca7Y+lItnSjA==}
+  '@prosekit/preact@0.3.8':
+    resolution: {integrity: sha512-j1pF7AjFKY0eXy14F+YcXfapHogS75t2TPFTMBaxXlB+UyktR+mxj7UhC7YI3MWZHG+3KY3Efq0YtU0nkKXRWw==}
     peerDependencies:
       preact: '>= 10.11.0'
     peerDependenciesMeta:
       preact:
         optional: true
 
-  '@prosekit/react@0.3.7':
-    resolution: {integrity: sha512-Wzs+16YPPCmseYWFj8mOe6SpL/EnNwx2Ugg1N2hPYozlfa+Kj/m/ZIf3j2xNI24+GzszjhIyZPvpZyCuIguMhA==}
+  '@prosekit/react@0.3.9':
+    resolution: {integrity: sha512-FioQZGtnzwhJ29++XuANxcMc3nQrHJx6ajpLiuExtPOq58W2XTEfg/5cGL2vH1SNMB0cNq8ly1w1LBXUsJ62zg==}
     peerDependencies:
       react: '>= 18.2.0'
       react-dom: '>= 18.2.0'
@@ -3089,32 +3089,32 @@ packages:
       react-dom:
         optional: true
 
-  '@prosekit/solid@0.3.5':
-    resolution: {integrity: sha512-1Lvs6u1UM20jiFSlt2DQBbBxaJU+zWFIecmXu1hholWnsryniz+QyNs2NkblopDwlde206SGr0ndQYEuCMEmHg==}
+  '@prosekit/solid@0.3.7':
+    resolution: {integrity: sha512-xXhsZkfzHVDzv+YPyE5NMFIHEsaFwDpxZeahp0KOt1J8qxogcNSYzDT4qKKBwYkRuB//PYZU37cGz3TkcD6dIA==}
     peerDependencies:
       solid-js: '>= 1.7.0'
     peerDependenciesMeta:
       solid-js:
         optional: true
 
-  '@prosekit/svelte@0.3.5':
-    resolution: {integrity: sha512-9I/bJFBS/q1NSy0fdP0NDLrf1egEfKWdPhkQ86RJHkOSJf1ktR+ocQ8tX+eEOQei+p79dzqXVM6mBYRVXMWOYQ==}
+  '@prosekit/svelte@0.3.7':
+    resolution: {integrity: sha512-77HWnhfK3fvNoFiUC5c0oOcFw6jty8+ue0d73063lgRa6reuJ8Ajtq7Tjkt+bjtwvvp2X1bK/eIqNHW/jDOobQ==}
     peerDependencies:
       svelte: '>= 3.0.0'
     peerDependenciesMeta:
       svelte:
         optional: true
 
-  '@prosekit/vue@0.3.5':
-    resolution: {integrity: sha512-KDDWDUhyHznQA4jvl3Yk881xY9Z+9rlzXx3+6VKpL7YQIanKBjVf1sVq/Tm2TDXNYBdCRw/gHDtaQ7nYtaSVUg==}
+  '@prosekit/vue@0.3.7':
+    resolution: {integrity: sha512-3T8T0F0PfPdVbyFnp5XUkfmuQ02Jo8EQchzMRkkv786dBWdmtP+hzYMnDa90ZdFn3xSz7ohgFcutKtDr2ydCVQ==}
     peerDependencies:
       vue: '>= 3.0.0'
     peerDependenciesMeta:
       vue:
         optional: true
 
-  '@prosekit/web@0.1.10':
-    resolution: {integrity: sha512-mGD49JLlPCxJLmrEWtntesnoGs/SI6kJ43Veo1r1kcSG/SngvW43f71KxZDFg/LDxfUS6xca7vDSPg047t7ZJA==}
+  '@prosekit/web@0.2.1':
+    resolution: {integrity: sha512-/0fJY1FR77osD1UF6ZdHg3j0owlN7aqyi74vhF/F9r+KuFqng6lX3CIw6M/cLas7JuQxLAVLI/GVKJ0QdkXtkg==}
 
   '@prosemirror-adapter/core@0.2.6':
     resolution: {integrity: sha512-7GXWQBR/bd6ngvek8SgtlEVC0x3KL7LKZ5cxyZl4IBAlRDbITQWsuKLChEXNan9A6+9Ry4a46crbDGTQlzooOg==}
@@ -4750,18 +4750,18 @@ packages:
   '@vitest/utils@1.6.0':
     resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
 
-  '@wagmi/connectors@5.0.16':
-    resolution: {integrity: sha512-AjZpKmdo8nBhWtvfHfa1NBtU/x6QsWoZthLseVrCZ6Z9dmmVShvq1bd36kpyJGHOTX6H1p/5WQXFG7X84TZ/Sg==}
+  '@wagmi/connectors@5.0.17':
+    resolution: {integrity: sha512-fy14qLAZ3c+XI8WDBrTkNVOHOszE5a0h6IMQmAvoJm6blgi3o4GQHQ32oVl0zl6Kauzh8EM/pqmfPTkHGkkIvQ==}
     peerDependencies:
-      '@wagmi/core': 2.11.4
+      '@wagmi/core': 2.11.5
       typescript: '>=5.0.4'
       viem: 2.x
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@wagmi/core@2.11.4':
-    resolution: {integrity: sha512-vugDoSqHgWFEIIcwnBUFf1VctMfAnq6EK7vIPhVyBtlCdF/9tU0NoH8ayQeP6R6W6mQtnctUU/WM7+mFRnn4OA==}
+  '@wagmi/core@2.11.5':
+    resolution: {integrity: sha512-RmtZQkNf/ozdngyDST33WLTdKQHny9SsiNmxln8G06pbnOuhO4dDhnXnfiJ8Lh9GVIfFsjlmtqzfAIo1/86dqg==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
       typescript: '>=5.0.4'
@@ -4934,35 +4934,32 @@ packages:
     resolution: {integrity: sha512-Bp34Cl6/Ku3gylmQegRWgc2BX20+OD4k6fMWbEoLFKcNxkA0j8XV8Ml7IQ7C+4pyVtrlDA0at33LvmuRd6owsQ==}
     engines: {node: '>=18'}
 
-  '@zag-js/dismissable@0.50.0':
-    resolution: {integrity: sha512-pTtW7QrO1dhMaMCl//fb5pQ3x8b6TNVTRonUW58vtlpJog1M3PAVS83or8ltp/97UvrCuhMgWynxMB9l6+Omvg==}
+  '@zag-js/dismissable@0.58.2':
+    resolution: {integrity: sha512-cdjHvonkWlUWc2c+cnTR+3o359+ZRiIpnq47MI4mH/Lym8a0moEDDszc90auSgw41r+rIBkwAwi3nFydwb7a/Q==}
 
-  '@zag-js/dom-event@0.50.0':
-    resolution: {integrity: sha512-/Ij7FTR3qD1Zk7rZXw5Ou/VTnsvOO+LOQHhJaA2xTGoR7jurrNdBNSfYNNRA0pfG5JqHvaTZu0nFDTZTaN+Sng==}
+  '@zag-js/dom-event@0.58.2':
+    resolution: {integrity: sha512-RysmSlRAQV7iPEbzMJx14ZprNEdnDPKbukI0LiMG0FzyHJVMmw+3F/FbiI4dwJMWlvEjlZ+4JNhxrBd3FaXegw==}
 
   '@zag-js/dom-query@0.49.0':
     resolution: {integrity: sha512-lA+8ZdfU27GcoMZFRUANYfd6FI2ukPNwlecpJp8E9t4BVZK2o5V7xpAaN99m1TePw5JlcZ7gGXe4I82Ej11Yjg==}
 
-  '@zag-js/dom-query@0.50.0':
-    resolution: {integrity: sha512-AXTZIpTfCoJZ5+Oj9woSBPKILbrSXpEbXjbBRQ3/JFb+VSbmljNrLpr5OblGEzhVD7enLc+rEmrgGiRC4je6Jg==}
+  '@zag-js/dom-query@0.58.2':
+    resolution: {integrity: sha512-vbuXOD5pJaNs2258WO9PrGwIIZagDMHUcADnN6MegMttJGA4pO7M4EUqESXuHvol8GF8dzaQY7vxmkZdBio6hQ==}
 
-  '@zag-js/dom-query@0.53.0':
-    resolution: {integrity: sha512-0dLHa4oCzfEtmI7bRf4iG2qAAlqZ4w0yTcZzOImr471dGwfPWojUJrGk8ngtL20SHfacm7/RRz37ZEDn4TW1yA==}
-
-  '@zag-js/interact-outside@0.50.0':
-    resolution: {integrity: sha512-dqE4sNjmw28ZZGF78v++aXBO/iYN7nz28PEsHDu2T/+DqgYWWiSQ3akxorfUWewSUUw3qZcz9P8kIBYFaBDwcQ==}
+  '@zag-js/interact-outside@0.58.2':
+    resolution: {integrity: sha512-Odux6Hzvy1So4tx9XqdyFEbfJ60vimOGVvDT7uSe3Rv80bmY+3MAcuDU51nFB2Jo8q6AfUYOZa+3SLkvEF+cuQ==}
 
   '@zag-js/tabbable@0.49.0':
     resolution: {integrity: sha512-GwJAuBWTU7dvj7GVcM1KLt6th1kraIewr+A3q7SKXb3e/SyIZ7MbORQDVnEU/LIyhyUz9cwAoHNrgO+3V0ph9A==}
 
-  '@zag-js/text-selection@0.50.0':
-    resolution: {integrity: sha512-+nYxhshEEO3r0FaPN32RlqP7K5JyL4UzaUXccpLygLnzTjAfcoIkwKz/HYSsHohtf3hTXKQft/zC9OOHc7JrFw==}
+  '@zag-js/text-selection@0.58.2':
+    resolution: {integrity: sha512-N+4KmTbP40ykgT0ocJjyN9aom/+3DepPCzsomqnjnkP4YzW0ANIVXSM7mI2K8YawnMkCnw2EJhw5ZM9Xr0yY8w==}
 
-  '@zag-js/types@0.50.0':
-    resolution: {integrity: sha512-VhnCunY8Q90vBunOWFJWhXbnJBpY+Z02ahxlbBV5GItsInXkupaR/KKWnBXucHKoIckhxzw8yaoJoT91dOPweQ==}
+  '@zag-js/types@0.58.2':
+    resolution: {integrity: sha512-UhnVjh2MuwqwDZaX0a/9pQn40x9xFbq5FjwnZuNVdG/zaNgjrbY7FcuzB6rvE7Ftm8OahiTOOBBD7pSxTV85zQ==}
 
-  '@zag-js/utils@0.50.0':
-    resolution: {integrity: sha512-eYyDE6aMr90IBF2XNDTu2OsMKNr1AHWV43W6DdDtS/rVIYFd73jqc2hCOaizwLSli1KwdRQObK80URDLIOclcw==}
+  '@zag-js/utils@0.58.2':
+    resolution: {integrity: sha512-EvqDmCjG9ORl2XhkQwx71Eesf+krGVKJ5OXNA/G3p7hJWekgrgBliQ5i7m/GYMpWu1Ofp+UfAvDjZO1Lj37ngg==}
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -9284,8 +9281,8 @@ packages:
   property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
 
-  prosekit@0.7.7:
-    resolution: {integrity: sha512-TY00DTOrRbg5MrI3tSGOG0ra6XQleHkXj/lxXrP5hDjvUR6D13LdPkpgwPLi/ETAdNIwjDuw79CfdC/4Z6kn8w==}
+  prosekit@0.8.1:
+    resolution: {integrity: sha512-WADBEIxwehXvPY9Btm8ev0lPr0ffh5FSjtHB2muH5fK6jwQjxscu48pMj7txV5LFrNA0JdWTVFfeeZDSaBLsSg==}
     peerDependencies:
       preact: '>= 10.11.0'
       react: '>= 18.2.0'
@@ -9316,8 +9313,8 @@ packages:
   prosemirror-flat-list@0.5.0:
     resolution: {integrity: sha512-atRnGz7OPOw+NTc+D/RBjG5xL/UhiVI3dhkMtevNKw2lokHq5aRKJnDEcy02u25vP8MBwbugQxhvBoZrA6/ynw==}
 
-  prosemirror-highlight@0.6.0:
-    resolution: {integrity: sha512-A2mITZJndQZE9x99pkpRMUMBGj3gDcyseVEh8CVRTxFFY39nsJiEBJD11VGPEj1TzhPoHvLfsi4yoE/kxghCRg==}
+  prosemirror-highlight@0.8.0:
+    resolution: {integrity: sha512-b5BPX7z57fJuKS+JvxJa0gaQ4GWam28KqXMhef6VYLuCyjM54XDwgn81PoxWUzy82MopCFBwOls+7Ls8uQBqFw==}
     peerDependencies:
       '@types/hast': ^3.0.0
       highlight.js: ^11.9.0
@@ -9327,8 +9324,7 @@ packages:
       prosemirror-transform: ^1.8.0
       prosemirror-view: ^1.32.4
       refractor: ^4.8.1
-      shiki: ^1.0.0
-      shikiji: ^0.8.0 || ^0.9.0 || ^0.10.0
+      shiki: ^1.9.0
       sugar-high: ^0.6.1
     peerDependenciesMeta:
       '@types/hast':
@@ -9349,8 +9345,6 @@ packages:
         optional: true
       shiki:
         optional: true
-      shikiji:
-        optional: true
       sugar-high:
         optional: true
 
@@ -9365,6 +9359,9 @@ packages:
 
   prosemirror-model@1.21.1:
     resolution: {integrity: sha512-IVBAuMqOfltTr7yPypwpfdGT+6rGAteVOw2FO6GEvCGGa1ZwxLseqC1Eax/EChDvG/xGquB2d/hLdgh3THpsYg==}
+
+  prosemirror-search@0.1.0:
+    resolution: {integrity: sha512-xZ2uDZsza+CfTA4wk2hD81Uchw3r/8EOGGYNPLoepIEH0MYcBFj1bMD2Fe81Mi4wE57XLqMB3JyckceNgLKDzw==}
 
   prosemirror-splittable@0.1.1:
     resolution: {integrity: sha512-mUaOrp4aT2rPZNyZMRCSd+JrVuUU+w7+SFg+l8r6JFtF/ECkA+ZVXxXO0c9vLQ0VWG8UcfszQaD+X+cxKuA2Uw==}
@@ -11194,8 +11191,8 @@ packages:
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
 
-  wagmi@2.10.4:
-    resolution: {integrity: sha512-FrQ9a2EgGohnk8v1mTHUAqdBv1EHVWGy/lxezqdJaH2oF062sz2TWlWjbbFCxvd+obrrIPcEjIaOpvJMVt0nRg==}
+  wagmi@2.10.5:
+    resolution: {integrity: sha512-/fB8tu0pKVwX7XZ80pOFflIVhkSYactJoDZZ5OEj6JoFx2DadpHgLEYGp1g/mm2Qlfswzp/uKzF8eNzBtFj5eg==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: '>=18'
@@ -11582,43 +11579,45 @@ snapshots:
 
   '@aria-ui/collection@0.0.3': {}
 
-  '@aria-ui/core@0.0.14':
+  '@aria-ui/core@0.0.16':
     dependencies:
       '@dddstack/ariatype-aria-attributes': 2.0.0
       '@dddstack/ariatype-aria-roles': 2.0.0
       '@preact/signals-core': 1.6.1
+      '@zag-js/dom-query': 0.58.2
       server-dom-shim: 1.0.2
 
-  '@aria-ui/listbox@0.0.13':
+  '@aria-ui/listbox@0.0.15':
     dependencies:
       '@aria-ui/collection': 0.0.3
-      '@aria-ui/core': 0.0.14
-      '@aria-ui/presence': 0.0.9
+      '@aria-ui/core': 0.0.16
+      '@aria-ui/presence': 0.0.11
       immer: 10.1.1
 
-  '@aria-ui/overlay@0.0.15':
+  '@aria-ui/overlay@0.0.17':
     dependencies:
-      '@aria-ui/core': 0.0.14
+      '@aria-ui/core': 0.0.16
       '@floating-ui/dom': 1.6.5
-      '@zag-js/dom-query': 0.50.0
+      '@zag-js/dom-query': 0.58.2
 
-  '@aria-ui/popover@0.0.14':
+  '@aria-ui/popover@0.0.17':
     dependencies:
-      '@aria-ui/core': 0.0.14
-      '@aria-ui/overlay': 0.0.15
-      '@aria-ui/presence': 0.0.9
-      '@zag-js/dismissable': 0.50.0
+      '@aria-ui/core': 0.0.16
+      '@aria-ui/overlay': 0.0.17
+      '@aria-ui/presence': 0.0.11
+      '@zag-js/dismissable': 0.58.2
       '@zag-js/tabbable': 0.49.0
 
-  '@aria-ui/presence@0.0.9':
+  '@aria-ui/presence@0.0.11':
     dependencies:
-      '@aria-ui/core': 0.0.14
+      '@aria-ui/core': 0.0.16
+      '@zag-js/dom-query': 0.58.2
 
-  '@aria-ui/tooltip@0.0.16':
+  '@aria-ui/tooltip@0.0.19':
     dependencies:
-      '@aria-ui/core': 0.0.14
-      '@aria-ui/overlay': 0.0.15
-      '@aria-ui/presence': 0.0.9
+      '@aria-ui/core': 0.0.16
+      '@aria-ui/overlay': 0.0.17
+      '@aria-ui/presence': 0.0.11
       nanoid: 5.0.7
 
   '@aws-crypto/crc32@5.2.0':
@@ -15039,10 +15038,10 @@ snapshots:
     dependencies:
       '@prisma/debug': 5.15.1
 
-  '@prosekit/basic@0.3.8(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/basic@0.3.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
-      '@prosekit/extensions': 0.5.3(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/extensions': 0.6.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
       '@prosekit/pm': 0.1.5
     transitivePeerDependencies:
       - '@types/hast'
@@ -15053,10 +15052,9 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/core@0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)':
+  '@prosekit/core@0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)':
     dependencies:
       '@prosekit/pm': 0.1.5
       clsx: 2.1.1
@@ -15068,13 +15066,14 @@ snapshots:
       - prosemirror-state
       - prosemirror-transform
 
-  '@prosekit/extensions@0.5.3(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/extensions@0.6.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.5
       prosemirror-dropcursor: 1.8.1
       prosemirror-flat-list: 0.5.0
-      prosemirror-highlight: 0.6.0(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(shiki@1.9.0)
+      prosemirror-highlight: 0.8.0(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(shiki@1.9.0)
+      prosemirror-search: 0.1.0
       prosemirror-tables: 1.3.7
       shiki: 1.9.0
     transitivePeerDependencies:
@@ -15086,12 +15085,11 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/lit@0.3.3(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/lit@0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -15101,7 +15099,6 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
   '@prosekit/pm@0.1.5':
@@ -15115,11 +15112,11 @@ snapshots:
       prosemirror-transform: 1.9.0
       prosemirror-view: 1.33.8
 
-  '@prosekit/preact@0.3.6(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/preact@0.3.8(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.5
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
       react-merge-refs: 2.1.1
     optionalDependencies:
       preact: 10.22.0
@@ -15132,14 +15129,13 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/react@0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@prosekit/react@0.3.9(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.5
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
       '@prosemirror-adapter/core': 0.2.6
       react-merge-refs: 2.1.1
     optionalDependencies:
@@ -15154,14 +15150,13 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/solid@0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/solid@0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.5
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -15171,14 +15166,13 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/svelte@0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/svelte@0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.5
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -15188,14 +15182,13 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/vue@0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/vue@0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.5
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
       '@prosemirror-adapter/core': 0.2.6
     transitivePeerDependencies:
       - '@types/hast'
@@ -15206,23 +15199,22 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
-  '@prosekit/web@0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/web@0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
     dependencies:
       '@aria-ui/collection': 0.0.3
-      '@aria-ui/core': 0.0.14
-      '@aria-ui/listbox': 0.0.13
-      '@aria-ui/overlay': 0.0.15
-      '@aria-ui/popover': 0.0.14
-      '@aria-ui/presence': 0.0.9
-      '@aria-ui/tooltip': 0.0.16
+      '@aria-ui/core': 0.0.16
+      '@aria-ui/listbox': 0.0.15
+      '@aria-ui/overlay': 0.0.17
+      '@aria-ui/popover': 0.0.17
+      '@aria-ui/presence': 0.0.11
+      '@aria-ui/tooltip': 0.0.19
       '@floating-ui/dom': 1.6.5
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
-      '@prosekit/extensions': 0.5.3(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/extensions': 0.6.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
       '@prosekit/pm': 0.1.5
-      '@zag-js/dom-query': 0.53.0
+      '@zag-js/dom-query': 0.58.2
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -15232,7 +15224,6 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
   '@prosemirror-adapter/core@0.2.6':
@@ -17307,13 +17298,13 @@ snapshots:
       loupe: 2.3.7
       pretty-format: 29.7.0
 
-  '@wagmi/connectors@5.0.16(@types/react@18.3.3)(@wagmi/core@2.11.4(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/connectors@5.0.17(@types/react@18.3.3)(@wagmi/core@2.11.5(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@coinbase/wallet-sdk': 4.0.3
       '@metamask/sdk': 0.26.0(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(utf-8-validate@5.0.10)
       '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8)
       '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8)
-      '@wagmi/core': 2.11.4(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.11.5(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       '@walletconnect/ethereum-provider': 2.13.0(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10)
       '@walletconnect/modal': 2.6.2(@types/react@18.3.3)(react@18.3.1)
       cbw-sdk: '@coinbase/wallet-sdk@3.9.3'
@@ -17347,7 +17338,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/core@2.11.4(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/core@2.11.5(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       eventemitter3: 5.0.1
       mipd: 0.0.5(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8)
@@ -17820,44 +17811,42 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@zag-js/dismissable@0.50.0':
+  '@zag-js/dismissable@0.58.2':
     dependencies:
-      '@zag-js/dom-event': 0.50.0
-      '@zag-js/dom-query': 0.50.0
-      '@zag-js/interact-outside': 0.50.0
-      '@zag-js/utils': 0.50.0
+      '@zag-js/dom-event': 0.58.2
+      '@zag-js/dom-query': 0.58.2
+      '@zag-js/interact-outside': 0.58.2
+      '@zag-js/utils': 0.58.2
 
-  '@zag-js/dom-event@0.50.0':
+  '@zag-js/dom-event@0.58.2':
     dependencies:
-      '@zag-js/dom-query': 0.50.0
-      '@zag-js/text-selection': 0.50.0
-      '@zag-js/types': 0.50.0
+      '@zag-js/dom-query': 0.58.2
+      '@zag-js/text-selection': 0.58.2
+      '@zag-js/types': 0.58.2
 
   '@zag-js/dom-query@0.49.0': {}
 
-  '@zag-js/dom-query@0.50.0': {}
+  '@zag-js/dom-query@0.58.2': {}
 
-  '@zag-js/dom-query@0.53.0': {}
-
-  '@zag-js/interact-outside@0.50.0':
+  '@zag-js/interact-outside@0.58.2':
     dependencies:
-      '@zag-js/dom-event': 0.50.0
-      '@zag-js/dom-query': 0.50.0
-      '@zag-js/utils': 0.50.0
+      '@zag-js/dom-event': 0.58.2
+      '@zag-js/dom-query': 0.58.2
+      '@zag-js/utils': 0.58.2
 
   '@zag-js/tabbable@0.49.0':
     dependencies:
       '@zag-js/dom-query': 0.49.0
 
-  '@zag-js/text-selection@0.50.0':
+  '@zag-js/text-selection@0.58.2':
     dependencies:
-      '@zag-js/dom-query': 0.50.0
+      '@zag-js/dom-query': 0.58.2
 
-  '@zag-js/types@0.50.0':
+  '@zag-js/types@0.58.2':
     dependencies:
       csstype: 3.1.3
 
-  '@zag-js/utils@0.50.0': {}
+  '@zag-js/utils@0.58.2': {}
 
   JSONStream@1.3.5:
     dependencies:
@@ -23185,19 +23174,19 @@ snapshots:
 
   property-information@6.5.0: {}
 
-  prosekit@0.7.7(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  prosekit@0.8.1(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@prosekit/basic': 0.3.8(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/core': 0.5.5(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
-      '@prosekit/extensions': 0.5.3(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/lit': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/basic': 0.3.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/core': 0.6.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/extensions': 0.6.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/lit': 0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
       '@prosekit/pm': 0.1.5
-      '@prosekit/preact': 0.3.6(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/react': 0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@prosekit/solid': 0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/svelte': 0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/vue': 0.3.5(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/web': 0.1.10(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/preact': 0.3.8(@types/hast@3.0.4)(preact@10.22.0)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/react': 0.3.9(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@prosekit/solid': 0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/svelte': 0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/vue': 0.3.7(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.2.1(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
     optionalDependencies:
       preact: 10.22.0
       react: 18.3.1
@@ -23211,7 +23200,6 @@ snapshots:
       - prosemirror-transform
       - prosemirror-view
       - refractor
-      - shikiji
       - sugar-high
 
   prosemirror-commands@1.5.2:
@@ -23235,7 +23223,7 @@ snapshots:
       prosemirror-transform: 1.9.0
       prosemirror-view: 1.33.8
 
-  prosemirror-highlight@0.6.0(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(shiki@1.9.0):
+  prosemirror-highlight@0.8.0(@types/hast@3.0.4)(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(shiki@1.9.0):
     optionalDependencies:
       '@types/hast': 3.0.4
       prosemirror-model: 1.21.1
@@ -23264,6 +23252,12 @@ snapshots:
   prosemirror-model@1.21.1:
     dependencies:
       orderedmap: 2.1.1
+
+  prosemirror-search@0.1.0:
+    dependencies:
+      prosemirror-model: 1.21.1
+      prosemirror-state: 1.4.3
+      prosemirror-view: 1.33.8
 
   prosemirror-splittable@0.1.1(prosemirror-model@1.21.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0):
     optionalDependencies:
@@ -25359,11 +25353,11 @@ snapshots:
 
   w3c-keyname@2.2.8: {}
 
-  wagmi@2.10.4(@tanstack/query-core@5.45.0)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8):
+  wagmi@2.10.5(@tanstack/query-core@5.45.0)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8):
     dependencies:
       '@tanstack/react-query': 5.45.1(react@18.3.1)
-      '@wagmi/connectors': 5.0.16(@types/react@18.3.3)(@wagmi/core@2.11.4(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
-      '@wagmi/core': 2.11.4(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/connectors': 5.0.17(@types/react@18.3.3)(@wagmi/core@2.11.5(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(rollup@4.18.0)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.11.5(@tanstack/query-core@5.45.0)(@types/react@18.3.3)(bufferutil@4.0.8)(immer@10.1.1)(react@18.3.1)(typescript@5.5.2)(utf-8-validate@5.0.10)(viem@2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
       viem: 2.16.1(bufferutil@4.0.8)(typescript@5.5.2)(utf-8-validate@5.0.10)(zod@3.23.8)
