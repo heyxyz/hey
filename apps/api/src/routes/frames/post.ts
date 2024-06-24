@@ -17,8 +17,10 @@ import { number, object, string } from 'zod';
 type ExtensionRequest = {
   buttonAction?: ButtonType;
   buttonIndex: number;
+  inputText?: string;
   postUrl: string;
   pubId: string;
+  state?: string;
 };
 
 const validationSchema = object({
@@ -46,7 +48,7 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res, validateLensAccountStatus);
   }
 
-  const { buttonAction, buttonIndex, postUrl, pubId } =
+  const { buttonAction, buttonIndex, inputText, postUrl, pubId, state } =
     body as ExtensionRequest;
 
   try {
@@ -58,11 +60,11 @@ export const post: Handler = async (req, res) => {
     const request = {
       actionResponse: '',
       buttonIndex,
-      inputText: '',
+      inputText: inputText ?? '',
       profileId: id,
       pubId,
       specVersion: '1.0.0',
-      state: '',
+      state: state ?? '',
       url: postUrl
     };
 

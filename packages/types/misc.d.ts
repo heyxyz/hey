@@ -62,9 +62,12 @@ export interface Frame {
   }[];
   frameUrl: string;
   image: string;
+  inputText: null | string;
+  lensFramesVersion: null | string;
+  openFramesVersion: null | string;
   postUrl: string;
+  state: null | string;
   transaction?: FrameTransaction;
-  version: string;
 }
 
 export interface OG {

@@ -25,6 +25,7 @@ interface FrameProps {
 const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
   const { currentProfile } = useProfileStore();
   const [frameData, setFrameData] = useState<IFrame | null>(null);
+  const [inputText, setInputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [showTransaction, setShowTransaction] = useState<{
     frame: IFrame | null;
@@ -43,7 +44,14 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     return null;
   }
 
-  const { buttons, frameUrl, image, postUrl } = frameData;
+  const {
+    buttons,
+    frameUrl,
+    image,
+    inputText: inputTextLabel,
+    postUrl,
+    state
+  } = frameData;
 
   const onPost = async (index: number) => {
     if (!currentProfile) {
@@ -52,13 +60,14 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
 
     try {
       setIsLoading(true);
-
       const { data }: { data: { frame: IFrame } } = await axios.post(
         `${HEY_API_URL}/frames/post`,
         {
           buttonIndex: index + 1,
+          inputText,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
-          pubId: publicationId
+          pubId: publicationId,
+          state
         },
         { headers: getAuthApiHeaders() }
       );
@@ -120,6 +129,15 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
         src={image}
       />
+      {inputTextLabel && (
+        <input
+          className="mt-2 w-full rounded border p-2"
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder={inputTextLabel}
+          type="text"
+          value={inputText}
+        />
+      )}
       <div
         className={cn(
           buttons.length === 1 && 'grid-cols-1',
