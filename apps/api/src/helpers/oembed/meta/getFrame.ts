@@ -14,6 +14,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
   const inputText = getMeta('of:input:text') || 'fc:input:text';
+  const state = getMeta('of:state') || getMeta('fc:state');
 
   let buttons: Frame['buttons'] = [];
   for (let i = 1; i < 5; i++) {
@@ -55,7 +56,8 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     inputText,
     lensFramesVersion,
     openFramesVersion,
-    postUrl
+    postUrl,
+    state
   };
 };
 

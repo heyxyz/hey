@@ -39,7 +39,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     frameUrl,
     image,
     inputText: inputTextLabel,
-    postUrl
+    postUrl,
+    state
   } = frameData;
 
   const onPost = async (index: number) => {
@@ -55,7 +56,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           buttonIndex: index + 1,
           inputText,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
-          pubId: publicationId
+          pubId: publicationId,
+          state
         },
         { headers: getAuthApiHeaders() }
       );
