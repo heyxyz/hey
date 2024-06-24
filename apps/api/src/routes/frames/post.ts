@@ -18,6 +18,7 @@ type ExtensionRequest = {
   inputText?: string;
   postUrl: string;
   pubId: string;
+  state?: string;
 };
 
 const validationSchema = object({
@@ -44,7 +45,8 @@ export const post: Handler = async (req, res) => {
     return notAllowed(res, validateLensAccountStatus);
   }
 
-  const { buttonIndex, inputText, postUrl, pubId } = body as ExtensionRequest;
+  const { buttonIndex, inputText, postUrl, pubId, state } =
+    body as ExtensionRequest;
 
   try {
     const accessToken = req.headers['x-access-token'] as string;
@@ -59,7 +61,7 @@ export const post: Handler = async (req, res) => {
       profileId: id,
       pubId,
       specVersion: '1.0.0',
-      state: '',
+      state: state ?? '',
       url: postUrl
     };
 
