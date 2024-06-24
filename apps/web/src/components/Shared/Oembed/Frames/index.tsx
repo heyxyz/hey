@@ -124,8 +124,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       }
 
       return setFrameData(postedData.frame);
-    } catch (error) {
-      console.log(error);
+    } catch {
       toast.error(Errors.SomethingWentWrongWithFrame);
     } finally {
       setIsLoading(false);
