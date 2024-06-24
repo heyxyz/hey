@@ -13,7 +13,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   const image = getMeta('of:image') || getMeta('og:image');
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
-  const inputText = getMeta('of:input:text') || 'fc:input:text';
+  const inputText = getMeta('of:input:text') || getMeta('fc:input:text');
   const state = getMeta('of:state') || getMeta('fc:state');
 
   let buttons: Frame['buttons'] = [];
