@@ -100,9 +100,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       const txnData = data.frame.transaction;
       const targetChain = parseInt(txnData.chainId.replace('eip155:', ''));
 
-      if (targetChain !== chain) {
-        await switchChainAsync({ chainId: targetChain });
-      }
+      await switchChainAsync({ chainId: targetChain });
 
       const hash = await sendTransactionAsync({
         data: txnData.params.data,
@@ -126,7 +124,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       }
 
       return setFrameData(postedData.frame);
-    } catch {
+    } catch (error) {
+      console.log(error);
       toast.error(Errors.SomethingWentWrongWithFrame);
     } finally {
       setIsLoading(false);
