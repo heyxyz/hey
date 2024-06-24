@@ -15,6 +15,11 @@ export const get: Handler = async (req, res) => {
 
   try {
     const oembed = await getMetadata(url as string);
+
+    if (!oembed) {
+      return res.status(200).json({ oembed: null, success: false });
+    }
+
     const skipCache = oembed.frame !== null;
 
     logger.info(`Oembed generated for ${url}`);
