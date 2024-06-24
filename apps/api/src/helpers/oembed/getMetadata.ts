@@ -15,28 +15,32 @@ import getNft from './meta/getNft';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
 
-const getMetadata = async (url: string): Promise<OG> => {
-  const { data } = await axios.get(url, {
-    headers: { 'User-Agent': HEY_USER_AGENT }
-  });
+const getMetadata = async (url: string): Promise<null | OG> => {
+  try {
+    const { data } = await axios.get(url, {
+      headers: { 'User-Agent': HEY_USER_AGENT }
+    });
 
-  const { document } = parseHTML(data);
-  const image = getImage(document) as string;
+    const { document } = parseHTML(data);
+    const image = getImage(document) as string;
 
-  const metadata: OG = {
-    description: getDescription(document),
-    favicon: getFavicon(url),
-    frame: getFrame(document, url),
-    html: generateIframe(getEmbedUrl(document), url),
-    image: getProxyUrl(image),
-    lastIndexedAt: new Date().toISOString(),
-    nft: getNft(document, url),
-    site: getSite(document),
-    title: getTitle(document),
-    url
-  };
+    const metadata: OG = {
+      description: getDescription(document),
+      favicon: getFavicon(url),
+      frame: getFrame(document, url),
+      html: generateIframe(getEmbedUrl(document), url),
+      image: getProxyUrl(image),
+      lastIndexedAt: new Date().toISOString(),
+      nft: getNft(document, url),
+      site: getSite(document),
+      title: getTitle(document),
+      url
+    };
 
-  return metadata;
+    return metadata;
+  } catch {
+    return null;
+  }
 };
 
 export default getMetadata;

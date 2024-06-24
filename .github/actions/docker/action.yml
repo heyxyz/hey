@@ -13,6 +13,9 @@ inputs:
   docker_file:
     required: true
     default: ''
+  tag_name:
+    required: false
+    default: 'latest'
 
 runs:
   using: 'composite'
@@ -35,4 +38,4 @@ runs:
         context: .
         file: ${{ inputs.docker_file }}
         push: true
-        tags: heyxyz/${{ inputs.image_name }}:latest
+        tags: heyxyz/${{ inputs.image_name }}:${{ inputs.tag_name }}
