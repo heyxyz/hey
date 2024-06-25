@@ -15,18 +15,16 @@ const GlobalModalsFromUrl: FC = () => {
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { setScreen } = useSignupStore();
 
-  // Trigger Signup modal
   useEffect(() => {
-    if (isReady && query?.signup && !currentProfile?.id) {
+    if (isReady && query.signup && !currentProfile?.id) {
       setScreen('choose');
       setShowAuthModal(true, 'signup');
       Leafwatch.track(AUTH.OPEN_SIGNUP);
 
-      // remove query param
+      // Remove query param
       push({ pathname: '/' }, undefined, { shallow: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [isReady, query, currentProfile, setScreen, setShowAuthModal, push]);
 
   return null;
 };
