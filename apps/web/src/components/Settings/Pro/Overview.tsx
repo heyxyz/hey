@@ -34,8 +34,7 @@ const Overview: FC = () => {
           <span className={getColor(daysLeft)}>{daysLeft} days</span>
         </b>
         <div className="flex items-center space-x-5">
-          <ExtendButton outline size="md" tier="monthly" />
-          <ExtendButton outline size="md" tier="annually" />
+          <ExtendButton size="md" />
         </div>
       </div>
     </Card>
