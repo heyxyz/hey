@@ -13,54 +13,57 @@ import { TabButton } from '@hey/ui';
 import { NotificationTabType } from 'src/enums';
 
 interface FeedTypeProps {
-  feedType: string;
+  feedType: NotificationTabType;
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
-  const switchTab = (type: string) => {
+  const switchTab = (type: NotificationTabType) => {
     Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
       notification_type: type.toLowerCase()
     });
   };
 
+  const tabs = [
+    {
+      icon: <BellIcon className="size-4" />,
+      name: 'All notifications',
+      type: NotificationTabType.All
+    },
+    {
+      icon: <AtSymbolIcon className="size-4" />,
+      name: 'Mentions',
+      type: NotificationTabType.Mentions
+    },
+    {
+      icon: <ChatBubbleLeftIcon className="size-4" />,
+      name: 'Comments',
+      type: NotificationTabType.Comments
+    },
+    {
+      icon: <HeartIcon className="size-4" />,
+      name: 'Likes',
+      type: NotificationTabType.Likes
+    },
+    {
+      icon: <RectangleStackIcon className="size-4" />,
+      name: 'Collects',
+      type: NotificationTabType.Collects
+    }
+  ];
+
   return (
     <div className="flex items-center justify-between">
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
-        <TabButton
-          active={feedType === NotificationTabType.All}
-          icon={<BellIcon className="size-4" />}
-          name="All notifications"
-          onClick={() => switchTab(NotificationTabType.All)}
-          type={NotificationTabType.All.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === NotificationTabType.Mentions}
-          icon={<AtSymbolIcon className="size-4" />}
-          name="Mentions"
-          onClick={() => switchTab(NotificationTabType.Mentions)}
-          type={NotificationTabType.Mentions.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === NotificationTabType.Comments}
-          icon={<ChatBubbleLeftIcon className="size-4" />}
-          name="Comments"
-          onClick={() => switchTab(NotificationTabType.Comments)}
-          type={NotificationTabType.Comments.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === NotificationTabType.Likes}
-          icon={<HeartIcon className="size-4" />}
-          name="Likes"
-          onClick={() => switchTab(NotificationTabType.Likes)}
-          type={NotificationTabType.Likes.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === NotificationTabType.Collects}
-          icon={<RectangleStackIcon className="size-4" />}
-          name="Collects"
-          onClick={() => switchTab(NotificationTabType.Collects)}
-          type={NotificationTabType.Collects.toLowerCase()}
-        />
+        {tabs.map((tab) => (
+          <TabButton
+            active={feedType === tab.type}
+            icon={tab.icon}
+            key={tab.type}
+            name={tab.name}
+            onClick={() => switchTab(tab.type)}
+            type={tab.type.toLowerCase()}
+          />
+        ))}
       </div>
     </div>
   );

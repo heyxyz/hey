@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import type { NotificationTabType } from 'src/enums';
 
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
@@ -47,7 +48,7 @@ const Notification: NextPage = () => {
       <MetaTags title={`Notifications • ${APP_NAME}`} />
       <div className="w-full max-w-4xl space-y-3">
         <div className="flex flex-wrap justify-between gap-3 pb-2">
-          <FeedType feedType={feedType} />
+          <FeedType feedType={feedType as NotificationTabType} />
           <Settings />
         </div>
         <List feedType={feedType} />
