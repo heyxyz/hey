@@ -13,7 +13,7 @@ import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
-import { useSendTransaction, useTransaction } from 'wagmi';
+import { useSendTransaction, useTransactionReceipt } from 'wagmi';
 
 interface ExtendButtonProps {
   size?: 'lg' | 'md';
@@ -42,7 +42,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
       }
     }
   });
-  const { isFetching: transactionLoading, isSuccess } = useTransaction({
+  const { isFetching: transactionLoading, isSuccess } = useTransactionReceipt({
     hash: transactionHash as `0x${string}`,
     query: { enabled: Boolean(transactionHash) }
   });
