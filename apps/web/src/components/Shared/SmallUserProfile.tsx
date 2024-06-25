@@ -33,7 +33,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   smallAvatar = false,
   timestamp = ''
 }) => {
-  const UserAvatar = () => (
+  const UserAvatar: FC = () => (
     <Image
       alt={profile.id}
       className={cn(
@@ -50,41 +50,42 @@ const SmallUserProfile: FC<UserProfileProps> = ({
     />
   );
 
-  const UserName = () => (
+  const UserName: FC = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className={cn(!hideSlug && 'max-w-[75%]', 'mr-1 truncate')}>
         {getProfile(profile).displayName}
       </div>
-      {isVerified(profile.id) ? (
+      {isVerified(profile.id) && (
         <CheckBadgeIcon className="text-brand-500 mr-1 size-4" />
-      ) : null}
-      {hasMisused(profile.id) ? (
+      )}
+      {hasMisused(profile.id) && (
         <ExclamationCircleIcon className="mr-2 size-4 text-red-500" />
-      ) : null}
-      {!hideSlug ? (
+      )}
+      {!hideSlug && (
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
-      ) : null}
-      {timestamp ? (
+      )}
+      {timestamp && (
         <span className="ld-text-gray-500">
           <span className="mx-1.5">·</span>
           <span className="text-xs">{formatRelativeOrAbsolute(timestamp)}</span>
         </span>
-      ) : null}
+      )}
+    </div>
+  );
+
+  const UserInfo: FC = () => (
+    <div className="flex items-center space-x-2">
+      <UserAvatar />
+      <UserName />
     </div>
   );
 
   return linkToProfile ? (
     <Link href={getProfile(profile).link}>
-      <div className="flex items-center space-x-2">
-        <UserAvatar />
-        <UserName />
-      </div>
+      <UserInfo />
     </Link>
   ) : (
-    <div className="flex items-center space-x-2">
-      <UserAvatar />
-      <UserName />
-    </div>
+    <UserInfo />
   );
 };
 
