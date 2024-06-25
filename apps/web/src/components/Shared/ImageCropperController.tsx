@@ -25,17 +25,10 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [maxZoom, setMaxZoom] = useState(1);
-  const cropper = useRef<ImageCropper>(null);
+  const cropperRef = useRef<ImageCropper>(null);
   const [cropSize, setCropSize] = useState<Size>(targetSize);
-  const { ref: divref, width: divWidth = cropSize.width } =
+  const { ref: divRef, width: divWidth = cropSize.width } =
     useResizeObserver<HTMLDivElement>();
-
-  const onSliderChange = (value: number | number[]) => {
-    const logarithmicZoomValue = Array.isArray(value) ? value[0] : value;
-    const zoomValue = Math.exp(logarithmicZoomValue);
-    setZoom(zoomValue);
-    cropper.current?.setNewZoom(zoomValue, null);
-  };
 
   const aspectRatio = targetSize.width / targetSize.height;
   const borderSize = 20;
@@ -46,8 +39,15 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
     setCropSize({ height: newHeight, width: newWidth });
   }, [divWidth, borderSize, aspectRatio]);
 
+  const onSliderChange = (value: number | number[]) => {
+    const logarithmicZoomValue = Array.isArray(value) ? value[0] : value;
+    const zoomValue = Math.exp(logarithmicZoomValue);
+    setZoom(zoomValue);
+    cropperRef.current?.setNewZoom(zoomValue, null);
+  };
+
   return (
-    <div ref={divref}>
+    <div ref={divRef}>
       <ImageCropper
         borderSize={borderSize}
         cropPositionPercent={crop}
@@ -59,7 +59,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
           setZoom(zoomValue);
           setMaxZoom(maxZoomValue);
         }}
-        ref={cropper}
+        ref={cropperRef}
         targetSize={targetSize}
         zoom={zoom}
         zoomSpeed={1.2}
@@ -70,7 +70,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
       >
         <MagnifyingGlassMinusIcon className="m-1 size-6" />
         <Slider
-          className="m-2"
+          className="m-2 flex-grow"
           max={Math.log(maxZoom)}
           min={0}
           onChange={onSliderChange}
