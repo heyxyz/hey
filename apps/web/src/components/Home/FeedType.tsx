@@ -20,38 +20,49 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
     isFeatureAvailable(FeatureFlag.Gardener) ||
     isFeatureAvailable(FeatureFlag.LensTeam);
 
+  const tabs = [
+    {
+      name: fallbackToCuratedFeed ? 'Curated Feed' : 'Following',
+      track: HOME.SWITCH_FOLLOWING_FEED,
+      type: HomeFeedType.FOLLOWING
+    },
+    enabled && {
+      badge: <New />,
+      name: 'For You',
+      track: HOME.SWITCH_FORYOU_FEED,
+      type: HomeFeedType.FORYOU
+    },
+    {
+      name: 'Premium',
+      track: HOME.SWITCH_PREMIUM_FEED,
+      type: HomeFeedType.PREMIUM
+    }
+  ].filter(
+    (
+      tab
+    ): tab is {
+      badge?: JSX.Element;
+      name: string;
+      track: string;
+      type: HomeFeedType;
+    } => Boolean(tab)
+  );
+
   return (
     <div className="flex gap-3 overflow-x-auto px-5 sm:px-0">
-      <TabButton
-        active={feedType === HomeFeedType.FOLLOWING}
-        name={fallbackToCuratedFeed ? 'Curated Feed' : 'Following'}
-        onClick={() => {
-          setFeedType(HomeFeedType.FOLLOWING);
-          Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
-        }}
-        showOnSm
-      />
-      {enabled && (
+      {tabs.map((tab) => (
         <TabButton
-          active={feedType === HomeFeedType.FORYOU}
-          badge={<New />}
-          name="For You"
+          active={feedType === tab.type}
+          badge={tab.badge}
+          key={tab.type}
+          name={tab.name}
           onClick={() => {
-            setFeedType(HomeFeedType.FORYOU);
-            Leafwatch.track(HOME.SWITCH_FORYOU_FEED);
+            setFeedType(tab.type);
+            Leafwatch.track(tab.track);
           }}
           showOnSm
         />
-      )}
-      <TabButton
-        active={feedType === HomeFeedType.PREMIUM}
-        name="Premium"
-        onClick={() => {
-          setFeedType(HomeFeedType.PREMIUM);
-          Leafwatch.track(HOME.SWITCH_PREMIUM_FEED);
-        }}
-        showOnSm
-      />
+      ))}
     </div>
   );
 };
