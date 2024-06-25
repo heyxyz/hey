@@ -9,10 +9,10 @@ interface ProfileCirclesProps {
 }
 
 const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
-  const Wrapper = ({ children }: { children: ReactNode }) => (
+  const Wrapper: FC<{ children: ReactNode }> = ({ children }) => (
     <>
       {children}
-      {context ? <span> {context}</span> : null}
+      {context && <span> {context}</span>}
     </>
   );
 
@@ -20,7 +20,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
   const profileTwo = profiles[1];
   const profileThree = profiles[2];
 
-  if (profiles?.length === 1) {
+  if (profiles.length === 1) {
     return (
       <Wrapper>
         <FallbackProfileName profile={profileOne} />
@@ -28,39 +28,36 @@ const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
     );
   }
 
-  const andSep = () => {
-    return ' ' + 'and' + ' ';
-  };
+  const andSep = ' and ';
 
-  if (profiles?.length === 2) {
+  if (profiles.length === 2) {
     return (
       <Wrapper>
-        <FallbackProfileName profile={profileOne} separator={andSep()} />
+        <FallbackProfileName profile={profileOne} separator={andSep} />
         <FallbackProfileName profile={profileTwo} />
       </Wrapper>
     );
   }
 
-  if (profiles?.length >= 3) {
-    const calculatedCount = profiles.length - 3;
-    const isZero = calculatedCount === 0;
+  if (profiles.length >= 3) {
+    const additionalCount = profiles.length - 3;
 
     return (
       <Wrapper>
         <FallbackProfileName profile={profileOne} separator=", " />
         <FallbackProfileName
           profile={profileTwo}
-          separator={isZero ? andSep() : ', '}
+          separator={additionalCount === 0 ? andSep : ', '}
         />
         <FallbackProfileName
           profile={profileThree}
           separator={
-            !isZero ? (
+            additionalCount > 0 && (
               <span className="whitespace-nowrap">
-                {andSep()}
-                {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
+                {andSep}
+                {additionalCount} {additionalCount === 1 ? 'other' : 'others'}
               </span>
-            ) : null
+            )
           }
         />
       </Wrapper>
