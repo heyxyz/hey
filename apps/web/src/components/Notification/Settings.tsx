@@ -9,11 +9,14 @@ const Settings: FC = () => {
   const [showNotificationSettings, setShowNotificationSettings] =
     useState(false);
 
+  const handleOpenSettings = () => setShowNotificationSettings(true);
+  const handleCloseSettings = () => setShowNotificationSettings(false);
+
   return (
     <>
       <button
         className="mx-3 rounded-md p-1 hover:bg-gray-300/20 sm:mx-0"
-        onClick={() => setShowNotificationSettings(true)}
+        onClick={handleOpenSettings}
         type="button"
       >
         <Tooltip content="Notification settings" placement="top">
@@ -22,7 +25,7 @@ const Settings: FC = () => {
       </button>
       <Modal
         icon={<BellIcon className="size-5" />}
-        onClose={() => setShowNotificationSettings(false)}
+        onClose={handleCloseSettings}
         show={showNotificationSettings}
         title="Notification settings"
       >
