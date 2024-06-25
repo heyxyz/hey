@@ -19,9 +19,10 @@ const collectModuleParams = (
     recipients,
     referralFee
   } = collectModule;
+
   const baseCollectModuleParams = {
-    collectLimit: collectLimit,
-    endsAt: endsAt,
+    collectLimit: collectLimit || undefined,
+    endsAt: endsAt || undefined,
     followerOnly: followerOnly || false
   };
 
@@ -30,18 +31,20 @@ const collectModuleParams = (
 
   // Calculate adjusted splits and convert to whole numbers
   let totalPercentage = 0;
-  const adjustedSplits = recipients?.map((split) => {
-    let adjustedSplit = Math.floor(split.split * (userPercentage / 100));
-    totalPercentage += adjustedSplit;
-    return {
-      recipient: split.recipient,
-      split: adjustedSplit
-    };
-  });
+  const adjustedSplits =
+    recipients?.map((split) => {
+      const adjustedSplit = Math.floor(split.split * (userPercentage / 100));
+      totalPercentage += adjustedSplit;
+      return {
+        recipient: split.recipient,
+        split: adjustedSplit
+      };
+    }) || [];
 
-  if (adjustedSplits && adjustedSplits.length > 0) {
-    // Ensure no split is zero and adjust the first recipient's split if necessary
+  if (adjustedSplits.length > 0) {
     let sumNonZeroAdjustments = 0;
+
+    // Ensure no split is zero and adjust if necessary
     for (const split of adjustedSplits) {
       if (split.split === 0 && userPercentage - totalPercentage > 0) {
         split.split++;
@@ -55,7 +58,7 @@ const collectModuleParams = (
   }
 
   // Add the admin fee split
-  adjustedSplits?.push({
+  adjustedSplits.push({
     recipient: REWARDS_ADDRESS,
     split: adminFeePercentage
   });
@@ -69,7 +72,7 @@ const collectModuleParams = (
           ...baseCollectModuleParams,
           amount: amount as AmountInput,
           recipients: adjustedSplits as RecipientDataInput[],
-          referralFee: referralFee
+          referralFee: referralFee || undefined
         }
       };
     default:
