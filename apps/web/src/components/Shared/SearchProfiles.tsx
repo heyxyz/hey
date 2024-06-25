@@ -50,7 +50,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
   const profiles = data?.searchProfiles.items as Profile[];
 
   return (
-    <div className="w-full">
+    <div className="relative w-full">
       <Input
         error={error}
         onChange={handleSearch}
@@ -58,34 +58,27 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
         type="text"
         value={value}
       />
-      {!hideDropdown && value.length > 0 ? (
+      {!hideDropdown && value.length > 0 && (
         <div className="absolute mt-2 flex w-[94%] max-w-md flex-col">
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
               <Loader className="my-3" message="Searching users" small />
+            ) : profiles.length > 0 ? (
+              profiles.slice(0, 7).map((profile) => (
+                <div
+                  className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  key={profile.id}
+                  onClick={() => onProfileSelected(profile)}
+                >
+                  <SmallUserProfile profile={profile} />
+                </div>
+              ))
             ) : (
-              <>
-                {profiles.slice(0, 7).map((profile) => (
-                  <div
-                    className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    key={profile.id}
-                    onClick={() => {
-                      if (onProfileSelected) {
-                        onProfileSelected(profile);
-                      }
-                    }}
-                  >
-                    <SmallUserProfile profile={profile} />
-                  </div>
-                ))}
-                {profiles.length === 0 ? (
-                  <div className="px-4 py-2">No matching users</div>
-                ) : null}
-              </>
+              <div className="px-4 py-2">No matching users</div>
             )}
           </Card>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
