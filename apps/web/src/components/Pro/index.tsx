@@ -21,7 +21,7 @@ const details = {
     'Profile Analytics',
     'Publication Drafts',
     'Choose your app icon',
-    'Higher video upload limits',
+    'Higher video and audio upload limits',
     'Pro Badge on your profile',
     'Early access to new features',
     'Priority support'
