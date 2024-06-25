@@ -25,6 +25,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
 }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
+
   const { data, loading } = useLensTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {
@@ -49,28 +50,42 @@ const IndexStatus: FC<IndexStatusProps> = ({
     }
   });
 
-  return (
-    <span className={cn({ hidden: hide }, 'ml-auto text-sm font-medium')}>
-      {loading ||
+  const getStatusContent = () => {
+    if (
+      loading ||
       !data?.lensTransactionStatus ||
-      data?.lensTransactionStatus?.status ===
-        LensTransactionStatusType.Processing ? (
+      data.lensTransactionStatus.status === LensTransactionStatusType.Processing
+    ) {
+      return (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
           <div>{message}</div>
         </div>
-      ) : data?.lensTransactionStatus?.status ===
-        LensTransactionStatusType.Failed ? (
+      );
+    }
+
+    if (
+      data.lensTransactionStatus.status === LensTransactionStatusType.Failed
+    ) {
+      return (
         <div className="flex items-center space-x-1.5">
           <XCircleIcon className="size-5 text-red-500" />
           <div>Index failed</div>
         </div>
-      ) : (
-        <div className="flex items-center space-x-1">
-          <CheckCircleIcon className="size-5 text-green-500" />
-          <div className="text-black dark:text-white">Index Successful</div>
-        </div>
-      )}
+      );
+    }
+
+    return (
+      <div className="flex items-center space-x-1">
+        <CheckCircleIcon className="size-5 text-green-500" />
+        <div className="text-black dark:text-white">Index Successful</div>
+      </div>
+    );
+  };
+
+  return (
+    <span className={cn({ hidden: hide }, 'ml-auto text-sm font-medium')}>
+      {getStatusContent()}
     </span>
   );
 };
