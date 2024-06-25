@@ -8,10 +8,8 @@ import {
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
 
-const Transaction = ({
+const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
   transaction
-}: {
-  transaction: OptimisticTransaction;
 }) => {
   const { removeTransaction, setIndexedPostHash } = useTransactionStore();
 
@@ -51,9 +49,13 @@ const Transaction = ({
 const OptimisticTransactionsProvider: FC = () => {
   const { txnQueue } = useTransactionStore();
 
-  return txnQueue.map((txn) => (
-    <Transaction key={txn.txId || txn.txHash} transaction={txn} />
-  ));
+  return (
+    <>
+      {txnQueue.map((txn) => (
+        <Transaction key={txn.txId || txn.txHash} transaction={txn} />
+      ))}
+    </>
+  );
 };
 
 export default OptimisticTransactionsProvider;
