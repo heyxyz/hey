@@ -57,9 +57,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         request: { ...(id ? { forProfileId: id } : { forHandle: handle }) }
       }
     });
-    setTimeout(() => {
-      setSyntheticLoading(false);
-    }, MINIMUM_LOADING_ANIMATION_MS);
+    setTimeout(() => setSyntheticLoading(false), MINIMUM_LOADING_ANIMATION_MS);
   };
 
   if (!id && !handle) {
@@ -90,7 +88,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       );
     }
 
-    const UserAvatar = () => (
+    const UserAvatar: FC = () => (
       <Image
         alt={profile.id}
         className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
@@ -104,24 +102,24 @@ const UserPreview: FC<UserPreviewProps> = ({
       />
     );
 
-    const UserName = () => (
+    const UserName: FC = () => (
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
-          {isVerified(profile.id) ? (
+          {isVerified(profile.id) && (
             <CheckBadgeIcon className="text-brand-500 size-4" />
-          ) : null}
-          {hasMisused(profile.id) ? (
+          )}
+          {hasMisused(profile.id) && (
             <ExclamationCircleIcon className="size-4 text-red-500" />
-          ) : null}
+          )}
         </div>
         <span>
           <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
-          {profile.operations.isFollowingMe.value ? (
+          {profile.operations.isFollowingMe.value && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </span>
-          ) : null}
+          )}
         </span>
       </>
     );
@@ -133,15 +131,13 @@ const UserPreview: FC<UserPreviewProps> = ({
           <FollowUnfollowButton profile={profile} small />
         </div>
         <UserName />
-        <div>
-          {profile.metadata?.bio ? (
-            <div className="linkify mt-2 break-words text-sm leading-6">
-              <Markup mentions={getMentions(profile.metadata.bio)}>
-                {truncateByWords(profile.metadata.bio, 20)}
-              </Markup>
-            </div>
-          ) : null}
-        </div>
+        {profile.metadata?.bio && (
+          <div className="linkify mt-2 break-words text-sm leading-6">
+            <Markup mentions={getMentions(profile.metadata.bio)}>
+              {truncateByWords(profile.metadata.bio, 20)}
+            </Markup>
+          </div>
+        )}
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1">
             <div className="text-base">
