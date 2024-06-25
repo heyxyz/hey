@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { Errors } from '@hey/data';
+import { MONTHLY_PRO_PRICE } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
@@ -15,16 +16,10 @@ import { parseEther } from 'viem';
 import { useSendTransaction, useTransaction } from 'wagmi';
 
 interface ExtendButtonProps {
-  outline?: boolean;
   size?: 'lg' | 'md';
-  tier: 'annually' | 'monthly';
 }
 
-const ExtendButton: FC<ExtendButtonProps> = ({
-  outline = false,
-  size = 'lg',
-  tier
-}) => {
+const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
   const { currentProfile } = useProfileStore();
   const { isPro } = useProStore();
 
@@ -58,7 +53,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({
     }
   }, [isSuccess]);
 
-  const upgrade = async (id: 'annually' | 'monthly') => {
+  const upgrade = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -72,9 +67,9 @@ const ExtendButton: FC<ExtendButtonProps> = ({
       await handleWrongNetwork();
 
       return await sendTransactionAsync({
-        data: '0x0d',
+        data: currentProfile.id,
         to: '0xF618330F51fa54Ce5951d627Ee150c0fDADeBA43',
-        value: parseEther('10')
+        value: parseEther(MONTHLY_PRO_PRICE.toString())
       });
     } catch (error) {
       errorToast(error);
@@ -87,14 +82,13 @@ const ExtendButton: FC<ExtendButtonProps> = ({
     <Button
       className="mt-3 w-full"
       disabled={isLoading || transactionLoading}
-      onClick={() => upgrade(tier as 'annually' | 'monthly')}
-      outline={outline}
+      onClick={upgrade}
       size={size}
     >
       {transactionLoading
         ? 'Transaction pending...'
         : isPro
-          ? `Extend a ${tier === 'monthly' ? 'Month' : 'Year'}`
+          ? `Extend a Month`
           : 'Upgrade to Pro'}
     </Button>
   );
