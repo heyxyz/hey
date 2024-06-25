@@ -14,7 +14,7 @@ interface CountdownTimerProps {
 }
 
 const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
-  const getTimeLeft = (): TimeLeft => {
+  const calculateTimeLeft = (): TimeLeft => {
     const now = new Date().getTime();
     const target = new Date(targetDate).getTime() - 30000; // Subtract 30 seconds
     const timeDiff = target - now;
@@ -23,37 +23,27 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
-    const seconds = Math.floor((timeDiff / 1000) % 60);
-    const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
-    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+    const seconds = Math.floor((timeDiff / 1000) % 60);
 
-    return {
-      days,
-      hours,
-      minutes,
-      seconds
-    };
+    return { days, hours, minutes, seconds };
   };
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft());
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(getTimeLeft());
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [targetDate]);
 
   const formatTimeValue = (value: number, label: string): string => {
-    if (value === 0) {
-      return '';
-    }
-    return `${value}${label} `;
+    return value > 0 ? `${value}${label} ` : '';
   };
 
   return (
