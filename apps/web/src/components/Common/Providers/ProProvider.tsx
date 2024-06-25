@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import getCurrentSession from '@helpers/getCurrentSession';
+import { STALE_TIMES } from '@hey/data/constants';
 import getPro from '@hey/helpers/api/getPro';
 import { useQuery } from '@tanstack/react-query';
 import { useProStore } from 'src/store/non-persisted/useProStore';
@@ -17,7 +18,8 @@ const ProProvider: FC = () => {
         setProExpiresAt(data.expiresAt);
         return data;
       }),
-    queryKey: ['getPro', sessionProfileId || '']
+    queryKey: ['getPro', sessionProfileId || ''],
+    staleTime: STALE_TIMES.THIRTY_MINUTES
   });
 
   return null;
