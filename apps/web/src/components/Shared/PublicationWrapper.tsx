@@ -18,22 +18,24 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
 }) => {
   const { pathname, push } = useRouter();
 
+  const handleClick = () => {
+    if (pathname === '/mod') {
+      return;
+    }
+
+    const selection = window.getSelection();
+    if (!selection || selection.toString().length === 0) {
+      push(`/posts/${publication.id}`);
+    }
+  };
+
   return (
     <motion.article
       animate={{ opacity: 1 }}
       className={cn(className)}
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
-      onClick={() => {
-        if (pathname === '/mod') {
-          return;
-        }
-
-        const selection = window.getSelection();
-        if (!selection || selection.toString().length === 0) {
-          push(`/posts/${publication?.id}`);
-        }
-      }}
+      onClick={handleClick}
     >
       {children}
     </motion.article>
