@@ -9,28 +9,23 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
+  const tabs = [
+    { name: 'Latest Publications', type: ModFeedType.LATEST },
+    { name: 'Latest Reports', type: ModFeedType.REPORTS },
+    { name: 'Search Publications', type: ModFeedType.SEARCH },
+    { name: 'Search Profiles', type: ModFeedType.PROFILES }
+  ];
+
   return (
     <div className="flex gap-3 overflow-x-auto px-5 sm:px-0">
-      <TabButton
-        active={feedType === ModFeedType.LATEST}
-        name="Latest Publications"
-        onClick={() => setFeedType(ModFeedType.LATEST)}
-      />
-      <TabButton
-        active={feedType === ModFeedType.REPORTS}
-        name="Latest Reports"
-        onClick={() => setFeedType(ModFeedType.REPORTS)}
-      />
-      <TabButton
-        active={feedType === ModFeedType.SEARCH}
-        name="Search Publications"
-        onClick={() => setFeedType(ModFeedType.SEARCH)}
-      />
-      <TabButton
-        active={feedType === ModFeedType.PROFILES}
-        name="Search Profiles"
-        onClick={() => setFeedType(ModFeedType.PROFILES)}
-      />
+      {tabs.map((tab) => (
+        <TabButton
+          active={feedType === tab.type}
+          key={tab.type}
+          name={tab.name}
+          onClick={() => setFeedType(tab.type)}
+        />
+      ))}
     </div>
   );
 };
