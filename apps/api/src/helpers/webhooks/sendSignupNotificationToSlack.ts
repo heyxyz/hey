@@ -1,6 +1,5 @@
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
-import axios from 'axios';
 import {
   type Address,
   createPublicClient,
@@ -27,7 +26,7 @@ const fetchTransactionReceiptWithRetry = async (
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return await client.getTransactionReceipt({ hash });
-    } catch (error) {
+    } catch {
       if (attempt < retries) {
         logger.error(
           `sendSignupNotificationToSlack: Attempt ${attempt} failed. Retrying in ${RETRY_DELAY_MS / 1000} seconds...`
@@ -76,11 +75,6 @@ const sendSignupNotificationToSlack = async (hash: Address) => {
       return;
     }
 
-    const { data: rates } = await axios.get('https://api.hey.xyz/lens/rate');
-    const maticRate = rates.result.find(
-      (rate: any) => rate.symbol === 'WMATIC'
-    ).fiat;
-
     logger.info(
       `sendSignupNotificationToSlack: Sending signup invoice to Slack`
     );
@@ -98,16 +92,6 @@ const sendSignupNotificationToSlack = async (hash: Address) => {
           short: false,
           title: 'Profile',
           value: `https://hey.xyz/u/${handle}`
-        },
-        {
-          short: false,
-          title: 'Invoice',
-          value: `https://invoice.hey.xyz/signup/${handle}?rate=${maticRate}`
-        },
-        {
-          short: false,
-          title: 'Amount',
-          value: `${maticRate * 8} USD`
         }
       ],
       text: ':tada: A new profile has been signed up to :hey:'
