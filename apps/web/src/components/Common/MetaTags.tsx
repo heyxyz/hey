@@ -47,12 +47,12 @@ const MetaTags: FC<MetaTagsProps> = ({
       <meta content="400" property="twitter:image:height" />
       <meta content="heydotxyz" property="twitter:creator" />
 
-      {creator ? (
+      {creator && (
         <>
           <meta content={creator} property="creator" />
           <meta content={creator} property="publisher" />
         </>
-      ) : null}
+      )}
 
       <link
         href="/opensearch.xml"
