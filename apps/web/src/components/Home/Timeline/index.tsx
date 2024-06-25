@@ -7,7 +7,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { HEY_CURATED_ID } from '@hey/data/constants';
-import { FeedEventItemType, useFeedQuery } from '@hey/lens';
+import { useFeedQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { memo, useRef } from 'react';
@@ -28,17 +28,7 @@ const Timeline: FC = () => {
 
   // Variables
   const request: FeedRequest = {
-    where: {
-      feedEventItemTypes: [
-        FeedEventItemType.Acted,
-        FeedEventItemType.Collect,
-        FeedEventItemType.Mirror,
-        FeedEventItemType.Post,
-        FeedEventItemType.Quote,
-        FeedEventItemType.Reaction
-      ],
-      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id
-    }
+    where: { for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id }
   };
 
   const { data, error, fetchMore, loading } = useFeedQuery({
