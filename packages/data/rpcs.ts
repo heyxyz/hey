@@ -1,5 +1,4 @@
 export const POLYGON_RPCS = [
-  'https://polygon-mainnet.g.alchemy.com/v2/N_HuqeYE3mr_enxw-BGFI2rOm1U7bhGy',
   'https://lb.nodies.app/v1/c4af832850924699b25128e185bde36e',
   'https://polygon-bor-rpc.publicnode.com'
 ];
