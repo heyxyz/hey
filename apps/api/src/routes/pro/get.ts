@@ -1,14 +1,9 @@
 import type { Handler } from 'express';
 
-import { HeyPro } from '@hey/abis';
-import { HEY_PRO, IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import getRpc from 'src/helpers/getRpc';
 import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
-import { createPublicClient } from 'viem';
-import { polygon, polygonAmoy } from 'viem/chains';
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -18,36 +13,17 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const client = createPublicClient({
-      chain: IS_MAINNET ? polygon : polygonAmoy,
-      transport: getRpc({ mainnet: IS_MAINNET })
-    });
-
-    const data = await client.readContract({
-      abi: HeyPro,
-      address: HEY_PRO,
-      args: [id],
-      functionName: 'proExpiresAt'
-    });
-
-    const jsonData = JSON.parse(data as string);
-    const expiresAt = new Date(jsonData * 1000);
-    const expired = expiresAt < new Date();
-
-    if (expired) {
-      return res
-        .status(404)
-        .json({ result: { expiresAt: null, isPro: false }, success: true });
-    }
-
-    const baseData = { expiresAt: new Date(expiresAt), id: id as string };
-    const newPro = await prisma.pro.upsert({
-      create: baseData,
-      update: baseData,
+    const pro = await prisma.pro.findUnique({
       where: { id: id as string }
     });
 
-    const result = { expiresAt: newPro.expiresAt, isPro: true };
+    if (!pro) {
+      return res
+        .status(404)
+        .json({ result: { expiresAt: null, isPro: false } });
+    }
+
+    const result = { expiresAt: pro.expiresAt, isPro: true };
 
     logger.info(`Fetched pro status for ${id}`);
 
