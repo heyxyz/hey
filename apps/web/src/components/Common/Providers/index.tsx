@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import authLink from '@helpers/authLink';
 import getLivepeerTheme from '@helpers/getLivepeerTheme';
@@ -31,7 +31,11 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
 
-const Providers = ({ children }: { children: ReactNode }) => {
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
       <ServiceWorkerProvider />
