@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import { Errors } from '@hey/data';
-import { MONTHLY_PRO_PRICE } from '@hey/data/constants';
+import { MONTHLY_PRO_PRICE, PRO_EOA_ADDRESS } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -62,7 +62,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
 
       return await sendTransactionAsync({
         data: currentProfile.id,
-        to: '0xF618330F51fa54Ce5951d627Ee150c0fDADeBA43',
+        to: PRO_EOA_ADDRESS,
         value: parseEther(MONTHLY_PRO_PRICE.toString())
       });
     } catch (error) {
