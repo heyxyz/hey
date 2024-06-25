@@ -20,20 +20,18 @@ const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
   type
 }) => {
   return (
-    <div className="font bold">
+    <div>
       <NotificationProfileName profile={firstProfile} />
       <span> {text} </span>
-      <span>
-        {type ? (
-          <Link
-            className="outline-none hover:underline focus:underline"
-            href={linkToType}
-            onClick={stopEventPropagation}
-          >
-            {type.toLowerCase()}
-          </Link>
-        ) : null}
-      </span>
+      {type && (
+        <Link
+          className="outline-none hover:underline focus:underline"
+          href={linkToType}
+          onClick={stopEventPropagation}
+        >
+          {type.toLowerCase()}
+        </Link>
+      )}
     </div>
   );
 };
