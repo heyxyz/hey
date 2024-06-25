@@ -22,6 +22,15 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
     enabled: Boolean(address)
   });
 
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = event.currentTarget;
+    target.src = getStampFyiURL(address);
+  };
+
+  const displayName = loading
+    ? formatAddress(address)
+    : ens || formatAddress(address);
+
   return (
     <div className="flex items-center justify-between">
       <Link
@@ -34,15 +43,13 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
           alt={address}
           className="size-10 rounded-full border bg-gray-200"
           height={40}
-          onError={({ currentTarget }) => {
-            currentTarget.src = getStampFyiURL(address);
-          }}
+          onError={handleImageError}
           src={imageKit(getStampFyiURL(address))}
           width={40}
         />
         <div>
           <div className="flex items-center gap-1.5">
-            <div>{loading ? formatAddress(address) : formatAddress(ens)}</div>
+            <div>{displayName}</div>
             <ArrowTopRightOnSquareIcon className="size-4" />
           </div>
           <Slug className="text-sm" slug={formatAddress(address)} />
