@@ -17,9 +17,7 @@ const Loader: FC<LoaderProps> = ({
   return (
     <div className={cn('space-y-2 text-center font-bold', className)}>
       <Spinner className="mx-auto" size={small ? 'sm' : 'md'} />
-      {message ? (
-        <div className={cn({ 'text-sm': small })}>{message}</div>
-      ) : null}
+      {message && <div className={cn({ 'text-sm': small })}>{message}</div>}
     </div>
   );
 };
