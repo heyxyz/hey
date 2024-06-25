@@ -19,7 +19,6 @@ export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
-export const HEY_PRO = getEnvConfig().heyPro;
 export const HEY_TIPPING = getEnvConfig().heyTipping;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
