@@ -84,7 +84,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
           </MenuItems>
         </MenuTransition>
       </Menu>
-      {(tip?.count || 0) > 0 && !showCount ? (
+      {(tip?.count || 0) > 0 && !showCount && (
         <span
           className={cn(
             tip?.tipped ? 'text-brand-500' : 'ld-text-gray-500',
@@ -93,7 +93,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
         >
           {nFormatter(tip?.count || 0)}
         </span>
-      ) : null}
+      )}
     </div>
   );
 };
