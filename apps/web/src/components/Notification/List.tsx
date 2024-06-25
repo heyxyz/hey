@@ -73,20 +73,18 @@ const List: FC<ListProps> = ({ feedType }) => {
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
-  const hasMore = pageInfo?.next;
+  const hasMore = !!pageInfo?.next;
 
   useEffect(() => {
     refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [latestNotificationId]);
+  }, [latestNotificationId, refetch]);
 
   const onEndReached = async () => {
     if (!hasMore) {
       return;
     }
-
-    return await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo.next } }
     });
   };
 
@@ -121,51 +119,49 @@ const List: FC<ListProps> = ({ feedType }) => {
         computeItemKey={(index, notification) => `${notification.id}-${index}`}
         data={notifications}
         endReached={onEndReached}
-        itemContent={(_, notification) => {
-          return (
-            <div
-              className={cn({
-                'p-5': notification.__typename !== 'FollowNotification'
-              })}
-            >
-              {notification.__typename === 'FollowNotification' ? (
-                <FollowNotification
-                  notification={notification as FollowNotificationType}
-                />
-              ) : null}
-              {notification.__typename === 'MentionNotification' ? (
-                <MentionNotification
-                  notification={notification as MentionNotificationType}
-                />
-              ) : null}
-              {notification.__typename === 'ReactionNotification' ? (
-                <ReactionNotification
-                  notification={notification as ReactionNotificationType}
-                />
-              ) : null}
-              {notification.__typename === 'CommentNotification' ? (
-                <CommentNotification
-                  notification={notification as CommentNotificationType}
-                />
-              ) : null}
-              {notification.__typename === 'MirrorNotification' ? (
-                <MirrorNotification
-                  notification={notification as MirrorNotificationType}
-                />
-              ) : null}
-              {notification.__typename === 'QuoteNotification' ? (
-                <QuoteNotification
-                  notification={notification as QuoteNotificationType}
-                />
-              ) : null}
-              {notification.__typename === 'ActedNotification' ? (
-                <ActedNotification
-                  notification={notification as ActedNotificationType}
-                />
-              ) : null}
-            </div>
-          );
-        }}
+        itemContent={(_, notification) => (
+          <div
+            className={cn({
+              'p-5': notification.__typename !== 'FollowNotification'
+            })}
+          >
+            {notification.__typename === 'FollowNotification' && (
+              <FollowNotification
+                notification={notification as FollowNotificationType}
+              />
+            )}
+            {notification.__typename === 'MentionNotification' && (
+              <MentionNotification
+                notification={notification as MentionNotificationType}
+              />
+            )}
+            {notification.__typename === 'ReactionNotification' && (
+              <ReactionNotification
+                notification={notification as ReactionNotificationType}
+              />
+            )}
+            {notification.__typename === 'CommentNotification' && (
+              <CommentNotification
+                notification={notification as CommentNotificationType}
+              />
+            )}
+            {notification.__typename === 'MirrorNotification' && (
+              <MirrorNotification
+                notification={notification as MirrorNotificationType}
+              />
+            )}
+            {notification.__typename === 'QuoteNotification' && (
+              <QuoteNotification
+                notification={notification as QuoteNotificationType}
+              />
+            )}
+            {notification.__typename === 'ActedNotification' && (
+              <ActedNotification
+                notification={notification as ActedNotificationType}
+              />
+            )}
+          </div>
+        )}
         useWindowScroll
       />
     </Card>
