@@ -12,7 +12,7 @@ const connectors = [
   walletConnect({ projectId: WALLETCONNECT_PROJECT_ID })
 ];
 
-export const wagmiConfig = createConfig({
+const wagmiConfig = createConfig({
   chains: [polygon, polygonAmoy],
   connectors,
   transports: {
