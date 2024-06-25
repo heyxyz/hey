@@ -21,10 +21,17 @@ const LoginButton: FC<LoginButtonProps> = ({
 }) => {
   const { setShowAuthModal } = useGlobalModalStateStore();
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setShowAuthModal(true);
+    Leafwatch.track(AUTH.OPEN_LOGIN);
+  };
+
   return (
     <Button
       className={cn(
-        isFullWidth ? 'flex w-full items-center justify-center' : className
+        isFullWidth ? 'flex w-full items-center justify-center' : '',
+        className
       )}
       icon={
         <img
@@ -35,11 +42,7 @@ const LoginButton: FC<LoginButtonProps> = ({
           width={19}
         />
       }
-      onClick={(e) => {
-        e.stopPropagation();
-        setShowAuthModal(true);
-        Leafwatch.track(AUTH.OPEN_LOGIN);
-      }}
+      onClick={handleClick}
       size={isBig ? 'lg' : 'md'}
     >
       {title}
