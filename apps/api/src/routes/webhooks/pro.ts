@@ -3,7 +3,7 @@ import type { Handler } from 'express';
 import { Errors } from '@hey/data';
 import catchedError from 'src/helpers/catchedError';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import sendSignupNotificationToSlack from 'src/helpers/webhooks/signup/sendSignupNotificationToSlack';
+import updateProStatus from 'src/helpers/webhooks/pro/updateProStatus';
 import { any, object } from 'zod';
 
 type ExtensionRequest = {
@@ -14,7 +14,7 @@ const validationSchema = object({
   event: object({ activity: any() })
 });
 
-export const post: Handler = (req, res) => {
+export const post: Handler = async (req, res) => {
   const { body } = req;
   const { secret } = req.query;
 
@@ -37,9 +37,9 @@ export const post: Handler = (req, res) => {
   const { event } = body as ExtensionRequest;
 
   try {
-    sendSignupNotificationToSlack(event.activity[0].hash);
+    const data = await updateProStatus(event.activity[0].hash);
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ result: data, success: true });
   } catch (error) {
     return catchedError(res, error);
   }

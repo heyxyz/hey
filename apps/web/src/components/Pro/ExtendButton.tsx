@@ -2,9 +2,7 @@ import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HeyPro } from '@hey/abis';
 import { Errors } from '@hey/data';
-import { HEY_PRO, PRO_TIER_PRICES } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
@@ -14,7 +12,7 @@ import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
-import { useTransaction, useWriteContract } from 'wagmi';
+import { useSendTransaction, useTransaction } from 'wagmi';
 
 interface ExtendButtonProps {
   outline?: boolean;
@@ -35,13 +33,20 @@ const ExtendButton: FC<ExtendButtonProps> = ({
     null
   );
 
-  const { isSuspended } = useProfileStatus();
-  const handleWrongNetwork = useHandleWrongNetwork();
-
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'pro' });
   }, []);
 
+  const { isSuspended } = useProfileStatus();
+  const handleWrongNetwork = useHandleWrongNetwork();
+  const { sendTransactionAsync } = useSendTransaction({
+    mutation: {
+      onError: errorToast,
+      onSuccess: (hash: string) => {
+        setTransactionHash(hash as `0x${string}`);
+      }
+    }
+  });
   const { isFetching: transactionLoading, isSuccess } = useTransaction({
     hash: transactionHash as `0x${string}`,
     query: { enabled: Boolean(transactionHash) }
@@ -52,16 +57,6 @@ const ExtendButton: FC<ExtendButtonProps> = ({
       location.reload();
     }
   }, [isSuccess]);
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError: errorToast,
-      onSuccess: (hash: string) => {
-        // Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
-        setTransactionHash(hash as `0x${string}`);
-      }
-    }
-  });
 
   const upgrade = async (id: 'annually' | 'monthly') => {
     if (!currentProfile) {
@@ -76,16 +71,10 @@ const ExtendButton: FC<ExtendButtonProps> = ({
       setIsLoading(true);
       await handleWrongNetwork();
 
-      return await writeContractAsync({
-        abi: HeyPro,
-        address: HEY_PRO,
-        args: [currentProfile.id],
-        functionName: id === 'monthly' ? 'subscribeMonthly' : 'subscribeYearly',
-        value: parseEther(
-          id === 'monthly'
-            ? PRO_TIER_PRICES.monthly.toString()
-            : PRO_TIER_PRICES.annually.toString()
-        )
+      return await sendTransactionAsync({
+        data: '0x0d',
+        to: '0xF618330F51fa54Ce5951d627Ee150c0fDADeBA43',
+        value: parseEther('10')
       });
     } catch (error) {
       errorToast(error);
