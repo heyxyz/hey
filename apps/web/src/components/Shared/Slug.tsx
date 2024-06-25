@@ -11,7 +11,7 @@ interface SlugProps {
 
 const Slug: FC<SlugProps> = ({
   className = '',
-  prefix,
+  prefix = '',
   slug,
   useBrandColor = false
 }) => {
