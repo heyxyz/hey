@@ -1,17 +1,17 @@
 import type { Profile } from '@hey/lens';
 
+interface Permissions {
+  canBroadcast: boolean;
+  canUseLensManager: boolean;
+  canUseSignless: boolean;
+}
+
 /**
  * Check if the user can use the lens manager or broadcast
  * @param profile The user's profile
  * @returns An object with the permissions
  */
-const checkDispatcherPermissions = (
-  profile: null | Profile
-): {
-  canBroadcast: boolean;
-  canUseLensManager: boolean;
-  canUseSignless: boolean;
-} => {
+const checkDispatcherPermissions = (profile: null | Profile): Permissions => {
   if (!profile) {
     return {
       canBroadcast: false,
