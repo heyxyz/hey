@@ -46,9 +46,9 @@ const UserProfile: FC<UserProfileProps> = ({
   showId = false,
   showUserPreview = true,
   source,
-  timestamp = ''
+  timestamp
 }) => {
-  const UserAvatar = () => (
+  const UserAvatar: FC = () => (
     <Image
       alt={profile.id}
       className={cn(
@@ -65,7 +65,7 @@ const UserProfile: FC<UserProfileProps> = ({
     />
   );
 
-  const UserName = () => (
+  const UserName: FC = () => (
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
@@ -73,23 +73,23 @@ const UserProfile: FC<UserProfileProps> = ({
             {getProfile(profile).displayName}
           </div>
         </div>
-        {isVerified(profile.id) ? (
+        {isVerified(profile.id) && (
           <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
-        ) : null}
-        {hasMisused(profile.id) ? (
+        )}
+        {hasMisused(profile.id) && (
           <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
-        ) : null}
+        )}
       </div>
       <div>
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
-        {timestamp ? (
+        {timestamp && (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs">
               {formatRelativeOrAbsolute(timestamp)}
             </span>
           </span>
-        ) : null}
+        )}
         {showId && (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
@@ -100,37 +100,34 @@ const UserProfile: FC<UserProfileProps> = ({
     </>
   );
 
-  const UserInfo: FC = () => {
-    return (
-      <UserPreview
-        handle={profile.handle?.fullHandle}
-        id={profile.id}
-        showUserPreview={showUserPreview}
-      >
-        <div className="mr-8 flex items-center space-x-3">
-          <UserAvatar />
-          <div>
-            <UserName />
-            {showBio && profile?.metadata?.bio ? (
-              <div
-                className={cn(
-                  isBig ? 'text-base' : 'text-sm',
-                  'mt-2',
-                  'linkify leading-6'
-                )}
-                // Replace with Tailwind
-                style={{ wordBreak: 'break-word' }}
-              >
-                <Markup mentions={getMentions(profile.metadata.bio)}>
-                  {profile?.metadata.bio}
-                </Markup>
-              </div>
-            ) : null}
-          </div>
+  const UserInfo: FC = () => (
+    <UserPreview
+      handle={profile.handle?.fullHandle}
+      id={profile.id}
+      showUserPreview={showUserPreview}
+    >
+      <div className="mr-8 flex items-center space-x-3">
+        <UserAvatar />
+        <div>
+          <UserName />
+          {showBio && profile?.metadata?.bio && (
+            <div
+              className={cn(
+                isBig ? 'text-base' : 'text-sm',
+                'mt-2',
+                'linkify leading-6'
+              )}
+              style={{ wordBreak: 'break-word' }}
+            >
+              <Markup mentions={getMentions(profile.metadata.bio)}>
+                {profile?.metadata.bio}
+              </Markup>
+            </div>
+          )}
         </div>
-      </UserPreview>
-    );
-  };
+      </div>
+    </UserPreview>
+  );
 
   return (
     <div className="flex items-center justify-between">
