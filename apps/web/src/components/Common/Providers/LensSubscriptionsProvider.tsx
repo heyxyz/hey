@@ -18,9 +18,9 @@ const LensSubscriptionsProvider: FC = () => {
   const { setLensHubOnchainSigNonce } = useNonceStore();
   const { address } = useAccount();
   const { id: sessionProfileId } = getCurrentSession();
-  const canUseSubscriptions = Boolean(sessionProfileId) && address;
+  const canUseSubscriptions = Boolean(sessionProfileId) && Boolean(address);
 
-  // Begin: New Notification
+  // New Notification Subscription
   const { data: newNotificationData } =
     useNewNotificationSubscriptionSubscription({
       skip: !canUseSubscriptions,
@@ -28,34 +28,30 @@ const LensSubscriptionsProvider: FC = () => {
     });
 
   useEffect(() => {
-    const notification = newNotificationData?.newNotification as Notification;
+    if (newNotificationData?.newNotification) {
+      const notification = newNotificationData.newNotification as Notification;
 
-    if (notification) {
-      if (notification && getPushNotificationData(notification)) {
-        const notify = getPushNotificationData(notification);
-        BrowserPush.notify({ title: notify?.title || '' });
+      const notify = getPushNotificationData(notification);
+      if (notify) {
+        BrowserPush.notify({ title: notify.title || '' });
       }
-      setLatestNotificationId(notification?.id);
+      setLatestNotificationId(notification.id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newNotificationData]);
-  // End: New Notification
+  }, [newNotificationData, setLatestNotificationId]);
 
-  // Begin: User Sig Nonces
+  // User Sig Nonces Subscription
   const { data: userSigNoncesData } = useUserSigNoncesSubscriptionSubscription({
     skip: !canUseSubscriptions,
     variables: { address }
   });
 
   useEffect(() => {
-    const userSigNonces = userSigNoncesData?.userSigNonces;
-
-    if (userSigNonces) {
-      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+    if (userSigNoncesData?.userSigNonces) {
+      setLensHubOnchainSigNonce(
+        userSigNoncesData.userSigNonces.lensHubOnchainSigNonce
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userSigNoncesData]);
-  // End: User Sig Nonces
+  }, [userSigNoncesData, setLensHubOnchainSigNonce]);
 
   return null;
 };
