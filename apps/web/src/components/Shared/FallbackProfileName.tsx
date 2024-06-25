@@ -22,24 +22,24 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
     return null;
   }
 
+  const { displayName, link, slugWithPrefix } = getProfile(profile);
+  const profileName = profile?.metadata?.displayName || (
+    <Slug slug={slugWithPrefix} />
+  );
+
   return (
     <>
       <Link
+        aria-label={`Profile of ${displayName || slugWithPrefix}`}
         className={cn(
           'max-w-sm truncate outline-none hover:underline focus:underline',
           className
         )}
-        href={getProfile(profile).link}
+        href={link}
       >
-        <b className="whitespace-nowrap">
-          {profile?.metadata?.displayName ? (
-            getProfile(profile).displayName
-          ) : (
-            <Slug slug={getProfile(profile).slugWithPrefix} />
-          )}
-        </b>
+        <b className="whitespace-nowrap">{profileName}</b>
       </Link>
-      {separator ? <span>{separator}</span> : null}
+      {separator && <span>{separator}</span>}
     </>
   );
 };
