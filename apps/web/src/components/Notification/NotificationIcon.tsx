@@ -11,20 +11,22 @@ const NotificationIcon: FC = () => {
     setLastOpenedNotificationId
   } = useNotificationStore();
 
+  const handleClick = () => {
+    if (latestNotificationId) {
+      setLastOpenedNotificationId(latestNotificationId);
+    }
+  };
+
   return (
     <Link
       className="hidden items-start justify-center rounded-md px-2 py-1 hover:bg-gray-300/20 md:flex"
       href="/notifications"
-      onClick={() => {
-        if (latestNotificationId) {
-          setLastOpenedNotificationId(latestNotificationId);
-        }
-      }}
+      onClick={handleClick}
     >
       <BellIcon className="size-5 sm:size-6" />
-      {lastOpenedNotificationId !== latestNotificationId ? (
+      {lastOpenedNotificationId !== latestNotificationId && (
         <span className="size-2 rounded-full bg-red-500" />
-      ) : null}
+      )}
     </Link>
   );
 };
