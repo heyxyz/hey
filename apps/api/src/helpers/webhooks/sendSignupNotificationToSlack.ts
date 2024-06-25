@@ -1,16 +1,15 @@
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import { POLYGON_RPCS } from '@hey/data/rpcs';
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import {
   type Address,
   createPublicClient,
   decodeEventLog,
-  http,
   parseAbi
 } from 'viem';
 import { polygon } from 'viem/chains';
 
+import getRpc from '../getRpc';
 import sendSlackMessage from '../slack';
 
 const MAX_RETRIES = 10;
@@ -55,7 +54,7 @@ const sendSignupNotificationToSlack = async (hash: Address) => {
   try {
     const client = createPublicClient({
       chain: polygon,
-      transport: http(POLYGON_RPCS[1])
+      transport: getRpc({ mainnet: true })
     });
 
     const receipt = await fetchTransactionReceiptWithRetry(client, hash);
