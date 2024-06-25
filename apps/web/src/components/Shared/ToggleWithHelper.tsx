@@ -13,7 +13,7 @@ interface ToggleWithHelperProps {
 
 const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
   description,
-  disabled,
+  disabled = false,
   heading,
   icon,
   on,
@@ -22,9 +22,9 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-start space-x-3">
-        {icon ? <span className="mt-1">{icon}</span> : null}
+        {icon && <span className="mt-1">{icon}</span>}
         <div>
-          {heading ? <b>{heading}</b> : null}
+          {heading && <b>{heading}</b>}
           <div className="ld-text-gray-500 text-sm">{description}</div>
         </div>
       </div>
