@@ -22,6 +22,11 @@ interface NotificationProfileProps {
 export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = event.currentTarget;
+    target.src = getLennyURL(profile.id);
+  };
+
   return (
     <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
@@ -33,9 +38,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
           alt={profile.id}
           className="size-7 rounded-full border bg-gray-200 sm:size-8 dark:border-gray-700"
           height={32}
-          onError={({ currentTarget }) => {
-            currentTarget.src = getLennyURL(profile.id);
-          }}
+          onError={handleImageError}
           src={getAvatar(profile)}
           width={32}
         />
@@ -47,20 +50,20 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
 export const NotificationProfileName: FC<NotificationProfileProps> = ({
   profile
 }) => {
+  const profileLink = getProfile(profile).link;
+
   return (
     <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
         className="inline-flex items-center space-x-1 font-bold outline-none hover:underline focus:underline"
-        href={getProfile(profile).link}
+        href={profileLink}
         onClick={stopEventPropagation}
       >
         <span>{getProfile(profile).displayName}</span>
-        {isVerified(profile.id) ? (
+        {isVerified(profile.id) && (
           <CheckBadgeIcon className="text-brand-500 size-4" />
-        ) : null}
-        {hasMisused(profile.id) ? (
-          <ExclamationCircleIcon className="size-4" />
-        ) : null}
+        )}
+        {hasMisused(profile.id) && <ExclamationCircleIcon className="size-4" />}
       </Link>
     </UserPreview>
   );
