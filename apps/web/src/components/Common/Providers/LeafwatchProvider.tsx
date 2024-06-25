@@ -16,8 +16,7 @@ const LeafwatchProvider: FC = () => {
     if (!anonymousId) {
       setAnonymousId(uuid());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [anonymousId, setAnonymousId]);
 
   return null;
 };
