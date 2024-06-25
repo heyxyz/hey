@@ -22,6 +22,10 @@ interface VideoProps {
 const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
   const { currentProfile } = useProfileStore();
 
+  const sanitizedPoster = poster
+    ? imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)
+    : undefined;
+
   return (
     <div className={cn('lp-player', className)} onClick={stopEventPropagation}>
       <Player
@@ -32,7 +36,7 @@ const Video: FC<VideoProps> = ({ className = '', poster, src }) => {
         }}
         controls={{ defaultVolume: 1 }}
         objectFit="contain"
-        poster={imageKit(sanitizeDStorageUrl(poster), VIDEO_THUMBNAIL)}
+        poster={sanitizedPoster}
         refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7}
         showLoadingSpinner
         showPipButton={false}
