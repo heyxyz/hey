@@ -28,7 +28,6 @@ import Score from './Modal/Score';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
-  // Report modal state
   const {
     authModalType,
     reportingProfile,
@@ -51,6 +50,7 @@ const GlobalModals: FC = () => {
     showReportProfileModal,
     showScoreModal
   } = useGlobalModalStateStore();
+
   const { publicationContent, quotedPublication } = usePublicationStore();
   const { attachments, isUploading } = usePublicationAttachmentStore(
     (state) => state
@@ -61,26 +61,20 @@ const GlobalModals: FC = () => {
   const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
 
-  const checkIfPublicationNotDrafted = () => {
-    if (
-      publicationContent === '' &&
-      quotedPublication === null &&
-      attachments.length === 0 &&
-      audioPublication.title === '' &&
-      videoThumbnail.url === '' &&
-      videoDurationInSeconds === '' &&
-      !showPollEditor &&
-      !isUploading &&
-      pollConfig.options[0] === ''
-    ) {
-      return true;
-    }
-    return false;
-  };
-  const showSignupModalTitle = signupScreen === 'choose';
+  const isPublicationDraftEmpty = () =>
+    !publicationContent &&
+    !quotedPublication &&
+    !attachments.length &&
+    !audioPublication.title &&
+    !videoThumbnail.url &&
+    !videoDurationInSeconds &&
+    !showPollEditor &&
+    !isUploading &&
+    !pollConfig.options[0];
+
   const authModalTitle =
     authModalType === 'signup'
-      ? showSignupModalTitle
+      ? signupScreen === 'choose'
         ? 'Signup'
         : null
       : 'Login';
@@ -124,7 +118,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         onClose={() => {
-          if (checkIfPublicationNotDrafted()) {
+          if (isPublicationDraftEmpty()) {
             setShowNewPostModal(false);
           } else {
             setShowDiscardModal(true);
