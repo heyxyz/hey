@@ -136,3 +136,11 @@ export const KNOWN_ATTRIBUTES = {
   POLL_ID: 'pollId',
   SWAP_OA_DEFAULT_AMOUNT: 'swapOADefaultAmount'
 };
+
+// Tanstack Stale Times
+
+export const STALE_TIMES = {
+  FIVE_MINUTES: 5 * 60 * 1000,
+  SIX_HOURS: 6 * 60 * 60 * 1000,
+  THIRTY_MINUTES: 30 * 60 * 1000
+};

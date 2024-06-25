@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import getCurrentSession from '@helpers/getCurrentSession';
-import { HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL, STALE_TIMES } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
 import getPreferences from '@hey/helpers/api/getPreferences';
@@ -112,16 +112,18 @@ const PreferencesProvider: FC = () => {
   useQuery({
     enabled: Boolean(sessionProfileId),
     queryFn: getScoreData,
-    queryKey: ['getScore', sessionProfileId]
+    queryKey: ['getScore', sessionProfileId],
+    staleTime: STALE_TIMES.SIX_HOURS
   });
   useQuery({
     queryFn: getVerifiedMembersData,
     queryKey: ['getVerifiedMembers'],
-    staleTime: 5 * 60 * 1000
+    staleTime: STALE_TIMES.THIRTY_MINUTES
   });
   useQuery({
     queryFn: getAllowedTokensData,
-    queryKey: ['getAllowedTokens']
+    queryKey: ['getAllowedTokens'],
+    staleTime: STALE_TIMES.THIRTY_MINUTES
   });
   useQuery({
     queryFn: () =>
@@ -129,7 +131,8 @@ const PreferencesProvider: FC = () => {
         setFiatRates(rates);
         return rates;
       }),
-    queryKey: ['getFiatRates']
+    queryKey: ['getFiatRates'],
+    staleTime: STALE_TIMES.FIVE_MINUTES
   });
 
   return null;
