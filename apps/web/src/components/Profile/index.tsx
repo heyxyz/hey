@@ -172,7 +172,7 @@ const ViewProfile: NextPage = () => {
             />
           ) : (
             <>
-              <FeedType feedType={feedType} />
+              <FeedType feedType={feedType as ProfileFeedType} />
               {currentProfile?.id === profile?.id ? <NewPost /> : null}
               {feedType === ProfileFeedType.Feed ||
               feedType === ProfileFeedType.Replies ||

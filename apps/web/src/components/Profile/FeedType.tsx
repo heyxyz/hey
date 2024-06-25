@@ -16,64 +16,68 @@ import { useProStore } from 'src/store/non-persisted/useProStore';
 import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
-  feedType: string;
+  feedType: ProfileFeedType;
   setFeedType?: Dispatch<SetStateAction<ProfileFeedType>>;
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const { isPro } = useProStore();
 
-  const switchTab = (type: string) => {
+  const switchTab = (type: ProfileFeedType) => {
     if (setFeedType) {
-      setFeedType(type as ProfileFeedType);
+      setFeedType(type);
     }
     Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
       profile_feed_type: type.toLowerCase()
     });
   };
 
+  const tabs = [
+    {
+      icon: <PencilSquareIcon className="size-4" />,
+      name: 'Feed',
+      type: ProfileFeedType.Feed
+    },
+    {
+      icon: <ChatBubbleLeftIcon className="size-4" />,
+      name: 'Replies',
+      type: ProfileFeedType.Replies
+    },
+    {
+      icon: <FilmIcon className="size-4" />,
+      name: 'Media',
+      type: ProfileFeedType.Media
+    },
+    {
+      icon: <RectangleStackIcon className="size-4" />,
+      name: 'Collected',
+      type: ProfileFeedType.Collects
+    },
+    isPro && {
+      icon: <ChartBarIcon className="size-4" />,
+      name: 'Stats',
+      type: ProfileFeedType.Stats
+    }
+  ].filter(
+    (tab): tab is { icon: JSX.Element; name: string; type: ProfileFeedType } =>
+      Boolean(tab)
+  );
+
   return (
     <div className="flex items-center justify-between">
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
-        <TabButton
-          active={feedType === ProfileFeedType.Feed}
-          icon={<PencilSquareIcon className="size-4" />}
-          name="Feed"
-          onClick={() => switchTab(ProfileFeedType.Feed)}
-          type={ProfileFeedType.Feed.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === ProfileFeedType.Replies}
-          icon={<ChatBubbleLeftIcon className="size-4" />}
-          name="Replies"
-          onClick={() => switchTab(ProfileFeedType.Replies)}
-          type={ProfileFeedType.Replies.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === ProfileFeedType.Media}
-          icon={<FilmIcon className="size-4" />}
-          name="Media"
-          onClick={() => switchTab(ProfileFeedType.Media)}
-          type={ProfileFeedType.Media.toLowerCase()}
-        />
-        <TabButton
-          active={feedType === ProfileFeedType.Collects}
-          icon={<RectangleStackIcon className="size-4" />}
-          name="Collected"
-          onClick={() => switchTab(ProfileFeedType.Collects)}
-          type={ProfileFeedType.Collects.toLowerCase()}
-        />
-        {isPro && (
+        {tabs.map((tab) => (
           <TabButton
-            active={feedType === ProfileFeedType.Stats}
-            icon={<ChartBarIcon className="size-4" />}
-            name="Stats"
-            onClick={() => switchTab(ProfileFeedType.Stats)}
-            type={ProfileFeedType.Stats.toLowerCase()}
+            active={feedType === tab.type}
+            icon={tab.icon}
+            key={tab.type}
+            name={tab.name}
+            onClick={() => switchTab(tab.type)}
+            type={tab.type.toLowerCase()}
           />
-        )}
+        ))}
       </div>
-      {feedType === ProfileFeedType.Media ? <MediaFilter /> : null}
+      {feedType === ProfileFeedType.Media && <MediaFilter />}
     </div>
   );
 };
