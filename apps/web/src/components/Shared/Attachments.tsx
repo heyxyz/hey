@@ -17,14 +17,12 @@ const getClass = (attachments: number) => {
   if (attachments === 1) {
     return { aspect: '', row: 'grid-cols-1 grid-rows-1' };
   }
-
   if (attachments === 2) {
     return {
       aspect: 'aspect-w-16 aspect-h-12',
       row: 'grid-cols-2 grid-rows-1'
     };
   }
-
   if (attachments > 2) {
     return {
       aspect: 'aspect-w-16 aspect-h-12',
@@ -63,11 +61,9 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
     if (assetIsVideo) {
       return 'displayVideoAsset';
     }
-
     if (assetIsAudio) {
       return 'displayAudioAsset';
     }
-
     if (attachmentsHasImage) {
       const imageAttachments = processedAttachments.filter(
         (attachment) => attachment.type === 'Image'
@@ -77,13 +73,14 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       const finalAttachments = imageAttachments.map(
         (attachment) => attachment.uri
       );
-      finalAttachments.unshift(assetImage!);
+      if (assetImage) {
+        finalAttachments.unshift(assetImage);
+      }
 
       const attachmentsWithoutDuplicates = [...new Set(finalAttachments)];
 
       return attachmentsWithoutDuplicates;
     }
-
     return null;
   };
 
@@ -113,22 +110,20 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
         <div
           className={cn('grid gap-2', getClass(displayDecision.length)?.row)}
         >
-          {displayDecision.map((attachment, index) => {
-            return (
-              <div
-                className={cn(
-                  getClass(displayDecision.length)?.aspect,
-                  { 'row-span-2': displayDecision.length === 3 && index === 0 },
-                  { 'col-span-2': displayDecision.length === 5 && index === 0 },
-                  { 'w-2/3': displayDecision.length === 1 }
-                )}
-                key={attachment}
-                onClick={stopEventPropagation}
-              >
-                <ImageComponent uri={attachment} />
-              </div>
-            );
-          })}
+          {displayDecision.map((attachment, index) => (
+            <div
+              className={cn(
+                getClass(displayDecision.length)?.aspect,
+                { 'row-span-2': displayDecision.length === 3 && index === 0 },
+                { 'col-span-2': displayDecision.length === 4 && index === 0 },
+                { 'w-2/3': displayDecision.length === 1 }
+              )}
+              key={attachment}
+              onClick={stopEventPropagation}
+            >
+              <ImageComponent uri={attachment} />
+            </div>
+          ))}
         </div>
       )}
       {displayDecision === 'displayVideoAsset' && (
