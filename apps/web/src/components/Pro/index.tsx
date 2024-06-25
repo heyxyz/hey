@@ -4,7 +4,7 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
-  PRO_TIER_PRICES,
+  MONTHLY_PRO_PRICE,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -15,35 +15,21 @@ import { useProStore } from 'src/store/non-persisted/useProStore';
 
 import ExtendButton from './ExtendButton';
 
-const tiers = [
-  {
-    description: 'Billed monthly',
-    featured: true,
-    features: [
-      'Profile Analytics',
-      'Publication Drafts',
-      'Choose your app icon',
-      'Pro Badge on your profile',
-      'Early access to new features',
-      'Priority support'
-    ],
-    id: 'monthly',
-    name: 'Monthly',
-    price: PRO_TIER_PRICES.monthly
-  },
-  {
-    description: 'Billed annually',
-    featured: false,
-    features: [
-      'All features, plus',
-      'Free 2 months of Pro',
-      'Support indie team 💖'
-    ],
-    id: 'annually',
-    name: 'Annually',
-    price: (PRO_TIER_PRICES.annually / 12).toFixed(1)
-  }
-];
+const details = {
+  description: 'Billed monthly',
+  features: [
+    'Profile Analytics',
+    'Publication Drafts',
+    'Choose your app icon',
+    'Higher video upload limits',
+    'Pro Badge on your profile',
+    'Early access to new features',
+    'Priority support'
+  ],
+  id: 'monthly',
+  name: 'Monthly',
+  price: MONTHLY_PRO_PRICE
+};
 
 const Pro: NextPage = () => {
   const { proExpiresAt } = useProStore();
@@ -72,58 +58,43 @@ const Pro: NextPage = () => {
       </div>
       <p className="ld-text-gray-500 mx-auto mt-4 max-w-2xl text-center text-lg leading-7">
         You can extend your Pro subscription anytime for an additional month or
-        year, whenever it suits you, without any hassle.
+        given time, whenever it suits you, without any hassle.
       </p>
-      <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center space-y-6 sm:mt-20 sm:space-y-0 lg:max-w-4xl lg:grid-cols-2">
-        {tiers.map((tier, tierIdx) => (
-          <div
-            className={cn(
-              tier.featured
-                ? 'relative bg-white shadow-2xl dark:bg-black'
-                : 'bg-white/60 sm:mx-8 lg:mx-0 dark:bg-black/60',
-              tier.featured
-                ? ''
-                : tierIdx === 0
-                  ? 'rounded-t-2xl sm:rounded-b-none lg:rounded-bl-2xl lg:rounded-tr-none'
-                  : 'sm:rounded-t-none lg:rounded-bl-none lg:rounded-tr-2xl',
-              'rounded-2xl p-8 ring-1 ring-gray-900/10 sm:p-10 dark:ring-gray-100/20'
-            )}
-            key={tier.id}
-          >
-            <h3 className="font-bold" id={tier.id}>
-              {tier.name}
-            </h3>
-            <p className="mt-4 flex items-baseline space-x-3">
-              <img
-                alt="MATIC"
-                className="size-7"
-                src={`${STATIC_IMAGES_URL}/tokens/matic.svg`}
-              />
-              <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {tier.price}
-              </span>
-              <span className="ld-text-gray-500">/month</span>
-            </p>
-            <p className="ld-text-gray-500 mt-6">{tier.description}</p>
-            <ul className="ld-text-gray-500 mt-8 space-y-1 text-sm sm:mt-10">
-              {tier.features.map((feature) => (
-                <li className="flex items-center space-x-3" key={feature}>
-                  <CheckIcon aria-hidden="true" className="size-5" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            {proExpiresAt ? (
-              <div className="mb-2 mt-6 text-sm">
-                Your Pro expires at <b>{formatDate(proExpiresAt)}</b>
-              </div>
-            ) : null}
-            <ExtendButton
-              outline={!tier.featured}
-              tier={tier.id as 'annually' | 'monthly'}
+      <div className="mx-auto mt-20 max-w-md items-center space-y-6">
+        <div
+          className={cn(
+            'relative bg-white shadow-2xl dark:bg-black',
+            'rounded-2xl p-8 ring-1 ring-gray-900/10 sm:p-10 dark:ring-gray-100/20'
+          )}
+        >
+          <h3 className="font-bold">{details.name}</h3>
+          <p className="mt-4 flex items-baseline space-x-3">
+            <img
+              alt="MATIC"
+              className="size-7"
+              src={`${STATIC_IMAGES_URL}/tokens/matic.svg`}
             />
-          </div>
-        ))}
+            <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {details.price}
+            </span>
+            <span className="ld-text-gray-500">/month</span>
+          </p>
+          <p className="ld-text-gray-500 mt-6">{details.description}</p>
+          <ul className="ld-text-gray-500 mt-8 space-y-1 text-sm sm:mt-10">
+            {details.features.map((feature) => (
+              <li className="flex items-center space-x-3" key={feature}>
+                <CheckIcon aria-hidden="true" className="size-5" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+          {proExpiresAt ? (
+            <div className="mb-2 mt-6 text-sm">
+              Your Pro expires at <b>{formatDate(proExpiresAt)}</b>
+            </div>
+          ) : null}
+          <ExtendButton />
+        </div>
       </div>
     </div>
   );
