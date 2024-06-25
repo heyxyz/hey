@@ -5,13 +5,14 @@ import { useEffect } from 'react';
 const ServiceWorkerProvider: FC = () => {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      // Register the service worker
-      navigator.serviceWorker
-        .register('/sw.js', { scope: '/' })
-        .then((registration) => {
+      const registerServiceWorker = async () => {
+        try {
+          const registration = await navigator.serviceWorker.register(
+            '/sw.js',
+            { scope: '/' }
+          );
           console.log('ServiceWorker registered successfully!');
 
-          // Check for updates
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
             if (installingWorker) {
@@ -20,7 +21,6 @@ const ServiceWorkerProvider: FC = () => {
                   installingWorker.state === 'installed' &&
                   navigator.serviceWorker.controller
                 ) {
-                  // New update available
                   console.log(
                     'New ServiceWorker available. Refresh the page to update.'
                   );
@@ -29,14 +29,16 @@ const ServiceWorkerProvider: FC = () => {
             }
           };
 
-          // Ensure the service worker is ready before sending the first message
-          navigator.serviceWorker.ready.then(() => {
-            if (navigator.serviceWorker.controller) {
-              console.log('Service Worker is ready to receive messages.');
-            }
-          });
-        })
-        .catch(console.error);
+          await navigator.serviceWorker.ready;
+          if (navigator.serviceWorker.controller) {
+            console.log('Service Worker is ready to receive messages.');
+          }
+        } catch (error) {
+          console.error('ServiceWorker registration failed:', error);
+        }
+      };
+
+      registerServiceWorker();
     }
   }, []);
 
