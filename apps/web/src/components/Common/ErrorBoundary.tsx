@@ -3,6 +3,7 @@ import type { ErrorInfo, ReactNode } from 'react';
 import { Component } from 'react';
 import Custom500 from 'src/pages/500';
 
+//
 interface ErrorBoundaryProps {
   children?: ReactNode;
 }
