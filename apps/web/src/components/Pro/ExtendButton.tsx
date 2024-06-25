@@ -1,10 +1,8 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
 import { Errors } from '@hey/data';
 import { MONTHLY_PRO_PRICE } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -27,10 +25,6 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
   const [transactionHash, setTransactionHash] = useState<`0x${string}` | null>(
     null
   );
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'pro' });
-  }, []);
 
   const { isSuspended } = useProfileStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
