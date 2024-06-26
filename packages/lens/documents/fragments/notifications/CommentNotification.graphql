@@ -2,6 +2,9 @@ fragment CommentNotificationFields on CommentNotification {
   id
   comment {
     ...NotificationCommentFields
+    by {
+      ...PublicationProfileFields
+    }
     commentOn {
       __typename
     }
