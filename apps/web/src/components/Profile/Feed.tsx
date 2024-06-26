@@ -142,19 +142,17 @@ const Feed: FC<FeedProps> = ({
   };
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+      const ids =
+        data?.publications?.items?.map((p) => {
+          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+        }) || [];
+      await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     }
-
-    const { data } = await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-    const ids =
-      data?.publications?.items?.map((p) => {
-        return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
-      }) || [];
-    await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading || profileDetailsLoading || pinnedPublicationLoading) {

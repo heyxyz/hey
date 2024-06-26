@@ -77,13 +77,11 @@ const List: FC = () => {
       return;
     }
 
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   const onRefetch = async () => {

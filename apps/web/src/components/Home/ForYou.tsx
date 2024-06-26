@@ -40,16 +40,14 @@ const ForYou: FC = () => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+      const ids = data?.forYou?.items?.map((p) => p.publication.id) || [];
+      await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     }
-
-    const { data } = await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-    const ids = data?.forYou?.items?.map((p) => p.publication.id) || [];
-    await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
