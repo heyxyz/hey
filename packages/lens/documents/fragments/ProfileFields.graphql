@@ -16,7 +16,6 @@ fragment ProfileFields on Profile {
     ...ProfileOperationsFields
   }
   interests
-  invitesLeft
   onchainIdentity {
     proofOfHumanity
     ens {

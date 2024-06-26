@@ -5,8 +5,7 @@ import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
   CircleStackIcon,
-  ShieldCheckIcon,
-  TicketIcon
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Modal } from '@hey/ui';
@@ -21,7 +20,6 @@ import { useAccount } from 'wagmi';
 import Auth from './Auth';
 import { useSignupStore } from './Auth/Signup';
 import GlobalModalsFromUrl from './GlobalModalsFromUrl';
-import Invites from './Modal/Invites';
 import OptimisticTransactions from './Modal/OptimisticTransactions';
 import ReportProfile from './Modal/ReportProfile';
 import Score from './Modal/Score';
@@ -34,7 +32,6 @@ const GlobalModals: FC = () => {
     reportingPublicationId,
     setShowAuthModal,
     setShowDiscardModal,
-    setShowInvitesModal,
     setShowNewPostModal,
     setShowOptimisticTransactionsModal,
     setShowProfileSwitchModal,
@@ -42,7 +39,6 @@ const GlobalModals: FC = () => {
     setShowReportProfileModal,
     setShowScoreModal,
     showAuthModal,
-    showInvitesModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
@@ -129,14 +125,6 @@ const GlobalModals: FC = () => {
         title="Create post"
       >
         <NewPublication />
-      </Modal>
-      <Modal
-        icon={<TicketIcon className="size-5" />}
-        onClose={() => setShowInvitesModal(false)}
-        show={showInvitesModal}
-        title="Invites"
-      >
-        <Invites />
       </Modal>
       <Modal
         icon={<CircleStackIcon className="size-5" />}
