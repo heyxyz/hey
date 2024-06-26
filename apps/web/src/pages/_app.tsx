@@ -15,7 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         }
       `}</style>
       <Component {...pageProps} />
-      <SpeedInsights sampleRate={0.1} />
+      <SpeedInsights sampleRate={0.5} />
     </Providers>
   );
 };
