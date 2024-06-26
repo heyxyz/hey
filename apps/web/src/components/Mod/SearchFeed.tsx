@@ -57,13 +57,11 @@ const SearchFeed: FC = () => {
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    return await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   const Search = () => {
