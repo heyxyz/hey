@@ -10,8 +10,5 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   content
-  encryptedWith {
-    ...PublicationMetadataLitEncryptionFields
-  }
   appId
 }

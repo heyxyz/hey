@@ -1,4 +1,0 @@
-fragment CollectConditionFields on CollectCondition {
-  publicationId
-  thisPublication
-}
