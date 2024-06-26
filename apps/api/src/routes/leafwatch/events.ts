@@ -56,11 +56,6 @@ export const post: Handler = async (req, res) => {
 
   const ip = requestIp.getClientIp(req);
   const user_agent = req.headers['user-agent'];
-  const cfIpCity = req.headers['cf-ipcity'];
-  const cfIpCountry = req.headers['cf-ipcountry'];
-  const cfIpRegion = req.headers['cf-region'];
-
-  logger.info(`CF: ${cfIpCity}, ${cfIpCountry}, ${cfIpRegion}`);
 
   try {
     // Extract IP data
