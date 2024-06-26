@@ -1,0 +1,11 @@
+fragment NotificationPostFields on Post {
+  id
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
+}
