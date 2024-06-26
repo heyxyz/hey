@@ -1,18 +1,7 @@
 fragment CommentNotificationFields on CommentNotification {
   id
   comment {
-    id
-    by {
-      ...PublicationProfileFields
-    }
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
-    }
+    ...NotificationCommentFields
     commentOn {
       __typename
     }

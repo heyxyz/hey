@@ -1,17 +1,9 @@
 fragment QuoteNotificationFields on QuoteNotification {
   id
   quote {
-    id
+    ...NotificationQuoteFields
     by {
       ...PublicationProfileFields
-    }
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
     }
     quoteOn {
       __typename
