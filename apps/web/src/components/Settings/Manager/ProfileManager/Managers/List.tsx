@@ -151,13 +151,11 @@ const List: FC = () => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    return await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   if (loading) {
@@ -185,27 +183,25 @@ const List: FC = () => {
       computeItemKey={(index, manager) => `${manager.address}-${index}`}
       data={profileManagers}
       endReached={onEndReached}
-      itemContent={(_, manager) => {
-        return (
-          <div className="flex items-center justify-between py-2">
-            <WalletProfile address={manager.address} />
-            <Button
-              disabled={removingAddress === manager.address}
-              icon={
-                removingAddress === manager.address ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <MinusCircleIcon className="size-4" />
-                )
-              }
-              onClick={() => removeManager(manager.address)}
-              outline
-            >
-              Remove
-            </Button>
-          </div>
-        );
-      }}
+      itemContent={(_, manager) => (
+        <div className="flex items-center justify-between py-2">
+          <WalletProfile address={manager.address} />
+          <Button
+            disabled={removingAddress === manager.address}
+            icon={
+              removingAddress === manager.address ? (
+                <Spinner size="xs" />
+              ) : (
+                <MinusCircleIcon className="size-4" />
+              )
+            }
+            onClick={() => removeManager(manager.address)}
+            outline
+          >
+            Remove
+          </Button>
+        </div>
+      )}
       useWindowScroll
     />
   );

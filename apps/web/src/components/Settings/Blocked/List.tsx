@@ -25,13 +25,11 @@ const List: FC = () => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    return await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   if (loading) {
@@ -61,24 +59,22 @@ const List: FC = () => {
         computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={whoHaveBlocked}
         endReached={onEndReached}
-        itemContent={(_, profile) => {
-          return (
-            <div className="flex items-center justify-between p-5">
-              <UserProfile
-                hideFollowButton
-                hideUnfollowButton
-                profile={profile as Profile}
-              />
-              <Button
-                onClick={() =>
-                  setShowBlockOrUnblockAlert(true, profile as Profile)
-                }
-              >
-                Unblock
-              </Button>
-            </div>
-          );
-        }}
+        itemContent={(_, profile) => (
+          <div className="flex items-center justify-between p-5">
+            <UserProfile
+              hideFollowButton
+              hideUnfollowButton
+              profile={profile as Profile}
+            />
+            <Button
+              onClick={() =>
+                setShowBlockOrUnblockAlert(true, profile as Profile)
+              }
+            >
+              Unblock
+            </Button>
+          </div>
+        )}
         useWindowScroll
       />
     </div>

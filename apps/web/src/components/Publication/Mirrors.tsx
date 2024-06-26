@@ -37,13 +37,11 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   if (loading) {
@@ -85,20 +83,18 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
         computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={profiles}
         endReached={onEndReached}
-        itemContent={(_, profile) => {
-          return (
-            <div className="p-5">
-              <UserProfile
-                hideFollowButton={currentProfile?.id === profile.id}
-                hideUnfollowButton={currentProfile?.id === profile.id}
-                profile={profile as Profile}
-                showBio
-                showUserPreview={false}
-                source={ProfileLinkSource.Mirrors}
-              />
-            </div>
-          );
-        }}
+        itemContent={(_, profile) => (
+          <div className="p-5">
+            <UserProfile
+              hideFollowButton={currentProfile?.id === profile.id}
+              hideUnfollowButton={currentProfile?.id === profile.id}
+              profile={profile as Profile}
+              showBio
+              showUserPreview={false}
+              source={ProfileLinkSource.Mirrors}
+            />
+          </div>
+        )}
         useWindowScroll
       />
     </Card>

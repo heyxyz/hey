@@ -40,16 +40,14 @@ const ForYou: FC = () => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+      const ids = data?.forYou?.items?.map((p) => p.publication.id) || [];
+      await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     }
-
-    const { data } = await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-    const ids = data?.forYou?.items?.map((p) => p.publication.id) || [];
-    await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
@@ -82,15 +80,13 @@ const ForYou: FC = () => {
           computeItemKey={(index, item) => `${item.publication.id}-${index}`}
           data={publications}
           endReached={onEndReached}
-          itemContent={(index, item) => {
-            return (
-              <SinglePublication
-                isFirst={index === 0}
-                isLast={index === (publications?.length || 0) - 1}
-                publication={item.publication as AnyPublication}
-              />
-            );
-          }}
+          itemContent={(index, item) => (
+            <SinglePublication
+              isFirst={index === 0}
+              isLast={index === (publications?.length || 0) - 1}
+              publication={item.publication as AnyPublication}
+            />
+          )}
           useWindowScroll
         />
       </Card>

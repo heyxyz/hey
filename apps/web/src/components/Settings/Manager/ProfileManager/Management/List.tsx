@@ -57,19 +57,17 @@ const List: FC<ListProps> = ({ managed = false }) => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
-    }
-
-    return await fetchMore({
-      variables: {
-        lastLoggedInProfileRequest,
-        profilesManagedRequest: {
-          ...profilesManagedRequest,
-          cursor: pageInfo.next
+    if (hasMore) {
+      await fetchMore({
+        variables: {
+          lastLoggedInProfileRequest,
+          profilesManagedRequest: {
+            ...profilesManagedRequest,
+            cursor: pageInfo.next
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   if (loading) {
@@ -126,28 +124,26 @@ const List: FC<ListProps> = ({ managed = false }) => {
       computeItemKey={(index, profile) => `${profile.id}-${index}`}
       data={profilesManaged}
       endReached={onEndReached}
-      itemContent={(_, profile) => {
-        return (
-          <div className="flex items-center justify-between py-2">
-            <UserProfile
-              hideFollowButton
-              hideUnfollowButton
-              profile={profile as Profile}
-            />
-            {address !== profile.ownedBy.address && (
-              <Button
-                disabled={hiding || unhiding}
-                onClick={() => toggleManagement(profile.id)}
-                outline
-                size="sm"
-                variant="danger"
-              >
-                {managed ? 'Un-manage' : 'Manage'}
-              </Button>
-            )}
-          </div>
-        );
-      }}
+      itemContent={(_, profile) => (
+        <div className="flex items-center justify-between py-2">
+          <UserProfile
+            hideFollowButton
+            hideUnfollowButton
+            profile={profile as Profile}
+          />
+          {address !== profile.ownedBy.address && (
+            <Button
+              disabled={hiding || unhiding}
+              onClick={() => toggleManagement(profile.id)}
+              outline
+              size="sm"
+              variant="danger"
+            >
+              {managed ? 'Un-manage' : 'Manage'}
+            </Button>
+          )}
+        </div>
+      )}
       useWindowScroll
     />
   );

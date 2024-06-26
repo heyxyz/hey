@@ -16,6 +16,8 @@ const ScamWarning: FC<ScamWarningProps> = ({ profileId }) => {
     return null;
   }
 
+  const { description, identifiedOn, type } = misuseDetails;
+
   return (
     <Card
       as="aside"
@@ -23,21 +25,18 @@ const ScamWarning: FC<ScamWarningProps> = ({ profileId }) => {
       forceRounded
     >
       <div className="flex items-center space-x-2 font-bold">
-        <p>Profile is marked as {misuseDetails.type.toLowerCase()}!</p>
+        <p>Profile is marked as {type.toLowerCase()}!</p>
       </div>
-      {misuseDetails?.description ? (
-        <Markup
-          className="text-sm"
-          mentions={getMentions(misuseDetails?.description)}
-        >
-          {misuseDetails?.description}
+      {description && (
+        <Markup className="text-sm" mentions={getMentions(description)}>
+          {description}
         </Markup>
-      ) : null}
-      {misuseDetails?.identifiedOn ? (
+      )}
+      {identifiedOn && (
         <p className="text-sm italic">
-          <b>Identified on:</b> {misuseDetails?.identifiedOn}
+          <b>Identified on:</b> {identifiedOn}
         </p>
-      ) : null}
+      )}
     </Card>
   );
 };
