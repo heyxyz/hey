@@ -14,12 +14,6 @@ import { ThemeProvider } from 'next-themes';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
-import LeafwatchProvider from './LeafwatchProvider';
-import LensAuthProvider from './LensAuthProvider';
-import LensSubscriptionsProvider from './LensSubscriptionsProvider';
-import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
-import PreferencesProvider from './PreferencesProvider';
-import ProProvider from './ProProvider';
 import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
@@ -38,15 +32,15 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
       {/* <ServiceWorkerProvider /> */}
-      <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
+          {/* <LeafwatchProvider />
           <LensAuthProvider />
           <LensSubscriptionsProvider />
-          <OptimisticTransactionsProvider />
+          <OptimisticTransactionsProvider /> */}
           <QueryClientProvider client={queryClient}>
-            <PreferencesProvider />
-            <ProProvider />
+            {/* <PreferencesProvider /> */}
+            {/* <ProProvider /> */}
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
               <ThemeProvider attribute="class" defaultTheme="light">
                 <Layout>{children}</Layout>
