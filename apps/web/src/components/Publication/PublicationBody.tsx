@@ -61,7 +61,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   if (targetPublication.isEncrypted) {
-    return <EncryptedPublication publication={targetPublication} />;
+    return <EncryptedPublication />;
   }
 
   if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {

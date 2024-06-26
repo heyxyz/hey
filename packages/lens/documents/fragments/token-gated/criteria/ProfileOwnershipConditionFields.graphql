@@ -1,3 +1,0 @@
-fragment ProfileOwnershipConditionFields on ProfileOwnershipCondition {
-  profileId
-}
