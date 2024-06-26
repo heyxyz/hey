@@ -62,23 +62,18 @@ const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
         }
         data={reports}
         endReached={onEndReached}
-        itemContent={(index, report) => {
-          return (
-            <Card>
-              <SinglePublication
-                isFirst
-                publication={report.reportedPublication as AnyPublication}
-                showActions={false}
-                showThread={false}
-              />
-              <div className="divider" />
-              <ReportDetails
-                hideViewReportsButton
-                report={report as ModReport}
-              />
-            </Card>
-          );
-        }}
+        itemContent={(_, report) => (
+          <Card>
+            <SinglePublication
+              isFirst
+              publication={report.reportedPublication as AnyPublication}
+              showActions={false}
+              showThread={false}
+            />
+            <div className="divider" />
+            <ReportDetails hideViewReportsButton report={report as ModReport} />
+          </Card>
+        )}
       />
     </div>
   );

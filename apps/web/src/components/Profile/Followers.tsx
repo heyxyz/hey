@@ -84,20 +84,18 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
         computeItemKey={(index, follower) => `${follower.id}-${index}`}
         data={followers}
         endReached={onEndReached}
-        itemContent={(_, follower) => {
-          return (
-            <div className="p-5">
-              <UserProfile
-                hideFollowButton={currentProfile?.id === follower.id}
-                hideUnfollowButton={currentProfile?.id === follower.id}
-                profile={follower as Profile}
-                showBio
-                showUserPreview={false}
-                source={ProfileLinkSource.Followers}
-              />
-            </div>
-          );
-        }}
+        itemContent={(_, follower) => (
+          <div className="p-5">
+            <UserProfile
+              hideFollowButton={currentProfile?.id === follower.id}
+              hideUnfollowButton={currentProfile?.id === follower.id}
+              profile={follower as Profile}
+              showBio
+              showUserPreview={false}
+              source={ProfileLinkSource.Followers}
+            />
+          </div>
+        )}
         useWindowScroll
       />
     </Card>

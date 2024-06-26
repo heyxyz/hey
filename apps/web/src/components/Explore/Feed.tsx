@@ -103,15 +103,13 @@ const Feed: FC<FeedProps> = ({
         data={publications}
         endReached={onEndReached}
         isScrolling={onScrolling}
-        itemContent={(index, publication) => {
-          return (
-            <SinglePublication
-              isFirst={index === 0}
-              isLast={index === (publications?.length || 0) - 1}
-              publication={publication as AnyPublication}
-            />
-          );
-        }}
+        itemContent={(index, publication) => (
+          <SinglePublication
+            isFirst={index === 0}
+            isLast={index === (publications?.length || 0) - 1}
+            publication={publication as AnyPublication}
+          />
+        )}
         ref={virtuoso}
         restoreStateFrom={
           virtuosoState.ranges.length === 0

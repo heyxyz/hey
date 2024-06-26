@@ -33,23 +33,21 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
         computeItemKey={(index, profile) => `${profile.id}-${index}`}
         // remove the first 5 profiles from the list because they are already shown in the sidebar
         data={profiles.slice(5)}
-        itemContent={(_, profile) => {
-          return (
-            <div className="flex items-center space-x-3 p-5">
-              <div className="w-full">
-                <UserProfile
-                  hideFollowButton={currentProfile?.id === profile.id}
-                  hideUnfollowButton={currentProfile?.id === profile.id}
-                  profile={profile as Profile}
-                  showBio
-                  showUserPreview={false}
-                  source={ProfileLinkSource.WhoToFollow}
-                />
-              </div>
-              <DismissRecommendedProfile profile={profile as Profile} />
+        itemContent={(_, profile) => (
+          <div className="flex items-center space-x-3 p-5">
+            <div className="w-full">
+              <UserProfile
+                hideFollowButton={currentProfile?.id === profile.id}
+                hideUnfollowButton={currentProfile?.id === profile.id}
+                profile={profile as Profile}
+                showBio
+                showUserPreview={false}
+                source={ProfileLinkSource.WhoToFollow}
+              />
             </div>
-          );
-        }}
+            <DismissRecommendedProfile profile={profile as Profile} />
+          </div>
+        )}
       />
     </div>
   );
