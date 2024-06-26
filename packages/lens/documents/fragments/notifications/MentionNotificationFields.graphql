@@ -2,13 +2,46 @@ fragment MentionNotificationFields on MentionNotification {
   id
   publication {
     ... on Post {
-      ...PostFields
+      id
+      by {
+        ...PublicationProfileFields
+      }
+      metadata {
+        ...AnyPublicationMetadataFields
+      }
+      profilesMentioned {
+        snapshotHandleMentioned {
+          ...HandleInfoFields
+        }
+      }
     }
     ... on Comment {
-      ...CommentBaseFields
+      id
+      by {
+        ...PublicationProfileFields
+      }
+      metadata {
+        ...AnyPublicationMetadataFields
+      }
+      profilesMentioned {
+        snapshotHandleMentioned {
+          ...HandleInfoFields
+        }
+      }
     }
     ... on Quote {
-      ...QuoteBaseFields
+      id
+      by {
+        ...PublicationProfileFields
+      }
+      metadata {
+        ...AnyPublicationMetadataFields
+      }
+      profilesMentioned {
+        snapshotHandleMentioned {
+          ...HandleInfoFields
+        }
+      }
     }
   }
 }

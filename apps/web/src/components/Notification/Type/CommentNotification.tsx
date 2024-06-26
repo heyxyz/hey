@@ -5,6 +5,7 @@ import Markup from '@components/Shared/Markup';
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import Link from 'next/link';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -23,6 +24,8 @@ const CommentNotification: FC<CommentNotificationProps> = ({
   const text = 'commented on your';
   // TODO: remove ? when we have commentOn field in the comment
   const type = notification.comment.commentOn?.__typename;
+
+  usePushToImpressions(notification.comment.id);
 
   return (
     <div className="space-y-2">
