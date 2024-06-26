@@ -11,23 +11,17 @@ import {
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
-import dynamic from 'next/dynamic';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
-
-const LeafwatchProvider = dynamic(() => import('./LeafwatchProvider'));
-const LensAuthProvider = dynamic(() => import('./LensAuthProvider'));
-const LensSubscriptionsProvider = dynamic(
-  () => import('./LensSubscriptionsProvider')
-);
-const OptimisticTransactionsProvider = dynamic(
-  () => import('./OptimisticTransactionsProvider')
-);
-const PreferencesProvider = dynamic(() => import('./PreferencesProvider'));
-const ProProvider = dynamic(() => import('./ProProvider'));
-const ServiceWorkerProvider = dynamic(() => import('./ServiceWorkerProvider'));
-const Web3Provider = dynamic(() => import('./Web3Provider'));
+import LeafwatchProvider from './LeafwatchProvider';
+import LensAuthProvider from './LensAuthProvider';
+import LensSubscriptionsProvider from './LensSubscriptionsProvider';
+import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
+import PreferencesProvider from './PreferencesProvider';
+import ProProvider from './ProProvider';
+import ServiceWorkerProvider from './ServiceWorkerProvider';
+import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
