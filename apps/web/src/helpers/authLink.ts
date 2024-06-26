@@ -1,3 +1,5 @@
+import type { NextLink, Operation } from '@apollo/client';
+
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { APP_NAME, LENS_API_URL } from '@hey/data/constants';
 import parseJwt from '@hey/helpers/parseJwt';
@@ -19,26 +21,30 @@ const REFRESH_AUTHENTICATION_MUTATION = `
   }
 `;
 
-const authLink = new ApolloLink((operation, forward) => {
-  const { accessToken, refreshToken } = hydrateAuthTokens();
+const setHeaders = (operation: Operation, accessToken?: string) => {
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      ...(accessToken ? { 'X-Access-Token': accessToken } : {}),
+      'X-Requested-From': APP_NAME.toLowerCase(),
+      'X-Requested-Id': uuid()
+    }
+  }));
+};
 
-  const headers = {
-    'X-Requested-From': APP_NAME.toLowerCase(),
-    'X-Requested-Id': uuid()
-  };
+const authLink = new ApolloLink((operation: Operation, forward: NextLink) => {
+  const { accessToken, refreshToken } = hydrateAuthTokens();
 
   if (!accessToken || !refreshToken) {
     signOut();
+    setHeaders(operation);
     return forward(operation);
   }
 
-  const expiringSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
+  const isExpiringSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
 
-  if (!expiringSoon) {
-    operation.setContext({
-      headers: { 'X-Access-Token': accessToken || '', ...headers }
-    });
-
+  if (!isExpiringSoon) {
+    setHeaders(operation, accessToken);
     return forward(operation);
   }
 
@@ -51,20 +57,18 @@ const authLink = new ApolloLink((operation, forward) => {
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: { request: { refreshToken } }
         },
-        { headers: { 'Content-Type': 'application/json', ...headers } }
+        { headers: { 'Content-Type': 'application/json' } }
       )
       .then(({ data }) => {
-        const accessToken = data?.data?.refresh?.accessToken;
-        const refreshToken = data?.data?.refresh?.refreshToken;
-        const identityToken = data?.data?.refresh?.identityToken;
-        operation.setContext({
-          headers: { 'X-Access-Token': accessToken, ...headers }
-        });
+        const { accessToken, identityToken, refreshToken } =
+          data?.data?.refresh;
         signIn({ accessToken, identityToken, refreshToken });
-
+        setHeaders(operation, accessToken);
         return toPromise(forward(operation));
       })
       .catch(() => {
+        signOut();
+        setHeaders(operation);
         return toPromise(forward(operation));
       })
   );
