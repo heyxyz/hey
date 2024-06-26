@@ -9,10 +9,10 @@ import PageMetatags from '@components/Shared/PageMetatags';
 import getCurrentSession from '@helpers/getCurrentSession';
 import getToastOptions from '@helpers/getToastOptions';
 import { useCurrentProfileQuery } from '@hey/lens';
-import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import useIsMounted from 'src/hooks/useIsMounted';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
@@ -38,7 +38,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resetStatus } = useProfileStatus();
   const { setLensHubOnchainSigNonce } = useNonceStore();
 
-  const isMounted = useIsClient();
+  const isMounted = useIsMounted();
   const { disconnect } = useDisconnect();
 
   const { id: sessionProfileId } = getCurrentSession();
@@ -82,9 +82,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const profileLoading = !currentProfile && loading;
+  if (!isMounted()) {
+    return <PageMetatags />;
+  }
 
-  if (profileLoading || !isMounted) {
+  if (!currentProfile && loading) {
     return <FullPageLoader />;
   }
 
