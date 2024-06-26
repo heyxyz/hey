@@ -27,7 +27,11 @@ const Score: FC<ScoreProps> = ({ id }) => {
   return (
     <MetaDetails
       icon={
-        <img className="size-4" src={`${STATIC_IMAGES_URL}/app-icon/2.png`} />
+        <img
+          alt="App Icon"
+          className="size-4"
+          src={`${STATIC_IMAGES_URL}/app-icon/2.png`}
+        />
       }
     >
       <button
