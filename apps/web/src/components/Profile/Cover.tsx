@@ -9,23 +9,24 @@ interface CoverProps {
 }
 
 const Cover: FC<CoverProps> = ({ cover }) => {
-  const hasCover = !cover.includes(STATIC_IMAGES_URL);
+  const isDefaultCover = cover.includes(STATIC_IMAGES_URL);
+  const backgroundImage = isDefaultCover
+    ? `${STATIC_IMAGES_URL}/patterns/2.svg`
+    : imageKit(sanitizeDStorageUrl(cover), COVER);
+
+  const backgroundStyles = {
+    backgroundColor: BRAND_COLOR,
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundPosition: 'center center',
+    backgroundRepeat: isDefaultCover ? 'repeat' : 'no-repeat',
+    backgroundSize: isDefaultCover ? '30%' : 'cover'
+  };
 
   return (
     <div className="container mx-auto max-w-[1350px]">
       <div
         className="h-52 sm:h-[350px] md:rounded-b-2xl"
-        style={{
-          backgroundColor: BRAND_COLOR,
-          backgroundImage: `url(${
-            hasCover
-              ? imageKit(sanitizeDStorageUrl(cover), COVER)
-              : `${STATIC_IMAGES_URL}/patterns/2.svg`
-          })`,
-          backgroundPosition: 'center center',
-          backgroundRepeat: hasCover ? 'no-repeat' : 'repeat',
-          backgroundSize: hasCover ? 'cover' : '30%'
-        }}
+        style={backgroundStyles}
       />
     </div>
   );

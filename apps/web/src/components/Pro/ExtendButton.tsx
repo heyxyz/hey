@@ -7,7 +7,6 @@ import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { parseEther } from 'viem';
@@ -26,16 +25,14 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
     null
   );
 
-  const { isSuspended } = useProfileStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { sendTransactionAsync } = useSendTransaction({
     mutation: {
       onError: errorToast,
-      onSuccess: (hash: string) => {
-        setTransactionHash(hash as `0x${string}`);
-      }
+      onSuccess: (hash: string) => setTransactionHash(hash as `0x${string}`)
     }
   });
+
   const { isFetching: transactionLoading, isSuccess } = useTransactionReceipt({
     hash: transactionHash as `0x${string}`,
     query: { enabled: Boolean(transactionHash) }
@@ -52,15 +49,11 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
       return toast.error(Errors.SignWallet);
     }
 
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     try {
       setIsLoading(true);
       await handleWrongNetwork();
 
-      return await sendTransactionAsync({
+      await sendTransactionAsync({
         data: currentProfile.id,
         to: PRO_EOA_ADDRESS,
         value: parseEther(MONTHLY_PRO_PRICE.toString())

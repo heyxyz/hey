@@ -41,7 +41,6 @@ import Badges from './Badges';
 import Pro from './Badges/Pro';
 import Followerings from './Followerings';
 import InternalTools from './InternalTools';
-import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import ScamWarning from './ScamWarning';
@@ -265,12 +264,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           </MetaDetails>
         </div>
       </div>
-      {profile.invitedBy ? (
-        <>
-          <div className="divider w-full" />
-          <InvitedBy profile={profile.invitedBy} />
-        </>
-      ) : null}
       <Badges id={profile.id} onchainIdentity={profile.onchainIdentity} />
       <InternalTools profile={profile} />
     </div>
