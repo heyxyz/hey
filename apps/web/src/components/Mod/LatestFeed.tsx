@@ -97,21 +97,19 @@ const LatestFeed: FC = () => {
           !SKIPPED_PROFILE_IDS.includes(publication?.by?.id as string)
       )}
       endReached={onEndReached}
-      itemContent={(index, publication) => {
-        return (
-          <Card>
-            <SinglePublication
-              isFirst
-              isLast={false}
-              publication={publication as AnyPublication}
-              showActions={false}
-              showThread={false}
-            />
-            <div className="divider" />
-            <HigherActions publication={publication as MirrorablePublication} />
-          </Card>
-        );
-      }}
+      itemContent={(_, publication) => (
+        <Card>
+          <SinglePublication
+            isFirst
+            isLast={false}
+            publication={publication as AnyPublication}
+            showActions={false}
+            showThread={false}
+          />
+          <div className="divider" />
+          <HigherActions publication={publication as MirrorablePublication} />
+        </Card>
+      )}
       useWindowScroll
     />
   );
