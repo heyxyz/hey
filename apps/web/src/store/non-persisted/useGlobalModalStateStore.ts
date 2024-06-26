@@ -16,7 +16,6 @@ interface State {
     authModalType?: AuthModalType
   ) => void;
   setShowDiscardModal: (showDiscardModal: boolean) => void;
-  setShowInvitesModal: (showInvitesModal: boolean) => void;
   setShowMobileDrawer: (showMobileDrawer: boolean) => void;
   setShowNewPostModal: (showNewPostModal: boolean) => void;
   setShowOptimisticTransactionsModal: (
@@ -38,7 +37,6 @@ interface State {
   ) => void;
   showAuthModal: boolean;
   showDiscardModal: boolean;
-  showInvitesModal: boolean;
   showMobileDrawer: boolean;
   showNewPostModal: boolean;
   showOptimisticTransactionsModal: boolean;
@@ -58,7 +56,6 @@ const store = create<State>((set) => ({
     set(() => ({ authModalType, showAuthModal }));
   },
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
-  setShowInvitesModal: (showInvitesModal) => set(() => ({ showInvitesModal })),
   setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer })),
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   setShowOptimisticTransactionsModal: (showOptimisticTransactionsModal) =>
@@ -79,7 +76,6 @@ const store = create<State>((set) => ({
     set(() => ({ score, scoreViewerProfileId, showScoreModal })),
   showAuthModal: false,
   showDiscardModal: false,
-  showInvitesModal: false,
   showMobileDrawer: false,
   showNewPostModal: false,
   showOptimisticTransactionsModal: false,

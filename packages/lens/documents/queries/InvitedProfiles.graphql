@@ -1,9 +1,0 @@
-query InvitedProfiles {
-  invitedProfiles {
-    addressInvited
-    when
-    profileMinted {
-      ...ListProfileFields
-    }
-  }
-}

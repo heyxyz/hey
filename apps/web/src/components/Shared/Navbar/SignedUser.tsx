@@ -3,9 +3,7 @@ import type { FC } from 'react';
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
-import isFeatureEnabled from '@helpers/isFeatureEnabled';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import { KillSwitch } from '@hey/data/kill-switches';
 import getAvatar from '@hey/helpers/getAvatar';
 import getLennyURL from '@hey/helpers/getLennyURL';
 import getProfile from '@hey/helpers/getProfile';
@@ -19,7 +17,6 @@ import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
-import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
 import Score from './NavItems/Score';
@@ -113,16 +110,6 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </MenuItem>
-            {isFeatureEnabled(KillSwitch.Invites) && (
-              <MenuItem
-                as="div"
-                className={({ focus }: { focus: boolean }) =>
-                  cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
-                }
-              >
-                <Invites />
-              </MenuItem>
-            )}
             <MenuItem
               as="div"
               className={({ focus }) =>
