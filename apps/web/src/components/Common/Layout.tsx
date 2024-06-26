@@ -1,7 +1,6 @@
 import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
-import FullPageLoader from '@components/Shared/FullPageLoader';
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
@@ -9,10 +8,10 @@ import PageMetatags from '@components/Shared/PageMetatags';
 import getCurrentSession from '@helpers/getCurrentSession';
 import getToastOptions from '@helpers/getToastOptions';
 import { useCurrentProfileQuery } from '@hey/lens';
+import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import useIsMounted from 'src/hooks/useIsMounted';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
@@ -23,6 +22,7 @@ import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
+import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 
 interface LayoutProps {
@@ -38,7 +38,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resetStatus } = useProfileStatus();
   const { setLensHubOnchainSigNonce } = useNonceStore();
 
-  const isMounted = useIsMounted();
+  const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
 
   const { id: sessionProfileId } = getCurrentSession();
@@ -82,12 +82,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!isMounted()) {
-    return <PageMetatags />;
-  }
+  const profileLoading = !currentProfile && loading;
 
-  if (!currentProfile && loading) {
-    return <FullPageLoader />;
+  if (profileLoading || !isMounted) {
+    return <Loading />;
   }
 
   return (
