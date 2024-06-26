@@ -5,6 +5,7 @@ import Markup from '@components/Shared/Markup';
 import { AtSymbolIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import Link from 'next/link';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
@@ -22,6 +23,8 @@ const MentionNotification: FC<MentionNotificationProps> = ({
 
   const text = 'mentioned you in a';
   const type = notification.publication.__typename;
+
+  usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">
