@@ -57,19 +57,17 @@ const List: FC<ListProps> = ({ managed = false }) => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
-    }
-
-    return await fetchMore({
-      variables: {
-        lastLoggedInProfileRequest,
-        profilesManagedRequest: {
-          ...profilesManagedRequest,
-          cursor: pageInfo.next
+    if (hasMore) {
+      await fetchMore({
+        variables: {
+          lastLoggedInProfileRequest,
+          profilesManagedRequest: {
+            ...profilesManagedRequest,
+            cursor: pageInfo.next
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   if (loading) {

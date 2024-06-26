@@ -57,16 +57,14 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   };
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+      const ids = data?.searchPublications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     }
-
-    const { data } = await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-    const ids = data?.searchPublications?.items?.map((p) => p.id) || [];
-    await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
