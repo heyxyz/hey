@@ -46,16 +46,14 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+      const ids = data?.publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     }
-
-    const { data } = await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-    const ids = data?.publications?.items?.map((p) => p.id) || [];
-    await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
@@ -89,16 +87,14 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
         computeItemKey={(index, quote) => `${quote.id}-${index}`}
         data={quotes}
         endReached={onEndReached}
-        itemContent={(index, quote) => {
-          return (
-            <SinglePublication
-              isFirst={false}
-              isLast={index === quotes.length - 1}
-              publication={quote as Quote}
-              showType={false}
-            />
-          );
-        }}
+        itemContent={(index, quote) => (
+          <SinglePublication
+            isFirst={false}
+            isLast={index === quotes.length - 1}
+            publication={quote as Quote}
+            showType={false}
+          />
+        )}
         useWindowScroll
       />
     </Card>

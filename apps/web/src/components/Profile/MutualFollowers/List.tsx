@@ -38,13 +38,11 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   if (loading) {
@@ -91,19 +89,17 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
         }
         data={mutualFollowers}
         endReached={onEndReached}
-        itemContent={(_, mutualFollower) => {
-          return (
-            <div className="p-5">
-              <UserProfile
-                hideFollowButton={currentProfile?.id === mutualFollower.id}
-                hideUnfollowButton={currentProfile?.id === mutualFollower.id}
-                profile={mutualFollower as Profile}
-                showBio
-                showUserPreview={false}
-              />
-            </div>
-          );
-        }}
+        itemContent={(_, mutualFollower) => (
+          <div className="p-5">
+            <UserProfile
+              hideFollowButton={currentProfile?.id === mutualFollower.id}
+              hideUnfollowButton={currentProfile?.id === mutualFollower.id}
+              profile={mutualFollower as Profile}
+              showBio
+              showUserPreview={false}
+            />
+          </div>
+        )}
         useWindowScroll
       />
     </Card>

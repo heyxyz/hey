@@ -26,13 +26,11 @@ const List: FC = () => {
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
     }
-
-    return await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
   };
 
   if (loading) {
@@ -61,43 +59,41 @@ const List: FC = () => {
       computeItemKey={(index, action) => `${action.id}-${index}`}
       data={profileActionHistory}
       endReached={onEndReached}
-      itemContent={(_, action) => {
-        return (
-          <div className="space-y-1 p-5">
-            <b>{action.actionType.toLowerCase()}</b>
-            <div className="ld-text-gray-500 text-sm">
-              {action.txHash ? (
-                <span>
-                  <span>Hash: </span>
-                  <Link
-                    className="hover:underline"
-                    href={`${POLYGONSCAN_URL}/tx/${action.txHash}`}
-                    target="_blank"
-                  >
-                    {action.txHash.slice(0, 8 + 2)}…
-                    {action.txHash.slice(action.txHash.length - 8)}
-                  </Link>
-                  <span className="mx-2 border-l dark:border-gray-700" />
-                </span>
-              ) : null}
-              {action.who ? (
-                <span>
-                  <span>Acted by: </span>
-                  <Link
-                    className="hover:underline"
-                    href={`${POLYGONSCAN_URL}/address/${action.who}`}
-                    target="_blank"
-                  >
-                    {formatAddress(action.who)}
-                  </Link>
-                  <span className="mx-2 border-l dark:border-gray-700" />
-                </span>
-              ) : null}
-              {formatDate(action.actionedOn, 'MMM D, YYYY - hh:mm:ss A')}
-            </div>
+      itemContent={(_, action) => (
+        <div className="space-y-1 p-5">
+          <b>{action.actionType.toLowerCase()}</b>
+          <div className="ld-text-gray-500 text-sm">
+            {action.txHash ? (
+              <span>
+                <span>Hash: </span>
+                <Link
+                  className="hover:underline"
+                  href={`${POLYGONSCAN_URL}/tx/${action.txHash}`}
+                  target="_blank"
+                >
+                  {action.txHash.slice(0, 8 + 2)}…
+                  {action.txHash.slice(action.txHash.length - 8)}
+                </Link>
+                <span className="mx-2 border-l dark:border-gray-700" />
+              </span>
+            ) : null}
+            {action.who ? (
+              <span>
+                <span>Acted by: </span>
+                <Link
+                  className="hover:underline"
+                  href={`${POLYGONSCAN_URL}/address/${action.who}`}
+                  target="_blank"
+                >
+                  {formatAddress(action.who)}
+                </Link>
+                <span className="mx-2 border-l dark:border-gray-700" />
+              </span>
+            ) : null}
+            {formatDate(action.actionedOn, 'MMM D, YYYY - hh:mm:ss A')}
           </div>
-        );
-      }}
+        </div>
+      )}
       useWindowScroll
     />
   );

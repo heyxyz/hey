@@ -73,16 +73,14 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const totalComments = hiddenRemovedComments + queuedCount;
 
   const onEndReached = async () => {
-    if (!hasMore) {
-      return;
+    if (hasMore) {
+      const { data } = await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+      const ids = data?.publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+      await fetchAndStoreTips(ids);
     }
-
-    const { data } = await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-    const ids = data?.publications?.items?.map((p) => p.id) || [];
-    await fetchAndStoreViews(ids);
-    await fetchAndStoreTips(ids);
   };
 
   if (loading) {
@@ -116,11 +114,17 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
           data={comments}
           endReached={onEndReached}
           itemContent={(index, comment) => {
-            return comment?.__typename !== 'Comment' ||
-              comment.isHidden ? null : (
+            if (comment?.__typename !== 'Comment' || comment.isHidden) {
+              return null;
+            }
+
+            const isFirst = index === 0;
+            const isLast = index === comments.length - 1;
+
+            return (
               <SinglePublication
-                isFirst={index === 0}
-                isLast={index === comments.length - 1}
+                isFirst={isFirst}
+                isLast={isLast}
                 publication={comment as Comment}
                 showType={false}
               />
