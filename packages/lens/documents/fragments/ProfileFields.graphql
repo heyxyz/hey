@@ -16,18 +16,6 @@ fragment ProfileFields on Profile {
     ...ProfileOperationsFields
   }
   interests
-  invitedBy {
-    id
-    handle {
-      ...HandleInfoFields
-    }
-    ownedBy {
-      ...NetworkAddressFields
-    }
-    metadata {
-      ...ProfileMetadataFields
-    }
-  }
   invitesLeft
   onchainIdentity {
     proofOfHumanity
