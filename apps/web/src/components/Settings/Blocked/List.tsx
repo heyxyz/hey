@@ -59,24 +59,22 @@ const List: FC = () => {
         computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={whoHaveBlocked}
         endReached={onEndReached}
-        itemContent={(_, profile) => {
-          return (
-            <div className="flex items-center justify-between p-5">
-              <UserProfile
-                hideFollowButton
-                hideUnfollowButton
-                profile={profile as Profile}
-              />
-              <Button
-                onClick={() =>
-                  setShowBlockOrUnblockAlert(true, profile as Profile)
-                }
-              >
-                Unblock
-              </Button>
-            </div>
-          );
-        }}
+        itemContent={(_, profile) => (
+          <div className="flex items-center justify-between p-5">
+            <UserProfile
+              hideFollowButton
+              hideUnfollowButton
+              profile={profile as Profile}
+            />
+            <Button
+              onClick={() =>
+                setShowBlockOrUnblockAlert(true, profile as Profile)
+              }
+            >
+              Unblock
+            </Button>
+          </div>
+        )}
         useWindowScroll
       />
     </div>
