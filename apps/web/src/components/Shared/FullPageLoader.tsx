@@ -4,7 +4,7 @@ import isPrideMonth from '@hey/helpers/isPrideMonth';
 
 import PageMetatags from './PageMetatags';
 
-const Loading: FC = () => {
+const FullPageLoader: FC = () => {
   const logoSrc = isPrideMonth() ? '/pride.png' : '/logo.png';
 
   return (
@@ -21,4 +21,4 @@ const Loading: FC = () => {
   );
 };
 
-export default Loading;
+export default FullPageLoader;

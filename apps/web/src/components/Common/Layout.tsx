@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 import type { FC, ReactNode } from 'react';
 
+import FullPageLoader from '@components/Shared/FullPageLoader';
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
@@ -22,7 +23,6 @@ import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
-import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 
 interface LayoutProps {
@@ -85,7 +85,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const profileLoading = !currentProfile && loading;
 
   if (profileLoading || !isMounted) {
-    return <Loading />;
+    return <FullPageLoader />;
   }
 
   return (
