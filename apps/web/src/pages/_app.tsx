@@ -1,9 +1,14 @@
 import type { AppProps } from 'next/app';
 
-import Providers from '@components/Common/Providers';
+import FullPageLoader from '@components/Shared/FullPageLoader';
 import { heyFont } from '@helpers/fonts';
+import dynamic from 'next/dynamic';
 
 import '../styles.css';
+
+const Providers = dynamic(() => import('@components/Common/Providers'), {
+  loading: () => <FullPageLoader />
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
