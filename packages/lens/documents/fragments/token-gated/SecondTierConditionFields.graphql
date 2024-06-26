@@ -1,8 +1,0 @@
-fragment SecondTierConditionFields on SecondTierCondition {
-  ... on AndCondition {
-    ...AndConditionFields
-  }
-  ... on OrCondition {
-    ...OrConditionFields
-  }
-}

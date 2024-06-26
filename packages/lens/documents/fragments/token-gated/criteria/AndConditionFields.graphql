@@ -1,7 +1,0 @@
-fragment AndConditionFields on AndCondition {
-  criteria {
-    ... on ThirdTierCondition {
-      ...ThirdTierConditionFields
-    }
-  }
-}

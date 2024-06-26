@@ -1,5 +1,0 @@
-fragment AdvancedContractConditionFields on AdvancedContractCondition {
-  contract {
-    ...NetworkAddressFields
-  }
-}

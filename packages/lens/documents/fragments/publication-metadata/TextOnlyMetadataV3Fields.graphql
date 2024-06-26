@@ -6,8 +6,5 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
     ...MetadataAttributeFields
   }
   content
-  encryptedWith {
-    ...PublicationMetadataLitEncryptionFields
-  }
   appId
 }

@@ -1,3 +1,0 @@
-fragment EoaOwnershipConditionFields on EoaOwnershipCondition {
-  address
-}
