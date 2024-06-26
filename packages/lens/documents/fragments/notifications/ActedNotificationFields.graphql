@@ -8,74 +8,26 @@ fragment ActedNotificationFields on ActedNotification {
   }
   publication {
     ... on Post {
-      id
-      metadata {
-        ...AnyPublicationMetadataFields
-      }
-      profilesMentioned {
-        snapshotHandleMentioned {
-          ...HandleInfoFields
-        }
-      }
+      ...NotificationPostFields
     }
     ... on Comment {
-      id
-      metadata {
-        ...AnyPublicationMetadataFields
-      }
-      profilesMentioned {
-        snapshotHandleMentioned {
-          ...HandleInfoFields
-        }
-      }
+      ...NotificationCommentFields
     }
     ... on Mirror {
       mirrorOn {
         ... on Post {
-          id
-          metadata {
-            ...AnyPublicationMetadataFields
-          }
-          profilesMentioned {
-            snapshotHandleMentioned {
-              ...HandleInfoFields
-            }
-          }
+          ...NotificationPostFields
         }
         ... on Comment {
-          id
-          metadata {
-            ...AnyPublicationMetadataFields
-          }
-          profilesMentioned {
-            snapshotHandleMentioned {
-              ...HandleInfoFields
-            }
-          }
+          ...NotificationCommentFields
         }
         ... on Quote {
-          id
-          metadata {
-            ...AnyPublicationMetadataFields
-          }
-          profilesMentioned {
-            snapshotHandleMentioned {
-              ...HandleInfoFields
-            }
-          }
+          ...NotificationQuoteFields
         }
       }
     }
     ... on Quote {
-      id
-      metadata {
-        ...AnyPublicationMetadataFields
-      }
-      profilesMentioned {
-        snapshotHandleMentioned {
-          ...HandleInfoFields
-        }
-      }
+      ...NotificationQuoteFields
     }
   }
 }
