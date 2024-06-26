@@ -96,15 +96,13 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
         data={publications}
         endReached={onEndReached}
         isScrolling={onScrolling}
-        itemContent={(index, publication) => {
-          return (
-            <SinglePublication
-              isFirst={index === 0}
-              isLast={index === (publications?.length || 0) - 1}
-              publication={publication}
-            />
-          );
-        }}
+        itemContent={(index, publication) => (
+          <SinglePublication
+            isFirst={index === 0}
+            isLast={index === (publications?.length || 0) - 1}
+            publication={publication}
+          />
+        )}
         ref={virtuoso}
         restoreStateFrom={
           virtuosoState.ranges.length === 0

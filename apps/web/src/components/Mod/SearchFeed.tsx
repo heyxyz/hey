@@ -118,7 +118,7 @@ const SearchFeed: FC = () => {
         computeItemKey={(index, publication) => `${publication.id}-${index}`}
         data={publications}
         endReached={onEndReached}
-        itemContent={(index, publication) => {
+        itemContent={(_, publication) => {
           const targetPublication = isMirrorPublication(publication)
             ? publication.mirrorOn
             : publication;

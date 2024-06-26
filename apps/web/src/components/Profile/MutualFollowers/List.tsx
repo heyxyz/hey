@@ -89,19 +89,17 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
         }
         data={mutualFollowers}
         endReached={onEndReached}
-        itemContent={(_, mutualFollower) => {
-          return (
-            <div className="p-5">
-              <UserProfile
-                hideFollowButton={currentProfile?.id === mutualFollower.id}
-                hideUnfollowButton={currentProfile?.id === mutualFollower.id}
-                profile={mutualFollower as Profile}
-                showBio
-                showUserPreview={false}
-              />
-            </div>
-          );
-        }}
+        itemContent={(_, mutualFollower) => (
+          <div className="p-5">
+            <UserProfile
+              hideFollowButton={currentProfile?.id === mutualFollower.id}
+              hideUnfollowButton={currentProfile?.id === mutualFollower.id}
+              profile={mutualFollower as Profile}
+              showBio
+              showUserPreview={false}
+            />
+          </div>
+        )}
         useWindowScroll
       />
     </Card>

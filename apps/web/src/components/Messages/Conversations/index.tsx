@@ -140,9 +140,9 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
                 setPage((prevPage) => prevPage + 1);
               }, 1000);
             }}
-            itemContent={(_, conversation) => {
-              return <Conversation conversation={conversation} />;
-            }}
+            itemContent={(_, conversation) => (
+              <Conversation conversation={conversation} />
+            )}
           />
         )}
       </div>

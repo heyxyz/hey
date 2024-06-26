@@ -20,20 +20,18 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ profiles }) => {
         computeItemKey={(index, profile) => `${profile.id}-${index}`}
         // remove the first 5 profiles from the list because they are already shown in the sidebar
         data={profiles.slice(5)}
-        itemContent={(_, profile) => {
-          return (
-            <div className="p-5">
-              <UserProfile
-                hideFollowButton={currentProfile?.id === profile.id}
-                hideUnfollowButton={currentProfile?.id === profile.id}
-                profile={profile as Profile}
-                showBio
-                showUserPreview={false}
-                source={ProfileLinkSource.WhoToFollow}
-              />
-            </div>
-          );
-        }}
+        itemContent={(_, profile) => (
+          <div className="p-5">
+            <UserProfile
+              hideFollowButton={currentProfile?.id === profile.id}
+              hideUnfollowButton={currentProfile?.id === profile.id}
+              profile={profile as Profile}
+              showBio
+              showUserPreview={false}
+              source={ProfileLinkSource.WhoToFollow}
+            />
+          </div>
+        )}
       />
     </div>
   );

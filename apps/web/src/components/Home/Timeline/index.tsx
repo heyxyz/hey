@@ -103,16 +103,14 @@ const Timeline: FC = () => {
           data={feed}
           endReached={onEndReached}
           isScrolling={onScrolling}
-          itemContent={(index, feedItem) => {
-            return (
-              <SinglePublication
-                feedItem={feedItem as FeedItem}
-                isFirst={index === 0}
-                isLast={index === (feed?.length || 0) - 1}
-                publication={feedItem.root as AnyPublication}
-              />
-            );
-          }}
+          itemContent={(index, feedItem) => (
+            <SinglePublication
+              feedItem={feedItem as FeedItem}
+              isFirst={index === 0}
+              isLast={index === (feed?.length || 0) - 1}
+              publication={feedItem.root as AnyPublication}
+            />
+          )}
           ref={virtuoso}
           restoreStateFrom={
             virtuosoState.ranges.length === 0

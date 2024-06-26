@@ -85,20 +85,18 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
         computeItemKey={(index, profile) => `${profile.id}-${index}`}
         data={profiles}
         endReached={onEndReached}
-        itemContent={(_, profile) => {
-          return (
-            <div className="p-5">
-              <UserProfile
-                hideFollowButton={currentProfile?.id === profile.id}
-                hideUnfollowButton={currentProfile?.id === profile.id}
-                profile={profile as Profile}
-                showBio
-                showUserPreview={false}
-                source={ProfileLinkSource.Collects}
-              />
-            </div>
-          );
-        }}
+        itemContent={(_, profile) => (
+          <div className="p-5">
+            <UserProfile
+              hideFollowButton={currentProfile?.id === profile.id}
+              hideUnfollowButton={currentProfile?.id === profile.id}
+              profile={profile as Profile}
+              showBio
+              showUserPreview={false}
+              source={ProfileLinkSource.Collects}
+            />
+          </div>
+        )}
         useWindowScroll
       />
     </Card>

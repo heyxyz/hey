@@ -70,20 +70,18 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       computeItemKey={(index, profile) => `${profile.id}-${index}`}
       data={profiles}
       endReached={onEndReached}
-      itemContent={(_, profile) => {
-        return (
-          <Card className="p-5">
-            <UserProfile
-              hideFollowButton
-              hideUnfollowButton
-              isBig
-              profile={profile as Profile}
-              showBio
-              source={ProfileLinkSource.Search}
-            />
-          </Card>
-        );
-      }}
+      itemContent={(_, profile) => (
+        <Card className="p-5">
+          <UserProfile
+            hideFollowButton
+            hideUnfollowButton
+            isBig
+            profile={profile as Profile}
+            showBio
+            source={ProfileLinkSource.Search}
+          />
+        </Card>
+      )}
       useWindowScroll
     />
   );

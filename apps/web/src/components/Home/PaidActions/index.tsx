@@ -60,7 +60,7 @@ const PaidActions: FC = () => {
       }
       data={actions}
       endReached={onEndReached}
-      itemContent={(index, action) => {
+      itemContent={(_, action) => {
         return action.__typename === 'OpenActionPaidAction' ? (
           <Card>
             <OpenActionPaidAction
