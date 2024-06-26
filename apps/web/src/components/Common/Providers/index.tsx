@@ -20,6 +20,7 @@ import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ProProvider from './ProProvider';
+import ServiceWorkerProvider from './ServiceWorkerProvider';
 import Web3Provider from './Web3Provider';
 
 const lensApolloClient = apolloClient(authLink);
@@ -37,7 +38,7 @@ interface ProvidersProps {
 const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
-      {/* <ServiceWorkerProvider /> */}
+      <ServiceWorkerProvider />
       <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
