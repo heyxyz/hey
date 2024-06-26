@@ -102,11 +102,17 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {
-              return comment?.__typename === 'Comment' &&
-                comment.isHidden ? null : (
+              if (comment.__typename !== 'Comment' || comment.isHidden) {
+                return null;
+              }
+
+              const isFirst = index === 0;
+              const isLast = index === comments.length - 1;
+
+              return (
                 <SinglePublication
-                  isFirst={index === 0}
-                  isLast={index === comments.length - 1}
+                  isFirst={isFirst}
+                  isLast={isLast}
                   publication={comment as Comment}
                   showType={false}
                 />
