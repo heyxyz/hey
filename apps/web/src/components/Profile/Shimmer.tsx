@@ -28,14 +28,12 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
             </div>
             <div className="space-y-5">
               <div className="flex gap-5 pb-1">
-                <div className="space-y-2">
-                  <div className="shimmer size-7 rounded-lg" />
-                  <div className="shimmer h-3 w-20 rounded-lg" />
-                </div>
-                <div className="space-y-2">
-                  <div className="shimmer size-7 rounded-lg" />
-                  <div className="shimmer h-3 w-20 rounded-lg" />
-                </div>
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <div className="space-y-2" key={index}>
+                    <div className="shimmer size-7 rounded-lg" />
+                    <div className="shimmer h-3 w-20 rounded-lg" />
+                  </div>
+                ))}
               </div>
               <div className="shimmer h-[34px] w-20 rounded-full" />
               <div className="space-y-2">
@@ -43,14 +41,12 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
                 <div className="shimmer h-3 w-1/3 rounded-lg" />
               </div>
               <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <div className="shimmer size-4 rounded-lg" />
-                  <div className="shimmer h-3 w-20 rounded-lg" />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="shimmer size-4 rounded-lg" />
-                  <div className="shimmer h-3 w-20 rounded-lg" />
-                </div>
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <div className="flex items-center space-x-2" key={index}>
+                    <div className="shimmer size-4 rounded-lg" />
+                    <div className="shimmer h-3 w-20 rounded-lg" />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -61,10 +57,12 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
           ) : (
             <>
               <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
-                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-                <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div
+                    className="shimmer h-8 w-14 rounded-lg sm:w-28"
+                    key={index}
+                  />
+                ))}
               </div>
               <PublicationsShimmer />
             </>
