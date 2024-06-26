@@ -88,11 +88,11 @@ const Pro: NextPage = () => {
               </li>
             ))}
           </ul>
-          {proExpiresAt ? (
+          {proExpiresAt && (
             <div className="mb-2 mt-6 text-sm">
               Your Pro expires at <b>{formatDate(proExpiresAt)}</b>
             </div>
-          ) : null}
+          )}
           <ExtendButton />
         </div>
       </div>
