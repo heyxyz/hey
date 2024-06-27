@@ -16,13 +16,11 @@ export default async function Page({ params }: Props) {
   }: {
     data: {
       result: {
-        city: string;
-        country: string;
+        address: string;
         createdAt: string;
         id: string;
         name: string;
         rate: number;
-        region: string;
       };
     };
   } = await axios.get('https://api.hey.xyz/invoices/signup', {
@@ -33,15 +31,7 @@ export default async function Page({ params }: Props) {
     return <h1>404</h1>;
   }
 
-  const {
-    city,
-    country,
-    createdAt,
-    id: invoiceId,
-    name,
-    rate,
-    region
-  } = data.result;
+  const { address, createdAt, id: invoiceId, name, rate } = data.result;
 
   return (
     <div className="mx-auto my-4 max-w-[85rem] px-4 sm:my-10 sm:px-6 lg:px-8">
@@ -84,7 +74,7 @@ export default async function Page({ params }: Props) {
               <b className="text-lg text-gray-800">Bill to</b>
               <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
               <address className="mt-2 not-italic text-gray-800">
-                {city}, {region}, {country}
+                {address}
               </address>
             </div>
             <div className="space-y-2 sm:text-end">
