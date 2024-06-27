@@ -1,34 +1,47 @@
-import type { Profile } from '@hey/lens';
-
-import getProfile from '@hey/helpers/getProfile';
-import { ProfileDocument } from '@hey/lens';
-import { apolloClient } from '@hey/lens/apollo';
+import axios from 'axios';
 
 interface Props {
   params: { id: string };
-  searchParams: { rate: string };
 }
 
-export default async function Page({ params, searchParams }: Props) {
+export default async function Page({ params }: Props) {
   const { id } = params;
-  const { rate } = searchParams;
 
   if (!id) {
     return <h1>404</h1>;
   }
 
-  const { data } = await apolloClient().query({
-    query: ProfileDocument,
-    variables: { request: { forProfileId: id } }
+  const {
+    data
+  }: {
+    data: {
+      result: {
+        city: string;
+        country: string;
+        createdAt: string;
+        id: string;
+        name: string;
+        rate: number;
+        region: string;
+      };
+    };
+  } = await axios.get('https://api.hey.xyz/invoices/signup', {
+    params: { id }
   });
 
-  if (!data.profile) {
+  if (!data.result) {
     return <h1>404</h1>;
   }
 
-  const profile = data.profile as Profile;
-  const inrRate = parseFloat(rate || '60');
-  const { displayName } = getProfile(profile);
+  const {
+    city,
+    country,
+    createdAt,
+    id: invoiceId,
+    name,
+    rate,
+    region
+  } = data.result;
 
   return (
     <div className="mx-auto my-4 max-w-[85rem] px-4 sm:my-10 sm:px-6 lg:px-8">
@@ -49,10 +62,7 @@ export default async function Page({ params, searchParams }: Props) {
               <h2 className="text-2xl font-semibold text-gray-800 md:text-3xl">
                 Invoice
               </h2>
-              <span className="mt-1 block text-gray-500">for Signup</span>
-              <span className="mt-1 block text-gray-500">
-                #{parseInt(profile.id)}
-              </span>
+              <span className="mt-1 block text-gray-500">{invoiceId}</span>
               <address className="mt-4 not-italic text-gray-800">
                 Yoginth
                 <br />
@@ -72,9 +82,10 @@ export default async function Page({ params, searchParams }: Props) {
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <div>
               <b className="text-lg text-gray-800">Bill to</b>
-              <h3 className="text-lg font-semibold text-gray-800">
-                {displayName}
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
+              <address className="mt-2 not-italic text-gray-800">
+                {city}, {region}, {country}
+              </address>
             </div>
             <div className="space-y-2 sm:text-end">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
@@ -83,7 +94,7 @@ export default async function Page({ params, searchParams }: Props) {
                     Invoice date:
                   </dt>
                   <dd className="col-span-2 text-gray-500">
-                    {new Date(profile.createdAt).toLocaleDateString()}
+                    {new Date(createdAt).toLocaleDateString()}
                   </dd>
                 </dl>
               </div>
@@ -111,8 +122,8 @@ export default async function Page({ params, searchParams }: Props) {
                   Lens Profile
                 </b>
                 <p className="text-gray-800">1</p>
-                <p className="text-gray-800">₹{inrRate * 8}</p>
-                <p className="text-end text-gray-800">₹{inrRate * 8}</p>
+                <p className="text-gray-800">₹{rate}</p>
+                <p className="text-end text-gray-800">₹{rate}</p>
               </div>
             </div>
           </div>
@@ -123,20 +134,20 @@ export default async function Page({ params, searchParams }: Props) {
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Subtotal:
                   </dt>
-                  <dd className="col-span-2 text-gray-500">₹{inrRate * 8}</dd>
+                  <dd className="col-span-2 text-gray-500">₹{rate}</dd>
                 </dl>
 
                 <dl className="grid gap-x-3 sm:grid-cols-5">
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Total:
                   </dt>
-                  <dd className="col-span-2 text-gray-500">₹{inrRate * 8}</dd>
+                  <dd className="col-span-2 text-gray-500">₹{rate}</dd>
                 </dl>
                 <dl className="grid gap-x-3 sm:grid-cols-5">
                   <dt className="col-span-3 font-semibold text-gray-800">
                     Amount paid:
                   </dt>
-                  <dd className="col-span-2 text-gray-500">₹{inrRate * 8}</dd>
+                  <dd className="col-span-2 text-gray-500">₹{rate}</dd>
                 </dl>
               </div>
             </div>
