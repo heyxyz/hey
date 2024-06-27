@@ -9,6 +9,20 @@ import { HEY_USER_AGENT } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { noBody } from 'src/helpers/responses';
 
+const getRateForTimestamp = (timestamp: number): number | undefined => {
+  const date = new Date(timestamp);
+
+  const rateEntry = invoiceRates.find((rate) => {
+    const rateDate = new Date(rate.date);
+    return (
+      rateDate.getMonth() === date.getMonth() &&
+      rateDate.getFullYear() === date.getFullYear()
+    );
+  });
+
+  return rateEntry ? rateEntry.rate : undefined;
+};
+
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 
@@ -80,12 +94,17 @@ export const get: Handler = async (req, res) => {
         lensData.data.profile.id
     };
 
-    const rate = invoiceRates.find((rate) => rate.date.getTime() <= Date.now());
+    const rate = getRateForTimestamp(lensData.data.profile.createdAt);
 
     const result = {
-      ...leafwatchData[0],
+      address:
+        leafwatchData[0]?.city &&
+        leafwatchData[0]?.region &&
+        leafwatchData[0]?.country
+          ? `${leafwatchData[0].city}, ${leafwatchData[0].region}, ${leafwatchData[0].country}`
+          : 'Others',
       ...lensProfile,
-      rate: rate?.rate || 600
+      rate: rate || 600
     };
 
     logger.info(`Fetched invoice data for ${id}`);
