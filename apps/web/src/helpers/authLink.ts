@@ -1,7 +1,5 @@
-import type { NextLink, Operation } from '@apollo/client';
-
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
-import { APP_NAME, LENS_API_URL } from '@hey/data/constants';
+import { LENS_API_URL } from '@hey/data/constants';
 import parseJwt from '@hey/helpers/parseJwt';
 import axios from 'axios';
 import {
@@ -9,7 +7,6 @@ import {
   signIn,
   signOut
 } from 'src/store/persisted/useAuthStore';
-import { v4 as uuid } from 'uuid';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -21,30 +18,21 @@ const REFRESH_AUTHENTICATION_MUTATION = `
   }
 `;
 
-const setHeaders = (operation: Operation, accessToken?: string) => {
-  operation.setContext(({ headers = {} }) => ({
-    headers: {
-      ...headers,
-      ...(accessToken ? { 'X-Access-Token': accessToken } : {}),
-      'X-Requested-From': APP_NAME.toLowerCase(),
-      'X-Requested-Id': uuid()
-    }
-  }));
-};
-
-const authLink = new ApolloLink((operation: Operation, forward: NextLink) => {
+const authLink = new ApolloLink((operation, forward) => {
   const { accessToken, refreshToken } = hydrateAuthTokens();
 
   if (!accessToken || !refreshToken) {
     signOut();
-    setHeaders(operation);
     return forward(operation);
   }
 
-  const isExpiringSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
+  const expiringSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
 
-  if (!isExpiringSoon) {
-    setHeaders(operation, accessToken);
+  if (!expiringSoon) {
+    operation.setContext({
+      headers: { 'X-Access-Token': accessToken || '' }
+    });
+
     return forward(operation);
   }
 
@@ -60,15 +48,15 @@ const authLink = new ApolloLink((operation: Operation, forward: NextLink) => {
         { headers: { 'Content-Type': 'application/json' } }
       )
       .then(({ data }) => {
-        const { accessToken, identityToken, refreshToken } =
-          data?.data?.refresh;
+        const accessToken = data?.data?.refresh?.accessToken;
+        const refreshToken = data?.data?.refresh?.refreshToken;
+        const identityToken = data?.data?.refresh?.identityToken;
+        operation.setContext({ headers: { 'X-Access-Token': accessToken } });
         signIn({ accessToken, identityToken, refreshToken });
-        setHeaders(operation, accessToken);
+
         return toPromise(forward(operation));
       })
       .catch(() => {
-        signOut();
-        setHeaders(operation);
         return toPromise(forward(operation));
       })
   );
