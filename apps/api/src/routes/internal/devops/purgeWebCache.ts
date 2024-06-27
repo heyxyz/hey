@@ -6,7 +6,7 @@ import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
 import { noBody } from 'src/helpers/responses';
 
-export const get: Handler = async (req, res) => {
+export const post: Handler = async (req, res) => {
   const { secret } = req.query;
 
   if (!secret) {
