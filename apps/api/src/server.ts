@@ -25,6 +25,6 @@ const setupRoutes = async () => {
 };
 
 // Initialize routes
-setupRoutes().catch(() => {
-  logger.error('Error setting up routes');
+setupRoutes().catch((error) => {
+  logger.error('Error setting up routes', error);
 });
