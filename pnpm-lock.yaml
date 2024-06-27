@@ -169,12 +169,6 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
-      '@hey/helpers':
-        specifier: workspace:*
-        version: link:../../packages/helpers
-      '@hey/lens':
-        specifier: workspace:*
-        version: link:../../packages/lens
       axios:
         specifier: ^1.7.2
         version: 1.7.2(debug@4.3.5)
