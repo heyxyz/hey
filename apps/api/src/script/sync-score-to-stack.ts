@@ -4,9 +4,9 @@ import axios from 'axios';
 import lensPg from '../db/lensPg';
 
 const baseUrl = 'https://api.hey.xyz/score/get';
-const batchSize = 10;
-const limit = 100000;
-const offset = 34395;
+const batchSize = 5;
+const limit = 10000;
+const offset = 89258;
 
 const getProfiles = async () => {
   const profiles = await lensPg.query(
