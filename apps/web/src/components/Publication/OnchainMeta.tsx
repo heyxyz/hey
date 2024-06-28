@@ -2,11 +2,7 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import {
-  ARWEAVE_GATEWAY,
-  IPFS_GATEWAY,
-  POLYGONSCAN_URL
-} from '@hey/data/constants';
+import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@hey/data/constants';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
 import urlcat from 'urlcat';
@@ -71,15 +67,6 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
             hash={hash}
             name="IPFS TRANSACTION"
             uri={`${IPFS_GATEWAY}/${hash}`}
-          />
-        ) : null}
-        {publication?.txHash ? (
-          <Meta
-            hash={publication.txHash}
-            name="TRANSACTION"
-            uri={`${POLYGONSCAN_URL}/tx/${publication.txHash
-              ?.split('/')
-              .pop()}`}
           />
         ) : null}
       </div>
