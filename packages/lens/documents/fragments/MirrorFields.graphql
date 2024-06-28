@@ -7,7 +7,6 @@ fragment MirrorFields on Mirror {
   momoka {
     proof
   }
-  txHash
   createdAt
   by {
     ...PublicationProfileFields
