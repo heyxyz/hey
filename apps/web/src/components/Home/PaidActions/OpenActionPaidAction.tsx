@@ -1,13 +1,6 @@
 import type {
   AnyPublication,
   LatestActed,
-  LegacyFeeCollectModuleSettings,
-  LegacyFreeCollectModuleSettings,
-  LegacyLimitedFeeCollectModuleSettings,
-  LegacyLimitedTimedFeeCollectModuleSettings,
-  LegacyMultirecipientFeeCollectModuleSettings,
-  LegacySimpleCollectModuleSettings,
-  LegacyTimedFeeCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
@@ -34,22 +27,12 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   const openActions = targetPublication.openActionModules
     .filter(
       (module) =>
-        module.__typename !== 'LegacyAaveFeeCollectModuleSettings' &&
-        module.__typename !== 'LegacyERC4626FeeCollectModuleSettings' &&
-        module.__typename !== 'LegacyFreeCollectModuleSettings' &&
-        module.__typename !== 'LegacyRevertCollectModuleSettings' &&
-        module.__typename !== 'UnknownOpenActionModuleSettings'
+        module.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
+        module.__typename === 'SimpleCollectOpenActionSettings'
     )
     .map((module) =>
       getCollectModuleData(
         module as
-          | LegacyFeeCollectModuleSettings
-          | LegacyFreeCollectModuleSettings
-          | LegacyLimitedFeeCollectModuleSettings
-          | LegacyLimitedTimedFeeCollectModuleSettings
-          | LegacyMultirecipientFeeCollectModuleSettings
-          | LegacySimpleCollectModuleSettings
-          | LegacyTimedFeeCollectModuleSettings
           | MultirecipientFeeCollectOpenActionSettings
           | SimpleCollectOpenActionSettings
       )

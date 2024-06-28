@@ -1,7 +1,6 @@
 import type {
   ActOnOpenActionLensManagerRequest,
   ApprovedAllowanceAmountResult,
-  LegacyCollectRequest,
   MirrorablePublication,
   OpenActionModule
 } from '@hey/lens';
@@ -30,9 +29,7 @@ import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
-  useCreateActOnOpenActionTypedDataMutation,
-  useCreateLegacyCollectTypedDataMutation,
-  useLegacyCollectMutation
+  useCreateActOnOpenActionTypedDataMutation
 } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
@@ -114,14 +111,6 @@ const CollectAction: FC<CollectActionProps> = ({
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const isLegacyCollectModule =
-    openAction.__typename === 'LegacySimpleCollectModuleSettings' ||
-    openAction.__typename === 'LegacyMultirecipientFeeCollectModuleSettings' ||
-    openAction.__typename === 'LegacyFreeCollectModuleSettings' ||
-    openAction.__typename === 'LegacyFeeCollectModuleSettings' ||
-    openAction.__typename === 'LegacyLimitedFeeCollectModuleSettings' ||
-    openAction.__typename === 'LegacyTimedFeeCollectModuleSettings' ||
-    openAction.__typename === 'LegacyLimitedTimedFeeCollectModuleSettings';
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     openAction.__typename === 'SimpleCollectOpenActionSettings';
@@ -198,10 +187,6 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-  const profileUserFunctionName = isLegacyCollectModule
-    ? 'collectLegacy'
-    : 'act';
-
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error: Error) => {
@@ -221,7 +206,7 @@ const CollectAction: FC<CollectActionProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: profileUserFunctionName
+      functionName: 'act'
     });
   };
 
@@ -272,39 +257,28 @@ const CollectAction: FC<CollectActionProps> = ({
     }
   });
 
-  const typedDataGenerator = async (generatedData: any) => {
-    const { id, typedData } = generatedData;
-    await handleWrongNetwork();
-
-    if (canBroadcast) {
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return await write({ args: [typedData.value] });
-      }
-      incrementLensHubOnchainSigNonce();
-
-      return;
-    }
-
-    return await write({ args: [typedData.value] });
-  };
-
   // Act Typed Data
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
-      onCompleted: async ({ createActOnOpenActionTypedData }) =>
-        await typedDataGenerator(createActOnOpenActionTypedData),
-      onError
-    });
+      onCompleted: async ({ createActOnOpenActionTypedData }) => {
+        const { id, typedData } = createActOnOpenActionTypedData;
+        await handleWrongNetwork();
 
-  // Legacy Collect Typed Data
-  const [createLegacyCollectTypedData] =
-    useCreateLegacyCollectTypedDataMutation({
-      onCompleted: async ({ createLegacyCollectTypedData }) =>
-        await typedDataGenerator(createLegacyCollectTypedData),
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData));
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return await write({ args: [typedData.value] });
+          }
+          incrementLensHubOnchainSigNonce();
+
+          return;
+        }
+
+        return await write({ args: [typedData.value] });
+      },
       onError
     });
 
@@ -317,17 +291,6 @@ const CollectAction: FC<CollectActionProps> = ({
         );
       }
       onCompleted(actOnOpenAction.__typename);
-    },
-    onError
-  });
-
-  // Legacy Collect
-  const [legacyCollect] = useLegacyCollectMutation({
-    onCompleted: ({ legacyCollect }) => {
-      if (legacyCollect.__typename === 'RelaySuccess') {
-        addTransaction(generateOptimisticCollect({ txId: legacyCollect.txId }));
-      }
-      onCompleted(legacyCollect.__typename);
     },
     onError
   });
@@ -350,22 +313,6 @@ const CollectAction: FC<CollectActionProps> = ({
     }
   };
 
-  // Collect via Lens Manager
-  const legacyCollectViaLensManager = async (request: LegacyCollectRequest) => {
-    const { data, errors } = await legacyCollect({ variables: { request } });
-
-    if (errors?.toString().includes('has already collected on')) {
-      return;
-    }
-
-    if (
-      !data?.legacyCollect ||
-      data?.legacyCollect.__typename === 'LensProfileManagerRelayError'
-    ) {
-      return await createLegacyCollectTypedData({ variables: { request } });
-    }
-  };
-
   const createCollect = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
@@ -373,23 +320,6 @@ const CollectAction: FC<CollectActionProps> = ({
 
     try {
       setIsLoading(true);
-      if (isLegacyCollectModule) {
-        const legcayCollectRequest: LegacyCollectRequest = {
-          on: publication?.id
-        };
-
-        if (canUseManager) {
-          return await legacyCollectViaLensManager(legcayCollectRequest);
-        }
-
-        return await createLegacyCollectTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: legcayCollectRequest
-          }
-        });
-      }
-
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
         for: publication?.id
@@ -453,9 +383,7 @@ const CollectAction: FC<CollectActionProps> = ({
   if (
     !hasAmount &&
     (openAction.__typename === 'SimpleCollectOpenActionSettings' ||
-      openAction.__typename === 'LegacySimpleCollectModuleSettings' ||
-      openAction.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
-      openAction.__typename === 'LegacyMultirecipientFeeCollectModuleSettings')
+      openAction.__typename === 'MultirecipientFeeCollectOpenActionSettings')
   ) {
     return (
       <WarningMessage
