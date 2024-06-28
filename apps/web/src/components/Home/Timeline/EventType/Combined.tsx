@@ -10,16 +10,12 @@ interface CombinedProps {
 }
 
 const Combined: FC<CombinedProps> = ({ feedItem }) => {
-  const { acted, mirrors, reactions } = feedItem;
+  const { mirrors } = feedItem;
 
   const mirrorsLength = mirrors.length;
-  const actedLength = acted.length;
-  const reactionsLength = reactions.length;
 
   const getAllProfiles = () => {
-    let profiles = [...mirrors, ...acted, ...reactions].map(
-      (event) => event.by
-    );
+    let profiles = mirrors.map((event) => event.by);
     profiles = profiles.filter(
       (profile, index, self) =>
         index === self.findIndex((t) => t.id === profile.id)
@@ -30,12 +26,6 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   const actionArray = [];
   if (mirrorsLength) {
     actionArray.push('mirrored');
-  }
-  if (actedLength) {
-    actionArray.push('acted');
-  }
-  if (reactionsLength) {
-    actionArray.push('liked');
   }
 
   return (

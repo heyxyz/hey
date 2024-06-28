@@ -3,9 +3,7 @@ import type { FC } from 'react';
 
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 
-import Acted from './Acted';
 import Combined from './Combined';
-import Liked from './Liked';
 import Mirrored from './Mirrored';
 
 const getCanCombined = (aggregations: number[]) => {
@@ -18,25 +16,17 @@ interface ActionTypeProps {
 }
 
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
-  const { acted, mirrors, reactions } = feedItem;
+  const { mirrors } = feedItem;
 
-  const canCombined = getCanCombined([
-    mirrors?.length || 0,
-    reactions?.length || 0,
-    acted?.length || 0
-  ]);
+  const canCombined = getCanCombined([mirrors?.length || 0]);
 
   return (
     <span onClick={stopEventPropagation}>
       {canCombined ? (
         <Combined feedItem={feedItem} />
-      ) : (
-        <>
-          {mirrors?.length ? <Mirrored mirrors={mirrors} /> : null}
-          {acted?.length ? <Acted acted={acted} /> : null}
-          {reactions?.length ? <Liked reactions={reactions} /> : null}
-        </>
-      )}
+      ) : mirrors?.length ? (
+        <Mirrored mirrors={mirrors} />
+      ) : null}
     </span>
   );
 };
