@@ -41,34 +41,4 @@ fragment OpenActionModulesFields on OpenActionModule {
     initializeCalldata
     openActionModuleReturnData
   }
-  ... on LegacyFreeCollectModuleSettings {
-    type
-  }
-  ... on LegacyFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyLimitedFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyLimitedTimedFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyRevertCollectModuleSettings {
-    type
-  }
-  ... on LegacyTimedFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyMultirecipientFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacySimpleCollectModuleSettings {
-    type
-  }
-  ... on LegacyERC4626FeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyAaveFeeCollectModuleSettings {
-    type
-  }
 }
