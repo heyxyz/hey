@@ -5,9 +5,7 @@ fragment PublicationOperationFields on PublicationOperations {
     value
   }
   hasReacted(request: { type: UPVOTE })
-  canComment
   canMirror
   hasMirrored
   hasQuoted
-  hasReported
 }

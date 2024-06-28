@@ -16,7 +16,6 @@ import {
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
-import { useToggle } from '@uidotdev/usehooks';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
@@ -30,9 +29,6 @@ interface GardenerActionsProps {
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
-  const [hasReported, toggletHasReported] = useToggle(
-    publication.operations?.hasReported
-  );
   const [createReport, { loading }] = useReportPublicationMutation();
   const { cache } = useApolloClient();
 
@@ -87,10 +83,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       {
         error: 'Error reporting publication',
         loading: 'Reporting publication...',
-        success: () => {
-          toggletHasReported();
-          return 'Publication reported successfully';
-        }
+        success: 'Publication reported successfully'
       }
     );
   };
@@ -109,7 +102,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     type
   }) => (
     <Button
-      disabled={loading || hasReported}
+      disabled={loading}
       icon={icon}
       onClick={() => reportPublication({ subreasons, type })}
       outline
