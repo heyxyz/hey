@@ -13,8 +13,7 @@ const getPushNotificationData = (
   switch (notification?.__typename) {
     case 'ActedNotification': {
       const actedProfile = notification.actions[0].by;
-      const actedHandle =
-        actedProfile.handle?.suggestedFormatted.localName || actedProfile.id;
+      const actedHandle = actedProfile.handle?.localName || actedProfile.id;
       const actedType = notification.publication.__typename?.toLowerCase();
 
       return {
@@ -24,8 +23,7 @@ const getPushNotificationData = (
     case 'CommentNotification': {
       const commentedProfile = notification.comment.by;
       const commentedHandle =
-        commentedProfile.handle?.suggestedFormatted.localName ||
-        commentedProfile.id;
+        commentedProfile.handle?.localName || commentedProfile.id;
       const commentedType =
         notification.comment.commentOn.__typename?.toLowerCase();
 
@@ -36,8 +34,7 @@ const getPushNotificationData = (
     case 'MirrorNotification': {
       const mirroredProfile = notification.mirrors[0].profile;
       const mirroredHandle =
-        mirroredProfile.handle?.suggestedFormatted.localName ||
-        mirroredProfile.id;
+        mirroredProfile.handle?.localName || mirroredProfile.id;
       const mirroredType = notification.publication.__typename?.toLowerCase();
 
       return {
@@ -47,8 +44,7 @@ const getPushNotificationData = (
     case 'MentionNotification': {
       const mentionedProfile = notification.publication.by;
       const mentionedHandle =
-        mentionedProfile.handle?.suggestedFormatted.localName ||
-        mentionedProfile.id;
+        mentionedProfile.handle?.localName || mentionedProfile.id;
       const mentionedType = notification.publication.__typename?.toLowerCase();
 
       return {
@@ -57,8 +53,7 @@ const getPushNotificationData = (
     }
     case 'QuoteNotification': {
       const quotedProfile = notification.quote.by;
-      const quotedHandle =
-        quotedProfile.handle?.suggestedFormatted.localName || quotedProfile.id;
+      const quotedHandle = quotedProfile.handle?.localName || quotedProfile.id;
       const quotedType = notification.quote.quoteOn.__typename?.toLowerCase();
 
       return {
@@ -68,8 +63,7 @@ const getPushNotificationData = (
     case 'ReactionNotification': {
       const reactedProfile = notification.reactions[0].profile;
       const reactedHandle =
-        reactedProfile.handle?.suggestedFormatted.localName ||
-        reactedProfile.id;
+        reactedProfile.handle?.localName || reactedProfile.id;
       const reactedType = notification.publication.__typename?.toLowerCase();
 
       return {
@@ -79,8 +73,7 @@ const getPushNotificationData = (
     case 'FollowNotification': {
       const followedProfile = notification.followers[0];
       const followedHandle =
-        followedProfile.handle?.suggestedFormatted.localName ||
-        followedProfile.id;
+        followedProfile.handle?.localName || followedProfile.id;
 
       return {
         title: `${followedHandle} followed you`
