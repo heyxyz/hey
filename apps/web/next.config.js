@@ -18,7 +18,8 @@ module.exports = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'X-Hey-Version', value: COMMIT_SHA },
-          { key: 'X-Hey-Deployment', value: VERCEL_DEPLOYMENT_ID }
+          { key: 'X-Hey-Deployment', value: VERCEL_DEPLOYMENT_ID },
+          { key: 'Last-Modified', value: new Date().toUTCString() }
         ],
         source: '/(.*)'
       }
