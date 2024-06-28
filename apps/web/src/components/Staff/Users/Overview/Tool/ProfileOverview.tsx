@@ -9,7 +9,6 @@ import {
   HandRaisedIcon,
   HashtagIcon,
   IdentificationIcon,
-  LinkIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
 import {
@@ -22,7 +21,6 @@ import formatAddress from '@hey/helpers/formatAddress';
 import getFollowModule from '@hey/helpers/getFollowModule';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import Link from 'next/link';
 
 interface ProfileOverviewProps {
   profile: Profile;
@@ -119,21 +117,6 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
         >
           {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
-        {profile?.metadata?.rawURI ? (
-          <MetaDetails
-            icon={<LinkIcon className="ld-text-gray-500 size-4" />}
-            title="Metadata"
-            value={profile.metadata.rawURI}
-          >
-            <Link
-              href={profile.metadata.rawURI}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Open
-            </Link>
-          </MetaDetails>
-        ) : null}
         <div className="pt-2">
           <P2PRecommendation profile={profile} />
         </div>

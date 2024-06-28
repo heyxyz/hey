@@ -1,6 +1,5 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
   id
-  rawURI
   tags
   attributes {
     ...MetadataAttributeFields
