@@ -10,6 +10,5 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   asset {
     ...PublicationMetadataMediaImageFields
   }
-  title
   content
 }

@@ -10,6 +10,5 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   attachments {
     ...PublicationMetadataMediaFields
   }
-  title
   content
 }

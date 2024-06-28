@@ -4,7 +4,6 @@ fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   attributes {
     ...MetadataAttributeFields
   }
-  title
   content
   attachments {
     ...PublicationMetadataMediaFields
