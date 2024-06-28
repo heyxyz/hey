@@ -1,7 +1,7 @@
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   id
+  content
   attributes {
     ...MetadataAttributeFields
   }
-  content
 }

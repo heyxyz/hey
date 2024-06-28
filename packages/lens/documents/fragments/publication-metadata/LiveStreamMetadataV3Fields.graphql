@@ -1,11 +1,11 @@
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   id
-  attributes {
-    ...MetadataAttributeFields
-  }
   playbackURL
   liveURL
   content
+  attributes {
+    ...MetadataAttributeFields
+  }
   attachments {
     ...PublicationMetadataMediaFields
   }

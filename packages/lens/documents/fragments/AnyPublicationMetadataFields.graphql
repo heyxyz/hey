@@ -8,9 +8,6 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
-  ... on EmbedMetadataV3 {
-    ...EmbedMetadataV3Fields
-  }
   ... on ImageMetadataV3 {
     ...ImageMetadataV3Fields
   }
