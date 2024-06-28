@@ -26,9 +26,9 @@ const useUploadAttachments = () => {
         const isVideo = file.type.includes('video');
         const isAudio = file.type.includes('audio');
 
-        const IMAGE_UPLOAD_LIMIT = 5000000;
-        const VIDEO_UPLOAD_LIMIT = isPro ? 200000000 : 50000000;
-        const AUDIO_UPLOAD_LIMIT = isPro ? 60000000 : 20000000;
+        const IMAGE_UPLOAD_LIMIT = 50000000;
+        const VIDEO_UPLOAD_LIMIT = isPro ? 2000000000 : 500000000;
+        const AUDIO_UPLOAD_LIMIT = isPro ? 600000000 : 200000000;
 
         if (isImage && file.size > IMAGE_UPLOAD_LIMIT) {
           toast.error(
