@@ -37,7 +37,6 @@ import Collectors from './Collectors';
 import FullPublication from './FullPublication';
 import Likes from './Likes';
 import Mirrors from './Mirrors';
-import OnchainMeta from './OnchainMeta';
 import Quotes from './Quotes';
 import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
@@ -176,7 +175,6 @@ const ViewPublication: NextPage = () => {
         <RelevantPeople
           profilesMentioned={targetPublication.profilesMentioned}
         />
-        <OnchainMeta publication={targetPublication} />
         {staffMode ? (
           <PublicationStaffTool publication={targetPublication} />
         ) : null}
