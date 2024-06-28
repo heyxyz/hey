@@ -6,7 +6,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
   playbackURL
   liveURL
-  title
   content
   attachments {
     ...PublicationMetadataMediaFields
