@@ -1,9 +1,6 @@
 fragment HandleInfoFields on HandleInfo {
   fullHandle
   localName
-  suggestedFormatted {
-    localName
-  }
   linkedTo {
     nftTokenId
   }
