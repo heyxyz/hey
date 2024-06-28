@@ -1,5 +1,7 @@
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   id
+  title
+  content
   attributes {
     ...MetadataAttributeFields
   }
@@ -9,6 +11,4 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   attachments {
     ...PublicationMetadataMediaFields
   }
-  title
-  content
 }

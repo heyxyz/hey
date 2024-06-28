@@ -1,11 +1,10 @@
 fragment MintMetadataV3Fields on MintMetadataV3 {
   id
+  content
   attributes {
     ...MetadataAttributeFields
   }
-  mintLink
   attachments {
     ...PublicationMetadataMediaFields
   }
-  content
 }

@@ -1,5 +1,6 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
   id
+  content
   attributes {
     ...MetadataAttributeFields
   }
@@ -9,5 +10,4 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   asset {
     ...PublicationMetadataMediaImageFields
   }
-  content
 }
