@@ -10,5 +10,4 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   }
   content
   sharingLink
-  appId
 }
