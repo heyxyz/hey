@@ -1,5 +1,6 @@
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
   id
+  content
   attributes {
     ...MetadataAttributeFields
   }
@@ -9,5 +10,4 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   attachments {
     ...PublicationMetadataMediaFields
   }
-  content
 }
