@@ -1,7 +1,6 @@
 import type { PublicationMetadata } from '@hey/lens';
 import type { MetadataAsset } from '@hey/types/misc';
 
-import ALLOWED_APP_FOR_TITLE from '@hey/data/allowed-app-for-title';
 import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 
 import getAttachmentsData from './getAttachmentsData';
@@ -16,17 +15,7 @@ const getPublicationData = (
   }[];
   content?: string;
 } | null => {
-  const showTitle = ALLOWED_APP_FOR_TITLE.includes(metadata.appId);
-  const willHaveTitle =
-    metadata.__typename === 'ArticleMetadataV3' ||
-    metadata.__typename === 'ImageMetadataV3' ||
-    metadata.__typename === 'AudioMetadataV3' ||
-    metadata.__typename === 'VideoMetadataV3' ||
-    metadata.__typename === 'LiveStreamMetadataV3';
-  const canShowTitle = showTitle && willHaveTitle;
-  const content = canShowTitle
-    ? `${metadata.title}\n\n${metadata.content}`
-    : metadata.content;
+  const { content } = metadata;
 
   switch (metadata.__typename) {
     case 'ArticleMetadataV3':
