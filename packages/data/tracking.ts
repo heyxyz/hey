@@ -145,8 +145,7 @@ export const SETTINGS = {
   },
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
-      'Toggle high signal notification filter',
-    TOGGLE_PUSH_NOTIFICATIONS: 'Toggle push notifications'
+      'Toggle high signal notification filter'
   },
   PRO: {
     APP_ICON: 'Update app icon'
