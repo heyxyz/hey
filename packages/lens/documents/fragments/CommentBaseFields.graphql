@@ -8,7 +8,6 @@ fragment CommentBaseFields on Comment {
   momoka {
     proof
   }
-  txHash
   createdAt
   by {
     ...PublicationProfileFields

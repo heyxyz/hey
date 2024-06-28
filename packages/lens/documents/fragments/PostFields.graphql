@@ -8,7 +8,6 @@ fragment PostFields on Post {
   momoka {
     proof
   }
-  txHash
   createdAt
   by {
     ...PublicationProfileFields
