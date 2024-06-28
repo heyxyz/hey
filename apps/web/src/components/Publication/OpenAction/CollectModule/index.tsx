@@ -1,7 +1,5 @@
 import type {
   AnyPublication,
-  LegacyMultirecipientFeeCollectModuleSettings,
-  LegacySimpleCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
   SimpleCollectOpenActionSettings
@@ -56,8 +54,6 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   );
 
   const collectModule = openAction as
-    | LegacyMultirecipientFeeCollectModuleSettings
-    | LegacySimpleCollectModuleSettings
     | MultirecipientFeeCollectOpenActionSettings
     | SimpleCollectOpenActionSettings;
 
