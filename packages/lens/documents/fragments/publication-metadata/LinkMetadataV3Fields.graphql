@@ -1,6 +1,5 @@
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
   id
-  rawURI
   tags
   attributes {
     ...MetadataAttributeFields
