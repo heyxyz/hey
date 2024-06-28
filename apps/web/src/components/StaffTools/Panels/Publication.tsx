@@ -2,11 +2,7 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
-import {
-  HashtagIcon,
-  RectangleStackIcon,
-  TagIcon
-} from '@heroicons/react/24/outline';
+import { HashtagIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { isCommentPublication } from '@hey/helpers/publicationHelpers';
 import { Card } from '@hey/ui';
@@ -55,17 +51,6 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
           >
             {(publication?.openActionModules || []).map((module) => (
               <div key={module.__typename}>{module.__typename}</div>
-            ))}
-          </MetaDetails>
-        ) : null}
-        {(publication?.metadata.tags || []).length > 0 ? (
-          <MetaDetails
-            icon={<TagIcon className="ld-text-gray-500 size-4" />}
-            noFlex
-            title="Tags"
-          >
-            {(publication?.metadata?.tags || []).map((tag) => (
-              <div key={tag}>{tag}</div>
             ))}
           </MetaDetails>
         ) : null}

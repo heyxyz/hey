@@ -1,6 +1,5 @@
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   id
-  tags
   attributes {
     ...MetadataAttributeFields
   }
