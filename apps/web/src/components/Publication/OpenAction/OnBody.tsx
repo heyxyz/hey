@@ -16,12 +16,15 @@ interface OpenActionOnBodyProps {
 }
 
 const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
-  const module = publication.openActionModules.find(
-    (module) =>
-      module.contract.address === VerifiedOpenActionModules.Swap ||
-      module.contract.address === VerifiedOpenActionModules.RentableBillboard ||
-      module.contract.address === VerifiedOpenActionModules.DecentNFT
-  );
+  const module = publication.openActionModules
+    .filter((module) => module.__typename === 'UnknownOpenActionModuleSettings')
+    .find(
+      (module) =>
+        module.contract.address === VerifiedOpenActionModules.Swap ||
+        module.contract.address ===
+          VerifiedOpenActionModules.RentableBillboard ||
+        module.contract.address === VerifiedOpenActionModules.DecentNFT
+    );
 
   if (!module) {
     return null;
