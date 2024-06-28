@@ -1,5 +1,0 @@
-subscription NewNotificationSubscription($for: ProfileId!) {
-  newNotification(for: $for) {
-    ...NotificationFields
-  }
-}

@@ -17,7 +17,6 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import SettingsSidebar from '../Sidebar';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
-import PushNotifications from './PushNotifications';
 
 const PreferencesSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -43,9 +42,8 @@ const PreferencesSettings: NextPage = () => {
             experience on ${APP_NAME}.`}
             title="Your Preferences"
           />
-          <div className="m-5 space-y-6">
+          <div className="m-5">
             <HighSignalNotificationFilter />
-            <PushNotifications />
           </div>
         </Card>
       </GridItemEight>
