@@ -18,11 +18,9 @@ import {
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useEffect } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useNotificationStore } from 'src/store/persisted/useNotificationStore';
 
 import NotificationShimmer from './Shimmer';
 import ActedNotification from './Type/ActedNotification';
@@ -39,7 +37,6 @@ interface ListProps {
 
 const List: FC<ListProps> = ({ feedType }) => {
   const { highSignalNotificationFilter } = usePreferencesStore();
-  const { latestNotificationId } = useNotificationStore();
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -67,17 +64,13 @@ const List: FC<ListProps> = ({ feedType }) => {
     }
   };
 
-  const { data, error, fetchMore, loading, refetch } = useNotificationsQuery({
+  const { data, error, fetchMore, loading } = useNotificationsQuery({
     variables: { request }
   });
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = !!pageInfo?.next;
-
-  useEffect(() => {
-    refetch();
-  }, [latestNotificationId, refetch]);
 
   const onEndReached = async () => {
     if (hasMore) {
