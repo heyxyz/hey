@@ -16,10 +16,10 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.10.6",
+    "@apollo/client": "^3.10.8",
     "@aws-sdk/client-s3": "^3.600.0",
     "@aws-sdk/lib-storage": "^3.600.0",
-    "@headlessui/react": "^2.1.0",
+    "@headlessui/react": "^2.1.1",
     "@heroicons/react": "^2.1.4",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -76,10 +76,10 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.16.2",
-    "wagmi": "^2.10.7",
+    "viem": "^2.16.3",
+    "wagmi": "^2.10.8",
     "zod": "^3.23.8",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

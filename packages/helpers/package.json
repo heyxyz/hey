@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.10.6",
+    "@apollo/client": "^3.10.8",
     "@axiomhq/winston": "^1.0.0",
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
@@ -22,7 +22,7 @@
     "dotenv": "^16.4.5",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.16.2",
+    "viem": "^2.16.3",
     "winston": "^3.13.0"
   },
   "devDependencies": {
