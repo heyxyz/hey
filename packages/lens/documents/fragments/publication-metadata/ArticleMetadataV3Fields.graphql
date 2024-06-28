@@ -1,6 +1,5 @@
 fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   id
-  tags
   attributes {
     ...MetadataAttributeFields
   }
