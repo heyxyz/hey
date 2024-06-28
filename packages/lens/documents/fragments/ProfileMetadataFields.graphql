@@ -5,11 +5,6 @@ fragment ProfileMetadataFields on ProfileMetadata {
     ... on ImageSet {
       ...ImageSetFields
     }
-    ... on NftImage {
-      image {
-        ...ImageSetFields
-      }
-    }
   }
   coverPicture {
     ...ImageSetFields

@@ -103,9 +103,7 @@ const ProfileSettingsForm: FC = () => {
   const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState(
     currentProfile?.metadata?.picture?.__typename === 'ImageSet'
       ? currentProfile?.metadata?.picture?.raw.uri
-      : currentProfile?.metadata?.picture?.__typename === 'NftImage'
-        ? currentProfile?.metadata?.picture?.image?.raw.uri
-        : ''
+      : ''
   );
   const [profilePictureSrc, setProfilePictureSrc] = useState('');
   const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
