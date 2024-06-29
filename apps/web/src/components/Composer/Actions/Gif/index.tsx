@@ -23,7 +23,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
     <>
       <Tooltip content="GIF" placement="top">
         <motion.button
-          aria-label="Choose GIFs"
+          aria-label="GIF"
           className="rounded-full outline-offset-8"
           disabled={attachments.length >= 4}
           onClick={() => {
