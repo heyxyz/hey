@@ -55,7 +55,6 @@ const List: FC<ListProps> = ({ feedType }) => {
     }
   };
 
-  // Variables
   const request: NotificationRequest = {
     where: {
       customFilters: [CustomFiltersType.Gardeners],

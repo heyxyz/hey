@@ -11,7 +11,6 @@ import { Virtuoso } from 'react-virtuoso';
 import ReportDetails from './ReportDetails';
 
 const ReportsFeed: FC = () => {
-  // Variables
   const request: ModReportsRequest = { limit: LimitType.Fifty };
 
   const { data, error, fetchMore, loading } = useModLatestReportsQuery({

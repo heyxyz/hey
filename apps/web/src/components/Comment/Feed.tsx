@@ -31,7 +31,6 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
-  // Variables
   const request: PublicationsRequest = {
     limit: LimitType.TwentyFive,
     where: {

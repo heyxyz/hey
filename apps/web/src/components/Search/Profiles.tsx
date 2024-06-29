@@ -18,7 +18,6 @@ interface ProfilesProps {
 }
 
 const Profiles: FC<ProfilesProps> = ({ query }) => {
-  // Variables
   const request: ProfileSearchRequest = {
     limit: LimitType.TwentyFive,
     query,

@@ -22,7 +22,6 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
-  // Variables
   const request: PublicationsRequest = {
     limit: LimitType.TwentyFive,
     where: {

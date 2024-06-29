@@ -43,7 +43,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       cache.evict({ id: cache.identify(publication) });
     }
 
-    // Variables
     const request: ReportPublicationRequest = {
       for: publication.id,
       ...(suspended && { additionalComments: `Suspended on ${APP_NAME}` }),

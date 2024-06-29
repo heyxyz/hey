@@ -26,7 +26,6 @@ const Timeline: FC = () => {
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  // Variables
   const request: FeedRequest = {
     where: {
       feedEventItemTypes: [

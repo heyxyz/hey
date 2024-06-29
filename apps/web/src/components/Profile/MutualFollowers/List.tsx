@@ -21,7 +21,6 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
 }) => {
   const { currentProfile } = useProfileStore();
 
-  // Variables
   const request: MutualFollowersRequest = {
     limit: LimitType.TwentyFive,
     observer: currentProfile?.id,

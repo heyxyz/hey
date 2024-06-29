@@ -28,7 +28,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
-  // Variables
   const request: PublicationsRequest = {
     limit: LimitType.TwentyFive,
     where: {

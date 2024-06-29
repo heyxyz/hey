@@ -19,7 +19,6 @@ interface FollowersProps {
 const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
   const { currentProfile } = useProfileStore();
 
-  // Variables
   const request: FollowersRequest = {
     limit: LimitType.TwentyFive,
     of: profileId

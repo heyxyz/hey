@@ -27,7 +27,6 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  // Variables
   const request: PublicationSearchRequest = {
     limit: LimitType.TwentyFive,
     query,

@@ -94,7 +94,6 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       return toast.error(Errors.Suspended);
     }
 
-    // Variables
     const request: ReactionRequest = {
       for: publication.id,
       reaction: PublicationReactionType.Upvote

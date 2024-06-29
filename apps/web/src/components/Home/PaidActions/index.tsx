@@ -11,10 +11,7 @@ import { Virtuoso } from 'react-virtuoso';
 import OpenActionPaidAction from './OpenActionPaidAction';
 
 const PaidActions: FC = () => {
-  // Variables
-  const request: PaginatedRequest = {
-    limit: LimitType.TwentyFive
-  };
+  const request: PaginatedRequest = { limit: LimitType.TwentyFive };
 
   const { data, error, fetchMore, loading } = useLatestPaidActionsQuery({
     variables: { request }
