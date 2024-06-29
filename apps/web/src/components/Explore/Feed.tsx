@@ -36,7 +36,6 @@ const Feed: FC<FeedProps> = ({
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  // Variables
   const request: ExplorePublicationRequest = {
     limit: LimitType.TwentyFive,
     orderBy: feedType,

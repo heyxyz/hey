@@ -15,7 +15,6 @@ interface ReportsProps {
 }
 
 const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
-  // Variables
   const request: ModReportsRequest = {
     ...(profileId && { forProfile: profileId }),
     ...(publicationId && { forPublication: publicationId }),

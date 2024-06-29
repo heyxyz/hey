@@ -33,7 +33,6 @@ const LatestFeed: FC = () => {
     setRefreshing
   } = useModFilterStore();
 
-  // Variables
   const request: ModExplorePublicationRequest = {
     limit: LimitType.Fifty,
     orderBy: ExplorePublicationsOrderByType.Latest,

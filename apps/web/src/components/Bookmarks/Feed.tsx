@@ -27,7 +27,6 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  // Variables
   const request: PublicationBookmarksRequest = {
     limit: LimitType.TwentyFive,
     where: { metadata: { ...(focus && { mainContentFocus: [focus] }) } }

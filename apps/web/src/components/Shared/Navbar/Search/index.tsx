@@ -64,7 +64,6 @@ const Search: FC<SearchProps> = ({ placeholder = 'Search…' }) => {
 
   useEffect(() => {
     if (pathname !== '/search' && showDropdown && debouncedSearchText) {
-      // Variables
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
         query: debouncedSearchText,

@@ -17,7 +17,6 @@ interface FollowingProps {
 }
 
 const Following: FC<FollowingProps> = ({ handle, profileId }) => {
-  // Variables
   const request: FollowingRequest = {
     for: profileId,
     limit: LimitType.TwentyFive
