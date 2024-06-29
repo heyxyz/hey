@@ -8,7 +8,6 @@ import {
   BanknotesIcon,
   HandRaisedIcon,
   HashtagIcon,
-  IdentificationIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
 import {
@@ -18,7 +17,6 @@ import {
 } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
-import getFollowModule from '@hey/helpers/getFollowModule';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -110,12 +108,6 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
           ) : (
             <XCircleIcon className="size-4 text-red-500" />
           )}
-        </MetaDetails>
-        <MetaDetails
-          icon={<IdentificationIcon className="ld-text-gray-500 size-4" />}
-          title="Follow module"
-        >
-          {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
         <div className="pt-2">
           <P2PRecommendation profile={profile} />
