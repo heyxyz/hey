@@ -29,4 +29,13 @@ describe('getFavicon', () => {
 
     expect(result).toBe(expectedFaviconUrl);
   });
+
+  test('should handle URLs with path correctly', () => {
+    const url = 'https://hey.xyz/u/yoginth';
+    const expectedFaviconUrl =
+      'https://external-content.duckduckgo.com/ip3/hey.xyz.ico';
+    const result = getFavicon(url);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
 });
