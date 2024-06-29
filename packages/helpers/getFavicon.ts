@@ -8,9 +8,8 @@ import urlcat from 'urlcat';
 const getFavicon = (url: string) => {
   const sanitizedUrl = url.replace('https://', '').replace('http://', '');
 
-  return urlcat('https://www.google.com/s2/favicons', {
-    domain: sanitizedUrl,
-    sz: 128
+  return urlcat('https://external-content.duckduckgo.com/ip3/:domain.ico', {
+    domain: sanitizedUrl
   });
 };
 
