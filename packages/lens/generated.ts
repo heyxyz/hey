@@ -6582,23 +6582,6 @@ export type ProfileFieldsFragment = {
   operations: {
     __typename?: 'ProfileOperations';
   } & ProfileOperationsFieldsFragment;
-  onchainIdentity: {
-    __typename?: 'ProfileOnchainIdentity';
-    proofOfHumanity: boolean;
-    ens?: { __typename?: 'EnsOnchainIdentity'; name?: any | null } | null;
-    sybilDotOrg: {
-      __typename?: 'SybilDotOrgIdentity';
-      verified: boolean;
-      source?: {
-        __typename?: 'SybilDotOrgIdentitySource';
-        twitter: {
-          __typename?: 'SybilDotOrgTwitterIdentity';
-          handle?: string | null;
-        };
-      } | null;
-    };
-    worldcoin: { __typename?: 'WorldcoinIdentity'; isHuman: boolean };
-  };
   followNftAddress?:
     | ({ __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment)
     | null;
@@ -9956,23 +9939,6 @@ export const ProfileFieldsFragmentDoc = gql`
       ...ProfileOperationsFields
     }
     interests
-    onchainIdentity {
-      proofOfHumanity
-      ens {
-        name
-      }
-      sybilDotOrg {
-        verified
-        source {
-          twitter {
-            handle
-          }
-        }
-      }
-      worldcoin {
-        isHuman
-      }
-    }
     followNftAddress {
       ...NetworkAddressFields
     }
