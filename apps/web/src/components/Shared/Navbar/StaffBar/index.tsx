@@ -60,7 +60,11 @@ const StaffBar: FC = () => {
           </Link>
         ) : null}
       </div>
-      <Link className="flex items-center space-x-2" href="/staff">
+      <Link
+        aria-label="Staff Dashboard"
+        className="flex items-center space-x-2"
+        href="/staff"
+      >
         <ShieldCheckIcon className="size-4 text-green-600" />
         <span className="hidden sm:block">Dashboard</span>
       </Link>
