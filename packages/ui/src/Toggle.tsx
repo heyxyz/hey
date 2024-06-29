@@ -13,6 +13,7 @@ interface ToggleProps {
 export const Toggle: FC<ToggleProps> = ({ disabled = false, on, setOn }) => {
   return (
     <Switch.Root
+      aria-label="Toggle"
       checked={on}
       className={cn(
         on ? 'bg-black dark:bg-white' : 'bg-gray-200 dark:bg-gray-500',
