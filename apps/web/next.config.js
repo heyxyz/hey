@@ -64,8 +64,7 @@ module.exports = {
         source: '/-/changelog'
       },
       {
-        destination:
-          'https://plugins.crisp.chat/urn:crisp.im:contact-form:0/contact/37355035-47aa-4f42-ad47-cffc3d1fea16',
+        destination: 'https://heyverse.zohodesk.in/portal/en/newticket',
         permanent: true,
         source: '/support'
       },
