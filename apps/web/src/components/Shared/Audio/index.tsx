@@ -40,7 +40,6 @@ const Audio: FC<AudioProps> = ({
   title
 }) => {
   const { audioPublication, setAudioPublication } = usePublicationAudioStore();
-
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef<APITypes>(null);
@@ -50,19 +49,21 @@ const Audio: FC<AudioProps> = ({
     if (!playerRef.current) {
       return;
     }
-    if (playerRef.current?.plyr.paused && !playing) {
+
+    const player = playerRef.current.plyr;
+    if (player.paused && !playing) {
       setPlaying(true);
       Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
         publication_id: publication?.id
       });
-
-      return playerRef.current?.plyr.play();
+      player.play();
+    } else {
+      setPlaying(false);
+      player.pause();
+      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
+        publication_id: publication?.id
+      });
     }
-    setPlaying(false);
-    playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
-      publication_id: publication?.id
-    });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
