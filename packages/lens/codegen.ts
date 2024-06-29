@@ -3,6 +3,9 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 import LensEndpoint from '@hey/data/lens-endpoints';
 
 const config: CodegenConfig = {
+  config: {
+    skipTypename: true
+  },
   customFetch: 'node-fetch',
   documents: './documents/**/*.graphql',
   generates: {
