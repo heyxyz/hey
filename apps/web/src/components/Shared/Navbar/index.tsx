@@ -71,6 +71,7 @@ const Navbar: FC = () => {
         <div className="relative flex h-14 items-center justify-between sm:h-16">
           <div className="flex items-center justify-start">
             <button
+              aria-label="Search"
               className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden"
               onClick={() => setShowSearch(!showSearch)}
               type="button"
