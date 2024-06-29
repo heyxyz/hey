@@ -86,6 +86,7 @@ const ReferenceSettings: FC = () => {
     <Tooltip content={getSelectedReferenceModuleTooltipText()} placement="top">
       <Menu as="div">
         <MenuButton
+          aria-label="Reference Module"
           as={motion.button}
           className="rounded-full outline-offset-8"
           whileTap={{ scale: 0.9 }}

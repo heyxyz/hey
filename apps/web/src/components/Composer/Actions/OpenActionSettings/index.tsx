@@ -25,7 +25,7 @@ const OpenActionSettings: FC = () => {
     <>
       <Tooltip content="Open Action" placement="top">
         <motion.button
-          aria-label="Choose Open Action"
+          aria-label="Open Action"
           className="rounded-full outline-offset-8"
           onClick={() => setShowModal(!showModal)}
           type="button"

@@ -18,7 +18,7 @@ const CollectSettings: FC = () => {
     <>
       <Tooltip content="Collect" placement="top">
         <motion.button
-          aria-label="Choose Collect Module"
+          aria-label="Collect Module"
           className="rounded-full outline-offset-8"
           onClick={() => setShowModal(!showModal)}
           type="button"
