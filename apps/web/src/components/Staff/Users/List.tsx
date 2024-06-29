@@ -39,7 +39,6 @@ const List: FC = () => {
   const [refetching, setRefetching] = useState(false);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
-  // Variables
   const request: ExploreProfilesRequest = {
     limit: LimitType.Fifty,
     orderBy
@@ -54,7 +53,6 @@ const List: FC = () => {
 
   useEffect(() => {
     if (debouncedSearchText) {
-      // Variables
       const request: ProfileSearchRequest = {
         limit: LimitType.Ten,
         query: debouncedSearchText

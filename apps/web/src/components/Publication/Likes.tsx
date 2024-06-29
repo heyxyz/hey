@@ -22,7 +22,6 @@ interface LikesProps {
 const Likes: FC<LikesProps> = ({ publicationId }) => {
   const { currentProfile } = useProfileStore();
 
-  // Variables
   const request: WhoReactedPublicationRequest = {
     for: publicationId,
     limit: LimitType.TwentyFive

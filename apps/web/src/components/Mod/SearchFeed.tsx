@@ -25,7 +25,6 @@ const SearchFeed: FC = () => {
 
   const [query, setQuery] = useState('');
 
-  // Variables
   const request: PublicationSearchRequest = {
     limit: LimitType.Fifty,
     query,

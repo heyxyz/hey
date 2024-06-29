@@ -86,10 +86,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
       return toast.error(Errors.Suspended);
     }
 
-    // Variables
-    const request: PeerToPeerRecommendRequest = {
-      profileId: profile.id
-    };
+    const request: PeerToPeerRecommendRequest = { profileId: profile.id };
 
     if (hasRecommended) {
       setHasRecommended(false);

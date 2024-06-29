@@ -71,7 +71,6 @@ const Feed: FC<FeedProps> = ({
     return filters;
   };
 
-  // Variables
   const publicationTypes: PublicationType[] =
     type === ProfileFeedType.Feed
       ? [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote]

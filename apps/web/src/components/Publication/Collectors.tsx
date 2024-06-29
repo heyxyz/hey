@@ -22,7 +22,6 @@ interface CollectorsProps {
 const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   const { currentProfile } = useProfileStore();
 
-  // Variables
   const request: WhoActedOnPublicationRequest = {
     limit: LimitType.TwentyFive,
     on: publicationId,

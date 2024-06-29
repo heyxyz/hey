@@ -20,7 +20,6 @@ const ForYou: FC = () => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
-  // Variables
   const request: PublicationForYouRequest = {
     for: currentProfile?.id,
     limit: LimitType.TwentyFive

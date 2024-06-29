@@ -21,7 +21,6 @@ interface MirrorsProps {
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   const { currentProfile } = useProfileStore();
 
-  // Variables
   const request: ProfilesRequest = {
     limit: LimitType.TwentyFive,
     where: { whoMirroredPublication: publicationId }
