@@ -12,6 +12,12 @@ const SignupCard: FC = () => {
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { setScreen } = useSignupStore();
 
+  const handleSignupClick = () => {
+    setScreen('choose');
+    setShowAuthModal(true, 'signup');
+    Leafwatch.track(AUTH.OPEN_SIGNUP);
+  };
+
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
       <img
@@ -22,14 +28,7 @@ const SignupCard: FC = () => {
       <div className="space-y-3 text-center">
         <div className="font-bold">Get your {APP_NAME} profile now!</div>
         <div>
-          <Button
-            onClick={() => {
-              setScreen('choose');
-              setShowAuthModal(true, 'signup');
-              Leafwatch.track(AUTH.OPEN_SIGNUP);
-            }}
-            size="lg"
-          >
+          <Button onClick={handleSignupClick} size="lg">
             Signup now
           </Button>
         </div>
