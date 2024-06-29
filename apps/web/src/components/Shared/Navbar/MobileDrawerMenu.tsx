@@ -92,9 +92,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <Link href="/support" onClick={closeDrawer}>
-            <Support className={cn(itemClass, 'px-4')} />
-          </Link>
+          <Support className={cn(itemClass, 'px-4')} />
           <div className="divider" />
         </div>
 
