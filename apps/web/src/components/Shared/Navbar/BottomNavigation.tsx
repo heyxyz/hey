@@ -1,5 +1,3 @@
-import type { Profile } from '@hey/lens';
-
 import {
   BellIcon,
   HomeIcon,
@@ -21,8 +19,8 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const BottomNavigation = () => {
   const { currentProfile } = useProfileStore();
-
   const router = useRouter();
+
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
@@ -30,21 +28,25 @@ const BottomNavigation = () => {
       <div
         className={cn('grid', currentProfile ? 'grid-cols-4' : 'grid-cols-3')}
       >
-        <Link className="mx-auto my-3" href="/">
+        <Link aria-label="Home" className="mx-auto my-3" href="/">
           {isActivePath('/') ? (
             <HomeIconSolid className="size-6" />
           ) : (
             <HomeIcon className="size-6" />
           )}
         </Link>
-        <Link className="mx-auto my-3" href="/explore">
+        <Link aria-label="Explore" className="mx-auto my-3" href="/explore">
           {isActivePath('/explore') ? (
             <Squares2X2IconSolid className="size-6" />
           ) : (
             <Squares2X2Icon className="size-6" />
           )}
         </Link>
-        <Link className="mx-auto my-3" href="/notifications">
+        <Link
+          aria-label="Notifications"
+          className="mx-auto my-3"
+          href="/notifications"
+        >
           {isActivePath('/notifications') ? (
             <BellIconSolid className="size-6" />
           ) : (
@@ -52,14 +54,18 @@ const BottomNavigation = () => {
           )}
         </Link>
         {currentProfile && (
-          <Link className="mx-auto my-3" href={getProfile(currentProfile).link}>
+          <Link
+            aria-label="Your profile"
+            className="mx-auto my-3"
+            href={getProfile(currentProfile).link}
+          >
             <Image
-              alt={currentProfile?.id}
+              alt={currentProfile.id}
               className="size-6 rounded-full border dark:border-gray-700"
               onError={({ currentTarget }) => {
                 currentTarget.src = getLennyURL(currentProfile.id);
               }}
-              src={getAvatar(currentProfile as Profile)}
+              src={getAvatar(currentProfile)}
             />
           </Link>
         )}
