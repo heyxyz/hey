@@ -51,11 +51,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           >
             <span className="flex items-center space-x-2">
               {selected?.icon && (
-                <img
-                  alt={selected?.label}
-                  className={iconClassName}
-                  src={selected?.icon}
-                />
+                <img className={iconClassName} src={selected?.icon} />
               )}
               <span>{selected?.label}</span>
             </span>
@@ -107,7 +103,6 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                           <span className="flex items-center space-x-2">
                             {option.icon && (
                               <img
-                                alt={option.label}
                                 className={iconClassName}
                                 src={option.icon}
                               />
