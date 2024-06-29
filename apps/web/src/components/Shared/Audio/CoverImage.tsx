@@ -49,11 +49,15 @@ const CoverImage: FC<CoverImageProps> = ({
     }
   };
 
+  const handleExpandCover = () => {
+    expandCover(cover ? sanitizeDStorageUrl(cover) : cover);
+  };
+
   return (
     <div className="group relative flex-none overflow-hidden">
       <button
         className="flex focus:outline-none"
-        onClick={() => expandCover(cover ? sanitizeDStorageUrl(cover) : cover)}
+        onClick={handleExpandCover}
         type="button"
       >
         <Image
@@ -67,7 +71,7 @@ const CoverImage: FC<CoverImageProps> = ({
           src={cover ? imageKit(sanitizeDStorageUrl(cover), ATTACHMENT) : cover}
         />
       </button>
-      {isNew ? (
+      {isNew && (
         <label
           className={cn(
             { invisible: cover, visible: isLoading && !cover },
@@ -89,7 +93,7 @@ const CoverImage: FC<CoverImageProps> = ({
             type="file"
           />
         </label>
-      ) : null}
+      )}
     </div>
   );
 };
