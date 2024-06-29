@@ -16,23 +16,6 @@ fragment ProfileFields on Profile {
     ...ProfileOperationsFields
   }
   interests
-  onchainIdentity {
-    proofOfHumanity
-    ens {
-      name
-    }
-    sybilDotOrg {
-      verified
-      source {
-        twitter {
-          handle
-        }
-      }
-    }
-    worldcoin {
-      isHuman
-    }
-  }
   followNftAddress {
     ...NetworkAddressFields
   }

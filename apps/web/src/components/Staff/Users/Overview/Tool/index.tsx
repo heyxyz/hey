@@ -10,7 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
-import OnchainIdentities from './OnchainIdentities';
 import ProfileOverview from './ProfileOverview';
 import ProfilePreferences from './ProfilePreferences';
 import Rank from './Rank';
@@ -39,7 +38,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       <ProfileOverview profile={profile} />
       {preferences ? <ProfilePreferences preferences={preferences} /> : null}
       <div className="divider my-5 border-dashed border-yellow-600" />
-      <OnchainIdentities onchainIdentity={profile.onchainIdentity} />
       {IS_MAINNET ? (
         <>
           <LeafwatchDetails profileId={profile.id} />
