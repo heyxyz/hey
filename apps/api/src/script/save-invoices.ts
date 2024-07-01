@@ -6,10 +6,10 @@ import puppeteer from 'puppeteer';
 import lensPg from '../db/lensPg';
 
 const baseUrl = 'http://localhost:4786/signup/';
-const rate = 80;
+const rate = 70;
 const outputDir = path.join(__dirname, 'pdfs');
-const startDate = '2024-05-01 00:38:20';
-const endDate = '2024-05-31 23:44:38';
+const startDate = '2024-06-01 00:07:17';
+const endDate = '2024-06-30 23:58:57';
 const batchSize = 7;
 
 const getProfiles = async () => {
