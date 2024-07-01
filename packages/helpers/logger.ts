@@ -21,12 +21,12 @@ class Logger {
       transports: [new winston.transports.Console()]
     });
 
-    this.logger.add(
-      new DatadogWinston({
-        apiKey: process.env.DATADOG_API_KEY!,
-        intakeRegion: 'eu'
-      })
-    );
+    const datadogApiKey = process.env.DATADOG_API_KEY;
+    if (datadogApiKey) {
+      this.logger.add(
+        new DatadogWinston({ apiKey: datadogApiKey, intakeRegion: 'eu' })
+      );
+    }
   }
 
   error(message: string, error?: Error) {
