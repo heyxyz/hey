@@ -20,6 +20,7 @@
     "save-invoices": "ts-node ./src/script/save-invoices.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
     "sync-score-to-stack": "ts-node ./src/script/sync-score-to-stack.ts",
+    "get-invoice-countries": "ts-node ./src/script/get-invoice-countries.ts",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
