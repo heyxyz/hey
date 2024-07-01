@@ -15,20 +15,10 @@ export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';
 export const SUSPENDED_FEATURE_ID = '8ed8b26a-279d-4111-9d39-a40164b273a0';
 
 // Cache
-// Cache for 1 hour, stale for 12 hours
-export const SWR_CACHE_AGE_1_HOUR_12_HRS =
-  'public, s-maxage=3600, stale-while-revalidate=43200';
-// Cache for 1 second, stale for 30 days
-export const SWR_CACHE_AGE_1_SEC_30_DAYS =
-  'public, s-maxage=1, stale-while-revalidate=2592000';
-// Cache for 10 seconds, stale for 30 days
-export const SWR_CACHE_AGE_10_SECS_30_DAYS =
-  'public, s-maxage=10, stale-while-revalidate=2592000';
-// Cache for 10 minutes, stale for 30 days
-export const SWR_CACHE_AGE_10_MINS_30_DAYS =
-  'public, s-maxage=600, stale-while-revalidate=2592000';
 // Cache for 30 minutes
 export const CACHE_AGE_30_MINS = 'public, s-maxage=1800, max-age=1800';
+// Cache for 6 hours
+export const CACHE_AGE_6_HOURS = 'public, s-maxage=21600, max-age=21600';
 // Cache for 1 day
 export const CACHE_AGE_1_DAY = 'public, s-maxage=86400, max-age=86400';
 // Cache for 30 days
