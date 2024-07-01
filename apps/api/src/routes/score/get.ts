@@ -7,9 +7,9 @@ import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import {
   CACHE_AGE_30_MINS,
+  CACHE_AGE_6_HOURS,
   SCORE_WORKER_URL,
-  SUSPENDED_FEATURE_ID,
-  SWR_CACHE_AGE_1_HOUR_12_HRS
+  SUSPENDED_FEATURE_ID
 } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
@@ -50,7 +50,7 @@ export const get: Handler = async (req, res) => {
 
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_1_HOUR_12_HRS)
+        .setHeader('Cache-Control', CACHE_AGE_6_HOURS)
         .json({
           expiresAt: cachedProfile[0].expiresAt,
           score: cachedProfile[0].score,
