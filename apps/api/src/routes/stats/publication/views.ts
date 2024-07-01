@@ -2,7 +2,6 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import { SWR_CACHE_AGE_10_MINS_30_DAYS } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
@@ -50,10 +49,7 @@ export const post: Handler = async (req, res) => {
     }));
     logger.info(`Fetched publication views for ${ids.length} publications`);
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
-      .json({ success: true, views: viewCounts });
+    return res.status(200).json({ success: true, views: viewCounts });
   } catch (error) {
     return catchedError(res, error);
   }
