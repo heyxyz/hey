@@ -1,4 +1,4 @@
-import { WinstonTransport as AxiomTransport } from '@axiomhq/winston';
+import DatadogWinston from 'datadog-winston';
 import dotenv from 'dotenv';
 import winston from 'winston';
 
@@ -8,15 +8,6 @@ class Logger {
   private logger: winston.Logger;
 
   constructor() {
-    const transports: winston.transport[] = [new winston.transports.Console()];
-
-    const axiomToken = process.env.AXIOM_TOKEN;
-    if (axiomToken) {
-      transports.push(
-        new AxiomTransport({ dataset: 'hey', token: axiomToken })
-      );
-    }
-
     this.logger = winston.createLogger({
       format: winston.format.combine(
         winston.format.colorize(),
@@ -27,8 +18,15 @@ class Logger {
         })
       ),
       level: 'info',
-      transports: transports
+      transports: [new winston.transports.Console()]
     });
+
+    this.logger.add(
+      new DatadogWinston({
+        apiKey: process.env.DATADOG_API_KEY!,
+        intakeRegion: 'eu'
+      })
+    );
   }
 
   error(message: string, error?: Error) {
