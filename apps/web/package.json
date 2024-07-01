@@ -43,7 +43,7 @@
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
-    "esbuild": "^0.21.5",
+    "esbuild": "^0.22.0",
     "framer-motion": "^11.2.12",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
@@ -76,7 +76,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.16.4",
+    "viem": "^2.16.5",
     "wagmi": "^2.10.8",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
