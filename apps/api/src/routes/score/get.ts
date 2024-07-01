@@ -6,10 +6,10 @@ import heyPg from 'src/db/heyPg';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import {
+  CACHE_AGE_30_MINS,
   SCORE_WORKER_URL,
   SUSPENDED_FEATURE_ID,
-  SWR_CACHE_AGE_1_HOUR_12_HRS,
-  SWR_CACHE_AGE_10_MINS_30_DAYS
+  SWR_CACHE_AGE_1_HOUR_12_HRS
 } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
@@ -36,7 +36,7 @@ export const get: Handler = async (req, res) => {
     if (suspended.length > 0) {
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_AGE_10_MINS_30_DAYS)
+        .setHeader('Cache-Control', CACHE_AGE_30_MINS)
         .json({ score: 0, success: true });
     }
 
