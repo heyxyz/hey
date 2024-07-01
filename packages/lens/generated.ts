@@ -9162,15 +9162,15 @@ export type StaffPicksQuery = {
   __typename?: 'Query';
   batch1: {
     __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ProfileFieldsFragment>;
+    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
   };
   batch2: {
     __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ProfileFieldsFragment>;
+    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
   };
   batch3: {
     __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ProfileFieldsFragment>;
+    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
   };
 };
 
@@ -16739,21 +16739,21 @@ export const StaffPicksDocument = gql`
   ) {
     batch1: profiles(request: { where: { profileIds: $batch1 } }) {
       items {
-        ...ProfileFields
+        ...ListProfileFields
       }
     }
     batch2: profiles(request: { where: { profileIds: $batch2 } }) {
       items {
-        ...ProfileFields
+        ...ListProfileFields
       }
     }
     batch3: profiles(request: { where: { profileIds: $batch3 } }) {
       items {
-        ...ProfileFields
+        ...ListProfileFields
       }
     }
   }
-  ${ProfileFieldsFragmentDoc}
+  ${ListProfileFieldsFragmentDoc}
 `;
 
 /**
