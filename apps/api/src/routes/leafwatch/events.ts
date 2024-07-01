@@ -124,7 +124,9 @@ export const post: Handler = async (req, res) => {
       client.write(`data: ${JSON.stringify(values)}\n\n`);
     }
 
-    logger.info('Ingested event to Leafwatch');
+    logger.info(
+      `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
+    );
 
     return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {
