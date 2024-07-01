@@ -368,7 +368,7 @@ importers:
         version: 9.0.1(@types/react@18.3.3)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.0
-        version: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-virtuoso:
         specifier: ^4.7.11
         version: 4.7.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -556,9 +556,6 @@ importers:
       '@apollo/client':
         specifier: ^3.10.8
         version: 3.10.8(@types/react@18.3.3)(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@axiomhq/winston':
-        specifier: ^1.0.0
-        version: 1.0.0
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -571,6 +568,9 @@ importers:
       axios:
         specifier: ^1.7.2
         version: 1.7.2(debug@4.3.5)
+      datadog-winston:
+        specifier: ^1.6.0
+        version: 1.6.0
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
@@ -593,6 +593,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
+      '@types/datadog-winston':
+        specifier: ^1.0.7
+        version: 1.0.7
       '@types/omit-deep':
         specifier: ^0.3.2
         version: 0.3.2
@@ -1023,14 +1026,6 @@ packages:
   '@aws-sdk/xml-builder@3.598.0':
     resolution: {integrity: sha512-ZIa2RK7CHFTZ4gwK77WRtsZ6vF7xwRXxJ8KQIxK2duhoTVcn0xYxpFLdW9WZZZvdP9GIF3Loqvf8DRdeU5Jc7Q==}
     engines: {node: '>=16.0.0'}
-
-  '@axiomhq/js@1.0.0':
-    resolution: {integrity: sha512-4xf0b/KFVFmNvjxK4lHHuwioQ6TPr+PZLqEdMl/vcot1RqFwDnjaOEOp0/VPhyTgdE0di8bl/hOsu33bHMM27w==}
-    engines: {node: '>=16'}
-
-  '@axiomhq/winston@1.0.0':
-    resolution: {integrity: sha512-I37gx0eIhQeLZw0r/F3Xt+ERWWFD0VLAcGhXmCJcdmCcHLwwpEiKPsZsYshglZdeFQ2dCPUkOTyJMsjNFb3BdA==}
-    engines: {node: '>=16'}
 
   '@babel/code-frame@7.24.7':
     resolution: {integrity: sha512-BcYH1CVJBO9tvyIZ2jVeXgSIMvGZ2FDRvDdOIVQyuklNKSsx+eppDEBq/g47Ayw+RqNFE+URvOShmf+f/qwAlA==}
@@ -4474,6 +4469,9 @@ packages:
   '@types/cors@2.8.17':
     resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
 
+  '@types/datadog-winston@1.0.7':
+    resolution: {integrity: sha512-1E2B1AROGejf8xYUKglv0q4X3SlOL4EslcVHeJQuK1X572b6yvvtobSSXAUckNIFVqn518q+AmbXyIqsBo8N5g==}
+
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
@@ -6051,6 +6049,9 @@ packages:
     resolution: {integrity: sha512-t/Ygsytq+R995EJ5PZlD4Cu56sWa8InXySaViRzw9apusqsOO2bQP+SbYzAhR0pFKoB+43lYy8rWban9JSuXnA==}
     engines: {node: '>= 0.4'}
 
+  datadog-winston@1.6.0:
+    resolution: {integrity: sha512-kKl+VW/BFICrxTxHiA2Dbpr+JkDUZsvwFloflpDDJK6GKZDsl035uxVD18us884o1+9v721h1fbAwrTpni1wfA==}
+
   dataloader@2.2.2:
     resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
 
@@ -6835,11 +6836,11 @@ packages:
   fd-slicer@1.1.0:
     resolution: {integrity: sha512-cE1qsB/VwyQozZ+q1dGxR8LBYNZeofhEdUNGSMbQD3Gw2lAzX9Zb3uIU6Ebc/Fmyjo9AWWfnn0AUCHqtevs/8g==}
 
+  fecha@2.3.3:
+    resolution: {integrity: sha512-lUGBnIamTAwk4znq5BcqsDaxSmZ9nDVJaij6NvRt/Tg4R69gERA+otPKbS86ROw9nxVMw2/mp1fnaiWqbs6Sdg==}
+
   fecha@4.2.3:
     resolution: {integrity: sha512-OP2IUU6HeYKJi3i0z4A19kHMQoLVs4Hc+DPqqxI2h/DPZHTm/vjsfC6P0b4jCMy14XizLBqvndQ+UilD7707Jw==}
-
-  fetch-retry@6.0.0:
-    resolution: {integrity: sha512-BUFj1aMubgib37I3v4q78fYo63Po7t4HUPTpQ6/QE6yK6cIQrP+W43FYToeTEyg5m2Y7eFUtijUuAv/PDlWuag==}
 
   figures@3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -8142,6 +8143,9 @@ packages:
   log-update@4.0.0:
     resolution: {integrity: sha512-9fkkDevMefjg0mmzWFBW8YkFP91OrizzkW3diF7CpG+S2EYdy4+TVfGwz1zeF8x7hCx1ovSPTOE9Ngib74qqUg==}
     engines: {node: '>=10'}
+
+  logform@1.10.0:
+    resolution: {integrity: sha512-em5ojIhU18fIMOw/333mD+ZLE2fis0EzXl1ZwHx4iQzmpQi6odNiY/t+ITNr33JZhT9/KEaH+UPIipr6a9EjWg==}
 
   logform@2.6.0:
     resolution: {integrity: sha512-1ulHeNPp6k/LD8H91o7VYFBng5i1BDE7HoKxVbZiGFidS1Rj65qcywLxX+pVfAPoQJEjRdvKcusKwOupHCVOVQ==}
@@ -12264,16 +12268,6 @@ snapshots:
     dependencies:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
-
-  '@axiomhq/js@1.0.0':
-    dependencies:
-      fetch-retry: 6.0.0
-      uuid: 8.3.2
-
-  '@axiomhq/winston@1.0.0':
-    dependencies:
-      '@axiomhq/js': 1.0.0
-      winston-transport: 4.7.0
 
   '@babel/code-frame@7.24.7':
     dependencies:
@@ -17037,6 +17031,12 @@ snapshots:
     dependencies:
       '@types/node': 20.14.9
 
+  '@types/datadog-winston@1.0.7':
+    dependencies:
+      '@types/node': 20.14.9
+      logform: 1.10.0
+      winston-transport: 4.7.0
+
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 0.7.34
@@ -19225,6 +19225,14 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.1
 
+  datadog-winston@1.6.0:
+    dependencies:
+      '@babel/runtime': 7.24.7
+      node-fetch: 2.7.0
+      winston-transport: 4.7.0
+    transitivePeerDependencies:
+      - encoding
+
   dataloader@2.2.2: {}
 
   date-fns@2.30.0:
@@ -20323,9 +20331,9 @@ snapshots:
     dependencies:
       pend: 1.2.0
 
-  fecha@4.2.3: {}
+  fecha@2.3.3: {}
 
-  fetch-retry@6.0.0: {}
+  fecha@4.2.3: {}
 
   figures@3.2.0:
     dependencies:
@@ -21904,6 +21912,14 @@ snapshots:
       cli-cursor: 3.1.0
       slice-ansi: 4.0.0
       wrap-ansi: 6.2.0
+
+  logform@1.10.0:
+    dependencies:
+      colors: 1.4.0
+      fast-safe-stringify: 2.1.1
+      fecha: 2.3.3
+      ms: 2.1.3
+      triple-beam: 1.4.1
 
   logform@2.6.0:
     dependencies:
@@ -23755,12 +23771,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  react-tracked@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-virtuoso@4.7.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -25253,10 +25269,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
