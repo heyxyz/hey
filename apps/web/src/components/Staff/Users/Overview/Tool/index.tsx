@@ -37,7 +37,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       />
       <ProfileOverview profile={profile} />
       {preferences ? <ProfilePreferences preferences={preferences} /> : null}
-      <div className="divider my-5 border-dashed border-yellow-600" />
       {IS_MAINNET ? (
         <>
           <LeafwatchDetails profileId={profile.id} />
