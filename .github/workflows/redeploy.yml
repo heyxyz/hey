@@ -17,6 +17,6 @@ jobs:
       - name: Trigger API Deployment 🚀
         uses: indiesdev/curl@v1.1
         with:
-          url: 'https://status.heyxyz.workers.dev/?secret=${{ secrets.SECRET }}'
+          url: 'https://redeploy.heyxyz.workers.dev/?secret=${{ secrets.SECRET }}'
           method: 'GET'
           headers: '{ "Referer": "https://hey.xyz" }'
