@@ -11,5 +11,6 @@ export const apps = [
   'focalize',
   'bloomers.tv',
   'kaira',
-  'orna.art'
+  'orna.art',
+  'firefly'
 ];
