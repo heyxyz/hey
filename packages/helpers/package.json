@@ -17,7 +17,6 @@
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
     "axios": "^1.7.2",
-    "datadog-winston": "^1.6.0",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "omit-deep": "^0.3.0",
@@ -27,7 +26,6 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/datadog-winston": "^1.0.7",
     "@types/omit-deep": "^0.3.2",
     "typescript": "^5.5.2",
     "vitest": "^1.6.0"
