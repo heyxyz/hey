@@ -13,7 +13,6 @@ import {
 } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
-import syncToStack from 'src/helpers/score/syncToStack';
 
 // TODO: add tests
 export const get: Handler = async (req, res) => {
@@ -100,8 +99,6 @@ export const get: Handler = async (req, res) => {
         new Date(Date.now() + 6 * 60 * 60 * 1000) // 6 hours
       ]
     );
-
-    syncToStack(lensProfile[0]?.owned_by, newCachedProfile[0]?.score);
 
     logger.info(
       `Lens: Fetched profile score for ${id} - ${newCachedProfile[0]?.score} - Expires at: ${newCachedProfile[0]?.expiresAt}`
