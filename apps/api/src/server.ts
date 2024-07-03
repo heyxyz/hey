@@ -15,6 +15,20 @@ app.use(cors());
 app.disable('x-powered-by');
 
 const setupRoutes = async () => {
+  //  Increase request timeout
+  app.use((req, _, next) => {
+    req.setTimeout(120000); // 2 minutes
+    next();
+  });
+
+  // Log request aborted
+  app.use((req, _, next) => {
+    req.on('aborted', () => {
+      logger.error('Request aborted by the client');
+    });
+    next();
+  });
+
   // Route configuration
   app.use('/', express.json({ limit: '1mb' }), await router());
 
