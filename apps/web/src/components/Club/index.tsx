@@ -5,11 +5,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Cover from '@components/Shared/Cover';
 import getClubApiHeaders from '@helpers/getClubApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
-import {
-  APP_NAME,
-  CLUBS_API_URL,
-  STATIC_IMAGES_URL
-} from '@hey/data/constants';
+import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -47,12 +43,12 @@ const ViewClub: NextPage = () => {
   const getClub = async (handle: string): Promise<Club | null> => {
     try {
       const response = await axios.post(
-        `${CLUBS_API_URL}/fetch-clubs`,
+        `${HEY_API_URL}/clubs/fetch-clubs`,
         { club_handle: handle },
         { headers: getClubApiHeaders() }
       );
 
-      return response.data.items?.[0];
+      return response.data.data.items?.[0];
     } catch {
       return null;
     }
@@ -63,6 +59,7 @@ const ViewClub: NextPage = () => {
     error,
     isLoading: profileLoading
   } = useQuery({
+    enabled: Boolean(handle),
     queryFn: () => getClub(handle as string),
     queryKey: ['getClub', handle]
   });
