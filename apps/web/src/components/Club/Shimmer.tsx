@@ -25,6 +25,10 @@ const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
               <div className="shimmer h-3 w-1/4 rounded-lg" />
             </div>
             <div className="space-y-5">
+              <div className="space-y-2">
+                <div className="shimmer h-3 w-7/12 rounded-lg" />
+                <div className="shimmer h-3 w-1/3 rounded-lg" />
+              </div>
               <div className="flex gap-5 pb-1">
                 {Array.from({ length: 2 }).map((_, index) => (
                   <div className="space-y-2" key={index}>
@@ -34,18 +38,6 @@ const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
                 ))}
               </div>
               <div className="shimmer h-[34px] w-20 rounded-full" />
-              <div className="space-y-2">
-                <div className="shimmer h-3 w-7/12 rounded-lg" />
-                <div className="shimmer h-3 w-1/3 rounded-lg" />
-              </div>
-              <div className="space-y-2">
-                {Array.from({ length: 2 }).map((_, index) => (
-                  <div className="flex items-center space-x-2" key={index}>
-                    <div className="shimmer size-4 rounded-lg" />
-                    <div className="shimmer h-3 w-20 rounded-lg" />
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </GridItemFour>

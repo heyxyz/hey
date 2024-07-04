@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Details from './Details';
 import Feed from './Feed';
@@ -25,6 +26,7 @@ const ViewClub: NextPage = () => {
     pathname,
     query: { handle }
   } = useRouter();
+  const { currentProfile } = useProfileStore();
 
   const showMembers = pathname === '/c/[handle]/members';
 
@@ -41,8 +43,8 @@ const ViewClub: NextPage = () => {
   const getClub = async (handle: string): Promise<Club | null> => {
     try {
       const response = await axios.post(
-        `${HEY_API_URL}/clubs/fetch-clubs`,
-        { club_handle: handle },
+        `${HEY_API_URL}/clubs/get`,
+        { club_handle: handle, profile_id: currentProfile?.id },
         { headers: getClubApiHeaders() }
       );
 
