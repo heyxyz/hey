@@ -1,6 +1,7 @@
 import type { Club } from '@hey/types/club';
 import type { FC } from 'react';
 
+import Join from '@components/Shared/Club/Join';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import getMentions from '@hey/helpers/getMentions';
@@ -52,7 +53,7 @@ const Details: FC<DetailsProps> = ({ club }) => {
           <div className="text-xl">{humanize(club.totalMembers)}</div>
           <div className="ld-text-gray-500">Members</div>
         </Link>
-        {/* <div className="flex items-center space-x-2">Join</div> */}
+        <Join id={club.id} />
       </div>
     </div>
   );
