@@ -23,8 +23,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.606.0",
-    "@aws-sdk/client-sts": "^3.606.0",
+    "@aws-sdk/client-ses": "^3.609.0",
+    "@aws-sdk/client-sts": "^3.609.0",
     "@clickhouse/client": "^1.2.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
@@ -44,12 +44,12 @@
     "pg-promise": "^11.8.0",
     "puppeteer": "^22.12.1",
     "request-ip": "^3.3.0",
-    "tsx": "^4.16.0",
+    "tsx": "^4.16.2",
     "typescript": "^5.5.3",
     "ua-parser-js": "2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.16.5",
+    "viem": "^2.17.0",
     "vite-express": "^0.17.0",
     "zod": "^3.23.8"
   },
@@ -68,6 +68,6 @@
     "prisma": "^5.16.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2",
-    "vite": "^5.3.2"
+    "vite": "^5.3.3"
   }
 }
