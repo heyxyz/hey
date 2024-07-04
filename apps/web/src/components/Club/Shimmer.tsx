@@ -4,13 +4,11 @@ import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 
-interface ProfilePageShimmerProps {
+interface ClubPageShimmerProps {
   profileList?: boolean;
 }
 
-const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
-  profileList = false
-}) => {
+const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
   return (
     <>
       <div className="container mx-auto max-w-[1350px]">
@@ -40,37 +38,15 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
                 ))}
               </div>
               <div className="shimmer h-[34px] w-20 rounded-full" />
-              <div className="space-y-2">
-                {Array.from({ length: 2 }).map((_, index) => (
-                  <div className="flex items-center space-x-2" key={index}>
-                    <div className="shimmer size-4 rounded-lg" />
-                    <div className="shimmer h-3 w-20 rounded-lg" />
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </GridItemFour>
         <GridItemEight>
-          {profileList ? (
-            <ProfileListShimmer />
-          ) : (
-            <>
-              <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <div
-                    className="shimmer h-8 w-14 rounded-lg sm:w-28"
-                    key={index}
-                  />
-                ))}
-              </div>
-              <PublicationsShimmer />
-            </>
-          )}
+          {profileList ? <ProfileListShimmer /> : <PublicationsShimmer />}
         </GridItemEight>
       </GridLayout>
     </>
   );
 };
 
-export default ProfilePageShimmer;
+export default ClubPageShimmer;
