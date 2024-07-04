@@ -1,6 +1,7 @@
 import type { Handler } from 'express';
 
 import { CLUBS_API_URL, CLUBS_APP_TOKEN } from '@hey/data/constants';
+import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { HEY_USER_AGENT } from 'src/helpers/constants';
 import { invalidBody, noBody } from 'src/helpers/responses';
@@ -40,9 +41,10 @@ export const post: Handler = async (req, res) => {
       method: 'POST'
     });
 
+    logger.info(`Clubs fetched for ${body.club_handle}`);
+
     return res.status(response.status).json(await response.json());
   } catch (error) {
-    console.log(error);
     return catchedError(res, error);
   }
 };
