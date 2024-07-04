@@ -17,6 +17,7 @@ import Custom500 from 'src/pages/500';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
+import Details from './Details';
 import ClubPageShimmer from './Shimmer';
 
 const ViewClub: NextPage = () => {
@@ -84,7 +85,9 @@ const ViewClub: NextPage = () => {
       />
       <Cover cover={club.cover || `${STATIC_IMAGES_URL}/patterns/2.svg`} />
       <GridLayout>
-        <GridItemFour>gm</GridItemFour>
+        <GridItemFour>
+          <Details club={club} />
+        </GridItemFour>
         <GridItemEight className="space-y-5">
           {showMembers ? <div>Members</div> : <>FEED WIP</>}
         </GridItemEight>
