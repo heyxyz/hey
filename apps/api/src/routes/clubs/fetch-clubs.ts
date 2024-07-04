@@ -1,0 +1,48 @@
+import type { Handler } from 'express';
+
+import { CLUBS_API_URL, CLUBS_APP_TOKEN } from '@hey/data/constants';
+import catchedError from 'src/helpers/catchedError';
+import { HEY_USER_AGENT } from 'src/helpers/constants';
+import { invalidBody, noBody } from 'src/helpers/responses';
+import { number, object, string } from 'zod';
+
+const validationSchema = object({
+  club_handle: string().optional(),
+  id: string().optional(),
+  limit: number().optional(),
+  profile_id: string().optional(),
+  skip: number().optional()
+});
+
+export const post: Handler = async (req, res) => {
+  const { body } = req;
+
+  if (!body) {
+    return noBody(res);
+  }
+
+  const validation = validationSchema.safeParse(body);
+
+  if (!validation.success) {
+    return invalidBody(res);
+  }
+
+  try {
+    const accessToken = req.headers['x-access-token'] as string;
+    const response = await fetch(`${CLUBS_API_URL}/fetch-clubs`, {
+      body: JSON.stringify(body),
+      headers: {
+        'App-Access-Token': CLUBS_APP_TOKEN,
+        'Content-Type': 'application/json',
+        'User-Agent': HEY_USER_AGENT,
+        'X-Access-Token': accessToken
+      },
+      method: 'POST'
+    });
+
+    return res.status(response.status).json(await response.json());
+  } catch (error) {
+    console.log(error);
+    return catchedError(res, error);
+  }
+};
