@@ -50,21 +50,7 @@ const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
           </div>
         </GridItemFour>
         <GridItemEight>
-          {profileList ? (
-            <ProfileListShimmer />
-          ) : (
-            <>
-              <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <div
-                    className="shimmer h-8 w-14 rounded-lg sm:w-28"
-                    key={index}
-                  />
-                ))}
-              </div>
-              <PublicationsShimmer />
-            </>
-          )}
+          {profileList ? <ProfileListShimmer /> : <PublicationsShimmer />}
         </GridItemEight>
       </GridLayout>
     </>
