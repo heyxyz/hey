@@ -16,7 +16,7 @@
     "@heroicons/react": "^2.1.4",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@hookform/resolvers": "^3.6.0",
+    "@hookform/resolvers": "^3.7.0",
     "@radix-ui/react-slider": "^1.2.0",
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
