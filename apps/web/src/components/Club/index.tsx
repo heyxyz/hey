@@ -14,10 +14,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Details from './Details';
+import Feed from './Feed';
 import ClubPageShimmer from './Shimmer';
 
 const ViewClub: NextPage = () => {
@@ -26,8 +25,6 @@ const ViewClub: NextPage = () => {
     pathname,
     query: { handle }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
-  const { staffMode } = useFeatureFlagsStore();
 
   const showMembers = pathname === '/c/[handle]/members';
 
@@ -58,14 +55,14 @@ const ViewClub: NextPage = () => {
   const {
     data: club,
     error,
-    isLoading: profileLoading
+    isLoading: clubLoading
   } = useQuery({
     enabled: Boolean(handle),
     queryFn: () => getClub(handle as string),
     queryKey: ['getClub', handle]
   });
 
-  if (!isReady || profileLoading) {
+  if (!isReady || clubLoading) {
     return <ClubPageShimmer profileList={showMembers} />;
   }
 
@@ -89,7 +86,7 @@ const ViewClub: NextPage = () => {
           <Details club={club} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {showMembers ? <div>Members</div> : <>FEED WIP</>}
+          {showMembers ? <div>Members</div> : <Feed handle={club.handle} />}
         </GridItemEight>
       </GridLayout>
     </>
