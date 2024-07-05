@@ -1,5 +1,5 @@
-import type { FrameTransaction, Frame as IFrame } from '@hey/types/misc';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Frame as IFrame } from '@hey/types/misc';
+import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
@@ -25,6 +25,8 @@ import {
 } from 'viem/chains';
 import { useSendTransaction, useSwitchChain } from 'wagmi';
 
+import { useFramesStore } from '.';
+
 const SUPPORTED_CHAINS = [
   polygon.id,
   polygonAmoy.id,
@@ -37,30 +39,12 @@ const SUPPORTED_CHAINS = [
 
 interface TransactionProps {
   publicationId?: string;
-  setFrameData: Dispatch<SetStateAction<IFrame | null>>;
-  setShowTransaction: Dispatch<
-    SetStateAction<{
-      frame: IFrame | null;
-      index: number;
-      show: boolean;
-      transaction: FrameTransaction | null;
-    }>
-  >;
-  showTransaction: {
-    frame: IFrame | null;
-    index: number;
-    show: boolean;
-    transaction: FrameTransaction | null;
-  };
 }
 
-const Transaction: FC<TransactionProps> = ({
-  publicationId,
-  setFrameData,
-  setShowTransaction,
-  showTransaction
-}) => {
+const Transaction: FC<TransactionProps> = ({ publicationId }) => {
   const { currentProfile } = useProfileStore();
+  const { setFrameData, setShowTransaction, showTransaction } =
+    useFramesStore();
   const [isLoading, setIsLoading] = useState(false);
   const [txnHash, setTxnHash] = useState<`0x${string}` | null>(null);
   const { switchChainAsync } = useSwitchChain();
