@@ -32,10 +32,10 @@ export const post: Handler = async (req, res) => {
     const response = await fetch(`${CLUBS_API_URL}/fetch-club-members`, {
       body: JSON.stringify(body),
       headers: {
-        'App-Access-Token': `Bearer ${CLUBS_APP_TOKEN}`,
+        'App-Access-Token': CLUBS_APP_TOKEN,
         'Content-Type': 'application/json',
         'User-Agent': HEY_USER_AGENT,
-        'X-Access-Token': `Bearer ${accessToken}`
+        'X-Access-Token': accessToken
       },
       method: 'POST'
     });
