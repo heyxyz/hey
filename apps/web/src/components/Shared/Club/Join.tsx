@@ -1,4 +1,5 @@
 import errorToast from '@helpers/errorToast';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
@@ -15,7 +16,11 @@ const Join: FC<JoinProps> = ({ id }) => {
   const handleJoin = async () => {
     try {
       setIsLoading(true);
-      await axios.post(`${HEY_API_URL}/clubs/join`, { id });
+      await axios.post(
+        `${HEY_API_URL}/clubs/join`,
+        { id },
+        { headers: getAuthApiHeaders() }
+      );
 
       toast.success('Joined club successfully!');
     } catch (error) {
