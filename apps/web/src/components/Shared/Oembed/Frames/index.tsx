@@ -11,11 +11,52 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { Button, Card, Input, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { createTrackedSelector } from 'react-tracked';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { create } from 'zustand';
 
 import Transaction from './Transaction';
+
+interface FramesState {
+  frameData: IFrame | null;
+  inputText: string;
+  isLoading: boolean;
+  setFrameData: (frameData: IFrame | null) => void;
+  setInputText: (inputText: string) => void;
+  setIsLoading: (isLoading: boolean) => void;
+  setShowTransaction: (showTransaction: {
+    frame: IFrame | null;
+    index: number;
+    show: boolean;
+    transaction: FrameTransaction | null;
+  }) => void;
+  showTransaction: {
+    frame: IFrame | null;
+    index: number;
+    show: boolean;
+    transaction: FrameTransaction | null;
+  };
+}
+
+const store = create<FramesState>((set) => ({
+  frameData: null,
+  inputText: '',
+  isLoading: false,
+  setFrameData: (frameData) => set({ frameData }),
+  setInputText: (inputText) => set({ inputText }),
+  setIsLoading: (isLoading) => set({ isLoading }),
+  setShowTransaction: (showTransaction) => set({ showTransaction }),
+  showTransaction: {
+    frame: null,
+    index: 0,
+    show: false,
+    transaction: null
+  }
+}));
+
+export const useFramesStore = createTrackedSelector(store);
 
 interface FrameProps {
   frame: IFrame;
@@ -24,21 +65,22 @@ interface FrameProps {
 
 const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
   const { currentProfile } = useProfileStore();
-  const [frameData, setFrameData] = useState<IFrame | null>(null);
-  const [inputText, setInputText] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [showTransaction, setShowTransaction] = useState<{
-    frame: IFrame | null;
-    index: number;
-    show: boolean;
-    transaction: FrameTransaction | null;
-  }>({ frame: null, index: 0, show: false, transaction: null });
+  const {
+    frameData,
+    inputText,
+    isLoading,
+    setFrameData,
+    setInputText,
+    setIsLoading,
+    setShowTransaction,
+    showTransaction
+  } = useFramesStore();
 
   useEffect(() => {
     if (frame) {
       setFrameData(frame);
     }
-  }, [frame]);
+  }, [frame, setFrameData]);
 
   if (!frameData) {
     return null;
@@ -208,12 +250,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           show={showTransaction.show}
           title="Transaction"
         >
-          <Transaction
-            publicationId={publicationId}
-            setFrameData={setFrameData}
-            setShowTransaction={setShowTransaction}
-            showTransaction={showTransaction}
-          />
+          <Transaction publicationId={publicationId} />
         </Modal>
       ) : null}
     </Card>
