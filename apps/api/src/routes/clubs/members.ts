@@ -8,10 +8,8 @@ import { invalidBody, noBody } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
 const validationSchema = object({
-  club_handle: string().optional(),
   id: string().optional(),
   limit: number().max(50).optional(),
-  profile_id: string().optional(),
   skip: number().max(50).optional()
 });
 
@@ -30,7 +28,7 @@ export const post: Handler = async (req, res) => {
 
   try {
     const accessToken = req.headers['x-access-token'] as string;
-    const response = await fetch(`${CLUBS_API_URL}/fetch-clubs`, {
+    const response = await fetch(`${CLUBS_API_URL}/fetch-club-members`, {
       body: JSON.stringify(body),
       headers: {
         'App-Access-Token': CLUBS_APP_TOKEN,
@@ -41,7 +39,7 @@ export const post: Handler = async (req, res) => {
       method: 'POST'
     });
 
-    logger.info(`Clubs fetched for ${body.club_handle}`);
+    logger.info(`Clubs members fetched for ${body.club_handle}`);
 
     return res.status(response.status).json(await response.json());
   } catch (error) {
