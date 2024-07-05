@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Cover from '@components/Shared/Cover';
-import getClubApiHeaders from '@helpers/getClubApiHeaders';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -18,6 +18,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Details from './Details';
 import Feed from './Feed';
+import Members from './Members';
 import ClubPageShimmer from './Shimmer';
 
 const ViewClub: NextPage = () => {
@@ -45,7 +46,7 @@ const ViewClub: NextPage = () => {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/get`,
         { club_handle: handle, profile_id: currentProfile?.id },
-        { headers: getClubApiHeaders() }
+        { headers: getAuthApiHeaders() }
       );
 
       return response.data.data.items?.[0];
@@ -88,7 +89,11 @@ const ViewClub: NextPage = () => {
           <Details club={club} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {showMembers ? <div>Members</div> : <Feed handle={club.handle} />}
+          {showMembers ? (
+            <Members clubId={club.id} handle={club.handle} />
+          ) : (
+            <Feed handle={club.handle} />
+          )}
         </GridItemEight>
       </GridLayout>
     </>
