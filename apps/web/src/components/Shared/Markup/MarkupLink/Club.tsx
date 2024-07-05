@@ -5,7 +5,7 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { CLUB_HANDLE_PREFIX } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 const Club: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {
@@ -16,16 +16,16 @@ const Club: FC<MarkupLinkProps> = ({ title }) => {
   const clubHandle = `/${club}`;
 
   return (
-    <a
+    <Link
       className="cursor-pointer outline-none focus:underline"
+      href={`/c/${club}`}
       onClick={(event) => {
-        toast.success('Clubs coming soon to Hey!');
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.CLICK_CLUB, { club: clubHandle });
       }}
     >
       {clubHandle}
-    </a>
+    </Link>
   );
 };
 
