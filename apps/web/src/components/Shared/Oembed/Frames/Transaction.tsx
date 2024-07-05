@@ -95,7 +95,7 @@ const Transaction: FC<TransactionProps> = ({
       const hash = await sendTransactionAsync({
         data: txnData.params.data,
         to: txnData.params.to,
-        value: BigInt(txnData.params.value)
+        value: BigInt(txnData.params.value || 0)
       });
 
       setTxnHash(hash);
