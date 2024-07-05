@@ -9,6 +9,7 @@ const EditorMenus: FC = () => {
     <>
       <InlineMenu />
       <MentionPicker />
+      {/* <ClubPicker /> */}
       <EmojiPicker />
     </>
   );
