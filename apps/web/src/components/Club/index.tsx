@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
 import Cover from '@components/Shared/Cover';
-import getClubApiHeaders from '@helpers/getClubApiHeaders';
+import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -45,7 +45,7 @@ const ViewClub: NextPage = () => {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/get`,
         { club_handle: handle, profile_id: currentProfile?.id },
-        { headers: getClubApiHeaders() }
+        { headers: getAuthApiHeaders() }
       );
 
       return response.data.data.items?.[0];
