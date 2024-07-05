@@ -103,7 +103,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   return (
     <Card>
       <div className="flex items-center space-x-3 p-5">
-        <Link href={`/u/${handle}`}>
+        <Link href={`/c/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <b className="text-lg">Members</b>
