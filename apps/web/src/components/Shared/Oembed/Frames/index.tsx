@@ -98,7 +98,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           buttonAction: 'tx',
           buttonIndex: index + 1,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
-          pubId: publicationId
+          pubId: publicationId,
+          state
         },
         { headers: getAuthApiHeaders() }
       );
