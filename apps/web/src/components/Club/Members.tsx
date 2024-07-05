@@ -59,8 +59,6 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   const profileIds =
     clubMembers?.flatMap((group) => group.items.map((item) => item.id)) || [];
 
-  console.log(profileIds);
-
   const {
     data: lensProfiles,
     error: lensProfilesError,
