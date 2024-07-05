@@ -169,7 +169,10 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
       <img
         alt={image}
-        className="h-[350px] max-h-[350px] w-full rounded-t-xl object-cover"
+        className={cn(
+          isLoading && 'animate-shimmer',
+          'h-[350px] max-h-[350px] w-full rounded-t-xl object-cover'
+        )}
         src={image}
       />
       {inputTextLabel && (
