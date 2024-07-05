@@ -73,6 +73,12 @@ module.exports = {
           'https://yoginth.notion.site/ff1926a080fa44bc9d40ee534f627949',
         permanent: true,
         source: '/-/mod-guide'
+      },
+      // Redirect: hey.xyz/u/lens/<localname> > hey.xyz/u/<localname>
+      {
+        destination: '/u/:handle',
+        permanent: true,
+        source: '/u/:namespace/:handle'
       }
     ];
   },
