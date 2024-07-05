@@ -28,6 +28,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/node": "^20.14.9",
     "@hey/config": "workspace:*",
     "@types/react": "^18.3.3",
     "tailwindcss": "^3.4.4",
