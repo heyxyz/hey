@@ -258,6 +258,7 @@ export const ALL_EVENTS = {
 };
 
 export enum ProfileLinkSource {
+  ClubMembers = 'club-members',
   Collects = 'collects',
   Followers = 'followers',
   Following = 'following',

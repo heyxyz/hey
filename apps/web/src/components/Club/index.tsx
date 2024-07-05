@@ -18,6 +18,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Details from './Details';
 import Feed from './Feed';
+import Members from './Members';
 import ClubPageShimmer from './Shimmer';
 
 const ViewClub: NextPage = () => {
@@ -88,7 +89,11 @@ const ViewClub: NextPage = () => {
           <Details club={club} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {showMembers ? <div>Members</div> : <Feed handle={club.handle} />}
+          {showMembers ? (
+            <Members clubId={club.id} handle={club.handle} />
+          ) : (
+            <Feed handle={club.handle} />
+          )}
         </GridItemEight>
       </GridLayout>
     </>
