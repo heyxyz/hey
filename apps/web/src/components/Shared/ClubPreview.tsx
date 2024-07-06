@@ -2,6 +2,7 @@ import type { Club } from '@hey/types/club';
 import type { FC, ReactNode } from 'react';
 
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { HEY_API_URL } from '@hey/data/constants';
 import getMentions from '@hey/helpers/getMentions';
 import nFormatter from '@hey/helpers/nFormatter';
@@ -64,6 +65,10 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   };
 
   if (!handle) {
+    return null;
+  }
+
+  if (!isFeatureAvailable('clubs')) {
     return null;
   }
 
