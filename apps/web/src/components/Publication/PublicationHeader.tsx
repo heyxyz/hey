@@ -42,6 +42,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         profile={profile}
         publicationId={targetPublication.id}
         source={targetPublication.publishedOn?.id}
+        tags={targetPublication.metadata?.tags || []}
         timestamp={timestamp}
       />
       {!publication.isHidden && !quoted ? (
