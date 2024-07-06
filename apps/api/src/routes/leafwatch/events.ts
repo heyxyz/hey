@@ -12,8 +12,6 @@ import { UAParser } from 'ua-parser-js';
 import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
-let sseClients = require('../../helpers/leafwatch/sseClients');
-
 type ExtensionRequest = {
   fingerprint?: string;
   name: string;
@@ -119,10 +117,6 @@ export const post: Handler = async (req, res) => {
       table: 'events',
       values: [values]
     });
-
-    for (const client of sseClients) {
-      client.write(`data: ${JSON.stringify(values)}\n\n`);
-    }
 
     logger.info(
       `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
