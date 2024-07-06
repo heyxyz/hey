@@ -19,7 +19,7 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
       <GridLayout>
         <GridItemFour>
           <div className="mb-4 space-y-9 px-5 sm:px-0">
-            <div className="relative -mt-24 size-32 bg-gray-100 sm:-mt-32 sm:size-52">
+            <div className="relative -mt-24 size-32 rounded-full bg-gray-100 sm:-mt-32 sm:size-52">
               <div className="shimmer size-32 rounded-full ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black" />
             </div>
             <div className="space-y-3">
