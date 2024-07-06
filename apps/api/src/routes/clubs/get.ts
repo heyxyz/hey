@@ -12,7 +12,7 @@ const validationSchema = object({
   id: string().optional(),
   limit: number().max(50).optional(),
   profile_id: string().optional(),
-  query_id: string().optional(),
+  query: string().optional(),
   skip: number().max(50).optional()
 });
 

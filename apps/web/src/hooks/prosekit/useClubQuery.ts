@@ -29,7 +29,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
     axios
       .post(
         `${HEY_API_URL}/clubs/get`,
-        { limit: 10, profile_id: currentProfile?.id, query_id: query },
+        { limit: 10, profile_id: currentProfile?.id, query },
         { headers: getAuthApiHeaders() }
       )
       .then(({ data }) => {
