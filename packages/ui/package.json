@@ -12,11 +12,11 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.1",
+    "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.4",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@hookform/resolvers": "^3.8.0",
+    "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-slider": "^1.2.0",
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
@@ -28,8 +28,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.14.9",
     "@hey/config": "workspace:*",
+    "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.3"
