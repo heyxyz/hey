@@ -16,11 +16,13 @@ import { memo } from 'react';
 
 import Slug from '../Shared/Slug';
 import UserPreview from '../Shared/UserPreview';
+import ClubHandle from './ClubHandle';
 
 interface FeedUserProfileProps {
   profile: Profile;
   publicationId: string;
   source?: string;
+  tags: string[];
   timestamp: Date;
 }
 
@@ -28,6 +30,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   profile,
   publicationId,
   source,
+  tags,
   timestamp
 }) => {
   const WrappedLink = ({ children }: { children: ReactNode }) => (
@@ -75,6 +78,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
       ) : null}
       {source && apps.includes(source) ? (
         <span className="ld-text-gray-500 flex items-center">
+          <ClubHandle tags={tags} />
           <span className="mx-1">·</span>
           <Source publishedOn={source} />
         </span>
