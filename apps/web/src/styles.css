@@ -85,7 +85,8 @@ body {
   & a,
   span[data-hashtag],
   span[data-cashtag],
-  span[data-mention='profile'] {
+  span[data-mention='profile'],
+  span[data-mention='club'] {
     @apply text-brand-500;
   }
 
