@@ -2,6 +2,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   id
   title
   content
+  tags
   attributes {
     ...MetadataAttributeFields
   }

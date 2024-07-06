@@ -7102,6 +7102,7 @@ export type ArticleMetadataV3FieldsFragment = {
   __typename?: 'ArticleMetadataV3';
   id: string;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7123,6 +7124,7 @@ export type AudioMetadataV3FieldsFragment = {
   id: string;
   title: string;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7146,6 +7148,7 @@ export type ImageMetadataV3FieldsFragment = {
   __typename?: 'ImageMetadataV3';
   id: string;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7170,6 +7173,7 @@ export type LinkMetadataV3FieldsFragment = {
   id: string;
   content: any;
   sharingLink: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7192,6 +7196,7 @@ export type LiveStreamMetadataV3FieldsFragment = {
   playbackURL: any;
   liveURL: any;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7212,6 +7217,7 @@ export type MintMetadataV3FieldsFragment = {
   __typename?: 'MintMetadataV3';
   id: string;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7232,6 +7238,7 @@ export type TextOnlyMetadataV3FieldsFragment = {
   __typename?: 'TextOnlyMetadataV3';
   id: string;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -7241,6 +7248,7 @@ export type VideoMetadataV3FieldsFragment = {
   __typename?: 'VideoMetadataV3';
   id: string;
   content: any;
+  tags?: Array<string> | null;
   attributes?: Array<
     { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
   > | null;
@@ -9504,6 +9512,7 @@ export const VideoMetadataV3FieldsFragmentDoc = gql`
   fragment VideoMetadataV3Fields on VideoMetadataV3 {
     id
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9522,6 +9531,7 @@ export const ArticleMetadataV3FieldsFragmentDoc = gql`
   fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
     id
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9537,6 +9547,7 @@ export const AudioMetadataV3FieldsFragmentDoc = gql`
     id
     title
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9555,6 +9566,7 @@ export const ImageMetadataV3FieldsFragmentDoc = gql`
   fragment ImageMetadataV3Fields on ImageMetadataV3 {
     id
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9574,6 +9586,7 @@ export const LinkMetadataV3FieldsFragmentDoc = gql`
     id
     content
     sharingLink
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9590,6 +9603,7 @@ export const LiveStreamMetadataV3FieldsFragmentDoc = gql`
     playbackURL
     liveURL
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9604,6 +9618,7 @@ export const MintMetadataV3FieldsFragmentDoc = gql`
   fragment MintMetadataV3Fields on MintMetadataV3 {
     id
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
@@ -9618,6 +9633,7 @@ export const TextOnlyMetadataV3FieldsFragmentDoc = gql`
   fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
     id
     content
+    tags
     attributes {
       ...MetadataAttributeFields
     }
