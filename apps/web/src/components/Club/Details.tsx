@@ -36,7 +36,7 @@ const Details: FC<DetailsProps> = ({ club }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="truncate text-2xl font-bold">{club.name}</div>
-        <Slug className="text-sm sm:text-base" prefix="c/" slug={club.handle} />
+        <Slug className="text-sm sm:text-base" prefix="/" slug={club.handle} />
       </div>
       {club.description ? (
         <div className="markup linkify text-md mr-0 break-words sm:mr-10">
