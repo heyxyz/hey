@@ -40,12 +40,3 @@ CREATE TABLE impressions (
 PARTITION BY toYYYYMM(viewed_at)
 ORDER BY (viewer_id, publication_id, viewed_at)
 SETTINGS index_granularity = 8192;
-
--- Vitals
-CREATE TABLE vitals (
-  id String,
-  name String,
-  delta Float32,
-  created DateTime DEFAULT now()
-) ENGINE = MergeTree
-ORDER BY created;
