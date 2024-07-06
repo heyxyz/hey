@@ -33,7 +33,6 @@
     "@livepeer/react": "3.1.9",
     "@radix-ui/react-hover-card": "^1.1.1",
     "@rajesh896/broprint.js": "^2.1.1",
-    "@sentry/nextjs": "^8",
     "@tanstack/react-query": "^5.50.1",
     "@thirdweb-dev/storage": "^2.0.15",
     "@uidotdev/usehooks": "^2.4.1",
