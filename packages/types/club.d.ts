@@ -17,5 +17,6 @@ export type Club = {
   moderators: ClubProfile[];
   name: string;
   owner: ClubProfile;
+  role: 'admin' | 'member' | 'moderator' | 'owner';
   totalMembers: number;
 };
