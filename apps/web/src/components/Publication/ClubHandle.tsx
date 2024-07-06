@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import ClubPreview from '@components/Shared/ClubPreview';
+import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import Link from 'next/link';
 
 interface ClubHandleProps {
@@ -12,6 +13,10 @@ const ClubHandle: FC<ClubHandleProps> = ({ tags }) => {
   const club = orbcommunities?.replaceAll('orbcommunities', '');
 
   if (!club) {
+    return null;
+  }
+
+  if (!isFeatureAvailable('clubs')) {
     return null;
   }
 
