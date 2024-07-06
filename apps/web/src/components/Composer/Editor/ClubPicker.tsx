@@ -1,6 +1,6 @@
 import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { ClubProfile } from '@hey/types/club';
 import type { FC } from 'react';
+import type { ClubProfile } from 'src/hooks/prosekit/useClubQuery';
 
 import { EditorRegex } from '@hey/data/regex';
 import { Image } from '@hey/ui';
@@ -35,7 +35,7 @@ const ClubItem: FC<ClubItemProps> = ({ club, onSelect }) => {
         />
         <div className="flex flex-col truncate">
           <span>{club.name}</span>
-          <span className="text-xs">{club.handle}</span>
+          <span className="text-xs">{club.displayHandle}</span>
         </div>
       </AutocompleteItem>
     </div>
@@ -51,7 +51,7 @@ const ClubPicker: FC = () => {
     editor.commands.insertMention({
       id: club.id.toString(),
       kind: 'club',
-      value: club.handle
+      value: club.displayHandle
     });
     editor.commands.insertText({ text: ' ' });
   };
@@ -69,9 +69,9 @@ const ClubPicker: FC = () => {
       <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
         {results.map((club) => (
           <ClubItem
-            club={club as ClubProfile}
+            club={club}
             key={club.id}
-            onSelect={() => handleClubInsert(club as ClubProfile)}
+            onSelect={() => handleClubInsert(club)}
           />
         ))}
       </AutocompleteList>
