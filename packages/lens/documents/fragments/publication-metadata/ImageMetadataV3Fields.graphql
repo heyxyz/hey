@@ -1,6 +1,7 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
   id
   content
+  tags
   attributes {
     ...MetadataAttributeFields
   }

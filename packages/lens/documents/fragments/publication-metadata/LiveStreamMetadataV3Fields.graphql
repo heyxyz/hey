@@ -3,6 +3,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   playbackURL
   liveURL
   content
+  tags
   attributes {
     ...MetadataAttributeFields
   }
