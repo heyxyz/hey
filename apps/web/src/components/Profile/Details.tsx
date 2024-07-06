@@ -79,7 +79,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
       <div className="relative -mt-24 size-32 sm:-mt-32 sm:size-52">
         <Image
           alt={profile.id}
-          className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
+          className="size-32 cursor-pointer rounded-full bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           onError={({ currentTarget }) => {

@@ -1,6 +1,7 @@
 import type { MarkupLinkProps } from '@hey/types/misc';
 import type { FC } from 'react';
 
+import ClubPreview from '@components/Shared/ClubPreview';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CLUB_HANDLE_PREFIX } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -24,7 +25,7 @@ const Club: FC<MarkupLinkProps> = ({ title }) => {
         Leafwatch.track(PUBLICATION.CLICK_CLUB, { club: clubHandle });
       }}
     >
-      {clubHandle}
+      <ClubPreview handle={club}>{clubHandle}</ClubPreview>
     </Link>
   );
 };
