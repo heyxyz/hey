@@ -1,6 +1,7 @@
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
   id
   content
+  tags
   attributes {
     ...MetadataAttributeFields
   }

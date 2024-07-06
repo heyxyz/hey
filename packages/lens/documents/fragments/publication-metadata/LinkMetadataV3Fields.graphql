@@ -2,6 +2,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   id
   content
   sharingLink
+  tags
   attributes {
     ...MetadataAttributeFields
   }
