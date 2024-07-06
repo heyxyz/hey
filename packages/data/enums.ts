@@ -11,6 +11,5 @@ export enum ModFeedType {
 }
 
 export enum OpenAction {
-  RentableBillboard = 'Rentable Billboard',
   Swap = 'Swap'
 }
