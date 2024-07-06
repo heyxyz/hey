@@ -6,6 +6,10 @@ const pushWebVitalsToLeafwatch = async (metric: {
   name: string;
   value: number;
 }): Promise<boolean> => {
+  if (location.host !== 'hey.xyz') {
+    return false;
+  }
+
   try {
     const response = await axios.post(`${HEY_API_URL}/leafwatch/vitals`, {
       delta: metric.value,
