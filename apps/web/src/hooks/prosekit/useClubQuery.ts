@@ -48,6 +48,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
 
         setResults(clubsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return results;
