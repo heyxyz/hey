@@ -3,21 +3,17 @@ import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface JoinProps {
   id: string;
-  isMember: boolean;
+  setJoined: (joined: boolean) => void;
+  small: boolean;
 }
 
-const Join: FC<JoinProps> = ({ id, isMember }) => {
+const Join: FC<JoinProps> = ({ id, setJoined, small }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [joined, setJoined] = useState(isMember);
-
-  useEffect(() => {
-    setJoined(isMember);
-  }, [isMember]);
 
   const handleJoin = async () => {
     try {
@@ -40,11 +36,12 @@ const Join: FC<JoinProps> = ({ id, isMember }) => {
   return (
     <Button
       aria-label="Join"
-      disabled={isLoading || joined}
+      disabled={isLoading}
       onClick={handleJoin}
       outline
+      size={small ? 'sm' : 'md'}
     >
-      {joined ? 'Joined' : 'Join'}
+      Join
     </Button>
   );
 };

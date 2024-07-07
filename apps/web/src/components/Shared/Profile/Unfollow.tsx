@@ -32,14 +32,14 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 interface UnfollowProps {
   buttonClassName: string;
   profile: Profile;
-  small?: boolean;
+  small: boolean;
   title: string;
 }
 
 const Unfollow: FC<UnfollowProps> = ({
   buttonClassName,
   profile,
-  small = false,
+  small,
   title
 }) => {
   const { pathname } = useRouter();

@@ -16,14 +16,14 @@ import FollowModule from './FollowModule';
 interface SuperFollowProps {
   buttonClassName: string;
   profile: Profile;
-  small?: boolean;
+  small: boolean;
   title: string;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
   buttonClassName,
   profile,
-  small = false,
+  small,
   title
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
