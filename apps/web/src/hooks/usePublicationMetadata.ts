@@ -13,6 +13,7 @@ import { usePublicationAttributesStore } from 'src/store/non-persisted/publicati
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
 import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
 import { v4 as uuid } from 'uuid';
 
@@ -21,6 +22,7 @@ interface UsePublicationMetadataProps {
 }
 
 const usePublicationMetadata = () => {
+  const { tags } = usePublicationStore();
   const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
   const { audioPublication } = usePublicationAudioStore();
   const { license } = usePublicationLicenseStore();
@@ -43,7 +45,8 @@ const usePublicationMetadata = () => {
             ? [...(baseMetadata.attributes || []), ...(attributes || [])]
             : undefined,
         id: uuid(),
-        locale: getUserLocale()
+        locale: getUserLocale(),
+        tags: tags || undefined
       };
 
       // Slice the first attachment because we upload the asset
@@ -125,7 +128,8 @@ const usePublicationMetadata = () => {
       videoThumbnail,
       showLiveVideoEditor,
       liveVideoConfig,
-      license
+      license,
+      tags
     ]
   );
 

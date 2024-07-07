@@ -126,7 +126,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     publicationContent,
     quotedPublication,
     setPublicationContent,
-    setQuotedPublication
+    setQuotedPublication,
+    setTags
   } = usePublicationStore();
 
   // Audio store
@@ -196,6 +197,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const reset = () => {
     editor?.setMarkdown('');
     setPublicationContent('');
+    setTags(null);
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);

@@ -11,13 +11,20 @@ import { usePublicationStore } from 'src/store/non-persisted/publication/usePubl
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-const NewPost: FC = () => {
+interface NewPostProps {
+  tags?: string[];
+}
+
+const NewPost: FC<NewPostProps> = ({ tags }) => {
   const { isReady, push, query } = useRouter();
   const { currentProfile } = useProfileStore();
   const { setShowNewPostModal } = useGlobalModalStateStore();
-  const { setPublicationContent } = usePublicationStore();
+  const { setPublicationContent, setTags } = usePublicationStore();
 
   const openModal = () => {
+    if (tags) {
+      setTags(tags);
+    }
     setShowNewPostModal(true);
   };
 
