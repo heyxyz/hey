@@ -1,31 +1,28 @@
+import type { Club } from '@hey/types/club';
+
 import { Button } from '@hey/ui';
 import { type FC, useEffect, useState } from 'react';
 
 import Join from './Join';
 
 interface JoinLeaveButtonProps {
-  id: string;
-  isMember: boolean;
+  club: Club;
   small?: boolean;
 }
 
-const JoinLeaveButton: FC<JoinLeaveButtonProps> = ({
-  id,
-  isMember,
-  small = false
-}) => {
-  const [joined, setJoined] = useState(isMember);
+const JoinLeaveButton: FC<JoinLeaveButtonProps> = ({ club, small = false }) => {
+  const [joined, setJoined] = useState(club.isMember);
 
   useEffect(() => {
-    setJoined(isMember);
-  }, [isMember]);
+    setJoined(club.isMember);
+  }, [club.isMember]);
 
   return joined ? (
     <Button aria-label="Joined" disabled outline size={small ? 'sm' : 'md'}>
       Joined
     </Button>
   ) : (
-    <Join id={id} setJoined={setJoined} small={small} />
+    <Join id={club.id} setJoined={setJoined} small={small} />
   );
 };
 

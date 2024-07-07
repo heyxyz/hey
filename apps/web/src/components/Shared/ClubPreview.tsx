@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
+import JoinLeaveButton from './Club/JoinLeaveButton';
 import Markup from './Markup';
 import Slug from './Slug';
 
@@ -112,6 +113,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
       <div className="space-y-3 p-4">
         <div className="flex items-center justify-between">
           <UserAvatar />
+          <JoinLeaveButton club={club} small />
         </div>
         <UserName />
         {club.description && (
