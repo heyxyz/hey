@@ -32,14 +32,14 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 interface FollowProps {
   buttonClassName: string;
   profile: Profile;
-  small?: boolean;
+  small: boolean;
   title: string;
 }
 
 const Follow: FC<FollowProps> = ({
   buttonClassName,
   profile,
-  small = false,
+  small,
   title
 }) => {
   const { pathname } = useRouter();
