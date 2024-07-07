@@ -2,6 +2,7 @@ import type { Club } from '@hey/types/club';
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
+import NewPost from '@components/Composer/Post/New';
 import Cover from '@components/Shared/Cover';
 import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
@@ -97,7 +98,15 @@ const ViewClub: NextPage = () => {
           {showMembers ? (
             <Members clubId={club.id} handle={club.handle} />
           ) : (
-            <Feed handle={club.handle} />
+            <>
+              <NewPost
+                tags={[
+                  `orbcommunities${club.handle}`,
+                  `heyclubs${club.handle}`
+                ]}
+              />
+              <Feed handle={club.handle} />
+            </>
           )}
         </GridItemEight>
       </GridLayout>

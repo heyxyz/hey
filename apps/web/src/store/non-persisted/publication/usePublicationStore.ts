@@ -10,6 +10,8 @@ interface State {
   setDraftId: (draftId: null | string) => void;
   setPublicationContent: (publicationContent: string) => void;
   setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
+  setTags: (tags: null | string[]) => void;
+  tags: null | string[];
 }
 
 const store = create<State>((set) => ({
@@ -20,7 +22,9 @@ const store = create<State>((set) => ({
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),
   setQuotedPublication: (quotedPublication) =>
-    set(() => ({ quotedPublication }))
+    set(() => ({ quotedPublication })),
+  setTags: (tags) => set(() => ({ tags })),
+  tags: null
 }));
 
 export const usePublicationStore = createTrackedSelector(store);
