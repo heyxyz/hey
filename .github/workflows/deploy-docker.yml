@@ -27,7 +27,7 @@ jobs:
           docker_file: ./apps/api/Dockerfile
 
       - name: Trigger API Deployment 🚀
-        uses: indiesdev/curl@v1.1
+        uses: indiesdev/curl@v1
         with:
           url: 'https://redeploy.heyxyz.workers.dev/?secret=${{ secrets.SECRET }}'
           method: 'GET'
