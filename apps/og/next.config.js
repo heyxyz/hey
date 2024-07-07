@@ -15,7 +15,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 's-maxage=172800, stale-while-revalidate=86400'
+            value:
+              's-maxage=172800, max-age=172800, stale-while-revalidate=86400'
           },
           { key: 'X-Hey-Version', value: COMMIT_SHA },
           { key: 'X-Hey-Deployment', value: DEPLOYMENT_ID }
@@ -24,7 +25,8 @@ const nextConfig = {
       }
     ];
   },
-  poweredByHeader: false
+  poweredByHeader: false,
+  reactStrictMode: true
 };
 
 module.exports = nextConfig;
