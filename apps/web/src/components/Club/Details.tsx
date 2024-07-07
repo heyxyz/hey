@@ -53,7 +53,7 @@ const Details: FC<DetailsProps> = ({ club }) => {
           <div className="text-xl">{humanize(club.totalMembers)}</div>
           <div className="ld-text-gray-500">Members</div>
         </Link>
-        <JoinLeaveButton id={club.id} isMember={club.isMember} />
+        <JoinLeaveButton club={club} />
       </div>
     </div>
   );
