@@ -9,7 +9,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup pnpm 🌸
-      uses: pnpm/action-setup@v2.2.4
+      uses: pnpm/action-setup@v4.0.0
 
     - name: Setup node 🍀
       uses: actions/setup-node@v3
