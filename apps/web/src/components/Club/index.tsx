@@ -99,7 +99,7 @@ const ViewClub: NextPage = () => {
             <Members clubId={club.id} handle={club.handle} />
           ) : (
             <>
-              {club.isMember && (
+              {currentProfile && club.isMember && (
                 <NewPost
                   tags={[
                     `orbcommunities${club.handle}`,
