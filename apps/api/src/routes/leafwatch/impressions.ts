@@ -69,10 +69,10 @@ export const post: Handler = async (req, res) => {
       values
     });
     logger.info(
-      `Ingested ${result.summary?.result_rows} impressions to Leafwatch - ${result.query_id}`
+      `Ingested ${result.summary?.result_rows} impressions to Leafwatch`
     );
 
-    return res.sendStatus(200);
+    return res.status(200).json({ id: result.query_id, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
