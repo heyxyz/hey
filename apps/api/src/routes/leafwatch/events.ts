@@ -119,10 +119,10 @@ export const post: Handler = async (req, res) => {
     });
 
     logger.info(
-      `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
+      `Ingested event to Leafwatch - ${values.name} - ${values.actor} - ${result.query_id}`
     );
 
-    return res.status(200).json({ id: result.query_id, success: true });
+    return res.status(200);
   } catch (error) {
     return catchedError(res, error);
   }
