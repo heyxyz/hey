@@ -68,7 +68,6 @@ export const get: Handler = async (_, res) => {
         deployment: process.env.RAILWAY_DEPLOYMENT_ID || 'unknown',
         snapshot: process.env.RAILWAY_SNAPSHOT_ID || 'unknown'
       },
-      ping: 'pong',
       responseTimes: {
         clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
         hey: `${Number(heyTime / BigInt(1000000))}ms`,
