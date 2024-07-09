@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';

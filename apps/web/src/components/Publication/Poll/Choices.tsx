@@ -2,7 +2,7 @@ import type { Poll } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   Bars3BottomLeftIcon,

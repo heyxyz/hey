@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import errorToast from '@helpers/errorToast';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HeyTipping } from '@hey/abis';
 import { Errors } from '@hey/data';

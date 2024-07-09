@@ -1,22 +1,20 @@
-import type { Handler } from 'express';
+import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import { notAllowed } from 'src/helpers/responses';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 
-export const get: Handler = async (req, res) => {
-  const validateIsStaffStatus = await validateIsStaff(req);
-  if (validateIsStaffStatus !== 200) {
-    return notAllowed(res, validateIsStaffStatus);
-  }
+export const get = [
+  validateLensAccount,
+  validateIsStaff,
+  async (_: Request, res: Response) => {
+    try {
+      const client = createClickhouseClient();
 
-  try {
-    const client = createClickhouseClient();
-
-    const queries: string[] = [
-      `
+      const queries: string[] = [
+        `
         SELECT
           COUNTIf(toDateTime(created) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
           COUNTIf(toDate(created) = today()) AS today,
@@ -26,7 +24,7 @@ export const get: Handler = async (req, res) => {
           COUNT(*) AS all_time
         FROM events
       `,
-      `
+        `
         SELECT
           COUNTIf(toDateTime(viewed_at) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
           COUNTIf(toDate(viewed_at) = today()) AS today,
@@ -36,7 +34,7 @@ export const get: Handler = async (req, res) => {
           COUNT(*) AS all_time
         FROM impressions
       `,
-      `
+        `
         SELECT name, COUNT(*) AS count
         FROM events
         WHERE toDate(created) = today()
@@ -44,7 +42,7 @@ export const get: Handler = async (req, res) => {
         ORDER BY count DESC
         LIMIT 10
       `,
-      `
+        `
         SELECT 
           toStartOfInterval(created, INTERVAL 10 MINUTE) AS timestamp,
           COUNT(*) AS count
@@ -53,7 +51,7 @@ export const get: Handler = async (req, res) => {
         GROUP BY timestamp
         ORDER BY timestamp
       `,
-      `
+        `
         SELECT 
           toStartOfInterval(viewed_at, INTERVAL 10 MINUTE) AS timestamp,
           COUNT(*) AS count
@@ -62,7 +60,7 @@ export const get: Handler = async (req, res) => {
         GROUP BY timestamp
         ORDER BY timestamp
       `,
-      `
+        `
         SELECT
           CAST(created AS date) AS date,
           COUNT(DISTINCT COALESCE(actor, fingerprint, ip)) AS dau,
@@ -75,7 +73,7 @@ export const get: Handler = async (req, res) => {
         GROUP BY CAST(created AS date)
         ORDER BY CAST(created AS date) DESC    
       `,
-      `
+        `
         SELECT
           CAST(viewed_at AS date) AS date,
           COUNT(*) AS impressions
@@ -86,7 +84,7 @@ export const get: Handler = async (req, res) => {
         GROUP BY CAST(viewed_at AS date)
         ORDER BY CAST(viewed_at AS date) DESC    
       `,
-      `
+        `
         SELECT
           referrer,
           COUNT(DISTINCT COALESCE(actor, fingerprint, ip)) AS count
@@ -96,35 +94,36 @@ export const get: Handler = async (req, res) => {
         ORDER BY count DESC
         LIMIT 10
       `
-    ];
+      ];
 
-    // Execute all queries concurrently
-    const results: any = await Promise.all(
-      queries.map((query) =>
-        client
-          .query({ format: 'JSONEachRow', query })
-          .then((rows) => rows.json())
-      )
-    );
+      // Execute all queries concurrently
+      const results: any = await Promise.all(
+        queries.map((query) =>
+          client
+            .query({ format: 'JSONEachRow', query })
+            .then((rows) => rows.json())
+        )
+      );
 
-    logger.info('Fetched Leafwatch stats');
+      logger.info('Fetched Leafwatch stats');
 
-    return res.status(200).json({
-      dau: results[5].map((row: any, index: number) => ({
-        date: row.date,
-        dau: row.dau,
-        events: row.events,
-        impressions: results[6][index].impressions
-      })),
-      events: results[0][0],
-      eventsToday: results[3],
-      impressions: results[1][0],
-      impressionsToday: results[4],
-      referrers: results[7],
-      success: true,
-      topEvents: results[2]
-    });
-  } catch (error) {
-    return catchedError(res, error);
+      return res.status(200).json({
+        dau: results[5].map((row: any, index: number) => ({
+          date: row.date,
+          dau: row.dau,
+          events: row.events,
+          impressions: results[6][index].impressions
+        })),
+        events: results[0][0],
+        eventsToday: results[3],
+        impressions: results[1][0],
+        impressionsToday: results[4],
+        referrers: results[7],
+        success: true,
+        topEvents: results[2]
+      });
+    } catch (error) {
+      return catchedError(res, error);
+    }
   }
-};
+];
