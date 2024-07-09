@@ -2,7 +2,7 @@ import type { Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -94,7 +94,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
               showTransaction.frame?.postUrl,
             pubId: publicationId
           },
-          { headers: getAuthApiHeaders() }
+          { headers: getAuthApiHeadersWithAccessToken() }
         );
 
       if (!postedData.frame) {

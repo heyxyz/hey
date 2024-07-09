@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
