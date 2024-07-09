@@ -12,10 +12,7 @@ const createRateLimiter = (window: number, max: number) => {
   return rateLimit({
     handler: (req, res) =>
       catchedError(res, new Error(`Too many requests - ${req.path}`), 429),
-    keyGenerator: (req) => {
-      console.log('Yoginth', hashedIp(req), getIp(req));
-      return hashedIp(req);
-    },
+    keyGenerator: (req) => hashedIp(req),
     legacyHeaders: false,
     max, // Maximum number of requests allowed within the window
     standardHeaders: true,
