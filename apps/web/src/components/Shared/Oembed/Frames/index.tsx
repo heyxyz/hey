@@ -1,7 +1,7 @@
 import type { FrameTransaction, Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { BoltIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
@@ -111,7 +111,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           pubId: publicationId,
           state
         },
-        { headers: getAuthApiHeaders() }
+        { headers: getAuthApiHeadersWithAccessToken() }
       );
 
       if (!data.frame) {
@@ -143,7 +143,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           pubId: publicationId,
           state
         },
-        { headers: getAuthApiHeaders() }
+        { headers: getAuthApiHeadersWithAccessToken() }
       );
 
       const txnData = data.frame.transaction;

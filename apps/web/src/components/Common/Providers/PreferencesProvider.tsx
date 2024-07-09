@@ -1,7 +1,7 @@
 import type { FiatRate } from '@hey/types/lens';
 import type { FC } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import getCurrentSession from '@helpers/getCurrentSession';
 import { HEY_API_URL, STALE_TIMES } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
@@ -38,10 +38,7 @@ const PreferencesProvider: FC = () => {
   const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
 
   const getPreferencesData = async () => {
-    const preferences = await getPreferences(
-      sessionProfileId,
-      getAuthApiHeaders()
-    );
+    const preferences = await getPreferences(getAuthApiHeaders());
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
     setAppIcon(preferences.appIcon);

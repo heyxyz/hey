@@ -2,7 +2,7 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   HEY_API_URL,
@@ -32,7 +32,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getPreferences(profile.id, getAuthApiHeaders()),
+    queryFn: () => getPreferences(getAuthApiHeaders()),
     queryKey: ['getPreferences', profile.id]
   });
 

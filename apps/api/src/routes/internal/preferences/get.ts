@@ -2,24 +2,23 @@ import type { Preferences } from '@hey/types/hey';
 import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
+import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [
   validateLensAccount,
+  validateIsStaff,
   async (req: Request, res: Response) => {
+    const { id } = req.query;
+
+    if (!id) {
+      return noBody(res);
+    }
+
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
-      const payload = parseJwt(identityToken);
-      const { id } = payload;
-
-      if (!id) {
-        return noBody(res);
-      }
-
       const [preference, features, email, membershipNft] = await heyPg.multi(
         `
         SELECT * FROM "Preference" WHERE id = $1;

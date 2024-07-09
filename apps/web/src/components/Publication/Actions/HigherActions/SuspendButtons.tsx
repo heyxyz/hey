@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { ChatBubbleLeftIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';

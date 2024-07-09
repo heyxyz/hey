@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Alert } from '@hey/ui';
 import axios from 'axios';
