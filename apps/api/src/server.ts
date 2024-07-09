@@ -5,32 +5,37 @@ import express from 'express';
 import { router } from 'express-file-routing';
 import ViteExpress from 'vite-express';
 
+import limitDomains from './helpers/middlewares/limitDomains';
+
 // Load environment variables
 dotenv.config({ override: true });
 
 const app = express();
 
-// Middleware configuration
-app.use(cors());
 app.disable('x-powered-by');
 
+// Middleware configuration
+app.use(cors());
+app.use(limitDomains);
+app.use(express.json({ limit: '1mb' }));
+
+//  Increase request timeout
+app.use((req, _, next) => {
+  req.setTimeout(120000); // 2 minutes
+  next();
+});
+
+// Log request aborted
+app.use((req, _, next) => {
+  req.on('aborted', () => {
+    logger.error('Request aborted by the client');
+  });
+  next();
+});
+
 const setupRoutes = async () => {
-  //  Increase request timeout
-  app.use((req, _, next) => {
-    req.setTimeout(120000); // 2 minutes
-    next();
-  });
-
-  // Log request aborted
-  app.use((req, _, next) => {
-    req.on('aborted', () => {
-      logger.error('Request aborted by the client');
-    });
-    next();
-  });
-
   // Route configuration
-  app.use('/', express.json({ limit: '1mb' }), await router());
+  app.use('/', await router());
 
   // Start the server
   ViteExpress.listen(app, 4784, () => {
