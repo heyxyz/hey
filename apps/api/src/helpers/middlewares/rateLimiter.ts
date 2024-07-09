@@ -27,7 +27,7 @@ export const rateLimiter = ({
   requests: number;
   within: number;
 }) => {
-  const rateLimiter = createRateLimiter(requests, within);
+  const rateLimiter = createRateLimiter(within, requests);
 
   return (req: Request, res: Response, next: NextFunction) => {
     rateLimiter(req, res, next);
