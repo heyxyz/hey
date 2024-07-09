@@ -1,10 +1,10 @@
 import type { Club } from '@hey/types/club';
 import type { FC } from 'react';
 
-import { Button } from '@hey/ui';
 import { useEffect, useState } from 'react';
 
 import Join from './Join';
+import Leave from './Leave';
 
 interface JoinLeaveButtonProps {
   club: Club;
@@ -19,9 +19,7 @@ const JoinLeaveButton: FC<JoinLeaveButtonProps> = ({ club, small = false }) => {
   }, [club.isMember]);
 
   return joined ? (
-    <Button aria-label="Joined" disabled outline size={small ? 'sm' : 'md'}>
-      Joined
-    </Button>
+    <Leave id={club.id} setJoined={setJoined} small={small} />
   ) : (
     <Join id={club.id} setJoined={setJoined} small={small} />
   );
