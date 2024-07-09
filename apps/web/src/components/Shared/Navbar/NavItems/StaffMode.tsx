@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';

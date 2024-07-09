@@ -1,7 +1,7 @@
 import type { AllowedToken } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';

@@ -3,7 +3,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { useEditorContext } from '@components/Composer/Editor';
 import Loader from '@components/Shared/Loader';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';

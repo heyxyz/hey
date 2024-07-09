@@ -1,6 +1,6 @@
 import type { Club } from '@hey/types/club';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
       .post(
         `${HEY_API_URL}/clubs/get`,
         { limit: 10, profile_id: currentProfile?.id, query },
-        { headers: getAuthApiHeaders() }
+        { headers: getAuthApiHeadersWithAccessToken() }
       )
       .then(({ data }) => {
         const search = data.data;

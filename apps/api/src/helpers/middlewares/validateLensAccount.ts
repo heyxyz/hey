@@ -1,6 +1,11 @@
-import type { Request } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
-import validateLensToken from './validateLensToken';
+import { Errors } from '@hey/data';
+import LensEndpoint from '@hey/data/lens-endpoints';
+import axios from 'axios';
+
+import catchedError from '../catchedError';
+import { HEY_USER_AGENT } from '../constants';
 
 /**
  * Middleware to validate Lens account
@@ -8,17 +13,45 @@ import validateLensToken from './validateLensToken';
  * @returns Response
  */
 const validateLensAccount = async (
-  request: Request
-): Promise<200 | 400 | 401 | 500> => {
+  request: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const identityToken = request.headers['x-identity-token'] as string;
   const network = request.headers['x-lens-network'] as string;
   const allowedNetworks = ['mainnet', 'testnet'];
 
   if (!identityToken || !network || !allowedNetworks.includes(network)) {
-    return 400;
+    return catchedError(res, new Error(Errors.Unauthorized), 401);
   }
 
-  return await validateLensToken(identityToken, network);
+  const isMainnet = network === 'mainnet';
+  try {
+    const { data } = await axios.post(
+      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
+      {
+        query: `
+          query Verify {
+            verify(request: { identityToken: "${identityToken}" })
+          }
+        `
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'User-agent': HEY_USER_AGENT
+        }
+      }
+    );
+
+    if (data.data.verify) {
+      return next();
+    }
+
+    return catchedError(res, new Error(Errors.Unauthorized), 401);
+  } catch {
+    return catchedError(res, new Error(Errors.SomethingWentWrong));
+  }
 };
 
 export default validateLensAccount;
