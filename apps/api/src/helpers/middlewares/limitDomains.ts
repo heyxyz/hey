@@ -15,8 +15,7 @@ const allowedDomains = [
 const pathsToSkip = ['/health', '/meta', '/sitemap'];
 
 const limitDomains = (req: Request, res: Response, next: NextFunction) => {
-  // Check if the path should be skipped
-  if (pathsToSkip.includes(req.path)) {
+  if (pathsToSkip.some((path) => req.path.startsWith(path))) {
     return next();
   }
 
