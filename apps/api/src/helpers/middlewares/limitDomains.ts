@@ -12,7 +12,14 @@ const allowedDomains = [
   'http://localhost:4783'
 ];
 
+const pathsToSkip = ['/health', '/meta', '/sitemap'];
+
 const limitDomains = (req: Request, res: Response, next: NextFunction) => {
+  // Check if the path should be skipped
+  if (pathsToSkip.includes(req.path)) {
+    return next();
+  }
+
   const origin = req.headers.origin || req.headers.referer;
 
   if (!origin || !allowedDomains.includes(origin)) {
