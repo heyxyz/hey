@@ -19,7 +19,10 @@ const limitDomains = (req: Request, res: Response, next: NextFunction) => {
     return next();
   }
 
-  const origin = req.headers.origin || req.headers.referer;
+  const origin = (req.headers.origin || req.headers.referer || '').replace(
+    /\/$/,
+    ''
+  );
 
   if (!origin || !allowedDomains.includes(origin)) {
     logger.error(`Origin not allowed - ${origin}`);
