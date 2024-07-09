@@ -13,11 +13,11 @@ import { STAFF_FEATURE_ID } from '../constants';
  * @returns Response
  */
 const validateIsStaff = async (
-  request: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const identityToken = request.headers['x-identity-token'] as string;
+  const identityToken = req.headers['x-identity-token'] as string;
   if (!identityToken) {
     return catchedError(res, new Error(Errors.Unauthorized), 401);
   }

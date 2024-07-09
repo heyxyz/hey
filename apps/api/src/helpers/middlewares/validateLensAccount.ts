@@ -13,12 +13,12 @@ import { HEY_USER_AGENT } from '../constants';
  * @returns Response
  */
 const validateLensAccount = async (
-  request: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const identityToken = request.headers['x-identity-token'] as string;
-  const network = request.headers['x-lens-network'] as string;
+  const identityToken = req.headers['x-identity-token'] as string;
+  const network = req.headers['x-lens-network'] as string;
   const allowedNetworks = ['mainnet', 'testnet'];
 
   if (!identityToken || !network || !allowedNetworks.includes(network)) {
