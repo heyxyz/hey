@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import {
   BanknotesIcon,
   HandRaisedIcon,

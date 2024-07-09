@@ -1,13 +1,13 @@
 import type { Response } from 'express';
 
-import { Errors } from '@hey/data/errors';
 import logger from '@hey/helpers/logger';
 
-const catchedError = (res: Response, error: any) => {
+const catchedError = (res: Response, error: any, status?: number) => {
+  const statusCode = status || 500;
   logger.error(error);
 
-  return res.status(500).json({
-    error: Errors.SomethingWentWrong,
+  return res.status(statusCode).json({
+    error: statusCode < 500 ? 'client_error' : 'server_error',
     message: error.message,
     success: false
   });

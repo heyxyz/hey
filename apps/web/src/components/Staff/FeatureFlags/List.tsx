@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';

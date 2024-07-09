@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 import Video from '@components/Shared/Video';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import {
   ClipboardDocumentIcon,
   SignalIcon,

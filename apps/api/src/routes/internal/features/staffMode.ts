@@ -1,4 +1,4 @@
-import type { Handler } from 'express';
+import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
@@ -6,7 +6,8 @@ import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import { invalidBody, noBody, notAllowed } from 'src/helpers/responses';
+import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import { invalidBody, noBody } from 'src/helpers/responses';
 import { boolean, object } from 'zod';
 
 type ExtensionRequest = {
@@ -17,59 +18,58 @@ const validationSchema = object({
   enabled: boolean()
 });
 
-export const post: Handler = async (req, res) => {
-  const { body } = req;
+export const post = [
+  validateLensAccount,
+  validateIsStaff,
+  async (req: Request, res: Response) => {
+    const { body } = req;
 
-  if (!body) {
-    return noBody(res);
-  }
+    if (!body) {
+      return noBody(res);
+    }
 
-  const validation = validationSchema.safeParse(body);
+    const validation = validationSchema.safeParse(body);
 
-  if (!validation.success) {
-    return invalidBody(res);
-  }
+    if (!validation.success) {
+      return invalidBody(res);
+    }
 
-  const validateIsStaffStatus = await validateIsStaff(req);
-  if (validateIsStaffStatus !== 200) {
-    return notAllowed(res, validateIsStaffStatus);
-  }
+    const { enabled } = body as ExtensionRequest;
 
-  const { enabled } = body as ExtensionRequest;
+    try {
+      const identityToken = req.headers['x-identity-token'] as string;
+      const payload = parseJwt(identityToken);
+      const profile_id = payload.id;
 
-  try {
-    const identityToken = req.headers['x-identity-token'] as string;
-    const payload = parseJwt(identityToken);
-    const profile_id = payload.id;
-
-    if (enabled) {
-      await heyPg.query(
-        `
+      if (enabled) {
+        await heyPg.query(
+          `
           INSERT INTO "ProfileFeature" ("profileId", "featureId")
           VALUES ($1, $2)
           ON CONFLICT ("profileId", "featureId") DO UPDATE
           SET enabled = true, "createdAt" = now()
         `,
-        [profile_id, STAFF_MODE_FEATURE_ID]
-      );
+          [profile_id, STAFF_MODE_FEATURE_ID]
+        );
 
-      logger.info(`Enabled staff mode for ${profile_id}`);
+        logger.info(`Enabled staff mode for ${profile_id}`);
 
-      return res.status(200).json({ enabled, success: true });
-    }
+        return res.status(200).json({ enabled, success: true });
+      }
 
-    await heyPg.query(
-      `
+      await heyPg.query(
+        `
         DELETE FROM "ProfileFeature"
         WHERE "profileId" = $1 AND "featureId" = $2
       `,
-      [profile_id, STAFF_MODE_FEATURE_ID]
-    );
+        [profile_id, STAFF_MODE_FEATURE_ID]
+      );
 
-    logger.info(`Disabled staff mode for ${profile_id}`);
+      logger.info(`Disabled staff mode for ${profile_id}`);
 
-    return res.status(200).json({ enabled, success: true });
-  } catch (error) {
-    return catchedError(res, error);
+      return res.status(200).json({ enabled, success: true });
+    } catch (error) {
+      return catchedError(res, error);
+    }
   }
-};
+];

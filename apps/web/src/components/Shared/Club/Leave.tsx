@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
@@ -23,7 +23,7 @@ const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
       await axios.post(
         `${HEY_API_URL}/clubs/leave`,
         { id },
-        { headers: getAuthApiHeaders() }
+        { headers: getAuthApiHeadersWithAccessToken() }
       );
 
       toast.success('Left club successfully!');

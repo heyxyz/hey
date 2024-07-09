@@ -1,16 +1,22 @@
 import { IS_MAINNET } from '@hey/data/constants';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
+const commonHeaders = {
+  'X-Identity-Token': hydrateAuthTokens().identityToken,
+  'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+};
+
 /**
  * Get auth api headers
  * @returns Auth api headers
  */
-const getAuthApiHeaders = () => {
+export const getAuthApiHeadersWithAccessToken = () => {
   return {
     'X-Access-Token': hydrateAuthTokens().accessToken,
-    'X-Identity-Token': hydrateAuthTokens().identityToken,
-    'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+    ...commonHeaders
   };
 };
 
-export default getAuthApiHeaders;
+export const getAuthApiHeaders = () => {
+  return commonHeaders;
+};

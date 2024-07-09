@@ -1,7 +1,7 @@
 import type { Club } from '@hey/types/club';
 import type { FC, ReactNode } from 'react';
 
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { HEY_API_URL } from '@hey/data/constants';
 import getMentions from '@hey/helpers/getMentions';
@@ -33,7 +33,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/get`,
         { club_handle: handle, profile_id: currentProfile?.id },
-        { headers: getAuthApiHeaders() }
+        { headers: getAuthApiHeadersWithAccessToken() }
       );
 
       return response.data.data.items?.[0];

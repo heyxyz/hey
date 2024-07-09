@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import Cover from '@components/Shared/Cover';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
@@ -48,7 +48,7 @@ const ViewClub: NextPage = () => {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/get`,
         { club_handle: handle, profile_id: currentProfile?.id },
-        { headers: getAuthApiHeaders() }
+        { headers: getAuthApiHeadersWithAccessToken() }
       );
 
       return response.data.data.items?.[0];
