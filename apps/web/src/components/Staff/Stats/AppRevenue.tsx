@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';

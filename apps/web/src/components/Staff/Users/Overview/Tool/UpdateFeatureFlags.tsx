@@ -2,7 +2,7 @@ import type { Feature } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';

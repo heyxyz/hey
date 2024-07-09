@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
-import getAuthApiHeaders from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
