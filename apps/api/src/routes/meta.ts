@@ -1,4 +1,4 @@
-import type { Handler } from 'express';
+import type { Request, Response } from 'express';
 
 import axios from 'axios';
 import heyPg from 'src/db/heyPg';
@@ -6,6 +6,7 @@ import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SCORE_WORKER_URL } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
@@ -16,66 +17,69 @@ const measureQueryTime = async (
   return [result, endTime - startTime];
 };
 
-export const get: Handler = async (_, res) => {
-  try {
-    // Prepare promises with timings embedded
-    const heyPromise = measureQueryTime(() =>
-      heyPg.query(`SELECT 1 as count;`)
-    );
-    const lensPromise = measureQueryTime(() =>
-      lensPg.query(`SELECT 1 as count;`)
-    );
-    const clickhouseClient = createClickhouseClient();
-    const clickhousePromise = measureQueryTime(() =>
-      clickhouseClient.query({
-        format: 'JSONEachRow',
-        query: 'SELECT 1 as count;'
-      })
-    );
-    const scoreWorkerPromise = measureQueryTime(() =>
-      axios.get(SCORE_WORKER_URL, {
-        params: { id: '0x0d', secret: process.env.SECRET }
-      })
-    );
+export const get = [
+  rateLimiter({ requests: 50, within: 1 }),
+  async (_: Request, res: Response) => {
+    try {
+      // Prepare promises with timings embedded
+      const heyPromise = measureQueryTime(() =>
+        heyPg.query(`SELECT 1 as count;`)
+      );
+      const lensPromise = measureQueryTime(() =>
+        lensPg.query(`SELECT 1 as count;`)
+      );
+      const clickhouseClient = createClickhouseClient();
+      const clickhousePromise = measureQueryTime(() =>
+        clickhouseClient.query({
+          format: 'JSONEachRow',
+          query: 'SELECT 1 as count;'
+        })
+      );
+      const scoreWorkerPromise = measureQueryTime(() =>
+        axios.get(SCORE_WORKER_URL, {
+          params: { id: '0x0d', secret: process.env.SECRET }
+        })
+      );
 
-    // Execute all promises simultaneously
-    const [heyResult, lensResult, clickhouseResult, scoreWorkerResult] =
-      await Promise.all([
-        heyPromise,
-        lensPromise,
-        clickhousePromise,
-        scoreWorkerPromise
-      ]);
+      // Execute all promises simultaneously
+      const [heyResult, lensResult, clickhouseResult, scoreWorkerResult] =
+        await Promise.all([
+          heyPromise,
+          lensPromise,
+          clickhousePromise,
+          scoreWorkerPromise
+        ]);
 
-    // Check responses
-    const [hey, heyTime] = heyResult;
-    const [lens, lensTime] = lensResult;
-    const [clickhouseRows, clickhouseTime] = clickhouseResult;
-    const [scoreWorker, scoreWorkerTime] = scoreWorkerResult;
+      // Check responses
+      const [hey, heyTime] = heyResult;
+      const [lens, lensTime] = lensResult;
+      const [clickhouseRows, clickhouseTime] = clickhouseResult;
+      const [scoreWorker, scoreWorkerTime] = scoreWorkerResult;
 
-    if (
-      Number(hey[0].count) !== 1 ||
-      Number(lens[0].count) !== 1 ||
-      scoreWorker.data.split(' ')[0] !== 'WITH' ||
-      !clickhouseRows.json
-    ) {
-      return res.status(500).json({ success: false });
-    }
-
-    // Format response times in milliseconds and return
-    return res.status(200).json({
-      meta: {
-        deployment: process.env.RAILWAY_DEPLOYMENT_ID || 'unknown',
-        snapshot: process.env.RAILWAY_SNAPSHOT_ID || 'unknown'
-      },
-      responseTimes: {
-        clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
-        hey: `${Number(heyTime / BigInt(1000000))}ms`,
-        lens: `${Number(lensTime / BigInt(1000000))}ms`,
-        scoreWorker: `${Number(scoreWorkerTime / BigInt(1000000))}ms`
+      if (
+        Number(hey[0].count) !== 1 ||
+        Number(lens[0].count) !== 1 ||
+        scoreWorker.data.split(' ')[0] !== 'WITH' ||
+        !clickhouseRows.json
+      ) {
+        return res.status(500).json({ success: false });
       }
-    });
-  } catch (error) {
-    return catchedError(res, error);
+
+      // Format response times in milliseconds and return
+      return res.status(200).json({
+        meta: {
+          deployment: process.env.RAILWAY_DEPLOYMENT_ID || 'unknown',
+          snapshot: process.env.RAILWAY_SNAPSHOT_ID || 'unknown'
+        },
+        responseTimes: {
+          clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
+          hey: `${Number(heyTime / BigInt(1000000))}ms`,
+          lens: `${Number(lensTime / BigInt(1000000))}ms`,
+          scoreWorker: `${Number(scoreWorkerTime / BigInt(1000000))}ms`
+        }
+      });
+    } catch (error) {
+      return catchedError(res, error);
+    }
   }
-};
+];
