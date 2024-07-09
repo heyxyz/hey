@@ -11,7 +11,11 @@ const hashedIp = (req: Request): string => sha256(getIp(req)).slice(0, 25);
 const createRateLimiter = (window: number, max: number) => {
   return rateLimit({
     handler: (req, res) =>
-      catchedError(res, new Error(`Too many requests - ${req.path}`), 429),
+      catchedError(
+        res,
+        new Error(`Too many requests - ${req.path} - ${getIp(req)}`),
+        429
+      ),
     keyGenerator: (req) => hashedIp(req),
     legacyHeaders: false,
     max, // Maximum number of requests allowed within the window
