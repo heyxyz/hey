@@ -78,23 +78,6 @@ const LeafwatchStats: FC = () => {
     refetchInterval: 1000
   });
 
-  const getScoreVolume = async (): Promise<{
-    cached: number;
-    volume: number;
-  }> => {
-    const response = await axios.get(`${HEY_API_URL}/internal/score/volume`, {
-      headers: getAuthApiHeaders()
-    });
-
-    return response.data;
-  };
-
-  const { data: scoreVolumeData } = useQuery({
-    queryFn: getScoreVolume,
-    queryKey: ['getScoreVolume'],
-    refetchInterval: 1000
-  });
-
   useExploreProfilesQuery({
     fetchPolicy: 'no-cache',
     notifyOnNetworkStatusChange: true,
@@ -156,15 +139,6 @@ const LeafwatchStats: FC = () => {
         <CardHeader title="Others" />
         <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
-          <NumberedStat
-            count={scoreVolumeData?.volume.toString() || '0'}
-            name="Score Volume"
-          />
-          <NumberedStat
-            count={scoreVolumeData?.cached.toString() || '0'}
-            name="Score cached for"
-            suffix="profiles"
-          />
         </div>
       </div>
       <EventsToday eventsToday={data.eventsToday} />
