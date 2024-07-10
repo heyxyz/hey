@@ -4,15 +4,28 @@ import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_1_DAY } from 'src/helpers/constants';
+import redisClient from 'src/helpers/redisClient';
 
 export const get: Handler = async (_, res) => {
   try {
+    const cacheKey = 'allowedTokens';
+    const cachedTokens = await redisClient.get(cacheKey);
+
+    if (cachedTokens) {
+      logger.info('(cached) All tokens fetched');
+      return res
+        .status(200)
+        .setHeader('Cache-Control', CACHE_AGE_1_DAY)
+        .json({ result: JSON.parse(cachedTokens), success: true });
+    }
+
     const data = await heyPg.query(`
       SELECT *
       FROM "AllowedToken"
       ORDER BY priority DESC;
     `);
 
+    await redisClient.set(cacheKey, JSON.stringify(data));
     logger.info('All tokens fetched');
 
     return res
