@@ -5,6 +5,7 @@ import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { SUSPENDED_FEATURE_ID } from 'src/helpers/constants';
+import redisClient from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
@@ -15,6 +16,16 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
+    const cacheKey = `profile:${id}`;
+    const cachedProfile = await redisClient.get(cacheKey);
+
+    if (cachedProfile) {
+      logger.info(`(cached) Profile details fetched for ${id}`);
+      return res
+        .status(200)
+        .json({ result: JSON.parse(cachedProfile), success: true });
+    }
+
     const [profileFeature, pinnedPublication] = await heyPg.multi(
       `
         SELECT * FROM "ProfileFeature"
@@ -30,6 +41,7 @@ export const get: Handler = async (req, res) => {
       pinnedPublication: pinnedPublication[0]?.publicationId || null
     };
 
+    await redisClient.set(cacheKey, JSON.stringify(response));
     logger.info(`Profile details fetched for ${id}`);
 
     return res.status(200).json({ result: response, success: true });
