@@ -19,14 +19,14 @@ export const get: Handler = async (req, res) => {
 
   try {
     const cacheKey = `pro:${id}`;
-    const cachedPro = await getRedis(cacheKey);
+    const cachedData = await getRedis(cacheKey);
 
-    if (cachedPro) {
+    if (cachedData) {
       logger.info(`(cached) Fetched pro status for ${id}`);
 
       return res
         .status(200)
-        .json({ result: JSON.parse(cachedPro), success: true });
+        .json({ result: JSON.parse(cachedData), success: true });
     }
 
     const pro = await prisma.pro.findUnique({

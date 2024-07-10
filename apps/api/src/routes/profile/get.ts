@@ -17,13 +17,13 @@ export const get: Handler = async (req, res) => {
 
   try {
     const cacheKey = `profile:${id}`;
-    const cachedProfile = await getRedis(cacheKey);
+    const cachedData = await getRedis(cacheKey);
 
-    if (cachedProfile) {
+    if (cachedData) {
       logger.info(`(cached) Profile details fetched for ${id}`);
       return res
         .status(200)
-        .json({ result: JSON.parse(cachedProfile), success: true });
+        .json({ result: JSON.parse(cachedData), success: true });
     }
 
     const [profileFeature, pinnedPublication] = await heyPg.multi(

@@ -9,14 +9,14 @@ import { getRedis, setRedis } from 'src/helpers/redisClient';
 export const get: Handler = async (_, res) => {
   try {
     const cacheKey = 'verified';
-    const verifiedIds = await getRedis(cacheKey);
+    const cachedData = await getRedis(cacheKey);
 
-    if (verifiedIds) {
+    if (cachedData) {
       logger.info('(cached) Verified profiles fetched');
       return res
         .status(200)
         .setHeader('Cache-Control', CACHE_AGE_30_MINS)
-        .json({ result: JSON.parse(verifiedIds), success: true });
+        .json({ result: JSON.parse(cachedData), success: true });
     }
 
     const data = await heyPg.query(
