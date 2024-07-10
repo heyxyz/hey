@@ -8,7 +8,7 @@ import { getRedis, setRedis } from 'src/helpers/redisClient';
 
 export const get: Handler = async (_, res) => {
   try {
-    const cacheKey = 'allowedTokens';
+    const cacheKey = 'allowed-tokens';
     const cachedData = await getRedis(cacheKey);
 
     if (cachedData) {
