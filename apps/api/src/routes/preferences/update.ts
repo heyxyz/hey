@@ -5,7 +5,7 @@ import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';
-import redisClient from 'src/helpers/redisClient';
+import { delRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { boolean, number, object, string } from 'zod';
 
@@ -48,7 +48,7 @@ export const post = [
         where: { id: payload.id }
       });
 
-      await redisClient.del(`preference:${payload.id}`);
+      await delRedis(`preference:${payload.id}`);
       logger.info(`Updated preferences for ${payload.id}`);
 
       return res.status(200).json({ result: data, success: true });

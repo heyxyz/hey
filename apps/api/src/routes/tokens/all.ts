@@ -4,12 +4,12 @@ import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_1_DAY } from 'src/helpers/constants';
-import redisClient from 'src/helpers/redisClient';
+import { getRedis, setRedis } from 'src/helpers/redisClient';
 
 export const get: Handler = async (_, res) => {
   try {
     const cacheKey = 'allowedTokens';
-    const cachedTokens = await redisClient.get(cacheKey);
+    const cachedTokens = await getRedis(cacheKey);
 
     if (cachedTokens) {
       logger.info('(cached) All tokens fetched');
@@ -25,7 +25,7 @@ export const get: Handler = async (_, res) => {
       ORDER BY priority DESC;
     `);
 
-    await redisClient.set(cacheKey, JSON.stringify(data));
+    await setRedis(cacheKey, data);
     logger.info('All tokens fetched');
 
     return res
