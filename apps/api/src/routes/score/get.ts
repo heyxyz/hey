@@ -78,7 +78,7 @@ export const get: Handler = async (req, res) => {
       new Date() < cachedProfileData.expiresAt
     ) {
       logger.info(
-        `Lens: Fetched profile score from cache for ${id} - ${cachedProfileData.score}`
+        `[Lens] Fetched profile score from cache for ${id} - ${cachedProfileData.score}`
       );
       return res
         .status(200)
@@ -117,7 +117,7 @@ export const get: Handler = async (req, res) => {
     );
 
     logger.info(
-      `Lens: Fetched profile score for ${id} - ${newCachedProfile[0]?.score} - Expires at: ${newCachedProfile[0]?.expiresAt}`
+      `[Lens] Fetched profile score for ${id} - ${newCachedProfile[0]?.score} - Expires at: ${newCachedProfile[0]?.expiresAt}`
     );
 
     return res

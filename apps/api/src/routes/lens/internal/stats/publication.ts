@@ -29,7 +29,7 @@ export const get = [
       GROUP BY app;
     `);
 
-      logger.info('Lens: Fetched publication stats');
+      logger.info('[Lens] Fetched publication stats');
 
       return res.status(200).json({ result: result[0], success: true });
     } catch (error) {
