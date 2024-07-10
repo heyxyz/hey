@@ -7,7 +7,7 @@ import catchedError from 'src/helpers/catchedError';
 import { SCORE_WORKER_URL } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import redisClient from 'src/helpers/redis';
+import redisClient from 'src/helpers/redisClient';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
