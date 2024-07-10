@@ -5,6 +5,7 @@ import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';
+import { delRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { boolean, object, string } from 'zod';
 
@@ -49,6 +50,7 @@ export const post = [
         await prisma.pinnedPublication.delete({ where: { id: payload.id } });
       }
 
+      await delRedis(`profile:${payload.id}`);
       logger.info(`Publication ${id} ${pin ? 'pinned' : 'unpinned'}`);
 
       return res.status(200).json({ id, pin, success: true });
