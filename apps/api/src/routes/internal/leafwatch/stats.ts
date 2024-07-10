@@ -2,7 +2,6 @@ import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import { SWR_CACHE_5_SECOND } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
@@ -108,24 +107,21 @@ export const get = [
 
       logger.info('Fetched Leafwatch stats');
 
-      return res
-        .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_5_SECOND)
-        .json({
-          dau: results[5].map((row: any, index: number) => ({
-            date: row.date,
-            dau: row.dau,
-            events: row.events,
-            impressions: results[6][index].impressions
-          })),
-          events: results[0][0],
-          eventsToday: results[3],
-          impressions: results[1][0],
-          impressionsToday: results[4],
-          referrers: results[7],
-          success: true,
-          topEvents: results[2]
-        });
+      return res.status(200).json({
+        dau: results[5].map((row: any, index: number) => ({
+          date: row.date,
+          dau: row.dau,
+          events: row.events,
+          impressions: results[6][index].impressions
+        })),
+        events: results[0][0],
+        eventsToday: results[3],
+        impressions: results[1][0],
+        impressionsToday: results[4],
+        referrers: results[7],
+        success: true,
+        topEvents: results[2]
+      });
     } catch (error) {
       return catchedError(res, error);
     }

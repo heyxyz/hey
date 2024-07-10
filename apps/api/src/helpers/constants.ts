@@ -15,9 +15,6 @@ export const STAFF_PICK_FEATURE_ID = '73d2f48d-0291-4a36-adc2-9737057ad2b7';
 export const SUSPENDED_FEATURE_ID = '8ed8b26a-279d-4111-9d39-a40164b273a0';
 
 // Cache
-// SWR Cache for 5 second
-export const SWR_CACHE_5_SECOND =
-  'public, s-maxage=5, max-age=1800 stale-while-revalidate';
 // Cache for 30 minutes
 export const CACHE_AGE_30_MINS = 'public, s-maxage=1800, max-age=1800';
 // Cache for 6 hours
