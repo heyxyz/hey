@@ -6,15 +6,15 @@ import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import redisClient from 'src/helpers/redisClient';
+import { delRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { boolean, object, string } from 'zod';
 
 const clearCache = async (profileId: string, featureId: string) => {
-  await redisClient.del(`preference:${profileId}`);
-  await redisClient.del(`profile:${profileId}`);
+  await delRedis(`preference:${profileId}`);
+  await delRedis(`profile:${profileId}`);
   if (featureId === VERIFIED_FEATURE_ID) {
-    await redisClient.del('verified');
+    await delRedis('verified');
   }
 };
 
