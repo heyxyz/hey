@@ -19,6 +19,7 @@ export const get: Handler = async (req, res) => {
     const cachedData = await getRedis(cacheKey);
 
     if (cachedData) {
+      logger.info(`(cached) Poll fetched`);
       return res
         .status(200)
         .json({ result: JSON.parse(cachedData), success: true });
