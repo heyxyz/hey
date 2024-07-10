@@ -3,6 +3,11 @@ import type { Handler } from 'express';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import prisma from 'src/helpers/prisma';
+import {
+  generateMediumExpiry,
+  getRedis,
+  setRedis
+} from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
@@ -13,6 +18,17 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
+    const cacheKey = `pro:${id}`;
+    const cachedPro = await getRedis(cacheKey);
+
+    if (cachedPro) {
+      logger.info(`(cached) Fetched pro status for ${id}`);
+
+      return res
+        .status(200)
+        .json({ result: JSON.parse(cachedPro), success: true });
+    }
+
     const pro = await prisma.pro.findUnique({
       where: { id: id as string }
     });
@@ -25,6 +41,7 @@ export const get: Handler = async (req, res) => {
 
     const result = { expiresAt: pro.expiresAt, isPro: true };
 
+    await setRedis(cacheKey, result, generateMediumExpiry());
     logger.info(`Fetched pro status for ${id}`);
 
     return res.status(200).json({ result, success: true });
