@@ -20,13 +20,13 @@ export const get = [
     }
 
     const cacheKey = `preference:${id}`;
-    const cachedPreference = await getRedis(cacheKey);
+    const cachedData = await getRedis(cacheKey);
 
-    if (cachedPreference) {
+    if (cachedData) {
       logger.info(`(cached) Internal profile preferences fetched for ${id}`);
       return res
         .status(200)
-        .json({ result: JSON.parse(cachedPreference), success: true });
+        .json({ result: JSON.parse(cachedData), success: true });
     }
 
     try {
