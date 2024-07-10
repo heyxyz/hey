@@ -35,7 +35,7 @@ export const get: Handler = async (req, res) => {
 
     if (!pro) {
       return res
-        .status(404)
+        .status(200)
         .json({ result: { expiresAt: null, isPro: false } });
     }
 
