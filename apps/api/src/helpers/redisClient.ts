@@ -27,19 +27,24 @@ connectRedis().catch((error) =>
   logger.error('[Redis] Connection error', error)
 );
 
+export const generateLongExpiry = (): number => {
+  return randomNumber(hoursToSeconds(4), hoursToSeconds(8));
+};
+
 const generateExtraLongExpiry = (): number => {
   return randomNumber(hoursToSeconds(9), hoursToSeconds(24));
 };
 
 export const setRedis = async (
   key: string,
-  value: boolean | number | Record<string, any> | string
+  value: boolean | number | Record<string, any> | string,
+  expiry = generateExtraLongExpiry()
 ) => {
   if (typeof value !== 'string') {
     value = JSON.stringify(value);
   }
 
-  return await redisClient.set(key, value, { EX: generateExtraLongExpiry() });
+  return await redisClient.set(key, value, { EX: expiry });
 };
 
 export const getRedis = async (key: string) => {
@@ -48,6 +53,10 @@ export const getRedis = async (key: string) => {
 
 export const delRedis = async (key: string) => {
   await redisClient.del(key);
+};
+
+export const getTtl = async (key: string) => {
+  return await redisClient.ttl(key);
 };
 
 export default redisClient;
