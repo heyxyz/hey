@@ -4,13 +4,13 @@ import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
-import redisClient from 'src/helpers/redisClient';
+import { getRedis, setRedis } from 'src/helpers/redisClient';
 
 // TODO: add tests
 export const get: Handler = async (_, res) => {
   try {
     const cacheKey = 'rates';
-    const cachedRates = await redisClient.get(cacheKey);
+    const cachedRates = await getRedis(cacheKey);
 
     if (cachedRates) {
       logger.info('(cached) [Lens] Fetched USD conversion rates');
@@ -39,7 +39,7 @@ export const get: Handler = async (_, res) => {
       symbol: row.symbol
     }));
 
-    await redisClient.set(cacheKey, JSON.stringify(result));
+    await setRedis(cacheKey, result);
     logger.info('[Lens] Fetched USD conversion rates');
 
     return res
