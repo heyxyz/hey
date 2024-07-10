@@ -28,6 +28,6 @@
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
     "typescript": "^5.5.3",
-    "vitest": "^2.0.1"
+    "vitest": "^2.0.2"
   }
 }
