@@ -6,6 +6,7 @@ import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import redisClient from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [
@@ -16,6 +17,15 @@ export const get = [
 
     if (!id) {
       return noBody(res);
+    }
+
+    const cachedPreference = await redisClient.get(`preference:${id}`);
+
+    if (cachedPreference) {
+      logger.info(`(cached) Internal profile preferences fetched for ${id}`);
+      return res
+        .status(200)
+        .json({ result: JSON.parse(cachedPreference), success: true });
     }
 
     try {
@@ -50,7 +60,7 @@ export const get = [
         )
       };
 
-      logger.info(`Profile preferences fetched for ${id}`);
+      logger.info(`Internal profile preferences fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {
