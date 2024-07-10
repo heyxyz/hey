@@ -7,7 +7,7 @@ import catchedError from 'src/helpers/catchedError';
 import { SCORE_WORKER_URL } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import redisClient from 'src/helpers/redisClient';
+import { getRedis } from 'src/helpers/redisClient';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
@@ -29,7 +29,7 @@ export const get = [
       const lensPromise = measureQueryTime(() =>
         lensPg.query(`SELECT 1 as count;`)
       );
-      const redisPromise = measureQueryTime(() => redisClient.get('ping'));
+      const redisPromise = measureQueryTime(() => getRedis('ping'));
       const clickhouseClient = createClickhouseClient();
       const clickhousePromise = measureQueryTime(() =>
         clickhouseClient.query({
