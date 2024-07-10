@@ -17,7 +17,7 @@ queue.on('failed', (job, error) => {
 
 const addToQueue = (jobName: string, data: any) => {
   queue.add(jobName, data, {
-    attempts: 5,
+    attempts: 3,
     backoff: 1000,
     removeOnComplete: true
   });
