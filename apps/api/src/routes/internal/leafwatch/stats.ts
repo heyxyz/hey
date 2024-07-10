@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import { SWR_CACHE_1_SECOND } from 'src/helpers/constants';
+import { SWR_CACHE_5_SECOND } from 'src/helpers/constants';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
@@ -110,7 +110,7 @@ export const get = [
 
       return res
         .status(200)
-        .setHeader('Cache-Control', SWR_CACHE_1_SECOND)
+        .setHeader('Cache-Control', SWR_CACHE_5_SECOND)
         .json({
           dau: results[5].map((row: any, index: number) => ({
             date: row.date,
