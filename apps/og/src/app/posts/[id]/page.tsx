@@ -15,9 +15,6 @@ import {
 import { apolloClient } from '@hey/lens/apollo';
 import defaultMetadata from 'src/defaultMetadata';
 
-export const dynamic = 'force-static';
-export const revalidate = 2160000;
-
 interface Props {
   params: { id: string };
 }

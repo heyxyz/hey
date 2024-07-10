@@ -13,12 +13,6 @@ const nextConfig = {
     return [
       {
         headers: [
-          { key: 'Cache-Control', value: 'public, s-maxage=2160000' },
-          { key: 'CDN-Cache-Control', value: 'public, s-maxage=2160000' },
-          {
-            key: 'Vercel-CDN-Cache-Control',
-            value: 'public, s-maxage=2160000'
-          },
           { key: 'X-Hey-Version', value: COMMIT_SHA },
           { key: 'X-Hey-Deployment', value: DEPLOYMENT_ID }
         ],
