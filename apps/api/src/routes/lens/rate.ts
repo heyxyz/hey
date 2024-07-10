@@ -10,14 +10,14 @@ import { getRedis, setRedis } from 'src/helpers/redisClient';
 export const get: Handler = async (_, res) => {
   try {
     const cacheKey = 'rates';
-    const cachedRates = await getRedis(cacheKey);
+    const cachedData = await getRedis(cacheKey);
 
-    if (cachedRates) {
+    if (cachedData) {
       logger.info('(cached) [Lens] Fetched USD conversion rates');
       return res
         .status(200)
         .setHeader('Cache-Control', CACHE_AGE_30_MINS)
-        .json({ result: JSON.parse(cachedRates), success: true });
+        .json({ result: JSON.parse(cachedData), success: true });
     }
 
     const response = await lensPg.query(`
