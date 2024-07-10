@@ -42,7 +42,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
 
   const { data: preferences } = useQuery({
     queryFn: getPreferences,
-    queryKey: ['getPreferences', profile.id || '']
+    queryKey: ['getInternalPreferences', profile.id || '']
   });
 
   return (

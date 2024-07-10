@@ -21,7 +21,7 @@ export const get: Handler = (req, res) => {
     const entries = sitemaps.map((sitemap) => ({ loc: sitemap }));
     const xml = buildUrlsetXml(entries);
 
-    logger.info(`Lens: Fetched other sitemaps from user-agent: ${user_agent}`);
+    logger.info(`[Lens] Fetched other sitemaps from user-agent: ${user_agent}`);
 
     return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);
   } catch (error) {

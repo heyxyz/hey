@@ -6,6 +6,7 @@ import parseJwt from '@hey/helpers/parseJwt';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import redisClient from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [
@@ -18,6 +19,16 @@ export const get = [
 
       if (!id) {
         return noBody(res);
+      }
+
+      const cacheKey = `preference:${id}`;
+      const cachedPreference = await redisClient.get(cacheKey);
+
+      if (cachedPreference) {
+        logger.info(`(cached) Profile preferences fetched for ${id}`);
+        return res
+          .status(200)
+          .json({ result: JSON.parse(cachedPreference), success: true });
       }
 
       const [preference, features, email, membershipNft] = await heyPg.multi(
@@ -51,6 +62,7 @@ export const get = [
         )
       };
 
+      await redisClient.set(cacheKey, JSON.stringify(response));
       logger.info(`Profile preferences fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });

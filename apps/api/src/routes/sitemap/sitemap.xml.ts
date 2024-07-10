@@ -19,7 +19,7 @@ export const get: Handler = (req, res) => {
     const xml = buildSitemapXml(entries);
 
     logger.info(
-      `Lens: Fetched all sitemaps index from user-agent: ${user_agent}`
+      `[Lens] Fetched all sitemaps index from user-agent: ${user_agent}`
     );
 
     return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);

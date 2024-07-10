@@ -6,6 +6,7 @@ import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import redisClient from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
@@ -55,6 +56,7 @@ export const post = [
         [contractAddress, decimals, name, symbol]
       );
 
+      await redisClient.del(`allowedTokens`);
       logger.info(`Created a token ${token[0]?.id}`);
 
       return res.status(200).json({ success: true, token: token[0] });
