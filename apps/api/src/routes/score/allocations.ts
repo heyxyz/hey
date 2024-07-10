@@ -31,7 +31,7 @@ export const get: Handler = async (req, res) => {
     }));
 
     logger.info(
-      `Lens: Fetched ${adjustedProfileScore.length} allocations for ${id}`
+      `[Lens] Fetched ${adjustedProfileScore.length} allocations for ${id}`
     );
 
     return res.status(200).json({ result, success: true });

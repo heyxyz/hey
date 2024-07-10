@@ -28,7 +28,7 @@ export const get = [
       ORDER BY month, revenue DESC;
     `);
 
-      logger.info('Lens: Fetched app revenue');
+      logger.info('[Lens] Fetched app revenue');
 
       return res.status(200).json({ result, success: true });
     } catch (error) {
