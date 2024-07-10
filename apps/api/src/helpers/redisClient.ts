@@ -27,10 +27,17 @@ connectRedis().catch((error) =>
   logger.error('[Redis] Connection error', error)
 );
 
+// Generates a random expiry time between 1 and 3 hours
+export const generateMediumExpiry = (): number => {
+  return randomNumber(hoursToSeconds(1), hoursToSeconds(3));
+};
+
+// Generates a random expiry time between 4 and 8 hours
 export const generateLongExpiry = (): number => {
   return randomNumber(hoursToSeconds(4), hoursToSeconds(8));
 };
 
+// Generates a random expiry time between 9 and 24 hours
 const generateExtraLongExpiry = (): number => {
   return randomNumber(hoursToSeconds(9), hoursToSeconds(24));
 };
