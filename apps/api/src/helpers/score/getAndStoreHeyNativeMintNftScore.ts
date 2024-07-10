@@ -38,16 +38,15 @@ const getAndStoreHeyNativeMintNftScore = async (
       );
 
       logger.info(
-        `BJ - Hey Native Mint NFT holder score upserted for ${id} - ${address}`
+        `[Worker] Hey Native Mint NFT holder score upserted for ${id} - ${address}`
       );
     }
 
     return true;
   } catch {
-    logger.error(
-      `BJ - Failed to get and store Hey Native Mint NFT score for ${id} - ${address}`
+    throw new Error(
+      `Failed to get and store Hey Native Mint NFT score for ${id} - ${address}`
     );
-    return false;
   }
 };
 
