@@ -12,6 +12,7 @@ import { boolean, object, string } from 'zod';
 
 const clearCache = async (profileId: string, featureId: string) => {
   await redisClient.del(`preference:${profileId}`);
+  await redisClient.del(`profile:${profileId}`);
   if (featureId === VERIFIED_FEATURE_ID) {
     await redisClient.del('verified');
   }
