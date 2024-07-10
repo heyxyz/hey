@@ -1,7 +1,9 @@
 import logger from '@hey/helpers/logger';
 import Bull from 'bull';
 
-const queue = new Bull('queue', process.env.REDIS_URL!);
+const queue = new Bull('queue', process.env.REDIS_URL!, {
+  redis: { maxRetriesPerRequest: null }
+});
 
 queue.on('active', (job) => {
   logger.info(`[Worker] Job active - ${job.name}`);
@@ -17,7 +19,7 @@ queue.on('failed', (job, error) => {
 
 const addToQueue = (jobName: string, data: any) => {
   queue.add(jobName, data, {
-    attempts: 5,
+    attempts: 3,
     backoff: 1000,
     removeOnComplete: true
   });
