@@ -1,6 +1,6 @@
 import type { Handler } from 'express';
 
-import hoursToSeconds from '@hey/helpers/hoursToSeconds';
+import daysToSeconds from '@hey/helpers/daysToSeconds';
 import logger from '@hey/helpers/logger';
 import randomNumber from '@hey/helpers/randomNumber';
 import sha256 from '@hey/helpers/sha256';
@@ -40,7 +40,7 @@ export const get: Handler = async (req, res) => {
       await setRedis(
         cacheKey,
         oembed,
-        randomNumber(hoursToSeconds(72), hoursToSeconds(96))
+        randomNumber(daysToSeconds(4), daysToSeconds(8))
       );
     }
 
