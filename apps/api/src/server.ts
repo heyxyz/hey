@@ -16,7 +16,7 @@ app.disable('x-powered-by');
 
 // Middleware configuration
 app.use(cors());
-// app.use(limitDomains);
+app.use(limitDomains);
 app.use(express.json({ limit: '1mb' }));
 
 //  Increase request timeout
