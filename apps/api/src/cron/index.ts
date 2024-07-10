@@ -6,6 +6,7 @@ import cleanClickhouse from './cleanClickhouse';
 import cleanDraftPublications from './cleanDraftPublications';
 import cleanEmailTokens from './cleanEmailTokens';
 import cleanPreferences from './cleanPreferences';
+import dbVacuum from './dbVacuum';
 import heartbeat from './heartbeat';
 
 dotenv.config({ override: true });
@@ -35,6 +36,11 @@ const main = () => {
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanPreferences();
+    return;
+  });
+
+  cron.schedule('0 */6 * * *', async () => {
+    await dbVacuum();
     return;
   });
 };
