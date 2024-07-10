@@ -3,8 +3,10 @@ import type { NextFunction, Request, Response } from 'express';
 import getIp from '@hey/helpers/getIp';
 import sha256 from '@hey/helpers/sha256';
 import rateLimit from 'express-rate-limit';
+import RedisStore from 'rate-limit-redis';
 
 import catchedError from '../catchedError';
+import redisClient from '../redis';
 
 const hashedIp = (req: Request): string => sha256(getIp(req)).slice(0, 25);
 
@@ -19,7 +21,14 @@ const createRateLimiter = (window: number, max: number) => {
     keyGenerator: (req) => hashedIp(req),
     legacyHeaders: false,
     max, // Maximum number of requests allowed within the window
+    skip: () => !redisClient?.isReady,
     standardHeaders: true,
+    store: redisClient
+      ? new RedisStore({
+          prefix: 'rate-limit:',
+          sendCommand: (...args: string[]) => redisClient.sendCommand(args)
+        })
+      : undefined,
     windowMs: window * 60 * 1000 // Time window in milliseconds
   });
 };
