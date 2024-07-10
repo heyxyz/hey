@@ -49,7 +49,7 @@ export const get: Handler = async (req, res) => {
     const xml = buildUrlsetXml(entries);
 
     logger.info(
-      `Lens: Fetched profiles sitemap for batch ${batch} having ${response.length} entries from user-agent: ${user_agent}`
+      `[Lens] Fetched profiles sitemap for batch ${batch} having ${response.length} entries from user-agent: ${user_agent}`
     );
 
     return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);

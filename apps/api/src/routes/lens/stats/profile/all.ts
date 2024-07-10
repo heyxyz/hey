@@ -45,7 +45,7 @@ export const get: Handler = async (req, res) => {
       total_notifications: Number(notificationStats[0]?.total_notifications)
     };
 
-    logger.info(`Lens: Fetched global profile stats for ${id}`);
+    logger.info(`[Lens] Fetched global profile stats for ${id}`);
 
     return res
       .status(200)
