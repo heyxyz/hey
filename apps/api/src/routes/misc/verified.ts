@@ -4,12 +4,12 @@ import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS, VERIFIED_FEATURE_ID } from 'src/helpers/constants';
-import redisClient from 'src/helpers/redisClient';
+import { getRedis, setRedis } from 'src/helpers/redisClient';
 
 export const get: Handler = async (_, res) => {
   try {
     const cacheKey = 'verified';
-    const verifiedIds = await redisClient.get(cacheKey);
+    const verifiedIds = await getRedis(cacheKey);
 
     if (verifiedIds) {
       logger.info('(cached) Verified profiles fetched');
@@ -30,7 +30,7 @@ export const get: Handler = async (_, res) => {
     );
 
     const ids = data.map(({ profileId }) => profileId);
-    await redisClient.set(cacheKey, JSON.stringify(ids));
+    await setRedis(cacheKey, ids);
     logger.info('Verified profiles fetched');
 
     return res
