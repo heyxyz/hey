@@ -75,7 +75,7 @@ const LeafwatchStats: FC = () => {
   const { data, error, isLoading } = useQuery({
     queryFn: getStats,
     queryKey: ['getStats'],
-    refetchInterval: 800
+    refetchInterval: 1000
   });
 
   useExploreProfilesQuery({
