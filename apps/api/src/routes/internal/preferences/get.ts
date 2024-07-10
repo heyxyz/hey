@@ -19,7 +19,8 @@ export const get = [
       return noBody(res);
     }
 
-    const cachedPreference = await redisClient.get(`preference:${id}`);
+    const cacheKey = `preference:${id}`;
+    const cachedPreference = await redisClient.get(cacheKey);
 
     if (cachedPreference) {
       logger.info(`(cached) Internal profile preferences fetched for ${id}`);
@@ -60,6 +61,7 @@ export const get = [
         )
       };
 
+      await redisClient.set(cacheKey, JSON.stringify(response));
       logger.info(`Internal profile preferences fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });

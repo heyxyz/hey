@@ -47,7 +47,7 @@ export const get = [
         signups_count: Number(row.signups_count)
       }));
 
-      logger.info('Lens: Fetched signup and membership NFT stats');
+      logger.info('[Lens] Fetched signup and membership NFT stats');
 
       return res.status(200).json({ result: formattedResult, success: true });
     } catch (error) {
