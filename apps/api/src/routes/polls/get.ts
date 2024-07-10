@@ -4,6 +4,7 @@ import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import prisma from 'src/helpers/prisma';
+import { getRedis, setRedis } from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
@@ -14,6 +15,15 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
+    const cacheKey = `poll:${id}`;
+    const cachedData = await getRedis(cacheKey);
+
+    if (cachedData) {
+      return res
+        .status(200)
+        .json({ result: JSON.parse(cachedData), success: true });
+    }
+
     const identityToken = req.headers['x-identity-token'] as string;
     const payload = parseJwt(identityToken);
 
@@ -61,6 +71,7 @@ export const get: Handler = async (req, res) => {
       }))
     };
 
+    await setRedis(cacheKey, sanitizedData);
     logger.info('Poll fetched');
 
     return res.status(200).json({ result: sanitizedData, success: true });

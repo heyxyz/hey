@@ -5,6 +5,7 @@ import parseJwt from '@hey/helpers/parseJwt';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import { delRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -87,6 +88,7 @@ export const post = [
         [option, payload.id]
       );
 
+      await delRedis(`poll:${poll}`);
       logger.info(`Responded to a poll ${option}:${data[0]?.id}`);
 
       return res.status(200).json({ id: data[0]?.id, success: true });
