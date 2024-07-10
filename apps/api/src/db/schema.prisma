@@ -129,12 +129,6 @@ model DraftPublication {
   @@index([createdAt, updatedAt])
 }
 
-model CachedProfileScore {
-  id        String   @id
-  score     Int
-  expiresAt DateTime
-}
-
 model AdjustedProfileScore {
   profileId String
   score     Int
