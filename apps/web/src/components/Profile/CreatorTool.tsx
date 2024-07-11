@@ -32,7 +32,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getInternalPreferences(getAuthApiHeaders(), profile.id),
+    queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
     queryKey: ['getInternalPreferences', profile.id]
   });
 
