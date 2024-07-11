@@ -9,6 +9,7 @@ import { parseHTML } from 'linkedom';
 import catchedError from 'src/helpers/catchedError';
 import { HEY_USER_AGENT } from 'src/helpers/constants';
 import signFrameAction from 'src/helpers/frames/signFrameAction';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import getFrame from 'src/helpers/oembed/meta/getFrame';
 import { invalidBody, noBody } from 'src/helpers/responses';
@@ -31,6 +32,7 @@ const validationSchema = object({
 });
 
 export const post = [
+  rateLimiter({ requests: 100, within: 1 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;
