@@ -17,6 +17,10 @@ queue.on('failed', (job, error) => {
   logger.error(`[Worker] Job failed - ${job.name} - ${error}`);
 });
 
+queue.on('error', (error) => {
+  console.error(`[Worker] Error - ${error}`);
+});
+
 const addToQueue = (jobName: string, data: any) => {
   queue.add(jobName, data, {
     attempts: 3,
