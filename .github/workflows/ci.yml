@@ -14,7 +14,7 @@ concurrency:
 jobs:
   typecheck:
     name: Typecheck
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🚪
@@ -30,7 +30,7 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
 
   prettier:
     name: Prettier
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -75,7 +75,7 @@ jobs:
 
   test:
     name: Test
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
