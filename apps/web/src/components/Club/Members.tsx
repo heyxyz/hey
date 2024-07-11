@@ -23,20 +23,17 @@ interface MembersProps {
 const Members: FC<MembersProps> = ({ clubId, handle }) => {
   const { currentProfile } = useProfileStore();
 
-  const getClubMembers = async (): Promise<
-    | {
-        items: ClubProfile[];
-        pageInfo: {
-          next: null | string;
-          prev: null | string;
-        };
-      }[]
-    | null
-  > => {
+  const getClubMembers = async (): Promise<{
+    items: ClubProfile[];
+    pageInfo: {
+      next: null | string;
+      prev: null | string;
+    };
+  } | null> => {
     try {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/members`,
-        { id: clubId },
+        { id: clubId, limit: 50 },
         { headers: getAuthApiHeadersWithAccessToken() }
       );
 
@@ -56,8 +53,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
     queryKey: ['getClubMembers', clubId]
   });
 
-  const profileIds =
-    clubMembers?.flatMap((group) => group.items.map((item) => item.id)) || [];
+  const profileIds = clubMembers?.items.map((item) => item.id) || [];
 
   const {
     data: lensProfiles,
