@@ -1,5 +1,8 @@
 import logger from '@hey/helpers/logger';
 import Bull from 'bull';
+import dotenv from 'dotenv';
+
+dotenv.config({ override: true });
 
 const queue = new Bull('queue', process.env.REDIS_URL!, {
   redis: { maxRetriesPerRequest: null }
