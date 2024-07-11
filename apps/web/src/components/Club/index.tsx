@@ -1,4 +1,3 @@
-import type { Club } from '@hey/types/club';
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
@@ -7,11 +6,11 @@ import Cover from '@components/Shared/Cover';
 import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import getClub from '@hey/helpers/api/clubs/getClub';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
@@ -43,27 +42,17 @@ const ViewClub: NextPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handle]);
 
-  const getClub = async (handle: string): Promise<Club | null> => {
-    try {
-      const response = await axios.post(
-        `${HEY_API_URL}/clubs/get`,
-        { club_handle: handle, profile_id: currentProfile?.id },
-        { headers: getAuthApiHeadersWithAccessToken() }
-      );
-
-      return response.data.data.items?.[0];
-    } catch {
-      return null;
-    }
-  };
-
   const {
     data: club,
     error,
     isLoading: clubLoading
   } = useQuery({
     enabled: Boolean(handle),
-    queryFn: () => getClub(handle as string),
+    queryFn: () =>
+      getClub(
+        { club_handle: handle as string, profile_id: currentProfile?.id },
+        getAuthApiHeadersWithAccessToken()
+      ),
     queryKey: ['getClub', handle]
   });
 

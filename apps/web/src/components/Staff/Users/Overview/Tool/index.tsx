@@ -20,7 +20,7 @@ interface ProfileStaffToolProps {
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const { data: preferences } = useQuery({
-    queryFn: () => getInternalPreferences(getAuthApiHeaders(), profile.id),
+    queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
     queryKey: ['getInternalPreferences', profile.id || '']
   });
 

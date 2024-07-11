@@ -10,8 +10,8 @@ import axios from 'axios';
  * @returns profile preferences
  */
 const getInternalPreferences = async (
-  headers: any,
-  id: string
+  id: string,
+  headers: any
 ): Promise<Preferences> => {
   try {
     const response: { data: { result: Preferences } } = await axios.get(
