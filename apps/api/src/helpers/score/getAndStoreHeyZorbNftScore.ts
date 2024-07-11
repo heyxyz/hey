@@ -41,7 +41,10 @@ const getAndStoreHeyZorbNftScore = async (id: string, address: Address) => {
 
     return true;
   } catch {
-    throw new Error('Failed to get and store Hey Zorb NFT score');
+    logger.error(
+      `[Worker] Failed to get and store Hey Zorb NFT score for ${id} - ${address}`
+    );
+    return false;
   }
 };
 
