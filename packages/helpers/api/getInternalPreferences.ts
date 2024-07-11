@@ -4,15 +4,19 @@ import { HEY_API_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**
- * Get profile preferences
+ * Get internal profile preferences
+ * @param id profile id
  * @param headers auth headers
  * @returns profile preferences
  */
-const getPreferences = async (headers: any): Promise<Preferences> => {
+const getInternalPreferences = async (
+  headers: any,
+  id: string
+): Promise<Preferences> => {
   try {
     const response: { data: { result: Preferences } } = await axios.get(
-      `${HEY_API_URL}/preferences/get`,
-      { headers }
+      `${HEY_API_URL}/internal/preferences/get`,
+      { headers, params: { id } }
     );
 
     return response.data.result;
@@ -28,4 +32,4 @@ const getPreferences = async (headers: any): Promise<Preferences> => {
   }
 };
 
-export default getPreferences;
+export default getInternalPreferences;
