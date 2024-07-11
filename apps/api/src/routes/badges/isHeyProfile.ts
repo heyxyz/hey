@@ -2,10 +2,13 @@ import type { Handler } from 'express';
 import type { Address } from 'viem';
 
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
+import daysToSeconds from '@hey/helpers/daysToSeconds';
 import logger from '@hey/helpers/logger';
+import randomNumber from '@hey/helpers/randomNumber';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
+import { getRedis, setRedis } from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 import { getAddress } from 'viem';
 
@@ -20,6 +23,21 @@ export const get: Handler = async (req, res) => {
     const formattedAddress = address
       ? getAddress(address as Address)
       : undefined;
+
+    const cacheKey = `badge:hey-profile:${id || address}`;
+    const cachedData = await getRedis(cacheKey);
+
+    if (cachedData === 'true') {
+      logger.info(
+        `(cached) Hey profile badge fetched for ${id || formattedAddress}`
+      );
+
+      return res
+        .status(200)
+        .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
+        .json({ isHeyProfile: true, success: true });
+    }
+
     const data = await lensPg.query(
       `
         SELECT EXISTS (
@@ -36,6 +54,13 @@ export const get: Handler = async (req, res) => {
 
     const isHeyProfile = data[0]?.result;
 
+    if (isHeyProfile) {
+      await setRedis(
+        cacheKey,
+        isHeyProfile,
+        randomNumber(daysToSeconds(400), daysToSeconds(800))
+      );
+    }
     logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
 
     return res
