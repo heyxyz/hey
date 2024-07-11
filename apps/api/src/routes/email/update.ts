@@ -4,6 +4,7 @@ import { APP_NAME } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
@@ -22,6 +23,7 @@ const validationSchema = object({
 });
 
 export const post = [
+  rateLimiter({ requests: 5, within: 60 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;

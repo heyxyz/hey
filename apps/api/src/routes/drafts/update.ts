@@ -4,6 +4,7 @@ import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
@@ -21,6 +22,7 @@ const validationSchema = object({
 });
 
 export const post = [
+  rateLimiter({ requests: 50, within: 1 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;

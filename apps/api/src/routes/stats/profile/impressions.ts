@@ -1,23 +1,26 @@
-import type { Handler } from 'express';
+import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { noBody } from 'src/helpers/responses';
 
-export const get: Handler = async (req, res) => {
-  const { id } = req.query;
+export const get = [
+  rateLimiter({ requests: 250, within: 1 }),
+  async (req: Request, res: Response) => {
+    const { id } = req.query;
 
-  if (!id) {
-    return noBody(res);
-  }
+    if (!id) {
+      return noBody(res);
+    }
 
-  try {
-    const client = createClickhouseClient();
+    try {
+      const client = createClickhouseClient();
 
-    const rows = await client.query({
-      format: 'JSONEachRow',
-      query: `
+      const rows = await client.query({
+        format: 'JSONEachRow',
+        query: `
         WITH
           date_series AS (
             SELECT toDate(subtractDays(now(), number)) AS date
@@ -42,20 +45,21 @@ export const get: Handler = async (req, res) => {
         GROUP BY ds.date
         ORDER BY ds.date
       `
-    });
-    const result = await rows.json<{
-      count: number;
-      date: string;
-    }>();
-    const impressions = result.map((row) => ({
-      count: Number(row.count),
-      date: new Date(row.date).toISOString()
-    }));
+      });
+      const result = await rows.json<{
+        count: number;
+        date: string;
+      }>();
+      const impressions = result.map((row) => ({
+        count: Number(row.count),
+        date: new Date(row.date).toISOString()
+      }));
 
-    logger.info('Fetched profile impression stats');
+      logger.info('Fetched profile impression stats');
 
-    return res.status(200).json({ impressions });
-  } catch (error) {
-    return catchedError(res, error);
+      return res.status(200).json({ impressions });
+    } catch (error) {
+      return catchedError(res, error);
+    }
   }
-};
+];

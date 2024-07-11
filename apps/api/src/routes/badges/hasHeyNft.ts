@@ -14,7 +14,7 @@ import { noBody } from 'src/helpers/responses';
 import { getAddress } from 'viem';
 
 export const get = [
-  rateLimiter({ requests: 50, within: 1 }),
+  rateLimiter({ requests: 100, within: 1 }),
   async (req: Request, res: Response) => {
     const { address, id } = req.query;
 
