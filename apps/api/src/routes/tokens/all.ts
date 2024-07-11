@@ -16,7 +16,7 @@ export const get: Handler = async (_, res) => {
       return res
         .status(200)
         .setHeader('Cache-Control', CACHE_AGE_1_DAY)
-        .json({ result: JSON.parse(cachedData), success: true });
+        .json({ success: true, tokens: JSON.parse(cachedData) });
     }
 
     const data = await heyPg.query(`
