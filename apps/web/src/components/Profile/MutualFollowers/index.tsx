@@ -40,7 +40,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     <Link
       className={cn(
         viaPopover ? 'text-xs' : 'text-sm',
-        'ld-text-gray-500 flex cursor-pointer items-center space-x-2.5'
+        'ld-text-gray-500 flex cursor-pointer flex-wrap items-center gap-2.5'
       )}
       href={`/u/${handle}/mutuals`}
     >
