@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
@@ -18,6 +19,7 @@ const validationSchema = object({
 });
 
 export const post = [
+  rateLimiter({ requests: 30, within: 1 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;

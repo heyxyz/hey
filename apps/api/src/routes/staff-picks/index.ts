@@ -1,4 +1,4 @@
-import type { Handler } from 'express';
+import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
@@ -7,6 +7,7 @@ import {
   CACHE_AGE_30_MINS,
   STAFF_PICK_FEATURE_ID
 } from 'src/helpers/constants';
+import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import {
   generateMediumExpiry,
   getRedis,
@@ -18,35 +19,38 @@ const getRandomPicks = (data: any[]) => {
   return random.slice(0, 150);
 };
 
-export const get: Handler = async (_, res) => {
-  try {
-    const cacheKey = `staff-picks`;
-    const cachedData = await getRedis(cacheKey);
+export const get = [
+  rateLimiter({ requests: 100, within: 1 }),
+  async (_: Request, res: Response) => {
+    try {
+      const cacheKey = `staff-picks`;
+      const cachedData = await getRedis(cacheKey);
 
-    if (cachedData) {
-      logger.info('(cached) Staff picks fetched');
-      return res.status(200).json({
-        result: getRandomPicks(JSON.parse(cachedData)),
-        success: true
-      });
-    }
+      if (cachedData) {
+        logger.info('(cached) Staff picks fetched');
+        return res.status(200).json({
+          result: getRandomPicks(JSON.parse(cachedData)),
+          success: true
+        });
+      }
 
-    const data = await heyPg.query(
-      `
+      const data = await heyPg.query(
+        `
         SELECT "profileId" FROM "ProfileFeature"
         WHERE enabled = TRUE AND "featureId" = $1;
       `,
-      [STAFF_PICK_FEATURE_ID]
-    );
+        [STAFF_PICK_FEATURE_ID]
+      );
 
-    await setRedis(cacheKey, data, generateMediumExpiry());
-    logger.info('Staff picks fetched');
+      await setRedis(cacheKey, data, generateMediumExpiry());
+      logger.info('Staff picks fetched');
 
-    return res
-      .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_30_MINS)
-      .json({ result: getRandomPicks(data), success: true });
-  } catch (error) {
-    return catchedError(res, error);
+      return res
+        .status(200)
+        .setHeader('Cache-Control', CACHE_AGE_30_MINS)
+        .json({ result: getRandomPicks(data), success: true });
+    } catch (error) {
+      return catchedError(res, error);
+    }
   }
-};
+];
