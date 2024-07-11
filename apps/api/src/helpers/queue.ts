@@ -1,11 +1,16 @@
 import logger from '@hey/helpers/logger';
 import Bull from 'bull';
-import dotenv from 'dotenv';
 
-dotenv.config({ override: true });
+const url = new URL(process.env.REDIS_URL!);
 
-const queue = new Bull('queue', process.env.REDIS_URL!, {
-  redis: { maxRetriesPerRequest: null }
+const queue = new Bull('queue', {
+  redis: {
+    host: url.hostname,
+    maxRetriesPerRequest: null,
+    password: url.password,
+    port: Number(url.port),
+    username: url.username
+  }
 });
 
 queue.on('active', (job) => {
