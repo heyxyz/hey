@@ -1,8 +1,7 @@
 import type { Club } from '@hey/types/club';
 
 import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
-import axios from 'axios';
+import getClubs from '@hey/helpers/api/clubs/getClubs';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -26,28 +25,23 @@ const useClubQuery = (query: string): ClubProfile[] => {
       return;
     }
 
-    axios
-      .post(
-        `${HEY_API_URL}/clubs/get`,
-        { limit: 10, profile_id: currentProfile?.id, query },
-        { headers: getAuthApiHeadersWithAccessToken() }
-      )
-      .then(({ data }) => {
-        const search = data.data;
-        const clubSearchResult = search;
-        const clubs = clubSearchResult?.items as Club[];
-        const clubsResults = (clubs ?? []).map(
-          (club): ClubProfile => ({
-            displayHandle: `/${club.handle}`,
-            handle: club.handle,
-            id: club.id,
-            name: club.name,
-            picture: club.logo
-          })
-        );
+    getClubs(
+      { limit: 10, profile_id: currentProfile?.id, query },
+      getAuthApiHeadersWithAccessToken()
+    ).then((data) => {
+      const clubs = data as Club[];
+      const clubsResults = (clubs ?? []).map(
+        (club): ClubProfile => ({
+          displayHandle: `/${club.handle}`,
+          handle: club.handle,
+          id: club.id,
+          name: club.name,
+          picture: club.logo
+        })
+      );
 
-        setResults(clubsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
-      });
+      setResults(clubsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 

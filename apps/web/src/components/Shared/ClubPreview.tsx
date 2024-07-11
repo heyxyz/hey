@@ -3,14 +3,13 @@ import type { FC, ReactNode } from 'react';
 
 import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
-import { HEY_API_URL } from '@hey/data/constants';
+import getClub from '@hey/helpers/api/clubs/getClub';
 import getMentions from '@hey/helpers/getMentions';
 import nFormatter from '@hey/helpers/nFormatter';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { Card, Image } from '@hey/ui';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -28,26 +27,16 @@ interface ClubPreviewProps {
 const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   const { currentProfile } = useProfileStore();
 
-  const getClub = async (handle: string): Promise<Club | null> => {
-    try {
-      const response = await axios.post(
-        `${HEY_API_URL}/clubs/get`,
-        { club_handle: handle, profile_id: currentProfile?.id },
-        { headers: getAuthApiHeadersWithAccessToken() }
-      );
-
-      return response.data.data.items?.[0];
-    } catch {
-      return null;
-    }
-  };
-
   const {
     data,
     isPending: clubLoading,
     mutateAsync
   } = useMutation({
-    mutationFn: () => getClub(handle as string),
+    mutationFn: () =>
+      getClub(
+        { club_handle: handle, profile_id: currentProfile?.id },
+        getAuthApiHeadersWithAccessToken()
+      ),
     mutationKey: ['getClub', handle]
   });
 
