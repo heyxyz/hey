@@ -5,6 +5,8 @@ import express from 'express';
 import { router } from 'express-file-routing';
 import ViteExpress from 'vite-express';
 
+import { rateLimiter } from './helpers/middlewares/rateLimiter';
+
 // Load environment variables
 dotenv.config({ override: true });
 
@@ -14,6 +16,7 @@ app.disable('x-powered-by');
 
 // Middleware configuration
 app.use(cors());
+app.use(rateLimiter({ requests: 2000, within: 5 }));
 app.use(express.json({ limit: '1mb' }));
 
 //  Increase request timeout
