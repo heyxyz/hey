@@ -12,7 +12,7 @@ concurrency:
 jobs:
   mainnet:
     name: Mainnet
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
 
   testnet:
     name: Testnet
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
