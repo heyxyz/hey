@@ -1,16 +1,15 @@
 import logger from '@hey/helpers/logger';
 import Bull from 'bull';
 
-const url = new URL(process.env.REDIS_URL!);
+const redisUrl = process.env.REDIS_URL;
 
-const queue = new Bull('queue', {
-  redis: {
-    host: url.hostname,
-    maxRetriesPerRequest: null,
-    password: url.password,
-    port: Number(url.port),
-    username: url.username
-  }
+if (!redisUrl) {
+  logger.error('No Redis URL provided. Exiting...');
+  process.exit(1);
+}
+
+const queue = new Bull('queue', redisUrl, {
+  redis: { maxRetriesPerRequest: null }
 });
 
 queue.on('active', (job) => {
