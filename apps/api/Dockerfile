@@ -41,5 +41,5 @@ USER api
 COPY --from=installer /app .
 
 EXPOSE 4784
-CMD sleep 5 && pnpm --filter @hey/api run start & pnpm --filter @hey/api run cron
+CMD sleep 3 && pnpm --filter @hey/api run start & pnpm --filter @hey/api run cron
 #--
