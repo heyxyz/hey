@@ -11,7 +11,7 @@ import {
 } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { CREATORTOOLS } from '@hey/data/tracking';
-import getPreferences from '@hey/helpers/api/getPreferences';
+import getInternalPreferences from '@hey/helpers/api/getInternalPreferences';
 import { Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -32,8 +32,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getPreferences(getAuthApiHeaders()),
-    queryKey: ['getPreferences', profile.id]
+    queryFn: () => getInternalPreferences(getAuthApiHeaders(), profile.id),
+    queryKey: ['getInternalPreferences', profile.id]
   });
 
   useEffect(() => {
