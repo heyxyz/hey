@@ -1,14 +1,7 @@
 import logger from '@hey/helpers/logger';
 import Bull from 'bull';
 
-const redisUrl = process.env.REDIS_URL;
-
-if (!redisUrl) {
-  logger.error('No Redis URL provided. Exiting...');
-  process.exit(1);
-}
-
-const queue = new Bull('queue', redisUrl, {
+const queue = new Bull('queue', process.env.REDIS_URL!, {
   redis: { maxRetriesPerRequest: null }
 });
 
