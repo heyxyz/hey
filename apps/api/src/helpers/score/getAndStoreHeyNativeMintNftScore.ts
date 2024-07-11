@@ -44,10 +44,9 @@ const getAndStoreHeyNativeMintNftScore = async (
 
     return true;
   } catch {
-    logger.error(
+    throw new Error(
       `Failed to get and store Hey Native Mint NFT score for ${id} - ${address}`
     );
-    return false;
   }
 };
 
