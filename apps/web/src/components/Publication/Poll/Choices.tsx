@@ -2,7 +2,6 @@ import type { Poll } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Beta from '@components/Shared/Badges/Beta';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   Bars3BottomLeftIcon,
@@ -20,6 +19,7 @@ import axios from 'axios';
 import plur from 'plur';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -33,6 +33,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
   const { isSuspended } = useProfileStatus();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
+  const lensAuthData = useLensAuthData();
 
   const { endsAt, options } = poll;
   const totalResponses = options.reduce((acc, { responses }) => {
@@ -55,7 +56,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       await axios.post(
         `${HEY_API_URL}/polls/act`,
         { option: id, poll: poll.id },
-        { headers: getAuthApiHeaders() }
+        { headers: { ...lensAuthData } }
       );
 
       refetch?.();

@@ -7,12 +7,12 @@ import type { FC, ReactNode } from 'react';
 
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import NoBalanceError from '@components/Shared/NoBalanceError';
-import getCurrentSession from '@helpers/getCurrentSession';
 import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import { formatUnits } from 'viem';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -36,7 +36,7 @@ const ActionButton: FC<ActionButtonProps> = ({
   title
 }) => {
   const [allowed, setAllowed] = useState(true);
-  const { id: sessionProfileId } = getCurrentSession();
+  const { id: sessionProfileId } = useLensAuthData();
   const { address } = useAccount();
 
   const amount = Number(moduleAmount?.value || '0');

@@ -6,17 +6,17 @@ import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import PageMetatags from '@components/Shared/PageMetatags';
-import getCurrentSession from '@helpers/getCurrentSession';
 import getToastOptions from '@helpers/getToastOptions';
 import { useCurrentProfileQuery } from '@hey/lens';
 import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
+import { signOut } from 'src/store/persisted/useAuthStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { isAddress } from 'viem';
@@ -40,8 +40,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
-
-  const { id: sessionProfileId } = getCurrentSession();
+  const { id: sessionProfileId } = useLensAuthData();
 
   const logout = (reload = false) => {
     resetPreferences();
@@ -70,9 +69,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   });
 
   const validateAuthentication = () => {
-    const { accessToken } = hydrateAuthTokens();
-
-    if (!accessToken) {
+    if (!sessionProfileId) {
       logout();
     }
   };
