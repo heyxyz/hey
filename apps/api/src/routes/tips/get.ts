@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import prisma from 'src/helpers/prisma';
@@ -34,33 +33,16 @@ export const post = [
     const { ids } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
-      const payload = parseJwt(identityToken);
-      const profileId = payload.id;
-
-      const [hasTipped, tipCounts] = await prisma.$transaction([
-        prisma.tip.findMany({
-          select: { publicationId: true },
-          where: {
-            fromProfileId: profileId,
-            publicationId: { in: ids }
-          }
-        }),
-        prisma.tip.groupBy({
-          _count: { publicationId: true },
-          by: ['publicationId'],
-          orderBy: { publicationId: 'asc' },
-          where: { publicationId: { in: ids } }
-        })
-      ]);
-
-      const hasTippedMap = new Set(hasTipped.map((tip) => tip.publicationId));
+      const tipCounts = await prisma.tip.groupBy({
+        _count: { publicationId: true },
+        by: ['publicationId'],
+        orderBy: { publicationId: 'asc' },
+        where: { publicationId: { in: ids } }
+      });
 
       const result = tipCounts.map(({ _count, publicationId }) => ({
-        // @ts-ignore
         count: _count.publicationId,
-        id: publicationId,
-        tipped: hasTippedMap.has(publicationId)
+        id: publicationId
       }));
 
       logger.info(`Fetched tips for ${ids.length} publications`);

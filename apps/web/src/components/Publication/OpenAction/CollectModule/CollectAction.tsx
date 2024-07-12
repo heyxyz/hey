@@ -13,7 +13,6 @@ import LoginButton from '@components/Shared/LoginButton';
 import NoBalanceError from '@components/Shared/NoBalanceError';
 import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
 import errorToast from '@helpers/errorToast';
-import getCurrentSession from '@helpers/getCurrentSession';
 import { Leafwatch } from '@helpers/leafwatch';
 import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
@@ -36,6 +35,7 @@ import { Button, Spinner, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
@@ -80,8 +80,7 @@ const CollectAction: FC<CollectActionProps> = ({
     lensHubOnchainSigNonce
   } = useNonceStore();
   const { addTransaction, isFollowPending } = useTransactionStore();
-
-  const { id: sessionProfileId } = getCurrentSession();
+  const { id: sessionProfileId } = useLensAuthData();
 
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
