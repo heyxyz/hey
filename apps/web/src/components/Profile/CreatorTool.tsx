@@ -2,7 +2,6 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import {
   HEY_API_URL,
@@ -17,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 
 interface CreatorToolProps {
   profile: Profile;
@@ -25,6 +25,7 @@ interface CreatorToolProps {
 const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   const [updating, setUpdating] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
+  const lensAuthData = useLensAuthData();
 
   const allowedFeatures = [
     { id: VERIFIED_FEATURE_ID, key: FeatureFlag.Verified },
@@ -32,7 +33,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
+    queryFn: () => getInternalPreferences(profile.id, lensAuthData),
     queryKey: ['getInternalPreferences', profile.id]
   });
 
@@ -52,7 +53,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
         axios.post(
           `${HEY_API_URL}/internal/features/assign`,
           { enabled, id, profile_id: profile.id },
-          { headers: getAuthApiHeaders() }
+          { headers: { ...lensAuthData } }
         ),
         {
           error: 'Failed to update flag',

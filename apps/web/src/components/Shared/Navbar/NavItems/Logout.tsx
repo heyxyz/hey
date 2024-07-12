@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import getCurrentSession from '@helpers/getCurrentSession';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { AUTH } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { signOut } from 'src/store/persisted/useAuthStore';
 import { useDisconnect } from 'wagmi';
@@ -22,7 +22,7 @@ const Logout: FC<LogoutProps> = ({ className = '', onClick }) => {
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
-  const { authorizationId } = getCurrentSession();
+  const { authorizationId } = useLensAuthData();
 
   const onError = (error: any) => {
     setRevoking(false);

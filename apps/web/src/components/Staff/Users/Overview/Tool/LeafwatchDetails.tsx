@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import {
   ComputerDesktopIcon,
   CursorArrowRaysIcon,
@@ -14,12 +13,15 @@ import { HEY_API_URL } from '@hey/data/constants';
 import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 
 interface LeafwatchDetailsProps {
   profileId: string;
 }
 
 const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
+  const lensAuthData = useLensAuthData();
+
   const getProfileDetails = async (): Promise<{
     browser: string;
     city: string;
@@ -32,7 +34,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/details`,
-        { headers: getAuthApiHeaders(), params: { id: profileId } }
+        { headers: { ...lensAuthData }, params: { id: profileId } }
       );
       const { data } = response;
 
@@ -54,7 +56,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
-        { headers: getAuthApiHeaders(), params: { id: profileId } }
+        { headers: { ...lensAuthData }, params: { id: profileId } }
       );
       const { data } = response;
 

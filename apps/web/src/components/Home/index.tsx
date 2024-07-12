@@ -7,6 +7,8 @@ import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import { signIn } from 'src/store/persisted/useAuthStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import FeedType from './FeedType';
@@ -21,6 +23,7 @@ const Home: NextPage = () => {
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );
+  const lensAuthData = useLensAuthData();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
@@ -31,6 +34,21 @@ const Home: NextPage = () => {
   return (
     <>
       {!loggedInWithProfile && <Hero />}
+      {JSON.stringify(lensAuthData)}
+      <div />
+      <button
+        onClick={() => {
+          console.log(
+            signIn({
+              accessToken: 'gm',
+              identityToken: 'test',
+              refreshToken: 'test'
+            })
+          );
+        }}
+      >
+        Login
+      </button>
       <GridLayout>
         <GridItemEight className="space-y-5">
           {loggedInWithProfile ? (
