@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.2",
-    "@heroicons/react": "^2.1.4",
+    "@heroicons/react": "^2.1.5",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hookform/resolvers": "^3.9.0",
