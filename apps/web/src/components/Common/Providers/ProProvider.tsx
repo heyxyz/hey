@@ -1,19 +1,19 @@
 import type { FC } from 'react';
 
-import getCurrentSession from '@helpers/getCurrentSession';
 import { STALE_TIMES } from '@hey/data/constants';
 import getPro from '@hey/helpers/api/getPro';
 import { useQuery } from '@tanstack/react-query';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 
 const ProProvider: FC = () => {
-  const { id: sessionProfileId } = getCurrentSession();
   const { setIsPro, setProExpiresAt } = useProStore();
+  const { id: sessionProfileId } = useLensAuthData();
 
   useQuery({
     enabled: Boolean(sessionProfileId),
     queryFn: () =>
-      getPro(sessionProfileId).then((data) => {
+      getPro(sessionProfileId as string).then((data) => {
         setIsPro(data.isPro);
         setProExpiresAt(data.expiresAt);
         return data;
