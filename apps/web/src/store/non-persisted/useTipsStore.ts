@@ -1,6 +1,5 @@
 import type { PublicationTip } from '@hey/types/hey';
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import getPublicationsTips from '@hey/helpers/api/getPublicationsTips';
 import { createTrackedSelector } from 'react-tracked';
 import { create } from 'zustand';
@@ -34,7 +33,7 @@ const store = create<State>((set, get) => ({
       return;
     }
 
-    const tipsResponse = await getPublicationsTips(ids, getAuthApiHeaders());
+    const tipsResponse = await getPublicationsTips(ids);
     set((state) => ({
       publicationTips: [...state.publicationTips, ...tipsResponse]
     }));

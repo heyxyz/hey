@@ -2,7 +2,6 @@ import type { Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -13,6 +12,7 @@ import { Button } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import {
   arbitrum,
@@ -51,6 +51,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
   const { sendTransactionAsync } = useSendTransaction({
     mutation: { onError: errorToast }
   });
+  const lensAuthData = useLensAuthData();
 
   if (!showTransaction.frame || !showTransaction.transaction) {
     return null;
@@ -94,7 +95,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
               showTransaction.frame?.postUrl,
             pubId: publicationId
           },
-          { headers: getAuthApiHeadersWithAccessToken() }
+          { headers: { ...lensAuthData } }
         );
 
       if (!postedData.frame) {

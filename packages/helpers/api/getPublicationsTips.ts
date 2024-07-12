@@ -10,15 +10,10 @@ import axios from 'axios';
  * @returns The number of tips of the publication
  */
 const getPublicationsTips = async (
-  ids: string[],
-  headers: any
+  ids: string[]
 ): Promise<PublicationTip[]> => {
   try {
-    const response = await axios.post(
-      `${HEY_API_URL}/tips/get`,
-      { ids },
-      { headers }
-    );
+    const response = await axios.post(`${HEY_API_URL}/tips/get`, { ids });
 
     return response.data?.result || [];
   } catch {
