@@ -2,10 +2,10 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import UserProfile from '@components/Shared/UserProfile';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { IS_MAINNET } from '@hey/data/constants';
 import getInternalPreferences from '@hey/helpers/api/getInternalPreferences';
 import { useQuery } from '@tanstack/react-query';
+import useLensAuthData from 'src/hooks/useAuthApiHeaders';
 
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
@@ -19,8 +19,10 @@ interface ProfileStaffToolProps {
 }
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
+  const lensAuthData = useLensAuthData();
+
   const { data: preferences } = useQuery({
-    queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
+    queryFn: () => getInternalPreferences(profile.id, lensAuthData),
     queryKey: ['getInternalPreferences', profile.id || '']
   });
 
