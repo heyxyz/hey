@@ -22,7 +22,7 @@
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
     "viem": "^2.17.3",
-    "winston": "^3.13.0"
+    "winston": "^3.13.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
