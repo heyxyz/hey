@@ -9,7 +9,7 @@ const getClub = async (
   headers: any
 ): Promise<Club | null> => {
   try {
-    const clubs = await getClubs(headers, payload);
+    const clubs = await getClubs(payload, headers);
 
     return clubs?.[0] || null;
   } catch {
