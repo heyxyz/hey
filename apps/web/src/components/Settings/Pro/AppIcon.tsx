@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/24/outline';
 import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
@@ -9,7 +10,6 @@ import { Card, CardHeader, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const icons = [
@@ -23,7 +23,6 @@ const icons = [
 const AppIcon: FC = () => {
   const { appIcon, setAppIcon } = usePreferencesStore();
   const [updating, setUpdating] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   const updateAppIcon = (id: number) => {
     setUpdating(true);
@@ -31,7 +30,7 @@ const AppIcon: FC = () => {
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { appIcon: id },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

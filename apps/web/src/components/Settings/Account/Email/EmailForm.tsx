@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
@@ -9,7 +10,6 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -24,7 +24,6 @@ const EmailForm: FC = () => {
   const { email, setEmail: setEmailState } = usePreferencesStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   const form = useZodForm({ schema: updateEmailSchema });
 
@@ -54,7 +53,7 @@ const EmailForm: FC = () => {
       await axios.post(
         `${HEY_API_URL}/email/update`,
         { email },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       );
       setEmailState(email as string);
       Leafwatch.track(SETTINGS.ACCOUNT.SET_EMAIL);

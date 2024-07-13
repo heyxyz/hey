@@ -1,6 +1,8 @@
 import type { FiatRate } from '@hey/types/lens';
 import type { FC } from 'react';
 
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
+import getCurrentSession from '@helpers/getCurrentSession';
 import { HEY_API_URL, STALE_TIMES } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
@@ -9,7 +11,6 @@ import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
@@ -20,6 +21,7 @@ import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 
 const PreferencesProvider: FC = () => {
+  const { id: sessionProfileId } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
@@ -34,10 +36,9 @@ const PreferencesProvider: FC = () => {
   const { setPinnedPublication } = useProfileDetailsStore();
   const { setStatus } = useProfileStatus();
   const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
-  const lensAuthData = useLensAuthData();
 
   const getPreferencesData = async () => {
-    const preferences = await getPreferences(lensAuthData.headers);
+    const preferences = await getPreferences(getAuthApiHeaders());
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
     setAppIcon(preferences.appIcon);
@@ -59,13 +60,13 @@ const PreferencesProvider: FC = () => {
   };
 
   const getProfileDetailsData = async () => {
-    const details = await getProfileDetails(lensAuthData.id as string);
+    const details = await getProfileDetails(sessionProfileId);
     setPinnedPublication(details?.pinnedPublication || null);
     return true;
   };
 
   const getScoreData = async () => {
-    const score = await getScore(lensAuthData.id as string);
+    const score = await getScore(sessionProfileId);
     setScore(score.score);
     return score;
   };
@@ -96,19 +97,19 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    enabled: Boolean(lensAuthData.id),
+    enabled: Boolean(sessionProfileId),
     queryFn: getPreferencesData,
-    queryKey: ['getPreferences', lensAuthData.id || '']
+    queryKey: ['getPreferences', sessionProfileId || '']
   });
   useQuery({
-    enabled: Boolean(lensAuthData.id),
+    enabled: Boolean(sessionProfileId),
     queryFn: getProfileDetailsData,
-    queryKey: ['getProfileDetails', lensAuthData.id || '']
+    queryKey: ['getProfileDetails', sessionProfileId || '']
   });
   useQuery({
-    enabled: Boolean(lensAuthData.id),
+    enabled: Boolean(sessionProfileId),
     queryFn: getScoreData,
-    queryKey: ['getScore', lensAuthData.id],
+    queryKey: ['getScore', sessionProfileId],
     staleTime: STALE_TIMES.SIX_HOURS
   });
   useQuery({

@@ -2,7 +2,7 @@ import type { FeatureFlag } from '@hey/data/feature-flags';
 
 import { hydrateFeatureFlags } from 'src/store/persisted/useFeatureFlagsStore';
 
-import getLensAuthData from './getLensAuthData';
+import getCurrentSession from './getCurrentSession';
 
 /**
  * Checks if a feature is enabled for the current user
@@ -10,7 +10,7 @@ import getLensAuthData from './getLensAuthData';
  * @returns Whether the feature is enabled
  */
 const isFeatureAvailable = (key: FeatureFlag | string) => {
-  const { id: sessionProfileId } = getLensAuthData();
+  const { id: sessionProfileId } = getCurrentSession();
   const featureFlags = hydrateFeatureFlags();
 
   if (!sessionProfileId) {

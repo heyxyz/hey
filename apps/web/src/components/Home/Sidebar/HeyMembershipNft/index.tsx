@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
@@ -8,7 +9,6 @@ import { Button, Card, Modal } from '@hey/ui';
 import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 import Mint from './Mint';
@@ -19,7 +19,6 @@ const HeyMembershipNft: FC = () => {
     setHasDismissedOrMintedMembershipNft
   } = usePreferencesStore();
   const [showMintModal, setShowMintModal] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   if (hasDismissedOrMintedMembershipNft) {
     return null;
@@ -28,7 +27,7 @@ const HeyMembershipNft: FC = () => {
   const updateHeyMemberNftStatus = () => {
     toast.promise(
       axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
-        headers: lensAuthData.headers
+        headers: getAuthApiHeaders()
       }),
       {
         error: 'Error updating.',
