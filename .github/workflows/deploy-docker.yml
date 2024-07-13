@@ -28,8 +28,11 @@ jobs:
 
       - name: Trigger API Deployment 🚀
         uses: indiesdev/curl@v1
+        id: deploy
         with:
           url: 'https://redeploy.heyxyz.workers.dev/?secret=${{ secrets.SECRET }}'
           method: 'GET'
           timeout: 30000
           headers: '{ "Referer": "https://hey.xyz" }'
+      - name: Deploy Status 🚀
+        run: echo ${{ steps.deploy.outputs.response }}
