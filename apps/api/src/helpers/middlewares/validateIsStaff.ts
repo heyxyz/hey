@@ -9,8 +9,9 @@ import { STAFF_FEATURE_ID } from '../constants';
 
 /**
  * Middleware to validate if the profile is staff
- * @param request Incoming request
- * @returns Response
+ * @param req Incoming request
+ * @param res Response
+ * @param next Next function
  */
 const validateIsStaff = async (
   req: Request,
