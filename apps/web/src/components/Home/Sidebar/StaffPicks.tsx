@@ -100,8 +100,8 @@ const StaffPicks: FC = () => {
     ...(staffPicks?.batch2?.items || []),
     ...(staffPicks?.batch3?.items || [])
   ];
-
-  const filteredProfiles = profiles
+  const randomProfiles = profiles.sort(() => Math.random() - Math.random());
+  const filteredProfiles = randomProfiles
     .filter(
       (profile) =>
         !profile.operations.isBlockedByMe.value &&
