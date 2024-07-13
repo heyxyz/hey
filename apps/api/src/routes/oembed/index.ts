@@ -23,6 +23,7 @@ export const get: Handler = async (req, res) => {
       logger.info(`(cached) Oembed generated for ${url}`);
       return res
         .status(200)
+        .setHeader('Cache-Control', CACHE_AGE_1_DAY)
         .json({ result: JSON.parse(cachedData), success: true });
     }
 
