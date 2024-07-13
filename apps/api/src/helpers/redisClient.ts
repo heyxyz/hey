@@ -1,31 +1,34 @@
+import type { RedisClientType } from 'redis';
+
 import hoursToSeconds from '@hey/helpers/hoursToSeconds';
 import logger from '@hey/helpers/logger';
 import randomNumber from '@hey/helpers/randomNumber';
 import { createClient } from 'redis';
 
-const redisClient = createClient({ url: process.env.REDIS_URL });
+let redisClient: null | RedisClientType = null;
 
-redisClient.on('connect', () => logger.info('[Redis] Redis connect'));
-redisClient.on('ready', () => logger.info('[Redis] Redis ready'));
-redisClient.on('reconnecting', (err) =>
-  logger.error('[Redis] Redis reconnecting', err)
-);
-redisClient.on('error', (err) => logger.error('[Redis] Redis error', err));
-redisClient.on('end', (err) => logger.error('[Redis] Redis end', err));
+if (process.env.REDIS_URL) {
+  redisClient = createClient({ url: process.env.REDIS_URL });
 
-const connectRedis = async () => {
-  if (!process.env.REDIS_URL) {
-    logger.info('[Redis] REDIS_URL not set');
-    return;
-  }
+  redisClient.on('connect', () => logger.info('[Redis] Redis connect'));
+  redisClient.on('ready', () => logger.info('[Redis] Redis ready'));
+  redisClient.on('reconnecting', (err) =>
+    logger.error('[Redis] Redis reconnecting', err)
+  );
+  redisClient.on('error', (err) => logger.error('[Redis] Redis error', err));
+  redisClient.on('end', (err) => logger.error('[Redis] Redis end', err));
 
-  logger.info('[Redis] Connecting to Redis');
-  await redisClient.connect();
-};
+  const connectRedis = async () => {
+    logger.info('[Redis] Connecting to Redis');
+    await redisClient!.connect();
+  };
 
-connectRedis().catch((error) =>
-  logger.error('[Redis] Connection error', error)
-);
+  connectRedis().catch((error) =>
+    logger.error('[Redis] Connection error', error)
+  );
+} else {
+  logger.info('[Redis] REDIS_URL not set');
+}
 
 // Generates a random expiry time between 1 and 3 hours
 export const generateMediumExpiry = (): number => {
@@ -47,6 +50,11 @@ export const setRedis = async (
   value: boolean | number | Record<string, any> | string,
   expiry = generateExtraLongExpiry()
 ) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return;
+  }
+
   if (typeof value !== 'string') {
     value = JSON.stringify(value);
   }
@@ -55,14 +63,26 @@ export const setRedis = async (
 };
 
 export const getRedis = async (key: string) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return null;
+  }
   return await redisClient.get(key);
 };
 
 export const delRedis = async (key: string) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return;
+  }
   await redisClient.del(key);
 };
 
 export const getTtl = async (key: string) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return null;
+  }
   return await redisClient.ttl(key);
 };
 
