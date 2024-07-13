@@ -1,12 +1,12 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { ChatBubbleLeftIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface SuspendButtonsProps {
@@ -16,6 +16,7 @@ interface SuspendButtonsProps {
 
 const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
   const { staffMode } = useFeatureFlagsStore();
+  const lensAuthData = useLensAuthData();
 
   if (!staffMode) {
     return null;
@@ -27,7 +28,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/assign`,
         { enabled: true, id, profile_id: publication.by.id },
-        { headers: getAuthApiHeaders() }
+        { headers: lensAuthData.headers }
       ),
       {
         error: 'Error suspending profile',

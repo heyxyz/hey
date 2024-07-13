@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import Cover from '@components/Shared/Cover';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
@@ -13,6 +12,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -29,6 +29,7 @@ const ViewClub: NextPage = () => {
     query: { handle }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+  const lensAuthData = useLensAuthData();
 
   const showMembers = pathname === '/c/[handle]/members';
 
@@ -51,7 +52,7 @@ const ViewClub: NextPage = () => {
     queryFn: () =>
       getClub(
         { club_handle: handle as string, profile_id: currentProfile?.id },
-        getAuthApiHeadersWithAccessToken()
+        lensAuthData
       ),
     queryKey: ['getClub', handle]
   });

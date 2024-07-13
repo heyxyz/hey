@@ -3,7 +3,6 @@ import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { ProfileLinkSource } from '@hey/data/tracking';
@@ -13,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MembersProps {
@@ -22,6 +22,7 @@ interface MembersProps {
 
 const Members: FC<MembersProps> = ({ clubId, handle }) => {
   const { currentProfile } = useProfileStore();
+  const lensAuthData = useLensAuthData();
 
   const getClubMembers = async (): Promise<{
     items: ClubProfile[];
@@ -34,7 +35,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/members`,
         { id: clubId, limit: 50 },
-        { headers: getAuthApiHeadersWithAccessToken() }
+        { headers: lensAuthData.headers }
       );
 
       return response.data.data;

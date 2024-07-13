@@ -1,9 +1,10 @@
 import type { Club } from '@hey/types/club';
 
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import getClubs from '@hey/helpers/api/clubs/getClubs';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+
+import useLensAuthData from '../useLensAuthData';
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
@@ -18,6 +19,7 @@ export type ClubProfile = {
 const useClubQuery = (query: string): ClubProfile[] => {
   const { currentProfile } = useProfileStore();
   const [results, setResults] = useState<ClubProfile[]>([]);
+  const lensAuthData = useLensAuthData();
 
   useEffect(() => {
     if (!query) {
@@ -27,7 +29,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
 
     getClubs(
       { limit: 10, profile_id: currentProfile?.id, query },
-      getAuthApiHeadersWithAccessToken()
+      lensAuthData
     ).then((data) => {
       const clubs = data as Club[];
       const clubsResults = (clubs ?? []).map(

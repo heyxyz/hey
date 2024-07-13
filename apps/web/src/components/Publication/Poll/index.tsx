@@ -2,11 +2,11 @@ import type { Poll as TPoll } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Wrapper from '@components/Shared/Embed/Wrapper';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 import Choices from './Choices';
 
@@ -15,10 +15,12 @@ interface SnapshotProps {
 }
 
 const Poll: FC<SnapshotProps> = ({ id }) => {
+  const lensAuthData = useLensAuthData();
+
   const getPoll = async (): Promise<null | TPoll> => {
     try {
       const response = await axios.get(`${HEY_API_URL}/polls/get`, {
-        headers: { ...getAuthApiHeaders(), 'X-Skip-Cache': true },
+        headers: { ...lensAuthData.headers, 'X-Skip-Cache': true },
         params: { id }
       });
       const { data } = response;

@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import errorToast from '@helpers/errorToast';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HeyTipping } from '@hey/abis';
 import { Errors } from '@hey/data';
@@ -24,6 +23,7 @@ import axios from 'axios';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import usePreventScrollOnNumberInput from 'src/hooks/usePreventScrollOnNumberInput';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
@@ -71,6 +71,7 @@ const Action: FC<ActionProps> = ({
 
   const { isSuspended } = useProfileStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
+  const lensAuthData = useLensAuthData();
 
   const { address } = useAccount();
   const { data: balanceData } = useBalance({
@@ -192,7 +193,7 @@ const Action: FC<ActionProps> = ({
           tokenAddress: selectedCurrency?.contractAddress,
           txHash: hash
         },
-        { headers: getAuthApiHeaders() }
+        { headers: lensAuthData.headers }
       );
 
       Leafwatch.track(PUBLICATION.TIP.TIP, {

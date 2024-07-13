@@ -2,10 +2,10 @@ import type { FC } from 'react';
 
 import { Card, CardHeader } from '@hey/ui';
 import toast from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const Tokens: FC = () => {
-  const { accessToken, identityToken, refreshToken } = hydrateAuthTokens();
+  const lensAuthData = useLensAuthData();
 
   return (
     <>
@@ -15,10 +15,12 @@ const Tokens: FC = () => {
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left text-sm font-bold dark:bg-gray-600"
           onClick={() => {
             toast.success('Copied to clipboard');
-            navigator.clipboard.writeText(accessToken as string);
+            navigator.clipboard.writeText(
+              lensAuthData.headers['X-Access-Token'] as string
+            );
           }}
         >
-          {accessToken}
+          {lensAuthData.headers['X-Access-Token']}
         </button>
       </Card>
       <Card>
@@ -27,10 +29,12 @@ const Tokens: FC = () => {
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left text-sm font-bold dark:bg-gray-600"
           onClick={() => {
             toast.success('Copied to clipboard');
-            navigator.clipboard.writeText(refreshToken as string);
+            navigator.clipboard.writeText(
+              lensAuthData.headers['X-Refresh-Token'] as string
+            );
           }}
         >
-          {refreshToken}
+          {lensAuthData.headers['X-Refresh-Token']}
         </button>
       </Card>
       <Card>
@@ -39,10 +43,12 @@ const Tokens: FC = () => {
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left text-sm font-bold dark:bg-gray-600"
           onClick={() => {
             toast.success('Copied to clipboard');
-            navigator.clipboard.writeText(identityToken as string);
+            navigator.clipboard.writeText(
+              lensAuthData.headers['X-Identity-Token'] as string
+            );
           }}
         >
-          {identityToken}
+          {lensAuthData.headers['X-Identity-Token']}
         </button>
       </Card>
     </>

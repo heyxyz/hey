@@ -1,7 +1,6 @@
 import type { FrameTransaction, Frame as IFrame } from '@hey/types/misc';
 import type { FC } from 'react';
 
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { BoltIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data';
@@ -14,6 +13,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { createTrackedSelector } from 'react-tracked';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
@@ -75,6 +75,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     setShowTransaction,
     showTransaction
   } = useFramesStore();
+  const lensAuthData = useLensAuthData();
 
   useEffect(() => {
     if (frame) {
@@ -111,7 +112,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           pubId: publicationId,
           state
         },
-        { headers: getAuthApiHeadersWithAccessToken() }
+        { headers: lensAuthData.headers }
       );
 
       if (!data.frame) {
@@ -143,7 +144,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           pubId: publicationId,
           state
         },
-        { headers: getAuthApiHeadersWithAccessToken() }
+        { headers: lensAuthData.headers }
       );
 
       const txnData = data.frame.transaction;
