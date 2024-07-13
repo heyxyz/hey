@@ -41,15 +41,15 @@ export const get = [
 
       const data = await lensPg.query(
         `
-        SELECT EXISTS (
-          SELECT 1
-          FROM profile_view pv
-          JOIN publication.open_action_module_acted_record o ON pv.profile_id = o.acted_profile_id
-          WHERE
-            (pv.profile_id = $1 OR pv.owned_by = $2)
-            AND o.publication_id = $3
-        ) AS result;
-      `,
+          SELECT EXISTS (
+            SELECT 1
+            FROM profile_view pv
+            JOIN publication.open_action_module_acted_record o ON pv.profile_id = o.acted_profile_id
+            WHERE
+              (pv.profile_id = $1 OR pv.owned_by = $2)
+              AND o.publication_id = $3
+          ) AS result;
+        `,
         [id, formattedAddress, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
       );
 
