@@ -10,7 +10,7 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
 
 interface PinProps {

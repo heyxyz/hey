@@ -4,7 +4,7 @@ import getClubs from '@hey/helpers/api/clubs/getClubs';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import useLensAuthData from '../useAuthApiHeaders';
+import useLensAuthData from '../useLensAuthData';
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 

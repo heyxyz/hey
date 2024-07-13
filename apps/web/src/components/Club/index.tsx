@@ -12,7 +12,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

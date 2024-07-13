@@ -8,7 +8,7 @@ import { Button, Form, TextArea, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { object, string } from 'zod';
 
 const assignFeatureSchema = object({

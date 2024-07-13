@@ -16,7 +16,7 @@ import {
   Tooltip
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import colors from 'tailwindcss/colors';
 
 ChartJS.register(

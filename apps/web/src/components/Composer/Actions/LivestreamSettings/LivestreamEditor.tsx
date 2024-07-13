@@ -13,7 +13,7 @@ import { Card, Spinner, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 interface WrapperProps {

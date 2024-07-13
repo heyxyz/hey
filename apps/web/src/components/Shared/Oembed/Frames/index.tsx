@@ -13,7 +13,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { createTrackedSelector } from 'react-tracked';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
