@@ -37,7 +37,7 @@ const PreferencesProvider: FC = () => {
   const lensAuthData = useLensAuthData();
 
   const getPreferencesData = async () => {
-    const preferences = await getPreferences({ ...lensAuthData });
+    const preferences = await getPreferences(lensAuthData.headers);
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
     setAppIcon(preferences.appIcon);
