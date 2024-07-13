@@ -2,6 +2,7 @@ import type { Handler } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
+import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import prisma from 'src/helpers/prisma';
 import {
   generateMediumExpiry,
@@ -44,7 +45,10 @@ export const get: Handler = async (req, res) => {
     await setRedis(cacheKey, result, generateMediumExpiry());
     logger.info(`Fetched pro status for ${id}`);
 
-    return res.status(200).json({ result, success: true });
+    return res
+      .status(200)
+      .setHeader('Cache-Control', CACHE_AGE_30_MINS)
+      .json({ result, success: true });
   } catch (error) {
     return catchedError(res, error);
   }
