@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { useVerifyQuery } from '@hey/lens';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const LensAuthProvider: FC = () => {
   const { id } = useLensAuthData();

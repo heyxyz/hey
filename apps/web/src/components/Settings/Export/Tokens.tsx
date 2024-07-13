@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { Card, CardHeader } from '@hey/ui';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const Tokens: FC = () => {
   const lensAuthData = useLensAuthData();

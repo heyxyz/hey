@@ -5,7 +5,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const PublicationStats: FC = () => {
   const lensAuthData = useLensAuthData();

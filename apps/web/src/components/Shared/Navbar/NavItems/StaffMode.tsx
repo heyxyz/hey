@@ -8,7 +8,7 @@ import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface StaffModeProps {

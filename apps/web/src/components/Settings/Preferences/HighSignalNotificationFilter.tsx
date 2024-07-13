@@ -8,7 +8,7 @@ import { SETTINGS } from '@hey/data/tracking';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {

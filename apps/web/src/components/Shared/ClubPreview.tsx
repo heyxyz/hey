@@ -10,7 +10,7 @@ import { Card, Image } from '@hey/ui';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import JoinLeaveButton from './Club/JoinLeaveButton';

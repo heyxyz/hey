@@ -13,7 +13,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import humanize from '@hey/helpers/humanize';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 interface LeafwatchDetailsProps {
   profileId: string;
