@@ -1,5 +1,6 @@
 // Localstorage keys
 export const Localstorage = {
+  AuthStore: 'auth.store',
   FingerprintStore: 'fingerprint.store',
   LeafwatchStore: 'leafwatch.store',
   ModeStore: 'mode.store',
@@ -10,7 +11,6 @@ export const Localstorage = {
 
 export const IndexDB = {
   AllowedTokensStore: 'allowedtokens.store',
-  AuthStore: 'auth.store',
   FeatureFlagsStore: 'featureflags.store',
   ProfileStore: 'profile.store',
   RateStore: 'rate.store',

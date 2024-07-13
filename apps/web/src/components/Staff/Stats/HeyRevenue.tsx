@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import { Card, CardHeader, ErrorMessage } from '@hey/ui';
@@ -16,7 +17,6 @@ import {
   Tooltip
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import colors from 'tailwindcss/colors';
 
 ChartJS.register(
@@ -29,15 +29,13 @@ ChartJS.register(
 );
 
 const HeyRevenue: FC = () => {
-  const lensAuthData = useLensAuthData();
-
   const getSignupsStats = async (): Promise<
     { date: string; mint_count: number; signups_count: number }[] | null
   > => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/lens/internal/stats/heyRevenue`,
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       );
 
       return response.data?.result || null;
