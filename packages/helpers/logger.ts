@@ -28,6 +28,10 @@ class Logger {
   info(message: string) {
     this.logger.info(message);
   }
+
+  warn(message: string, error?: Error) {
+    this.logger.warn(message, error);
+  }
 }
 
 const logger = new Logger();

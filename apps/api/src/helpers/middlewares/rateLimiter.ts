@@ -26,7 +26,8 @@ const createRateLimiter = (window: number, max: number) => {
     store: redisClient
       ? new RedisStore({
           prefix: 'rate-limit:',
-          sendCommand: (...args: string[]) => redisClient.sendCommand(args)
+          sendCommand: (...args: string[]) =>
+            redisClient?.sendCommand(args) as any
         })
       : undefined,
     windowMs: window * 60 * 1000 // Time window in milliseconds
