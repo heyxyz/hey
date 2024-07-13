@@ -35,7 +35,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
       const response = await axios.post(
         `${HEY_API_URL}/clubs/members`,
         { id: clubId, limit: 50 },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       return response.data.data;

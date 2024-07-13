@@ -95,7 +95,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
               showTransaction.frame?.postUrl,
             pubId: publicationId
           },
-          { headers: { ...lensAuthData } }
+          { headers: lensAuthData.headers }
         );
 
       if (!postedData.frame) {

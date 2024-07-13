@@ -193,7 +193,7 @@ const Action: FC<ActionProps> = ({
           tokenAddress: selectedCurrency?.contractAddress,
           txHash: hash
         },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       Leafwatch.track(PUBLICATION.TIP.TIP, {

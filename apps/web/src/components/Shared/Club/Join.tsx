@@ -24,7 +24,7 @@ const Join: FC<JoinProps> = ({ id, setJoined, small }) => {
       await axios.post(
         `${HEY_API_URL}/clubs/join`,
         { id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       toast.success('Joined club successfully!');

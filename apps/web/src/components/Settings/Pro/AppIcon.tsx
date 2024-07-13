@@ -31,7 +31,7 @@ const AppIcon: FC = () => {
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { appIcon: id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {

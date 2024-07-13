@@ -24,7 +24,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/staffMode`,
         { enabled: !staffMode },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: 'Failed to toggle staff mode!',

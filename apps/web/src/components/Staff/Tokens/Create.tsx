@@ -47,7 +47,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
       axios.post(
         `${HEY_API_URL}/internal/tokens/create`,
         { contractAddress, decimals: parseInt(decimals), name, symbol },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {
