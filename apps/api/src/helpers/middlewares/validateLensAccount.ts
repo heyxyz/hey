@@ -43,7 +43,7 @@ const validateLensAccount = async (
     );
 
     if (data[0]?.result) {
-      await setRedis(cacheKey, true);
+      await setRedis(cacheKey, payload.authorizationId);
       return next();
     }
 
