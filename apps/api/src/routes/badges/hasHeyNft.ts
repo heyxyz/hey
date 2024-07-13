@@ -43,10 +43,10 @@ export const get = [
         `
         SELECT EXISTS (
           SELECT 1
-          FROM profile.record p
-          JOIN publication.open_action_module_acted_record o ON p.profile_id = o.acted_profile_id
+          FROM profile_view pv
+          JOIN publication.open_action_module_acted_record o ON pv.profile_id = o.acted_profile_id
           WHERE
-            (p.profile_id = $1 OR p.owned_by = $2)
+            (pv.profile_id = $1 OR pv.owned_by = $2)
             AND o.publication_id = $3
         ) AS result;
       `,
