@@ -11,7 +11,7 @@ class Logger {
       format: winston.format.combine(
         winston.format.colorize(),
         winston.format.json(),
-        winston.format.timestamp(),
+        winston.format.simple(),
         winston.format.printf(({ level, message }) => {
           return `${level}: ${message}`;
         })
