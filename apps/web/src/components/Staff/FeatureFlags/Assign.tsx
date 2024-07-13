@@ -1,7 +1,6 @@
 import type { Feature } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
@@ -9,6 +8,7 @@ import { Button, Form, TextArea, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { object, string } from 'zod';
 
 const assignFeatureSchema = object({
@@ -24,6 +24,7 @@ interface AssignProps {
 
 const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
   const [assigning, setAssigning] = useState(false);
+  const lensAuthData = useLensAuthData();
 
   const form = useZodForm({
     schema: assignFeatureSchema
@@ -35,7 +36,7 @@ const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/bulkAssign`,
         { id: feature.id, ids },
-        { headers: getAuthApiHeaders() }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {

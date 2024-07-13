@@ -1,7 +1,6 @@
 import type { AllowedToken } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
@@ -10,6 +9,7 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { object, string } from 'zod';
 
 const createTokenSchema = object({
@@ -30,6 +30,7 @@ interface CreateProps {
 
 const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
   const [creating, setCreating] = useState(false);
+  const lensAuthData = useLensAuthData();
 
   const form = useZodForm({
     schema: createTokenSchema
@@ -46,7 +47,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
       axios.post(
         `${HEY_API_URL}/internal/tokens/create`,
         { contractAddress, decimals: parseInt(decimals), name, symbol },
-        { headers: getAuthApiHeaders() }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {

@@ -1,7 +1,6 @@
 import type { Club } from '@hey/types/club';
 import type { FC, ReactNode } from 'react';
 
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import getClub from '@hey/helpers/api/clubs/getClub';
 import getMentions from '@hey/helpers/getMentions';
@@ -11,6 +10,7 @@ import { Card, Image } from '@hey/ui';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import JoinLeaveButton from './Club/JoinLeaveButton';
@@ -26,6 +26,7 @@ interface ClubPreviewProps {
 
 const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   const { currentProfile } = useProfileStore();
+  const lensAuthData = useLensAuthData();
 
   const {
     data,
@@ -35,7 +36,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
     mutationFn: () =>
       getClub(
         { club_handle: handle, profile_id: currentProfile?.id },
-        getAuthApiHeadersWithAccessToken()
+        lensAuthData
       ),
     mutationKey: ['getClub', handle]
   });
