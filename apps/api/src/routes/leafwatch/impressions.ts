@@ -1,12 +1,11 @@
 import type { Request, Response } from 'express';
 
+import getIp from '@hey/helpers/getIp';
 import logger from '@hey/helpers/logger';
-import requestIp from 'request-ip';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { invalidBody, noBody } from 'src/helpers/responses';
-import urlcat from 'urlcat';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -34,34 +33,20 @@ export const post = [
       return invalidBody(res);
     }
 
-    const ip = requestIp.getClientIp(req);
+    const ip = getIp(req);
+    const cfIpCity = req.headers['cf-ipcity'];
+    const cfIpCountry = req.headers['cf-ipcountry'];
+    const cfIpRegion = req.headers['cf-region'];
+
     const { ids, viewer_id } = body as ExtensionRequest;
 
     try {
-      let ipData: {
-        city: string;
-        country: string;
-        regionName: string;
-      } | null = null;
-
-      try {
-        const ipResponse = await fetch(
-          urlcat('https://pro.ip-api.com/json/:ip', {
-            ip,
-            key: process.env.IPAPI_KEY
-          })
-        );
-        ipData = await ipResponse.json();
-      } catch (error) {
-        return catchedError(res, error);
-      }
-
       const values = ids.map((id) => ({
-        city: ipData?.city || null,
-        country: ipData?.country || null,
+        city: cfIpCity || null,
+        country: cfIpCountry || null,
         ip: ip || null,
         publication_id: id,
-        region: ipData?.regionName || null,
+        region: cfIpRegion || null,
         viewer_id
       }));
 
