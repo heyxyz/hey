@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { SwatchIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -8,21 +9,19 @@ import { SETTINGS } from '@hey/data/tracking';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {
   const { highSignalNotificationFilter, setHighSignalNotificationFilter } =
     usePreferencesStore();
   const [updating, setUpdating] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { highSignalNotificationFilter: !highSignalNotificationFilter },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

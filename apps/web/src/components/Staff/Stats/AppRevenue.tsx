@@ -1,21 +1,19 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const AppRevenue: FC = () => {
-  const lensAuthData = useLensAuthData();
-
   const getAppRevenue = async (): Promise<
     { currency: string; month: string; revenue: string; symbol: string }[]
   > => {
     const response = await axios.get(
       `${HEY_API_URL}/lens/internal/stats/revenue`,
-      { headers: lensAuthData.headers }
+      { headers: getAuthApiHeaders() }
     );
     return response.data.result;
   };
