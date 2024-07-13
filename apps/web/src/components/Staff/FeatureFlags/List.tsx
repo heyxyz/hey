@@ -44,7 +44,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/features/toggle`,
         { enabled, id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {
@@ -71,7 +71,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/features/delete`,
         { id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: 'Failed to delete feature flag',

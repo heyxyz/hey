@@ -67,7 +67,7 @@ const LeafwatchStats: FC = () => {
     const response: {
       data: StatsType;
     } = await axios.get(`${HEY_API_URL}/internal/leafwatch/stats`, {
-      headers: { ...lensAuthData }
+      headers: lensAuthData.headers
     });
 
     return response.data;

@@ -31,7 +31,7 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
-        { headers: { ...lensAuthData }, params: { id: profile.id } }
+        { headers: lensAuthData.headers, params: { id: profile.id } }
       );
 
       return response.data.haveUsedHey;

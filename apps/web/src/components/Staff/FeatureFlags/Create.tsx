@@ -39,7 +39,7 @@ const Create: FC<CreateProps> = ({
       axios.post(
         `${HEY_API_URL}/internal/features/create`,
         { key },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {

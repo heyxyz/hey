@@ -39,7 +39,7 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
       };
 
       await axios.post(`${HEY_API_URL}/drafts/update`, draft, {
-        headers: { ...lensAuthData }
+        headers: lensAuthData.headers
       });
       onDiscard();
       setShowDiscardModal(false);

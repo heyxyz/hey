@@ -36,7 +36,7 @@ const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/bulkAssign`,
         { id: feature.id, ids },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {

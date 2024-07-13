@@ -46,7 +46,7 @@ const LivestreamEditor: FC = () => {
       const response = await axios.post(
         `${HEY_API_URL}/live/create`,
         { record },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
       const { data } = response;
       setLiveVideoConfig({

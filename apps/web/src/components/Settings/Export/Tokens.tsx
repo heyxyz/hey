@@ -16,11 +16,11 @@ const Tokens: FC = () => {
           onClick={() => {
             toast.success('Copied to clipboard');
             navigator.clipboard.writeText(
-              lensAuthData['X-Access-Token'] as string
+              lensAuthData.headers['X-Access-Token'] as string
             );
           }}
         >
-          {lensAuthData['X-Access-Token']}
+          {lensAuthData.headers['X-Access-Token']}
         </button>
       </Card>
       <Card>
@@ -30,11 +30,11 @@ const Tokens: FC = () => {
           onClick={() => {
             toast.success('Copied to clipboard');
             navigator.clipboard.writeText(
-              lensAuthData['X-Refresh-Token'] as string
+              lensAuthData.headers['X-Refresh-Token'] as string
             );
           }}
         >
-          {lensAuthData['X-Refresh-Token']}
+          {lensAuthData.headers['X-Refresh-Token']}
         </button>
       </Card>
       <Card>
@@ -44,11 +44,11 @@ const Tokens: FC = () => {
           onClick={() => {
             toast.success('Copied to clipboard');
             navigator.clipboard.writeText(
-              lensAuthData['X-Identity-Token'] as string
+              lensAuthData.headers['X-Identity-Token'] as string
             );
           }}
         >
-          {lensAuthData['X-Identity-Token']}
+          {lensAuthData.headers['X-Identity-Token']}
         </button>
       </Card>
     </>

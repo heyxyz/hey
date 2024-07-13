@@ -53,7 +53,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
         axios.post(
           `${HEY_API_URL}/internal/features/assign`,
           { enabled, id, profile_id: profile.id },
-          { headers: { ...lensAuthData } }
+          { headers: lensAuthData.headers }
         ),
         {
           error: 'Failed to update flag',

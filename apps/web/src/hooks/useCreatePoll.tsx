@@ -18,7 +18,7 @@ const useCreatePoll = () => {
         length: pollConfig.length,
         options: pollConfig.options
       },
-      { headers: { ...lensAuthData } }
+      { headers: lensAuthData.headers }
     );
 
     return response.data.poll.id;
