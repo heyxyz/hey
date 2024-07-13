@@ -9,7 +9,6 @@ import nFormatter from '@hey/helpers/nFormatter';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { TipIcon } from '@hey/icons';
 import { Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import party from 'party-js';
 import { useRef } from 'react';
@@ -51,20 +50,13 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
         <MenuButton
           aria-label="Tip"
           as={motion.button}
-          className={cn(
-            tip?.tipped
-              ? 'text-brand-500 hover:bg-brand-300/20'
-              : 'ld-text-gray-500 hover:bg-gray-300/20',
-            'rounded-full p-1.5 outline-offset-2'
-          )}
+          className="ld-text-gray-500 rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           whileTap={{ scale: 0.9 }}
         >
           <div ref={confettiDom} />
           <Tooltip content="Tip" placement="top" withDelay>
-            <TipIcon
-              className={cn({ 'text-brand-500': tip?.tipped }, iconClassName)}
-            />
+            <TipIcon className={iconClassName} />
           </Tooltip>
         </MenuButton>
         <MenuTransition>
@@ -85,12 +77,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
         </MenuTransition>
       </Menu>
       {(tip?.count || 0) > 0 && !showCount && (
-        <span
-          className={cn(
-            tip?.tipped ? 'text-brand-500' : 'ld-text-gray-500',
-            'text-[11px] sm:text-xs'
-          )}
-        >
+        <span className="ld-text-gray-500 text-[11px] sm:text-xs">
           {nFormatter(tip?.count || 0)}
         </span>
       )}
