@@ -22,7 +22,7 @@ const HighSignalNotificationFilter: FC = () => {
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { highSignalNotificationFilter: !highSignalNotificationFilter },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: () => {

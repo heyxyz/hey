@@ -15,7 +15,7 @@ const AppRevenue: FC = () => {
   > => {
     const response = await axios.get(
       `${HEY_API_URL}/lens/internal/stats/revenue`,
-      { headers: { ...lensAuthData } }
+      { headers: lensAuthData.headers }
     );
     return response.data.result;
   };

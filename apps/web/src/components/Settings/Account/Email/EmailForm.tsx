@@ -54,7 +54,7 @@ const EmailForm: FC = () => {
       await axios.post(
         `${HEY_API_URL}/email/update`,
         { email },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
       setEmailState(email as string);
       Leafwatch.track(SETTINGS.ACCOUNT.SET_EMAIL);

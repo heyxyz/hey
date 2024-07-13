@@ -34,7 +34,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/details`,
-        { headers: { ...lensAuthData }, params: { id: profileId } }
+        { headers: lensAuthData.headers, params: { id: profileId } }
       );
       const { data } = response;
 
@@ -56,7 +56,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
-        { headers: { ...lensAuthData }, params: { id: profileId } }
+        { headers: lensAuthData.headers, params: { id: profileId } }
       );
       const { data } = response;
 

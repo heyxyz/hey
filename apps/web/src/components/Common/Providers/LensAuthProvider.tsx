@@ -6,11 +6,12 @@ import useLensAuthData from 'src/hooks/useLensAuthData';
 const LensAuthProvider: FC = () => {
   const { id } = useLensAuthData();
   const lensAuthData = useLensAuthData();
+  const accessToken = lensAuthData.headers['X-Access-Token'];
 
   useVerifyQuery({
     pollInterval: 8000,
     skip: !id,
-    variables: { request: { accessToken: lensAuthData['X-Access-Token'] } }
+    variables: { request: { accessToken } }
   });
 
   return null;

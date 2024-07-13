@@ -28,7 +28,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
       axios.post(
         `${HEY_API_URL}/internal/features/assign`,
         { enabled: true, id, profile_id: publication.by.id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: 'Error suspending profile',

@@ -112,7 +112,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           pubId: publicationId,
           state
         },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       if (!data.frame) {
@@ -144,7 +144,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           pubId: publicationId,
           state
         },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       const txnData = data.frame.transaction;

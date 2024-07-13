@@ -35,7 +35,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/tokens/delete`,
         { id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: 'Failed to delete token',

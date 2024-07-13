@@ -32,7 +32,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   const getDrafts = async (): Promise<[] | Draft[]> => {
     try {
       const { data } = await axios.get(`${HEY_API_URL}/drafts/all`, {
-        headers: { ...lensAuthData }
+        headers: lensAuthData.headers
       });
 
       return data.result;
@@ -82,7 +82,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
       await axios.post(
         `${HEY_API_URL}/drafts/delete`,
         { id: draft.id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
       setDrafts((drafts) => drafts.filter((d) => d.id !== draft.id));
 

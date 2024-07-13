@@ -45,7 +45,7 @@ const Resend: FC = () => {
       await axios.post(
         `${HEY_API_URL}/email/update`,
         { email, resend: true },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
       setSent(true);
       Leafwatch.track(SETTINGS.ACCOUNT.RESEND_EMAIL_VERIFICATION);

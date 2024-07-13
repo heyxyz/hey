@@ -27,7 +27,7 @@ const Pin: FC<PinProps> = ({ publication }) => {
       axios.post(
         `${HEY_API_URL}/publications/pin`,
         { id, pin: !isPinned },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       ),
       {
         error: 'Error pinning publication',

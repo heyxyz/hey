@@ -28,7 +28,7 @@ const HeyMembershipNft: FC = () => {
   const updateHeyMemberNftStatus = () => {
     toast.promise(
       axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
-        headers: { ...lensAuthData }
+        headers: lensAuthData.headers
       }),
       {
         error: 'Error updating.',

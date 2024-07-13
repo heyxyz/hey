@@ -23,7 +23,7 @@ const PublicationStats: FC = () => {
   }> => {
     const response = await axios.get(
       `${HEY_API_URL}/lens/internal/stats/publication`,
-      { headers: { ...lensAuthData } }
+      { headers: lensAuthData.headers }
     );
     return response.data.result;
   };

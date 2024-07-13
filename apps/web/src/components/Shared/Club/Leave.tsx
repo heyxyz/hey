@@ -24,7 +24,7 @@ const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
       await axios.post(
         `${HEY_API_URL}/clubs/leave`,
         { id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       toast.success('Left club successfully!');

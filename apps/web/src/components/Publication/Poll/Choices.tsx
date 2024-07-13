@@ -56,7 +56,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
       await axios.post(
         `${HEY_API_URL}/polls/act`,
         { option: id, poll: poll.id },
-        { headers: { ...lensAuthData } }
+        { headers: lensAuthData.headers }
       );
 
       refetch?.();
