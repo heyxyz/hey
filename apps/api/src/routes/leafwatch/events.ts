@@ -1,16 +1,15 @@
 import type { Request, Response } from 'express';
 
 import { ALL_EVENTS } from '@hey/data/tracking';
+import getIp from '@hey/helpers/getIp';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
-import requestIp from 'request-ip';
 import catchedError from 'src/helpers/catchedError';
 import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { UAParser } from 'ua-parser-js';
-import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
 type ExtensionRequest = {
@@ -55,30 +54,16 @@ export const post = [
       return res.status(400).json({ error: 'Invalid event!', success: false });
     }
 
-    const ip = requestIp.getClientIp(req);
     const user_agent = req.headers['user-agent'];
+    const ip = getIp(req);
+    const cfIpCity = req.headers['cf-ipcity'];
+    const cfIpCountry = req.headers['cf-ipcountry'];
+    const cfIpRegion = req.headers['cf-region'];
 
     try {
       // Extract IP data
       const parser = new UAParser(user_agent || '');
       const ua = parser.getResult();
-      let ipData: {
-        city: string;
-        country: string;
-        regionName: string;
-      } | null = null;
-
-      try {
-        const ipResponse = await fetch(
-          urlcat('https://pro.ip-api.com/json/:ip', {
-            ip,
-            key: process.env.IPAPI_KEY
-          })
-        );
-        ipData = await ipResponse.json();
-      } catch (error) {
-        return catchedError(res, error);
-      }
 
       // Extract UTM parameters
       const parsedUrl = new URL(url);
@@ -94,8 +79,8 @@ export const post = [
         actor: payload.id || null,
         browser: ua.browser.name || null,
         browser_version: ua.browser.version || null,
-        city: ipData?.city || null,
-        country: ipData?.country || null,
+        city: cfIpCity || null,
+        country: cfIpCountry || null,
         fingerprint: fingerprint || null,
         ip: ip || null,
         name,
@@ -103,7 +88,7 @@ export const post = [
         platform: platform || null,
         properties: properties || null,
         referrer: referrer || null,
-        region: ipData?.regionName || null,
+        region: cfIpRegion || null,
         url: url || null,
         utm_campaign: utmCampaign || null,
         utm_content: utmContent || null,
