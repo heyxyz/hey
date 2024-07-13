@@ -31,4 +31,5 @@ jobs:
         with:
           url: 'https://redeploy.heyxyz.workers.dev/?secret=${{ secrets.SECRET }}'
           method: 'GET'
+          timeout: 30000
           headers: '{ "Referer": "https://hey.xyz" }'
