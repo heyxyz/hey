@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 interface LeaveProps {
   id: string;
@@ -16,6 +16,7 @@ interface LeaveProps {
 
 const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const lensAuthData = useLensAuthData();
 
   const handleLeave = async () => {
     try {
@@ -23,7 +24,7 @@ const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
       await axios.post(
         `${HEY_API_URL}/clubs/leave`,
         { id },
-        { headers: getAuthApiHeadersWithAccessToken() }
+        { headers: lensAuthData.headers }
       );
 
       toast.success('Left club successfully!');

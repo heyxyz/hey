@@ -3,7 +3,6 @@ import type { FC } from 'react';
 
 import MetaDetails from '@components/Shared/MetaDetails';
 import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import {
   BanknotesIcon,
   HandRaisedIcon,
@@ -19,17 +18,20 @@ import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 interface ProfileOverviewProps {
   profile: Profile;
 }
 
 const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
+  const lensAuthData = useLensAuthData();
+
   const getHaveUsedHey = async () => {
     try {
       const response = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
-        { headers: getAuthApiHeaders(), params: { id: profile.id } }
+        { headers: lensAuthData.headers, params: { id: profile.id } }
       );
 
       return response.data.haveUsedHey;

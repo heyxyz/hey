@@ -1,7 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
 import Video from '@components/Shared/Video';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import {
   ClipboardDocumentIcon,
   SignalIcon,
@@ -14,6 +13,7 @@ import { Card, Spinner, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
 
 interface WrapperProps {
@@ -38,6 +38,7 @@ const LivestreamEditor: FC = () => {
 
   const [screen, setScreen] = useState<'create' | 'record'>('create');
   const [creating, setCreating] = useState(false);
+  const lensAuthData = useLensAuthData();
 
   const createLiveStream = async (record: boolean) => {
     try {
@@ -45,7 +46,7 @@ const LivestreamEditor: FC = () => {
       const response = await axios.post(
         `${HEY_API_URL}/live/create`,
         { record },
-        { headers: getAuthApiHeaders() }
+        { headers: lensAuthData.headers }
       );
       const { data } = response;
       setLiveVideoConfig({
