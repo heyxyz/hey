@@ -2,7 +2,9 @@ import type { Request, Response } from 'express';
 import type { Address } from 'viem';
 
 import { HEY_LENS_SIGNUP } from '@hey/data/constants';
+import daysToSeconds from '@hey/helpers/daysToSeconds';
 import logger from '@hey/helpers/logger';
+import randomNumber from '@hey/helpers/randomNumber';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
@@ -56,7 +58,11 @@ export const get = [
       const isHeyProfile = data[0]?.result;
 
       if (isHeyProfile) {
-        await setRedis(cacheKey, isHeyProfile);
+        await setRedis(
+          cacheKey,
+          isHeyProfile,
+          randomNumber(daysToSeconds(400), daysToSeconds(800))
+        );
       }
       logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
 

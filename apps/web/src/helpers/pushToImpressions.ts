@@ -1,7 +1,7 @@
 import { IS_MAINNET } from '@hey/data/constants';
 import { hydrateLeafwatchAnonymousId } from 'src/store/persisted/useLeafwatchStore';
 
-import getLensAuthData from './getLensAuthData';
+import getCurrentSession from './getCurrentSession';
 
 /**
  * Push publication to impressions queue
@@ -10,7 +10,7 @@ import getLensAuthData from './getLensAuthData';
  */
 const pushToImpressions = (id: string): void => {
   const anonymousId = hydrateLeafwatchAnonymousId();
-  const { id: sessionProfileId } = getLensAuthData();
+  const { id: sessionProfileId } = getCurrentSession();
 
   // Don't push impressions for the current user
   const publicationProfileId = id.split('-')[0];

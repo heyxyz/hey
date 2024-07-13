@@ -3,6 +3,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { useEditorContext } from '@components/Composer/Editor';
 import Loader from '@components/Shared/Loader';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
@@ -11,7 +12,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 
@@ -27,12 +27,11 @@ const List: FC<ListProps> = ({ setShowModal }) => {
   const [deleting, setDeleting] = useState(false);
 
   const editor = useEditorContext();
-  const lensAuthData = useLensAuthData();
 
   const getDrafts = async (): Promise<[] | Draft[]> => {
     try {
       const { data } = await axios.get(`${HEY_API_URL}/drafts/all`, {
-        headers: lensAuthData.headers
+        headers: getAuthApiHeaders()
       });
 
       return data.result;
@@ -82,7 +81,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
       await axios.post(
         `${HEY_API_URL}/drafts/delete`,
         { id: draft.id },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       );
       setDrafts((drafts) => drafts.filter((d) => d.id !== draft.id));
 

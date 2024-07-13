@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
+import getCurrentSession from '@helpers/getCurrentSession';
 import { useVerifyQuery } from '@hey/lens';
-import useLensAuthData from 'src/hooks/useLensAuthData';
+import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
 const LensAuthProvider: FC = () => {
-  const { id } = useLensAuthData();
-  const lensAuthData = useLensAuthData();
-  const accessToken = lensAuthData.headers['X-Access-Token'];
+  const { id } = getCurrentSession();
+  const { accessToken } = hydrateAuthTokens();
 
   useVerifyQuery({
     pollInterval: 8000,
