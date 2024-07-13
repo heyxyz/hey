@@ -5,7 +5,7 @@ import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const AppRevenue: FC = () => {
   const lensAuthData = useLensAuthData();

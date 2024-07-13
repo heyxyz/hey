@@ -9,7 +9,7 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';

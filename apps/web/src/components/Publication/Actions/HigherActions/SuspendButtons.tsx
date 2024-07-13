@@ -6,7 +6,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface SuspendButtonsProps {

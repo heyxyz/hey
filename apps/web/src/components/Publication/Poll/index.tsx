@@ -6,7 +6,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import { Spinner } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 import Choices from './Choices';
 

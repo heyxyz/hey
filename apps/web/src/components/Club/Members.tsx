@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 interface MembersProps {

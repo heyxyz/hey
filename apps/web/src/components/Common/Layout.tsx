@@ -12,7 +12,7 @@ import { useIsClient } from '@uidotdev/usehooks';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';

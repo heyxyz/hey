@@ -8,7 +8,7 @@ import { Button, Card, Modal } from '@hey/ui';
 import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 
 import Mint from './Mint';

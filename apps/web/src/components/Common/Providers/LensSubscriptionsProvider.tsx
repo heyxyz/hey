@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { useUserSigNoncesSubscriptionSubscription } from '@hey/lens';
 import { useEffect } from 'react';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useAccount } from 'wagmi';
 

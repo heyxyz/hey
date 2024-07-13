@@ -5,7 +5,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { IS_MAINNET } from '@hey/data/constants';
 import getInternalPreferences from '@hey/helpers/api/getInternalPreferences';
 import { useQuery } from '@tanstack/react-query';
-import useLensAuthData from 'src/hooks/useAuthApiHeaders';
+import useLensAuthData from 'src/hooks/useLensAuthData';
 
 import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
