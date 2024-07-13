@@ -9,8 +9,9 @@ import { getRedis, setRedis } from '../redisClient';
 
 /**
  * Middleware to validate Lens account
- * @param request Incoming request
- * @returns Response
+ * @param req Incoming request
+ * @param res Response
+ * @param next Next function
  */
 const validateLensAccount = async (
   req: Request,
@@ -37,6 +38,7 @@ const validateLensAccount = async (
           SELECT 1 FROM authentication.record
           WHERE profile_id = $1
           AND authorization_id = $2
+          LIMIT 1
         ) AS result;
       `,
       [payload.id, payload.authorizationId]
