@@ -1,6 +1,8 @@
 import type { Handler } from 'express';
 
+import daysToSeconds from '@hey/helpers/daysToSeconds';
 import logger from '@hey/helpers/logger';
+import randomNumber from '@hey/helpers/randomNumber';
 import sha256 from '@hey/helpers/sha256';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_1_DAY } from 'src/helpers/constants';
@@ -35,7 +37,11 @@ export const get: Handler = async (req, res) => {
     const skipCache = oembed.frame !== null;
 
     if (!skipCache) {
-      await setRedis(cacheKey, oembed);
+      await setRedis(
+        cacheKey,
+        oembed,
+        randomNumber(daysToSeconds(4), daysToSeconds(8))
+      );
     }
 
     logger.info(`Oembed generated for ${url}`);

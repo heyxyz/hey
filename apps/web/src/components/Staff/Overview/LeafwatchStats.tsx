@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import {
   ExploreProfilesOrderByType,
@@ -11,7 +12,6 @@ import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 
 import ActiveUsers from './ActiveUsers';
 import EventsToday from './EventsToday';
@@ -61,13 +61,12 @@ export interface StatsType {
 
 const LeafwatchStats: FC = () => {
   const [lensProfiles, setLensProfiles] = useState(0);
-  const lensAuthData = useLensAuthData();
 
   const getStats = async (): Promise<StatsType> => {
     const response: {
       data: StatsType;
     } = await axios.get(`${HEY_API_URL}/internal/leafwatch/stats`, {
-      headers: lensAuthData.headers
+      headers: getAuthApiHeaders()
     });
 
     return response.data;

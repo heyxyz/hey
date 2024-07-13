@@ -2,6 +2,7 @@ import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { MenuItem } from '@headlessui/react';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -10,7 +11,6 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
 
 interface PinProps {
@@ -19,15 +19,14 @@ interface PinProps {
 
 const Pin: FC<PinProps> = ({ publication }) => {
   const { pinnedPublication, setPinnedPublication } = useProfileDetailsStore();
-  const lensAuthData = useLensAuthData();
   const isPinned = pinnedPublication === publication.id;
 
-  const pinPublication = (id: string) => {
+  const pinPublication = async (id: string) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/publications/pin`,
         { id, pin: !isPinned },
-        { headers: lensAuthData.headers }
+        { headers: await getAuthApiHeaders() }
       ),
       {
         error: 'Error pinning publication',

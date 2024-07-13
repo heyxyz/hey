@@ -1,7 +1,7 @@
 import { GIT_COMMIT_SHA, HEY_API_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 
-import getLensAuthData from './getLensAuthData';
+import { getAuthApiHeadersWithAccessToken } from './getAuthApiHeaders';
 
 let worker: Worker;
 
@@ -19,15 +19,17 @@ export const Leafwatch = {
     const fingerprint = localStorage.getItem(Localstorage.FingerprintStore);
 
     worker.postMessage({
-      actor: getLensAuthData().id || undefined,
+      accessToken:
+        getAuthApiHeadersWithAccessToken()['X-Identity-Token'] || undefined,
       fingerprint: fingerprint || undefined,
       name,
+      network:
+        getAuthApiHeadersWithAccessToken()['X-Lens-Network'] || undefined,
       platform: 'web',
       properties,
       referrer: referrerDomain,
       url: window.location.href,
-      version: GIT_COMMIT_SHA,
-      wallet: getLensAuthData().evmAddress || undefined
+      version: GIT_COMMIT_SHA
     });
 
     worker.onmessage = (event: MessageEvent) => {
