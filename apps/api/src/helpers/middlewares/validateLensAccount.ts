@@ -38,6 +38,7 @@ const validateLensAccount = async (
           SELECT 1 FROM authentication.record
           WHERE profile_id = $1
           AND authorization_id = $2
+          LIMIT 1
         ) AS result;
       `,
       [payload.id, payload.authorizationId]
