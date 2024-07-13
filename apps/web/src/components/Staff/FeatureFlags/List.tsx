@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -16,7 +17,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 
 import Assign from './Assign';
 import Create from './Create';
@@ -27,11 +27,10 @@ const List: FC = () => {
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
   const [features, setFeatures] = useState<[] | Feature[]>([]);
   const [killing, setKilling] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
-      getAllFeatureFlags(lensAuthData).then((features) => {
+      getAllFeatureFlags(getAuthApiHeaders()).then((features) => {
         setFeatures(features);
         return features;
       }),
@@ -44,7 +43,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/features/toggle`,
         { enabled, id },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
@@ -71,7 +70,7 @@ const List: FC = () => {
       axios.post(
         `${HEY_API_URL}/internal/features/delete`,
         { id },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: 'Failed to delete feature flag',

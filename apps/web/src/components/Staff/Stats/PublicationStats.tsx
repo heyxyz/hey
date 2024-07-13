@@ -1,15 +1,13 @@
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 
 const PublicationStats: FC = () => {
-  const lensAuthData = useLensAuthData();
-
   const getPublicationStats = async (): Promise<{
     actions: number;
     bookmarks: number;
@@ -23,7 +21,7 @@ const PublicationStats: FC = () => {
   }> => {
     const response = await axios.get(
       `${HEY_API_URL}/lens/internal/stats/publication`,
-      { headers: lensAuthData.headers }
+      { headers: getAuthApiHeaders() }
     );
     return response.data.result;
   };

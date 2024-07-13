@@ -2,6 +2,7 @@ import type { Feature } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Loader from '@components/Shared/Loader';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
@@ -11,7 +12,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 
 import ToggleWrapper from './ToggleWrapper';
 
@@ -27,10 +27,9 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   setFlags
 }) => {
   const [updating, setUpdating] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   const { data: allFeatureFlags, isLoading } = useQuery({
-    queryFn: () => getAllFeatureFlags(lensAuthData),
+    queryFn: () => getAllFeatureFlags(getAuthApiHeaders()),
     queryKey: ['getAllFeatureFlags']
   });
 
@@ -50,7 +49,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
       axios.post(
         `${HEY_API_URL}/internal/features/assign`,
         { enabled, id, profile_id: profileId },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

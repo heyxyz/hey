@@ -1,6 +1,7 @@
 import type { Feature } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
@@ -8,7 +9,6 @@ import { Button, Form, Input, useZodForm } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import useLensAuthData from 'src/hooks/useLensAuthData';
 import { object, string } from 'zod';
 
 const createFeatureSchema = object({
@@ -27,7 +27,6 @@ const Create: FC<CreateProps> = ({
   setShowCreateModal
 }) => {
   const [creating, setCreating] = useState(false);
-  const lensAuthData = useLensAuthData();
 
   const form = useZodForm({
     schema: createFeatureSchema
@@ -39,7 +38,7 @@ const Create: FC<CreateProps> = ({
       axios.post(
         `${HEY_API_URL}/internal/features/create`,
         { key },
-        { headers: lensAuthData.headers }
+        { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {

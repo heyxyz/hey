@@ -65,7 +65,7 @@ const store = create(
         await delMany(allIndexedDBStores);
       }
     }),
-    { name: IndexDB.AuthStore }
+    { name: Localstorage.AuthStore }
   )
 );
 
@@ -76,4 +76,3 @@ export const signIn = (tokens: {
 }) => store.getState().signIn(tokens);
 export const signOut = () => store.getState().signOut();
 export const hydrateAuthTokens = () => store.getState().hydrateAuthTokens();
-export const useAuthStore = store;
