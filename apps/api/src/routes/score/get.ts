@@ -21,7 +21,7 @@ const buildCacheKey = (id: string) => `score:${id}`;
 const getDbData = async (id: string, scoreQuery: string) => {
   return await Promise.all([
     lensPg.query(scoreQuery),
-    lensPg.query(`SELECT owned_by FROM profile.record WHERE profile_id = $1`, [
+    lensPg.query(`SELECT owned_by FROM profile_view WHERE profile_id = $1`, [
       id
     ]),
     heyPg.query(
