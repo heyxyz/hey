@@ -28,10 +28,13 @@ export const get = [
 
       if (cachedData) {
         logger.info('(cached) Staff picks fetched');
-        return res.status(200).json({
-          result: getRandomPicks(JSON.parse(cachedData)),
-          success: true
-        });
+        return res
+          .status(200)
+          .setHeader('Cache-Control', CACHE_AGE_30_MINS)
+          .json({
+            result: getRandomPicks(JSON.parse(cachedData)),
+            success: true
+          });
       }
 
       const data = await heyPg.query(
