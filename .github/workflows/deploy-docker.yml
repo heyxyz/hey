@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   api:
-    name: API
+    name: heyxyz:api
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -42,7 +42,7 @@ jobs:
         run: echo ${{ steps.deploy.outputs.response }}
 
   og:
-    name: OG
+    name: heyxyz:og
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
