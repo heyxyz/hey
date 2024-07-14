@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import winston from 'winston';
-
-dotenv.config({ override: true });
 
 class Logger {
   private logger: winston.Logger;
