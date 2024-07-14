@@ -1,12 +1,15 @@
+# Base image
 FROM node:20-alpine AS base
 RUN apk add --no-cache libc6-compat
 
+# Builder stage
 FROM base AS builder
 WORKDIR /app
 RUN npm install -g turbo
 COPY . .
 RUN turbo prune --scope=@hey/api --docker
 
+# Installer stage
 FROM base as installer
 WORKDIR /app
 
@@ -24,6 +27,7 @@ COPY turbo.json turbo.json
 
 RUN turbo run build --filter=@hey/api...
 
+# Runner stage
 FROM base AS runner
 WORKDIR /app
 
@@ -35,5 +39,8 @@ RUN adduser --system --uid 1001 api
 USER api
 COPY --from=installer /app .
 
+# Expose the port
 EXPOSE 4784
+
+# Command to run the app
 CMD sleep 3 && pnpm --filter @hey/api run start & pnpm --filter @hey/api run cron
