@@ -21,7 +21,7 @@ type DatabaseQuery = string;
 class Database {
   private _connectionBase: IConnectionParameters = {
     database: 'social_production_lens_v2_polygon',
-    host: process.env.LENS_DATABASE_URL,
+    host: process.env.LENS_DATABASE_URL || 'lens.hey.xyz',
     idleTimeoutMillis: 30000,
     max: 1500,
     password: process.env.LENS_DATABASE_PASSWORD,
