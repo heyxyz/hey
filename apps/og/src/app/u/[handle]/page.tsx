@@ -5,6 +5,8 @@ import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
 import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
 import logger from '@hey/helpers/logger';
+import { ProfileDocument } from '@hey/lens';
+import { print } from 'graphql';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -17,24 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const response = await fetch('https://api-v2.lens.dev', {
     body: JSON.stringify({
       operationName: 'Profile',
-      query: `
-        query Profile($request: ProfileRequest!) {
-          profile(request: $request) {
-            id
-            handle {
-              localName
-            }
-            metadata {
-              displayName
-              bio
-            }
-            stats {
-              following
-              followers
-            }
-          }
-        }
-      `,
+      query: print(ProfileDocument),
       variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
     }),
     headers: { 'Content-Type': 'application/json' },
