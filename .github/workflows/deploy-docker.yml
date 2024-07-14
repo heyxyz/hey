@@ -71,11 +71,32 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/web 🚀
+      - name: Build and push heyxyz/web:mainnet 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: web
-          tag_name: 'latest'
+          tag_name: 'mainnet'
           docker_file: ./apps/web/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=mainnet
+            NEXT_PUBLIC_THIRDWEB_TOKEN=${{ secrets.NEXT_PUBLIC_THIRDWEB_TOKEN }}
+            NEXT_PUBLIC_DECENT_API_KEY=${{ secrets.NEXT_PUBLIC_DECENT_API_KEY }}
+            NEXT_PUBLIC_OPENSEA_API_KEY=${{ secrets.NEXT_PUBLIC_OPENSEA_API_KEY }}
+            NEXT_PUBLIC_RARIBLE_API_KEY=${{ secrets.NEXT_PUBLIC_RARIBLE_API_KEY }}
+
+      - name: Build and push heyxyz/web:testnet 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: web
+          tag_name: 'testnet'
+          docker_file: ./apps/web/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_LENS_NETWORK=testnet
+            NEXT_PUBLIC_THIRDWEB_TOKEN=${{ secrets.NEXT_PUBLIC_THIRDWEB_TOKEN }}
+            NEXT_PUBLIC_DECENT_API_KEY=${{ secrets.NEXT_PUBLIC_DECENT_API_KEY }}
+            NEXT_PUBLIC_OPENSEA_API_KEY=${{ secrets.NEXT_PUBLIC_OPENSEA_API_KEY }}
+            NEXT_PUBLIC_RARIBLE_API_KEY=${{ secrets.NEXT_PUBLIC_RARIBLE_API_KEY }}

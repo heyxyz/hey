@@ -2,6 +2,20 @@
 FROM node:20-alpine AS base
 RUN apk add --no-cache libc6-compat
 
+# Environment variables
+ARG NEXT_PUBLIC_LENS_NETWORK
+ARG NEXT_PUBLIC_THIRDWEB_TOKEN
+ARG NEXT_PUBLIC_DECENT_API_KEY
+ARG NEXT_PUBLIC_OPENSEA_API_KEY
+ARG NEXT_PUBLIC_RARIBLE_API_KEY
+
+ENV NEXT_PUBLIC_IS_PRODUCTION=true
+ENV NEXT_PUBLIC_LENS_NETWORK=${NEXT_PUBLIC_LENS_NETWORK}
+ENV NEXT_PUBLIC_THIRDWEB_TOKEN=${NEXT_PUBLIC_THIRDWEB_TOKEN}
+ENV NEXT_PUBLIC_DECENT_API_KEY=${NEXT_PUBLIC_DECENT_API_KEY}
+ENV NEXT_PUBLIC_OPENSEA_API_KEY=${NEXT_PUBLIC_OPENSEA_API_KEY}
+ENV NEXT_PUBLIC_RARIBLE_API_KEY=${NEXT_PUBLIC_RARIBLE_API_KEY}
+
 # Builder stage
 FROM base AS builder
 WORKDIR /app
@@ -21,7 +35,6 @@ COPY prettier.config.js prettier.config.js
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN pnpm install
 
 COPY turbo.json turbo.json
@@ -43,10 +56,5 @@ COPY --from=installer /app .
 # Expose the port
 EXPOSE 4784
 
-# Copy the custom entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 # Command to run the app
-ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["pnpm", "--filter", "@hey/web", "run", "start"]
