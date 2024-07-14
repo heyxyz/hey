@@ -26,15 +26,6 @@ jobs:
           tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
 
-      - name: Build and push heyxyz/og:latest 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: og
-          tag_name: 'latest'
-          docker_file: ./apps/og/Dockerfile
-
       - name: Trigger API Deployment 🚀
         uses: indiesdev/curl@v1
         id: deploy
@@ -45,3 +36,19 @@ jobs:
           headers: '{ "Referer": "https://hey.xyz" }'
       - name: Deploy Status 🚀
         run: echo ${{ steps.deploy.outputs.response }}
+
+  og:
+    name: OG
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Build and push heyxyz/og:latest 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og
+          tag_name: 'latest'
+          docker_file: ./apps/og/Dockerfile
