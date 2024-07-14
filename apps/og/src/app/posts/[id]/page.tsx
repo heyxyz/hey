@@ -9,7 +9,8 @@ import getPublicationData from '@hey/helpers/getPublicationData';
 import logger from '@hey/helpers/logger';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { PublicationDocument } from '@hey/lens';
-import { apolloClient } from '@hey/lens/apollo';
+import { addTypenameToDocument } from 'apollo-utilities';
+import { print } from 'graphql';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -18,16 +19,24 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
-  const { data } = await apolloClient().query({
-    query: PublicationDocument,
-    variables: { request: { forId: id } }
+
+  const response = await fetch('https://api-v2.lens.dev', {
+    body: JSON.stringify({
+      operationName: 'Publication',
+      query: print(addTypenameToDocument(PublicationDocument)),
+      variables: { request: { forId: id } }
+    }),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST'
   });
 
-  if (!data.publication) {
+  const data = await response.json();
+
+  if (!data.data.publication) {
     return defaultMetadata;
   }
 
-  const publication = data.publication as AnyPublication;
+  const publication = data.data.publication as AnyPublication;
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
