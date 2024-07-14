@@ -1,5 +1,8 @@
 name: Deploy Docker Images
 
+env:
+  API_RAILWAY_SERVICE_ID: 4a2a1bfb-e499-4c71-bf7f-d9ad47443c31
+
 on:
   push:
     branches: [main]
@@ -30,7 +33,8 @@ jobs:
         uses: indiesdev/curl@v1
         id: deploy
         with:
-          url: 'https://redeploy.heyxyz.workers.dev/?secret=${{ secrets.SECRET }}'
+          url: 'https://redeploy.heyxyz.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.API_RAILWAY_SERVICE_ID }}" }'
           method: 'GET'
           timeout: 30000
           headers: '{ "Referer": "https://hey.xyz" }'
