@@ -15,13 +15,13 @@ concurrency:
 
 jobs:
   api:
-    name: heyxyz:api
+    name: heyxyz/api:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/api 🚀
+      - name: Build and push heyxyz/api:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -40,13 +40,13 @@ jobs:
           timeout: 30000
 
   og:
-    name: heyxyz:og
+    name: heyxyz/og:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/og 🚀
+      - name: Build and push heyxyz/og:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -64,8 +64,8 @@ jobs:
           method: 'GET'
           timeout: 30000
 
-  web:
-    name: heyxyz:web
+  web-mainnet:
+    name: heyxyz/web:mainnet
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -85,6 +85,13 @@ jobs:
             NEXT_PUBLIC_DECENT_API_KEY=${{ secrets.NEXT_PUBLIC_DECENT_API_KEY }}
             NEXT_PUBLIC_OPENSEA_API_KEY=${{ secrets.NEXT_PUBLIC_OPENSEA_API_KEY }}
             NEXT_PUBLIC_RARIBLE_API_KEY=${{ secrets.NEXT_PUBLIC_RARIBLE_API_KEY }}
+
+  web-testnet:
+    name: heyxyz/web:testnet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
 
       - name: Build and push heyxyz/web:testnet 🚀
         uses: ./.github/actions/docker
