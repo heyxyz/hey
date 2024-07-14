@@ -5,8 +5,6 @@ import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
 import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
 import logger from '@hey/helpers/logger';
-import { ProfileDocument } from '@hey/lens';
-import { apolloClient } from '@hey/lens/apollo';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -15,16 +13,41 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = params;
-  const { data } = await apolloClient().query({
-    query: ProfileDocument,
-    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+
+  const response = await fetch('https://api-v2.lens.dev', {
+    body: JSON.stringify({
+      operationName: 'Profile',
+      query: `
+        query Profile($request: ProfileRequest!) {
+          profile(request: $request) {
+            id
+            handle {
+              localName
+            }
+            metadata {
+              displayName
+              bio
+            }
+            stats {
+              following
+              followers
+            }
+          }
+        }
+      `,
+      variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+    }),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST'
   });
 
-  if (!data.profile) {
+  const data = await response.json();
+
+  if (!data.data.profile) {
     return defaultMetadata;
   }
 
-  const profile = data.profile as Profile;
+  const profile = data.data.profile as Profile;
   const { displayName, link, slugWithPrefix } = getProfile(profile);
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
   const description = (profile?.metadata?.bio || title).slice(0, 155);
