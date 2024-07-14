@@ -3,7 +3,7 @@ import type { Request, Response } from 'express';
 import { LensHub } from '@hey/abis';
 import { IPFS_GATEWAY, IS_MAINNET, LENS_HUB } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
-import { CACHE_AGE_INDEFINITE_ON_DISK } from 'src/helpers/constants';
+import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
 import getRpc from 'src/helpers/getRpc';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { noBody } from 'src/helpers/responses';
@@ -43,7 +43,7 @@ export const get = [
 
       return res
         .status(200)
-        .setHeader('Cache-Control', CACHE_AGE_INDEFINITE_ON_DISK)
+        .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
         .type('svg')
         .send(svgImage);
     } catch {
