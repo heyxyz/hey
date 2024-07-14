@@ -25,6 +25,10 @@ const sendSlackMessage = async ({
   }[];
   text: string;
 }): Promise<void> => {
+  if (!process.env.SLACK_WEBHOOK_URL) {
+    return;
+  }
+
   return await axios.post(
     `${process.env.SLACK_WEBHOOK_URL}/${getChannelId(channel)}`,
     { channel, color, fallback: text, fields, pretext: text }
