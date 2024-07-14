@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       query: print(addTypenameToDocument(PublicationDocument)),
       variables: { request: { forId: id } }
     }),
+    cache: 'no-store',
     headers: { 'Content-Type': 'application/json' },
     method: 'POST'
   });

@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       query: print(ProfileDocument),
       variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
     }),
+    cache: 'no-store',
     headers: { 'Content-Type': 'application/json' },
     method: 'POST'
   });
