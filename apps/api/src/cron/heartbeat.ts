@@ -7,10 +7,10 @@ const heartbeat = async () => {
   }
 
   await axios.head(
-    'https://uptime.betterstack.com/api/v1/heartbeat/ikCu7EqaXdm2Fm2ShsYbKJKJ'
+    'https://status.hey.xyz/api/push/iMuKLbhKKN?status=up&msg=OK&ping='
   );
 
-  logger.info('Cron: heartbeat - Heartbeat sent to BetterStack');
+  logger.info('Cron: heartbeat - Heartbeat sent to Status API');
 };
 
 export default heartbeat;
