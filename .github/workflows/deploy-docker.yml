@@ -21,7 +21,7 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/api:latest 🚀
+      - name: Build and push heyxyz/api 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -46,7 +46,7 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/og:latest 🚀
+      - name: Build and push heyxyz/og 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -63,3 +63,19 @@ jobs:
           params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.OG_RAILWAY_SERVICE_ID }}" }'
           method: 'GET'
           timeout: 30000
+
+  web:
+    name: heyxyz:web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Build and push heyxyz/web 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: web
+          tag_name: 'latest'
+          docker_file: ./apps/web/Dockerfile

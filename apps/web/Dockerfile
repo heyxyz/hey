@@ -42,15 +42,10 @@ COPY --from=installer /app .
 # Expose the port
 EXPOSE 4784
 
-# Pass runtime environment variables to the container
-ENV NEXT_PUBLIC_IS_PRODUCTION=${NEXT_PUBLIC_IS_PRODUCTION}
-ENV NEXT_PUBLIC_LENS_NETWORK=${NEXT_PUBLIC_LENS_NETWORK}
-ENV NEXT_PUBLIC_OG_URL=${NEXT_PUBLIC_OG_URL}
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ENV NEXT_PUBLIC_THIRDWEB_TOKEN=${NEXT_PUBLIC_THIRDWEB_TOKEN}
-ENV NEXT_PUBLIC_DECENT_API_KEY=${NEXT_PUBLIC_DECENT_API_KEY}
-ENV NEXT_PUBLIC_OPENSEA_API_KEY=${NEXT_PUBLIC_OPENSEA_API_KEY}
-ENV NEXT_PUBLIC_RARIBLE_API_KEY=${NEXT_PUBLIC_RARIBLE_API_KEY}
+# Copy the custom entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Command to run the app
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["pnpm", "--filter", "@hey/web", "run", "start"]
