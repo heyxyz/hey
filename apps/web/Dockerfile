@@ -21,6 +21,7 @@ COPY prettier.config.js prettier.config.js
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN pnpm install
 
 COPY turbo.json turbo.json
