@@ -6,6 +6,7 @@ import getPublicationOGImages from '@helpers/getPublicationOGImages';
 import { APP_NAME } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
 import getPublicationData from '@hey/helpers/getPublicationData';
+import logger from '@hey/helpers/logger';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   LimitType,
@@ -119,6 +120,8 @@ export default async function Page({ params }: Props) {
   }
 
   const postUrl = `https://hey.xyz/posts/${metadata.other?.['lens:id']}`;
+
+  logger.info(`[OG] Fetched publication ${metadata.other?.['lens:id']}`);
 
   return (
     <>

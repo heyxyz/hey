@@ -5,6 +5,7 @@ import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
 import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
 import getPublicationData from '@hey/helpers/getPublicationData';
+import logger from '@hey/helpers/logger';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import {
   LimitType,
@@ -99,6 +100,8 @@ export default async function Page({ params }: Props) {
   }
 
   const profileUrl = `https://hey.xyz/u/${metadata.other?.['lens:handle']}`;
+
+  logger.info(`[OG] Fetched profile /u/${params.handle}`);
 
   return (
     <>
