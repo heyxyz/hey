@@ -8,11 +8,7 @@ import getProfile from '@hey/helpers/getProfile';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import logger from '@hey/helpers/logger';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import {
-  LimitType,
-  PublicationDocument,
-  PublicationsDocument
-} from '@hey/lens';
+import { PublicationDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import defaultMetadata from 'src/defaultMetadata';
 
@@ -100,20 +96,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const metadata = await generateMetadata({ params });
-  const { data } = await apolloClient().query({
-    query: PublicationsDocument,
-    variables: {
-      request: {
-        limit: LimitType.Fifty,
-        where: {
-          commentOn: {
-            id: metadata.other?.['lens:id'],
-            ranking: { filter: 'RELEVANT' }
-          }
-        }
-      }
-    }
-  });
 
   if (!metadata) {
     return <h1>{params.id}</h1>;
@@ -151,26 +133,6 @@ export default async function Page({ params }: Props) {
               Quotes: {metadata.other?.['count:quotes']}
             </a>
           </li>
-        </ul>
-      </div>
-      <div>
-        <h3>Comments</h3>
-        <ul>
-          {data?.publications?.items?.map((publication: AnyPublication) => {
-            const targetPublication = isMirrorPublication(publication)
-              ? publication.mirrorOn
-              : publication;
-            const filteredContent =
-              getPublicationData(targetPublication.metadata)?.content || '';
-
-            return (
-              <li key={publication.id}>
-                <a href={`https://hey.xyz/posts/${publication.id}`}>
-                  {filteredContent}
-                </a>
-              </li>
-            );
-          })}
         </ul>
       </div>
     </>
