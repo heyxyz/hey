@@ -8,12 +8,9 @@ import getProfile from '@hey/helpers/getProfile';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import logger from '@hey/helpers/logger';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import {
-  LimitType,
-  PublicationDocument,
-  PublicationsDocument
-} from '@hey/lens';
-import { apolloClient } from '@hey/lens/apollo';
+import { PublicationDocument } from '@hey/lens';
+import { addTypenameToDocument } from 'apollo-utilities';
+import { print } from 'graphql';
 import defaultMetadata from 'src/defaultMetadata';
 
 interface Props {
@@ -22,16 +19,24 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
-  const { data } = await apolloClient().query({
-    query: PublicationDocument,
-    variables: { request: { forId: id } }
+
+  const response = await fetch('https://api-v2.lens.dev', {
+    body: JSON.stringify({
+      operationName: 'Publication',
+      query: print(addTypenameToDocument(PublicationDocument)),
+      variables: { request: { forId: id } }
+    }),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST'
   });
 
-  if (!data.publication) {
+  const data = await response.json();
+
+  if (!data.data.publication) {
     return defaultMetadata;
   }
 
-  const publication = data.publication as AnyPublication;
+  const publication = data.data.publication as AnyPublication;
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
@@ -100,20 +105,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const metadata = await generateMetadata({ params });
-  const { data } = await apolloClient().query({
-    query: PublicationsDocument,
-    variables: {
-      request: {
-        limit: LimitType.Fifty,
-        where: {
-          commentOn: {
-            id: metadata.other?.['lens:id'],
-            ranking: { filter: 'RELEVANT' }
-          }
-        }
-      }
-    }
-  });
 
   if (!metadata) {
     return <h1>{params.id}</h1>;
@@ -151,26 +142,6 @@ export default async function Page({ params }: Props) {
               Quotes: {metadata.other?.['count:quotes']}
             </a>
           </li>
-        </ul>
-      </div>
-      <div>
-        <h3>Comments</h3>
-        <ul>
-          {data?.publications?.items?.map((publication: AnyPublication) => {
-            const targetPublication = isMirrorPublication(publication)
-              ? publication.mirrorOn
-              : publication;
-            const filteredContent =
-              getPublicationData(targetPublication.metadata)?.content || '';
-
-            return (
-              <li key={publication.id}>
-                <a href={`https://hey.xyz/posts/${publication.id}`}>
-                  {filteredContent}
-                </a>
-              </li>
-            );
-          })}
         </ul>
       </div>
     </>
