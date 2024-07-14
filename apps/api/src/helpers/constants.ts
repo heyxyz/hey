@@ -26,9 +26,6 @@ export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000, max-age=2592000';
 // Cache indefinitely
 export const CACHE_AGE_INDEFINITE =
   'public, s-maxage=31536000, max-age=31536000, immutable';
-// Cache indefinitely on Disk
-export const CACHE_AGE_INDEFINITE_ON_DISK =
-  'public, s-maxage=31536000, max-age=31536000, immutable';
 
 // Tests
 export const SITEMAP_BATCH_SIZE = 50000;

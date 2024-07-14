@@ -3,7 +3,11 @@ import type { Handler } from 'express';
 import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
-import { SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
+import {
+  CACHE_AGE_1_DAY,
+  CACHE_AGE_INDEFINITE,
+  SITEMAP_BATCH_SIZE
+} from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 import { buildUrlsetXml } from 'src/helpers/sitemap/buildSitemap';
 
@@ -51,8 +55,17 @@ export const get: Handler = async (req, res) => {
     logger.info(
       `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${user_agent}`
     );
-
-    return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);
+    console.log(response.length === SITEMAP_BATCH_SIZE);
+    return res
+      .status(200)
+      .setHeader('Content-Type', 'text/xml')
+      .setHeader(
+        'Cache-Control',
+        response.length === SITEMAP_BATCH_SIZE
+          ? CACHE_AGE_INDEFINITE
+          : CACHE_AGE_1_DAY
+      )
+      .send(xml);
   } catch (error) {
     return catchedError(res, error);
   }
