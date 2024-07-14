@@ -17,7 +17,7 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push API image 🚀
+      - name: Build and push heyxyz/api:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -25,6 +25,15 @@ jobs:
           image_name: api
           tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
+
+      - name: Build and push heyxyz/og:latest 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og
+          tag_name: 'latest'
+          docker_file: ./apps/og/Dockerfile
 
       - name: Trigger API Deployment 🚀
         uses: indiesdev/curl@v1
