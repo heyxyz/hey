@@ -85,12 +85,12 @@ module.exports = {
   rewrites() {
     return [
       {
-        destination: `${process.env.NEXT_PUBLIC_OG_URL}/u/:match*`,
+        destination: 'https://og.hey.xyz/u/:match*',
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
         source: '/u/:match*'
       },
       {
-        destination: `${process.env.NEXT_PUBLIC_OG_URL}/posts/:match*`,
+        destination: 'https://og.hey.xyz/posts/:match*',
         has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
         source: '/posts/:match*'
       }

@@ -16,6 +16,9 @@ inputs:
   tag_name:
     required: false
     default: 'latest'
+  build_args:
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -39,3 +42,4 @@ runs:
         file: ${{ inputs.docker_file }}
         push: true
         tags: heyxyz/${{ inputs.image_name }}:${{ inputs.tag_name }}
+        build-args: ${{ inputs.build_args }}
