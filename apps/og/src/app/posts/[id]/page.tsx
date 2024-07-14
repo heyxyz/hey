@@ -121,7 +121,7 @@ export default async function Page({ params }: Props) {
 
   const postUrl = `https://hey.xyz/posts/${metadata.other?.['lens:id']}`;
 
-  logger.info(`[OG] Fetched publication ${metadata.other?.['lens:id']}`);
+  logger.info(`[OG] Fetched publication /posts/${metadata.other?.['lens:id']}`);
 
   return (
     <>
