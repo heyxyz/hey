@@ -1,18 +1,11 @@
-import type { AnyPublication, Profile } from '@hey/lens';
+import type { Profile } from '@hey/lens';
 import type { Metadata } from 'next';
 
 import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
 import getAvatar from '@hey/helpers/getAvatar';
 import getProfile from '@hey/helpers/getProfile';
-import getPublicationData from '@hey/helpers/getPublicationData';
 import logger from '@hey/helpers/logger';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import {
-  LimitType,
-  ProfileDocument,
-  PublicationsDocument,
-  PublicationType
-} from '@hey/lens';
+import { ProfileDocument } from '@hey/lens';
 import { apolloClient } from '@hey/lens/apollo';
 import defaultMetadata from 'src/defaultMetadata';
 
@@ -78,22 +71,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const metadata = await generateMetadata({ params });
-  const { data } = await apolloClient().query({
-    query: PublicationsDocument,
-    variables: {
-      request: {
-        limit: LimitType.Fifty,
-        where: {
-          from: metadata.other?.['lens:id'],
-          publicationTypes: [
-            PublicationType.Post,
-            PublicationType.Quote,
-            PublicationType.Mirror
-          ]
-        }
-      }
-    }
-  });
 
   if (!metadata) {
     return <h1>{params.handle}</h1>;
@@ -120,26 +97,6 @@ export default async function Page({ params }: Props) {
               Followers: {metadata.other?.['count:followers']}
             </a>
           </li>
-        </ul>
-      </div>
-      <div>
-        <h3>Publications</h3>
-        <ul>
-          {data?.publications?.items?.map((publication: AnyPublication) => {
-            const targetPublication = isMirrorPublication(publication)
-              ? publication.mirrorOn
-              : publication;
-            const filteredContent =
-              getPublicationData(targetPublication.metadata)?.content || '';
-
-            return (
-              <li key={publication.id}>
-                <a href={`https://hey.xyz/posts/${publication.id}`}>
-                  {filteredContent}
-                </a>
-              </li>
-            );
-          })}
         </ul>
       </div>
     </>
