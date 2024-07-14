@@ -2,6 +2,7 @@ name: Deploy Docker Images
 
 env:
   API_RAILWAY_SERVICE_ID: 4a2a1bfb-e499-4c71-bf7f-d9ad47443c31
+  OG_RAILWAY_SERVICE_ID: 76d31e4b-218d-4f82-974d-f2c8e91480e2
 
 on:
   push:
@@ -37,9 +38,6 @@ jobs:
           params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.API_RAILWAY_SERVICE_ID }}" }'
           method: 'GET'
           timeout: 30000
-          headers: '{ "Referer": "https://hey.xyz" }'
-      - name: Deploy Status 🚀
-        run: echo ${{ steps.deploy.outputs.response }}
 
   og:
     name: heyxyz:og
@@ -56,3 +54,12 @@ jobs:
           image_name: og
           tag_name: 'latest'
           docker_file: ./apps/og/Dockerfile
+
+      - name: Trigger OG Deployment 🚀
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: 'https://redeploy.heyxyz.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.OG_RAILWAY_SERVICE_ID }}" }'
+          method: 'GET'
+          timeout: 30000
