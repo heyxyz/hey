@@ -12,16 +12,16 @@ export const config = {
 };
 
 export const get: Handler = async (req, res) => {
-  const batch = req.path.replace('/sitemap/profiles/', '');
+  const { id } = req.params;
 
-  if (!batch) {
+  if (!id) {
     return noBody(res);
   }
 
   const user_agent = req.headers['user-agent'];
 
   try {
-    const offset = (Number(batch) - 1) * SITEMAP_BATCH_SIZE || 0;
+    const offset = (Number(id) - 1) * SITEMAP_BATCH_SIZE || 0;
 
     const response = await lensPg.query(
       `
@@ -49,7 +49,7 @@ export const get: Handler = async (req, res) => {
     const xml = buildUrlsetXml(entries);
 
     logger.info(
-      `[Lens] Fetched profiles sitemap for batch ${batch} having ${response.length} entries from user-agent: ${user_agent}`
+      `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${user_agent}`
     );
 
     return res.status(200).setHeader('Content-Type', 'text/xml').send(xml);
