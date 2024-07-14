@@ -25,7 +25,7 @@ class Database {
     idleTimeoutMillis: 30000,
     max: 1500,
     password: process.env.LENS_DATABASE_PASSWORD,
-    port: process.env.LENS_DATABASE_URL ? 5432 : 6969,
+    port: (process.env.LENS_DATABASE_PORT as unknown as number) || 6969,
     user: 'hey'
   };
 
