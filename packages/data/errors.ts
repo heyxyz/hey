@@ -1,6 +1,7 @@
 export enum Errors {
   AppNotAllowed = 'This app is not allowed to perform this action!',
   InvalidBody = 'Invalid body!',
+  InvalidEnvironmentVariable = 'Invalid environment variable!',
   InvalidSecret = 'Invalid secret!',
   Limit500 = 'Limit must be less than 500!',
   NoBody = 'No body provided!',

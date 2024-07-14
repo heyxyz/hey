@@ -54,6 +54,12 @@ export const post: Handler = async (req, res) => {
       .json({ error: Errors.InvalidSecret, success: false });
   }
 
+  if (!process.env.ADMIN_PRIVATE_KEY) {
+    return res
+      .status(400)
+      .json({ error: Errors.InvalidEnvironmentVariable, success: false });
+  }
+
   try {
     const account = privateKeyToAccount(
       process.env.ADMIN_PRIVATE_KEY as Address
