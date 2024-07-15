@@ -3,8 +3,8 @@ import type { Request, Response } from 'express';
 import getIp from '@hey/helpers/getIp';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import { rPush } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 
@@ -48,17 +48,11 @@ export const post = [
         viewer_id
       }));
 
-      const client = createClickhouseClient();
-      const result = await client.insert({
-        format: 'JSONEachRow',
-        table: 'impressions',
-        values
-      });
-      logger.info(
-        `Ingested ${result.summary?.result_rows} impressions to Leafwatch`
-      );
+      await rPush('impressions', JSON.stringify(values));
 
-      return res.status(200).json({ id: result.query_id, success: true });
+      logger.info(`Ingested ${values.length} impressions to Leafwatch`);
+
+      return res.status(200).json({ success: true });
     } catch (error) {
       return catchedError(res, error);
     }
