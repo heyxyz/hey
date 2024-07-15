@@ -5,12 +5,10 @@ import { CLICKHOUSE_URL } from './constants';
 
 dotenv.config({ override: true });
 
-const createClickhouseClient = (password?: string) => {
-  password = password || process.env.CLICKHOUSE_PASSWORD;
-
+const createClickhouseClient = () => {
   return createClient({
     database: 'clickhouse',
-    password,
+    password: process.env.CLICKHOUSE_PASSWORD,
     url: CLICKHOUSE_URL,
     username: 'clickhouse'
   });
