@@ -9,7 +9,7 @@ const batchProcessEvents = async () => {
     const events = (await lRange('events', 0, 99)) || [];
 
     if (events.length === 0) {
-      logger.info('[Cron] cleanClickhouse - No events to process');
+      logger.info('[Cron] batchProcessEvents - No events to process');
     }
 
     const parsedEvents = events.map((event) => JSON.parse(event));
@@ -21,12 +21,12 @@ const batchProcessEvents = async () => {
     });
 
     logger.info(
-      `Cron] cleanClickhouse - Batch inserted ${events.length} events to Clickhouse`
+      `Cron] batchProcessEvents - Batch inserted ${events.length} events to Clickhouse`
     );
 
     await lTrim('events', events.length, -1);
   } catch {
-    logger.error('[Cron] cleanClickhouse - Error processing events');
+    logger.error('[Cron] batchProcessEvents - Error processing events');
   }
 };
 
