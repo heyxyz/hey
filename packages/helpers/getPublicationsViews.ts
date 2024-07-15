@@ -1,18 +1,23 @@
-import { IS_MAINNET } from '@hey/data/constants';
+import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
+import axios from 'axios';
 
 /**
  * Get the number of views of a publication
  * @param ids The ids of the publications
  * @returns The number of views of the publication
  */
-// eslint-disable-next-line require-await
-const getPublicationsViews = async (ids: string[]): Promise<any[]> => {
+const getPublicationsViews = async (ids: string[]) => {
   if (!IS_MAINNET) {
     return [];
   }
 
   try {
-    return [];
+    const response = await axios.post(
+      `${HEY_API_URL}/stats/publication/views`,
+      { ids }
+    );
+
+    return response.data?.views;
   } catch {
     return [];
   }
