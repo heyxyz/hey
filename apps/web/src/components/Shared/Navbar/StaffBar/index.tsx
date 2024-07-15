@@ -1,12 +1,11 @@
 import type { FC, ReactNode } from 'react';
 
-import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
+import { IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import urlcat from 'urlcat';
 
 import Performance from './Performance';
 
@@ -45,20 +44,6 @@ const StaffBar: FC = () => {
             </span>
           </Badge>
         </div>
-        {GIT_COMMIT_SHA ? (
-          <Link
-            className="flex items-center space-x-1"
-            href={urlcat('https://github.com/heyxyz/hey/commit/:sha', {
-              sha: GIT_COMMIT_SHA
-            })}
-            rel="noreferrer noopener"
-            target="_blank"
-            title="Git commit SHA"
-          >
-            <HashtagIcon className="size-4" />
-            <Badge>{GIT_COMMIT_SHA}</Badge>
-          </Link>
-        ) : null}
       </div>
       <Link
         aria-label="Staff Dashboard"

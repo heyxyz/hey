@@ -30,10 +30,6 @@ export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
 export const MAX_UINT256 = 2n ** 256n - 1n;
 
-// Git
-export const GIT_COMMIT_SHA =
-  process.env.CF_PAGES_COMMIT_SHA?.slice(0, 7) || '0000000';
-
 // Misc
 export const WMATIC_ADDRESS = IS_MAINNET
   ? '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
