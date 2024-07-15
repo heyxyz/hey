@@ -69,20 +69,6 @@ const Thanks: NextPage = () => {
           <div className="max-w-3/4 relative mx-auto rounded-lg lg:w-2/4">
             <div className="max-w-none space-y-10 divide-y px-5 pb-10 text-center text-gray-900 dark:divide-gray-700 dark:text-gray-200">
               <Brand
-                logo="vercel"
-                name="Vercel"
-                size={40}
-                type="svg"
-                url={urlcat('https://vercel.com', {
-                  utm_campaign: 'oss',
-                  utm_source: APP_NAME
-                })}
-              >
-                Vercel combines the best developer experience with an obsessive
-                focus on end-user performance. Vercel platform enables frontend
-                teams to do their best work.
-              </Brand>
-              <Brand
                 logo="4everland"
                 name="4EVERLAND"
                 size={50}

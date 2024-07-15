@@ -51,8 +51,8 @@ const Links: FC = () => {
             title="Railway"
           />
           <ListItem
-            link="https://vercel.com/heyxyz/web/deployments"
-            title="Vercel"
+            link="https://dash.cloudflare.com/399292baad78b30006aa335f6ea19718/pages/view/hey"
+            title="Deployments"
           />
         </ul>
       </div>
