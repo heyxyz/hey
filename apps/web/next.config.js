@@ -25,6 +25,7 @@ module.exports = {
       }
     ];
   },
+  output: 'export',
   poweredByHeader: false,
   reactStrictMode: false,
   redirects() {
