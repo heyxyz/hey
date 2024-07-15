@@ -1,6 +1,3 @@
-// DB URLs
-export const CLICKHOUSE_URL = 'https://clickhouse.up.railway.app';
-
 // API URLs
 export const SCORE_WORKER_URL = 'https://score.heyxyz.workers.dev';
 
