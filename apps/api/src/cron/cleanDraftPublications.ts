@@ -12,7 +12,7 @@ const cleanDraftPublications = async () => {
     }
   });
   logger.info(
-    `Cron: cleanDraftPublications - Cleaned up ${count} draft publications that are older than 100 days`
+    `[Cron] cleanDraftPublications - Cleaned up ${count} draft publications that are older than 100 days`
   );
 };
 

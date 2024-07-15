@@ -10,7 +10,7 @@ const heartbeat = async () => {
     'https://status.hey.xyz/api/push/iMuKLbhKKN?status=up&msg=OK&ping='
   );
 
-  logger.info('Cron: heartbeat - Heartbeat sent to Status API');
+  logger.info('[Cron] heartbeat - Heartbeat sent to Status API');
 };
 
 export default heartbeat;

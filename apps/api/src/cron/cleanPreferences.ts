@@ -9,7 +9,7 @@ const cleanPreferences = async () => {
   await prisma.preference.deleteMany({
     where: { appIcon: 0, highSignalNotificationFilter: false }
   });
-  logger.info('Cron: cleanPreferences - Cleaned up Preference');
+  logger.info('[Cron] cleanPreferences - Cleaned up Preference');
 };
 
 export default cleanPreferences;
