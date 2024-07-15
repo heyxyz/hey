@@ -12,7 +12,7 @@ const cleanClickhouse = async () => {
     query: "ALTER TABLE events DELETE WHERE url NOT LIKE '%hey.xyz%';"
   });
   logger.info(
-    'Cron: cleanClickhouse - Cleaned non hey.xyz events from Clickhouse'
+    '[Cron] cleanClickhouse - Cleaned non hey.xyz events from Clickhouse'
   );
 };
 

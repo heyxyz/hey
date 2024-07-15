@@ -86,4 +86,28 @@ export const getTtl = async (key: string) => {
   return await redisClient.ttl(key);
 };
 
+export const rPush = async (key: string, value: string) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return null;
+  }
+  return await redisClient.rPush(key, value);
+};
+
+export const lRange = async (key: string, start: number, stop: number) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return null;
+  }
+  return await redisClient.lRange(key, start, stop);
+};
+
+export const lTrim = async (key: string, start: number, stop: number) => {
+  if (!redisClient) {
+    logger.warn('[Redis] Redis client not initialized');
+    return null;
+  }
+  return await redisClient.lTrim(key, start, stop);
+};
+
 export default redisClient;

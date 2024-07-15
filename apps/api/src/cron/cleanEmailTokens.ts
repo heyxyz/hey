@@ -11,7 +11,7 @@ const cleanEmailTokens = async () => {
     where: { tokenExpiresAt: { lt: new Date() } }
   });
   logger.info(
-    `Cron: cleanEmailTokens - Cleaned up ${count} email tokens that are expired`
+    `[Cron] cleanEmailTokens - Cleaned up ${count} email tokens that are expired`
   );
 };
 

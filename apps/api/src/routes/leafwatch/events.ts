@@ -5,9 +5,9 @@ import getIp from '@hey/helpers/getIp';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import { rPush } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { UAParser } from 'ua-parser-js';
 import { any, object, string } from 'zod';
@@ -78,18 +78,13 @@ export const post = [
         url: url || null
       };
 
-      const client = createClickhouseClient();
-      const result = await client.insert({
-        format: 'JSONEachRow',
-        table: 'events',
-        values: [values]
-      });
+      await rPush('events', JSON.stringify(values));
 
       logger.info(
         `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
       );
 
-      return res.status(200).json({ id: result.query_id, success: true });
+      return res.status(200).json({ success: true });
     } catch (error) {
       return catchedError(res, error);
     }
