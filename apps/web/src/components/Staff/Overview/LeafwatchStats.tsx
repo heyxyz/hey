@@ -75,7 +75,7 @@ const LeafwatchStats: FC = () => {
   const { data, error, isLoading } = useQuery({
     queryFn: getStats,
     queryKey: ['getStats'],
-    refetchInterval: 1000
+    refetchInterval: 5000
   });
 
   useExploreProfilesQuery({
@@ -83,7 +83,7 @@ const LeafwatchStats: FC = () => {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) =>
       setLensProfiles(parseInt(data.exploreProfiles.items[0].id)),
-    pollInterval: 1000,
+    pollInterval: 5000,
     variables: {
       request: {
         limit: LimitType.Ten,

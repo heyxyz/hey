@@ -54,7 +54,7 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
     enabled: IS_MAINNET,
     queryFn: getImpressionsStats,
     queryKey: ['getImpressionsStats', profileId],
-    refetchInterval: 1000
+    refetchInterval: 10000
   });
 
   if (isLoading) {
