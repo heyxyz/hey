@@ -65,44 +65,22 @@ jobs:
           timeout: 30000
 
   web-mainnet:
-    name: heyxyz/web:mainnet
+    name: heyxyz/web:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/web:mainnet 🚀
+      - name: Build and push heyxyz/web:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: web
-          tag_name: 'mainnet'
+          tag_name: 'latest'
           docker_file: ./apps/web/Dockerfile
           build_args: |
             NEXT_PUBLIC_LENS_NETWORK=mainnet
-            NEXT_PUBLIC_THIRDWEB_TOKEN=${{ secrets.NEXT_PUBLIC_THIRDWEB_TOKEN }}
-            NEXT_PUBLIC_DECENT_API_KEY=${{ secrets.NEXT_PUBLIC_DECENT_API_KEY }}
-            NEXT_PUBLIC_OPENSEA_API_KEY=${{ secrets.NEXT_PUBLIC_OPENSEA_API_KEY }}
-            NEXT_PUBLIC_RARIBLE_API_KEY=${{ secrets.NEXT_PUBLIC_RARIBLE_API_KEY }}
-
-  web-testnet:
-    name: heyxyz/web:testnet
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
-
-      - name: Build and push heyxyz/web:testnet 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: web
-          tag_name: 'testnet'
-          docker_file: ./apps/web/Dockerfile
-          build_args: |
-            NEXT_PUBLIC_LENS_NETWORK=testnet
             NEXT_PUBLIC_THIRDWEB_TOKEN=${{ secrets.NEXT_PUBLIC_THIRDWEB_TOKEN }}
             NEXT_PUBLIC_DECENT_API_KEY=${{ secrets.NEXT_PUBLIC_DECENT_API_KEY }}
             NEXT_PUBLIC_OPENSEA_API_KEY=${{ secrets.NEXT_PUBLIC_OPENSEA_API_KEY }}
