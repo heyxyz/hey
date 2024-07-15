@@ -7,7 +7,7 @@ const batchProcessImpressions = async () => {
 
   try {
     const startTime = Date.now();
-    const impressions = (await lRange('impressions', 0, 9999)) || [];
+    const impressions = (await lRange('impressions', 0, 999)) || [];
 
     if (impressions.length === 0) {
       logger.info('[Cron] batchProcessImpressions - No impressions to process');
