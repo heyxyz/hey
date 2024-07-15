@@ -7,7 +7,7 @@ dotenv.config({ override: true });
 
 const createClickhouseClient = () => {
   return createClient({
-    database: 'clickhouse',
+    database: 'default',
     password: process.env.CLICKHOUSE_PASSWORD,
     url: CLICKHOUSE_URL,
     username: 'clickhouse'
