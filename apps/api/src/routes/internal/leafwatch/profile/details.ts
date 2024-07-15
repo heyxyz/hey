@@ -26,25 +26,21 @@ export const get = [
           SELECT
             actor,
             country,
-            region,
             city,
             os,
             browser,
-            browser_version,
             COUNT() AS cnt
           FROM events
           WHERE actor = '${id}'
-          GROUP BY actor, country, region, city, os, browser, browser_version
+          GROUP BY actor, country, city, os, browser
         )
         SELECT
           actor,
           argMax(country, cnt) AS most_common_country,
-          argMax(region, cnt) AS most_common_region,
           argMax(city, cnt) AS most_common_city,
           SUM(cnt) AS number_of_events,
           argMax(os, cnt) AS most_common_os,
-          argMax(browser, cnt) AS most_common_browser,
-          argMax(browser_version, cnt) AS most_common_browser_version
+          argMax(browser, cnt) AS most_common_browser
         FROM events_counts
         WHERE actor = '${id}'
         GROUP BY actor;
@@ -71,9 +67,7 @@ export const get = [
               city: result[0].most_common_city,
               country: result[0].most_common_country,
               events: parseInt(result[0].number_of_events),
-              os: result[0].most_common_os,
-              region: result[0].most_common_region,
-              version: result[0].most_common_browser_version
+              os: result[0].most_common_os
             }
           : null,
         success: true

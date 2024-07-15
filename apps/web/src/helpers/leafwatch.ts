@@ -1,4 +1,4 @@
-import { GIT_COMMIT_SHA, HEY_API_URL } from '@hey/data/constants';
+import { HEY_API_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 
 import { getAuthApiHeadersWithAccessToken } from './getAuthApiHeaders';
@@ -23,11 +23,9 @@ export const Leafwatch = {
       identityToken:
         getAuthApiHeadersWithAccessToken()['X-Identity-Token'] || undefined,
       name,
-      platform: 'web',
       properties,
       referrer: referrerDomain,
-      url: window.location.href,
-      version: GIT_COMMIT_SHA
+      url: window.location.href
     });
 
     worker.onmessage = (event: MessageEvent) => {

@@ -15,21 +15,17 @@ import { any, object, string } from 'zod';
 type ExtensionRequest = {
   fingerprint?: string;
   name: string;
-  platform: 'mobile' | 'web';
   properties?: string;
   referrer?: string;
   url: string;
-  version: string;
 };
 
 const validationSchema = object({
   fingerprint: string().nullable().optional(),
   name: string().min(1, { message: 'Name is required!' }),
-  platform: string(),
   properties: any(),
   referrer: string().nullable().optional(),
-  url: string(),
-  version: string().nullable().optional()
+  url: string()
 });
 
 export const post = [
@@ -47,7 +43,7 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { fingerprint, name, platform, properties, referrer, url, version } =
+    const { fingerprint, name, properties, referrer, url } =
       body as ExtensionRequest;
 
     if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
@@ -58,7 +54,6 @@ export const post = [
     const ip = getIp(req);
     const cfIpCity = req.headers['cf-ipcity'];
     const cfIpCountry = req.headers['cf-ipcountry'];
-    const cfIpRegion = req.headers['cf-region'];
 
     try {
       // Extract IP data
@@ -66,37 +61,21 @@ export const post = [
       const ua = parser.getResult();
 
       // Extract UTM parameters
-      const parsedUrl = new URL(url);
-      const utmSource = parsedUrl.searchParams.get('utm_source') || null;
-      const utmMedium = parsedUrl.searchParams.get('utm_medium') || null;
-      const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
-      const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
-      const utmContent = parsedUrl.searchParams.get('utm_content') || null;
       const identityToken = req.headers['x-identity-token'] as string;
       const payload = parseJwt(identityToken);
 
       const values = {
         actor: payload.id || null,
         browser: ua.browser.name || null,
-        browser_version: ua.browser.version || null,
         city: cfIpCity || null,
         country: cfIpCountry || null,
         fingerprint: fingerprint || null,
         ip: ip || null,
         name,
         os: ua.os.name || null,
-        platform: platform || null,
         properties: properties || null,
         referrer: referrer || null,
-        region: cfIpRegion || null,
-        url: url || null,
-        utm_campaign: utmCampaign || null,
-        utm_content: utmContent || null,
-        utm_medium: utmMedium || null,
-        utm_source: utmSource || null,
-        utm_term: utmTerm || null,
-        version: version || null,
-        wallet: payload.evmAddress || null
+        url: url || null
       };
 
       const client = createClickhouseClient();
