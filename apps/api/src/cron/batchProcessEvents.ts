@@ -6,7 +6,7 @@ const batchProcessEvents = async () => {
   const clickhouse = createClickhouseClient();
 
   try {
-    const events = (await lRange('events', 0, 99)) || [];
+    const events = (await lRange('events', 0, 9999)) || [];
 
     if (events.length === 0) {
       logger.info('[Cron] batchProcessEvents - No events to process');
