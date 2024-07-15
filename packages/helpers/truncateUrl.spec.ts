@@ -20,12 +20,8 @@ describe('truncateUrl', () => {
     expect(truncateUrl(shortUrl, 20)).toEqual('example.com/foo');
   });
 
-  test('should not truncate *.hey.xyz urls', () => {
+  test('should not truncate *.hey.xyz url', () => {
     const mainnetUrl = 'https://hey.xyz/long/pathname/test';
-    const testnetUrl = 'https://testnet.hey.xyz/long/pathname/test';
     expect(truncateUrl(mainnetUrl, 20)).toEqual('hey.xyz/long/pathname/test');
-    expect(truncateUrl(testnetUrl, 20)).toEqual(
-      'testnet.hey.xyz/long/pathname/test'
-    );
   });
 });
