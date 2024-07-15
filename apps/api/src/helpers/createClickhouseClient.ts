@@ -10,7 +10,7 @@ const createClickhouseClient = (username?: string, password?: string) => {
   username = username || 'default';
 
   return createClient({
-    database: 'default',
+    database: 'clickhouse',
     password,
     url: CLICKHOUSE_URL,
     username
