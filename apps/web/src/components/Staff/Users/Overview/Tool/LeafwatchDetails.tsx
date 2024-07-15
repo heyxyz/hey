@@ -6,8 +6,7 @@ import {
   ComputerDesktopIcon,
   CursorArrowRaysIcon,
   EyeIcon,
-  GlobeAltIcon,
-  MapPinIcon
+  GlobeAltIcon
 } from '@heroicons/react/24/outline';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { HEY_API_URL } from '@hey/data/constants';
@@ -26,8 +25,6 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     country: string;
     events: number;
     os: string;
-    region: string;
-    version: string;
   } | null> => {
     try {
       const response = await axios.get(
@@ -95,13 +92,6 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
           {humanize(leafwatchDetails.events)}
         </MetaDetails>
         <MetaDetails
-          icon={<MapPinIcon className="ld-text-gray-500 size-4" />}
-          title="Location"
-        >
-          {leafwatchDetails.city}, {leafwatchDetails.region},{' '}
-          {leafwatchDetails.country}
-        </MetaDetails>
-        <MetaDetails
           icon={<ComputerDesktopIcon className="ld-text-gray-500 size-4" />}
           title="OS"
         >
@@ -111,7 +101,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
           icon={<GlobeAltIcon className="ld-text-gray-500 size-4" />}
           title="Browser"
         >
-          {leafwatchDetails.browser} {leafwatchDetails.version}
+          {leafwatchDetails.browser}
         </MetaDetails>
       </div>
     </>

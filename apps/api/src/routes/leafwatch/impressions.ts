@@ -36,7 +36,6 @@ export const post = [
     const ip = getIp(req);
     const cfIpCity = req.headers['cf-ipcity'];
     const cfIpCountry = req.headers['cf-ipcountry'];
-    const cfIpRegion = req.headers['cf-region'];
 
     const { ids, viewer_id } = body as ExtensionRequest;
 
@@ -46,7 +45,6 @@ export const post = [
         country: cfIpCountry || null,
         ip: ip || null,
         publication_id: id,
-        region: cfIpRegion || null,
         viewer_id
       }));
 

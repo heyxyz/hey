@@ -37,12 +37,11 @@ export const get: Handler = async (req, res) => {
       client.query({
         format: 'JSONEachRow',
         query: `
-          SELECT city, region, country
+          SELECT city, country
           FROM events
           WHERE 
             actor = '${id}'
             AND city IS NOT NULL
-            AND region IS NOT NULL
             AND country IS NOT NULL
           ORDER BY created ASC
           LIMIT 1;
@@ -80,7 +79,6 @@ export const get: Handler = async (req, res) => {
       city: string;
       country: string;
       created: string;
-      region: string;
     }>();
 
     const lensData = lensResponse.data;
@@ -98,10 +96,8 @@ export const get: Handler = async (req, res) => {
 
     const result = {
       address:
-        leafwatchData[0]?.city &&
-        leafwatchData[0]?.region &&
-        leafwatchData[0]?.country
-          ? `${leafwatchData[0].city}, ${leafwatchData[0].region}, ${leafwatchData[0].country}`
+        leafwatchData[0]?.city && leafwatchData[0]?.country
+          ? `${leafwatchData[0].city}, ${leafwatchData[0].country}`
           : 'Others',
       ...lensProfile,
       rate: rate || 600
