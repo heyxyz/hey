@@ -25,8 +25,7 @@ const batchProcessEvents = async () => {
     );
 
     await lTrim('events', events.length, -1);
-  } catch (error) {
-    console.error(error);
+  } catch {
     logger.error('[Cron] cleanClickhouse - Error processing events');
   }
 };
