@@ -4,7 +4,6 @@ import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
 export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
-export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens and Hey Env Config
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
