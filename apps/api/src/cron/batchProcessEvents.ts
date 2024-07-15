@@ -6,10 +6,12 @@ const batchProcessEvents = async () => {
   const clickhouse = createClickhouseClient();
 
   try {
+    const startTime = Date.now();
     const events = (await lRange('events', 0, 9999)) || [];
 
     if (events.length === 0) {
       logger.info('[Cron] batchProcessEvents - No events to process');
+      return;
     }
 
     const parsedEvents = events.map((event) => JSON.parse(event));
@@ -20,8 +22,11 @@ const batchProcessEvents = async () => {
       values: parsedEvents
     });
 
+    const endTime = Date.now();
+    const timeTaken = endTime - startTime;
+
     logger.info(
-      `Cron] batchProcessEvents - Batch inserted ${events.length} events to Clickhouse`
+      `[Cron] batchProcessEvents - Batch inserted ${events.length} events to Clickhouse in ${timeTaken}ms`
     );
 
     await lTrim('events', events.length, -1);
