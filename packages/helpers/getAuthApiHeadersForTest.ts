@@ -59,7 +59,7 @@ const getAuthApiHeadersForTest = async ({ staff = true } = {}) => {
 
   const identityToken = auth?.authenticate.identityToken;
 
-  return { 'X-Identity-Token': identityToken, 'X-Lens-Network': 'testnet' };
+  return { 'X-Identity-Token': identityToken };
 };
 
 export default getAuthApiHeadersForTest;

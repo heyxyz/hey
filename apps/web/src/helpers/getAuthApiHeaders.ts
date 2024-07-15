@@ -1,9 +1,7 @@
-import { IS_MAINNET } from '@hey/data/constants';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
 const commonHeaders = {
-  'X-Identity-Token': hydrateAuthTokens().identityToken,
-  'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+  'X-Identity-Token': hydrateAuthTokens().identityToken
 };
 
 /**

@@ -1,11 +1,9 @@
 import { LENS_NETWORK } from '../constants';
 import { MainnetContracts, TestnetContracts } from '../contracts';
-import HeyEndpoint from '../hey-endpoints';
 import LensEndpoint from '../lens-endpoints';
 
 const getEnvConfig = (): {
   defaultCollectToken: string;
-  heyApiEndpoint: string;
   heyLensSignup: `0x${string}`;
   heyTipping: `0x${string}`;
   lensApiEndpoint: string;
@@ -18,7 +16,6 @@ const getEnvConfig = (): {
     case 'testnet':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Testnet,
         heyLensSignup: TestnetContracts.HeyLensSignup,
         heyTipping: TestnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Testnet,
@@ -30,7 +27,6 @@ const getEnvConfig = (): {
     case 'staging':
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Testnet,
         heyLensSignup: TestnetContracts.HeyLensSignup,
         heyTipping: TestnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Staging,
@@ -42,7 +38,6 @@ const getEnvConfig = (): {
     default:
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
-        heyApiEndpoint: HeyEndpoint.Mainnet,
         heyLensSignup: MainnetContracts.HeyLensSignup,
         heyTipping: MainnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Mainnet,
