@@ -22,7 +22,7 @@ const config: CodegenConfig = {
     afterAllFileWrite: ['eslint --fix', 'prettier --write']
   },
   overwrite: true,
-  schema: LensEndpoint.Staging
+  schema: LensEndpoint.Testnet
 };
 
 export default config;

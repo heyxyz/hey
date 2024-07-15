@@ -24,17 +24,6 @@ const getEnvConfig = (): {
         permissionlessCreator: TestnetContracts.PermissionlessCreator,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
-    case 'staging':
-      return {
-        defaultCollectToken: TestnetContracts.DefaultToken,
-        heyLensSignup: TestnetContracts.HeyLensSignup,
-        heyTipping: TestnetContracts.HeyTipping,
-        lensApiEndpoint: LensEndpoint.Staging,
-        lensHandles: TestnetContracts.LensHandles,
-        lensHub: TestnetContracts.LensHub,
-        permissionlessCreator: TestnetContracts.PermissionlessCreator,
-        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
-      };
     default:
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,

@@ -3,8 +3,8 @@
 #/ Usage: script/clean-branches
 #/ Delete all branches except main and testnet.
 
-echo "Deleting all branches except 'main', 'testnet' and 'staging' 🗑"
-git branch | grep -v "main" | grep -v "testnet" | grep -v "staging" | xargs git branch -D
+echo "Deleting all branches except 'main' 🗑"
+git branch | grep -v "main" | xargs git branch -D
 echo "Deleting branches that no longer exist on remote 🗑"
 git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}'); do git branch -D $branch; done
 echo "Branches deleted 🎉"
