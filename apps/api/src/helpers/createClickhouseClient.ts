@@ -1,15 +1,13 @@
 import { createClient } from '@clickhouse/client';
 import dotenv from 'dotenv';
 
-import { CLICKHOUSE_URL } from './constants';
-
 dotenv.config({ override: true });
 
 const createClickhouseClient = () => {
   return createClient({
     database: 'default',
     password: process.env.CLICKHOUSE_PASSWORD,
-    url: CLICKHOUSE_URL,
+    url: 'http://clickhouse.railway.internal:8123',
     username: 'clickhouse'
   });
 };
