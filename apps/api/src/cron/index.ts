@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cron from 'node-cron';
 
 import batchProcessEvents from './batchProcessEvents';
+import batchProcessImpressions from './batchProcessImpressions';
 import cleanClickhouse from './cleanClickhouse';
 import cleanDraftPublications from './cleanDraftPublications';
 import cleanEmailTokens from './cleanEmailTokens';
@@ -14,11 +15,6 @@ dotenv.config({ override: true });
 
 const main = () => {
   logger.info('Cron jobs are started...');
-
-  cron.schedule('*/30 * * * * *', async () => {
-    await batchProcessEvents();
-    return;
-  });
 
   cron.schedule('*/30 * * * *', async () => {
     await heartbeat();
@@ -47,6 +43,16 @@ const main = () => {
 
   cron.schedule('0 */6 * * *', async () => {
     await dbVacuum();
+    return;
+  });
+
+  cron.schedule('*/30 * * * * *', async () => {
+    await batchProcessEvents();
+    return;
+  });
+
+  cron.schedule('*/30 * * * * *', async () => {
+    await batchProcessImpressions();
     return;
   });
 };
