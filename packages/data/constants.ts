@@ -11,7 +11,7 @@ export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const HEY_API_URL = IS_PRODUCTION
-  ? getEnvConfig().heyApiEndpoint
+  ? 'https://api.hey.xyz'
   : 'http://localhost:4784';
 export const LENS_HUB = getEnvConfig().lensHub;
 export const LENS_HANDLES = getEnvConfig().lensHandles;
