@@ -7,7 +7,7 @@ dotenv.config({ override: true });
 
 const createClickhouseClient = (username?: string, password?: string) => {
   password = password || process.env.CLICKHOUSE_PASSWORD;
-  username = username || 'default';
+  username = username || 'clickhouse';
 
   return createClient({
     database: 'clickhouse',
