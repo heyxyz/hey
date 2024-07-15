@@ -45,6 +45,7 @@ export const post = [
         country: cfIpCountry || null,
         ip: ip || null,
         publication_id: id,
+        viewed_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
         viewer_id
       }));
 
