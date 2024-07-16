@@ -17,6 +17,7 @@ jobs:
   api:
     name: heyxyz/api:latest
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && contains(join(github.event.commits.*.modified, ','), 'apps/api/')
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -42,6 +43,7 @@ jobs:
   og:
     name: heyxyz/og:latest
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && contains(join(github.event.commits.*.modified, ','), 'apps/og/')
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
