@@ -334,7 +334,8 @@ const Terms: NextPage = () => {
                 13. Contact Information
               </div>
               <p className="leading-7">
-                Questions about the Terms should be sent to us at terms@hey.xyz
+                Questions about the Terms should be sent to us at
+                support@heyxyz.zohodesk.in
               </p>
               {/* 13. Contact Information ends */}
             </div>
