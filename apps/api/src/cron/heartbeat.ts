@@ -7,7 +7,7 @@ const heartbeat = async () => {
   }
 
   await axios.head(
-    'https://status.hey.xyz/api/push/iMuKLbhKKN?status=up&msg=OK&ping='
+    'https://status.hey.xyz/api/push/sf2NIDYFnM?status=up&msg=OK&ping='
   );
 
   logger.info('[Cron] heartbeat - Heartbeat sent to Status API');
