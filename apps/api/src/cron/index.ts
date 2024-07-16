@@ -16,7 +16,7 @@ dotenv.config({ override: true });
 const main = () => {
   logger.info('Cron jobs are started...');
 
-  cron.schedule('*/30 * * * *', async () => {
+  cron.schedule('*/30 * * * * *', async () => {
     await heartbeat();
     return;
   });
@@ -46,7 +46,7 @@ const main = () => {
     return;
   });
 
-  cron.schedule('*/30 * * * * *', async () => {
+  cron.schedule('*/50 * * * * *', async () => {
     await batchProcessEvents();
     return;
   });
