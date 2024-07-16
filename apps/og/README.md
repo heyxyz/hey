@@ -1,3 +1,1 @@
 # Hey OG
-
-gm
