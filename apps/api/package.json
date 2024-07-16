@@ -42,7 +42,7 @@
     "fast-xml-parser": "^4.4.0",
     "linkedom": "^0.18.4",
     "node-cron": "^3.0.3",
-    "pg-promise": "^11.9.0",
+    "pg-promise": "^11.9.1",
     "puppeteer": "^22.13.0",
     "rate-limit-redis": "^4.2.0",
     "redis": "^4.6.15",
@@ -52,7 +52,7 @@
     "ua-parser-js": "2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.17.3",
+    "viem": "^2.17.4",
     "vite-express": "^0.17.0",
     "zod": "^3.23.8"
   },
