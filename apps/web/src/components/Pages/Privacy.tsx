@@ -224,7 +224,7 @@ const Privacy: NextPage = () => {
               <p className="leading-7">
                 If you have any questions or comments about this Privacy Policy,
                 our data practices, or our compliance with applicable law,
-                please contact us at privacy@hey.xyz
+                please contact us at support@heyxyz.zohodesk.in
               </p>
               {/* 10. Contact ends */}
             </div>
