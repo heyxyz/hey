@@ -34,6 +34,7 @@ jobs:
               - 'apps/og/**'
 
   api:
+    needs: check-changes
     if: needs.check-changes.outputs.api-changed == 'true'
     name: heyxyz/api:latest
     runs-on: ubuntu-latest
@@ -60,6 +61,7 @@ jobs:
           timeout: 30000
 
   og:
+    needs: check-changes
     if: needs.check-changes.outputs.og-changed == 'true'
     name: heyxyz/og:latest
     runs-on: ubuntu-latest
