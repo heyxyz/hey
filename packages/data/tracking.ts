@@ -224,7 +224,8 @@ export const MISCELLANEOUS = {
     OPEN_DISCORD: 'Open Discord',
     OPEN_FEEDBACK: 'Open feedback',
     OPEN_GITHUB: 'Open GitHub',
-    OPEN_STATUS: 'Open status'
+    OPEN_STATUS: 'Open status',
+    OPEN_VERCEL: 'Open Vercel'
   },
   OPEN_GITCOIN: 'Open Gitcoin'
 };
