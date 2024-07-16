@@ -6,6 +6,7 @@ import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
+import urlcat from 'urlcat';
 
 const currentYear = new Date().getFullYear();
 
@@ -57,6 +58,20 @@ const Footer: FC = () => {
             {link.label}
           </Link>
         ))}
+      </div>
+      <div className="mt-4">
+        <Link
+          className="outline-offset-4 hover:font-bold focus:font-bold"
+          href={urlcat('https://vercel.com', {
+            utm_campaign: 'oss',
+            utm_source: APP_NAME
+          })}
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_VERCEL)}
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          ▲ Powered by Vercel
+        </Link>
       </div>
     </footer>
   );
