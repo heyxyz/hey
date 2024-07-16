@@ -24,7 +24,7 @@ export const get: Handler = async (req, res) => {
       return res
         .status(200)
         .setHeader('Cache-Control', CACHE_AGE_1_DAY)
-        .json({ result: JSON.parse(cachedData), success: true });
+        .json({ oembed: JSON.parse(cachedData), success: true });
     }
 
     const oembed = await getMetadata(url as string);
