@@ -14,10 +14,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      api-changed: ${{ steps.filter.outputs.api }}
+      og-changed: ${{ steps.filter.outputs.og }}
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Check for changes 🔍
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+            og:
+              - 'apps/og/**'
+
   api:
     name: heyxyz/api:latest
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && contains(join(github.event.commits.*.modified, ','), 'apps/api/')
+    if: needs.check-changes.outputs.api-changed == 'true'
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -43,7 +62,7 @@ jobs:
   og:
     name: heyxyz/og:latest
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && contains(join(github.event.commits.*.modified, ','), 'apps/og/')
+    if: needs.check-changes.outputs.og-changed == 'true'
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
