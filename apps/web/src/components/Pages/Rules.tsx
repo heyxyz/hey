@@ -115,7 +115,11 @@ const Rules: NextPage = () => {
               <div className="mb-5 mt-8 text-xl font-bold">Feedback</div>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please <Link href="/support">Contact us</Link>.
+                questions, please{' '}
+                <Link href="/support" target="_blank">
+                  Contact us
+                </Link>
+                .
               </p>
               {/* Feedback ends */}
             </div>

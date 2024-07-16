@@ -288,7 +288,10 @@ const Terms: NextPage = () => {
                   <b>Refunds for Failed Minting:</b> In the event that profile
                   minting fails, customers are eligible to request a refund. To
                   request a refund, please visit our{' '}
-                  <Link href="/support">support center</Link>.
+                  <Link href="/support" target="_blank">
+                    support center
+                  </Link>
+                  .
                 </p>
                 <p className="leading-7">
                   This policy is concise and designed to be clear and
