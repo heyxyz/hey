@@ -53,7 +53,7 @@
     "party-js": "^2.2.0",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
-    "prosekit": "0.9.6",
+    "prosekit": "0.9.8",
     "rc-slider": "10.6.2",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
@@ -76,7 +76,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.17.3",
+    "viem": "^2.17.4",
     "wagmi": "^2.10.10",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
@@ -92,8 +92,8 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.5",
     "typescript": "^5.5.3",
-    "vitest": "^2.0.2"
+    "vitest": "^2.0.3"
   }
 }
