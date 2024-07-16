@@ -44,7 +44,7 @@
     "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
     "esbuild": "^0.23.0",
-    "framer-motion": "^11.3.2",
+    "framer-motion": "^11.3.4",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "next": "^14.2.5",
@@ -77,7 +77,7 @@
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
     "viem": "^2.17.4",
-    "wagmi": "^2.10.10",
+    "wagmi": "^2.10.11",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
