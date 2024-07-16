@@ -34,9 +34,9 @@ jobs:
               - 'apps/og/**'
 
   api:
+    if: needs.check-changes.outputs.api-changed == 'true'
     name: heyxyz/api:latest
     runs-on: ubuntu-latest
-    if: needs.check-changes.outputs.api-changed == 'true'
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -60,9 +60,9 @@ jobs:
           timeout: 30000
 
   og:
+    if: needs.check-changes.outputs.og-changed == 'true'
     name: heyxyz/og:latest
     runs-on: ubuntu-latest
-    if: needs.check-changes.outputs.og-changed == 'true'
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
