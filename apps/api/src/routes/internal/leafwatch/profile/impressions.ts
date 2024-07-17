@@ -21,28 +21,28 @@ export const get = [
       const rows = await clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
-        WITH toYear(now()) AS current_year
-        SELECT
-          day,
-          impressions,
-          totalImpressions
-        FROM (
+          WITH toYear(now()) AS current_year
           SELECT
-            toDayOfYear(viewed) AS day,
-            count() AS impressions
-          FROM impressions
-          WHERE splitByString('-', publication)[1] = '${id}'
-            AND toYear(viewed) = current_year
-          GROUP BY day
-        ) AS dailyImpressions
-        CROSS JOIN (
-          SELECT count() AS totalImpressions
-          FROM impressions
-          WHERE splitByString('-', publication)[1] = '${id}'
-            AND toYear(viewed) = current_year
-        ) AS total
-        ORDER BY day
-      `
+            day,
+            impressions,
+            totalImpressions
+          FROM (
+            SELECT
+              toDayOfYear(viewed) AS day,
+              count() AS impressions
+            FROM impressions
+            WHERE splitByString('-', publication)[1] = '${id}'
+              AND toYear(viewed) = current_year
+            GROUP BY day
+          ) AS dailyImpressions
+          CROSS JOIN (
+            SELECT count() AS totalImpressions
+            FROM impressions
+            WHERE splitByString('-', publication)[1] = '${id}'
+              AND toYear(viewed) = current_year
+          ) AS total
+          ORDER BY day
+        `
       });
 
       const result = await rows.json<{
