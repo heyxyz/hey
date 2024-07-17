@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 
@@ -11,8 +11,6 @@ export const get = [
   validateIsStaff,
   async (_: Request, res: Response) => {
     try {
-      const client = createClickhouseClient();
-
       const queries: string[] = [
         `
         SELECT
@@ -99,7 +97,7 @@ export const get = [
       // Execute all queries concurrently
       const results: any = await Promise.all(
         queries.map((query) =>
-          client
+          clickhouseClient
             .query({ format: 'JSONEachRow', query })
             .then((rows) => rows.json())
         )
