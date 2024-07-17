@@ -15,8 +15,6 @@ WORKDIR /app
 
 RUN npm install -g pnpm turbo
 
-COPY .gitignore .gitignore
-COPY prettier.config.js prettier.config.js
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
