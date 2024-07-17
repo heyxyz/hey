@@ -7,7 +7,7 @@ import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { rPush } from 'src/helpers/redisClient';
+import { rPushRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { UAParser } from 'ua-parser-js';
 import { any, object, string } from 'zod';
@@ -78,7 +78,7 @@ export const post = [
         url: url || null
       };
 
-      await rPush('events', JSON.stringify(values));
+      await rPushRedis('events', JSON.stringify(values));
 
       logger.info(
         `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
