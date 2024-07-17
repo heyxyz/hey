@@ -6,11 +6,15 @@ const heartbeat = async () => {
     return;
   }
 
-  await axios.head(
-    'https://status.hey.xyz/api/push/NM16jFPpBf?status=up&msg=OK&ping='
-  );
+  try {
+    await axios.head(
+      'https://status.hey.xyz/api/push/NM16jFPpBf?status=up&msg=OK&ping='
+    );
 
-  logger.info('[Cron] heartbeat - Heartbeat sent to Status API');
+    logger.info('[Cron] heartbeat - Heartbeat sent to Status API');
+  } catch (error) {
+    logger.error('[Cron] heartbeat - Error sending heartbeat', error);
+  }
 };
 
 export default heartbeat;

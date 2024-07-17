@@ -7,8 +7,12 @@ const dbVacuum = async () => {
     return;
   }
 
-  await heyPg.query('VACUUM FULL');
-  logger.info('[Cron] dbVacuum - Vacuumed database');
+  try {
+    await heyPg.query('VACUUM FULL');
+    logger.info('[Cron] dbVacuum - Vacuumed database');
+  } catch (error) {
+    logger.error('[Cron] dbVacuum - Error vacuuming database', error);
+  }
 };
 
 export default dbVacuum;

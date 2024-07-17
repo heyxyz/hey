@@ -30,9 +30,10 @@ const batchProcessImpressions = async () => {
     );
 
     await lTrim('impressions', impressions.length, -1);
-  } catch {
+  } catch (error) {
     logger.error(
-      '[Cron] batchProcessImpressions - Error processing impressions'
+      '[Cron] batchProcessImpressions - Error processing impressions',
+      error
     );
   }
 };
