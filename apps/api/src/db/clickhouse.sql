@@ -1,6 +1,5 @@
 -- Events
 CREATE TABLE events (
-  id UUID DEFAULT generateUUIDv4(),
   actor LowCardinality(Nullable(String)),
   fingerprint LowCardinality(Nullable(String)),
   name LowCardinality(String),
@@ -14,7 +13,7 @@ CREATE TABLE events (
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 PARTITION BY toYYYYMM(created)
-ORDER BY (created, id)
+ORDER BY created
 TTL created + INTERVAL 1 YEAR
 SETTINGS index_granularity = 8192;
 
