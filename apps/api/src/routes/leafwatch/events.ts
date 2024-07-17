@@ -73,7 +73,6 @@ export const post = [
         fingerprint: fingerprint || null,
         ip: ip || null,
         name,
-        os: ua.os.name || null,
         properties: properties || null,
         referrer: referrer || null,
         url: url || null
