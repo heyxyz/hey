@@ -30,6 +30,7 @@ RUN turbo run build --filter=@hey/api...
 FROM base AS runner
 WORKDIR /app
 
+RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 api
 
@@ -40,4 +41,4 @@ COPY --from=installer /app .
 EXPOSE 4784
 
 # Command to run the app
-CMD sleep 3 && npm --filter @hey/api run start & npm --filter @hey/api run cron
+CMD sleep 3 && pnpm --filter @hey/api run start & pnpm --filter @hey/api run cron
