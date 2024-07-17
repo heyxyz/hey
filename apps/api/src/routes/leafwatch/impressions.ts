@@ -8,12 +8,10 @@ import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {
-  actor: string;
   ids: string[];
 };
 
 const validationSchema = object({
-  actor: string(),
   ids: array(string())
 });
 
@@ -32,11 +30,10 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { actor, ids } = body as ExtensionRequest;
+    const { ids } = body as ExtensionRequest;
 
     try {
       const values = ids.map((id) => ({
-        actor,
         publication: id,
         viewed: new Date().toISOString().slice(0, 19).replace('T', ' ')
       }));

@@ -19,7 +19,6 @@ ORDER BY created;
 -- Impressions
 CREATE TABLE impressions_new (
   id UUID,
-  actor String,
   publication String,
   viewed DateTime DEFAULT now()
 ) ENGINE = MergeTree()

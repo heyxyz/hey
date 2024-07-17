@@ -1,5 +1,4 @@
 import { IS_MAINNET } from '@hey/data/constants';
-import { hydrateLeafwatchAnonymousId } from 'src/store/persisted/useLeafwatchStore';
 
 import getCurrentSession from './getCurrentSession';
 
@@ -9,7 +8,6 @@ import getCurrentSession from './getCurrentSession';
  * @returns void
  */
 const pushToImpressions = (id: string): void => {
-  const anonymousId = hydrateLeafwatchAnonymousId();
   const { id: sessionProfileId } = getCurrentSession();
 
   // Don't push impressions for the current user
@@ -21,8 +19,7 @@ const pushToImpressions = (id: string): void => {
   if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
     navigator.serviceWorker.controller.postMessage({
       id,
-      type: 'PUBLICATION_VISIBLE',
-      viewerId: sessionProfileId || anonymousId
+      type: 'PUBLICATION_VISIBLE'
     });
   }
 

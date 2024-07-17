@@ -19,30 +19,30 @@ export const get = [
       const rows = await clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
-        WITH
-          date_series AS (
-            SELECT toDate(subtractDays(now(), number)) AS date
-            FROM numbers(30)
-          ),
-          impressions_extracted AS (
-            SELECT
-              toDate(viewed) AS date,
-              splitByChar('-', publication)[1] AS actor
-            FROM impressions
-            WHERE
-              splitByChar('-', publication)[1] = '${id}'
-              AND viewed >= now() - INTERVAL 30 DAY
-          )
-        SELECT
-          ds.date,
-          count(ie.actor) AS count
-        FROM date_series ds
-        LEFT JOIN
-          impressions_extracted ie
-          ON ds.date = ie.date
-        GROUP BY ds.date
-        ORDER BY ds.date
-      `
+          WITH
+            date_series AS (
+              SELECT toDate(subtractDays(now(), number)) AS date
+              FROM numbers(30)
+            ),
+            impressions_extracted AS (
+              SELECT
+                toDate(viewed) AS date,
+                splitByChar('-', publication)[1] AS actor
+              FROM impressions
+              WHERE
+                splitByChar('-', publication)[1] = '${id}'
+                AND viewed >= now() - INTERVAL 30 DAY
+            )
+          SELECT
+            ds.date,
+            count(ie.actor) AS count
+          FROM date_series ds
+          LEFT JOIN
+            impressions_extracted ie
+            ON ds.date = ie.date
+          GROUP BY ds.date
+          ORDER BY ds.date
+        `
       });
       const result = await rows.json<{
         count: number;
