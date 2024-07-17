@@ -5,7 +5,10 @@ dotenv.config({ override: true });
 
 const createClickhouseClient = () => {
   return createClient({
-    database: 'default',
+    compression: {
+      request: true,
+      response: true
+    },
     password: process.env.CLICKHOUSE_PASSWORD,
     url: 'http://clickhouse.railway.internal:8123',
     username: 'clickhouse'
