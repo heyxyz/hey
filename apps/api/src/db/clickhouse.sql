@@ -17,7 +17,7 @@ CREATE TABLE events (
 ORDER BY created;
 
 -- Impressions
-CREATE TABLE impressions_new (
+CREATE TABLE impressions (
   id UUID,
   publication String,
   viewed DateTime DEFAULT now()
