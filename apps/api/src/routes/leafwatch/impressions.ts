@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 
-import getIp from '@hey/helpers/getIp';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
@@ -9,13 +8,13 @@ import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 
 type ExtensionRequest = {
+  actor: string;
   ids: string[];
-  viewer_id: string;
 };
 
 const validationSchema = object({
-  ids: array(string()),
-  viewer_id: string()
+  actor: string(),
+  ids: array(string())
 });
 
 export const post = [
@@ -33,24 +32,16 @@ export const post = [
       return invalidBody(res);
     }
 
-    const ip = getIp(req);
-    const cfIpCity = req.headers['cf-ipcity'];
-    const cfIpCountry = req.headers['cf-ipcountry'];
-
-    const { ids, viewer_id } = body as ExtensionRequest;
+    const { actor, ids } = body as ExtensionRequest;
 
     try {
       const values = ids.map((id) => ({
-        city: cfIpCity || null,
-        country: cfIpCountry || null,
-        ip: ip || null,
-        publication_id: id,
-        viewed_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        viewer_id
+        actor,
+        publication: id,
+        viewed: new Date().toISOString().slice(0, 19).replace('T', ' ')
       }));
 
       await rPush('impressions', JSON.stringify(values));
-
       logger.info(`Ingested ${values.length} impressions to Leafwatch`);
 
       return res.status(200).json({ success: true });
