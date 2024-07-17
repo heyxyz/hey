@@ -30,6 +30,8 @@ RUN turbo run build --filter=@hey/og...
 FROM base AS runner
 WORKDIR /app
 
+RUN npm install -g pnpm
+
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 og
 
@@ -40,4 +42,4 @@ COPY --from=installer /app .
 EXPOSE 4785
 
 # Command to run the app
-CMD npm --filter @hey/og run start
+CMD pnpm --filter @hey/og run start
