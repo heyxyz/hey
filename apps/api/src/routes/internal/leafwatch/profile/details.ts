@@ -21,29 +21,29 @@ export const get = [
       const rows = await clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
-        WITH events_counts AS (
+          WITH events_counts AS (
+            SELECT
+              actor,
+              country,
+              city,
+              os,
+              browser,
+              COUNT() AS cnt
+            FROM events
+            WHERE actor = '${id}'
+            GROUP BY actor, country, city, os, browser
+          )
           SELECT
             actor,
-            country,
-            city,
-            os,
-            browser,
-            COUNT() AS cnt
-          FROM events
+            argMax(country, cnt) AS most_common_country,
+            argMax(city, cnt) AS most_common_city,
+            SUM(cnt) AS number_of_events,
+            argMax(os, cnt) AS most_common_os,
+            argMax(browser, cnt) AS most_common_browser
+          FROM events_counts
           WHERE actor = '${id}'
-          GROUP BY actor, country, city, os, browser
-        )
-        SELECT
-          actor,
-          argMax(country, cnt) AS most_common_country,
-          argMax(city, cnt) AS most_common_city,
-          SUM(cnt) AS number_of_events,
-          argMax(os, cnt) AS most_common_os,
-          argMax(browser, cnt) AS most_common_browser
-        FROM events_counts
-        WHERE actor = '${id}'
-        GROUP BY actor;
-      `
+          GROUP BY actor;
+        `
       });
 
       const result = await rows.json<{
