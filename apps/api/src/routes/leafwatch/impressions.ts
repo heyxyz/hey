@@ -3,7 +3,7 @@ import type { Request, Response } from 'express';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { rPush } from 'src/helpers/redisClient';
+import { rPushRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 
@@ -38,7 +38,7 @@ export const post = [
         viewed: new Date().toISOString().slice(0, 19).replace('T', ' ')
       }));
 
-      await rPush('impressions', JSON.stringify(values));
+      await rPushRedis('impressions', JSON.stringify(values));
       logger.info(`Ingested ${values.length} impressions to Leafwatch`);
 
       return res.status(200).json({ success: true });

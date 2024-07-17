@@ -1,11 +1,11 @@
 import logger from '@hey/helpers/logger';
 import { clickhouseClient } from 'src/helpers/clickhouseClient';
-import { lRange, lTrim } from 'src/helpers/redisClient';
+import { lRangeRedis, lTrimRedis } from 'src/helpers/redisClient';
 
 const batchProcessImpressions = async () => {
   try {
     const startTime = Date.now();
-    const impressions = (await lRange('impressions', 0, 999)) || [];
+    const impressions = (await lRangeRedis('impressions', 0, 999)) || [];
 
     if (impressions.length === 0) {
       logger.info('[Cron] batchProcessImpressions - No impressions to process');
@@ -29,7 +29,7 @@ const batchProcessImpressions = async () => {
       `[Cron] batchProcessImpressions - Batch inserted ${parsedImpressions.length} impressions to Clickhouse in ${timeTaken}ms`
     );
 
-    await lTrim('impressions', impressions.length, -1);
+    await lTrimRedis('impressions', impressions.length, -1);
   } catch (error) {
     logger.error(
       '[Cron] batchProcessImpressions - Error processing impressions',

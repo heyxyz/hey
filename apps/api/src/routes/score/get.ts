@@ -10,7 +10,7 @@ import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import {
   generateLongExpiry,
   getRedis,
-  getTtl,
+  getTtlRedis,
   setRedis
 } from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
@@ -43,7 +43,7 @@ export const get = [
     try {
       const [cachedScore, ttl] = await Promise.all([
         getRedis(buildCacheKey(id as string)),
-        getTtl(buildCacheKey(id as string))
+        getTtlRedis(buildCacheKey(id as string))
       ]);
 
       if (cachedScore) {
