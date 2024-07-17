@@ -27,7 +27,7 @@ export const get = [
           impressions_extracted AS (
             SELECT
               toDate(viewed_at) AS date,
-              splitByChar('-', publication_id)[1] AS viewer_id
+              splitByChar('-', publication_id)[1] AS actor
             FROM impressions
             WHERE
               splitByChar('-', publication_id)[1] = '${id}'
@@ -35,7 +35,7 @@ export const get = [
           )
         SELECT
           ds.date,
-          count(ie.viewer_id) AS count
+          count(ie.actor) AS count
         FROM date_series ds
         LEFT JOIN
           impressions_extracted ie

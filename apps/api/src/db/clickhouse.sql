@@ -17,15 +17,10 @@ CREATE TABLE events (
 ORDER BY created;
 
 -- Impressions
-CREATE TABLE impressions (
+CREATE TABLE impressions_new (
   id UUID,
-  viewer_id String,
-  publication_id String,
-  ip Nullable(String),
-  city Nullable(String),
-  country LowCardinality(String),
-  viewed_at DateTime64(3, 'UTC') DEFAULT now64(3)
+  actor String,
+  publication String,
+  viewed DateTime DEFAULT now()
 ) ENGINE = MergeTree()
-PARTITION BY toYYYYMM(viewed_at)
-ORDER BY (viewer_id, publication_id, viewed_at)
-SETTINGS index_granularity = 8192;
+ORDER BY viewed;
