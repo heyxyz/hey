@@ -2,17 +2,15 @@ declare let self: ServiceWorkerGlobalScope;
 
 const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
 const publicationsVisibilityInterval = 5000;
-let viewerId: null | string = null;
 const visiblePublicationsSet = new Set();
 
 const sendVisiblePublicationsToServer = () => {
   const publicationsToSend = Array.from(visiblePublicationsSet);
 
-  if (publicationsToSend.length > 0 && viewerId) {
+  if (publicationsToSend.length > 0) {
     visiblePublicationsSet.clear();
     fetch(impressionsEndpoint, {
       body: JSON.stringify({
-        actor: viewerId,
         ids: publicationsToSend
       }),
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +32,6 @@ self.addEventListener('message', (event) => {
   // Impression tracking
   if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
     visiblePublicationsSet.add(event.data.id);
-    viewerId = event.data.viewerId;
   }
 });
 
