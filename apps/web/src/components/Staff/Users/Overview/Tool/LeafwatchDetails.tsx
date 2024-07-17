@@ -3,7 +3,6 @@ import type { FC } from 'react';
 import MetaDetails from '@components/Shared/MetaDetails';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import {
-  ComputerDesktopIcon,
   CursorArrowRaysIcon,
   EyeIcon,
   GlobeAltIcon
@@ -24,7 +23,6 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     city: string;
     country: string;
     events: number;
-    os: string;
   } | null> => {
     try {
       const response = await axios.get(
@@ -90,12 +88,6 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
           title="Total events"
         >
           {humanize(leafwatchDetails.events)}
-        </MetaDetails>
-        <MetaDetails
-          icon={<ComputerDesktopIcon className="ld-text-gray-500 size-4" />}
-          title="OS"
-        >
-          {leafwatchDetails.os}
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="ld-text-gray-500 size-4" />}
