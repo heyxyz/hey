@@ -46,12 +46,12 @@ const main = () => {
     return;
   });
 
-  cron.schedule('*/1 * * * *', async () => {
+  cron.schedule('*/30 * * * * *', async () => {
     await batchProcessEvents();
     return;
   });
 
-  cron.schedule('*/1 * * * *', async () => {
+  cron.schedule('*/30 * * * * *', async () => {
     await batchProcessImpressions();
     return;
   });
