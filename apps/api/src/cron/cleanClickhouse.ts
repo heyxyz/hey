@@ -1,14 +1,12 @@
 import logger from '@hey/helpers/logger';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
-
-const clickhouse = createClickhouseClient();
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
 
 const cleanClickhouse = async () => {
   if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
     return;
   }
 
-  await clickhouse.command({
+  await clickhouseClient.command({
     query: "ALTER TABLE events DELETE WHERE url NOT LIKE '%hey.xyz%';"
   });
   logger.info(

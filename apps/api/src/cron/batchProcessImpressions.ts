@@ -1,10 +1,8 @@
 import logger from '@hey/helpers/logger';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import { lRange, lTrim } from 'src/helpers/redisClient';
 
 const batchProcessImpressions = async () => {
-  const clickhouse = createClickhouseClient();
-
   try {
     const startTime = Date.now();
     const impressions = (await lRange('impressions', 0, 999)) || [];
@@ -18,7 +16,7 @@ const batchProcessImpressions = async () => {
       JSON.parse(impression)
     );
 
-    await clickhouse.insert({
+    await clickhouseClient.insert({
       format: 'JSONEachRow',
       table: 'impressions',
       values: parsedImpressions

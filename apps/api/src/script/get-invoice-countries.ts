@@ -1,5 +1,6 @@
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
+
 import lensPg from '../db/lensPg';
-import createClickhouseClient from '../helpers/createClickhouseClient';
 
 const startDate = '2024-06-01 00:07:17';
 const endDate = '2024-06-30 23:58:57';
@@ -18,7 +19,6 @@ const getProfiles = async () => {
 };
 
 const getInvoiceCountries = async () => {
-  const clickhouse = createClickhouseClient();
   const profiles = await getProfiles();
   const ids = profiles.map((profile) => profile.profile_id);
 
@@ -38,7 +38,7 @@ const getInvoiceCountries = async () => {
     GROUP BY country
     ORDER BY invoices DESC
   `;
-  const rows = await clickhouse.query({ format: 'JSONEachRow', query });
+  const rows = await clickhouseClient.query({ format: 'JSONEachRow', query });
   const result = await rows.json<{ country: string; invoices: string }>();
 
   const sumOfInvoices = result.reduce(

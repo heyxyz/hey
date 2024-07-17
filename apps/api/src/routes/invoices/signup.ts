@@ -5,8 +5,8 @@ import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import invoiceRates from 'src/data/invoice-rates';
 import catchedError from 'src/helpers/catchedError';
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import { HEY_USER_AGENT } from 'src/helpers/constants';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
 import { noBody } from 'src/helpers/responses';
 
 const getRateForTimestamp = (timestamp: number): number | undefined => {
@@ -31,10 +31,8 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const client = createClickhouseClient();
-
     const [rows, lensResponse] = await Promise.all([
-      client.query({
+      clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
           SELECT city, country

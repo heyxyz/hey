@@ -1,10 +1,8 @@
 import logger from '@hey/helpers/logger';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import { lRange, lTrim } from 'src/helpers/redisClient';
 
 const batchProcessEvents = async () => {
-  const clickhouse = createClickhouseClient();
-
   try {
     const startTime = Date.now();
     const events = (await lRange('events', 0, 9999)) || [];
@@ -16,7 +14,7 @@ const batchProcessEvents = async () => {
 
     const parsedEvents = events.map((event) => JSON.parse(event));
 
-    await clickhouse.insert({
+    await clickhouseClient.insert({
       format: 'JSONEachRow',
       table: 'events',
       values: parsedEvents
