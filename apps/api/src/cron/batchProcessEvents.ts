@@ -28,8 +28,8 @@ const batchProcessEvents = async () => {
     );
 
     await lTrim('events', events.length, -1);
-  } catch {
-    logger.error('[Cron] batchProcessEvents - Error processing events');
+  } catch (error) {
+    logger.error('[Cron] batchProcessEvents - Error processing events', error);
   }
 };
 

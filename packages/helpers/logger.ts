@@ -18,7 +18,7 @@ class Logger {
     });
   }
 
-  error(message: string, error?: Error) {
+  error(message: string, error?: Error | unknown) {
     this.logger.error(message, error);
   }
 
@@ -26,7 +26,7 @@ class Logger {
     this.logger.info(message);
   }
 
-  warn(message: string, error?: Error) {
+  warn(message: string, error?: Error | unknown) {
     this.logger.warn(message, error);
   }
 }
