@@ -5,6 +5,8 @@ import logger from '@hey/helpers/logger';
 import randomNumber from '@hey/helpers/randomNumber';
 import { createClient } from 'redis';
 
+const noRedisError = () => logger.error('[Redis] Redis client not initialized');
+
 let redisClient: null | RedisClientType = null;
 
 if (process.env.REDIS_URL) {
@@ -51,7 +53,7 @@ export const setRedis = async (
   expiry = generateExtraLongExpiry()
 ) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return;
   }
 
@@ -64,7 +66,7 @@ export const setRedis = async (
 
 export const getRedis = async (key: string) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return null;
   }
   return await redisClient.get(key);
@@ -72,7 +74,7 @@ export const getRedis = async (key: string) => {
 
 export const delRedis = async (key: string) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return;
   }
   await redisClient.del(key);
@@ -80,7 +82,7 @@ export const delRedis = async (key: string) => {
 
 export const getTtlRedis = async (key: string) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return null;
   }
   return await redisClient.ttl(key);
@@ -88,7 +90,7 @@ export const getTtlRedis = async (key: string) => {
 
 export const rPushRedis = async (key: string, value: string) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return null;
   }
   return await redisClient.rPush(key, value);
@@ -96,7 +98,7 @@ export const rPushRedis = async (key: string, value: string) => {
 
 export const lRangeRedis = async (key: string, start: number, stop: number) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return null;
   }
   return await redisClient.lRange(key, start, stop);
@@ -104,7 +106,7 @@ export const lRangeRedis = async (key: string, start: number, stop: number) => {
 
 export const lTrimRedis = async (key: string, start: number, stop: number) => {
   if (!redisClient) {
-    logger.warn('[Redis] Redis client not initialized');
+    noRedisError();
     return null;
   }
   return await redisClient.lTrim(key, start, stop);
