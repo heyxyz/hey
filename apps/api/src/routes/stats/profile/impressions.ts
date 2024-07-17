@@ -26,12 +26,12 @@ export const get = [
           ),
           impressions_extracted AS (
             SELECT
-              toDate(viewed_at) AS date,
-              splitByChar('-', publication_id)[1] AS actor
+              toDate(viewed) AS date,
+              splitByChar('-', publication)[1] AS actor
             FROM impressions
             WHERE
-              splitByChar('-', publication_id)[1] = '${id}'
-              AND viewed_at >= now() - INTERVAL 30 DAY
+              splitByChar('-', publication)[1] = '${id}'
+              AND viewed >= now() - INTERVAL 30 DAY
           )
         SELECT
           ds.date,

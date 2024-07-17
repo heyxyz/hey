@@ -36,20 +36,20 @@ export const post = [
       const rows = await clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
-        SELECT publication_id, COUNT(*) AS count
-        FROM impressions
-        WHERE publication_id IN (${ids.map((id) => `'${id}'`).join(',')})
-        GROUP BY publication_id;
-      `
+          SELECT publication, COUNT(*) AS count
+          FROM impressions
+          WHERE publication IN (${ids.map((id) => `'${id}'`).join(',')})
+          GROUP BY publication;
+        `
       });
 
       const result = await rows.json<{
         count: number;
-        publication_id: string;
+        publication: string;
       }>();
 
       const viewCounts = result.map((row) => ({
-        id: row.publication_id,
+        id: row.publication,
         views: Number(row.count)
       }));
       logger.info(`Fetched publication views for ${ids.length} publications`);
