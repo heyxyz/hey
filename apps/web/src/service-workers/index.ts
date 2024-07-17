@@ -12,8 +12,8 @@ const sendVisiblePublicationsToServer = () => {
     visiblePublicationsSet.clear();
     fetch(impressionsEndpoint, {
       body: JSON.stringify({
-        ids: publicationsToSend,
-        viewer_id: viewerId
+        actor: viewerId,
+        ids: publicationsToSend
       }),
       headers: { 'Content-Type': 'application/json' },
       keepalive: true,
