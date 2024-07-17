@@ -1,37 +1,38 @@
 declare let self: ServiceWorkerGlobalScope;
 
-const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
-const publicationsVisibilityInterval = 5000;
-const visiblePublicationsSet = new Set();
+const IMPRESSIONS_ENDPOINT = 'https://api.hey.xyz/leafwatch/impressions';
+const PUBLICATIONS_VISIBILITY_INTERVAL = 5000;
+const visiblePublications = new Set<string>();
 
-const sendVisiblePublicationsToServer = () => {
-  const publicationsToSend = Array.from(visiblePublicationsSet);
+const sendVisiblePublicationsToServer = async () => {
+  if (visiblePublications.size === 0) {
+    return;
+  }
 
-  if (publicationsToSend.length > 0) {
-    visiblePublicationsSet.clear();
-    fetch(impressionsEndpoint, {
-      body: JSON.stringify({
-        ids: publicationsToSend
-      }),
+  const publicationsToSend = Array.from(visiblePublications);
+  visiblePublications.clear();
+
+  try {
+    await fetch(IMPRESSIONS_ENDPOINT, {
+      body: JSON.stringify({ ids: publicationsToSend }),
       headers: { 'Content-Type': 'application/json' },
       keepalive: true,
       method: 'POST'
-    })
-      .then(() => {})
-      .catch(() => {});
+    });
+  } catch (error) {
+    console.error('Failed to send visible publications to Leafwatch', error);
   }
 };
 
-setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
+setInterval(sendVisiblePublicationsToServer, PUBLICATIONS_VISIBILITY_INTERVAL);
 
 const handleActivate = async (): Promise<void> => {
   await self.clients.claim();
 };
 
 self.addEventListener('message', (event) => {
-  // Impression tracking
-  if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
-    visiblePublicationsSet.add(event.data.id);
+  if (event.data?.type === 'PUBLICATION_VISIBLE') {
+    visiblePublications.add(event.data.id);
   }
 });
 
