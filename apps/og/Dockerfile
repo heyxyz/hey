@@ -13,8 +13,7 @@ RUN turbo prune --scope=@hey/og --docker
 FROM base as installer
 WORKDIR /app
 
-RUN npm install -g pnpm
-RUN npm install -g turbo
+RUN npm install -g pnpm turbo
 
 COPY .gitignore .gitignore
 COPY prettier.config.js prettier.config.js
@@ -31,8 +30,6 @@ RUN turbo run build --filter=@hey/og...
 FROM base AS runner
 WORKDIR /app
 
-RUN npm install -g pnpm
-
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 og
 
@@ -43,4 +40,4 @@ COPY --from=installer /app .
 EXPOSE 4785
 
 # Command to run the app
-CMD pnpm --filter @hey/og run start
+CMD npm --filter @hey/og run start
