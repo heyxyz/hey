@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import createClickhouseClient from 'src/helpers/createClickhouseClient';
+import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { noBody } from 'src/helpers/responses';
@@ -18,8 +18,7 @@ export const get = [
     }
 
     try {
-      const client = createClickhouseClient();
-      const rows = await client.query({
+      const rows = await clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
         WITH toYear(now()) AS current_year
