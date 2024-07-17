@@ -1,20 +1,22 @@
 -- Events
 CREATE TABLE events (
   id UUID DEFAULT generateUUIDv4(),
-  actor Nullable(String),
-  fingerprint Nullable(String),
-  name String,
+  actor LowCardinality(Nullable(String)),
+  fingerprint LowCardinality(Nullable(String)),
+  name LowCardinality(String),
   properties Nullable(String),
   referrer Nullable(String),
   url Nullable(String),
-  browser Nullable(String),
-  os Nullable(String),
-  ip Nullable(String),
-  city Nullable(String),
-  country LowCardinality(String),
+  browser LowCardinality(Nullable(String)),
+  ip Nullable(IPv6),
+  city LowCardinality(Nullable(String)),
+  country LowCardinality(Nullable(String)),
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
-ORDER BY created;
+PARTITION BY toYYYYMM(created)
+ORDER BY (created, id)
+TTL created + INTERVAL 1 YEAR
+SETTINGS index_granularity = 8192;
 
 -- Impressions
 CREATE TABLE impressions (
