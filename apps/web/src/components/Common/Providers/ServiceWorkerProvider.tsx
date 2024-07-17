@@ -5,9 +5,18 @@ import { useEffect } from 'react';
 const ServiceWorkerProvider: FC = () => {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      (navigator.serviceWorker as ServiceWorkerContainer)
-        .register('/sw.js', { scope: '/' })
-        .catch(console.error);
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          registration.unregister();
+        }
+
+        navigator.serviceWorker
+          .register('/sw.js', { scope: '/' })
+          .then(() => {
+            console.log('Service Worker registered successfully.');
+          })
+          .catch(console.error);
+      });
     }
   }, []);
 
