@@ -61,7 +61,7 @@ export const get = [
         `
         SELECT
           CAST(created AS date) AS date,
-          COUNT(DISTINCT COALESCE(actor, fingerprint, ip)) AS dau,
+          COUNT(DISTINCT COALESCE(actor, fingerprint, CAST(ip AS String))) AS dau,
           COUNT(*) AS events
         FROM
           events
@@ -85,9 +85,11 @@ export const get = [
         `
         SELECT
           referrer,
-          COUNT(DISTINCT COALESCE(actor, fingerprint, ip)) AS count
+          COUNT(DISTINCT COALESCE(actor, fingerprint, CAST(ip AS String))) AS count
         FROM events
-        WHERE toDate(created) = today() AND referrer IS NOT NULL AND actor IS NOT NULL
+        WHERE toDate(created) = today() 
+          AND referrer IS NOT NULL 
+          AND actor IS NOT NULL
         GROUP BY referrer
         ORDER BY count DESC
         LIMIT 10
