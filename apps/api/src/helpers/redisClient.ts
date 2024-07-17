@@ -78,7 +78,7 @@ export const delRedis = async (key: string) => {
   await redisClient.del(key);
 };
 
-export const getTtl = async (key: string) => {
+export const getTtlRedis = async (key: string) => {
   if (!redisClient) {
     logger.warn('[Redis] Redis client not initialized');
     return null;
@@ -86,7 +86,7 @@ export const getTtl = async (key: string) => {
   return await redisClient.ttl(key);
 };
 
-export const rPush = async (key: string, value: string) => {
+export const rPushRedis = async (key: string, value: string) => {
   if (!redisClient) {
     logger.warn('[Redis] Redis client not initialized');
     return null;
@@ -94,7 +94,7 @@ export const rPush = async (key: string, value: string) => {
   return await redisClient.rPush(key, value);
 };
 
-export const lRange = async (key: string, start: number, stop: number) => {
+export const lRangeRedis = async (key: string, start: number, stop: number) => {
   if (!redisClient) {
     logger.warn('[Redis] Redis client not initialized');
     return null;
@@ -102,7 +102,7 @@ export const lRange = async (key: string, start: number, stop: number) => {
   return await redisClient.lRange(key, start, stop);
 };
 
-export const lTrim = async (key: string, start: number, stop: number) => {
+export const lTrimRedis = async (key: string, start: number, stop: number) => {
   if (!redisClient) {
     logger.warn('[Redis] Redis client not initialized');
     return null;
