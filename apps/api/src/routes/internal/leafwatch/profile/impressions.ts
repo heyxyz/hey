@@ -28,18 +28,18 @@ export const get = [
           totalImpressions
         FROM (
           SELECT
-            toDayOfYear(viewed_at) AS day,
+            toDayOfYear(viewed) AS day,
             count() AS impressions
           FROM impressions
-          WHERE splitByString('-', publication_id)[1] = '${id}'
-            AND toYear(viewed_at) = current_year
+          WHERE splitByString('-', publication)[1] = '${id}'
+            AND toYear(viewed) = current_year
           GROUP BY day
         ) AS dailyImpressions
         CROSS JOIN (
           SELECT count() AS totalImpressions
           FROM impressions
-          WHERE splitByString('-', publication_id)[1] = '${id}'
-            AND toYear(viewed_at) = current_year
+          WHERE splitByString('-', publication)[1] = '${id}'
+            AND toYear(viewed) = current_year
         ) AS total
         ORDER BY day
       `

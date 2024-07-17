@@ -24,11 +24,11 @@ export const get = [
       `,
         `
         SELECT
-          COUNTIf(toDateTime(viewed_at) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
-          COUNTIf(toDate(viewed_at) = today()) AS today,
-          COUNTIf(toDate(viewed_at) = yesterday()) AS yesterday,
-          COUNTIf(toDate(viewed_at) >= toMonday(now())) AS this_week,
-          COUNTIf(toDate(viewed_at) >= toStartOfMonth(now())) AS this_month,
+          COUNTIf(toDateTime(viewed) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
+          COUNTIf(toDate(viewed) = today()) AS today,
+          COUNTIf(toDate(viewed) = yesterday()) AS yesterday,
+          COUNTIf(toDate(viewed) >= toMonday(now())) AS this_week,
+          COUNTIf(toDate(viewed) >= toStartOfMonth(now())) AS this_month,
           COUNT(*) AS all_time
         FROM impressions
       `,
@@ -51,10 +51,10 @@ export const get = [
       `,
         `
         SELECT 
-          toStartOfInterval(viewed_at, INTERVAL 10 MINUTE) AS timestamp,
+          toStartOfInterval(viewed, INTERVAL 10 MINUTE) AS timestamp,
           COUNT(*) AS count
         FROM impressions
-        WHERE toDate(viewed_at) = today()
+        WHERE toDate(viewed) = today()
         GROUP BY timestamp
         ORDER BY timestamp
       `,
@@ -73,14 +73,14 @@ export const get = [
       `,
         `
         SELECT
-          CAST(viewed_at AS date) AS date,
+          CAST(viewed AS date) AS date,
           COUNT(*) AS impressions
         FROM impressions
         WHERE
-          viewed_at >= DATE_SUB(NOW(), INTERVAL 10 DAY)
-          AND viewed_at < NOW()
-        GROUP BY CAST(viewed_at AS date)
-        ORDER BY CAST(viewed_at AS date) DESC    
+          viewed >= DATE_SUB(NOW(), INTERVAL 10 DAY)
+          AND viewed < NOW()
+        GROUP BY CAST(viewed AS date)
+        ORDER BY CAST(viewed AS date) DESC    
       `,
         `
         SELECT
