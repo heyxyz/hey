@@ -10,15 +10,15 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "typecheck": "tsc --pretty"
   },
+  "dependencies": {
+    "@clickhouse/client": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "redis": "^4.6.15"
+  },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@types/node": "^20.14.11",
     "typescript": "^5.5.3"
-  },
-  "dependencies": {
-    "@clickhouse/client": "^1.4.0",
-    "dotenv": "^16.4.5",
-    "redis": "^4.6.15"
   }
 }
