@@ -28,6 +28,7 @@
     "@clickhouse/client": "^1.4.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
+    "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@irys/sdk": "^0.2.6",
     "@lens-protocol/metadata": "^1.2.0",

@@ -11,4 +11,4 @@ const clickhouseClient = createClient({
   username: 'clickhouse'
 });
 
-export { clickhouseClient };
+export default clickhouseClient;

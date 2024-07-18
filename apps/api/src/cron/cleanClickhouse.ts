@@ -1,5 +1,5 @@
+import clickhouseClient from '@hey/db/clickhouseClient';
 import logger from '@hey/helpers/logger';
-import { clickhouseClient } from 'src/helpers/clickhouseClient';
 
 const cleanClickhouse = async () => {
   if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
