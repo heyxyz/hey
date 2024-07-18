@@ -49,7 +49,8 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   }
 
   return {
-    authenticated: !acceptsAnonymous,
+    acceptsAnonymous: Boolean(acceptsAnonymous),
+    acceptsLens: Boolean(lensFramesVersion),
     buttons,
     frameUrl,
     image,
