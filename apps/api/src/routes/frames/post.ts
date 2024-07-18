@@ -56,7 +56,7 @@ export const post = [
       const payload = parseJwt(identityToken);
       const { id } = payload;
 
-      const request = {
+      let request = {
         actionResponse: '',
         buttonIndex,
         inputText: inputText || '',
@@ -67,17 +67,26 @@ export const post = [
         url: postUrl
       };
 
-      const signature = await signFrameAction(
-        request,
-        accessToken,
-        IS_MAINNET ? 'mainnet' : 'testnet'
-      );
+      let signature = '';
 
-      const trustedData = { messageBytes: signature?.signature || '' };
+      // Sign request if Frame accepts Lens authenticated response
+      if (req.body.acceptsLens) {
+        const signatureResponse = await signFrameAction(
+          request,
+          accessToken,
+          IS_MAINNET ? 'mainnet' : 'testnet'
+        );
+        if (signatureResponse) {
+          signature = signatureResponse.signature;
+          request = signatureResponse.signedTypedData.value;
+        }
+      }
+
+      const trustedData = { messageBytes: signature };
       const untrustedData = {
         identityToken,
         unixTimestamp: Math.floor(Date.now() / 1000),
-        ...signature?.signedTypedData.value
+        ...request
       };
 
       const { data } = await axios.post(
