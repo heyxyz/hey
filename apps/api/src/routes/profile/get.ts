@@ -1,11 +1,11 @@
 import type { ProfileDetails } from '@hey/types/hey';
 import type { Handler } from 'express';
 
+import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { SUSPENDED_FEATURE_ID } from 'src/helpers/constants';
-import { getRedis, setRedis } from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
