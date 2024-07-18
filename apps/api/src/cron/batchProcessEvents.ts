@@ -5,7 +5,7 @@ import { lRangeRedis, lTrimRedis } from 'src/helpers/redisClient';
 const batchProcessEvents = async () => {
   try {
     const startTime = Date.now();
-    const events = (await lRangeRedis('events', 0, 9999)) || [];
+    const events = (await lRangeRedis('events', 0, 999999)) || [];
 
     if (events.length === 0) {
       logger.info('[Cron] batchProcessEvents - No events to process');
