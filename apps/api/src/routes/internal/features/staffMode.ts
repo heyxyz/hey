@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
-import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';

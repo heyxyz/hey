@@ -1,7 +1,7 @@
 import type { Address } from 'viem';
 
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
 import { createPublicClient, http } from 'viem';
 import { zora } from 'viem/chains';
 
