@@ -81,9 +81,6 @@ importers:
       linkedom:
         specifier: ^0.18.4
         version: 0.18.4
-      node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
       puppeteer:
         specifier: ^22.13.1
         version: 22.13.1(bufferutil@4.0.8)(typescript@5.5.3)(utf-8-validate@5.0.10)
@@ -136,9 +133,6 @@ importers:
       '@types/node':
         specifier: ^20.14.11
         version: 20.14.11
-      '@types/node-cron':
-        specifier: ^3.0.11
-        version: 3.0.11
       '@types/request-ip':
         specifier: ^0.0.41
         version: 0.0.41
