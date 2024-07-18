@@ -2,16 +2,21 @@
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 
+# Builder stage
+FROM base AS builder
+WORKDIR /app
+RUN npm install -g turbo
+COPY . .
+RUN turbo prune --scope=@hey/cron --docker
+
 # Installer stage
 FROM base AS installer
 WORKDIR /app
 RUN npm install -g pnpm turbo
 
-COPY . .
-RUN turbo prune --scope=@hey/cron --docker
-COPY out/json/ .
-COPY out/full/ .
-COPY pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/full/ .
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install
 
 COPY turbo.json turbo.json
