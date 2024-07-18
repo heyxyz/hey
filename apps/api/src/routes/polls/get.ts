@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
+import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import prisma from 'src/helpers/prisma';
-import { getRedis, setRedis } from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {

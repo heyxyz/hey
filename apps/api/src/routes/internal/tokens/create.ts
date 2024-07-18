@@ -1,12 +1,12 @@
 import type { Request, Response } from 'express';
 
 import { Regex } from '@hey/data/regex';
+import { delRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { delRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 

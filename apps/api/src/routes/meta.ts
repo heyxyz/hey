@@ -1,13 +1,13 @@
 import type { Request, Response } from 'express';
 
 import clickhouseClient from '@hey/db/clickhouseClient';
+import { getRedis } from '@hey/db/redisClient';
 import axios from 'axios';
 import heyPg from 'src/db/heyPg';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { SCORE_WORKER_URL } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { getRedis } from 'src/helpers/redisClient';
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
