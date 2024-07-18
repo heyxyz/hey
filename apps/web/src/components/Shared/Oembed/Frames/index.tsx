@@ -105,6 +105,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       const { data }: { data: { frame: IFrame } } = await axios.post(
         `${HEY_API_URL}/frames/post`,
         {
+          acceptsAnonymous: frame.acceptsAnonymous,
+          acceptsLens: frame.acceptsLens,
           buttonIndex: index + 1,
           inputText,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
