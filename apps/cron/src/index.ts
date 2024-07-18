@@ -1,4 +1,5 @@
 import logger from '@hey/helpers/logger';
+import dotenv from 'dotenv';
 import cron from 'node-cron';
 
 import batchProcessEvents from './batchProcessEvents';
@@ -9,6 +10,8 @@ import cleanEmailTokens from './cleanEmailTokens';
 import cleanPreferences from './cleanPreferences';
 import dbVacuum from './dbVacuum';
 import heartbeat from './heartbeat';
+
+dotenv.config({ override: true });
 
 const main = () => {
   logger.info('Cron jobs are started...');
