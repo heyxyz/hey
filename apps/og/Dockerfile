@@ -10,7 +10,7 @@ COPY . .
 RUN turbo prune --scope=@hey/og --docker
 
 # Installer stage
-FROM base as installer
+FROM base AS installer
 WORKDIR /app
 
 RUN npm install -g pnpm turbo
