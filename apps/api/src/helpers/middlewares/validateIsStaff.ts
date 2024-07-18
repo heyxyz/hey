@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import { Errors } from '@hey/data';
+import heyPg from '@hey/db/heyPg';
 import parseJwt from '@hey/helpers/parseJwt';
-import heyPg from 'src/db/heyPg';
 
 import catchedError from '../catchedError';
 import { STAFF_FEATURE_ID } from '../constants';

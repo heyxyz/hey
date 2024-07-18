@@ -1,10 +1,10 @@
 import type { Preferences } from '@hey/types/hey';
 import type { Request, Response } from 'express';
 
+import heyPg from '@hey/db/heyPg';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
-import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { noBody } from 'src/helpers/responses';
