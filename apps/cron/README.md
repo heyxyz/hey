@@ -1,3 +1,1 @@
 # Hey Cron
-
-gm
