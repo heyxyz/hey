@@ -1,5 +1,11 @@
 import type { Request, Response } from 'express';
 
+import {
+  generateLongExpiry,
+  getRedis,
+  getTtlRedis,
+  setRedis
+} from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import heyPg from 'src/db/heyPg';
@@ -7,12 +13,6 @@ import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_6_HOURS, SCORE_WORKER_URL } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import {
-  generateLongExpiry,
-  getRedis,
-  getTtlRedis,
-  setRedis
-} from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 import calculateAdjustments from 'src/helpers/score/calculateAdjustments';
 

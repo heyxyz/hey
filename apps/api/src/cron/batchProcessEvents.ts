@@ -1,6 +1,6 @@
 import clickhouseClient from '@hey/db/clickhouseClient';
+import { lRangeRedis, lTrimRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
-import { lRangeRedis, lTrimRedis } from 'src/helpers/redisClient';
 
 const batchProcessEvents = async () => {
   try {
