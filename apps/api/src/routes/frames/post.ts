@@ -73,7 +73,7 @@ export const post = [
         IS_MAINNET ? 'mainnet' : 'testnet'
       );
 
-      const trustedData = { messageBytes: signature?.signature };
+      const trustedData = { messageBytes: signature?.signature || '' };
       const untrustedData = {
         identityToken,
         unixTimestamp: Math.floor(Date.now() / 1000),
