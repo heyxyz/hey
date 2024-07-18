@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
+import lensPg from '@hey/db/lensPg';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
-import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 

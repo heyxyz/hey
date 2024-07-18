@@ -1,9 +1,8 @@
+import lensPg from '@hey/db/lensPg';
 import logger from '@hey/helpers/logger';
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
-
-import lensPg from '../db/lensPg';
 
 const baseUrl = 'http://localhost:4786/signup/';
 const rate = 70;
