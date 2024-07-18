@@ -30,8 +30,10 @@ jobs:
           filters: |
             api:
               - 'apps/api/**'
+              - 'packages/**'
             og:
               - 'apps/og/**'
+              - 'packages/**'
 
   api:
     needs: check-changes
