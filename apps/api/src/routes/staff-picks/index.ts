@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 
+import { generateMediumExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
@@ -8,11 +9,6 @@ import {
   STAFF_PICK_FEATURE_ID
 } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import {
-  generateMediumExpiry,
-  getRedis,
-  setRedis
-} from 'src/helpers/redisClient';
 
 const getRandomPicks = (data: any[]) => {
   const random = data.sort(() => Math.random() - Math.random());
