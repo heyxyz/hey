@@ -1,6 +1,5 @@
 import clickhouseClient from '@hey/db/clickhouseClient';
-
-import lensPg from '../db/lensPg';
+import lensPg from '@hey/db/lensPg';
 
 const startDate = '2024-07-01 00:07:17';
 const endDate = '2024-07-31 23:58:57';

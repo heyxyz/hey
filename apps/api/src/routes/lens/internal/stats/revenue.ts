@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
 import { APP_NAME } from '@hey/data/constants';
+import lensPg from '@hey/db/lensPg';
 import logger from '@hey/helpers/logger';
-import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';

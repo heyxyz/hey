@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
+import heyPg from '@hey/db/heyPg';
 import { generateMediumExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import {
   CACHE_AGE_30_MINS,

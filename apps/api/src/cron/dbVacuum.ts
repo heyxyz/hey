@@ -1,6 +1,5 @@
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
-
-import heyPg from '../../src/db/heyPg';
 
 const dbVacuum = async () => {
   if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
