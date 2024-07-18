@@ -1,11 +1,11 @@
 import type { Handler } from 'express';
 
 import LensEndpoint from '@hey/data/lens-endpoints';
+import clickhouseClient from '@hey/db/clickhouseClient';
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import invoiceRates from 'src/data/invoice-rates';
 import catchedError from 'src/helpers/catchedError';
-import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import { HEY_USER_AGENT } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 
