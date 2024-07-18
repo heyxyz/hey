@@ -10,7 +10,7 @@ COPY . .
 RUN turbo prune --scope=@hey/cron --docker
 
 # Installer stage
-FROM base as installer
+FROM base AS installer
 WORKDIR /app
 
 RUN npm install -g pnpm turbo
@@ -30,13 +30,10 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
-RUN adduser --system --uid 1001 app
+RUN adduser --system --uid 1001 cron
 
-USER app
+USER cron
 COPY --from=installer /app .
-
-# Expose the port
-EXPOSE 4784
 
 # Command to run the app
 CMD sleep 3 && pnpm --filter @hey/cron run start
