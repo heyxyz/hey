@@ -1,10 +1,16 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    NEXT_PUBLIC_DECENT_API_KEY: string;
-    NEXT_PUBLIC_IS_PRODUCTION: string;
+    ADMIN_PRIVATE_KEY: string;
+    AWS_ACCESS_KEY_ID: string;
+    AWS_SECRET_ACCESS_KEY: string;
+    CLICKHOUSE_PASSWORD: string;
+    DATABASE_URL: string;
+    EVER_ACCESS_KEY: string;
+    EVER_ACCESS_SECRET: string;
+    LENS_DATABASE_PASSWORD: string;
     NEXT_PUBLIC_LENS_NETWORK: 'mainnet' | 'testnet';
-    NEXT_PUBLIC_OPENSEA_API_KEY: string;
-    NEXT_PUBLIC_RARIBLE_API_KEY: string;
-    NEXT_PUBLIC_THIRDWEB_TOKEN: string;
+    PRIVATE_KEY: string;
+    SECRET: string;
+    SLACK_WEBHOOK_URL: string;
   }
 }
