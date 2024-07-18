@@ -12,7 +12,6 @@ RUN turbo prune --scope=@hey/cron --docker
 # Installer stage
 FROM base AS installer
 WORKDIR /app
-
 RUN npm install -g pnpm turbo
 
 COPY --from=builder /app/out/json/ .
@@ -22,13 +21,11 @@ RUN pnpm install
 
 COPY turbo.json turbo.json
 
-RUN turbo run build --filter=@hey/cron...
-
 # Runner stage
 FROM base AS runner
 WORKDIR /app
-
 RUN npm install -g pnpm
+
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
 
