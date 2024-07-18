@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
+import lensPg from '@hey/db/lensPg';
 import logger from '@hey/helpers/logger';
-import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_1_DAY, SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
 import { buildSitemapXml } from 'src/helpers/sitemap/buildSitemap';
