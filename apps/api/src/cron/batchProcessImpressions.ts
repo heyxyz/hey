@@ -5,7 +5,7 @@ import { lRangeRedis, lTrimRedis } from 'src/helpers/redisClient';
 const batchProcessImpressions = async () => {
   try {
     const startTime = Date.now();
-    const impressions = (await lRangeRedis('impressions', 0, 999)) || [];
+    const impressions = (await lRangeRedis('impressions', 0, 999999)) || [];
 
     if (impressions.length === 0) {
       logger.info('[Cron] batchProcessImpressions - No impressions to process');
