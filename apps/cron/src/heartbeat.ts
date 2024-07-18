@@ -4,7 +4,7 @@ const heartbeat = async () => {
   try {
     await fetch(
       'https://status.hey.xyz/api/push/NM16jFPpBf?status=up&msg=OK&ping=',
-      { method: 'POST' }
+      { method: 'HEAD' }
     );
 
     logger.info('[Cron] heartbeat - Heartbeat sent to Status API');
