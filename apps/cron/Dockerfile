@@ -30,9 +30,9 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
-RUN adduser --system --uid 1001 cron
+RUN adduser --system --uid 1001 app
 
-USER cron
+USER app
 COPY --from=installer /app .
 
 # Command to run the app
