@@ -30,9 +30,9 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
-RUN adduser --system --uid 1001 api
+RUN adduser --system --uid 1001 app
 
-USER api
+USER app
 COPY --from=installer /app .
 
 # Expose the port
