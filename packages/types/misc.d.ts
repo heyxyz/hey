@@ -53,7 +53,8 @@ export type FrameTransaction = {
 };
 
 export interface Frame {
-  authenticated: boolean;
+  acceptsAnonymous: boolean;
+  acceptsLens: boolean;
   buttons: {
     action: ButtonType;
     button: string;
