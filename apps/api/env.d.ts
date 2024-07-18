@@ -8,7 +8,6 @@ declare namespace NodeJS {
     EVER_ACCESS_KEY: string;
     EVER_ACCESS_SECRET: string;
     LENS_DATABASE_PASSWORD: string;
-    NEXT_PUBLIC_LENS_NETWORK: 'mainnet' | 'testnet';
     PRIVATE_KEY: string;
     SECRET: string;
     SLACK_WEBHOOK_URL: string;
