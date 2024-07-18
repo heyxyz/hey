@@ -1,10 +1,6 @@
 import logger from '@hey/helpers/logger';
 
 const cleanEmailTokens = () => {
-  if (process.env.NEXT_PUBLIC_LENS_NETWORK !== 'mainnet') {
-    return;
-  }
-
   try {
     // const { count } = await prisma.email.updateMany({
     //   data: { tokenExpiresAt: null, verificationToken: null, verified: false },
