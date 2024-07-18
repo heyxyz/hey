@@ -42,6 +42,9 @@ importers:
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@hey/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@hey/helpers':
         specifier: workspace:*
         version: link:../../packages/helpers
@@ -380,7 +383,7 @@ importers:
         version: 9.0.1(@types/react@18.3.3)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.0
-        version: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-virtuoso:
         specifier: ^4.7.12
         version: 4.7.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -498,7 +501,7 @@ importers:
         version: 14.2.5(eslint@8.57.0)(typescript@5.5.3)
       eslint-plugin-perfectionist:
         specifier: 2.11.0
-        version: 2.11.0(eslint@8.57.0)(typescript@5.5.3)
+        version: 2.11.0(eslint@8.57.0)(svelte@4.2.18)(typescript@5.5.3)
       eslint-plugin-prettier:
         specifier: 5.1.3
         version: 5.1.3(eslint@8.57.0)(prettier@3.3.3)
@@ -562,6 +565,31 @@ importers:
       vitest:
         specifier: ^2.0.3
         version: 2.0.3(@types/node@20.14.11)(terser@5.31.3)
+
+  packages/db:
+    dependencies:
+      '@clickhouse/client':
+        specifier: ^1.4.0
+        version: 1.4.0
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      redis:
+        specifier: ^4.6.15
+        version: 4.6.15
+    devDependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../config
+      '@hey/helpers':
+        specifier: workspace:*
+        version: link:../helpers
+      '@types/node':
+        specifier: ^20.14.11
+        version: 20.14.11
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
 
   packages/helpers:
     dependencies:
@@ -20337,12 +20365,14 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-perfectionist@2.11.0(eslint@8.57.0)(typescript@5.5.3):
+  eslint-plugin-perfectionist@2.11.0(eslint@8.57.0)(svelte@4.2.18)(typescript@5.5.3):
     dependencies:
       '@typescript-eslint/utils': 7.16.1(eslint@8.57.0)(typescript@5.5.3)
       eslint: 8.57.0
       minimatch: 9.0.5
       natural-compare-lite: 1.4.0
+    optionalDependencies:
+      svelte: 4.2.18
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -24267,12 +24297,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  react-tracked@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-virtuoso@4.7.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -25789,10 +25819,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
