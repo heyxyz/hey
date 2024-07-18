@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
+import clickhouseClient from '@hey/db/clickhouseClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import { clickhouseClient } from 'src/helpers/clickhouseClient';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { noBody } from 'src/helpers/responses';
 
