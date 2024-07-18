@@ -7,7 +7,7 @@ FROM base AS builder
 WORKDIR /app
 RUN npm install -g turbo
 COPY . .
-RUN turbo prune --scope=@hey/api --docker
+RUN turbo prune --scope=@hey/cron --docker
 
 # Installer stage
 FROM base as installer
@@ -22,7 +22,7 @@ RUN pnpm install
 
 COPY turbo.json turbo.json
 
-RUN turbo run build --filter=@hey/api...
+RUN turbo run build --filter=@hey/cron...
 
 # Runner stage
 FROM base AS runner
@@ -30,13 +30,13 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
-RUN adduser --system --uid 1001 api
+RUN adduser --system --uid 1001 cron
 
-USER api
+USER cron
 COPY --from=installer /app .
 
 # Expose the port
 EXPOSE 4784
 
 # Command to run the app
-CMD sleep 3 && pnpm --filter @hey/api run start
+CMD sleep 3 && pnpm --filter @hey/cron run start
