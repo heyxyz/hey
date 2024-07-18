@@ -27,7 +27,7 @@ export interface StatsType {
   }[];
   events: {
     all_time: string;
-    last_60_seconds: string;
+    last_10_minutes: string;
     this_month: string;
     this_week: string;
     today: string;
@@ -39,7 +39,7 @@ export interface StatsType {
   }[];
   impressions: {
     all_time: string;
-    last_60_seconds: string;
+    last_10_minutes: string;
     this_month: string;
     this_week: string;
     today: string;
@@ -111,7 +111,7 @@ const LeafwatchStats: FC = () => {
       <div>
         <CardHeader title="Events" />
         <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          <NumberedStat count={events.last_60_seconds} name="Last 60 seconds" />
+          <NumberedStat count={events.last_10_minutes} name="Last 10 minutes" />
           <NumberedStat count={events.today} name="Today" />
           <NumberedStat count={events.yesterday} name="Yesterday" />
           <NumberedStat count={events.this_week} name="This week" />
@@ -124,8 +124,8 @@ const LeafwatchStats: FC = () => {
         <CardHeader title="Impressions" />
         <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat
-            count={impressions.last_60_seconds}
-            name="Last 60 seconds"
+            count={impressions.last_10_minutes}
+            name="Last 10 minutes"
           />
           <NumberedStat count={impressions.today} name="Today" />
           <NumberedStat count={impressions.yesterday} name="Yesterday" />
