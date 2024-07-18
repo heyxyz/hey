@@ -1,7 +1,4 @@
 import { createClient } from '@clickhouse/client';
-import dotenv from 'dotenv';
-
-dotenv.config({ override: true });
 
 const clickhouseClient = createClient({
   compression: { request: true, response: true },
