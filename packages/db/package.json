@@ -1,21 +1,24 @@
 {
-  "name": "@hey/data",
+  "name": "@hey/db",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
-  "main": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
+    "@hey/helpers": "workspace:*",
     "@types/node": "^20.14.11",
-    "typescript": "^5.5.3",
-    "vitest": "^2.0.3"
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@clickhouse/client": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "redis": "^4.6.15"
   }
 }
