@@ -44,7 +44,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   }
 
   // Frame must contain valid elements
-  if (!postUrl || !image || buttons.length === 0) {
+  if (!postUrl || !image) {
     return null;
   }
 
