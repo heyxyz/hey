@@ -1,14 +1,10 @@
 import type { Handler } from 'express';
 
+import { generateMediumExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import prisma from 'src/helpers/prisma';
-import {
-  generateMediumExpiry,
-  getRedis,
-  setRedis
-} from 'src/helpers/redisClient';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
