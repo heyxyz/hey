@@ -57,4 +57,8 @@ const main = () => {
   });
 };
 
-main();
+try {
+  main();
+} catch (error) {
+  logger.error('Cron jobs failed', error);
+}
