@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
-import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';

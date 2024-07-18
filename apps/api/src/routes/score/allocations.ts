@@ -1,8 +1,8 @@
 import type { Handler } from 'express';
 
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 import allocations from 'src/data/score-allocations';
-import heyPg from 'src/db/heyPg';
 import catchedError from 'src/helpers/catchedError';
 import { noBody } from 'src/helpers/responses';
 
