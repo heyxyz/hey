@@ -13,7 +13,7 @@ import heartbeat from './heartbeat';
 const main = () => {
   logger.info('Cron jobs are started...');
 
-  cron.schedule('*/30 * * * * *', async () => {
+  cron.schedule('*/1 * * * * *', async () => {
     await heartbeat();
     return;
   });
