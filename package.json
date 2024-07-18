@@ -26,7 +26,7 @@
     "@hey/abis": "workspace:^"
   },
   "devDependencies": {
-    "husky": "^9.1.0",
+    "husky": "^9.1.1",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "turbo": "^2.0.7"
