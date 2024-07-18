@@ -80,6 +80,7 @@ export const get = [
       return res.status(200).json({
         meta: {
           deployment: process.env.RAILWAY_DEPLOYMENT_ID || 'unknown',
+          replica: process.env.RAILWAY_REPLICA_ID || 'unknown',
           snapshot: process.env.RAILWAY_SNAPSHOT_ID || 'unknown'
         },
         responseTimes: {
