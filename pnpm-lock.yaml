@@ -161,6 +161,37 @@ importers:
         specifier: ^5.3.4
         version: 5.3.4(@types/node@20.14.11)(terser@5.31.3)
 
+  apps/cron:
+    dependencies:
+      '@hey/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@hey/helpers':
+        specifier: workspace:*
+        version: link:../../packages/helpers
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      tsx:
+        specifier: ^4.16.2
+        version: 4.16.2
+    devDependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@types/node':
+        specifier: ^20.14.11
+        version: 20.14.11
+      '@types/node-cron':
+        specifier: ^3.0.11
+        version: 3.0.11
+      typescript:
+        specifier: ^5.3.2
+        version: 5.5.3
+      vite:
+        specifier: ^5.3.4
+        version: 5.3.4(@types/node@20.14.11)(terser@5.31.3)
+
   apps/invoice:
     dependencies:
       '@hey/config':
