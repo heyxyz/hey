@@ -18,9 +18,6 @@ const validateLensAccount = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (req.body.acceptsAnonymous) {
-    return next();
-  }
   const identityToken = req.headers['x-identity-token'] as string;
   if (!identityToken) {
     return catchedError(res, new Error(Errors.Unauthorized), 401);
