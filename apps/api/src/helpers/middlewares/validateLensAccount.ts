@@ -1,11 +1,11 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import { Errors } from '@hey/data';
+import { getRedis, setRedis } from '@hey/db/redisClient';
 import parseJwt from '@hey/helpers/parseJwt';
 import lensPg from 'src/db/lensPg';
 
 import catchedError from '../catchedError';
-import { getRedis, setRedis } from '../redisClient';
 
 /**
  * Middleware to validate Lens account

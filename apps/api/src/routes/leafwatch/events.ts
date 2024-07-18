@@ -1,13 +1,13 @@
 import type { Request, Response } from 'express';
 
 import { ALL_EVENTS } from '@hey/data/tracking';
+import { rPushRedis } from '@hey/db/redisClient';
 import getIp from '@hey/helpers/getIp';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { rPushRedis } from 'src/helpers/redisClient';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { UAParser } from 'ua-parser-js';
 import { any, object, string } from 'zod';

@@ -1,10 +1,10 @@
 import type { Handler } from 'express';
 
+import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import lensPg from 'src/db/lensPg';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
-import { getRedis, setRedis } from 'src/helpers/redisClient';
 
 // TODO: add tests
 export const get: Handler = async (_, res) => {
