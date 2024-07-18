@@ -14,7 +14,7 @@ export const get = [
       const queries: string[] = [
         `
         SELECT
-          COUNTIf(toDateTime(created) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
+          COUNTIf(toDateTime(created) >= now() - INTERVAL 10 MINUTE) AS last_10_minutes,
           COUNTIf(toDate(created) = today()) AS today,
           COUNTIf(toDate(created) = yesterday()) AS yesterday,
           COUNTIf(toDate(created) >= toMonday(now())) AS this_week,
@@ -24,7 +24,7 @@ export const get = [
       `,
         `
         SELECT
-          COUNTIf(toDateTime(viewed) >= now() - INTERVAL 60 SECOND) AS last_60_seconds,
+          COUNTIf(toDateTime(viewed) >= now() - INTERVAL 10 MINUTE) AS last_10_minutes,
           COUNTIf(toDate(viewed) = today()) AS today,
           COUNTIf(toDate(viewed) = yesterday()) AS yesterday,
           COUNTIf(toDate(viewed) >= toMonday(now())) AS this_week,
