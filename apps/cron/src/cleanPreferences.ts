@@ -1,10 +1,11 @@
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 
 const cleanPreferences = () => {
   try {
-    // await prisma.preference.deleteMany({
-    //   where: { appIcon: 0, highSignalNotificationFilter: false }
-    // });
+    heyPg.query(
+      'DELETE FROM "Preference" WHERE "appIcon" = 0 AND "highSignalNotificationFilter" = false'
+    );
 
     logger.info('[Cron] cleanPreferences - Cleaned up Preference');
   } catch (error) {

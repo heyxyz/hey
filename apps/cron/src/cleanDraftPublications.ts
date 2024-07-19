@@ -1,15 +1,14 @@
+import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 
 const cleanDraftPublications = () => {
   try {
-    // const { count } = await prisma.draftPublication.deleteMany({
-    //   where: {
-    //     updatedAt: { lt: new Date(Date.now() - 100 * 24 * 60 * 60 * 1000) }
-    //   }
-    // });
+    heyPg.query('DELETE FROM "DraftPublication" WHERE "updatedAt" < $1', [
+      new Date(Date.now() - 100 * 24 * 60 * 60 * 1000)
+    ]);
 
     logger.info(
-      `[Cron] cleanDraftPublications - Cleaned up ${1} draft publications that are older than 100 days`
+      `[Cron] cleanDraftPublications - Cleaned up draft publications that are older than 100 days`
     );
   } catch (error) {
     logger.error(
