@@ -39,10 +39,6 @@ const Links: FC = () => {
         <p className="mb-4 font-bold">Other helpful links 🌱</p>
         <ul className="mb-3 mt-0 list-disc space-y-1 pl-5">
           <ListItem
-            link="https://app.lemonsqueezy.com/dashboard"
-            title="Lemon Squeezy"
-          />
-          <ListItem
             link="https://desk.zoho.in/agent/heyverse/hey/tickets/list/all-cases"
             title="Support Tickets"
           />
