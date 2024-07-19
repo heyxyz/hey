@@ -23,7 +23,7 @@ const validationSchema = object({
 });
 
 export const post = [
-  rateLimiter({ requests: 5, within: 60 }),
+  rateLimiter({ requests: 50, within: 60 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;
