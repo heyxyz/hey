@@ -129,18 +129,6 @@ model DraftPublication {
   @@index([createdAt, updatedAt])
 }
 
-model AdjustedProfileScore {
-  profileId String
-  score     Int
-  reason    String
-  createdAt DateTime @default(now())
-
-  @@id([profileId, reason])
-  // Indexes
-  @@index([profileId])
-  @@index([createdAt])
-}
-
 model Pro {
   id        String   @id
   expiresAt DateTime

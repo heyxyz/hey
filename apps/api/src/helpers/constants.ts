@@ -1,6 +1,3 @@
-// API URLs
-export const SCORE_WORKER_URL = 'https://score.heyxyz.workers.dev';
-
 export const HEY_USER_AGENT = 'HeyBot/0.1 (like TwitterBot)';
 
 // DB Feature IDs
