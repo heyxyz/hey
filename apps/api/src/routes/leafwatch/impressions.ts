@@ -38,10 +38,10 @@ export const post = [
         viewed: new Date().toISOString().slice(0, 19).replace('T', ' ')
       }));
 
-      await rPushRedis('impressions', JSON.stringify(values));
+      const queue = await rPushRedis('impressions', JSON.stringify(values));
       logger.info(`Ingested ${values.length} impressions to Leafwatch`);
 
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ queue, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
