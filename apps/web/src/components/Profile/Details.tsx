@@ -44,7 +44,6 @@ import InternalTools from './InternalTools';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import ScamWarning from './ScamWarning';
-import Score from './Score';
 
 export const MetaDetails = ({
   children,
@@ -174,7 +173,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {parseInt(profile.id)}
           </MetaDetails>
-          <Score id={profile.id} />
           {getProfileAttribute('location', profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getProfileAttribute('location', profile?.metadata?.attributes)}
