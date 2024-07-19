@@ -78,13 +78,12 @@ export const post = [
         url: url || null
       };
 
-      await rPushRedis('events', JSON.stringify(values));
-
+      const queue = await rPushRedis('events', JSON.stringify(values));
       logger.info(
         `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
       );
 
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ queue, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
