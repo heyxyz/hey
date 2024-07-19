@@ -9,7 +9,3 @@ export enum ModFeedType {
   REPORTS = 'REPORTS',
   SEARCH = 'SEARCH'
 }
-
-export enum OpenAction {
-  Swap = 'Swap'
-}

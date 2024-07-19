@@ -83,23 +83,6 @@ export type ProfileDetails = {
   pinnedPublication: null | string;
 };
 
-type UniswapToken = {
-  address: string;
-  chainId: number;
-  decimals: string;
-  symbol: string;
-};
-
-export type UniswapQuote = {
-  amountOut: string;
-  maxSlippage: string;
-  route: {
-    tokenIn: UniswapToken;
-    tokenOut: UniswapToken;
-  };
-  routeString: string;
-};
-
 export type Draft = {
   collectModule: null | string;
   content: string;
