@@ -28,11 +28,11 @@ importers:
   apps/api:
     dependencies:
       '@aws-sdk/client-ses':
-        specifier: ^3.614.0
-        version: 3.614.0
+        specifier: ^3.616.0
+        version: 3.616.0
       '@aws-sdk/client-sts':
-        specifier: ^3.614.0
-        version: 3.614.0
+        specifier: ^3.616.0
+        version: 3.616.0
       '@hey/abis':
         specifier: workspace:*
         version: link:../../packages/abis
@@ -263,11 +263,11 @@ importers:
         specifier: ^3.10.8
         version: 3.10.8(@types/react@18.3.3)(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@aws-sdk/client-s3':
-        specifier: ^3.614.0
-        version: 3.614.0
+        specifier: ^3.616.0
+        version: 3.616.0
       '@aws-sdk/lib-storage':
-        specifier: ^3.614.0
-        version: 3.614.0(@aws-sdk/client-s3@3.614.0)
+        specifier: ^3.616.0
+        version: 3.616.0(@aws-sdk/client-s3@3.616.0)
       '@headlessui/react':
         specifier: ^2.1.2
         version: 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -344,8 +344,8 @@ importers:
         specifier: ^0.23.0
         version: 0.23.0
       framer-motion:
-        specifier: ^11.3.6
-        version: 11.3.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.3.7
+        version: 11.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -371,8 +371,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: 0.9.8
-        version: 0.9.8(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.18)(vue@3.4.32(typescript@5.5.3))
+        specifier: 0.9.9
+        version: 0.9.9(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.18)(vue@3.4.32(typescript@5.5.3))
       rc-slider:
         specifier: 11.0.5
         version: 11.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -396,7 +396,7 @@ importers:
         version: 9.0.1(@types/react@18.3.3)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.0
-        version: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
+        version: 2.0.0(react@18.3.1)(scheduler@0.23.2)
       react-virtuoso:
         specifier: ^4.7.12
         version: 4.7.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -514,7 +514,7 @@ importers:
         version: 14.2.5(eslint@8.57.0)(typescript@5.5.3)
       eslint-plugin-perfectionist:
         specifier: 2.11.0
-        version: 2.11.0(eslint@8.57.0)(svelte@4.2.18)(typescript@5.5.3)
+        version: 2.11.0(eslint@8.57.0)(typescript@5.5.3)
       eslint-plugin-prettier:
         specifier: 5.1.3
         version: 5.1.3(eslint@8.57.0)(prettier@3.3.3)
@@ -856,8 +856,8 @@ packages:
     resolution: {integrity: sha512-q3s6pPq8H2buGp+tPuIRInWsYOuhSEwuNJPwd2YnsiID3YSLihn2ug39ktDJAcSOprUcp7Nid8WK7hKqnUmSdA==}
     engines: {node: '>=15.10.0'}
 
-  '@aptos-labs/ts-sdk@1.25.0':
-    resolution: {integrity: sha512-2VFdH60jYtcaDdqeuKw1sR0S0yU0ojjypP+cDZwgiY9AyLqggo28uGXi1Wn+blqWQA3SwKZkAWO2dsIKLXx1OQ==}
+  '@aptos-labs/ts-sdk@1.26.0':
+    resolution: {integrity: sha512-zScAiEuvADE9PsxgpqR7JAZOMdbTyl5AvgbsGGn56Mc8moa8Y7nyyPDxs83HQnqmZ0V/mghLVAaJ1pa7N+V3IQ==}
     engines: {node: '>=11.0.0'}
 
   '@ardatan/relay-compiler@12.0.0':
@@ -920,56 +920,56 @@ packages:
   '@aws-crypto/util@5.2.0':
     resolution: {integrity: sha512-4RkU9EsI6ZpBve5fseQlGNUWKMa1RLPQ1dnjnQoe07ldfIzcsGb5hC5W0Dm7u423KWzawlrpbjXBrXCEv9zazQ==}
 
-  '@aws-sdk/client-s3@3.614.0':
-    resolution: {integrity: sha512-9BlhfeBegvyjOqHtcr9kvrT80wiy7EVUiqYyTFiiDv/hJIcG88XHQCZdLU7658XBkQ7aFrr5b8rF2HRD1oroxw==}
+  '@aws-sdk/client-s3@3.616.0':
+    resolution: {integrity: sha512-6gyZnBlAgOU8cwNqPhFO9s6maGI4/iHV3cmqvQgUn3uqhi1EgTSZSsTMuRzKEgBpTGgC+9Bm6djKqOderMqjdA==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/client-ses@3.614.0':
-    resolution: {integrity: sha512-PbnnfIq2oNy+Um++rzqAk+7+OXtRzv6EymiIhvRYCq/T5rRVPjuIgV3mjrxl8hrF4SIAq40YVojzT1DITERFiw==}
+  '@aws-sdk/client-ses@3.616.0':
+    resolution: {integrity: sha512-GrN5zWLE3gBb9UqSlOkRO/a2NOKODqM8MblGBIRiuLm/thdvzvlUuZOXGzEydhOHq0CqgCiFudYc37ahIKrDWQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/client-sso-oidc@3.614.0':
-    resolution: {integrity: sha512-BI1NWcpppbHg/28zbUg54dZeckork8BItZIcjls12vxasy+p3iEzrJVG60jcbUTTsk3Qc1tyxNfrdcVqx0y7Ww==}
+  '@aws-sdk/client-sso-oidc@3.616.0':
+    resolution: {integrity: sha512-YY1hpYS/G1uRGjQf88dL8VLHkP/IjGxKeXdhy+JnzMdCkAWl3V9j0fEALw40NZe0x79gr6R2KUOUH/IKYQfUmg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      '@aws-sdk/client-sts': ^3.614.0
+      '@aws-sdk/client-sts': ^3.616.0
 
-  '@aws-sdk/client-sso@3.614.0':
-    resolution: {integrity: sha512-p5pyYaxRzBttjBkqfc8i3K7DzBdTg3ECdVgBo6INIUxfvDy0J8QUE8vNtCgvFIkq+uPw/8M+Eo4zzln7anuO0Q==}
+  '@aws-sdk/client-sso@3.616.0':
+    resolution: {integrity: sha512-hwW0u1f8U4dSloAe61/eupUiGd5Q13B72BuzGxvRk0cIpYX/2m0KBG8DDl7jW1b2QQ+CflTLpG2XUf2+vRJxGA==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/client-sts@3.614.0':
-    resolution: {integrity: sha512-i6QmaVA1KHHYNnI2VYQy/sc31rLm4+jSp8b/YbQpFnD0w3aXsrEEHHlxek45uSkHb4Nrj1omFBVy/xp1WVYx2Q==}
+  '@aws-sdk/client-sts@3.616.0':
+    resolution: {integrity: sha512-FP7i7hS5FpReqnysQP1ukQF1OUWy8lkomaOnbu15H415YUrfCp947SIx6+BItjmx+esKxPkEjh/fbCVzw2D6hQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/core@3.614.0':
-    resolution: {integrity: sha512-BUuS5/1YkgmKc4J0bg83XEtMyDHVyqG2QDzfmhYe8gbOIZabUl1FlrFVwhCAthtrrI6MPGTQcERB4BtJKUSplw==}
+  '@aws-sdk/core@3.616.0':
+    resolution: {integrity: sha512-O/urkh2kECs/IqZIVZxyeyHZ7OR2ZWhLNK7btsVQBQvJKrEspLrk/Fp20Qfg5JDerQfBN83ZbyRXLJOOucdZpw==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/credential-provider-env@3.609.0':
     resolution: {integrity: sha512-v69ZCWcec2iuV9vLVJMa6fAb5xwkzN4jYIT8yjo2c4Ia/j976Q+TPf35Pnz5My48Xr94EFcaBazrWedF+kwfuQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/credential-provider-http@3.614.0':
-    resolution: {integrity: sha512-YIEjlNUKb3Vo/iTnGAPdsiDC3FUUnNoex2OwU8LmR7AkYZiWdB8nx99DfgkkY+OFMUpw7nKD2PCOtuFONelfGA==}
+  '@aws-sdk/credential-provider-http@3.616.0':
+    resolution: {integrity: sha512-1rgCkr7XvEMBl7qWCo5BKu3yAxJs71dRaZ55Xnjte/0ZHH6Oc93ZrHzyYy6UH6t0nZrH+FAuw7Yko2YtDDwDeg==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/credential-provider-ini@3.614.0':
-    resolution: {integrity: sha512-KfLuLFGwlvFSZ2MuzYwWGPb1y5TeiwX5okIDe0aQ1h10oD3924FXbN+mabOnUHQ8EFcGAtCaWbrC86mI7ktC6A==}
+  '@aws-sdk/credential-provider-ini@3.616.0':
+    resolution: {integrity: sha512-5gQdMr9cca3xV7FF2SxpxWGH2t6+t4o+XBGiwsHm8muEjf4nUmw7Ij863x25Tjt2viPYV0UStczSb5Sihp7bkA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      '@aws-sdk/client-sts': ^3.614.0
+      '@aws-sdk/client-sts': ^3.616.0
 
-  '@aws-sdk/credential-provider-node@3.614.0':
-    resolution: {integrity: sha512-4J6gPEuFZP0mkWq5E//oMS1vrmMM88iNNcv7TEljYnsc6JTAlKejCyFwx6CN+nkIhmIZsl06SXIhBemzBdBPfg==}
+  '@aws-sdk/credential-provider-node@3.616.0':
+    resolution: {integrity: sha512-Se+u6DAxjDPjKE3vX1X2uxjkWgGq69BTo0uTB0vDUiWwBVgh16s9BsBhSAlKEH1CCbbJHvOg4YdTrzjwzqyClg==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/credential-provider-process@3.614.0':
     resolution: {integrity: sha512-Q0SI0sTRwi8iNODLs5+bbv8vgz8Qy2QdxbCHnPk/6Cx6LMf7i3dqmWquFbspqFRd8QiqxStrblwxrUYZi09tkA==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/credential-provider-sso@3.614.0':
-    resolution: {integrity: sha512-55+gp0JY4451cWI1qXmVMFM0GQaBKiQpXv2P0xmd9P3qLDyeFUSEW8XPh0d2lb1ICr6x4s47ynXVdGCIv2mXMg==}
+  '@aws-sdk/credential-provider-sso@3.616.0':
+    resolution: {integrity: sha512-3rsWs9GBi8Z8Gps5ROwqguxtw+J6OIg1vawZMLRNMqqZoBvbOToe9wEnpid8ylU+27+oG8uibJNlNuRyXApUjw==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/credential-provider-web-identity@3.609.0':
@@ -978,26 +978,26 @@ packages:
     peerDependencies:
       '@aws-sdk/client-sts': ^3.609.0
 
-  '@aws-sdk/lib-storage@3.614.0':
-    resolution: {integrity: sha512-Bzni+r7pS+nRiqcmWPpB/OiQEM4GszGRp1DXpL3rKnwaeu+Qgf2w12DULxWUacIvOc4IzLsv6tpEidQ/P1zKQg==}
+  '@aws-sdk/lib-storage@3.616.0':
+    resolution: {integrity: sha512-VhuJGCbJvI1TGGWDd5pdnCa+pobKAGv5/H4MqN1GlyRuWd6Biwby+pRaFb2nL4GT3bOJdCcM24CyZXO2PefPaw==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      '@aws-sdk/client-s3': ^3.614.0
+      '@aws-sdk/client-s3': ^3.616.0
 
-  '@aws-sdk/middleware-bucket-endpoint@3.614.0':
-    resolution: {integrity: sha512-TqEY8KcZeZ0LIxXaqG9RSSNnDHvD8RAFP4Xenwsxqnyad0Yn7LgCoFwRByelJ0t54ROYL1/ETJleWE4U4TOXdg==}
+  '@aws-sdk/middleware-bucket-endpoint@3.616.0':
+    resolution: {integrity: sha512-KZv78s8UE7+s3qZCfG3pE9U9XV5WTP478aNWis5gDXmsb5LF7QWzEeR8kve5dnjNlK6qVQ33v+mUZa6lR5PwMw==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-expect-continue@3.609.0':
-    resolution: {integrity: sha512-+zeg//mSer4JZRxOB/4mUOMUJyuYPwATnIC5moBB8P8Xe+mJaVRFy8qlCtzYNj2TycnlsBPzTK0j7P1yvDh97w==}
+  '@aws-sdk/middleware-expect-continue@3.616.0':
+    resolution: {integrity: sha512-IM1pfJPm7pDUXa55js9bnGjS8o3ldzDwf95mL9ZAYdEsm10q6i0ZxZbbro2gTq25Ap5ykdeeS34lOSzIqPiW1A==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-flexible-checksums@3.614.0':
-    resolution: {integrity: sha512-ZLpxVXMboDeMT7p2Kdp5m1uLVKOktkZoMgLvvbe3zbrU4Ji5IU5xVE0aa4X7H28BtuODCs6SLESnPs19bhMKlA==}
+  '@aws-sdk/middleware-flexible-checksums@3.616.0':
+    resolution: {integrity: sha512-Mrco/dURoTXVqwcnYRcyrFaPTIg36ifg2PK0kUYfSVTGEOClZOQXlVG5zYCZoo3yEMgy/gLT907FjUQxwoifIw==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-host-header@3.609.0':
-    resolution: {integrity: sha512-iTKfo158lc4jLDfYeZmYMIBHsn8m6zX+XB6birCSNZ/rrlzAkPbGE43CNdKfvjyWdqgLMRXF+B+OcZRvqhMXPQ==}
+  '@aws-sdk/middleware-host-header@3.616.0':
+    resolution: {integrity: sha512-mhNfHuGhCDZwYCABebaOvTgOM44UCZZRq2cBpgPZLVKP0ydAv5aFHXv01goexxXHqgHoEGx0uXWxlw0s2EpFDg==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/middleware-location-constraint@3.609.0':
@@ -1008,32 +1008,32 @@ packages:
     resolution: {integrity: sha512-S62U2dy4jMDhDFDK5gZ4VxFdWzCtLzwbYyFZx2uvPYTECkepLUfzLic2BHg2Qvtu4QjX+oGE3P/7fwaGIsGNuQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-recursion-detection@3.609.0':
-    resolution: {integrity: sha512-6sewsYB7/o/nbUfA99Aa/LokM+a/u4Wpm/X2o0RxOsDtSB795ObebLJe2BxY5UssbGaWkn7LswyfvrdZNXNj1w==}
+  '@aws-sdk/middleware-recursion-detection@3.616.0':
+    resolution: {integrity: sha512-LQKAcrZRrR9EGez4fdCIVjdn0Ot2HMN12ChnoMGEU6oIxnQ2aSC7iASFFCV39IYfeMh7iSCPj7Wopqw8rAouzg==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-sdk-s3@3.614.0':
-    resolution: {integrity: sha512-9fJTaiuuOfFV4FqmUEhPYzrtv7JOfYpB7q65oG3uayVH4ngWHIJkjnnX79zRhNZKdPGta+XIsnZzjEghg82ngA==}
+  '@aws-sdk/middleware-sdk-s3@3.616.0':
+    resolution: {integrity: sha512-heq9pzn0NRX6VL/oMlmwZdgcCh5eJUDscvwMl/oGev0tNdTpB2oGU+wPaNMka7IrW3eBPn7APmY9fdS1kBaBoQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-signing@3.609.0':
-    resolution: {integrity: sha512-2w3dBLjQVKIajYzokO4hduq8/0hSMUYHHmIo1Kdl+MSY8uwRBt12bLL6pyreobTcRMxizvn2ph/CQ9I1ST/WGQ==}
+  '@aws-sdk/middleware-signing@3.616.0':
+    resolution: {integrity: sha512-wwzZFlXyURwo40oz1NmufreQa5DqwnCF8hR8tIP5+oKCyhbkmlmv8xG4Wn51bzY2WEbQhvFebgZSFTEvelCoCg==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/middleware-ssec@3.609.0':
     resolution: {integrity: sha512-GZSD1s7+JswWOTamVap79QiDaIV7byJFssBW68GYjyRS5EBjNfwA/8s+6uE6g39R3ojyTbYOmvcANoZEhSULXg==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-user-agent@3.614.0':
-    resolution: {integrity: sha512-xUxh0UPQiMTG6E31Yvu6zVYlikrIcFDKljM11CaatInzvZubGTGiX0DjpqRlfGzUNsuPc/zNrKwRP2+wypgqIw==}
+  '@aws-sdk/middleware-user-agent@3.616.0':
+    resolution: {integrity: sha512-iMcAb4E+Z3vuEcrDsG6T2OBNiqWAquwahP9qepHqfmnmJqHr1mSHtXDYTGBNid31+621sUQmneUQ+fagpGAe4w==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/region-config-resolver@3.614.0':
     resolution: {integrity: sha512-vDCeMXvic/LU0KFIUjpC3RiSTIkkvESsEfbVHiHH0YINfl8HnEqR5rj+L8+phsCeVg2+LmYwYxd5NRz4PHxt5g==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/signature-v4-multi-region@3.614.0':
-    resolution: {integrity: sha512-6mW3ONW4oLzxrePznYhz7sNT9ji9Am9ufLeV722tbOVS5lArBOZ6E1oPz0uYBhisUPznWKhcLRMggt7vIJWMng==}
+  '@aws-sdk/signature-v4-multi-region@3.616.0':
+    resolution: {integrity: sha512-WQn43cfnwbG6jnPjh/SyujDQVqbRjGFY9tGI/tqtUvvGwoDhI343TSDCA7fvs0FEC6Za6vgOBq1CwPv3CFyfhA==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/token-providers@3.614.0':
@@ -3142,8 +3142,8 @@ packages:
     resolution: {integrity: sha512-POx3AsnKwKSV/ZLOU/gheksj0Lq7Is1q2F3pKmcFjGZiibf+4kjGxr4eSMrT+2qgKYZQH1ZLQZ+SkbguD8fTvA==}
     deprecated: '@openzeppelin/platform-deploy-client is deprecated. Please use @openzeppelin/defender-sdk-deploy-client'
 
-  '@openzeppelin/upgrades-core@1.34.1':
-    resolution: {integrity: sha512-LV3hHm60htmP3HJjn2VoGqXNPn1RLFSSInRyXNbm15Z2oWKGxOfAWSC4+okRckum0yVB5g3k4/SEyqjsJRB07A==}
+  '@openzeppelin/upgrades-core@1.34.2':
+    resolution: {integrity: sha512-UOsSStX812TIqHIa0+njmfZm4tpserxRuapjkGerOssMZkj7Ksje8ezLC/bETxmkougy0WoxEUjqzA1pY+RyNw==}
     hasBin: true
 
   '@parcel/watcher-android-arm64@2.4.1':
@@ -3274,31 +3274,31 @@ packages:
   '@prisma/get-platform@5.17.0':
     resolution: {integrity: sha512-UlDgbRozCP1rfJ5Tlkf3Cnftb6srGrEQ4Nm3og+1Se2gWmCZ0hmPIi+tQikGDUVLlvOWx3Gyi9LzgRP+HTXV9w==}
 
-  '@prosekit/basic@0.3.15':
-    resolution: {integrity: sha512-MYtO01us5gXQZnO8B98ZU9PszNGu1XKbtaYBWGMPCvuBciLonaH0/oiAtOyfnEfDBTzjDsGiHrI5yzQZAoHttQ==}
+  '@prosekit/basic@0.3.16':
+    resolution: {integrity: sha512-K89H441vp391935++AkjW+Z1tQpPy+v7KMB+2fLNqY1MFp65xF5uh+4xsS5D7w8SbWotkGX8ECa1c2PUo5Snbg==}
 
-  '@prosekit/core@0.7.3':
-    resolution: {integrity: sha512-JR7rHGzuRAzut6SvR4X6c2bS2CAuHR5wejk3txEm/c1xLSR3n6cm14FSUNBCue1qnXPi2a8dt6ZghLdnpq+9jQ==}
+  '@prosekit/core@0.7.4':
+    resolution: {integrity: sha512-8JtohZwgMwjDFW4bp8cg1qV177ZT/eNToufVhYx9ysEe8GpT/jvfbR8yYt+8WVQPPhHLuiGF73bv0uRF/3TETw==}
 
-  '@prosekit/extensions@0.7.3':
-    resolution: {integrity: sha512-im1C5Nxo4SSCVvIJSX6cti88cEUZ/uHlzClGG1ORjKrxDwgLMCJP9k3NHrQRh+vjZoiFYJ81D1ORDSHNyqiwlw==}
+  '@prosekit/extensions@0.7.4':
+    resolution: {integrity: sha512-XyQ32VnFikCY2Q6DujC91wBI6vYnJeCrfb42qcOyjgfHqROI4flXtOiRkrxVs7FkDZXzbGJXMuvmtqUVn4m7vA==}
 
-  '@prosekit/lit@0.3.11':
-    resolution: {integrity: sha512-VpgHS6HwuqvsrxhU12tjyRtqcXV1Sxr4kKXgmNf3i1dT7ryoIrJw7JhnsC4SPc3GFhiaWkgugRbajRZLF/ua3Q==}
+  '@prosekit/lit@0.3.12':
+    resolution: {integrity: sha512-LWyZiUOmF2f49ayuDETWW78x5345041h3DDOcSvneja48wj7Ej4R8GU4tU7JfROIu5/5joiTUhaymLabfTlXDg==}
 
   '@prosekit/pm@0.1.6':
     resolution: {integrity: sha512-ufwOlUYrME8CNXnSm5kikfD4s9ClK7Q6BY6NYPxhqy7jg6N1uH2jY0bh4S09RAAe0FhWSzB/ohANcPp8uH60nw==}
 
-  '@prosekit/preact@0.3.14':
-    resolution: {integrity: sha512-zhrOlSHc/uwR0tjo+z6yyAuYOlX4i5yCyXPoirD0y0kQN65dLXciFnkoiDPTjqdvL9/t+yxotk1F2tLaPYY06g==}
+  '@prosekit/preact@0.3.15':
+    resolution: {integrity: sha512-WQUpLmXskwZAATblqc0+/6Hnq3d96YMusY4xn1COlRLIn2/Ko08NIq+Be3ixOYylCCmNHT+Vxu0pn+4HR/++wg==}
     peerDependencies:
       preact: '>= 10.11.0'
     peerDependenciesMeta:
       preact:
         optional: true
 
-  '@prosekit/react@0.3.15':
-    resolution: {integrity: sha512-XCw7f2p3/psbS/eoO8ZFVBO2uuj+Gvsh02KevIrrNaUV+S232on5Qfqg3zAXsSByCyZwhLlS4OKuvl+qnrhL5g==}
+  '@prosekit/react@0.3.16':
+    resolution: {integrity: sha512-2pf+AIfwztrruthUsulfAwsUrgBYDB9c3X19dZe+QCkQzdLQzDwoWWsqUPgPzD8C9n6rvwvHzUXBjRdNSbn96w==}
     peerDependencies:
       react: '>= 18.2.0'
       react-dom: '>= 18.2.0'
@@ -3308,32 +3308,32 @@ packages:
       react-dom:
         optional: true
 
-  '@prosekit/solid@0.3.13':
-    resolution: {integrity: sha512-Gjcn/3yqTixgFRQv3VgNp75x8KtgdCIf7hTIUUR/v/K9BsqEBtbnVEhwEWzkz4zQsZcbt3jcRb1fliT8qHUSLw==}
+  '@prosekit/solid@0.3.14':
+    resolution: {integrity: sha512-pkgin0AkKQAAxjS+X6GQdos3AKSFR3doyrSQsbMS8xIvZM5Lh022v1dfX52WpJbrx9R4GLdvWhfr6koOU3S9IA==}
     peerDependencies:
       solid-js: '>= 1.7.0'
     peerDependenciesMeta:
       solid-js:
         optional: true
 
-  '@prosekit/svelte@0.4.5':
-    resolution: {integrity: sha512-DvGiotgZr5louRAMthtFk6NiWL4SMkyWdfB2nugmDouYKCLxE0jj9Chyy0al3Wpv4CGFX/0YGlDYSge2zFM/OQ==}
+  '@prosekit/svelte@0.4.6':
+    resolution: {integrity: sha512-YGjITBRQwGPXKJl298eNDHzxbsdeLQ+eQ7VfXJ49Vj6sUJvtrUul/cbiC8BKKYiumhkdiOGKo8Vro9ESMcJ0Bw==}
     peerDependencies:
       svelte: '>= 3.0.0'
     peerDependenciesMeta:
       svelte:
         optional: true
 
-  '@prosekit/vue@0.3.14':
-    resolution: {integrity: sha512-v5iNm5sUFuTJby/JZJN2VAfijjWC9HKEX3fR3JdU1touUf1aWGQ3mHuDSo7yoRr7C1otKuRbHJ/0pD9zMYnhag==}
+  '@prosekit/vue@0.3.15':
+    resolution: {integrity: sha512-D67SVMLrRRUxg8cC5lmOmBhEQ56LZtdz6G4woCifgHbb9Xf8F8IMMkFAMDMI9t28OsNTAWKprVY6ROc4YvA/yQ==}
     peerDependencies:
       vue: '>= 3.0.0'
     peerDependenciesMeta:
       vue:
         optional: true
 
-  '@prosekit/web@0.3.3':
-    resolution: {integrity: sha512-AD2ewsPV49C5lmaNA8XZwgPB2KT7szHWBAO3/4vCqOPjWoOnis6ZgO276BWco+T9ROuYKV1qEUOZGPxWGMfYoQ==}
+  '@prosekit/web@0.3.4':
+    resolution: {integrity: sha512-PeEPNYruzd+uxPhHMmwUt0FOkFWiLz2fNZpx8e1QcR2P/mWv8ZsZNQnxOsbFc+FmGUpnMjNvEQr5Y7Uf8vB2Fw==}
 
   '@prosemirror-adapter/core@0.2.6':
     resolution: {integrity: sha512-7GXWQBR/bd6ngvek8SgtlEVC0x3KL7LKZ5cxyZl4IBAlRDbITQWsuKLChEXNan9A6+9Ry4a46crbDGTQlzooOg==}
@@ -4416,8 +4416,8 @@ packages:
     resolution: {integrity: sha512-qMxS4hBGB8FY2GQqshcRUy1K6k8aBWP5vwm8qKkCT3A9K2dawUwOIJfqh9Yste/Bl0J2lzosVyrXDj68kLcHXQ==}
     engines: {node: '>=16.0.0'}
 
-  '@smithy/signature-v4@3.1.2':
-    resolution: {integrity: sha512-3BcPylEsYtD0esM4Hoyml/+s7WP2LFhcM3J2AGdcL2vx9O60TtfpDOL72gjb4lU8NeRPeKAwR77YNyyGvMbuEA==}
+  '@smithy/signature-v4@4.0.0':
+    resolution: {integrity: sha512-ervYjQ+ZvmNG51Ui77IOTPri7nOyo8Kembzt9uwwlmtXJPmFXvslOahbA1blvAVs7G0KlYMiOBog1rAt7RVXxg==}
     engines: {node: '>=16.0.0'}
 
   '@smithy/smithy-client@3.1.9':
@@ -4805,8 +4805,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@18.19.40':
-    resolution: {integrity: sha512-MIxieZHrm4Ee8XArBIc+Or9HINt2StOmCbgRcXGSJl8q14svRvkZPe7LJq9HKtTI1SK3wU8b91TjntUm7T69Pg==}
+  '@types/node@18.19.41':
+    resolution: {integrity: sha512-LX84pRJ+evD2e2nrgYCHObGWkiQJ1mL+meAgbvnwk/US6vmMY7S2ygBTGV2Jw91s9vUsLSXeDEkUHZIJGLrhsg==}
 
   '@types/node@20.14.11':
     resolution: {integrity: sha512-kprQpL8MMeszbz6ojB5/tU8PLN4kesnN8Gjzw349rDlNgsSzg90lAVj3llK99Dh7JON+t9AuscPPFW6mPbTnSA==}
@@ -6206,8 +6206,8 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  cookie-es@1.1.0:
-    resolution: {integrity: sha512-L2rLOcK0wzWSfSDA33YR+PUHDG10a8px7rUHKWbGLP4YfbsMed2KFUw5fczvDPbT98DDe3LEzviswl810apTEw==}
+  cookie-es@1.2.1:
+    resolution: {integrity: sha512-ilTPDuxhZX44BSzzRB58gvSY2UevZKQM9fjisn7Z+NJ92CtSU6kO1+22ZN/agbEJANFjK85EiJJbi/gQv18OXA==}
 
   cookie-signature@1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
@@ -6607,8 +6607,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  electron-to-chromium@1.4.829:
-    resolution: {integrity: sha512-5qp1N2POAfW0u1qGAxXEtz6P7bO1m6gpZr5hdf5ve6lxpLM7MpiM4jIPz7xcrNlClQMafbyUDDWjlIQZ1Mw0Rw==}
+  electron-to-chromium@1.4.830:
+    resolution: {integrity: sha512-TrPKKH20HeN0J1LHzsYLs2qwXrp8TF4nHdu4sq61ozGbzMpWhI7iIOPYPPkxeq1azMT9PZ8enPFcftbs/Npcjg==}
 
   elliptic@6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
@@ -7262,8 +7262,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.3.6:
-    resolution: {integrity: sha512-olpX48qfoSIDjhw0RbolhOGBQmdMAXHHpSI0PFdTj5LeXChcf5F4ApShs0mQ6FPEPOj7dnEvSyB07UgRK5G9Jw==}
+  framer-motion@11.3.7:
+    resolution: {integrity: sha512-wolMesg8ruYgZX8nMELY2a/ZgMMpYhggLNIexx1blaYN0yb2+SdQ78sEkGDKde+3LTCeFy/wCi97i5Br4yT0GQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -7367,8 +7367,8 @@ packages:
     resolution: {integrity: sha512-g0QYk1dZBxGwk+Ngc+ltRH2IBp2f7zBkBMBJZCDerh6EhlhSR6+9irMCuT/09zD6qkarHUSn529sK/yL4S27mg==}
     engines: {node: '>= 0.4'}
 
-  get-tsconfig@4.7.5:
-    resolution: {integrity: sha512-ZCuZCnlqNzjb4QprAzXKdpp/gh6KTxSJuw3IBsPnV/7fV4NxC9ckB+vPTt8w7fJA0TaSD7c55BR47JD6MEDyDw==}
+  get-tsconfig@4.7.6:
+    resolution: {integrity: sha512-ZAqrLlu18NbDdRaHq+AKXzAmqIUPswPWKUchfytdAjiRFnCe5ojG2bstg6mRiZabkKfCoL/e98pbBELIV/YCeA==}
 
   get-uri@6.0.3:
     resolution: {integrity: sha512-BzUrJBS9EcUb4cFol8r4W3v1cPsSyajLSthNkz5BxbpDcHN5tIrM10E2eNvfnvBn3DaT3DUgx0OpsBKkaOpanw==}
@@ -9643,8 +9643,8 @@ packages:
   property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
 
-  prosekit@0.9.8:
-    resolution: {integrity: sha512-/w06Dop8Ye3snlsno2W9mVowMWKfGSuyrKOco5U3AcNcIzJmyY47+jYd8J0QDjYpgGgjR5vSkMpNyetm3CSY8g==}
+  prosekit@0.9.9:
+    resolution: {integrity: sha512-wChSnlG1g4enPSnBnwb9MtziNyNB/VPQ/zHARCNmK7gUmvqmVBOrhhZ9dsgk+/edaIFOvLV+sCdCgWHDV4ISBQ==}
     peerDependencies:
       preact: '>= 10.11.0'
       react: '>= 18.2.0'
@@ -9675,8 +9675,8 @@ packages:
   prosemirror-dropcursor@1.8.1:
     resolution: {integrity: sha512-M30WJdJZLyXHi3N8vxN6Zh5O8ZBbQCz0gURTfPmTIBNQ5pxrdU7A58QkNqfa98YEjSAL1HUyyU34f6Pm5xBSGw==}
 
-  prosemirror-flat-list@0.5.3:
-    resolution: {integrity: sha512-9otmxGutu97MCl4R+JWSnRCCmc+hinY/X9wgqLLjdNPh+io7xNbP5MMJWMKBHX5JBTHbqOmw3SHgc66e+ieJmQ==}
+  prosemirror-flat-list@0.5.4:
+    resolution: {integrity: sha512-37hyy9ZIE9PktGQS+yI71icW3QuG7Dz/1CoPOEcZVrzG95r16f+VTiX8BzZ4h3h848uF2MKxCqY5LtU9ZoIUCg==}
 
   prosemirror-highlight@0.8.0:
     resolution: {integrity: sha512-b5BPX7z57fJuKS+JvxJa0gaQ4GWam28KqXMhef6VYLuCyjM54XDwgn81PoxWUzy82MopCFBwOls+7Ls8uQBqFw==}
@@ -9722,11 +9722,11 @@ packages:
   prosemirror-keymap@1.2.2:
     resolution: {integrity: sha512-EAlXoksqC6Vbocqc0GtzCruZEzYgrn+iiGnNjsJsH4mrnIGex4qbLdWWNza3AW5W36ZRrlBID0eM6bdKH4OStQ==}
 
-  prosemirror-model@1.22.1:
-    resolution: {integrity: sha512-gMrxal+F3higDFxCkBK5iQXckRVYvIu/3dopERJ6b20xfwZ9cbYvQvuldqaN+v/XytNPGyURYUpUU23kBRxWCQ==}
+  prosemirror-model@1.22.2:
+    resolution: {integrity: sha512-I4lS7HHIW47D0Xv/gWmi4iUWcQIDYaJKd8Hk4+lcSps+553FlQrhmxtItpEvTr75iAruhzVShVp6WUwsT6Boww==}
 
-  prosemirror-safari-ime-span@1.0.1:
-    resolution: {integrity: sha512-4WjIR6d5HfKJ5JP4UK7SOzV7aOMqy8Q3b09IzGoFDPWA2GdeNWls6zxO37g4Ny3DRhoYg0hFaXu7JGpzzUlprw==}
+  prosemirror-safari-ime-span@1.0.2:
+    resolution: {integrity: sha512-QJqD8s1zE/CuK56kDsUhndh5hiHh/gFnAuPOA9ytva2s85/ZEt2tNWeALTJN48DtWghSKOmiBsvVn2OlnJ5H2w==}
 
   prosemirror-search@1.0.0:
     resolution: {integrity: sha512-NIMlwP0ibqrqBowvy+C81+YZFUYqJ1XNJV5kayIbjUjccnEWGv+sQPiE+c9XKc0GUfngM5ws4rg+VDeYS1fXlQ==}
@@ -9754,8 +9754,8 @@ packages:
   prosemirror-transform@1.9.0:
     resolution: {integrity: sha512-5UXkr1LIRx3jmpXXNKDhv8OyAOeLTGuXNwdVfg8x27uASna/wQkr9p6fD3eupGOi4PLJfbezxTyi/7fSJypXHg==}
 
-  prosemirror-view@1.33.8:
-    resolution: {integrity: sha512-4PhMr/ufz2cdvFgpUAnZfs+0xij3RsFysreeG9V/utpwX7AJtYCDVyuRxzWoMJIEf4C7wVihuBNMPpFLPCiLQw==}
+  prosemirror-view@1.33.9:
+    resolution: {integrity: sha512-xV1A0Vz9cIcEnwmMhKKFAOkfIp8XmJRnaZoPqNXrPS7EK5n11Ov8V76KhR0RsfQd/SIzmWY+bg+M44A2Lx/Nnw==}
 
   protobufjs@7.3.2:
     resolution: {integrity: sha512-RXyHaACeqXeqAKGLDl68rQKbmObRsTIn4TYVUUug1KfS47YWCo5MacGITEryugIgZqORCvJWEk4l449POg5Txg==}
@@ -11917,7 +11917,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@aptos-labs/ts-sdk@1.25.0':
+  '@aptos-labs/ts-sdk@1.26.0':
     dependencies:
       '@aptos-labs/aptos-cli': 0.1.9
       '@aptos-labs/aptos-client': 0.1.0
@@ -12065,28 +12065,28 @@ snapshots:
       '@smithy/util-utf8': 2.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/client-s3@3.614.0':
+  '@aws-sdk/client-s3@3.616.0':
     dependencies:
       '@aws-crypto/sha1-browser': 5.2.0
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sso-oidc': 3.614.0(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/client-sts': 3.614.0
-      '@aws-sdk/core': 3.614.0
-      '@aws-sdk/credential-provider-node': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/middleware-bucket-endpoint': 3.614.0
-      '@aws-sdk/middleware-expect-continue': 3.609.0
-      '@aws-sdk/middleware-flexible-checksums': 3.614.0
-      '@aws-sdk/middleware-host-header': 3.609.0
+      '@aws-sdk/client-sso-oidc': 3.616.0(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/client-sts': 3.616.0
+      '@aws-sdk/core': 3.616.0
+      '@aws-sdk/credential-provider-node': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/middleware-bucket-endpoint': 3.616.0
+      '@aws-sdk/middleware-expect-continue': 3.616.0
+      '@aws-sdk/middleware-flexible-checksums': 3.616.0
+      '@aws-sdk/middleware-host-header': 3.616.0
       '@aws-sdk/middleware-location-constraint': 3.609.0
       '@aws-sdk/middleware-logger': 3.609.0
-      '@aws-sdk/middleware-recursion-detection': 3.609.0
-      '@aws-sdk/middleware-sdk-s3': 3.614.0
-      '@aws-sdk/middleware-signing': 3.609.0
+      '@aws-sdk/middleware-recursion-detection': 3.616.0
+      '@aws-sdk/middleware-sdk-s3': 3.616.0
+      '@aws-sdk/middleware-signing': 3.616.0
       '@aws-sdk/middleware-ssec': 3.609.0
-      '@aws-sdk/middleware-user-agent': 3.614.0
+      '@aws-sdk/middleware-user-agent': 3.616.0
       '@aws-sdk/region-config-resolver': 3.614.0
-      '@aws-sdk/signature-v4-multi-region': 3.614.0
+      '@aws-sdk/signature-v4-multi-region': 3.616.0
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-endpoints': 3.614.0
       '@aws-sdk/util-user-agent-browser': 3.609.0
@@ -12128,18 +12128,18 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-ses@3.614.0':
+  '@aws-sdk/client-ses@3.616.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sso-oidc': 3.614.0(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/client-sts': 3.614.0
-      '@aws-sdk/core': 3.614.0
-      '@aws-sdk/credential-provider-node': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/middleware-host-header': 3.609.0
+      '@aws-sdk/client-sso-oidc': 3.616.0(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/client-sts': 3.616.0
+      '@aws-sdk/core': 3.616.0
+      '@aws-sdk/credential-provider-node': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/middleware-host-header': 3.616.0
       '@aws-sdk/middleware-logger': 3.609.0
-      '@aws-sdk/middleware-recursion-detection': 3.609.0
-      '@aws-sdk/middleware-user-agent': 3.614.0
+      '@aws-sdk/middleware-recursion-detection': 3.616.0
+      '@aws-sdk/middleware-user-agent': 3.616.0
       '@aws-sdk/region-config-resolver': 3.614.0
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-endpoints': 3.614.0
@@ -12175,17 +12175,17 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0)':
+  '@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0)':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sts': 3.614.0
-      '@aws-sdk/core': 3.614.0
-      '@aws-sdk/credential-provider-node': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/middleware-host-header': 3.609.0
+      '@aws-sdk/client-sts': 3.616.0
+      '@aws-sdk/core': 3.616.0
+      '@aws-sdk/credential-provider-node': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/middleware-host-header': 3.616.0
       '@aws-sdk/middleware-logger': 3.609.0
-      '@aws-sdk/middleware-recursion-detection': 3.609.0
-      '@aws-sdk/middleware-user-agent': 3.614.0
+      '@aws-sdk/middleware-recursion-detection': 3.616.0
+      '@aws-sdk/middleware-user-agent': 3.616.0
       '@aws-sdk/region-config-resolver': 3.614.0
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-endpoints': 3.614.0
@@ -12220,15 +12220,15 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sso@3.614.0':
+  '@aws-sdk/client-sso@3.616.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/core': 3.614.0
-      '@aws-sdk/middleware-host-header': 3.609.0
+      '@aws-sdk/core': 3.616.0
+      '@aws-sdk/middleware-host-header': 3.616.0
       '@aws-sdk/middleware-logger': 3.609.0
-      '@aws-sdk/middleware-recursion-detection': 3.609.0
-      '@aws-sdk/middleware-user-agent': 3.614.0
+      '@aws-sdk/middleware-recursion-detection': 3.616.0
+      '@aws-sdk/middleware-user-agent': 3.616.0
       '@aws-sdk/region-config-resolver': 3.614.0
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-endpoints': 3.614.0
@@ -12263,17 +12263,17 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sts@3.614.0':
+  '@aws-sdk/client-sts@3.616.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sso-oidc': 3.614.0(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/core': 3.614.0
-      '@aws-sdk/credential-provider-node': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)
-      '@aws-sdk/middleware-host-header': 3.609.0
+      '@aws-sdk/client-sso-oidc': 3.616.0(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/core': 3.616.0
+      '@aws-sdk/credential-provider-node': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)
+      '@aws-sdk/middleware-host-header': 3.616.0
       '@aws-sdk/middleware-logger': 3.609.0
-      '@aws-sdk/middleware-recursion-detection': 3.609.0
-      '@aws-sdk/middleware-user-agent': 3.614.0
+      '@aws-sdk/middleware-recursion-detection': 3.616.0
+      '@aws-sdk/middleware-user-agent': 3.616.0
       '@aws-sdk/region-config-resolver': 3.614.0
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-endpoints': 3.614.0
@@ -12308,11 +12308,11 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/core@3.614.0':
+  '@aws-sdk/core@3.616.0':
     dependencies:
       '@smithy/core': 2.2.8
       '@smithy/protocol-http': 4.0.4
-      '@smithy/signature-v4': 3.1.2
+      '@smithy/signature-v4': 4.0.0
       '@smithy/smithy-client': 3.1.9
       '@smithy/types': 3.3.0
       fast-xml-parser: 4.2.5
@@ -12325,7 +12325,7 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/credential-provider-http@3.614.0':
+  '@aws-sdk/credential-provider-http@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@smithy/fetch-http-handler': 3.2.2
@@ -12337,14 +12337,14 @@ snapshots:
       '@smithy/util-stream': 3.1.1
       tslib: 2.6.3
 
-  '@aws-sdk/credential-provider-ini@3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)':
+  '@aws-sdk/credential-provider-ini@3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)':
     dependencies:
-      '@aws-sdk/client-sts': 3.614.0
+      '@aws-sdk/client-sts': 3.616.0
       '@aws-sdk/credential-provider-env': 3.609.0
-      '@aws-sdk/credential-provider-http': 3.614.0
+      '@aws-sdk/credential-provider-http': 3.616.0
       '@aws-sdk/credential-provider-process': 3.614.0
-      '@aws-sdk/credential-provider-sso': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))
-      '@aws-sdk/credential-provider-web-identity': 3.609.0(@aws-sdk/client-sts@3.614.0)
+      '@aws-sdk/credential-provider-sso': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))
+      '@aws-sdk/credential-provider-web-identity': 3.609.0(@aws-sdk/client-sts@3.616.0)
       '@aws-sdk/types': 3.609.0
       '@smithy/credential-provider-imds': 3.1.4
       '@smithy/property-provider': 3.1.3
@@ -12355,14 +12355,14 @@ snapshots:
       - '@aws-sdk/client-sso-oidc'
       - aws-crt
 
-  '@aws-sdk/credential-provider-node@3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)':
+  '@aws-sdk/credential-provider-node@3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)':
     dependencies:
       '@aws-sdk/credential-provider-env': 3.609.0
-      '@aws-sdk/credential-provider-http': 3.614.0
-      '@aws-sdk/credential-provider-ini': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))(@aws-sdk/client-sts@3.614.0)
+      '@aws-sdk/credential-provider-http': 3.616.0
+      '@aws-sdk/credential-provider-ini': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))(@aws-sdk/client-sts@3.616.0)
       '@aws-sdk/credential-provider-process': 3.614.0
-      '@aws-sdk/credential-provider-sso': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))
-      '@aws-sdk/credential-provider-web-identity': 3.609.0(@aws-sdk/client-sts@3.614.0)
+      '@aws-sdk/credential-provider-sso': 3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))
+      '@aws-sdk/credential-provider-web-identity': 3.609.0(@aws-sdk/client-sts@3.616.0)
       '@aws-sdk/types': 3.609.0
       '@smithy/credential-provider-imds': 3.1.4
       '@smithy/property-provider': 3.1.3
@@ -12382,10 +12382,10 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/credential-provider-sso@3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))':
+  '@aws-sdk/credential-provider-sso@3.616.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))':
     dependencies:
-      '@aws-sdk/client-sso': 3.614.0
-      '@aws-sdk/token-providers': 3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))
+      '@aws-sdk/client-sso': 3.616.0
+      '@aws-sdk/token-providers': 3.614.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))
       '@aws-sdk/types': 3.609.0
       '@smithy/property-provider': 3.1.3
       '@smithy/shared-ini-file-loader': 3.1.4
@@ -12395,17 +12395,17 @@ snapshots:
       - '@aws-sdk/client-sso-oidc'
       - aws-crt
 
-  '@aws-sdk/credential-provider-web-identity@3.609.0(@aws-sdk/client-sts@3.614.0)':
+  '@aws-sdk/credential-provider-web-identity@3.609.0(@aws-sdk/client-sts@3.616.0)':
     dependencies:
-      '@aws-sdk/client-sts': 3.614.0
+      '@aws-sdk/client-sts': 3.616.0
       '@aws-sdk/types': 3.609.0
       '@smithy/property-provider': 3.1.3
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/lib-storage@3.614.0(@aws-sdk/client-s3@3.614.0)':
+  '@aws-sdk/lib-storage@3.616.0(@aws-sdk/client-s3@3.616.0)':
     dependencies:
-      '@aws-sdk/client-s3': 3.614.0
+      '@aws-sdk/client-s3': 3.616.0
       '@smithy/abort-controller': 3.1.1
       '@smithy/middleware-endpoint': 3.0.5
       '@smithy/smithy-client': 3.1.9
@@ -12414,7 +12414,7 @@ snapshots:
       stream-browserify: 3.0.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-bucket-endpoint@3.614.0':
+  '@aws-sdk/middleware-bucket-endpoint@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-arn-parser': 3.568.0
@@ -12424,14 +12424,14 @@ snapshots:
       '@smithy/util-config-provider': 3.0.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-expect-continue@3.609.0':
+  '@aws-sdk/middleware-expect-continue@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@smithy/protocol-http': 4.0.4
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-flexible-checksums@3.614.0':
+  '@aws-sdk/middleware-flexible-checksums@3.616.0':
     dependencies:
       '@aws-crypto/crc32': 5.2.0
       '@aws-crypto/crc32c': 5.2.0
@@ -12442,7 +12442,7 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-host-header@3.609.0':
+  '@aws-sdk/middleware-host-header@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@smithy/protocol-http': 4.0.4
@@ -12461,31 +12461,33 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-recursion-detection@3.609.0':
+  '@aws-sdk/middleware-recursion-detection@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@smithy/protocol-http': 4.0.4
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-sdk-s3@3.614.0':
+  '@aws-sdk/middleware-sdk-s3@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-arn-parser': 3.568.0
       '@smithy/node-config-provider': 3.1.4
       '@smithy/protocol-http': 4.0.4
-      '@smithy/signature-v4': 3.1.2
+      '@smithy/signature-v4': 4.0.0
       '@smithy/smithy-client': 3.1.9
       '@smithy/types': 3.3.0
       '@smithy/util-config-provider': 3.0.0
+      '@smithy/util-stream': 3.1.1
+      '@smithy/util-utf8': 3.0.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-signing@3.609.0':
+  '@aws-sdk/middleware-signing@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@smithy/property-provider': 3.1.3
       '@smithy/protocol-http': 4.0.4
-      '@smithy/signature-v4': 3.1.2
+      '@smithy/signature-v4': 4.0.0
       '@smithy/types': 3.3.0
       '@smithy/util-middleware': 3.0.3
       tslib: 2.6.3
@@ -12496,7 +12498,7 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/middleware-user-agent@3.614.0':
+  '@aws-sdk/middleware-user-agent@3.616.0':
     dependencies:
       '@aws-sdk/types': 3.609.0
       '@aws-sdk/util-endpoints': 3.614.0
@@ -12513,18 +12515,18 @@ snapshots:
       '@smithy/util-middleware': 3.0.3
       tslib: 2.6.3
 
-  '@aws-sdk/signature-v4-multi-region@3.614.0':
+  '@aws-sdk/signature-v4-multi-region@3.616.0':
     dependencies:
-      '@aws-sdk/middleware-sdk-s3': 3.614.0
+      '@aws-sdk/middleware-sdk-s3': 3.616.0
       '@aws-sdk/types': 3.609.0
       '@smithy/protocol-http': 4.0.4
-      '@smithy/signature-v4': 3.1.2
+      '@smithy/signature-v4': 4.0.0
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@aws-sdk/token-providers@3.614.0(@aws-sdk/client-sso-oidc@3.614.0(@aws-sdk/client-sts@3.614.0))':
+  '@aws-sdk/token-providers@3.614.0(@aws-sdk/client-sso-oidc@3.616.0(@aws-sdk/client-sts@3.616.0))':
     dependencies:
-      '@aws-sdk/client-sso-oidc': 3.614.0(@aws-sdk/client-sts@3.614.0)
+      '@aws-sdk/client-sso-oidc': 3.616.0(@aws-sdk/client-sts@3.616.0)
       '@aws-sdk/types': 3.609.0
       '@smithy/property-provider': 3.1.3
       '@smithy/shared-ini-file-loader': 3.1.4
@@ -14634,7 +14636,7 @@ snapshots:
 
   '@irys/sdk@0.2.6(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
-      '@aptos-labs/ts-sdk': 1.25.0
+      '@aptos-labs/ts-sdk': 1.26.0
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -15382,7 +15384,7 @@ snapshots:
       '@nomiclabs/hardhat-etherscan': 3.1.8(hardhat@2.22.6(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.3))(typescript@5.5.3)(utf-8-validate@5.0.10))
       '@openzeppelin/defender-base-client': 1.54.6(debug@4.3.5)
       '@openzeppelin/platform-deploy-client': 0.8.0(debug@4.3.5)
-      '@openzeppelin/upgrades-core': 1.34.1
+      '@openzeppelin/upgrades-core': 1.34.2
       chalk: 4.1.2
       debug: 4.3.5(supports-color@8.1.1)
       ethers: 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -15403,7 +15405,7 @@ snapshots:
       - debug
       - encoding
 
-  '@openzeppelin/upgrades-core@1.34.1':
+  '@openzeppelin/upgrades-core@1.34.2':
     dependencies:
       cbor: 9.0.2
       chalk: 4.1.2
@@ -15527,10 +15529,10 @@ snapshots:
     dependencies:
       '@prisma/debug': 5.17.0
 
-  '@prosekit/basic@0.3.15(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/basic@0.3.16(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
-      '@prosekit/extensions': 0.7.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/extensions': 0.7.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       '@prosekit/pm': 0.1.6
     transitivePeerDependencies:
       - '@types/hast'
@@ -15543,26 +15545,26 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/core@0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)':
+  '@prosekit/core@0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)':
     dependencies:
       '@prosekit/pm': 0.1.6
       clsx: 2.1.1
       orderedmap: 2.1.1
-      prosemirror-splittable: 0.1.1(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      prosemirror-splittable: 0.1.1(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       type-fest: 4.22.1
     transitivePeerDependencies:
       - prosemirror-model
       - prosemirror-state
       - prosemirror-transform
 
-  '@prosekit/extensions@0.7.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/extensions@0.7.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.6
       prosemirror-changeset: 2.2.1
       prosemirror-dropcursor: 1.8.1
-      prosemirror-flat-list: 0.5.3
-      prosemirror-highlight: 0.8.0(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(shiki@1.10.3)
+      prosemirror-flat-list: 0.5.4
+      prosemirror-highlight: 0.8.0(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(shiki@1.10.3)
       prosemirror-search: 1.0.0
       prosemirror-tables: 1.3.7
       shiki: 1.10.3
@@ -15577,9 +15579,9 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/lit@0.3.11(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/lit@0.3.12(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)':
     dependencies:
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -15597,16 +15599,16 @@ snapshots:
       prosemirror-history: 1.4.1
       prosemirror-inputrules: 1.4.0
       prosemirror-keymap: 1.2.2
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
-  '@prosekit/preact@0.3.14(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/preact@0.3.15(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.6
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       react-merge-refs: 2.1.1
     optionalDependencies:
       preact: 10.22.1
@@ -15621,11 +15623,11 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/react@0.3.15(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@prosekit/react@0.3.16(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.6
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       '@prosemirror-adapter/react': 0.2.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-merge-refs: 2.1.1
     optionalDependencies:
@@ -15642,11 +15644,11 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/solid@0.3.13(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/solid@0.3.14(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.6
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -15658,11 +15660,11 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/svelte@0.4.5(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(svelte@4.2.18)':
+  '@prosekit/svelte@0.4.6(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(svelte@4.2.18)':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.6
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       '@prosemirror-adapter/svelte': 0.2.6(svelte@4.2.18)
     optionalDependencies:
       svelte: 4.2.18
@@ -15677,11 +15679,11 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/vue@0.3.14(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(vue@3.4.32(typescript@5.5.3))':
+  '@prosekit/vue@0.3.15(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(vue@3.4.32(typescript@5.5.3))':
     dependencies:
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
       '@prosekit/pm': 0.1.6
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       '@prosemirror-adapter/vue': 0.2.6(vue@3.4.32(typescript@5.5.3))
     optionalDependencies:
       vue: 3.4.32(typescript@5.5.3)
@@ -15696,7 +15698,7 @@ snapshots:
       - refractor
       - sugar-high
 
-  '@prosekit/web@0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)':
+  '@prosekit/web@0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)':
     dependencies:
       '@aria-ui/collection': 0.0.3
       '@aria-ui/core': 0.0.17
@@ -15706,8 +15708,8 @@ snapshots:
       '@aria-ui/presence': 0.0.13
       '@aria-ui/tooltip': 0.0.21
       '@floating-ui/dom': 1.6.7
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
-      '@prosekit/extensions': 0.7.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/extensions': 0.7.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       '@prosekit/pm': 0.1.6
       '@zag-js/dom-query': 0.61.1
     transitivePeerDependencies:
@@ -16695,7 +16697,7 @@ snapshots:
 
   '@rnx-kit/chromium-edge-launcher@1.0.0':
     dependencies:
-      '@types/node': 18.19.40
+      '@types/node': 18.19.41
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -17085,7 +17087,7 @@ snapshots:
       '@smithy/types': 3.3.0
       tslib: 2.6.3
 
-  '@smithy/signature-v4@3.1.2':
+  '@smithy/signature-v4@4.0.0':
     dependencies:
       '@smithy/is-array-buffer': 3.0.0
       '@smithy/types': 3.3.0
@@ -17570,7 +17572,7 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@18.19.40':
+  '@types/node@18.19.41':
     dependencies:
       undici-types: 5.26.5
 
@@ -19126,7 +19128,7 @@ snapshots:
   browserslist@4.23.2:
     dependencies:
       caniuse-lite: 1.0.30001642
-      electron-to-chromium: 1.4.829
+      electron-to-chromium: 1.4.830
       node-releases: 2.0.17
       update-browserslist-db: 1.1.0(browserslist@4.23.2)
 
@@ -19609,7 +19611,7 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cookie-es@1.1.0: {}
+  cookie-es@1.2.1: {}
 
   cookie-signature@1.0.6: {}
 
@@ -19988,7 +19990,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  electron-to-chromium@1.4.829: {}
+  electron-to-chromium@1.4.830: {}
 
   elliptic@6.5.4:
     dependencies:
@@ -20311,7 +20313,7 @@ snapshots:
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       fast-glob: 3.3.2
-      get-tsconfig: 4.7.5
+      get-tsconfig: 4.7.6
       is-core-module: 2.15.0
       is-glob: 4.0.3
     transitivePeerDependencies:
@@ -20378,14 +20380,12 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-perfectionist@2.11.0(eslint@8.57.0)(svelte@4.2.18)(typescript@5.5.3):
+  eslint-plugin-perfectionist@2.11.0(eslint@8.57.0)(typescript@5.5.3):
     dependencies:
       '@typescript-eslint/utils': 7.16.1(eslint@8.57.0)(typescript@5.5.3)
       eslint: 8.57.0
       minimatch: 9.0.5
       natural-compare-lite: 1.4.0
-    optionalDependencies:
-      svelte: 4.2.18
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -21022,7 +21022,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.3.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.6.3
     optionalDependencies:
@@ -21112,7 +21112,7 @@ snapshots:
       es-errors: 1.3.0
       get-intrinsic: 1.2.4
 
-  get-tsconfig@4.7.5:
+  get-tsconfig@4.7.6:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
@@ -21309,7 +21309,7 @@ snapshots:
 
   h3@1.12.0:
     dependencies:
-      cookie-es: 1.1.0
+      cookie-es: 1.2.1
       crossws: 0.2.4
       defu: 6.1.4
       destr: 2.0.3
@@ -23849,19 +23849,19 @@ snapshots:
 
   property-information@6.5.0: {}
 
-  prosekit@0.9.8(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.18)(vue@3.4.32(typescript@5.5.3)):
+  prosekit@0.9.9(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.18)(vue@3.4.32(typescript@5.5.3)):
     dependencies:
-      '@prosekit/basic': 0.3.15(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/core': 0.7.3(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
-      '@prosekit/extensions': 0.7.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/lit': 0.3.11(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/basic': 0.3.16(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
+      '@prosekit/core': 0.7.4(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)
+      '@prosekit/extensions': 0.7.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
+      '@prosekit/lit': 0.3.12(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
       '@prosekit/pm': 0.1.6
-      '@prosekit/preact': 0.3.14(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/react': 0.3.15(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@prosekit/solid': 0.3.13(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
-      '@prosekit/svelte': 0.4.5(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(svelte@4.2.18)
-      '@prosekit/vue': 0.3.14(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(vue@3.4.32(typescript@5.5.3))
-      '@prosekit/web': 0.3.3(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)
+      '@prosekit/preact': 0.3.15(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
+      '@prosekit/react': 0.3.16(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@prosekit/solid': 0.3.14(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
+      '@prosekit/svelte': 0.4.6(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(svelte@4.2.18)
+      '@prosekit/vue': 0.3.15(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(vue@3.4.32(typescript@5.5.3))
+      '@prosekit/web': 0.3.4(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)
     optionalDependencies:
       preact: 10.22.1
       react: 18.3.1
@@ -23885,7 +23885,7 @@ snapshots:
 
   prosemirror-commands@1.5.2:
     dependencies:
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
 
@@ -23893,32 +23893,32 @@ snapshots:
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
-  prosemirror-flat-list@0.5.3:
+  prosemirror-flat-list@0.5.4:
     dependencies:
       prosemirror-commands: 1.5.2
       prosemirror-inputrules: 1.4.0
-      prosemirror-model: 1.22.1
-      prosemirror-safari-ime-span: 1.0.1
+      prosemirror-model: 1.22.2
+      prosemirror-safari-ime-span: 1.0.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
-  prosemirror-highlight@0.8.0(@types/hast@3.0.4)(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.8)(shiki@1.10.3):
+  prosemirror-highlight@0.8.0(@types/hast@3.0.4)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(shiki@1.10.3):
     optionalDependencies:
       '@types/hast': 3.0.4
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
       shiki: 1.10.3
 
   prosemirror-history@1.4.1:
     dependencies:
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
       rope-sequence: 1.3.4
 
   prosemirror-inputrules@1.4.0:
@@ -23931,48 +23931,48 @@ snapshots:
       prosemirror-state: 1.4.3
       w3c-keyname: 2.2.8
 
-  prosemirror-model@1.22.1:
+  prosemirror-model@1.22.2:
     dependencies:
       orderedmap: 2.1.1
 
-  prosemirror-safari-ime-span@1.0.1:
+  prosemirror-safari-ime-span@1.0.2:
     dependencies:
       prosemirror-state: 1.4.3
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
   prosemirror-search@1.0.0:
     dependencies:
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
-  prosemirror-splittable@0.1.1(prosemirror-model@1.22.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0):
+  prosemirror-splittable@0.1.1(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0):
     optionalDependencies:
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
 
   prosemirror-state@1.4.3:
     dependencies:
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
   prosemirror-tables@1.3.7:
     dependencies:
       prosemirror-keymap: 1.2.2
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
-      prosemirror-view: 1.33.8
+      prosemirror-view: 1.33.9
 
   prosemirror-transform@1.9.0:
     dependencies:
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
 
-  prosemirror-view@1.33.8:
+  prosemirror-view@1.33.9:
     dependencies:
-      prosemirror-model: 1.22.1
+      prosemirror-model: 1.22.2
       prosemirror-state: 1.4.3
       prosemirror-transform: 1.9.0
 
@@ -24310,12 +24310,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  react-tracked@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
+  react-tracked@2.0.0(react@18.3.1)(scheduler@0.23.2):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.24.0-canary-efb381bbf-20230505
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
+      scheduler: 0.23.2
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
 
   react-virtuoso@4.7.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -25493,7 +25493,7 @@ snapshots:
   tsx@4.16.2:
     dependencies:
       esbuild: 0.21.5
-      get-tsconfig: 4.7.5
+      get-tsconfig: 4.7.6
     optionalDependencies:
       fsevents: 2.3.3
 
@@ -25832,10 +25832,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
     dependencies:
       react: 18.3.1
-      scheduler: 0.24.0-canary-efb381bbf-20230505
+      scheduler: 0.23.2
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
