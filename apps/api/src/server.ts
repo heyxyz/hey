@@ -30,7 +30,7 @@ app.use((req, _, next) => {
   next();
 });
 
-const setupRoutes = async () => {
+const startServer = async () => {
   // Route configuration
   app.use('/', await router());
 
@@ -41,6 +41,6 @@ const setupRoutes = async () => {
 };
 
 // Initialize routes
-setupRoutes().catch((error) => {
-  logger.error('Error setting up routes', error);
+startServer().catch((error) => {
+  logger.error('Failed to start API server', error);
 });

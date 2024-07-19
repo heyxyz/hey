@@ -10,7 +10,7 @@ import cleanPreferences from './cleanPreferences';
 import dbVacuum from './dbVacuum';
 import heartbeat from './heartbeat';
 
-const main = () => {
+const startCronJobs = () => {
   logger.info('Cron jobs are started...');
 
   cron.schedule('*/30 * * * * *', async () => {
@@ -54,8 +54,5 @@ const main = () => {
   });
 };
 
-try {
-  main();
-} catch (error) {
-  logger.error('Cron jobs failed', error);
-}
+// Initialize cron jobs
+startCronJobs();
