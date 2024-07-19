@@ -8,13 +8,11 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
 import getPreferences from '@hey/helpers/api/getPreferences';
 import getProfileDetails from '@hey/helpers/api/getProfileFlags';
-import getScore from '@hey/helpers/api/getScore';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useScoreStore } from 'src/store/non-persisted/useScoreStore';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
@@ -25,7 +23,6 @@ const PreferencesProvider: FC = () => {
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
-  const { setScore } = useScoreStore();
   const {
     setAppIcon,
     setEmail,
@@ -65,12 +62,6 @@ const PreferencesProvider: FC = () => {
     return true;
   };
 
-  const getScoreData = async () => {
-    const score = await getScore(sessionProfileId);
-    setScore(score.score);
-    return score;
-  };
-
   const getVerifiedMembersData = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/misc/verified`);
@@ -105,12 +96,6 @@ const PreferencesProvider: FC = () => {
     enabled: Boolean(sessionProfileId),
     queryFn: getProfileDetailsData,
     queryKey: ['getProfileDetails', sessionProfileId || '']
-  });
-  useQuery({
-    enabled: Boolean(sessionProfileId),
-    queryFn: getScoreData,
-    queryKey: ['getScore', sessionProfileId],
-    staleTime: STALE_TIMES.SIX_HOURS
   });
   useQuery({
     queryFn: getVerifiedMembersData,

@@ -4,9 +4,7 @@ import clickhouseClient from '@hey/db/clickhouseClient';
 import heyPg from '@hey/db/heyPg';
 import lensPg from '@hey/db/lensPg';
 import { getRedis } from '@hey/db/redisClient';
-import axios from 'axios';
 import catchedError from 'src/helpers/catchedError';
-import { SCORE_WORKER_URL } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 
 const measureQueryTime = async (
@@ -36,26 +34,15 @@ export const get = [
           query: 'SELECT 1 as count;'
         })
       );
-      const scoreWorkerPromise = measureQueryTime(() =>
-        axios.get(SCORE_WORKER_URL, {
-          params: { id: '0x0d', secret: process.env.SECRET }
-        })
-      );
 
       // Execute all promises simultaneously
-      const [
-        heyResult,
-        lensResult,
-        redisResult,
-        clickhouseResult,
-        scoreWorkerResult
-      ] = await Promise.all([
-        heyPromise,
-        lensPromise,
-        redisPromise,
-        clickhousePromise,
-        scoreWorkerPromise
-      ]);
+      const [heyResult, lensResult, redisResult, clickhouseResult] =
+        await Promise.all([
+          heyPromise,
+          lensPromise,
+          redisPromise,
+          clickhousePromise
+        ]);
 
       console.log(redisResult);
 
@@ -64,13 +51,11 @@ export const get = [
       const [lens, lensTime] = lensResult;
       const [redis, redisTime] = redisResult;
       const [clickhouseRows, clickhouseTime] = clickhouseResult;
-      const [scoreWorker, scoreWorkerTime] = scoreWorkerResult;
 
       if (
         Number(hey[0].count) !== 1 ||
         Number(lens[0].count) !== 1 ||
         redis.toString() !== 'pong' ||
-        scoreWorker.data.split(' ')[0] !== 'WITH' ||
         !clickhouseRows.json
       ) {
         return res.status(500).json({ success: false });
@@ -87,8 +72,7 @@ export const get = [
           clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
           hey: `${Number(heyTime / BigInt(1000000))}ms`,
           lens: `${Number(lensTime / BigInt(1000000))}ms`,
-          redis: `${Number(redisTime / BigInt(1000000))}ms`,
-          scoreWorker: `${Number(scoreWorkerTime / BigInt(1000000))}ms`
+          redis: `${Number(redisTime / BigInt(1000000))}ms`
         }
       });
     } catch (error) {

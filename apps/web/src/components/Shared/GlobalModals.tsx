@@ -7,7 +7,6 @@ import {
   CircleStackIcon,
   ShieldCheckIcon
 } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
 import { Modal } from '@hey/ui';
 import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
 import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
@@ -22,7 +21,6 @@ import { useSignupStore } from './Auth/Signup';
 import GlobalModalsFromUrl from './GlobalModalsFromUrl';
 import OptimisticTransactions from './Modal/OptimisticTransactions';
 import ReportProfile from './Modal/ReportProfile';
-import Score from './Modal/Score';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
@@ -37,14 +35,12 @@ const GlobalModals: FC = () => {
     setShowProfileSwitchModal,
     setShowPublicationReportModal,
     setShowReportProfileModal,
-    setShowScoreModal,
     showAuthModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
-    showReportProfileModal,
-    showScoreModal
+    showReportProfileModal
   } = useGlobalModalStateStore();
 
   const { publicationContent, quotedPublication } = usePublicationStore();
@@ -133,14 +129,6 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
-      </Modal>
-      <Modal
-        onClose={() => setShowScoreModal(false, null, null)}
-        show={showScoreModal}
-        size="xs"
-        title={`${APP_NAME} score`}
-      >
-        <Score />
       </Modal>
     </>
   );
