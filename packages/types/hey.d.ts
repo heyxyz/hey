@@ -90,11 +90,3 @@ export type Draft = {
   id: string;
   updatedAt: Date;
 };
-
-export type ScoreAllocation = {
-  description: string;
-  icon: string;
-  id: string;
-  name: string;
-  score: number;
-};
