@@ -19,7 +19,6 @@ import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
-import Score from './NavItems/Score';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
@@ -148,15 +147,6 @@ const SignedUser: FC = () => {
                 <StaffMode />
               </MenuItem>
             ) : null}
-            <div className="divider" />
-            <MenuItem
-              as="div"
-              className={({ focus }) =>
-                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
-              }
-            >
-              <Score />
-            </MenuItem>
             <div className="divider" />
             <AppVersion />
           </MenuItems>
