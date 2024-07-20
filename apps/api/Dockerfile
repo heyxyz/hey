@@ -2,38 +2,25 @@
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 
-# Builder stage
-FROM base AS builder
-WORKDIR /app
-RUN npm install -g turbo
-COPY . .
-RUN turbo prune --scope=@hey/api --docker
-
-# Installer stage
-FROM base AS installer
-WORKDIR /app
-
-RUN npm install -g pnpm turbo
-
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/full/ .
-COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN pnpm install
-
-COPY turbo.json turbo.json
-
-RUN turbo run build --filter=@hey/api...
-
 # Runner stage
 FROM base AS runner
 WORKDIR /app
 
 RUN npm install -g pnpm
+
+# Copy package files and install dependencies
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
+
+# Copy turbo.json file
+COPY turbo.json turbo.json
+
+# Create non-root user and group
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
 
+# Set user
 USER app
-COPY --from=installer /app .
 
 # Expose the port
 EXPOSE 4784
