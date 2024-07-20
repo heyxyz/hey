@@ -4,12 +4,12 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "start": "NODE_ENV=production tsx src/index.ts",
     "dev": "NODE_ENV=production tsx src/index.ts",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "NODE_ENV=production tsx src/index.ts",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
