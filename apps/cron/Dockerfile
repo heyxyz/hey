@@ -2,8 +2,8 @@
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 
-# Builder stage
-FROM base AS builder
+# Initiator stage
+FROM base AS initiator
 WORKDIR /app
 RUN npm install -g turbo
 COPY . .
@@ -14,9 +14,9 @@ FROM base AS installer
 WORKDIR /app
 RUN npm install -g pnpm turbo
 
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/full/ .
-COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=initiator /app/out/json/ .
+COPY --from=initiator /app/out/full/ .
+COPY --from=initiator /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install
 
 COPY turbo.json turbo.json
