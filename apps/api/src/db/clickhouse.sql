@@ -32,8 +32,6 @@ CREATE MATERIALIZED VIEW total_impressions_per_publication_mv
 ENGINE = SummingMergeTree()
 ORDER BY publication
 AS
-SELECT
-  publication,
-  count() AS count
+SELECT publication, count() AS count
 FROM impressions
 GROUP BY publication;
