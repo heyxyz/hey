@@ -7,6 +7,7 @@ FROM base AS installer
 WORKDIR /app
 
 RUN npm install -g pnpm turbo
+RUN turbo prune --scope=@hey/api --docker
 RUN pnpm install
 
 COPY turbo.json turbo.json
