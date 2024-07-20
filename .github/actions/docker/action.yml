@@ -35,7 +35,7 @@ runs:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
-    - name: Build and push API image 🚀
+    - name: Build and push image 🚀
       uses: docker/build-push-action@v6
       with:
         context: .
