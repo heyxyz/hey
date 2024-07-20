@@ -52,8 +52,6 @@ jobs:
       - name: Build and push heyxyz/api:latest 🚀
         uses: ./.github/actions/docker
         with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: api
           tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
@@ -79,8 +77,6 @@ jobs:
       - name: Build and push heyxyz/cron:latest 🚀
         uses: ./.github/actions/docker
         with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: cron
           tag_name: 'latest'
           docker_file: ./apps/cron/Dockerfile
@@ -106,8 +102,6 @@ jobs:
       - name: Build and push heyxyz/og:latest 🚀
         uses: ./.github/actions/docker
         with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: og
           tag_name: 'latest'
           docker_file: ./apps/og/Dockerfile
