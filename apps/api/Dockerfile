@@ -15,6 +15,9 @@ RUN pnpm install
 # Copy turbo.json file
 COPY turbo.json turbo.json
 
+# Copy the rest of the application code
+COPY . .
+
 # Create non-root user and group
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
