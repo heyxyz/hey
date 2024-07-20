@@ -4,7 +4,6 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "vite build",
     "codegen": "prisma generate --schema ./src/db/schema.prisma > /dev/null",
     "dev": "nodemon -w src -x tsx src/server.ts",
     "get-invoice-countries": "ts-node ./src/script/get-invoice-countries.ts",
@@ -65,7 +64,6 @@
     "nodemon": "^3.1.4",
     "prisma": "^5.17.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.2",
-    "vite": "^5.3.4"
+    "typescript": "^5.3.2"
   }
 }
