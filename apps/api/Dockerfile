@@ -10,7 +10,6 @@ RUN npm install -g pnpm
 
 # Copy package files and install dependencies
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
 
 # Copy turbo.json file
 COPY turbo.json turbo.json
@@ -21,6 +20,8 @@ COPY . .
 # Create non-root user and group
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
+
+RUN pnpm install
 
 # Set user
 USER app
