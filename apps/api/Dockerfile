@@ -7,6 +7,7 @@ FROM base AS builder
 WORKDIR /app
 RUN npm install -g turbo
 COPY . .
+RUN turbo prune --scope=@hey/api --docker
 
 # Installer stage
 FROM base AS installer
@@ -20,8 +21,6 @@ COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install
 
 COPY turbo.json turbo.json
-
-RUN turbo run build --filter=@hey/api...
 
 # Runner stage
 FROM base AS runner
