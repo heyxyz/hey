@@ -37,4 +37,4 @@ COPY --from=installer /app .
 EXPOSE 4784
 
 # Command to run the app
-CMD sleep 5 && pnpm --filter @hey/api run start
+CMD sleep 3 && pnpm --filter @hey/api run start
