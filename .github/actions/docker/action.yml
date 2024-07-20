@@ -1,12 +1,6 @@
 name: Docker Build and Push
 
 inputs:
-  dockerhub_username:
-    required: true
-    default: ''
-  dockerhub_token:
-    required: true
-    default: ''
   image_name:
     required: true
     default: ''
