@@ -2,44 +2,43 @@
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 
-# Initiator stage
-FROM base AS initiator
-WORKDIR /app
-RUN npm install -g turbo
-COPY . .
-RUN turbo prune --scope=@hey/og --docker
-
 # Installer stage
 FROM base AS installer
 WORKDIR /app
 
-RUN npm install -g pnpm turbo
+# Install pnpm globally
+RUN npm install -g pnpm
 
-COPY .gitignore .gitignore
-COPY prettier.config.js prettier.config.js
-COPY --from=initiator /app/out/json/ .
-COPY --from=initiator /app/out/full/ .
-COPY --from=initiator /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN pnpm install
+# Copy all files to the build context
+COPY . .
 
-COPY turbo.json turbo.json
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
-RUN turbo run build --filter=@hey/og...
+# Build the project
+RUN pnpm --filter @hey/og build
+
+# Prune dev dependencies to reduce image size
+RUN pnpm prune --prod
 
 # Runner stage
 FROM base AS runner
 WORKDIR /app
 
+# Install pnpm globally
 RUN npm install -g pnpm
 
+# Add non-root user for better security
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
 
 USER app
+
+# Copy built application and production dependencies from builder stage
 COPY --from=installer /app .
 
 # Expose the port
 EXPOSE 4785
 
 # Command to run the app
-CMD pnpm --filter @hey/og run start
+CMD sleep 3 && pnpm --filter @hey/cron run start
