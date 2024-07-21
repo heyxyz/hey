@@ -11,6 +11,8 @@ The monorepo is structured as follows:
 - `apps/` - Contains the apps.
   - `web/` - Contains the web app.
   - `api/` - Contains the backend api.
+  - `cron/` - Contains the cron jobs.
+  - `invoice/` - Contains the invoice app.
 - `packages/` - Contains the packages.
 - `tests/` - Contains the tests.
 - `docs/` - Contains the documentation.
