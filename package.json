@@ -4,8 +4,8 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "pnpm -r  --parallel run build",
-    "codegen": "pnpm -r  --parallel run codegen",
+    "build": "pnpm -r --parallel run build",
+    "codegen": "pnpm -r --parallel run codegen",
     "dev": "pnpm -r run dev --parallel",
     "lint": "pnpm -r --parallel run lint",
     "lint:fix": "pnpm -r --parallel run lint:fix",
