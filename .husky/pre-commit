@@ -1,4 +1,3 @@
-
 pnpm lint
 pnpm prettier
 pnpm typecheck
