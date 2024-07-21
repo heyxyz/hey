@@ -4,17 +4,17 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "pnpm -r --parallel run build",
-    "codegen": "pnpm -r --parallel run codegen",
-    "dev": "pnpm -r run dev --parallel",
-    "lint": "pnpm -r --parallel run lint",
-    "lint:fix": "pnpm -r --parallel run lint:fix",
+    "build": "pnpm --recursive --parallel run build",
+    "codegen": "pnpm --recursive --parallel run codegen",
+    "dev": "pnpm --recursive --parallel run dev",
+    "lint": "pnpm --recursive --parallel run lint",
+    "lint:fix": "pnpm --recursive --parallel run lint:fix",
     "prepare": "husky install",
-    "prettier": "pnpm -r --parallel run prettier",
-    "prettier:fix": "pnpm -r --parallel run prettier:fix",
-    "start": "pnpm -r --parallel run start",
-    "test:dev": "pnpm -r run test:dev",
-    "typecheck": "pnpm -r --parallel run typecheck"
+    "prettier": "pnpm --recursive --parallel run prettier",
+    "prettier:fix": "pnpm --recursive --parallel run prettier:fix",
+    "start": "pnpm --recursive --parallel run start",
+    "test:dev": "pnpm --recursive run test:dev",
+    "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "eslintConfig": {
     "root": true
