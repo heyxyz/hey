@@ -4,20 +4,17 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "turbo run build --parallel",
-    "codegen": "turbo run codegen --parallel",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint --parallel",
-    "lint:affected": "turbo run lint --parallel --filter=[origin/main]",
-    "lint:fix": "turbo run lint:fix --parallel",
+    "build": "pnpm -r run build",
+    "codegen": "pnpm -r run codegen",
+    "dev": "pnpm -r run dev",
+    "lint": "pnpm -r run lint",
+    "lint:fix": "pnpm -r run lint:fix",
     "prepare": "husky install",
-    "prettier": "turbo run prettier --parallel",
-    "prettier:affected": "turbo run prettier --parallel --filter=[origin/main]",
-    "prettier:fix": "turbo run prettier:fix --parallel",
-    "start": "turbo run start --parallel",
-    "test:dev": "turbo run test:dev",
-    "typecheck": "turbo run typecheck --parallel",
-    "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]"
+    "prettier": "pnpm -r run prettier",
+    "prettier:fix": "pnpm -r run prettier:fix",
+    "start": "pnpm -r run start",
+    "test:dev": "pnpm -r run test:dev",
+    "typecheck": "pnpm -r run typecheck"
   },
   "eslintConfig": {
     "root": true
@@ -28,8 +25,7 @@
   "devDependencies": {
     "husky": "^9.1.1",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.5",
-    "turbo": "^2.0.9"
+    "prettier-plugin-tailwindcss": "^0.6.5"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {

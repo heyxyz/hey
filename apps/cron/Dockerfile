@@ -2,34 +2,36 @@
 FROM node:18-alpine AS base
 RUN apk add --no-cache libc6-compat
 
-# Initiator stage
-FROM base AS initiator
-WORKDIR /app
-RUN npm install -g turbo
-COPY . .
-RUN turbo prune --scope=@hey/cron --docker
-
 # Installer stage
 FROM base AS installer
 WORKDIR /app
-RUN npm install -g pnpm turbo
 
-COPY --from=initiator /app/out/json/ .
-COPY --from=initiator /app/out/full/ .
-COPY --from=initiator /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN pnpm install
+# Install pnpm globally
+RUN npm install -g pnpm
 
-COPY turbo.json turbo.json
+# Copy all files to the build context
+COPY . .
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Prune dev dependencies to reduce image size
+RUN pnpm prune --prod
 
 # Runner stage
 FROM base AS runner
 WORKDIR /app
+
+# Install pnpm globally
 RUN npm install -g pnpm
 
+# Add non-root user for better security
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
 
 USER app
+
+# Copy built application and production dependencies from builder stage
 COPY --from=installer /app .
 
 # Command to run the app

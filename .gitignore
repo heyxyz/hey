@@ -30,9 +30,6 @@ yarn-error.log*
 .env.production.local
 .env
 
-# turbo
-.turbo
-
 # typescript
 *.tsbuildinfo
 
