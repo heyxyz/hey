@@ -26,7 +26,7 @@ jobs:
         uses: ./.github/actions/setup-pnpm
 
       - name: Typecheck 🔡
-        run: pnpm typecheck:affected
+        run: pnpm typecheck
 
   lint:
     name: Lint
@@ -41,7 +41,7 @@ jobs:
         uses: ./.github/actions/setup-pnpm
 
       - name: Lint 🪩
-        run: pnpm lint:affected
+        run: pnpm lint
 
   prettier:
     name: Prettier
@@ -56,7 +56,7 @@ jobs:
         uses: ./.github/actions/setup-pnpm
 
       - name: Prettier ✨
-        run: pnpm prettier:affected
+        run: pnpm prettier
 
   build:
     name: Build
