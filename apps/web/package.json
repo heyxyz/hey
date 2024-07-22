@@ -76,7 +76,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.17.8",
+    "viem": "^2.17.9",
     "wagmi": "^2.11.3",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
@@ -94,6 +94,6 @@
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.6",
     "typescript": "^5.5.3",
-    "vitest": "^2.0.3"
+    "vitest": "^2.0.4"
   }
 }
