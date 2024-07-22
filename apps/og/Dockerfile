@@ -41,4 +41,4 @@ COPY --from=installer /app .
 EXPOSE 4785
 
 # Command to run the app
-CMD sleep 3 && pnpm --filter @hey/cron run start
+CMD pnpm --filter @hey/og run start
