@@ -38,10 +38,10 @@ export const post = [
     try {
       const result = await heyPg.query(
         `
-        DELETE FROM "DraftPublication"
-        WHERE "id" = $1
-        RETURNING *;
-      `,
+          DELETE FROM "DraftPublication"
+          WHERE "id" = $1
+          RETURNING *;
+        `,
         [id]
       );
 
