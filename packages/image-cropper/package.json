@@ -13,13 +13,13 @@
   "dependencies": {
     "@hey/ui": "workspace:*",
     "normalize-wheel": "^1.0.1",
-    "rc-slider": "11.1.0",
+    "rc-slider": "^11.1.1",
     "react": "^18.3.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/normalize-wheel": "^1.0.4",
     "@types/react": "^18.3.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }
