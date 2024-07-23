@@ -105,9 +105,6 @@ importers:
       viem:
         specifier: ^2.17.10
         version: 2.17.10(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8)
-      vite-express:
-        specifier: ^0.17.0
-        version: 0.17.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -11332,9 +11329,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  vite-express@0.17.0:
-    resolution: {integrity: sha512-7mB8EcOvY57FIZJ31eM/b1LjsMn4ztxAXK/TgcEno5T/IhBcsTyGDy5Oz4MJG4AkN10Y4TfDOWoL9AQ0BVhBQg==}
 
   vite-node@2.0.4:
     resolution: {integrity: sha512-ZpJVkxcakYtig5iakNeL7N3trufe3M6vGuzYAr4GsbCTwobDeyPJpE4cjDhhPluv8OvQCFzu2LWp6GkoKRITXA==}
@@ -25619,10 +25613,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
       - zod
-
-  vite-express@0.17.0:
-    dependencies:
-      picocolors: 1.0.1
 
   vite-node@2.0.4(@types/node@20.14.11)(terser@5.31.3):
     dependencies:
