@@ -37,7 +37,6 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@xmtp/content-type-reaction": "^1.1.9",
     "@xmtp/react-sdk": "^6.0.1",
-    "alchemy-sdk": "^3.3.1",
     "axios": "^1.7.2",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.3",
