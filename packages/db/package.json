@@ -19,6 +19,6 @@
     "@hey/config": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@types/node": "^20.14.11",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }
