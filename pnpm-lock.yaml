@@ -94,7 +94,7 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
       ua-parser-js:
-        specifier: 2.0.0-beta.3
+        specifier: ^2.0.0-beta.3
         version: 2.0.0-beta.3
       urlcat:
         specifier: ^3.1.0
@@ -365,10 +365,10 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.3.1)
       prosekit:
-        specifier: 0.9.10
+        specifier: ^0.9.10
         version: 0.9.10(@types/hast@3.0.4)(preact@10.22.1)(prosemirror-model@1.22.2)(prosemirror-state@1.4.3)(prosemirror-transform@1.9.0)(prosemirror-view@1.33.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.18)(vue@3.4.33(typescript@5.5.4))
       rc-slider:
-        specifier: 11.1.1
+        specifier: ^11.1.1
         version: 11.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
@@ -672,7 +672,7 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       rc-slider:
-        specifier: 11.1.1
+        specifier: ^11.1.1
         version: 11.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
