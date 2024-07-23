@@ -28,7 +28,6 @@
     "@hey/image-cropper": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/ui": "workspace:*",
-    "@layerzerolabs/scan-client": "^0.0.8",
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "3.1.9",
     "@radix-ui/react-hover-card": "^1.1.1",
