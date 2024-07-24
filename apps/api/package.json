@@ -35,7 +35,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-file-routing": "^3.0.3",
-    "express-rate-limit": "^7.3.1",
+    "express-rate-limit": "^7.4.0",
     "express-session": "^1.18.0",
     "fast-xml-parser": "^4.4.0",
     "linkedom": "^0.18.4",
@@ -47,7 +47,7 @@
     "ua-parser-js": "^2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.17.10",
+    "viem": "^2.17.11",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -56,7 +56,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.15",
     "@types/express-session": "^1.18.0",
-    "@types/node": "^20.14.11",
+    "@types/node": "^20.14.12",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
