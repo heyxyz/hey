@@ -1,9 +1,9 @@
 import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 
-const cleanPreferences = () => {
+const cleanPreferences = async () => {
   try {
-    heyPg.query(
+    await heyPg.query(
       'DELETE FROM "Preference" WHERE "appIcon" = 0 AND "highSignalNotificationFilter" = false'
     );
 
