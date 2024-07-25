@@ -1,9 +1,9 @@
 import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 
-const cleanEmailTokens = () => {
+const cleanEmailTokens = async () => {
   try {
-    heyPg.query(
+    await heyPg.query(
       'UPDATE "Email" SET "tokenExpiresAt" = NULL, "verificationToken" = NULL, "verified" = false WHERE "tokenExpiresAt" < $1',
       [new Date()]
     );
