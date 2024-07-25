@@ -1,9 +1,9 @@
 import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 
-const cleanDraftPublications = () => {
+const cleanDraftPublications = async () => {
   try {
-    heyPg.query('DELETE FROM "DraftPublication" WHERE "updatedAt" < $1', [
+    await heyPg.query('DELETE FROM "DraftPublication" WHERE "updatedAt" < $1', [
       new Date(Date.now() - 100 * 24 * 60 * 60 * 1000)
     ]);
 
