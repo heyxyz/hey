@@ -19,7 +19,6 @@ SETTINGS index_granularity = 8192;
 
 -- Impressions
 CREATE TABLE impressions (
-  id UUID DEFAULT generateUUIDv4(),
   publication String,
   viewed DateTime DEFAULT now()
 ) ENGINE = MergeTree()
