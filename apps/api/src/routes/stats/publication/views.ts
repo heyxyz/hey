@@ -36,9 +36,10 @@ export const post = [
       const rows = await clickhouseClient.query({
         format: 'JSONEachRow',
         query: `
-          SELECT publication, count
+          SELECT publication, SUM(count) AS count
           FROM total_impressions_per_publication_mv
-          WHERE publication IN (${ids.map((id) => `'${id}'`).join(',')});
+          WHERE publication IN (${ids.map((id) => `'${id}'`).join(',')})
+          GROUP BY publication;
         `
       });
 
