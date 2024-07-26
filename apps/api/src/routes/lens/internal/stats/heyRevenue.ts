@@ -27,7 +27,6 @@ export const get = [
           AND block_timestamp >= NOW() - INTERVAL '30 days'
         GROUP BY date
         ORDER BY date;
-
         SELECT
           block_timestamp::date AS date,
           COUNT(*) AS mint_count

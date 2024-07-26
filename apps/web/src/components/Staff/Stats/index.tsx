@@ -11,9 +11,7 @@ import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
-import AppRevenue from './AppRevenue';
 import HeyRevenue from './HeyRevenue';
-import PublicationStats from './PublicationStats';
 
 const Stats: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -35,8 +33,6 @@ const Stats: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <HeyRevenue />
-        <PublicationStats />
-        <AppRevenue />
       </GridItemEight>
     </GridLayout>
   );
