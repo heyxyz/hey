@@ -43,7 +43,7 @@ const startCronJobs = () => {
     return;
   });
 
-  cron.schedule('*/1 * * * *', async () => {
+  cron.schedule('*/10 * * * *', async () => {
     await batchProcessEvents();
     return;
   });
