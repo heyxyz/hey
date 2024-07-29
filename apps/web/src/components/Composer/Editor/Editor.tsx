@@ -24,15 +24,15 @@ const Editor: FC = () => {
   const { publicationContent } = usePublicationStore();
   const defaultMarkdownRef = useRef(publicationContent);
 
-  const defaultHTML = useMemo(() => {
+  const defaultContent = useMemo(() => {
     const markdown = defaultMarkdownRef.current;
     return markdown ? htmlFromMarkdown(markdown) : undefined;
   }, []);
 
   const editor = useMemo(() => {
     const extension = defineEditorExtension();
-    return createEditor({ defaultHTML, extension });
-  }, [defaultHTML]);
+    return createEditor({ defaultContent, extension });
+  }, [defaultContent]);
 
   useContentChange(editor);
   usePaste(editor);
