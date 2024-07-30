@@ -14,7 +14,7 @@
     "@clickhouse/client": "^1.4.0",
     "dotenv": "^16.4.5",
     "pg-promise": "^11.9.1",
-    "redis": "^4.6.15"
+    "redis": "^4.7.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
