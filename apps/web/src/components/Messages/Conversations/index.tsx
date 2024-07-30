@@ -132,7 +132,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
         ) : (
           <Virtuoso
             computeItemKey={(_, conversation) =>
-              `${conversation.id}-${conversation.peerAddress}`
+              `${conversation.topic}-${conversation.peerAddress}`
             }
             data={visibleConversations}
             endReached={() => {
