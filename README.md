@@ -59,6 +59,10 @@ We love contributors! Feel free to contribute to this project but please read th
   <img src="https://contrib.rocks/image?repo=heyxyz/hey" />
 </a>
 
+## 🧪 Testing
+
+This project is tested with BrowserStack
+
 ## ⚖️ License
 
 Hey is open-sourced software licensed under the © [AGPLv3](LICENSE).
