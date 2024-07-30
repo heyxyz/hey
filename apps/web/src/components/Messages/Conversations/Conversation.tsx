@@ -25,7 +25,7 @@ const Conversation: FC<ConversationProps> = ({ conversation }) => {
       className={cn(
         {
           'bg-gray-100 dark:bg-gray-800':
-            selectedConversation?.id === conversation.id
+            selectedConversation?.topic === conversation.topic
         },
         'hover:bg-gray-100 dark:hover:bg-gray-800',
         'cursor-pointer px-5 py-3'
