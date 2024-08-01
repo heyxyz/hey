@@ -16,11 +16,11 @@
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
     "node-cron": "^3.0.3",
-    "tsx": "^4.16.3"
+    "tsx": "^4.16.5"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.0.2",
     "@types/node-cron": "^3.0.11",
     "typescript": "^5.5.4"
   }
