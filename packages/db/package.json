@@ -19,7 +19,7 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.0.2",
     "typescript": "^5.5.4"
   }
 }
