@@ -33,24 +33,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) {
     const nonOutlineTextStyles = !outline && {
-      'text-white': variant === 'primary' || variant === 'danger'
+      'text-white dark:text-black':
+        variant === 'primary' || variant === 'danger'
     };
 
     const nonOutlineBgStyles = !outline && {
-      'bg-black hover:bg-gray-800 active:bg-gray-700': variant === 'primary',
+      'bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 active:bg-gray-700 dark:active:bg-gray-200':
+        variant === 'primary',
       'bg-red-500 hover:bg-red-400 active:bg-red-700': variant === 'danger'
     };
 
     const nonOutlineBorderStyles = !outline && {
-      'border-black dark:border-white': variant === 'primary',
-      'border-red-600 dark:border-red-500': variant === 'danger'
-    };
-
-    const nonOutlineDarkStyles = !outline && {
-      'border border-black dark:border-white hover:border-gray-800 active:border-gray-700':
-        variant === 'primary',
-      'border border-red-500 hover:border-red-400 active:border-red-700':
-        variant === 'danger'
+      'border border-red-600 hover:border-red-400 active:border-red-700 dark:border-red-500':
+        variant === 'danger',
+      'dark:border-white border border-black dark:border-white hover:border-gray-800 active:border-gray-700 dark:active:border-gray-200':
+        variant === 'primary'
     };
 
     const nonOutlineDisabledStyles = !outline &&
@@ -92,7 +89,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...nonOutlineTextStyles,
             ...nonOutlineBgStyles,
             ...nonOutlineBorderStyles,
-            ...nonOutlineDarkStyles,
             ...nonOutlineDisabledStyles,
             ...outlineTextStyles,
             ...outlineBorderStyles,
