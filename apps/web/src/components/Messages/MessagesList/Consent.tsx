@@ -78,7 +78,7 @@ const Consent: FC<ConsentProps> = ({ address }) => {
         onClick={handleDeny}
         outline
         size="sm"
-        variant="warning"
+        variant="danger"
       >
         Block
       </Button>
