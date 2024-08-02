@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled && {
         'hover:bg-black hover:border-black active:bg-black active:border-black border-black':
           variant === 'primary',
-        'hover:bg-red-500 active:bg-red-500 hover:border-red-500 active:border-red-500 border-red-500':
+        'hover:bg-red-500 hover:border-red-500 active:bg-red-500 active:border-red-500 border-red-500':
           variant === 'danger'
       };
 
