@@ -14,9 +14,7 @@ const CardHeader: FC<CardHeaderProps> = ({
   return (
     <>
       <div className="m-5 space-y-2">
-        <div className="flex items-center space-x-2">
-          <div className="text-lg font-bold">{title}</div>
-        </div>
+        <h1 className="text-lg font-bold">{title}</h1>
         {body ? <p>{body}</p> : null}
       </div>
       {hideDivider ? null : <div className="divider" />}
