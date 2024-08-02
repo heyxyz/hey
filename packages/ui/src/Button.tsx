@@ -54,9 +54,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const nonOutlineDisabledStyles = !outline &&
       disabled && {
-        'text-gray-600 hover:bg-black hover:border-black':
-          variant === 'primary',
-        'text-red-600 hover:bg-red-500 hover:border-red-500 border-red-500':
+        'hover:bg-black hover:border-black': variant === 'primary',
+        'hover:bg-red-500 hover:border-red-500 border-red-500':
           variant === 'danger'
       };
 
@@ -80,7 +79,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const sizeStyles = {
       'px-3 py-0.5 text-sm': size === 'sm',
-      'px-4 py-1 text-sm': size === 'md',
+      'px-4 py-1': size === 'md',
       'px-5 py-1.5': size === 'lg'
     };
 
@@ -99,9 +98,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-full font-bold outline-2 outline-offset-2 focus:outline',
+          'w-fit rounded-full font-bold outline-2 outline-offset-2 focus:outline',
           className
         )}
+        disabled={disabled}
         ref={ref}
         type={rest.type}
         {...rest}
