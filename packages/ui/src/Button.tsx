@@ -37,7 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const nonOutlineBgStyles = !outline && {
-      'bg-black hover:bg-gray-500 active:bg-black': variant === 'primary',
+      'bg-black hover:bg-gray-800 active:bg-gray-700': variant === 'primary',
       'bg-red-500 hover:bg-red-400 active:bg-red-700': variant === 'danger'
     };
 
@@ -47,15 +47,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const nonOutlineDarkStyles = !outline && {
-      'border border-black dark:border-white hover:border-gray-500':
+      'border border-black dark:border-white hover:border-gray-800 active:border-gray-700':
         variant === 'primary',
-      'border border-red-600 hover:border-red-400': variant === 'danger'
+      'border border-red-500 hover:border-red-400 active:border-red-700':
+        variant === 'danger'
     };
 
     const nonOutlineDisabledStyles = !outline &&
       disabled && {
-        'hover:bg-black hover:border-black': variant === 'primary',
-        'hover:bg-red-500 hover:border-red-500 border-red-500':
+        'hover:bg-black hover:border-black active:bg-black active:border-black border-black':
+          variant === 'primary',
+        'hover:bg-red-500 active:bg-red-500 hover:border-red-500 active:border-red-500 border-red-500':
           variant === 'danger'
       };
 
