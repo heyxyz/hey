@@ -16,7 +16,7 @@
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "dayjs": "^1.11.12",
     "dotenv": "^16.4.5",
     "omit-deep": "^0.3.0",
