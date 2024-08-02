@@ -74,7 +74,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const outlineDisabledStyles = outline &&
       disabled && {
         'text-gray-600 hover:border-gray-300': variant === 'primary',
-        'text-red-600 hover:border-red-500': variant === 'danger'
+        'text-red-400 hover:text-red-400 hover:border-red-400 border-red-400':
+          variant === 'danger'
       };
 
     const sizeStyles = {
