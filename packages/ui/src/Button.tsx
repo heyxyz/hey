@@ -40,13 +40,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const nonOutlineBgStyles = !outline && {
       'bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 active:bg-gray-700 dark:active:bg-gray-200':
         variant === 'primary',
-      'bg-red-500 hover:bg-red-400 active:bg-red-700': variant === 'danger'
+      'bg-red-500 dark:bg-red-500 hover:bg-red-800 dark:hover:bg-red-800 active:bg-red-700 dark:active:bg-red-700':
+        variant === 'danger'
     };
 
     const nonOutlineBorderStyles = !outline && {
-      'border border-red-600 hover:border-red-400 active:border-red-700 dark:border-red-500':
+      'dark:border-red-500 border border-red-500 hover:border-red-800 dark:hover:border-red-800 active:border-red-700 dark:active:border-red-700':
         variant === 'danger',
-      'dark:border-white border border-black dark:border-white hover:border-gray-800 active:border-gray-700 dark:active:border-gray-200':
+      'dark:border-white border border-black hover:border-gray-800 dark:hover:border-gray-100 active:border-gray-700 dark:active:border-gray-200':
         variant === 'primary'
     };
 
