@@ -117,6 +117,47 @@ const Buttons: FC = () => {
             </Button>
           </Tooltip>
         </div>
+        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+          <Tooltip
+            content={`Secondary large ${outline ? 'outline' : 'solid'} button`}
+            placement="top"
+          >
+            <Button
+              icon={<PlusIcon className="size-5" />}
+              outline={outline}
+              size="lg"
+              variant="secondary"
+            >
+              Button
+            </Button>
+          </Tooltip>
+          <Tooltip
+            content={`Warning large ${outline ? 'outline' : 'solid'} button`}
+            placement="top"
+          >
+            <Button
+              icon={<PlusIcon className="size-5" />}
+              outline={outline}
+              size="lg"
+              variant="warning"
+            >
+              Button
+            </Button>
+          </Tooltip>
+          <Tooltip
+            content={`Danger large ${outline ? 'outline' : 'solid'} button`}
+            placement="top"
+          >
+            <Button
+              icon={<PlusIcon className="size-5" />}
+              outline={outline}
+              size="lg"
+              variant="danger"
+            >
+              Button
+            </Button>
+          </Tooltip>
+        </div>
       </div>
     );
   };
@@ -124,7 +165,7 @@ const Buttons: FC = () => {
   return (
     <Card>
       <CardHeader title="Buttons" />
-      <ButtonVariants outline={false} />\
+      <ButtonVariants outline={false} />
       <ButtonVariants outline={true} />
     </Card>
   );
