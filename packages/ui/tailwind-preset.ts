@@ -22,7 +22,7 @@ module.exports = {
           '900': '#8c0f36',
           '950': '#4f0219'
         },
-        gray: colors.zinc,
+        gray: colors.neutral,
         green: colors.emerald
       },
       keyframes: {

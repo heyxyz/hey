@@ -106,7 +106,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       onClick={() => reportPublication({ subreasons, type })}
       outline
       size="sm"
-      variant="warning"
+      variant="danger"
     >
       {label}
     </Button>
