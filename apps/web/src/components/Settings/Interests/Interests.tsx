@@ -108,11 +108,6 @@ const Interests: FC = () => {
                   }
                   outline
                   size="sm"
-                  variant={
-                    selectedTopics.includes(subCategory.id)
-                      ? 'primary'
-                      : 'secondary'
-                  }
                 >
                   <div>{subCategory.label}</div>
                 </Button>
@@ -137,11 +132,6 @@ const Interests: FC = () => {
                   }
                   outline
                   size="sm"
-                  variant={
-                    selectedTopics.includes(category.id)
-                      ? 'primary'
-                      : 'secondary'
-                  }
                 >
                   <div>{category.label}</div>
                 </Button>

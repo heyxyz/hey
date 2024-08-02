@@ -119,19 +119,6 @@ const Buttons: FC = () => {
         </div>
         <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
           <Tooltip
-            content={`Secondary large ${outline ? 'outline' : 'solid'} button`}
-            placement="top"
-          >
-            <Button
-              icon={<PlusIcon className="size-5" />}
-              outline={outline}
-              size="lg"
-              variant="secondary"
-            >
-              Button
-            </Button>
-          </Tooltip>
-          <Tooltip
             content={`Warning large ${outline ? 'outline' : 'solid'} button`}
             placement="top"
           >
@@ -149,6 +136,34 @@ const Buttons: FC = () => {
             placement="top"
           >
             <Button
+              icon={<PlusIcon className="size-5" />}
+              outline={outline}
+              size="lg"
+              variant="danger"
+            >
+              Button
+            </Button>
+          </Tooltip>
+          <Tooltip
+            content={`Warning large ${outline ? 'outline' : 'solid'} disabled button`}
+            placement="top"
+          >
+            <Button
+              disabled
+              icon={<PlusIcon className="size-5" />}
+              outline={outline}
+              size="lg"
+              variant="warning"
+            >
+              Button
+            </Button>
+          </Tooltip>
+          <Tooltip
+            content={`Danger large ${outline ? 'outline' : 'solid'} disabled button`}
+            placement="top"
+          >
+            <Button
+              disabled
               icon={<PlusIcon className="size-5" />}
               outline={outline}
               size="lg"

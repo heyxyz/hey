@@ -82,7 +82,6 @@ export const Alert: FC<AlertProps> = ({
                   onClick={onClose}
                   outline
                   size="lg"
-                  variant="secondary"
                 >
                   {cancelText}
                 </Button>
