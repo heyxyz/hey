@@ -11,10 +11,11 @@ interface ButtonProps
   > {
   children?: ReactNode;
   className?: string;
+  disabled?: boolean;
   icon?: ReactNode;
   outline?: boolean;
   size?: 'lg' | 'md' | 'sm';
-  variant?: 'danger' | 'primary' | 'secondary' | 'warning';
+  variant?: 'danger' | 'primary';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -22,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       className = '',
+      disabled = false,
       icon,
       outline,
       size = 'md',
@@ -30,34 +32,51 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) {
-    const commonStyles = {
-      'border border-black dark:border-white': variant === 'primary',
-      'border border-gray-600': variant === 'secondary',
-      'border border-red-600': variant === 'danger',
-      'border border-yellow-600 focus:ring-yellow-400/50': variant === 'warning'
+    const nonOutlineTextStyles = !outline && {
+      'text-white dark:text-black':
+        variant === 'primary' || variant === 'danger'
     };
 
-    const nonOutlineStyles = {
-      'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-900 active:bg-black':
-        !outline && variant === 'primary',
-      'bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-700':
-        !outline && variant === 'secondary',
-      'bg-red-500 text-white hover:bg-red-400 active:bg-red-700':
-        !outline && variant === 'danger',
-      'bg-yellow-500 text-white hover:bg-yellow-400 active:bg-yellow-700':
-        !outline && variant === 'warning'
+    const nonOutlineBgStyles = !outline && {
+      'bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 active:bg-gray-700 dark:active:bg-gray-200':
+        variant === 'primary',
+      'bg-red-500 dark:bg-red-500 hover:bg-red-800 dark:hover:bg-red-800 active:bg-red-700 dark:active:bg-red-700':
+        variant === 'danger'
     };
 
-    const outlineStyles = {
-      'text-black hover:bg-gray-50 active:bg-gray-100 dark:text-white dark:hover:bg-gray-800 dark:active:bg-gray-700':
-        outline && variant === 'primary',
-      'text-gray-500 hover:bg-gray-50 active:bg-gray-100':
-        outline && variant === 'secondary',
-      'text-red-500 hover:bg-red-50 active:bg-red-100':
-        outline && variant === 'danger',
-      'text-yellow-500 hover:bg-yellow-50 active:bg-yellow-100':
-        outline && variant === 'warning'
+    const nonOutlineBorderStyles = !outline && {
+      'dark:border-red-500 border border-red-500 hover:border-red-800 dark:hover:border-red-800 active:border-red-700 dark:active:border-red-700':
+        variant === 'danger',
+      'dark:border-white border border-black hover:border-gray-800 dark:hover:border-gray-100 active:border-gray-700 dark:active:border-gray-200':
+        variant === 'primary'
     };
+
+    const nonOutlineDisabledStyles = !outline &&
+      disabled && {
+        'hover:bg-black hover:border-black active:bg-black active:border-black border-black':
+          variant === 'primary',
+        'hover:bg-red-500 hover:border-red-500 active:bg-red-500 active:border-red-500 border-red-500':
+          variant === 'danger'
+      };
+
+    const outlineTextStyles = outline && {
+      'text-black dark:text-white': variant === 'primary',
+      'text-red-500 hover:text-red-400': variant === 'danger'
+    };
+
+    const outlineBorderStyles = outline && {
+      'border-black border border-gray-300 dark:border-white hover:border-gray-500':
+        variant === 'primary',
+      'border-red-600 border border-red-600 hover:border-red-400':
+        variant === 'danger'
+    };
+
+    const outlineDisabledStyles = outline &&
+      disabled && {
+        'text-gray-600 hover:border-gray-300': variant === 'primary',
+        'text-red-400 hover:text-red-400 hover:border-red-400 border-red-400':
+          variant === 'danger'
+      };
 
     const sizeStyles = {
       'px-3 py-0.5 text-sm': size === 'sm',
@@ -69,15 +88,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           {
-            ...commonStyles,
-            ...nonOutlineStyles,
-            ...outlineStyles,
+            ...nonOutlineTextStyles,
+            ...nonOutlineBgStyles,
+            ...nonOutlineBorderStyles,
+            ...nonOutlineDisabledStyles,
+            ...outlineTextStyles,
+            ...outlineBorderStyles,
+            ...outlineDisabledStyles,
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-full font-bold shadow-sm outline-2 outline-offset-2 focus:outline disabled:opacity-50',
+          'w-fit rounded-full font-bold outline-2 outline-offset-2 focus:outline',
           className
         )}
+        disabled={disabled}
         ref={ref}
         type={rest.type}
         {...rest}
