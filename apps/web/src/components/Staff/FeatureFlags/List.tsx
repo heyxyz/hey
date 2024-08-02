@@ -141,7 +141,6 @@ const List: FC = () => {
                     }}
                     outline
                     size="sm"
-                    variant="secondary"
                   >
                     Assign
                   </Button>
