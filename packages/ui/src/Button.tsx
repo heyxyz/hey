@@ -32,12 +32,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) {
-    const borderStyles = {
-      'border border-black dark:border-white hover:border-gray-500':
-        variant === 'primary',
-      'border border-red-600 hover:border-red-400': variant === 'danger'
-    };
-
     const nonOutlineTextStyles = !outline && {
       'text-white': variant === 'primary' || variant === 'danger'
     };
@@ -47,8 +41,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'bg-red-500 hover:bg-red-400 active:bg-red-700': variant === 'danger'
     };
 
+    const nonOutlineBorderStyles = !outline && {
+      'border-black dark:border-white': variant === 'primary',
+      'border-red-600 dark:border-red-500': variant === 'danger'
+    };
+
     const nonOutlineDarkStyles = !outline && {
-      'dark:bg-white dark:text-black': variant === 'primary'
+      'border border-black dark:border-white hover:border-gray-500':
+        variant === 'primary',
+      'border border-red-600 hover:border-red-400': variant === 'danger'
     };
 
     const nonOutlineDisabledStyles = !outline &&
@@ -60,23 +61,26 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       };
 
     const outlineTextStyles = outline && {
-      'text-black': variant === 'primary',
-      'text-red-500': variant === 'danger'
+      'text-black dark:text-white': variant === 'primary',
+      'text-red-500 hover:text-red-400': variant === 'danger'
     };
 
-    const outlineBgStyles = outline && {
-      'hover:bg-gray-50 active:bg-gray-100': variant === 'primary',
-      'hover:bg-red-50 active:bg-red-100': variant === 'danger'
+    const outlineBorderStyles = outline && {
+      'border-black border border-gray-300 dark:border-white hover:border-gray-500':
+        variant === 'primary',
+      'border-red-600 border border-red-600 hover:border-red-400':
+        variant === 'danger'
     };
 
-    const outlineDarkStyles = outline && {
-      'dark:text-white dark:hover:bg-gray-800 dark:active:bg-gray-700':
-        variant === 'primary'
-    };
+    const outlineDisabledStyles = outline &&
+      disabled && {
+        'text-gray-600 hover:border-gray-300': variant === 'primary',
+        'text-red-600 hover:border-red-500': variant === 'danger'
+      };
 
     const sizeStyles = {
       'px-3 py-0.5 text-sm': size === 'sm',
-      'px-4 py-1': size === 'md',
+      'px-4 py-1 text-sm': size === 'md',
       'px-5 py-1.5': size === 'lg'
     };
 
@@ -84,18 +88,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={cn(
           {
-            ...borderStyles,
             ...nonOutlineTextStyles,
             ...nonOutlineBgStyles,
+            ...nonOutlineBorderStyles,
             ...nonOutlineDarkStyles,
             ...nonOutlineDisabledStyles,
             ...outlineTextStyles,
-            ...outlineBgStyles,
-            ...outlineDarkStyles,
+            ...outlineBorderStyles,
+            ...outlineDisabledStyles,
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-full font-bold shadow-sm outline-2 outline-offset-2 focus:outline',
+          'rounded-full font-bold outline-2 outline-offset-2 focus:outline',
           className
         )}
         ref={ref}
