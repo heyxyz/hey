@@ -141,7 +141,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               icon={<Cog6ToothIcon className="size-5" />}
               onClick={() => push('/settings')}
               outline
-              variant="secondary"
             >
               Edit Profile
             </Button>
