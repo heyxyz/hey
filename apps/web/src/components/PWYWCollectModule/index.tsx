@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useBalance, useContractWrite } from 'wagmi';
-import { Button, Input } from '../ui/components';
-import { LENS_HUB_ABI, LENS_HUB_ADDRESS } from '../constants';
 import { createActOnOpenActionRequest } from 'pwyw-collect-module';
+import { LENS_HUB_ABI, LENS_HUB_ADDRESS } from '../constants';
+import { Button, Input } from '../ui/components';
 
 const SUPPORTED_TOKENS = [
   { label: 'ETH', value: '0x0000000000000000000000000000000000000000' },
@@ -26,7 +26,7 @@ const PWYWCollectModule = ({ openAction, publication }) => {
     functionName: 'act'
   });
 
-  const handleCollect = async () => {
+  const handleCollect = () => {
     if (!amount) {
       return;
     }
@@ -45,12 +45,12 @@ const PWYWCollectModule = ({ openAction, publication }) => {
   return (
     <div>
       <Input
+        onChange={(e) => setAmount(e.target.value)}
         placeholder="Enter amount"
         type="number"
         value={amount}
-        onChange={(e) => setAmount(e.target.value)}
       />
-      <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+      <select onChange={(e) => setCurrency(e.target.value)} value={currency}>
         {SUPPORTED_TOKENS.map((token) => (
           <option key={token.value} value={token.value}>
             {token.label}

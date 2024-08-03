@@ -443,7 +443,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 mirrorsRestricted: true,
                 quotesRestricted: true
               }
-          })
+            }
+      })
     };
   }
 
