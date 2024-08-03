@@ -88,6 +88,8 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
         await axios.post(
           `${HEY_API_URL}/frames/post`,
           {
+            acceptsAnonymous: showTransaction.frame?.acceptsAnonymous,
+            acceptsLens: showTransaction.frame?.acceptsLens,
             buttonIndex: +1,
             postUrl:
               showTransaction.frame?.buttons[showTransaction.index].postUrl ||
