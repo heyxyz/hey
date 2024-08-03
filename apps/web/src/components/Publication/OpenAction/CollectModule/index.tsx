@@ -48,6 +48,8 @@ class CollectModule {
         return this.handleMultirecipientFeeCollectModule();
       case 'SimpleCollectOpenActionSettings':
         return this.handleSimpleCollectModule();
+      case 'PWYWCollectModule':
+        return this.handlePWYWCollectModule();
       default:
         return this.handleDefault();
     }
@@ -115,6 +117,42 @@ class CollectModule {
     );
   }
 
+  private handlePWYWCollectModule() {
+    // Specific logic for PWYWCollectModule
+    const collectModule = this.settings as PWYWCollectModule;
+    const endTimestamp = collectModule?.endsAt;
+    const collectLimit = parseInt(collectModule?.collectLimit || '0');
+    const amount = parseFloat(collectModule?.amount?.value || '0');
+    const usdPrice = collectModule?.amount?.asFiat?.value;
+    const currency = collectModule?.amount?.asset?.symbol;
+    const referralFee = collectModule?.referralFee;
+    const recipients = collectModule?.recipients || [];
+    const recipientsWithoutFees = recipients.filter(
+      (split) => split.recipient !== REWARDS_ADDRESS
+    );
+    const isMultirecipientFeeCollectModule =
+      recipientsWithoutFees.length > 1;
+    const percentageCollected = (countOpenActions / collectLimit) * 100;
+    const enabledTokens = allowedTokens?.map((t) => t.symbol);
+    const isTokenEnabled = enabledTokens?.includes(currency);
+    const isSaleEnded = endTimestamp
+      ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+      : false;
+    const isAllCollected = collectLimit
+      ? countOpenActions >= collectLimit
+      : false;
+    const hasHeyFees = recipients.some(
+      (split) => split.recipient === REWARDS_ADDRESS
+    );
+
+    // Render the component with the specific data
+    return (
+      <>
+        {/* Render the component with the specific data */}
+      </>
+    );
+  }
+
   private handleDefault() {
     // Default handling logic
     return null;
@@ -133,12 +171,23 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
 
   const collectModule = openAction as
     | MultirecipientFeeCollectOpenActionSettings
-    | SimpleCollectOpenActionSettings;
+    | SimpleCollectOpenActionSettings
+    | PWYWCollectModule;
 
   const collectModuleInstance = new CollectModule(
     collectModule.__typename,
     collectModule
   );
+
+  if (collectModule.__typename === 'UnknownOpenActionModuleSettings' &&
+      collectModule.contract.address === PWYW_COLLECT_MODULE_ADDRESS) {
+    return (
+      <PWYWCollectModule
+        openAction={openAction}
+        publication={publication}
+      />
+    );
+  }
 
   return collectModuleInstance.handleModule();
 };

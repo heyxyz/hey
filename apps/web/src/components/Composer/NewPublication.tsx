@@ -405,6 +405,29 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // Prepare the on-chain request object
   function prepareOnChainRequest() {
+    const openActionModules = [];
+
+    if (isPWYW) {
+      const collectInitData = createOpenActionModuleInput({
+        amountFloor: amountFloor ? parseEther(amountFloor).toString() : '0',
+        collectLimit: collectLimit || '0',
+        currency: currency || ZERO_ADDRESS,
+        referralFee: referralFee || '0',
+        followerOnly: followerOnly || false,
+        endTimestamp: endTimestamp ? new Date(endTimestamp).getTime() / 1000 : '0',
+        recipients: [
+          { recipient: currentProfile?.ownedBy.address, split: 10000 }
+        ]
+      });
+
+      openActionModules.push({
+        unknownOpenAction: {
+          address: COLLECT_PUBLICATION_ACTION_ADDRESS,
+          data: collectInitData
+        }
+      });
+    }
+
     return {
       contentURI: `ar://${arweaveId}`,
       ...(isComment && { commentOn: publication?.id }),

@@ -5,7 +5,7 @@ import type {
 } from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
 
-import { REWARDS_ADDRESS } from '@hey/data/constants';
+import { REWARDS_ADDRESS, PWYW_COLLECT_MODULE_ADDRESS, COLLECT_PUBLICATION_ACTION_ADDRESS } from '@hey/data/constants';
 import { CollectOpenActionModuleType } from '@hey/lens';
 
 const collectModuleParams = (
@@ -17,7 +17,8 @@ const collectModuleParams = (
     endsAt,
     followerOnly,
     recipients,
-    referralFee
+    referralFee,
+    currency
   } = collectModule;
 
   const baseCollectModuleParams = {
@@ -74,6 +75,39 @@ const collectModuleParams = (
           recipients: adjustedSplits as RecipientDataInput[],
           referralFee: referralFee || undefined
         }
+      };
+    case 'PWYWCollectModule':
+      return {
+        unknownOpenAction: {
+          address: PWYW_COLLECT_MODULE_ADDRESS,
+          data: encodeData(
+            [
+              { type: 'uint160', name: 'amountFloor' },
+              { type: 'uint96', name: 'collectLimit' },
+              { type: 'address', name: 'currency' },
+              { type: 'uint16', name: 'referralFee' },
+              { type: 'bool', name: 'followerOnly' },
+              { type: 'uint72', name: 'endTimestamp' },
+              {
+                type: 'tuple(address,uint16)[5]',
+                name: 'recipients',
+                components: [
+                  { type: 'address', name: 'recipient' },
+                  { type: 'uint16', name: 'split' },
+                ],
+              },
+            ],
+            [
+              amount ? parseEther(amount.value).toString() : '0',
+              collectLimit || '0',
+              currency || ZERO_ADDRESS,
+              referralFee || '0',
+              followerOnly || false,
+              endsAt ? new Date(endsAt).getTime() / 1000 : '0',
+              adjustedSplits,
+            ]
+          ),
+        },
       };
     default:
       return null;
