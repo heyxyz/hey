@@ -98,7 +98,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'w-fit rounded-full font-bold outline-2 outline-offset-2 focus:outline',
+          'rounded-full font-bold outline-2 outline-offset-2 focus:outline',
           className
         )}
         disabled={disabled}
