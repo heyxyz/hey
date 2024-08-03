@@ -1,13 +1,15 @@
+import type { FC } from 'react';
 import type {
   AnyPublication,
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
-import type { FC } from 'react';
 
-import CountdownTimer from '@components/Shared/CountdownTimer';
-import Slug from '@components/Shared/Slug';
+import { useCounter } from '@uidotdev/usehooks';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
+import Link from 'next/link';
+import plur from 'plur';
 import {
   BanknotesIcon,
   CheckCircleIcon,
@@ -22,23 +24,20 @@ import {
   POLYGONSCAN_URL,
   REWARDS_ADDRESS
 } from '@hey/data/constants';
+import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import formatAddress from '@hey/helpers/formatAddress';
 import getProfile from '@hey/helpers/getProfile';
 import getTokenImage from '@hey/helpers/getTokenImage';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
-import { useCounter } from '@uidotdev/usehooks';
-import Link from 'next/link';
-import plur from 'plur';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
+import { isMirrorPublication, isPWYWCollectModule } from '@hey/helpers/publicationHelpers';
+import CountdownTimer from '@components/Shared/CountdownTimer';
+import Slug from '@components/Shared/Slug';
 
 import CollectAction from './CollectAction';
-import Splits from './Splits';
 import { PWYWCollectModule } from '@components/PWYWCollectModule';
-import { isPWYWCollectModule } from '@hey/lib/publicationHelpers';
+import Splits from './Splits';
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
@@ -263,10 +262,10 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         </div>
         {isPWYW ? (
           <PWYWCollectModule
-            openAction={openAction}
-            publication={publication}
             countOpenActions={countOpenActions}
             onCollectSuccess={increment}
+            openAction={openAction}
+            publication={publication}
           />
         ) : (
           <div className="flex items-center space-x-2">
