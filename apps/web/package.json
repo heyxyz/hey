@@ -16,7 +16,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "3.10.8",
+    "@apollo/client": "3.11.2",
     "@aws-sdk/client-s3": "^3.623.0",
     "@aws-sdk/lib-storage": "^3.623.0",
     "@headlessui/react": "^2.1.2",
