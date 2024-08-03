@@ -6,12 +6,12 @@ import { LENS_HUB_ABI, LENS_HUB_ADDRESS } from '../constants';
 import { createActOnOpenActionRequest } from 'pwyw-collect-module';
 
 const SUPPORTED_TOKENS = [
-  { value: '0x0000000000000000000000000000000000000000', label: 'ETH' },
-  { value: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', label: 'WMATIC' }
+  { label: 'ETH', value: '0x0000000000000000000000000000000000000000' },
+  { label: 'WMATIC', value: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889' }
   // Add more supported tokens here
 ];
 
-const PWYWCollectModule = ({ publication, openAction }) => {
+const PWYWCollectModule = ({ openAction, publication }) => {
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState(SUPPORTED_TOKENS[0].value);
   const { address } = useAccount();
@@ -27,11 +27,13 @@ const PWYWCollectModule = ({ publication, openAction }) => {
   });
 
   const handleCollect = async () => {
-    if (!amount) return;
+    if (!amount) {
+      return;
+    }
 
     const request = createActOnOpenActionRequest({
-      publication,
       action: openAction,
+      publication,
       referrer: null
     });
 
@@ -43,8 +45,8 @@ const PWYWCollectModule = ({ publication, openAction }) => {
   return (
     <div>
       <Input
-        type="number"
         placeholder="Enter amount"
+        type="number"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
