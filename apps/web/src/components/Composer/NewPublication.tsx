@@ -59,6 +59,11 @@ import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useState } from 'react';
+import { createOpenActionModuleInput } from 'pwyw-collect-module';
+import { parseEther } from 'viem';
+import { Input, Switch } from '@hey/ui';
+import { PWYWCollectModule } from '../PWYWCollectModule';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -164,6 +169,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [publicationContentError, setPublicationContentError] = useState('');
   const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
+  const [isPWYW, setIsPWYW] = useState(false);
+  const [amountFloor, setAmountFloor] = useState('');
+  const [collectLimit, setCollectLimit] = useState('');
+  const [currency, setCurrency] = useState('');
+  const [referralFee, setReferralFee] = useState('');
+  const [followerOnly, setFollowerOnly] = useState(false);
+  const [endTimestamp, setEndTimestamp] = useState('');
 
   const editor = useEditorContext();
 
@@ -391,6 +403,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
+      let collectModule = null;
+      if (isPWYW) {
+        const openActionInput = createOpenActionModuleInput({
+          amountFloor: amountFloor ? parseEther(amountFloor) : 0n,
+          collectLimit: collectLimit ? BigInt(collectLimit) : 0n,
+          currency: currency || undefined,
+          referralFee: referralFee ? parseInt(referralFee) : undefined,
+          followerOnly,
+          endTimestamp: endTimestamp ? BigInt(new Date(endTimestamp).getTime()) : 0n,
+          recipients: [{ recipient: currentProfile.ownedBy, split: 10000 }]
+        });
+        collectModule = { unknownOpenAction: openActionInput };
+      }
+
       // Payload for the Momoka post/comment/quote
       const momokaRequest:
         | MomokaCommentRequest
@@ -599,6 +625,47 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
+      </div>
+      <div className="space-y-4">
+        <Switch label="Enable Pay What You Want" checked={isPWYW} onChange={setIsPWYW} />
+        {isPWYW && (
+          <>
+            <Input
+              label="Amount Floor"
+              type="number"
+              placeholder="Minimum amount (optional)"
+              value={amountFloor}
+              onChange={(e) => setAmountFloor(e.target.value)}
+            />
+            <Input
+              label="Collect Limit"
+              type="number"
+              placeholder="Maximum number of collects (optional)"
+              value={collectLimit}
+              onChange={(e) => setCollectLimit(e.target.value)}
+            />
+            <Input
+              label="Currency"
+              placeholder="Currency address (optional)"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+            />
+            <Input
+              label="Referral Fee"
+              type="number"
+              placeholder="Referral fee percentage (optional)"
+              value={referralFee}
+              onChange={(e) => setReferralFee(e.target.value)}
+            />
+            <Switch label="Followers Only" checked={followerOnly} onChange={setFollowerOnly} />
+            <Input
+              label="End Timestamp"
+              type="datetime-local"
+              value={endTimestamp}
+              onChange={(e) => setEndTimestamp(e.target.value)}
+            />
+          </>
+        )}
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

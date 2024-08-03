@@ -37,6 +37,8 @@ import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore
 
 import CollectAction from './CollectAction';
 import Splits from './Splits';
+import { PWYWCollectModule } from '@components/PWYWCollectModule';
+import { isPWYWCollectModule } from '@hey/lib/publicationHelpers';
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
@@ -86,6 +88,8 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const hasHeyFees = recipients.some(
     (split) => split.recipient === REWARDS_ADDRESS
   );
+
+  const isPWYW = isPWYWCollectModule(openAction);
 
   return (
     <>
@@ -257,14 +261,23 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             <Splits recipients={collectModule?.recipients} />
           ) : null}
         </div>
-        <div className="flex items-center space-x-2">
-          <CollectAction
-            countOpenActions={countOpenActions}
-            onCollectSuccess={() => increment()}
+        {isPWYW ? (
+          <PWYWCollectModule
             openAction={openAction}
-            publication={targetPublication}
+            publication={publication}
+            countOpenActions={countOpenActions}
+            onCollectSuccess={increment}
           />
-        </div>
+        ) : (
+          <div className="flex items-center space-x-2">
+            <CollectAction
+              countOpenActions={countOpenActions}
+              onCollectSuccess={() => increment()}
+              openAction={openAction}
+              publication={targetPublication}
+            />
+          </div>
+        )}
       </div>
     </>
   );
