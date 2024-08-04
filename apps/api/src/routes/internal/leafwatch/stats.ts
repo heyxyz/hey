@@ -42,15 +42,6 @@ export const get = [
       `,
         `
         SELECT 
-          toStartOfInterval(created, INTERVAL 10 MINUTE) AS timestamp,
-          COUNT(*) AS count
-        FROM events
-        WHERE toDate(created) = today()
-        GROUP BY timestamp
-        ORDER BY timestamp
-      `,
-        `
-        SELECT 
           toStartOfInterval(viewed, INTERVAL 10 MINUTE) AS timestamp,
           COUNT(*) AS count
         FROM impressions
@@ -108,19 +99,18 @@ export const get = [
       logger.info('Fetched Leafwatch stats');
 
       return res.status(200).json({
-        dau: results[5].map((row: any, index: number) => ({
+        dau: results[4].map((row: any, index: number) => ({
           date: row.date,
           dau: row.dau,
           events: row.events,
-          impressions: results[6][index].impressions
+          impressions: results[5][index].impressions
         })),
         events: results[0][0],
-        eventsToday: results[3],
+        eventsToday: results[2],
         impressions: results[1][0],
-        impressionsToday: results[4],
-        referrers: results[7],
-        success: true,
-        topEvents: results[2]
+        impressionsToday: results[3],
+        referrers: results[6],
+        success: true
       });
     } catch (error) {
       return catchedError(res, error);
