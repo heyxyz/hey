@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { useProfileQuery } from '@hey/lens';
-import { Spinner } from '@hey/ui';
+import { H4, Spinner } from '@hey/ui';
 
 import { useSignupStore } from '.';
 
@@ -24,7 +24,7 @@ const Minting: FC = () => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <div className="text-xl font-bold">We are preparing your profile!</div>
+      <H4>We are preparing your profile!</H4>
       <div className="ld-text-gray-500 mt-3 text-center font-semibold">
         This will take a few seconds to a few minutes. Please be patient.
       </div>
