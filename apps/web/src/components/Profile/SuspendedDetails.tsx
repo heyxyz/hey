@@ -4,7 +4,7 @@ import type { FC, ReactNode } from 'react';
 import Slug from '@components/Shared/Slug';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
+import { H3, Image } from '@hey/ui';
 
 interface MetaDetailsProps {
   children: ReactNode;
@@ -37,7 +37,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ profile }) => {
         />
       </div>
       <div className="space-y-1 py-2">
-        <div className="truncate text-2xl font-bold">Suspended</div>
+        <H3 className="truncate">Suspended</H3>
         <div>
           <Slug
             className="text-sm sm:text-base"

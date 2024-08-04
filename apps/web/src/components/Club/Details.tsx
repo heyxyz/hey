@@ -6,7 +6,7 @@ import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import getMentions from '@hey/helpers/getMentions';
 import humanize from '@hey/helpers/humanize';
-import { H4, Image, LightBox } from '@hey/ui';
+import { H3, H4, Image, LightBox } from '@hey/ui';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -35,7 +35,7 @@ const Details: FC<DetailsProps> = ({ club }) => {
         />
       </div>
       <div className="space-y-1 py-2">
-        <div className="truncate text-2xl font-bold">{club.name}</div>
+        <H3 className="truncate">{club.name}</H3>
         <Slug className="text-sm sm:text-base" prefix="/" slug={club.handle} />
       </div>
       {club.description ? (
