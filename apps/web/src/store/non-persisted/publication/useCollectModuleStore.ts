@@ -18,10 +18,12 @@ interface State {
   setCollectModule: (collectModule: CollectModuleType) => void;
 }
 
-const store = create<State>((set) => ({
-  collectModule: INITIAL_COLLECT_MODULE,
-  reset: () => set(() => ({ collectModule: INITIAL_COLLECT_MODULE })),
-  setCollectModule: (collectModule) => set(() => ({ collectModule }))
-}));
+const store = create<State>((set) => (
+  {
+    collectModule: INITIAL_COLLECT_MODULE,
+    reset: () => set(() => ({ collectModule: INITIAL_COLLECT_MODULE })),
+    setCollectModule: (collectModule) => set(() => ({ collectModule }))
+  }
+));
 
 export const useCollectModuleStore = store;

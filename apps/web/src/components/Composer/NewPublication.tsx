@@ -28,7 +28,7 @@ import getMentions from '@hey/helpers/getMentions';
 import getProfile from '@hey/helpers/getProfile';
 import removeQuoteOn from '@hey/helpers/removeQuoteOn';
 import { ReferenceModuleType } from '@hey/lens';
-import { Button, Card, ErrorMessage } from '@hey/ui';
+import { Button, Card, ErrorMessage, Input, Switch } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useUnmountEffect } from 'framer-motion';
@@ -59,6 +59,9 @@ import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useProStore } from 'src/store/non-persisted/useProStore';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { parseEther } from 'viem';
+import { createOpenActionModuleInput } from 'pwyw-collect-module';
+import { PWYWCollectModule } from '../PWYWCollectModule';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -164,6 +167,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [publicationContentError, setPublicationContentError] = useState('');
   const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
+  const [isPWYW, setIsPWYW] = useState(false);
+  const [amountFloor, setAmountFloor] = useState('');
+  const [collectLimit, setCollectLimit] = useState('');
+  const [currency, setCurrency] = useState('');
+  const [referralFee, setReferralFee] = useState('');
+  const [followerOnly, setFollowerOnly] = useState(false);
+  const [endTimestamp, setEndTimestamp] = useState('');
 
   const editor = useEditorContext();
 
@@ -182,8 +192,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const useMomoka = isComment
     ? publication?.momoka?.proof
     : isQuote
-      ? quotedPublication?.momoka?.proof
-      : noCollect;
+    ? quotedPublication?.momoka?.proof
+    : noCollect;
 
   const reset = () => {
     editor?.setMarkdown('');
@@ -247,8 +257,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       isComment
         ? PUBLICATION.NEW_COMMENT
         : isQuote
-          ? PUBLICATION.NEW_QUOTE
-          : PUBLICATION.NEW_POST,
+        ? PUBLICATION.NEW_QUOTE
+        : PUBLICATION.NEW_POST,
       eventProperties
     );
   };
@@ -307,203 +317,139 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return isComment ? 'Comment' : isQuote ? 'Quote' : 'Post';
   };
 
-  const createPublication = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
+  // Extracted method to handle Momoka publication creation
+  async function handleMomokaPublication(momokaRequest, publicationType) {
+    if (publicationType === 'comment') {
+      return await createMomokaCommentTypedData({
+        variables: { request: momokaRequest }
+      });
+    } else if (publicationType === 'quote') {
+      return await createMomokaQuoteTypedData({
+        variables: { request: momokaRequest }
+      });
+    } else {
+      return await createMomokaPostTypedData({
+        variables: { request: momokaRequest }
+      });
     }
+  }
 
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
-    try {
-      setIsLoading(true);
-      if (hasAudio) {
-        setPublicationContentError('');
-        const parsedData = AudioPublicationSchema.safeParse(audioPublication);
-        if (!parsedData.success) {
-          const issue = parsedData.error.issues[0];
-          setIsLoading(false);
-          return setPublicationContentError(issue.message);
+  // Extracted method to handle on-chain publication creation
+  async function handleOnChainPublication(onChainRequest, publicationType) {
+    if (publicationType === 'comment') {
+      return await createOnchainCommentTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: onChainRequest
         }
-      }
-
-      if (publicationContent.length === 0 && attachments.length === 0) {
-        setIsLoading(false);
-        return setPublicationContentError(
-          `${
-            isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
-          } should not be empty!`
-        );
-      }
-
-      setPublicationContentError('');
-
-      let pollId;
-      if (showPollEditor) {
-        pollId = await createPoll();
-      }
-
-      const processedPublicationContent =
-        publicationContent.length > 0 ? publicationContent : undefined;
-      const title = hasAudio
-        ? audioPublication.title
-        : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
-      const hasAttributes = Boolean(pollId);
-
-      const baseMetadata = {
-        content: processedPublicationContent,
-        title,
-        ...(hasAttributes && {
-          attributes: [
-            ...(pollId
-              ? [
-                  {
-                    key: KNOWN_ATTRIBUTES.POLL_ID,
-                    type: MetadataAttributeType.STRING,
-                    value: pollId
-                  }
-                ]
-              : [])
-          ]
-        }),
-        marketplace: {
-          animation_url: getAnimationUrl(),
-          description: processedPublicationContent,
-          external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
-          name: title
+      });
+    } else if (publicationType === 'quote') {
+      return await createOnchainQuoteTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: onChainRequest
         }
-      };
-
-      const metadata = getMetadata({ baseMetadata });
-      const arweaveId = await uploadToArweave(metadata);
-
-      // Payload for the open action module
-      const openActionModules = [];
-
-      if (nftOpenActionEmbed) {
-        openActionModules.push(nftOpenActionEmbed);
-      }
-
-      if (Boolean(collectModule.type)) {
-        openActionModules.push({
-          collectOpenAction: collectModuleParams(collectModule)
-        });
-      }
-
-      // Payload for the Momoka post/comment/quote
-      const momokaRequest:
-        | MomokaCommentRequest
-        | MomokaPostRequest
-        | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: publication?.id }),
-        ...(isQuote && { quoteOn: quotedPublication?.id }),
-        contentURI: `ar://${arweaveId}`
-      };
-
-      if (useMomoka && !nftOpenActionEmbed) {
-        if (canUseLensManager) {
-          if (isComment) {
-            return await createCommentOnMomka(
-              momokaRequest as MomokaCommentRequest
-            );
-          }
-
-          if (isQuote) {
-            return await createQuoteOnMomka(
-              momokaRequest as MomokaQuoteRequest
-            );
-          }
-
-          return await createPostOnMomka(momokaRequest);
-        }
-
-        if (isComment) {
-          return await createMomokaCommentTypedData({
-            variables: { request: momokaRequest as MomokaCommentRequest }
-          });
-        }
-
-        if (isQuote) {
-          return await createMomokaQuoteTypedData({
-            variables: { request: momokaRequest as MomokaQuoteRequest }
-          });
-        }
-
-        return await createMomokaPostTypedData({
-          variables: { request: momokaRequest }
-        });
-      }
-
-      // Payload for the post/comment/quote
-      const onChainRequest:
-        | OnchainCommentRequest
-        | OnchainPostRequest
-        | OnchainQuoteRequest = {
-        contentURI: `ar://${arweaveId}`,
-        ...(isComment && { commentOn: publication?.id }),
-        ...(isQuote && { quoteOn: quotedPublication?.id }),
-        openActionModules,
-        ...(onlyFollowers && {
-          referenceModule:
-            selectedReferenceModule ===
-            ReferenceModuleType.FollowerOnlyReferenceModule
-              ? { followerOnlyReferenceModule: true }
-              : {
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: true,
-                    degreesOfSeparation,
-                    mirrorsRestricted: true,
-                    quotesRestricted: true
-                  }
-                }
-        })
-      };
-
-      if (canUseLensManager) {
-        if (isComment) {
-          return await createCommentOnChain(
-            onChainRequest as OnchainCommentRequest
-          );
-        }
-
-        if (isQuote) {
-          return await createQuoteOnChain(
-            onChainRequest as OnchainQuoteRequest
-          );
-        }
-
-        return await createPostOnChain(onChainRequest);
-      }
-
-      if (isComment) {
-        return await createOnchainCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: onChainRequest as OnchainCommentRequest
-          }
-        });
-      }
-
-      if (isQuote) {
-        return await createOnchainQuoteTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: onChainRequest as OnchainQuoteRequest
-          }
-        });
-      }
-
+      });
+    } else {
       return await createOnchainPostTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: onChainRequest
         }
       });
+    }
+  }
+
+  // Main method simplified
+  async function createPublication() {
+    try {
+      setIsLoading(true);
+      const publicationType = getPublicationType();
+      const momokaRequest = prepareMomokaRequest();
+      const onChainRequest = prepareOnChainRequest();
+
+      if (useMomoka && !nftOpenActionEmbed) {
+        if (canUseLensManager) {
+          return await handleMomokaPublication(momokaRequest, publicationType);
+        }
+        return await handleMomokaPublication(momokaRequest, publicationType);
+      }
+
+      if (canUseLensManager) {
+        return await handleOnChainPublication(onChainRequest, publicationType);
+      }
+      return await handleOnChainPublication(onChainRequest, publicationType);
     } catch (error) {
       onError(error);
     }
-  };
+  }
+
+  // Helper to determine the type of publication
+  function getPublicationType() {
+    if (isComment) {
+      return 'comment';
+    } else if (isQuote) {
+      return 'quote';
+    }
+    return 'post';
+  }
+
+  // Prepare the Momoka request object
+  function prepareMomokaRequest(): MomokaCommentRequest | MomokaPostRequest | MomokaQuoteRequest {
+    return {
+      ...(isComment && { commentOn: publication?.id }),
+      ...(isQuote && { quoteOn: quotedPublication?.id }),
+      contentURI: `ar://${arweaveId}`
+    };
+  }
+
+  // Prepare the on-chain request object
+  function prepareOnChainRequest(): OnchainCommentRequest | OnchainPostRequest | OnchainQuoteRequest {
+    const openActionModules = [];
+
+    if (isPWYW) {
+      const collectInitData = createOpenActionModuleInput({
+        amountFloor: amountFloor ? parseEther(amountFloor).toString() : '0',
+        collectLimit: collectLimit || '0',
+        currency: currency || ZERO_ADDRESS,
+        endTimestamp: endTimestamp
+          ? new Date(endTimestamp).getTime() / 1000
+          : '0',
+        followerOnly: followerOnly || false,
+        referralFee: referralFee || '0',
+        recipients: [
+          { recipient: currentProfile?.ownedBy.address, split: 10000 }
+        ]
+      });
+
+      openActionModules.push({
+        unknownOpenAction: {
+          address: COLLECT_PUBLICATION_ACTION_ADDRESS,
+          data: collectInitData
+        }
+      });
+    }
+
+    return {
+      contentURI: `ar://${arweaveId}`,
+      ...(isComment && { commentOn: publication?.id }),
+      ...(isQuote && { quoteOn: quotedPublication?.id }),
+      openActionModules,
+      ...(onlyFollowers && {
+        referenceModule:
+          selectedReferenceModule ===
+          ReferenceModuleType.FollowerOnlyReferenceModule
+            ? { followerOnlyReferenceModule: true }
+            : {
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  degreesOfSeparation,
+                  mirrorsRestricted: true,
+                  quotesRestricted: true
+                }
+              }
+    };
+  }
 
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
@@ -599,6 +545,55 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
+      </div>
+      <div className="space-y-4">
+        <Switch
+          checked={isPWYW}
+          label="Enable Pay What You Want"
+          onChange={setIsPWYW}
+        />
+        {isPWYW && (
+          <>
+            <Input
+              label="Amount Floor"
+              onChange={(e) => setAmountFloor(e.target.value)}
+              placeholder="Minimum amount (optional)"
+              type="number"
+              value={amountFloor}
+            />
+            <Input
+              label="Collect Limit"
+              onChange={(e) => setCollectLimit(e.target.value)}
+              placeholder="Maximum number of collects (optional)"
+              type="number"
+              value={collectLimit}
+            />
+            <Input
+              label="Currency"
+              onChange={(e) => setCurrency(e.target.value)}
+              placeholder="Currency address (optional)"
+              value={currency}
+            />
+            <Input
+              label="Referral Fee"
+              onChange={(e) => setReferralFee(e.target.value)}
+              placeholder="Referral fee percentage (optional)"
+              type="number"
+              value={referralFee}
+            />
+            <Switch
+              checked={followerOnly}
+              label="Followers Only"
+              onChange={setFollowerOnly}
+            />
+            <Input
+              label="End Timestamp"
+              onChange={(e) => setEndTimestamp(e.target.value)}
+              type="datetime-local"
+              value={endTimestamp}
+            />
+          </>
+        )}
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

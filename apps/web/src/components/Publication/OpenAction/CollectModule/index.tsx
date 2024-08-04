@@ -1,14 +1,14 @@
+import type { FC } from 'react';
 import type {
   AnyPublication,
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
-import type { FC } from 'react';
-
-import CountdownTimer from '@components/Shared/CountdownTimer';
-import Slug from '@components/Shared/Slug';
-import {
+import { useCounter } from '@uidotdev/usehooks';
+import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
+import Link from 'next/link';
+import { 
   BanknotesIcon,
   CheckCircleIcon,
   ClockIcon,
@@ -17,11 +17,9 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import {
-  APP_NAME,
-  POLYGONSCAN_URL,
-  REWARDS_ADDRESS
-} from '@hey/data/constants';
+import plur from 'plur';
+import { APP_NAME, POLYGONSCAN_URL, REWARDS_ADDRESS, PWYW_COLLECT_MODULE_ADDRESS } from '@hey/data/constants';
+import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import formatAddress from '@hey/helpers/formatAddress';
 import getProfile from '@hey/helpers/getProfile';
@@ -29,18 +27,256 @@ import getTokenImage from '@hey/helpers/getTokenImage';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
-import { useCounter } from '@uidotdev/usehooks';
-import Link from 'next/link';
-import plur from 'plur';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-
+import CountdownTimer from '@components/Shared/CountdownTimer';
+import Slug from '@components/Shared/Slug';
 import CollectAction from './CollectAction';
 import Splits from './Splits';
+import { createOpenActionModuleInput } from 'pwyw-collect-module';
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
   publication: AnyPublication;
+}
+
+interface PWYWCollectModuleSettings {
+  amountFloor: bigint;
+  collectLimit: bigint;
+  currency: string;
+  referralFee: number;
+  followerOnly: boolean;
+  endTimestamp: bigint;
+  recipients: { recipient: string; split: number }[];
+}
+
+class CollectModule {
+  constructor(private moduleType: string, private settings: any) {}
+
+  handleModule() {
+    switch (this.moduleType) {
+      case 'MultirecipientFeeCollectOpenActionSettings':
+        return this.handleMultirecipientFeeCollectModule();
+      case 'SimpleCollectOpenActionSettings':
+        return this.handleSimpleCollectModule();
+      case 'UnknownOpenActionModuleSettings':
+        if (this.settings.contract.address === PWYW_COLLECT_MODULE_ADDRESS) {
+          return this.handlePWYWCollectModule();
+        }
+        return this.handleDefault();
+      default:
+        return this.handleDefault();
+    }
+  }
+
+  private handleMultirecipientFeeCollectModule() {
+    // Specific logic for MultirecipientFeeCollectOpenActionSettings
+    const collectModule = this.settings as MultirecipientFeeCollectOpenActionSettings;
+    const endTimestamp = collectModule?.endsAt;
+    const collectLimit = parseInt(collectModule?.collectLimit || '0');
+    const amount = parseFloat(collectModule?.amount?.value || '0');
+    const usdPrice = collectModule?.amount?.asFiat?.value;
+    const currency = collectModule?.amount?.asset?.symbol;
+    const referralFee = collectModule?.referralFee;
+    const recipients = collectModule?.recipients || [];
+    const recipientsWithoutFees = recipients.filter(
+      (split) => split.recipient !== REWARDS_ADDRESS
+    );
+    const isMultirecipientFeeCollectModule =
+      recipientsWithoutFees.length > 1;
+    const percentageCollected = (countOpenActions / collectLimit) * 100;
+    const enabledTokens = allowedTokens?.map((t) => t.symbol);
+    const isTokenEnabled = enabledTokens?.includes(currency);
+    const isSaleEnded = endTimestamp
+      ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+      : false;
+    const isAllCollected = collectLimit
+      ? countOpenActions >= collectLimit
+      : false;
+    const hasHeyFees = recipients.some(
+      (split) => split.recipient === REWARDS_ADDRESS
+    );
+
+    // Render the component with the specific data
+    return (
+      <>
+        <div className="flex items-center justify-between space-x-2 text-sm">
+          <div className="flex items-center space-x-2">
+            <CurrencyDollarIcon className="size-4" />
+            <span className="font-bold">{amount.toFixed(4)}</span>
+            <span>{currency}</span>
+          </div>
+          <div className="font-bold">{referralFee}%</div>
+        </div>
+        <div className="mt-2">
+          <Splits recipients={recipients} />
+        </div>
+        <div className="mt-2">
+          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+            <span className="space-x-1">Collect limit</span>
+            <span>{collectLimit}</span>
+          </div>
+          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+            <span className="space-x-1">Collected</span>
+            <span>{percentageCollected.toFixed(2)}%</span>
+          </div>
+        </div>
+        {isSaleEnded && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            Sale ended
+          </div>
+        )}
+        {isAllCollected && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            All collected
+          </div>
+        )}
+        {!isTokenEnabled && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            Token not enabled
+          </div>
+        )}
+        {hasHeyFees && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            Hey fees included
+          </div>
+        )}
+      </>
+    );
+  }
+
+  private handleSimpleCollectModule() {
+    // Specific logic for SimpleCollectOpenActionSettings
+    const collectModule = this.settings as SimpleCollectOpenActionSettings;
+    const endTimestamp = collectModule?.endsAt;
+    const collectLimit = parseInt(collectModule?.collectLimit || '0');
+    const amount = parseFloat(collectModule?.amount?.value || '0');
+    const usdPrice = collectModule?.amount?.asFiat?.value;
+    const currency = collectModule?.amount?.asset?.symbol;
+    const percentageCollected = (countOpenActions / collectLimit) * 100;
+    const enabledTokens = allowedTokens?.map((t) => t.symbol);
+    const isTokenEnabled = enabledTokens?.includes(currency);
+    const isSaleEnded = endTimestamp
+      ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+      : false;
+    const isAllCollected = collectLimit
+      ? countOpenActions >= collectLimit
+      : false;
+
+    // Render the component with the specific data
+    return (
+      <>
+        <div className="flex items-center justify-between space-x-2 text-sm">
+          <div className="flex items-center space-x-2">
+            <CurrencyDollarIcon className="size-4" />
+            <span className="font-bold">{amount.toFixed(4)}</span>
+            <span>{currency}</span>
+          </div>
+        </div>
+        <div className="mt-2">
+          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+            <span className="space-x-1">Collect limit</span>
+            <span>{collectLimit}</span>
+          </div>
+          <div className="ld-text-gray-500 flex items-center justify-between space-y-0.5">
+            <span className="space-x-1">Collected</span>
+            <span>{percentageCollected.toFixed(2)}%</span>
+          </div>
+        </div>
+        {isSaleEnded && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            Sale ended
+          </div>
+        )}
+        {isAllCollected && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            All collected
+          </div>
+        )}
+        {!isTokenEnabled && (
+          <div className="mt-2 ld-text-gray-500 text-sm">
+            Token not enabled
+          </div>
+        )}
+      </>
+    );
+  }
+
+  private handlePWYWCollectModule() {
+    const collectModule = this.settings as PWYWCollectModuleSettings;
+    const endTimestamp = collectModule.endTimestamp;
+    const collectLimit = Number(collectModule.collectLimit);
+    const amountFloor = Number(collectModule.amountFloor);
+    const currency = collectModule.currency;
+    const referralFee = collectModule.referralFee;
+    const recipients = collectModule.recipients;
+    const followerOnly = collectModule.followerOnly;
+
+    const percentageCollected = (countOpenActions / collectLimit) * 100;
+    const enabledTokens = allowedTokens?.map((t) => t.symbol);
+    const isTokenEnabled = enabledTokens?.includes(currency);
+    const isSaleEnded = endTimestamp
+      ? BigInt(endTimestamp) < BigInt(Math.floor(Date.now() / 1000))
+      : false;
+    const isAllCollected = collectLimit > 0 ? countOpenActions >= collectLimit : false;
+
+    return (
+      <>
+        <div className="flex items-center justify-between space-x-2 text-sm">
+          <div className="flex items-center space-x-2">
+            <CurrencyDollarIcon className="size-4" />
+            <span className="font-bold">Pay What You Want (Min: {amountFloor})</span>
+            <span>{currency}</span>
+          </div>
+          <div className="font-bold">{referralFee}% referral fee</div>
+        </div>
+        {followerOnly && (
+          <div className="mt-2 text-sm text-gray-500">
+            Only followers can collect
+          </div>
+        )}
+        <div className="mt-2">
+          <Splits recipients={recipients} />
+        </div>
+        <div className="mt-2">
+          <div className="flex items-center justify-between space-y-0.5 text-sm text-gray-500">
+            <span>Collect limit</span>
+            <span>{collectLimit > 0 ? collectLimit : 'Unlimited'}</span>
+          </div>
+          {collectLimit > 0 && (
+            <div className="flex items-center justify-between space-y-0.5 text-sm text-gray-500">
+              <span>Collected</span>
+              <span>{percentageCollected.toFixed(2)}%</span>
+            </div>
+          )}
+        </div>
+        {endTimestamp > 0 && (
+          <div className="mt-2 text-sm text-gray-500">
+            {isSaleEnded ? (
+              'Sale ended'
+            ) : (
+              <>
+                Sale ends: <CountdownTimer targetDate={new Date(Number(endTimestamp) * 1000)} />
+              </>
+            )}
+          </div>
+        )}
+        {isAllCollected && (
+          <div className="mt-2 text-sm text-gray-500">
+            All collected
+          </div>
+        )}
+        {!isTokenEnabled && (
+          <div className="mt-2 text-sm text-gray-500">
+            Token not enabled
+          </div>
+        )}
+      </>
+    );
+  }
+
+  private handleDefault() {
+    // Default handling logic
+    return null;
+  }
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
@@ -55,218 +291,24 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
 
   const collectModule = openAction as
     | MultirecipientFeeCollectOpenActionSettings
-    | SimpleCollectOpenActionSettings;
+    | SimpleCollectOpenActionSettings
+    | PWYWCollectModuleSettings;
 
-  const endTimestamp = collectModule?.endsAt;
-  const collectLimit = parseInt(collectModule?.collectLimit || '0');
-  const amount = parseFloat(collectModule?.amount?.value || '0');
-  const usdPrice = collectModule?.amount?.asFiat?.value;
-  const currency = collectModule?.amount?.asset?.symbol;
-  const referralFee = collectModule?.referralFee;
-  const recipients =
-    (collectModule.__typename ===
-      'MultirecipientFeeCollectOpenActionSettings' &&
-      collectModule?.recipients) ||
-    [];
-  const recipientsWithoutFees = recipients?.filter(
-    (split) => split.recipient !== REWARDS_ADDRESS
-  );
-  const isMultirecipientFeeCollectModule =
-    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings' &&
-    recipientsWithoutFees.length > 1;
-  const percentageCollected = (countOpenActions / collectLimit) * 100;
-  const enabledTokens = allowedTokens?.map((t) => t.symbol);
-  const isTokenEnabled = enabledTokens?.includes(currency);
-  const isSaleEnded = endTimestamp
-    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
-    : false;
-  const isAllCollected = collectLimit
-    ? countOpenActions >= collectLimit
-    : false;
-  const hasHeyFees = recipients.some(
-    (split) => split.recipient === REWARDS_ADDRESS
+  const collectModuleInstance = new CollectModule(
+    openAction.__typename,
+    collectModule
   );
 
   return (
-    <>
-      {collectLimit ? (
-        <Tooltip
-          content={`${percentageCollected.toFixed(0)}% Collected`}
-          placement="top"
-        >
-          <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
-            <div
-              className="h-2.5 bg-black dark:bg-white"
-              style={{ width: `${percentageCollected}%` }}
-            />
-          </div>
-        </Tooltip>
-      ) : null}
-      <div className="p-5">
-        {isAllCollected ? (
-          <WarningMessage
-            className="mb-5"
-            message={
-              <div className="flex items-center space-x-1.5">
-                <CheckCircleIcon className="size-4" />
-                <span>This collection has been sold out</span>
-              </div>
-            }
-          />
-        ) : isSaleEnded ? (
-          <WarningMessage
-            className="mb-5"
-            message={
-              <div className="flex items-center space-x-1.5">
-                <ClockIcon className="size-4" />
-                <span>This collection has ended</span>
-              </div>
-            }
-          />
-        ) : null}
-        <div className="mb-4">
-          <div className="text-xl font-bold">
-            {targetPublication.__typename} by{' '}
-            <Slug slug={getProfile(targetPublication.by).slugWithPrefix} />
-          </div>
-        </div>
-        {amount ? (
-          <div className="flex items-center space-x-1.5 py-2">
-            {isTokenEnabled ? (
-              <img
-                alt={currency}
-                className="size-7"
-                height={28}
-                src={getTokenImage(currency)}
-                title={currency}
-                width={28}
-              />
-            ) : (
-              <CurrencyDollarIcon className="size-7" />
-            )}
-            <span className="space-x-1">
-              <span className="text-2xl font-bold">{amount}</span>
-              <span className="text-xs">{currency}</span>
-              {isTokenEnabled && usdPrice ? (
-                <>
-                  <span className="ld-text-gray-500 px-0.5">·</span>
-                  <span className="ld-text-gray-500 text-xs font-bold">
-                    ${usdPrice}
-                  </span>
-                </>
-              ) : null}
-            </span>
-            <div className="mt-2">
-              <HelpTooltip>
-                <div className="py-1">
-                  <b>Collect Fees</b>
-                  <div className="flex items-start justify-between space-x-10">
-                    <div>Lens Protocol</div>
-                    <b>
-                      {(amount * 0.05).toFixed(2)} {currency} (5%)
-                    </b>
-                  </div>
-                  {hasHeyFees && (
-                    <div className="flex items-start justify-between space-x-10">
-                      <div>{APP_NAME}</div>
-                      <b>
-                        {(amount * 0.05).toFixed(2)} {currency} (5%)
-                      </b>
-                    </div>
-                  )}
-                </div>
-              </HelpTooltip>
-            </div>
-          </div>
-        ) : null}
-        <div className="space-y-1.5">
-          <div className="block items-center space-y-1 sm:flex sm:space-x-5">
-            <div className="flex items-center space-x-2">
-              <UsersIcon className="ld-text-gray-500 size-4" />
-              <Link
-                className="font-bold"
-                href={`/posts/${targetPublication.id}/collectors`}
-              >
-                {humanize(countOpenActions)}{' '}
-                {plur('collector', countOpenActions)}
-              </Link>
-            </div>
-            {collectLimit && !isAllCollected ? (
-              <div className="flex items-center space-x-2">
-                <PhotoIcon className="ld-text-gray-500 size-4" />
-                <div className="font-bold">
-                  {collectLimit - countOpenActions} available
-                </div>
-              </div>
-            ) : null}
-            {referralFee ? (
-              <div className="flex items-center space-x-2">
-                <BanknotesIcon className="ld-text-gray-500 size-4" />
-                <div className="font-bold">{referralFee}% referral fee</div>
-              </div>
-            ) : null}
-          </div>
-          {endTimestamp && !isAllCollected ? (
-            <div className="flex items-center space-x-2">
-              <ClockIcon className="ld-text-gray-500 size-4" />
-              <div className="space-x-1.5">
-                <span>{isSaleEnded ? 'Sale ended on:' : 'Sale ends:'}</span>
-                <span className="font-bold text-gray-600">
-                  {isSaleEnded ? (
-                    `${formatDate(endTimestamp, 'MMM D, YYYY, hh:mm A')}`
-                  ) : (
-                    <CountdownTimer targetDate={endTimestamp} />
-                  )}
-                </span>
-              </div>
-            </div>
-          ) : null}
-          {collectModule.collectNft ? (
-            <div className="flex items-center space-x-2">
-              <PuzzlePieceIcon className="ld-text-gray-500 size-4" />
-              <div className="space-x-1.5">
-                <span>Token:</span>
-                <Link
-                  className="font-bold text-gray-600"
-                  href={`${POLYGONSCAN_URL}/token/${collectModule.collectNft}`}
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  {formatAddress(collectModule.collectNft)}
-                </Link>
-              </div>
-            </div>
-          ) : null}
-          {amount ? (
-            <div className="flex items-center space-x-2">
-              <CurrencyDollarIcon className="ld-text-gray-500 size-4" />
-              <div className="space-x-1.5">
-                <span>Revenue:</span>
-                <Tooltip
-                  content={`${humanize(amount * countOpenActions)} ${currency}`}
-                  placement="top"
-                >
-                  <span className="font-bold text-gray-600">
-                    {nFormatter(amount * countOpenActions)} {currency}
-                  </span>
-                </Tooltip>
-              </div>
-            </div>
-          ) : null}
-          {isMultirecipientFeeCollectModule ? (
-            <Splits recipients={collectModule?.recipients} />
-          ) : null}
-        </div>
-        <div className="flex items-center space-x-2">
-          <CollectAction
-            countOpenActions={countOpenActions}
-            onCollectSuccess={() => increment()}
-            openAction={openAction}
-            publication={targetPublication}
-          />
-        </div>
-      </div>
-    </>
+    <div className="space-y-2">
+      {collectModuleInstance.handleModule()}
+      <CollectAction
+        publication={targetPublication}
+        openAction={openAction}
+        countOpenActions={countOpenActions}
+        increment={increment}
+      />
+    </div>
   );
 };
 
