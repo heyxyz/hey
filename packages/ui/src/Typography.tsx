@@ -49,7 +49,7 @@ export const H5: FC<TypographyProps> = forwardRef<
   HTMLHeadingElement,
   TypographyProps
 >(({ children, className = '' }, ref) => (
-  <h5 className={cn('text-base font-bold', className)} ref={ref}>
+  <h5 className={cn('text-lg font-bold', className)} ref={ref}>
     {children}
   </h5>
 ));
