@@ -5,7 +5,7 @@ import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@hey/data/constants';
 import { ONBOARDING } from '@hey/data/tracking';
-import { Card } from '@hey/ui';
+import { Card, H5 } from '@hey/ui';
 import Link from 'next/link';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -40,7 +40,7 @@ const SetProfile: FC = () => {
 
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
-      <p className="text-lg font-semibold">Setup your {APP_NAME} profile</p>
+      <H5>Setup your {APP_NAME} profile</H5>
       <div className="space-y-1 text-sm leading-5">
         <Status
           finished={Boolean(currentProfile?.metadata?.displayName)}

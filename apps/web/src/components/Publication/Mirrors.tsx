@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useProfilesQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -74,7 +74,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <b className="text-lg">Mirrored by</b>
+        <H5>Mirrored by</H5>
       </div>
       <div className="divider" />
       <Virtuoso

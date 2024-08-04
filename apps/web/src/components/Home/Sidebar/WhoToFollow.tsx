@@ -8,13 +8,13 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { PROFILE, ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useProfileRecommendationsQuery } from '@hey/lens';
-import { Card, ErrorMessage, Modal } from '@hey/ui';
+import { Card, ErrorMessage, H5, Modal } from '@hey/ui';
 import { useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Suggested from '../Suggested';
 
-const Title: FC = () => <p className="text-lg font-semibold">Who to Follow</p>;
+const Title: FC = () => <H5>Who to Follow</H5>;
 
 const WhoToFollow: FC = () => {
   const { currentProfile } = useProfileStore();

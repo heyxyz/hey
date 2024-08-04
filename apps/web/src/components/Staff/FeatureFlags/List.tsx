@@ -11,7 +11,15 @@ import { FeatureFlag } from '@hey/data/feature-flags';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllFeatureFlags from '@hey/helpers/api/getAllFeatureFlags';
 import formatDate from '@hey/helpers/datetime/formatDate';
-import { Badge, Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
+import {
+  Badge,
+  Button,
+  Card,
+  EmptyState,
+  ErrorMessage,
+  H5,
+  Modal
+} from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -87,7 +95,7 @@ const List: FC = () => {
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
-        <div className="text-lg font-bold">Feature Flags</div>
+        <H5>Feature Flags</H5>
         <Button onClick={() => setShowCreateModal(!showCreateModal)}>
           Create
         </Button>

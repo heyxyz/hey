@@ -53,10 +53,6 @@ export interface StatsType {
     count: string;
     referrer: string;
   }[];
-  topEvents: {
-    count: string;
-    name: string;
-  }[];
 }
 
 const LeafwatchStats: FC = () => {

@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
 import splitNumber from '@hey/helpers/splitNumber';
-import { Button, Input } from '@hey/ui';
+import { Button, H6, Input } from '@hey/ui';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -172,19 +172,17 @@ const SplitConfig: FC<SplitConfigProps> = ({
             </Button>
           </div>
           {splitTotal > 100 ? (
-            <div className="text-sm font-bold text-red-500">
+            <H6 className="text-red-500">
               Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
-            </div>
+            </H6>
           ) : null}
           {splitTotal < 100 ? (
-            <div className="text-sm font-bold text-red-500">
+            <H6 className="text-red-500">
               Splits cannot be less than 100%. Total: <span>{splitTotal}</span>%
-            </div>
+            </H6>
           ) : null}
           {isRecipientsDuplicated() ? (
-            <div className="text-sm font-bold text-red-500">
-              Duplicate recipient address found
-            </div>
+            <H6 className="text-red-500">Duplicate recipient address found</H6>
           ) : null}
         </div>
       ) : null}

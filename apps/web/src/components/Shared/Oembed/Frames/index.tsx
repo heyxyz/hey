@@ -19,6 +19,13 @@ import { create } from 'zustand';
 
 import Transaction from './Transaction';
 
+interface ShowTransactionState {
+  frame: IFrame | null;
+  index: number;
+  show: boolean;
+  transaction: FrameTransaction | null;
+}
+
 interface FramesState {
   frameData: IFrame | null;
   inputText: string;
@@ -26,37 +33,27 @@ interface FramesState {
   setFrameData: (frameData: IFrame | null) => void;
   setInputText: (inputText: string) => void;
   setIsLoading: (isLoading: boolean) => void;
-  setShowTransaction: (showTransaction: {
-    frame: IFrame | null;
-    index: number;
-    show: boolean;
-    transaction: FrameTransaction | null;
-  }) => void;
-  showTransaction: {
-    frame: IFrame | null;
-    index: number;
-    show: boolean;
-    transaction: FrameTransaction | null;
-  };
+  setShowTransaction: (showTransaction: ShowTransactionState) => void;
+  showTransaction: ShowTransactionState;
 }
 
-const store = create<FramesState>((set) => ({
-  frameData: null,
-  inputText: '',
-  isLoading: false,
-  setFrameData: (frameData) => set({ frameData }),
-  setInputText: (inputText) => set({ inputText }),
-  setIsLoading: (isLoading) => set({ isLoading }),
-  setShowTransaction: (showTransaction) => set({ showTransaction }),
-  showTransaction: {
-    frame: null,
-    index: 0,
-    show: false,
-    transaction: null
-  }
-}));
-
-export const useFramesStore = createTrackedSelector(store);
+export const useFramesStore = createTrackedSelector(
+  create<FramesState>((set) => ({
+    frameData: null,
+    inputText: '',
+    isLoading: false,
+    setFrameData: (frameData) => set({ frameData }),
+    setInputText: (inputText) => set({ inputText }),
+    setIsLoading: (isLoading) => set({ isLoading }),
+    setShowTransaction: (showTransaction) => set({ showTransaction }),
+    showTransaction: {
+      frame: null,
+      index: 0,
+      show: false,
+      transaction: null
+    }
+  }))
+);
 
 interface FrameProps {
   frame: IFrame;
@@ -77,9 +74,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
   } = useFramesStore();
 
   useEffect(() => {
-    if (frame) {
-      setFrameData(frame);
-    }
+    setFrameData(frame);
   }, [frame, setFrameData]);
 
   if (!frameData) {
@@ -95,11 +90,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     state
   } = frameData;
 
-  const onPost = async (index: number) => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
+  const postFrameData = async (index: number, action: string) => {
     try {
       setIsLoading(true);
       const { data }: { data: { frame: IFrame } } = await axios.post(
@@ -107,8 +98,9 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         {
           acceptsAnonymous: frame.acceptsAnonymous,
           acceptsLens: frame.acceptsLens,
+          buttonAction: action,
           buttonIndex: index + 1,
-          inputText,
+          inputText: action === 'post' ? inputText : undefined,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
           pubId: publicationId,
           state
@@ -120,46 +112,21 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         return toast.error(Errors.SomethingWentWrongWithFrame);
       }
 
-      return setFrameData(data.frame);
-    } catch {
-      toast.error(Errors.SomethingWentWrongWithFrame);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      if (action === 'post') {
+        setFrameData(data.frame);
+      } else if (action === 'tx') {
+        const txnData = data.frame.transaction;
+        if (!txnData) {
+          return toast.error(Errors.SomethingWentWrongWithFrame);
+        }
 
-  const onTransaction = async (index: number) => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    try {
-      setIsLoading(true);
-
-      const { data }: { data: { frame: IFrame } } = await axios.post(
-        `${HEY_API_URL}/frames/post`,
-        {
-          buttonAction: 'tx',
-          buttonIndex: index + 1,
-          postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
-          pubId: publicationId,
-          state
-        },
-        { headers: getAuthApiHeadersWithAccessToken() }
-      );
-
-      const txnData = data.frame.transaction;
-
-      if (!txnData) {
-        return toast.error(Errors.SomethingWentWrongWithFrame);
+        setShowTransaction({
+          frame: frameData,
+          index,
+          show: true,
+          transaction: txnData
+        });
       }
-
-      return setShowTransaction({
-        frame: frameData,
-        index,
-        show: true,
-        transaction: txnData
-      });
     } catch {
       toast.error(Errors.SomethingWentWrongWithFrame);
     } finally {
@@ -224,10 +191,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
               ) {
                 const url = action === 'mint' ? frameUrl : target || frameUrl;
                 window.open(url, '_blank');
-              } else if (action === 'post') {
-                onPost(index);
-              } else if (action === 'tx') {
-                onTransaction(index);
+              } else if (action === 'post' || action === 'tx') {
+                postFrameData(index, action);
               }
             }}
             outline
@@ -242,7 +207,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           </Button>
         ))}
       </div>
-      {showTransaction.show ? (
+      {showTransaction.show && (
         <Modal
           onClose={() =>
             setShowTransaction({
@@ -257,7 +222,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         >
           <Transaction publicationId={publicationId} />
         </Modal>
-      ) : null}
+      )}
     </Card>
   );
 };

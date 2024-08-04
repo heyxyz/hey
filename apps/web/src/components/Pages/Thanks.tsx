@@ -3,9 +3,10 @@ import type { FC, ReactNode } from 'react';
 
 import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@helpers/leafwatch';
-import { HeartIcon } from '@heroicons/react/24/outline';
+import { HeartIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import { H2 } from '@hey/ui';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useEffect } from 'react';
@@ -57,9 +58,9 @@ const Thanks: NextPage = () => {
     <>
       <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
-          <div className="flex items-center space-x-2 text-3xl font-bold text-white md:text-4xl">
-            <div>Thank you!</div>
-            <HeartIcon className="size-7 text-pink-600" />
+          <div className="flex items-center space-x-2 text-white">
+            <H2>Thank you!</H2>
+            <HeartIcon className="text-brand-500 size-7" />
           </div>
           <div className="text-white">for supporting our community</div>
         </div>

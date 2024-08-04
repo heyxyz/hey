@@ -4,6 +4,7 @@ import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import { H2, H4 } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -18,9 +19,7 @@ const Privacy: NextPage = () => {
     <>
       <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
-          <h1 className="text-3xl font-bold text-white md:text-4xl">
-            Privacy Policy
-          </h1>
+          <H2 className="text-white">Privacy Policy</H2>
           <div className="mt-4 flex justify-center">
             <div className="rounded-md bg-gray-800 px-2 py-0.5 text-xs text-white">
               Updated {updatedAt}
@@ -33,7 +32,7 @@ const Privacy: NextPage = () => {
           <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
             <div className="ld-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
-              <div className="mb-5 text-xl font-bold">1. Overview</div>
+              <H4 className="mb-5">1. Overview</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   By accessing the Site, you agree to not only this Privacy
@@ -67,9 +66,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. Information Collection beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                2. Information Collection
-              </div>
+              <H4 className="mb-5 mt-8">2. Information Collection</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We may collect the following information about you when you
@@ -109,9 +106,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 2. Information Collection ends */}
               {/* 3. Use of Information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                3. Use of Information
-              </div>
+              <H4 className="mb-5 mt-8">3. Use of Information</H4>
               <p className="leading-7">
                 We may need to use it to operate and manage the Services on this
                 Site (or other places), provide you support, ensure we comply
@@ -120,9 +115,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 3. Use of Information ends */}
               {/* 4. Third-Parties begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                4. Third-Parties
-              </div>
+              <H4 className="mb-5 mt-8">4. Third-Parties</H4>
               <p className="leading-7">
                 This Privacy Policy does not apply to websites, apps, products,
                 or services that we do not own or control. For example, your
@@ -131,7 +124,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 4. Third-Parties ends */}
               {/* 5. Analytics begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">5. Analytics</div>
+              <H4 className="mb-5 mt-8">5. Analytics</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We use <b>ClickHouse</b> to collect various events from user
@@ -149,9 +142,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 5. Analytics ends */}
               {/* 6. Your Rights and Choices begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                6. Your Rights and Choices
-              </div>
+              <H4 className="mb-5 mt-8">6. Your Rights and Choices</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We may collect the following information about you when you
@@ -186,9 +177,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 6. Your Rights and Choices ends */}
               {/* 7. Data Security begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                7. Data Security
-              </div>
+              <H4 className="mb-5 mt-8">7. Data Security</H4>
               <p className="leading-7">
                 We implement and maintain reasonable administrative, physical,
                 and technical security safeguards to help protect information
@@ -199,7 +188,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 7. Data Security ends */}
               {/* 8. Children begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">8. Children</div>
+              <H4 className="mb-5 mt-8">8. Children</H4>
               <p className="leading-7">
                 The Site is intended for general audiences and are not directed
                 at children. To use the Site, you must legally be able to enter
@@ -208,9 +197,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 8. Children ends */}
               {/* 9. Changes to Policy begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                9. Changes to Policy
-              </div>
+              <H4 className="mb-5 mt-8">9. Changes to Policy</H4>
               <p className="leading-7">
                 We reserve the right to revise and reissue this Privacy Policy
                 at any time. Any changes will be effective immediately upon our
@@ -220,7 +207,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 9. Changes to Policy ends */}
               {/* 10. Contact begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">10. Contact</div>
+              <H4 className="mb-5 mt-8">10. Contact</H4>
               <p className="leading-7">
                 If you have any questions or comments about this Privacy Policy,
                 our data practices, or our compliance with applicable law,

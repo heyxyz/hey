@@ -9,7 +9,7 @@ import { HEY_API_URL } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
 import getNftChainId from '@hey/helpers/getNftChainId';
 import getNftChainInfo from '@hey/helpers/getNftChainInfo';
-import { Button } from '@hey/ui';
+import { Button, H4 } from '@hey/ui';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -88,6 +88,8 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
         await axios.post(
           `${HEY_API_URL}/frames/post`,
           {
+            acceptsAnonymous: showTransaction.frame?.acceptsAnonymous,
+            acceptsLens: showTransaction.frame?.acceptsLens,
             buttonIndex: +1,
             postUrl:
               showTransaction.frame?.buttons[showTransaction.index].postUrl ||
@@ -112,7 +114,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
   if (txnHash) {
     return (
       <div className="m-8 flex flex-col items-center justify-center">
-        <div className="text-xl font-bold">Transaction Sent</div>
+        <H4>Transaction Sent</H4>
         <div className="ld-text-gray-500 mt-3 text-center font-semibold">
           Your transaction will confirm shortly.
         </div>
