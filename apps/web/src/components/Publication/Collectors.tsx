@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { ArrowLeftIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import {
   LimitType,
@@ -53,7 +53,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          icon={<RectangleStackIcon className="size-8" />}
+          icon={<ShoppingBagIcon className="size-8" />}
           message="No collectors."
         />
       </div>

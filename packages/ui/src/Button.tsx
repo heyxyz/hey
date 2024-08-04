@@ -38,24 +38,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const nonOutlineBgStyles = !outline && {
-      'bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 active:bg-gray-700 dark:active:bg-gray-200':
-        variant === 'primary',
-      'bg-red-500 dark:bg-red-500 hover:bg-red-800 dark:hover:bg-red-800 active:bg-red-700 dark:active:bg-red-700':
-        variant === 'danger'
+      'bg-black hover:bg-gray-800 active:bg-gray-700': variant === 'primary',
+      'bg-red-500 hover:bg-red-800 active:bg-red-700': variant === 'danger',
+      'dark:bg-red-500 dark:hover:bg-red-800 dark:active:bg-red-700':
+        variant === 'danger',
+      'dark:bg-white dark:hover:bg-gray-100 dark:active:bg-gray-200':
+        variant === 'primary'
     };
 
     const nonOutlineBorderStyles = !outline && {
-      'dark:border-red-500 border border-red-500 hover:border-red-800 dark:hover:border-red-800 active:border-red-700 dark:active:border-red-700':
+      'border border-black hover:border-gray-800 active:border-gray-700':
+        variant === 'primary',
+      'border border-red-500 hover:border-red-800 active:border-red-700':
         variant === 'danger',
-      'dark:border-white border border-black hover:border-gray-800 dark:hover:border-gray-100 active:border-gray-700 dark:active:border-gray-200':
+      'dark:border-red-500 dark:hover:border-red-800 dark:active:border-red-700':
+        variant === 'danger',
+      'dark:border-white dark:hover:border-gray-100 dark:active:border-gray-200':
         variant === 'primary'
     };
 
     const nonOutlineDisabledStyles = !outline &&
       disabled && {
-        'hover:bg-black hover:border-black active:bg-black active:border-black border-black':
+        'dark:text-gray-500 dark:hover:bg-white dark:hover:border-white dark:active:bg-white dark:active:border-white dark:border-white':
           variant === 'primary',
-        'hover:bg-red-500 hover:border-red-500 active:bg-red-500 active:border-red-500 border-red-500':
+        'dark:text-red-900 dark:hover:bg-red-500 dark:hover:border-red-500 dark:active:bg-red-500 dark:active:border-red-500 dark:border-red-500':
+          variant === 'danger',
+        'text-gray-200 hover:bg-black hover:border-black active:bg-black active:border-black border-black':
+          variant === 'primary',
+        'text-red-200 hover:bg-red-500 hover:border-red-500 active:bg-red-500 active:border-red-500 border-red-500':
           variant === 'danger'
       };
 
@@ -65,10 +75,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const outlineBorderStyles = outline && {
-      'border-black border border-gray-300 dark:border-white hover:border-gray-500':
+      'border border-gray-300 dark:border-white hover:border-gray-500':
         variant === 'primary',
-      'border-red-600 border border-red-600 hover:border-red-400':
-        variant === 'danger'
+      'border border-red-600 hover:border-red-400': variant === 'danger'
     };
 
     const outlineDisabledStyles = outline &&
@@ -98,7 +107,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-full font-bold outline-2 outline-offset-2 focus:outline',
+          'rounded-full font-bold outline-2 outline-offset-4',
           className
         )}
         disabled={disabled}
