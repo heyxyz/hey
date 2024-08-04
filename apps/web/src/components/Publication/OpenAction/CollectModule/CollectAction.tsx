@@ -16,7 +16,7 @@ import errorToast from '@helpers/errorToast';
 import getCurrentSession from '@helpers/getCurrentSession';
 import { Leafwatch } from '@helpers/leafwatch';
 import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
@@ -424,7 +424,7 @@ const CollectAction: FC<CollectActionProps> = ({
         isLoading ? (
           <Spinner size="xs" />
         ) : (
-          <RectangleStackIcon className="size-4" />
+          <ShoppingBagIcon className="size-4" />
         )
       }
       onClick={createCollect}
