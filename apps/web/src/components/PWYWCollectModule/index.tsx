@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useBalance, useContractWrite } from 'wagmi';
+
 import { createActOnOpenActionRequest } from 'pwyw-collect-module';
+
 import { LENS_HUB_ABI, LENS_HUB_ADDRESS } from '../constants';
 import { Button, Input } from '../ui/components';
 
@@ -21,8 +23,8 @@ const PWYWCollectModule = ({ openAction, publication }) => {
   });
 
   const { write: collect } = useContractWrite({
-    address: LENS_HUB_ADDRESS,
     abi: LENS_HUB_ABI,
+    address: LENS_HUB_ADDRESS,
     functionName: 'act'
   });
 

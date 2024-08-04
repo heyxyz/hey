@@ -192,8 +192,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const useMomoka = isComment
     ? publication?.momoka?.proof
     : isQuote
-      ? quotedPublication?.momoka?.proof
-      : noCollect;
+    ? quotedPublication?.momoka?.proof
+    : noCollect;
 
   const reset = () => {
     editor?.setMarkdown('');
@@ -257,8 +257,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       isComment
         ? PUBLICATION.NEW_COMMENT
         : isQuote
-          ? PUBLICATION.NEW_QUOTE
-          : PUBLICATION.NEW_POST,
+        ? PUBLICATION.NEW_QUOTE
+        : PUBLICATION.NEW_POST,
       eventProperties
     );
   };
@@ -395,7 +395,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   }
 
   // Prepare the Momoka request object
-  function prepareMomokaRequest() {
+  function prepareMomokaRequest(): MomokaCommentRequest | MomokaPostRequest | MomokaQuoteRequest {
     return {
       ...(isComment && { commentOn: publication?.id }),
       ...(isQuote && { quoteOn: quotedPublication?.id }),
@@ -404,7 +404,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   }
 
   // Prepare the on-chain request object
-  function prepareOnChainRequest() {
+  function prepareOnChainRequest(): OnchainCommentRequest | OnchainPostRequest | OnchainQuoteRequest {
     const openActionModules = [];
 
     if (isPWYW) {
@@ -412,9 +412,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         amountFloor: amountFloor ? parseEther(amountFloor).toString() : '0',
         collectLimit: collectLimit || '0',
         currency: currency || ZERO_ADDRESS,
-        referralFee: referralFee || '0',
+        endTimestamp: endTimestamp
+          ? new Date(endTimestamp).getTime() / 1000
+          : '0',
         followerOnly: followerOnly || false,
-        endTimestamp: endTimestamp ? new Date(endTimestamp).getTime() / 1000 : '0',
+        referralFee: referralFee || '0',
         recipients: [
           { recipient: currentProfile?.ownedBy.address, split: 10000 }
         ]
@@ -434,17 +436,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ...(isQuote && { quoteOn: quotedPublication?.id }),
       openActionModules,
       ...(onlyFollowers && {
-        referenceModule: selectedReferenceModule === ReferenceModuleType.FollowerOnlyReferenceModule
-          ? { followerOnlyReferenceModule: true }
-          : {
-              degreesOfSeparationReferenceModule: {
-                commentsRestricted: true,
-                degreesOfSeparation,
-                mirrorsRestricted: true,
-                quotesRestricted: true
+        referenceModule:
+          selectedReferenceModule ===
+          ReferenceModuleType.FollowerOnlyReferenceModule
+            ? { followerOnlyReferenceModule: true }
+            : {
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  degreesOfSeparation,
+                  mirrorsRestricted: true,
+                  quotesRestricted: true
+                }
               }
-            }
-      })
     };
   }
 
