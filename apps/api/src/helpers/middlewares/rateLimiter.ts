@@ -18,7 +18,7 @@ const createRateLimiter = (window: number, max: number) => {
         new Error(`Too many requests - ${req.path} - ${getIp(req)}`),
         429
       ),
-    keyGenerator: (req) => hashedIp(req),
+    keyGenerator: (req) => `${sha256(req.path).slice(0, 25)}-${hashedIp(req)}`,
     legacyHeaders: false,
     max, // Maximum number of requests allowed within the window
     skip: () => !redisClient?.isReady,
