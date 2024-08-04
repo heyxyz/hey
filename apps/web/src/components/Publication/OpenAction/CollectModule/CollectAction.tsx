@@ -16,7 +16,6 @@ import errorToast from '@helpers/errorToast';
 import getCurrentSession from '@helpers/getCurrentSession';
 import { Leafwatch } from '@helpers/leafwatch';
 import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { Errors } from '@hey/data';
 import { LENS_HUB } from '@hey/data/constants';
@@ -32,7 +31,7 @@ import {
   useCreateActOnOpenActionTypedDataMutation
 } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
+import { Button, WarningMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -420,13 +419,6 @@ const CollectAction: FC<CollectActionProps> = ({
     <Button
       className={cn('mt-5 w-full justify-center', className)}
       disabled={isLoading}
-      icon={
-        isLoading ? (
-          <Spinner size="xs" />
-        ) : (
-          <ShoppingBagIcon className="size-4" />
-        )
-      }
       onClick={createCollect}
     >
       {buttonTitle}
