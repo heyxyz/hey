@@ -8,7 +8,7 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
-import { Button, Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
+import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
@@ -51,7 +51,7 @@ const List: FC = () => {
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
-        <div className="text-lg font-bold">Allowed Tokens</div>
+        <H5>Allowed Tokens</H5>
         <Button onClick={() => setShowCreateModal(!showCreateModal)}>
           Create
         </Button>

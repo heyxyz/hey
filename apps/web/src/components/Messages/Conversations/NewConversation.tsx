@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import SearchProfiles from '@components/Shared/SearchProfiles';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { Modal } from '@hey/ui';
+import { H5, Modal } from '@hey/ui';
 import { useClient, useConversation } from '@xmtp/react-sdk';
 import { useState } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
@@ -31,7 +31,7 @@ const NewConversation: FC = () => {
 
   return (
     <div className="m-5 flex items-center justify-between">
-      <div className="text-lg font-bold">Messages</div>
+      <H5>Messages</H5>
       <button disabled={!client?.address} onClick={() => setShowModal(true)}>
         <PlusCircleIcon className="size-6" />
       </button>

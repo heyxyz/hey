@@ -14,6 +14,7 @@ import {
   XCircleIcon
 } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { H5 } from '@hey/ui';
 
 interface ProfilePreferencesProps {
   preferences: Preferences;
@@ -29,7 +30,7 @@ const ProfilePreferences: FC<ProfilePreferencesProps> = ({ preferences }) => {
       <div className="divider my-5 border-dashed border-yellow-600" />
       <div className="flex items-center space-x-2 text-yellow-600">
         <Cog6ToothIcon className="size-5" />
-        <div className="text-lg font-bold">Profile Preferences</div>
+        <H5>Profile Preferences</H5>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
