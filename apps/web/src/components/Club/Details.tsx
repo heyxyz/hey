@@ -6,7 +6,7 @@ import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import getMentions from '@hey/helpers/getMentions';
 import humanize from '@hey/helpers/humanize';
-import { Image, LightBox } from '@hey/ui';
+import { H4, Image, LightBox } from '@hey/ui';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -50,7 +50,7 @@ const Details: FC<DetailsProps> = ({ club }) => {
           className="text-left outline-offset-4"
           href={`/c/${club.handle}/members`}
         >
-          <div className="text-xl">{humanize(club.totalMembers)}</div>
+          <H4>{humanize(club.totalMembers)}</H4>
           <div className="ld-text-gray-500">Members</div>
         </Link>
         <JoinLeaveButton club={club} />

@@ -6,7 +6,7 @@ import { Errors } from '@hey/data';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { AUTH } from '@hey/data/tracking';
 import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
+import { Button, H4, Spinner } from '@hey/ui';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { signIn } from 'src/store/persisted/useAuthStore';
@@ -63,7 +63,7 @@ const Success: FC = () => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <div className="text-xl font-bold">Waaa-hey! You got your profile!</div>
+      <H4>Waaa-hey! You got your profile!</H4>
       <div className="ld-text-gray-500 mt-3 text-center font-semibold">
         Welcome to decentralised social where everything is sooooooooooooo much
         better! 🎉
