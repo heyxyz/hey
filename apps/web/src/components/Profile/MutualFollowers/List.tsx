@@ -5,7 +5,7 @@ import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -78,7 +78,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
         <Link href={`/u/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <b className="text-lg">Mutual Followers</b>
+        <H5>Mutual Followers</H5>
       </div>
       <div className="divider" />
       <Virtuoso
