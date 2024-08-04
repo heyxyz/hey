@@ -16,6 +16,7 @@ import {
   Button,
   Card,
   CardHeader,
+  H5,
   Modal,
   Spinner,
   WarningMessage
@@ -87,7 +88,7 @@ const HandleGuardianSettings: FC = () => {
       <div className="m-5 space-y-5">
         {isProtected && (
           <>
-            <div className="text-lg font-bold">What else you should know</div>
+            <H5>What else you should know</H5>
             <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
               <p className="pb-3">
                 A 24-hours Security Cooldown Period need to be elapsed for the

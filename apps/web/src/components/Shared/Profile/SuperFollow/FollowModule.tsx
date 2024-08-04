@@ -29,7 +29,7 @@ import {
   useProfileQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import { Button, H3, Spinner, WarningMessage } from '@hey/ui';
+import { Button, H3, H5, Spinner, WarningMessage } from '@hey/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -250,9 +250,9 @@ const FollowModule: FC<FollowModuleProps> = ({
   return (
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
-        <div className="text-lg font-bold">
+        <H5>
           Super follow <Slug slug={getProfile(profile).slugWithPrefix} />
-        </div>
+        </H5>
         <div className="ld-text-gray-500">
           Follow and get some awesome perks!
         </div>
@@ -286,7 +286,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         </div>
       </div>
       <div className="mt-5 space-y-2">
-        <div className="text-lg font-bold">Perks you get</div>
+        <div>Perks you get</div>
         <ul className="ld-text-gray-500 space-y-1 text-sm">
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
