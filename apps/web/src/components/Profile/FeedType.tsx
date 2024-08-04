@@ -6,7 +6,7 @@ import {
   ChatBubbleLeftIcon,
   FilmIcon,
   PencilSquareIcon,
-  RectangleStackIcon
+  ShoppingBagIcon
 } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
@@ -49,7 +49,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       type: ProfileFeedType.Media
     },
     {
-      icon: <RectangleStackIcon className="size-4" />,
+      icon: <ShoppingBagIcon className="size-4" />,
       name: 'Collected',
       type: ProfileFeedType.Collects
     },

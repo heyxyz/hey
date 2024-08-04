@@ -2,7 +2,7 @@ import type { ActedNotification as TActedNotification } from '@hey/lens';
 import type { FC } from 'react';
 
 import Markup from '@components/Shared/Markup';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import getPublicationData from '@hey/helpers/getPublicationData';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import Link from 'next/link';
@@ -38,7 +38,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <RectangleStackIcon className="size-6" />
+        <ShoppingBagIcon className="size-6" />
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action) => (
             <div key={action.by.id}>

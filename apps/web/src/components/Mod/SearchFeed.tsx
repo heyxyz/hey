@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import HigherActions from '@components/Publication/Actions/HigherActions';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { LimitType, useSearchPublicationsQuery } from '@hey/lens';
 import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
@@ -97,7 +97,7 @@ const SearchFeed: FC = () => {
       <div className="space-y-5">
         <Search />
         <EmptyState
-          icon={<RectangleStackIcon className="size-8" />}
+          icon={<ChatBubbleBottomCenterIcon className="size-8" />}
           message="No posts yet!"
         />
       </div>
