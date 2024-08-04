@@ -10,7 +10,7 @@ import {
   HEY_MEMBERSHIP_NFT_PUBLICATION_ID
 } from '@hey/data/constants';
 import { usePublicationQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import { ErrorMessage, H3 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 
@@ -68,16 +68,16 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
           </Link>{' '}
           development. Here's to more innovation and collaboration ahead!
         </div>
-        <div
+        <H3
           className={cn(
-            'flex items-center space-x-2 pt-3 text-2xl',
+            'flex items-center space-x-2 pt-3',
             signatureFont.className
           )}
         >
           <div>-</div>
           <img className="size-6" src="/logo.png" />
           <div>Team Hey</div>
-        </div>
+        </H3>
       </div>
       <div className="mt-6">
         <CollectAction
