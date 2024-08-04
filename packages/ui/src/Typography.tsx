@@ -1,35 +1,73 @@
 import type { FC, ReactNode } from 'react';
 
-import React from 'react';
+import React, { forwardRef } from 'react';
+
+import cn from '../cn';
 
 interface TypographyProps {
   children: ReactNode;
+  className?: string;
 }
 
-export const H1: FC<TypographyProps> = ({ children }) => (
-  <h1 className="text-[48px] font-bold">{children}</h1>
-);
+export const H1: FC<TypographyProps> = forwardRef<
+  HTMLHeadingElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <h1 className={cn('text-[48px] font-bold', className)} ref={ref}>
+    {children}
+  </h1>
+));
 
-export const H2: FC<TypographyProps> = ({ children }) => (
-  <h2 className="text-[40px] font-bold">{children}</h2>
-);
+export const H2: FC<TypographyProps> = forwardRef<
+  HTMLHeadingElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <h2 className={cn('text-[40px] font-bold', className)} ref={ref}>
+    {children}
+  </h2>
+));
 
-export const H3: FC<TypographyProps> = ({ children }) => (
-  <h3 className="text-[32px] font-bold">{children}</h3>
-);
+export const H3: FC<TypographyProps> = forwardRef<
+  HTMLHeadingElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <h3 className={cn('text-[32px] font-bold', className)} ref={ref}>
+    {children}
+  </h3>
+));
 
-export const H4: FC<TypographyProps> = ({ children }) => (
-  <h4 className="text-[24px] font-bold">{children}</h4>
-);
+export const H4: FC<TypographyProps> = forwardRef<
+  HTMLHeadingElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <h4 className={cn('text-[24px] font-bold', className)} ref={ref}>
+    {children}
+  </h4>
+));
 
-export const H5: FC<TypographyProps> = ({ children }) => (
-  <h5 className="text-[16px] font-bold">{children}</h5>
-);
+export const H5: FC<TypographyProps> = forwardRef<
+  HTMLHeadingElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <h5 className={cn('text-[16px] font-bold', className)} ref={ref}>
+    {children}
+  </h5>
+));
 
-export const H6: FC<TypographyProps> = ({ children }) => (
-  <h6 className="text-[14px] font-bold">{children}</h6>
-);
+export const H6: FC<TypographyProps> = forwardRef<
+  HTMLHeadingElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <h6 className={cn('text-[14px] font-bold', className)} ref={ref}>
+    {children}
+  </h6>
+));
 
-export const P: FC<TypographyProps> = ({ children }) => (
-  <p className="text-[15px]">{children}</p>
-);
+export const P: FC<TypographyProps> = forwardRef<
+  HTMLParagraphElement,
+  TypographyProps
+>(({ children, className = '' }, ref) => (
+  <p className={cn('text-[15px]', className)} ref={ref}>
+    {children}
+  </p>
+));
