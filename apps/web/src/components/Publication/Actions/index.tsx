@@ -43,7 +43,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
 
   return (
     <span
-      className="-ml-2 mt-2 flex flex-wrap items-center justify-between gap-3"
+      className="mt-3 flex w-full flex-wrap items-center justify-between gap-3"
       onClick={stopEventPropagation}
     >
       <span className="flex items-center gap-x-6">

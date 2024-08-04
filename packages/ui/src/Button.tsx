@@ -65,10 +65,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const outlineBorderStyles = outline && {
-      'border-black border border-gray-300 dark:border-white hover:border-gray-500':
+      'border border-gray-300 dark:border-white hover:border-gray-500':
         variant === 'primary',
-      'border-red-600 border border-red-600 hover:border-red-400':
-        variant === 'danger'
+      'border border-red-600 hover:border-red-400': variant === 'danger'
     };
 
     const outlineDisabledStyles = outline &&
@@ -98,7 +97,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ...sizeStyles,
             'inline-flex items-center space-x-1.5': icon && children
           },
-          'rounded-full font-bold outline-2 outline-offset-2 focus:outline',
+          'rounded-full font-bold outline-2 outline-offset-4',
           className
         )}
         disabled={disabled}
