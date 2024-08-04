@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
+import { H6 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { toast } from 'react-hot-toast';
 
@@ -30,11 +31,11 @@ const MetaDetails: FC<MetaDetailsProps> = ({
       className={cn(
         !noFlex && 'flex items-center gap-1',
         value && 'cursor-pointer',
-        'linkify text-sm font-bold'
+        'linkify'
       )}
       onClick={handleClick}
     >
-      <div className="flex items-center gap-1">
+      <H6 className="flex items-center gap-1">
         {icon}
         {title && (
           <div className="ld-text-gray-500">
@@ -42,8 +43,8 @@ const MetaDetails: FC<MetaDetailsProps> = ({
             {!noFlex && ':'}
           </div>
         )}
-      </div>
-      <div className={noFlex ? 'mt-1' : ''}>{children}</div>
+      </H6>
+      <H6 className={noFlex ? 'mt-1' : ''}>{children}</H6>
     </div>
   );
 };
