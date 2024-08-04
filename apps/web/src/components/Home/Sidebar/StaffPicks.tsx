@@ -8,7 +8,7 @@ import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicon
 import { HEY_API_URL } from '@hey/data/constants';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { useStaffPicksQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -18,7 +18,7 @@ interface BatchRange {
   start: number;
 }
 
-const Title: FC = () => <p className="text-lg font-semibold">Staff Picks</p>;
+const Title: FC = () => <H5>Staff Picks</H5>;
 
 const StaffPicks: FC = () => {
   const { currentProfile } = useProfileStore();

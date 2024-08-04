@@ -10,7 +10,7 @@ import {
   useWhoReactedPublicationQuery,
   type WhoReactedPublicationRequest
 } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -75,7 +75,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <b className="text-lg">Liked by</b>
+        <H5>Liked by</H5>
       </div>
       <div className="divider" />
       <Virtuoso

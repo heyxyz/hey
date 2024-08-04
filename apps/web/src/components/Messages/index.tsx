@@ -6,7 +6,7 @@ import { loadKeys } from '@helpers/xmtp/keys';
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { EmptyState } from '@hey/ui';
+import { EmptyState, H5 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useClient } from '@xmtp/react-sdk';
 import { useEffect } from 'react';
@@ -73,11 +73,7 @@ const Messages: NextPage = () => {
               <EmptyState
                 hideCard
                 icon={<InboxIcon className="size-10" />}
-                message={
-                  <b className="text-lg">
-                    Select a conversation to start messaging
-                  </b>
-                }
+                message={<H5>Select a conversation to start messaging</H5>}
               />
             </div>
           )}

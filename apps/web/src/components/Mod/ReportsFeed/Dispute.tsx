@@ -8,7 +8,7 @@ import {
   type Profile,
   useModDisputeReportMutation
 } from '@hey/lens';
-import { Button, Form, TextArea, useZodForm } from '@hey/ui';
+import { Button, Form, H5, TextArea, useZodForm } from '@hey/ui';
 import toast from 'react-hot-toast';
 import { object, string } from 'zod';
 
@@ -52,27 +52,27 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
     <div className="p-5">
       <div className="max-w-md space-y-3">
         <div>
-          <b className="text-lg">Reason</b>
+          <H5>Reason</H5>
           <div className="text-sm">{report.reason}</div>
         </div>
         <div>
-          <b className="text-lg">Subreason</b>
+          <H5>Subreason</H5>
           <div className="text-sm">{report.subreason}</div>
         </div>
         {report.additionalInfo ? (
           <div>
-            <b className="text-lg">Additional info</b>
+            <H5>Additional info</H5>
             <div className="text-sm">{report.additionalInfo}</div>
           </div>
         ) : null}
         <div>
-          <b className="text-lg">Reported at</b>
+          <H5>Reported at</H5>
           <div className="text-sm">
             {formatDate(report.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
           </div>
         </div>
         <div>
-          <b className="text-lg">Reported by</b>
+          <H5>Reported by</H5>
           <div className="mt-1">
             <SmallUserProfile profile={report.reporter as Profile} />
           </div>
