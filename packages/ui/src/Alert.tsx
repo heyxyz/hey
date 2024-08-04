@@ -10,6 +10,7 @@ import {
 import { Fragment } from 'react';
 
 import { Button } from './Button';
+import { H4 } from './Typography';
 
 interface AlertProps {
   cancelText?: string;
@@ -60,7 +61,7 @@ export const Alert: FC<AlertProps> = ({
           >
             <DialogPanel className="inline-block w-full scale-100 space-y-6 rounded-xl bg-white p-5 text-left align-bottom shadow-xl transition-all sm:max-w-sm sm:align-middle dark:bg-gray-800">
               <DialogTitle className="space-y-2">
-                <b className="text-xl">{title}</b>
+                <H4>{title}</H4>
                 <p>{description}</p>
               </DialogTitle>
               <div>{children}</div>
