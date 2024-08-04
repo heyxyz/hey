@@ -45,7 +45,6 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         onClick={() =>
           updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')
         }
-        outline
         size="sm"
         variant="danger"
       >
@@ -57,7 +56,6 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         onClick={() =>
           updateFeatureFlag('df931ea4-109f-4fde-a8b5-4b2170730e8c')
         }
-        outline
         size="sm"
         variant="danger"
       >
