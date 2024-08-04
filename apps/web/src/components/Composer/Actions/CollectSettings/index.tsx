@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -24,11 +24,11 @@ const CollectSettings: FC = () => {
           type="button"
           whileTap={{ scale: 0.9 }}
         >
-          <RectangleStackIcon className="size-5" />
+          <ShoppingBagIcon className="size-5" />
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<RectangleStackIcon className="size-5" />}
+        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => {
           setShowModal(false);
           setLicense(null);
