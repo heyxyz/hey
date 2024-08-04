@@ -9,6 +9,7 @@ import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
 import getProfile from '@hey/helpers/getProfile';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useProfilesQuery } from '@hey/lens';
+import { H6 } from '@hey/ui';
 import { useRouter } from 'next/router';
 import { useSearchStore } from 'src/store/persisted/useSearchStore';
 
@@ -45,13 +46,12 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
           <div className="flex items-center justify-between px-4 pb-2 pt-1">
             <b>Recent</b>
             <button
-              className="ld-text-gray-500 text-sm font-bold"
               onClick={() => {
                 clearProfiles();
                 Leafwatch.track(SEARCH.CLEAR_ALL_RECENT_SEARCH);
               }}
             >
-              Clear all
+              <H6 className="ld-text-gray-500">Clear all</H6>
             </button>
           </div>
           {profiles.map((profile) => (
