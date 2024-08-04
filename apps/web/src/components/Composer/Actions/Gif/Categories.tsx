@@ -2,6 +2,7 @@ import type { Category } from '@hey/types/giphy';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { GIPHY_KEY } from '@hey/data/constants';
+import { H5 } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -44,8 +45,8 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
             height={128}
             src={category.gif?.images?.original_still?.url}
           />
-          <div className="absolute bottom-0 right-0 w-full bg-gradient-to-b from-transparent to-gray-800 px-2 py-1 text-right text-lg font-bold text-white">
-            <span className="capitalize">{category.name}</span>
+          <div className="absolute bottom-0 right-0 w-full bg-gradient-to-b from-transparent to-gray-800 px-2 py-1 text-right">
+            <H5 className="capitalize text-white">{category.name}</H5>
           </div>
         </button>
       ))}

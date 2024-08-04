@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
+import { H5 } from './Typography';
+
 interface CardHeaderProps {
   body?: ReactNode;
   hideDivider?: boolean;
@@ -14,7 +16,7 @@ const CardHeader: FC<CardHeaderProps> = ({
   return (
     <>
       <div className="m-5 space-y-2">
-        <h1 className="text-lg font-bold">{title}</h1>
+        <H5>{title}</H5>
         {body ? <p>{body}</p> : null}
       </div>
       {hideDivider ? null : <div className="divider" />}

@@ -6,7 +6,7 @@ import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import humanize from '@hey/helpers/humanize';
 import { useFollowRevenuesQuery } from '@hey/lens';
-import { Card, CardHeader, ErrorMessage } from '@hey/ui';
+import { Card, CardHeader, ErrorMessage, H5 } from '@hey/ui';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 interface SuperFollowRevenueProps {
@@ -57,7 +57,7 @@ const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
             ) : (
               <CurrencyDollarIcon className="size-5" />
             )}
-            <div className="text-lg font-bold">{revenue.total.asset.name}</div>
+            <H5>{revenue.total.asset.name}</H5>
             <div className="text-sm">
               {humanize(parseFloat(revenue.total.value))}{' '}
               {revenue.total.asset.symbol}

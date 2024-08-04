@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, WarningMessage } from '@hey/ui';
+import { Button, H5, WarningMessage } from '@hey/ui';
 import React from 'react';
 
 const permit2Copy = (selectedCurrencySymbol: string) =>
@@ -45,7 +45,7 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
             src={nftDetails.uri}
           />
           <div>
-            <p className="text-lg font-bold">{nftDetails.name}</p>
+            <H5>{nftDetails.name}</H5>
             <p className="text-sm">{nftDetails.creator}</p>
           </div>
         </div>
