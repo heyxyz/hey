@@ -6,7 +6,7 @@ import {
   BellIcon,
   ChatBubbleLeftIcon,
   HeartIcon,
-  RectangleStackIcon
+  ShoppingBagIcon
 } from '@heroicons/react/24/outline';
 import { NOTIFICATION } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
@@ -45,7 +45,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
       type: NotificationTabType.Likes
     },
     {
-      icon: <RectangleStackIcon className="size-4" />,
+      icon: <ShoppingBagIcon className="size-4" />,
       name: 'Collects',
       type: NotificationTabType.Collects
     }

@@ -18,10 +18,14 @@ const PublicationShimmer: FC = () => {
           <div className="shimmer h-3 w-7/12 rounded-lg" />
           <div className="shimmer h-3 w-1/3 rounded-lg" />
         </div>
-        <div className="flex gap-8 pt-1">
-          <div className="shimmer size-5 rounded-lg" />
-          <div className="shimmer size-5 rounded-lg" />
-          <div className="shimmer size-5 rounded-lg" />
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex gap-6 pt-1">
+            <div className="shimmer size-5 rounded-lg" />
+            <div className="shimmer size-5 rounded-lg" />
+            <div className="shimmer size-5 rounded-lg" />
+            <div className="shimmer size-5 rounded-lg" />
+          </div>
+          <div className="shimmer h-6 w-20 rounded-full" />
         </div>
       </div>
     </div>

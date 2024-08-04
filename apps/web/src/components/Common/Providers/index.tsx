@@ -15,7 +15,6 @@ import { ThemeProvider } from 'next-themes';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import LeafwatchProvider from './LeafwatchProvider';
-import LensAuthProvider from './LensAuthProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
 import PreferencesProvider from './PreferencesProvider';
@@ -42,7 +41,6 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
       <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
-          <LensAuthProvider />
           <LensSubscriptionsProvider />
           <OptimisticTransactionsProvider />
           <QueryClientProvider client={queryClient}>
