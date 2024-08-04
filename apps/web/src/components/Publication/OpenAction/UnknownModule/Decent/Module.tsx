@@ -38,7 +38,7 @@ import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import truncateByWords from '@hey/helpers/truncateByWords';
 import { useDefaultProfileQuery } from '@hey/lens';
 import { OptmisticPublicationType } from '@hey/types/enums';
-import { Image, Modal } from '@hey/ui';
+import { H4, Image, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -393,7 +393,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
         <>
           <div className="space-y-2 p-5">
             <div>
-              <b className="text-xl">{nftName}</b>
+              <H4>{nftName}</H4>
               {creatorProfileData ? (
                 <p className="ld-text-gray-500">
                   by{' '}

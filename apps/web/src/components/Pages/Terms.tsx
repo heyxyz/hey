@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@helpers/leafwatch';
 import { PAGEVIEW } from '@hey/data/tracking';
+import { H2, H4 } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -17,9 +18,7 @@ const Terms: NextPage = () => {
     <>
       <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
-          <h1 className="text-3xl font-bold text-white md:text-4xl">
-            Terms & Conditions
-          </h1>
+          <H2 className="text-white">Terms & Conditions</H2>
           <div className="mt-4 flex justify-center">
             <div className="rounded-md bg-gray-800 px-2 py-0.5 text-xs text-white">
               Updated {updatedAt}
@@ -32,7 +31,7 @@ const Terms: NextPage = () => {
           <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
             <div className="ld-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
-              <div className="mb-5 text-xl font-bold">1. Overview</div>
+              <H4 className="mb-5">1. Overview</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   The website hey.xyz” (the “Site”) offers information, tools
@@ -69,9 +68,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. General Conditions beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                2. General Conditions
-              </div>
+              <H4 className="mb-5 mt-8">2. General Conditions</H4>
               <p className="leading-7">
                 You may not use our Site for any illegal or unauthorised purpose
                 nor may you, in the use of the Service, violate any laws in your
@@ -83,7 +80,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 2. General Conditions ends */}
               {/* 3. Services begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">3. Services</div>
+              <H4 className="mb-5 mt-8">3. Services</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   User Lens profile is referred as the “Profile” in the “Site”.
@@ -148,9 +145,9 @@ const Terms: NextPage = () => {
               </div>
               {/* 3. Services ends */}
               {/* 4. Accuracy, Completeness and Timeliness of information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
+              <H4 className="mb-5 mt-8">
                 4. Accuracy, Completeness and Timeliness of information
-              </div>
+              </H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We are not responsible for any mistakes or inaccuracies on
@@ -165,9 +162,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 4. Accuracy, Completeness and Timeliness of information ends */}
               {/* 5. Modification of Services begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                5. Modification of Services
-              </div>
+              <H4 className="mb-5 mt-8">5. Modification of Services</H4>
               <p className="leading-7">
                 We reserve the right at any time to modify or discontinue the
                 Site (or any part or content thereof) without notice at any
@@ -177,9 +172,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 5. Modification of Services ends */}
               {/* 6. Third-Party Services & Websites begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                6. Third-Party Services & Websites
-              </div>
+              <H4 className="mb-5 mt-8">6. Third-Party Services & Websites</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We are not responsible for the content or services of any
@@ -199,18 +192,14 @@ const Terms: NextPage = () => {
               </div>
               {/* 6. Third-Party Services & Websites ends */}
               {/* 7. Personal Information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                7. Personal Information
-              </div>
+              <H4 className="mb-5 mt-8">7. Personal Information</H4>
               <p className="linkify leading-7">
                 Your submission of personal information through the Site is
                 governed by our <Link href="/privacy">Privacy Policy</Link>.
               </p>
               {/* 7. Personal Information ends */}
               {/* 8. Prohibited Usage begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                8. Prohibited Usage
-              </div>
+              <H4 className="mb-5 mt-8">8. Prohibited Usage</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to use the Site for anything illegal,
@@ -263,9 +252,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 8. Prohibited Usage ends */}
               {/* 9. Assumption of Risk begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                9. Assumption of Risk
-              </div>
+              <H4 className="mb-5 mt-8">9. Assumption of Risk</H4>
               <p className="leading-7">
                 You assume the risks of using the Site (including the risks
                 related to smart contracts). You are responsible for your
@@ -275,9 +262,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 9. Assumption of Risk ends */}
               {/* 10. Refund Policy */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                10. Refund Policy
-              </div>
+              <H4 className="mb-5 mt-8">10. Refund Policy</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   <b>No Refunds on Successful Minting:</b> We do not offer
@@ -301,9 +286,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 10.Refund Policy */}
               {/* 11. Disclaimer of Warranties begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                11. Disclaimer of Warranties
-              </div>
+              <H4 className="mb-5 mt-8">11. Disclaimer of Warranties</H4>
               <p className="leading-7">
                 The Site are provided to you completely as they are, and could
                 function differently than you expected. You agree to accept the
@@ -313,9 +296,7 @@ const Terms: NextPage = () => {
               </p>
               {/* 11. Disclaimer of Warranties ends */}
               {/* 12. Termination and Cancellation begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                12. Termination and Cancellation
-              </div>
+              <H4 className="mb-5 mt-8">12. Termination and Cancellation</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   This Agreement is effective unless and until terminated by
@@ -330,9 +311,7 @@ const Terms: NextPage = () => {
               </div>
               {/* 12. Termination and Cancellation ends */}
               {/* 13. Contact Information begins */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                13. Contact Information
-              </div>
+              <H4 className="mb-5 mt-8">13. Contact Information</H4>
               <p className="leading-7">
                 Questions about the Terms should be sent to us at
                 support@heyxyz.zohodesk.in
