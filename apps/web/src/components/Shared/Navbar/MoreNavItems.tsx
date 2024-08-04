@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { H6 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -16,7 +17,7 @@ const MoreNavItems: FC = () => {
         <>
           <MenuButton
             className={cn(
-              'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+              'w-full cursor-pointer rounded-md px-2 py-1 text-left tracking-wide md:px-3',
               {
                 'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': open,
                 'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
@@ -24,7 +25,7 @@ const MoreNavItems: FC = () => {
               }
             )}
           >
-            More
+            <H6>More</H6>
           </MenuButton>
           <MenuTransition>
             <MenuItems
