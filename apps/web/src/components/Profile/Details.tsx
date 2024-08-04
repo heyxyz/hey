@@ -28,7 +28,7 @@ import getProfile from '@hey/helpers/getProfile';
 import getProfileAttribute from '@hey/helpers/getProfileAttribute';
 import hasMisused from '@hey/helpers/hasMisused';
 import { FollowModuleType } from '@hey/lens';
-import { Button, Image, LightBox, Tooltip } from '@hey/ui';
+import { Button, H3, Image, LightBox, Tooltip } from '@hey/ui';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -94,8 +94,8 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         />
       </div>
       <div className="space-y-1 py-2">
-        <div className="flex items-center gap-1.5 text-2xl font-bold">
-          <div className="truncate">{getProfile(profile).displayName}</div>
+        <div className="flex items-center gap-1.5">
+          <H3 className="truncate">{getProfile(profile).displayName}</H3>
           {isVerified(profile.id) ? (
             <Tooltip content="Verified">
               <CheckBadgeIcon className="text-brand-500 size-6" />
