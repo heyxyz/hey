@@ -1,4 +1,4 @@
-import { Card, CardHeader, H1, H2, H3, H4, H5, H6, P } from '@hey/ui';
+import { Card, CardHeader, H1, H2, H3, H4, H5, H6 } from '@hey/ui';
 import { type FC } from 'react';
 
 const Typography: FC = () => {
@@ -14,7 +14,7 @@ const Typography: FC = () => {
         <H4>{title}</H4>
         <H5>{title}</H5>
         <H6>{title}</H6>
-        <P>{title}</P>
+        <p>{title}</p>
       </div>
     </Card>
   );
