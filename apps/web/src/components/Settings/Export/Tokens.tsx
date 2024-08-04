@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Card, CardHeader } from '@hey/ui';
+import { Card, CardHeader, H6 } from '@hey/ui';
 import toast from 'react-hot-toast';
 import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
 
@@ -12,37 +12,37 @@ const Tokens: FC = () => {
       <Card>
         <CardHeader title="Your temporary access token" />
         <button
-          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left text-sm font-bold dark:bg-gray-600"
+          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
             toast.success('Copied to clipboard');
             navigator.clipboard.writeText(accessToken as string);
           }}
         >
-          {accessToken}
+          <H6>{accessToken}</H6>
         </button>
       </Card>
       <Card>
         <CardHeader title="Your temporary refresh token" />
         <button
-          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left text-sm font-bold dark:bg-gray-600"
+          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
             toast.success('Copied to clipboard');
             navigator.clipboard.writeText(refreshToken as string);
           }}
         >
-          {refreshToken}
+          <H6>{refreshToken}</H6>
         </button>
       </Card>
       <Card>
         <CardHeader title="Your temporary identity token" />
         <button
-          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left text-sm font-bold dark:bg-gray-600"
+          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
             toast.success('Copied to clipboard');
             navigator.clipboard.writeText(identityToken as string);
           }}
         >
-          {identityToken}
+          <H6>{identityToken}</H6>
         </button>
       </Card>
     </>
