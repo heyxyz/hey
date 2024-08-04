@@ -5,7 +5,10 @@ import {
   DisclosureButton,
   DisclosurePanel
 } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowTurnDownRightIcon,
+  ChevronDownIcon
+} from '@heroicons/react/24/outline';
 import { HelpTooltip } from '@hey/ui'; // Assuming HelpTooltip is from @hey/ui
 import type { ActionData } from 'nft-openaction-kit';
 
@@ -43,7 +46,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
       <DisclosurePanel className="mt-1.5 space-y-1 text-sm">
         <div className="ld-text-gray-500 flex items-center justify-between">
           <span className="flex items-center space-x-2">
-            <span>↳</span>
+            <ArrowTurnDownRightIcon className="size-4" />
             <p>
               {actionData?.actArgumentsFormatted.dstChainId === 137
                 ? 'Transaction Fee'
@@ -57,7 +60,7 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
         <div className="ld-text-gray-500 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="flex items-center space-x-2">
-              <span>↳</span>
+              <ArrowTurnDownRightIcon className="size-4" />
               <p>Lens Creator Fee</p>
             </span>
             <HelpTooltip>
