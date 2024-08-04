@@ -16,6 +16,7 @@ import {
   Button,
   Card,
   CardHeader,
+  H5,
   Modal,
   Spinner,
   WarningMessage
@@ -105,9 +106,7 @@ const DeleteSettings: FC = () => {
           profile={currentProfile as Profile}
         />
         <div className="space-y-3">
-          <div className="text-lg font-bold text-red-500">
-            Delete Lens profile
-          </div>
+          <H5 className="text-red-500">Delete Lens profile</H5>
           <p>
             This will permanently delete your Profile NFT on the Lens Protocol.
             You will not be able to use any apps built on Lens, including{' '}
@@ -115,7 +114,7 @@ const DeleteSettings: FC = () => {
             won't be able to get it back.
           </p>
         </div>
-        <div className="text-lg font-bold">What else you should know</div>
+        <H5>What else you should know</H5>
         <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
           <p className="pb-3">
             You cannot restore your Lens profile if it was accidentally or

@@ -6,7 +6,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { LimitType, useFollowersQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
 import Link from 'next/link';
 import { Virtuoso } from 'react-virtuoso';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -75,7 +75,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
         <Link href={`/u/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <b className="text-lg">Followers</b>
+        <H5>Followers</H5>
       </div>
       <div className="divider" />
       <Virtuoso

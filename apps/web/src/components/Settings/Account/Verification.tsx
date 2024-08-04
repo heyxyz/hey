@@ -5,7 +5,7 @@ import { MinusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckBadgeIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@hey/data/tracking';
 import getNumberOfDaysFromDate from '@hey/helpers/datetime/getNumberOfDaysFromDate';
-import { Button, Card } from '@hey/ui';
+import { Button, Card, H5 } from '@hey/ui';
 import toast from 'react-hot-toast';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
@@ -32,7 +32,7 @@ const Verification: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">Verified</div>
+      <H5>Verified</H5>
       {verifiedMembers.includes(currentProfile?.id) ? (
         <div className="flex items-center space-x-1.5">
           <span>Believe it. Yes, you're really verified.</span>
