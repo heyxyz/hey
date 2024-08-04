@@ -17,6 +17,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
+import { H5 } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -48,7 +49,7 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
       <div className="divider my-5 border-dashed border-yellow-600" />
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="size-5" />
-        <div className="text-lg font-bold">Profile Overview</div>
+        <H5>Profile Overview</H5>
       </div>
       <div className="mt-3 space-y-2">
         {haveUsedHey ? (

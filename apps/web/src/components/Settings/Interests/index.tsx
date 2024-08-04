@@ -12,7 +12,8 @@ import {
   CardHeader,
   GridItemEight,
   GridItemFour,
-  GridLayout
+  GridLayout,
+  H5
 } from '@hey/ui';
 import { useEffect } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -44,9 +45,7 @@ const InterestsSettings: NextPage = () => {
             doesn't look right.`}
             title={
               <div className="flex items-center space-x-2">
-                <div className="text-lg font-bold">
-                  Select profile interests
-                </div>
+                <H5>Select profile interests</H5>
                 <Beta />
               </div>
             }

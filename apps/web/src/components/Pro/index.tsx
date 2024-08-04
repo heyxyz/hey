@@ -9,7 +9,7 @@ import {
 } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import formatDate from '@hey/helpers/datetime/formatDate';
-import { H3, H4 } from '@hey/ui';
+import { H3, H4, H5 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useEffect } from 'react';
 import { useProStore } from 'src/store/non-persisted/useProStore';
@@ -57,10 +57,10 @@ const Pro: NextPage = () => {
           and more.
         </H4>
       </div>
-      <p className="ld-text-gray-500 mx-auto mt-4 max-w-2xl text-center text-lg leading-7">
+      <H5 className="ld-text-gray-500 mx-auto mt-4 max-w-2xl text-center font-normal leading-7">
         You can extend your Pro subscription anytime for an additional month or
         given time, whenever it suits you, without any hassle.
-      </p>
+      </H5>
       <div className="mx-auto mt-20 max-w-md items-center space-y-6">
         <div
           className={cn(

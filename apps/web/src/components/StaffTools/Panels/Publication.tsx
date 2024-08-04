@@ -5,7 +5,7 @@ import MetaDetails from '@components/Shared/MetaDetails';
 import { HashtagIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { isCommentPublication } from '@hey/helpers/publicationHelpers';
-import { Card } from '@hey/ui';
+import { Card, H5 } from '@hey/ui';
 
 interface PublicationStaffToolProps {
   publication: MirrorablePublication;
@@ -24,7 +24,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
     >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="size-5" />
-        <div className="text-lg font-bold">Staff tool</div>
+        <H5>Staff tool</H5>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails

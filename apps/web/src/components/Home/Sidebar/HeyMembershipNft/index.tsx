@@ -5,7 +5,7 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
-import { Button, Card, Modal } from '@hey/ui';
+import { Button, Card, H5, Modal } from '@hey/ui';
 import axios from 'axios';
 import { memo, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -49,9 +49,7 @@ const HeyMembershipNft: FC = () => {
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
       />
       <div className="p-5">
-        <p className="mb-1 text-lg font-bold">
-          Hey! Grab your special {APP_NAME} NFT here.
-        </p>
+        <H5 className="mb-1">Hey! Grab your special {APP_NAME} NFT here.</H5>
         <p className="mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe
           alive!
