@@ -1,7 +1,7 @@
 import type { MirrorablePublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
 import { Tooltip } from '@hey/ui';
@@ -30,7 +30,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
           placement="top"
           withDelay
         >
-          <RectangleStackIcon className="w-[15px] sm:w-[18px]" />
+          <ShoppingBagIcon className="w-[15px] sm:w-[18px]" />
         </Tooltip>
       </motion.button>
       {countOpenActions > 0 ? (

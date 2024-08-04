@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
 import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
-import { PlusIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
 import { Button, Modal } from '@hey/ui';
@@ -28,7 +28,6 @@ const Collect: FC<CollectProps> = ({ publication }) => {
   return (
     <>
       <Button
-        icon={<PlusIcon className="size-4" />}
         onClick={() => {
           setShowOpenActionModal(true);
           Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
@@ -41,7 +40,7 @@ const Collect: FC<CollectProps> = ({ publication }) => {
         {hasActed ? 'Collected' : 'Collect'}
       </Button>
       <Modal
-        icon={<RectangleStackIcon className="size-5" />}
+        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
         title="Collect"
