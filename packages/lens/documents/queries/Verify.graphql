@@ -1,3 +1,0 @@
-query Verify($request: VerifyRequest!) {
-  verify(request: $request)
-}
