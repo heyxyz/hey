@@ -4,6 +4,7 @@ import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import { H2, H4 } from '@hey/ui';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -16,7 +17,7 @@ const Rules: NextPage = () => {
     <>
       <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
-          <h1 className="text-3xl font-bold text-white md:text-4xl">Rules</h1>
+          <H2 className="text-white">Rules</H2>
         </div>
       </div>
       <div className="relative">
@@ -32,7 +33,7 @@ const Rules: NextPage = () => {
                 </p>
               </div>
               {/* Safety beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">Safety</div>
+              <H4 className="mb-5 mt-8">Safety</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to display, share or promote any form of
@@ -50,7 +51,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Safety ends */}
               {/* Nudity beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">Nudity</div>
+              <H4 className="mb-5 mt-8">Nudity</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   {APP_NAME} is not a place to display, share or promote any
@@ -67,7 +68,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Nudity ends */}
               {/* Spam beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">Spam</div>
+              <H4 className="mb-5 mt-8">Spam</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to use {APP_NAME} as a platform to
@@ -87,7 +88,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Spam ends */}
               {/* Impersonation beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">Impersonation</div>
+              <H4 className="mb-5 mt-8">Impersonation</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to impersonate other people on {APP_NAME}.
@@ -103,16 +104,14 @@ const Rules: NextPage = () => {
               </div>
               {/* Impersonation ends */}
               {/* Copyright and Trademarks beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">
-                Copyright and Trademarks
-              </div>
+              <H4 className="mb-5 mt-8">Copyright and Trademarks</H4>
               <p className="leading-7">
                 You are not allowed to violate any intellectual property rights,
                 including copyright and trademark, of others.
               </p>
               {/* Copyright and Trademarks ends */}
               {/* Feedback beings */}
-              <div className="mb-5 mt-8 text-xl font-bold">Feedback</div>
+              <H4 className="mb-5 mt-8">Feedback</H4>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
                 questions, please{' '}
