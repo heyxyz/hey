@@ -44,7 +44,7 @@ const Collect: FC<CollectProps> = ({ publication }) => {
         icon={<RectangleStackIcon className="size-5" />}
         onClose={() => setShowOpenActionModal(false)}
         show={showOpenActionModal}
-        title="Open Actions"
+        title="Collect"
       >
         {openActions?.map((action) => (
           <CollectModule
