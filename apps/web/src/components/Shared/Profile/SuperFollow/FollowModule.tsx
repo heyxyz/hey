@@ -29,7 +29,7 @@ import {
   useProfileQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
+import { Button, H3, Spinner, WarningMessage } from '@hey/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -267,7 +267,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           width={28}
         />
         <span className="space-x-1">
-          <span className="text-2xl font-bold">{amount}</span>
+          <H3>{amount}</H3>
           <span className="text-xs">{currency}</span>
         </span>
       </div>

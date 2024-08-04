@@ -29,7 +29,7 @@ import getTokenImage from '@hey/helpers/getTokenImage';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { H4, HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
+import { H3, H4, HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
@@ -145,7 +145,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               <CurrencyDollarIcon className="size-7" />
             )}
             <span className="space-x-1">
-              <span className="text-2xl font-bold">{amount}</span>
+              <H3>{amount}</H3>
               <span className="text-xs">{currency}</span>
               {isTokenEnabled && usdPrice ? (
                 <>
