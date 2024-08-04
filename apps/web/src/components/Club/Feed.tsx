@@ -4,7 +4,7 @@ import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { useEffect, useRef } from 'react';
@@ -78,7 +78,7 @@ const Feed: FC<FeedProps> = ({ handle }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        icon={<RectangleStackIcon className="size-8" />}
+        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
         message={
           <div>
             <span className="mr-1 font-bold">/{handle}</span>

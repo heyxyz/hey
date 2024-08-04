@@ -8,7 +8,7 @@ import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import {
   CustomFiltersType,
   ExplorePublicationsOrderByType,
@@ -84,7 +84,7 @@ const Feed: FC<FeedProps> = ({
   if (publications?.length === 0) {
     return (
       <EmptyState
-        icon={<RectangleStackIcon className="size-8" />}
+        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
         message="No posts yet!"
       />
     );
