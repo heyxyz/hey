@@ -28,7 +28,7 @@ import getMentions from '@hey/helpers/getMentions';
 import getProfile from '@hey/helpers/getProfile';
 import removeQuoteOn from '@hey/helpers/removeQuoteOn';
 import { ReferenceModuleType } from '@hey/lens';
-import { Button, Card, ErrorMessage } from '@hey/ui';
+import { Button, Card, ErrorMessage, H6 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useUnmountEffect } from 'framer-motion';
@@ -545,9 +545,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       <Editor />
       {publicationContentError ? (
-        <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
+        <H6 className="mt-1 px-5 pb-3 text-red-500">
           {publicationContentError}
-        </div>
+        </H6>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}

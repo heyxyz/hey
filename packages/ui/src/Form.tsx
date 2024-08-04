@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import cn from '../cn';
+import { H6 } from './Typography';
 
 interface UseZodFormProps<T extends ZodSchema<FieldValues>>
   extends UseFormProps<TypeOf<T>> {
@@ -46,11 +47,7 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
     return null;
   }
 
-  return (
-    <div className="mt-2 text-sm font-bold text-red-500">
-      {error.message as string}
-    </div>
-  );
+  return <H6 className="mt-2 text-red-500">{error.message as string}</H6>;
 };
 
 interface FormProps<T extends FieldValues = Record<string, unknown>>
