@@ -29,7 +29,7 @@ import getTokenImage from '@hey/helpers/getTokenImage';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
+import { H4, HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
 import { useCounter } from '@uidotdev/usehooks';
 import Link from 'next/link';
 import plur from 'plur';
@@ -125,10 +125,10 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
           />
         ) : null}
         <div className="mb-4">
-          <div className="text-xl font-bold">
+          <H4>
             {targetPublication.__typename} by{' '}
             <Slug slug={getProfile(targetPublication.by).slugWithPrefix} />
-          </div>
+          </H4>
         </div>
         {amount ? (
           <div className="flex items-center space-x-1.5 py-2">
