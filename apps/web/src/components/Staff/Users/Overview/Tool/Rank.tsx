@@ -17,6 +17,7 @@ import {
 import { HashtagIcon } from '@heroicons/react/24/solid';
 import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
+import { H5 } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import urlcat from 'urlcat';
@@ -91,7 +92,7 @@ const Rank: FC<RankProps> = ({
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <HashtagIcon className="size-5" />
-        <div className="text-lg font-bold">Rankings</div>
+        <H5>Rankings</H5>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails

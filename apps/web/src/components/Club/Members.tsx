@@ -8,7 +8,7 @@ import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { ProfileLinkSource } from '@hey/data/tracking';
 import { type Profile, useProfilesQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -100,7 +100,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         <Link href={`/c/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <b className="text-lg">Members</b>
+        <H5>Members</H5>
       </div>
       <div className="divider" />
       <Virtuoso

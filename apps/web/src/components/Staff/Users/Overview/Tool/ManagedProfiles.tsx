@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { useProfilesManagedQuery } from '@hey/lens';
+import { H5 } from '@hey/ui';
 import Link from 'next/link';
 
 interface ManagedProfilesProps {
@@ -22,7 +23,7 @@ const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <UsersIcon className="size-5" />
-        <div className="text-lg font-bold">Managed profiles</div>
+        <H5>Managed profiles</H5>
       </div>
       <div className="mt-3">
         {loading ? (
