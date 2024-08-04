@@ -26,26 +26,47 @@ const Profiles: FC = () => {
       <div className="m-5 space-y-5">
         <div className="space-y-3">
           <h2 className="text-lg font-bold">Profile</h2>
-          <UserProfile profile={profile as Profile} />
+          <UserProfile
+            hideFollowButton
+            hideUnfollowButton
+            profile={profile as Profile}
+          />
         </div>
         <div className="space-y-3">
           <h2 className="text-lg font-bold">Profile with ID</h2>
-          <UserProfile profile={profile as Profile} showId />
+          <UserProfile
+            hideFollowButton
+            hideUnfollowButton
+            profile={profile as Profile}
+            showId
+          />
         </div>
         <div className="space-y-3">
           <h2 className="text-lg font-bold">Profile with Bio</h2>
-          <UserProfile profile={profile as Profile} showBio />
+          <UserProfile
+            hideFollowButton
+            hideUnfollowButton
+            profile={profile as Profile}
+            showBio
+          />
         </div>
         <div className="space-y-3">
           <h2 className="text-lg font-bold">Profile with Timestamp</h2>
           <UserProfile
+            hideFollowButton
+            hideUnfollowButton
             profile={profile as Profile}
             timestamp={new Date('2024-06-29T19:16:26.062Z')}
           />
         </div>
         <div className="space-y-3">
           <h2 className="text-lg font-bold">Big Profile</h2>
-          <UserProfile isBig profile={profile as Profile} />
+          <UserProfile
+            hideFollowButton
+            hideUnfollowButton
+            isBig
+            profile={profile as Profile}
+          />
         </div>
         <div className="space-y-3">
           <h2 className="text-lg font-bold">Small Profile</h2>
