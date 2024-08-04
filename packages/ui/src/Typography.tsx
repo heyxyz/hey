@@ -62,12 +62,3 @@ export const H6: FC<TypographyProps> = forwardRef<
     {children}
   </h6>
 ));
-
-export const P: FC<TypographyProps> = forwardRef<
-  HTMLParagraphElement,
-  TypographyProps
->(({ children, className = '' }, ref) => (
-  <p className={cn('text-base', className)} ref={ref}>
-    {children}
-  </p>
-));
