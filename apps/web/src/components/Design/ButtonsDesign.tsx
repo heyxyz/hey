@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import { Button, Card, CardHeader } from '@hey/ui';
 import { type FC } from 'react';
 
-const Buttons: FC = () => {
+const ButtonsDesign: FC = () => {
   const ButtonVariants: FC<{
     outline: boolean;
   }> = ({ outline }) => {
@@ -86,4 +86,4 @@ const Buttons: FC = () => {
   );
 };
 
-export default Buttons;
+export default ButtonsDesign;
