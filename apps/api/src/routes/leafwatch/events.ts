@@ -9,8 +9,11 @@ import catchedError from 'src/helpers/catchedError';
 import findEventKeyDeep from 'src/helpers/leafwatch/findEventKeyDeep';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { invalidBody, noBody } from 'src/helpers/responses';
+import telemetry from 'telemetry-sh';
 import { UAParser } from 'ua-parser-js';
 import { any, object, string } from 'zod';
+
+telemetry.init('YOUR_API_KEY');
 
 type ExtensionRequest = {
   fingerprint?: string;
@@ -77,6 +80,8 @@ export const post = [
         referrer: referrer || null,
         url: url || null
       };
+
+      await telemetry.log(values.name, values.properties);
 
       const queue = await rPushRedis('events', JSON.stringify(values));
       logger.info(
