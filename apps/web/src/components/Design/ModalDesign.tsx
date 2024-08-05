@@ -14,7 +14,7 @@ const ModalDesign: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Alerts" />
+      <CardHeader title="Modals" />
       <Modal
         icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowXsModal(false)}
