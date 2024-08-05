@@ -13,7 +13,7 @@ import telemetry from 'telemetry-sh';
 import { UAParser } from 'ua-parser-js';
 import { any, object, string } from 'zod';
 
-telemetry.init('YOUR_API_KEY');
+telemetry.init('sk_vyYazGMhHEqtpmXgero5dB');
 
 type ExtensionRequest = {
   fingerprint?: string;
