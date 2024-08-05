@@ -5,6 +5,7 @@ import { GridItemTwelve } from '@hey/ui/src/GridLayout';
 
 import AlertDesign from './AlertDesign';
 import ButtonsDesign from './ButtonsDesign';
+import ModalDesign from './ModalDesign';
 import ProfilesDesign from './ProfilesDesign';
 import TypographyDesign from './TypographyDesign';
 
@@ -15,6 +16,7 @@ const Design: NextPage = () => {
         <TypographyDesign />
         <ButtonsDesign />
         <AlertDesign />
+        <ModalDesign />
         <ProfilesDesign />
       </GridItemTwelve>
     </GridLayout>
