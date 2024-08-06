@@ -16,9 +16,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.2",
-    "@aws-sdk/client-s3": "^3.623.0",
-    "@aws-sdk/lib-storage": "^3.623.0",
+    "@apollo/client": "^3.11.3",
+    "@aws-sdk/client-s3": "^3.624.0",
+    "@aws-sdk/lib-storage": "^3.624.0",
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@hey/abis": "workspace:*",
@@ -89,7 +89,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.40",
+    "postcss": "^8.4.41",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
