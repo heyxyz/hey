@@ -13,7 +13,7 @@ export const get: Handler = async (req, res) => {
     const response = await lensPg.query(`
       SELECT COUNT(*) AS count
       FROM publication.record pr
-      WHERE pr.publication_type = 'POST'
+      WHERE pr.publication_type = 'POST' AND pr.is_hidden = false
     `);
 
     const totalPosts = Number(response[0]?.count) || 0;
