@@ -89,7 +89,7 @@ export const post = [
         ...request
       };
 
-      const { data } = await axios.post(
+      const { data, headers, status } = await axios.post(
         postUrl,
         { clientProtocol: 'lens@1.0.0', trustedData, untrustedData },
         { headers: { 'User-Agent': HEY_USER_AGENT } }
@@ -101,6 +101,10 @@ export const post = [
         return res
           .status(200)
           .json({ frame: { transaction: data }, success: true });
+      }
+
+      if (buttonAction === 'post_redirect' && status === 302) {
+        return res.status(302).json({ frame: { location: headers.location } });
       }
 
       const { document } = parseHTML(data);
