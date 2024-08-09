@@ -52,16 +52,16 @@ const UserProfile: FC<UserProfileProps> = ({
     <Image
       alt={profile.id}
       className={cn(
-        isBig ? 'size-14' : 'size-11',
+        isBig ? 'size-14' : 'size-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
-      height={isBig ? 56 : 44}
+      height={isBig ? 56 : 40}
       loading="lazy"
       onError={({ currentTarget }) => {
         currentTarget.src = getLennyURL(profile.id);
       }}
       src={getAvatar(profile)}
-      width={isBig ? 56 : 44}
+      width={isBig ? 56 : 40}
     />
   );
 
