@@ -112,7 +112,17 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         return toast.error(Errors.SomethingWentWrongWithFrame);
       }
 
-      if (action === 'post') {
+      if (action === 'post_redirect') {
+        const message = `You are about to be redirected to ${location.toString()}`;
+
+        if (typeof window !== 'undefined' && Boolean(data.frame.location)) {
+          if (window.confirm(message)) {
+            window.open(data.frame.location, '_blank')?.focus();
+          }
+        } else {
+          return toast.error(Errors.SomethingWentWrongWithFrame);
+        }
+      } else if (action === 'post') {
         setFrameData(data.frame);
       } else if (action === 'tx') {
         const txnData = data.frame.transaction;
@@ -184,14 +194,14 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
                 publication_id: publicationId
               });
 
-              if (
-                action === 'link' ||
-                action === 'post_redirect' ||
-                action === 'mint'
-              ) {
+              if (action === 'link' || action === 'mint') {
                 const url = action === 'mint' ? frameUrl : target || frameUrl;
                 window.open(url, '_blank');
-              } else if (action === 'post' || action === 'tx') {
+              } else if (
+                action === 'post' ||
+                action === 'tx' ||
+                action === 'post_redirect'
+              ) {
                 postFrameData(index, action);
               }
             }}
