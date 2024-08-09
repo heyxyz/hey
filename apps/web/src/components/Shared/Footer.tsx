@@ -6,7 +6,6 @@ import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
-import urlcat from 'urlcat';
 
 const currentYear = new Date().getFullYear();
 
@@ -41,38 +40,27 @@ const Footer: FC = () => {
   const { staffMode } = useFeatureFlagsStore();
 
   return (
-    <footer className={cn(staffMode ? 'top-28' : 'top-20', 'sticky text-sm')}>
-      <div className="mt-4 flex flex-wrap gap-x-[12px] gap-y-2 px-3 lg:px-0">
-        <span className="ld-text-gray-500 font-bold">
-          &copy; {currentYear} {APP_NAME}.xyz
-        </span>
-        {links.map((link) => (
-          <Link
-            className="outline-offset-4"
-            href={link.href}
-            key={link.href}
-            onClick={link.onClick}
-            rel="noreferrer noopener"
-            target={link.href.startsWith('http') ? '_blank' : undefined}
-          >
-            {link.label}
-          </Link>
-        ))}
-      </div>
-      <div className="mt-4">
+    <footer
+      className={cn(
+        staffMode ? 'top-28' : 'top-20',
+        'sticky mt-4 flex flex-wrap gap-x-[12px] gap-y-2 px-3 text-sm lg:px-0'
+      )}
+    >
+      <span className="ld-text-gray-500 font-bold">
+        &copy; {currentYear} {APP_NAME}.xyz
+      </span>
+      {links.map((link) => (
         <Link
-          className="outline-offset-4 hover:font-bold focus:font-bold"
-          href={urlcat('https://vercel.com', {
-            utm_campaign: 'oss',
-            utm_source: APP_NAME
-          })}
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_VERCEL)}
+          className="outline-offset-4"
+          href={link.href}
+          key={link.href}
+          onClick={link.onClick}
           rel="noreferrer noopener"
-          target="_blank"
+          target={link.href.startsWith('http') ? '_blank' : undefined}
         >
-          ▲ Powered by Vercel
+          {link.label}
         </Link>
-      </div>
+      ))}
     </footer>
   );
 };
