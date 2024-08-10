@@ -1,11 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import { Errors } from '@hey/data';
-import heyPg from '@hey/db/heyPg';
 import parseJwt from '@hey/helpers/parseJwt';
 
 import catchedError from '../catchedError';
-import { STAFF_FEATURE_ID } from '../constants';
+import prisma from '../prisma';
 
 /**
  * Middleware to validate if the profile is staff
@@ -25,19 +24,13 @@ const validateIsStaff = async (
 
   try {
     const payload = parseJwt(identityToken);
-    const data = await heyPg.query(
-      `
-        SELECT enabled
-        FROM "ProfileFeature"
-        WHERE enabled = TRUE
-        AND "featureId" = $1
-        AND "profileId" = $2
-        LIMIT 1;
-      `,
-      [STAFF_FEATURE_ID, payload.id]
-    );
 
-    if (data[0]?.enabled) {
+    const data = await prisma.profileFeature.findFirst({
+      include: { feature: { select: { key: true } } },
+      where: { enabled: true, profileId: payload.id }
+    });
+
+    if (data?.enabled) {
       return next();
     }
 
