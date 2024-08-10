@@ -1,12 +1,12 @@
 import type { Preferences } from '@hey/types/hey';
 import type { Request, Response } from 'express';
 
+import prisma from '@hey/db/prisma/db/client';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [

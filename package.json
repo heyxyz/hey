@@ -19,9 +19,6 @@
   "eslintConfig": {
     "root": true
   },
-  "dependencies": {
-    "@hey/abis": "workspace:^"
-  },
   "devDependencies": {
     "husky": "^9.1.4",
     "prettier": "^3.3.3",
