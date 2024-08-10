@@ -1,12 +1,12 @@
 import type { Request, Response } from 'express';
 
 import { Regex } from '@hey/data/regex';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
