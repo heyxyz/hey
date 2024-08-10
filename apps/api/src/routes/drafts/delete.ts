@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -36,14 +36,7 @@ export const post = [
     const { id } = body as ExtensionRequest;
 
     try {
-      const result = await heyPg.query(
-        `
-          DELETE FROM "DraftPublication"
-          WHERE "id" = $1
-          RETURNING *;
-        `,
-        [id]
-      );
+      const result = await prisma.draftPublication.delete({ where: { id } });
 
       logger.info(`Draft publication deleted for ${id}`);
 
