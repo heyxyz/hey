@@ -17,7 +17,7 @@ export interface StatsType {
 }
 
 const Numbers: FC = () => {
-  const getStats = async (): Promise<StatsType> => {
+  const getImpressionsNumberStats = async (): Promise<StatsType> => {
     const response: {
       data: StatsType;
     } = await axios.get(`${HEY_API_URL}/internal/leafwatch/stats/impressions`, {
@@ -28,8 +28,8 @@ const Numbers: FC = () => {
   };
 
   const { data, error, isLoading } = useQuery({
-    queryFn: getStats,
-    queryKey: ['getStats'],
+    queryFn: getImpressionsNumberStats,
+    queryKey: ['getImpressionsNumberStats'],
     refetchInterval: 5000
   });
 
