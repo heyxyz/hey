@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.4.0",
+    "@clickhouse/client": "^1.4.1",
     "dotenv": "^16.4.5",
     "pg-promise": "^11.9.1",
     "redis": "^4.7.0"
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "typescript": "^5.5.4"
   }
 }
