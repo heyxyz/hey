@@ -1,5 +1,5 @@
-import clickhouseClient from '@hey/db/clickhouseClient';
 import lensPg from '@hey/db/lensPg';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 
 const startDate = '2024-07-01 00:00:00';
 const endDate = '2024-07-31 23:59:59';
@@ -26,32 +26,20 @@ const getInvoiceCountries = async () => {
     return;
   }
 
-  const query = `
-    SELECT country, COUNT(DISTINCT actor) as invoices
-    FROM (
-      SELECT actor, any(country) as country
-      FROM events
-      WHERE actor IN (${ids.map((id) => `'${id}'`).join(', ')})
-      GROUP BY actor
-    ) AS subquery
-    GROUP BY country
-    ORDER BY invoices DESC
-  `;
-  const rows = await clickhouseClient.query({ format: 'JSONEachRow', query });
-  const result = await rows.json<{ country: string; invoices: string }>();
+  const data = await leafwatch.event.groupBy({
+    _count: { actor: true },
+    by: ['country'],
+    orderBy: { _count: { actor: 'desc' } },
+    where: { actor: { in: ids } }
+  });
 
-  const sumOfInvoices = result.reduce(
-    (acc, row) => acc + parseInt(row.invoices),
-    0
-  );
+  const sumOfInvoices = data.reduce((acc, row) => acc + row._count.actor, 0);
   console.log(`Total invoices: ${sumOfInvoices}`);
 
-  const formattedResult = result.map(
-    (row: { country: string; invoices: string }) => ({
-      country: row.country,
-      invoices: parseInt(row.invoices)
-    })
-  );
+  const formattedResult = data.map((row) => ({
+    country: row.country,
+    invoices: row._count.actor
+  }));
 
   console.table(formattedResult);
 
