@@ -44,11 +44,11 @@ export const post = [
 
       const expired = await heyPg.exists(
         `
-        SELECT * FROM "Poll"
-        WHERE id = $1
-        AND ("endsAt" < CURRENT_TIMESTAMP OR "endsAt" IS NULL)
-        LIMIT 1;
-      `,
+          SELECT * FROM "Poll"
+          WHERE id = $1
+          AND ("endsAt" < CURRENT_TIMESTAMP OR "endsAt" IS NULL)
+          LIMIT 1;
+        `,
         [poll]
       );
 
