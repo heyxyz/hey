@@ -127,7 +127,7 @@ const Privacy: NextPage = () => {
               <H4 className="mb-5 mt-8">5. Analytics</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  We use <b>ClickHouse</b> to collect various events from user
+                  We use <b>TimescaleDB</b> to collect various events from user
                   actions to analyse and make decisions for Site improvements.
                 </p>
                 <p className="leading-7">

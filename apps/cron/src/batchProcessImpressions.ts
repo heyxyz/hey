@@ -22,7 +22,7 @@ const batchProcessImpressions = async () => {
     const timeTaken = endTime - startTime;
 
     logger.info(
-      `[Cron] batchProcessImpressions - Batch inserted ${parsedImpressions.length} impressions to Clickhouse in ${timeTaken}ms`
+      `[Cron] batchProcessImpressions - Batch inserted ${parsedImpressions.length} impressions to Leafwatch in ${timeTaken}ms`
     );
 
     await lTrimRedis('impressions', impressions.length, -1);
