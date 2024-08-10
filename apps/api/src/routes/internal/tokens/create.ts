@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express';
 
 import { Regex } from '@hey/data/regex';
-import heyPg from '@hey/db/heyPg';
 import { delRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
+import { prisma } from 'src/db/seed';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
@@ -47,19 +47,14 @@ export const post = [
       body as ExtensionRequest;
 
     try {
-      const token = await heyPg.query(
-        `
-        INSERT INTO "AllowedToken" ("contractAddress", "decimals", "name", "symbol")
-        VALUES ($1, $2, $3, $4)
-        RETURNING *;
-      `,
-        [contractAddress, decimals, name, symbol]
-      );
+      const token = await prisma.allowedToken.create({
+        data: { contractAddress, decimals, name, symbol }
+      });
 
-      await delRedis(`allowedTokens`);
-      logger.info(`Created a token ${token[0]?.id}`);
+      await delRedis('allowedTokens');
+      logger.info(`Created a token ${token.id}`);
 
-      return res.status(200).json({ success: true, token: token[0] });
+      return res.status(200).json({ success: true, token });
     } catch (error) {
       return catchedError(res, error);
     }
