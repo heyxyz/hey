@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_1_DAY } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import prisma from 'src/helpers/prisma';
 
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
@@ -22,11 +22,9 @@ export const get = [
           .json({ success: true, tokens: JSON.parse(cachedData) });
       }
 
-      const data = await heyPg.query(`
-      SELECT *
-      FROM "AllowedToken"
-      ORDER BY priority DESC;
-    `);
+      const data = await prisma.allowedToken.findMany({
+        orderBy: { priority: 'desc' }
+      });
 
       await setRedis(cacheKey, data);
       logger.info('All tokens fetched');
