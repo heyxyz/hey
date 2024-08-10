@@ -1,10 +1,10 @@
-import clickhouseClient from '@hey/db/clickhouseClient';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import logger from '@hey/helpers/logger';
 
 const cleanClickhouse = async () => {
   try {
-    await clickhouseClient.command({
-      query: "ALTER TABLE events DELETE WHERE url NOT LIKE '%hey.xyz%';"
+    await leafwatch.event.deleteMany({
+      where: { url: { not: { contains: 'hey.xyz' } } }
     });
 
     logger.info(
