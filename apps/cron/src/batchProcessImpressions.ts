@@ -16,7 +16,7 @@ const batchProcessImpressions = async () => {
       JSON.parse(impression)
     );
 
-    await leafwatch.event.createMany({ data: parsedImpressions });
+    await leafwatch.impression.createMany({ data: parsedImpressions });
 
     const endTime = Date.now();
     const timeTaken = endTime - startTime;
