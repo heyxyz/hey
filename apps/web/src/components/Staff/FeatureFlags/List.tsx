@@ -131,9 +131,9 @@ const List: FC = () => {
                         {feature.key}
                       </b>
                       <Badge variant="secondary">{feature.type}</Badge>
-                      {feature.assigned !== '0' && (
+                      {feature._count.profiles !== 0 && (
                         <Badge variant="warning">
-                          {feature.assigned} assigned
+                          {feature._count.profiles} assigned
                         </Badge>
                       )}
                     </div>
