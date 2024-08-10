@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/leafwatch.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("LEAFWATCH_DATABASE_URL")
+}
+
+model Event {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  actor       String?
+  fingerprint String?
+  name        String
+  properties  Json?
+  referrer    String?
+  url         String?
+  browser     String?
+  ip          String?
+  city        String?
+  country     String?
+  created     DateTime @default(now())
+}
+
+model Impression {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publication String
+  viewed      DateTime @default(now())
+}
