@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import clickhouseClient from '@hey/db/clickhouseClient';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
@@ -33,23 +33,16 @@ export const post = [
     const { ids } = body as ExtensionRequest;
 
     try {
-      const rows = await clickhouseClient.query({
-        format: 'JSONEachRow',
-        query: `
-          SELECT publication, count
-          FROM total_impressions_per_publication_mv FINAL
-          WHERE publication IN (${ids.map((id) => `'${id}'`).join(',')});
-        `
+      const data = await leafwatch.impression.groupBy({
+        _count: { publication: true },
+        by: ['publication'],
+        orderBy: { _count: { publication: 'desc' } },
+        where: { publication: { in: ids } }
       });
 
-      const result = await rows.json<{
-        count: number;
-        publication: string;
-      }>();
-
-      const viewCounts = result.map((row) => ({
-        id: row.publication,
-        views: Number(row.count)
+      const viewCounts = data.map((impression) => ({
+        id: impression.publication,
+        views: impression._count.publication
       }));
       logger.info(`Fetched publication views for ${ids.length} publications`);
 
