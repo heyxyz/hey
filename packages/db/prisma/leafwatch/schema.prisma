@@ -23,6 +23,8 @@ model Event {
   created     DateTime @default(now()) @db.Timestamptz(3)
 
   @@id([created, id])
+  @@index([name])
+  @@index([actor])
   @@index([created])
 }
 
@@ -32,6 +34,7 @@ model Impression {
   viewed      DateTime @default(now()) @db.Timestamptz(3)
 
   @@id([viewed, id])
+  @@index([publication])
   @@index([viewed])
 }
 
