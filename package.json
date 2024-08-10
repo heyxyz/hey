@@ -25,7 +25,7 @@
   "devDependencies": {
     "husky": "^9.1.4",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.5"
+    "prettier-plugin-tailwindcss": "^0.6.6"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {
