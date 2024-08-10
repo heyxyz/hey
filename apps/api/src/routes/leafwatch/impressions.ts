@@ -33,11 +33,7 @@ export const post = [
     const { ids } = body as ExtensionRequest;
 
     try {
-      const values = ids.map((id) => ({
-        publication: id,
-        viewed: new Date().toISOString().slice(0, 19).replace('T', ' ')
-      }));
-
+      const values = ids.map((id) => ({ publication: id }));
       const queue = await rPushRedis('impressions', JSON.stringify(values));
       logger.info(`Ingested ${values.length} impressions to Leafwatch`);
 

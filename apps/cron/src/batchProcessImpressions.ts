@@ -1,4 +1,4 @@
-import clickhouseClient from '@hey/db/clickhouseClient';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import { lRangeRedis, lTrimRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 
@@ -16,11 +16,7 @@ const batchProcessImpressions = async () => {
       JSON.parse(impression)
     );
 
-    await clickhouseClient.insert({
-      format: 'JSONEachRow',
-      table: 'impressions',
-      values: parsedImpressions
-    });
+    await leafwatch.event.createMany({ data: parsedImpressions });
 
     const endTime = Date.now();
     const timeTaken = endTime - startTime;

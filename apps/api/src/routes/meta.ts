@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
-import clickhouseClient from '@hey/db/clickhouseClient';
 import lensPg from '@hey/db/lensPg';
 import prisma from '@hey/db/prisma/db/client';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import { getRedis } from '@hey/db/redisClient';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
@@ -28,33 +28,30 @@ export const get = [
         lensPg.query(`SELECT 1 as count;`)
       );
       const redisPromise = measureQueryTime(() => getRedis('ping'));
-      const clickhousePromise = measureQueryTime(() =>
-        clickhouseClient.query({
-          format: 'JSONEachRow',
-          query: 'SELECT 1 as count;'
-        })
+      const timescalePromise = measureQueryTime(
+        () => leafwatch.$queryRaw`SELECT 1 as count;`
       );
 
       // Execute all promises simultaneously
-      const [heyResult, lensResult, redisResult, clickhouseResult] =
+      const [heyResult, lensResult, redisResult, timescaleResult] =
         await Promise.all([
           heyPromise,
           lensPromise,
           redisPromise,
-          clickhousePromise
+          timescalePromise
         ]);
 
       // Check responses
       const [hey, heyTime] = heyResult;
       const [lens, lensTime] = lensResult;
       const [redis, redisTime] = redisResult;
-      const [clickhouseRows, clickhouseTime] = clickhouseResult;
+      const [timescale, timescaleTime] = timescaleResult;
 
       if (
         Number(hey[0].count) !== 1 ||
         Number(lens[0].count) !== 1 ||
         redis.toString() !== 'pong' ||
-        !clickhouseRows.json
+        Number(timescale[0].count) !== 1
       ) {
         return res.status(500).json({ success: false });
       }
@@ -67,10 +64,10 @@ export const get = [
           snapshot: process.env.RAILWAY_SNAPSHOT_ID || 'unknown'
         },
         responseTimes: {
-          clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
           hey: `${Number(heyTime / BigInt(1000000))}ms`,
           lens: `${Number(lensTime / BigInt(1000000))}ms`,
-          redis: `${Number(redisTime / BigInt(1000000))}ms`
+          redis: `${Number(redisTime / BigInt(1000000))}ms`,
+          timescale: `${Number(timescaleTime / BigInt(1000000))}ms`
         }
       });
     } catch (error) {
