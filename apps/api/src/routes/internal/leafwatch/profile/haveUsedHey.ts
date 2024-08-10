@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import clickhouseClient from '@hey/db/clickhouseClient';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
@@ -18,16 +18,13 @@ export const get = [
     }
 
     try {
-      const rows = await clickhouseClient.query({
-        format: 'JSONEachRow',
-        query: `SELECT count(*) as count FROM events WHERE actor = '${id}';`
+      const count = await leafwatch.event.count({
+        where: { actor: id as string }
       });
-      const result = await rows.json<{ count: number }>();
+
       logger.info('Have used hey status fetched');
 
-      return res
-        .status(200)
-        .json({ haveUsedHey: Number(result[0].count) > 0, success: true });
+      return res.status(200).json({ haveUsedHey: count > 0, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
