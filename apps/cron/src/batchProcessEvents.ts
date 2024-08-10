@@ -1,4 +1,5 @@
 import clickhouseClient from '@hey/db/clickhouseClient';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import { lRangeRedis, lTrimRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 
@@ -19,6 +20,8 @@ const batchProcessEvents = async () => {
       table: 'events',
       values: parsedEvents
     });
+
+    await leafwatch.event.createMany({ data: parsedEvents });
 
     const endTime = Date.now();
     const timeTaken = endTime - startTime;

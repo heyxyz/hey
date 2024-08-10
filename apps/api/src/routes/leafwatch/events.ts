@@ -69,7 +69,6 @@ export const post = [
         browser: ua.browser.name || null,
         city: cfIpCity || null,
         country: cfIpCountry || null,
-        created: new Date().toISOString().slice(0, 19).replace('T', ' '),
         fingerprint: fingerprint || null,
         ip: ip || null,
         name,
