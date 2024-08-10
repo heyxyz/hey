@@ -9,7 +9,9 @@ export type StaffPick = {
 };
 
 export type Feature = {
-  assigned: string;
+  _count: {
+    profiles: number;
+  };
   createdAt: Date;
   enabled: boolean;
   id: string;

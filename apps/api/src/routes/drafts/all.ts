@@ -18,11 +18,11 @@ export const get = [
 
       const result = await heyPg.query(
         `
-        SELECT *
-        FROM "DraftPublication"
-        WHERE "profileId" = $1
-        ORDER BY "updatedAt" DESC;
-      `,
+          SELECT *
+          FROM "DraftPublication"
+          WHERE "profileId" = $1
+          ORDER BY "updatedAt" DESC;
+        `,
         [payload.id]
       );
 
