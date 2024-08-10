@@ -25,6 +25,9 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm
 
+# Codegen
+RUN pnpm --filter @hey/api run codegen
+
 # Add non-root user for better security
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app

@@ -26,7 +26,6 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 # Codegen
-
 RUN pnpm --filter @hey/api run codegen
 
 # Add non-root user for better security
