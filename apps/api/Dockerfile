@@ -14,7 +14,6 @@ COPY . .
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
-RUN pnpm codegen
 
 # Prune dev dependencies to reduce image size
 RUN pnpm prune --prod
@@ -25,6 +24,10 @@ WORKDIR /app
 
 # Install pnpm globally
 RUN npm install -g pnpm
+
+# Codegen
+
+RUN pnpm --filter @hey/api run codegen
 
 # Add non-root user for better security
 RUN addgroup --system --gid 1001 hey
