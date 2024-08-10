@@ -23,6 +23,7 @@
     "@heroicons/react": "^2.1.5",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
+    "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/icons": "workspace:*",
     "@hey/image-cropper": "workspace:*",

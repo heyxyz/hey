@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express';
 
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 
 export const get = [
   validateLensAccount,

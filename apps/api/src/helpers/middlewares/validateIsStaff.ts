@@ -1,10 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import { Errors } from '@hey/data';
+import prisma from '@hey/db/prisma/db/client';
 import parseJwt from '@hey/helpers/parseJwt';
 
 import catchedError from '../catchedError';
-import prisma from '../prisma';
 
 /**
  * Middleware to validate if the profile is staff
