@@ -1,12 +1,12 @@
 import type { ProfileDetails } from '@hey/types/hey';
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { SUSPENDED_FEATURE_ID } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [
@@ -29,19 +29,18 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [profileFeature, pinnedPublication] = await heyPg.multi(
-        `
-        SELECT * FROM "ProfileFeature"
-        WHERE enabled = TRUE
-        AND "featureId" = $2 AND "profileId" = $1;
-        SELECT "publicationId" FROM "PinnedPublication" WHERE id = $1;
-      `,
-        [id as string, SUSPENDED_FEATURE_ID]
-      );
+      const [profileFeature, pinnedPublication] = await prisma.$transaction([
+        prisma.profileFeature.findFirst({
+          where: { featureId: SUSPENDED_FEATURE_ID, profileId: id as string }
+        }),
+        prisma.pinnedPublication.findUnique({
+          where: { id: id as string }
+        })
+      ]);
 
       const response: ProfileDetails = {
-        isSuspended: profileFeature[0]?.featureId === SUSPENDED_FEATURE_ID,
-        pinnedPublication: pinnedPublication[0]?.publicationId || null
+        isSuspended: profileFeature?.featureId === SUSPENDED_FEATURE_ID,
+        pinnedPublication: pinnedPublication?.publicationId || null
       };
 
       await setRedis(cacheKey, response);
