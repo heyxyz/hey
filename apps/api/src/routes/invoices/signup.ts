@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
 import LensEndpoint from '@hey/data/lens-endpoints';
-import clickhouseClient from '@hey/db/clickhouseClient';
+import leafwatch from '@hey/db/prisma/leafwatch/client';
 import logger from '@hey/helpers/logger';
 import axios from 'axios';
 import invoiceRates from 'src/data/invoice-rates';
@@ -31,19 +31,14 @@ export const get: Handler = async (req, res) => {
   }
 
   try {
-    const [rows, lensResponse] = await Promise.all([
-      clickhouseClient.query({
-        format: 'JSONEachRow',
-        query: `
-          SELECT city, country
-          FROM events
-          WHERE 
-            actor = '${id}'
-            AND city IS NOT NULL
-            AND country IS NOT NULL
-          ORDER BY created ASC
-          LIMIT 1;
-        `
+    const [event, lensResponse] = await Promise.all([
+      leafwatch.event.findFirst({
+        select: { city: true, country: true },
+        where: {
+          actor: id as string,
+          city: { not: null },
+          country: { not: null }
+        }
       }),
       axios.post(
         LensEndpoint.Mainnet,
@@ -72,13 +67,6 @@ export const get: Handler = async (req, res) => {
       )
     ]);
 
-    const leafwatchData = await rows.json<{
-      actor: string;
-      city: string;
-      country: string;
-      created: string;
-    }>();
-
     const lensData = lensResponse.data;
 
     const lensProfile = {
@@ -94,8 +82,8 @@ export const get: Handler = async (req, res) => {
 
     const result = {
       address:
-        leafwatchData[0]?.city && leafwatchData[0]?.country
-          ? `${leafwatchData[0].city}, ${leafwatchData[0].country}`
+        event?.city && event?.country
+          ? `${event.city}, ${event.country}`
           : 'Others',
       ...lensProfile,
       rate: rate || 600
