@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Event {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   actor       String?
   fingerprint String?
   name        String
@@ -20,11 +20,26 @@ model Event {
   ip          String?
   city        String?
   country     String?
-  created     DateTime @default(now())
+  created     DateTime @default(now()) @db.Timestamptz(3)
+
+  @@id([created, id])
+  @@index([created])
 }
 
 model Impression {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   publication String
-  viewed      DateTime @default(now())
+  viewed      DateTime @default(now()) @db.Timestamptz(3)
+
+  @@id([viewed, id])
+  @@index([viewed])
 }
+
+// Run the following command to create the extension
+// CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+// Create the hypertables
+// SELECT create_hypertable('"Event"', 'created', migrate_data => true);
+// SELECT create_hypertable('"Impression"', 'viewed', migrate_data => true);
+//
+// Add retention policy
+// SELECT add_retention_policy('"Event"', INTERVAL '1 year');
