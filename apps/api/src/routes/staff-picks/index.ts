@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
 import { generateMediumExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
@@ -9,6 +8,7 @@ import {
   STAFF_PICK_FEATURE_ID
 } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import prisma from 'src/helpers/prisma';
 
 const getRandomPicks = (data: any[]) => {
   const random = data.sort(() => Math.random() - Math.random());
@@ -33,13 +33,10 @@ export const get = [
           });
       }
 
-      const data = await heyPg.query(
-        `
-        SELECT "profileId" FROM "ProfileFeature"
-        WHERE enabled = TRUE AND "featureId" = $1;
-      `,
-        [STAFF_PICK_FEATURE_ID]
-      );
+      const data = await prisma.profileFeature.findMany({
+        select: { profileId: true },
+        where: { enabled: true, featureId: STAFF_PICK_FEATURE_ID }
+      });
 
       await setRedis(cacheKey, data, generateMediumExpiry());
       logger.info('Staff picks fetched');

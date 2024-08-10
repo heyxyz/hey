@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -35,17 +35,13 @@ export const post = [
     const { key } = body as ExtensionRequest;
 
     try {
-      const feature = await heyPg.query(
-        `
-        INSERT INTO "Feature" ("key", "priority")
-        VALUES ($1, 1000)
-        RETURNING *;
-      `,
-        [key]
-      );
-      logger.info(`Created a feature flag ${feature[0]?.id}`);
+      const feature = await prisma.feature.create({
+        data: { key, priority: 1000 }
+      });
 
-      return res.status(200).json({ feature: feature[0], success: true });
+      logger.info(`Created a feature flag ${feature.id}`);
+
+      return res.status(200).json({ feature, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
