@@ -3,9 +3,9 @@ import cron from 'node-cron';
 
 import batchProcessEvents from './batchProcessEvents';
 import batchProcessImpressions from './batchProcessImpressions';
-import cleanClickhouse from './cleanClickhouse';
 import cleanDraftPublications from './cleanDraftPublications';
 import cleanEmailTokens from './cleanEmailTokens';
+import cleanLeafwatch from './cleanLeafwatch';
 import cleanPreferences from './cleanPreferences';
 import dbVacuum from './dbVacuum';
 import heartbeat from './heartbeat';
@@ -19,7 +19,7 @@ const startCronJobs = () => {
   });
 
   cron.schedule('*/5 * * * *', async () => {
-    await cleanClickhouse();
+    await cleanLeafwatch();
     return;
   });
 
@@ -43,7 +43,7 @@ const startCronJobs = () => {
     return;
   });
 
-  cron.schedule('*/10 * * * * *', async () => {
+  cron.schedule('*/10 * * * *', async () => {
     await batchProcessEvents();
     return;
   });

@@ -21,7 +21,6 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.4.1",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@prisma/client": "^5.18.0",

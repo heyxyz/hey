@@ -1,18 +1,18 @@
 import leafwatch from '@hey/db/prisma/leafwatch/client';
 import logger from '@hey/helpers/logger';
 
-const cleanClickhouse = async () => {
+const cleanLeafwatch = async () => {
   try {
     await leafwatch.event.deleteMany({
       where: { url: { not: { contains: 'hey.xyz' } } }
     });
 
     logger.info(
-      '[Cron] cleanClickhouse - Cleaned non hey.xyz events from Clickhouse'
+      '[Cron] cleanLeafwatch - Cleaned non hey.xyz events from Leafwatch'
     );
   } catch (error) {
-    logger.error('[Cron] cleanClickhouse - Error cleaning Clickhouse', error);
+    logger.error('[Cron] cleanLeafwatch - Error cleaning Leafwatch', error);
   }
 };
 
-export default cleanClickhouse;
+export default cleanLeafwatch;

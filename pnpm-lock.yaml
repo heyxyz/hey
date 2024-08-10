@@ -559,9 +559,6 @@ importers:
 
   packages/db:
     dependencies:
-      '@clickhouse/client':
-        specifier: ^1.4.1
-        version: 1.4.1
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -1787,13 +1784,6 @@ packages:
   '@babel/types@7.25.2':
     resolution: {integrity: sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==}
     engines: {node: '>=6.9.0'}
-
-  '@clickhouse/client-common@1.4.1':
-    resolution: {integrity: sha512-f5eoTrUSDplrMoi3ddeZ0MzGTn0iGMByEQ8j63eVMoBSOI2+F6jEIPcW2tWofT79Rvnn3RRlveYcShiaIiCJyw==}
-
-  '@clickhouse/client@1.4.1':
-    resolution: {integrity: sha512-12iV+MeykxdQySRFHwaVU+hKUv3JP6kdwOI+z3zzyfPVYHynTlV8emJjjGZR0+VfRaj3PCMuQfryfsJ82nh9WQ==}
-    engines: {node: '>=16'}
 
   '@coinbase/wallet-sdk@3.9.3':
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
@@ -13417,12 +13407,6 @@ snapshots:
       '@babel/helper-string-parser': 7.24.8
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
-
-  '@clickhouse/client-common@1.4.1': {}
-
-  '@clickhouse/client@1.4.1':
-    dependencies:
-      '@clickhouse/client-common': 1.4.1
 
   '@coinbase/wallet-sdk@3.9.3':
     dependencies:
