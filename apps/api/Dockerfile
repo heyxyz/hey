@@ -14,6 +14,7 @@ COPY . .
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
+RUN pnpm codegen
 
 # Prune dev dependencies to reduce image size
 RUN pnpm prune --prod
