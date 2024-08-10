@@ -1,12 +1,12 @@
 import type { Request, Response } from 'express';
 
+import { STAFF_MODE_FEATURE_ID } from '@hey/db/constants';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
-import { STAFF_MODE_FEATURE_ID } from 'src/helpers/constants';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { boolean, object } from 'zod';
 

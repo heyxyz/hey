@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.4",
+    "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",

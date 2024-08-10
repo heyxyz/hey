@@ -1,8 +1,8 @@
 import type { Address, PublicClient } from 'viem';
 
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import getRpc from 'src/helpers/getRpc';
-import prisma from 'src/helpers/prisma';
 import { createPublicClient, formatEther } from 'viem';
 import { polygon } from 'viem/chains';
 
