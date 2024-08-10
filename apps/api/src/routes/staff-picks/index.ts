@@ -1,14 +1,12 @@
 import type { Request, Response } from 'express';
 
+import { STAFF_PICK_FEATURE_ID } from '@hey/db/constants';
+import prisma from '@hey/db/prisma/db/client';
 import { generateMediumExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import {
-  CACHE_AGE_30_MINS,
-  STAFF_PICK_FEATURE_ID
-} from 'src/helpers/constants';
+import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import prisma from 'src/helpers/prisma';
 
 const getRandomPicks = (data: any[]) => {
   const random = data.sort(() => Math.random() - Math.random());
