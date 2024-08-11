@@ -82,7 +82,6 @@ export type Preferences = {
 
 export type ProfileDetails = {
   isSuspended: boolean;
-  pinnedPublication: null | string;
 };
 
 export type Draft = {
