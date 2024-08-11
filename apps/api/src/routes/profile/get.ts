@@ -29,18 +29,14 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [profileFeature, pinnedPublication] = await prisma.$transaction([
+      const [profileFeature] = await prisma.$transaction([
         prisma.profileFeature.findFirst({
           where: { featureId: SUSPENDED_FEATURE_ID, profileId: id as string }
-        }),
-        prisma.pinnedPublication.findUnique({
-          where: { id: id as string }
         })
       ]);
 
       const response: ProfileDetails = {
-        isSuspended: profileFeature?.featureId === SUSPENDED_FEATURE_ID,
-        pinnedPublication: pinnedPublication?.publicationId || null
+        isSuspended: profileFeature?.featureId === SUSPENDED_FEATURE_ID
       };
 
       await setRedis(cacheKey, response);
