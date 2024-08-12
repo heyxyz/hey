@@ -13,7 +13,6 @@ const backupImpressionsToS3 = async () => {
     // Calculate the range for the current batch
     const startRange = offset;
     const endRange = offset + batchSize;
-
     const s3Path = `impressions-${startRange}-${endRange}.csv`;
 
     // Check the number of rows in the current batch
