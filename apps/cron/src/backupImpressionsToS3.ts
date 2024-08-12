@@ -5,7 +5,7 @@ import logger from '@hey/helpers/logger';
 const backupImpressionsToS3 = async () => {
   try {
     const cacheKey = 'backups:impressions:offset';
-    const batchSize = 100000;
+    const batchSize = 50000;
 
     // Get the last offset from Redis (or start from 0 if no offset is stored)
     let offset = parseInt((await getRedis(cacheKey)) || '0', 10);
