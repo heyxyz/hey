@@ -33,12 +33,13 @@ export const get = [
         FROM impressions
       `,
         `
-        SELECT name, COUNT(*) AS count
+        SELECT 
+          toStartOfInterval(created, INTERVAL 10 MINUTE) AS timestamp,
+          COUNT(*) AS count
         FROM events
         WHERE toDate(created) = today()
-        GROUP BY name
-        ORDER BY count DESC
-        LIMIT 10
+        GROUP BY timestamp
+        ORDER BY timestamp
       `,
         `
         SELECT 
