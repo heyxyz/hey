@@ -50,6 +50,10 @@ const generateExtraLongExpiry = (): number => {
   return randomNumber(hoursToSeconds(9), hoursToSeconds(24));
 };
 
+export const generateForeverExpiry = (): number => {
+  return hoursToSeconds(5000000);
+};
+
 export const setRedis = async (
   key: string,
   value: boolean | number | Record<string, any> | string,
