@@ -5,7 +5,7 @@ import logger from '@hey/helpers/logger';
 const backupEventsToS3 = async () => {
   try {
     const cacheKey = 'backups:events:offset';
-    const batchSize = 50000;
+    const batchSize = 100000;
 
     // Get the last offset from Redis (or start from 0 if no offset is stored)
     let offset = parseInt((await getRedis(cacheKey)) || '0', 10);
