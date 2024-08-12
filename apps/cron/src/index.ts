@@ -55,12 +55,12 @@ const startCronJobs = () => {
     return;
   });
 
-  cron.schedule('*/5 * * * *', async () => {
+  cron.schedule('*/1 * * * *', async () => {
     await backupEventsToS3();
     return;
   });
 
-  cron.schedule('*/5 * * * *', async () => {
+  cron.schedule('*/1 * * * *', async () => {
     await backupImpressionsToS3();
     return;
   });
