@@ -2,9 +2,9 @@ import clickhouseClient from '@hey/db/clickhouseClient';
 import { generateForeverExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 
-const backupEventsToS3 = async () => {
+const backupImpressionsToS3 = async () => {
   try {
-    const cacheKey = 'backups:events:offset';
+    const cacheKey = 'backups:impressions:offset';
     const batchSize = 10000;
 
     // Get the last offset from Redis (or start from 0 if no offset is stored)
@@ -14,7 +14,7 @@ const backupEventsToS3 = async () => {
     const startRange = offset;
     const endRange = offset + batchSize;
 
-    const s3Path = `events-${startRange}-${endRange}.csv`;
+    const s3Path = `impressions-${startRange}-${endRange}.csv`;
 
     // Check the number of rows in the current batch
     const rowsCountResult = await clickhouseClient.query({
@@ -23,8 +23,8 @@ const backupEventsToS3 = async () => {
         SELECT count(*) as count
         FROM (
             SELECT *
-            FROM events
-            ORDER BY created
+            FROM impressions
+            ORDER BY viewed
             LIMIT ${batchSize} OFFSET ${offset}
         ) as subquery;
       `
@@ -45,8 +45,8 @@ const backupEventsToS3 = async () => {
             'CSV'
           )
           SETTINGS s3_truncate_on_insert=1
-          SELECT * FROM events
-          ORDER BY created
+          SELECT * FROM impressions
+          ORDER BY viewed
           LIMIT ${batchSize} OFFSET ${offset};
         `
       });
@@ -56,18 +56,21 @@ const backupEventsToS3 = async () => {
       await setRedis(cacheKey, offset.toString(), generateForeverExpiry());
 
       logger.info(
-        `[Cron] backupEventsToS3 - Backup completed successfully for ${s3Path} with offset ${offset}`
+        `[Cron] backupImpressionsToS3 - Backup completed successfully for ${s3Path} with offset ${offset}`
       );
     } else {
-      const remainingEvents = batchSize - parseInt(rowsCount[0].count);
+      const remainingImpressions = batchSize - parseInt(rowsCount[0].count);
 
       logger.info(
-        `[Cron] backupEventsToS3 - No more events to back up at offset ${offset}. ${remainingEvents} events still need to be backed up.`
+        `[Cron] backupImpressionsToS3 - No more impressions to back up at offset ${offset}. ${remainingImpressions} impressions still need to be backed up.`
       );
     }
   } catch (error) {
-    logger.error('[Cron] backupEventsToS3 - Error processing events', error);
+    logger.error(
+      '[Cron] backupImpressionsToS3 - Error processing impressions',
+      error
+    );
   }
 };
 
-export default backupEventsToS3;
+export default backupImpressionsToS3;
