@@ -25,7 +25,7 @@ runs:
 
     - name: Migrate 🚀
       shell: bash
-      working-directory: ./apps/api
+      working-directory: ./packages/db
       env:
         DATABASE_URL: ${{ inputs.database_url }}
       run: pnpm prisma:migrate
