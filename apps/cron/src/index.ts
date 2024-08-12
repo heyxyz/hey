@@ -1,6 +1,7 @@
 import logger from '@hey/helpers/logger';
 import cron from 'node-cron';
 
+import backupEventsToS3 from './backupEventsToS3';
 import batchProcessEvents from './batchProcessEvents';
 import batchProcessImpressions from './batchProcessImpressions';
 import cleanClickhouse from './cleanClickhouse';
@@ -50,6 +51,11 @@ const startCronJobs = () => {
 
   cron.schedule('*/1 * * * *', async () => {
     await batchProcessImpressions();
+    return;
+  });
+
+  cron.schedule('*/5 * * * *', async () => {
+    await backupEventsToS3();
     return;
   });
 };
