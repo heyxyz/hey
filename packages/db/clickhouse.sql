@@ -19,7 +19,7 @@ SETTINGS index_granularity = 8192;
 
 -- Impressions
 CREATE TABLE impressions (
-  publication String,
+  publication LowCardinality(String),
   viewed DateTime DEFAULT now()
 ) ENGINE = MergeTree()
 PARTITION BY toYYYYMM(viewed)
