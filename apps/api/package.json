@@ -15,8 +15,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.624.0",
-    "@aws-sdk/client-sts": "^3.624.0",
+    "@aws-sdk/client-ses": "^3.629.0",
+    "@aws-sdk/client-sts": "^3.629.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
