@@ -47,7 +47,7 @@ module.exports = {
       },
       {
         destination:
-          'https://explorer.gitcoin.co/#/round/42161/25/1?utm_source=hey.xyz',
+          'https://explorer.gitcoin.co/#/round/10/44/14?utm_source=hey.xyz',
         permanent: true,
         source: '/gitcoin'
       },

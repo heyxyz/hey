@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
 import clickhouseClient from '@hey/db/clickhouseClient';
-import heyPg from '@hey/db/heyPg';
 import lensPg from '@hey/db/lensPg';
+import prisma from '@hey/db/prisma/db/client';
 import { getRedis } from '@hey/db/redisClient';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
@@ -21,8 +21,8 @@ export const get = [
   async (_: Request, res: Response) => {
     try {
       // Prepare promises with timings embedded
-      const heyPromise = measureQueryTime(() =>
-        heyPg.query(`SELECT 1 as count;`)
+      const heyPromise = measureQueryTime(
+        () => prisma.$queryRaw`SELECT 1 as count;`
       );
       const lensPromise = measureQueryTime(() =>
         lensPg.query(`SELECT 1 as count;`)
@@ -43,8 +43,6 @@ export const get = [
           redisPromise,
           clickhousePromise
         ]);
-
-      console.log(redisResult);
 
       // Check responses
       const [hey, heyTime] = heyResult;

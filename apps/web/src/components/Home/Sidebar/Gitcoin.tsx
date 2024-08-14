@@ -21,7 +21,7 @@ const Gitcoin: FC = () => {
       />
       <div className="space-y-3 text-center">
         <div className="font-bold">
-          Support {APP_NAME} on Gitcoin Grants Round 20
+          Support {APP_NAME} on Gitcoin Grants Round 21
         </div>
         <div className={rubikMonoOneFont.className}>
           <CountdownTimer targetDate="2024-05-07T23:59:00+00:00" />

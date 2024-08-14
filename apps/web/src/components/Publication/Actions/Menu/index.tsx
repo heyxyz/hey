@@ -14,7 +14,6 @@ import CopyPostText from './CopyPostText';
 import Delete from './Delete';
 import HideComment from './HideComment';
 import NotInterested from './NotInterested';
-import Pin from './Pin';
 import Recommend from './Recommend';
 import Report from './Report';
 import Share from './Share';
@@ -49,9 +48,6 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
         >
           {currentProfile ? (
             <>
-              {currentProfile?.id === publication?.by?.id ? (
-                <Pin publication={publication} />
-              ) : null}
               <NotInterested publication={publication} />
               <Recommend publication={publication} />
               <HideComment publication={publication} />
