@@ -9,7 +9,9 @@ export type StaffPick = {
 };
 
 export type Feature = {
-  assigned: string;
+  _count: {
+    profiles: number;
+  };
   createdAt: Date;
   enabled: boolean;
   id: string;
@@ -80,7 +82,6 @@ export type Preferences = {
 
 export type ProfileDetails = {
   isSuspended: boolean;
-  pinnedPublication: null | string;
 };
 
 export type Draft = {

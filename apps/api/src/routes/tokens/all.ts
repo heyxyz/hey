@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
@@ -22,11 +22,9 @@ export const get = [
           .json({ success: true, tokens: JSON.parse(cachedData) });
       }
 
-      const data = await heyPg.query(`
-      SELECT *
-      FROM "AllowedToken"
-      ORDER BY priority DESC;
-    `);
+      const data = await prisma.allowedToken.findMany({
+        orderBy: { priority: 'desc' }
+      });
 
       await setRedis(cacheKey, data);
       logger.info('All tokens fetched');

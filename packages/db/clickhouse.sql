@@ -4,8 +4,8 @@ CREATE TABLE events (
   fingerprint LowCardinality(Nullable(String)),
   name LowCardinality(String),
   properties Nullable(String),
-  referrer Nullable(String),
-  url Nullable(String),
+  referrer LowCardinality(Nullable(String)),
+  url LowCardinality(Nullable(String)),
   browser LowCardinality(Nullable(String)),
   ip Nullable(IPv6),
   city LowCardinality(Nullable(String)),
@@ -19,7 +19,7 @@ SETTINGS index_granularity = 8192;
 
 -- Impressions
 CREATE TABLE impressions (
-  publication String,
+  publication LowCardinality(String),
   viewed DateTime DEFAULT now()
 ) ENGINE = MergeTree()
 PARTITION BY toYYYYMM(viewed)

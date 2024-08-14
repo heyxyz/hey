@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
@@ -16,15 +16,10 @@ export const get = [
       const identityToken = req.headers['x-identity-token'] as string;
       const payload = parseJwt(identityToken);
 
-      const result = await heyPg.query(
-        `
-        SELECT *
-        FROM "DraftPublication"
-        WHERE "profileId" = $1
-        ORDER BY "updatedAt" DESC;
-      `,
-        [payload.id]
-      );
+      const result = await prisma.draftPublication.findMany({
+        orderBy: { updatedAt: 'desc' },
+        where: { profileId: payload.id }
+      });
 
       logger.info(`Drafts fetched for ${payload.id}`);
 
