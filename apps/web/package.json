@@ -38,7 +38,7 @@
     "@xmtp/content-type-reaction": "^1.1.9",
     "@xmtp/content-type-text": "^1.0.0",
     "@xmtp/react-sdk": "^8.0.1",
-    "axios": "^1.7.3",
+    "axios": "^1.7.4",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
@@ -91,7 +91,7 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
-    "tailwindcss": "^3.4.9",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   }
