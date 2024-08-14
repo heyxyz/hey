@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import { delRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
@@ -36,7 +36,7 @@ export const post = [
     const { id } = body as ExtensionRequest;
 
     try {
-      await heyPg.query(`DELETE FROM "AllowedToken" WHERE id = $1`, [id]);
+      await prisma.allowedToken.delete({ where: { id } });
       await delRedis(`allowedTokens`);
       logger.info(`Deleted a token ${id}`);
 

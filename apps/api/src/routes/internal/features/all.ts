@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
@@ -11,13 +11,10 @@ export const get = [
   validateIsStaff,
   async (_: Request, res: Response) => {
     try {
-      const data = await heyPg.query(`
-      SELECT F.*, COUNT(PF."profileId") AS assigned
-      FROM "Feature" F
-      LEFT JOIN "ProfileFeature" PF ON F."id" = PF."featureId"
-      GROUP BY F."id"
-      ORDER BY F.priority ASC;
-    `);
+      const data = await prisma.feature.findMany({
+        include: { _count: { select: { profiles: true } } },
+        orderBy: { priority: 'asc' }
+      });
 
       logger.info('All features fetched');
 

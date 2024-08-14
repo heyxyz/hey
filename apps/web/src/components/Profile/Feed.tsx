@@ -4,15 +4,11 @@ import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
 
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import {
-  ChatBubbleBottomCenterIcon,
-  PaperAirplaneIcon
-} from '@heroicons/react/24/outline';
+import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationQuery,
   usePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
@@ -29,7 +25,6 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   handle: string;
-  pinnedPublicationId: null | string;
   profileDetailsLoading: boolean;
   profileId: string;
   type:
@@ -41,7 +36,6 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({
   handle,
-  pinnedPublicationId,
   profileDetailsLoading,
   profileId,
   type
@@ -102,12 +96,6 @@ const Feed: FC<FeedProps> = ({
     }
   };
 
-  const { data: pinnedPublicationData, loading: pinnedPublicationLoading } =
-    usePublicationQuery({
-      skip: !pinnedPublicationId,
-      variables: { request: { forId: pinnedPublicationId } }
-    });
-
   const { data, error, fetchMore, loading, refetch } = usePublicationsQuery({
     onCompleted: async ({ publications }) => {
       const ids =
@@ -154,7 +142,7 @@ const Feed: FC<FeedProps> = ({
     }
   };
 
-  if (loading || profileDetailsLoading || pinnedPublicationLoading) {
+  if (loading || profileDetailsLoading) {
     return <PublicationsShimmer />;
   }
 
@@ -189,23 +177,6 @@ const Feed: FC<FeedProps> = ({
 
   return (
     <Card>
-      {pinnedPublicationData?.publication ? (
-        <>
-          <SinglePublication
-            header={
-              <div className="ld-text-gray-500 mb-5 flex items-center space-x-2">
-                <PaperAirplaneIcon className="size-4" />
-                <b className="text-sm">
-                  Pinned {pinnedPublicationData.publication.__typename}
-                </b>
-              </div>
-            }
-            publication={pinnedPublicationData.publication as AnyPublication}
-            showThread={false}
-          />
-          <div className="divider" />
-        </>
-      ) : null}
       <Virtuoso
         className="virtual-divider-list-window"
         computeItemKey={(index, publication) => `${publication.id}-${index}`}

@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
-import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
 export const get: Handler = async (req, res) => {
