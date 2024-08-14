@@ -61,7 +61,7 @@
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.0",
     "react-tracked": "^2.0.0",
-    "react-virtuoso": "^4.9.0",
+    "react-virtuoso": "^4.10.0",
     "rehype-parse": "^9.0.0",
     "rehype-remark": "^10.0.0",
     "remark-breaks": "^4.0.0",
