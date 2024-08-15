@@ -15,7 +15,7 @@ import axios from 'axios';
 import FeedEmbed from './FeedEmbed';
 
 export const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
-export const OPEN_ACTION_NO_EMBED_TOOLTIP = 'Mint not availabe anymore';
+export const OPEN_ACTION_NO_EMBED_TOOLTIP = 'Mint not available anymore';
 
 export const openActionCTA = (platformName?: string): string => {
   const name = platformName || '';
