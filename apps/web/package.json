@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.4",
-    "@aws-sdk/client-s3": "^3.629.0",
-    "@aws-sdk/lib-storage": "^3.629.0",
+    "@aws-sdk/client-s3": "^3.632.0",
+    "@aws-sdk/lib-storage": "^3.632.0",
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@hey/abis": "workspace:*",
@@ -43,7 +43,7 @@
     "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
     "esbuild": "^0.23.0",
-    "framer-motion": "^11.3.27",
+    "framer-motion": "^11.3.28",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "next": "^14.2.5",
@@ -75,10 +75,10 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.19.4",
+    "viem": "^2.19.6",
     "wagmi": "^2.12.5",
     "zod": "^3.23.8",
-    "zustand": "^4.5.4"
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
