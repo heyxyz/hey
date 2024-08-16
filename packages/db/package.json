@@ -4,7 +4,9 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "codegen": "prisma generate --schema ./prisma/db/schema.prisma > /dev/null",
+    "codegen:win32": "prisma generate --schema ./prisma/db/schema.prisma > NUL",
+    "codegen:default": "prisma generate --schema ./prisma/db/schema.prisma > /dev/null",
+    "codegen":"run-script-os",
     "postinstall": "pnpm codegen",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
