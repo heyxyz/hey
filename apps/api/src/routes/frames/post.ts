@@ -15,6 +15,7 @@ import { invalidBody, noBody } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
+  actionResponse?: string;
   buttonAction?: ButtonType;
   buttonIndex: number;
   inputText?: string;
@@ -46,8 +47,15 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { actionResponse, buttonAction, buttonIndex, inputText, postUrl, pubId, state } =
-      body as ExtensionRequest;
+    const {
+      actionResponse,
+      buttonAction,
+      buttonIndex,
+      inputText,
+      postUrl,
+      pubId,
+      state
+    } = body as ExtensionRequest;
 
     try {
       const accessToken = req.headers['x-access-token'] as string;
