@@ -11,6 +11,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
   const lensFramesVersion = getMeta('of:accepts:lens');
   const acceptsAnonymous = getMeta('of:accepts:anonymous');
   const image = getMeta('of:image') || getMeta('og:image');
+  const imageAspectRatio = getMeta('of:image:aspect_ratio');
   const postUrl = getMeta('of:post_url') || url;
   const frameUrl = url || '';
   const inputText = getMeta('of:input:text') || getMeta('fc:input:text');
@@ -54,6 +55,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     buttons,
     frameUrl,
     image,
+    imageAspectRatio,
     inputText,
     lensFramesVersion,
     openFramesVersion,
