@@ -90,6 +90,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
           {
             acceptsAnonymous: showTransaction.frame?.acceptsAnonymous,
             acceptsLens: showTransaction.frame?.acceptsLens,
+            actionResponse: hash,
             buttonIndex: +1,
             postUrl:
               showTransaction.frame?.buttons[showTransaction.index].postUrl ||

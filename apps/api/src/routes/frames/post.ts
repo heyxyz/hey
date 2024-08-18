@@ -46,7 +46,7 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { buttonAction, buttonIndex, inputText, postUrl, pubId, state } =
+    const { actionResponse, buttonAction, buttonIndex, inputText, postUrl, pubId, state } =
       body as ExtensionRequest;
 
     try {
@@ -56,7 +56,7 @@ export const post = [
       const { id } = payload;
 
       let request = {
-        actionResponse: '',
+        actionResponse: actionResponse || '',
         buttonIndex,
         inputText: inputText || '',
         profileId: id,
