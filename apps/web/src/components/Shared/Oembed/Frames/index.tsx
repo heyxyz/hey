@@ -85,6 +85,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     buttons,
     frameUrl,
     image,
+    imageAspectRatio,
     inputText: inputTextLabel,
     postUrl,
     state
@@ -150,7 +151,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         alt={image}
         className={cn(
           isLoading && 'animate-shimmer',
-          'h-[350px] max-h-[350px] w-full rounded-t-xl object-cover'
+          `aspect-[${(imageAspectRatio || '1.91:1').replace(':', '/')}]`,
+          'w-full rounded-t-xl object-cover'
         )}
         src={image}
       />
