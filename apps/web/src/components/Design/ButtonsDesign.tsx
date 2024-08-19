@@ -79,7 +79,7 @@ const ButtonsDesign: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Buttons" />
+      <CardHeader title="Button" />
       <ButtonVariants outline={false} />
       <ButtonVariants outline={true} />
     </Card>

@@ -7,7 +7,7 @@ const AlertDesign: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Alerts" />
+      <CardHeader title="Alert" />
       <Alert
         description="Normal alert"
         onClose={() => setShowAlert(false)}

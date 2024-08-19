@@ -22,7 +22,7 @@ const ProfilesDesign: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Profiles" />
+      <CardHeader title="Profile" />
       <div className="m-5 space-y-5">
         <div className="space-y-3">
           <H5>Profile</H5>
