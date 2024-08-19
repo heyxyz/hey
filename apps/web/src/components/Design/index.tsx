@@ -7,6 +7,7 @@ import AlertDesign from './AlertDesign';
 import ButtonsDesign from './ButtonsDesign';
 import ModalDesign from './ModalDesign';
 import ProfilesDesign from './ProfilesDesign';
+import ToggleDesign from './ToggleDesign';
 import TooltipDesign from './TooltipDesign';
 import TypographyDesign from './TypographyDesign';
 
@@ -19,6 +20,7 @@ const Design: NextPage = () => {
         <AlertDesign />
         <ModalDesign />
         <TooltipDesign />
+        <ToggleDesign />
         <ProfilesDesign />
       </GridItemTwelve>
     </GridLayout>
