@@ -17,6 +17,11 @@ interface ThreadBodyProps {
 const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   usePushToImpressions(publication.id);
 
+  const isRatio =
+    publication.__typename === 'Comment' &&
+    publication.commentOn &&
+    publication.stats.reactions > publication.commentOn.stats.reactions;
+
   return (
     <PublicationWrapper publication={publication}>
       <div className="relative flex items-start space-x-3 pb-3">
@@ -34,6 +39,11 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
           )}
         </div>
       </div>
+      {isRatio && (
+        <div className="mt-2 text-center font-bold text-green-500">
+          😏🎉 This is a ratio 🎉😏
+        </div>
+      )}
     </PublicationWrapper>
   );
 };
