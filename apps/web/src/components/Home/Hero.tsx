@@ -16,7 +16,7 @@ const Hero: FC = () => {
           <div className="text-2xl font-extrabold sm:text-5xl">
             Welcome to {APP_NAME},
           </div>
-          <div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+          <div className="ld-text-gray-500 text-xl font-bold sm:text-3xl">
             the forefront of{' '}
             <Link
               href="https://medium.com/@HashBrown_Research/deso-the-future-of-web3-socialfi-1b38d7e1939d"
