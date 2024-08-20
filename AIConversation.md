@@ -176,4 +176,37 @@ This change uses `H5` for displaying the ratio, which should compile without err
 
 ## User:
 
+WHAT A HELL!
+
+Failed to compile.
+./src/components/Profile/Followerings.tsx
+45:29  Error: Insert `⏎`  prettier/prettier
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (gpt-4-turbo-2024-04-09):
+
+The error message you're seeing is related to code formatting, specifically enforced by Prettier. It seems that Prettier expects a line break (`⏎`) at a specific location in your code which isn't there. This is a common issue when the code style enforced by tools like Prettier or ESLint isn't met.
+
+To resolve this, you can manually insert the required line break as suggested by the error, or you can run an auto-formatting command if your project is set up with one. Here's how you can address the issue:
+
+1. **Manually Insert Line Break**: Open the file `Followerings.tsx` and insert a line break where Prettier is indicating it's needed. The error message should tell you the exact location.
+
+2. **Auto-Format with Prettier**: If your project is set up to use Prettier, you can run it across your project files. Typically, this would be done with a command like:
+   ```bash
+   npx prettier --write src/components/Profile/Followerings.tsx
+   ```
+   This command will automatically format the `Followerings.tsx` file according to the rules specified in your Prettier configuration.
+
+3. **Check and Fix with ESLint**: Since your project uses ESLint, you can also use it to automatically fix such issues:
+   ```bash
+   npx eslint src/components/Profile/Followerings.tsx --fix
+   ```
+   This command will attempt to automatically fix any linting errors, including formatting discrepancies that ESLint is configured to handle.
+
+After making these changes, try running your build command again. If the issue was solely due to code formatting enforced by Prettier, these steps should resolve it. If the error persists, it might be helpful to check if there are other ESLint or Prettier rules being violated.
+
+## User:
+
 
