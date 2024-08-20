@@ -1,12 +1,12 @@
-commit QmQNX34mWvjMcmhQSZDuWEgG9p4EovBWBQzHLdNHn5XWFy
+commit QmPieq2gNE4LhEiEmyTRvyBxFB7f3GikZzuH5p1xNtfZ4d
 Branch: main
 Signed-off by:  (0xDDfC2e10702d8A781727A34D83B3bb3CA94a3E91)
-Signature: 11bca9f6784bf62c7c2f02e916c69b5c5118387ec13780aa71ae93f8d1d16c2e0c62ec8bb0d189f19356af87211e19e28c828c20e6bd74bff019620ed7ad77eb00
+Signature: 430900c543c0a5c45ed1fa6fae65746aeb7eddaedc9419792568e9a90215328a5f18d02ec8b633458b59c6d56e168b73772d7f3fa3c75931f087401b2d91da7901
 
 ------------------------------
 
-Commit CID if including git's SHA1: QmXjE8qt1jb2gUaVDCJGJVRWo1SXSDnBzT8Y5WjkXdkHeq
-Commit CID if containing only file hashes: QmSQTDmfotxcEBDG1Gw4ddqjuf9cNQqZNAUQudQEVofPHD
+Commit CID if including git's SHA1: QmPxzaSXrpiJqYaQZ7FpKQeRKCSuRYwJVFWie4syr4YNCq
+Commit CID if containing only file hashes: QmP16ZfX8pjA97pVv5m2s2cUc4AZheM1qceB8jLEhKpfQq
 
 ------------------------------
 
@@ -17,19 +17,7 @@ Remote URL: https://github.com/PeepzHQ/heypeepz.git
 
 ------------------------------
 
-chown -h 1000:1000 '.husky/pre-commit'
-chmod 0775 '.husky/pre-commit'
-/usr/bin/touch -hcmd "2024-08-20 13:19:42.3200331380 -0300" '.husky/pre-commit'
-/usr/bin/touch -hcad "2024-08-20 13:21:07.0937403770 -0300" '.husky/pre-commit'
-chown -h 1000:1000 'package-lock.json'
-chmod 0664 'package-lock.json'
-/usr/bin/touch -hcmd "2024-08-20 12:53:21.0103815680 -0300" 'package-lock.json'
-/usr/bin/touch -hcad "2024-08-20 12:53:21.4023972910 -0300" 'package-lock.json'
-chown -h 1000:1000 'packages/data/constants.ts'
-chmod 0664 'packages/data/constants.ts'
-/usr/bin/touch -hcmd "2024-08-20 13:16:54.6116140360 -0300" 'packages/data/constants.ts'
-/usr/bin/touch -hcad "2024-08-20 13:16:55.0036221040 -0300" 'packages/data/constants.ts'
-chown -h 1000:1000 'pnpm-lock.yaml'
-chmod 0664 'pnpm-lock.yaml'
-/usr/bin/touch -hcmd "2024-08-20 13:17:09.9829300930 -0300" 'pnpm-lock.yaml'
-/usr/bin/touch -hcad "2024-08-20 13:17:10.3189369950 -0300" 'pnpm-lock.yaml'
+chown -h 1000:1000 'AIMAP.md'
+chmod 0664 'AIMAP.md'
+/usr/bin/touch -hcmd "2024-08-20 13:23:55.4760893820 -0300" 'AIMAP.md'
+/usr/bin/touch -hcad "2024-08-20 13:24:05.9344768310 -0300" 'AIMAP.md'
