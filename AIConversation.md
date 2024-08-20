@@ -106,3 +106,39 @@ import Link from 'next/link';
 This order places the type import from 'react' first, followed by internal imports from your project, and finally the import from 'next/link', which should satisfy the ESLint rules regarding import ordering and spacing. Make sure there are no additional spaces or lines that violate the ESLint rules in your project.
 
 ## User:
+
+Failed to compile.
+./src/components/Home/Hero.tsx
+2:1 Error: Missed spacing between "react" and "@hey/data/constants" imports perfectionist/sort-imports
+info - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (claude-3.5-sonnet):
+
+I apologize for the confusion. The error is due to the import order in the `Hero.tsx` file. Let's fix that by reordering the imports according to the ESLint rules. Here's the corrected import order for the `Hero.tsx` file:
+
+```typescript:apps/web/src/components/Home/Hero.tsx
+import type { FC } from 'react';
+
+import { APP_NAME } from '@hey/data/constants';
+import Link from 'next/link';
+```
+
+This order should satisfy the ESLint rules. The imports are now sorted alphabetically within their groups, with a blank line separating the type import from the regular imports.
+
+For the rest of the component, the existing code looks correct. The `Link` component is being used properly for the external link. Here's a reference to the relevant part of the component:
+
+```18:24:apps/web/src/components/Home/Hero.tsx
+          <div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+            a social network built on Lens Protocol
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+```
+
+This part of the code correctly uses the `Link` component from Next.js for the external link, which is the recommended way to handle links in a Next.js application, even for external URLs.
+
+## User:
