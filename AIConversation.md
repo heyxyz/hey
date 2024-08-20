@@ -82,3 +82,27 @@ export default Hero;
 This modification uses the `Link` component to wrap the `<a>` tag, ensuring that the link to an external site is handled correctly while maintaining the ability to open in a new tab (`target="_blank"`). For internal navigation within a Next.js application, you would omit `target="_blank"` and simply use the `Link` component to wrap the text or component representing the link.
 
 ## User:
+
+Failed to compile.
+./src/components/Home/Hero.tsx
+2:1 Error: Missed spacing between "react" and "next/link" imports perfectionist/sort-imports
+3:1 Error: Expected "@hey/data/constants" to come before "next/link" perfectionist/sort-imports
+info - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (gpt-4-turbo-2024-04-09):
+
+The error messages indicate issues with the order and spacing of imports in your `Hero.tsx` file, which are enforced by your project's ESLint rules. To resolve these issues, you need to adjust the order of the imports according to the rules specified by the `perfectionist/sort-imports` ESLint rule.
+
+Here's how you can adjust the imports in your `Hero.tsx` file to comply with the ESLint rules:
+
+```typescript:apps/web/src/components/Home/Hero.tsx
+import type { FC } from 'react';
+import { APP_NAME } from '@hey/data/constants';
+import Link from 'next/link';
+```
+
+This order places the type import from 'react' first, followed by internal imports from your project, and finally the import from 'next/link', which should satisfy the ESLint rules regarding import ordering and spacing. Make sure there are no additional spaces or lines that violate the ESLint rules in your project.
+
+## User:
