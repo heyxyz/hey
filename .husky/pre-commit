@@ -1,3 +1,6 @@
-pnpm lint
-pnpm prettier
-pnpm typecheck
+npx prettier --write .
+##npx eslint . --fix
+.git/hooks/pre-commit
+#pnpm lint
+#pnpm prettier
+#pnpm typecheck

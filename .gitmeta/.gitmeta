@@ -1,12 +1,12 @@
-commit QmdNVjLg3u2jFzDn143dUhLNdeXjEugbeGavPcuS4PTGEK
+commit QmQNX34mWvjMcmhQSZDuWEgG9p4EovBWBQzHLdNHn5XWFy
 Branch: main
 Signed-off by:  (0xDDfC2e10702d8A781727A34D83B3bb3CA94a3E91)
-Signature: e442a6d8b75f6e03c9f95fde65afc2a29347cc255a304caf4297c417b308fc554869d1f22ddc7eb4c8db02f2c101f66b4bf5971150155b6f46201c21d3239de400
+Signature: 11bca9f6784bf62c7c2f02e916c69b5c5118387ec13780aa71ae93f8d1d16c2e0c62ec8bb0d189f19356af87211e19e28c828c20e6bd74bff019620ed7ad77eb00
 
 ------------------------------
 
-Commit CID if including git's SHA1: QmVfhAXsJVrMi7DLroTL72WUZKjcaQuAUoZvoDiLtkcz7i
-Commit CID if containing only file hashes: Qmbxp4tV2RmgqLTkh4UXZQ3KiWtnKWCwLXkkGbJNPK9MSf
+Commit CID if including git's SHA1: QmXjE8qt1jb2gUaVDCJGJVRWo1SXSDnBzT8Y5WjkXdkHeq
+Commit CID if containing only file hashes: QmSQTDmfotxcEBDG1Gw4ddqjuf9cNQqZNAUQudQEVofPHD
 
 ------------------------------
 
@@ -17,7 +17,19 @@ Remote URL: https://github.com/PeepzHQ/heypeepz.git
 
 ------------------------------
 
-chown -h 1000:1000 'apps/web/src/components/Profile/Followerings.tsx'
-chmod 0664 'apps/web/src/components/Profile/Followerings.tsx'
-/usr/bin/touch -hcmd "2024-08-20 13:16:03.4845583100 -0300" 'apps/web/src/components/Profile/Followerings.tsx'
-/usr/bin/touch -hcad "2024-08-20 13:16:03.5605598850 -0300" 'apps/web/src/components/Profile/Followerings.tsx'
+chown -h 1000:1000 '.husky/pre-commit'
+chmod 0775 '.husky/pre-commit'
+/usr/bin/touch -hcmd "2024-08-20 13:19:42.3200331380 -0300" '.husky/pre-commit'
+/usr/bin/touch -hcad "2024-08-20 13:21:07.0937403770 -0300" '.husky/pre-commit'
+chown -h 1000:1000 'package-lock.json'
+chmod 0664 'package-lock.json'
+/usr/bin/touch -hcmd "2024-08-20 12:53:21.0103815680 -0300" 'package-lock.json'
+/usr/bin/touch -hcad "2024-08-20 12:53:21.4023972910 -0300" 'package-lock.json'
+chown -h 1000:1000 'packages/data/constants.ts'
+chmod 0664 'packages/data/constants.ts'
+/usr/bin/touch -hcmd "2024-08-20 13:16:54.6116140360 -0300" 'packages/data/constants.ts'
+/usr/bin/touch -hcad "2024-08-20 13:16:55.0036221040 -0300" 'packages/data/constants.ts'
+chown -h 1000:1000 'pnpm-lock.yaml'
+chmod 0664 'pnpm-lock.yaml'
+/usr/bin/touch -hcmd "2024-08-20 13:17:09.9829300930 -0300" 'pnpm-lock.yaml'
+/usr/bin/touch -hcad "2024-08-20 13:17:10.3189369950 -0300" 'pnpm-lock.yaml'
