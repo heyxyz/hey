@@ -37,10 +37,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
     <div className="flex items-center gap-8">
       <div
         style={{
-          height: '100%',
-          width: '5px',
           backgroundColor: getColor(ratio),
-          marginRight: '10px'
+          height: '100%',
+          marginRight: '10px',
+          width: '5px'
         }}
       />
       <Link
