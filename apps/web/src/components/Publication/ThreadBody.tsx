@@ -17,10 +17,14 @@ interface ThreadBodyProps {
 const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   usePushToImpressions(publication.id);
 
-  const isRatio =
-    publication.__typename === 'Comment' &&
-    publication.commentOn &&
-    publication.stats.reactions > publication.commentOn.stats.reactions;
+  const isComment =
+    publication.__typename === 'Comment' && publication.commentOn;
+  const replyLikes = publication.stats.reactions;
+  const originalLikes = isComment ? publication.commentOn.stats.reactions : 0;
+  const ratioPercentage =
+    originalLikes > 0 ? (replyLikes / originalLikes) * 100 : 0;
+  const isRatio = ratioPercentage > 100;
+  const isApproachingRatio = ratioPercentage >= 50 && ratioPercentage <= 100;
 
   return (
     <PublicationWrapper publication={publication}>
@@ -42,6 +46,11 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
       {isRatio && (
         <div className="mt-2 text-center font-bold text-green-500">
           😏🎉 This is a ratio 🎉😏
+        </div>
+      )}
+      {isApproachingRatio && (
+        <div className="mt-2 text-center font-bold text-yellow-500">
+          {Math.floor(ratioPercentage)}% until ratioing 😏👀
         </div>
       )}
     </PublicationWrapper>
