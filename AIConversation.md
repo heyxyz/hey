@@ -452,4 +452,46 @@ This change explicitly declares `ratio` as a `number` and specifies that `getCol
 
 ## User:
 
+Thank you, all compilation issues have been fixed!
+
+There's something more:
+- height 100% for the bar has failed. When I put a fixed number, such as 40px, it was finally shown. How to fix that, while still making a dynamic size?
+- please add a tooltip to this bar, telling the ratio
+- please move this bar to the right side, not the left anymore
+
+## AI (gpt-4-turbo-2024-04-09):
+
+To address the issues you've mentioned, let's make the following changes:
+
+1. **Dynamic Height for the Bar**: If `height: '100%'` isn't working, it's likely because the parent container doesn't have a defined height. You can set a height on the parent container to ensure the bar can scale accordingly.
+
+2. **Tooltip on the Bar**: We can use a simple `title` attribute for a basic tooltip. For more complex tooltips, you might consider a library like `react-tooltip`, but a `title` attribute will suffice for basic needs.
+
+3. **Move the Bar to the Right Side**: To move the bar to the right side, you can adjust the flexbox properties of the container.
+
+Here's how you can modify your `Followerings.tsx` component:
+
+```typescript
+import React from 'react'; // Ensure React is in scope if using JSX
+
+const Followerings: FC<FolloweringsProps> = ({ profile }) => {
+  const profileLink = getProfile(profile).link;
+  const { followers, following } = profile.stats;
+  const ratio = following > 0 ? followers / following : 0;
+  const ratioFixed = following > 0 ? ratio.toFixed(2) : 'N/A';
+
+  const getColor = (ratio: number): string => {
+    if (ratio >= 1) return 'green';
+    if (ratio >= 0.5) return 'yellow';
+    if (ratio >= 0.2) return 'orange';
+    return 'red';
+  };
+
+  return (
+    <div className="flex items-center gap-8" style={{ height: '60px' }}> {/* Set a fixed height or ensure parent has defined height */}
+      <Link className="text-left outline-offset-4" href={`${profileLink}/following`}>
+        <H4>{humanize(follow
+
+## User:
+
 
