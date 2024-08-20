@@ -142,3 +142,39 @@ For the rest of the component, the existing code looks correct. The `Link` compo
 This part of the code correctly uses the `Link` component from Next.js for the external link, which is the recommended way to handle links in a Next.js application, even for external URLs.
 
 ## User:
+
+This link isn't opening on an new tab when clicked!
+
+## AI (claude-3.5-sonnet):
+
+You're right, and I apologize for missing that detail. The current implementation doesn't open the link in a new tab. Let's fix that by adding the `target="_blank"` attribute to the `Link` component. Here's the corrected code for the relevant part of the `Hero.tsx` file:
+
+```19:25:apps/web/src/components/Home/Hero.tsx
+            a social network built on Lens Protocol
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+Replace these lines with the following code:
+
+```typescript
+<div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+  the forefront of{' '}
+  <Link
+    href="https://medium.com/@HashBrown_Research/deso-the-future-of-web3-socialfi-1b38d7e1939d"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    DeSo
+  </Link>{' '}
+  innovation on Lens Protocol
+</div>
+```
+
+This change will make the link open in a new tab when clicked. The `rel="noopener noreferrer"` attribute is added for security reasons when using `target="\_blank"
+
+## User:
