@@ -10,3 +10,6 @@
 - https://hey-assets.b-cdn.net/images/source/orb.png
 -
 - https://vercel.com/heyxyz/web/8rkXFEgo1RenpFMS3FKbee82AJmi/og
+
+show a "percent until ratio", which will come as "% ratioed"
+Notify OP when a reply has 50% and 100% ratioed
