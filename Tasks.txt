@@ -9,6 +9,8 @@
 -
 - https://vercel.com/heyxyz/web/8rkXFEgo1RenpFMS3FKbee82AJmi/og
 
+- "Threads" tab on user profile (a Thread is a root post that has a dept of 2 sequential replies from OP)
+
 show a "percent until ratio", which will come as "% ratioed", only when it reach 50%
 Notify OP when a reply has 50% and 100% ratioed (first, understand how the codebase handles notifications on Lens)
 
