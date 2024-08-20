@@ -414,4 +414,42 @@ This change reorders the properties alphabetically as required by the `perfectio
 
 ## User:
 
+Failed to compile.
+./src/components/Profile/Followerings.tsx:23:21
+Type error: Parameter 'ratio' implicitly has an 'any' type.
+  21 |
+  22 |   // Determine the color of the vertical bar based on the ratio
+> 23 |   const getColor = (ratio) => {
+     |                     ^
+  24 |     if (ratio >= 1) {
+  25 |       return 'green';
+  26 |     }
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (gpt-4-turbo-2024-04-09):
+
+The TypeScript error you're encountering is due to the lack of an explicit type declaration for the parameter `ratio` in the `getColor` function. TypeScript requires explicit types for better type-checking and to avoid implicit `any` types, which can lead to less predictable code behavior.
+
+Here's how you can fix the error by specifying the type for the `ratio` parameter:
+
+```typescript:apps/web/src/components/Profile/Followerings.tsx
+const getColor = (ratio: number): string => {
+  if (ratio >= 1) {
+    return 'green';
+  }
+  if (ratio >= 0.5) {
+    return 'yellow';
+  }
+  if (ratio >= 0.2) {
+    return 'orange';
+  }
+  return 'red';
+};
+```
+
+This change explicitly declares `ratio` as a `number` and specifies that `getColor` returns a `string`. This should resolve the TypeScript error and allow your code to compile successfully.
+
+## User:
+
 
