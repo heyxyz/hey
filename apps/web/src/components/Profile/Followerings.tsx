@@ -20,7 +20,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   const ratioFixed = following > 0 ? ratio.toFixed(2) : 'N/A';
 
   // Determine the color of the vertical bar based on the ratio
-  const getColor = (ratio) => {
+  const getColor = (ratio: number): string => {
     if (ratio >= 1) {
       return 'green';
     }
