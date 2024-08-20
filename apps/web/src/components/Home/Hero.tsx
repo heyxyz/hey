@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { APP_NAME } from '@hey/data/constants';
 import Link from 'next/link';
 

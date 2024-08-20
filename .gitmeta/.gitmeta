@@ -1,12 +1,12 @@
-commit QmdBeHxm5Rv8PTYAYjkznYf3vK77wBENMezCStKGVA1eF9
+commit QmUfS5ujyuMh65jHvQrVTDmhmxSW9ATvjQqKnNm6jvgwki
 Branch: main
 Signed-off by: danimesq.eth (0xDDfC2e10702d8A781727A34D83B3bb3CA94a3E91)
-Signature: 3fdfed1e62282bce5ef98002dd1553630bb0ca5f2281ce00377664973ca396c11289912492afcebe39e1f1a154645050853a2fd0ac796cc515a0a59a1a5f5ed500
+Signature: 9844a9374288c6af557db64d4f0f558aea51e8e0607e99ed4751abc73e0c74a851a9f3a3a54e20928de6a2cff7c3a5cf07f30427f0d0d109cb47d78aabac4dd700
 
 ------------------------------
 
-Commit CID if including git's SHA1: QmYWgWHBKQ1k5pfv9EbfD6tLS96c8F5UpVQXumAisUsdzy
-Commit CID if containing only file hashes: QmSdH6PkekJ8HRaKjprvQG6vFWapsuMhe31akq39sSkyhd
+Commit CID if including git's SHA1: QmVsMawUDCU5SMWPovvo8rNRoh2dF9P7BPChXJRMhZJVAc
+Commit CID if containing only file hashes: QmZth6GihJYyTM4Bo9416FXXtn3y7UJHjxuPpoUM1yULYF
 
 ------------------------------
 
@@ -17,7 +17,7 @@ Remote URL: https://github.com/PeepzHQ/heypeepz.git
 
 ------------------------------
 
-chown -h 1000:1000 'AIConversation.md'
-chmod 0664 'AIConversation.md'
-/usr/bin/touch -hcmd "2024-08-20 17:50:44.3246997980 -0300" 'AIConversation.md'
-/usr/bin/touch -hcad "2024-08-20 17:50:44.3886993290 -0300" 'AIConversation.md'
+chown -h 1000:1000 'apps/web/src/components/Home/Hero.tsx'
+chmod 0664 'apps/web/src/components/Home/Hero.tsx'
+/usr/bin/touch -hcmd "2024-08-20 17:50:51.7136457300 -0300" 'apps/web/src/components/Home/Hero.tsx'
+/usr/bin/touch -hcad "2024-08-20 17:50:51.7676453360 -0300" 'apps/web/src/components/Home/Hero.tsx'
