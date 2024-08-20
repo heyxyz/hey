@@ -494,4 +494,39 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
 
 ## User:
 
+Failed to compile.
+./src/components/Profile/Followerings.tsx:62:11
+Type error: Object literal may only specify known properties, and 'title' does not exist in type 'Properties<string | number, string & {}>'.
+  60 |           marginRight: '10px',
+  61 |           width: '5px',
+> 62 |           title: `Followers-to-Following Ratio: ${ratioFixed}`
+     |           ^
+  63 |         }}
+  64 |       />
+  65 |     </div>
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (gpt-4-turbo-2024-04-09):
+
+The error you're encountering is because the `title` attribute is incorrectly placed inside the `style` object. The `title` attribute should be directly on the `div` element, not within the `style` object.
+
+Here's the corrected code for your `Followerings.tsx` component:
+
+```typescript:apps/web/src/components/Profile/Followerings.tsx
+<div
+  style={{
+    backgroundColor: getColor(ratio),
+    height: '100%',
+    marginRight: '10px',
+    width: '5px'
+  }}
+  title={`Followers-to-Following Ratio: ${ratioFixed}`} // Correct placement of the title attribute
+/>
+```
+
+This change places the `title` attribute directly on the `div` element, which is the correct usage for HTML attributes that are not related to styling. This should resolve the compilation error.
+
+## User:
+
 
