@@ -1,0 +1,187 @@
+This folder: /home/daniella/Desktop/heypeepz
+
+folderstamp version: r5
+Method: Non-recursive
+Current Git Branch: main
+First Git Remote: origin - URL: https://github.com/PeepzHQ/heypeepz.git
+
+  File: ./AIConversation.md
+  Size: 12819     	Blocks: 32         IO Block: 4096   regular file
+Device: 8,38	Inode: 11108269    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 13:16:40.910331806 -0300
+Modify: 2024-08-20 13:16:40.581325022 -0300
+Change: 2024-08-20 13:16:40.581325022 -0300
+ Birth: 2024-08-20 13:16:18.600871189 -0300
+IPFS hash: QmbimiDVZYgcBJZhzs2ukYtVoiNazuXCp9ybvJmDz4rp2s
+------------------------------
+  File: ./AIMAP.md
+  Size: 17288     	Blocks: 40         IO Block: 4096   regular file
+Device: 8,38	Inode: 11108038    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 13:23:42.834081693 -0300
+Modify: 2024-08-20 13:23:55.476089382 -0300
+Change: 2024-08-20 13:23:55.476089382 -0300
+ Birth: 2024-08-20 02:15:51.334708533 -0300
+IPFS hash: QmSreZ5majAG7AYNa8pePRhofAnmPEqm6yY9QGwRign3jR
+------------------------------
+  File: ./apps
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 8,38	Inode: 11116733    Links: 7
+Access: (0775/drwxrwxr-x)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:05:10.326554863 -0300
+Modify: 2024-08-20 02:05:00.198505609 -0300
+Change: 2024-08-20 02:05:00.198505609 -0300
+ Birth: 2024-08-20 02:05:00.170505472 -0300
+IPFS hash: 
+------------------------------
+  File: ./CHANGELOG.md
+  Size: 90        	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11048106    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.362343992 -0300
+Modify: 2024-08-20 02:05:00.169505467 -0300
+Change: 2024-08-20 02:05:00.169505467 -0300
+ Birth: 2024-08-20 02:05:00.169505467 -0300
+IPFS hash: QmYeYLmWfGwd3pTrYvuCdRuaUNeSzmyDEJ8MXdAMmyCj6v
+------------------------------
+  File: ./CODE_OF_CONDUCT.md
+  Size: 3355      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11048108    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.362343992 -0300
+Modify: 2024-08-20 02:05:00.169505467 -0300
+Change: 2024-08-20 02:05:00.169505467 -0300
+ Birth: 2024-08-20 02:05:00.169505467 -0300
+IPFS hash: QmQaauLCALHLdYwPxYxscSoyDkeVqppoTVdQ5hMHUxMFgX
+------------------------------
+  File: ./CONTRIBUTING.md
+  Size: 3231      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11048110    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.363343997 -0300
+Modify: 2024-08-20 02:05:00.169505467 -0300
+Change: 2024-08-20 02:05:00.169505467 -0300
+ Birth: 2024-08-20 02:05:00.169505467 -0300
+IPFS hash: QmWxTD1asntaWHT2dqop6QYViHwJ7E1sEkhdSCxqScDdUq
+------------------------------
+  File: ./FUNDING.json
+  Size: 107       	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11048111    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.363343997 -0300
+Modify: 2024-08-20 02:05:00.169505467 -0300
+Change: 2024-08-20 02:05:00.169505467 -0300
+ Birth: 2024-08-20 02:05:00.169505467 -0300
+IPFS hash: QmYGocEnUc3GkFj485DZDcazAgAp77uUujCsRP9VTnpjQH
+------------------------------
+  File: ./LICENSE
+  Size: 34257     	Blocks: 72         IO Block: 4096   regular file
+Device: 8,38	Inode: 11048112    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.363343997 -0300
+Modify: 2024-08-20 02:05:00.170505472 -0300
+Change: 2024-08-20 02:05:00.170505472 -0300
+ Birth: 2024-08-20 02:05:00.169505467 -0300
+IPFS hash: QmNZLiyHzoywynDNo5kzspNwaJ4XVN7G54APM4kDGuxaWs
+------------------------------
+  File: ./node_modules
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 8,38	Inode: 11124831    Links: 7
+Access: (0775/drwxrwxr-x)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 12:54:37.416334330 -0300
+Modify: 2024-08-20 12:53:21.011381608 -0300
+Change: 2024-08-20 12:53:21.011381608 -0300
+ Birth: 2024-08-20 12:51:49.318519847 -0300
+IPFS hash: 
+------------------------------
+  File: ./package.json
+  Size: 949       	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11049538    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.627345299 -0300
+Modify: 2024-08-20 02:05:00.524507194 -0300
+Change: 2024-08-20 02:05:00.524507194 -0300
+ Birth: 2024-08-20 02:05:00.524507194 -0300
+IPFS hash: QmWGNqQ1MfUFBds2NHFXMi349FuqHHz9Qtc4fF6p7hqoKf
+------------------------------
+  File: ./package-lock.json
+  Size: 3832      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11108225    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 12:53:21.402397291 -0300
+Modify: 2024-08-20 12:53:21.010381568 -0300
+Change: 2024-08-20 12:53:21.010381568 -0300
+ Birth: 2024-08-20 12:53:21.010381568 -0300
+IPFS hash: QmSyjkPXNg26njD29ro2GmQYBwV6iGPKGuKCbFGaPMXEC6
+------------------------------
+  File: ./packages
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 8,38	Inode: 11116950    Links: 13
+Access: (0775/drwxrwxr-x)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:05:10.326554863 -0300
+Modify: 2024-08-20 02:05:00.575507442 -0300
+Change: 2024-08-20 02:05:00.575507442 -0300
+ Birth: 2024-08-20 02:05:00.525507199 -0300
+IPFS hash: 
+------------------------------
+  File: ./pnpm-lock.yaml
+  Size: 961782    	Blocks: 1880       IO Block: 4096   regular file
+Device: 8,38	Inode: 11050528    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 13:17:10.318936995 -0300
+Modify: 2024-08-20 13:17:09.982930093 -0300
+Change: 2024-08-20 13:17:09.982930093 -0300
+ Birth: 2024-08-20 02:05:00.577507452 -0300
+IPFS hash: QmbJNpJniejbNC7W9YKwVD8nmoPRcr43wwsnjL4ZUee3o8
+------------------------------
+  File: ./pnpm-workspace.yaml
+  Size: 40        	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11050529    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.824346270 -0300
+Modify: 2024-08-20 02:05:00.584507486 -0300
+Change: 2024-08-20 02:05:00.584507486 -0300
+ Birth: 2024-08-20 02:05:00.584507486 -0300
+IPFS hash: QmYSjhyzPfxgtBcdftxRaB4YEDU2UdHbFgG3gd1cjYe4Vu
+------------------------------
+  File: ./prettier.config.js
+  Size: 284       	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11050530    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.824346270 -0300
+Modify: 2024-08-20 02:05:00.584507486 -0300
+Change: 2024-08-20 02:05:00.584507486 -0300
+ Birth: 2024-08-20 02:05:00.584507486 -0300
+IPFS hash: QmSrEongaPYkLf2TZeGfQTu6Woyqo4cDQLeqj1m6wsMyzK
+------------------------------
+  File: ./README.md
+  Size: 3199      	Blocks: 8          IO Block: 4096   regular file
+Device: 8,38	Inode: 11048114    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:11:15.363343997 -0300
+Modify: 2024-08-20 02:05:00.170505472 -0300
+Change: 2024-08-20 02:05:00.170505472 -0300
+ Birth: 2024-08-20 02:05:00.170505472 -0300
+IPFS hash: QmP1KUXLN5QjDpPZG7yALWCpw9HocxhkMT11HLECMtURjP
+------------------------------
+  File: ./script
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 8,38	Inode: 11117059    Links: 2
+Access: (0775/drwxrwxr-x)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 02:05:10.325554858 -0300
+Modify: 2024-08-20 02:05:00.584507486 -0300
+Change: 2024-08-20 02:05:00.584507486 -0300
+ Birth: 2024-08-20 02:05:00.584507486 -0300
+IPFS hash: 
+------------------------------
+  File: ./Tasks.txt
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: 8,38	Inode: 11108262    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/daniella)   Gid: ( 1000/daniella)
+Access: 2024-08-20 13:23:57.569764007 -0300
+Modify: 2024-08-20 13:23:57.569764007 -0300
+Change: 2024-08-20 13:24:00.667284984 -0300
+ Birth: 2024-08-20 13:23:57.569764007 -0300
+IPFS hash: QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH
+------------------------------
