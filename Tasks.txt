@@ -1,4 +1,9 @@
 - ./.husky/pre-commit: insp on git-meta to know what files are staged, so get an one-line format of that list and run prettier/eslint only on these specific files, then use git add to add these updated files to the stage
+- change "Welcome to Peepz,
+a social network built on Lens Protocol"
+to
+"Welcome to Peepz,
+the forefront of DeSo innovation on Lens Protocol"
 -
 - Tell abt another type of ratio: when an answer have more likes than the root post
 - set Farcaster, Threads, Bluesky, Mastodon and Peepeth profiles!
