@@ -1,0 +1,40 @@
+#!/bin/bash
+
+git config core.quotePath false
+git config --global core.precomposeunicode true
+
+# Get a list of all staged files
+staged_files=()
+while IFS= read -r line; do
+    staged_files+=("$line")
+done < <(git diff --name-only --cached)
+echo "DEBUG: staged_files: ${staged_files[*]}"
+
+# Exit if no files are staged
+if [ ${#staged_files[@]} -eq 0 ]; then
+    echo "No files staged. Exiting pre-commit hook."
+    exit 0
+fi
+
+echo "DEBUG: past empty stage check"
+
+# Process each staged file
+for file in "${staged_files[@]}"; do
+    echo "DEBUG: file: $file"
+    if [ -f "$file" ]; then
+        if [[ $file == *\"* ]]; then
+            echo "File name contains double quotes and can't be added to the commit CID: $file"
+        else
+            npx prettier --write "$file"
+            (npx eslint "$file" --fix &)
+        fi
+        echo "[DEBUG]Current file: $file"
+    fi
+done
+
+echo "DEBUG: past linting"
+
+# Add all staged files
+git add "${staged_files[@]}"
+
+.git/hooks/pre-commit
