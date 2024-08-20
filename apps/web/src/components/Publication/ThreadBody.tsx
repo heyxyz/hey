@@ -19,10 +19,18 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
 
   const isComment =
     publication.__typename === 'Comment' && publication.commentOn;
-  const replyLikes = isComment ? publication.stats?.reactions || 0 : 0;
-  const originalLikes = isComment
-    ? publication.commentOn.stats?.reactions || 0
-    : 0;
+  const replyLikes =
+    isComment && publication.stats ? publication.stats.reactions : undefined;
+  const originalLikes =
+    isComment && publication.commentOn && publication.commentOn.stats
+      ? publication.commentOn.stats.reactions
+      : undefined;
+
+  if (replyLikes === undefined || originalLikes === undefined) {
+    console.error('Missing stats data on publication or its parent.');
+    return null; // Or handle this case differently, perhaps showing a fallback UI.
+  }
+
   const ratioPercentage =
     originalLikes > 0 ? (replyLikes / originalLikes) * 100 : 0;
   const isRatio = ratioPercentage > 100;
