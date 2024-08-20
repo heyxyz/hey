@@ -20,8 +20,8 @@ const Hero: FC = () => {
             the forefront of{' '}
             <Link
               href="https://medium.com/@HashBrown_Research/deso-the-future-of-web3-socialfi-1b38d7e1939d"
-              target="_blank"
               rel="noopener noreferrer"
+              target="_blank"
             >
               DeSo
             </Link>{' '}
