@@ -16,10 +16,27 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   const { followers, following } = profile.stats;
 
   // Calculate the followers-to-followings ratio
-  const ratio = following > 0 ? (followers / following).toFixed(2) : 'N/A';
+  const ratio = following > 0 ? followers / following : 0;
+  const ratioFixed = following > 0 ? ratio.toFixed(2) : 'N/A';
+
+  // Determine the color of the vertical bar based on the ratio
+  const getColor = (ratio) => {
+    if (ratio >= 1) return 'green';
+    if (ratio >= 0.5) return 'yellow';
+    if (ratio >= 0.2) return 'orange';
+    return 'red';
+  };
 
   return (
-    <div className="flex gap-8">
+    <div className="flex items-center gap-8">
+      <div
+        style={{
+          width: '5px',
+          height: '100%',
+          backgroundColor: getColor(ratio),
+          marginRight: '10px'
+        }}
+      ></div>
       <Link
         className="text-left outline-offset-4"
         href={`${profileLink}/following`}
@@ -35,7 +52,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <div className="ld-text-gray-500">{plur('Follower', followers)}</div>
       </Link>
       <div className="text-center">
-        <H5 className="text-lg font-semibold">Ratio: {ratio}</H5>
+        <H5 className="text-lg font-semibold">Ratio: {ratioFixed}</H5>
         <div className="ld-text-gray-500">Followers/Following</div>
       </div>
     </div>
