@@ -5,7 +5,7 @@ import getEnvConfig from './utils/getEnvConfig';
 // Environments
 export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 
-// Lens and Hey Env Config
+// Lens and Peepz Env Config
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || 'mainnet';
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
@@ -24,7 +24,7 @@ export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = '0x03Ba3...7EF';
 
 // Application
-export const APP_NAME = 'Hey';
+export const APP_NAME = 'Peepz';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = '#FB3A5D';
