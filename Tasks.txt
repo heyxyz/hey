@@ -4,6 +4,7 @@ a social network built on Lens Protocol"
 to
 "Welcome to Peepz,
 the forefront of DeSo innovation on Lens Protocol"
+- on "Setup your Peepz profile", show this on profile too, with a progressbar
 -
 - Tell abt another type of ratio: when an answer have more likes than the root post
 - set Farcaster, Threads, Bluesky, Mastodon and Peepeth profiles!
