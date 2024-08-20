@@ -550,3 +550,140 @@ This implementation adds a check to determine if the current publication is a co
 Note that we're using `publication.stats.reactions` to compare the like counts. If the exact field for likes is different in your data structure, you may need to adjust this accordingly.
 
 ## User:
+
+Now, need something more: knowing the percent of the like ratio.
+
+When a reply reaches 50% (for example, the post it is replying to has 2 likes, and the reply has 1 like), show the following heading: "50% until ratioing 😏👀"
+
+## AI (claude-3.5-sonnet):
+
+Certainly! Let's modify the ThreadBody component to include the percentage of the like ratio when it's at least 50% but not yet a full ratio. Here's how we can update the ThreadBody.tsx file:
+
+```1:51:apps/web/src/components/Publication/ThreadBody.tsx
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
+import PublicationWrapper from '@components/Shared/PublicationWrapper';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
+
+import PublicationActions from './Actions';
+import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
+import PublicationBody from './PublicationBody';
+import PublicationHeader from './PublicationHeader';
+
+interface ThreadBodyProps {
+  publication: AnyPublication;
+}
+
+const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
+  usePushToImpressions(publication.id);
+
+  const isRatio =
+    publication.__typename === 'Comment' &&
+    publication.commentOn &&
+    publication.stats.reactions > publication.commentOn.stats.reactions;
+
+  return (
+    <PublicationWrapper publication={publication}>
+      <div className="relative flex items-start space-x-3 pb-3">
+        <PublicationAvatar publication={publication} />
+        <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-solid border-gray-300 dark:border-gray-700" />
+        <div className="w-[calc(100%-55px)]">
+          <PublicationHeader publication={publication} />
+          {publication.isHidden ? (
+            <HiddenPublication type={publication.__typename} />
+          ) : (
+            <>
+              <PublicationBody publication={publication} />
+              <PublicationActions publication={publication} />
+            </>
+          )}
+        </div>
+      </div>
+      {isRatio && (
+        <div className="mt-2 text-center font-bold text-green-500">
+          😏🎉 This is a ratio 🎉😏
+        </div>
+      )}
+    </PublicationWrapper>
+  );
+};
+
+export default ThreadBody;
+```
+
+Let's modify this file as follows:
+
+```typescript
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
+import PublicationWrapper from '@components/Shared/PublicationWrapper';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
+
+import PublicationActions from './Actions';
+import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
+import PublicationBody from './PublicationBody';
+import PublicationHeader from './PublicationHeader';
+
+interface ThreadBodyProps {
+  publication: AnyPublication;
+}
+
+const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
+  usePushToImpressions(publication.id);
+
+  const isComment = publication.__typename === 'Comment' && publication.commentOn;
+  const replyLikes = publication.stats.reactions;
+  const originalLikes = isComment ? publication.commentOn.stats.reactions : 0;
+  const ratioPercentage = originalLikes > 0 ? (replyLikes / originalLikes) * 100 : 0;
+  const isRatio = ratioPercentage > 100;
+  const isApproachingRatio = ratioPercentage >= 50 && ratioPercentage <= 100;
+
+  return (
+    <PublicationWrapper publication={publication}>
+      <div className="relative flex items-start space-x-3 pb-3">
+        <PublicationAvatar publication={publication} />
+        <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-solid border-gray-300 dark:border-gray-700" />
+        <div className="w-[calc(100%-55px)]">
+          <PublicationHeader publication={publication} />
+          {publication.isHidden ? (
+            <HiddenPublication type={publication.__typename} />
+          ) : (
+            <>
+              <PublicationBody publication={publication} />
+              <PublicationActions publication={publication} />
+            </>
+          )}
+        </div>
+      </div>
+      {isRatio && (
+        <div className="mt-2 text-center font-bold text-green-500">
+          😏🎉 This is a ratio 🎉😏
+        </div>
+      )}
+      {isApproachingRatio && (
+        <div className="mt-2 text-center font-bold text-yellow-500">
+          {Math.floor(ratioPercentage)}% until ratioing 😏👀
+        </div>
+      )}
+    </PublicationWrapper>
+  );
+};
+
+export default ThreadBody;
+```
+
+This updated version of the ThreadBody component now includes the following changes:
+
+1. We calculate the ratio percentage by dividing the reply's likes by the original post's likes.
+2. We define two conditions: `isRatio` for when the ratio is over 100%, and `isApproachingRatio` for when it's between 50% and 100%.
+3. We display the "This is a ratio" message when `isRatio` is true.
+4. We display the percentage message when `isApproachingRatio` is true, showing the floor of the percentage (to avoid decimals).
+5. We use different colors for the messages (green for full ratio, yellow for approaching ratio) to distinguish them visually.
+
+This implementation will show the "50% until ratioing 😏👀" message (or whatever the current percentage is) when the reply has at least 50% of the likes of the original post, and it will show the full ratio message when it exceeds 100%.
+
+## User:
