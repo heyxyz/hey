@@ -1,0 +1,39 @@
+<pre><font color="#42E66C">     __  ,</font>
+<font color="#42E66C"> .--()°&apos;.&apos; </font>Welcome to <font color="#42E66C">Nushell</font>,
+<font color="#42E66C">&apos;|, . ,&apos;   </font>based on the <font color="#42E66C">nu</font> language,
+<font color="#42E66C"> !_-(_\    </font>where all data is structured!
+
+Please join our <font color="#E64747">Discord</font> community at <font color="#E64747">https://discord.gg/NtAbbGn</font>
+Our <font color="#50FA7B"><b>GitHub</b></font> repository is at <font color="#50FA7B"><b>https://github.com/nushell/nushell</b></font>
+Our <font color="#42E66C">Documentation</font> is located at <font color="#42E66C">http://nushell.sh</font>
+<font color="#75D7EC">Tweet</font> us at <font color="#8BE9FD"><b>@nu_shell</b></font>
+
+It&apos;s been this long since <font color="#42E66C">Nushell</font>&apos;s first commit:
+5yr 3month 1wk 6day 12hr 35min 48sec 548ms 802µs 965ns
+
+Startup Time: 103ms 148µs 3ns
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">inkscape</font> <font color="#50FA7B"><b>icon.svg</b></font> <font color="#50FA7B"><b>-o</b></font> <font color="#50FA7B"><b>icon.png</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">convert</font> <font color="#50FA7B"><b>-resize</b></font> <font color="#50FA7B"><b>512x512</b></font> <font color="#50FA7B"><b>icon.png</b></font> <font color="#50FA7B"><b>ati.png</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[!?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">convert</font> <font color="#50FA7B"><b>-resize</b></font> <font color="#50FA7B"><b>270x270</b></font> <font color="#50FA7B"><b>icon.png</b></font> <font color="#50FA7B"><b>logo.png</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[!?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">convert</font> <font color="#50FA7B"><b>-resize</b></font> <font color="#50FA7B"><b>100x100</b></font> <font color="#50FA7B"><b>icon.png</b></font> <font color="#50FA7B"><b>favicontmp.png</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[!?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">convert</font> <font color="#50FA7B"><b>favicontmp.png</b></font> <font color="#50FA7B"><b>favicon.ico</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[!?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">convert</font> <font color="#50FA7B"><b>-resize</b></font> <font color="#50FA7B"><b>32x32</b></font> <font color="#50FA7B"><b>icon.png</b></font> <font color="#50FA7B"><b>32x32.png</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[!?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> <font color="#75D7EC">convert</font> <font color="#50FA7B"><b>-resize</b></font> <font color="#50FA7B"><b>16x16</b></font> <font color="#50FA7B"><b>icon.png</b></font> <font color="#50FA7B"><b>16x16.png</b></font>
+
+<font color="#8BE9FD"><b>apps/web/public</b></font> on <font color="#FF5555"><b> main</b></font> <font color="#FF79C6"><b>[!?⇡]</b></font> 
+<font color="#50FA7B"><b>❯</b></font> 
+</pre>

@@ -1,12 +1,12 @@
-commit QmeSA4buQ1PnEwFCagYvXQHVu1uiuXf9tJ6NrH7LEB4xCb
+commit QmeP1foAMTvGw47shXt16YjdosA95sPmLjpE9FmnAXgNuz
 Branch: main
 Signed-off by: danimesq.eth (0xDDfC2e10702d8A781727A34D83B3bb3CA94a3E91)
-Signature: aee5a41838555eafa42cc228769c36c67f71978e0a5d242ceea861dfab63c3a75bbad1d6466af95ee37a90e69c7a4a6b20870c64c1bcee56b7c78f79595aed8401
+Signature: b0165b8fac6395e8ff7324640a3dec57878468b510b6c2e54b5baf691872bf0e009344e191c78ed5e3330e92be8492175746dd7882750a95efbe94b184657df001
 
 ------------------------------
 
-Commit CID if including git's SHA1: QmTsT21Vh31aBkL518psUqDtyZYQTyyfdiJnBcbmtzi934
-Commit CID if containing only file hashes: QmYf84g2Vc3WbNeC5g8Ve9ZTARQcr8kL1syCtGAJxcTCvZ
+Commit CID if including git's SHA1: QmZDqrU3unrGqWL8xNFY8D58fbkUpqqf7Fp2qu3dadwnWB
+Commit CID if containing only file hashes: QmTdbvQ1cGFhppPrYQNUCcqfYqpkyJeE7Lgvp1NMsENmc4
 
 ------------------------------
 
@@ -17,7 +17,55 @@ Remote URL: https://github.com/PeepzHQ/heypeepz.git
 
 ------------------------------
 
-chown -h 1000:1000 'packages/data/constants.ts'
-chmod 0664 'packages/data/constants.ts'
-/usr/bin/touch -hcmd "2024-08-20 02:49:57.5803173570 -0300" 'packages/data/constants.ts'
-/usr/bin/touch -hcad "2024-08-20 02:49:57.6303173720 -0300" 'packages/data/constants.ts'
+chown -h 1000:1000 'apps/web/public/.folderstamp'
+chmod 0664 'apps/web/public/.folderstamp'
+/usr/bin/touch -hcmd "2024-08-20 02:41:31.7494889540 -0300" 'apps/web/public/.folderstamp'
+/usr/bin/touch -hcad "2024-08-20 02:41:39.7164794470 -0300" 'apps/web/public/.folderstamp'
+chown -h 1000:1000 'apps/web/public/16x16.png'
+chmod 0664 'apps/web/public/16x16.png'
+/usr/bin/touch -hcmd "2024-08-20 02:40:34.2205667060 -0300" 'apps/web/public/16x16.png'
+/usr/bin/touch -hcad "2024-08-20 02:40:37.3045621160 -0300" 'apps/web/public/16x16.png'
+chown -h 1000:1000 'apps/web/public/16x16.png.log.html5'
+chmod 0664 'apps/web/public/16x16.png.log.html5'
+/usr/bin/touch -hcmd "2024-08-20 02:41:04.8625232570 -0300" 'apps/web/public/16x16.png.log.html5'
+/usr/bin/touch -hcad "2024-08-20 02:41:18.1725058430 -0300" 'apps/web/public/16x16.png.log.html5'
+chown -h 1000:1000 'apps/web/public/32x32.png'
+chmod 0664 'apps/web/public/32x32.png'
+/usr/bin/touch -hcmd "2024-08-20 02:39:43.7886490540 -0300" 'apps/web/public/32x32.png'
+/usr/bin/touch -hcad "2024-08-20 02:40:37.3115621050 -0300" 'apps/web/public/32x32.png'
+chown -h 1000:1000 'apps/web/public/32x32.png.log.html5'
+chmod 0664 'apps/web/public/32x32.png.log.html5'
+/usr/bin/touch -hcmd "2024-08-20 02:40:12.1396010430 -0300" 'apps/web/public/32x32.png.log.html5'
+/usr/bin/touch -hcad "2024-08-20 02:41:18.1725058430 -0300" 'apps/web/public/32x32.png.log.html5'
+chown -h 1000:1000 'apps/web/public/ati.png'
+chmod 0664 'apps/web/public/ati.png'
+/usr/bin/touch -hcmd "2024-08-20 02:36:23.8311358000 -0300" 'apps/web/public/ati.png'
+/usr/bin/touch -hcad "2024-08-20 02:36:27.2881248360 -0300" 'apps/web/public/ati.png'
+chown -h 1000:1000 'apps/web/public/ati.png.log.html5'
+chmod 0664 'apps/web/public/ati.png.log.html5'
+/usr/bin/touch -hcmd "2024-08-20 02:36:49.1720577500 -0300" 'apps/web/public/ati.png.log.html5'
+/usr/bin/touch -hcad "2024-08-20 02:41:18.1735058420 -0300" 'apps/web/public/ati.png.log.html5'
+chown -h 1000:1000 'apps/web/public/favicon.ico'
+chmod 0664 'apps/web/public/favicon.ico'
+/usr/bin/touch -hcmd "2024-08-20 02:38:44.6007645590 -0300" 'apps/web/public/favicon.ico'
+/usr/bin/touch -hcad "2024-08-20 02:38:44.6247645070 -0300" 'apps/web/public/favicon.ico'
+chown -h 1000:1000 'apps/web/public/favicon.ico.log.html5'
+chmod 0664 'apps/web/public/favicon.ico.log.html5'
+/usr/bin/touch -hcmd "2024-08-20 02:39:11.3227097520 -0300" 'apps/web/public/favicon.ico.log.html5'
+/usr/bin/touch -hcad "2024-08-20 02:41:18.1735058420 -0300" 'apps/web/public/favicon.ico.log.html5'
+chown -h 1000:1000 'apps/web/public/favicontmp.png'
+chmod 0664 'apps/web/public/favicontmp.png'
+/usr/bin/touch -hcmd "2024-08-20 02:38:31.3397934610 -0300" 'apps/web/public/favicontmp.png'
+/usr/bin/touch -hcad "2024-08-20 02:38:33.5887884780 -0300" 'apps/web/public/favicontmp.png'
+chown -h 1000:1000 'apps/web/public/icon.svg'
+chmod 0755 'apps/web/public/icon.svg'
+/usr/bin/touch -hcmd "2023-12-03 03:39:06.6788816000 -0300" 'apps/web/public/icon.svg'
+/usr/bin/touch -hcad "2024-08-20 02:34:58.4104409430 -0300" 'apps/web/public/icon.svg'
+chown -h 1000:1000 'apps/web/public/logo.png'
+chmod 0664 'apps/web/public/logo.png'
+/usr/bin/touch -hcmd "2024-08-20 02:37:38.2379212300 -0300" 'apps/web/public/logo.png'
+/usr/bin/touch -hcad "2024-08-20 02:38:11.0338399950 -0300" 'apps/web/public/logo.png'
+chown -h 1000:1000 'apps/web/public/logo.png.log.html5'
+chmod 0664 'apps/web/public/logo.png.log.html5'
+/usr/bin/touch -hcmd "2024-08-20 02:38:00.5708650800 -0300" 'apps/web/public/logo.png.log.html5'
+/usr/bin/touch -hcad "2024-08-20 02:41:18.1765058380 -0300" 'apps/web/public/logo.png.log.html5'
