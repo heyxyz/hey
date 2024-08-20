@@ -223,3 +223,38 @@ Replace these lines with the following code:
 This change reduces the font size of the second line by changing the classes from `text-2xl sm:text-5xl` to `text-xl sm:text-3xl`. It also adjusts the font weight from `font-extrabold` to `font-bold` to create a clearer hierarchy between the two lines of text.
 
 ## User:
+
+Failed to compile.
+./src/components/Home/Hero.tsx
+24:15 Error: Expected "rel" to come before "target" perfectionist/sort-jsx-props
+info - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (claude-3.5-sonnet):
+
+I apologize for the oversight. The error is due to the order of attributes in the `Link` component. Let's fix that by reordering the attributes according to the ESLint rules. Here's the corrected code for the relevant part of the `Hero.tsx` file:
+
+```21:25:apps/web/src/components/Home/Hero.tsx
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+Replace these lines with the following code:
+
+```typescript
+<Link
+  href="https://medium.com/@HashBrown_Research/deso-the-future-of-web3-socialfi-1b38d7e1939d"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  DeSo
+</Link>
+```
+
+This change reorders the attributes of the `Link` component to satisfy the ESLint rule `perfectionist/sort-jsx-props`, placing `rel` before `target`. This should resolve the compilation error you encountered.
+
+## User:
