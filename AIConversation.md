@@ -178,3 +178,48 @@ Replace these lines with the following code:
 This change will make the link open in a new tab when clicked. The `rel="noopener noreferrer"` attribute is added for security reasons when using `target="\_blank"
 
 ## User:
+
+Please make "the forefront of DeSo innovation on Lens Protocol" smaller compared to "Welcome to {APP_NAME}".
+
+## AI (claude-3.5-sonnet):
+
+To make "the forefront of DeSo innovation on Lens Protocol" smaller compared to "Welcome to {APP_NAME}", we need to adjust the text size classes in the Hero component. Here's how we can modify the relevant part of the code:
+
+```15:25:apps/web/src/components/Home/Hero.tsx
+          <div className="text-2xl font-extrabold sm:text-5xl">
+            Welcome to {APP_NAME},
+          </div>
+          <div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+            a social network built on Lens Protocol
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+Replace these lines with the following code:
+
+```typescript
+<div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
+  <div className="text-2xl font-extrabold sm:text-5xl">
+    Welcome to {APP_NAME},
+  </div>
+  <div className="ld-text-gray-500 text-xl font-bold sm:text-3xl">
+    the forefront of{' '}
+    <Link
+      href="https://medium.com/@HashBrown_Research/deso-the-future-of-web3-socialfi-1b38d7e1939d"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      DeSo
+    </Link>{' '}
+    innovation on Lens Protocol
+  </div>
+</div>
+```
+
+This change reduces the font size of the second line by changing the classes from `text-2xl sm:text-5xl` to `text-xl sm:text-3xl`. It also adjusts the font weight from `font-extrabold` to `font-bold` to create a clearer hierarchy between the two lines of text.
+
+## User:
