@@ -21,9 +21,15 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
 
   // Determine the color of the vertical bar based on the ratio
   const getColor = (ratio) => {
-    if (ratio >= 1) return 'green';
-    if (ratio >= 0.5) return 'yellow';
-    if (ratio >= 0.2) return 'orange';
+    if (ratio >= 1) {
+      return 'green';
+    }
+    if (ratio >= 0.5) {
+      return 'yellow';
+    }
+    if (ratio >= 0.2) {
+      return 'orange';
+    }
     return 'red';
   };
 
@@ -31,12 +37,12 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
     <div className="flex items-center gap-8">
       <div
         style={{
-          width: '5px',
           height: '100%',
+          width: '5px',
           backgroundColor: getColor(ratio),
           marginRight: '10px'
         }}
-      ></div>
+      />
       <Link
         className="text-left outline-offset-4"
         href={`${profileLink}/following`}
