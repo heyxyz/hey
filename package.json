@@ -20,7 +20,7 @@
     "root": true
   },
   "devDependencies": {
-    "husky": "^9.1.4",
+    "husky": "^9.1.5",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6"
   },
