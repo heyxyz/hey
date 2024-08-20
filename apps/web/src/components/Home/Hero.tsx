@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-
+import Link from 'next/link';
 import { APP_NAME } from '@hey/data/constants';
 
 const Hero: FC = () => {
@@ -16,7 +16,11 @@ const Hero: FC = () => {
             Welcome to {APP_NAME},
           </div>
           <div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
-            a social network built on Lens Protocol
+            the forefront of{' '}
+            <Link href="https://medium.com/@HashBrown_Research/deso-the-future-of-web3-socialfi-1b38d7e1939d">
+              <a target="_blank">DeSo</a>
+            </Link>{' '}
+            innovation on Lens Protocol
           </div>
         </div>
       </div>
