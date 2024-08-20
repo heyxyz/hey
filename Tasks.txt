@@ -1,10 +1,10 @@
+- ./.husky/pre-commit: insp on git-meta to know what files are staged, so get an one-line format of that list and run prettier/eslint only on these specific files, then use git add to add these updated files to the stage
+-
 - Tell abt another type of ratio: when an answer have more likes than the root post
 - set Farcaster, Threads, Bluesky, Mastodon and Peepeth profiles!
 - set profile pic from IPFS! button on settings on the right side of the "Choose" file button in the "Avatar" heading ; can do the same for Cover
 - understand how Hey/Peepz sends data to be posted, so make this feature: profile backgrounds! (from either file or IPFS)
-- understand how Hey/Peepz sends data to be posted, so make a diff for covers: classic, horizontal, portrait
--
-- ./.husky/pre-commit: insp on git-meta to know what files are staged, so get an one-line format of that list and run prettier/eslint only on these specific files, then use git add to add these updated files to the stage
+- understand how Hey/Peepz sends data to be posted, so make a diff for covers: classic (horizontal), portrait
 -
 - https://hey-assets.b-cdn.net/images/app-icon/0.png
 - https://hey-assets.b-cdn.net/images/source/orb.png
