@@ -34,7 +34,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   };
 
   return (
-    <div className="flex items-center gap-8" style={{ height: '60px' }}>
+    <div className="flex items-center gap-8" style={{ height: '52px' }}>
       <Link
         className="text-left outline-offset-4"
         href={`${profileLink}/following`}
