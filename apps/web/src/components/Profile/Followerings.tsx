@@ -58,9 +58,9 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
           backgroundColor: getColor(ratio),
           height: '100%',
           marginRight: '10px',
-          width: '5px',
-          title: `Followers-to-Following Ratio: ${ratioFixed}`
+          width: '5px'
         }}
+        title={`Followers-to-Following Ratio: ${ratioFixed}`}
       />
     </div>
   );
