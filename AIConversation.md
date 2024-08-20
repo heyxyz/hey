@@ -113,4 +113,67 @@ This modification will show the ratio on the profile sidebar, providing users wi
 
 ## User:
 
+Failed to compile.
+./src/components/Profile/Followerings.tsx:6:14
+Type error: Module '"@hey/ui"' has no exported member 'Text'.
+
+> 6 | import { H4, Text } from '@hey/ui';
+    |              ^
+
+## AI (gpt-4-turbo-2024-04-09):
+
+It appears that the `Text` component is not available in the `@hey/ui` package. You can use an alternative component that is available, such as `H5` or another suitable component for displaying text. Here's how you can modify the `Followerings.tsx` component to use `H5` instead of `Text`:
+
+```typescript:apps/web/src/components/Profile/Followerings.tsx
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
+import getProfile from '@hey/helpers/getProfile';
+import humanize from '@hey/helpers/humanize';
+import { H4, H5 } from '@hey/ui';  // Updated here
+import Link from 'next/link';
+import plur from 'plur';
+
+interface FolloweringsProps {
+  profile: Profile;
+}
+
+const Followerings: FC<FolloweringsProps> = ({ profile }) => {
+  const profileLink = getProfile(profile).link;
+  const { followers, following } = profile.stats;
+
+  // Calculate the followers-to-followings ratio
+  const ratio = following > 0 ? (followers / following).toFixed(2) : 'N/A';
+
+  return (
+    <div className="flex gap-8">
+      <Link
+        className="text-left outline-offset-4"
+        href={`${profileLink}/following`}
+      >
+        <H4>{humanize(following)}</H4>
+        <div className="ld-text-gray-500">Following</div>
+      </Link>
+      <Link
+        className="text-left outline-offset-4"
+        href={`${profileLink}/followers`}
+      >
+        <H4>{humanize(followers)}</H4>
+        <div className="ld-text-gray-500">{plur('Follower', followers)}</div>
+      </Link>
+      <div className="text-center">
+        <H5 className="text-lg font-semibold">Ratio: {ratio}</H5>  // Updated here
+        <div className="ld-text-gray-500">Followers/Following</div>
+      </div>
+    </div>
+  );
+};
+
+export default Followerings;
+```
+
+This change uses `H5` for displaying the ratio, which should compile without errors if `H5` is indeed available in the `@hey/ui` package. Make sure to check the available components in the `@hey/ui` package to ensure compatibility.
+
+## User:
+
 
