@@ -18,10 +18,12 @@ Please tell some examples, too, even using famous people or influencer/spammy ac
 Certainly! The ratio of followers to followings can indeed provide insights into the nature of a social media account. This ratio is often used to gauge the popularity or influence of an account. A higher ratio indicates that more people follow the account than it follows others, which is typically seen as a sign of influence or popularity.
 
 ### Ratio Calculation
+
 The ratio can be calculated simply as:
 \[ \text{Ratio} = \frac{\text{Followers}}{\text{Followings}} \]
 
 ### Examples
+
 1. **Influential Account**: Suppose an influencer has 100,000 followers but follows only 500 people. The ratio would be:
    \[ \text{Ratio} = \frac{100,000}{500} = 200 \]
    This high ratio suggests a high level of influence or celebrity status.
@@ -35,6 +37,7 @@ The ratio can be calculated simply as:
    This low ratio often indicates an account that follows many others in hopes of being followed back, which is common in spam or bot-like behaviors.
 
 ### Interpretation
+
 - **High Ratio (>1)**: Indicates more followers than followings, suggesting influence or popularity.
 - **Ratio = 1**: Balanced following and followers, typical for regular users.
 - **Low Ratio (<1)**: More followings than followers, which might suggest a newer account, less influence, or spammy behavior.
@@ -118,6 +121,7 @@ Failed to compile.
 Type error: Module '"@hey/ui"' has no exported member 'Text'.
 
 > 6 | import { H4, Text } from '@hey/ui';
+
     |              ^
 
 ## AI (gpt-4-turbo-2024-04-09):
@@ -180,8 +184,8 @@ WHAT A HELL!
 
 Failed to compile.
 ./src/components/Profile/Followerings.tsx
-45:29  Error: Insert `⏎`  prettier/prettier
-info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+45:29 Error: Insert `⏎` prettier/prettier
+info - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
  ELIFECYCLE  Command failed with exit code 1.
 Error: Command "pnpm run build" exited with 1
 
@@ -194,9 +198,11 @@ To resolve this, you can manually insert the required line break as suggested by
 1. **Manually Insert Line Break**: Open the file `Followerings.tsx` and insert a line break where Prettier is indicating it's needed. The error message should tell you the exact location.
 
 2. **Auto-Format with Prettier**: If your project is set up to use Prettier, you can run it across your project files. Typically, this would be done with a command like:
+
    ```bash
    npx prettier --write src/components/Profile/Followerings.tsx
    ```
+
    This command will automatically format the `Followerings.tsx` file according to the rules specified in your Prettier configuration.
 
 3. **Check and Fix with ESLint**: Since your project uses ESLint, you can also use it to automatically fix such issues:
@@ -209,4 +215,79 @@ After making these changes, try running your build command again. If the issue w
 
 ## User:
 
+Thank you, compilation issues fixed!
 
+Now I need something new:
+A vertical bar in the right side of that div, being either green, yellow, orange or red depending on the followers-followings ratio level!
+
+Please take into account if the database (reading@AIMAP.txt and @package.json should help you) do support this kind of element/component, otherwise instruct me to install it and declare it correctly.
+
+## AI (gpt-4-turbo-2024-04-09):
+
+To add a vertical bar that changes color based on the followers-to-followings ratio, you can use inline styles or CSS classes to dynamically set the color. Since your project uses React and likely supports CSS-in-JS or similar styling approaches, I'll demonstrate how to implement this using inline styles directly within your React component.
+
+Here's how you can modify the `Followerings.tsx` component to include a vertical bar with dynamic coloring based on the ratio:
+
+### Updated `Followerings.tsx` Component
+
+```typescript:apps/web/src/components/Profile/Followerings.tsx
+import type { Profile } from '@hey/lens';
+import type { FC } from 'react';
+
+import getProfile from '@hey/helpers/getProfile';
+import humanize from '@hey/helpers/humanize';
+import { H4, H5 } from '@hey/ui';
+import Link from 'next/link';
+import plur from 'plur';
+
+interface FolloweringsProps {
+  profile: Profile;
+}
+
+const Followerings: FC<FolloweringsProps> = ({ profile }) => {
+  const profileLink = getProfile(profile).link;
+  const { followers, following } = profile.stats;
+
+  // Calculate the followers-to-followings ratio
+  const ratio = following > 0 ? followers / following : 0;
+  const ratioFixed = following > 0 ? ratio.toFixed(2) : 'N/A';
+
+  // Determine the color of the vertical bar based on the ratio
+  const getColor = (ratio) => {
+    if (ratio >= 1) return 'green';
+    if (ratio >= 0.5) return 'yellow';
+    if (ratio >= 0.2) return 'orange';
+    return 'red';
+  };
+
+  return (
+    <div className="flex gap-8 items-center">
+      <div style={{ width: '5px', height: '100%', backgroundColor: getColor(ratio), marginRight: '10px' }}></div>
+      <Link className="text-left outline-offset-4" href={`${profileLink}/following`}>
+        <H4>{humanize(following)}</H4>
+        <div className="ld-text-gray-500">Following</div>
+      </Link>
+      <Link className="text-left outline-offset-4" href={`${profileLink}/followers`}>
+        <H4>{humanize(followers)}</H4>
+        <div className="ld-text-gray-500">{plur('Follower', followers)}</div>
+      </Link>
+      <div className="text-center">
+        <H5 className="text-lg font-semibold">Ratio: {ratioFixed}</H5>
+        <div className="ld-text-gray-500">Followers/Following</div>
+      </div>
+    </div>
+  );
+};
+
+export default Followerings;
+```
+
+### Explanation
+
+1. **Color Determination**: A function `getColor` is used to determine the color of the vertical bar based on the ratio. The function returns 'green', 'yellow', 'orange', or 'red' depending on the value of the ratio.
+2. **Style Application**: The vertical bar is a simple `div` with a fixed width and a background color that changes dynamically based on the ratio. It's placed at the start of the main `div` container.
+3. **Flexbox Layout**: The `items-center` class is added to align the items vertically in the center.
+
+This approach does not require any additional dependencies. It uses inline styles for simplicity and immediate feedback based on the ratio. If your project has a specific styling approach or library, you might want to adapt the implementation to fit that style.
+
+## User:
