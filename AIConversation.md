@@ -18,10 +18,12 @@ Please tell some examples, too, even using famous people or influencer/spammy ac
 Certainly! The ratio of followers to followings can indeed provide insights into the nature of a social media account. This ratio is often used to gauge the popularity or influence of an account. A higher ratio indicates that more people follow the account than it follows others, which is typically seen as a sign of influence or popularity.
 
 ### Ratio Calculation
+
 The ratio can be calculated simply as:
 \[ \text{Ratio} = \frac{\text{Followers}}{\text{Followings}} \]
 
 ### Examples
+
 1. **Influential Account**: Suppose an influencer has 100,000 followers but follows only 500 people. The ratio would be:
    \[ \text{Ratio} = \frac{100,000}{500} = 200 \]
    This high ratio suggests a high level of influence or celebrity status.
@@ -35,6 +37,7 @@ The ratio can be calculated simply as:
    This low ratio often indicates an account that follows many others in hopes of being followed back, which is common in spam or bot-like behaviors.
 
 ### Interpretation
+
 - **High Ratio (>1)**: Indicates more followers than followings, suggesting influence or popularity.
 - **Ratio = 1**: Balanced following and followers, typical for regular users.
 - **Low Ratio (<1)**: More followings than followers, which might suggest a newer account, less influence, or spammy behavior.
@@ -118,6 +121,7 @@ Failed to compile.
 Type error: Module '"@hey/ui"' has no exported member 'Text'.
 
 > 6 | import { H4, Text } from '@hey/ui';
+
     |              ^
 
 ## AI (gpt-4-turbo-2024-04-09):
@@ -180,8 +184,8 @@ WHAT A HELL!
 
 Failed to compile.
 ./src/components/Profile/Followerings.tsx
-45:29  Error: Insert `⏎`  prettier/prettier
-info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+45:29 Error: Insert `⏎` prettier/prettier
+info - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
  ELIFECYCLE  Command failed with exit code 1.
 Error: Command "pnpm run build" exited with 1
 
@@ -194,9 +198,11 @@ To resolve this, you can manually insert the required line break as suggested by
 1. **Manually Insert Line Break**: Open the file `Followerings.tsx` and insert a line break where Prettier is indicating it's needed. The error message should tell you the exact location.
 
 2. **Auto-Format with Prettier**: If your project is set up to use Prettier, you can run it across your project files. Typically, this would be done with a command like:
+
    ```bash
    npx prettier --write src/components/Profile/Followerings.tsx
    ```
+
    This command will automatically format the `Followerings.tsx` file according to the rules specified in your Prettier configuration.
 
 3. **Check and Fix with ESLint**: Since your project uses ESLint, you can also use it to automatically fix such issues:
@@ -288,13 +294,13 @@ This approach does not require any additional dependencies. It uses inline style
 
 Failed to compile.
 ./src/components/Profile/Followerings.tsx
-24:21  Error: Expected { after 'if' condition.  curly
-25:23  Error: Expected { after 'if' condition.  curly
-26:23  Error: Expected { after 'if' condition.  curly
-32:7  Error: Empty components are self-closing  react/self-closing-comp
-35:11  Error: Expected "height" to come before "width"  perfectionist/sort-objects
-36:11  Error: Expected "backgroundColor" to come before "height"  perfectionist/sort-objects
-info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+24:21 Error: Expected { after 'if' condition. curly
+25:23 Error: Expected { after 'if' condition. curly
+26:23 Error: Expected { after 'if' condition. curly
+32:7 Error: Empty components are self-closing react/self-closing-comp
+35:11 Error: Expected "height" to come before "width" perfectionist/sort-objects
+36:11 Error: Expected "backgroundColor" to come before "height" perfectionist/sort-objects
+info - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
  ELIFECYCLE  Command failed with exit code 1.
 Error: Command "pnpm run build" exited with 1
 
@@ -380,6 +386,7 @@ export default Followerings;
 ```
 
 ### Changes Made:
+
 - Added curly braces `{}` around the blocks of code following each `if` condition.
 - Changed the empty `div` to be self-closing.
 - Sorted the properties within the style object according to the rules specified by `perfectionist/sort-objects`.
@@ -387,5 +394,3 @@ export default Followerings;
 These changes should resolve the ESLint errors and allow your project to compile successfully.
 
 ## User:
-
-
