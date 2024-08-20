@@ -687,3 +687,96 @@ This updated version of the ThreadBody component now includes the following chan
 This implementation will show the "50% until ratioing 😏👀" message (or whatever the current percentage is) when the reply has at least 50% of the likes of the original post, and it will show the full ratio message when it exceeds 100%.
 
 ## User:
+
+Failed to compile.
+./src/components/Publication/ThreadBody.tsx:22:34
+Type error: Property 'stats' does not exist on type 'AnyPublication'.
+Property 'stats' does not exist on type 'Mirror'.
+20 | const isComment =
+21 | publication.\_\_typename === 'Comment' && publication.commentOn;
+
+> 22 | const replyLikes = publication.stats.reactions;
+
+     |                                  ^
+
+23 | const originalLikes = isComment ? publication.commentOn.stats.reactions : 0;
+24 | const ratioPercentage =
+25 | originalLikes > 0 ? (replyLikes / originalLikes) \* 100 : 0;
+ ELIFECYCLE  Command failed with exit code 1.
+Error: Command "pnpm run build" exited with 1
+
+## AI (gpt-4-turbo-2024-04-09):
+
+The error message indicates that the `stats` property does not exist on the type `AnyPublication`, specifically for the `Mirror` type within that union. To resolve this, you need to ensure that you're accessing properties that exist on all possible types or handle the type checking appropriately.
+
+Here's how you can modify the `ThreadBody.tsx` component to handle different publication types correctly:
+
+```typescript:apps/web/src/components/Publication/ThreadBody.tsx
+import type { AnyPublication } from '@hey/lens';
+import type { FC } from 'react';
+
+import PublicationWrapper from '@components/Shared/PublicationWrapper';
+import usePushToImpressions from 'src/hooks/usePushToImpressions';
+
+import PublicationActions from './Actions';
+import HiddenPublication from './HiddenPublication';
+import PublicationAvatar from './PublicationAvatar';
+import PublicationBody from './PublicationBody';
+import PublicationHeader from './PublicationHeader';
+
+interface ThreadBodyProps {
+  publication: AnyPublication;
+}
+
+const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
+  usePushToImpressions(publication.id);
+
+  const isComment = publication.__typename === 'Comment' && publication.commentOn;
+  const replyLikes = isComment ? publication.stats?.reactions || 0 : 0;
+  const originalLikes = isComment ? publication.commentOn.stats?.reactions || 0 : 0;
+  const ratioPercentage = originalLikes > 0 ? (replyLikes / originalLikes) * 100 : 0;
+  const isRatio = ratioPercentage > 100;
+  const isApproachingRatio = ratioPercentage >= 50 && ratioPercentage <= 100;
+
+  return (
+    <PublicationWrapper publication={publication}>
+      <div className="relative flex items-start space-x-3 pb-3">
+        <PublicationAvatar publication={publication} />
+        <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-solid border-gray-300 dark:border-gray-700" />
+        <div className="w-[calc(100%-55px)]">
+          <PublicationHeader publication={publication} />
+          {publication.isHidden ? (
+            <HiddenPublication type={publication.__typename} />
+          ) : (
+            <>
+              <PublicationBody publication={publication} />
+              <PublicationActions publication={publication} />
+            </>
+          )}
+        </div>
+      </div>
+      {isRatio && (
+        <div className="mt-2 text-center font-bold text-green-500">
+          😏🎉 This is a ratio 🎉😏
+        </div>
+      )}
+      {isApproachingRatio && (
+        <div className="mt-2 text-center font-bold text-yellow-500">
+          {Math.floor(ratioPercentage)}% until ratioing 😏👀
+        </div>
+      )}
+    </PublicationWrapper>
+  );
+};
+
+export default ThreadBody;
+```
+
+### Key Changes:
+
+1. **Type Checking**: Added checks to ensure that `stats` and `reactions` are accessed only if they exist. This is done using optional chaining (`?.`) and providing a default value of `0` where necessary.
+2. **Safety**: Ensured that the properties are accessed safely across different publication types that might not have the `stats` property.
+
+This approach should resolve the compilation error and handle the scenario where different publication types do not share the same structure or properties.
+
+## User:
