@@ -1,6 +1,6 @@
-npx prettier --write .
-##npx eslint . --fix
-.git/hooks/pre-commit
+#!/bin/bash
+
+.git/hooks/pre-precommit
 #pnpm lint
 #pnpm prettier
 #pnpm typecheck
