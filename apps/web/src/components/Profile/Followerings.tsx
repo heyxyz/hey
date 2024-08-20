@@ -34,15 +34,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   };
 
   return (
-    <div className="flex items-center gap-8">
-      <div
-        style={{
-          backgroundColor: getColor(ratio),
-          height: '100%',
-          marginRight: '10px',
-          width: '5px'
-        }}
-      />
+    <div className="flex items-center gap-8" style={{ height: '60px' }}>
       <Link
         className="text-left outline-offset-4"
         href={`${profileLink}/following`}
@@ -61,6 +53,15 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <H5 className="text-lg font-semibold">Ratio: {ratioFixed}</H5>
         <div className="ld-text-gray-500">Followers/Following</div>
       </div>
+      <div
+        style={{
+          backgroundColor: getColor(ratio),
+          height: '100%',
+          marginRight: '10px',
+          width: '5px',
+          title: `Followers-to-Following Ratio: ${ratioFixed}`
+        }}
+      />
     </div>
   );
 };
