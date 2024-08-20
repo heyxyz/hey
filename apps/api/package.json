@@ -40,7 +40,7 @@
     "ua-parser-js": "^2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.19.7",
+    "viem": "^2.19.8",
     "zod": "^3.23.8"
   },
   "devDependencies": {
