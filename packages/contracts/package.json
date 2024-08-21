@@ -19,7 +19,7 @@
     "@openzeppelin/hardhat-upgrades": "1.28.0",
     "dotenv": "^16.4.5",
     "ethers": "5.7.2",
-    "hardhat": "^2.22.7",
+    "hardhat": "^2.22.9",
     "typescript": "^5.5.4"
   }
 }
