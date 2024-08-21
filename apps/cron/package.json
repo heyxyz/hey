@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.4.1",
+    "@types/node": "^22.4.2",
     "@types/node-cron": "^3.0.11",
     "typescript": "^5.5.4"
   }
