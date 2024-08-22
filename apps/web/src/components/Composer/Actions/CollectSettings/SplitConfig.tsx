@@ -106,7 +106,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
         <div className="ml-8 mt-4 space-y-3">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div className="flex items-center space-x-2 text-sm" key={index}>
+              <H6
+                className="flex items-center space-x-2 font-normal"
+                key={index}
+              >
                 <SearchProfiles
                   error={
                     recipient.recipient.length > 0 &&
@@ -142,7 +145,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 <button onClick={() => removeRecipient(index)} type="button">
                   <XCircleIcon className="size-5" />
                 </button>
-              </div>
+              </H6>
             ))}
           </div>
           <div className="flex items-center justify-between">

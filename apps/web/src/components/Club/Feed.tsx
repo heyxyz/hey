@@ -81,7 +81,7 @@ const Feed: FC<FeedProps> = ({ handle }) => {
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">/{handle}</span>
+            <b className="mr-1">/{handle}</b>
             <span>has no posts yet!</span>
           </div>
         }
