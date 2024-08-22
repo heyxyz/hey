@@ -18,13 +18,13 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
       <motion.button
-        aria-label="Action"
+        aria-label="Collect"
         className="cursor-default rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         whileTap={{ scale: 0.9 }}
       >
         <Tooltip
           content={`${humanize(countOpenActions)} ${plur(
-            'Action',
+            'Collect',
             countOpenActions
           )}`}
           placement="top"
