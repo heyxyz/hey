@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.636.0",
-    "@aws-sdk/client-sts": "^3.635.0",
+    "@aws-sdk/client-sts": "^3.637.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
