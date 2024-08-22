@@ -145,7 +145,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               <CurrencyDollarIcon className="size-7" />
             )}
             <span className="space-x-1">
-              <H3>{amount}</H3>
+              <H3 as="span">{amount}</H3>
               <span className="text-xs">{currency}</span>
               {isTokenEnabled && usdPrice ? (
                 <>
