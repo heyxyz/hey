@@ -7,11 +7,9 @@ import { HEY_API_URL, STALE_TIMES } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
 import getPreferences from '@hey/helpers/api/getPreferences';
-import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileDetailsStore } from 'src/store/non-persisted/useProfileDetailsStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
@@ -30,7 +28,6 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter
   } = usePreferencesStore();
-  const { setPinnedPublication } = useProfileDetailsStore();
   const { setStatus } = useProfileStatus();
   const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
 
@@ -53,12 +50,6 @@ const PreferencesProvider: FC = () => {
       preferences.hasDismissedOrMintedMembershipNft
     );
 
-    return true;
-  };
-
-  const getProfileDetailsData = async () => {
-    const details = await getProfileDetails(sessionProfileId);
-    setPinnedPublication(details?.pinnedPublication || null);
     return true;
   };
 
@@ -91,11 +82,6 @@ const PreferencesProvider: FC = () => {
     enabled: Boolean(sessionProfileId),
     queryFn: getPreferencesData,
     queryKey: ['getPreferences', sessionProfileId || '']
-  });
-  useQuery({
-    enabled: Boolean(sessionProfileId),
-    queryFn: getProfileDetailsData,
-    queryKey: ['getProfileDetails', sessionProfileId || '']
   });
   useQuery({
     queryFn: getVerifiedMembersData,

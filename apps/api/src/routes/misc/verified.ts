@@ -1,10 +1,11 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import { VERIFIED_FEATURE_ID } from '@hey/db/constants';
+import prisma from '@hey/db/prisma/db/client';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import { CACHE_AGE_30_MINS, VERIFIED_FEATURE_ID } from 'src/helpers/constants';
+import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 
 export const get = [
@@ -22,15 +23,10 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const data = await heyPg.query(
-        `
-        SELECT "profileId"
-        FROM "ProfileFeature"
-        WHERE enabled = TRUE
-        AND "featureId" = $1;
-      `,
-        [VERIFIED_FEATURE_ID]
-      );
+      const data = await prisma.profileFeature.findMany({
+        select: { profileId: true },
+        where: { enabled: true, featureId: VERIFIED_FEATURE_ID }
+      });
 
       const ids = data.map(({ profileId }) => profileId);
       await setRedis(cacheKey, ids);

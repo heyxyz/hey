@@ -16,7 +16,6 @@ import MessagesIcon from './MessagesIcon';
 import ModIcon from './ModIcon';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
-import SiteStatus from './SiteStatus';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
@@ -66,7 +65,6 @@ const Navbar: FC = () => {
 
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
-      <SiteStatus />
       <StaffBar />
       <div className="container mx-auto max-w-screen-xl px-5">
         <div className="relative flex h-14 items-center justify-between sm:h-16">

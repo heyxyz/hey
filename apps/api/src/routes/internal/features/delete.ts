@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
@@ -35,7 +35,7 @@ export const post = [
     const { id } = body as ExtensionRequest;
 
     try {
-      await heyPg.query(`DELETE FROM "Feature" WHERE id = $1`, [id]);
+      await prisma.feature.delete({ where: { id } });
       logger.info(`Deleted a feature flag ${id}`);
 
       return res.status(200).json({ success: true });

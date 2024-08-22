@@ -4,7 +4,6 @@ import type { Request, Response } from 'express';
 import { IS_MAINNET } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
-import axios from 'axios';
 import { parseHTML } from 'linkedom';
 import catchedError from 'src/helpers/catchedError';
 import { HEY_USER_AGENT } from 'src/helpers/constants';
@@ -16,6 +15,7 @@ import { invalidBody, noBody } from 'src/helpers/responses';
 import { number, object, string } from 'zod';
 
 type ExtensionRequest = {
+  actionResponse?: string;
   buttonAction?: ButtonType;
   buttonIndex: number;
   inputText?: string;
@@ -47,8 +47,15 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { buttonAction, buttonIndex, inputText, postUrl, pubId, state } =
-      body as ExtensionRequest;
+    const {
+      actionResponse,
+      buttonAction,
+      buttonIndex,
+      inputText,
+      postUrl,
+      pubId,
+      state
+    } = body as ExtensionRequest;
 
     try {
       const accessToken = req.headers['x-access-token'] as string;
@@ -57,7 +64,7 @@ export const post = [
       const { id } = payload;
 
       let request = {
-        actionResponse: '',
+        actionResponse: actionResponse || '',
         buttonIndex,
         inputText: inputText || '',
         profileId: id,
@@ -89,11 +96,30 @@ export const post = [
         ...request
       };
 
-      const { data } = await axios.post(
-        postUrl,
-        { clientProtocol: 'lens@1.0.0', trustedData, untrustedData },
-        { headers: { 'User-Agent': HEY_USER_AGENT } }
-      );
+      const response = await fetch(postUrl, {
+        body: JSON.stringify({
+          clientProtocol: 'lens@1.0.0',
+          trustedData,
+          untrustedData
+        }),
+        headers: { 'User-Agent': HEY_USER_AGENT },
+        method: 'POST',
+        redirect: buttonAction === 'post_redirect' ? 'manual' : undefined
+      });
+
+      const { status } = response;
+      const { headers } = response;
+
+      let data = {};
+      if (status !== 302) {
+        if (
+          response.headers.get('content-type')?.includes('application/json')
+        ) {
+          data = await response.json();
+        } else {
+          data = await response.text();
+        }
+      }
 
       logger.info(`Open frame button clicked by ${id} on ${postUrl}`);
 
@@ -101,6 +127,12 @@ export const post = [
         return res
           .status(200)
           .json({ frame: { transaction: data }, success: true });
+      }
+
+      if (buttonAction === 'post_redirect' && status === 302) {
+        return res
+          .status(200)
+          .json({ frame: { location: headers.get('location') } });
       }
 
       const { document } = parseHTML(data);

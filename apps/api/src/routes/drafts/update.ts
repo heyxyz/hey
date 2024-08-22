@@ -1,6 +1,7 @@
+import type { CollectModuleType } from '@hey/types/hey';
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
@@ -44,32 +45,27 @@ export const post = [
       const payload = parseJwt(identityToken);
 
       if (id) {
-        const result = await heyPg.query(
-          `
-          UPDATE "DraftPublication"
-          SET "content" = $1, "collectModule" = $2
-          WHERE "id" = $3
-          RETURNING *;
-        `,
-          [content, collectModule, id as string]
-        );
+        const result = await prisma.draftPublication.update({
+          data: { collectModule: collectModule as CollectModuleType, content },
+          where: { id: id as string }
+        });
 
-        logger.info(`Draft updated for ${payload.id} - ${result[0]?.id}`);
+        logger.info(`Draft updated for ${payload.id} - ${result.id}`);
 
-        return res.status(200).json({ result: result[0], success: true });
+        return res.status(200).json({ result, success: true });
       } else {
-        const result = await heyPg.query(
-          `
-          INSERT INTO "DraftPublication" ("profileId", "content", "collectModule", "updatedAt")
-          VALUES ($1, $2, $3, now())
-          RETURNING *;
-        `,
-          [payload.id, content, collectModule]
-        );
+        const result = await prisma.draftPublication.create({
+          data: {
+            collectModule: collectModule as CollectModuleType,
+            content,
+            profileId: payload.id,
+            updatedAt: new Date()
+          }
+        });
 
-        logger.info(`Draft created for ${payload.id} - ${result[0]?.id}`);
+        logger.info(`Draft created for ${payload.id} - ${result.id}`);
 
-        return res.status(200).json({ result: result[0], success: true });
+        return res.status(200).json({ result, success: true });
       }
     } catch (error) {
       return catchedError(res, error);

@@ -1,11 +1,10 @@
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { object, string } from 'zod';
 
@@ -41,15 +40,10 @@ export const post = [
 
     try {
       const parsedIds = JSON.parse(ids) as string[];
-      const profiles = await heyPg.query(
-        `
-        SELECT *
-        FROM "ProfileFeature"
-        WHERE "featureId" = $1
-        AND "profileId" IN (${parsedIds.map((id) => `'${id}'`).join(',')});
-      `,
-        [featureId]
-      );
+
+      const profiles = await prisma.profileFeature.findMany({
+        where: { featureId, profileId: { in: parsedIds } }
+      });
 
       const idsToAssign = parsedIds.filter(
         (profile_id) =>

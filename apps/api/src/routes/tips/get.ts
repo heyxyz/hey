@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express';
 
+import prisma from '@hey/db/prisma/db/client';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import prisma from 'src/helpers/prisma';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { array, object, string } from 'zod';
 

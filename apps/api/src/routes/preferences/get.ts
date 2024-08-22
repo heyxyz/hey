@@ -1,7 +1,7 @@
 import type { Preferences } from '@hey/types/hey';
 import type { Request, Response } from 'express';
 
-import heyPg from '@hey/db/heyPg';
+import prisma from '@hey/db/prisma/db/client';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import parseJwt from '@hey/helpers/parseJwt';
@@ -33,34 +33,27 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [preference, features, email, membershipNft] = await heyPg.multi(
-        `
-        SELECT * FROM "Preference" WHERE id = $1;
-
-        SELECT f.key
-        FROM "ProfileFeature" AS pf
-        JOIN "Feature" AS f ON pf."featureId" = f.id
-        WHERE pf.enabled = TRUE
-        AND f.enabled = TRUE
-        AND pf."profileId" = $1;
-
-        SELECT * FROM "Email" WHERE id = $1;
-
-        SELECT * FROM "MembershipNft" WHERE id = $1;
-      `,
-        [id as string]
-      );
+      const [preference, features, email, membershipNft] =
+        await prisma.$transaction([
+          prisma.preference.findUnique({ where: { id: id as string } }),
+          prisma.profileFeature.findMany({
+            include: { feature: { select: { key: true } } },
+            where: { enabled: true, profileId: id as string }
+          }),
+          prisma.email.findUnique({ where: { id: id as string } }),
+          prisma.membershipNft.findUnique({ where: { id: id as string } })
+        ]);
 
       const response: Preferences = {
-        appIcon: preference[0]?.appIcon || 0,
-        email: email[0]?.email || null,
-        emailVerified: Boolean(email[0]?.verified),
-        features: features.map((feature: any) => feature?.key),
+        appIcon: preference?.appIcon || 0,
+        email: email?.email || null,
+        emailVerified: Boolean(email?.verified),
+        features: features.map(({ feature }) => feature.key),
         hasDismissedOrMintedMembershipNft: Boolean(
-          membershipNft[0]?.dismissedOrMinted
+          membershipNft?.dismissedOrMinted
         ),
         highSignalNotificationFilter: Boolean(
-          preference[0]?.highSignalNotificationFilter
+          preference?.highSignalNotificationFilter
         )
       };
 

@@ -85,6 +85,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
     buttons,
     frameUrl,
     image,
+    imageAspectRatio,
     inputText: inputTextLabel,
     postUrl,
     state
@@ -112,7 +113,17 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         return toast.error(Errors.SomethingWentWrongWithFrame);
       }
 
-      if (action === 'post') {
+      if (action === 'post_redirect') {
+        if (typeof window !== 'undefined' && Boolean(data.frame.location)) {
+          const message = `You are about to be redirected to ${data.frame.location!.toString()}`;
+
+          if (window.confirm(message)) {
+            window.open(data.frame.location, '_blank')?.focus();
+          }
+        } else {
+          return toast.error(Errors.SomethingWentWrongWithFrame);
+        }
+      } else if (action === 'post') {
         setFrameData(data.frame);
       } else if (action === 'tx') {
         const txnData = data.frame.transaction;
@@ -140,7 +151,8 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         alt={image}
         className={cn(
           isLoading && 'animate-shimmer',
-          'h-[350px] max-h-[350px] w-full rounded-t-xl object-cover'
+          `aspect-[${(imageAspectRatio || '1.91:1').replace(':', '/')}]`,
+          'w-full rounded-t-xl object-cover'
         )}
         src={image}
       />
@@ -184,14 +196,14 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
                 publication_id: publicationId
               });
 
-              if (
-                action === 'link' ||
-                action === 'post_redirect' ||
-                action === 'mint'
-              ) {
+              if (action === 'link' || action === 'mint') {
                 const url = action === 'mint' ? frameUrl : target || frameUrl;
                 window.open(url, '_blank');
-              } else if (action === 'post' || action === 'tx') {
+              } else if (
+                action === 'post' ||
+                action === 'tx' ||
+                action === 'post_redirect'
+              ) {
                 postFrameData(index, action);
               }
             }}

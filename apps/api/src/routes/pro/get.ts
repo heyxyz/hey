@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
 
+import prisma from '@hey/db/prisma/db/client';
 import { generateMediumExpiry, getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import prisma from 'src/helpers/prisma';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [

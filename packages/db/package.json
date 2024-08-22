@@ -4,22 +4,30 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "codegen": "prisma generate --schema ./prisma/db/schema.prisma",
+    "postinstall": "pnpm codegen",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prisma:clean": "prisma migrate reset --schema ./prisma/db/schema.prisma",
+    "prisma:format": "prisma format --schema ./prisma/db/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema ./prisma/db/schema.prisma",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.4.0",
+    "@clickhouse/client": "^1.4.1",
+    "@hey/data": "workspace:*",
+    "@hey/helpers": "workspace:*",
+    "@prisma/client": "^5.18.0",
     "dotenv": "^16.4.5",
     "pg-promise": "^11.9.1",
     "redis": "^4.7.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@hey/helpers": "workspace:*",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.5.0",
+    "prisma": "^5.18.0",
     "typescript": "^5.5.4"
   }
 }

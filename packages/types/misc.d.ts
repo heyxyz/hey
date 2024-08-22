@@ -63,8 +63,10 @@ export interface Frame {
   }[];
   frameUrl: string;
   image: string;
+  imageAspectRatio: null | string;
   inputText: null | string;
   lensFramesVersion: null | string;
+  location?: string;
   openFramesVersion: null | string;
   postUrl: string;
   state: null | string;

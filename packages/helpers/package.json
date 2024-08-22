@@ -12,17 +12,18 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.2",
+    "@apollo/client": "^3.11.4",
+    "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.7.3",
-    "dayjs": "^1.11.12",
+    "axios": "^1.7.4",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.18.8",
-    "winston": "^3.13.1"
+    "viem": "^2.19.9",
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

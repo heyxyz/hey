@@ -4,7 +4,6 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import Cover from '@components/Shared/Cover';
 import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
-import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -55,10 +54,6 @@ const ViewClub: NextPage = () => {
       ),
     queryKey: ['getClub', handle]
   });
-
-  if (!isFeatureAvailable('clubs')) {
-    return null;
-  }
 
   if (!isReady || clubLoading) {
     return <ClubPageShimmer profileList={showMembers} />;

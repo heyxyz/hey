@@ -5,7 +5,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card, CardHeader, H5 } from '@hey/ui';
 import { type FC } from 'react';
 
-const Profiles: FC = () => {
+const ProfilesDesign: FC = () => {
   const profile = {
     handle: { localName: 'yoginth' },
     id: '0x0d',
@@ -22,7 +22,7 @@ const Profiles: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Profiles" />
+      <CardHeader title="Profile" />
       <div className="m-5 space-y-5">
         <div className="space-y-3">
           <H5>Profile</H5>
@@ -92,4 +92,4 @@ const Profiles: FC = () => {
   );
 };
 
-export default Profiles;
+export default ProfilesDesign;
