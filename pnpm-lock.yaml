@@ -560,8 +560,8 @@ importers:
   packages/db:
     dependencies:
       '@clickhouse/client':
-        specifier: ^1.4.1
-        version: 1.4.1
+        specifier: ^1.5.0
+        version: 1.5.0
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -1756,11 +1756,11 @@ packages:
     resolution: {integrity: sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==}
     engines: {node: '>=6.9.0'}
 
-  '@clickhouse/client-common@1.4.1':
-    resolution: {integrity: sha512-f5eoTrUSDplrMoi3ddeZ0MzGTn0iGMByEQ8j63eVMoBSOI2+F6jEIPcW2tWofT79Rvnn3RRlveYcShiaIiCJyw==}
+  '@clickhouse/client-common@1.5.0':
+    resolution: {integrity: sha512-U3vDp+PDnNVEv6kia+Mq5ygnlMZzsYU+3TX+0da3XvL926jzYLMBlIvFUxe2+/5k47ySvnINRC/2QxVK7PC2/A==}
 
-  '@clickhouse/client@1.4.1':
-    resolution: {integrity: sha512-12iV+MeykxdQySRFHwaVU+hKUv3JP6kdwOI+z3zzyfPVYHynTlV8emJjjGZR0+VfRaj3PCMuQfryfsJ82nh9WQ==}
+  '@clickhouse/client@1.5.0':
+    resolution: {integrity: sha512-Udwyoec+AHHS1TiLxDiWiJWcm2BvhZEqGjmUnvzL54NyT8D8eh2mxn5RR/W5ie64JDnsKLeZFlPYKRRhZMhkxA==}
     engines: {node: '>=16'}
 
   '@coinbase/wallet-sdk@3.9.3':
@@ -13350,11 +13350,11 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@clickhouse/client-common@1.4.1': {}
+  '@clickhouse/client-common@1.5.0': {}
 
-  '@clickhouse/client@1.4.1':
+  '@clickhouse/client@1.5.0':
     dependencies:
-      '@clickhouse/client-common': 1.4.1
+      '@clickhouse/client-common': 1.5.0
 
   '@coinbase/wallet-sdk@3.9.3':
     dependencies:
