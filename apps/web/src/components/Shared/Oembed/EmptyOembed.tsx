@@ -24,7 +24,7 @@ const EmptyOembed: FC<EmptyOembedProps> = ({ url }) => {
             <div className="space-y-1">
               <div className="flex items-center space-x-1.5">
                 <LinkIcon className="ld-text-gray-500 size-4" />
-                <div className="max-w-sm truncate font-bold">{url}</div>
+                <b className="max-w-sm truncate">{url}</b>
               </div>
             </div>
           </div>

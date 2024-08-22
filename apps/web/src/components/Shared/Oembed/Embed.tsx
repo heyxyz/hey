@@ -57,7 +57,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                         width={16}
                       />
                     ) : null}
-                    <div className="truncate font-bold">{og.title}</div>
+                    <b className="truncate">{og.title}</b>
                   </div>
                 ) : null}
                 {og.description ? (
