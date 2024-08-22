@@ -2,6 +2,7 @@ import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 
 import { ArrowLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { H6 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import {
   useClient,
@@ -111,13 +112,11 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
           )}
         </div>
         <div className="flex flex-col items-start space-y-1">
-          <div className="font-bold">
-            {activeTab === 'messages' ? 'Message Requests' : 'Messages'}
-          </div>
-          <div className="ld-text-gray-500 text-sm">
+          <b>{activeTab === 'messages' ? 'Message Requests' : 'Messages'}</b>
+          <H6 className="ld-text-gray-500 font-normal">
             {requestsCount}{' '}
             {activeTab === 'messages' ? 'new requests' : 'messages'}
-          </div>
+          </H6>
         </div>
       </button>
       <div
