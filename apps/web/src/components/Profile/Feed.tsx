@@ -163,7 +163,7 @@ const Feed: FC<FeedProps> = ({
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">{handle}</span>
+            <b className="mr-1">{handle}</b>
             <span>{emptyMessage}</span>
           </div>
         }
