@@ -1,25 +1,41 @@
 import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
 
+import { Leafwatch } from '@helpers/leafwatch';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { PUBLICATION } from '@hey/data/tracking';
+import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
 import humanize from '@hey/helpers/humanize';
 import nFormatter from '@hey/helpers/nFormatter';
-import { Tooltip } from '@hey/ui';
+import { Modal, Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
 import plur from 'plur';
+import { type FC, useState } from 'react';
+
+import CollectModule from './CollectModule';
 
 interface OpenActionProps {
   publication: MirrorablePublication;
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication }) => {
+  const [showCollectModal, setShowCollectModal] = useState(false);
   const { countOpenActions } = publication.stats;
+  const openActions = publication.openActionModules.filter((module) =>
+    allowedOpenActionModules.includes(module.type)
+  );
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
       <motion.button
         aria-label="Collect"
-        className="cursor-default rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
+        className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
+        onClick={() => {
+          setShowCollectModal(true);
+          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
+            publication_id: publication.id,
+            source: 'icon'
+          });
+        }}
         whileTap={{ scale: 0.9 }}
       >
         <Tooltip
@@ -38,6 +54,20 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
           {nFormatter(countOpenActions)}
         </span>
       ) : null}
+      <Modal
+        icon={<ShoppingBagIcon className="size-5" />}
+        onClose={() => setShowCollectModal(false)}
+        show={showCollectModal}
+        title="Collect"
+      >
+        {openActions?.map((action) => (
+          <CollectModule
+            key={action.type}
+            openAction={action}
+            publication={publication}
+          />
+        ))}
+      </Modal>
     </div>
   );
 };
