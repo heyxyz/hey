@@ -16,7 +16,7 @@ interface CollectProps {
 }
 
 const Collect: FC<CollectProps> = ({ publication }) => {
-  const [showOpenActionModal, setShowOpenActionModal] = useState(false);
+  const [showCollectModal, setShowCollectModal] = useState(false);
   const openActions = publication.openActionModules.filter((module) =>
     allowedOpenActionModules.includes(module.type)
   );
@@ -29,9 +29,10 @@ const Collect: FC<CollectProps> = ({ publication }) => {
     <>
       <Button
         onClick={() => {
-          setShowOpenActionModal(true);
+          setShowCollectModal(true);
           Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
-            publication_id: publication.id
+            publication_id: publication.id,
+            source: 'button'
           });
         }}
         outline={!hasActed}
@@ -41,8 +42,8 @@ const Collect: FC<CollectProps> = ({ publication }) => {
       </Button>
       <Modal
         icon={<ShoppingBagIcon className="size-5" />}
-        onClose={() => setShowOpenActionModal(false)}
-        show={showOpenActionModal}
+        onClose={() => setShowCollectModal(false)}
+        show={showCollectModal}
         title="Collect"
       >
         {openActions?.map((action) => (
