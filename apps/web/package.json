@@ -46,7 +46,7 @@
     "framer-motion": "^11.3.29",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
-    "next": "^14.2.5",
+    "next": "^14.2.6",
     "next-themes": "^0.3.0",
     "nft-openaction-kit": "^1.0.33",
     "party-js": "^2.2.0",
@@ -75,7 +75,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.19.9",
+    "viem": "^2.20.0",
     "wagmi": "^2.12.7",
     "zod": "^3.23.8",
     "zustand": "^4.5.5"
