@@ -102,7 +102,7 @@ const Filter: FC = () => {
         </Button>
         <div className="divider my-3" />
         <div className="space-y-2">
-          <span className="font-bold">Publication filters</span>
+          <b>Publication filters</b>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
             <Checkbox
               checked={publicationTypes.includes(
@@ -139,7 +139,7 @@ const Filter: FC = () => {
         <div className="divider my-3" />
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
-            <span className="font-bold">Media filters</span>
+            <b>Media filters</b>
             <button
               className="text-xs underline"
               onClick={() => {
@@ -187,7 +187,7 @@ const Filter: FC = () => {
         </div>
         <div className="divider my-3" />
         <div className="space-y-2">
-          <span className="font-bold">Custom filters</span>
+          <b>Custom filters</b>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
             <Checkbox
               checked={customFilters.includes(CustomFiltersType.Gardeners)}
@@ -213,7 +213,7 @@ const Filter: FC = () => {
         <div className="divider my-3" />
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
-            <span className="font-bold">Known apps filter</span>
+            <b>Known apps filter</b>
             <button
               className="text-xs underline"
               onClick={() => setApps([])}

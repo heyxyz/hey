@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import { Toggle } from '@hey/ui';
+import { H6, Toggle } from '@hey/ui';
 
 interface ToggleWithHelperProps {
   description: ReactNode;
@@ -25,7 +25,7 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
         {icon && <span className="mt-1">{icon}</span>}
         <div>
           {heading && <b>{heading}</b>}
-          <div className="ld-text-gray-500 text-sm">{description}</div>
+          <H6 className="ld-text-gray-500 font-normal">{description}</H6>
         </div>
       </div>
       <Toggle disabled={disabled} on={on} setOn={setOn} />
