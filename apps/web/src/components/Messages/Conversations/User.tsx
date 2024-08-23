@@ -51,11 +51,11 @@ const User: FC<UserProps> = ({ address, conversation }) => {
       <div className="flex items-center space-x-3">
         <Image
           alt={address}
-          className="z-[1] size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
-          height={44}
+          className="z-[1] size-10 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
+          height={40}
           loading="lazy"
           src={getStampFyiURL(address)}
-          width={44}
+          width={40}
         />
         <div className="space-y-1">
           <div className="font-semibold">{formatAddress(address)}</div>
@@ -69,14 +69,14 @@ const User: FC<UserProps> = ({ address, conversation }) => {
     <div className="flex items-center space-x-3">
       <Image
         alt={profile.id}
-        className="z-[1] size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
-        height={44}
+        className="z-[1] size-10 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
+        height={40}
         loading="lazy"
         onError={({ currentTarget }) => {
           currentTarget.src = getLennyURL(profile.id);
         }}
         src={getAvatar(profile)}
-        width={44}
+        width={40}
       />
       <div className="space-y-1">
         <div className="flex max-w-sm flex-wrap items-center">
