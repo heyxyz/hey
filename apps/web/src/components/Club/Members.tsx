@@ -76,7 +76,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
-            <span className="mr-1 font-bold">/{handle}</span>
+            <b className="mr-1">/{handle}</b>
             <span>doesn’t have any members.</span>
           </div>
         }
