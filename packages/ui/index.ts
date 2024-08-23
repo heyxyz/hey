@@ -13,7 +13,6 @@ export { Image } from './src/Image';
 export { Input } from './src/Input';
 export { LightBox } from './src/LightBox';
 export { Modal } from './src/Modal';
-export { default as MultiColumnLayout } from './src/MultiColumnLayout';
 export { default as NumberedStat } from './src/NumberedStat';
 export { PageLoading } from './src/PageLoading';
 export { RangeSlider } from './src/RangeSlider';

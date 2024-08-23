@@ -2,10 +2,10 @@ import type { NextPage } from 'next';
 
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
+import MultiColumnLayout from '@components/Shared/MultiColumnLayout';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { MultiColumnLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -34,9 +34,9 @@ const Home: NextPage = () => {
       <MultiColumnLayout
         center={
           loggedInWithProfile ? (
-            <>
-              <NewPost />
+            <div className="space-y-5">
               <FeedType feedType={feedType} setFeedType={setFeedType} />
+              <NewPost />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.FORYOU ? (
@@ -44,12 +44,11 @@ const Home: NextPage = () => {
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : null}
-            </>
+            </div>
           ) : (
             <ExploreFeed />
           )
         }
-        left={<div>WIP</div>}
         right={<Sidebar />}
       />
     </>
