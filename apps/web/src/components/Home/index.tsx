@@ -5,7 +5,7 @@ import ExploreFeed from '@components/Explore/Feed';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { MultiColumnLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -31,9 +31,9 @@ const Home: NextPage = () => {
   return (
     <>
       {!loggedInWithProfile && <Hero />}
-      <GridLayout>
-        <GridItemEight className="space-y-5">
-          {loggedInWithProfile ? (
+      <MultiColumnLayout
+        center={
+          loggedInWithProfile ? (
             <>
               <NewPost />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
@@ -47,12 +47,11 @@ const Home: NextPage = () => {
             </>
           ) : (
             <ExploreFeed />
-          )}
-        </GridItemEight>
-        <GridItemFour>
-          <Sidebar />
-        </GridItemFour>
-      </GridLayout>
+          )
+        }
+        left={<div>WIP</div>}
+        right={<Sidebar />}
+      />
     </>
   );
 };
