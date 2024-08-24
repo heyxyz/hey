@@ -38,7 +38,7 @@
     "@xmtp/content-type-reaction": "^1.1.9",
     "@xmtp/content-type-text": "^1.0.0",
     "@xmtp/react-sdk": "^8.0.1",
-    "axios": "^1.7.4",
+    "axios": "^1.7.5",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.4",
     "dotenv": "^16.4.5",
