@@ -45,8 +45,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
       axios:
-        specifier: ^1.7.5
-        version: 1.7.5(debug@4.3.6)
+        specifier: ^1.7.4
+        version: 1.7.4(debug@4.3.6)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -173,8 +173,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/data
       axios:
-        specifier: ^1.7.5
-        version: 1.7.5(debug@4.3.6)
+        specifier: ^1.7.4
+        version: 1.7.4(debug@4.3.6)
       next:
         specifier: ^14.2.6
         version: 14.2.6(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -307,8 +307,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/react@18.3.4)(@xmtp/content-type-primitives@1.0.1)(@xmtp/content-type-reaction@1.1.9)(@xmtp/content-type-remote-attachment@1.1.9(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8))(@xmtp/content-type-reply@1.1.11)(@xmtp/xmtp-js@12.1.0(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8))(react@18.3.1)
       axios:
-        specifier: ^1.7.5
-        version: 1.7.5(debug@4.3.6)
+        specifier: ^1.7.4
+        version: 1.7.4(debug@4.3.6)
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
@@ -612,8 +612,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       axios:
-        specifier: ^1.7.5
-        version: 1.7.5(debug@4.3.6)
+        specifier: ^1.7.4
+        version: 1.7.4(debug@4.3.6)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -699,8 +699,8 @@ importers:
         specifier: workspace:*
         version: link:../data
       axios:
-        specifier: ^1.7.5
-        version: 1.7.5(debug@4.3.6)
+        specifier: ^1.7.4
+        version: 1.7.4(debug@4.3.6)
       graphql-ws:
         specifier: ^5.16.0
         version: 5.16.0(graphql@16.9.0)
@@ -5627,9 +5627,6 @@ packages:
 
   axios@1.7.4:
     resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
-
-  axios@1.7.5:
-    resolution: {integrity: sha512-fZu86yCo+svH3uqJ/yTdQ0QHpQu5oL+/QE+QPSv6BZSkDAoky9vytxp7u5qk83OJFS3kEBcesWni9WTZAv3tSw==}
 
   axobject-query@3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
@@ -11801,7 +11798,7 @@ snapshots:
 
   '@aptos-labs/aptos-client@0.1.1':
     dependencies:
-      axios: 1.7.4
+      axios: 1.7.4(debug@4.3.6)
       got: 11.8.6
     transitivePeerDependencies:
       - debug
@@ -14473,7 +14470,7 @@ snapshots:
     dependencies:
       asn1.js: 5.4.1
       async-retry: 1.3.3
-      axios: 1.7.5(debug@4.3.6)
+      axios: 1.7.4(debug@4.3.6)
       base64-js: 1.5.1
       bignumber.js: 9.1.2
     transitivePeerDependencies:
@@ -14482,7 +14479,7 @@ snapshots:
   '@irys/query@0.0.8':
     dependencies:
       async-retry: 1.3.3
-      axios: 1.7.5(debug@4.3.6)
+      axios: 1.7.4(debug@4.3.6)
     transitivePeerDependencies:
       - debug
 
@@ -14503,7 +14500,7 @@ snapshots:
       algosdk: 1.24.1
       arbundles: 0.11.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       async-retry: 1.3.3
-      axios: 1.7.5(debug@4.3.6)
+      axios: 1.7.4(debug@4.3.6)
       base64url: 3.0.1
       bignumber.js: 9.1.2
       bs58: 5.0.0
@@ -15251,7 +15248,7 @@ snapshots:
     dependencies:
       amazon-cognito-identity-js: 6.3.12
       async-retry: 1.3.3
-      axios: 1.7.5(debug@4.3.6)
+      axios: 1.7.4(debug@4.3.6)
       lodash: 4.17.21
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -18781,15 +18778,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.7.4:
-    dependencies:
-      follow-redirects: 1.15.6(debug@4.3.6)
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-
-  axios@1.7.5(debug@4.3.6):
+  axios@1.7.4(debug@4.3.6):
     dependencies:
       follow-redirects: 1.15.6(debug@4.3.6)
       form-data: 4.0.0
@@ -20415,7 +20404,7 @@ snapshots:
   eth-gas-reporter@0.2.27(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@solidity-parser/parser': 0.14.5
-      axios: 1.7.5(debug@4.3.6)
+      axios: 1.7.4(debug@4.3.6)
       cli-table3: 0.5.1
       colors: 1.4.0
       ethereum-cryptography: 1.2.0
@@ -23015,7 +23004,7 @@ snapshots:
 
   nft-openaction-kit@1.0.33(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8):
     dependencies:
-      axios: 1.7.5(debug@4.3.6)
+      axios: 1.7.4(debug@4.3.6)
       viem: 2.20.0(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
