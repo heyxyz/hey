@@ -45,8 +45,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
       axios:
-        specifier: ^1.7.4
-        version: 1.7.4(debug@4.3.6)
+        specifier: ^1.7.5
+        version: 1.7.5(debug@4.3.6)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -81,8 +81,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       tsx:
-        specifier: ^4.17.0
-        version: 4.17.0
+        specifier: ^4.18.0
+        version: 4.18.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -148,8 +148,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       tsx:
-        specifier: ^4.17.0
-        version: 4.17.0
+        specifier: ^4.18.0
+        version: 4.18.0
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -173,8 +173,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/data
       axios:
-        specifier: ^1.7.4
-        version: 1.7.4(debug@4.3.6)
+        specifier: ^1.7.5
+        version: 1.7.5(debug@4.3.6)
       next:
         specifier: ^14.2.6
         version: 14.2.6(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -307,8 +307,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@types/react@18.3.4)(@xmtp/content-type-primitives@1.0.1)(@xmtp/content-type-reaction@1.1.9)(@xmtp/content-type-remote-attachment@1.1.9(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8))(@xmtp/content-type-reply@1.1.11)(@xmtp/xmtp-js@12.1.0(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8))(react@18.3.1)
       axios:
-        specifier: ^1.7.4
-        version: 1.7.4(debug@4.3.6)
+        specifier: ^1.7.5
+        version: 1.7.5(debug@4.3.6)
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
@@ -322,8 +322,8 @@ importers:
         specifier: ^0.23.0
         version: 0.23.1
       framer-motion:
-        specifier: ^11.3.29
-        version: 11.3.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.3.30
+        version: 11.3.30(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -374,7 +374,7 @@ importers:
         version: 9.0.1(@types/react@18.3.4)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.0
-        version: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-virtuoso:
         specifier: ^4.10.1
         version: 4.10.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -516,7 +516,7 @@ importers:
         version: link:../config
       '@nomicfoundation/hardhat-toolbox':
         specifier: 2.0.2
-        version: 2.0.2(rcmlmlwhnxgtjceouftavo7iu4)
+        version: 2.0.2(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@nomicfoundation/hardhat-chai-matchers@1.0.6(@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(chai@5.1.1)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@nomicfoundation/hardhat-network-helpers@1.0.11(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@nomiclabs/hardhat-etherscan@3.1.8(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@typechain/ethers-v5@10.2.1(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.5.4))(typescript@5.5.4))(@typechain/hardhat@6.1.6(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@typechain/ethers-v5@10.2.1(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.5.4))(typescript@5.5.4))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.5.4)))(@types/chai@4.3.17)(@types/mocha@10.0.7)(@types/node@22.5.0)(chai@5.1.1)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat-gas-reporter@1.0.10(bufferutil@4.0.8)(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))(solidity-coverage@0.8.12(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typechain@8.3.2(typescript@5.5.4))(typescript@5.5.4)
       '@nomiclabs/hardhat-ethers':
         specifier: ^2.2.3
         version: 2.2.3(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))
@@ -612,8 +612,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       axios:
-        specifier: ^1.7.4
-        version: 1.7.4(debug@4.3.6)
+        specifier: ^1.7.5
+        version: 1.7.5(debug@4.3.6)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -699,8 +699,8 @@ importers:
         specifier: workspace:*
         version: link:../data
       axios:
-        specifier: ^1.7.4
-        version: 1.7.4(debug@4.3.6)
+        specifier: ^1.7.5
+        version: 1.7.5(debug@4.3.6)
       graphql-ws:
         specifier: ^5.16.0
         version: 5.16.0(graphql@16.9.0)
@@ -765,7 +765,7 @@ importers:
         version: link:../helpers
       '@hookform/resolvers':
         specifier: ^3.9.0
-        version: 3.9.0(react-hook-form@7.52.2(react@18.3.1))
+        version: 3.9.0(react-hook-form@7.53.0(react@18.3.1))
       '@radix-ui/react-slider':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -785,8 +785,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-hook-form:
-        specifier: ^7.52.2
-        version: 7.52.2(react@18.3.1)
+        specifier: ^7.53.0
+        version: 7.53.0(react@18.3.1)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
@@ -5628,6 +5628,9 @@ packages:
   axios@1.7.4:
     resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
 
+  axios@1.7.5:
+    resolution: {integrity: sha512-fZu86yCo+svH3uqJ/yTdQ0QHpQu5oL+/QE+QPSv6BZSkDAoky9vytxp7u5qk83OJFS3kEBcesWni9WTZAv3tSw==}
+
   axobject-query@3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
 
@@ -7212,8 +7215,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.3.29:
-    resolution: {integrity: sha512-uyDuUOeOElJEA3kbkbyoTNEf75Jih1EUg0ouLKYMlGDdt/LaJPmO+FyOGAGxM2HwKhHcAoKFNveR5A8peb7yhw==}
+  framer-motion@11.3.30:
+    resolution: {integrity: sha512-9VmqGe9OIjfMoCcs+ZsKXlv6JaG5QagKX2F1uSbkG3Z33wgjnz60Kw+CngC1M49rDYau+Y9aL+8jGagAwrbVyw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -9878,8 +9881,8 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
-  react-hook-form@7.52.2:
-    resolution: {integrity: sha512-pqfPEbERnxxiNMPd0bzmt1tuaPcVccywFDpyk2uV5xCIBphHV5T8SVnX9/o3kplPE1zzKt77+YIoq+EMwJp56A==}
+  react-hook-form@7.53.0:
+    resolution: {integrity: sha512-M1n3HhqCww6S2hxLxciEXy2oISPnAzxY7gvwVPrtlczTM/1dDadXgUxDpHMrMTblDOcm/AXtXxHwZ3jpg1mqKQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -10946,8 +10949,8 @@ packages:
   tsort@0.0.1:
     resolution: {integrity: sha512-Tyrf5mxF8Ofs1tNoxA13lFeZ2Zrbd6cKbuH3V+MQ5sb6DtBj5FjrXVsRWT8YvNAQTqNoz66dz1WsbigI22aEnw==}
 
-  tsx@4.17.0:
-    resolution: {integrity: sha512-eN4mnDA5UMKDt4YZixo9tBioibaMBpoxBkD+rIPAjVmYERSG0/dWEY1CEFuV89CgASlKL499q8AhmkMnnjtOJg==}
+  tsx@4.18.0:
+    resolution: {integrity: sha512-a1jaKBSVQkd6yEc1/NI7G6yHFfefIcuf3QJST7ZEyn4oQnxLYrZR5uZAM8UrwUa3Ge8suiZHcNS1gNrEvmobqg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -11798,7 +11801,7 @@ snapshots:
 
   '@aptos-labs/aptos-client@0.1.1':
     dependencies:
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.4
       got: 11.8.6
     transitivePeerDependencies:
       - debug
@@ -14450,9 +14453,9 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@hookform/resolvers@3.9.0(react-hook-form@7.52.2(react@18.3.1))':
+  '@hookform/resolvers@3.9.0(react-hook-form@7.53.0(react@18.3.1))':
     dependencies:
-      react-hook-form: 7.52.2(react@18.3.1)
+      react-hook-form: 7.53.0(react@18.3.1)
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -14470,7 +14473,7 @@ snapshots:
     dependencies:
       asn1.js: 5.4.1
       async-retry: 1.3.3
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.5(debug@4.3.6)
       base64-js: 1.5.1
       bignumber.js: 9.1.2
     transitivePeerDependencies:
@@ -14479,7 +14482,7 @@ snapshots:
   '@irys/query@0.0.8':
     dependencies:
       async-retry: 1.3.3
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.5(debug@4.3.6)
     transitivePeerDependencies:
       - debug
 
@@ -14500,7 +14503,7 @@ snapshots:
       algosdk: 1.24.1
       arbundles: 0.11.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       async-retry: 1.3.3
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.5(debug@4.3.6)
       base64url: 3.0.1
       bignumber.js: 9.1.2
       bs58: 5.0.0
@@ -15134,8 +15137,8 @@ snapshots:
       ethereumjs-util: 7.1.5
       hardhat: 2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)
 
-  '@nomicfoundation/hardhat-toolbox@2.0.2(rcmlmlwhnxgtjceouftavo7iu4)':
-    dependencies:
+  ? '@nomicfoundation/hardhat-toolbox@2.0.2(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@nomicfoundation/hardhat-chai-matchers@1.0.6(@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(chai@5.1.1)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@nomicfoundation/hardhat-network-helpers@1.0.11(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@nomiclabs/hardhat-etherscan@3.1.8(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(@typechain/ethers-v5@10.2.1(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.5.4))(typescript@5.5.4))(@typechain/hardhat@6.1.6(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@typechain/ethers-v5@10.2.1(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.5.4))(typescript@5.5.4))(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))(typechain@8.3.2(typescript@5.5.4)))(@types/chai@4.3.17)(@types/mocha@10.0.7)(@types/node@22.5.0)(chai@5.1.1)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat-gas-reporter@1.0.10(bufferutil@4.0.8)(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))(solidity-coverage@0.8.12(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typechain@8.3.2(typescript@5.5.4))(typescript@5.5.4)'
+  : dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@nomicfoundation/hardhat-chai-matchers': 1.0.6(@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10)))(chai@5.1.1)(ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.9(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4))(typescript@5.5.4)(utf-8-validate@5.0.10))
@@ -15248,7 +15251,7 @@ snapshots:
     dependencies:
       amazon-cognito-identity-js: 6.3.12
       async-retry: 1.3.3
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.5(debug@4.3.6)
       lodash: 4.17.21
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -18778,7 +18781,15 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.7.4(debug@4.3.6):
+  axios@1.7.4:
+    dependencies:
+      follow-redirects: 1.15.6(debug@4.3.6)
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.7.5(debug@4.3.6):
     dependencies:
       follow-redirects: 1.15.6(debug@4.3.6)
       form-data: 4.0.0
@@ -20404,7 +20415,7 @@ snapshots:
   eth-gas-reporter@0.2.27(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@solidity-parser/parser': 0.14.5
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.5(debug@4.3.6)
       cli-table3: 0.5.1
       colors: 1.4.0
       ethereum-cryptography: 1.2.0
@@ -20851,7 +20862,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.3.29(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.3.30(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.6.3
     optionalDependencies:
@@ -23004,7 +23015,7 @@ snapshots:
 
   nft-openaction-kit@1.0.33(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8):
     dependencies:
-      axios: 1.7.4(debug@4.3.6)
+      axios: 1.7.5(debug@4.3.6)
       viem: 2.20.0(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
@@ -24004,7 +24015,7 @@ snapshots:
       react: 18.3.1
       scheduler: 0.23.2
 
-  react-hook-form@7.52.2(react@18.3.1):
+  react-hook-form@7.53.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
@@ -24141,12 +24152,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.4
 
-  react-tracked@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-virtuoso@4.10.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -25313,7 +25324,7 @@ snapshots:
 
   tsort@0.0.1: {}
 
-  tsx@4.17.0:
+  tsx@4.18.0:
     dependencies:
       esbuild: 0.23.1
       get-tsconfig: 4.7.6
@@ -25618,10 +25629,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.4
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

@@ -16,7 +16,7 @@
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
     "node-cron": "^3.0.3",
-    "tsx": "^4.17.0"
+    "tsx": "^4.18.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
