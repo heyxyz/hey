@@ -72,8 +72,8 @@ importers:
         specifier: ^0.18.4
         version: 0.18.4
       puppeteer:
-        specifier: ^23.1.1
-        version: 23.1.1(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)
+        specifier: ^23.2.0
+        version: 23.2.0(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10)
       rate-limit-redis:
         specifier: ^4.2.0
         version: 4.2.0(express-rate-limit@7.4.0(express@4.19.2))
@@ -6512,8 +6512,8 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  devtools-protocol@0.0.1312386:
-    resolution: {integrity: sha512-DPnhUXvmvKT2dFA/j7B+riVLUt9Q6RKJlcppojL5CoRywJJKLDYnRlw0gTFKfgDPHP5E04UoB71SxoJlVZy8FA==}
+  devtools-protocol@0.0.1330662:
+    resolution: {integrity: sha512-pzh6YQ8zZfz3iKlCvgzVCu22NdpZ8hNmwU6WnQjNVquh0A9iVosPtNLWDwaWVGyrntQlltPFztTMK5Cg6lfCuw==}
 
   dexie-react-hooks@1.1.7:
     resolution: {integrity: sha512-Lwv5W0Hk+uOW3kGnsU9GZoR1er1B7WQ5DSdonoNG+focTNeJbHW6vi6nBoX534VKI3/uwHebYzSw1fwY6a7mTw==}
@@ -9745,12 +9745,12 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  puppeteer-core@23.1.1:
-    resolution: {integrity: sha512-OeTqNiYGF9qZtwZU4Yc88DDqFJs4TJ4rnK81jkillh6MwDeQodyisM9xe5lBmPhwiDy92s5J5DQtQLjCKHFQ3g==}
+  puppeteer-core@23.2.0:
+    resolution: {integrity: sha512-OFyPp2oolGSesx6ZrpmorE5tCaCKY1Z5e/h8f6sB0NpiezenB72jdWBdOrvBO/bUXyq14XyGJsDRUsv0ZOPdZA==}
     engines: {node: '>=18'}
 
-  puppeteer@23.1.1:
-    resolution: {integrity: sha512-giN4Ikwl5hkkouH/dVyxIPTPslWuqZ8fjALdSw5Cvt+r0LuDpLdfPxRADlB75YJ2UjPZhgok+xYBYk8ffzv4MA==}
+  puppeteer@23.2.0:
+    resolution: {integrity: sha512-MP7kLOdCfx1BJaGN5sgRo5fTYwAyGrlwWtrNphjKcwv/HO91+m90gbbwpRHbGl0rCvrmylq6vljn+zrjukniVg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -19263,9 +19263,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  chromium-bidi@0.6.4(devtools-protocol@0.0.1312386):
+  chromium-bidi@0.6.4(devtools-protocol@0.0.1330662):
     dependencies:
-      devtools-protocol: 0.0.1312386
+      devtools-protocol: 0.0.1330662
       mitt: 3.0.1
       urlpattern-polyfill: 10.0.0
       zod: 3.23.8
@@ -19798,7 +19798,7 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  devtools-protocol@0.0.1312386: {}
+  devtools-protocol@0.0.1330662: {}
 
   dexie-react-hooks@1.1.7(@types/react@18.3.4)(dexie@4.0.8)(react@18.3.1):
     dependencies:
@@ -23872,12 +23872,12 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@23.1.1(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+  puppeteer-core@23.2.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@puppeteer/browsers': 2.3.1
-      chromium-bidi: 0.6.4(devtools-protocol@0.0.1312386)
+      chromium-bidi: 0.6.4(devtools-protocol@0.0.1330662)
       debug: 4.3.6(supports-color@8.1.1)
-      devtools-protocol: 0.0.1312386
+      devtools-protocol: 0.0.1330662
       typed-query-selector: 2.12.0
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -23885,13 +23885,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  puppeteer@23.1.1(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10):
+  puppeteer@23.2.0(bufferutil@4.0.8)(typescript@5.5.4)(utf-8-validate@5.0.10):
     dependencies:
       '@puppeteer/browsers': 2.3.1
-      chromium-bidi: 0.6.4(devtools-protocol@0.0.1312386)
+      chromium-bidi: 0.6.4(devtools-protocol@0.0.1330662)
       cosmiconfig: 9.0.0(typescript@5.5.4)
-      devtools-protocol: 0.0.1312386
-      puppeteer-core: 23.1.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      devtools-protocol: 0.0.1330662
+      puppeteer-core: 23.2.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       typed-query-selector: 2.12.0
     transitivePeerDependencies:
       - bufferutil
