@@ -569,8 +569,8 @@ importers:
         specifier: workspace:*
         version: link:../helpers
       '@prisma/client':
-        specifier: ^5.18.0
-        version: 5.18.0(prisma@5.19.0)
+        specifier: ^5.19.0
+        version: 5.19.0(prisma@5.19.0)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -3247,8 +3247,8 @@ packages:
   '@preact/signals-core@1.8.0':
     resolution: {integrity: sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA==}
 
-  '@prisma/client@5.18.0':
-    resolution: {integrity: sha512-BWivkLh+af1kqC89zCJYkHsRcyWsM8/JHpsDMM76DjP3ZdEquJhXa4IeX+HkWPnwJ5FanxEJFZZDTWiDs/Kvyw==}
+  '@prisma/client@5.19.0':
+    resolution: {integrity: sha512-CzOpau+q1kEWQyoQMvlnXIHqPvwmWbh48xZ4n8KWbAql0p8PC0BIgSTYW5ncxXa4JSEff0tcoxSZB874wDstdg==}
     engines: {node: '>=16.13'}
     peerDependencies:
       prisma: '*'
@@ -15403,7 +15403,7 @@ snapshots:
 
   '@preact/signals-core@1.8.0': {}
 
-  '@prisma/client@5.18.0(prisma@5.19.0)':
+  '@prisma/client@5.19.0(prisma@5.19.0)':
     optionalDependencies:
       prisma: 5.19.0
 
