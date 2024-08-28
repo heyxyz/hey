@@ -19,7 +19,7 @@
     "@clickhouse/client": "^1.5.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@prisma/client": "^5.18.0",
+    "@prisma/client": "^5.19.0",
     "dotenv": "^16.4.5",
     "pg-promise": "^11.9.1",
     "redis": "^4.7.0"
