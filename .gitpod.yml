@@ -1,0 +1,17 @@
+ports:
+  - port: 4783
+    onOpen: open-browser
+
+tasks:
+  - name: Web
+    init: pnpm install
+    before: >
+      cp .env.example .env
+      echo "NEXT_PUBLIC_LENS_NETWORK=mainnet" >> .env
+      pnpm install
+      pnpm run dev
+    command: >
+      gp ports await 4783 &&
+      printf "Waiting for local Hey development environment to load in the browser..." &&
+      gp preview $(gp url 4783) &&
+      exit
