@@ -5,6 +5,7 @@ ports:
 tasks:
   - name: Web
     init: >
+      cd apps/web
       cp .env.example .env
       echo "NEXT_PUBLIC_LENS_NETWORK=mainnet" >> .env
       pnpm install
