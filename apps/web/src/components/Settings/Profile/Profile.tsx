@@ -364,6 +364,9 @@ const ProfileSettingsForm: FC = () => {
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';
 
+  const [avatarIPFS, setAvatarIPFS] = useState('');
+  const [coverIPFS, setCoverIPFS] = useState('');
+
   return (
     <>
       <Card className="p-5">
@@ -415,37 +418,40 @@ const ProfileSettingsForm: FC = () => {
             placeholder="Tell us something about you!"
             {...form.register('bio')}
           />
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <div className="label">Avatar</div>
-            <div className="space-y-3">
-              <Image
-                alt="Profile picture crop preview"
-                className="max-w-xs rounded-lg"
-                onError={({ currentTarget }) => {
-                  currentTarget.src = sanitizeDStorageUrl(
-                    profilePictureIpfsUrl
-                  );
-                }}
-                src={uploadedProfilePictureUrl || renderProfilePictureUrl}
+            <div className="flex items-center space-x-3">
+              <ChooseFile
+                id="avatar"
+                onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+                  onFileChange(evt, 'avatar')
+                }
               />
-              <ChooseFile onChange={(event) => onFileChange(event, 'avatar')} />
+              <Input
+                id="avatarIPFS"
+                type="text"
+                placeholder="IPFS CID for avatar"
+                value={avatarIPFS}
+                onChange={(e) => setAvatarIPFS(e.target.value)}
+              />
             </div>
           </div>
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             <div className="label">Cover</div>
-            <div className="space-y-3">
-              <div>
-                <Image
-                  alt="Cover picture crop preview"
-                  className="h-[175px] w-[675px] rounded-lg object-cover"
-                  onError={({ currentTarget }) => {
-                    currentTarget.src =
-                      sanitizeDStorageUrl(coverPictureIpfsUrl);
-                  }}
-                  src={uploadedCoverPictureUrl || renderCoverPictureUrl}
-                />
-              </div>
-              <ChooseFile onChange={(event) => onFileChange(event, 'cover')} />
+            <div className="flex items-center space-x-3">
+              <ChooseFile
+                id="cover"
+                onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+                  onFileChange(evt, 'cover')
+                }
+              />
+              <Input
+                id="coverIPFS"
+                type="text"
+                placeholder="IPFS CID for cover"
+                value={coverIPFS}
+                onChange={(e) => setCoverIPFS(e.target.value)}
+              />
             </div>
           </div>
           <Button

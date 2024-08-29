@@ -1,0 +1,23 @@
+commit QmVzDqSDhJiFBHNPint9espDA7gaaw9qPyHXn4bcmNkHPJ
+Branch: main
+Signed-off by: danimesq.eth (0xDDfC2e10702d8A781727A34D83B3bb3CA94a3E91)
+Signature: 07df695bde71e83d83fccaf5fa0b26dcd93f41ecb7ddd7974b2716382f5f71df6c19a33f17a3e54e9724797471f14f178d628e0f9cc9e7dad257308e4c59d28a01
+
+------------------------------
+
+Commit CID if including git's SHA1: QmVJjadhvap3zeygPFANm8bCt76Vkumqyd8fZehxmZeW57
+Commit CID if containing only file hashes: QmNsgxg8DCfyoRBjJZ7c7fVtRoNHPwDdDF3ApFJGeFKqpe
+
+------------------------------
+
+.gitmeta version: r8
+Local folder: /home/daniella/Desktop/heypeepz
+Remote Name: origin
+Remote URL: https://github.com/PeepzHQ/heypeepz.git
+
+------------------------------
+
+chown -h 1000:1000 'apps/web/src/components/Settings/Profile/Profile.tsx'
+chmod 0664 'apps/web/src/components/Settings/Profile/Profile.tsx'
+/usr/bin/touch -hcmd "2024-08-29 19:34:49.9989469840 -0300" 'apps/web/src/components/Settings/Profile/Profile.tsx'
+/usr/bin/touch -hcad "2024-08-29 18:58:09.6242175660 -0300" 'apps/web/src/components/Settings/Profile/Profile.tsx'
