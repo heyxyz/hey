@@ -221,6 +221,15 @@ const ProfileSettingsForm: FC = () => {
     schema: editProfileSchema
   });
 
+  const handleIPFSChange = (
+    value: string,
+    field: 'avatarIPFS' | 'coverIPFS'
+  ) => {
+    const newValues = { ...form.getValues(), [field]: value };
+    form.setValue(field, value); // Update the specific field
+    // Optionally trigger validation or other side effects
+  };
+
   const editProfile = async (data: FormData) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
@@ -427,7 +436,7 @@ const ProfileSettingsForm: FC = () => {
               />
               <Input
                 id="avatarIPFS"
-                onChange={(e) => setAvatarIPFS(e.target.value)}
+                onChange={(e) => handleIPFSChange(e.target.value, 'avatarIPFS')}
                 placeholder="IPFS CID for avatar"
                 type="text"
                 value={avatarIPFS}
@@ -444,7 +453,7 @@ const ProfileSettingsForm: FC = () => {
               />
               <Input
                 id="coverIPFS"
-                onChange={(e) => setCoverIPFS(e.target.value)}
+                onChange={(e) => handleIPFSChange(e.target.value, 'coverIPFS')}
                 placeholder="IPFS CID for cover"
                 type="text"
                 value={coverIPFS}
