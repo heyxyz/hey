@@ -42,7 +42,6 @@ import {
   Card,
   ErrorMessage,
   Form,
-  Image,
   Input,
   Modal,
   Spinner,
@@ -429,10 +428,10 @@ const ProfileSettingsForm: FC = () => {
               />
               <Input
                 id="avatarIPFS"
-                type="text"
-                placeholder="IPFS CID for avatar"
-                value={avatarIPFS}
                 onChange={(e) => setAvatarIPFS(e.target.value)}
+                placeholder="IPFS CID for avatar"
+                type="text"
+                value={avatarIPFS}
               />
             </div>
           </div>
@@ -447,10 +446,10 @@ const ProfileSettingsForm: FC = () => {
               />
               <Input
                 id="coverIPFS"
-                type="text"
-                placeholder="IPFS CID for cover"
-                value={coverIPFS}
                 onChange={(e) => setCoverIPFS(e.target.value)}
+                placeholder="IPFS CID for cover"
+                type="text"
+                value={coverIPFS}
               />
             </div>
           </div>
