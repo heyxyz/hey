@@ -74,7 +74,9 @@ const editProfileSchema = object({
     string().regex(Regex.url, { message: 'Invalid website' }),
     string().max(0)
   ]),
-  x: string().max(100, { message: 'X handle must not exceed 100 characters' })
+  x: string().max(100, { message: 'X handle must not exceed 100 characters' }),
+  avatarIPFS: string().optional(),
+  coverIPFS: string().optional()
 });
 
 type FormData = z.infer<typeof editProfileSchema>;
@@ -216,7 +218,9 @@ const ProfileSettingsForm: FC = () => {
       x: getProfileAttribute(
         'x',
         currentProfile?.metadata?.attributes
-      )?.replace(/(https:\/\/)?x\.com\//, '')
+      )?.replace(/(https:\/\/)?x\.com\//, ''),
+      avatarIPFS: '',
+      coverIPFS: ''
     },
     schema: editProfileSchema
   });
