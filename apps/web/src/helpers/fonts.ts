@@ -7,17 +7,17 @@ export const heyFont = localFont({
   preload: true,
   src: [
     {
-      path: '../../public/fonts/SofiaProSoftReg.woff2',
+      path: '../../public/fonts/ProximaSoft-Medium.woff2',
       style: 'normal',
-      weight: '400'
+      weight: '500'
     },
     {
-      path: '../../public/fonts/SofiaProSoftMed.woff2',
+      path: '../../public/fonts/ProximaSoft-SemiBold.woff2',
       style: 'medium',
       weight: '600'
     },
     {
-      path: '../../public/fonts/SofiaProSoftBold.woff2',
+      path: '../../public/fonts/ProximaSoft-Bold.woff2',
       style: 'bold',
       weight: '700'
     }

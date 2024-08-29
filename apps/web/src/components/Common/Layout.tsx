@@ -23,7 +23,6 @@ import { isAddress } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
-import Navbar from '../Shared/Navbar';
 
 interface LayoutProps {
   children: ReactNode;
@@ -99,7 +98,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
-        <Navbar />
+        {/* <Navbar /> */}
         <GlobalBanners />
         <BottomNavigation />
         {children}

@@ -2,10 +2,10 @@ import type { NextPage } from 'next';
 
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
+import MultiColumnLayout from '@components/Shared/MultiColumnLayout';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
@@ -31,12 +31,12 @@ const Home: NextPage = () => {
   return (
     <>
       {!loggedInWithProfile && <Hero />}
-      <GridLayout>
-        <GridItemEight className="space-y-5">
-          {loggedInWithProfile ? (
-            <>
-              <NewPost />
+      <MultiColumnLayout
+        center={
+          loggedInWithProfile ? (
+            <div className="space-y-5">
               <FeedType feedType={feedType} setFeedType={setFeedType} />
+              <NewPost />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.FORYOU ? (
@@ -44,15 +44,13 @@ const Home: NextPage = () => {
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : null}
-            </>
+            </div>
           ) : (
             <ExploreFeed />
-          )}
-        </GridItemEight>
-        <GridItemFour>
-          <Sidebar />
-        </GridItemFour>
-      </GridLayout>
+          )
+        }
+        right={<Sidebar />}
+      />
     </>
   );
 };

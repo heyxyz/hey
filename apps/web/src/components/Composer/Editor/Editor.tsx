@@ -43,8 +43,10 @@ const Editor: FC = () => {
       <div className="box-border flex h-full w-full justify-stretch overflow-y-auto overflow-x-hidden px-5 py-4">
         <Image
           alt={currentProfile?.id}
-          className="mr-3 size-11 rounded-full border bg-gray-200 dark:border-gray-700"
+          className="mr-3 size-10 rounded-full border bg-gray-200 dark:border-gray-700"
+          height={40}
           src={getAvatar(currentProfile)}
+          width={40}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
           <EditorMenus />

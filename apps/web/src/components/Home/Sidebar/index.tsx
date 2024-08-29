@@ -2,6 +2,7 @@ import type { FC } from 'react';
 
 import SignupCard from '@components/Shared/Auth/SignupCard';
 import Footer from '@components/Shared/Footer';
+import TopNavbar from '@components/Shared/Navbar/TopNavbar';
 import { IS_MAINNET } from '@hey/data/constants';
 import { memo } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -19,6 +20,7 @@ const Sidebar: FC = () => {
 
   return (
     <>
+      <TopNavbar />
       {/* <Gitcoin /> */}
       {loggedOut && <SignupCard />}
       {loggedInWithProfile && IS_MAINNET && <HeyMembershipNft />}
