@@ -421,7 +421,6 @@ const ProfileSettingsForm: FC = () => {
             <div className="label">Avatar</div>
             <div className="flex items-center space-x-3">
               <ChooseFile
-                id="avatar"
                 onChange={(evt: ChangeEvent<HTMLInputElement>) =>
                   onFileChange(evt, 'avatar')
                 }
@@ -439,7 +438,6 @@ const ProfileSettingsForm: FC = () => {
             <div className="label">Cover</div>
             <div className="flex items-center space-x-3">
               <ChooseFile
-                id="cover"
                 onChange={(evt: ChangeEvent<HTMLInputElement>) =>
                   onFileChange(evt, 'cover')
                 }
