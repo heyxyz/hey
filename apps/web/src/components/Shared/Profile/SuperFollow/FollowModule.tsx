@@ -248,7 +248,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   }
 
   return (
-    <div className="p-5">
+    <div className="p-6">
       <div className="space-y-1.5 pb-2">
         <H5>
           Super follow <Slug slug={getProfile(profile).slugWithPrefix} />

@@ -31,7 +31,7 @@ const Verification: FC = () => {
     hasMetTimeRequirement;
 
   return (
-    <Card className="space-y-2 p-5">
+    <Card className="space-y-2 p-6">
       <H5>Verified</H5>
       {verifiedMembers.includes(currentProfile?.id) ? (
         <div className="flex items-center space-x-1.5">

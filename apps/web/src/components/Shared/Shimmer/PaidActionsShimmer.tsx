@@ -10,7 +10,7 @@ const PaidActionsShimmer: FC = () => {
   return (
     <div className="space-y-5">
       <Card>
-        <div className="flex items-center space-x-2 px-5 py-3">
+        <div className="flex items-center space-x-2 px-6 py-4">
           <div className="shimmer h-3 w-3/12 rounded-full" />
           <SmallUserProfileShimmer smallAvatar />
         </div>
@@ -18,7 +18,7 @@ const PaidActionsShimmer: FC = () => {
         <PublicationShimmer />
       </Card>
       <Card>
-        <div className="flex items-center space-x-2 p-5">
+        <div className="flex items-center space-x-2 p-6">
           <div className="shimmer h-3 w-3/12 rounded-full" />
           <SmallUserProfileShimmer smallAvatar />
         </div>
@@ -28,7 +28,7 @@ const PaidActionsShimmer: FC = () => {
         </div>
       </Card>
       <Card>
-        <div className="flex items-center space-x-2 p-5">
+        <div className="flex items-center space-x-2 p-6">
           <div className="shimmer h-3 w-3/12 rounded-full" />
           <SmallUserProfileShimmer smallAvatar />
         </div>

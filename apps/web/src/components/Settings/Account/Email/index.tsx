@@ -13,7 +13,7 @@ const Email: FC = () => {
         body={`You will receive updates on new features and promotions from ${APP_NAME} to your email address`}
         title="Set Email"
       />
-      <div className="m-5">
+      <div className="m-6">
         <Resend />
         <EmailForm />
       </div>

@@ -40,9 +40,9 @@ const RateLimits: FC = () => {
       {loading ? (
         <Loader className="my-10" message="Loading Rate Limits..." />
       ) : error ? (
-        <ErrorMessage className="m-5" error={error} />
+        <ErrorMessage className="m-6" error={error} />
       ) : data ? (
-        <div className="m-5">
+        <div className="m-6">
           <b>Momoka</b>
           <div className="mt-1 space-y-5">
             <div className="space-y-2">

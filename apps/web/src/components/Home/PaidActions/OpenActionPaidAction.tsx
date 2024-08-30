@@ -39,7 +39,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
     );
 
   return (
-    <div className="px-5 py-3 text-sm">
+    <div className="px-6 py-4 text-sm">
       {openActions.map((openAction, index) => (
         <div
           className="flex items-center space-x-2"

@@ -85,7 +85,7 @@ const DefaultProfile: FC = () => {
         body="Set a default profile that will be visible on places like DMs, Split Collects, and more."
         title="Set Default Profile"
       />
-      <div className="m-5 space-y-4">
+      <div className="m-6 space-y-4">
         <div>
           <div className="label">Select Profile</div>
           <Select
