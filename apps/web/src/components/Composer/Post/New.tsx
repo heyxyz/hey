@@ -51,7 +51,7 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
   }, []);
 
   return (
-    <Card className="space-y-3 p-5">
+    <Card className="space-y-3 p-6">
       <div className="flex items-center space-x-3">
         <Image
           alt={currentProfile?.id}

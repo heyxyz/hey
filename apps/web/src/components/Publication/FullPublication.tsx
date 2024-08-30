@@ -62,7 +62,7 @@ const FullPublication: FC<FullPublicationProps> = ({
   }
 
   return (
-    <article className="p-5">
+    <article className="px-6 pb-5 pt-6">
       <PublicationType publication={publication} showType />
       <div className="flex items-start space-x-3">
         <PublicationAvatar publication={publication} />

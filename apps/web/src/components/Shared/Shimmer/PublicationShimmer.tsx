@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 const PublicationShimmer: FC = () => {
   return (
-    <div className="flex items-start space-x-3 px-5 py-4">
+    <div className="flex items-start space-x-3 px-6 pb-5 pt-6">
       <div>
         <div className="shimmer size-11 rounded-full" />
       </div>
