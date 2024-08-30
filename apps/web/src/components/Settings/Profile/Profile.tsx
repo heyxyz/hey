@@ -61,7 +61,9 @@ import { useSignTypedData, useWriteContract } from 'wagmi';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
+  avatarIPFS: string().optional(),
   bio: string().max(260, { message: 'Bio should not exceed 260 characters' }),
+  coverIPFS: string().optional(),
   location: string().max(100, {
     message: 'Location should not exceed 100 characters'
   }),
@@ -74,9 +76,7 @@ const editProfileSchema = object({
     string().regex(Regex.url, { message: 'Invalid website' }),
     string().max(0)
   ]),
-  x: string().max(100, { message: 'X handle must not exceed 100 characters' }),
-  avatarIPFS: string().optional(),
-  coverIPFS: string().optional()
+  x: string().max(100, { message: 'X handle must not exceed 100 characters' })
 });
 
 type FormData = z.infer<typeof editProfileSchema>;
@@ -97,7 +97,6 @@ const ProfileSettingsForm: FC = () => {
     useState(false);
   const [croppedCoverPictureAreaPixels, setCoverPictureCroppedAreaPixels] =
     useState<Area | null>(null);
-  const [uploadedCoverPictureUrl, setUploadedCoverPictureUrl] = useState('');
   const [uploadingCoverPicture, setUploadingCoverPicture] = useState(false);
 
   // Picture
@@ -111,8 +110,6 @@ const ProfileSettingsForm: FC = () => {
     useState(false);
   const [croppedProfilePictureAreaPixels, setCroppedProfilePictureAreaPixels] =
     useState<Area | null>(null);
-  const [uploadedProfilePictureUrl, setUploadedProfilePictureUrl] =
-    useState('');
   const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -205,7 +202,9 @@ const ProfileSettingsForm: FC = () => {
 
   const form = useZodForm({
     defaultValues: {
+      avatarIPFS: '',
       bio: currentProfile?.metadata?.bio || '',
+      coverIPFS: '',
       location: getProfileAttribute(
         'location',
         currentProfile?.metadata?.attributes
@@ -218,9 +217,7 @@ const ProfileSettingsForm: FC = () => {
       x: getProfileAttribute(
         'x',
         currentProfile?.metadata?.attributes
-      )?.replace(/(https:\/\/)?x\.com\//, ''),
-      avatarIPFS: '',
-      coverIPFS: ''
+      )?.replace(/(https:\/\/)?x\.com\//, '')
     },
     schema: editProfileSchema
   });
@@ -333,10 +330,8 @@ const ProfileSettingsForm: FC = () => {
       // Update Profile Picture
       if (type === 'avatar') {
         setProfilePictureIpfsUrl(ipfsUrl);
-        setUploadedProfilePictureUrl(dataUrl);
       } else if (type === 'cover') {
         setCoverPictureIpfsUrl(ipfsUrl);
-        setUploadedCoverPictureUrl(dataUrl);
       }
     } catch (error) {
       onError(error);
