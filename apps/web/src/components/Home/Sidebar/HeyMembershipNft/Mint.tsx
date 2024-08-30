@@ -48,7 +48,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   const openAction = publication.openActionModules[0];
 
   return (
-    <div className="p-5">
+    <div className="p-6">
       <img
         className="mb-4 h-[250px] w-full rounded-xl border object-cover dark:border-gray-700"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"

@@ -39,7 +39,7 @@ const SetProfile: FC = () => {
   }
 
   return (
-    <Card as="aside" className="mb-4 space-y-4 p-5">
+    <Card as="aside" className="mb-4 space-y-4 p-6">
       <H5>Setup your {APP_NAME} profile</H5>
       <div className="space-y-1 text-sm leading-5">
         <Status

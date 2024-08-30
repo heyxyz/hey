@@ -32,7 +32,7 @@ const WhoToFollow: FC = () => {
 
   if (loading) {
     return (
-      <Card as="aside" className="space-y-4 p-5">
+      <Card as="aside" className="space-y-4 p-6">
         <Title />
         <UserProfileShimmer showFollowUnfollowButton />
         <UserProfileShimmer showFollowUnfollowButton />
@@ -62,7 +62,7 @@ const WhoToFollow: FC = () => {
 
   return (
     <>
-      <Card as="aside" className="space-y-4 p-5">
+      <Card as="aside" className="space-y-4 p-6">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
         {recommendedProfiles?.slice(0, 5).map((profile) => (

@@ -48,7 +48,7 @@ const HeyMembershipNft: FC = () => {
         className="h-48 w-full rounded-t-xl object-cover"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
       />
-      <div className="p-5">
+      <div className="p-6">
         <H5 className="mb-1">Hey! Grab your special {APP_NAME} NFT here.</H5>
         <p className="mb-4">
           New or OG, this NFT's for our epic times together. Let's keep the vibe

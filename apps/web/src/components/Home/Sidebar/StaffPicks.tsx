@@ -71,7 +71,7 @@ const StaffPicks: FC = () => {
 
   if (picksLoading || profilesLoading) {
     return (
-      <Card as="aside" className="mb-4 space-y-4 p-5">
+      <Card as="aside" className="mb-4 space-y-4 p-6">
         <Title />
         <UserProfileShimmer showFollowUnfollowButton />
         <UserProfileShimmer showFollowUnfollowButton />
@@ -84,7 +84,7 @@ const StaffPicks: FC = () => {
 
   if (picks?.length === 0) {
     return (
-      <Card as="aside" className="mb-4 p-5">
+      <Card as="aside" className="mb-4 p-6">
         <Title />
         <EmptyState
           hideCard
@@ -115,7 +115,7 @@ const StaffPicks: FC = () => {
   }
 
   return (
-    <Card as="aside" className="mb-4 space-y-4 p-5">
+    <Card as="aside" className="mb-4 space-y-4 p-6">
       <Title />
       <ErrorMessage
         error={picksError || profilesError}

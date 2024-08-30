@@ -15,19 +15,19 @@ const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({
 }) => {
   return (
     <div className="space-y-3">
-      <Card className="p-5">
+      <Card className="p-6">
         <UserProfileShimmer
           isBig={isBig}
           showFollowUnfollowButton={showFollowUnfollowButton}
         />
       </Card>
-      <Card className="p-5">
+      <Card className="p-6">
         <UserProfileShimmer
           isBig={isBig}
           showFollowUnfollowButton={showFollowUnfollowButton}
         />
       </Card>
-      <Card className="p-5">
+      <Card className="p-6">
         <UserProfileShimmer
           isBig={isBig}
           showFollowUnfollowButton={showFollowUnfollowButton}

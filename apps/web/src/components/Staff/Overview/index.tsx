@@ -36,7 +36,7 @@ const Overview: NextPage = () => {
         <Card>
           <LeafwatchStats />
         </Card>
-        <Card className="p-5">
+        <Card className="p-6">
           <Links />
         </Card>
       </GridItemEight>

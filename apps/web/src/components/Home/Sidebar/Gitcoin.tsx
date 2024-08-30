@@ -12,7 +12,7 @@ const Gitcoin: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-4 !border-[#3D614D] !bg-[#3D614D]/10 p-5 text-[#3D614D] dark:bg-[#3D614D]/50"
+      className="mb-4 space-y-4 !border-[#3D614D] !bg-[#3D614D]/10 p-6 text-[#3D614D] dark:bg-[#3D614D]/50"
     >
       <img
         alt="Gitcoin emoji"
