@@ -117,7 +117,7 @@ const List: FC = () => {
         ) : null}
       </div>
       <div className="divider" />
-      <div className="m-5">
+      <div className="m-6">
         {loading || searchLoading ? (
           <Loader className="my-10" message="Loading profiles..." />
         ) : error ? (

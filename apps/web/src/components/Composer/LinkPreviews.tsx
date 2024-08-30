@@ -36,7 +36,7 @@ const LinkPreviews: FC = () => {
   }
 
   return (
-    <div className="relative m-5">
+    <div className="relative m-6">
       <Oembed
         onLoad={(og) => setShowRemove(og?.title ? true : false)}
         url={urls[0]}

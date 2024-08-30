@@ -58,7 +58,7 @@ const Overview: NextPage = () => {
       <GridItemEight>
         <Card className="border-dashed border-yellow-600 !bg-yellow-300/20 p-6">
           {loading ? (
-            <Loader className="my-6" message="Loading profile" />
+            <Loader className="my-10" message="Loading profile" />
           ) : !profile ? (
             <EmptyState
               hideCard

@@ -59,7 +59,7 @@ const List: FC = () => {
       <div className="divider" />
       <div className="m-6">
         {isLoading ? (
-          <Loader className="my-6" message="Loading tokens..." />
+          <Loader className="my-10" message="Loading tokens..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load tokens" />
         ) : !tokens.length ? (

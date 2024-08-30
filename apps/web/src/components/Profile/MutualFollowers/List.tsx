@@ -74,7 +74,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
 
   return (
     <Card>
-      <div className="flex items-center space-x-3 p-5">
+      <div className="flex items-center space-x-3 p-6">
         <Link href={`/u/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
@@ -89,7 +89,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({
         data={mutualFollowers}
         endReached={onEndReached}
         itemContent={(_, mutualFollower) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === mutualFollower.id}
               hideUnfollowButton={currentProfile?.id === mutualFollower.id}

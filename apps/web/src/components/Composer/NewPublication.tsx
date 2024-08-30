@@ -555,7 +555,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {!nftOpenActionEmbed ? <LinkPreviews /> : null}
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
-        <Wrapper className="m-5" zeroPadding>
+        <Wrapper className="m-6" zeroPadding>
           <QuotedPublication
             isNew
             publication={removeQuoteOn(quotedPublication as Quote)}

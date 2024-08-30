@@ -51,7 +51,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
 
   if (profiles?.length === 0) {
     return (
-      <div className="p-5">
+      <div className="p-6">
         <EmptyState
           icon={<ShoppingBagIcon className="size-8" />}
           message="No collectors."
@@ -72,7 +72,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
 
   return (
     <Card>
-      <div className="flex items-center space-x-3 p-5">
+      <div className="flex items-center space-x-3 p-6">
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
@@ -85,7 +85,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === profile.id}
               hideUnfollowButton={currentProfile?.id === profile.id}
