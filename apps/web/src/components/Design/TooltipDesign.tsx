@@ -8,7 +8,7 @@ const TooltipDesign: FC = () => {
   return (
     <Card>
       <CardHeader title="Tooltip" />
-      <div className="m-5 flex gap-5">
+      <div className="m-6 flex gap-5">
         <Tooltip className="cursor-pointer" content={content} placement="top">
           Top tooltip
         </Tooltip>

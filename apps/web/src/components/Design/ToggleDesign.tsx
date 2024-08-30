@@ -7,7 +7,7 @@ const ToggleDesign: FC = () => {
   return (
     <Card>
       <CardHeader title="Toggle" />
-      <div className="m-5 flex gap-5">
+      <div className="m-6 flex gap-5">
         <Toggle on={on} setOn={setOn} />
         <Toggle disabled on setOn={() => {}} />
       </div>

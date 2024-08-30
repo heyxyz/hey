@@ -51,7 +51,7 @@ const ModalDesign: FC = () => {
       >
         {children}
       </Modal>
-      <div className="m-5 flex gap-5">
+      <div className="m-6 flex gap-5">
         <Button onClick={() => setShowXsModal(true)} outline>
           Show extra small modal
         </Button>

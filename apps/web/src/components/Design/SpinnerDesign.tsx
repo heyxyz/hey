@@ -5,7 +5,7 @@ const SpinnerDesign: FC = () => {
   return (
     <Card>
       <CardHeader title="Spinner" />
-      <div className="m-5 flex items-center gap-5">
+      <div className="m-6 flex items-center gap-5">
         <Spinner size="xs" />
         <Spinner size="sm" />
         <Spinner size="md" />

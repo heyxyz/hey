@@ -50,16 +50,16 @@ const List: FC = () => {
 
   return (
     <Card>
-      <div className="flex items-center justify-between space-x-5 p-5">
+      <div className="flex items-center justify-between space-x-5 p-6">
         <H5>Allowed Tokens</H5>
         <Button onClick={() => setShowCreateModal(!showCreateModal)}>
           Create
         </Button>
       </div>
       <div className="divider" />
-      <div className="m-5">
+      <div className="m-6">
         {isLoading ? (
-          <Loader className="my-5" message="Loading tokens..." />
+          <Loader className="my-6" message="Loading tokens..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load tokens" />
         ) : !tokens.length ? (

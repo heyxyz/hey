@@ -86,7 +86,7 @@ const List: FC = () => {
 
   return (
     <Card>
-      <div className="flex items-center justify-between space-x-5 p-5">
+      <div className="flex items-center justify-between space-x-5 p-6">
         <Input
           onChange={(event) => setSearchText(event.target.value)}
           placeholder="Search profiles..."

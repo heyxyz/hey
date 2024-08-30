@@ -366,7 +366,7 @@ const ProfileSettingsForm: FC = () => {
 
   return (
     <>
-      <Card className="p-5">
+      <Card className="p-6">
         <Form
           className="space-y-4"
           form={form}
@@ -482,7 +482,7 @@ const ProfileSettingsForm: FC = () => {
         size="lg"
         title="Crop cover picture"
       >
-        <div className="p-5 text-right">
+        <div className="p-6 text-right">
           <ImageCropperController
             imageSrc={coverPictureSrc}
             setCroppedAreaPixels={setCoverPictureCroppedAreaPixels}
@@ -526,7 +526,7 @@ const ProfileSettingsForm: FC = () => {
         size="sm"
         title="Crop profile picture"
       >
-        <div className="p-5 text-right">
+        <div className="p-6 text-right">
           <ImageCropperController
             imageSrc={profilePictureSrc}
             setCroppedAreaPixels={setCroppedProfilePictureAreaPixels}

@@ -23,7 +23,7 @@ const AlertDesign: FC = () => {
         show={showDestructiveAlert}
         title="Destructive alert"
       />
-      <div className="m-5 flex gap-5">
+      <div className="m-6 flex gap-5">
         <Button onClick={() => setShowAlert(true)} outline>
           Show normal alert
         </Button>

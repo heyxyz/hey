@@ -15,7 +15,7 @@ const CardHeader: FC<CardHeaderProps> = ({
 }) => {
   return (
     <>
-      <div className="m-5 space-y-2">
+      <div className="m-6 space-y-2">
         <H5>{title}</H5>
         {body ? <p>{body}</p> : null}
       </div>

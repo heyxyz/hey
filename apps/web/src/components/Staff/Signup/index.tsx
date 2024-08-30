@@ -47,7 +47,7 @@ const Signup: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Card>
           <CardHeader title="Signup Stats" />
-          <div className="m-5 space-y-5">
+          <div className="m-6 space-y-5">
             <LensCredits />
             <SignupPrice />
             <NftsMinted />

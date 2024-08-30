@@ -8,7 +8,7 @@ const ButtonsDesign: FC = () => {
   }> = ({ outline }) => {
     return (
       <div className="flex flex-wrap gap-5">
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-6 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
           <Button
             icon={<PlusIcon className="size-5" />}
             outline={outline}
@@ -25,7 +25,7 @@ const ButtonsDesign: FC = () => {
             Disabled
           </Button>
         </div>
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-6 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
           <Button icon={<PlusIcon className="size-5" />} outline={outline}>
             Active
           </Button>
@@ -37,7 +37,7 @@ const ButtonsDesign: FC = () => {
             Disabled
           </Button>
         </div>
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-6 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
           <Button
             icon={<PlusIcon className="size-5" />}
             outline={outline}
@@ -54,7 +54,7 @@ const ButtonsDesign: FC = () => {
             Disabled
           </Button>
         </div>
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-6 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
           <Button
             icon={<PlusIcon className="size-5" />}
             outline={outline}

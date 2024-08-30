@@ -7,7 +7,7 @@ const TypographyDesign: FC = () => {
   return (
     <Card>
       <CardHeader title="Typography" />
-      <div className="m-5 space-y-5">
+      <div className="m-6 space-y-5">
         <H1>{title}</H1>
         <H2>{title}</H2>
         <H3>{title}</H3>

@@ -81,7 +81,7 @@ const HeyRevenue: FC = () => {
         body="Revenue per day for last 30 days"
         title={`${APP_NAME} Revenue`}
       />
-      <div className="m-5">
+      <div className="m-6">
         <Bar
           data={{
             datasets: [

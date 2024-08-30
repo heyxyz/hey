@@ -19,7 +19,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   return (
     <Card
       as="aside"
-      className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5"
+      className="mt-5 border-yellow-400 !bg-yellow-300/20 p-6"
       forceRounded
     >
       <div className="flex items-center space-x-2 text-yellow-600">
