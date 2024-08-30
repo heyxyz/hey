@@ -44,12 +44,12 @@ const Mod: NextPage = () => {
         {(feedType === ModFeedType.LATEST ||
           feedType === ModFeedType.SEARCH) && <Filter />}
         {feedType === ModFeedType.PROFILES && (
-          <Card className="p-5">
+          <Card className="p-6">
             <div>All the profiles</div>
           </Card>
         )}
         {feedType === ModFeedType.REPORTS && (
-          <Card className="p-5">
+          <Card className="p-6">
             <div>Reported Publications</div>
           </Card>
         )}

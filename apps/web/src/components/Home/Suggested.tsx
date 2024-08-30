@@ -34,7 +34,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
         // remove the first 5 profiles from the list because they are already shown in the sidebar
         data={profiles.slice(5)}
         itemContent={(_, profile) => (
-          <div className="flex items-center space-x-3 p-5">
+          <div className="flex items-center space-x-3 p-6">
             <div className="w-full">
               <UserProfile
                 hideFollowButton={currentProfile?.id === profile.id}

@@ -91,7 +91,7 @@ const Filter: FC = () => {
   };
 
   return (
-    <Card className="p-5">
+    <Card className="p-6">
       <>
         <Button
           className="w-full"

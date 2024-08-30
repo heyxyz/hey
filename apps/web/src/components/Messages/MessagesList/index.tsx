@@ -39,7 +39,7 @@ const MessagesList: FC = () => {
       <div
         className={cn(
           staffMode ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
-          'flex flex-col-reverse space-y-5 overflow-y-auto p-5'
+          'flex flex-col-reverse space-y-5 overflow-y-auto p-6'
         )}
       >
         <div ref={endOfMessagesRef} />

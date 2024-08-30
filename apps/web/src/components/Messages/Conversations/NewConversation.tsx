@@ -40,7 +40,7 @@ const NewConversation: FC = () => {
         show={showModal}
         title="New Conversation"
       >
-        <div className="p-5">
+        <div className="p-6">
           <SearchProfiles
             onChange={(event) => setValue(event.target.value)}
             onProfileSelected={onProfileSelected}

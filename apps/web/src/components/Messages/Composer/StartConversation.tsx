@@ -82,7 +82,7 @@ const StartConversation: FC = () => {
       <div
         className={cn(
           staffMode ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
-          'flex items-center justify-center p-5'
+          'flex items-center justify-center p-6'
         )}
       >
         <EmptyState
@@ -106,7 +106,7 @@ const StartConversation: FC = () => {
         />
       </div>
       <form
-        className="flex items-center space-x-2 border-t p-5 dark:border-gray-700"
+        className="flex items-center space-x-2 border-t p-6 dark:border-gray-700"
         onSubmit={handleStartConversation}
       >
         <Input
