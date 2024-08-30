@@ -34,7 +34,7 @@ const PollEditor: FC = () => {
             show={showPollLengthModal}
             title="Poll length"
           >
-            <div className="p-5">
+            <div className="p-6">
               <Input
                 label="Poll length (days)"
                 max={30}

@@ -61,7 +61,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="m-5"
+        className="m-6"
         error={error}
         title="Failed to load following"
       />
@@ -70,7 +70,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
 
   return (
     <Card>
-      <div className="flex items-center space-x-3 p-5">
+      <div className="flex items-center space-x-3 p-6">
         <Link href={`/u/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
@@ -83,7 +83,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
         data={followings}
         endReached={onEndReached}
         itemContent={(_, following) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === following.id}
               hideUnfollowButton={currentProfile?.id === following.id}

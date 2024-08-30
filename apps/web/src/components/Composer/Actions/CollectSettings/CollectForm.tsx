@@ -64,7 +64,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
 
   return (
     <>
-      <div className="p-5">
+      <div className="p-6">
         <ToggleWithHelper
           description="This post can be collected"
           heading="Enable Collect"
@@ -97,7 +97,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           <div className="divider" />
         </>
       ) : null}
-      <div className="flex space-x-2 p-5">
+      <div className="flex space-x-2 p-6">
         <Button
           className="ml-auto"
           onClick={() => {

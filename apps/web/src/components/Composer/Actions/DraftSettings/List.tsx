@@ -110,7 +110,7 @@ const List: FC<ListProps> = ({ setShowModal }) => {
     <div className="max-h-[80vh] divide-y overflow-y-auto dark:divide-gray-700">
       {drafts.map((draft) => (
         <div
-          className="flex cursor-pointer items-center justify-between space-x-5 p-5"
+          className="flex cursor-pointer items-center justify-between space-x-5 p-6"
           key={draft.id}
           onClick={() => onSelectDraft(draft)}
         >

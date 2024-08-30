@@ -87,7 +87,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   if (clubMembersError || lensProfilesError) {
     return (
       <ErrorMessage
-        className="m-5"
+        className="m-6"
         error={clubMembersError || lensProfilesError}
         title="Failed to load members"
       />
@@ -96,7 +96,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
 
   return (
     <Card>
-      <div className="flex items-center space-x-3 p-5">
+      <div className="flex items-center space-x-3 p-6">
         <Link href={`/c/${handle}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
@@ -108,7 +108,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         computeItemKey={(index, member) => `${member.id}-${index}`}
         data={members}
         itemContent={(_, member) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === member.id}
               hideUnfollowButton={currentProfile?.id === member.id}
