@@ -29,7 +29,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
 
   return (
     <div
-      className="cursor-pointer space-y-2 p-6"
+      className="cursor-pointer space-y-2"
       onClick={() => push(`${getProfile(currentProfile).link}/followers`)}
     >
       <div className="flex items-center space-x-3">

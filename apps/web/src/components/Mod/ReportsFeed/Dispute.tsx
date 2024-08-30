@@ -49,7 +49,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-6">
       <div className="max-w-md space-y-3">
         <div>
           <H5>Reason</H5>

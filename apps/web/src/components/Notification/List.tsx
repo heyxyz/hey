@@ -17,7 +17,6 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
@@ -111,11 +110,7 @@ const List: FC<ListProps> = ({ feedType }) => {
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => (
-          <div
-            className={cn({
-              'p-5': notification.__typename !== 'FollowNotification'
-            })}
-          >
+          <div className="p-6">
             {notification.__typename === 'FollowNotification' && (
               <FollowNotification
                 notification={notification as FollowNotificationType}

@@ -75,7 +75,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
   return (
     <>
       <Card
-        className="flex cursor-pointer items-center justify-center space-x-2.5 p-5"
+        className="flex cursor-pointer items-center justify-center space-x-2.5 p-6"
         onClick={() => {
           setShowMore(!showMore);
         }}

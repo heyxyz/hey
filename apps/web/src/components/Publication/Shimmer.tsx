@@ -34,17 +34,17 @@ const PublicationPageShimmer: FC<PublicationPageShimmerProps> = ({
         )}
       </GridItemEight>
       <GridItemFour className="space-y-5">
-        <Card className="p-5">
+        <Card className="p-6">
           <UserProfileShimmer />
         </Card>
-        <Card className="space-y-4 p-5">
+        <Card className="space-y-4 p-6">
           <UserProfileShimmer showFollowUnfollowButton />
           <UserProfileShimmer showFollowUnfollowButton />
           <UserProfileShimmer showFollowUnfollowButton />
           <UserProfileShimmer showFollowUnfollowButton />
           <UserProfileShimmer showFollowUnfollowButton />
         </Card>
-        <Card className="flex justify-between p-5">
+        <Card className="flex justify-between p-6">
           <div className="shimmer h-3 w-1/2 rounded-lg" />
           <div className="shimmer h-3 w-1/4 rounded-lg" />
         </Card>

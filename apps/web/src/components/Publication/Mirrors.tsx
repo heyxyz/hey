@@ -49,7 +49,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
 
   if (profiles?.length === 0) {
     return (
-      <div className="p-5">
+      <div className="p-6">
         <EmptyState
           icon={<ArrowsRightLeftIcon className="size-8" />}
           message="No mirrors."
@@ -61,7 +61,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="m-5"
+        className="m-6"
         error={error}
         title="Failed to load mirrors"
       />
@@ -70,7 +70,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
 
   return (
     <Card>
-      <div className="flex items-center space-x-3 p-5">
+      <div className="flex items-center space-x-3 p-6">
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
@@ -83,7 +83,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, profile) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === profile.id}
               hideUnfollowButton={currentProfile?.id === profile.id}

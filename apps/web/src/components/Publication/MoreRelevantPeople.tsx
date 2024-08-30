@@ -21,7 +21,7 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ profiles }) => {
         // remove the first 5 profiles from the list because they are already shown in the sidebar
         data={profiles.slice(5)}
         itemContent={(_, profile) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === profile.id}
               hideUnfollowButton={currentProfile?.id === profile.id}
