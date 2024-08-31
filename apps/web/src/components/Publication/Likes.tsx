@@ -50,7 +50,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
 
   if (profiles?.length === 0) {
     return (
-      <div className="p-5">
+      <div className="p-6">
         <EmptyState
           icon={<HeartIcon className="size-8" />}
           message="No likes."
@@ -62,7 +62,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="m-5"
+        className="m-6"
         error={error}
         title="Failed to load likes"
       />
@@ -71,7 +71,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
 
   return (
     <Card>
-      <div className="flex items-center space-x-3 p-5">
+      <div className="flex items-center space-x-3 p-6">
         <Link href={`/posts/${publicationId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
@@ -84,7 +84,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         data={profiles}
         endReached={onEndReached}
         itemContent={(_, like) => (
-          <div className="p-5">
+          <div className="p-6">
             <UserProfile
               hideFollowButton={currentProfile?.id === like.profile.id}
               hideUnfollowButton={currentProfile?.id === like.profile.id}

@@ -13,7 +13,7 @@ const Referrers: FC<ReferrersProps> = ({ referrers }) => {
     <>
       <div className="divider" />
       <CardHeader title="Referrers" />
-      <div className="m-5">
+      <div className="m-6">
         <table className="w-full border-x border-t">
           <thead>
             <tr className="border-b">

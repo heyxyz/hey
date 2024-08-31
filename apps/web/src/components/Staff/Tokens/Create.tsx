@@ -67,7 +67,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
 
   return (
     <Form
-      className="m-5 space-y-4"
+      className="m-6 space-y-4"
       form={form}
       onSubmit={async ({ contractAddress, decimals, name, symbol }) => {
         await create(name, symbol, decimals, contractAddress);

@@ -41,7 +41,7 @@ const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
     <>
       <div className="divider" />
       <CardHeader title="Events Today" />
-      <div className="m-5">
+      <div className="m-6">
         <Line
           data={{
             datasets: [

@@ -41,7 +41,7 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
     <>
       <div className="divider" />
       <CardHeader title="Impressions Today" />
-      <div className="m-5">
+      <div className="m-6">
         <Line
           data={{
             datasets: [

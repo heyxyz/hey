@@ -59,7 +59,7 @@ const Create: FC<CreateProps> = ({
 
   return (
     <Form
-      className="m-5 space-y-4"
+      className="m-6 space-y-4"
       form={form}
       onSubmit={async ({ key }) => {
         await create(key);

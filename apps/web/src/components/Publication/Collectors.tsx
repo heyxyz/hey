@@ -63,7 +63,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="m-5"
+        className="m-6"
         error={error}
         title="Failed to load collectors"
       />

@@ -97,7 +97,7 @@ const LeafwatchStats: FC = () => {
   }
 
   if (!data) {
-    return <div className="m-5">No data...</div>;
+    return <div className="m-6">No data...</div>;
   }
 
   const { events, impressions } = data;
@@ -106,7 +106,7 @@ const LeafwatchStats: FC = () => {
     <>
       <div>
         <CardHeader title="Events" />
-        <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="m-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={events.last_1_hour} name="Last 1 hour" />
           <NumberedStat count={events.today} name="Today" />
           <NumberedStat count={events.yesterday} name="Yesterday" />
@@ -118,7 +118,7 @@ const LeafwatchStats: FC = () => {
       <div>
         <div className="divider" />
         <CardHeader title="Impressions" />
-        <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="m-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={impressions.last_1_hour} name="Last 1 hour" />
           <NumberedStat count={impressions.today} name="Today" />
           <NumberedStat count={impressions.yesterday} name="Yesterday" />
@@ -130,7 +130,7 @@ const LeafwatchStats: FC = () => {
       <div>
         <div className="divider" />
         <CardHeader title="Others" />
-        <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="m-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
         </div>
       </div>

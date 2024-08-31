@@ -55,7 +55,7 @@ const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
 
   return (
     <Form
-      className="m-5 space-y-4"
+      className="m-6 space-y-4"
       form={form}
       onSubmit={async ({ ids }) => {
         await assign(ids);

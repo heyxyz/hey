@@ -46,7 +46,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="m-5"
+        className="m-6"
         error={{
           message: 'Error while loading emojis',
           name: Errors.SomethingWentWrong
@@ -57,7 +57,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   }
 
   if (isLoading) {
-    return <Loader className="my-5" message="Loading emojis" />;
+    return <Loader className="my-6" message="Loading emojis" />;
   }
 
   return (

@@ -14,7 +14,7 @@ const ActiveUsers: FC<ActiveUsersProps> = ({ activeUsers }) => {
     <>
       <div className="divider" />
       <CardHeader title="Daily Active Users" />
-      <div className="m-5">
+      <div className="m-6">
         <table className="w-full border-x border-t">
           <thead>
             <tr className="border-b">

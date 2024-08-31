@@ -60,7 +60,7 @@ const Mint: FC = () => {
     <Card>
       <CardHeader title="Staff Mint" />
       <Form
-        className="m-5 space-y-5"
+        className="m-6 space-y-5"
         form={form}
         onSubmit={async ({ address, handle }) =>
           await handleMint(handle, address)

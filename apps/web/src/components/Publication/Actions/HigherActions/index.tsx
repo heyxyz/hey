@@ -9,7 +9,7 @@ interface HigherActionsProps {
 
 const HigherActions: FC<HigherActionsProps> = ({ publication }) => {
   return (
-    <div className="m-5">
+    <div className="m-6">
       <GardenerActions publication={publication} />
     </div>
   );
