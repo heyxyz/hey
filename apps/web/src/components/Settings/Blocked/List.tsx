@@ -38,7 +38,11 @@ const List: FC = () => {
 
   if (error) {
     return (
-      <ErrorMessage error={error} title="Failed to load blocked profiles" />
+      <ErrorMessage
+        className="m-6"
+        error={error}
+        title="Failed to load blocked profiles"
+      />
     );
   }
 

@@ -60,7 +60,7 @@ const List: FC = () => {
       data={profileActionHistory}
       endReached={onEndReached}
       itemContent={(_, action) => (
-        <div className="space-y-1 p-5">
+        <div className="m-6 space-y-1">
           <b>{action.actionType.toLowerCase()}</b>
           <div className="ld-text-gray-500 text-sm">
             {action.txHash ? (

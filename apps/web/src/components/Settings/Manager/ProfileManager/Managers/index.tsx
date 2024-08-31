@@ -9,7 +9,7 @@ const Managers: FC = () => {
         Accounts with control over your profile can act on your behalf.
       </div>
       <div className="divider" />
-      <div className="mx-5 my-3">
+      <div className="mx-6 my-3">
         <List />
       </div>
     </div>

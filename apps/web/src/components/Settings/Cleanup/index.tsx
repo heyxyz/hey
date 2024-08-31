@@ -50,7 +50,7 @@ const CleanupSettings: NextPage = () => {
             body="If you stuck with some issues, you can try to clean up the browser's internal local storage. This will remove all the data stored in your browser."
             title="Cleanup settings"
           />
-          <div className="m-5 space-y-6">
+          <div className="m-6 space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b>Optimistic actions</b>
