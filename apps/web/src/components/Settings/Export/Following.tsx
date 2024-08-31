@@ -70,7 +70,7 @@ const Following: FC = () => {
         body="Export all your following to a JSON file."
         title="Export following"
       />
-      <div className="m-5">
+      <div className="m-6">
         {following.length > 0 ? (
           <div className="pb-2">
             Exported <b>{following.length}</b> following

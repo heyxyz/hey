@@ -49,7 +49,7 @@ const Profile: FC = () => {
         body="Export all your profile data to a JSON file."
         title="Export profile"
       />
-      <div className="m-5">
+      <div className="m-6">
         {fetchCompleted ? (
           <Button onClick={download} outline>
             Download profile

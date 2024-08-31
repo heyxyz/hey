@@ -72,7 +72,7 @@ const Notifications: FC = () => {
         body="Export all your notifications to a JSON file."
         title="Export notifications"
       />
-      <div className="m-5">
+      <div className="m-6">
         {notifications.length > 0 ? (
           <div className="pb-2">
             Exported <b>{notifications.length}</b> notifications

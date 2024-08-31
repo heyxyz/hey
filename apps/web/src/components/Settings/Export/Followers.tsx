@@ -68,7 +68,7 @@ const Followers: FC = () => {
         body="Export all your followers to a JSON file."
         title="Export followers"
       />
-      <div className="m-5">
+      <div className="m-6">
         {followers.length > 0 ? (
           <div className="pb-2">
             Exported <b>{followers.length}</b> followers

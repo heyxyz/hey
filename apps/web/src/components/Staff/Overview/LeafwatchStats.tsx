@@ -93,7 +93,13 @@ const LeafwatchStats: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load stats" />;
+    return (
+      <ErrorMessage
+        className="m-6"
+        error={error}
+        title="Failed to load stats"
+      />
+    );
   }
 
   if (!data) {
