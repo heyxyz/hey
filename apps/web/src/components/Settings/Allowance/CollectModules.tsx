@@ -54,7 +54,7 @@ const CollectModules: FC = () => {
             use, you can allow and revoke the module anytime."
         title="Allow / revoke follow or collect modules"
       />
-      <div className="m-5">
+      <div className="m-6">
         <div className="label">Select currency</div>
         <Select
           iconClassName="size-4"

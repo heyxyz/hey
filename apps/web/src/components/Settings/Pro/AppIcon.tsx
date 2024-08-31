@@ -55,7 +55,7 @@ const AppIcon: FC = () => {
         body={`Choose a custom app icon for ${APP_NAME}, that will be used everywhere on the app.`}
         title="Choose App Icon"
       />
-      <div className="m-5 flex flex-wrap items-center gap-x-8">
+      <div className="m-6 flex flex-wrap items-center gap-x-8">
         {icons.map((icon) => (
           <Tooltip content={icon.name} key={icon.id} placement="top">
             <button

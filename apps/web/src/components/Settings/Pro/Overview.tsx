@@ -28,7 +28,7 @@ const Overview: FC = () => {
         body={`Thanks for using ${APP_NAME} Pro!`}
         title={`${APP_NAME} Pro`}
       />
-      <div className="m-5 space-y-3">
+      <div className="m-6 space-y-3">
         <b>
           Your pro subscription expires in{' '}
           <span className={getColor(daysLeft)}>{daysLeft} days</span>

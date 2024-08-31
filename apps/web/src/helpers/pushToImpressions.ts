@@ -10,7 +10,7 @@ import getCurrentSession from './getCurrentSession';
 const pushToImpressions = (id: string): void => {
   const { id: sessionProfileId } = getCurrentSession();
 
-  // Don't push impressions for the current user
+  // Don't push impressions for the current user's publicaton
   const publicationProfileId = id.split('-')[0];
   if (publicationProfileId === sessionProfileId) {
     return;

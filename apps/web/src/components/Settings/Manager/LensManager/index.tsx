@@ -22,7 +22,7 @@ const LensManager: FC = () => {
             : 'Signless transactions'
         }
       />
-      <div className="m-5">
+      <div className="m-6">
         <ToggleLensManager />
       </div>
     </Card>

@@ -82,7 +82,7 @@ const Interests: FC = () => {
   }
 
   return (
-    <div className="m-5 space-y-4">
+    <div className="m-6 space-y-4">
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="space-y-2" key={category.id}>

@@ -89,12 +89,13 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           message="Profile reported successfully!"
         />
       ) : profile ? (
-        <div className="p-5">
-          <Card className="p-3">
+        <div className="m-6">
+          <Card className="p-6">
             <UserProfile
               hideFollowButton
               hideUnfollowButton
               profile={profile as Profile}
+              showBio
               showUserPreview={false}
             />
           </Card>

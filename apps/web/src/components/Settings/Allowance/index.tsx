@@ -44,7 +44,7 @@ const AllowanceSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          <div className="m-5 flex items-center gap-3">
+          <div className="m-6 flex items-center gap-3">
             <TabButton
               active={type === Type.COLLECT_MODULES}
               name="Collect & Follow Modules"

@@ -42,7 +42,7 @@ const PreferencesSettings: NextPage = () => {
             experience on ${APP_NAME}.`}
             title="Your Preferences"
           />
-          <div className="m-5">
+          <div className="m-6">
             <HighSignalNotificationFilter />
           </div>
         </Card>

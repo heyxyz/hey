@@ -111,7 +111,7 @@ const List: FC = () => {
       data={approvedAuthentications}
       endReached={onEndReached}
       itemContent={(_, session) => (
-        <div className="flex flex-wrap items-start justify-between p-5">
+        <div className="m-6 flex flex-wrap items-start justify-between">
           <div>
             <div className="mb-3 flex items-center space-x-2">
               <ComputerDesktopIcon className="size-8" />

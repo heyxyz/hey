@@ -23,7 +23,7 @@ const PaidActionsShimmer: FC = () => {
           <SmallUserProfileShimmer smallAvatar />
         </div>
         <div className="divider" />
-        <div className="p-5">
+        <div className="p-6">
           <UserProfileShimmer isBig showFollowUnfollowButton />
         </div>
       </Card>
