@@ -15,7 +15,6 @@ interface State {
   ) => void;
   setShowDiscardModal: (showDiscardModal: boolean) => void;
   setShowMobileDrawer: (showMobileDrawer: boolean) => void;
-  setShowNewPostModal: (showNewPostModal: boolean) => void;
   setShowOptimisticTransactionsModal: (
     showOptimisticTransactionsModal: boolean
   ) => void;
@@ -31,7 +30,6 @@ interface State {
   showAuthModal: boolean;
   showDiscardModal: boolean;
   showMobileDrawer: boolean;
-  showNewPostModal: boolean;
   showOptimisticTransactionsModal: boolean;
   showProfileSwitchModal: boolean;
   showPublicationReportModal: boolean;
@@ -47,7 +45,6 @@ const store = create<State>((set) => ({
   },
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer })),
-  setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   setShowOptimisticTransactionsModal: (showOptimisticTransactionsModal) =>
     set(() => ({ showOptimisticTransactionsModal })),
   setShowProfileSwitchModal: (showProfileSwitchModal) =>
@@ -65,7 +62,6 @@ const store = create<State>((set) => ({
   showAuthModal: false,
   showDiscardModal: false,
   showMobileDrawer: false,
-  showNewPostModal: false,
   showOptimisticTransactionsModal: false,
   showProfileSwitchModal: false,
   showPublicationReportModal: false,

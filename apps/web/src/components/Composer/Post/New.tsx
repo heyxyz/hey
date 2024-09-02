@@ -4,10 +4,11 @@ import getAvatar from '@hey/helpers/getAvatar';
 import getLennyURL from '@hey/helpers/getLennyURL';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
+
+import NewPublication from '../NewPublication';
 
 interface NewPostProps {
   tags?: string[];
@@ -16,14 +17,14 @@ interface NewPostProps {
 const NewPost: FC<NewPostProps> = ({ tags }) => {
   const { isReady, query } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { setShowNewPostModal } = useGlobalModalStateStore();
   const { setPublicationContent, setTags } = usePublicationStore();
+  const [showComposer, setShowComposer] = useState(false);
 
   const openModal = () => {
     if (tags) {
       setTags(tags);
     }
-    setShowNewPostModal(true);
+    setShowComposer(true);
   };
 
   useEffect(() => {
@@ -48,8 +49,12 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (showComposer) {
+    return <NewPublication />;
+  }
+
   return (
-    <Card className="cursor-pointer space-y-3 p-5" onClick={() => openModal()}>
+    <Card className="cursor-pointer space-y-3 px-5 py-4" onClick={openModal}>
       <div className="flex items-center space-x-3">
         <Image
           alt={currentProfile?.id}
