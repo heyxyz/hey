@@ -6,7 +6,6 @@ import backupImpressionsToS3 from './backupImpressionsToS3';
 import batchProcessEvents from './batchProcessEvents';
 import batchProcessImpressions from './batchProcessImpressions';
 import cleanClickhouse from './cleanClickhouse';
-import cleanDraftPublications from './cleanDraftPublications';
 import cleanEmailTokens from './cleanEmailTokens';
 import cleanPreferences from './cleanPreferences';
 import dbVacuum from './dbVacuum';
@@ -22,11 +21,6 @@ const startCronJobs = () => {
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanClickhouse();
-    return;
-  });
-
-  cron.schedule('*/5 * * * *', async () => {
-    await cleanDraftPublications();
     return;
   });
 

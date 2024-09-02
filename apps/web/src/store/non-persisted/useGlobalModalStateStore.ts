@@ -13,7 +13,6 @@ interface State {
     showAuthModal: boolean,
     authModalType?: AuthModalType
   ) => void;
-  setShowDiscardModal: (showDiscardModal: boolean) => void;
   setShowMobileDrawer: (showMobileDrawer: boolean) => void;
   setShowOptimisticTransactionsModal: (
     showOptimisticTransactionsModal: boolean
@@ -28,7 +27,6 @@ interface State {
     reportingProfile: null | Profile
   ) => void;
   showAuthModal: boolean;
-  showDiscardModal: boolean;
   showMobileDrawer: boolean;
   showOptimisticTransactionsModal: boolean;
   showProfileSwitchModal: boolean;
@@ -43,7 +41,6 @@ const store = create<State>((set) => ({
   setShowAuthModal: (showAuthModal, authModalType) => {
     set(() => ({ authModalType, showAuthModal }));
   },
-  setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer })),
   setShowOptimisticTransactionsModal: (showOptimisticTransactionsModal) =>
     set(() => ({ showOptimisticTransactionsModal })),
@@ -60,7 +57,6 @@ const store = create<State>((set) => ({
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
     set(() => ({ reportingProfile, showReportProfileModal })),
   showAuthModal: false,
-  showDiscardModal: false,
   showMobileDrawer: false,
   showOptimisticTransactionsModal: false,
   showProfileSwitchModal: false,

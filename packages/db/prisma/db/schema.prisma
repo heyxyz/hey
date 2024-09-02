@@ -116,19 +116,6 @@ model AllowedToken {
   @@index([priority])
 }
 
-model DraftPublication {
-  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId     String
-  content       String
-  collectModule Json?
-  updatedAt     DateTime @default(now())
-  createdAt     DateTime @default(now())
-
-  // Indexes
-  @@index([profileId])
-  @@index([createdAt, updatedAt])
-}
-
 model Pro {
   id        String   @id
   expiresAt DateTime
