@@ -27,7 +27,6 @@ import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -63,7 +62,6 @@ const ViewPublication: NextPage = () => {
   const { currentProfile } = useProfileStore();
   const { isCommentSuspended, isSuspended } = useProfileStatus();
   const { staffMode } = useFeatureFlagsStore();
-  const { showNewPostModal } = useGlobalModalStateStore();
 
   const showQuotes = pathname === '/posts/[id]/quotes';
   const showMirrors = pathname === '/posts/[id]/mirrors';
@@ -148,10 +146,7 @@ const ViewPublication: NextPage = () => {
               />
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
-            {currentProfile &&
-            !publication.isHidden &&
-            !showNewPostModal &&
-            !suspended ? (
+            {currentProfile && !publication.isHidden && !suspended ? (
               <NewPublication publication={targetPublication} />
             ) : null}
             <Feed
