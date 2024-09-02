@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 
-import NewPost from '@components/Composer/Post/New';
+import NewPost from '@components/Composer/NewPost';
 import ExploreFeed from '@components/Explore/Feed';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HomeFeedType } from '@hey/data/enums';
