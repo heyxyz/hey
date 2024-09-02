@@ -20,7 +20,6 @@ const details = {
   description: 'Billed monthly',
   features: [
     'Profile Analytics',
-    'Publication Drafts',
     'Choose your app icon',
     'Higher video and audio upload limits',
     'Pro Badge on your profile',
