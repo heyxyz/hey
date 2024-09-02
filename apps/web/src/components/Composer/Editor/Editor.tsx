@@ -10,6 +10,7 @@ import { createEditor } from 'prosekit/core';
 import { ProseKit } from 'prosekit/react';
 import { useMemo, useRef } from 'react';
 import useContentChange from 'src/hooks/prosekit/useContentChange';
+import useFocus from 'src/hooks/prosekit/useFocus';
 import { usePaste } from 'src/hooks/prosekit/usePaste';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -34,6 +35,7 @@ const Editor: FC = () => {
     return createEditor({ defaultContent, extension });
   }, [defaultContent]);
 
+  useFocus(editor);
   useContentChange(editor);
   usePaste(editor);
   useEditorHandle(editor);
