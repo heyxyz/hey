@@ -29,7 +29,6 @@ import getProfile from '@hey/helpers/getProfile';
 import removeQuoteOn from '@hey/helpers/removeQuoteOn';
 import { ReferenceModuleType } from '@hey/lens';
 import { Button, Card, ErrorMessage, H6 } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { useUnmountEffect } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -110,8 +109,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { isPro } = useProStore();
 
   // Global modal store
-  const { setShowDiscardModal, setShowNewPostModal } =
-    useGlobalModalStateStore();
+  const { setShowDiscardModal } = useGlobalModalStateStore();
 
   // Nonce store
   const { lensHubOnchainSigNonce } = useNonceStore();
@@ -223,10 +221,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setIsLoading(false);
     setQuotedPublication(null);
     reset();
-
-    if (!isComment) {
-      setShowNewPostModal(false);
-    }
 
     // Track in leafwatch
     const eventProperties = {
@@ -522,7 +516,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const onDiscardClick = () => {
     setQuotedPublication(null);
-    setShowNewPostModal(false);
     setShowDiscardModal(false);
     reset();
   };
@@ -530,12 +523,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   useUnmountEffect(() => reset());
 
   return (
-    <Card
-      className={cn({
-        '!rounded-b-xl !rounded-t-none border-none': !isComment
-      })}
-      onClick={() => setShowEmojiPicker(false)}
-    >
+    <Card onClick={() => setShowEmojiPicker(false)}>
       {error ? (
         <ErrorMessage
           className="!rounded-none"
