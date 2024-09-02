@@ -18,7 +18,7 @@ const ViewReports: FC<ViewReportsProps> = ({ id }) => {
         View reports
       </Button>
       <Modal
-        icon={<FlagIcon className="size-5 text-red-500" />}
+        icon={<FlagIcon className="size-5" />}
         onClose={() => setShowReportsModal(false)}
         show={showReportsModal}
         size="md"
