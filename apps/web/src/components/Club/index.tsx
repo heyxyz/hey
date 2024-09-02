@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 
 import MetaTags from '@components/Common/MetaTags';
-import NewPost from '@components/Composer/Post/New';
+import NewPost from '@components/Composer/NewPost';
 import Cover from '@components/Shared/Cover';
 import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';

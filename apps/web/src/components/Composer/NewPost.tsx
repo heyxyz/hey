@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
-import NewPublication from '../NewPublication';
+import NewPublication from './NewPublication';
 
 interface NewPostProps {
   tags?: string[];
