@@ -83,11 +83,3 @@ export type Preferences = {
 export type ProfileDetails = {
   isSuspended: boolean;
 };
-
-export type Draft = {
-  collectModule: null | string;
-  content: string;
-  createdAt: Date;
-  id: string;
-  updatedAt: Date;
-};
