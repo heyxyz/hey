@@ -4,6 +4,8 @@ declare namespace NodeJS {
     AWS_SECRET_ACCESS_KEY: string;
     CLICKHOUSE_PASSWORD: string;
     DATABASE_URL: string;
+    EVER_ACCESS_KEY: string;
+    EVER_ACCESS_SECRET: string;
     LENS_DATABASE_PASSWORD: string;
     REDIS_URL: string;
   }
