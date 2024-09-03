@@ -1,54 +1,75 @@
+import type { ListObjectsV2CommandOutput } from '@aws-sdk/client-s3';
+
 import {
   DeleteObjectsCommand,
   ListObjectsV2Command,
-  S3Client
+  S3
 } from '@aws-sdk/client-s3';
-import { EVER_API } from '@hey/data/constants';
+import { EVER_API, EVER_REGION, S3_BUCKET } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 
 const truncate4EverlandBucket = async () => {
   try {
-    const bucketName = 'hey-media';
-    const startAfter = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const accessKeyId = process.env.EVER_ACCESS_KEY!;
+    const secretAccessKey = process.env.EVER_ACCESS_SECRET!;
 
-    // Initialize S3 client
-    const s3Client = new S3Client({
-      credentials: {
-        accessKeyId: process.env.EVER_ACCESS_KEY as string,
-        secretAccessKey: process.env.EVER_ACCESS_SECRET as string
-      },
+    const s3Client = new S3({
+      credentials: { accessKeyId, secretAccessKey },
       endpoint: EVER_API,
-      forcePathStyle: true,
-      region: 'us-east-2'
+      maxAttempts: 5,
+      region: EVER_REGION
     });
 
-    // List objects in the bucket
-    const objects = await s3Client.send(
-      new ListObjectsV2Command({
-        Bucket: bucketName,
-        StartAfter: startAfter.toISOString()
-      })
+    const daysToSubtract = 15;
+    const currentDate = new Date();
+    const dateDaysAgo = new Date(
+      currentDate.setDate(currentDate.getDate() - daysToSubtract)
     );
 
-    if (objects.Contents && objects.Contents.length > 0) {
-      const deleteParams = {
-        Bucket: bucketName,
-        Delete: { Objects: objects.Contents.map((obj) => ({ Key: obj.Key })) }
-      };
+    const Bucket = S3_BUCKET.HEY_MEDIA;
+    let ContinuationToken: string | undefined;
+    let objectsToDelete: { Key: string }[] = [];
 
-      const { Deleted } = await s3Client.send(
-        new DeleteObjectsCommand(deleteParams)
+    do {
+      const response: ListObjectsV2CommandOutput = await s3Client.send(
+        new ListObjectsV2Command({ Bucket, ContinuationToken })
       );
+      const { Contents, IsTruncated, NextContinuationToken } = response;
 
+      if (Contents) {
+        const oldObjects = Contents.filter(
+          (object) => new Date(object.LastModified!) < dateDaysAgo
+        );
+        objectsToDelete = objectsToDelete.concat(
+          oldObjects.map((object) => ({ Key: object.Key! }))
+        );
+      }
+
+      ContinuationToken = IsTruncated ? NextContinuationToken : undefined;
+    } while (ContinuationToken);
+
+    console.log(objectsToDelete.length);
+
+    if (objectsToDelete.length > 0) {
+      const deleteCommand = new DeleteObjectsCommand({
+        Bucket,
+        Delete: { Objects: objectsToDelete }
+      });
+
+      await s3Client.send(deleteCommand);
       logger.info(
-        `[Cron] Successfully emptied bucket: ${bucketName} - Deleted: ${Deleted?.length} - File Date: ${objects.Contents[0].LastModified}`
+        `[Cron] truncate4EverlandBucket - Deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days.`
       );
-    } else {
-      logger.info(`[Cron] No objects found in bucket: ${bucketName}`);
+
+      return;
     }
+
+    logger.info(
+      `[Cron] truncate4EverlandBucket - No objects older than ${daysToSubtract} days found.`
+    );
   } catch (error) {
     logger.error(
-      '[Cron] truncate4EverlandBucket - Error emptying bucket',
+      '[Cron] truncate4EverlandBucket - Error deleting objects',
       error
     );
   }
