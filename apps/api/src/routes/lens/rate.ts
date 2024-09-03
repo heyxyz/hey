@@ -24,15 +24,15 @@ export const get = [
       }
 
       const response = await lensPg.query(`
-      SELECT ec.name AS name,
-        ec.symbol AS symbol,
-        ec.decimals AS decimals,
-        ec.currency AS address,
-        fc.price AS fiat
-      FROM fiat.conversion AS fc
-      JOIN enabled.currency AS ec ON fc.currency = ec.currency
-      WHERE fc.fiatsymbol = 'usd';
-    `);
+        SELECT ec.name AS name,
+          ec.symbol AS symbol,
+          ec.decimals AS decimals,
+          ec.currency AS address,
+          fc.price AS fiat
+        FROM fiat.conversion AS fc
+        JOIN enabled.currency AS ec ON fc.currency = ec.currency
+        WHERE fc.fiatsymbol = 'usd';
+      `);
 
       const result = response.map((row: any) => ({
         address: row.address.toLowerCase(),
