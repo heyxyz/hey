@@ -1,3 +1,4 @@
+import { MainnetContracts } from '@hey/data/contracts';
 import clickhouseClient from '@hey/db/clickhouseClient';
 import lensPg from '@hey/db/lensPg';
 
@@ -11,7 +12,7 @@ const getProfiles = async () => {
       WHERE onboarded_by_address = $1
       AND block_timestamp BETWEEN $2 AND $3;
     `,
-    ['0x4b8845ACb8148dE64D1D99Cf27A3890a91F55E53', startDate, endDate]
+    [MainnetContracts.HeyLensSignup, startDate, endDate]
   );
 
   return profiles;
