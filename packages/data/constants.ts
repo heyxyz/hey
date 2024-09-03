@@ -95,6 +95,7 @@ export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs';
 export const ARWEAVE_GATEWAY = 'https://gateway.irys.xyz';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const EVER_REGION = '4EVERLAND';
+export const EVER_BUCKET = 'hey-media';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const MOONPAY_URL = IS_MAINNET
@@ -118,11 +119,6 @@ export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1350,h-350';
 export const VIDEO_THUMBNAIL = 'tr:h-1000';
 export const ATTACHMENT = 'tr:w-1000';
-
-// S3 bucket
-export const S3_BUCKET = {
-  HEY_MEDIA: 'hey-media'
-};
 
 // Known Lens Protocol Attributes
 export const KNOWN_ATTRIBUTES = {
