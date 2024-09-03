@@ -18,25 +18,25 @@ export const get = [
     try {
       const result = await lensPg.multi(
         `
-        SELECT
-          block_timestamp::date AS date,
-          COUNT(*) AS signups_count
-        FROM app.onboarding_profile
-        WHERE
-          onboarded_by_address = $1
-          AND block_timestamp >= NOW() - INTERVAL '30 days'
-        GROUP BY date
-        ORDER BY date;
-        SELECT
-          block_timestamp::date AS date,
-          COUNT(*) AS mint_count
-        FROM publication.open_action_module_acted_record
-        WHERE
-          publication_id = $2
-          AND block_timestamp >= NOW() - INTERVAL '30 days'
-        GROUP BY date
-        ORDER BY date;
-      `,
+          SELECT
+            block_timestamp::date AS date,
+            COUNT(*) AS signups_count
+          FROM app.onboarding_profile
+          WHERE
+            onboarded_by_address = $1
+            AND block_timestamp >= NOW() - INTERVAL '30 days'
+          GROUP BY date
+          ORDER BY date;
+          SELECT
+            block_timestamp::date AS date,
+            COUNT(*) AS mint_count
+          FROM publication.open_action_module_acted_record
+          WHERE
+            publication_id = $2
+            AND block_timestamp >= NOW() - INTERVAL '30 days'
+          GROUP BY date
+          ORDER BY date;
+        `,
         [HEY_LENS_SIGNUP, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
       );
 
