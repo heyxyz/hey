@@ -8,7 +8,8 @@ import logger from '@hey/helpers/logger';
 
 const truncate4EverlandBucket = async () => {
   try {
-    const bucketName = 'lenster-media';
+    const bucketName = 'hey-media';
+    const startAfter = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
     // Initialize S3 client
     const s3Client = new S3Client({
@@ -22,8 +23,12 @@ const truncate4EverlandBucket = async () => {
     });
 
     // List objects in the bucket
-    const listParams = { Bucket: bucketName };
-    const objects = await s3Client.send(new ListObjectsV2Command(listParams));
+    const objects = await s3Client.send(
+      new ListObjectsV2Command({
+        Bucket: bucketName,
+        StartAfter: startAfter.toISOString()
+      })
+    );
 
     if (objects.Contents && objects.Contents.length > 0) {
       const deleteParams = {
@@ -36,7 +41,7 @@ const truncate4EverlandBucket = async () => {
       );
 
       logger.info(
-        `[Cron] Successfully emptied bucket: ${bucketName} - Deleted: ${Deleted?.length}`
+        `[Cron] Successfully emptied bucket: ${bucketName} - Deleted: ${Deleted?.length} - File Date: ${objects.Contents[0].LastModified}`
       );
     } else {
       logger.info(`[Cron] No objects found in bucket: ${bucketName}`);
