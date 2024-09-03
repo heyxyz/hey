@@ -5,7 +5,7 @@ import {
   ListObjectsV2Command,
   S3
 } from '@aws-sdk/client-s3';
-import { EVER_API, EVER_REGION, S3_BUCKET } from '@hey/data/constants';
+import { EVER_API, EVER_BUCKET, EVER_REGION } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 
 const truncate4EverlandBucket = async () => {
@@ -26,7 +26,7 @@ const truncate4EverlandBucket = async () => {
       currentDate.setDate(currentDate.getDate() - daysToSubtract)
     );
 
-    const Bucket = S3_BUCKET.HEY_MEDIA;
+    const Bucket = EVER_BUCKET;
     let ContinuationToken: string | undefined;
     let objectsToDelete: { Key: string }[] = [];
 

@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
-import { EVER_API, EVER_REGION, S3_BUCKET } from '@hey/data/constants';
+import { EVER_API, EVER_BUCKET, EVER_REGION } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
@@ -19,7 +19,7 @@ const params = {
           "s3:AbortMultipartUpload"
         ],
         "Resource": [
-          "arn:aws:s3:::${S3_BUCKET.HEY_MEDIA}/*"
+          "arn:aws:s3:::${EVER_BUCKET}/*"
         ]
       }
     ]
