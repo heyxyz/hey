@@ -38,29 +38,43 @@ const truncate4EverlandBucket = async () => {
 
       if (Contents) {
         const oldObjects = Contents.filter(
-          (object) => new Date(object.LastModified!) < dateDaysAgo
+          (object) =>
+            object.LastModified && new Date(object.LastModified) < dateDaysAgo
         );
         objectsToDelete = objectsToDelete.concat(
-          oldObjects.map((object) => ({ Key: object.Key! }))
+          oldObjects
+            .map((object) => ({ Key: object.Key! }))
+            .filter((obj) => obj.Key)
         );
       }
 
       ContinuationToken = IsTruncated ? NextContinuationToken : undefined;
     } while (ContinuationToken);
 
-    console.log(objectsToDelete.length);
+    logger.info(
+      `[Cron] truncate4EverlandBucket - Found ${objectsToDelete.length} objects older than ${daysToSubtract} days.`
+    );
 
     if (objectsToDelete.length > 0) {
-      const deleteCommand = new DeleteObjectsCommand({
-        Bucket,
-        Delete: { Objects: objectsToDelete }
-      });
+      const deleteBatchSize = 1000;
 
-      await s3Client.send(deleteCommand);
+      while (objectsToDelete.length > 0) {
+        const batch = objectsToDelete.splice(0, deleteBatchSize);
+
+        const deleteCommand = new DeleteObjectsCommand({
+          Bucket,
+          Delete: { Objects: batch }
+        });
+
+        s3Client.send(deleteCommand);
+        logger.info(
+          `[Cron] truncate4EverlandBucket - Deleted ${batch.length} objects in a batch.`
+        );
+      }
+
       logger.info(
-        `[Cron] truncate4EverlandBucket - Deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days.`
+        `[Cron] truncate4EverlandBucket - Deleted all objects older than ${daysToSubtract} days.`
       );
-
       return;
     }
 
