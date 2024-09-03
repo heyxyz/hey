@@ -59,6 +59,10 @@ const uploadToIPFS = async (
   try {
     const files = Array.from(data);
     const client = await getS3Client();
+    const currentDate = new Date()
+      .toLocaleDateString('en-GB')
+      .replace(/\//g, '-');
+
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data[i];
@@ -66,7 +70,7 @@ const uploadToIPFS = async (
           Body: file,
           Bucket: S3_BUCKET.HEY_MEDIA,
           ContentType: file.type,
-          Key: uuid()
+          Key: `${currentDate}/${uuid()}`
         };
         const task = new Upload({ client, params });
         task.on('httpUploadProgress', (e) => {
