@@ -102,7 +102,7 @@ export const post = [
           trustedData,
           untrustedData
         }),
-        headers: { 'User-Agent': HEY_USER_AGENT },
+        headers: { 'User-Agent': HEY_USER_AGENT, 'Content-Type': 'application/json' },
         method: 'POST',
         redirect: buttonAction === 'post_redirect' ? 'manual' : undefined
       });
