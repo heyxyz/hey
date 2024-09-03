@@ -2,7 +2,12 @@ import type { IPFSResponse } from '@hey/types/misc';
 
 import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
-import { EVER_API, HEY_API_URL, S3_BUCKET } from '@hey/data/constants';
+import {
+  EVER_API,
+  EVER_REGION,
+  HEY_API_URL,
+  S3_BUCKET
+} from '@hey/data/constants';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
@@ -23,7 +28,7 @@ const getS3Client = async (): Promise<S3> => {
     },
     endpoint: EVER_API,
     maxAttempts: 10,
-    region: 'us-west-2'
+    region: EVER_REGION
   });
 
   client.middlewareStack.addRelativeTo(
