@@ -10,6 +10,7 @@ import cleanEmailTokens from './cleanEmailTokens';
 import cleanPreferences from './cleanPreferences';
 import dbVacuum from './dbVacuum';
 import heartbeat from './heartbeat';
+import truncate4EverlandBucket from './truncate4EverlandBucket';
 
 const startCronJobs = () => {
   logger.info('Cron jobs are started...');
@@ -21,6 +22,11 @@ const startCronJobs = () => {
 
   cron.schedule('*/5 * * * *', async () => {
     await cleanClickhouse();
+    return;
+  });
+
+  cron.schedule('0 0 * * *', async () => {
+    await truncate4EverlandBucket();
     return;
   });
 
