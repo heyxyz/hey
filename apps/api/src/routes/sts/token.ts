@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
-import { EVER_API, S3_BUCKET } from '@hey/data/constants';
+import { EVER_API, EVER_REGION, S3_BUCKET } from '@hey/data/constants';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
@@ -35,7 +35,7 @@ export const get = [
       const stsClient = new STSClient({
         credentials: { accessKeyId, secretAccessKey },
         endpoint: EVER_API,
-        region: 'us-west-2'
+        region: EVER_REGION
       });
       const command = new AssumeRoleCommand({
         ...params,
