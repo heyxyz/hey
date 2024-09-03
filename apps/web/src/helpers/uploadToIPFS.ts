@@ -4,9 +4,9 @@ import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import {
   EVER_API,
+  EVER_BUCKET,
   EVER_REGION,
-  HEY_API_URL,
-  S3_BUCKET
+  HEY_API_URL
 } from '@hey/data/constants';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
@@ -73,7 +73,7 @@ const uploadToIPFS = async (
         const file = data[i];
         const params = {
           Body: file,
-          Bucket: S3_BUCKET.HEY_MEDIA,
+          Bucket: EVER_BUCKET,
           ContentType: file.type,
           Key: `${currentDate}/${uuid()}`
         };
