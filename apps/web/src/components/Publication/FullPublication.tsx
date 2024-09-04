@@ -2,6 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
 import { QueueListIcon } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import getAppName from '@hey/helpers/getAppName';
@@ -9,9 +10,9 @@ import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import { Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
+import { useFlag } from '@unleash/proxy-client-react';
 import { motion } from 'framer-motion';
 import usePushToImpressions from 'src/hooks/usePushToImpressions';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import { useHiddenCommentFeedStore } from '.';
 import PublicationActions from './Actions';
@@ -31,9 +32,9 @@ const FullPublication: FC<FullPublicationProps> = ({
   hasHiddenComments,
   publication
 }) => {
-  const { staffMode } = useFeatureFlagsStore();
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -49,7 +50,7 @@ const FullPublication: FC<FullPublicationProps> = ({
     queryKey: ['getProfileDetailsOnPublication', by.id]
   });
 
-  const isSuspended = staffMode ? false : profileDetails?.isSuspended;
+  const isSuspended = isStaff ? false : profileDetails?.isSuspended;
 
   if (isSuspended) {
     return (
