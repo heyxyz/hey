@@ -2,10 +2,11 @@ import type { FC } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
+import { useFlag } from '@unleash/proxy-client-react';
 import Link from 'next/link';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 const currentYear = new Date().getFullYear();
 
@@ -37,12 +38,12 @@ const links = [
 ];
 
 const Footer: FC = () => {
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   return (
     <footer
       className={cn(
-        staffMode ? 'top-28' : 'top-20',
+        isStaff ? 'top-28' : 'top-20',
         'sticky mt-4 flex flex-wrap gap-x-[12px] gap-y-2 px-3 text-sm lg:px-0'
       )}
     >

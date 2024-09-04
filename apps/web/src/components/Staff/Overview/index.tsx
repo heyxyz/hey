@@ -3,11 +3,12 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import StaffSidebar from '../Sidebar';
@@ -16,13 +17,13 @@ import Links from './Links';
 
 const Overview: NextPage = () => {
   const { currentProfile } = useProfileStore();
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'staff-tools', subpage: 'overview' });
   }, []);
 
-  if (!currentProfile || !staffMode) {
+  if (!currentProfile || !isStaff) {
     return <Custom404 />;
   }
 

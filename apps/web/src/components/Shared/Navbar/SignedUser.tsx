@@ -20,7 +20,6 @@ import AppVersion from './NavItems/AppVersion';
 import Logout from './NavItems/Logout';
 import OptimisticTransactions from './NavItems/OptimisticTransactions';
 import Settings from './NavItems/Settings';
-import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
@@ -135,19 +134,6 @@ const SignedUser: FC = () => {
             >
               <OptimisticTransactions />
             </MenuItem>
-            {isStaff ? (
-              <MenuItem
-                as="div"
-                className={({ focus }) =>
-                  cn(
-                    { 'bg-yellow-100 dark:bg-yellow-800': focus },
-                    'm-2 rounded-lg'
-                  )
-                }
-              >
-                <StaffMode />
-              </MenuItem>
-            ) : null}
             <div className="divider" />
             <AppVersion />
           </MenuItems>

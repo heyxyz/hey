@@ -5,13 +5,14 @@ import { Leafwatch } from '@helpers/leafwatch';
 import { loadKeys } from '@helpers/xmtp/keys';
 import { InboxIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { EmptyState, H5 } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useClient } from '@xmtp/react-sdk';
 import { useEffect } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useAccount, useWalletClient } from 'wagmi';
 
 import StartConversation from './Composer/StartConversation';
@@ -19,8 +20,8 @@ import Conversations from './Conversations';
 import MessagesList from './MessagesList';
 
 const Messages: NextPage = () => {
-  const { staffMode } = useFeatureFlagsStore();
   const { newConversationAddress, selectedConversation } = useMessagesStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
   const { initialize, isLoading } = useClient();
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
@@ -66,7 +67,7 @@ const Messages: NextPage = () => {
           ) : (
             <div
               className={cn(
-                staffMode ? 'h-[85vh] max-h-[85vh]' : 'h-[87vh] max-h-[87vh]',
+                isStaff ? 'h-[85vh] max-h-[85vh]' : 'h-[87vh] max-h-[87vh]',
                 'flex h-full items-center justify-center'
               )}
             >

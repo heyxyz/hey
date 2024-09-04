@@ -18,6 +18,7 @@ import {
   EyeSlashIcon
 } from '@heroicons/react/24/solid';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import getAvatar from '@hey/helpers/getAvatar';
 import getFavicon from '@hey/helpers/getFavicon';
@@ -29,11 +30,11 @@ import getProfileAttribute from '@hey/helpers/getProfileAttribute';
 import hasMisused from '@hey/helpers/hasMisused';
 import { FollowModuleType } from '@hey/lens';
 import { Button, H3, Image, LightBox, Tooltip } from '@hey/ui';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import urlcat from 'urlcat';
 
@@ -66,8 +67,8 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { staffMode } = useFeatureFlagsStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
+  const isStaff = useFlag(FeatureFlag.Staff);
   const { resolvedTheme } = useTheme();
 
   const followType = profile?.followModule?.type;
@@ -157,7 +158,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
-          {staffMode ? (
+          {isStaff ? (
             <MetaDetails
               icon={<ShieldCheckIcon className="size-4 text-yellow-600" />}
             >
