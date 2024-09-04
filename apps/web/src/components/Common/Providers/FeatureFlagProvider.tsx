@@ -17,7 +17,8 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
         appName: 'production',
         clientKey: APP_NAME,
         context: { sessionId: authorizationId, userId: id },
-        refreshInterval: 15,
+        disableMetrics: true,
+        refreshInterval: 30,
         url: 'https://flags.hey.xyz/proxy'
       }}
     >
