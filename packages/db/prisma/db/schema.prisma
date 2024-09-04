@@ -133,3 +133,38 @@ model Tip {
   txHash        String
   createdAt     DateTime @default(now())
 }
+
+model Permission {
+  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key       String         @unique
+  priority  Int            @default(0)
+  type      PermissionType @default(PERMISSION)
+  enabled   Boolean        @default(true)
+  createdAt DateTime       @default(now())
+
+  // Relations
+  profiles ProfilePermission[]
+
+  // Indexes
+  @@index([priority])
+  @@index([type])
+}
+
+enum PermissionType {
+  PERMISSION
+  STATUS
+  COHORT
+  MODE
+}
+
+model ProfilePermission {
+  profileId    String
+  permissionId String     @db.Uuid
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  enabled      Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+
+  @@id([profileId, permissionId])
+  // Indexes
+  @@index([profileId, permissionId])
+}
