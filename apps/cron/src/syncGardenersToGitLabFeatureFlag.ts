@@ -9,7 +9,6 @@ const syncGardenersToGitLabFeatureFlag = async () => {
         FROM custom_filters.reporting_gardener_profile;
       `
     );
-
     const profiles = response[0]?.profiles;
 
     const gitlabResponse = await fetch(
