@@ -13,7 +13,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.6",
+    "@apollo/client": "^3.11.7",
     "@hey/data": "workspace:*",
     "axios": "^1.7.7",
     "graphql-ws": "^5.16.0"
