@@ -18,7 +18,6 @@ import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
 import Logout from './NavItems/Logout';
 import Settings from './NavItems/Settings';
-import StaffMode from './NavItems/StaffMode';
 import Support from './NavItems/Support';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
@@ -106,17 +105,6 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isStaff ? (
-            <>
-              <div
-                className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                onClick={closeDrawer}
-              >
-                <StaffMode className={cn(itemClass, 'px-4 py-3')} />
-              </div>
-              <div className="divider" />
-            </>
-          ) : null}
         </div>
         {currentProfile ? <AppVersion /> : null}
       </div>

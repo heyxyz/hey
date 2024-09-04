@@ -3,9 +3,10 @@ import type { FC, ReactNode } from 'react';
 import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import cn from '@hey/ui/cn';
+import { useFlag } from '@unleash/proxy-client-react';
 import Link from 'next/link';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import urlcat from 'urlcat';
 
 import Performance from './Performance';
@@ -21,9 +22,11 @@ export const Badge: FC<BadgeProps> = ({ children }) => (
 );
 
 const StaffBar: FC = () => {
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
-  if (!staffMode) {
+  console.log(isStaff);
+
+  if (!isStaff) {
     return null;
   }
 
