@@ -1,13 +1,17 @@
 import lensPg from '@hey/db/lensPg';
 import logger from '@hey/helpers/logger';
 
-const syncProfilesToGitLabFeatureFlag = async () => {
+const syncGardenersToGitLabFeatureFlag = async () => {
   try {
     const response = await lensPg.query(
-      `SELECT string_agg(profile_id::text, ',') AS all_ids FROM profile.record LIMIT 10;`
+      `
+        SELECT string_agg(profile_id::text, ',') AS profiles
+        FROM custom_filters.reporting_gardener_profile
+        LIMIT 10;
+      `
     );
 
-    const profiles = response[0]?.all_ids;
+    const profiles = response[0]?.profiles;
 
     const gitlabResponse = await fetch(
       'https://gitlab.com/api/v4/projects/61401782/feature_flags_user_lists/2',
@@ -23,19 +27,19 @@ const syncProfilesToGitLabFeatureFlag = async () => {
 
     if (gitlabResponse.status !== 200) {
       return logger.error(
-        '[Cron] syncProfilesToGitLabFeatureFlag - Error syncing profiles to GitLab feature flag'
+        '[Cron] syncGardenersToGitLabFeatureFlag - Error syncing profiles to GitLab feature flag user list - Gardeners'
       );
     }
 
     return logger.info(
-      `[Cron] syncProfilesToGitLabFeatureFlag - Updated GitLab feature flag all profiles.`
+      `[Cron] syncGardenersToGitLabFeatureFlag - Updated GitLab feature flag user list - Gardeners`
     );
   } catch (error) {
     return logger.error(
-      '[Cron] syncProfilesToGitLabFeatureFlag - Error syncing profiles to GitLab feature flag',
+      '[Cron] syncGardenersToGitLabFeatureFlag - Error syncing profiles to GitLab feature flag user list - Gardeners',
       error
     );
   }
 };
 
-export default syncProfilesToGitLabFeatureFlag;
+export default syncGardenersToGitLabFeatureFlag;
