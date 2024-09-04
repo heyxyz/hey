@@ -4,10 +4,11 @@ import type { FC } from 'react';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { ChatBubbleLeftIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { Button } from '@hey/ui';
+import { useFlag } from '@unleash/proxy-client-react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 interface SuspendButtonsProps {
   onClick?: () => void;
@@ -15,9 +16,9 @@ interface SuspendButtonsProps {
 }
 
 const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
-  if (!staffMode) {
+  if (!isStaff) {
     return null;
   }
 

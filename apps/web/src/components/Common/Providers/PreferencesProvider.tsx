@@ -12,7 +12,6 @@ import axios from 'axios';
 import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useRatesStore } from 'src/store/persisted/useRatesStore';
 import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
 
@@ -29,7 +28,6 @@ const PreferencesProvider: FC = () => {
     setHighSignalNotificationFilter
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
-  const { setFeatureFlags, setStaffMode } = useFeatureFlagsStore();
 
   const getPreferencesData = async () => {
     const preferences = await getPreferences(getAuthApiHeaders());
@@ -38,8 +36,6 @@ const PreferencesProvider: FC = () => {
     setAppIcon(preferences.appIcon);
     setEmail(preferences.email);
     setEmailVerified(preferences.emailVerified);
-    setFeatureFlags(preferences.features);
-    setStaffMode(preferences.features.includes(FeatureFlag.StaffMode));
     setStatus({
       isCommentSuspended: preferences.features.includes(
         FeatureFlag.CommentSuspended

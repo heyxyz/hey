@@ -8,6 +8,7 @@ import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
 import { Leafwatch } from '@helpers/leafwatch';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
 import {
@@ -18,10 +19,10 @@ import {
   GridItemFour,
   GridLayout
 } from '@hey/ui';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 const Overview: NextPage = () => {
@@ -30,7 +31,7 @@ const Overview: NextPage = () => {
     query: { id }
   } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -45,7 +46,7 @@ const Overview: NextPage = () => {
   });
   const profile = data?.profile as Profile;
 
-  if (!currentProfile || !staffMode) {
+  if (!currentProfile || !isStaff) {
     return <Custom404 />;
   }
 
