@@ -1,12 +1,12 @@
 import type { AnyPublication } from '@hey/lens';
 import type { FC } from 'react';
 
-import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import getPublicationViewCountById from '@hey/helpers/getPublicationViewCountById';
 import isOpenActionAllowed from '@hey/helpers/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { useFlag } from '@unleash/proxy-client-react';
 import { memo } from 'react';
 import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
 
@@ -32,6 +32,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     ? publication.mirrorOn
     : publication;
   const { publicationViews } = useImpressionsStore();
+  const isGardener = useFlag(FeatureFlag.Gardener);
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
 
   const canAct =
@@ -55,7 +56,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         ) : null}
         <Tip publication={targetPublication} showCount={showCount} />
         {views > 0 ? <Views showCount={showCount} views={views} /> : null}
-        {isFeatureAvailable(FeatureFlag.Gardener) ? (
+        {isGardener ? (
           <Mod isFullPublication={showCount} publication={targetPublication} />
         ) : null}
       </span>
