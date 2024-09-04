@@ -14,6 +14,7 @@ import { ThemeProvider } from 'next-themes';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
+import FeatureFlagProvider from './FeatureFlagProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
@@ -41,17 +42,19 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
       <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
-          <LensSubscriptionsProvider />
-          <OptimisticTransactionsProvider />
-          <QueryClientProvider client={queryClient}>
-            <PreferencesProvider />
-            <ProProvider />
-            <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-              <ThemeProvider attribute="class" defaultTheme="light">
-                <Layout>{children}</Layout>
-              </ThemeProvider>
-            </LivepeerConfig>
-          </QueryClientProvider>
+          <FeatureFlagProvider>
+            <LensSubscriptionsProvider />
+            <OptimisticTransactionsProvider />
+            <QueryClientProvider client={queryClient}>
+              <PreferencesProvider />
+              <ProProvider />
+              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+                <ThemeProvider attribute="class" defaultTheme="light">
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+              </LivepeerConfig>
+            </QueryClientProvider>
+          </FeatureFlagProvider>
         </ApolloProvider>
       </Web3Provider>
     </ErrorBoundary>

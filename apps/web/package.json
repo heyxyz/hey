@@ -35,6 +35,7 @@
     "@rajesh896/broprint.js": "^2.1.1",
     "@tanstack/react-query": "5.53.3",
     "@uidotdev/usehooks": "^2.4.1",
+    "@unleash/proxy-client-react": "^4.3.1",
     "@xmtp/content-type-reaction": "^1.1.9",
     "@xmtp/content-type-text": "^1.0.0",
     "@xmtp/react-sdk": "^8.0.1",
