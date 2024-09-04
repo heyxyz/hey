@@ -9,7 +9,7 @@
     "eslint-config-next": "14.2.7",
     "eslint-plugin-perfectionist": "2.11.0",
     "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-react": "7.35.0",
+    "eslint-plugin-react": "7.35.2",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-unicorn": "55.0.0",
     "eslint-plugin-unused-imports": "4.1.3"
