@@ -2,13 +2,11 @@ import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
 import getAvatar from '@hey/helpers/getAvatar';
 import getLennyURL from '@hey/helpers/getLennyURL';
 import getProfile from '@hey/helpers/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { useFlag } from '@unleash/proxy-client-react';
 import Link from 'next/link';
 import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -26,7 +24,6 @@ import YourProfile from './NavItems/YourProfile';
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
-  const isStaff = useFlag(FeatureFlag.Staff);
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
