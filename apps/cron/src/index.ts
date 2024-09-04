@@ -10,7 +10,7 @@ import cleanEmailTokens from './cleanEmailTokens';
 import cleanPreferences from './cleanPreferences';
 import dbVacuum from './dbVacuum';
 import heartbeat from './heartbeat';
-import syncProfilesToGitLabFeatureFlag from './syncProfilesToGitLabFeatureFlag';
+import syncGardenersToGitLabFeatureFlag from './syncGardenersToGitLabFeatureFlag';
 import truncate4EverlandBucket from './truncate4EverlandBucket';
 
 const startCronJobs = () => {
@@ -66,8 +66,8 @@ const startCronJobs = () => {
     return;
   });
 
-  cron.schedule('*/5 * * * *', async () => {
-    await syncProfilesToGitLabFeatureFlag();
+  cron.schedule('*/60 * * * *', async () => {
+    await syncGardenersToGitLabFeatureFlag();
     return;
   });
 };
