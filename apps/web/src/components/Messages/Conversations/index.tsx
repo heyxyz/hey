@@ -2,8 +2,10 @@ import type { CachedConversation } from '@xmtp/react-sdk';
 import type { FC } from 'react';
 
 import { ArrowLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { H6 } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { useFlag } from '@unleash/proxy-client-react';
 import {
   useClient,
   useConsent,
@@ -12,7 +14,6 @@ import {
 } from '@xmtp/react-sdk';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import Conversation from './Conversation';
 import EnableMessages from './EnableMessages';
@@ -24,7 +25,6 @@ interface ConversationsProps {
 }
 
 const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
-  const { staffMode } = useFeatureFlagsStore();
   const [activeTab, setActiveTab] = useState<'messages' | 'requests'>(
     'messages'
   );
@@ -36,6 +36,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
     CachedConversation[]
   >([]);
   const [page, setPage] = useState(1);
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   const { client } = useClient();
   const { conversations, isLoading } = useConversations();
@@ -121,7 +122,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
       </button>
       <div
         className={cn(
-          staffMode ? 'h-[80vh] max-h-[80vh]' : 'h-[82.5vh] max-h-[82.5vh]'
+          isStaff ? 'h-[80vh] max-h-[80vh]' : 'h-[82.5vh] max-h-[82.5vh]'
         )}
       >
         {isClientLoading || isLoading ? (

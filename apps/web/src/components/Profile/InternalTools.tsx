@@ -1,9 +1,9 @@
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 
-import isFeatureAvailable from '@helpers/isFeatureAvailable';
 import { FeatureFlag } from '@hey/data/feature-flags';
 import { Card } from '@hey/ui';
+import { useFlag } from '@unleash/proxy-client-react';
 
 import CreatorTool from './CreatorTool';
 import GardenerTool from './GardenerTool';
@@ -13,8 +13,8 @@ interface InternalToolsProps {
 }
 
 const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
-  const hasGardenerToolAccess = isFeatureAvailable(FeatureFlag.Gardener);
-  const hasCreatorToolAccess = isFeatureAvailable(FeatureFlag.Staff);
+  const hasGardenerToolAccess = useFlag(FeatureFlag.Gardener);
+  const hasCreatorToolAccess = useFlag(FeatureFlag.Staff);
 
   if (!hasGardenerToolAccess && !hasCreatorToolAccess) {
     return null;

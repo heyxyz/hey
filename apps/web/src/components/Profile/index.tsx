@@ -11,18 +11,19 @@ import {
   HANDLE_PREFIX,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW } from '@hey/data/tracking';
 import getProfileDetails from '@hey/helpers/api/getProfileFlags';
 import getProfile from '@hey/helpers/getProfile';
 import { useProfileQuery } from '@hey/lens';
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 
 import Details from './Details';
@@ -42,7 +43,7 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   const showFollowing =
     pathname === '/u/[handle]/following' ||
@@ -119,7 +120,7 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
-  const isSuspended = staffMode ? false : profileDetails?.isSuspended;
+  const isSuspended = isStaff ? false : profileDetails?.isSuspended;
 
   return (
     <>
