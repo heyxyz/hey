@@ -1,6 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 import getCurrentSession from '@helpers/getCurrentSession';
+import { APP_NAME } from '@hey/data/constants';
 import { FlagProvider } from '@unleash/proxy-client-react';
 
 interface FeatureFlagProviderProps {
@@ -14,10 +15,10 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
     <FlagProvider
       config={{
         appName: 'production',
-        clientKey: 'yoginth',
+        clientKey: APP_NAME,
         context: { sessionId: authorizationId, userId: id },
         refreshInterval: 15,
-        url: 'https://accurate-friendship-mainnet.up.railway.app/proxy'
+        url: 'https://flags.hey.xyz/proxy'
       }}
     >
       {children}
