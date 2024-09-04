@@ -11,6 +11,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME } from '@hey/data/constants';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import { PAGEVIEW, ProfileLinkSource } from '@hey/data/tracking';
 import getProfile from '@hey/helpers/getProfile';
 import getPublicationData from '@hey/helpers/getPublicationData';
@@ -22,13 +23,13 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { createTrackedSelector } from 'react-tracked';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import { create } from 'zustand';
 
@@ -61,7 +62,7 @@ const ViewPublication: NextPage = () => {
 
   const { currentProfile } = useProfileStore();
   const { isCommentSuspended, isSuspended } = useProfileStatus();
-  const { staffMode } = useFeatureFlagsStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   const showQuotes = pathname === '/posts/[id]/quotes';
   const showMirrors = pathname === '/posts/[id]/mirrors';
@@ -170,7 +171,7 @@ const ViewPublication: NextPage = () => {
         <RelevantPeople
           profilesMentioned={targetPublication.profilesMentioned}
         />
-        {staffMode ? (
+        {isStaff ? (
           <PublicationStaffTool publication={targetPublication} />
         ) : null}
         <Footer />

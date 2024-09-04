@@ -3,21 +3,22 @@ import type { FC } from 'react';
 import type { Address } from 'viem';
 
 import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
+import { FeatureFlag } from '@hey/data/feature-flags';
 import cn from '@hey/ui/cn';
+import { useFlag } from '@unleash/proxy-client-react';
 import { useMessages } from '@xmtp/react-sdk';
 import { useEffect, useRef } from 'react';
 import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
-import { useFeatureFlagsStore } from 'src/store/persisted/useFeatureFlagsStore';
 
 import Composer from '../Composer';
 import Consent from './Consent';
 import Messages from './Message';
 
 const MessagesList: FC = () => {
-  const { staffMode } = useFeatureFlagsStore();
   const { selectedConversation } = useMessagesStore();
   const { messages } = useMessages(selectedConversation as CachedConversation);
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -38,7 +39,7 @@ const MessagesList: FC = () => {
       <div className="divider" />
       <div
         className={cn(
-          staffMode ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
+          isStaff ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
           'flex flex-col-reverse space-y-5 overflow-y-auto p-5'
         )}
       >
