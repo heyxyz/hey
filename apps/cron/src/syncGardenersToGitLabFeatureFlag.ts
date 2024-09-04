@@ -6,8 +6,7 @@ const syncGardenersToGitLabFeatureFlag = async () => {
     const response = await lensPg.query(
       `
         SELECT string_agg(profile_id::text, ',') AS profiles
-        FROM custom_filters.reporting_gardener_profile
-        LIMIT 10;
+        FROM custom_filters.reporting_gardener_profile;
       `
     );
 
