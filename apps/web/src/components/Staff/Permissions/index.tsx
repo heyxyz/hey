@@ -14,7 +14,7 @@ import { useProfileStore } from 'src/store/persisted/useProfileStore';
 import StaffSidebar from '../Sidebar';
 import List from './List';
 
-const FeatureFlags: NextPage = () => {
+const Permissions: NextPage = () => {
   const { currentProfile } = useProfileStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
@@ -31,7 +31,7 @@ const FeatureFlags: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Staff Tools • Feature Flags • ${APP_NAME}`} />
+      <MetaTags title={`Staff Tools • Permissions • ${APP_NAME}`} />
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
@@ -42,4 +42,4 @@ const FeatureFlags: NextPage = () => {
   );
 };
 
-export default FeatureFlags;
+export default Permissions;

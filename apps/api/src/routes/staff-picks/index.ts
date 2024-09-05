@@ -31,9 +31,9 @@ export const get = [
           });
       }
 
-      const data = await prisma.profileFeature.findMany({
+      const data = await prisma.profilePermission.findMany({
         select: { profileId: true },
-        where: { enabled: true, featureId: STAFF_PICK_FEATURE_ID }
+        where: { enabled: true, permissionId: STAFF_PICK_FEATURE_ID }
       });
 
       await setRedis(cacheKey, data, generateMediumExpiry());

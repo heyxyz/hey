@@ -29,42 +29,6 @@ model MembershipNft {
   createdAt         DateTime @default(now())
 }
 
-model Feature {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  key       String      @unique
-  priority  Int         @default(0)
-  type      FeatureType @default(FEATURE)
-  enabled   Boolean     @default(true)
-  createdAt DateTime    @default(now())
-
-  // Relations
-  profiles ProfileFeature[]
-
-  // Indexes
-  @@index([priority])
-  @@index([type])
-}
-
-enum FeatureType {
-  FEATURE
-  PERMISSION
-  STATUS
-  COHORT
-  MODE
-}
-
-model ProfileFeature {
-  profileId String
-  featureId String   @db.Uuid
-  feature   Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
-  enabled   Boolean  @default(true)
-  createdAt DateTime @default(now())
-
-  @@id([profileId, featureId])
-  // Indexes
-  @@index([profileId, featureId])
-}
-
 model Poll {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime  @default(now())

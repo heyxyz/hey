@@ -4,28 +4,28 @@ import { FlagIcon } from '@heroicons/react/24/outline';
 import { H5 } from '@hey/ui';
 import { useEffect, useState } from 'react';
 
-import UpdateFeatureFlags from './UpdateFeatureFlags';
+import UpdatePermissions from './UpdatePermissions';
 
-interface FeatureFlagsProps {
-  features: string[];
+interface PermissionsProps {
+  permissions: string[];
   profileId: string;
 }
 
-const FeatureFlags: FC<FeatureFlagsProps> = ({ features, profileId }) => {
+const Permissions: FC<PermissionsProps> = ({ permissions, profileId }) => {
   const [flags, setFlags] = useState<string[]>([]);
 
   useEffect(() => {
-    setFlags(features);
-  }, [features]);
+    setFlags(permissions);
+  }, [permissions]);
 
   return (
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <FlagIcon className="size-5" />
-        <H5>Feature flags</H5>
+        <H5>Permissions</H5>
       </div>
       <div className="mt-3">
-        <UpdateFeatureFlags
+        <UpdatePermissions
           flags={flags}
           profileId={profileId}
           setFlags={setFlags}
@@ -35,4 +35,4 @@ const FeatureFlags: FC<FeatureFlagsProps> = ({ features, profileId }) => {
   );
 };
 
-export default FeatureFlags;
+export default Permissions;

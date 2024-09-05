@@ -36,13 +36,13 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { id: featureId, ids } = body as ExtensionRequest;
+    const { id: permissionId, ids } = body as ExtensionRequest;
 
     try {
       const parsedIds = JSON.parse(ids) as string[];
 
-      const profiles = await prisma.profileFeature.findMany({
-        where: { featureId, profileId: { in: parsedIds } }
+      const profiles = await prisma.profilePermission.findMany({
+        where: { permissionId, profileId: { in: parsedIds } }
       });
 
       const idsToAssign = parsedIds.filter(
@@ -50,8 +50,8 @@ export const post = [
           !profiles.some((profile) => profile.profileId === profile_id)
       );
 
-      const result = await prisma.profileFeature.createMany({
-        data: idsToAssign.map((profileId) => ({ featureId, profileId })),
+      const result = await prisma.profilePermission.createMany({
+        data: idsToAssign.map((profileId) => ({ permissionId, profileId })),
         skipDuplicates: true
       });
 

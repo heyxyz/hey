@@ -15,13 +15,13 @@ import toast from 'react-hot-toast';
 
 import ToggleWrapper from './ToggleWrapper';
 
-interface UpdateFeatureFlagsProps {
+interface UpdatePermissionsProps {
   flags: string[];
   profileId: string;
   setFlags: Dispatch<SetStateAction<string[]>>;
 }
 
-const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
+const UpdatePermissions: FC<UpdatePermissionsProps> = ({
   flags,
   profileId,
   setFlags
@@ -58,7 +58,7 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
         },
         loading: 'Updating feature flag...',
         success: () => {
-          Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_FEATURE_FLAG, {
+          Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
             feature: key,
             profile_id: profileId
           });
@@ -89,4 +89,4 @@ const UpdateFeatureFlags: FC<UpdateFeatureFlagsProps> = ({
   );
 };
 
-export default UpdateFeatureFlags;
+export default UpdatePermissions;

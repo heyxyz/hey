@@ -37,10 +37,10 @@ const PreferencesProvider: FC = () => {
     setEmail(preferences.email);
     setEmailVerified(preferences.emailVerified);
     setStatus({
-      isCommentSuspended: preferences.features.includes(
+      isCommentSuspended: preferences.permissions.includes(
         FeatureFlag.CommentSuspended
       ),
-      isSuspended: preferences.features.includes(FeatureFlag.Suspended)
+      isSuspended: preferences.permissions.includes(FeatureFlag.Suspended)
     });
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
