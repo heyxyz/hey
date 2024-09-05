@@ -3,12 +3,8 @@ image: node:18
 cache:
   paths:
     - node_modules/
-    - artifacts/
-    - cache/
 
 stages:
-  # - build
-  # - test
   - deploy
 
 before_script:
@@ -27,24 +23,9 @@ deploy-api:
     - docker:20.10.16-dind
   variables:
     IMAGE_TAG: api:latest
-  before_script:
-    - cd apps/api
-    - pnpm install --no-frozen-lockfile
+  before_script: cd apps/api
   script:
+    - ls
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
-# deploy-cron:
-#   only:
-#     - main
-#   image: docker:20.10.16
-#   stage: deploy
-#   services:
-#     - docker:20.10.16-dind
-#   variables:
-#     IMAGE_TAG: cron:latest
-#   before_script: cd apps/cron
-#   script:
-#     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-#     - docker build -t $IMAGE_TAG .
-#     - docker push $IMAGE_TAG
