@@ -21,7 +21,7 @@ const Permissions: NextPage = () => {
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
       page: 'staff-tools',
-      subpage: 'feature-flags'
+      subpage: 'permission'
     });
   }, []);
 

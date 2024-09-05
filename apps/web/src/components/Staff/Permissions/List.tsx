@@ -101,7 +101,7 @@ const List: FC = () => {
       <Modal
         onClose={() => setShowAssignModal(!showAssignModal)}
         show={showAssignModal}
-        title={`Assign feature flag - ${selectedPermission?.key}`}
+        title={`Assign permission - ${selectedPermission?.key}`}
       >
         {selectedPermission ? (
           <Assign
