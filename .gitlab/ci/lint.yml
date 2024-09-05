@@ -1,0 +1,4 @@
+lint:
+  stage: build
+  script:
+    - pnpm lint

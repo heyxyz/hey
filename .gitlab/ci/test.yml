@@ -1,0 +1,5 @@
+test:
+  stage: build
+  script:
+    - pnpm build
+    - pnpm test:dev
