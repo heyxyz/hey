@@ -12,7 +12,7 @@ import ImageCropperController from '@components/Shared/ImageCropperController';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import uploadCroppedImage, { readFile } from '@helpers/profilePictureUtils';
-import uploadToArweave from '@helpers/uploadToArweave';
+import uploadToIrys from '@helpers/uploadToIrys';
 import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
@@ -277,7 +277,7 @@ const ProfileSettingsForm: FC = () => {
           return m.key !== '' && Boolean(trimify(m.value));
         });
       const metadata = profileMetadata(preparedProfileMetadata);
-      const arweaveId = await uploadToArweave(metadata);
+      const arweaveId = await uploadToIrys(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: `ar://${arweaveId}`

@@ -18,7 +18,7 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import uploadToArweave from '@helpers/uploadToArweave';
+import uploadToIrys from '@helpers/uploadToIrys';
 import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -359,7 +359,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       const metadata = getMetadata({ baseMetadata });
-      const arweaveId = await uploadToArweave(metadata);
+      const arweaveId = await uploadToIrys(metadata);
 
       // Payload for the open action module
       const openActionModules = [];
