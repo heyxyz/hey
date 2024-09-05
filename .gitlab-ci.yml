@@ -23,9 +23,7 @@ deploy-api:
     - docker:20.10.16-dind
   variables:
     IMAGE_TAG: api:latest
-  before_script: cd apps/api
   script:
-    - ls
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - docker build -t $IMAGE_TAG .
+    - docker build -t $IMAGE_TAG -f ./apps/api/Dockerfile .
     - docker push $IMAGE_TAG
