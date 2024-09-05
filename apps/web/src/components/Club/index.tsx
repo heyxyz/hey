@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/NewPost';
 import Cover from '@components/Shared/Cover';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
@@ -50,7 +50,7 @@ const ViewClub: NextPage = () => {
     queryFn: () =>
       getClub(
         { club_handle: handle as string, profile_id: currentProfile?.id },
-        getAuthApiHeadersWithAccessToken()
+        getAuthApiHeaders()
       ),
     queryKey: ['getClub', handle]
   });
