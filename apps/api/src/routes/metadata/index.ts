@@ -29,7 +29,6 @@ export const post = [
         account.signMessage({ message })
       );
 
-      // @ts-ignore
       const receipt = await irys.upload(JSON.stringify(signed), {
         tags: [
           { name: 'content-type', value: 'application/json' },
