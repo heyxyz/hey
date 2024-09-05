@@ -55,7 +55,7 @@ export const post = [
         });
 
         await clearCache(profile_id, id);
-        logger.info(`Enabled features for ${profile_id}`);
+        logger.info(`Enabled permissions for ${profile_id}`);
 
         return res.status(200).json({ enabled, success: true });
       }
@@ -65,7 +65,7 @@ export const post = [
       });
 
       await clearCache(profile_id, id);
-      logger.info(`Disabled features for ${profile_id}`);
+      logger.info(`Disabled permissions for ${profile_id}`);
 
       return res.status(200).json({ enabled, success: true });
     } catch (error) {

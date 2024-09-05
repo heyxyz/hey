@@ -52,14 +52,14 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
           { headers: getAuthApiHeaders() }
         ),
         {
-          error: 'Failed to update flag',
-          loading: 'Updating the flag...',
-          success: 'Flag updated'
+          error: 'Failed to update permission',
+          loading: 'Updating the permission...',
+          success: 'Permission updated'
         }
       );
 
       Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
-        feature: key,
+        permission: key,
         profile_id: profile.id
       });
 

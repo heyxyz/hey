@@ -11,14 +11,14 @@ export const get = [
   validateIsStaff,
   async (_: Request, res: Response) => {
     try {
-      const data = await prisma.feature.findMany({
+      const data = await prisma.permission.findMany({
         include: { _count: { select: { profiles: true } } },
         orderBy: { priority: 'asc' }
       });
 
-      logger.info('All features fetched');
+      logger.info('All permissions fetched');
 
-      return res.status(200).json({ features: data, success: true });
+      return res.status(200).json({ permissions: data, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

@@ -34,7 +34,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
   });
 
   if (isLoading) {
-    return <Loader className="my-5" message="Loading feature flags" />;
+    return <Loader className="my-5" message="Loading permissions" />;
   }
 
   const availablePermissions = allPermissions || [];

@@ -14,7 +14,7 @@ const getAllPermissions = async (headers: any): Promise<Permission[]> => {
   });
   const { data } = response;
 
-  return data?.features || [];
+  return data?.permissions || [];
 };
 
 export default getAllPermissions;

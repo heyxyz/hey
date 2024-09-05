@@ -55,7 +55,7 @@ export const post = [
         skipDuplicates: true
       });
 
-      logger.info(`Bulk assigned features for ${parsedIds.length} profiles`);
+      logger.info(`Bulk assigned permissions for ${parsedIds.length} profiles`);
 
       return res.status(200).json({ assigned: result.count, success: true });
     } catch (error) {
