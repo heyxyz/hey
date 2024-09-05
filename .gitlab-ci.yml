@@ -4,6 +4,7 @@ stages:
 
 build:
   stage: build
+  interruptible: true
   image: node:18
   script:
     - pnpm install --frozen-lockfile
@@ -14,6 +15,8 @@ deploy-api:
     - main
   image: docker:20.10.16
   stage: deploy
+  interruptible: true
+  resource_group: deploy-api
   environment: production
   services:
     - docker:20.10.16-dind
@@ -29,6 +32,8 @@ deploy-cron:
     - main
   image: docker:20.10.16
   stage: deploy
+  interruptible: true
+  resource_group: deploy-cron
   environment: production
   services:
     - docker:20.10.16-dind
@@ -44,6 +49,8 @@ deploy-og:
     - main
   image: docker:20.10.16
   stage: deploy
+  interruptible: true
+  resource_group: deploy-og
   environment: production
   services:
     - docker:20.10.16-dind
