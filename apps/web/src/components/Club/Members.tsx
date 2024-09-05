@@ -3,7 +3,6 @@ import type { FC } from 'react';
 
 import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
 import { ProfileLinkSource } from '@hey/data/tracking';
@@ -31,11 +30,10 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
     };
   } | null> => {
     try {
-      const response = await axios.post(
-        `${HEY_API_URL}/clubs/members`,
-        { id: clubId, limit: 50 },
-        { headers: getAuthApiHeaders() }
-      );
+      const response = await axios.post(`${HEY_API_URL}/clubs/members`, {
+        id: clubId,
+        limit: 50
+      });
 
       return response.data.data;
     } catch {
