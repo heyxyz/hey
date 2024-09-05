@@ -1,0 +1,20 @@
+deploy-api:
+  only:
+    - main
+  image: docker:20.10.16
+  stage: deploy
+  before_script: []
+  environment: production
+  services:
+    - docker:20.10.16-dind
+  variables:
+    GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/api:latest
+    DOCKERHUB_IMAGE_TAG: heyxyz/api:latest
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker build -t $GITLAB_IMAGE_TAG -f ./apps/api/Dockerfile .
+    - docker push $GITLAB_IMAGE_TAG
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+    - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
+    - docker push $DOCKERHUB_IMAGE_TAG
+    - curl https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$API_RAILWAY_SERVICE_ID
