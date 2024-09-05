@@ -1,6 +1,6 @@
 import type { Club } from '@hey/types/club';
 
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import getClubs from '@hey/helpers/api/clubs/getClubs';
 import { useEffect, useState } from 'react';
 import { useProfileStore } from 'src/store/persisted/useProfileStore';
@@ -27,7 +27,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
 
     getClubs(
       { limit: 10, profile_id: currentProfile?.id, query },
-      getAuthApiHeadersWithAccessToken()
+      getAuthApiHeaders()
     ).then((data) => {
       const clubs = data as Club[];
       const clubsResults = (clubs ?? []).map(

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { HEY_API_URL } from '@hey/data/constants';
 import { Button } from '@hey/ui';
 import axios from 'axios';
@@ -23,7 +23,7 @@ const Join: FC<JoinProps> = ({ id, setJoined, small }) => {
       await axios.post(
         `${HEY_API_URL}/clubs/join`,
         { id },
-        { headers: getAuthApiHeadersWithAccessToken() }
+        { headers: getAuthApiHeaders() }
       );
 
       toast.success('Joined club successfully!');
