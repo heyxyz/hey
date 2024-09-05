@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*';
 const {
@@ -10,7 +12,7 @@ const COMMIT_SHA =
 const DEPLOYMENT_ID = VERCEL_DEPLOYMENT_ID || 'unknown';
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   headers() {
     return [
       {
@@ -98,3 +100,5 @@ module.exports = {
   },
   transpilePackages: ['data']
 };
+
+module.exports = withSentryConfig(nextConfig);

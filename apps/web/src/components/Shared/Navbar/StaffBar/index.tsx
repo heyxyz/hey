@@ -24,8 +24,6 @@ export const Badge: FC<BadgeProps> = ({ children }) => (
 const StaffBar: FC = () => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  console.log(isStaff);
-
   if (!isStaff) {
     return null;
   }
