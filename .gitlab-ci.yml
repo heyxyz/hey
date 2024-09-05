@@ -56,11 +56,12 @@ deploy-api:
   services:
     - docker:20.10.16-dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY/yo/hey/api:latest
+    GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/api:latest
+    DOCKERHUB_IMAGE_TAG: heyxyz/api:latest
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - docker build -t $IMAGE_TAG -f ./apps/api/Dockerfile .
-    - docker push $IMAGE_TAG
+    - docker build -t $GITLAB_IMAGE_TAG -f ./apps/api/Dockerfile .
+    - docker push $GITLAB_IMAGE_TAG
 
 deploy-cron:
   only:
@@ -72,11 +73,15 @@ deploy-cron:
   services:
     - docker:20.10.16-dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY/yo/hey/cron:latest
+    GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/cron:latest
+    DOCKERHUB_IMAGE_TAG: heyxyz/cron:latest
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - docker build -t $IMAGE_TAG -f ./apps/cron/Dockerfile .
-    - docker push $IMAGE_TAG
+    - docker build -t $GITLAB_IMAGE_TAG -f ./apps/cron/Dockerfile .
+    - docker push $GITLAB_IMAGE_TAG
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+    - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
+    - docker push $DOCKERHUB_IMAGE_TAG
 
 deploy-og:
   only:
@@ -88,8 +93,9 @@ deploy-og:
   services:
     - docker:20.10.16-dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY/yo/hey/og:latest
+    GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/og:latest
+    DOCKERHUB_IMAGE_TAG: heyxyz/og:latest
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - docker build -t $IMAGE_TAG -f ./apps/og/Dockerfile .
-    - docker push $IMAGE_TAG
+    - docker build -t $GITLAB_IMAGE_TAG -f ./apps/og/Dockerfile .
+    - docker push $GITLAB_IMAGE_TAG
