@@ -14,7 +14,7 @@ interface InternalToolsProps {
 
 const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
   const hasGardenerToolAccess = useFlag(FeatureFlag.Gardener);
-  const hasCreatorToolAccess = useFlag(FeatureFlag.Staff);
+  const hasCreatorToolAccess = useFlag(FeatureFlag.CreatorTools);
 
   if (!hasGardenerToolAccess && !hasCreatorToolAccess) {
     return null;
