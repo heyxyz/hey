@@ -1,10 +1,12 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import { Errors } from '@hey/data';
-import prisma from '@hey/db/prisma/db/client';
+import { APP_NAME } from '@hey/data/constants';
 import parseJwt from '@hey/helpers/parseJwt';
+import axios from 'axios';
 
 import catchedError from '../catchedError';
+import { HEY_USER_AGENT } from '../constants';
 
 /**
  * Middleware to validate if the profile is staff
@@ -25,12 +27,22 @@ const validateIsStaff = async (
   try {
     const payload = parseJwt(identityToken);
 
-    const data = await prisma.profileFeature.findFirst({
-      include: { feature: { select: { key: true } } },
-      where: { enabled: true, profileId: payload.id }
+    const { data } = await axios.get('https://flags.hey.xyz/proxy', {
+      headers: {
+        Authorization: APP_NAME,
+        'User-Agent': HEY_USER_AGENT
+      },
+      params: {
+        appName: 'production',
+        environment: 'default',
+        userId: payload.id
+      }
     });
 
-    if (data?.enabled) {
+    const flags = data.toggles;
+    const staffToggle = flags.find((toggle: any) => toggle.name === 'staff');
+
+    if (staffToggle?.enabled && staffToggle?.variant?.featureEnabled) {
       return next();
     }
 
