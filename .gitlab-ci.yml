@@ -1,0 +1,34 @@
+image: node:20
+
+cache:
+  paths:
+    - node_modules/
+    - artifacts/
+    - cache/
+
+stages:
+  # - build
+  # - test
+  - deploy
+
+before_script:
+  - pnpm install --frozen-lockfile
+
+variables:
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: "/certs"
+
+deploy:
+  only:
+    - main
+  image: docker:20.10.16
+  stage: build
+  services:
+    - docker:20.10.16-dind
+  variables:
+    IMAGE_TAG: api:latest
+  before_script: cd apps/api
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
