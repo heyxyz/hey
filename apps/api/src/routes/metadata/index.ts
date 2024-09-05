@@ -1,12 +1,17 @@
 import type { Request, Response } from 'express';
 
 import logger from '@hey/helpers/logger';
-import { NodeIrys } from '@irys/sdk';
+import { Uploader } from '@irys/upload';
+import { Matic } from '@irys/upload-ethereum';
 import { signMetadata } from '@lens-protocol/metadata';
 import catchedError from 'src/helpers/catchedError';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { noBody } from 'src/helpers/responses';
 import { privateKeyToAccount } from 'viem/accounts';
+
+const getIrysUploader = async () => {
+  return await Uploader(Matic).withWallet(process.env.PRIVATE_KEY).build();
+};
 
 export const post = [
   rateLimiter({ requests: 30, within: 1 }),
@@ -18,25 +23,21 @@ export const post = [
     }
 
     try {
-      const url = 'https://arweave.mainnet.irys.xyz/tx/matic';
-      const token = 'matic';
-      const client = new NodeIrys({
-        key: process.env.PRIVATE_KEY,
-        token,
-        url
-      });
-
+      const irys = await getIrysUploader();
       const account = privateKeyToAccount(`0x${process.env.PRIVATE_KEY}`);
       const signed = await signMetadata(body, (message) =>
         account.signMessage({ message })
       );
 
-      const receipt = await client.upload(JSON.stringify(signed), {
+      // @ts-ignore
+      const receipt = await irys.upload(JSON.stringify(signed), {
         tags: [
           { name: 'content-type', value: 'application/json' },
           { name: 'App-Name', value: 'Hey.xyz' }
         ]
       });
+
+      console.log(receipt);
 
       logger.info(`Uploaded metadata to Irys: ar://${receipt.id}`);
 
