@@ -50,8 +50,8 @@ export const post = [
 
     try {
       if (enabled) {
-        await prisma.profileFeature.create({
-          data: { featureId: id, profileId: profile_id }
+        await prisma.profilePermission.create({
+          data: { permissionId: id, profileId: profile_id }
         });
 
         await clearCache(profile_id, id);
@@ -60,8 +60,8 @@ export const post = [
         return res.status(200).json({ enabled, success: true });
       }
 
-      await prisma.profileFeature.deleteMany({
-        where: { featureId: id as string, profileId: profile_id as string }
+      await prisma.profilePermission.deleteMany({
+        where: { permissionId: id as string, profileId: profile_id as string }
       });
 
       await clearCache(profile_id, id);

@@ -30,11 +30,11 @@ export const get = [
     }
 
     try {
-      const [preference, features, email, membershipNft] =
+      const [preference, permissions, email, membershipNft] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { id: id as string } }),
-          prisma.profileFeature.findMany({
-            include: { feature: { select: { key: true } } },
+          prisma.profilePermission.findMany({
+            include: { permission: { select: { key: true } } },
             where: { enabled: true, profileId: id as string }
           }),
           prisma.email.findUnique({ where: { id: id as string } }),
@@ -45,13 +45,13 @@ export const get = [
         appIcon: preference?.appIcon || 0,
         email: email?.email || null,
         emailVerified: Boolean(email?.verified),
-        features: features.map(({ feature }) => feature.key),
         hasDismissedOrMintedMembershipNft: Boolean(
           membershipNft?.dismissedOrMinted
         ),
         highSignalNotificationFilter: Boolean(
           preference?.highSignalNotificationFilter
-        )
+        ),
+        permissions: permissions.map(({ permission }) => permission.key)
       };
 
       await setRedis(cacheKey, response);
