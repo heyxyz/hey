@@ -359,7 +359,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       const metadata = getMetadata({ baseMetadata });
-      const arweaveId = await uploadToIrys(metadata);
+      const irysId = await uploadToIrys(metadata);
 
       // Payload for the open action module
       const openActionModules = [];
@@ -381,7 +381,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | MomokaQuoteRequest = {
         ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
-        contentURI: `ar://${arweaveId}`
+        contentURI: `https://gateway.irys.xyz/${irysId}`
       };
 
       if (useMomoka && !nftOpenActionEmbed) {
@@ -423,7 +423,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         | OnchainCommentRequest
         | OnchainPostRequest
         | OnchainQuoteRequest = {
-        contentURI: `ar://${arweaveId}`,
+        contentURI: `https://gateway.irys.xyz/${irysId}`,
         ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,
