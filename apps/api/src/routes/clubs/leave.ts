@@ -28,14 +28,14 @@ export const post = [
     }
 
     try {
-      const accessToken = req.headers['x-access-token'] as string;
+      const identityToken = req.headers['x-identity-token'] as string;
       const response = await fetch(`${CLUBS_API_URL}/leave-club`, {
         body: JSON.stringify(body),
         headers: {
           'App-Access-Token': CLUBS_APP_TOKEN,
           'Content-Type': 'application/json',
           'User-Agent': HEY_USER_AGENT,
-          'X-Access-Token': accessToken
+          'X-Access-Token': identityToken
         },
         method: 'POST'
       });

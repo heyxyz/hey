@@ -1,7 +1,7 @@
 import type { Club } from '@hey/types/club';
 import type { FC, ReactNode } from 'react';
 
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
+import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import getClub from '@hey/helpers/api/clubs/getClub';
 import getMentions from '@hey/helpers/getMentions';
 import nFormatter from '@hey/helpers/nFormatter';
@@ -34,7 +34,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
     mutationFn: () =>
       getClub(
         { club_handle: handle, profile_id: currentProfile?.id },
-        getAuthApiHeadersWithAccessToken()
+        getAuthApiHeaders()
       ),
     mutationKey: ['getClub', handle]
   });
