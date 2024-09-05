@@ -51,6 +51,7 @@ deploy-api:
     - main
   image: docker:20.10.16
   stage: deploy
+  before_script: []
   environment: production
   services:
     - docker:20.10.16-dind
@@ -66,6 +67,7 @@ deploy-cron:
     - main
   image: docker:20.10.16
   stage: deploy
+  before_script: []
   environment: production
   services:
     - docker:20.10.16-dind
@@ -81,6 +83,7 @@ deploy-og:
     - main
   image: docker:20.10.16
   stage: deploy
+  before_script: []
   environment: production
   services:
     - docker:20.10.16-dind
