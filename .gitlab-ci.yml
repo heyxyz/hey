@@ -1,14 +1,5 @@
-image: node:18
-
-cache:
-  paths:
-    - node_modules/
-
 stages:
   - deploy
-
-before_script:
-  - pnpm install --frozen-lockfile
 
 variables:
   DOCKER_HOST: tcp://docker:2376
@@ -25,6 +16,5 @@ deploy-api:
     IMAGE_TAG: api:latest
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - npm install -g pnpm
     - docker build -t $IMAGE_TAG -f ./apps/api/Dockerfile .
     - docker push $IMAGE_TAG
