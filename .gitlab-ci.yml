@@ -70,6 +70,7 @@ deploy-api:
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
     - docker push $DOCKERHUB_IMAGE_TAG
+    - curl https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$API_RAILWAY_SERVICE_ID
 
 deploy-cron:
   only:
@@ -90,6 +91,7 @@ deploy-cron:
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
     - docker push $DOCKERHUB_IMAGE_TAG
+    - curl https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$CRON_RAILWAY_SERVICE_ID
 
 deploy-og:
   only:
@@ -110,3 +112,4 @@ deploy-og:
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
     - docker push $DOCKERHUB_IMAGE_TAG
+    - curl https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$OG_RAILWAY_SERVICE_ID
