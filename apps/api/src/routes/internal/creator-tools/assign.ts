@@ -1,22 +1,14 @@
 import type { Request, Response } from 'express';
 
-import { VERIFIED_FEATURE_ID } from '@hey/db/constants';
 import prisma from '@hey/db/prisma/db/client';
-import { delRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import validateHasCreatorToolsAccess from 'src/helpers/middlewares/validateHasCreatorToolsAccess';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { invalidBody, noBody } from 'src/helpers/responses';
 import { boolean, object, string } from 'zod';
 
-export const clearCache = async (profileId: string, featureId: string) => {
-  await delRedis(`preference:${profileId}`);
-  await delRedis(`profile:${profileId}`);
-  if (featureId === VERIFIED_FEATURE_ID) {
-    await delRedis('verified');
-  }
-};
+import { clearCache } from '../permissions/assign';
 
 type ExtensionRequest = {
   enabled: boolean;
@@ -30,9 +22,10 @@ const validationSchema = object({
   profile_id: string()
 });
 
+// TODO: Merge this with the one in permissions/assign
 export const post = [
   validateLensAccount,
-  validateIsStaff,
+  validateHasCreatorToolsAccess,
   async (req: Request, res: Response) => {
     const { body } = req;
 
