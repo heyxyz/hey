@@ -4,7 +4,7 @@ import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import stopEventPropagation from '@hey/helpers/stopEventPropagation';
 import { useReportPublicationMutation } from '@hey/lens';
