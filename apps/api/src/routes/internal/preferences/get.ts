@@ -5,13 +5,13 @@ import prisma from '@hey/db/prisma/db/client';
 import { getRedis, setRedis } from '@hey/db/redisClient';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
-import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
+import validateHasCreatorToolsAccess from 'src/helpers/middlewares/validateHasCreatorToolsAccess';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 import { noBody } from 'src/helpers/responses';
 
 export const get = [
   validateLensAccount,
-  validateIsStaff,
+  validateHasCreatorToolsAccess,
   async (req: Request, res: Response) => {
     const { id } = req.query;
 
