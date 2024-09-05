@@ -1,150 +1,90 @@
-import type { Feature } from '@hey/types/hey';
+import type { Permission } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
 import { FeatureFlag } from '@hey/data/feature-flags';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllFeatureFlags from '@hey/helpers/api/getAllFeatureFlags';
+import getAllPermissions from '@hey/helpers/api/getAllPermissions';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import {
   Badge,
   Button,
   Card,
+  CardHeader,
   EmptyState,
   ErrorMessage,
-  H5,
   Modal
 } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 
 import Assign from './Assign';
-import Create from './Create';
 
 const List: FC = () => {
-  const [showCreateModal, setShowCreateModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
-  const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
-  const [features, setFeatures] = useState<[] | Feature[]>([]);
-  const [killing, setKilling] = useState(false);
+  const [selectedPermission, setSelectedPermission] =
+    useState<null | Permission>(null);
+  const [permissions, setPermissions] = useState<[] | Permission[]>([]);
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
-      getAllFeatureFlags(getAuthApiHeaders()).then((features) => {
-        setFeatures(features);
-        return features;
+      getAllPermissions(getAuthApiHeaders()).then((permissions) => {
+        setPermissions(permissions);
+        return permissions;
       }),
-    queryKey: ['getAllFeatureFlags']
+    queryKey: ['getAllPermissions']
   });
-
-  const killFeatureFlag = (id: string, enabled: boolean) => {
-    setKilling(true);
-    toast.promise(
-      axios.post(
-        `${HEY_API_URL}/internal/features/toggle`,
-        { enabled, id },
-        { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: () => {
-          setKilling(false);
-          return 'Failed to kill feature flag';
-        },
-        loading: 'Killing feature flag...',
-        success: () => {
-          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.KILL);
-          setKilling(false);
-          setFeatures(
-            features.map((feature) =>
-              feature.id === id ? { ...feature, enabled } : feature
-            )
-          );
-          return 'Feature flag killed';
-        }
-      }
-    );
-  };
-
-  const deleteFeatureFlag = (id: string) => {
-    toast.promise(
-      axios.post(
-        `${HEY_API_URL}/internal/features/delete`,
-        { id },
-        { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: 'Failed to delete feature flag',
-        loading: 'Deleting feature flag...',
-        success: () => {
-          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.DELETE);
-          setFeatures(features.filter((feature) => feature.id !== id));
-          return 'Feature flag deleted';
-        }
-      }
-    );
-  };
 
   return (
     <Card>
-      <div className="flex items-center justify-between space-x-5 p-5">
-        <H5>Feature Flags</H5>
-        <Button onClick={() => setShowCreateModal(!showCreateModal)}>
-          Create
-        </Button>
-      </div>
-      <div className="divider" />
+      <CardHeader title="Permissions" />
       <div className="m-5">
         {isLoading ? (
-          <Loader className="my-5" message="Loading feature flags..." />
+          <Loader className="my-5" message="Loading permissions..." />
         ) : error ? (
-          <ErrorMessage error={error} title="Failed to load feature flags" />
-        ) : !features.length ? (
+          <ErrorMessage error={error} title="Failed to load permissions" />
+        ) : !permissions.length ? (
           <EmptyState
             hideCard
             icon={<AdjustmentsHorizontalIcon className="size-8" />}
-            message={<span>No feature flags found</span>}
+            message={<span>No permissions found</span>}
           />
         ) : (
           <div className="space-y-5">
-            {features?.map((feature) => (
-              <div key={feature.id}>
+            {permissions?.map((permission) => (
+              <div key={permission.id}>
                 <ToggleWithHelper
-                  description={`Created on ${formatDate(feature.createdAt)}`}
-                  disabled={killing}
+                  description={`Created on ${formatDate(permission.createdAt)}`}
+                  disabled={true}
                   heading={
                     <div className="flex items-center space-x-2">
                       <b
                         className={cn(
-                          (feature.key === FeatureFlag.Suspended ||
-                            feature.key === FeatureFlag.CommentSuspended) &&
+                          (permission.key === FeatureFlag.Suspended ||
+                            permission.key === FeatureFlag.CommentSuspended) &&
                             'text-red-500'
                         )}
                       >
-                        {feature.key}
+                        {permission.key}
                       </b>
-                      <Badge variant="secondary">{feature.type}</Badge>
-                      {feature._count.profiles !== 0 && (
+                      <Badge variant="secondary">{permission.type}</Badge>
+                      {permission._count.profiles !== 0 && (
                         <Badge variant="warning">
-                          {feature._count.profiles} assigned
+                          {permission._count.profiles} assigned
                         </Badge>
                       )}
                     </div>
                   }
-                  on={feature.enabled}
-                  setOn={() => killFeatureFlag(feature.id, !feature.enabled)}
+                  on={true}
+                  setOn={() => {}}
                 />
                 <div className="mt-2 space-x-2">
                   <Button
                     onClick={() => {
-                      setSelectedFeature(feature);
+                      setSelectedPermission(permission);
                       setShowAssignModal(!showAssignModal);
                     }}
                     outline
@@ -152,16 +92,6 @@ const List: FC = () => {
                   >
                     Assign
                   </Button>
-                  {feature.type === 'FEATURE' && (
-                    <Button
-                      onClick={() => deleteFeatureFlag(feature.id)}
-                      outline
-                      size="sm"
-                      variant="danger"
-                    >
-                      Delete
-                    </Button>
-                  )}
                 </div>
               </div>
             ))}
@@ -169,24 +99,13 @@ const List: FC = () => {
         )}
       </div>
       <Modal
-        onClose={() => setShowCreateModal(!showCreateModal)}
-        show={showCreateModal}
-        title="Create feature flag"
-      >
-        <Create
-          features={features}
-          setFeatures={setFeatures}
-          setShowCreateModal={setShowCreateModal}
-        />
-      </Modal>
-      <Modal
         onClose={() => setShowAssignModal(!showAssignModal)}
         show={showAssignModal}
-        title={`Assign feature flag - ${selectedFeature?.key}`}
+        title={`Assign feature flag - ${selectedPermission?.key}`}
       >
-        {selectedFeature ? (
+        {selectedPermission ? (
           <Assign
-            feature={selectedFeature}
+            permission={selectedPermission}
             setShowAssignModal={setShowAssignModal}
           />
         ) : null}
