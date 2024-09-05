@@ -22,7 +22,7 @@ deploy:
   only:
     - main
   image: docker:20.10.16
-  stage: build
+  stage: deploy
   services:
     - docker:20.10.16-dind
   variables:
