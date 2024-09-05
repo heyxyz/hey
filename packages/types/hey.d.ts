@@ -13,10 +13,9 @@ export type Permission = {
     profiles: number;
   };
   createdAt: Date;
-  enabled: boolean;
   id: string;
   key: string;
-  type: 'MODE' | 'PERMISSION' | 'STATUS';
+  type: 'COHORT' | 'PERMISSION';
 };
 
 export type AllowedToken = {
