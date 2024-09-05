@@ -27,9 +27,11 @@ deploy-api:
     - docker:20.10.16-dind
   variables:
     IMAGE_TAG: api:latest
+  before_script:
+    - cd apps/api
+    - pnpm install --no-frozen-lockfile
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - cd apps/api
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
 # deploy-cron:
