@@ -19,9 +19,8 @@ before_script:
   - npm install -g pnpm
   - pnpm install --frozen-lockfile
 
-typecheck:
-  stage: build
-  script: pnpm typecheck
+include:
+  - local: ".gitlab/ci/typecheck.yml"
 
 lint:
   stage: build
