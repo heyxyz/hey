@@ -15,7 +15,7 @@ import { HEY_USER_AGENT } from '../constants';
  * @param res Response
  * @param next Next function
  */
-const validateIsStaff = async (
+const validateHasCreatorToolsAccess = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -42,7 +42,7 @@ const validateIsStaff = async (
 
     const flags = data.toggles;
     const staffToggle = flags.find(
-      (toggle: any) => toggle.name === FeatureFlag.Staff
+      (toggle: any) => toggle.name === FeatureFlag.CreatorTools
     );
 
     if (staffToggle?.enabled && staffToggle?.variant?.featureEnabled) {
@@ -55,4 +55,4 @@ const validateIsStaff = async (
   }
 };
 
-export default validateIsStaff;
+export default validateHasCreatorToolsAccess;
