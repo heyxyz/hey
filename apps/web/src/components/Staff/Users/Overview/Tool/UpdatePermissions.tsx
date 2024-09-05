@@ -1,4 +1,4 @@
-import type { Feature } from '@hey/types/hey';
+import type { Permission } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Loader from '@components/Shared/Loader';
@@ -6,7 +6,7 @@ import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
 import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllFeatureFlags from '@hey/helpers/api/getAllFeatureFlags';
+import getAllPermissions from '@hey/helpers/api/getAllPermissions';
 import { Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -28,38 +28,38 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
 }) => {
   const [updating, setUpdating] = useState(false);
 
-  const { data: allFeatureFlags, isLoading } = useQuery({
-    queryFn: () => getAllFeatureFlags(getAuthApiHeaders()),
-    queryKey: ['getAllFeatureFlags']
+  const { data: allPermissions, isLoading } = useQuery({
+    queryFn: () => getAllPermissions(getAuthApiHeaders()),
+    queryKey: ['getAllPermissions']
   });
 
   if (isLoading) {
     return <Loader className="my-5" message="Loading feature flags" />;
   }
 
-  const availableFeatures = allFeatureFlags || [];
+  const availablePermissions = allPermissions || [];
   const enabledFlags = permissions;
 
-  const updateFeatureFlag = (feature: Feature) => {
-    const { id, key } = feature;
+  const updatePermission = (permission: Permission) => {
+    const { id, key } = permission;
     const enabled = !enabledFlags.includes(key);
 
     setUpdating(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/assign`,
+        `${HEY_API_URL}/internal/permissions/assign`,
         { enabled, id, profile_id: profileId },
         { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
           setUpdating(false);
-          return 'Failed to update feature flag';
+          return 'Failed to update permission';
         },
-        loading: 'Updating feature flag...',
+        loading: 'Updating permission...',
         success: () => {
           Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
-            feature: key,
+            permission: key,
             profile_id: profileId
           });
           setUpdating(false);
@@ -68,7 +68,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
               ? [...enabledFlags, key]
               : enabledFlags.filter((f) => f !== key)
           );
-          return 'Feature flag updated';
+          return 'Permission updated';
         }
       }
     );
@@ -76,12 +76,12 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
 
   return (
     <div className="space-y-2 font-bold">
-      {availableFeatures.map((feature) => (
-        <ToggleWrapper key={feature.id} title={feature.key}>
+      {availablePermissions.map((permission) => (
+        <ToggleWrapper key={permission.id} title={permission.key}>
           <Toggle
             disabled={updating}
-            on={enabledFlags.includes(feature.key)}
-            setOn={() => updateFeatureFlag(feature)}
+            on={enabledFlags.includes(permission.key)}
+            setOn={() => updatePermission(permission)}
           />
         </ToggleWrapper>
       ))}

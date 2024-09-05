@@ -26,7 +26,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
     onClick?.();
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/assign`,
+        `${HEY_API_URL}/internal/permissions/assign`,
         { enabled: true, id, profile_id: publication.by.id },
         { headers: getAuthApiHeaders() }
       ),
