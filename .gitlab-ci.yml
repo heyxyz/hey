@@ -3,8 +3,8 @@ default:
   image: node:18
 
 stages:
-  - deploy
   - build
+  - deploy
 
 cache:
   paths:
@@ -21,24 +21,10 @@ before_script:
 
 include:
   - local: ".gitlab/ci/typecheck.yml"
-
-lint:
-  stage: build
-  script: pnpm lint
-
-prettier:
-  stage: build
-  script: pnpm prettier
-
-build:
-  stage: build
-  script: pnpm build
-
-test:
-  stage: build
-  script:
-    - pnpm build
-    - pnpm test:dev
+  - local: ".gitlab/ci/lint.yml"
+  - local: ".gitlab/ci/prettier.yml"
+  - local: ".gitlab/ci/build.yml"
+  - local: ".gitlab/ci/test.yml"
 
 deploy-db:
   only:
