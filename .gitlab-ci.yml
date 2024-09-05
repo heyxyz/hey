@@ -1,5 +1,13 @@
 stages:
+  - build
   - deploy
+
+build:
+  stage: build
+  image: node:18
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm build
 
 deploy-api:
   only:
