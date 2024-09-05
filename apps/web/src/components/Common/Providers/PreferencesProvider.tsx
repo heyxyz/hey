@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import getCurrentSession from '@helpers/getCurrentSession';
 import { HEY_API_URL, STALE_TIMES } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
+import { Permission } from '@hey/data/permissions';
 import getAllTokens from '@hey/helpers/api/getAllTokens';
 import getPreferences from '@hey/helpers/api/getPreferences';
 import { useQuery } from '@tanstack/react-query';
@@ -38,9 +38,9 @@ const PreferencesProvider: FC = () => {
     setEmailVerified(preferences.emailVerified);
     setStatus({
       isCommentSuspended: preferences.permissions.includes(
-        FeatureFlag.CommentSuspended
+        Permission.CommentSuspended
       ),
-      isSuspended: preferences.permissions.includes(FeatureFlag.Suspended)
+      isSuspended: preferences.permissions.includes(Permission.Suspended)
     });
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft

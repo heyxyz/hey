@@ -1,11 +1,11 @@
-import type { Permission } from '@hey/types/hey';
+import type { Permission as TPermission } from '@hey/types/hey';
 import type { FC } from 'react';
 
 import Loader from '@components/Shared/Loader';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
+import { Permission } from '@hey/data/permissions';
 import getAllPermissions from '@hey/helpers/api/getAllPermissions';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import {
@@ -26,8 +26,8 @@ import Assign from './Assign';
 const List: FC = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [selectedPermission, setSelectedPermission] =
-    useState<null | Permission>(null);
-  const [permissions, setPermissions] = useState<[] | Permission[]>([]);
+    useState<null | TPermission>(null);
+  const [permissions, setPermissions] = useState<[] | TPermission[]>([]);
 
   const { error, isLoading } = useQuery({
     queryFn: () =>
@@ -63,8 +63,8 @@ const List: FC = () => {
                     <div className="flex items-center space-x-2">
                       <b
                         className={cn(
-                          (permission.key === FeatureFlag.Suspended ||
-                            permission.key === FeatureFlag.CommentSuspended) &&
+                          (permission.key === Permission.Suspended ||
+                            permission.key === Permission.CommentSuspended) &&
                             'text-red-500'
                         )}
                       >
