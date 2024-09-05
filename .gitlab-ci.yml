@@ -6,15 +6,15 @@ deploy-api:
     - main
   image: docker:20.10.16
   stage: deploy
+  environment: production
   services:
     - docker:20.10.16-dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY/api:latest
+    IMAGE_TAG: $CI_REGISTRY/yo/hey/api:latest
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $IMAGE_TAG -f ./apps/api/Dockerfile .
     - docker push $IMAGE_TAG
-
 # deploy-cron:
 #   only:
 #     - main
