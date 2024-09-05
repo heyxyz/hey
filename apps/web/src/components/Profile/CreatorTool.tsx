@@ -5,7 +5,7 @@ import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HEY_API_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
+import { Permission } from '@hey/data/permissions';
 import { CREATORTOOLS } from '@hey/data/tracking';
 import { STAFF_PICK_FEATURE_ID, VERIFIED_FEATURE_ID } from '@hey/db/constants';
 import getInternalPreferences from '@hey/helpers/api/getInternalPreferences';
@@ -24,8 +24,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   const [permissions, setPermissions] = useState<string[]>([]);
 
   const allowedPermissions = [
-    { id: VERIFIED_FEATURE_ID, key: FeatureFlag.Verified },
-    { id: STAFF_PICK_FEATURE_ID, key: FeatureFlag.StaffPick }
+    { id: VERIFIED_FEATURE_ID, key: Permission.Verified },
+    { id: STAFF_PICK_FEATURE_ID, key: Permission.StaffPick }
   ];
 
   const { data: preferences, isLoading } = useQuery({
