@@ -101,24 +101,19 @@ model Tip {
 model Permission {
   id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key       String         @unique
-  priority  Int            @default(0)
   type      PermissionType @default(PERMISSION)
-  enabled   Boolean        @default(true)
   createdAt DateTime       @default(now())
 
   // Relations
   profiles ProfilePermission[]
 
   // Indexes
-  @@index([priority])
   @@index([type])
 }
 
 enum PermissionType {
   PERMISSION
-  STATUS
   COHORT
-  MODE
 }
 
 model ProfilePermission {
