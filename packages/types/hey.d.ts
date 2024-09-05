@@ -8,7 +8,7 @@ export type StaffPick = {
   profileId: string;
 };
 
-export type Feature = {
+export type Permission = {
   _count: {
     profiles: number;
   };
@@ -16,7 +16,7 @@ export type Feature = {
   enabled: boolean;
   id: string;
   key: string;
-  type: 'COHORT' | 'FEATURE' | 'MODE' | 'PERMISSION' | 'STATUS';
+  type: 'MODE' | 'PERMISSION' | 'STATUS';
 };
 
 export type AllowedToken = {

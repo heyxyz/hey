@@ -47,7 +47,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
     try {
       await toast.promise(
         axios.post(
-          `${HEY_API_URL}/internal/features/assign`,
+          `${HEY_API_URL}/internal/permissions/assign`,
           { enabled, id, profile_id: profile.id },
           { headers: getAuthApiHeaders() }
         ),

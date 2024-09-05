@@ -1,4 +1,4 @@
-import type { Feature } from '@hey/types/hey';
+import type { Permission } from '@hey/types/hey';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
@@ -11,43 +11,43 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { object, string } from 'zod';
 
-const assignFeatureSchema = object({
+const assignPermissionSchema = object({
   ids: string().regex(/0x[\dA-Fa-f]+/g, {
     message: 'Invalid user IDs'
   })
 });
 
 interface AssignProps {
-  feature: Feature;
+  permission: Permission;
   setShowAssignModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const Assign: FC<AssignProps> = ({ feature, setShowAssignModal }) => {
+const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
   const [assigning, setAssigning] = useState(false);
 
   const form = useZodForm({
-    schema: assignFeatureSchema
+    schema: assignPermissionSchema
   });
 
   const assign = (ids: string) => {
     setAssigning(true);
     toast.promise(
       axios.post(
-        `${HEY_API_URL}/internal/features/bulkAssign`,
-        { id: feature.id, ids },
+        `${HEY_API_URL}/internal/permissions/bulkAssign`,
+        { id: permission.id, ids },
         { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
           setAssigning(false);
-          return 'Failed to assign feature flag';
+          return 'Failed to assign permission';
         },
-        loading: 'Assigning feature flag...',
+        loading: 'Assigning permission...',
         success: ({ data }) => {
-          Leafwatch.track(STAFFTOOLS.FEATURE_FLAGS.BULK_ASSIGN);
+          Leafwatch.track(STAFFTOOLS.PERMISSIONS.BULK_ASSIGN);
           setAssigning(false);
           setShowAssignModal(false);
-          return `Assigned feature flag to ${data.assigned} users`;
+          return `Assigned permission to ${data.assigned} users`;
         }
       }
     );
