@@ -35,7 +35,7 @@ export const post = [
           'App-Access-Token': CLUBS_APP_TOKEN,
           'Content-Type': 'application/json',
           'User-Agent': HEY_USER_AGENT,
-          'X-Access-Token': identityToken
+          'X-Identity-Token': identityToken
         },
         method: 'POST'
       });
