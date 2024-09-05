@@ -21,9 +21,9 @@ interface CreatorToolProps {
 
 const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   const [updating, setUpdating] = useState(false);
-  const [features, setFeatures] = useState<string[]>([]);
+  const [permissions, setPermissions] = useState<string[]>([]);
 
-  const allowedFeatures = [
+  const allowedPermissions = [
     { id: VERIFIED_FEATURE_ID, key: FeatureFlag.Verified },
     { id: STAFF_PICK_FEATURE_ID, key: FeatureFlag.StaffPick }
   ];
@@ -35,13 +35,13 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
 
   useEffect(() => {
     if (preferences) {
-      setFeatures(preferences.features || []);
+      setPermissions(preferences.permissions || []);
     }
   }, [preferences]);
 
-  const updateFeatureFlag = async (feature: { id: string; key: string }) => {
-    const { id, key } = feature;
-    const enabled = !features.includes(key);
+  const updatePermissions = async (permission: { id: string; key: string }) => {
+    const { id, key } = permission;
+    const enabled = !permissions.includes(key);
 
     setUpdating(true);
     try {
@@ -58,12 +58,12 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
         }
       );
 
-      Leafwatch.track(CREATORTOOLS.ASSIGN_FEATURE_FLAG, {
+      Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
         feature: key,
         profile_id: profile.id
       });
 
-      setFeatures((prev) =>
+      setPermissions((prev) =>
         enabled ? [...prev, key] : prev.filter((f) => f !== key)
       );
     } catch {
@@ -77,12 +77,12 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
     <div className="space-y-2.5">
       <div className="font-bold">Creator Tool</div>
       <div className="space-y-2 pt-2 font-bold">
-        {allowedFeatures.map((feature) => (
-          <ToggleWrapper key={feature.id} title={feature.key}>
+        {allowedPermissions.map((permission) => (
+          <ToggleWrapper key={permission.id} title={permission.key}>
             <Toggle
               disabled={updating || isLoading}
-              on={features.includes(feature.key)}
-              setOn={() => updateFeatureFlag(feature)}
+              on={permissions.includes(permission.key)}
+              setOn={() => updatePermissions(permission)}
             />
           </ToggleWrapper>
         ))}

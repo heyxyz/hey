@@ -75,9 +75,9 @@ export type Preferences = {
   appIcon: number;
   email: null | string;
   emailVerified: boolean;
-  features: string[];
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
+  permissions: string[];
 };
 
 export type ProfileDetails = {

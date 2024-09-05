@@ -198,12 +198,12 @@ export const STAFFTOOLS = {
     DELETE: 'Staff Tool: Delete token'
   },
   USERS: {
-    ASSIGN_FEATURE_FLAG: 'Staff Tool: Assign feature flag'
+    ASSIGN_PERMISSION: 'Staff Tool: Assign permission'
   }
 };
 
 export const CREATORTOOLS = {
-  ASSIGN_FEATURE_FLAG: 'Creator Tool: Assign feature flag'
+  ASSIGN_PERMISSION: 'Creator Tool: Assign permission'
 };
 
 export const SEARCH = {

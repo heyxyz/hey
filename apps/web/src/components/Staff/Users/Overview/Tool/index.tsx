@@ -7,9 +7,9 @@ import { IS_MAINNET } from '@hey/data/constants';
 import getInternalPreferences from '@hey/helpers/api/getInternalPreferences';
 import { useQuery } from '@tanstack/react-query';
 
-import FeatureFlags from './FeatureFlags';
 import LeafwatchDetails from './LeafwatchDetails';
 import ManagedProfiles from './ManagedProfiles';
+import Permissions from './Permissions';
 import ProfileOverview from './ProfileOverview';
 import ProfilePreferences from './ProfilePreferences';
 import Rank from './Rank';
@@ -52,8 +52,8 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       ) : null}
       {preferences ? (
         <>
-          <FeatureFlags
-            features={preferences.features || []}
+          <Permissions
+            permissions={preferences.permissions || []}
             profileId={profile.id}
           />
           <div className="divider my-5 border-dashed border-yellow-600" />

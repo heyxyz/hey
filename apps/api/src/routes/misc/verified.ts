@@ -23,9 +23,9 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const data = await prisma.profileFeature.findMany({
+      const data = await prisma.profilePermission.findMany({
         select: { profileId: true },
-        where: { enabled: true, featureId: VERIFIED_FEATURE_ID }
+        where: { enabled: true, permissionId: VERIFIED_FEATURE_ID }
       });
 
       const ids = data.map(({ profileId }) => profileId);

@@ -33,8 +33,8 @@ const settingsSidebarItems = [
   },
   {
     icon: <AdjustmentsHorizontalIcon className="size-4" />,
-    title: 'Feature flags',
-    url: '/staff/feature-flags'
+    title: 'Permissions',
+    url: '/staff/permissions'
   },
   {
     icon: <UserPlusIcon className="size-4" />,
