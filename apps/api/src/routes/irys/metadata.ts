@@ -36,9 +36,9 @@ export const post = [
         ]
       });
 
-      console.log(receipt);
-
-      logger.info(`Uploaded metadata to Irys: ar://${receipt.id}`);
+      logger.info(
+        `Uploaded metadata to Irys: https://gateway.irys.xyz/${receipt.id}`
+      );
 
       return res.status(200).json({ id: receipt.id, success: true });
     } catch (error) {

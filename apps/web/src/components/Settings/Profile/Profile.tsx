@@ -277,10 +277,10 @@ const ProfileSettingsForm: FC = () => {
           return m.key !== '' && Boolean(trimify(m.value));
         });
       const metadata = profileMetadata(preparedProfileMetadata);
-      const arweaveId = await uploadToIrys(metadata);
+      const irysId = await uploadToIrys(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: `ar://${arweaveId}`
+        metadataURI: `https://gateway.irys.xyz/${irysId}`
       };
 
       if (canUseLensManager) {
