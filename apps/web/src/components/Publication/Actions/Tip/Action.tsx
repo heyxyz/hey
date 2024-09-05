@@ -7,7 +7,6 @@ import errorToast from '@helpers/errorToast';
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import { Leafwatch } from '@helpers/leafwatch';
 import { HeyTipping } from '@hey/abis';
-import { Errors } from '@hey/data';
 import {
   APP_NAME,
   DEFAULT_COLLECT_TOKEN,
@@ -16,6 +15,7 @@ import {
   MAX_UINT256,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import formatAddress from '@hey/helpers/formatAddress';
 import { Button, H6, HelpTooltip, Input, Select, Spinner } from '@hey/ui';

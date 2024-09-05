@@ -13,8 +13,8 @@ import {
   PlusCircleIcon
 } from '@heroicons/react/24/outline';
 import { TokenHandleRegistry } from '@hey/abis';
-import { Errors } from '@hey/data';
 import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
 import getSignature from '@hey/helpers/getSignature';

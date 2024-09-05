@@ -1,6 +1,6 @@
 import type { Response } from 'express';
 
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 
 export const invalidBody = (response: Response) => {
   return response

@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
 import { AUTH } from '@hey/data/tracking';
 import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
 import { Button, H4, Spinner } from '@hey/ui';

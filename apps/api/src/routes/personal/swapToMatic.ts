@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import type { Address } from 'viem';
 
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 import { POLYGON_RPCS } from '@hey/data/rpcs';
 import logger from '@hey/helpers/logger';
 import catchedError from 'src/helpers/catchedError';
