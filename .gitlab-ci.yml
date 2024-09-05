@@ -12,6 +12,7 @@ cache:
 
 before_script:
   - npm install -g pnpm
+  - pnpm install --frozen-lockfile
 
 build:
   stage: build
