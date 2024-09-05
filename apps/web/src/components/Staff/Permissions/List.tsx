@@ -43,7 +43,7 @@ const List: FC = () => {
       <CardHeader title="Permissions" />
       <div className="m-5">
         {isLoading ? (
-          <Loader className="my-5" message="Loading permissions..." />
+          <Loader className="my-10" message="Loading permissions..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load permissions" />
         ) : !permissions.length ? (
