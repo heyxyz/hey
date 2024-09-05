@@ -99,7 +99,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
             }
             onClick={deposit}
           >
-            Wrap MATIC to {currency}
+            Wrap POL to {currency}
           </Button>
         </>
       )}

@@ -20,7 +20,7 @@ const SignupPrice: FC = () => {
     <NumberedStat
       count={priceInMatic.toString() || '0'}
       name="Signup Price"
-      suffix="MATIC / profile"
+      suffix="POL / profile"
     />
   );
 };
