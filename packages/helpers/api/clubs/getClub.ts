@@ -4,12 +4,9 @@ import type { Payload } from './getClubs';
 
 import getClubs from './getClubs';
 
-const getClub = async (
-  payload: Payload,
-  headers: any
-): Promise<Club | null> => {
+const getClub = async (payload: Payload): Promise<Club | null> => {
   try {
-    const clubs = await getClubs(payload, headers);
+    const clubs = await getClubs(payload);
 
     return clubs?.[0] || null;
   } catch {

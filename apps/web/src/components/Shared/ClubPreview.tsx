@@ -1,7 +1,6 @@
 import type { Club } from '@hey/types/club';
 import type { FC, ReactNode } from 'react';
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
 import getClub from '@hey/helpers/api/clubs/getClub';
 import getMentions from '@hey/helpers/getMentions';
 import nFormatter from '@hey/helpers/nFormatter';
@@ -32,10 +31,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
     mutateAsync
   } = useMutation({
     mutationFn: () =>
-      getClub(
-        { club_handle: handle, profile_id: currentProfile?.id },
-        getAuthApiHeaders()
-      ),
+      getClub({ club_handle: handle, profile_id: currentProfile?.id }),
     mutationKey: ['getClub', handle]
   });
 
