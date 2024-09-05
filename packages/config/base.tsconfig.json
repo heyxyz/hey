@@ -9,7 +9,7 @@
     "inlineSources": false,
     "isolatedModules": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "noEmit": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
