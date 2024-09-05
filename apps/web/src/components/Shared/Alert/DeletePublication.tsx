@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
 import { Alert } from '@hey/ui';

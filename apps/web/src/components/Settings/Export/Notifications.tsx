@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import downloadJson from '@hey/helpers/downloadJson';
 import { useNotificationsLazyQuery } from '@hey/lens';

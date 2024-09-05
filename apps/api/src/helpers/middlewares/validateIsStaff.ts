@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { Errors } from '@hey/data';
 import { APP_NAME } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
 import parseJwt from '@hey/helpers/parseJwt';
 import axios from 'axios';
 

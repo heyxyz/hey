@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { MenuItem } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 import { TriStateValue } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import toast from 'react-hot-toast';

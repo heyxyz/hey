@@ -5,7 +5,7 @@ import Loader from '@components/Shared/Loader';
 import errorToast from '@helpers/errorToast';
 import { Leafwatch } from '@helpers/leafwatch';
 import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data';
+import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import {
