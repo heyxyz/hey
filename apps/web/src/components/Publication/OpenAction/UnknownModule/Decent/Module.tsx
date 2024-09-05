@@ -175,7 +175,7 @@ const DecentOpenActionModule: FC<DecentOpenActionModuleProps> = ({
       (rate) => rate.address === selectedNftOaCurrency?.toLowerCase()
     )?.fiat || 0;
 
-  // fees are always priced in MATIC
+  // fees are always priced in POL
   const maticUsdPrice =
     fiatRates.find((rate) => rate.symbol === 'WMATIC')?.fiat || 0;
 

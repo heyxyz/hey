@@ -16,7 +16,7 @@ const Moonpay: FC<MoonpayProps> = ({ disabled }) => {
   const handleBuy = () => {
     return window.open(
       urlcat(MOONPAY_URL, {
-        currencyCode: 'MATIC',
+        currencyCode: 'POL',
         redirectURL: window.location.href,
         walletAddress: address
       }),
@@ -31,7 +31,7 @@ const Moonpay: FC<MoonpayProps> = ({ disabled }) => {
       icon={<CurrencyDollarIcon className="size-5" />}
       onClick={handleBuy}
     >
-      Buy MATIC
+      Buy POL
     </Button>
   );
 };

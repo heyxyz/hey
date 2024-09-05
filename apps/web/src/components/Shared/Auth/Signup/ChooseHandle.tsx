@@ -186,7 +186,7 @@ const ChooseHandle: FC = () => {
               }
               type="submit"
             >
-              Mint for {SIGNUP_PRICE} MATIC
+              Mint for {SIGNUP_PRICE} POL
             </Button>
           ) : (
             <Moonpay disabled={disabled} />
