@@ -70,7 +70,7 @@ const Pro: NextPage = () => {
           <h3 className="font-bold">{details.name}</h3>
           <p className="mt-4 flex items-baseline space-x-3">
             <img
-              alt="MATIC"
+              alt="POL"
               className="size-7"
               src={`${STATIC_IMAGES_URL}/tokens/matic.svg`}
             />
