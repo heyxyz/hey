@@ -12,7 +12,9 @@ import toast from 'react-hot-toast';
  */
 const uploadToIrys = async (data: any): Promise<string> => {
   try {
-    const upload = await axios.post(`${HEY_API_URL}/metadata`, { ...data });
+    const upload = await axios.post(`${HEY_API_URL}/irys/metadata`, {
+      ...data
+    });
     const { id }: { id: string } = upload.data;
 
     return id;
