@@ -1,4 +1,4 @@
-image: node:20
+image: node:18
 
 cache:
   paths:
@@ -18,7 +18,7 @@ variables:
   DOCKER_HOST: tcp://docker:2376
   DOCKER_TLS_CERTDIR: "/certs"
 
-deploy:
+deploy-api:
   only:
     - main
   image: docker:20.10.16
@@ -32,3 +32,17 @@ deploy:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+# deploy-cron:
+#   only:
+#     - main
+#   image: docker:20.10.16
+#   stage: deploy
+#   services:
+#     - docker:20.10.16-dind
+#   variables:
+#     IMAGE_TAG: cron:latest
+#   before_script: cd apps/cron
+#   script:
+#     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+#     - docker build -t $IMAGE_TAG .
+#     - docker push $IMAGE_TAG
