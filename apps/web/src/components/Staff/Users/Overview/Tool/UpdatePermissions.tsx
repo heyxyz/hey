@@ -16,15 +16,15 @@ import toast from 'react-hot-toast';
 import ToggleWrapper from './ToggleWrapper';
 
 interface UpdatePermissionsProps {
-  flags: string[];
+  permissions: string[];
   profileId: string;
-  setFlags: Dispatch<SetStateAction<string[]>>;
+  setPermissions: Dispatch<SetStateAction<string[]>>;
 }
 
 const UpdatePermissions: FC<UpdatePermissionsProps> = ({
-  flags,
+  permissions,
   profileId,
-  setFlags
+  setPermissions
 }) => {
   const [updating, setUpdating] = useState(false);
 
@@ -38,7 +38,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
   }
 
   const availableFeatures = allFeatureFlags || [];
-  const enabledFlags = flags;
+  const enabledFlags = permissions;
 
   const updateFeatureFlag = (feature: Feature) => {
     const { id, key } = feature;
@@ -63,7 +63,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
             profile_id: profileId
           });
           setUpdating(false);
-          setFlags(
+          setPermissions(
             enabled
               ? [...enabledFlags, key]
               : enabledFlags.filter((f) => f !== key)

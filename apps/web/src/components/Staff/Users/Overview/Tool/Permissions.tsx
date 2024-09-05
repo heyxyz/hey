@@ -12,10 +12,10 @@ interface PermissionsProps {
 }
 
 const Permissions: FC<PermissionsProps> = ({ permissions, profileId }) => {
-  const [flags, setFlags] = useState<string[]>([]);
+  const [keys, setKeys] = useState<string[]>([]);
 
   useEffect(() => {
-    setFlags(permissions);
+    setKeys(permissions);
   }, [permissions]);
 
   return (
@@ -26,9 +26,9 @@ const Permissions: FC<PermissionsProps> = ({ permissions, profileId }) => {
       </div>
       <div className="mt-3">
         <UpdatePermissions
-          flags={flags}
+          permissions={keys}
           profileId={profileId}
-          setFlags={setFlags}
+          setPermissions={setKeys}
         />
       </div>
     </>
