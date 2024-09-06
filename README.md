@@ -14,18 +14,6 @@
     <a href="https://www.gitpoap.io/gh/lensterxyz">
         <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/hey/badge" alt="Gitpoap">
     </a>
-    <a href="https://status.hey.xyz">
-        <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
-    </a>
-    <a href="https://hey.checkly-dashboards.com">
-        <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
-    </a>
-    <a href="https://github.com/heyxyz/hey/stargazers">
-        <img src="https://img.shields.io/github/stars/heyxyz/hey?label=Stars&logo=github" alt="Stargazers">
-    </a>
-    <a href="https://github.com/heyxyz/hey/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/heyxyz/hey?label=Licence&logo=gnu" alt="License">
-    </a>
     <a href="https://hey.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
@@ -46,18 +34,6 @@ Hey is a cutting-edge social media application that leverages the power of [Lens
 ## ✅ Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://hey.xyz/discord).
-
-## 📊 Repo Activity
-
-<img width="100%" src="https://repobeats.axiom.co/api/embed/8e423b6c5794e1958e33d3d8cecabd3259bd6798.svg" alt="Repobeats analytics" />
-
-## 💕 Contributors
-
-We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
-
-<a href="https://github.com/heyxyz/hey/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=heyxyz/hey" />
-</a>
 
 ## 🧪 Testing
 
