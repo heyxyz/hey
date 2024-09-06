@@ -307,7 +307,7 @@ importers:
         specifier: ^8
         version: 8.28.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))(next@14.2.8(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.94.0(esbuild@0.23.1))
       '@tanstack/react-query':
-        specifier: 5.54.1
+        specifier: ^5.54.1
         version: 5.54.1(react@18.3.1)
       '@uidotdev/usehooks':
         specifier: ^2.4.1
@@ -392,7 +392,7 @@ importers:
         version: 9.0.1(@types/react@18.3.5)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.0
-        version: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-virtuoso:
         specifier: ^4.10.2
         version: 4.10.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -24820,12 +24820,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.5
 
-  react-tracked@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-virtuoso@4.10.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -26311,10 +26311,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.5
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
