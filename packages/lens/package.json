@@ -13,7 +13,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.7",
+    "@apollo/client": "^3.11.8",
     "@hey/data": "workspace:*",
     "axios": "^1.7.7",
     "graphql-ws": "^5.16.0"
@@ -23,7 +23,7 @@
     "@graphql-codegen/fragment-matcher": "^5.0.2",
     "@graphql-codegen/typescript": "^4.0.9",
     "@graphql-codegen/typescript-operations": "^4.2.3",
-    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.1",
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.4.1",
     "@types/node": "^22.5.4",
