@@ -1,6 +1,4 @@
 default:
-  tags:
-    - hey
   interruptible: true
   image: node:20
 
