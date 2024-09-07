@@ -3,9 +3,9 @@ default:
   image: node:20
 
 stages:
+  - scan
   - build
   - deploy
-  - scan
 
 cache:
   paths:
