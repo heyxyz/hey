@@ -1,4 +1,6 @@
 default:
+  tags:
+    - saas-linux-large-arm64
   interruptible: true
   image: node:20
 
