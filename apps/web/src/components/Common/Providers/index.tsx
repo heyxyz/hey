@@ -20,6 +20,7 @@ import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import ProProvider from './ProProvider';
+import SentryProvider from './SentryProvider';
 import ServiceWorkerProvider from './ServiceWorkerProvider';
 import Web3Provider from './Web3Provider';
 
@@ -40,6 +41,7 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
     <ErrorBoundary>
       <ServiceWorkerProvider />
       <LeafwatchProvider />
+      <SentryProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <FeatureFlagProvider>
