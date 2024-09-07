@@ -3,9 +3,9 @@ default:
   image: node:20
 
 stages:
-  - dast
   - build
   - deploy
+  - dast
 
 cache:
   paths:
