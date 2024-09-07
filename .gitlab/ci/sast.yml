@@ -1,0 +1,4 @@
+sast:
+  only:
+    - main
+  stage: test

@@ -5,6 +5,7 @@ default:
 stages:
   - build
   - deploy
+  - test
   - dast
 
 cache:
@@ -32,3 +33,5 @@ include:
   - local: ".gitlab/ci/deploy-og.yml"
   - template: DAST.gitlab-ci.yml
   - local: ".gitlab/ci/dast.yml"
+  - template: Security/SAST.gitlab-ci.yml
+  - local: ".gitlab/ci/sast.yml"
