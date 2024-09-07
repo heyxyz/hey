@@ -32,7 +32,7 @@ include:
   - local: ".gitlab/ci/deploy-og.yml"
   - template: DAST.gitlab-ci.yml
 
-dast:
+web-dast:
   stage: scan
   tags:
     - saas-linux-large-arm64
