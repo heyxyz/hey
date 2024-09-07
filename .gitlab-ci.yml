@@ -7,6 +7,7 @@ default:
 stages:
   - build
   - deploy
+  - scan
 
 cache:
   paths:
@@ -31,3 +32,10 @@ include:
   - local: ".gitlab/ci/deploy-api.yml"
   - local: ".gitlab/ci/deploy-cron.yml"
   - local: ".gitlab/ci/deploy-og.yml"
+  - template: DAST.gitlab-ci.yml
+
+dast:
+  stage: scan
+  dast_configuration:
+    site_profile: "Hey Web"
+    scanner_profile: "Hey Web"
