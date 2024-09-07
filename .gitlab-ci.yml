@@ -1,6 +1,6 @@
 default:
   interruptible: true
-  image: node:20
+  image: node:18
 
 stages:
   - build
