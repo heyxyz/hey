@@ -28,6 +28,7 @@ const nextConfig = {
     ];
   },
   poweredByHeader: false,
+  productionBrowserSourceMaps: true,
   reactStrictMode: false,
   redirects() {
     return [
