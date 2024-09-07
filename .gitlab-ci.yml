@@ -35,3 +35,4 @@ include:
   - local: ".gitlab/ci/dast.yml"
   - template: Security/SAST.gitlab-ci.yml
   - local: ".gitlab/ci/sast.yml"
+  - template: Security/Secret-Detection.gitlab-ci.yml
