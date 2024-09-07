@@ -34,8 +34,6 @@ include:
 
 web-dast:
   stage: scan
-  tags:
-    - saas-linux-large-arm64
   dast_configuration:
     site_profile: "Hey Web"
     scanner_profile: "Hey Web"
