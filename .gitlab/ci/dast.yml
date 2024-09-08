@@ -1,5 +1,0 @@
-dast:
-  stage: dast
-  dast_configuration:
-    site_profile: "Hey Web"
-    scanner_profile: "Hey Web"

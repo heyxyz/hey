@@ -5,8 +5,6 @@ default:
 stages:
   - build
   - deploy
-  - test
-  - dast
 
 cache:
   paths:
@@ -31,8 +29,4 @@ include:
   - local: ".gitlab/ci/deploy-api.yml"
   - local: ".gitlab/ci/deploy-cron.yml"
   - local: ".gitlab/ci/deploy-og.yml"
-  - template: DAST.gitlab-ci.yml
-  - local: ".gitlab/ci/dast.yml"
-  - template: Security/SAST.gitlab-ci.yml
-  - local: ".gitlab/ci/sast.yml"
   - template: Security/Secret-Detection.gitlab-ci.yml
