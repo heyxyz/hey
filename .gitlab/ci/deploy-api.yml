@@ -17,4 +17,4 @@ deploy-api:
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
     - docker push $DOCKERHUB_IMAGE_TAG
-    - curl https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$API_RAILWAY_SERVICE_ID
+    - curl -s "https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$API_RAILWAY_SERVICE_ID"
