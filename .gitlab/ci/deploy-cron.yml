@@ -23,6 +23,7 @@ deploy-cron:
     - main
   image: curlimages/curl:latest
   stage: deploy
+  before_script: []
   needs:
     - push-cron-image
   script:

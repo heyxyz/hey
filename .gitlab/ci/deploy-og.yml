@@ -23,6 +23,7 @@ deploy-og:
     - main
   image: curlimages/curl:latest
   stage: deploy
+  before_script: []
   needs:
     - push-og-image
   script:
