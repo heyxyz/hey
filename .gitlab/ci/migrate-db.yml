@@ -1,0 +1,9 @@
+migrate-db:
+  only:
+    - main
+  stage: deploy
+  variables:
+    DATABASE_URL: $MAINNET_DATABASE_URL
+  script:
+    - cd packages/db
+    - pnpm prisma:migrate
