@@ -23,6 +23,7 @@ deploy-api:
     - main
   image: curlimages/curl:latest
   stage: deploy
+  before_script: []
   needs:
     - push-api-image
   script:
