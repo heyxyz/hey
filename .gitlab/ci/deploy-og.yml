@@ -1,4 +1,4 @@
-deploy-og:
+push-og-image:
   only:
     - main
   image: docker:20.10.16
@@ -17,4 +17,13 @@ deploy-og:
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
     - docker push $DOCKERHUB_IMAGE_TAG
+
+deploy-og:
+  only:
+    - main
+  image: curlimages/curl:latest
+  stage: deploy
+  needs:
+    - push-og-image
+  script:
     - curl -s "https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$OG_RAILWAY_SERVICE_ID"
