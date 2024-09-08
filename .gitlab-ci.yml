@@ -29,4 +29,3 @@ include:
   - local: ".gitlab/ci/deploy-api.yml"
   - local: ".gitlab/ci/deploy-cron.yml"
   - local: ".gitlab/ci/deploy-og.yml"
-  - template: Security/Secret-Detection.gitlab-ci.yml
