@@ -3,8 +3,8 @@ default:
   image: node:18
 
 stages:
-  - build
   - deploy
+  - build
   - test
   - dast
 
