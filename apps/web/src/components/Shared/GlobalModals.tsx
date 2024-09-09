@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 
+import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
@@ -23,11 +24,13 @@ const GlobalModals: FC = () => {
     reportingProfile,
     reportingPublicationId,
     setShowAuthModal,
+    setShowNewPostModal,
     setShowOptimisticTransactionsModal,
     setShowProfileSwitchModal,
     setShowPublicationReportModal,
     setShowReportProfileModal,
     showAuthModal,
+    showNewPostModal,
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
@@ -80,6 +83,14 @@ const GlobalModals: FC = () => {
         title={authModalTitle}
       >
         <Auth />
+      </Modal>
+      <Modal
+        onClose={() => setShowNewPostModal(false)}
+        show={showNewPostModal}
+        size="md"
+        title="Create post"
+      >
+        <NewPublication className="!rounded-b-xl !rounded-t-none border-none" />
       </Modal>
       <Modal
         icon={<CircleStackIcon className="size-5" />}
