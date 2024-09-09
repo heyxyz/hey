@@ -47,7 +47,7 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
       setPublicationContent(content);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query]);
 
   if (showComposer) {
     return <NewPublication />;
