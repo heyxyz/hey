@@ -30,7 +30,6 @@ import removeQuoteOn from '@hey/helpers/removeQuoteOn';
 import { ReferenceModuleType } from '@hey/lens';
 import { Button, Card, ErrorMessage, H6 } from '@hey/ui';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
-import { useUnmountEffect } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -52,6 +51,7 @@ import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePublicationVideoStore
 } from 'src/store/non-persisted/publication/usePublicationVideoStore';
+import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
 import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
 import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
@@ -93,12 +93,19 @@ const LivestreamSettings = dynamic(
 );
 
 interface NewPublicationProps {
+  className?: string;
   publication?: MirrorablePublication;
 }
 
-const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
+const NewPublication: FC<NewPublicationProps> = ({
+  className,
+  publication
+}) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
+
+  // Global modal store
+  const { setShowNewPostModal } = useGlobalModalStateStore();
 
   // Nonce store
   const { lensHubOnchainSigNonce } = useNonceStore();
@@ -174,6 +181,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const reset = () => {
     editor?.setMarkdown('');
+    setIsLoading(false);
     setPublicationContent('');
     setTags(null);
     setShowPollEditor(false);
@@ -181,11 +189,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
+    setQuotedPublication(null);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
     resetCollectSettings();
+    setShowNewPostModal(false);
   };
 
   const onError = (error?: any) => {
@@ -207,8 +217,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return onError();
     }
 
-    setIsLoading(false);
-    setQuotedPublication(null);
+    // Reset states
     reset();
 
     // Track in leafwatch
@@ -503,10 +512,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       pollConfig.options.some((option) => !option.length)
     : false;
 
-  useUnmountEffect(() => reset());
-
   return (
-    <Card onClick={() => setShowEmojiPicker(false)}>
+    <Card className={className} onClick={() => setShowEmojiPicker(false)}>
       {error ? (
         <ErrorMessage
           className="!rounded-none"
