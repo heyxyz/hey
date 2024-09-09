@@ -62,7 +62,7 @@ export default async function Page({ params }: Props) {
                 <br />
                 India
                 <br />
-                billing@heyxyz.zohodesk.in
+                support@hey.xyz
                 <br />
                 <div className="pt-2" />
                 <b className="text-gray-500">GST: 29AYKPY4219R1Z8</b>

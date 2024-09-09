@@ -314,7 +314,7 @@ const Terms: NextPage = () => {
               <H4 className="mb-5 mt-8">13. Contact Information</H4>
               <p className="leading-7">
                 Questions about the Terms should be sent to us at
-                support@heyxyz.zohodesk.in
+                support@hey.xyz
               </p>
               {/* 13. Contact Information ends */}
             </div>
