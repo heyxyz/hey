@@ -67,11 +67,6 @@ const nextConfig = {
         source: '/-/changelog'
       },
       {
-        destination: 'https://heyverse.zohodesk.in/portal/en/newticket',
-        permanent: true,
-        source: '/support'
-      },
-      {
         destination:
           'https://yoginth.notion.site/ff1926a080fa44bc9d40ee534f627949',
         permanent: true,
