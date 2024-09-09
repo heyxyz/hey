@@ -18,7 +18,7 @@ interface QuoteProps {
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
-  const { setShowAuthModal } = useGlobalModalStateStore();
+  const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPublication } = usePublicationStore();
   const { isSuspended } = useProfileStatus();
   const publicationType = publication.__typename;
@@ -47,6 +47,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
         }
 
         setQuotedPublication(publication);
+        setShowNewPostModal(true);
       }}
     >
       <div className="flex items-center space-x-2">
