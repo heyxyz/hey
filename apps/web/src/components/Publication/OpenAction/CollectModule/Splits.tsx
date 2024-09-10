@@ -4,8 +4,8 @@ import type { FC } from 'react';
 import Slug from '@components/Shared/Slug';
 import {
   APP_NAME,
-  POLYGONSCAN_URL,
-  REWARDS_ADDRESS
+  COLLECT_FEES_ADDRESS,
+  POLYGONSCAN_URL
 } from '@hey/data/constants';
 import formatAddress from '@hey/helpers/formatAddress';
 import getAvatar from '@hey/helpers/getAvatar';
@@ -45,7 +45,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
         const { recipient: address, split } = recipient;
         const profile = getProfileByAddress(address) as Profile;
 
-        if (address === REWARDS_ADDRESS) {
+        if (address === COLLECT_FEES_ADDRESS) {
           return (
             <div key={address}>
               <div className="divider mb-2 mt-3" />

@@ -5,7 +5,7 @@ import type {
 } from '@hey/lens';
 import type { CollectModuleType } from '@hey/types/hey';
 
-import { REWARDS_ADDRESS } from '@hey/data/constants';
+import { COLLECT_FEES_ADDRESS } from '@hey/data/constants';
 import { CollectOpenActionModuleType } from '@hey/lens';
 
 const collectModuleParams = (
@@ -59,7 +59,7 @@ const collectModuleParams = (
 
   // Add the admin fee split
   adjustedSplits.push({
-    recipient: REWARDS_ADDRESS,
+    recipient: COLLECT_FEES_ADDRESS,
     split: adminFeePercentage
   });
 
