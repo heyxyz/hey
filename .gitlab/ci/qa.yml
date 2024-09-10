@@ -1,6 +1,11 @@
 include:
-  - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
-  - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
+  - component: gitlab.com/components/secret-detection/secret-detection@main
+  - component: gitlab.com/components/code-quality/code-quality@1.0.4
+  - component: gitlab.com/components/container-scanning/container-scanning@4.1.0
+
+secret_detection:
+  stage: qa
+  before_script: []
 
 code_quality:
   stage: qa
