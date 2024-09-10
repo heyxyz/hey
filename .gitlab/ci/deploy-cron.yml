@@ -1,13 +1,14 @@
 Deploy Cron:
   only:
     - main
-  image: docker:27.2.0
-  stage: deploy
-  before_script:
-    - apk add --no-cache curl
+  needs: []
   environment: production
+  stage: deploy
+  image: docker:27.2.0
   services:
     - docker:27.2.0-dind
+  before_script:
+    - apk add --no-cache curl
   variables:
     GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/cron:latest
   script:
