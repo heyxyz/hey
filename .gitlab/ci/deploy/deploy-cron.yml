@@ -1,6 +1,10 @@
 Deploy Cron:
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - apps/cron/**/*
+      - packages/**/*
   needs: []
   environment: production
   stage: deploy

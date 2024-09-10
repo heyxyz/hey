@@ -1,6 +1,10 @@
 Deploy API:
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - apps/api/**/*
+      - packages/**/*
   needs: []
   environment: production
   stage: deploy
