@@ -6,7 +6,6 @@ import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import { noBody } from 'src/helpers/responses';
 
-// TODO: add tests
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
 

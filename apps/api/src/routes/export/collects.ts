@@ -10,7 +10,6 @@ import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 import { noBody } from 'src/helpers/responses';
 
-// TODO: add tests
 export const get = [
   rateLimiter({ requests: 10, within: 1 }),
   // validateLensAccount,
