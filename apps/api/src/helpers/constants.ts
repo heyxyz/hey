@@ -1,8 +1,5 @@
 export const HEY_USER_AGENT = 'HeyBot/0.1 (like TwitterBot)';
-export const FLAGS_API_URL =
-  process.env.IS_PRODUCTION === 'true'
-    ? 'http://flags/proxy'
-    : 'https://flags.hey.xyz/proxy';
+export const FLAGS_API_URL = 'https://flags.hey.xyz/proxy';
 
 // Cache
 // Cache for 30 minutes
