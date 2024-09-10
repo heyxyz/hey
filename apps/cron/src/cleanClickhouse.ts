@@ -27,7 +27,6 @@ const cleanClickhouse = async () => {
   ];
 
   try {
-    // Map each query to the clickhouse command and execute concurrently
     await Promise.all(
       queries.map((query) => clickhouseClient.command({ query }))
     );
