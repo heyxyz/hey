@@ -1,6 +1,4 @@
 default:
-  tags:
-    - hey
   interruptible: true
   image: node:18
 
@@ -13,7 +11,6 @@ cache:
     - node_modules/
 
 variables:
-  GIT_CLONE_PATH: "$CI_BUILDS_DIR/hey-$CI_JOB_ID"
   API_RAILWAY_SERVICE_ID: 4a2a1bfb-e499-4c71-bf7f-d9ad47443c31
   CRON_RAILWAY_SERVICE_ID: 348ba788-3282-4f27-9967-ca04eea9ac4b
   OG_RAILWAY_SERVICE_ID: 76d31e4b-218d-4f82-974d-f2c8e91480e2
