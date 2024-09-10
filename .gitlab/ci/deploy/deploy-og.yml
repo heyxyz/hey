@@ -1,6 +1,10 @@
 Deploy OG:
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - apps/og/**/*
+      - packages/**/*
   needs: []
   environment: production
   stage: deploy
