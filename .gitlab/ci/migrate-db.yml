@@ -1,6 +1,7 @@
 Migrate DB:
   only:
     - main
+  when: manual
   stage: deploy
   variables:
     DATABASE_URL: $MAINNET_DATABASE_URL
