@@ -1,4 +1,4 @@
-build:
+Build:
   stage: build
   script:
     - pnpm build

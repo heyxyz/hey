@@ -1,4 +1,4 @@
-deploy-api:
+Deploy API:
   only:
     - main
   image: docker:27.2.0

@@ -1,4 +1,4 @@
-typecheck:
+Typecheck:
   stage: build
   script:
     - pnpm typecheck

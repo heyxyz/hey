@@ -1,4 +1,4 @@
-deploy-cron:
+Deploy Cron:
   only:
     - main
   image: docker:27.2.0
