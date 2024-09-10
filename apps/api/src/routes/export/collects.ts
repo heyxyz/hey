@@ -1,7 +1,9 @@
 import type { Request, Response } from 'express';
 
+import { Errors } from '@hey/data/errors';
 import lensPg from '@hey/db/lensPg';
 import logger from '@hey/helpers/logger';
+import parseJwt from '@hey/helpers/parseJwt';
 import { Parser } from '@json2csv/plainjs';
 import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
@@ -20,6 +22,14 @@ export const get = [
     }
 
     try {
+      const identityToken = req.headers['x-identity-token'] as string;
+      const payload = parseJwt(identityToken);
+      const targetProfileId = (id as string).split('-')[0];
+
+      if (payload.id !== targetProfileId) {
+        return catchedError(res, new Error(Errors.Unauthorized), 401);
+      }
+
       const response = await lensPg.query(
         `
           SELECT po.owner_address as address
