@@ -24,16 +24,16 @@ before_script:
   - pnpm install --frozen-lockfile
 
 include:
-  - local: ".gitlab/ci/typecheck.yml"
-  - local: ".gitlab/ci/lint.yml"
-  - local: ".gitlab/ci/prettier.yml"
-  - local: ".gitlab/ci/build.yml"
-  - local: ".gitlab/ci/test.yml"
-  - local: ".gitlab/ci/migrate-db.yml"
-  - local: ".gitlab/ci/deploy-api.yml"
-  - local: ".gitlab/ci/deploy-cron.yml"
-  - local: ".gitlab/ci/deploy-og.yml"
-  - local: ".gitlab/ci/housekeep.yml"
-  - local: ".gitlab/ci/clean-merged-branches.yml"
+  - local: ".gitlab/ci/preflight/typecheck.yml"
+  - local: ".gitlab/ci/preflight/lint.yml"
+  - local: ".gitlab/ci/preflight/prettier.yml"
+  - local: ".gitlab/ci/preflight/build.yml"
+  - local: ".gitlab/ci/preflight/test.yml"
+  - local: ".gitlab/ci/deploy/migrate-db.yml"
+  - local: ".gitlab/ci/deploy/deploy-api.yml"
+  - local: ".gitlab/ci/deploy/deploy-cron.yml"
+  - local: ".gitlab/ci/deploy/deploy-og.yml"
+  - local: ".gitlab/ci/clean/housekeep.yml"
+  - local: ".gitlab/ci/clean/clean-merged-branches.yml"
   - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
   - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
