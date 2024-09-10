@@ -1,4 +1,4 @@
-deploy-og:
+Deploy OG:
   only:
     - main
   image: docker:27.2.0
