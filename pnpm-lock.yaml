@@ -44,6 +44,9 @@ importers:
       '@irys/upload-ethereum':
         specifier: ^0.0.3
         version: 0.0.3(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@json2csv/plainjs':
+        specifier: ^7.0.6
+        version: 7.0.6
       '@lens-protocol/metadata':
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
@@ -392,7 +395,7 @@ importers:
         version: 9.0.1(@types/react@18.3.5)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.1
-        version: 2.0.1(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.1(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-virtuoso:
         specifier: ^4.10.3
         version: 4.10.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2627,6 +2630,12 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@json2csv/formatters@7.0.6':
+    resolution: {integrity: sha512-hjIk1H1TR4ydU5ntIENEPgoMGW+Q7mJ+537sDFDbsk+Y3EPl2i4NfFVjw0NJRgT+ihm8X30M67mA8AS6jPidSA==}
+
+  '@json2csv/plainjs@7.0.6':
+    resolution: {integrity: sha512-4Md7RPDCSYpmW1HWIpWBOqCd4vWfIqm53S3e/uzQ62iGi7L3r34fK/8nhOMEe+/eVfCx8+gdSCt1d74SlacQHw==}
 
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
@@ -4883,6 +4892,9 @@ packages:
     resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
     peerDependencies:
       react: '>= 16.3.0'
+
+  '@streamparser/json@0.0.20':
+    resolution: {integrity: sha512-VqAAkydywPpkw63WQhPVKCD3SdwXuihCUVZbbiY3SfSTGQyHmwRoq27y4dmJdZuJwd5JIlQoMPyGvMbUPY0RKQ==}
 
   '@supercharge/promise-pool@3.2.0':
     resolution: {integrity: sha512-pj0cAALblTZBPtMltWOlZTQSLT07jIaFNeM8TWoJD1cQMgDB9mcMlVMoetiB35OzNJpqQ2b+QEtwiR9f20mADg==}
@@ -14971,6 +14983,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@json2csv/formatters@7.0.6': {}
+
+  '@json2csv/plainjs@7.0.6':
+    dependencies:
+      '@json2csv/formatters': 7.0.6
+      '@streamparser/json': 0.0.20
+
   '@juggle/resize-observer@3.4.0': {}
 
   '@kamilkisiela/fast-url-parser@1.1.4': {}
@@ -17985,6 +18004,8 @@ snapshots:
   '@stitches/react@1.2.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
+
+  '@streamparser/json@0.0.20': {}
 
   '@supercharge/promise-pool@3.2.0': {}
 
@@ -24864,12 +24885,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.5
 
-  react-tracked@2.0.1(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.1(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-virtuoso@4.10.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -26375,10 +26396,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.5
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
