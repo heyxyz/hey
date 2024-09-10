@@ -9,7 +9,6 @@ declare namespace NodeJS {
     EVER_ACCESS_KEY: string;
     EVER_ACCESS_SECRET: string;
     GITLAB_ACCESS_TOKEN: string;
-    IS_PRODUCTION: string;
     LENS_DATABASE_PASSWORD: string;
     PRIVATE_KEY: string;
     SECRET: string;
