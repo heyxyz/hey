@@ -1,4 +1,4 @@
 Prettier:
-  stage: build
+  stage: preflight
   script:
     - pnpm prettier
