@@ -30,9 +30,9 @@ const links = [
   },
   { href: '/rules', label: 'Rules' },
   {
-    href: 'https://github.com/heyxyz/hey',
-    label: 'GitHub',
-    onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)
+    href: 'https://gitlab.com/yo/hey',
+    label: 'GitLab',
+    onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITLAB)
   },
   { href: 'http://hey.xyz/support', label: 'Support' }
 ];

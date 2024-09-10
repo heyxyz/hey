@@ -219,7 +219,7 @@ export const MISCELLANEOUS = {
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
     OPEN_FEEDBACK: 'Open feedback',
-    OPEN_GITHUB: 'Open GitHub',
+    OPEN_GITLAB: 'Open GitLab',
     OPEN_STATUS: 'Open status',
     OPEN_VERCEL: 'Open Vercel'
   },

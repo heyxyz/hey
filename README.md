@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/heyxyz/hey/assets/69431456/1f411680-e561-4203-b8a2-d610aa4fe4cb" alt="Hey Banner">
+    <img src="https://gitlab.com/-/project/61401782/uploads/c38b496de5927835cc09297a30e3167f/image.png" alt="Hey Banner">
     <h1>Hey</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
@@ -24,7 +24,7 @@
     <br><br>
     <a href="https://hey.xyz/discord"><b>Discord</b></a>
     •
-    <a href="https://github.com/heyxyz/hey/issues/new"><b>Issues</b></a>
+    <a href="https://gitlab.com/yo/hey/-/issues/new"><b>Issues</b></a>
 </div>
 
 ## 🌿 About Hey
