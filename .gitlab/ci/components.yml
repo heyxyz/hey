@@ -1,5 +1,4 @@
 before_script: []
-needs: []
 include:
   - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
     inputs:
