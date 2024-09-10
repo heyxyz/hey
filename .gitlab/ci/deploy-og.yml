@@ -9,14 +9,10 @@ push-og-image:
     - docker:27.2.0-dind
   variables:
     GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/og:latest
-    DOCKERHUB_IMAGE_TAG: heyxyz/og:latest
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $GITLAB_IMAGE_TAG -f ./apps/og/Dockerfile .
     - docker push $GITLAB_IMAGE_TAG
-    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
-    - docker tag $GITLAB_IMAGE_TAG $DOCKERHUB_IMAGE_TAG
-    - docker push $DOCKERHUB_IMAGE_TAG
 
 deploy-og:
   only:
