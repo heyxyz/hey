@@ -1,3 +1,3 @@
 # Changelog
 
-Visit [releases](https://github.com/heyxyz/hey/releases) for full changelog.
+Visit [releases](https://gitlab.com/yo/hey/-/tags) for full changelog.
