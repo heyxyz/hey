@@ -9,6 +9,9 @@ stages:
 cache:
   paths:
     - node_modules/
+    - apps/web/.next/cache/
+    - apps/og/.next/cache/
+    - apps/invoice/.next/cache/
 
 variables:
   API_RAILWAY_SERVICE_ID: 4a2a1bfb-e499-4c71-bf7f-d9ad47443c31
