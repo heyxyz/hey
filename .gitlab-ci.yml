@@ -5,7 +5,7 @@ stages:
   - preflight
   - deploy
   - clean
-  - components
+  - qa
 
 cache:
   paths:
