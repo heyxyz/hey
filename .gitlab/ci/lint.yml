@@ -1,4 +1,4 @@
 Lint:
-  stage: build
+  stage: preflight
   script:
     - pnpm lint
