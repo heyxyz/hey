@@ -1,7 +1,7 @@
 export const HEY_USER_AGENT = 'HeyBot/0.1 (like TwitterBot)';
 export const FLAGS_API_URL =
   process.env.IS_PRODUCTION === 'true'
-    ? 'https://flags.railway.internal/proxy'
+    ? 'http://flags.railway.internal/proxy'
     : 'https://flags.hey.xyz/proxy';
 
 // Cache
