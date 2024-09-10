@@ -1,5 +1,7 @@
 Test:
   stage: preflight
+  tags:
+    - hey
   script:
     - pnpm build
     - pnpm test:dev

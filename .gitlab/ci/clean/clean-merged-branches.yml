@@ -1,5 +1,7 @@
 Clean Merged Branches:
   stage: clean
+  tags:
+    - hey
   script:
     - curl --request DELETE --header "PRIVATE-TOKEN:$ACCESS_TOKEN" https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/repository/merged_branches
   only:
