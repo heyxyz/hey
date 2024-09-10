@@ -5,6 +5,7 @@ stages:
   - preflight
   - deploy
   - clean
+  - test
 
 cache:
   paths:
