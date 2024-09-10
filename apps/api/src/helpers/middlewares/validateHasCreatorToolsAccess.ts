@@ -7,7 +7,7 @@ import parseJwt from '@hey/helpers/parseJwt';
 import axios from 'axios';
 
 import catchedError from '../catchedError';
-import { HEY_USER_AGENT } from '../constants';
+import { FLAGS_API_URL, HEY_USER_AGENT } from '../constants';
 
 /**
  * Middleware to validate if the profile is staff
@@ -28,7 +28,7 @@ const validateHasCreatorToolsAccess = async (
   try {
     const payload = parseJwt(identityToken);
 
-    const { data } = await axios.get('https://flags.hey.xyz/proxy', {
+    const { data } = await axios.get(FLAGS_API_URL, {
       headers: {
         Authorization: APP_NAME,
         'User-Agent': HEY_USER_AGENT
