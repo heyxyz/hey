@@ -1,6 +1,7 @@
 import clickhouseClient from '@hey/db/clickhouseClient';
 import logger from '@hey/helpers/logger';
 
+// Use this query to get the total size of all tables in Clickhouse
 // SELECT
 //   table,
 //   formatReadableSize(sum(bytes_on_disk)) AS total_size
