@@ -5717,7 +5717,7 @@ export type TransactionMetadataV3 = {
   appId?: Maybe<Scalars['AppId']['output']>;
   attachments?: Maybe<Array<PublicationMetadataMedia>>;
   attributes?: Maybe<Array<MetadataAttribute>>;
-  chainId: Scalars['ChainId']['output'];
+  chainId: Scalars['Int']['output'];
   /** Optional content. Empty if not set. */
   content: Scalars['EncryptableMarkdown']['output'];
   contentWarning?: Maybe<PublicationContentWarningType>;
