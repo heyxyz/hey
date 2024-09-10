@@ -1,8 +1,9 @@
-before_script: []
 include:
   - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
     inputs:
+      before_script: []
       stage: components
   - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
     inputs:
+      before_script: []
       stage: components
