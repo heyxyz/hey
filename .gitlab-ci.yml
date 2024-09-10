@@ -4,7 +4,6 @@ default:
 stages:
   - preflight
   - deploy
-  - test
   - clean
 
 cache:
