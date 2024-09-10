@@ -12,10 +12,8 @@ CREATE TABLE events (
   country LowCardinality(Nullable(String)),
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
-PARTITION BY toYYYYMM(created)
 ORDER BY created
-TTL created + INTERVAL 1 YEAR
-SETTINGS index_granularity = 8192;
+SETTINGS index_granularity = 16384;
 
 -- Impressions
 CREATE TABLE impressions (
