@@ -4,9 +4,9 @@ Deploy API:
   needs: []
   environment: production
   stage: deploy
-  image: docker:27.2.0
+  image: $CI_REGISTRY/group/project/docker:27.2.0
   services:
-    - docker:27.2.0-dind
+    - $CI_REGISTRY/group/project/docker:27.2.0-dind
   before_script:
     - apk add --no-cache curl
   variables:
