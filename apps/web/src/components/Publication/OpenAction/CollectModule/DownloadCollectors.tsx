@@ -2,8 +2,10 @@ import type { AnyPublication } from '@hey/lens';
 import type { AxiosResponse } from 'axios';
 
 import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
+import { Leafwatch } from '@helpers/leafwatch';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { HEY_API_URL } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
 import { Tooltip } from '@hey/ui';
 import { useFlag } from '@unleash/proxy-client-react';
 import axios from 'axios';
@@ -48,6 +50,7 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ publication }) => {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
+          Leafwatch.track(PUBLICATION.COLLECT_MODULE.DOWNLOAD_COLLECTORS);
         })
         .finally(() => setDisabled(false)),
       {

@@ -50,6 +50,7 @@ export const PUBLICATION = {
   CLICK_OEMBED: 'Click publication oembed',
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
+    DOWNLOAD_COLLECTORS: 'Download collectors CSV file',
     OPEN_COLLECT: 'Open collect modal',
     OPEN_UNISWAP: 'Open Uniswap'
   },
