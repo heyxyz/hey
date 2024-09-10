@@ -3,9 +3,13 @@ include:
   - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
 
 code_quality:
-  stage: components
+  stage: qa
   before_script: []
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+    expire_in: 1 day
 
 container_scanning:
-  stage: components
+  stage: qa
   before_script: []

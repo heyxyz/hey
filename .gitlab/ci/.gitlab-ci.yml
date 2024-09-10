@@ -35,4 +35,4 @@ include:
   - local: ".gitlab/ci/deploy/deploy-og.yml"
   - local: ".gitlab/ci/clean/housekeep.yml"
   - local: ".gitlab/ci/clean/clean-merged-branches.yml"
-  - local: ".gitlab/ci/components.yml"
+  - local: ".gitlab/ci/qa.yml"
