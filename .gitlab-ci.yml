@@ -1,4 +1,5 @@
 default:
+  interruptible: true
   image: node:18
 
 stages:
