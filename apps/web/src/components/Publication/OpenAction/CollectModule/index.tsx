@@ -19,8 +19,8 @@ import {
 } from '@heroicons/react/24/outline';
 import {
   APP_NAME,
-  POLYGONSCAN_URL,
-  REWARDS_ADDRESS
+  COLLECT_FEES_ADDRESS,
+  POLYGONSCAN_URL
 } from '@hey/data/constants';
 import formatDate from '@hey/helpers/datetime/formatDate';
 import formatAddress from '@hey/helpers/formatAddress';
@@ -69,7 +69,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
       collectModule?.recipients) ||
     [];
   const recipientsWithoutFees = recipients?.filter(
-    (split) => split.recipient !== REWARDS_ADDRESS
+    (split) => split.recipient !== COLLECT_FEES_ADDRESS
   );
   const isMultirecipientFeeCollectModule =
     collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings' &&
@@ -84,7 +84,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
     ? countOpenActions >= collectLimit
     : false;
   const hasHeyFees = recipients.some(
-    (split) => split.recipient === REWARDS_ADDRESS
+    (split) => split.recipient === COLLECT_FEES_ADDRESS
   );
 
   return (
