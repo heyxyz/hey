@@ -2,8 +2,6 @@ include:
   - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
   - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
   - component: $CI_SERVER_FQDN/components/sast/sast@2.0.2
-    inputs:
-      excluded_paths: node_modules, .next, dist, tests
 
 code_quality:
   stage: components
@@ -16,3 +14,5 @@ container_scanning:
 sast:
   stage: components
   before_script: []
+  inputs:
+    excluded_paths: node_modules, .next, dist, tests
