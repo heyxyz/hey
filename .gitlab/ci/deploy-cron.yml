@@ -1,9 +1,10 @@
-push-cron-image:
+deploy-cron:
   only:
     - main
   image: docker:27.2.0
   stage: deploy
-  before_script: []
+  before_script:
+    - apk add --no-cache curl
   environment: production
   services:
     - docker:27.2.0-dind
@@ -13,14 +14,4 @@ push-cron-image:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $GITLAB_IMAGE_TAG -f ./apps/cron/Dockerfile .
     - docker push $GITLAB_IMAGE_TAG
-
-deploy-cron:
-  only:
-    - main
-  image: curlimages/curl:latest
-  stage: deploy
-  before_script: []
-  needs:
-    - push-cron-image
-  script:
     - curl -s "https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$CRON_RAILWAY_SERVICE_ID"
