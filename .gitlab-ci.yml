@@ -35,5 +35,4 @@ include:
   - local: ".gitlab/ci/deploy/deploy-og.yml"
   - local: ".gitlab/ci/clean/housekeep.yml"
   - local: ".gitlab/ci/clean/clean-merged-branches.yml"
-  - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
-  - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
+  - local: ".gitlab/ci/test.yml"

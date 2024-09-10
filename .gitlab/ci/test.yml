@@ -1,0 +1,3 @@
+include:
+  - component: $CI_SERVER_FQDN/components/code-quality/code-quality@1.0.4
+  - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@4.1.0
