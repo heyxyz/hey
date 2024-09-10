@@ -10,7 +10,6 @@ import catchedError from 'src/helpers/catchedError';
 import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
 import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
 
-// TODO: add tests
 export const get = [
   validateLensAccount,
   validateIsStaff,

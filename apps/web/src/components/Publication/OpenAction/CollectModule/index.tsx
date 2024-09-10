@@ -36,6 +36,7 @@ import plur from 'plur';
 import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
 
 import CollectAction from './CollectAction';
+import DownloadCollectors from './DownloadCollectors';
 import Splits from './Splits';
 
 interface CollectModuleProps {
@@ -190,6 +191,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 {humanize(countOpenActions)}{' '}
                 {plur('collector', countOpenActions)}
               </Link>
+              <DownloadCollectors publication={targetPublication} />
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">

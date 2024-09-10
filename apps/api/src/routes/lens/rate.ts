@@ -7,7 +7,6 @@ import catchedError from 'src/helpers/catchedError';
 import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
 import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
 
-// TODO: add tests
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
   async (_: Request, res: Response) => {
