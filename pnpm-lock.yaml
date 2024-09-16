@@ -581,8 +581,8 @@ importers:
   packages/db:
     dependencies:
       '@clickhouse/client':
-        specifier: ^1.5.0
-        version: 1.5.0
+        specifier: ^1.6.0
+        version: 1.6.0
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -1864,11 +1864,11 @@ packages:
     resolution: {integrity: sha512-/l42B1qxpG6RdfYf343Uw1vmDjeNhneUXtzhojE7pDgfpEypmRhI6j1kr17XCVv4Cgl9HdAiQY2x0GwKm7rWCw==}
     engines: {node: '>=6.9.0'}
 
-  '@clickhouse/client-common@1.5.0':
-    resolution: {integrity: sha512-U3vDp+PDnNVEv6kia+Mq5ygnlMZzsYU+3TX+0da3XvL926jzYLMBlIvFUxe2+/5k47ySvnINRC/2QxVK7PC2/A==}
+  '@clickhouse/client-common@1.6.0':
+    resolution: {integrity: sha512-DPdfPUIrBumWff8JdE2oLqnOIN1DwxXt48juV+tB6zaonufQR1QImtUGEhIFIqRWJU7zErtQ1eKfkwjLY0MYDg==}
 
-  '@clickhouse/client@1.5.0':
-    resolution: {integrity: sha512-Udwyoec+AHHS1TiLxDiWiJWcm2BvhZEqGjmUnvzL54NyT8D8eh2mxn5RR/W5ie64JDnsKLeZFlPYKRRhZMhkxA==}
+  '@clickhouse/client@1.6.0':
+    resolution: {integrity: sha512-cjuOL5O11Y/axYIvSaNgZjZqD53BBbScrG0DCgZ7XBCz5KWlA5lIG3fP6A4jME277q8ZUYAQxUOlJjeF18872A==}
     engines: {node: '>=16'}
 
   '@coinbase/wallet-sdk@3.9.3':
@@ -3775,7 +3775,7 @@ packages:
     resolution: {integrity: sha512-RXcvnXgyvYvBEOhCBuddKecVkoMiI10Jcm5cTI7abJRAHYfFxeu+FBQs/DvdxSYucxR5mna0dNsL6QFlds5TMA==}
     peerDependencies:
       '@types/react': '*'
-      react: ^16.8 || ^17.0 || ^18.0
+      react: ^18.2.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -3973,8 +3973,8 @@ packages:
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0
-      react-dom: ^16.8 || ^17.0 || ^18.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -3999,8 +3999,8 @@ packages:
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0
-      react-dom: ^16.8 || ^17.0 || ^18.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -14103,11 +14103,11 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@clickhouse/client-common@1.5.0': {}
+  '@clickhouse/client-common@1.6.0': {}
 
-  '@clickhouse/client@1.5.0':
+  '@clickhouse/client@1.6.0':
     dependencies:
-      '@clickhouse/client-common': 1.5.0
+      '@clickhouse/client-common': 1.6.0
 
   '@coinbase/wallet-sdk@3.9.3':
     dependencies:
