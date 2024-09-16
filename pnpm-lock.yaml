@@ -87,8 +87,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       tsx:
-        specifier: ^4.18.0
-        version: 4.19.0
+        specifier: ^4.19.1
+        version: 4.19.1
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
@@ -163,8 +163,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       tsx:
-        specifier: ^4.18.0
-        version: 4.19.0
+        specifier: ^4.19.1
+        version: 4.19.1
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -11099,7 +11099,7 @@ packages:
     peerDependencies:
       '@babel/core': '*'
       babel-plugin-macros: '*'
-      react: '>= 16.8.0 || 17.x.x || ^18.0.0-0'
+      react: ^18.2.0
     peerDependenciesMeta:
       '@babel/core':
         optional: true
@@ -11377,8 +11377,8 @@ packages:
   tsort@0.0.1:
     resolution: {integrity: sha512-Tyrf5mxF8Ofs1tNoxA13lFeZ2Zrbd6cKbuH3V+MQ5sb6DtBj5FjrXVsRWT8YvNAQTqNoz66dz1WsbigI22aEnw==}
 
-  tsx@4.19.0:
-    resolution: {integrity: sha512-bV30kM7bsLZKZIOCHeMNVMJ32/LuJzLVajkQI/qf92J2Qr08ueLQvW00PUZGiuLPP760UINwupgUj8qrSCPUKg==}
+  tsx@4.19.1:
+    resolution: {integrity: sha512-0flMz1lh74BR4wOvBjuh9olbnwqCPc35OOlfyzHba0Dc+QNUeWX/Gq2YTbnwcWPO3BMd8fkzRVrHcsR+a7z7rA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -26485,7 +26485,7 @@ snapshots:
 
   tsort@0.0.1: {}
 
-  tsx@4.19.0:
+  tsx@4.19.1:
     dependencies:
       esbuild: 0.23.1
       get-tsconfig: 4.8.0
