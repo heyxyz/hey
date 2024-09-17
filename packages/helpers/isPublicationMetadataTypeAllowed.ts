@@ -1,12 +1,12 @@
 const allowedTypes = [
-  'ArticleMetadataV3',
-  'AudioMetadataV3',
-  'ImageMetadataV3',
-  'TextOnlyMetadataV3',
-  'LinkMetadataV3',
-  'VideoMetadataV3',
-  'MintMetadataV3',
-  'LiveStreamMetadataV3'
+  "ArticleMetadataV3",
+  "AudioMetadataV3",
+  "ImageMetadataV3",
+  "TextOnlyMetadataV3",
+  "LinkMetadataV3",
+  "VideoMetadataV3",
+  "MintMetadataV3",
+  "LiveStreamMetadataV3"
 ];
 
 const isPublicationMetadataTypeAllowed = (type?: string): boolean => {

@@ -1,14 +1,14 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import validateHasCreatorToolsAccess from 'src/helpers/middlewares/validateHasCreatorToolsAccess';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { boolean, object, string } from 'zod';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { boolean, object, string } from "zod";
 
-import { clearCache } from '../permissions/assign';
+import { clearCache } from "../permissions/assign";
 
 type ExtensionRequest = {
   enabled: boolean;

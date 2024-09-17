@@ -1,4 +1,4 @@
-import urlcat from 'urlcat';
+import urlcat from "urlcat";
 
 /**
  * Get favicon from google
@@ -8,8 +8,8 @@ import urlcat from 'urlcat';
 const getFavicon = (url: string) => {
   const { hostname } = new URL(url);
 
-  return urlcat('https://external-content.duckduckgo.com/ip3/:domain.ico', {
-    domain: hostname || 'unknowndomain'
+  return urlcat("https://external-content.duckduckgo.com/ip3/:domain.ico", {
+    domain: hostname || "unknowndomain"
   });
 };
 

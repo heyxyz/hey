@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { apps as knownApps } from '@hey/data/apps';
+import { apps as knownApps } from "@hey/data/apps";
 import {
   CustomFiltersType,
   ModExplorePublicationType,
   PublicationMetadataMainFocusType
-} from '@hey/lens';
-import { Button, Card, Checkbox } from '@hey/ui';
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+} from "@hey/lens";
+import { Button, Card, Checkbox } from "@hey/ui";
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 const FILTER_APPS = knownApps;
 
@@ -159,8 +159,8 @@ const Filter: FC = () => {
             >
               {mainContentFocus.length ===
               Object.keys(PublicationMetadataMainFocusType).length
-                ? 'Unselect all'
-                : 'Select all'}
+                ? "Unselect all"
+                : "Select all"}
             </button>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">

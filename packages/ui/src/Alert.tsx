@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
 import {
   Dialog,
@@ -6,11 +6,11 @@ import {
   DialogTitle,
   Transition,
   TransitionChild
-} from '@headlessui/react';
-import { Fragment } from 'react';
+} from "@headlessui/react";
+import { Fragment } from "react";
 
-import { Button } from './Button';
-import { H4 } from './Typography';
+import { Button } from "./Button";
+import { H4 } from "./Typography";
 
 interface AlertProps {
   cancelText?: string;
@@ -26,7 +26,7 @@ interface AlertProps {
 }
 
 export const Alert: FC<AlertProps> = ({
-  cancelText = 'Cancel',
+  cancelText = "Cancel",
   children,
   confirmText,
   description,
@@ -72,7 +72,7 @@ export const Alert: FC<AlertProps> = ({
                     disabled={isPerformingAction}
                     onClick={() => onConfirm()}
                     size="lg"
-                    variant={isDestructive ? 'danger' : 'primary'}
+                    variant={isDestructive ? "danger" : "primary"}
                   >
                     {confirmText}
                   </Button>

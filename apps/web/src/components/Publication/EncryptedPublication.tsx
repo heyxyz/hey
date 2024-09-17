@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { LockClosedIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { Card } from '@hey/ui';
+import { LockClosedIcon } from "@heroicons/react/24/outline";
+import { APP_NAME } from "@hey/data/constants";
+import { Card } from "@hey/ui";
 
 const EncryptedPublication: FC = () => {
   return (

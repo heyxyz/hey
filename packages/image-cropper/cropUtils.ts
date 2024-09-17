@@ -1,4 +1,4 @@
-import type { Area, MediaSize, Point, Size } from './types';
+import type { Area, MediaSize, Point, Size } from "./types";
 
 export const restrictValue = (value: number, min: number, max: number) => {
   return Math.min(Math.max(value, min), max);
@@ -82,8 +82,8 @@ export const getMidpoint = (a: Point, b: Point): Point => {
 export const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image();
-    image.addEventListener('load', () => resolve(image));
-    image.addEventListener('error', (error) => reject(error));
+    image.addEventListener("load", () => resolve(image));
+    image.addEventListener("error", (error) => reject(error));
     image.src = url;
   });
 
@@ -92,8 +92,8 @@ export const getCroppedImg = async (
   pixelCrop: Area | null
 ): Promise<HTMLCanvasElement | null> => {
   const image = await createImage(imageSrc);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
   if (!ctx || !pixelCrop) {
     return null;
   }

@@ -1,37 +1,37 @@
-import type { LinkHandleToProfileRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { LinkHandleToProfileRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import IndexStatus from '@components/Shared/IndexStatus';
-import LazySmallUserProfile from '@components/Shared/LazySmallUserProfile';
-import Loader from '@components/Shared/Loader';
-import Slug from '@components/Shared/Slug';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import IndexStatus from "@components/Shared/IndexStatus";
+import LazySmallUserProfile from "@components/Shared/LazySmallUserProfile";
+import Loader from "@components/Shared/Loader";
+import Slug from "@components/Shared/Slug";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   AtSymbolIcon,
   MinusCircleIcon,
   PlusCircleIcon
-} from '@heroicons/react/24/outline';
-import { TokenHandleRegistry } from '@hey/abis';
-import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+} from "@heroicons/react/24/outline";
+import { TokenHandleRegistry } from "@hey/abis";
+import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
   useLinkHandleToProfileMutation,
   useOwnedHandlesQuery
-} from '@hey/lens';
-import { Button, EmptyState, Spinner } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { Button, EmptyState, Spinner } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 const LinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -45,17 +45,17 @@ const LinkHandle: FC = () => {
     checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     setLinkingHandle(null);
-    toast.success('Handle linked successfully!');
+    toast.success("Handle linked successfully!");
     Leafwatch.track(SETTINGS.HANDLE.LINK);
   };
 
@@ -78,7 +78,7 @@ const LinkHandle: FC = () => {
       abi: TokenHandleRegistry,
       address: TOKEN_HANDLE_REGISTRY,
       args,
-      functionName: 'link'
+      functionName: "link"
     });
   };
 
@@ -100,7 +100,7 @@ const LinkHandle: FC = () => {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args: [typedData.value] });
           }
 
@@ -125,7 +125,7 @@ const LinkHandle: FC = () => {
     const { data } = await linkHandleToProfile({ variables: { request } });
 
     if (
-      data?.linkHandleToProfile.__typename === 'LensProfileManagerRelayError'
+      data?.linkHandleToProfile.__typename === "LensProfileManagerRelayError"
     ) {
       return await createLinkHandleToProfileTypedData({
         variables: { request }
@@ -142,7 +142,7 @@ const LinkHandle: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    const confirmation = confirm('Are you sure you want to link this handle?');
+    const confirmation = confirm("Are you sure you want to link this handle?");
 
     if (!confirmation) {
       return;
@@ -187,9 +187,9 @@ const LinkHandle: FC = () => {
 
   const lensManegaerTxId =
     linkHandleToProfileData?.linkHandleToProfile.__typename ===
-      'RelaySuccess' && linkHandleToProfileData.linkHandleToProfile.txId;
+      "RelaySuccess" && linkHandleToProfileData.linkHandleToProfile.txId;
   const broadcastTxId =
-    broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
+    broadcastData?.broadcastOnchain.__typename === "RelaySuccess" &&
     broadcastData.broadcastOnchain.txId;
 
   return (
@@ -232,7 +232,7 @@ const LinkHandle: FC = () => {
               onClick={() => link(handle.fullHandle)}
               outline
             >
-              {handle.linkedTo ? 'Unlink and Link' : 'Link'}
+              {handle.linkedTo ? "Unlink and Link" : "Link"}
             </Button>
           )}
         </div>

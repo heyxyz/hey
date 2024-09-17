@@ -1,5 +1,5 @@
 const idbReviver = (_key: string, value: any) => {
-  if (typeof value === 'object' && value !== null && value.dataType === 'Map') {
+  if (typeof value === "object" && value !== null && value.dataType === "Map") {
     return new Map(value.value);
   }
 

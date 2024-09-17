@@ -1,9 +1,9 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { EXPLORE } from '@hey/data/tracking';
-import { PublicationMetadataMainFocusType } from '@hey/lens';
-import cn from '@hey/ui/cn';
+import { Leafwatch } from "@helpers/leafwatch";
+import { EXPLORE } from "@hey/data/tracking";
+import { PublicationMetadataMainFocusType } from "@hey/lens";
+import cn from "@hey/ui/cn";
 
 interface FeedLinkProps {
   focus?: PublicationMetadataMainFocusType;
@@ -18,14 +18,14 @@ const FeedLink: FC<FeedLinkProps> = ({ focus, name, setFocus, type }) => (
   <button
     aria-label={name}
     className={cn(
-      focus === type ? 'bg-black text-white' : 'bg-gray-100 dark:bg-gray-800',
-      'rounded-full px-3 py-1.5 text-xs sm:px-4',
-      'border border-gray-300 dark:border-gray-500'
+      focus === type ? "bg-black text-white" : "bg-gray-100 dark:bg-gray-800",
+      "rounded-full px-3 py-1.5 text-xs sm:px-4",
+      "border border-gray-300 dark:border-gray-500"
     )}
     onClick={() => {
       setFocus(type);
       Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
-        explore_feed_focus: (type || 'all_posts').toLowerCase()
+        explore_feed_focus: (type || "all_posts").toLowerCase()
       });
     }}
     type="button"

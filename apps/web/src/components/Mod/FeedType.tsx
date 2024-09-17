@@ -1,7 +1,7 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { ModFeedType } from '@hey/data/enums';
-import { TabButton } from '@hey/ui';
+import { ModFeedType } from "@hey/data/enums";
+import { TabButton } from "@hey/ui";
 
 interface FeedTypeProps {
   feedType: ModFeedType;
@@ -10,10 +10,10 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const tabs = [
-    { name: 'Latest Publications', type: ModFeedType.LATEST },
-    { name: 'Latest Reports', type: ModFeedType.REPORTS },
-    { name: 'Search Publications', type: ModFeedType.SEARCH },
-    { name: 'Search Profiles', type: ModFeedType.PROFILES }
+    { name: "Latest Publications", type: ModFeedType.LATEST },
+    { name: "Latest Reports", type: ModFeedType.REPORTS },
+    { name: "Search Publications", type: ModFeedType.SEARCH },
+    { name: "Search Profiles", type: ModFeedType.PROFILES }
   ];
 
   return (

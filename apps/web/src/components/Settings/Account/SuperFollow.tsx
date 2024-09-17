@@ -1,25 +1,25 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { StarIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
 import {
   ADDRESS_PLACEHOLDER,
   DEFAULT_COLLECT_TOKEN,
   LENS_HUB,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { Regex } from '@hey/data/regex';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+} from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { Regex } from "@hey/data/regex";
+import { SETTINGS } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
-} from '@hey/lens';
+} from "@hey/lens";
 import {
   Button,
   Card,
@@ -28,22 +28,22 @@ import {
   Input,
   Select,
   useZodForm
-} from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
-import { object, string } from 'zod';
+} from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
+import { object, string } from "zod";
 
 const newSuperFollowSchema = object({
-  amount: string().min(1, { message: 'Invalid amount' }),
+  amount: string().min(1, { message: "Invalid amount" }),
   recipient: string()
-    .max(42, { message: 'Ethereum address should be within 42 characters' })
-    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
+    .max(42, { message: "Ethereum address should be within 42 characters" })
+    .regex(Regex.ethereumAddress, { message: "Invalid Ethereum address" })
 });
 
 const SuperFollow: FC = () => {
@@ -65,21 +65,21 @@ const SuperFollow: FC = () => {
   const form = useZodForm({
     defaultValues: {
       amount:
-        currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings'
+        currentProfile?.followModule?.__typename === "FeeFollowModuleSettings"
           ? currentProfile?.followModule?.amount.value
-          : '',
+          : "",
       recipient: currentProfile?.ownedBy.address
     },
     schema: newSuperFollowSchema
   });
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
       return;
     }
 
     setIsLoading(false);
-    toast.success('Super follow updated successfully!');
+    toast.success("Super follow updated successfully!");
     Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
@@ -108,7 +108,7 @@ const SuperFollow: FC = () => {
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'setFollowModule'
+      functionName: "setFollowModule"
     });
   };
 
@@ -130,7 +130,7 @@ const SuperFollow: FC = () => {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
           }
 
@@ -198,7 +198,7 @@ const SuperFollow: FC = () => {
           <Select
             defaultValue={
               currentProfile?.followModule?.__typename ===
-              'FeeFollowModuleSettings'
+              "FeeFollowModuleSettings"
                 ? currentProfile?.followModule?.amount.asset.contract.address
                 : undefined
             }
@@ -219,13 +219,13 @@ const SuperFollow: FC = () => {
           placeholder="5"
           step="0.0001"
           type="number"
-          {...form.register('amount')}
+          {...form.register("amount")}
         />
         <Input
           label="Funds recipient"
           placeholder={ADDRESS_PLACEHOLDER}
           type="text"
-          {...form.register('recipient')}
+          {...form.register("recipient")}
         />
         <div className="ml-auto">
           <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
@@ -247,8 +247,8 @@ const SuperFollow: FC = () => {
               type="submit"
             >
               {followType === FollowModuleType.FeeFollowModule
-                ? 'Update Super follow'
-                : 'Set Super follow'}
+                ? "Update Super follow"
+                : "Set Super follow"}
             </Button>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import axios from 'axios';
+import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
+import axios from "axios";
 
 /**
  * Get the number of views of a publication

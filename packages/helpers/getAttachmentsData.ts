@@ -1,4 +1,4 @@
-import type { Maybe, PublicationMetadataMedia } from '@hey/lens';
+import type { Maybe, PublicationMetadataMedia } from "@hey/lens";
 
 const getAttachmentsData = (
   attachments?: Maybe<PublicationMetadataMedia[]>
@@ -9,22 +9,22 @@ const getAttachmentsData = (
 
   return attachments.map((attachment) => {
     switch (attachment.__typename) {
-      case 'PublicationMetadataMediaImage':
+      case "PublicationMetadataMediaImage":
         return {
-          type: 'Image',
+          type: "Image",
           uri: attachment.image.optimized?.uri
         };
-      case 'PublicationMetadataMediaVideo':
+      case "PublicationMetadataMediaVideo":
         return {
           coverUri: attachment.cover?.optimized?.uri,
-          type: 'Video',
+          type: "Video",
           uri: attachment.video.optimized?.uri
         };
-      case 'PublicationMetadataMediaAudio':
+      case "PublicationMetadataMediaAudio":
         return {
           artist: attachment.artist,
           coverUri: attachment.cover?.optimized?.uri,
-          type: 'Audio',
+          type: "Audio",
           uri: attachment.audio.optimized?.uri
         };
       default:

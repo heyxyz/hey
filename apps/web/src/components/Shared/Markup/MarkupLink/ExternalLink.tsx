@@ -1,9 +1,9 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MarkupLinkProps } from "@hey/types/misc";
+import type { FC } from "react";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import truncateUrl from '@hey/helpers/truncateUrl';
-import Link from 'next/link';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import truncateUrl from "@hey/helpers/truncateUrl";
+import Link from "next/link";
 
 const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
   let href = title;
@@ -12,7 +12,7 @@ const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
     return null;
   }
 
-  if (!href.includes('://')) {
+  if (!href.includes("://")) {
     href = `https://${href}`;
   }
 
@@ -21,7 +21,7 @@ const ExternalLink: FC<MarkupLinkProps> = ({ title }) => {
       href={href}
       onClick={stopEventPropagation}
       rel="noopener"
-      target={href.includes(location.host) ? '_self' : '_blank'}
+      target={href.includes(location.host) ? "_self" : "_blank"}
     >
       {title ? truncateUrl(title, 30) : title}
     </Link>

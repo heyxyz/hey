@@ -1,24 +1,24 @@
-import type { Comment, PublicationsRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { Comment, PublicationsRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import { useHiddenCommentFeedStore } from '@components/Publication';
-import QueuedPublication from '@components/Publication/QueuedPublication';
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
+import { useHiddenCommentFeedStore } from "@components/Publication";
+import QueuedPublication from "@components/Publication/QueuedPublication";
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   CommentRankingFilterType,
   CustomFiltersType,
   HiddenCommentsType,
   LimitType,
   usePublicationsQuery
-} from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { Virtuoso } from 'react-virtuoso';
-import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
+} from "@hey/lens";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import { Virtuoso } from "react-virtuoso";
+import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
+import { useTipsStore } from "src/store/non-persisted/useTipsStore";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface FeedProps {
   isHidden: boolean;
@@ -66,7 +66,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
   );
   const queuedCount = queuedComments.length;
   const hiddenCount = comments.filter(
-    (o) => o?.__typename === 'Comment' && o.isHidden
+    (o) => o?.__typename === "Comment" && o.isHidden
   ).length;
   const hiddenRemovedComments = comments?.length - hiddenCount;
   const totalComments = hiddenRemovedComments + queuedCount;
@@ -113,7 +113,7 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
           data={comments}
           endReached={onEndReached}
           itemContent={(index, comment) => {
-            if (comment?.__typename !== 'Comment' || comment.isHidden) {
+            if (comment?.__typename !== "Comment" || comment.isHidden) {
               return null;
             }
 

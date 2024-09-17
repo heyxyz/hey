@@ -1,11 +1,11 @@
-import type { GlobalProfileStats } from '@hey/types/lens';
-import type { FC } from 'react';
+import type { GlobalProfileStats } from "@hey/types/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import { Card, CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import Loader from "@components/Shared/Loader";
+import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
+import { Card, CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface ProfileStatsProps {
   profileId: string;
@@ -28,7 +28,7 @@ const ProfileStats: FC<ProfileStatsProps> = ({ profileId }) => {
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getProfileStats,
-    queryKey: ['getProfileStats', profileId]
+    queryKey: ["getProfileStats", profileId]
   });
 
   if (isLoading) {

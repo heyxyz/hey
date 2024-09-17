@@ -1,7 +1,6 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
-
-import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
+import P2PRecommendation from "@components/Shared/Profile/P2PRecommendation";
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
 interface GardenerToolProps {
   profile: Profile;

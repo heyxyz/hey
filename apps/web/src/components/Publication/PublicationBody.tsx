@@ -1,30 +1,30 @@
-import type { AnyPublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { FC } from "react";
 
-import Attachments from '@components/Shared/Attachments';
-import Quote from '@components/Shared/Embed/Quote';
-import Markup from '@components/Shared/Markup';
-import Oembed from '@components/Shared/Oembed';
-import Video from '@components/Shared/Video';
-import { EyeIcon } from '@heroicons/react/24/outline';
-import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getPublicationAttribute from '@hey/helpers/getPublicationAttribute';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import getURLs from '@hey/helpers/getURLs';
-import isPublicationMetadataTypeAllowed from '@hey/helpers/isPublicationMetadataTypeAllowed';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { H6 } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { memo } from 'react';
-import { isIOS, isMobile } from 'react-device-detect';
+import Attachments from "@components/Shared/Attachments";
+import Quote from "@components/Shared/Embed/Quote";
+import Markup from "@components/Shared/Markup";
+import Oembed from "@components/Shared/Oembed";
+import Video from "@components/Shared/Video";
+import { EyeIcon } from "@heroicons/react/24/outline";
+import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
+import getPublicationAttribute from "@hey/helpers/getPublicationAttribute";
+import getPublicationData from "@hey/helpers/getPublicationData";
+import getURLs from "@hey/helpers/getURLs";
+import isPublicationMetadataTypeAllowed from "@hey/helpers/isPublicationMetadataTypeAllowed";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { H6 } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import { memo } from "react";
+import { isIOS, isMobile } from "react-device-detect";
 
-import EncryptedPublication from './EncryptedPublication';
-import Metadata from './Metadata';
-import NotSupportedPublication from './NotSupportedPublication';
-import OpenActionOnBody from './OpenAction/OnBody';
-import Poll from './Poll';
+import EncryptedPublication from "./EncryptedPublication";
+import Metadata from "./Metadata";
+import NotSupportedPublication from "./NotSupportedPublication";
+import OpenActionOnBody from "./OpenAction/OnBody";
+import Poll from "./Poll";
 
 interface PublicationBodyProps {
   contentClassName?: string;
@@ -34,7 +34,7 @@ interface PublicationBodyProps {
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({
-  contentClassName = '',
+  contentClassName = "",
   publication,
   quoted = false,
   showMore = false
@@ -44,7 +44,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     : publication;
   const { id, metadata } = targetPublication;
 
-  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredContent = getPublicationData(metadata)?.content || "";
   const filteredAttachments = getPublicationData(metadata)?.attachments || [];
   const filteredAsset = getPublicationData(metadata)?.asset;
 
@@ -55,7 +55,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   let content = filteredContent;
 
   if (isIOS && isMobile && canShowMore) {
-    const truncatedContent = content?.split('\n')?.[0];
+    const truncatedContent = content?.split("\n")?.[0];
     if (truncatedContent) {
       content = truncatedContent;
     }
@@ -70,7 +70,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   // Show live if it's there
-  const showLive = metadata.__typename === 'LiveStreamMetadataV3';
+  const showLive = metadata.__typename === "LiveStreamMetadataV3";
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
@@ -80,17 +80,17 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   );
   const showPoll = Boolean(pollId);
   // Show sharing link
-  const showSharingLink = metadata.__typename === 'LinkMetadataV3';
+  const showSharingLink = metadata.__typename === "LinkMetadataV3";
   // Show quote
-  const showQuote = targetPublication.__typename === 'Quote';
+  const showQuote = targetPublication.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted publication
   const hideOembed =
     getPublicationAttribute(
       metadata.attributes,
       KNOWN_ATTRIBUTES.HIDE_OEMBED
-    ) === 'true';
+    ) === "true";
   const hasDecentOpenAction = targetPublication.openActionModules
-    .filter((module) => module.__typename === 'UnknownOpenActionModuleSettings')
+    .filter((module) => module.__typename === "UnknownOpenActionModuleSettings")
     .some(
       (module) =>
         module.contract.address === VerifiedOpenActionModules.DecentNFT
@@ -109,8 +109,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     <div className="break-words">
       <Markup
         className={cn(
-          { 'line-clamp-5': canShowMore },
-          'markup linkify text-md break-words',
+          { "line-clamp-5": canShowMore },
+          "markup linkify break-words text-md",
           contentClassName
         )}
         mentions={targetPublication.profilesMentioned}

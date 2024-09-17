@@ -1,13 +1,13 @@
-import type { Root } from 'remark-parse/lib';
-import type { Plugin } from 'unified';
+import type { Root } from "remark-parse/lib";
+import type { Plugin } from "unified";
 
-import { visitParents } from 'unist-util-visit-parents';
+import { visitParents } from "unist-util-visit-parents";
 
 const remarkLinkProtocolTransformer = (root: Root): Root => {
-  visitParents(root, 'text', (textNode, parentNodes) => {
+  visitParents(root, "text", (textNode, parentNodes) => {
     const linkNode = parentNodes[parentNodes.length - 1];
 
-    if (linkNode?.type !== 'link') {
+    if (linkNode?.type !== "link") {
       return;
     }
 
@@ -17,12 +17,12 @@ const remarkLinkProtocolTransformer = (root: Root): Root => {
 
     const { url } = linkNode;
 
-    if (url.includes('//')) {
+    if (url.includes("//")) {
       return;
     }
 
-    textNode.value = 'https://' + url;
-    linkNode.url = 'https://' + url;
+    textNode.value = `https://${url}`;
+    linkNode.url = `https://${url}`;
   });
 
   return root;

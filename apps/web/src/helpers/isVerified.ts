@@ -1,4 +1,4 @@
-import { hydrateVerifiedMembers } from 'src/store/persisted/useVerifiedMembersStore';
+import { hydrateVerifiedMembers } from "src/store/persisted/useVerifiedMembersStore";
 
 /**
  * Checks whether a profile is verified or not.

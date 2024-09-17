@@ -1,16 +1,16 @@
-import type { Profile, ProfileMentioned } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile, ProfileMentioned } from "@hey/lens";
+import type { FC } from "react";
 
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { useProfilesQuery } from '@hey/lens';
-import { Card, ErrorMessage, Modal } from '@hey/ui';
-import { useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import UserProfile from "@components/Shared/UserProfile";
+import { UsersIcon } from "@heroicons/react/24/outline";
+import { ProfileLinkSource } from "@hey/data/tracking";
+import { useProfilesQuery } from "@hey/lens";
+import { Card, ErrorMessage, Modal } from "@hey/ui";
+import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import MoreRelevantPeople from './MoreRelevantPeople';
+import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
   profilesMentioned: ProfileMentioned[];
@@ -41,7 +41,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         <UserProfileShimmer showFollowUnfollowButton />
         <UserProfileShimmer showFollowUnfollowButton />
         <UserProfileShimmer showFollowUnfollowButton />
-        <div className="pb-1 pt-2">
+        <div className="pt-2 pb-1">
           <div className="shimmer h-3 w-5/12 rounded-full" />
         </div>
       </Card>

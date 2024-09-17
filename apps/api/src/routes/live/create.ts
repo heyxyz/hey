@@ -1,13 +1,13 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import { LIVEPEER_KEY } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { v4 as uuid } from 'uuid';
-import { boolean, object } from 'zod';
+import { LIVEPEER_KEY } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { v4 as uuid } from "uuid";
+import { boolean, object } from "zod";
 
 type ExtensionRequest = {
   record: boolean;
@@ -35,10 +35,10 @@ export const post = [
     const { record } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
       const livepeerResponse = await fetch(
-        'https://livepeer.studio/api/stream',
+        "https://livepeer.studio/api/stream",
         {
           body: JSON.stringify({
             name: `${payload.id}-${uuid()}`,
@@ -47,14 +47,14 @@ export const post = [
                 bitrate: 3000000,
                 fps: 0,
                 height: 720,
-                name: '720p0',
+                name: "720p0",
                 width: 1280
               },
               {
                 bitrate: 6000000,
                 fps: 0,
                 height: 1080,
-                name: '1080p0',
+                name: "1080p0",
                 width: 1920
               }
             ],
@@ -62,9 +62,9 @@ export const post = [
           }),
           headers: {
             Authorization: `Bearer ${LIVEPEER_KEY}`,
-            'content-type': 'application/json'
+            "content-type": "application/json"
           },
-          method: 'POST'
+          method: "POST"
         }
       );
 

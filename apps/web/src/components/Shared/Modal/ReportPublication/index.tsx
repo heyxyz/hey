@@ -1,13 +1,13 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useReportPublicationMutation } from '@hey/lens';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { useReportPublicationMutation } from "@hey/lens";
 import {
   Button,
   EmptyState,
@@ -16,17 +16,17 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { object, string } from 'zod';
+} from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { object, string } from "zod";
 
-import Reason from './Reason';
+import Reason from "./Reason";
 
 const newReportPublicationSchema = object({
   additionalComments: string().max(260, {
-    message: 'Additional comments should not exceed 260 characters'
+    message: "Additional comments should not exceed 260 characters"
   })
 });
 
@@ -36,8 +36,8 @@ interface ReportProps {
 
 const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
   const { isSuspended } = useProfileStatus();
-  const [type, setType] = useState('');
-  const [subReason, setSubReason] = useState('');
+  const [type, setType] = useState("");
+  const [subReason, setSubReason] = useState("");
 
   const form = useZodForm({
     schema: newReportPublicationSchema
@@ -65,7 +65,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
             for: publicationId,
             reason: {
               [type]: {
-                reason: type.replace('Reason', '').toUpperCase(),
+                reason: type.replace("Reason", "").toUpperCase(),
                 subreason: subReason
               }
             }
@@ -108,7 +108,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
                 <TextArea
                   label="Description"
                   placeholder="Please provide additional details"
-                  {...form.register('additionalComments')}
+                  {...form.register("additionalComments")}
                 />
                 <Button
                   className="flex w-full justify-center"

@@ -1,19 +1,19 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import { Button, Form, Input, useZodForm } from '@hey/ui';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { object, string } from 'zod';
+import errorToast from "@helpers/errorToast";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import { Button, Form, Input, useZodForm } from "@hey/ui";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { object, string } from "zod";
 
 const updateEmailSchema = object({
   email: string().email()
@@ -29,9 +29,8 @@ const EmailForm: FC = () => {
 
   useEffect(() => {
     if (email) {
-      form.setValue('email', email);
+      form.setValue("email", email);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
 
   const onError = (error: any) => {
@@ -58,7 +57,7 @@ const EmailForm: FC = () => {
       setEmailState(email as string);
       Leafwatch.track(SETTINGS.ACCOUNT.SET_EMAIL);
 
-      return toast.success('Email verification sent to your email!');
+      return toast.success("Email verification sent to your email!");
     } catch (error) {
       onError(error);
     } finally {
@@ -77,7 +76,7 @@ const EmailForm: FC = () => {
       <Input
         label="Email address"
         placeholder="gavin@hooli.com"
-        {...form.register('email')}
+        {...form.register("email")}
         type="email"
       />
       <div className="ml-auto">

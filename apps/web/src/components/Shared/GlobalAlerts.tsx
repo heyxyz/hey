@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import GardenerActions from '@components/Publication/Actions/HigherActions/GardenerActions';
-import { Alert } from '@hey/ui';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import GardenerActions from "@components/Publication/Actions/HigherActions/GardenerActions";
+import { Alert } from "@hey/ui";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
-import BlockOrUnBlockProfile from './Alert/BlockOrUnBlockProfile';
-import DeletePublication from './Alert/DeletePublication';
+import BlockOrUnBlockProfile from "./Alert/BlockOrUnBlockProfile";
+import DeletePublication from "./Alert/DeletePublication";
 
 const GlobalAlerts: FC = () => {
   const {

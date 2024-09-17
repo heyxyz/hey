@@ -7,29 +7,29 @@ import type {
   NotificationRequest,
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import { BellIcon } from '@heroicons/react/24/outline';
+import { BellIcon } from "@heroicons/react/24/outline";
 import {
   CustomFiltersType,
   NotificationType,
   useNotificationsQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { Virtuoso } from 'react-virtuoso';
-import { NotificationTabType } from 'src/enums';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+} from "@hey/lens";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { Virtuoso } from "react-virtuoso";
+import { NotificationTabType } from "src/enums";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 
-import NotificationShimmer from './Shimmer';
-import ActedNotification from './Type/ActedNotification';
-import CommentNotification from './Type/CommentNotification';
-import FollowNotification from './Type/FollowNotification';
-import MentionNotification from './Type/MentionNotification';
-import MirrorNotification from './Type/MirrorNotification';
-import QuoteNotification from './Type/QuoteNotification';
-import ReactionNotification from './Type/ReactionNotification';
+import NotificationShimmer from "./Shimmer";
+import ActedNotification from "./Type/ActedNotification";
+import CommentNotification from "./Type/CommentNotification";
+import FollowNotification from "./Type/FollowNotification";
+import MentionNotification from "./Type/MentionNotification";
+import MirrorNotification from "./Type/MirrorNotification";
+import QuoteNotification from "./Type/QuoteNotification";
+import ReactionNotification from "./Type/ReactionNotification";
 
 interface ListProps {
   feedType: string;
@@ -113,40 +113,40 @@ const List: FC<ListProps> = ({ feedType }) => {
         itemContent={(_, notification) => (
           <div
             className={cn({
-              'p-5': notification.__typename !== 'FollowNotification'
+              "p-5": notification.__typename !== "FollowNotification"
             })}
           >
-            {notification.__typename === 'FollowNotification' && (
+            {notification.__typename === "FollowNotification" && (
               <FollowNotification
                 notification={notification as FollowNotificationType}
               />
             )}
-            {notification.__typename === 'MentionNotification' && (
+            {notification.__typename === "MentionNotification" && (
               <MentionNotification
                 notification={notification as MentionNotificationType}
               />
             )}
-            {notification.__typename === 'ReactionNotification' && (
+            {notification.__typename === "ReactionNotification" && (
               <ReactionNotification
                 notification={notification as ReactionNotificationType}
               />
             )}
-            {notification.__typename === 'CommentNotification' && (
+            {notification.__typename === "CommentNotification" && (
               <CommentNotification
                 notification={notification as CommentNotificationType}
               />
             )}
-            {notification.__typename === 'MirrorNotification' && (
+            {notification.__typename === "MirrorNotification" && (
               <MirrorNotification
                 notification={notification as MirrorNotificationType}
               />
             )}
-            {notification.__typename === 'QuoteNotification' && (
+            {notification.__typename === "QuoteNotification" && (
               <QuoteNotification
                 notification={notification as QuoteNotificationType}
               />
             )}
-            {notification.__typename === 'ActedNotification' && (
+            {notification.__typename === "ActedNotification" && (
               <ActedNotification
                 notification={notification as ActedNotificationType}
               />

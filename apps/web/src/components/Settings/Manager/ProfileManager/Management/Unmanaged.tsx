@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import List from './List';
+import List from "./List";
 
 const Unmanaged: FC = () => {
   return (

@@ -1,6 +1,6 @@
-import type { MisuseType } from '@hey/data/misused';
+import type { MisuseType } from "@hey/data/misused";
 
-import { misused } from '@hey/data/misused';
+import { misused } from "@hey/data/misused";
 
 /**
  * Get misused details.

@@ -1,12 +1,12 @@
-import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC } from "react";
 
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
-} from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
+} from "@hey/lens";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
   transaction
@@ -14,7 +14,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
   const { removeTransaction, setIndexedPostHash } = useTransactionStore();
 
   useLensTransactionStatusQuery({
-    fetchPolicy: 'no-cache',
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {
       if (

@@ -1,17 +1,17 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { UserIcon } from '@heroicons/react/24/outline';
-import cn from '@hey/ui/cn';
+import { UserIcon } from "@heroicons/react/24/outline";
+import cn from "@hey/ui/cn";
 
 interface YourProfileProps {
   className?: string;
 }
 
-const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
+const YourProfile: FC<YourProfileProps> = ({ className = "" }) => {
   return (
     <div
       className={cn(
-        'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
+        "flex w-full items-center space-x-1.5 text-gray-700 text-sm dark:text-gray-200",
         className
       )}
     >

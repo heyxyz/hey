@@ -1,26 +1,26 @@
-import type { Request, Response } from 'express';
-import type { Address } from 'viem';
+import type { Request, Response } from "express";
+import type { Address } from "viem";
 
-import { Errors } from '@hey/data/errors';
-import { POLYGON_RPCS } from '@hey/data/rpcs';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import validateSecret from 'src/helpers/middlewares/validateSecret';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { createWalletClient, http } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
-import { polygon } from 'viem/chains';
-import { object, string } from 'zod';
+import { Errors } from "@hey/data/errors";
+import { POLYGON_RPCS } from "@hey/data/rpcs";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import validateSecret from "src/helpers/middlewares/validateSecret";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { http, createWalletClient } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { polygon } from "viem/chains";
+import { object, string } from "zod";
 
 const ABI = [
   {
     constant: false,
-    inputs: [{ name: 'wad', type: 'uint256' }],
-    name: 'withdraw',
+    inputs: [{ name: "wad", type: "uint256" }],
+    name: "withdraw",
     outputs: [],
     payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function'
+    stateMutability: "nonpayable",
+    type: "function"
   }
 ];
 
@@ -68,9 +68,9 @@ export const post = [
       const bigintAmount = BigInt(amount);
       const hash = await client.writeContract({
         abi: ABI,
-        address: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+        address: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
         args: [bigintAmount],
-        functionName: 'withdraw'
+        functionName: "withdraw"
       });
 
       logger.info(`Swapped ${amount} to MATIC by ${account.address}`);

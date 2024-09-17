@@ -1,23 +1,23 @@
-import type { AnyPublication, Profile } from '@hey/lens';
-import type { APITypes } from 'plyr-react';
-import type { ChangeEvent, FC } from 'react';
+import type { AnyPublication, Profile } from "@hey/lens";
+import type { APITypes } from "plyr-react";
+import type { ChangeEvent, FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
-import { PUBLICATION } from '@hey/data/tracking';
-import getProfile from '@hey/helpers/getProfile';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useRef, useState } from 'react';
-import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
-import { object, string } from 'zod';
+import { Leafwatch } from "@helpers/leafwatch";
+import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
+import { PUBLICATION } from "@hey/data/tracking";
+import getProfile from "@hey/helpers/getProfile";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { useRef, useState } from "react";
+import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
+import { object, string } from "zod";
 
-import CoverImage from './CoverImage';
-import Player from './Player';
+import CoverImage from "./CoverImage";
+import Player from "./Player";
 
 export const AudioPublicationSchema = object({
-  artist: string().trim().min(1, { message: 'Invalid artist name' }),
-  cover: string().trim().min(1, { message: 'Invalid cover image' }),
-  title: string().trim().min(1, { message: 'Invalid audio title' })
+  artist: string().trim().min(1, { message: "Invalid artist name" }),
+  cover: string().trim().min(1, { message: "Invalid cover image" }),
+  title: string().trim().min(1, { message: "Invalid audio title" })
 });
 
 interface AudioProps {

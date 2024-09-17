@@ -1,15 +1,15 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MarkupLinkProps } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { hashflags } from '@hey/data/hashflags';
-import { prideHashtags } from '@hey/data/pride-hashtags';
-import { PUBLICATION } from '@hey/data/tracking';
-import isPrideMonth from '@hey/helpers/isPrideMonth';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import Link from 'next/link';
-import urlcat from 'urlcat';
+import { Leafwatch } from "@helpers/leafwatch";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { hashflags } from "@hey/data/hashflags";
+import { prideHashtags } from "@hey/data/pride-hashtags";
+import { PUBLICATION } from "@hey/data/tracking";
+import isPrideMonth from "@hey/helpers/isPrideMonth";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import Link from "next/link";
+import urlcat from "urlcat";
 
 const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {
@@ -25,10 +25,10 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
       <span>
         <Link
           className="outline-none focus:underline"
-          href={urlcat('/search', {
+          href={urlcat("/search", {
             q: title,
-            src: 'link_click',
-            type: 'pubs'
+            src: "link_click",
+            type: "pubs"
           })}
           onClick={(event) => {
             stopEventPropagation(event);

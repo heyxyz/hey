@@ -1,7 +1,7 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication } from "@hey/lens";
 
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   publicationContent: string;
@@ -13,7 +13,7 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  publicationContent: '',
+  publicationContent: "",
   quotedPublication: null,
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),

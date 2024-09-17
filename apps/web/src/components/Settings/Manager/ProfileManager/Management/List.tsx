@@ -2,24 +2,24 @@ import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfilesManagedRequest
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
-import errorToast from '@helpers/errorToast';
-import { UsersIcon } from '@heroicons/react/24/outline';
+import Loader from "@components/Shared/Loader";
+import UserProfile from "@components/Shared/UserProfile";
+import errorToast from "@helpers/errorToast";
+import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   ManagedProfileVisibility,
   useHideManagedProfileMutation,
   useProfilesManagedQuery,
   useUnhideManagedProfileMutation
-} from '@hey/lens';
-import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { Virtuoso } from 'react-virtuoso';
-import { useAccount } from 'wagmi';
+} from "@hey/lens";
+import { Button, EmptyState, ErrorMessage } from "@hey/ui";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { Virtuoso } from "react-virtuoso";
+import { useAccount } from "wagmi";
 
 interface ListProps {
   managed?: boolean;
@@ -80,8 +80,8 @@ const List: FC<ListProps> = ({ managed = false }) => {
         error={error}
         title={
           managed
-            ? 'Failed to load managed profiles'
-            : 'Failed to load un-managed profiles'
+            ? "Failed to load managed profiles"
+            : "Failed to load un-managed profiles"
         }
       />
     );
@@ -94,8 +94,8 @@ const List: FC<ListProps> = ({ managed = false }) => {
         icon={<UsersIcon className="size-8" />}
         message={
           managed
-            ? 'You are not managing any profiles!'
-            : 'You are not un-managing any profiles!'
+            ? "You are not managing any profiles!"
+            : "You are not un-managing any profiles!"
         }
       />
     );
@@ -105,15 +105,15 @@ const List: FC<ListProps> = ({ managed = false }) => {
     try {
       if (managed) {
         await hideManagedProfile({ variables: { request: { profileId } } });
-        toast.success('Profile is now un-managed');
-
-        return refetch();
-      } else {
-        await unhideManagedProfile({ variables: { request: { profileId } } });
-        toast.success('Profile is now managed');
+        toast.success("Profile is now un-managed");
 
         return refetch();
       }
+
+      await unhideManagedProfile({ variables: { request: { profileId } } });
+      toast.success("Profile is now managed");
+
+      return refetch();
     } catch (error) {
       errorToast(error);
     }
@@ -139,7 +139,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
               size="sm"
               variant="danger"
             >
-              {managed ? 'Un-manage' : 'Manage'}
+              {managed ? "Un-manage" : "Manage"}
             </Button>
           )}
         </div>

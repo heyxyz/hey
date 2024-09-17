@@ -1,5 +1,5 @@
-import type { ProfileInterestTypes } from '@hey/lens';
-import type { ProfileInterest } from '@hey/types/misc';
+import type { ProfileInterestTypes } from "@hey/lens";
+import type { ProfileInterest } from "@hey/types/misc";
 
 /**
  * Sanitizes an array of profile interests by grouping them into categories and subcategories.
@@ -13,23 +13,23 @@ const sanitizeProfileInterests = (profileInterests: ProfileInterestTypes[]) => {
   }
   const interests: ProfileInterest[] = [];
   const categories = profileInterests.filter(
-    (interest) => !interest.includes('__')
+    (interest) => !interest.includes("__")
   );
   for (const category of categories) {
     const subCategories = profileInterests
       .filter(
-        (interest) => interest.includes(category) && interest.includes('__')
+        (interest) => interest.includes(category) && interest.includes("__")
       )
       .map((item) => {
         return {
           id: item,
-          label: item.toLowerCase().split('__')[1].replaceAll('_', ' & ')
+          label: item.toLowerCase().split("__")[1].replaceAll("_", " & ")
         };
       });
     interests.push({
       category: {
         id: category,
-        label: category.replaceAll('_', ' & ').toLowerCase()
+        label: category.replaceAll("_", " & ").toLowerCase()
       },
       subCategories
     });

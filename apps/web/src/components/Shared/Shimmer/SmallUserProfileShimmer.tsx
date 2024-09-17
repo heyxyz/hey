@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import cn from '@hey/ui/cn';
+import cn from "@hey/ui/cn";
 
 interface SmallUserProfileShimmerProps {
   hideSlug?: boolean;
@@ -15,8 +15,8 @@ const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
     <div className="flex items-center space-x-3">
       <div
         className={cn(
-          smallAvatar ? 'size-4' : 'size-6',
-          'shimmer rounded-full'
+          smallAvatar ? "size-4" : "size-6",
+          "shimmer rounded-full"
         )}
       />
       <div className="shimmer h-3 w-28 rounded-lg" />

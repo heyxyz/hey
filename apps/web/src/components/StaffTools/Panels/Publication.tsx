@@ -1,11 +1,11 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import MetaDetails from '@components/Shared/MetaDetails';
-import { HashtagIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import { isCommentPublication } from '@hey/helpers/publicationHelpers';
-import { Card, H5 } from '@hey/ui';
+import MetaDetails from "@components/Shared/MetaDetails";
+import { HashtagIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { ShieldCheckIcon } from "@heroicons/react/24/solid";
+import { isCommentPublication } from "@hey/helpers/publicationHelpers";
+import { Card, H5 } from "@hey/ui";
 
 interface PublicationStaffToolProps {
   publication: MirrorablePublication;
@@ -19,7 +19,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   return (
     <Card
       as="aside"
-      className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5"
+      className="!bg-yellow-300/20 mt-5 border-yellow-400 p-5"
       forceRounded
     >
       <div className="flex items-center space-x-2 text-yellow-600">

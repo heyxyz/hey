@@ -1,9 +1,9 @@
-import type { AppProps } from 'next/app';
+import type { AppProps } from "next/app";
 
-import Providers from '@components/Common/Providers';
-import { heyFont } from '@helpers/fonts';
+import Providers from "@components/Common/Providers";
+import { heyFont } from "@helpers/fonts";
 
-import '../styles.css';
+import "../styles.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

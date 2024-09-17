@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 /**
  * Get the price of a token from Redstone API based on symbol.
@@ -12,8 +12,8 @@ const getRedstonePrice = async (symbol: null | string) => {
   }
 
   try {
-    const response = await axios.get('https://api.redstone.finance/prices', {
-      params: { limit: 1, provider: 'redstone', symbol }
+    const response = await axios.get("https://api.redstone.finance/prices", {
+      params: { limit: 1, provider: "redstone", symbol }
     });
 
     return response.data[0].value;

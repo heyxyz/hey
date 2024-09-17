@@ -1,1 +1,1 @@
-export { TipIcon } from './src/TipIcon';
+export { TipIcon } from "./src/TipIcon";

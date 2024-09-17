@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import { H5 } from './Typography';
+import { H5 } from "./Typography";
 
 interface CardHeaderProps {
   body?: ReactNode;

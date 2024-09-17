@@ -1,9 +1,9 @@
-import type { IGif } from '@hey/types/giphy';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { IGif } from "@hey/types/giphy";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { GIPHY_KEY } from '@hey/data/constants';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { GIPHY_KEY } from "@hey/data/constants";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface CategoriesProps {
   debouncedGifInput: string;
@@ -20,13 +20,13 @@ const Gifs: FC<CategoriesProps> = ({
 }) => {
   const onSelectGif = (item: IGif) => {
     setGifAttachment(item);
-    setSearchText('');
+    setSearchText("");
     setShowModal(false);
   };
 
   const getGifs = async (input: string): Promise<IGif[]> => {
     try {
-      const response = await axios.get('https://api.giphy.com/v1/gifs/search', {
+      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
         params: { api_key: GIPHY_KEY, limit: 48, q: input }
       });
 
@@ -39,7 +39,7 @@ const Gifs: FC<CategoriesProps> = ({
   const { data: gifs, isFetching } = useQuery({
     enabled: Boolean(debouncedGifInput),
     queryFn: () => getGifs(debouncedGifInput),
-    queryKey: ['getGifs', debouncedGifInput]
+    queryKey: ["getGifs", debouncedGifInput]
   });
 
   if (isFetching) {

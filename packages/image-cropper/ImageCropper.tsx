@@ -1,10 +1,10 @@
-import type { RefObject } from 'react';
+import type { RefObject } from "react";
 
-import cn from '@hey/ui/cn';
-import normalizeWheel from 'normalize-wheel';
-import { Component, createRef } from 'react';
+import cn from "@hey/ui/cn";
+import normalizeWheel from "normalize-wheel";
+import { Component, createRef } from "react";
 
-import type { Area, MediaSize, Point, Size } from './types';
+import type { Area, MediaSize, Point, Size } from "./types";
 
 import {
   computeCroppedArea,
@@ -12,7 +12,7 @@ import {
   getMidpoint,
   restrictPosition,
   restrictValue
-} from './cropUtils';
+} from "./cropUtils";
 
 interface CropperProps {
   borderSize: number;
@@ -52,22 +52,22 @@ class ImageCropper extends Component<CropperProps, State> {
     y: Number(touch.clientY)
   });
   cleanEvents = () => {
-    this.currentDoc.removeEventListener('mousemove', this.onMouseMove);
-    this.currentDoc.removeEventListener('mouseup', this.onDragStopped);
-    this.currentDoc.removeEventListener('touchmove', this.onTouchMove);
-    this.currentDoc.removeEventListener('touchend', this.onDragStopped);
+    this.currentDoc.removeEventListener("mousemove", this.onMouseMove);
+    this.currentDoc.removeEventListener("mouseup", this.onDragStopped);
+    this.currentDoc.removeEventListener("touchmove", this.onTouchMove);
+    this.currentDoc.removeEventListener("touchend", this.onDragStopped);
     this.currentDoc.removeEventListener(
-      'gesturemove',
+      "gesturemove",
       this.onGestureMove as EventListener
     );
     this.currentDoc.removeEventListener(
-      'gestureend',
+      "gestureend",
       this.onGestureEnd as EventListener
     );
   };
   clearScrollEvent = () => {
     if (this.containerRef) {
-      this.containerRef.removeEventListener('wheel', this.onWheel);
+      this.containerRef.removeEventListener("wheel", this.onWheel);
     }
     if (this.wheelTimer) {
       clearTimeout(this.wheelTimer);
@@ -156,7 +156,7 @@ class ImageCropper extends Component<CropperProps, State> {
   getPointOnContainer = ({ x, y }: Point) => {
     const containerRect = this.containerRef?.getBoundingClientRect();
     if (!containerRect) {
-      throw new Error('The Cropper is not mounted');
+      throw new Error("The Cropper is not mounted");
     }
     return {
       x: containerRect.width / 2 - (x - containerRect.left),
@@ -247,11 +247,11 @@ class ImageCropper extends Component<CropperProps, State> {
   onGestureStart = (e: GestureEvent) => {
     e.preventDefault();
     this.currentDoc.addEventListener(
-      'gesturechange',
+      "gesturechange",
       this.onGestureMove as EventListener
     );
     this.currentDoc.addEventListener(
-      'gestureend',
+      "gestureend",
       this.onGestureEnd as EventListener
     );
     this.gestureZoomStart = this.props.zoom;
@@ -269,8 +269,8 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    this.currentDoc.addEventListener('mousemove', this.onMouseMove);
-    this.currentDoc.addEventListener('mouseup', this.onDragStopped);
+    this.currentDoc.addEventListener("mousemove", this.onMouseMove);
+    this.currentDoc.addEventListener("mouseup", this.onDragStopped);
     this.onDragStart(ImageCropper.getMousePoint(e));
   };
 
@@ -288,10 +288,10 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     this.isTouching = true;
-    this.currentDoc.addEventListener('touchmove', this.onTouchMove, {
+    this.currentDoc.addEventListener("touchmove", this.onTouchMove, {
       passive: false
     }); // iOS 11 now defaults to passive: true
-    this.currentDoc.addEventListener('touchend', this.onDragStopped);
+    this.currentDoc.addEventListener("touchend", this.onDragStopped);
 
     if (e.touches.length === 2) {
       this.onPinchStart(e);
@@ -404,11 +404,11 @@ class ImageCropper extends Component<CropperProps, State> {
       if (this.currentDoc.defaultView) {
         this.currentWindow = this.currentDoc.defaultView;
       }
-      this.containerRef.addEventListener('wheel', this.onWheel, {
+      this.containerRef.addEventListener("wheel", this.onWheel, {
         passive: false
       });
       this.containerRef.addEventListener(
-        'gesturestart',
+        "gesturestart",
         this.onGestureStart as EventListener
       );
     }
@@ -434,7 +434,7 @@ class ImageCropper extends Component<CropperProps, State> {
   componentWillUnmount() {
     if (this.containerRef) {
       this.containerRef.removeEventListener(
-        'gesturestart',
+        "gesturestart",
         this.preventZoomSafari
       );
     }
@@ -483,7 +483,7 @@ class ImageCropper extends Component<CropperProps, State> {
         className="rounded-lg"
         style={{
           height: size.height + borderSize * 2,
-          overflow: 'hidden',
+          overflow: "hidden",
           padding: borderSize,
           width: size.width + borderSize * 2
         }}
@@ -493,7 +493,7 @@ class ImageCropper extends Component<CropperProps, State> {
           style={{ height: size.height, width: size.width }}
         >
           <div
-            className={cn('reactEasyCrop_Container')}
+            className={cn("reactEasyCrop_Container")}
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
             ref={(el) => (this.containerRef = el) as any}
@@ -502,10 +502,10 @@ class ImageCropper extends Component<CropperProps, State> {
               <img
                 alt=""
                 className={cn(
-                  'reactEasyCrop_Image',
+                  "reactEasyCrop_Image",
                   fitWidth
-                    ? 'reactEasyCrop_Cover_Horizontal'
-                    : 'reactEasyCrop_Cover_Vertical'
+                    ? "reactEasyCrop_Cover_Horizontal"
+                    : "reactEasyCrop_Cover_Vertical"
                 )}
                 onLoad={this.onMediaLoad}
                 ref={this.imageRef}
@@ -515,12 +515,12 @@ class ImageCropper extends Component<CropperProps, State> {
             )}
             <div
               className={cn(
-                'border-2 border-gray-500',
-                'reactEasyCrop_CropArea'
+                "border-2 border-gray-500",
+                "reactEasyCrop_CropArea"
               )}
               style={{
                 boxShadow: `0 0 0 ${borderSize}px`,
-                color: '#bbba',
+                color: "#bbba",
                 height: size.height,
                 width: size.width
               }}

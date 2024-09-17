@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { SYSTEM } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
-import { useSwitchChain } from 'wagmi';
+import { Leafwatch } from "@helpers/leafwatch";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { SYSTEM } from "@hey/data/tracking";
+import { Button } from "@hey/ui";
+import { useSwitchChain } from "wagmi";
 
 interface SwitchNetworkProps {
   className?: string;
@@ -14,9 +14,9 @@ interface SwitchNetworkProps {
 }
 
 const SwitchNetwork: FC<SwitchNetworkProps> = ({
-  className = '',
+  className = "",
   onSwitch,
-  title = 'Switch Network',
+  title = "Switch Network",
   toChainId
 }) => {
   const { switchChain } = useSwitchChain();

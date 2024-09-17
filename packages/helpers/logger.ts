@@ -1,4 +1,4 @@
-import winston from 'winston';
+import winston from "winston";
 
 class Logger {
   private logger: winston.Logger;
@@ -13,7 +13,7 @@ class Logger {
           return `${level}: ${message}`;
         })
       ),
-      level: 'info',
+      level: "info",
       transports: [new winston.transports.Console()]
     });
   }

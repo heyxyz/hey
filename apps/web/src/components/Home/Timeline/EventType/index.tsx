@@ -1,10 +1,10 @@
-import type { FeedItem } from '@hey/lens';
-import type { FC } from 'react';
+import type { FeedItem } from "@hey/lens";
+import type { FC } from "react";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 
-import Combined from './Combined';
-import Mirrored from './Mirrored';
+import Combined from "./Combined";
+import Mirrored from "./Mirrored";
 
 const getCanCombined = (aggregations: number[]) => {
   // show combined reactions if more than 2 items in aggregations
@@ -17,7 +17,6 @@ interface ActionTypeProps {
 
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const { mirrors } = feedItem;
-
   const canCombined = getCanCombined([mirrors?.length || 0]);
 
   return (

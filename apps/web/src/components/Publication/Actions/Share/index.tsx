@@ -1,22 +1,22 @@
-import type { AnyPublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { FC } from "react";
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu, MenuButton, MenuItems } from '@headlessui/react';
-import hasOptimisticallyMirrored from '@helpers/optimistic/hasOptimisticallyMirrored';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import humanize from '@hey/helpers/humanize';
-import nFormatter from '@hey/helpers/nFormatter';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Spinner, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import MenuTransition from "@components/Shared/MenuTransition";
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import hasOptimisticallyMirrored from "@helpers/optimistic/hasOptimisticallyMirrored";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import humanize from "@hey/helpers/humanize";
+import nFormatter from "@hey/helpers/nFormatter";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Spinner, Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
-import Mirror from './Mirror';
-import Quote from './Quote';
-import UndoMirror from './UndoMirror';
+import Mirror from "./Mirror";
+import Quote from "./Quote";
+import UndoMirror from "./UndoMirror";
 
 interface ShareMenuProps {
   publication: AnyPublication;
@@ -35,7 +35,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const shares =
     targetPublication.stats.mirrors + targetPublication.stats.quotes;
 
-  const iconClassName = 'w-[15px] sm:w-[18px]';
+  const iconClassName = "w-[15px] sm:w-[18px]";
 
   return (
     <div className="flex items-center space-x-1">
@@ -45,9 +45,9 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
           as={motion.button}
           className={cn(
             hasShared
-              ? 'text-brand-500 hover:bg-brand-300/20'
-              : 'ld-text-gray-500 hover:bg-gray-300/20',
-            'rounded-full p-1.5 outline-offset-2'
+              ? "text-brand-500 hover:bg-brand-300/20"
+              : "ld-text-gray-500 hover:bg-gray-300/20",
+            "rounded-full p-1.5 outline-offset-2"
           )}
           onClick={stopEventPropagation}
           whileTap={{ scale: 0.9 }}
@@ -56,14 +56,14 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
             <Spinner
               className="mr-0.5"
               size="xs"
-              variant={hasShared ? 'danger' : 'primary'}
+              variant={hasShared ? "danger" : "primary"}
             />
           ) : (
             <Tooltip
               content={
                 shares > 0
                   ? `${humanize(shares)} Mirrors and Quotes`
-                  : 'Mirror or Quote'
+                  : "Mirror or Quote"
               }
               placement="top"
               withDelay
@@ -97,8 +97,8 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
       {shares > 0 && !showCount ? (
         <span
           className={cn(
-            hasShared ? 'text-brand-500' : 'ld-text-gray-500',
-            'text-[11px] sm:text-xs'
+            hasShared ? "text-brand-500" : "ld-text-gray-500",
+            "text-[11px] sm:text-xs"
           )}
         >
           {nFormatter(shares)}

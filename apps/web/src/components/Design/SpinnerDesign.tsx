@@ -1,5 +1,5 @@
-import { Card, CardHeader, Spinner } from '@hey/ui';
-import { type FC } from 'react';
+import { Card, CardHeader, Spinner } from "@hey/ui";
+import type { FC } from "react";
 
 const SpinnerDesign: FC = () => {
   return (

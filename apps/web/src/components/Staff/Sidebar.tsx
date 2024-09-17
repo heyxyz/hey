@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Sidebar from '@components/Shared/Sidebar';
+import Sidebar from "@components/Shared/Sidebar";
 import {
   AdjustmentsHorizontalIcon,
   ChartBarIcon,
@@ -8,38 +8,38 @@ import {
   CurrencyDollarIcon,
   UserIcon,
   UserPlusIcon
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 
 const settingsSidebarItems = [
   {
     icon: <ClipboardIcon className="size-4" />,
-    title: 'Overview',
-    url: '/staff'
+    title: "Overview",
+    url: "/staff"
   },
   {
     icon: <ChartBarIcon className="size-4" />,
-    title: 'Stats',
-    url: '/staff/stats'
+    title: "Stats",
+    url: "/staff/stats"
   },
   {
     icon: <UserIcon className="size-4" />,
-    title: 'Users',
-    url: '/staff/users'
+    title: "Users",
+    url: "/staff/users"
   },
   {
     icon: <CurrencyDollarIcon className="size-4" />,
-    title: 'Tokens',
-    url: '/staff/tokens'
+    title: "Tokens",
+    url: "/staff/tokens"
   },
   {
     icon: <AdjustmentsHorizontalIcon className="size-4" />,
-    title: 'Permissions',
-    url: '/staff/permissions'
+    title: "Permissions",
+    url: "/staff/permissions"
   },
   {
     icon: <UserPlusIcon className="size-4" />,
-    title: 'Signup',
-    url: '/staff/signup'
+    title: "Signup",
+    url: "/staff/signup"
   }
 ];
 

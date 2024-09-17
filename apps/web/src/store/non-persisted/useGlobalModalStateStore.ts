@@ -1,9 +1,9 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from "@hey/lens";
 
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
-export type AuthModalType = 'login' | 'signup';
+export type AuthModalType = "login" | "signup";
 
 interface State {
   authModalType: AuthModalType;
@@ -37,7 +37,7 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  authModalType: 'login',
+  authModalType: "login",
   reportingProfile: null,
   reportingPublicationId: null,
   setShowAuthModal: (showAuthModal, authModalType) => {

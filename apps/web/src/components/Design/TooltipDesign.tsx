@@ -1,9 +1,9 @@
-import { CheckBadgeIcon } from '@heroicons/react/24/solid';
-import { Card, CardHeader, Tooltip } from '@hey/ui';
-import { type FC } from 'react';
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { Card, CardHeader, Tooltip } from "@hey/ui";
+import type { FC } from "react";
 
 const TooltipDesign: FC = () => {
-  const content = 'Tooltip content';
+  const content = "Tooltip content";
 
   return (
     <Card>
@@ -30,7 +30,7 @@ const TooltipDesign: FC = () => {
           content={
             <div className="flex items-center space-x-2">
               <div>Tooltip content</div>
-              <CheckBadgeIcon className="text-brand-400 size-4" />
+              <CheckBadgeIcon className="size-4 text-brand-400" />
             </div>
           }
           placement="top"

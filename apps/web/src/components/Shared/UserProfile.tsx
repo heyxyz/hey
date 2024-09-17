@@ -1,27 +1,27 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import isVerified from '@helpers/isVerified';
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getMentions from '@hey/helpers/getMentions';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import humanize from '@hey/helpers/humanize';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { memo } from 'react';
+} from "@heroicons/react/24/solid";
+import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getMentions from "@hey/helpers/getMentions";
+import getProfile from "@hey/helpers/getProfile";
+import hasMisused from "@hey/helpers/hasMisused";
+import humanize from "@hey/helpers/humanize";
+import { Image } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import { memo } from "react";
 
-import Markup from './Markup';
-import FollowUnfollowButton from './Profile/FollowUnfollowButton';
-import Slug from './Slug';
-import UserPreview from './UserPreview';
+import Markup from "./Markup";
+import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
+import Slug from "./Slug";
+import UserPreview from "./UserPreview";
 
 interface UserProfileProps {
   hideFollowButton?: boolean;
@@ -52,8 +52,8 @@ const UserProfile: FC<UserProfileProps> = ({
     <Image
       alt={profile.id}
       className={cn(
-        isBig ? 'size-14' : 'size-11',
-        'rounded-full border bg-gray-200 dark:border-gray-700'
+        isBig ? "size-14" : "size-11",
+        "rounded-full border bg-gray-200 dark:border-gray-700"
       )}
       height={isBig ? 56 : 44}
       loading="lazy"
@@ -68,13 +68,13 @@ const UserProfile: FC<UserProfileProps> = ({
   const UserName: FC = () => (
     <>
       <div className="flex max-w-sm items-center">
-        <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
+        <div className={cn(isBig ? "font-bold" : "text-md", "grid")}>
           <div className="truncate font-semibold">
             {getProfile(profile).displayName}
           </div>
         </div>
         {isVerified(profile.id) && (
-          <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
+          <CheckBadgeIcon className="ml-1 size-4 text-brand-500" />
         )}
         {hasMisused(profile.id) && (
           <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
@@ -93,7 +93,9 @@ const UserProfile: FC<UserProfileProps> = ({
         {showId && (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
-            <span className="text-xs">{humanize(parseInt(profile.id))}</span>
+            <span className="text-xs">
+              {humanize(Number.parseInt(profile.id))}
+            </span>
           </span>
         )}
       </div>
@@ -113,11 +115,11 @@ const UserProfile: FC<UserProfileProps> = ({
           {showBio && profile?.metadata?.bio && (
             <div
               className={cn(
-                isBig ? 'text-base' : 'text-sm',
-                'mt-2',
-                'linkify leading-6'
+                isBig ? "text-base" : "text-sm",
+                "mt-2",
+                "linkify leading-6"
               )}
-              style={{ wordBreak: 'break-word' }}
+              style={{ wordBreak: "break-word" }}
             >
               <Markup mentions={getMentions(profile.metadata.bio)}>
                 {profile?.metadata.bio}

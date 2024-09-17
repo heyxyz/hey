@@ -1,0 +1,73 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "files": {
+    "ignore": [
+      "**/.next/**",
+      "**/dist/**",
+      "**/artifacts/**",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.github/**",
+      "sw.js",
+      "**/cache/**",
+      ".openzeppelin",
+      "typechain-types",
+      "packages/tsconfig",
+      "**/generated/**",
+      "generated.ts"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useKeyWithClickEvents": "warn",
+        "useMediaCaption": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off",
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        }
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noMisleadingCharacterClass": "warn",
+        "noAssignInExpressions": "off",
+        "noArrayIndexKey": "warn"
+      },
+      "complexity": {
+        "noForEach": "warn",
+        "useLiteralKeys": "warn"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "fix": "safe",
+          "level": "error",
+          "options": {}
+        }
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "formatter": {
+    "indentStyle": "space"
+  }
+}

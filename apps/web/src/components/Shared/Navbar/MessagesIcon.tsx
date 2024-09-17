@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { EnvelopeIcon } from '@heroicons/react/24/outline';
-import { Tooltip } from '@hey/ui';
-import Link from 'next/link';
+import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import { Tooltip } from "@hey/ui";
+import Link from "next/link";
 
 const MessagesIcon: FC = () => {
   return (

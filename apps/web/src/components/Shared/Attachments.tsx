@@ -1,38 +1,38 @@
-import type { MetadataAsset } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MetadataAsset } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { ATTACHMENT } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import imageKit from '@hey/helpers/imageKit';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Image, LightBox } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { memo, useState } from 'react';
+import { Leafwatch } from "@helpers/leafwatch";
+import { ATTACHMENT } from "@hey/data/constants";
+import { PUBLICATION } from "@hey/data/tracking";
+import imageKit from "@hey/helpers/imageKit";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Image, LightBox } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { memo, useState } from "react";
 
-import Audio from './Audio';
-import Video from './Video';
+import Audio from "./Audio";
+import Video from "./Video";
 
 const getClass = (attachments: number) => {
   if (attachments === 1) {
-    return { aspect: '', row: 'grid-cols-1 grid-rows-1' };
+    return { aspect: "", row: "grid-cols-1 grid-rows-1" };
   }
   if (attachments === 2) {
     return {
-      aspect: 'aspect-w-16 aspect-h-12',
-      row: 'grid-cols-2 grid-rows-1'
+      aspect: "aspect-w-16 aspect-h-12",
+      row: "grid-cols-2 grid-rows-1"
     };
   }
   if (attachments > 2) {
     return {
-      aspect: 'aspect-w-16 aspect-h-12',
-      row: 'grid-cols-2 grid-rows-2'
+      aspect: "aspect-w-16 aspect-h-12",
+      row: "grid-cols-2 grid-rows-2"
     };
   }
 };
 
 interface MetadataAttachment {
-  type: 'Audio' | 'Image' | 'Video';
+  type: "Audio" | "Image" | "Video";
   uri: string;
 }
 
@@ -45,28 +45,28 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const processedAttachments = attachments.slice(0, 4);
 
-  const assetIsImage = asset?.type === 'Image';
-  const assetIsVideo = asset?.type === 'Video';
-  const assetIsAudio = asset?.type === 'Audio';
+  const assetIsImage = asset?.type === "Image";
+  const assetIsVideo = asset?.type === "Video";
+  const assetIsAudio = asset?.type === "Audio";
 
   const attachmentsHasImage =
-    processedAttachments.some((attachment) => attachment.type === 'Image') ||
+    processedAttachments.some((attachment) => attachment.type === "Image") ||
     assetIsImage;
 
   const determineDisplay = ():
-    | 'displayAudioAsset'
-    | 'displayVideoAsset'
+    | "displayAudioAsset"
+    | "displayVideoAsset"
     | null
     | string[] => {
     if (assetIsVideo) {
-      return 'displayVideoAsset';
+      return "displayVideoAsset";
     }
     if (assetIsAudio) {
-      return 'displayAudioAsset';
+      return "displayAudioAsset";
     }
     if (attachmentsHasImage) {
       const imageAttachments = processedAttachments.filter(
-        (attachment) => attachment.type === 'Image'
+        (attachment) => attachment.type === "Image"
       );
       const assetImage = asset?.uri;
 
@@ -108,15 +108,15 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
     <div className="mt-3">
       {Array.isArray(displayDecision) && (
         <div
-          className={cn('grid gap-2', getClass(displayDecision.length)?.row)}
+          className={cn("grid gap-2", getClass(displayDecision.length)?.row)}
         >
           {displayDecision.map((attachment, index) => (
             <div
               className={cn(
                 getClass(displayDecision.length)?.aspect,
-                { 'row-span-2': displayDecision.length === 3 && index === 0 },
-                { 'col-span-2': displayDecision.length === 4 && index === 0 },
-                { 'w-2/3': displayDecision.length === 1 }
+                { "row-span-2": displayDecision.length === 3 && index === 0 },
+                { "col-span-2": displayDecision.length === 4 && index === 0 },
+                { "w-2/3": displayDecision.length === 1 }
               )}
               key={attachment}
               onClick={stopEventPropagation}
@@ -126,10 +126,10 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
           ))}
         </div>
       )}
-      {displayDecision === 'displayVideoAsset' && (
+      {displayDecision === "displayVideoAsset" && (
         <Video poster={asset?.cover} src={asset?.uri as string} />
       )}
-      {displayDecision === 'displayAudioAsset' && (
+      {displayDecision === "displayAudioAsset" && (
         <Audio
           artist={asset?.artist}
           expandCover={setExpandedImage}

@@ -1,50 +1,50 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import Markup from '@components/Shared/Markup';
-import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
-import Slug from '@components/Shared/Slug';
-import isVerified from '@helpers/isVerified';
+import Markup from "@components/Shared/Markup";
+import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
+import Slug from "@components/Shared/Slug";
+import isVerified from "@helpers/isVerified";
 import {
   ClockIcon,
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
   ShieldCheckIcon
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon,
   EyeSlashIcon
-} from '@heroicons/react/24/solid';
-import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import getAvatar from '@hey/helpers/getAvatar';
-import getFavicon from '@hey/helpers/getFavicon';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getMentions from '@hey/helpers/getMentions';
-import getMisuseDetails from '@hey/helpers/getMisuseDetails';
-import getProfile from '@hey/helpers/getProfile';
-import getProfileAttribute from '@hey/helpers/getProfileAttribute';
-import hasMisused from '@hey/helpers/hasMisused';
-import { FollowModuleType } from '@hey/lens';
-import { Button, H3, Image, LightBox, Tooltip } from '@hey/ui';
-import { useFlag } from '@unleash/proxy-client-react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import urlcat from 'urlcat';
+} from "@heroicons/react/24/solid";
+import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import getAvatar from "@hey/helpers/getAvatar";
+import getFavicon from "@hey/helpers/getFavicon";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getMentions from "@hey/helpers/getMentions";
+import getMisuseDetails from "@hey/helpers/getMisuseDetails";
+import getProfile from "@hey/helpers/getProfile";
+import getProfileAttribute from "@hey/helpers/getProfileAttribute";
+import hasMisused from "@hey/helpers/hasMisused";
+import { FollowModuleType } from "@hey/lens";
+import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import urlcat from "urlcat";
 
-import Badges from './Badges';
-import Pro from './Badges/Pro';
-import Followerings from './Followerings';
-import InternalTools from './InternalTools';
-import ProfileMenu from './Menu';
-import MutualFollowers from './MutualFollowers';
-import ScamWarning from './ScamWarning';
+import Badges from "./Badges";
+import Pro from "./Badges/Pro";
+import Followerings from "./Followerings";
+import InternalTools from "./InternalTools";
+import ProfileMenu from "./Menu";
+import MutualFollowers from "./MutualFollowers";
+import ScamWarning from "./ScamWarning";
 
 export const MetaDetails = ({
   children,
@@ -55,7 +55,7 @@ export const MetaDetails = ({
 }) => (
   <div className="flex items-center gap-2">
     {icon}
-    <div className="text-md truncate">{children}</div>
+    <div className="truncate text-md">{children}</div>
   </div>
 );
 
@@ -76,7 +76,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
-      <div className="relative -mt-24 size-32 sm:-mt-32 sm:size-52">
+      <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
         <Image
           alt={profile.id}
           className="size-32 cursor-pointer rounded-full bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
@@ -99,17 +99,17 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           <H3 className="truncate">{getProfile(profile).displayName}</H3>
           {isVerified(profile.id) ? (
             <Tooltip content="Verified">
-              <CheckBadgeIcon className="text-brand-500 size-6" />
+              <CheckBadgeIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="text-brand-500 size-6" />
+              <ExclamationCircleIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
           {isSuspended ? (
             <Tooltip content="Suspended">
-              <EyeSlashIcon className="text-brand-500 size-6" />
+              <EyeSlashIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
           <Pro id={profile.id} />
@@ -127,7 +127,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         </div>
       </div>
       {profile?.metadata?.bio ? (
-        <div className="markup linkify text-md mr-0 break-words sm:mr-10">
+        <div className="markup linkify mr-0 break-words text-md sm:mr-10">
           <Markup mentions={getMentions(profile?.metadata.bio)}>
             {profile?.metadata.bio}
           </Markup>
@@ -140,7 +140,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           {currentProfile?.id === profile.id ? (
             <Button
               icon={<Cog6ToothIcon className="size-5" />}
-              onClick={() => push('/settings')}
+              onClick={() => push("/settings")}
               outline
             >
               Edit Profile
@@ -171,14 +171,14 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            {parseInt(profile.id)}
+            {Number.parseInt(profile.id)}
           </MetaDetails>
-          {getProfileAttribute('location', profile?.metadata?.attributes) ? (
+          {getProfileAttribute("location", profile?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
-              {getProfileAttribute('location', profile?.metadata?.attributes)}
+              {getProfileAttribute("location", profile?.metadata?.attributes)}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute('website', profile?.metadata?.attributes) ? (
+          {getProfileAttribute("website", profile?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -187,7 +187,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
                   height={16}
                   src={getFavicon(
                     getProfileAttribute(
-                      'website',
+                      "website",
                       profile?.metadata?.attributes
                     )
                   )}
@@ -197,21 +197,21 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
             >
               <Link
                 href={`https://${getProfileAttribute(
-                  'website',
+                  "website",
                   profile?.metadata?.attributes
                 )
-                  ?.replace('https://', '')
-                  .replace('http://', '')}`}
+                  ?.replace("https://", "")
+                  .replace("http://", "")}`}
                 rel="noreferrer noopener me"
                 target="_blank"
               >
-                {getProfileAttribute('website', profile?.metadata?.attributes)
-                  ?.replace('https://', '')
-                  .replace('http://', '')}
+                {getProfileAttribute("website", profile?.metadata?.attributes)
+                  ?.replace("https://", "")
+                  .replace("http://", "")}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute('x', profile?.metadata?.attributes) ? (
+          {getProfileAttribute("x", profile?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -219,26 +219,26 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
                   className="size-4"
                   height={16}
                   src={`${STATIC_IMAGES_URL}/brands/${
-                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                    resolvedTheme === "dark" ? "x-dark.png" : "x-light.png"
                   }`}
                   width={16}
                 />
               }
             >
               <Link
-                href={urlcat('https://x.com/:username', {
+                href={urlcat("https://x.com/:username", {
                   username: getProfileAttribute(
-                    'x',
+                    "x",
                     profile?.metadata?.attributes
-                  )?.replace('https://x.com/', '')
+                  )?.replace("https://x.com/", "")
                 })}
                 rel="noreferrer noopener"
                 target="_blank"
               >
                 {getProfileAttribute(
-                  'x',
+                  "x",
                   profile?.metadata?.attributes
-                )?.replace('https://x.com/', '')}
+                )?.replace("https://x.com/", "")}
               </Link>
             </MetaDetails>
           ) : null}

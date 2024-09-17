@@ -1,4 +1,4 @@
-import omitDeep from 'omit-deep';
+import omitDeep from "omit-deep";
 
 interface TypedData {
   domain: Record<string, any>;
@@ -23,10 +23,10 @@ const getSignature = (
   const { domain, types, value } = typedData;
 
   return {
-    domain: omitDeep(domain, ['__typename']),
-    message: omitDeep(value, ['__typename']),
-    primaryType: Object.keys(omitDeep(types, ['__typename']))[0],
-    types: omitDeep(types, ['__typename'])
+    domain: omitDeep(domain, ["__typename"]),
+    message: omitDeep(value, ["__typename"]),
+    primaryType: Object.keys(omitDeep(types, ["__typename"]))[0],
+    types: omitDeep(types, ["__typename"])
   };
 };
 

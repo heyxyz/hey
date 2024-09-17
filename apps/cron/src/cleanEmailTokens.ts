@@ -1,5 +1,5 @@
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
 
 const cleanEmailTokens = async () => {
   try {
@@ -9,11 +9,11 @@ const cleanEmailTokens = async () => {
     });
 
     logger.info(
-      `[Cron] cleanEmailTokens - Cleaned up email tokens that are expired`
+      "[Cron] cleanEmailTokens - Cleaned up email tokens that are expired"
     );
   } catch (error) {
     logger.error(
-      '[Cron] cleanEmailTokens - Error cleaning email tokens',
+      "[Cron] cleanEmailTokens - Error cleaning email tokens",
       error
     );
   }

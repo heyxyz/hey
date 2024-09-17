@@ -1,13 +1,13 @@
-import type { NewAttachment } from '@hey/types/misc';
+import type { NewAttachment } from "@hey/types/misc";
 
-import uploadToIPFS from '@helpers/uploadToIPFS';
-import imageCompression from 'browser-image-compression';
-import { useCallback } from 'react';
-import { toast } from 'react-hot-toast';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { useProStore } from 'src/store/non-persisted/useProStore';
-import { v4 as uuid } from 'uuid';
+import uploadToIPFS from "@helpers/uploadToIPFS";
+import imageCompression from "browser-image-compression";
+import { useCallback } from "react";
+import { toast } from "react-hot-toast";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
+import { useProStore } from "src/store/non-persisted/useProStore";
+import { v4 as uuid } from "uuid";
 
 const useUploadAttachments = () => {
   const { isPro } = useProStore();
@@ -22,9 +22,9 @@ const useUploadAttachments = () => {
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewAttachment[]> => {
       const validateFileSize = (file: any) => {
-        const isImage = file.type.includes('image');
-        const isVideo = file.type.includes('video');
-        const isAudio = file.type.includes('audio');
+        const isImage = file.type.includes("image");
+        const isVideo = file.type.includes("video");
+        const isAudio = file.type.includes("audio");
 
         const IMAGE_UPLOAD_LIMIT = 50000000;
         const VIDEO_UPLOAD_LIMIT = isPro ? 2000000000 : 500000000;
@@ -61,7 +61,7 @@ const useUploadAttachments = () => {
 
       const compressedFiles = await Promise.all(
         files.map(async (file: any) => {
-          if (file.type.includes('image') && !file.type.includes('gif')) {
+          if (file.type.includes("image") && !file.type.includes("gif")) {
             return await imageCompression(file, {
               exifOrientation: 1,
               maxSizeMB: 2,
@@ -84,11 +84,11 @@ const useUploadAttachments = () => {
             id: attachmentId,
             mimeType: file.type,
             previewUri: URL.createObjectURL(file),
-            type: file.type.includes('image')
-              ? 'Image'
-              : file.type.includes('video')
-                ? 'Video'
-                : 'Audio'
+            type: file.type.includes("image")
+              ? "Image"
+              : file.type.includes("video")
+                ? "Video"
+                : "Audio"
           };
         }
       );
@@ -114,7 +114,7 @@ const useUploadAttachments = () => {
 
           return attachmentsIPFS;
         } catch {
-          toast.error('Something went wrong while uploading!');
+          toast.error("Something went wrong while uploading!");
           removeAttachments(attachmentIds);
         }
       } else {

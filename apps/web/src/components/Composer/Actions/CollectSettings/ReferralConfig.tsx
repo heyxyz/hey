@@ -1,11 +1,11 @@
-import type { CollectModuleType } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { CollectModuleType } from "@hey/types/hey";
+import type { FC } from "react";
 
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { CollectOpenActionModuleType } from '@hey/lens';
-import { Input } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
+import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { CollectOpenActionModuleType } from "@hey/lens";
+import { Input } from "@hey/ui";
+import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 
 interface ReferralConfigProps {
   setCollectType: (data: CollectModuleType) => void;
@@ -31,7 +31,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
         }
       />
       {collectModule.referralFee ? (
-        <div className="ml-8 mt-4 flex space-x-2 text-sm">
+        <div className="mt-4 ml-8 flex space-x-2 text-sm">
           <Input
             iconRight="%"
             label="Referral fee"
@@ -39,8 +39,8 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
             min="1"
             onChange={(event) => {
               setCollectType({
-                referralFee: parseInt(
-                  event.target.value ? event.target.value : '0'
+                referralFee: Number.parseInt(
+                  event.target.value ? event.target.value : "0"
                 )
               });
             }}

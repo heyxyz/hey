@@ -5,7 +5,7 @@
  * @returns The decoded data in base64 format.
  */
 const decoded = (str: string): string =>
-  Buffer.from(str, 'base64').toString('binary');
+  Buffer.from(str, "base64").toString("binary");
 
 /**
  * Parses a JSON Web Token and returns an object with the expiry time in seconds.
@@ -24,15 +24,15 @@ const parseJwt = (
   role: string;
 } => {
   try {
-    return JSON.parse(decoded(token.split('.')[1]));
+    return JSON.parse(decoded(token.split(".")[1]));
   } catch {
     return {
-      authorizationId: '',
-      evmAddress: '',
+      authorizationId: "",
+      evmAddress: "",
       exp: 0,
       iat: 0,
-      id: '',
-      role: ''
+      id: "",
+      role: ""
     };
   }
 };

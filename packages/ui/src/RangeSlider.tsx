@@ -1,7 +1,7 @@
-import * as SliderPrimitive from '@radix-ui/react-slider';
-import { forwardRef } from 'react';
+import * as SliderPrimitive from "@radix-ui/react-slider";
+import { forwardRef } from "react";
 
-import cn from '../cn';
+import cn from "../cn";
 
 interface RangeSliderProps extends SliderPrimitive.SliderProps {
   className?: string;
@@ -11,13 +11,13 @@ interface RangeSliderProps extends SliderPrimitive.SliderProps {
 
 export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
   function RangeSlider(
-    { className = '', displayValue, showValueInThumb = false, ...rest },
+    { className = "", displayValue, showValueInThumb = false, ...rest },
     ref
   ) {
     return (
       <SliderPrimitive.Root
         className={cn(
-          'relative flex h-5 w-full touch-none select-none items-center',
+          "relative flex h-5 w-full touch-none select-none items-center",
           className
         )}
         max={100}
@@ -32,9 +32,9 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
           aria-label="Slider"
           className={cn(
             showValueInThumb
-              ? 'rounded-lg px-2 py-1 text-xs font-bold text-white'
-              : 'size-5 rounded-full',
-            'block bg-gray-900 focus:outline-none active:scale-110'
+              ? "rounded-lg px-2 py-1 font-bold text-white text-xs"
+              : "size-5 rounded-full",
+            "block bg-gray-900 focus:outline-none active:scale-110"
           )}
         >
           {showValueInThumb ? displayValue || rest.value : null}

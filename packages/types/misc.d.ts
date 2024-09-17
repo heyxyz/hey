@@ -1,7 +1,7 @@
-import type { Maybe } from '@hey/lens';
-import type { MetadataLicenseType } from '@lens-protocol/metadata';
+import type { Maybe } from "@hey/lens";
+import type { MetadataLicenseType } from "@lens-protocol/metadata";
 
-import type { OptmisticPublicationType } from './enums';
+import type { OptmisticPublicationType } from "./enums";
 
 export interface IPFSResponse {
   mimeType: string;
@@ -13,7 +13,7 @@ export interface NewAttachment {
   id?: string;
   mimeType: string;
   previewUri: string;
-  type: 'Audio' | 'Image' | 'Video';
+  type: "Audio" | "Image" | "Video";
   uri?: string;
 }
 
@@ -34,13 +34,13 @@ export interface Nft {
   endTime: null | string;
   mediaUrl: string;
   mintCount: null | string;
-  mintStatus: 'closed' | 'live' | null | string;
+  mintStatus: "closed" | "live" | null | string;
   mintUrl: null | string;
-  schema: 'erc1155' | 'erc721' | string;
+  schema: "erc1155" | "erc721" | string;
   sourceUrl: string;
 }
 
-export type ButtonType = 'link' | 'mint' | 'post_redirect' | 'post' | 'tx';
+export type ButtonType = "link" | "mint" | "post_redirect" | "post" | "tx";
 export type FrameTransaction = {
   chainId: string;
   method: string;
@@ -129,7 +129,7 @@ export interface MetadataAsset {
   cover?: string;
   license?: Maybe<MetadataLicenseType>;
   title?: string;
-  type: 'Audio' | 'Image' | 'Video';
+  type: "Audio" | "Image" | "Video";
   uri: string;
 }
 

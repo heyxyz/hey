@@ -1,13 +1,13 @@
-import type { IGif } from '@hey/types/giphy';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { IGif } from "@hey/types/giphy";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Input } from '@hey/ui';
-import { useDebounce } from '@uidotdev/usehooks';
-import { useState } from 'react';
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { Input } from "@hey/ui";
+import { useDebounce } from "@uidotdev/usehooks";
+import { useState } from "react";
 
-import Categories from './Categories';
-import Gifs from './Gifs';
+import Categories from "./Categories";
+import Gifs from "./Gifs";
 
 interface GifSelectorProps {
   setGifAttachment: (gif: IGif) => void;
@@ -18,7 +18,7 @@ const GifSelector: FC<GifSelectorProps> = ({
   setGifAttachment,
   setShowModal
 }) => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const debouncedGifInput = useDebounce<string>(searchText, 500);
 
   return (

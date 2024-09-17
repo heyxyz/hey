@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Card } from '@hey/ui';
+import { Card } from "@hey/ui";
 
-import PublicationShimmer from './PublicationShimmer';
-import SmallUserProfileShimmer from './SmallUserProfileShimmer';
-import UserProfileShimmer from './UserProfileShimmer';
+import PublicationShimmer from "./PublicationShimmer";
+import SmallUserProfileShimmer from "./SmallUserProfileShimmer";
+import UserProfileShimmer from "./UserProfileShimmer";
 
 const PaidActionsShimmer: FC = () => {
   return (

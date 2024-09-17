@@ -1,8 +1,7 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, H5, WarningMessage } from '@hey/ui';
-import React from 'react';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Button, H5, WarningMessage } from "@hey/ui";
 
 const permit2Copy = (selectedCurrencySymbol: string) =>
   `Approve ${selectedCurrencySymbol} token allowance to Permit2 contract with transaction.`;
@@ -19,11 +18,11 @@ interface StepperApprovalsProps {
     creator: string;
     name: string;
     price: string;
-    schema: 'ERC-1155' | 'ERC-721';
+    schema: "ERC-1155" | "ERC-721";
     uri: string;
   };
   selectedCurrencySymbol: string;
-  step: 'Allowance' | 'Permit2';
+  step: "Allowance" | "Permit2";
 }
 
 const StepperApprovals: FC<StepperApprovalsProps> = ({
@@ -58,11 +57,11 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
         message={
           <div>
             <div className="leading-6">
-              {step === 'Permit2'
+              {step === "Permit2"
                 ? permit2Copy(selectedCurrencySymbol)
                 : approveTokenCopy(selectedCurrencySymbol)}
             </div>
-            {step === 'Permit2' ? (
+            {step === "Permit2" ? (
               <a
                 className="underline"
                 href="https://docs.uniswap.org/contracts/permit2/overview"
@@ -75,12 +74,12 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
           </div>
         }
         title={
-          step === 'Permit2'
-            ? 'Allowing the Permit2 contract'
-            : 'Approving token allowance'
+          step === "Permit2"
+            ? "Allowing the Permit2 contract"
+            : "Approving token allowance"
         }
       />
-      {step === 'Allowance' ? (
+      {step === "Allowance" ? (
         <Button
           className="w-full justify-center"
           disabled={isApprovalLoading}
@@ -91,8 +90,8 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
           size="lg"
         >
           {isApprovalLoading
-            ? 'Approving...'
-            : 'Approve Module - Sign in your wallet'}
+            ? "Approving..."
+            : "Approve Module - Sign in your wallet"}
         </Button>
       ) : (
         <Button
@@ -106,8 +105,8 @@ const StepperApprovals: FC<StepperApprovalsProps> = ({
         >
           <div>
             {isPermit2Loading
-              ? 'Approving...'
-              : 'Approve Permit2 - Sign in your wallet'}
+              ? "Approving..."
+              : "Approve Permit2 - Sign in your wallet"}
           </div>
         </Button>
       )}

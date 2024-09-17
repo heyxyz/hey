@@ -1,9 +1,9 @@
-import type { AnyPublication } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import cn from '@hey/ui/cn';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import cn from "@hey/ui/cn";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 interface PublicationWrapperProps {
   children: ReactNode | ReactNode[];
@@ -13,13 +13,13 @@ interface PublicationWrapperProps {
 
 const PublicationWrapper: FC<PublicationWrapperProps> = ({
   children,
-  className = '',
+  className = "",
   publication
 }) => {
   const { pathname, push } = useRouter();
 
   const handleClick = () => {
-    if (pathname === '/mod') {
+    if (pathname === "/mod") {
       return;
     }
 

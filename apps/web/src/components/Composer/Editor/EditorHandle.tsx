@@ -1,9 +1,9 @@
-import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { Editor } from 'prosekit/core';
-import type { FC } from 'react';
+import type { EditorExtension } from "@helpers/prosekit/extension";
+import type { Editor } from "prosekit/core";
+import type { FC } from "react";
 
-import { setMarkdownContent } from '@helpers/prosekit/markdownContent';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { setMarkdownContent } from "@helpers/prosekit/markdownContent";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface EditorHandle {
   insertText: (text: string) => void;

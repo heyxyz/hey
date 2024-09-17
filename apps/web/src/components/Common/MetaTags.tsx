@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@hey/data/constants';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from "@hey/data/constants";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 interface MetaTagsProps {
   creator?: string;

@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Card } from '@hey/ui';
+import { Card } from "@hey/ui";
 
-import UserProfileShimmer from './UserProfileShimmer';
+import UserProfileShimmer from "./UserProfileShimmer";
 
 interface UserProfilesShimmerProps {
   isBig?: boolean;

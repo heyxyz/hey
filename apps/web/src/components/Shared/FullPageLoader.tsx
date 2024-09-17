@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import isPrideMonth from '@hey/helpers/isPrideMonth';
+import isPrideMonth from "@hey/helpers/isPrideMonth";
 
-import PageMetatags from './PageMetatags';
+import PageMetatags from "./PageMetatags";
 
 const FullPageLoader: FC = () => {
-  const logoSrc = isPrideMonth() ? '/pride.png' : '/logo.png';
+  const logoSrc = isPrideMonth() ? "/pride.png" : "/logo.png";
 
   return (
     <div className="grid h-screen place-items-center">

@@ -1,24 +1,24 @@
-import type { ApprovedAuthenticationRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { ApprovedAuthenticationRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import formatDate from '@hey/helpers/datetime/formatDate';
+import Loader from "@components/Shared/Loader";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import formatDate from "@hey/helpers/datetime/formatDate";
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
-} from '@hey/lens';
-import { Button, EmptyState, ErrorMessage } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { Virtuoso } from 'react-virtuoso';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { Button, EmptyState, ErrorMessage } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { Virtuoso } from "react-virtuoso";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const List: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -38,14 +38,14 @@ const List: FC = () => {
     setRevoking(false);
     setRevokeingSessionId(null);
     Leafwatch.track(SETTINGS.SESSIONS.REVOKE);
-    toast.success('Session revoked successfully!');
+    toast.success("Session revoked successfully!");
   };
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted,
     onError,
     update: (cache) => {
-      cache.evict({ id: 'ROOT_QUERY' });
+      cache.evict({ id: "ROOT_QUERY" });
     }
   });
 
@@ -127,16 +127,16 @@ const List: FC = () => {
                 </div>
               ) : null}
               <div>
-                <b>Registered -</b>{' '}
-                {formatDate(session.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
+                <b>Registered -</b>{" "}
+                {formatDate(session.createdAt, "MMM D, YYYY - hh:mm:ss A")}
               </div>
               <div>
-                <b>Last accessed -</b>{' '}
-                {formatDate(session.updatedAt, 'MMM D, YYYY - hh:mm:ss A')}
+                <b>Last accessed -</b>{" "}
+                {formatDate(session.updatedAt, "MMM D, YYYY - hh:mm:ss A")}
               </div>
               <div>
-                <b>Expires at -</b>{' '}
-                {formatDate(session.expiresAt, 'MMM D, YYYY - hh:mm:ss A')}
+                <b>Expires at -</b>{" "}
+                {formatDate(session.expiresAt, "MMM D, YYYY - hh:mm:ss A")}
               </div>
             </div>
           </div>

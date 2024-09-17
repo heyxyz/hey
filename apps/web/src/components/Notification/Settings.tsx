@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import HighSignalNotificationFilter from '@components/Settings/Preferences/HighSignalNotificationFilter';
-import { BellIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
-import { Modal, Tooltip } from '@hey/ui';
-import { useState } from 'react';
+import HighSignalNotificationFilter from "@components/Settings/Preferences/HighSignalNotificationFilter";
+import { BellIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { Modal, Tooltip } from "@hey/ui";
+import { useState } from "react";
 
 const Settings: FC = () => {
   const [showNotificationSettings, setShowNotificationSettings] =

@@ -1,3 +1,3 @@
-import Design from '@components/Design';
+import Design from "@components/Design";
 
 export default Design;

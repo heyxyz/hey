@@ -1,22 +1,22 @@
 import type {
   MirrorablePublication,
   PeerToPeerRecommendRequest
-} from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { ApolloCache } from "@hey/lens/apollo";
+import type { FC } from "react";
 
-import { MenuItem } from '@headlessui/react';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { SparklesIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { MenuItem } from "@headlessui/react";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { SparklesIcon } from "@heroicons/react/24/outline";
+import { PROFILE } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   usePeerToPeerRecommendMutation,
   usePeerToPeerUnrecommendMutation
-} from '@hey/lens';
-import cn from '@hey/ui/cn';
-import { toast } from 'react-hot-toast';
+} from "@hey/lens";
+import cn from "@hey/ui/cn";
+import { toast } from "react-hot-toast";
 
 interface NotInterestedProps {
   publication: MirrorablePublication;
@@ -42,7 +42,7 @@ const Recommend: FC<NotInterestedProps> = ({ publication }) => {
 
   const [recommend] = usePeerToPeerRecommendMutation({
     onCompleted: () => {
-      toast.success('Recommended by you successfully!');
+      toast.success("Recommended by you successfully!");
       Leafwatch.track(PROFILE.RECOMMENDED, { profile_id: publication.by.id });
     },
     onError,
@@ -52,7 +52,7 @@ const Recommend: FC<NotInterestedProps> = ({ publication }) => {
 
   const [unrecommend] = usePeerToPeerUnrecommendMutation({
     onCompleted: () => {
-      toast.success('Un-recommended by you successfully!');
+      toast.success("Un-recommended by you successfully!");
       Leafwatch.track(PROFILE.UNRECOMENDED, { profile_id: publication.by.id });
     },
     onError,
@@ -73,8 +73,8 @@ const Recommend: FC<NotInterestedProps> = ({ publication }) => {
       as="div"
       className={({ focus }) =>
         cn(
-          { 'dropdown-active': focus },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
+          { "dropdown-active": focus },
+          "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
         )
       }
       onClick={(event) => {

@@ -1,10 +1,10 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import { useProfileQuery } from '@hey/lens';
+import { useProfileQuery } from "@hey/lens";
 
-import SmallUserProfileShimmer from './Shimmer/SmallUserProfileShimmer';
-import SmallUserProfile from './SmallUserProfile';
+import SmallUserProfileShimmer from "./Shimmer/SmallUserProfileShimmer";
+import SmallUserProfile from "./SmallUserProfile";
 
 interface LazySmallUserProfileProps {
   hideSlug?: boolean;

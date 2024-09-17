@@ -1,7 +1,7 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Tooltip } from '@hey/ui';
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { Tooltip } from "@hey/ui";
 
 const HeyProfile: FC = () => {
   return (

@@ -1,27 +1,27 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
 import {
   Button,
   GridItemEight,
   GridItemFour,
   GridLayout,
   Spinner
-} from '@hey/ui';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useWriteContract } from 'wagmi';
+} from "@hey/ui";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useWriteContract } from "wagmi";
 
-import CountdownTimer from '../CountdownTimer';
-import IndexStatus from '../IndexStatus';
+import CountdownTimer from "../CountdownTimer";
+import IndexStatus from "../IndexStatus";
 
 const ProtectProfile: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -46,7 +46,7 @@ const ProtectProfile: FC = () => {
     return await writeContractAsync({
       abi: LensHub,
       address: LENS_HUB,
-      functionName: 'enableTokenGuardian'
+      functionName: "enableTokenGuardian"
     });
   };
 
@@ -74,12 +74,12 @@ const ProtectProfile: FC = () => {
   };
 
   return (
-    <div className="border-b border-gray-300 bg-gray-500/20">
+    <div className="border-gray-300 border-b bg-gray-500/20">
       <GridLayout>
         <GridItemEight className="space-y-1">
           <div className="flex items-center space-x-2 text-gray-700">
             <LockOpenIcon className="size-5" />
-            <div className="text-base font-bold sm:text-lg">
+            <div className="font-bold text-base sm:text-lg">
               Attention! Your profile is currently unlocked.
             </div>
           </div>
@@ -98,7 +98,7 @@ const ProtectProfile: FC = () => {
             ) : (
               <>
                 Your profile protection disabling has been triggered. It will
-                take effect in{' '}
+                take effect in{" "}
                 <b>
                   <CountdownTimer targetDate={coolOffTime} />
                 </b>
@@ -106,7 +106,7 @@ const ProtectProfile: FC = () => {
             )}
           </div>
         </GridItemEight>
-        <GridItemFour className="mt-5 flex items-center sm:ml-auto sm:mt-0">
+        <GridItemFour className="mt-5 flex items-center sm:mt-0 sm:ml-auto">
           {writeHash ? (
             <IndexStatus reload txHash={writeHash} />
           ) : (

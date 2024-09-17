@@ -1,5 +1,5 @@
-import { Alert, Button, Card, CardHeader } from '@hey/ui';
-import { type FC, useState } from 'react';
+import { Alert, Button, Card, CardHeader } from "@hey/ui";
+import { type FC, useState } from "react";
 
 const AlertDesign: FC = () => {
   const [showAlert, setShowAlert] = useState(false);

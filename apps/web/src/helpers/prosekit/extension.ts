@@ -1,7 +1,7 @@
-import type { MentionAttrs } from 'prosekit/extensions/mention';
+import type { MentionAttrs } from "prosekit/extensions/mention";
 
-import { HANDLE_PREFIX } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
+import { HANDLE_PREFIX } from "@hey/data/constants";
+import { Regex } from "@hey/data/regex";
 import {
   defineBaseCommands,
   defineBaseKeymap,
@@ -12,26 +12,26 @@ import {
   defineParagraph,
   defineText,
   union
-} from 'prosekit/core';
-import { defineBold } from 'prosekit/extensions/bold';
-import { defineHeading } from 'prosekit/extensions/heading';
-import { defineItalic } from 'prosekit/extensions/italic';
-import { defineLinkMarkRule, defineLinkSpec } from 'prosekit/extensions/link';
-import { defineMarkRule } from 'prosekit/extensions/mark-rule';
-import { defineMentionCommands } from 'prosekit/extensions/mention';
-import { defineModClickPrevention } from 'prosekit/extensions/mod-click-prevention';
-import { definePlaceholder } from 'prosekit/extensions/placeholder';
-import { defineVirtualSelection } from 'prosekit/extensions/virtual-selection';
+} from "prosekit/core";
+import { defineBold } from "prosekit/extensions/bold";
+import { defineHeading } from "prosekit/extensions/heading";
+import { defineItalic } from "prosekit/extensions/italic";
+import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
+import { defineMarkRule } from "prosekit/extensions/mark-rule";
+import { defineMentionCommands } from "prosekit/extensions/mention";
+import { defineModClickPrevention } from "prosekit/extensions/mod-click-prevention";
+import { definePlaceholder } from "prosekit/extensions/placeholder";
+import { defineVirtualSelection } from "prosekit/extensions/virtual-selection";
 
 const defineHashtag = () => {
   return union([
     defineMarkSpec({
-      name: 'hashtag' as const,
-      toDOM: () => ['span', { 'data-hashtag': '' }, 0]
+      name: "hashtag" as const,
+      toDOM: () => ["span", { "data-hashtag": "" }, 0]
     }),
     defineMarkRule({
       regex: Regex.hashtag,
-      type: 'hashtag'
+      type: "hashtag"
     })
   ]);
 };
@@ -39,12 +39,12 @@ const defineHashtag = () => {
 const defineCashtag = () => {
   return union([
     defineMarkSpec({
-      name: 'cashtag' as const,
-      toDOM: () => ['span', { 'data-cashtag': '' }, 0]
+      name: "cashtag" as const,
+      toDOM: () => ["span", { "data-cashtag": "" }, 0]
     }),
     defineMarkRule({
       regex: Regex.cashtag,
-      type: 'cashtag'
+      type: "cashtag"
     })
   ]);
 };
@@ -56,20 +56,20 @@ const defineAutoLink = () => {
 const defineMentionSpec = () => {
   return defineNodeSpec({
     atom: true,
-    attrs: { id: {}, kind: { default: '' }, value: {} },
-    group: 'inline',
+    attrs: { id: {}, kind: { default: "" }, value: {} },
+    group: "inline",
     inline: true,
-    name: 'mention',
+    name: "mention",
     parseDOM: [
       {
         getAttrs: (dom): MentionAttrs => {
           const el = dom as HTMLElement;
-          const id = el.getAttribute('data-id') || '';
-          const kind = el.getAttribute('data-mention') || '';
-          const value = el.textContent?.replace(/^@(?:lens\/)?/g, '') || '';
+          const id = el.getAttribute("data-id") || "";
+          const kind = el.getAttribute("data-mention") || "";
+          const value = el.textContent?.replace(/^@(?:lens\/)?/g, "") || "";
           return { id, kind, value };
         },
-        tag: `span[data-mention]`
+        tag: "span[data-mention]"
       }
     ],
     toDOM(node) {
@@ -77,22 +77,22 @@ const defineMentionSpec = () => {
       const value = attrs.value.toString();
 
       const children =
-        attrs.kind === 'profile'
+        attrs.kind === "profile"
           ? [
-              ['span', '@'],
+              ["span", "@"],
               // Hide the "lens/" part inside the editor, but it's still part
               // of the HTML output so that we can keep it when converting
               // HTML to Markdown.
-              ['span', { class: 'hidden' }, HANDLE_PREFIX],
-              ['span', value]
+              ["span", { class: "hidden" }, HANDLE_PREFIX],
+              ["span", value]
             ]
-          : [['span', value]];
+          : [["span", value]];
 
       return [
-        'span',
+        "span",
         {
-          'data-id': attrs.id.toString(),
-          'data-mention': attrs.kind.toString()
+          "data-id": attrs.id.toString(),
+          "data-mention": attrs.kind.toString()
         },
         ...children
       ];
@@ -121,7 +121,7 @@ export const defineEditorExtension = () => {
     defineVirtualSelection(),
     defineMention(),
     defineModClickPrevention(),
-    definePlaceholder({ placeholder: "What's new?!", strategy: 'doc' })
+    definePlaceholder({ placeholder: "What's new?!", strategy: "doc" })
   ]);
 };
 

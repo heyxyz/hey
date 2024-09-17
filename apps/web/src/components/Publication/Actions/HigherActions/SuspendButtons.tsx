@@ -1,14 +1,14 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { ChatBubbleLeftIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { Button } from '@hey/ui';
-import { useFlag } from '@unleash/proxy-client-react';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
+import { HEY_API_URL } from "@hey/data/constants";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { Button } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 interface SuspendButtonsProps {
   onClick?: () => void;
@@ -31,9 +31,9 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         { headers: getAuthApiHeaders() }
       ),
       {
-        error: 'Error suspending profile',
-        loading: 'Suspending profile...',
-        success: 'Profile suspended'
+        error: "Error suspending profile",
+        loading: "Suspending profile...",
+        success: "Profile suspended"
       }
     );
   };
@@ -44,7 +44,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         className="flex justify-center"
         icon={<NoSymbolIcon className="size-4" />}
         onClick={() =>
-          updateFeatureFlag('8ed8b26a-279d-4111-9d39-a40164b273a0')
+          updateFeatureFlag("8ed8b26a-279d-4111-9d39-a40164b273a0")
         }
         size="sm"
         variant="danger"
@@ -55,7 +55,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}
         onClick={() =>
-          updateFeatureFlag('df931ea4-109f-4fde-a8b5-4b2170730e8c')
+          updateFeatureFlag("df931ea4-109f-4fde-a8b5-4b2170730e8c")
         }
         size="sm"
         variant="danger"

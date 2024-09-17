@@ -1,26 +1,26 @@
-import type { ApolloCache } from '@apollo/client';
-import type { MirrorablePublication, ReactionRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { ApolloCache } from "@apollo/client";
+import type { MirrorablePublication, ReactionRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HeartIcon } from '@heroicons/react/24/outline';
-import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import nFormatter from '@hey/helpers/nFormatter';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import nFormatter from "@hey/helpers/nFormatter";
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from '@hey/lens';
-import { Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useCounter, useToggle } from '@uidotdev/usehooks';
-import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useCounter, useToggle } from "@uidotdev/usehooks";
+import { motion } from "framer-motion";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface LikeProps {
   publication: MirrorablePublication;
@@ -111,27 +111,27 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   };
 
   const iconClassName = showCount
-    ? 'w-[17px] sm:w-[20px]'
-    : 'w-[15px] sm:w-[18px]';
+    ? "w-[17px] sm:w-[20px]"
+    : "w-[15px] sm:w-[18px]";
 
   return (
     <div
       className={cn(
-        hasReacted ? 'text-brand-500' : 'ld-text-gray-500',
-        'flex items-center space-x-1'
+        hasReacted ? "text-brand-500" : "ld-text-gray-500",
+        "flex items-center space-x-1"
       )}
     >
       <motion.button
         aria-label="Like"
         className={cn(
-          hasReacted ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
-          'rounded-full p-1.5 outline-offset-2'
+          hasReacted ? "hover:bg-brand-300/20" : "hover:bg-gray-300/20",
+          "rounded-full p-1.5 outline-offset-2"
         )}
         onClick={createLike}
         whileTap={{ scale: 0.9 }}
       >
         <Tooltip
-          content={hasReacted ? 'Unlike' : 'Like'}
+          content={hasReacted ? "Unlike" : "Like"}
           placement="top"
           withDelay
         >

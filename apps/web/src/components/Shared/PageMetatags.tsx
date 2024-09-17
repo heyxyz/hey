@@ -1,35 +1,35 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { APP_NAME, DESCRIPTION } from '@hey/data/constants';
-import { useRouter } from 'next/router';
+import { APP_NAME, DESCRIPTION } from "@hey/data/constants";
+import { useRouter } from "next/router";
 
-import MetaTags from '../Common/MetaTags';
+import MetaTags from "../Common/MetaTags";
 
 const PageMetatags: FC = () => {
   const { pathname } = useRouter();
 
   const ogData: Record<string, { description: string; title: string }> = {
-    '/explore': {
+    "/explore": {
       description: `Explore top commented, collected and latest publications in the ${APP_NAME}.`,
       title: `Explore • ${APP_NAME}`
     },
-    '/privacy': {
+    "/privacy": {
       description: `Privacy Policy of ${APP_NAME}.`,
       title: `Privacy Policy • ${APP_NAME}`
     },
-    '/rules': {
+    "/rules": {
       description: `Rules of ${APP_NAME}.`,
       title: `Rules • ${APP_NAME}`
     },
-    '/signup': {
+    "/signup": {
       description: `Signup on ${APP_NAME} to create, share and discover content.`,
       title: `Signup • ${APP_NAME}`
     },
-    '/terms': {
+    "/terms": {
       description: `Terms & Conditions of ${APP_NAME}.`,
       title: `Terms & Conditions • ${APP_NAME}`
     },
-    '/thanks': {
+    "/thanks": {
       description: `Thanks to all the people and projects that have supported ${APP_NAME}.`,
       title: `Thanks • ${APP_NAME}`
     },
