@@ -11,7 +11,7 @@ Deploy API:
     - apk add --no-cache curl
   variables:
     GITLAB_IMAGE_TAG_LATEST: $CI_REGISTRY/yo/hey/api:latest
-    GITLAB_IMAGE_TAG_COMMIT: $CI_REGISTRY/yo/hey/api:${CI_COMMIT_SHA:0:8}
+    GITLAB_IMAGE_TAG_COMMIT: $CI_REGISTRY/yo/hey/api:$CI_COMMIT_SHORT_SHA
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $GITLAB_IMAGE_TAG_LATEST -t $GITLAB_IMAGE_TAG_COMMIT -f ./apps/api/Dockerfile .
