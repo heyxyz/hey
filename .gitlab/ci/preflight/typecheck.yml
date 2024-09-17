@@ -1,6 +1,4 @@
 Typecheck:
   stage: preflight
-  tags:
-    - hey
   script:
     - pnpm typecheck
