@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
-import { Tooltip } from './Tooltip';
+import { Tooltip } from "./Tooltip";
 
 interface HelpTooltipProps {
   children: ReactNode;

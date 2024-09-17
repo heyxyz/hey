@@ -6,42 +6,42 @@ import type {
   OnchainCommentRequest,
   OnchainPostRequest,
   OnchainQuoteRequest
-} from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
+} from "@hey/lens";
+import type { OptimisticTransaction } from "@hey/types/misc";
 
-import { useApolloClient } from '@apollo/client';
-import checkAndToastDispatcherError from '@helpers/checkAndToastDispatcherError';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import { useApolloClient } from "@apollo/client";
+import checkAndToastDispatcherError from "@helpers/checkAndToastDispatcherError";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   PublicationDocument,
-  useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
-  useCommentOnchainMutation,
+  useBroadcastOnchainMutation,
   useCommentOnMomokaMutation,
+  useCommentOnchainMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateMomokaQuoteTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
   useCreateOnchainQuoteTypedDataMutation,
-  usePostOnchainMutation,
   usePostOnMomokaMutation,
+  usePostOnchainMutation,
   usePublicationLazyQuery,
-  useQuoteOnchainMutation,
-  useQuoteOnMomokaMutation
-} from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { useRouter } from 'next/router';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+  useQuoteOnMomokaMutation,
+  useQuoteOnchainMutation
+} from "@hey/lens";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { useRouter } from "next/router";
+import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
-import useHandleWrongNetwork from './useHandleWrongNetwork';
+import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 interface CreatePublicationProps {
   commentOn?: AnyPublication;
@@ -126,18 +126,18 @@ const useCreatePublication = ({
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
-      __mode: 'prepared',
+      __mode: "prepared",
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post'
+      functionName: isComment ? "comment" : isQuote ? "quote" : "post"
     });
   };
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) => {
       onCompleted(broadcastOnMomoka.__typename);
-      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      if (broadcastOnMomoka.__typename === "CreateMomokaPublicationResult") {
         onCompleted();
         push(`/posts/${broadcastOnMomoka.id}`);
       }
@@ -148,7 +148,7 @@ const useCreatePublication = ({
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) => {
       onCompleted(broadcastOnchain.__typename);
-      if (broadcastOnchain.__typename === 'RelaySuccess') {
+      if (broadcastOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticPublication({ txId: broadcastOnchain.txId })
         );
@@ -173,7 +173,7 @@ const useCreatePublication = ({
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === "RelayError") {
         return await write({ args: [typedData.value] });
       }
       incrementLensHubOnchainSigNonce();
@@ -225,7 +225,7 @@ const useCreatePublication = ({
   const [postOnchain] = usePostOnchainMutation({
     onCompleted: ({ postOnchain }) => {
       onCompleted(postOnchain.__typename);
-      if (postOnchain.__typename === 'RelaySuccess') {
+      if (postOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticPublication({ txId: postOnchain.txId })
         );
@@ -237,7 +237,7 @@ const useCreatePublication = ({
   const [commentOnchain] = useCommentOnchainMutation({
     onCompleted: ({ commentOnchain }) => {
       onCompleted(commentOnchain.__typename);
-      if (commentOnchain.__typename === 'RelaySuccess') {
+      if (commentOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticPublication({ txId: commentOnchain.txId })
         );
@@ -249,7 +249,7 @@ const useCreatePublication = ({
   const [quoteOnchain] = useQuoteOnchainMutation({
     onCompleted: ({ quoteOnchain }) => {
       onCompleted(quoteOnchain.__typename);
-      if (quoteOnchain.__typename === 'RelaySuccess') {
+      if (quoteOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticPublication({ txId: quoteOnchain.txId })
         );
@@ -263,7 +263,7 @@ const useCreatePublication = ({
     onCompleted: ({ postOnMomoka }) => {
       onCompleted(postOnMomoka.__typename);
 
-      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      if (postOnMomoka.__typename === "CreateMomokaPublicationResult") {
         push(`/posts/${postOnMomoka.id}`);
       }
     },
@@ -274,7 +274,7 @@ const useCreatePublication = ({
     onCompleted: ({ commentOnMomoka }) => {
       onCompleted(commentOnMomoka.__typename);
 
-      if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      if (commentOnMomoka.__typename === "CreateMomokaPublicationResult") {
         getPublication({
           variables: { request: { forId: commentOnMomoka.id } }
         });
@@ -287,7 +287,7 @@ const useCreatePublication = ({
     onCompleted: ({ quoteOnMomoka }) => {
       onCompleted(quoteOnMomoka.__typename);
 
-      if (quoteOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      if (quoteOnMomoka.__typename === "CreateMomokaPublicationResult") {
         push(`/posts/${quoteOnMomoka.id}`);
       }
     },
@@ -296,7 +296,7 @@ const useCreatePublication = ({
 
   const createPostOnMomka = async (request: MomokaPostRequest) => {
     const { data } = await postOnMomoka({ variables: { request } });
-    if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.postOnMomoka?.__typename === "LensProfileManagerRelayError") {
       const shouldProceed = checkAndToastDispatcherError(
         data.postOnMomoka.reason
       );
@@ -311,14 +311,14 @@ const useCreatePublication = ({
 
   const createCommentOnMomka = async (request: MomokaCommentRequest) => {
     const { data } = await commentOnMomoka({ variables: { request } });
-    if (data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.commentOnMomoka?.__typename === "LensProfileManagerRelayError") {
       return await createMomokaCommentTypedData({ variables: { request } });
     }
   };
 
   const createQuoteOnMomka = async (request: MomokaQuoteRequest) => {
     const { data } = await quoteOnMomoka({ variables: { request } });
-    if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.quoteOnMomoka?.__typename === "LensProfileManagerRelayError") {
       return await createMomokaQuoteTypedData({ variables: { request } });
     }
   };
@@ -330,7 +330,7 @@ const useCreatePublication = ({
     };
 
     const { data } = await postOnchain({ variables: { request } });
-    if (data?.postOnchain?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.postOnchain?.__typename === "LensProfileManagerRelayError") {
       return await createOnchainPostTypedData({ variables });
     }
   };
@@ -342,7 +342,7 @@ const useCreatePublication = ({
     };
 
     const { data } = await commentOnchain({ variables: { request } });
-    if (data?.commentOnchain?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.commentOnchain?.__typename === "LensProfileManagerRelayError") {
       return await createOnchainCommentTypedData({ variables });
     }
   };
@@ -354,7 +354,7 @@ const useCreatePublication = ({
     };
 
     const { data } = await quoteOnchain({ variables: { request } });
-    if (data?.quoteOnchain?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.quoteOnchain?.__typename === "LensProfileManagerRelayError") {
       return await createOnchainQuoteTypedData({ variables });
     }
   };

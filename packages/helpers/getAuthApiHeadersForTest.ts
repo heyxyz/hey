@@ -1,19 +1,19 @@
-import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
 import {
   TEST_LENS_ID,
   TEST_NON_STAFF_LENS_ID,
   TEST_PK,
   TEST_WALLET_ADDRESS
-} from '@hey/data/constants';
-import LensEndpoint from '@hey/data/lens-endpoints';
-import { AuthenticateDocument, ChallengeDocument } from '@hey/lens';
-import { createWalletClient, http } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
-import { polygonAmoy } from 'viem/chains';
+} from "@hey/data/constants";
+import LensEndpoint from "@hey/data/lens-endpoints";
+import { AuthenticateDocument, ChallengeDocument } from "@hey/lens";
+import { http, createWalletClient } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { polygonAmoy } from "viem/chains";
 
 const httpLink = new HttpLink({
   fetch,
-  fetchOptions: 'no-cors',
+  fetchOptions: "no-cors",
   uri: LensEndpoint.Testnet
 });
 
@@ -43,7 +43,7 @@ const getAuthApiHeadersForTest = async ({ staff = true } = {}) => {
   });
 
   if (!challenge?.challenge?.text) {
-    throw new Error('Challenge failed');
+    throw new Error("Challenge failed");
   }
 
   // Get signature
@@ -59,7 +59,7 @@ const getAuthApiHeadersForTest = async ({ staff = true } = {}) => {
 
   const identityToken = auth?.authenticate.identityToken;
 
-  return { 'X-Identity-Token': identityToken };
+  return { "X-Identity-Token": identityToken };
 };
 
 export default getAuthApiHeadersForTest;

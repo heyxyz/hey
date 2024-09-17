@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 type TimeLeft = {
   days: number;
@@ -39,19 +39,18 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetDate]);
 
   const formatTimeValue = (value: number, label: string): string => {
-    return value > 0 ? `${value}${label} ` : '';
+    return value > 0 ? `${value}${label} ` : "";
   };
 
   return (
     <span>
-      {formatTimeValue(timeLeft.days, 'd')}
-      {formatTimeValue(timeLeft.hours, 'h')}
-      {formatTimeValue(timeLeft.minutes, 'm')}
-      {formatTimeValue(timeLeft.seconds, 's')}
+      {formatTimeValue(timeLeft.days, "d")}
+      {formatTimeValue(timeLeft.hours, "h")}
+      {formatTimeValue(timeLeft.minutes, "m")}
+      {formatTimeValue(timeLeft.seconds, "s")}
     </span>
   );
 };

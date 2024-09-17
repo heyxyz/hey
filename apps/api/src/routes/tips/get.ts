@@ -1,12 +1,12 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { array, object, string } from 'zod';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { array, object, string } from "zod";
 
 type ExtensionRequest = {
   ids: string[];
@@ -34,7 +34,7 @@ export const post = [
     const { ids } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
       const profileId = payload.id;
 
@@ -48,8 +48,8 @@ export const post = [
         }),
         prisma.tip.groupBy({
           _count: { publicationId: true },
-          by: ['publicationId'],
-          orderBy: { publicationId: 'asc' },
+          by: ["publicationId"],
+          orderBy: { publicationId: "asc" },
           where: { publicationId: { in: ids } }
         })
       ]);

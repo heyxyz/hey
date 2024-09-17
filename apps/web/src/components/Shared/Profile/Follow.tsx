@@ -1,33 +1,33 @@
-import type { FollowRequest, Profile } from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { FollowRequest, Profile } from "@hey/lens";
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PROFILE } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useFollowMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Button } from '@hey/ui';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { Button } from "@hey/ui";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
@@ -84,18 +84,18 @@ const Follow: FC<FollowProps> = ({
   };
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     updateCache();
     setIsLoading(false);
-    toast.success('Followed successfully!');
+    toast.success("Followed successfully!");
     Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: profile?.id });
   };
 
@@ -120,13 +120,13 @@ const Follow: FC<FollowProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'follow'
+      functionName: "follow"
     });
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === 'RelaySuccess') {
+      if (broadcastOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticFollow({ txId: broadcastOnchain.txId })
         );
@@ -156,7 +156,7 @@ const Follow: FC<FollowProps> = ({
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === "RelayError") {
           return await write({ args });
         }
         incrementLensHubOnchainSigNonce();
@@ -171,7 +171,7 @@ const Follow: FC<FollowProps> = ({
 
   const [follow] = useFollowMutation({
     onCompleted: ({ follow }) => {
-      if (follow.__typename === 'RelaySuccess') {
+      if (follow.__typename === "RelaySuccess") {
         addTransaction(generateOptimisticFollow({ txId: follow.txId }));
       }
       onCompleted(follow.__typename);
@@ -181,7 +181,7 @@ const Follow: FC<FollowProps> = ({
 
   const followViaLensManager = async (request: FollowRequest) => {
     const { data } = await follow({ variables: { request } });
-    if (data?.follow?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.follow?.__typename === "LensProfileManagerRelayError") {
       await createFollowTypedData({ variables: { request } });
     }
     return;
@@ -223,7 +223,7 @@ const Follow: FC<FollowProps> = ({
       disabled={isLoading || isUnfollowPending(profile.id)}
       onClick={createFollow}
       outline
-      size={small ? 'sm' : 'md'}
+      size={small ? "sm" : "md"}
     >
       {title}
     </Button>

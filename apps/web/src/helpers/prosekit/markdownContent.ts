@@ -1,16 +1,16 @@
-import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { Editor } from 'prosekit/core';
+import type { EditorExtension } from "@helpers/prosekit/extension";
+import type { Editor } from "prosekit/core";
 
-import { htmlFromMarkdown, markdownFromHTML } from '@helpers/prosekit/markdown';
-import { htmlFromNode, nodeFromHTML } from 'prosekit/core';
-import { ListDOMSerializer } from 'prosekit/extensions/list';
+import { htmlFromMarkdown, markdownFromHTML } from "@helpers/prosekit/markdown";
+import { htmlFromNode, nodeFromHTML } from "prosekit/core";
+import { ListDOMSerializer } from "prosekit/extensions/list";
 
 /**
  * Get the editor content in markdown format.
  */
 export const getMarkdownContent = (editor: Editor<EditorExtension>): string => {
   if (!editor.mounted) {
-    return '';
+    return "";
   }
 
   const { doc } = editor.view.state;

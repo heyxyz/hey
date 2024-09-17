@@ -1,3 +1,3 @@
-import CleanupSettings from '@components/Settings/Cleanup';
+import CleanupSettings from "@components/Settings/Cleanup";
 
 export default CleanupSettings;

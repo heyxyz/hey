@@ -1,14 +1,14 @@
-import type { Amount } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Amount } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { InboxIcon } from '@heroicons/react/24/outline';
-import { Button, Spinner } from '@hey/ui';
-import { useState } from 'react';
-import { parseEther } from 'viem';
-import { useWriteContract } from 'wagmi';
+import errorToast from "@helpers/errorToast";
+import { InboxIcon } from "@heroicons/react/24/outline";
+import { Button, Spinner } from "@hey/ui";
+import { useState } from "react";
+import { parseEther } from "viem";
+import { useWriteContract } from "wagmi";
 
-import IndexStatus from '../IndexStatus';
+import IndexStatus from "../IndexStatus";
 
 interface WrapWmaticProps {
   errorMessage?: ReactNode;
@@ -37,24 +37,24 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
         {
           anonymous: false,
           inputs: [
-            { indexed: true, name: 'dst', type: 'address' },
-            { indexed: false, name: 'wad', type: 'uint256' }
+            { indexed: true, name: "dst", type: "address" },
+            { indexed: false, name: "wad", type: "uint256" }
           ],
-          name: 'Deposit',
-          type: 'event'
+          name: "Deposit",
+          type: "event"
         },
         {
           constant: false,
           inputs: [],
-          name: 'deposit',
+          name: "deposit",
           outputs: [],
           payable: true,
-          stateMutability: 'payable',
-          type: 'function'
+          stateMutability: "payable",
+          type: "function"
         }
       ],
       address: assetAddress,
-      functionName: 'deposit',
+      functionName: "deposit",
       value: parseEther(amount)
     });
   };

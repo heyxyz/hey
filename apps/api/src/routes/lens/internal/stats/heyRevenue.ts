@@ -1,14 +1,14 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
 import {
   HEY_LENS_SIGNUP,
   HEY_MEMBERSHIP_NFT_PUBLICATION_ID
-} from '@hey/data/constants';
-import lensPg from '@hey/db/lensPg';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+} from "@hey/data/constants";
+import lensPg from "@hey/db/lensPg";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 
 export const get = [
   validateLensAccount,
@@ -45,7 +45,7 @@ export const get = [
         signups_count: Number(row.signups_count)
       }));
 
-      logger.info('[Lens] Fetched signup and membership NFT stats');
+      logger.info("[Lens] Fetched signup and membership NFT stats");
 
       return res.status(200).json({ result: formattedResult, success: true });
     } catch (error) {

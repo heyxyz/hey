@@ -1,11 +1,11 @@
-import type { AllowedToken } from '@hey/types/hey';
+import type { AllowedToken } from "@hey/types/hey";
 
-import { IndexDB } from '@hey/data/storage';
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { IndexDB } from "@hey/data/storage";
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-import createIdbStorage from '../helpers/createIdbStorage';
+import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   allowedTokens: [] | AllowedToken[];

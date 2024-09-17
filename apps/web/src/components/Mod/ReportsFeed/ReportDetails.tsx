@@ -1,20 +1,20 @@
-import type { MirrorablePublication, ModReport, Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import Reports from '@components/Mod/ReportsFeed/Reports';
-import SuspendButtons from '@components/Publication/Actions/HigherActions/SuspendButtons';
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import Reports from "@components/Mod/ReportsFeed/Reports";
+import SuspendButtons from "@components/Publication/Actions/HigherActions/SuspendButtons";
+import SmallUserProfile from "@components/Shared/SmallUserProfile";
 import {
   ChatBubbleOvalLeftEllipsisIcon,
   EyeIcon,
   FlagIcon,
   HandRaisedIcon
-} from '@heroicons/react/24/outline';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { Button, Modal } from '@hey/ui';
-import { useState } from 'react';
+} from "@heroicons/react/24/outline";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import { Button, Modal } from "@hey/ui";
+import { useState } from "react";
 
-import Dispute from './Dispute';
+import Dispute from "./Dispute";
 
 interface ReportDetailsProps {
   hideViewReportsButton?: boolean;
@@ -43,8 +43,8 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           </div>
         ) : null}
         <div>
-          <b>Reported at:</b>{' '}
-          {formatDate(report.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
+          <b>Reported at:</b>{" "}
+          {formatDate(report.createdAt, "MMM D, YYYY - hh:mm:ss A")}
         </div>
         <div className="mt-2">
           <SmallUserProfile profile={report.reporter as Profile} />

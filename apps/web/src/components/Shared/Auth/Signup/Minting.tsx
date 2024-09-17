@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { useProfileQuery } from '@hey/lens';
-import { H4, Spinner } from '@hey/ui';
+import { useProfileQuery } from "@hey/lens";
+import { H4, Spinner } from "@hey/ui";
 
-import { useSignupStore } from '.';
+import { useSignupStore } from ".";
 
 const Minting: FC = () => {
   const { choosedHandle, setProfileId, setScreen, transactionHash } =
@@ -14,7 +14,7 @@ const Minting: FC = () => {
     onCompleted: (data) => {
       if (data.profile) {
         setProfileId(data.profile.id);
-        setScreen('success');
+        setScreen("success");
       }
     },
     pollInterval: 3000,

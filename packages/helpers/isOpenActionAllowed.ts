@@ -1,6 +1,6 @@
-import type { Maybe, OpenActionModule } from '@hey/lens';
+import type { Maybe, OpenActionModule } from "@hey/lens";
 
-import allowedOpenActionModules from './allowedOpenActionModules';
+import allowedOpenActionModules from "./allowedOpenActionModules";
 
 const isOpenActionAllowed = (
   openActions?: Maybe<OpenActionModule[]>

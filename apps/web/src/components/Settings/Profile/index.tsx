@@ -1,22 +1,22 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { useEffect } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import MetaTags from "@components/Common/MetaTags";
+import NotLoggedIn from "@components/Shared/NotLoggedIn";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { useEffect } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import SettingsSidebar from '../Sidebar';
-import ProfileSettingsForm from './Profile';
+import SettingsSidebar from "../Sidebar";
+import ProfileSettingsForm from "./Profile";
 
 const ProfileSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "profile" });
   }, []);
 
   if (!currentProfile) {

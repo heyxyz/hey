@@ -1,13 +1,13 @@
-import type { PublicationsRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { PublicationsRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { SETTINGS } from '@hey/data/tracking';
-import downloadJson from '@hey/helpers/downloadJson';
-import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
-import { Button, Card, CardHeader } from '@hey/ui';
-import { useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { Leafwatch } from "@helpers/leafwatch";
+import { SETTINGS } from "@hey/data/tracking";
+import downloadJson from "@hey/helpers/downloadJson";
+import { LimitType, usePublicationsLazyQuery } from "@hey/lens";
+import { Button, Card, CardHeader } from "@hey/ui";
+import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const Publications: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -21,7 +21,7 @@ const Publications: FC = () => {
   };
 
   const [exportPublications] = usePublicationsLazyQuery({
-    fetchPolicy: 'network-only'
+    fetchPolicy: "network-only"
   });
 
   const handleExportClick = async () => {
@@ -60,7 +60,7 @@ const Publications: FC = () => {
   };
 
   const download = () => {
-    downloadJson(publications, 'publications', () => {
+    downloadJson(publications, "publications", () => {
       setPublications([]);
       setFetchCompleted(false);
     });
@@ -84,7 +84,7 @@ const Publications: FC = () => {
           </Button>
         ) : (
           <Button disabled={exporting} onClick={handleExportClick} outline>
-            {exporting ? 'Exporting...' : 'Export now'}
+            {exporting ? "Exporting..." : "Export now"}
           </Button>
         )}
       </div>

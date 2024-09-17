@@ -1,14 +1,14 @@
-import type { FollowNotification as TFollowNotification } from '@hey/lens';
-import type { FC } from 'react';
+import type { FollowNotification as TFollowNotification } from "@hey/lens";
+import type { FC } from "react";
 
-import { UserPlusIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/helpers/getProfile';
-import { useRouter } from 'next/router';
-import plur from 'plur';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { UserPlusIcon } from "@heroicons/react/24/outline";
+import getProfile from "@hey/helpers/getProfile";
+import { useRouter } from "next/router";
+import plur from "plur";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
-import { NotificationProfileAvatar } from '../Profile';
+import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
+import { NotificationProfileAvatar } from "../Profile";
 
 interface FollowNotificationProps {
   notification: TFollowNotification;
@@ -23,9 +23,9 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   const moreThanOneProfile = length > 1;
 
   const text = moreThanOneProfile
-    ? `and ${length} ${plur('other', length)} followed`
-    : 'followed';
-  const type = 'you';
+    ? `and ${length} ${plur("other", length)} followed`
+    : "followed";
+  const type = "you";
 
   return (
     <div

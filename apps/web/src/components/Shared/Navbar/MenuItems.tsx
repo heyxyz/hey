@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Link from 'next/link';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import Link from "next/link";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import LoginButton from '../LoginButton';
-import SignedUser from './SignedUser';
-import SignupButton from './SignupButton';
+import LoginButton from "../LoginButton";
+import SignedUser from "./SignedUser";
+import SignupButton from "./SignupButton";
 
 export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
   <Link href={href} {...rest}>

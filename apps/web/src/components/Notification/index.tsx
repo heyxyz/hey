@@ -1,19 +1,19 @@
-import type { NextPage } from 'next';
-import type { NotificationTabType } from 'src/enums';
+import type { NextPage } from "next";
+import type { NotificationTabType } from "src/enums";
 
-import MetaTags from '@components/Common/MetaTags';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { NotificationFeedType } from 'src/enums';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import MetaTags from "@components/Common/MetaTags";
+import NotLoggedIn from "@components/Shared/NotLoggedIn";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { NotificationFeedType } from "src/enums";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import FeedType from './FeedType';
-import List from './List';
-import Settings from './Settings';
+import FeedType from "./FeedType";
+import List from "./List";
+import Settings from "./Settings";
 
 const Notification: NextPage = () => {
   const {
@@ -22,7 +22,7 @@ const Notification: NextPage = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
+    Leafwatch.track(PAGEVIEW, { page: "notifications" });
   }, []);
 
   const lowerCaseNotificationFeedType = [

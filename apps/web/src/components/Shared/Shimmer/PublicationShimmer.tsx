@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 const PublicationShimmer: FC = () => {
   return (

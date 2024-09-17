@@ -1,17 +1,17 @@
-import type { IPFSResponse } from '@hey/types/misc';
+import type { IPFSResponse } from "@hey/types/misc";
 
-import { S3 } from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
+import { S3 } from "@aws-sdk/client-s3";
+import { Upload } from "@aws-sdk/lib-storage";
 import {
   EVER_API,
   EVER_BUCKET,
   EVER_REGION,
   HEY_API_URL
-} from '@hey/data/constants';
-import axios from 'axios';
-import { v4 as uuid } from 'uuid';
+} from "@hey/data/constants";
+import axios from "axios";
+import { v4 as uuid } from "uuid";
 
-const FALLBACK_TYPE = 'image/jpeg';
+const FALLBACK_TYPE = "image/jpeg";
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -40,10 +40,10 @@ const getS3Client = async (): Promise<S3> => {
       return { response };
     },
     {
-      name: 'nullFetchResponseBodyMiddleware',
+      name: "nullFetchResponseBodyMiddleware",
       override: true,
-      relation: 'after',
-      toMiddleware: 'deserializerMiddleware'
+      relation: "after",
+      toMiddleware: "deserializerMiddleware"
     }
   );
 
@@ -65,8 +65,8 @@ const uploadToIPFS = async (
     const files = Array.from(data);
     const client = await getS3Client();
     const currentDate = new Date()
-      .toLocaleDateString('en-GB')
-      .replace(/\//g, '-');
+      .toLocaleDateString("en-GB")
+      .replace(/\//g, "-");
 
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
@@ -78,7 +78,7 @@ const uploadToIPFS = async (
           Key: `${currentDate}/${uuid()}`
         };
         const task = new Upload({ client, params });
-        task.on('httpUploadProgress', (e) => {
+        task.on("httpUploadProgress", (e) => {
           const loaded = e.loaded || 0;
           const total = e.total || 0;
           const progress = (loaded / total) * 100;
@@ -87,7 +87,7 @@ const uploadToIPFS = async (
         await task.done();
         const result = await client.headObject(params);
         const metadata = result.Metadata;
-        const cid = metadata?.['ipfs-hash'];
+        const cid = metadata?.["ipfs-hash"];
 
         return { mimeType: file.type || FALLBACK_TYPE, uri: `ipfs://${cid}` };
       })
@@ -115,7 +115,7 @@ export const uploadFileToIPFS = async (
 
     return { mimeType: file.type || FALLBACK_TYPE, uri: metadata.uri };
   } catch {
-    return { mimeType: file.type || FALLBACK_TYPE, uri: '' };
+    return { mimeType: file.type || FALLBACK_TYPE, uri: "" };
   }
 };
 

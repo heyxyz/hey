@@ -1,5 +1,5 @@
-import parseJwt from '@hey/helpers/parseJwt';
-import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
+import parseJwt from "@hey/helpers/parseJwt";
+import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
 
 /**
  * Get current session
@@ -11,7 +11,7 @@ const getCurrentSession = (): {
   id: string;
 } => {
   const { accessToken } = hydrateAuthTokens();
-  const currentSession = parseJwt(accessToken || '');
+  const currentSession = parseJwt(accessToken || "");
 
   return {
     authorizationId: currentSession?.authorizationId,

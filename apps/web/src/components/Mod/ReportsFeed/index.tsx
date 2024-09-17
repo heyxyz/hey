@@ -1,14 +1,14 @@
-import type { AnyPublication, ModReport, ModReportsRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { FlagIcon } from '@heroicons/react/24/outline';
-import { LimitType, useModLatestReportsQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { Virtuoso } from 'react-virtuoso';
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { FlagIcon } from "@heroicons/react/24/outline";
+import { LimitType, useModLatestReportsQuery } from "@hey/lens";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import { Virtuoso } from "react-virtuoso";
 
-import ReportDetails from './ReportDetails';
+import ReportDetails from "./ReportDetails";
 
 const ReportsFeed: FC = () => {
   const request: ModReportsRequest = { limit: LimitType.Fifty };

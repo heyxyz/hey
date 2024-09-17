@@ -1,12 +1,12 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MarkupLinkProps } from "@hey/types/misc";
+import type { FC } from "react";
 
-import Slug from '@components/Shared/Slug';
-import UserPreview from '@components/Shared/UserPreview';
-import { Leafwatch } from '@helpers/leafwatch';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import Link from 'next/link';
+import Slug from "@components/Shared/Slug";
+import UserPreview from "@components/Shared/UserPreview";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import Link from "next/link";
 
 const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
   const handle = title?.slice(1);
@@ -28,9 +28,7 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
       (mention) => mention.snapshotHandleMentioned.fullHandle === handle
     );
 
-    return foundMention?.snapshotHandleMentioned.linkedTo?.nftTokenId
-      ? true
-      : false;
+    return Boolean(foundMention?.snapshotHandleMentioned.linkedTo?.nftTokenId);
   };
 
   const getLocalNameFromFullHandle = (handle: string) => {

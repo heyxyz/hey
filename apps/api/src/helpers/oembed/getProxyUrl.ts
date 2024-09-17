@@ -1,9 +1,9 @@
-import { HEY_IMAGEKIT_URL } from '@hey/data/constants';
+import { HEY_IMAGEKIT_URL } from "@hey/data/constants";
 
 const directUrls = [
-  'zora.co/api/thumbnail', // Zora
-  'social-images.lu.ma', // Lu.ma
-  'drips.network' // Drips
+  "zora.co/api/thumbnail", // Zora
+  "social-images.lu.ma", // Lu.ma
+  "drips.network" // Drips
 ];
 
 const getProxyUrl = (url: string) => {

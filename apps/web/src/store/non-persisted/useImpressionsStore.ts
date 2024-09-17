@@ -1,8 +1,8 @@
-import type { PublicationViewCount } from '@hey/types/hey';
+import type { PublicationViewCount } from "@hey/types/hey";
 
-import getPublicationsViews from '@hey/helpers/getPublicationsViews';
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import getPublicationsViews from "@hey/helpers/getPublicationsViews";
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   fetchAndStoreViews: (ids: string[]) => void;

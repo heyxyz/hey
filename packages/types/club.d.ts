@@ -23,6 +23,6 @@ export type Club = {
     profileId: string;
     publicationId: string;
   } | null;
-  role: 'admin' | 'member' | 'moderator' | 'owner';
+  role: "admin" | "member" | "moderator" | "owner";
   totalMembers: number;
 };

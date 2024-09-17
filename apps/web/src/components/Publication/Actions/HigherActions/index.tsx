@@ -1,7 +1,7 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import GardenerActions from './GardenerActions';
+import GardenerActions from "./GardenerActions";
 
 interface HigherActionsProps {
   publication: MirrorablePublication;

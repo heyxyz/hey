@@ -1,7 +1,7 @@
-import type { ChangeEventHandler, FC } from 'react';
+import type { ChangeEventHandler, FC } from "react";
 
-import { PaperClipIcon } from '@heroicons/react/24/outline';
-import { useId } from 'react';
+import { PaperClipIcon } from "@heroicons/react/24/outline";
+import { useId } from "react";
 
 interface ChooseFileProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -25,7 +25,7 @@ const ChooseFile: FC<ChooseFileProps> = ({ onChange }) => {
         id={id}
         onChange={onChange}
         onClick={(event) => {
-          (event.target as HTMLInputElement).value = '';
+          (event.target as HTMLInputElement).value = "";
         }}
         type="file"
       />

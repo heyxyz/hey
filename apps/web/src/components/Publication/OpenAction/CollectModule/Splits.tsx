@@ -1,19 +1,19 @@
-import type { Profile, RecipientDataOutput } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile, RecipientDataOutput } from "@hey/lens";
+import type { FC } from "react";
 
-import Slug from '@components/Shared/Slug';
+import Slug from "@components/Shared/Slug";
 import {
   APP_NAME,
   COLLECT_FEES_ADDRESS,
   POLYGONSCAN_URL
-} from '@hey/data/constants';
-import formatAddress from '@hey/helpers/formatAddress';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import getStampFyiURL from '@hey/helpers/getStampFyiURL';
-import { useProfilesQuery } from '@hey/lens';
-import { Image } from '@hey/ui';
-import Link from 'next/link';
+} from "@hey/data/constants";
+import formatAddress from "@hey/helpers/formatAddress";
+import getAvatar from "@hey/helpers/getAvatar";
+import getProfile from "@hey/helpers/getProfile";
+import getStampFyiURL from "@hey/helpers/getStampFyiURL";
+import { useProfilesQuery } from "@hey/lens";
+import { Image } from "@hey/ui";
+import Link from "next/link";
 
 interface SplitsProps {
   recipients: RecipientDataOutput[];
@@ -48,7 +48,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
         if (address === COLLECT_FEES_ADDRESS) {
           return (
             <div key={address}>
-              <div className="divider mb-2 mt-3" />
+              <div className="divider mt-3 mb-2" />
               <div className="flex items-center justify-between text-sm">
                 <div className="ld-text-gray-500 flex w-full items-center space-x-2">
                   <img alt="Hey" className="size-4" src="/logo.png" />

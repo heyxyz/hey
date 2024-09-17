@@ -1,10 +1,10 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 
 export const get = [
   validateLensAccount,
@@ -15,7 +15,7 @@ export const get = [
         include: { _count: { select: { profiles: true } } }
       });
 
-      logger.info('All permissions fetched');
+      logger.info("All permissions fetched");
 
       return res.status(200).json({ permissions: data, success: true });
     } catch (error) {

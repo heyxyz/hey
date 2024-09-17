@@ -1,5 +1,5 @@
-import { HEY_API_URL } from '@hey/data/constants';
-import axios from 'axios';
+import { HEY_API_URL } from "@hey/data/constants";
+import axios from "axios";
 
 const getPro = async (
   id: string

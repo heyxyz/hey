@@ -1,24 +1,24 @@
-import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { FC } from 'react';
-import type { MentionProfile } from 'src/hooks/prosekit/useMentionQuery';
+import type { EditorExtension } from "@helpers/prosekit/extension";
+import type { FC } from "react";
+import type { MentionProfile } from "src/hooks/prosekit/useMentionQuery";
 
-import isVerified from '@helpers/isVerified';
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import { EditorRegex } from '@hey/data/regex';
-import hasMisused from '@hey/helpers/hasMisused';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useEditor } from 'prosekit/react';
+} from "@heroicons/react/24/solid";
+import { EditorRegex } from "@hey/data/regex";
+import hasMisused from "@hey/helpers/hasMisused";
+import { Image } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,
   AutocompleteList,
   AutocompletePopover
-} from 'prosekit/react/autocomplete';
-import { useState } from 'react';
-import useMentionQuery from 'src/hooks/prosekit/useMentionQuery';
+} from "prosekit/react/autocomplete";
+import { useState } from "react";
+import useMentionQuery from "src/hooks/prosekit/useMentionQuery";
 
 interface MentionItemProps {
   onSelect: VoidFunction;
@@ -43,7 +43,7 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
           <div className="flex items-center space-x-1 text-sm">
             <span>{profile.name}</span>
             {isVerified(profile.id) ? (
-              <CheckBadgeIcon className="text-brand-500 size-4" />
+              <CheckBadgeIcon className="size-4 text-brand-500" />
             ) : null}
             {hasMisused(profile.id) ? (
               <ExclamationCircleIcon className="size-4 text-red-500" />
@@ -58,23 +58,23 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
 
 const MentionPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
-  const [queryString, setQueryString] = useState<string>('');
+  const [queryString, setQueryString] = useState<string>("");
   const results = useMentionQuery(queryString);
 
   const handleProfileInsert = (profile: MentionProfile) => {
     editor.commands.insertMention({
       id: profile.id.toString(),
-      kind: 'profile',
+      kind: "profile",
       value: profile.handle
     });
-    editor.commands.insertText({ text: ' ' });
+    editor.commands.insertText({ text: " " });
   };
 
   return (
     <AutocompletePopover
       className={cn(
-        'z-10 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900',
-        results.length === 0 && 'hidden'
+        "z-10 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900",
+        results.length === 0 && "hidden"
       )}
       offset={10}
       onQueryChange={setQueryString}

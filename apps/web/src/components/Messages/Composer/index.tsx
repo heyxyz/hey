@@ -1,18 +1,18 @@
-import type { CachedConversation } from '@xmtp/react-sdk';
-import type { ChangeEvent, FC } from 'react';
+import type { CachedConversation } from "@xmtp/react-sdk";
+import type { ChangeEvent, FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { MESSAGES } from '@hey/data/tracking';
-import { Button, Input } from '@hey/ui';
-import { useSendMessage } from '@xmtp/react-sdk';
-import { useEffect, useRef, useState } from 'react';
+import { Leafwatch } from "@helpers/leafwatch";
+import { MESSAGES } from "@hey/data/tracking";
+import { Button, Input } from "@hey/ui";
+import { useSendMessage } from "@xmtp/react-sdk";
+import { useEffect, useRef, useState } from "react";
 
 interface ComposerProps {
   conversation: CachedConversation;
 }
 
 const Composer: FC<ComposerProps> = ({ conversation }) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { sendMessage } = useSendMessage();
 
@@ -29,7 +29,7 @@ const Composer: FC<ComposerProps> = ({ conversation }) => {
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (conversation.peerAddress && message) {
-      setMessage('');
+      setMessage("");
       inputRef.current?.focus();
       await sendMessage(conversation, message);
       Leafwatch.track(MESSAGES.SEND_MESSAGE);

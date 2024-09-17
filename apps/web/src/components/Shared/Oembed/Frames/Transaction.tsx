@@ -1,19 +1,19 @@
-import type { Frame as IFrame } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { Frame as IFrame } from "@hey/types/misc";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import formatAddress from '@hey/helpers/formatAddress';
-import getNftChainId from '@hey/helpers/getNftChainId';
-import getNftChainInfo from '@hey/helpers/getNftChainInfo';
-import { Button, H4 } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import errorToast from "@helpers/errorToast";
+import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import formatAddress from "@hey/helpers/formatAddress";
+import getNftChainId from "@hey/helpers/getNftChainId";
+import getNftChainInfo from "@hey/helpers/getNftChainInfo";
+import { Button, H4 } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 import {
   arbitrum,
   base,
@@ -22,10 +22,10 @@ import {
   polygon,
   polygonAmoy,
   zora
-} from 'viem/chains';
-import { useSendTransaction, useSwitchChain } from 'wagmi';
+} from "viem/chains";
+import { useSendTransaction, useSwitchChain } from "wagmi";
 
-import { useFramesStore } from '.';
+import { useFramesStore } from ".";
 
 const SUPPORTED_CHAINS = [
   polygon.id,
@@ -57,7 +57,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
   }
 
   const txnData = showTransaction.transaction;
-  const chainId = parseInt(txnData.chainId.replace('eip155:', ''));
+  const chainId = Number.parseInt(txnData.chainId.replace("eip155:", ""));
   const chainData = {
     logo: getNftChainInfo(getNftChainId(chainId.toString())).logo,
     name: getNftChainInfo(getNftChainId(chainId.toString())).name
@@ -128,7 +128,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
             }
 
             await navigator.clipboard.writeText(txnHash);
-            toast.success('Transaction hash copied to clipboard!');
+            toast.success("Transaction hash copied to clipboard!");
           }}
         >
           Copy transaction hash

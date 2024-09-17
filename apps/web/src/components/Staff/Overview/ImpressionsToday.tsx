@@ -1,23 +1,23 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { CardHeader } from '@hey/ui';
+import formatDate from "@hey/helpers/datetime/formatDate";
+import { CardHeader } from "@hey/ui";
 import {
   CategoryScale,
   Chart as ChartJS,
   Filler,
   Legend,
-  LinearScale,
   LineElement,
+  LinearScale,
   PointElement,
   Title,
   Tooltip
-} from 'chart.js';
-import { useTheme } from 'next-themes';
-import { Line } from 'react-chartjs-2';
-import colors from 'tailwindcss/colors';
+} from "chart.js";
+import { useTheme } from "next-themes";
+import { Line } from "react-chartjs-2";
+import colors from "tailwindcss/colors";
 
-import type { StatsType } from './LeafwatchStats';
+import type { StatsType } from "./LeafwatchStats";
 
 ChartJS.register(
   CategoryScale,
@@ -31,7 +31,7 @@ ChartJS.register(
 );
 
 interface ImpressionsTodayProps {
-  impressionsToday: StatsType['impressionsToday'];
+  impressionsToday: StatsType["impressionsToday"];
 }
 
 const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
@@ -47,18 +47,18 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
             datasets: [
               {
                 backgroundColor:
-                  resolvedTheme === 'dark'
-                    ? colors['zinc']['900']
-                    : colors['zinc']['400'],
+                  resolvedTheme === "dark"
+                    ? colors["zinc"]["900"]
+                    : colors["zinc"]["400"],
                 borderColor:
-                  resolvedTheme === 'dark' ? colors['white'] : colors['black'],
+                  resolvedTheme === "dark" ? colors["white"] : colors["black"],
                 data: impressionsToday.map((impression) => impression.count),
                 fill: true,
-                label: 'Impressions'
+                label: "Impressions"
               }
             ],
             labels: impressionsToday.map((impression) =>
-              formatDate(impression.timestamp, 'hh:mm')
+              formatDate(impression.timestamp, "hh:mm")
             )
           }}
           options={{

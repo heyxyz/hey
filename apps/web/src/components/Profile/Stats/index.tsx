@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Impressions from './Impressions';
-import ProfileStats from './ProfileStats';
-import SuperFollowRevenue from './SuperFollowRevenue';
+import Impressions from "./Impressions";
+import ProfileStats from "./ProfileStats";
+import SuperFollowRevenue from "./SuperFollowRevenue";
 
 interface StatsProps {
   profileId: string;

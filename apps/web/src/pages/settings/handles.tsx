@@ -1,3 +1,3 @@
-import HandlesSettings from '@components/Settings/Handles';
+import HandlesSettings from "@components/Settings/Handles";
 
 export default HandlesSettings;

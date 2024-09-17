@@ -1,22 +1,22 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import NotificationIcon from '@components/Notification/NotificationIcon';
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { H6 } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import NotificationIcon from "@components/Notification/NotificationIcon";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { H6 } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import MenuItems from './MenuItems';
-import MessagesIcon from './MessagesIcon';
-import ModIcon from './ModIcon';
-import MoreNavItems from './MoreNavItems';
-import Search from './Search';
-import StaffBar from './StaffBar';
+import MenuItems from "./MenuItems";
+import MessagesIcon from "./MessagesIcon";
+import ModIcon from "./ModIcon";
+import MoreNavItems from "./MoreNavItems";
+import Search from "./Search";
+import StaffBar from "./StaffBar";
 
 const Navbar: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -33,10 +33,10 @@ const Navbar: FC = () => {
     return (
       <Link
         className={cn(
-          'cursor-pointer rounded-md px-2 py-1 text-left tracking-wide md:px-3',
+          "cursor-pointer rounded-md px-2 py-1 text-left tracking-wide md:px-3",
           {
-            'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
-            'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
+            "bg-gray-200 text-black dark:bg-gray-800 dark:text-white": current,
+            "text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white":
               !current
           }
         )}
@@ -52,9 +52,9 @@ const Navbar: FC = () => {
 
     return (
       <>
-        <NavItem current={pathname === '/'} name="Home" url="/" />
+        <NavItem current={pathname === "/"} name="Home" url="/" />
         <NavItem
-          current={pathname === '/explore'}
+          current={pathname === "/explore"}
           name="Explore"
           url="/explore"
         />
@@ -103,7 +103,7 @@ const Navbar: FC = () => {
             </div>
           </div>
           <Link
-            className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
+            className={cn("md:hidden", !currentProfile?.id && "ml-[60px]")}
             href="/"
           >
             <img

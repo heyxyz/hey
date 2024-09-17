@@ -1,3 +1,3 @@
-import Stats from '@components/Staff/Stats';
+import Stats from "@components/Staff/Stats";
 
 export default Stats;

@@ -1,19 +1,19 @@
-import type { Club } from '@hey/types/club';
-import type { FC, ReactNode } from 'react';
+import type { Club } from "@hey/types/club";
+import type { FC, ReactNode } from "react";
 
-import getClub from '@hey/helpers/api/clubs/getClub';
-import getMentions from '@hey/helpers/getMentions';
-import nFormatter from '@hey/helpers/nFormatter';
-import truncateByWords from '@hey/helpers/truncateByWords';
-import { Card, Image } from '@hey/ui';
-import * as HoverCard from '@radix-ui/react-hover-card';
-import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import getClub from "@hey/helpers/api/clubs/getClub";
+import getMentions from "@hey/helpers/getMentions";
+import nFormatter from "@hey/helpers/nFormatter";
+import truncateByWords from "@hey/helpers/truncateByWords";
+import { Card, Image } from "@hey/ui";
+import * as HoverCard from "@radix-ui/react-hover-card";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import JoinLeaveButton from './Club/JoinLeaveButton';
-import Markup from './Markup';
-import Slug from './Slug';
+import JoinLeaveButton from "./Club/JoinLeaveButton";
+import Markup from "./Markup";
+import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
 
@@ -32,7 +32,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   } = useMutation({
     mutationFn: () =>
       getClub({ club_handle: handle, profile_id: currentProfile?.id }),
-    mutationKey: ['getClub', handle]
+    mutationKey: ["getClub", handle]
   });
 
   const [syntheticLoading, setSyntheticLoading] =

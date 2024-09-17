@@ -1,20 +1,20 @@
-import type { ApprovedAllowanceAmountResult } from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { ApprovedAllowanceAmountResult } from "@hey/lens";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import errorToast from '@helpers/errorToast';
-import getAllowanceModule from '@helpers/getAllowanceModule';
-import { Leafwatch } from '@helpers/leafwatch';
-import { ExclamationTriangleIcon, PlusIcon } from '@heroicons/react/24/outline';
-import { SETTINGS } from '@hey/data/tracking';
+import errorToast from "@helpers/errorToast";
+import getAllowanceModule from "@helpers/getAllowanceModule";
+import { Leafwatch } from "@helpers/leafwatch";
+import { ExclamationTriangleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { SETTINGS } from "@hey/data/tracking";
 import {
   OpenActionModuleType,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@hey/lens';
-import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+} from "@hey/lens";
+import { Button, Modal, Spinner, WarningMessage } from "@hey/ui";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 
 interface AllowanceButtonProps {
   allowed: boolean;
@@ -26,10 +26,10 @@ interface AllowanceButtonProps {
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({
   allowed,
-  className = '',
+  className = "",
   module,
   setAllowed,
-  title = 'Allow'
+  title = "Allow"
 }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
@@ -58,8 +58,8 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     if (isSuccess) {
       toast.success(
         allowed
-          ? 'Module disabled successfully!'
-          : 'Module enabled successfully!'
+          ? "Module disabled successfully!"
+          : "Module enabled successfully!"
       );
       setShowWarningModal(false);
       setAllowed(!allowed);
@@ -73,7 +73,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     if (error) {
       onError(error);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, error]);
 
   const handleAllowance = async (
@@ -91,7 +90,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             allowance: { currency: contract, value: value },
             module: {
               [isUnknownModule
-                ? 'unknownOpenActionModule'
+                ? "unknownOpenActionModule"
                 : getAllowanceModule(module.moduleName).field]: isUnknownModule
                 ? module.moduleContract.address
                 : selectedModule
@@ -118,7 +117,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       onClick={() =>
         handleAllowance(
           module.allowance.asset.contract.address,
-          '0',
+          "0",
           module.moduleName
         )
       }
@@ -145,7 +144,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             message={
               <div className="leading-6">
                 Please be aware that by allowing this module, the amount
-                indicated will be automatically deducted when you <b>Collect</b>{' '}
+                indicated will be automatically deducted when you <b>Collect</b>{" "}
                 and <b>Super follow</b>.
               </div>
             }

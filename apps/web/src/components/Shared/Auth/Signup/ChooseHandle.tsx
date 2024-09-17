@@ -1,35 +1,35 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   CheckIcon,
   ExclamationTriangleIcon,
   FaceFrownIcon,
   FaceSmileIcon
-} from '@heroicons/react/24/outline';
-import { HeyLensSignup } from '@hey/abis';
+} from "@heroicons/react/24/outline";
+import { HeyLensSignup } from "@hey/abis";
 import {
   APP_NAME,
   HANDLE_PREFIX,
   HEY_LENS_SIGNUP,
   SIGNUP_PRICE,
   ZERO_ADDRESS
-} from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
-import { AUTH } from '@hey/data/tracking';
-import { useHandleToAddressQuery } from '@hey/lens';
-import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
-import Script from 'next/script';
-import { useState } from 'react';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { formatUnits, parseEther } from 'viem';
-import { useAccount, useBalance, useWriteContract } from 'wagmi';
-import { object, string } from 'zod';
+} from "@hey/data/constants";
+import { Regex } from "@hey/data/regex";
+import { AUTH } from "@hey/data/tracking";
+import { useHandleToAddressQuery } from "@hey/lens";
+import { Button, Form, Input, Spinner, useZodForm } from "@hey/ui";
+import Script from "next/script";
+import { useState } from "react";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { formatUnits, parseEther } from "viem";
+import { useAccount, useBalance, useWriteContract } from "wagmi";
+import { object, string } from "zod";
 
-import { useSignupStore } from '.';
-import AuthMessage from '../AuthMessage';
-import Moonpay from './Moonpay';
+import { useSignupStore } from ".";
+import AuthMessage from "../AuthMessage";
+import Moonpay from "./Moonpay";
 
 declare global {
   interface Window {
@@ -53,11 +53,11 @@ export const SignupMessage = () => (
 
 const newProfileSchema = object({
   handle: string()
-    .min(5, { message: 'Handle must be at least 5 characters long' })
-    .max(26, { message: 'Handle must be at most 26 characters long' })
+    .min(5, { message: "Handle must be at least 5 characters long" })
+    .max(26, { message: "Handle must be at most 26 characters long" })
     .regex(Regex.handle, {
       message:
-        'Handle must start with a letter/number, only _ allowed in between'
+        "Handle must start with a letter/number, only _ allowed in between"
     })
 });
 
@@ -72,10 +72,11 @@ const ChooseHandle: FC = () => {
     address,
     query: { refetchInterval: 2000 }
   });
-  const form = useZodForm({ mode: 'onChange', schema: newProfileSchema });
-  const handle = form.watch('handle');
+  const form = useZodForm({ mode: "onChange", schema: newProfileSchema });
+  const handle = form.watch("handle");
 
-  const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18));
+  const balance =
+    balanceData && Number.parseFloat(formatUnits(balanceData.value, 18));
   const hasBalance = balance && balance >= SIGNUP_PRICE;
   const canCheck = Boolean(handle && handle.length > 4);
   const isInvalid = !form.formState.isValid;
@@ -84,16 +85,16 @@ const ChooseHandle: FC = () => {
     mutation: {
       onError: errorToast,
       onSuccess: (hash: string) => {
-        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: 'crypto' });
+        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: "crypto" });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
-        setScreen('minting');
+        setScreen("minting");
       }
     }
   });
 
   useHandleToAddressQuery({
-    fetchPolicy: 'no-cache',
+    fetchPolicy: "no-cache",
     onCompleted: (data) => setIsAvailable(!data.handleToAddress),
     variables: {
       request: { handle: `${HANDLE_PREFIX}${handle?.toLowerCase()}` }
@@ -108,8 +109,8 @@ const ChooseHandle: FC = () => {
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
-        args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
-        functionName: 'createProfileWithHandleUsingCredits',
+        args: [[address, ZERO_ADDRESS, "0x"], handle, [delegatedExecutor]],
+        functionName: "createProfileWithHandleUsingCredits",
         value: parseEther(SIGNUP_PRICE.toString())
       });
     } catch (error) {
@@ -140,22 +141,22 @@ const ChooseHandle: FC = () => {
             hideError
             placeholder="yourhandle"
             prefix="@lens/"
-            {...form.register('handle')}
+            {...form.register("handle")}
           />
           {canCheck && !isInvalid ? (
             isAvailable === false ? (
-              <div className="mt-2 flex items-center space-x-1 text-sm text-red-500">
+              <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
                 <FaceFrownIcon className="size-4" />
                 <b>Handle not available!</b>
               </div>
             ) : isAvailable === true ? (
-              <div className="mt-2 flex items-center space-x-1 text-sm text-green-500">
+              <div className="mt-2 flex items-center space-x-1 text-green-500 text-sm">
                 <CheckIcon className="size-4" />
                 <b>You're in luck - it's available!</b>
               </div>
             ) : null
           ) : canCheck && isInvalid ? (
-            <div className="mt-2 flex items-center space-x-1 text-sm text-red-500">
+            <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
               <ExclamationTriangleIcon className="size-4" />
               <b>{form.formState.errors.handle?.message}</b>
             </div>

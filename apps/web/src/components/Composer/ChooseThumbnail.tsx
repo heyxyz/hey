@@ -1,15 +1,15 @@
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent, FC } from "react";
 
-import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
-import { uploadFileToIPFS } from '@helpers/uploadToIPFS';
-import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import { generateVideoThumbnails } from '@hey/helpers/generateVideoThumbnails';
-import getFileFromDataURL from '@hey/helpers/getFileFromDataURL';
-import { Spinner } from '@hey/ui';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
+import ThumbnailsShimmer from "@components/Shared/Shimmer/ThumbnailsShimmer";
+import { uploadFileToIPFS } from "@helpers/uploadToIPFS";
+import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { generateVideoThumbnails } from "@hey/helpers/generateVideoThumbnails";
+import getFileFromDataURL from "@hey/helpers/getFileFromDataURL";
+import { Spinner } from "@hey/ui";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -31,10 +31,10 @@ const ChooseThumbnail: FC = () => {
     setVideoThumbnail({ ...videoThumbnail, uploading: true });
     const result = await uploadFileToIPFS(fileToUpload);
     if (!result.uri) {
-      toast.error('Failed to upload thumbnail');
+      toast.error("Failed to upload thumbnail");
     }
     setVideoThumbnail({
-      mimeType: fileToUpload.type || 'image/jpeg',
+      mimeType: fileToUpload.type || "image/jpeg",
       uploading: false,
       url: result.uri
     });
@@ -44,14 +44,14 @@ const ChooseThumbnail: FC = () => {
 
   const onSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
-    if (thumbnails[index]?.ipfsUrl === '') {
+    if (thumbnails[index]?.ipfsUrl === "") {
       setVideoThumbnail({ ...videoThumbnail, uploading: true });
       getFileFromDataURL(
         thumbnails[index].blobUrl,
-        'thumbnail.jpeg',
+        "thumbnail.jpeg",
         async (file: any) => {
           if (!file) {
-            return toast.error('Please upload a custom thumbnail');
+            return toast.error("Please upload a custom thumbnail");
           }
           const ipfsResult = await uploadThumbnailToIpfs(file);
           setThumbnails(
@@ -81,7 +81,7 @@ const ChooseThumbnail: FC = () => {
       );
       const thumbnailList: Thumbnail[] = [];
       for (const thumbnailBlob of thumbnailArray) {
-        thumbnailList.push({ blobUrl: thumbnailBlob, ipfsUrl: '' });
+        thumbnailList.push({ blobUrl: thumbnailBlob, ipfsUrl: "" });
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
@@ -90,7 +90,6 @@ const ChooseThumbnail: FC = () => {
 
   useEffect(() => {
     onSelectThumbnail(selectedThumbnailIndex);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedThumbnailIndex]);
 
   useEffect(() => {
@@ -117,7 +116,7 @@ const ChooseThumbnail: FC = () => {
         ]);
         setSelectedThumbnailIndex(0);
       } catch {
-        toast.error('Failed to upload thumbnail');
+        toast.error("Failed to upload thumbnail");
       } finally {
         setImageUploading(false);
       }

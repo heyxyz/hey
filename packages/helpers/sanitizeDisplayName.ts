@@ -1,4 +1,4 @@
-import { Regex } from '@hey/data/regex';
+import { Regex } from "@hey/data/regex";
 
 /**
  * Remove restricted symbols from profile name
@@ -13,7 +13,7 @@ const sanitizeDisplayName = (
     return null;
   }
 
-  return name.replace(Regex.profileNameFilter, ' ').trim();
+  return name.replace(Regex.profileNameFilter, " ").trim();
 };
 
 export default sanitizeDisplayName;

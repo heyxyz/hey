@@ -1,10 +1,10 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import Slug from '@components/Shared/Slug';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import getProfile from '@hey/helpers/getProfile';
-import { H3, Image } from '@hey/ui';
+import Slug from "@components/Shared/Slug";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import getProfile from "@hey/helpers/getProfile";
+import { H3, Image } from "@hey/ui";
 
 interface MetaDetailsProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ interface MetaDetailsProps {
 export const MetaDetails: FC<MetaDetailsProps> = ({ children, icon }) => (
   <div className="flex items-center gap-2">
     {icon}
-    <div className="text-md truncate">{children}</div>
+    <div className="truncate text-md">{children}</div>
   </div>
 );
 
@@ -27,7 +27,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ profile }) => {
 
   return (
     <div className="space-y-5 px-5 sm:px-0">
-      <div className="relative -mt-24 size-32 sm:-mt-32 sm:size-52">
+      <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
         <Image
           alt={profile.id}
           className="size-32 rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"

@@ -1,34 +1,34 @@
-import type { ProfileManagersRequest } from '@hey/lens';
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { ProfileManagersRequest } from "@hey/lens";
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import Loader from '@components/Shared/Loader';
-import WalletProfile from '@components/Shared/WalletProfile';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import Loader from "@components/Shared/Loader";
+import WalletProfile from "@components/Shared/WalletProfile";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { MinusCircleIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { Virtuoso } from 'react-virtuoso';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { Button, EmptyState, ErrorMessage, Spinner } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { Virtuoso } from "react-virtuoso";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 const List: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -42,17 +42,17 @@ const List: FC = () => {
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     cache.evict({ id: `ProfilesManagedResult:${removingAddress}` });
-    toast.success('Manager removed successfully!');
+    toast.success("Manager removed successfully!");
     Leafwatch.track(SETTINGS.MANAGER.REMOVE_MANAGER);
   };
 
@@ -76,7 +76,7 @@ const List: FC = () => {
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'changeDelegatedExecutorsConfig'
+      functionName: "changeDelegatedExecutorsConfig"
     });
   };
 
@@ -110,7 +110,7 @@ const List: FC = () => {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
           }
 

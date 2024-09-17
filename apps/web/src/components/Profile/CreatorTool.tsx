@@ -1,19 +1,19 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import ToggleWrapper from '@components/Staff/Users/Overview/Tool/ToggleWrapper';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Permission } from '@hey/data/permissions';
-import { CREATORTOOLS } from '@hey/data/tracking';
-import { STAFF_PICK_FEATURE_ID, VERIFIED_FEATURE_ID } from '@hey/db/constants';
-import getInternalPreferences from '@hey/helpers/api/getInternalPreferences';
-import { Toggle } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import ToggleWrapper from "@components/Staff/Users/Overview/Tool/ToggleWrapper";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Permission } from "@hey/data/permissions";
+import { CREATORTOOLS } from "@hey/data/tracking";
+import { STAFF_PICK_FEATURE_ID, VERIFIED_FEATURE_ID } from "@hey/db/constants";
+import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
+import { Toggle } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface CreatorToolProps {
   profile: Profile;
@@ -30,7 +30,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
 
   const { data: preferences, isLoading } = useQuery({
     queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
-    queryKey: ['getInternalPreferences', profile.id]
+    queryKey: ["getInternalPreferences", profile.id]
   });
 
   useEffect(() => {
@@ -52,9 +52,9 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
           { headers: getAuthApiHeaders() }
         ),
         {
-          error: 'Failed to update permission',
-          loading: 'Updating the permission...',
-          success: 'Permission updated'
+          error: "Failed to update permission",
+          loading: "Updating the permission...",
+          success: "Permission updated"
         }
       );
 

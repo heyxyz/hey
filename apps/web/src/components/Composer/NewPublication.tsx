@@ -7,88 +7,88 @@ import type {
   OnchainPostRequest,
   OnchainQuoteRequest,
   Quote
-} from '@hey/lens';
-import type { IGif } from '@hey/types/giphy';
-import type { NewAttachment } from '@hey/types/misc';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { IGif } from "@hey/types/giphy";
+import type { NewAttachment } from "@hey/types/misc";
+import type { FC } from "react";
 
-import NewAttachments from '@components/Composer/NewAttachments';
-import QuotedPublication from '@components/Publication/QuotedPublication';
-import { AudioPublicationSchema } from '@components/Shared/Audio';
-import Wrapper from '@components/Shared/Embed/Wrapper';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import uploadToIrys from '@helpers/uploadToIrys';
-import { KNOWN_ATTRIBUTES } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import collectModuleParams from '@hey/helpers/collectModuleParams';
-import getMentions from '@hey/helpers/getMentions';
-import getProfile from '@hey/helpers/getProfile';
-import removeQuoteOn from '@hey/helpers/removeQuoteOn';
-import { ReferenceModuleType } from '@hey/lens';
-import { Button, Card, ErrorMessage, H6 } from '@hey/ui';
-import { MetadataAttributeType } from '@lens-protocol/metadata';
-import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import useCreatePoll from 'src/hooks/useCreatePoll';
-import useCreatePublication from 'src/hooks/useCreatePublication';
-import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
+import NewAttachments from "@components/Composer/NewAttachments";
+import QuotedPublication from "@components/Publication/QuotedPublication";
+import { AudioPublicationSchema } from "@components/Shared/Audio";
+import Wrapper from "@components/Shared/Embed/Wrapper";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import uploadToIrys from "@helpers/uploadToIrys";
+import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import collectModuleParams from "@hey/helpers/collectModuleParams";
+import getMentions from "@hey/helpers/getMentions";
+import getProfile from "@hey/helpers/getProfile";
+import removeQuoteOn from "@hey/helpers/removeQuoteOn";
+import { ReferenceModuleType } from "@hey/lens";
+import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
+import { MetadataAttributeType } from "@lens-protocol/metadata";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import useCreatePoll from "src/hooks/useCreatePoll";
+import useCreatePublication from "src/hooks/useCreatePublication";
+import usePublicationMetadata from "src/hooks/usePublicationMetadata";
+import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import {
   DEFAULT_AUDIO_PUBLICATION,
   usePublicationAudioStore
-} from 'src/store/non-persisted/publication/usePublicationAudioStore';
-import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
-import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
-import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+} from "src/store/non-persisted/publication/usePublicationAudioStore";
+import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
+import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
+import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
+import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePublicationVideoStore
-} from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "src/store/non-persisted/publication/usePublicationVideoStore";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
-import PollEditor from './Actions/PollSettings/PollEditor';
-import { Editor, useEditorContext, withEditorContext } from './Editor';
-import LinkPreviews from './LinkPreviews';
-import OpenActionsPreviews from './OpenActionsPreviews';
+import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
+import PollEditor from "./Actions/PollSettings/PollEditor";
+import { Editor, useEditorContext, withEditorContext } from "./Editor";
+import LinkPreviews from "./LinkPreviews";
+import OpenActionsPreviews from "./OpenActionsPreviews";
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
 
 const Attachment = dynamic(
-  () => import('@components/Composer/Actions/Attachment'),
+  () => import("@components/Composer/Actions/Attachment"),
   { loading: () => Shimmer }
 );
-const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
+const EmojiPicker = dynamic(() => import("@components/Shared/EmojiPicker"), {
   loading: () => Shimmer
 });
-const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
+const Gif = dynamic(() => import("@components/Composer/Actions/Gif"), {
   loading: () => Shimmer
 });
 const CollectSettings = dynamic(
-  () => import('@components/Composer/Actions/CollectSettings'),
+  () => import("@components/Composer/Actions/CollectSettings"),
   { loading: () => Shimmer }
 );
 const ReferenceSettings = dynamic(
-  () => import('@components/Composer/Actions/ReferenceSettings'),
+  () => import("@components/Composer/Actions/ReferenceSettings"),
   { loading: () => Shimmer }
 );
 const PollSettings = dynamic(
-  () => import('@components/Composer/Actions/PollSettings'),
+  () => import("@components/Composer/Actions/PollSettings"),
   { loading: () => Shimmer }
 );
 const LivestreamSettings = dynamic(
-  () => import('@components/Composer/Actions/LivestreamSettings'),
+  () => import("@components/Composer/Actions/LivestreamSettings"),
   { loading: () => Shimmer }
 );
 
@@ -155,7 +155,7 @@ const NewPublication: FC<NewPublicationProps> = ({
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-  const [publicationContentError, setPublicationContentError] = useState('');
+  const [publicationContentError, setPublicationContentError] = useState("");
   const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
@@ -168,8 +168,8 @@ const NewPublication: FC<NewPublicationProps> = ({
 
   const isComment = Boolean(publication);
   const isQuote = Boolean(quotedPublication);
-  const hasAudio = attachments[0]?.type === 'Audio';
-  const hasVideo = attachments[0]?.type === 'Video';
+  const hasAudio = attachments[0]?.type === "Audio";
+  const hasVideo = attachments[0]?.type === "Video";
 
   const noCollect = !collectModule.type;
   // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
@@ -180,9 +180,9 @@ const NewPublication: FC<NewPublicationProps> = ({
       : noCollect;
 
   const reset = () => {
-    editor?.setMarkdown('');
+    editor?.setMarkdown("");
     setIsLoading(false);
-    setPublicationContent('');
+    setPublicationContent("");
     setTags(null);
     setShowPollEditor(false);
     resetPollConfig();
@@ -205,14 +205,14 @@ const NewPublication: FC<NewPublicationProps> = ({
 
   const onCompleted = (
     __typename?:
-      | 'CreateMomokaPublicationResult'
-      | 'LensProfileManagerRelayError'
-      | 'RelayError'
-      | 'RelaySuccess'
+      | "CreateMomokaPublicationResult"
+      | "LensProfileManagerRelayError"
+      | "RelayError"
+      | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return onError();
     }
@@ -267,22 +267,22 @@ const NewPublication: FC<NewPublicationProps> = ({
   });
 
   useEffect(() => {
-    setPublicationContentError('');
+    setPublicationContentError("");
   }, [audioPublication]);
 
   useEffect(() => {
     if (getMentions(publicationContent).length > 50) {
       setExceededMentionsLimit(true);
-      setPublicationContentError('You can only mention 50 people at a time!');
+      setPublicationContentError("You can only mention 50 people at a time!");
     } else {
       setExceededMentionsLimit(false);
-      setPublicationContentError('');
+      setPublicationContentError("");
     }
   }, [publicationContent]);
 
   const getAnimationUrl = () => {
     const fallback =
-      'ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4';
+      "ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4";
 
     if (attachments.length > 0 || hasAudio || hasVideo) {
       return attachments[0]?.uri || fallback;
@@ -293,10 +293,10 @@ const NewPublication: FC<NewPublicationProps> = ({
 
   const getTitlePrefix = () => {
     if (hasVideo) {
-      return 'Video';
+      return "Video";
     }
 
-    return isComment ? 'Comment' : isQuote ? 'Quote' : 'Post';
+    return isComment ? "Comment" : isQuote ? "Quote" : "Post";
   };
 
   const createPublication = async () => {
@@ -311,7 +311,7 @@ const NewPublication: FC<NewPublicationProps> = ({
     try {
       setIsLoading(true);
       if (hasAudio) {
-        setPublicationContentError('');
+        setPublicationContentError("");
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
@@ -324,14 +324,14 @@ const NewPublication: FC<NewPublicationProps> = ({
         setIsLoading(false);
         return setPublicationContentError(
           `${
-            isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
+            isComment ? "Comment" : isQuote ? "Quote" : "Post"
           } should not be empty!`
         );
       }
 
-      setPublicationContentError('');
+      setPublicationContentError("");
 
-      let pollId;
+      let pollId: string | undefined;
       if (showPollEditor) {
         pollId = await createPoll();
       }
@@ -377,7 +377,7 @@ const NewPublication: FC<NewPublicationProps> = ({
         openActionModules.push(nftOpenActionEmbed);
       }
 
-      if (Boolean(collectModule.type)) {
+      if (collectModule.type) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule)
         });
@@ -499,9 +499,9 @@ const NewPublication: FC<NewPublicationProps> = ({
 
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
-      mimeType: 'image/gif',
+      mimeType: "image/gif",
       previewUri: gif.images.original.url,
-      type: 'Image',
+      type: "Image",
       uri: gif.images.original.url
     };
     addAttachments([attachment]);
@@ -562,7 +562,7 @@ const NewPublication: FC<NewPublicationProps> = ({
           <PollSettings />
           {!isComment && <LivestreamSettings />}
         </div>
-        <div className="ml-auto mt-2 sm:mt-0">
+        <div className="mt-2 ml-auto sm:mt-0">
           <Button
             disabled={
               isLoading ||
@@ -573,7 +573,7 @@ const NewPublication: FC<NewPublicationProps> = ({
             }
             onClick={createPublication}
           >
-            {isComment ? 'Comment' : 'Post'}
+            {isComment ? "Comment" : "Post"}
           </Button>
         </div>
       </div>

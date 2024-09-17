@@ -1,13 +1,13 @@
-import type { PrimaryPublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { PrimaryPublication } from "@hey/lens";
+import type { FC } from "react";
 
-import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import usePushToImpressions from 'src/hooks/usePushToImpressions';
+import PublicationWrapper from "@components/Shared/PublicationWrapper";
+import usePushToImpressions from "src/hooks/usePushToImpressions";
 
-import HiddenPublication from './HiddenPublication';
-import PublicationAvatar from './PublicationAvatar';
-import PublicationBody from './PublicationBody';
-import PublicationHeader from './PublicationHeader';
+import HiddenPublication from "./HiddenPublication";
+import PublicationAvatar from "./PublicationAvatar";
+import PublicationBody from "./PublicationBody";
+import PublicationHeader from "./PublicationHeader";
 
 interface QuotedPublicationProps {
   isNew?: boolean;

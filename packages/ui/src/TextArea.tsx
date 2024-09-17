@@ -1,10 +1,10 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps } from "react";
 
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId } from "react";
 
-import { FieldError } from './Form';
+import { FieldError } from "./Form";
 
-interface TextAreaProps extends ComponentProps<'textarea'> {
+interface TextAreaProps extends ComponentProps<"textarea"> {
   label?: string;
 }
 

@@ -1,11 +1,11 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from "@hey/lens";
 
-import { IndexDB } from '@hey/data/storage';
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { IndexDB } from "@hey/data/storage";
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-import createIdbStorage from '../helpers/createIdbStorage';
+import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   currentProfile: null | Profile;

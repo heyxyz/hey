@@ -1,3 +1,3 @@
-import Terms from '@components/Pages/Terms';
+import Terms from "@components/Pages/Terms";
 
 export default Terms;

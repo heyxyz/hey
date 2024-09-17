@@ -1,19 +1,19 @@
-import type { Profile } from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC } from "react";
 
-import Markup from '@components/Shared/Markup';
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import getMentions from '@hey/helpers/getMentions';
+import Markup from "@components/Shared/Markup";
+import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import getMentions from "@hey/helpers/getMentions";
 import {
   LensTransactionStatusType,
   PublicationDocument,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Card, Tooltip } from '@hey/ui';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { Card, Tooltip } from "@hey/ui";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;
@@ -74,11 +74,11 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
         <SmallUserProfile linkToProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
           <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
-            <div className="animate-shimmer size-2 rounded-full bg-gray-500" />
+            <div className="size-2 animate-shimmer rounded-full bg-gray-500" />
           </div>
         </Tooltip>
       </div>
-      <div className="markup linkify text-md break-words">
+      <div className="markup linkify break-words text-md">
         <Markup mentions={getMentions(txn.content)}>{txn.content}</Markup>
       </div>
     </Card>

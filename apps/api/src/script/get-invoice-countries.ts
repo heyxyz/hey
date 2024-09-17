@@ -1,9 +1,9 @@
-import { MainnetContracts } from '@hey/data/contracts';
-import clickhouseClient from '@hey/db/clickhouseClient';
-import lensPg from '@hey/db/lensPg';
+import { MainnetContracts } from "@hey/data/contracts";
+import clickhouseClient from "@hey/db/clickhouseClient";
+import lensPg from "@hey/db/lensPg";
 
-const startDate = '2024-07-01 00:00:00';
-const endDate = '2024-07-31 23:59:59';
+const startDate = "2024-07-01 00:00:00";
+const endDate = "2024-07-31 23:59:59";
 
 const getProfiles = async () => {
   const profiles = await lensPg.query(
@@ -23,7 +23,7 @@ const getInvoiceCountries = async () => {
   const ids = profiles.map((profile) => profile.profile_id);
 
   if (ids.length === 0) {
-    console.log('No profiles found for the given criteria.');
+    console.log("No profiles found for the given criteria.");
     return;
   }
 
@@ -32,17 +32,17 @@ const getInvoiceCountries = async () => {
     FROM (
       SELECT actor, any(country) as country
       FROM events
-      WHERE actor IN (${ids.map((id) => `'${id}'`).join(', ')})
+      WHERE actor IN (${ids.map((id) => `'${id}'`).join(", ")})
       GROUP BY actor
     ) AS subquery
     GROUP BY country
     ORDER BY invoices DESC
   `;
-  const rows = await clickhouseClient.query({ format: 'JSONEachRow', query });
+  const rows = await clickhouseClient.query({ format: "JSONEachRow", query });
   const result = await rows.json<{ country: string; invoices: string }>();
 
   const sumOfInvoices = result.reduce(
-    (acc, row) => acc + parseInt(row.invoices),
+    (acc, row) => acc + Number.parseInt(row.invoices),
     0
   );
   console.log(`Total invoices: ${sumOfInvoices}`);
@@ -50,7 +50,7 @@ const getInvoiceCountries = async () => {
   const formattedResult = result.map(
     (row: { country: string; invoices: string }) => ({
       country: row.country,
-      invoices: parseInt(row.invoices)
+      invoices: Number.parseInt(row.invoices)
     })
   );
 

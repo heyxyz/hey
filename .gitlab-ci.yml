@@ -26,8 +26,7 @@ before_script:
 
 include:
   - local: ".gitlab/ci/preflight/typecheck.yml"
-  - local: ".gitlab/ci/preflight/lint.yml"
-  - local: ".gitlab/ci/preflight/prettier.yml"
+  - local: ".gitlab/ci/preflight/biome.yml"
   - local: ".gitlab/ci/preflight/build.yml"
   - local: ".gitlab/ci/preflight/test.yml"
   - local: ".gitlab/ci/deploy/migrate-db.yml"

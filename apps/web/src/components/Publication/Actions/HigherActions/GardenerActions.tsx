@@ -1,26 +1,26 @@
 import type {
   MirrorablePublication,
   ReportPublicationRequest
-} from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+} from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { GARDENER } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { Leafwatch } from "@helpers/leafwatch";
+import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
+import { APP_NAME } from "@hey/data/constants";
+import { GARDENER } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   PublicationReportingReason,
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button } from '@hey/ui';
-import { useRouter } from 'next/router';
-import { toast } from 'react-hot-toast';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { Button } from "@hey/ui";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
-import SuspendButtons from './SuspendButtons';
+import SuspendButtons from "./SuspendButtons";
 
 interface GardenerActionsProps {
   publication: MirrorablePublication;
@@ -39,7 +39,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     subreason: PublicationReportingSpamSubreason;
     suspended?: boolean;
   }) => {
-    if (pathname === '/mod') {
+    if (pathname === "/mod") {
       cache.evict({ id: cache.identify(publication) });
     }
 
@@ -74,15 +74,15 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
           await reportPublicationOnLens({
             subreason,
             suspended:
-              type === 'suspend' &&
+              type === "suspend" &&
               subreason === PublicationReportingSpamSubreason.Misleading
           });
         })
       ),
       {
-        error: 'Error reporting publication',
-        loading: 'Reporting publication...',
-        success: 'Publication reported successfully'
+        error: "Error reporting publication",
+        loading: "Reporting publication...",
+        success: "Publication reported successfully"
       }
     );
   };
@@ -146,7 +146,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
               PublicationReportingSpamSubreason.LowSignal,
               PublicationReportingSpamSubreason.Misleading
             ],
-            type: 'suspend'
+            type: "suspend"
           });
         }}
         publication={publication}

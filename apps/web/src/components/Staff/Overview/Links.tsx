@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Link from 'next/link';
+import Link from "next/link";
 
 interface ListItemProps {
   link: string;
@@ -20,7 +20,7 @@ const Links: FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-2 md:gap-y-8">
       <div>
         <p className="mb-3 font-bold">Monitoring 📈</p>
-        <ul className="mb-4 mt-0 list-disc space-y-1 pl-5">
+        <ul className="mt-0 mb-4 list-disc space-y-1 pl-5">
           <ListItem
             link="https://hey.metabaseapp.com/public/dashboard/3ee79f5b-07d7-43d7-9237-58c6442a1ad8#refresh=2"
             title="Leafwatch Overview"
@@ -37,7 +37,7 @@ const Links: FC = () => {
       </div>
       <div>
         <p className="mb-4 font-bold">Other helpful links 🌱</p>
-        <ul className="mb-3 mt-0 list-disc space-y-1 pl-5">
+        <ul className="mt-0 mb-3 list-disc space-y-1 pl-5">
           <ListItem
             link="https://gitlab.com/yo/hey/-/issues/service_desk"
             title="Service Desk"
@@ -54,7 +54,7 @@ const Links: FC = () => {
       </div>
       <div>
         <p className="mb-4 font-bold">Forms 📜</p>
-        <ul className="mb-3 mt-0 list-disc space-y-1 pl-5">
+        <ul className="mt-0 mb-3 list-disc space-y-1 pl-5">
           <ListItem
             link="https://hey.xyz/-/token-request"
             title="Token Allowlist Request"

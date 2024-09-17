@@ -1,22 +1,22 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
+import Loader from "@components/Shared/Loader";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { HEY_API_URL } from "@hey/data/constants";
 import {
   ExploreProfilesOrderByType,
   LimitType,
   useExploreProfilesQuery
-} from '@hey/lens';
-import { CardHeader, ErrorMessage, NumberedStat } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useState } from 'react';
+} from "@hey/lens";
+import { CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
 
-import ActiveUsers from './ActiveUsers';
-import EventsToday from './EventsToday';
-import ImpressionsToday from './ImpressionsToday';
-import Referrers from './Referrers';
+import ActiveUsers from "./ActiveUsers";
+import EventsToday from "./EventsToday";
+import ImpressionsToday from "./ImpressionsToday";
+import Referrers from "./Referrers";
 
 export interface StatsType {
   dau: {
@@ -70,15 +70,15 @@ const LeafwatchStats: FC = () => {
 
   const { data, error, isLoading } = useQuery({
     queryFn: getStats,
-    queryKey: ['getStats'],
+    queryKey: ["getStats"],
     refetchInterval: 5000
   });
 
   useExploreProfilesQuery({
-    fetchPolicy: 'no-cache',
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) =>
-      setLensProfiles(parseInt(data.exploreProfiles.items[0].id)),
+      setLensProfiles(Number.parseInt(data.exploreProfiles.items[0].id)),
     pollInterval: 5000,
     variables: {
       request: {

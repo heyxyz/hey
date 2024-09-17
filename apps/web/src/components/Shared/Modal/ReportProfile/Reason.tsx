@@ -1,10 +1,10 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
 import {
   ProfileReportingFraudSubreason,
   ProfileReportingSpamSubreason
-} from '@hey/lens';
-import { Select } from '@hey/ui';
+} from "@hey/lens";
+import { Select } from "@hey/ui";
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;
@@ -28,18 +28,18 @@ const Reason: FC<ReasonProps> = ({
           options={[
             {
               disabled: true,
-              label: 'Select type',
-              value: 'Select type'
+              label: "Select type",
+              value: "Select type"
             },
             {
-              label: 'Fraud',
-              selected: type === 'fraudReason',
-              value: 'fraudReason'
+              label: "Fraud",
+              selected: type === "fraudReason",
+              value: "fraudReason"
             },
             {
-              label: 'Spam',
-              selected: type === 'spamReason',
-              value: 'spamReason'
+              label: "Spam",
+              selected: type === "spamReason",
+              value: "spamReason"
             }
           ]}
         />
@@ -52,20 +52,20 @@ const Reason: FC<ReasonProps> = ({
             options={[
               {
                 disabled: true,
-                label: 'Select reason',
-                value: 'Select reason'
+                label: "Select reason",
+                value: "Select reason"
               },
-              ...(type === 'fraudReason'
+              ...(type === "fraudReason"
                 ? [
                     {
-                      label: 'Impersonation',
+                      label: "Impersonation",
                       selected:
                         subReason ===
                         ProfileReportingFraudSubreason.Impersonation,
                       value: ProfileReportingFraudSubreason.Impersonation
                     },
                     {
-                      label: 'Something else',
+                      label: "Something else",
                       selected:
                         subReason ===
                         ProfileReportingFraudSubreason.SomethingElse,
@@ -73,16 +73,16 @@ const Reason: FC<ReasonProps> = ({
                     }
                   ]
                 : []),
-              ...(type === 'spamReason'
+              ...(type === "spamReason"
                 ? [
                     {
-                      label: 'Repetitive',
+                      label: "Repetitive",
                       selected:
                         subReason === ProfileReportingSpamSubreason.Repetitive,
                       value: ProfileReportingSpamSubreason.Repetitive
                     },
                     {
-                      label: 'Something else',
+                      label: "Something else",
                       selected:
                         subReason ===
                         ProfileReportingSpamSubreason.SomethingElse,

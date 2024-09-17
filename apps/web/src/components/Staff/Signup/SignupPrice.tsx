@@ -1,15 +1,15 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { HeyLensSignup } from '@hey/abis';
-import { HEY_LENS_SIGNUP } from '@hey/data/constants';
-import { NumberedStat } from '@hey/ui';
-import { useReadContract } from 'wagmi';
+import { HeyLensSignup } from "@hey/abis";
+import { HEY_LENS_SIGNUP } from "@hey/data/constants";
+import { NumberedStat } from "@hey/ui";
+import { useReadContract } from "wagmi";
 
 const SignupPrice: FC = () => {
   const { data } = useReadContract({
     abi: HeyLensSignup,
     address: HEY_LENS_SIGNUP,
-    functionName: 'signupPrice',
+    functionName: "signupPrice",
     query: { refetchInterval: 10000 }
   });
 
@@ -18,7 +18,7 @@ const SignupPrice: FC = () => {
 
   return (
     <NumberedStat
-      count={priceInMatic.toString() || '0'}
+      count={priceInMatic.toString() || "0"}
       name="Signup Price"
       suffix="POL / profile"
     />

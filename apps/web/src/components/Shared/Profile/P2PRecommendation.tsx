@@ -1,25 +1,25 @@
-import type { ApolloCache } from '@apollo/client';
-import type { PeerToPeerRecommendRequest, Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { ApolloCache } from "@apollo/client";
+import type { PeerToPeerRecommendRequest, Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon
-} from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data/errors';
-import { GARDENER } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+} from "@heroicons/react/24/outline";
+import { Errors } from "@hey/data/errors";
+import { GARDENER } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   usePeerToPeerRecommendMutation,
   usePeerToPeerUnrecommendMutation
-} from '@hey/lens';
-import { Button } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { Button } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface P2PRecommendationProps {
   profile: Profile;
@@ -54,7 +54,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
   const [p2pRecommend] = usePeerToPeerRecommendMutation({
     onCompleted: () => {
       Leafwatch.track(GARDENER.PROFILE.P2P_RECOMMEND, { profile: profile.id });
-      toast.success('Profile recommended');
+      toast.success("Profile recommended");
     },
     onError: (error) => {
       setHasRecommended(!hasRecommended);
@@ -68,7 +68,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
       Leafwatch.track(GARDENER.PROFILE.P2P_UNRECOMMEND, {
         profile: profile.id
       });
-      toast.success('Profile unrecommended');
+      toast.success("Profile unrecommended");
     },
     onError: (error) => {
       setHasRecommended(!hasRecommended);
@@ -113,7 +113,7 @@ const P2PRecommendation: FC<P2PRecommendationProps> = ({ profile }) => {
       outline={!hasRecommended}
       size="sm"
     >
-      {hasRecommended ? 'Unrecommend' : 'Recommend'}
+      {hasRecommended ? "Unrecommend" : "Recommend"}
     </Button>
   );
 };

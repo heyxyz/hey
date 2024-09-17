@@ -2,36 +2,36 @@ import type {
   ExploreProfilesRequest,
   Profile,
   ProfileSearchRequest
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
-import UserProfile from '@components/Shared/UserProfile';
-import { ArrowPathIcon, UsersIcon } from '@heroicons/react/24/outline';
-import getProfile from '@hey/helpers/getProfile';
+import Loader from "@components/Shared/Loader";
+import P2PRecommendation from "@components/Shared/Profile/P2PRecommendation";
+import UserProfile from "@components/Shared/UserProfile";
+import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
+import getProfile from "@hey/helpers/getProfile";
 import {
   ExploreProfilesOrderByType,
   LimitType,
   useExploreProfilesQuery,
   useSearchProfilesLazyQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage, Input, Select } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useDebounce } from '@uidotdev/usehooks';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+} from "@hey/lens";
+import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useDebounce } from "@uidotdev/usehooks";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Virtuoso } from "react-virtuoso";
 
-import ViewReports from './ViewReports';
+import ViewReports from "./ViewReports";
 
 const List: FC = () => {
   const { pathname } = useRouter();
   const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
     ExploreProfilesOrderByType.LatestCreated
   );
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [refetching, setRefetching] = useState(false);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
@@ -56,7 +56,6 @@ const List: FC = () => {
 
       searchUsers({ variables: { request } });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchText]);
 
   const profiles = searchText
@@ -110,7 +109,7 @@ const List: FC = () => {
             />
             <button onClick={onRefetch} type="button">
               <ArrowPathIcon
-                className={cn(refetching && 'animate-spin', 'size-5')}
+                className={cn(refetching && "animate-spin", "size-5")}
               />
             </button>
           </>
@@ -137,7 +136,7 @@ const List: FC = () => {
               <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
                 <Link
                   href={
-                    pathname === '/mod'
+                    pathname === "/mod"
                       ? getProfile(profile as Profile).link
                       : getProfile(profile as Profile).staffLink
                   }

@@ -1,11 +1,11 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import clickhouseClient from '@hey/db/clickhouseClient';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { noBody } from 'src/helpers/responses';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import { noBody } from "src/helpers/responses";
 
 export const get = [
   validateLensAccount,
@@ -19,7 +19,7 @@ export const get = [
 
     try {
       const rows = await clickhouseClient.query({
-        format: 'JSONEachRow',
+        format: "JSONEachRow",
         query: `
           WITH toYear(now()) AS current_year
           SELECT

@@ -1,11 +1,11 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import { rPushRedis } from '@hey/db/redisClient';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { array, object, string } from 'zod';
+import { rPushRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { array, object, string } from "zod";
 
 type ExtensionRequest = {
   ids: string[];
@@ -35,10 +35,10 @@ export const post = [
     try {
       const values = ids.map((id) => ({
         publication: id,
-        viewed: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        viewed: new Date().toISOString().slice(0, 19).replace("T", " ")
       }));
 
-      const queue = await rPushRedis('impressions', JSON.stringify(values));
+      const queue = await rPushRedis("impressions", JSON.stringify(values));
       logger.info(`Ingested ${values.length} impressions to Leafwatch`);
 
       return res.status(200).json({ queue, success: true });

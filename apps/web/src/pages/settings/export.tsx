@@ -1,3 +1,3 @@
-import ExportSettings from '@components/Settings/Export';
+import ExportSettings from "@components/Settings/Export";
 
 export default ExportSettings;

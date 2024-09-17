@@ -1,13 +1,13 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
-import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { EmptyState } from '@hey/ui';
-import { Virtuoso } from 'react-virtuoso';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
+import UserProfile from "@components/Shared/UserProfile";
+import { UsersIcon } from "@heroicons/react/24/outline";
+import { ProfileLinkSource } from "@hey/data/tracking";
+import { EmptyState } from "@hey/ui";
+import { Virtuoso } from "react-virtuoso";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface SuggestedProps {
   profiles: Profile[];

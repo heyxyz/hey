@@ -1,6 +1,4 @@
 Build:
   stage: preflight
-  tags:
-    - hey
   script:
     - pnpm build

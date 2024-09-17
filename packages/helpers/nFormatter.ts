@@ -1,4 +1,4 @@
-import humanize from './humanize';
+import humanize from "./humanize";
 
 /**
  * Formats a number by abbreviating it using SI unit prefixes.
@@ -9,13 +9,13 @@ import humanize from './humanize';
  */
 const nFormatter = (num: number, digits = 1): string => {
   const lookup = [
-    { symbol: '', value: 1 },
-    { symbol: 'k', value: 1e3 },
-    { symbol: 'M', value: 1e6 },
-    { symbol: 'G', value: 1e9 },
-    { symbol: 'T', value: 1e12 },
-    { symbol: 'P', value: 1e15 },
-    { symbol: 'E', value: 1e18 }
+    { symbol: "", value: 1 },
+    { symbol: "k", value: 1e3 },
+    { symbol: "M", value: 1e6 },
+    { symbol: "G", value: 1e9 },
+    { symbol: "T", value: 1e12 },
+    { symbol: "P", value: 1e15 },
+    { symbol: "E", value: 1e18 }
   ];
 
   // Remove trailing zeros and round to the specified number of digits
@@ -28,8 +28,8 @@ const nFormatter = (num: number, digits = 1): string => {
   return item
     ? num < 1000
       ? humanize(num)
-      : (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
-    : '0';
+      : (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
+    : "0";
 };
 
 export default nFormatter;

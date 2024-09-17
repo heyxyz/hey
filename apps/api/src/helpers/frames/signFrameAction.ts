@@ -1,7 +1,7 @@
-import LensEndpoint from '@hey/data/lens-endpoints';
-import axios from 'axios';
+import LensEndpoint from "@hey/data/lens-endpoints";
+import axios from "axios";
 
-import { HEY_USER_AGENT } from '../constants';
+import { HEY_USER_AGENT } from "../constants";
 
 /**
  * Middleware to validate Lens access token for connections
@@ -26,13 +26,13 @@ const signFrameAction = async (
   signature: string;
   signedTypedData: { value: any };
 } | null> => {
-  const allowedNetworks = ['mainnet', 'testnet'];
+  const allowedNetworks = ["mainnet", "testnet"];
 
   if (!network || !allowedNetworks.includes(network)) {
     return null;
   }
 
-  const isMainnet = network === 'mainnet';
+  const isMainnet = network === "mainnet";
   try {
     const { data } = await axios.post(
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
@@ -72,9 +72,9 @@ const signFrameAction = async (
       },
       {
         headers: {
-          'Content-Type': 'application/json',
-          'User-agent': HEY_USER_AGENT,
-          'X-Access-Token': accessToken
+          "Content-Type": "application/json",
+          "User-agent": HEY_USER_AGENT,
+          "X-Access-Token": accessToken
         }
       }
     );
