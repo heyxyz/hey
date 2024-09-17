@@ -1,7 +1,6 @@
 Deploy OG:
   only:
     - main
-  when: manual
   needs: []
   environment: production
   stage: deploy
