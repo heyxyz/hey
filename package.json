@@ -4,15 +4,17 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "biome:check": "biome check . --diagnostic-level=error",
+    "biome:fix": "biome check --write .",
     "build": "pnpm --recursive --parallel run build",
     "codegen": "pnpm --recursive --parallel run codegen",
+    "dep:check": "pnpm dlx sherif@latest",
+    "dep:fix": "pnpm dlx sherif@latest --fix",
     "dev": "pnpm --recursive --parallel run dev",
     "prepare": "husky install",
     "start": "pnpm --recursive --parallel run start",
     "test:dev": "pnpm --recursive run test:dev",
-    "typecheck": "pnpm --recursive --parallel run typecheck",
-    "biome:check": "biome check . --diagnostic-level=error",
-    "biome:fix": "biome check --write ."
+    "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.0",
