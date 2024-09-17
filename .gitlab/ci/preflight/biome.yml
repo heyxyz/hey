@@ -1,6 +1,4 @@
 Biome:
   stage: preflight
-  tags:
-    - hey
   script:
     - pnpm biome:check
