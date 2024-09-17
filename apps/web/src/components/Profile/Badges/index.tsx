@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-import HeyNft from './HeyNft';
-import HeyProfile from './HeyProfile';
+import HeyNft from "./HeyNft";
+import HeyProfile from "./HeyProfile";
 
 interface BadgesProps {
   id: string;
@@ -24,7 +24,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
 
   const { data: isHeyProfile } = useQuery({
     queryFn: getIsHeyProfile,
-    queryKey: ['getIsHeyProfile', id]
+    queryKey: ["getIsHeyProfile", id]
   });
   // End: Get isHeyProfile
 
@@ -41,7 +41,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
   const { data: hasHeyNft } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getHasHeyNft,
-    queryKey: ['getHasHeyNft', id]
+    queryKey: ["getHasHeyNft", id]
   });
   // End: Check has Hey NFT
 

@@ -1,14 +1,14 @@
-import type { ChangeEvent, FC, Ref } from 'react';
+import type { ChangeEvent, FC, Ref } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { uploadFileToIPFS } from '@helpers/uploadToIPFS';
-import { PhotoIcon } from '@heroicons/react/24/outline';
-import { ATTACHMENT } from '@hey/data/constants';
-import imageKit from '@hey/helpers/imageKit';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import { Image, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useState } from 'react';
+import errorToast from "@helpers/errorToast";
+import { uploadFileToIPFS } from "@helpers/uploadToIPFS";
+import { PhotoIcon } from "@heroicons/react/24/outline";
+import { ATTACHMENT } from "@hey/data/constants";
+import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import { Image, Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useState } from "react";
 
 interface CoverImageProps {
   cover: string;
@@ -41,7 +41,7 @@ const CoverImage: FC<CoverImageProps> = ({
         setCover(
           URL.createObjectURL(file),
           attachment.uri,
-          file.type || 'image/jpeg'
+          file.type || "image/jpeg"
         );
       } catch (error) {
         onError(error);
@@ -75,13 +75,13 @@ const CoverImage: FC<CoverImageProps> = ({
         <label
           className={cn(
             { invisible: cover, visible: isLoading && !cover },
-            'absolute top-0 grid size-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible md:size-40 dark:bg-gray-900'
+            "absolute top-0 grid size-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible md:size-40 dark:bg-gray-900"
           )}
         >
           {isLoading && !cover ? (
             <Spinner size="sm" />
           ) : (
-            <div className="flex flex-col items-center text-sm text-black opacity-60 dark:text-white">
+            <div className="flex flex-col items-center text-black text-sm opacity-60 dark:text-white">
               <PhotoIcon className="size-5" />
               <span>Add cover</span>
             </div>

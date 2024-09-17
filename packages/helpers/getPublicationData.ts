@@ -1,16 +1,16 @@
-import type { PublicationMetadata } from '@hey/lens';
-import type { MetadataAsset } from '@hey/types/misc';
+import type { PublicationMetadata } from "@hey/lens";
+import type { MetadataAsset } from "@hey/types/misc";
 
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 
-import getAttachmentsData from './getAttachmentsData';
+import getAttachmentsData from "./getAttachmentsData";
 
 const getPublicationData = (
   metadata: PublicationMetadata
 ): {
   asset?: MetadataAsset;
   attachments?: {
-    type: 'Audio' | 'Image' | 'Video';
+    type: "Audio" | "Image" | "Video";
     uri: string;
   }[];
   content?: string;
@@ -18,24 +18,24 @@ const getPublicationData = (
   const { content } = metadata;
 
   switch (metadata.__typename) {
-    case 'ArticleMetadataV3':
+    case "ArticleMetadataV3":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content
       };
-    case 'TextOnlyMetadataV3':
-    case 'LinkMetadataV3':
+    case "TextOnlyMetadataV3":
+    case "LinkMetadataV3":
       return { content };
-    case 'ImageMetadataV3':
+    case "ImageMetadataV3":
       return {
         asset: {
-          type: 'Image',
+          type: "Image",
           uri: metadata.asset.image.optimized?.uri
         },
         attachments: getAttachmentsData(metadata.attachments),
         content
       };
-    case 'AudioMetadataV3': {
+    case "AudioMetadataV3": {
       const audioAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -48,13 +48,13 @@ const getPublicationData = (
           // TODO: Fix this type
           license: metadata.asset.license as any,
           title: metadata.title,
-          type: 'Audio',
+          type: "Audio",
           uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri
         },
         content
       };
     }
-    case 'VideoMetadataV3': {
+    case "VideoMetadataV3": {
       const videoAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -65,18 +65,18 @@ const getPublicationData = (
             PLACEHOLDER_IMAGE,
           // TODO: Fix this type
           license: metadata.asset.license as any,
-          type: 'Video',
+          type: "Video",
           uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri
         },
         content
       };
     }
-    case 'MintMetadataV3':
+    case "MintMetadataV3":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content: metadata.content
       };
-    case 'LiveStreamMetadataV3':
+    case "LiveStreamMetadataV3":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content

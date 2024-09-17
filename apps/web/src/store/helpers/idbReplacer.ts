@@ -1,7 +1,7 @@
 const idbReplacer = (_key: string, value: any) => {
   if (value instanceof Map) {
     return {
-      dataType: 'Map',
+      dataType: "Map",
       value: [...value]
     };
   }

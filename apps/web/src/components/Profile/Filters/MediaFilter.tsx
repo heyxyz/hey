@@ -1,11 +1,11 @@
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent } from "react";
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
-import { Checkbox, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useProfileFeedStore } from 'src/store/non-persisted/useProfileFeedStore';
+import MenuTransition from "@components/Shared/MenuTransition";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
+import { Checkbox, Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useProfileFeedStore } from "src/store/non-persisted/useProfileFeedStore";
 
 const MediaFilter = () => {
   const { mediaFeedFilters, setMediaFeedFilters } = useProfileFeedStore();
@@ -33,8 +33,8 @@ const MediaFilter = () => {
             as="label"
             className={({ focus }) =>
               cn(
-                { 'dropdown-active': focus },
-                'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                { "dropdown-active": focus },
+                "menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg"
               )
             }
           >
@@ -49,8 +49,8 @@ const MediaFilter = () => {
             as="label"
             className={({ focus }) =>
               cn(
-                { 'dropdown-active': focus },
-                'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                { "dropdown-active": focus },
+                "menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg"
               )
             }
           >
@@ -65,8 +65,8 @@ const MediaFilter = () => {
             as="label"
             className={({ focus }) =>
               cn(
-                { 'dropdown-active': focus },
-                'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                { "dropdown-active": focus },
+                "menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg"
               )
             }
           >

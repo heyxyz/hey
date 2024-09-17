@@ -1,9 +1,9 @@
-import type { FeedItem } from '@hey/lens';
-import type { FC } from 'react';
+import type { FeedItem } from "@hey/lens";
+import type { FC } from "react";
 
-import Profiles from '@components/Shared/Profiles';
-import { SparklesIcon } from '@heroicons/react/24/outline';
-import { Fragment } from 'react';
+import Profiles from "@components/Shared/Profiles";
+import { SparklesIcon } from "@heroicons/react/24/outline";
+import { Fragment } from "react";
 
 interface CombinedProps {
   feedItem: FeedItem;
@@ -25,7 +25,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
 
   const actionArray = [];
   if (mirrorsLength) {
-    actionArray.push('mirrored');
+    actionArray.push("mirrored");
   }
 
   return (

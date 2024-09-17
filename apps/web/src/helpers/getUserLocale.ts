@@ -8,7 +8,7 @@ const getUserLocale = () => {
     ? navigator.languages[0]
     : navigator.language;
 
-  return locale ? locale.split('-')[0] : 'en';
+  return locale ? locale.split("-")[0] : "en";
 };
 
 export default getUserLocale;

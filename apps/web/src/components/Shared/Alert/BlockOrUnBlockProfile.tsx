@@ -1,32 +1,32 @@
-import type { BlockRequest, UnblockRequest } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
-import type { FC } from 'react';
+import type { BlockRequest, UnblockRequest } from "@hey/lens";
+import type { ApolloCache } from "@hey/lens/apollo";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getProfile from '@hey/helpers/getProfile';
-import getSignature from '@hey/helpers/getSignature';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PROFILE } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getProfile from "@hey/helpers/getProfile";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
   useCreateBlockProfilesTypedDataMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
-} from '@hey/lens';
-import { Alert } from '@hey/ui';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { Alert } from "@hey/ui";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 const BlockOrUnBlockProfile: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -59,11 +59,11 @@ const BlockOrUnBlockProfile: FC = () => {
   };
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
@@ -72,7 +72,7 @@ const BlockOrUnBlockProfile: FC = () => {
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);
     toast.success(
-      hasBlocked ? 'Unblocked successfully!' : 'Blocked successfully!'
+      hasBlocked ? "Unblocked successfully!" : "Blocked successfully!"
     );
     Leafwatch.track(hasBlocked ? PROFILE.BLOCK : PROFILE.UNBLOCK, {
       profile_id: blockingorUnblockingProfile?.id
@@ -94,7 +94,7 @@ const BlockOrUnBlockProfile: FC = () => {
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'setBlockStatus'
+      functionName: "setBlockStatus"
     });
   };
 
@@ -113,7 +113,7 @@ const BlockOrUnBlockProfile: FC = () => {
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === "RelayError") {
         return await write({ args: [typedData.value] });
       }
 
@@ -154,7 +154,7 @@ const BlockOrUnBlockProfile: FC = () => {
   const blockViaLensManager = async (request: BlockRequest) => {
     const { data } = await blockProfile({ variables: { request } });
 
-    if (data?.block.__typename === 'LensProfileManagerRelayError') {
+    if (data?.block.__typename === "LensProfileManagerRelayError") {
       return await createBlockProfilesTypedData({ variables: { request } });
     }
   };
@@ -162,7 +162,7 @@ const BlockOrUnBlockProfile: FC = () => {
   const unBlockViaLensManager = async (request: UnblockRequest) => {
     const { data } = await unBlockProfile({ variables: { request } });
 
-    if (data?.unblock.__typename === 'LensProfileManagerRelayError') {
+    if (data?.unblock.__typename === "LensProfileManagerRelayError") {
       return await createUnblockProfilesTypedData({ variables: { request } });
     }
   };
@@ -214,9 +214,9 @@ const BlockOrUnBlockProfile: FC = () => {
 
   return (
     <Alert
-      confirmText={hasBlocked ? 'Unblock' : 'Block'}
+      confirmText={hasBlocked ? "Unblock" : "Block"}
       description={`Are you sure you want to ${
-        hasBlocked ? 'un-block' : 'block'
+        hasBlocked ? "un-block" : "block"
       } ${getProfile(blockingorUnblockingProfile).slugWithPrefix}?`}
       isDestructive
       isPerformingAction={isLoading}

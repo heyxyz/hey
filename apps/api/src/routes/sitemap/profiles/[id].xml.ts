@@ -1,18 +1,18 @@
-import type { Handler } from 'express';
+import type { Handler } from "express";
 
-import lensPg from '@hey/db/lensPg';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
+import lensPg from "@hey/db/lensPg";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
 import {
   CACHE_AGE_1_DAY,
   CACHE_AGE_INDEFINITE,
   SITEMAP_BATCH_SIZE
-} from 'src/helpers/constants';
-import { noBody } from 'src/helpers/responses';
-import { buildUrlsetXml } from 'src/helpers/sitemap/buildSitemap';
+} from "src/helpers/constants";
+import { noBody } from "src/helpers/responses";
+import { buildUrlsetXml } from "src/helpers/sitemap/buildSitemap";
 
 export const config = {
-  api: { responseLimit: '8mb' }
+  api: { responseLimit: "8mb" }
 };
 
 export const get: Handler = async (req, res) => {
@@ -22,7 +22,7 @@ export const get: Handler = async (req, res) => {
     return noBody(res);
   }
 
-  const user_agent = req.headers['user-agent'];
+  const user_agent = req.headers["user-agent"];
 
   try {
     const offset = (Number(id) - 1) * SITEMAP_BATCH_SIZE || 0;
@@ -44,9 +44,9 @@ export const get: Handler = async (req, res) => {
     const entries = response.map((handle) => ({
       lastmod: handle.block_timestamp
         .toISOString()
-        .replace('T', ' ')
-        .replace('.000Z', '')
-        .split(' ')[0],
+        .replace("T", " ")
+        .replace(".000Z", "")
+        .split(" ")[0],
       loc: `https://hey.xyz/u/${handle.local_name}`
     }));
 
@@ -58,9 +58,9 @@ export const get: Handler = async (req, res) => {
     console.log(response.length === SITEMAP_BATCH_SIZE);
     return res
       .status(200)
-      .setHeader('Content-Type', 'text/xml')
+      .setHeader("Content-Type", "text/xml")
       .setHeader(
-        'Cache-Control',
+        "Cache-Control",
         response.length === SITEMAP_BATCH_SIZE
           ? CACHE_AGE_INDEFINITE
           : CACHE_AGE_1_DAY

@@ -1,7 +1,7 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
 
 interface LoaderProps {
   className?: string;
@@ -10,14 +10,14 @@ interface LoaderProps {
 }
 
 const Loader: FC<LoaderProps> = ({
-  className = '',
+  className = "",
   message,
   small = false
 }) => {
   return (
-    <div className={cn('space-y-2 text-center font-bold', className)}>
-      <Spinner className="mx-auto" size={small ? 'sm' : 'md'} />
-      {message && <div className={cn({ 'text-sm': small })}>{message}</div>}
+    <div className={cn("space-y-2 text-center font-bold", className)}>
+      <Spinner className="mx-auto" size={small ? "sm" : "md"} />
+      {message && <div className={cn({ "text-sm": small })}>{message}</div>}
     </div>
   );
 };

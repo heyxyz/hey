@@ -1,11 +1,11 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import getProfile from '@hey/helpers/getProfile';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
+import getProfile from "@hey/helpers/getProfile";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
 
-import Slug from './Slug';
+import Slug from "./Slug";
 
 interface FallbackProfileNameProps {
   className?: string;
@@ -14,9 +14,9 @@ interface FallbackProfileNameProps {
 }
 
 const FallbackProfileName: FC<FallbackProfileNameProps> = ({
-  className = '',
+  className = "",
   profile,
-  separator = ''
+  separator = ""
 }) => {
   if (!profile) {
     return null;
@@ -32,7 +32,7 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
       <Link
         aria-label={`Profile of ${displayName || slugWithPrefix}`}
         className={cn(
-          'max-w-sm truncate outline-none hover:underline focus:underline',
+          "max-w-sm truncate outline-none hover:underline focus:underline",
           className
         )}
         href={link}

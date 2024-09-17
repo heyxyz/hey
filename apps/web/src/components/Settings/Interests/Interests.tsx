@@ -1,24 +1,24 @@
-import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
-import type { FC } from 'react';
+import type { ProfileInterestTypes, ProfileInterestsRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import sanitizeProfileInterests from '@helpers/sanitizeProfileInterests';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+import Loader from "@components/Shared/Loader";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import sanitizeProfileInterests from "@helpers/sanitizeProfileInterests";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button } from '@hey/ui';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { Button } from "@hey/ui";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const MAX_TOPICS_ALLOWED = 12;
 
@@ -86,7 +86,7 @@ const Interests: FC = () => {
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="space-y-2" key={category.id}>
-            <h2 className="text-sm font-medium capitalize">{category.label}</h2>
+            <h2 className="font-medium text-sm capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-3">
               {subCategories?.map((subCategory) => (
                 <Button

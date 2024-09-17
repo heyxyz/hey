@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import { Card, Image } from '@hey/ui';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import { Card, Image } from "@hey/ui";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import NewPublication from './NewPublication';
+import NewPublication from "./NewPublication";
 
 interface NewPostProps {
   tags?: string[];
@@ -30,23 +30,22 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
   useEffect(() => {
     if (isReady && query.text) {
       const { hashtags, text, url, via } = query;
-      let processedHashtags;
+      let processedHashtags: string | undefined;
 
       if (hashtags) {
         processedHashtags = (hashtags as string)
-          .split(',')
+          .split(",")
           .map((tag) => `#${tag} `)
-          .join('');
+          .join("");
       }
 
       const content = `${text}${
-        processedHashtags ? ` ${processedHashtags} ` : ''
-      }${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`;
+        processedHashtags ? ` ${processedHashtags} ` : ""
+      }${url ? `\n\n${url}` : ""}${via ? `\n\nvia @${via}` : ""}`;
 
       openModal();
       setPublicationContent(content);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   if (showComposer) {

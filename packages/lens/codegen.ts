@@ -1,25 +1,25 @@
-import type { CodegenConfig } from '@graphql-codegen/cli';
+import type { CodegenConfig } from "@graphql-codegen/cli";
 
-import LensEndpoint from '@hey/data/lens-endpoints';
+import LensEndpoint from "@hey/data/lens-endpoints";
 
 const config: CodegenConfig = {
   config: {
-    inlineFragmentTypes: 'combine'
+    inlineFragmentTypes: "combine"
   },
-  customFetch: 'node-fetch',
-  documents: './documents/**/*.graphql',
+  customFetch: "node-fetch",
+  documents: "./documents/**/*.graphql",
   generates: {
-    'generated.ts': {
+    "generated.ts": {
       plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-        'fragment-matcher'
+        "typescript",
+        "typescript-operations",
+        "typescript-react-apollo",
+        "fragment-matcher"
       ]
     }
   },
   hooks: {
-    afterAllFileWrite: ['eslint --fix', 'prettier --write']
+    afterAllFileWrite: ["biome format --write ."]
   },
   overwrite: true,
   schema: LensEndpoint.Testnet

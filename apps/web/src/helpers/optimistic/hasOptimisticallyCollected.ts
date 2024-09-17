@@ -1,4 +1,4 @@
-import { hydrateTxnQueue } from 'src/store/persisted/useTransactionStore';
+import { hydrateTxnQueue } from "src/store/persisted/useTransactionStore";
 
 const hasOptimisticallyCollected = (collectOn: string): boolean => {
   const txnQueue = hydrateTxnQueue();

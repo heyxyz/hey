@@ -2,7 +2,7 @@ import type {
   AmountInput,
   CollectOpenActionModuleType,
   RecipientDataInput
-} from '@hey/lens';
+} from "@hey/lens";
 
 export type StaffPick = {
   profileId: string;
@@ -15,7 +15,7 @@ export type Permission = {
   createdAt: Date;
   id: string;
   key: string;
-  type: 'COHORT' | 'PERMISSION';
+  type: "COHORT" | "PERMISSION";
 };
 
 export type AllowedToken = {

@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import cn from '../cn';
+import cn from "../cn";
 
 interface ErrorMessageProps {
   className?: string;
@@ -9,7 +9,7 @@ interface ErrorMessageProps {
 }
 
 export const ErrorMessage: FC<ErrorMessageProps> = ({
-  className = '',
+  className = "",
   error,
   title
 }) => {
@@ -20,7 +20,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
   return (
     <div
       className={cn(
-        'space-y-1 rounded-xl border-2 border-gray-500/50 bg-gray-50 p-4 text-sm dark:bg-gray-900/10',
+        "space-y-1 rounded-xl border-2 border-gray-500/50 bg-gray-50 p-4 text-sm dark:bg-gray-900/10",
         className
       )}
     >

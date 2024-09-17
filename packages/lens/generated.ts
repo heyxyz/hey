@@ -2,74 +2,61 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  ABIJson: { input: any; output: any };
-  AppId: { input: any; output: any };
-  BlockchainData: { input: any; output: any };
-  BroadcastId: { input: any; output: any };
-  ChainId: { input: any; output: any };
-  ChallengeId: { input: any; output: any };
-  ContentEncryptionKey: { input: any; output: any };
-  CreateHandle: { input: any; output: any };
-  Cursor: { input: any; output: any };
-  DateTime: { input: any; output: any };
-  EncryptableDateTime: { input: any; output: any };
-  EncryptableMarkdown: { input: any; output: any };
-  EncryptableString: { input: any; output: any };
-  EncryptableTxHash: { input: any; output: any };
-  EncryptableURI: { input: any; output: any };
-  EncryptedPath: { input: any; output: any };
-  Ens: { input: any; output: any };
-  EvmAddress: { input: any; output: any };
-  Handle: { input: any; output: any };
-  ImageSizeTransform: { input: any; output: any };
-  Jwt: { input: any; output: any };
-  Locale: { input: any; output: any };
-  Markdown: { input: any; output: any };
-  MimeType: { input: any; output: any };
-  MomokaId: { input: any; output: any };
-  MomokaProof: { input: any; output: any };
-  NftGalleryId: { input: any; output: any };
-  NftGalleryName: { input: any; output: any };
-  Nonce: { input: any; output: any };
-  OnchainPublicationId: { input: any; output: any };
-  PoapEventId: { input: any; output: any };
-  ProfileId: { input: any; output: any };
-  PublicationId: { input: any; output: any };
-  Signature: { input: any; output: any };
-  TokenId: { input: any; output: any };
-  TxHash: { input: any; output: any };
-  TxId: { input: any; output: any };
-  URI: { input: any; output: any };
-  URL: { input: any; output: any };
-  UUID: { input: any; output: any };
-  UnixTimestamp: { input: any; output: any };
-  Void: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  ABIJson: { input: any; output: any; }
+  AppId: { input: any; output: any; }
+  BlockchainData: { input: any; output: any; }
+  BroadcastId: { input: any; output: any; }
+  ChainId: { input: any; output: any; }
+  ChallengeId: { input: any; output: any; }
+  ContentEncryptionKey: { input: any; output: any; }
+  CreateHandle: { input: any; output: any; }
+  Cursor: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  EncryptableDateTime: { input: any; output: any; }
+  EncryptableMarkdown: { input: any; output: any; }
+  EncryptableString: { input: any; output: any; }
+  EncryptableTxHash: { input: any; output: any; }
+  EncryptableURI: { input: any; output: any; }
+  EncryptedPath: { input: any; output: any; }
+  Ens: { input: any; output: any; }
+  EvmAddress: { input: any; output: any; }
+  Handle: { input: any; output: any; }
+  ImageSizeTransform: { input: any; output: any; }
+  Jwt: { input: any; output: any; }
+  Locale: { input: any; output: any; }
+  Markdown: { input: any; output: any; }
+  MimeType: { input: any; output: any; }
+  MomokaId: { input: any; output: any; }
+  MomokaProof: { input: any; output: any; }
+  NftGalleryId: { input: any; output: any; }
+  NftGalleryName: { input: any; output: any; }
+  Nonce: { input: any; output: any; }
+  OnchainPublicationId: { input: any; output: any; }
+  PoapEventId: { input: any; output: any; }
+  ProfileId: { input: any; output: any; }
+  PublicationId: { input: any; output: any; }
+  Signature: { input: any; output: any; }
+  TokenId: { input: any; output: any; }
+  TxHash: { input: any; output: any; }
+  TxId: { input: any; output: any; }
+  URI: { input: any; output: any; }
+  URL: { input: any; output: any; }
+  UUID: { input: any; output: any; }
+  UnixTimestamp: { input: any; output: any; }
+  Void: { input: any; output: any; }
 };
 
 export type ActOnOpenActionInput = {
@@ -136,9 +123,11 @@ export type Amount = {
   value: Scalars['String']['output'];
 };
 
+
 export type AmountAsFiatArgs = {
   request: RateRequest;
 };
+
 
 export type AmountRateArgs = {
   request: RateRequest;
@@ -361,9 +350,7 @@ export type ClaimProfileWithHandleRequest = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ClaimProfileWithHandleResult =
-  | ClaimProfileWithHandleErrorResult
-  | RelaySuccess;
+export type ClaimProfileWithHandleResult = ClaimProfileWithHandleErrorResult | RelaySuccess;
 
 export type ClaimTokensRequest = {
   for: ClaimableTokenType;
@@ -434,6 +421,7 @@ export type Comment = {
   stats: PublicationStats;
   txHash?: Maybe<Scalars['TxHash']['output']>;
 };
+
 
 export type CommentStatsArgs = {
   request?: InputMaybe<PublicationStatsInput>;
@@ -1112,9 +1100,7 @@ export type CreateProfileWithHandleRequest = {
   to: Scalars['EvmAddress']['input'];
 };
 
-export type CreateProfileWithHandleResult =
-  | CreateProfileWithHandleErrorResult
-  | RelaySuccess;
+export type CreateProfileWithHandleResult = CreateProfileWithHandleErrorResult | RelaySuccess;
 
 export type CreateSetFollowModuleBroadcastItemResult = {
   __typename?: 'CreateSetFollowModuleBroadcastItemResult';
@@ -1422,6 +1408,7 @@ export type EncryptableImageSet = {
   transformed?: Maybe<Image>;
 };
 
+
 export type EncryptableImageSetTransformedArgs = {
   request: ImageTransform;
 };
@@ -1653,10 +1640,7 @@ export type FollowLensManagerRequest = {
   follow: Array<FollowLensManager>;
 };
 
-export type FollowModule =
-  | FeeFollowModuleSettings
-  | RevertFollowModuleSettings
-  | UnknownFollowModuleSettings;
+export type FollowModule = FeeFollowModuleSettings | RevertFollowModuleSettings | UnknownFollowModuleSettings;
 
 export type FollowModuleInput = {
   feeFollowModule?: InputMaybe<FeeFollowModuleInput>;
@@ -1964,6 +1948,7 @@ export type ImageSet = {
   raw: Image;
   transformed?: Maybe<Image>;
 };
+
 
 export type ImageSetTransformedArgs = {
   request: ImageTransform;
@@ -2357,9 +2342,7 @@ export enum LensProfileManagerRelayErrorReasonType {
   RequiresSignature = 'REQUIRES_SIGNATURE'
 }
 
-export type LensProfileManagerRelayResult =
-  | LensProfileManagerRelayError
-  | RelaySuccess;
+export type LensProfileManagerRelayResult = LensProfileManagerRelayError | RelaySuccess;
 
 export enum LensTransactionFailureType {
   MetadataError = 'METADATA_ERROR',
@@ -2710,11 +2693,7 @@ export type MomokaSummaryResult = {
   totalTransactions: Scalars['Int']['output'];
 };
 
-export type MomokaTransaction =
-  | MomokaCommentTransaction
-  | MomokaMirrorTransaction
-  | MomokaPostTransaction
-  | MomokaQuoteTransaction;
+export type MomokaTransaction = MomokaCommentTransaction | MomokaMirrorTransaction | MomokaPostTransaction | MomokaQuoteTransaction;
 
 export type MomokaTransactionRequest = {
   /** The momoka transaction id or internal publication id */
@@ -2765,9 +2744,7 @@ export enum MomokaValidatorError {
   Unknown = 'UNKNOWN'
 }
 
-export type MomokaVerificationStatus =
-  | MomokaVerificationStatusFailure
-  | MomokaVerificationStatusSuccess;
+export type MomokaVerificationStatus = MomokaVerificationStatusFailure | MomokaVerificationStatusSuccess;
 
 export type MomokaVerificationStatusFailure = {
   __typename?: 'MomokaVerificationStatusFailure';
@@ -2905,372 +2882,461 @@ export type Mutation = {
   walletAuthenticationToProfileAuthentication: AuthenticationResult;
 };
 
+
 export type MutationActOnOpenActionArgs = {
   request: ActOnOpenActionLensManagerRequest;
 };
+
 
 export type MutationAddProfileInterestsArgs = {
   request: ProfileInterestsRequest;
 };
 
+
 export type MutationAddPublicationBookmarkArgs = {
   request: PublicationBookmarkRequest;
 };
+
 
 export type MutationAddPublicationNotInterestedArgs = {
   request: PublicationNotInterestedRequest;
 };
 
+
 export type MutationAddReactionArgs = {
   request: ReactionRequest;
 };
+
 
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge;
 };
 
+
 export type MutationBlockArgs = {
   request: BlockRequest;
 };
+
 
 export type MutationBroadcastOnMomokaArgs = {
   request: BroadcastRequest;
 };
 
+
 export type MutationBroadcastOnchainArgs = {
   request: BroadcastRequest;
 };
+
 
 export type MutationClaimProfileWithHandleArgs = {
   request: ClaimProfileWithHandleRequest;
 };
 
+
 export type MutationCommentOnMomokaArgs = {
   request: MomokaCommentRequest;
 };
 
+
 export type MutationCommentOnchainArgs = {
   request: OnchainCommentRequest;
 };
+
 
 export type MutationCreateActOnOpenActionTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: ActOnOpenActionRequest;
 };
 
+
 export type MutationCreateBlockProfilesTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: BlockRequest;
 };
+
 
 export type MutationCreateChangeProfileManagersTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: ChangeProfileManagersRequest;
 };
 
+
 export type MutationCreateFollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: FollowRequest;
 };
+
 
 export type MutationCreateLegacyCollectTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: LegacyCollectRequest;
 };
 
+
 export type MutationCreateLinkHandleToProfileTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: LinkHandleToProfileRequest;
 };
 
+
 export type MutationCreateMomokaCommentTypedDataArgs = {
   request: MomokaCommentRequest;
 };
+
 
 export type MutationCreateMomokaMirrorTypedDataArgs = {
   request: MomokaMirrorRequest;
 };
 
+
 export type MutationCreateMomokaPostTypedDataArgs = {
   request: MomokaPostRequest;
 };
+
 
 export type MutationCreateMomokaQuoteTypedDataArgs = {
   request: MomokaQuoteRequest;
 };
 
+
 export type MutationCreateNftGalleryArgs = {
   request: NftGalleryCreateRequest;
 };
+
 
 export type MutationCreateOnchainCommentTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainCommentRequest;
 };
 
+
 export type MutationCreateOnchainMirrorTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainMirrorRequest;
 };
+
 
 export type MutationCreateOnchainPostTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainPostRequest;
 };
 
+
 export type MutationCreateOnchainQuoteTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainQuoteRequest;
 };
+
 
 export type MutationCreateOnchainSetProfileMetadataTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainSetProfileMetadataRequest;
 };
 
+
 export type MutationCreateProfileArgs = {
   request: CreateProfileRequest;
 };
 
+
 export type MutationCreateProfileWithHandleArgs = {
   request: CreateProfileWithHandleRequest;
 };
+
 
 export type MutationCreateSetFollowModuleTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: SetFollowModuleRequest;
 };
 
+
 export type MutationCreateUnblockProfilesTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: UnblockRequest;
 };
+
 
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: UnfollowRequest;
 };
 
+
 export type MutationCreateUnlinkHandleFromProfileTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: UnlinkHandleFromProfileRequest;
 };
 
+
 export type MutationDeleteNftGalleryArgs = {
   request: NftGalleryDeleteRequest;
 };
+
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
 };
 
+
 export type MutationFollowArgs = {
   request: FollowLensManagerRequest;
 };
+
 
 export type MutationHideCommentArgs = {
   request: HideCommentRequest;
 };
 
+
 export type MutationHideManagedProfileArgs = {
   request: HideManagedProfileRequest;
 };
+
 
 export type MutationHidePublicationArgs = {
   request: HidePublicationRequest;
 };
 
+
 export type MutationIdKitPhoneVerifyWebhookArgs = {
   request: IdKitPhoneVerifyWebhookRequest;
 };
+
 
 export type MutationInternalAddCuratedTagArgs = {
   request: InternalAddCuratedTagRequest;
 };
 
+
 export type MutationInternalAddInvitesArgs = {
   request: InternalAddInvitesRequest;
 };
+
 
 export type MutationInternalAllowDomainArgs = {
   request: InternalAllowDomainRequest;
 };
 
+
 export type MutationInternalBoostProfileArgs = {
   request: InternalBoostProfileRequest;
 };
+
 
 export type MutationInternalClaimArgs = {
   request: InternalClaimRequest;
 };
 
+
 export type MutationInternalCuratedUpdateArgs = {
   request: InternalCuratedUpdateRequest;
 };
+
 
 export type MutationInternalForYouFeedArgs = {
   request: InternalForYouFeedRequest;
 };
 
+
 export type MutationInternalMintHandleAndProfileArgs = {
   request: InternalMintHandleAndProfileRequest;
 };
+
 
 export type MutationInternalNftIndexArgs = {
   request: InternalNftIndexRequest;
 };
 
+
 export type MutationInternalNftVerifyArgs = {
   request: InternalNftVerifyRequest;
 };
+
 
 export type MutationInternalRemoveCuratedTagArgs = {
   request: InternalRemoveCuratedTagRequest;
 };
 
+
 export type MutationInternalUpdateModuleOptionsArgs = {
   request: InternalUpdateModuleOptionsRequest;
 };
+
 
 export type MutationInternalUpdateProfileStatusArgs = {
   request: InternalUpdateProfileStatusRequest;
 };
 
+
 export type MutationInviteArgs = {
   request: InviteRequest;
 };
+
 
 export type MutationLegacyCollectArgs = {
   request: LegacyCollectRequest;
 };
 
+
 export type MutationLinkHandleToProfileArgs = {
   request: LinkHandleToProfileRequest;
 };
+
 
 export type MutationMirrorOnMomokaArgs = {
   request: MomokaMirrorRequest;
 };
 
+
 export type MutationMirrorOnchainArgs = {
   request: OnchainMirrorRequest;
 };
+
 
 export type MutationModDisputeReportArgs = {
   request: ModDisputeReportRequest;
 };
 
+
 export type MutationNftOwnershipChallengeArgs = {
   request: NftOwnershipChallengeRequest;
 };
+
 
 export type MutationPeerToPeerRecommendArgs = {
   request: PeerToPeerRecommendRequest;
 };
 
+
 export type MutationPeerToPeerUnrecommendArgs = {
   request: PeerToPeerRecommendRequest;
 };
+
 
 export type MutationPostOnMomokaArgs = {
   request: MomokaPostRequest;
 };
 
+
 export type MutationPostOnchainArgs = {
   request: OnchainPostRequest;
 };
+
 
 export type MutationQuoteOnMomokaArgs = {
   request: MomokaQuoteRequest;
 };
 
+
 export type MutationQuoteOnchainArgs = {
   request: OnchainQuoteRequest;
 };
+
 
 export type MutationRefreshArgs = {
   request: RefreshRequest;
 };
 
+
 export type MutationRefreshPublicationMetadataArgs = {
   request: RefreshPublicationMetadataRequest;
 };
+
 
 export type MutationRemoveProfileInterestsArgs = {
   request: ProfileInterestsRequest;
 };
 
+
 export type MutationRemovePublicationBookmarkArgs = {
   request: PublicationBookmarkRequest;
 };
+
 
 export type MutationRemoveReactionArgs = {
   request: ReactionRequest;
 };
 
+
 export type MutationReportProfileArgs = {
   request: ReportProfileRequest;
 };
+
 
 export type MutationReportPublicationArgs = {
   request: ReportPublicationRequest;
 };
 
+
 export type MutationRevokeAuthenticationArgs = {
   request: RevokeAuthenticationRequest;
 };
+
 
 export type MutationSetDefaultProfileArgs = {
   request: SetDefaultProfileRequest;
 };
 
+
 export type MutationSetFollowModuleArgs = {
   request: SetFollowModuleRequest;
 };
+
 
 export type MutationSetProfileMetadataArgs = {
   request: OnchainSetProfileMetadataRequest;
 };
 
+
 export type MutationSignFrameActionArgs = {
   request: FrameLensManagerEip712Request;
 };
+
 
 export type MutationUnblockArgs = {
   request: UnblockRequest;
 };
 
+
 export type MutationUndoPublicationNotInterestedArgs = {
   request: PublicationNotInterestedRequest;
 };
+
 
 export type MutationUnfollowArgs = {
   request: UnfollowRequest;
 };
 
+
 export type MutationUnhideCommentArgs = {
   request: UnhideCommentRequest;
 };
+
 
 export type MutationUnhideManagedProfileArgs = {
   request: UnhideManagedProfileRequest;
 };
 
+
 export type MutationUnlinkHandleFromProfileArgs = {
   request: UnlinkHandleFromProfileRequest;
 };
+
 
 export type MutationUpdateNftGalleryInfoArgs = {
   request: NftGalleryUpdateInfoRequest;
 };
 
+
 export type MutationUpdateNftGalleryItemsArgs = {
   request: NftGalleryUpdateItemsRequest;
 };
 
+
 export type MutationUpdateNftGalleryOrderArgs = {
   request: NftGalleryUpdateItemOrderRequest;
 };
+
 
 export type MutationWalletAuthenticationToProfileAuthenticationArgs = {
   request: WalletAuthenticationToProfileAuthenticationRequest;
@@ -3506,14 +3572,7 @@ export type NftsRequestWhere = {
   query?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type Notification =
-  | ActedNotification
-  | CommentNotification
-  | FollowNotification
-  | MentionNotification
-  | MirrorNotification
-  | QuoteNotification
-  | ReactionNotification;
+export type Notification = ActedNotification | CommentNotification | FollowNotification | MentionNotification | MirrorNotification | QuoteNotification | ReactionNotification;
 
 export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
@@ -3594,20 +3653,7 @@ export type OpenActionFilter = {
   type?: InputMaybe<OpenActionModuleType>;
 };
 
-export type OpenActionModule =
-  | LegacyAaveFeeCollectModuleSettings
-  | LegacyErc4626FeeCollectModuleSettings
-  | LegacyFeeCollectModuleSettings
-  | LegacyFreeCollectModuleSettings
-  | LegacyLimitedFeeCollectModuleSettings
-  | LegacyLimitedTimedFeeCollectModuleSettings
-  | LegacyMultirecipientFeeCollectModuleSettings
-  | LegacyRevertCollectModuleSettings
-  | LegacySimpleCollectModuleSettings
-  | LegacyTimedFeeCollectModuleSettings
-  | MultirecipientFeeCollectOpenActionSettings
-  | SimpleCollectOpenActionSettings
-  | UnknownOpenActionModuleSettings;
+export type OpenActionModule = LegacyAaveFeeCollectModuleSettings | LegacyErc4626FeeCollectModuleSettings | LegacyFeeCollectModuleSettings | LegacyFreeCollectModuleSettings | LegacyLimitedFeeCollectModuleSettings | LegacyLimitedTimedFeeCollectModuleSettings | LegacyMultirecipientFeeCollectModuleSettings | LegacyRevertCollectModuleSettings | LegacySimpleCollectModuleSettings | LegacyTimedFeeCollectModuleSettings | MultirecipientFeeCollectOpenActionSettings | SimpleCollectOpenActionSettings | UnknownOpenActionModuleSettings;
 
 export type OpenActionModuleInput = {
   collectOpenAction?: InputMaybe<CollectActionModuleInput>;
@@ -3643,9 +3689,7 @@ export type OpenActionProfileActed = {
   by: Profile;
 };
 
-export type OpenActionResult =
-  | KnownCollectOpenActionResult
-  | UnknownOpenActionResult;
+export type OpenActionResult = KnownCollectOpenActionResult | UnknownOpenActionResult;
 
 export type OptimisticStatusResult = {
   __typename?: 'OptimisticStatusResult';
@@ -3972,6 +4016,7 @@ export type Post = {
   txHash?: Maybe<Scalars['TxHash']['output']>;
 };
 
+
 export type PostStatsArgs = {
   request?: InputMaybe<PublicationStatsInput>;
 };
@@ -4019,10 +4064,12 @@ export type Profile = {
   txHash: Scalars['TxHash']['output'];
 };
 
+
 /** The Profile */
 export type ProfileMetadataArgs = {
   request?: InputMaybe<GetProfileMetadataArgs>;
 };
+
 
 /** The Profile */
 export type ProfileStatsArgs = {
@@ -4312,15 +4359,18 @@ export type ProfileStats = {
   reactions: Scalars['Int']['output'];
 };
 
+
 /** The Profile Stats */
 export type ProfileStatsCountOpenActionsArgs = {
   request?: InputMaybe<ProfileStatsCountOpenActionArgs>;
 };
 
+
 /** The Profile Stats */
 export type ProfileStatsReactedArgs = {
   request?: InputMaybe<ProfileStatsReactionArgs>;
 };
+
 
 /** The Profile Stats */
 export type ProfileStatsReactionsArgs = {
@@ -4439,29 +4489,13 @@ export type PublicationMarketplaceMetadataAttribute = {
   value?: Maybe<Scalars['String']['output']>;
 };
 
-export type PublicationMetadata =
-  | ArticleMetadataV3
-  | AudioMetadataV3
-  | CheckingInMetadataV3
-  | EmbedMetadataV3
-  | EventMetadataV3
-  | ImageMetadataV3
-  | LinkMetadataV3
-  | LiveStreamMetadataV3
-  | MintMetadataV3
-  | SpaceMetadataV3
-  | StoryMetadataV3
-  | TextOnlyMetadataV3
-  | ThreeDMetadataV3
-  | TransactionMetadataV3
-  | VideoMetadataV3;
+export type PublicationMetadata = ArticleMetadataV3 | AudioMetadataV3 | CheckingInMetadataV3 | EmbedMetadataV3 | EventMetadataV3 | ImageMetadataV3 | LinkMetadataV3 | LiveStreamMetadataV3 | MintMetadataV3 | SpaceMetadataV3 | StoryMetadataV3 | TextOnlyMetadataV3 | ThreeDMetadataV3 | TransactionMetadataV3 | VideoMetadataV3;
 
 export type PublicationMetadataContentWarningFilter = {
   oneOf: Array<PublicationContentWarningType>;
 };
 
-export type PublicationMetadataEncryptionStrategy =
-  PublicationMetadataLitEncryption;
+export type PublicationMetadataEncryptionStrategy = PublicationMetadataLitEncryption;
 
 export type PublicationMetadataFilters = {
   contentWarning?: InputMaybe<PublicationMetadataContentWarningFilter>;
@@ -4537,10 +4571,7 @@ export enum PublicationMetadataMainFocusType {
   Video = 'VIDEO'
 }
 
-export type PublicationMetadataMedia =
-  | PublicationMetadataMediaAudio
-  | PublicationMetadataMediaImage
-  | PublicationMetadataMediaVideo;
+export type PublicationMetadataMedia = PublicationMetadataMediaAudio | PublicationMetadataMediaImage | PublicationMetadataMediaVideo;
 
 export type PublicationMetadataMediaAudio = {
   __typename?: 'PublicationMetadataMediaAudio';
@@ -4609,17 +4640,21 @@ export type PublicationOperations = {
   isNotInterested: Scalars['Boolean']['output'];
 };
 
+
 export type PublicationOperationsActedOnArgs = {
   request?: InputMaybe<PublicationOperationsActedArgs>;
 };
+
 
 export type PublicationOperationsCanActArgs = {
   request?: InputMaybe<PublicationOperationsActedArgs>;
 };
 
+
 export type PublicationOperationsHasActedArgs = {
   request?: InputMaybe<PublicationOperationsActedArgs>;
 };
+
 
 export type PublicationOperationsHasReactedArgs = {
   request?: InputMaybe<PublicationOperationsReactionArgs>;
@@ -4711,9 +4746,11 @@ export type PublicationStats = {
   reactions: Scalars['Int']['output'];
 };
 
+
 export type PublicationStatsCountOpenActionsArgs = {
   request?: InputMaybe<PublicationStatsCountOpenActionArgs>;
 };
+
 
 export type PublicationStatsReactionsArgs = {
   request?: InputMaybe<PublicationStatsReactionArgs>;
@@ -4883,121 +4920,151 @@ export type Query = {
   whoReactedPublication: PaginatedWhoReactedResult;
 };
 
+
 export type QueryApprovedAuthenticationsArgs = {
   request: ApprovedAuthenticationRequest;
 };
+
 
 export type QueryApprovedModuleAllowanceAmountArgs = {
   request: ApprovedModuleAllowanceAmountRequest;
 };
 
+
 export type QueryCanClaimArgs = {
   request: CanClaimRequest;
 };
+
 
 export type QueryChallengeArgs = {
   request: ChallengeRequest;
 };
 
+
 export type QueryClaimTokensArgs = {
   request: ClaimTokensRequest;
 };
+
 
 export type QueryCreateFrameTypedDataArgs = {
   request: FrameEip712Request;
 };
 
+
 export type QueryCurrenciesArgs = {
   request: PaginatedOffsetRequest;
 };
+
 
 export type QueryDefaultProfileArgs = {
   request: DefaultProfileRequest;
 };
 
+
 export type QueryDidReactOnPublicationArgs = {
   request: DidReactOnPublicationRequest;
 };
+
 
 export type QueryExploreProfilesArgs = {
   request: ExploreProfilesRequest;
 };
 
+
 export type QueryExplorePublicationsArgs = {
   request: ExplorePublicationRequest;
 };
+
 
 export type QueryFeedArgs = {
   request: FeedRequest;
 };
 
+
 export type QueryFeedHighlightsArgs = {
   request: FeedHighlightsRequest;
 };
+
 
 export type QueryFollowRevenuesArgs = {
   request: FollowRevenueRequest;
 };
 
+
 export type QueryFollowStatusBulkArgs = {
   request: FollowStatusBulkRequest;
 };
+
 
 export type QueryFollowersArgs = {
   request: FollowersRequest;
 };
 
+
 export type QueryFollowingArgs = {
   request: FollowingRequest;
 };
+
 
 export type QueryForYouArgs = {
   request: PublicationForYouRequest;
 };
 
+
 export type QueryGenerateModuleCurrencyApprovalDataArgs = {
   request: GenerateModuleCurrencyApprovalDataRequest;
 };
+
 
 export type QueryHandleToAddressArgs = {
   request: HandleToAddressRequest;
 };
 
+
 export type QueryInternalAllowedDomainsArgs = {
   request: InternalAllowedDomainsRequest;
 };
+
 
 export type QueryInternalBoostScoreArgs = {
   request: InternalBoostScoreRequest;
 };
 
+
 export type QueryInternalClaimStatusArgs = {
   request: InternalClaimStatusRequest;
 };
+
 
 export type QueryInternalCuratedHandlesArgs = {
   request: InternalCuratedHandlesRequest;
 };
 
+
 export type QueryInternalCuratedTagsArgs = {
   request: InternalCuratedTagsRequest;
 };
+
 
 export type QueryInternalInvitesArgs = {
   request: InternalInvitesRequest;
 };
 
+
 export type QueryInternalPaymentHandleInfoArgs = {
   request: InternalPaymentHandleInfoRequest;
 };
+
 
 export type QueryInternalProfileStatusArgs = {
   request: InternalProfileStatusRequest;
 };
 
+
 export type QueryLastLoggedInProfileArgs = {
   request: LastLoggedInProfileRequest;
 };
+
 
 export type QueryLatestPaidActionsArgs = {
   filter?: InputMaybe<LatestPaidActionsFilter>;
@@ -5005,193 +5072,241 @@ export type QueryLatestPaidActionsArgs = {
   where?: InputMaybe<LatestPaidActionsWhere>;
 };
 
+
 export type QueryLensTransactionStatusArgs = {
   request: LensTransactionStatusRequest;
 };
+
 
 export type QueryModDisputedReportsArgs = {
   request: PaginatedRequest;
 };
 
+
 export type QueryModExplorePublicationsArgs = {
   request: ModExplorePublicationRequest;
 };
+
 
 export type QueryModFollowersArgs = {
   request: PaginatedRequest;
 };
 
+
 export type QueryModLatestReportsArgs = {
   request: ModReportsRequest;
 };
+
 
 export type QueryModuleMetadataArgs = {
   request: ModuleMetadataRequest;
 };
 
+
 export type QueryMomokaTransactionArgs = {
   request: MomokaTransactionRequest;
 };
+
 
 export type QueryMomokaTransactionsArgs = {
   request: MomokaTransactionsRequest;
 };
 
+
 export type QueryMutualFollowersArgs = {
   request: MutualFollowersRequest;
 };
+
 
 export type QueryMutualNftCollectionsArgs = {
   request: MutualNftCollectionsRequest;
 };
 
+
 export type QueryMutualPoapsArgs = {
   request: MutualPoapsQueryRequest;
 };
+
 
 export type QueryNftCollectionOwnersArgs = {
   request: NftCollectionOwnersRequest;
 };
 
+
 export type QueryNftCollectionsArgs = {
   request: NftCollectionsRequest;
 };
+
 
 export type QueryNftGalleriesArgs = {
   request: NftGalleriesRequest;
 };
 
+
 export type QueryNftsArgs = {
   request: NftsRequest;
 };
+
 
 export type QueryNotificationsArgs = {
   request?: InputMaybe<NotificationRequest>;
 };
 
+
 export type QueryOwnedHandlesArgs = {
   request: OwnedHandlesRequest;
 };
+
 
 export type QueryPoapEventArgs = {
   request: PoapEventQueryRequest;
 };
 
+
 export type QueryPoapHoldersArgs = {
   request: PoapHoldersQueryRequest;
 };
+
 
 export type QueryPoapsArgs = {
   request: UserPoapsQueryRequest;
 };
 
+
 export type QueryPopularNftCollectionsArgs = {
   request: PopularNftCollectionsRequest;
 };
+
 
 export type QueryProfileArgs = {
   request: ProfileRequest;
 };
 
+
 export type QueryProfileActionHistoryArgs = {
   request: ProfileActionHistoryRequest;
 };
+
 
 export type QueryProfileAlreadyInvitedArgs = {
   request: AlreadyInvitedCheckRequest;
 };
 
+
 export type QueryProfileManagersArgs = {
   request: ProfileManagersRequest;
 };
+
 
 export type QueryProfileRecommendationsArgs = {
   request: ProfileRecommendationsRequest;
 };
 
+
 export type QueryProfilesArgs = {
   request: ProfilesRequest;
 };
+
 
 export type QueryProfilesManagedArgs = {
   request: ProfilesManagedRequest;
 };
 
+
 export type QueryPublicationArgs = {
   request: PublicationRequest;
 };
+
 
 export type QueryPublicationBookmarksArgs = {
   request?: InputMaybe<PublicationBookmarksRequest>;
 };
 
+
 export type QueryPublicationsArgs = {
   request: PublicationsRequest;
 };
+
 
 export type QueryPublicationsTagsArgs = {
   request?: InputMaybe<PublicationsTagsRequest>;
 };
 
+
 export type QueryRevenueFromPublicationArgs = {
   request: RevenueFromPublicationRequest;
 };
+
 
 export type QueryRevenueFromPublicationsArgs = {
   request: RevenueFromPublicationsRequest;
 };
 
+
 export type QuerySearchProfilesArgs = {
   request: ProfileSearchRequest;
 };
+
 
 export type QuerySearchPublicationsArgs = {
   request: PublicationSearchRequest;
 };
 
+
 export type QuerySupportedFollowModulesArgs = {
   request: SupportedModulesRequest;
 };
+
 
 export type QuerySupportedOpenActionCollectModulesArgs = {
   request: SupportedModulesRequest;
 };
 
+
 export type QuerySupportedOpenActionModulesArgs = {
   request: SupportedModulesRequest;
 };
+
 
 export type QuerySupportedReferenceModulesArgs = {
   request: SupportedModulesRequest;
 };
 
+
 export type QueryTxIdToTxHashArgs = {
   for: Scalars['TxId']['input'];
 };
+
 
 export type QueryUserRateLimitArgs = {
   request: UserCurrentRateLimitRequest;
 };
 
+
 export type QueryValidatePublicationMetadataArgs = {
   request: ValidatePublicationMetadataRequest;
 };
+
 
 export type QueryVerifyArgs = {
   request: VerifyRequest;
 };
 
+
 export type QueryVerifyFrameSignatureArgs = {
   request: FrameVerifySignature;
 };
+
 
 export type QueryWhoActedOnPublicationArgs = {
   request: WhoActedOnPublicationRequest;
 };
 
+
 export type QueryWhoHaveBlockedArgs = {
   request: WhoHaveBlockedRequest;
 };
+
 
 export type QueryWhoReactedPublicationArgs = {
   request: WhoReactedPublicationRequest;
@@ -5216,6 +5331,7 @@ export type Quote = {
   stats: PublicationStats;
   txHash?: Maybe<Scalars['TxHash']['output']>;
 };
+
 
 export type QuoteStatsArgs = {
   request?: InputMaybe<PublicationStatsInput>;
@@ -5273,12 +5389,7 @@ export type RecipientDataOutput = {
   split: Scalars['Float']['output'];
 };
 
-export type ReferenceModule =
-  | DegreesOfSeparationReferenceModuleSettings
-  | FollowOnlyReferenceModuleSettings
-  | LegacyDegreesOfSeparationReferenceModuleSettings
-  | LegacyFollowOnlyReferenceModuleSettings
-  | UnknownReferenceModuleSettings;
+export type ReferenceModule = DegreesOfSeparationReferenceModuleSettings | FollowOnlyReferenceModuleSettings | LegacyDegreesOfSeparationReferenceModuleSettings | LegacyFollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 
 export type ReferenceModuleInput = {
   degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleInput>;
@@ -5329,9 +5440,7 @@ export enum RelayErrorReasonType {
   WrongWalletSigned = 'WRONG_WALLET_SIGNED'
 }
 
-export type RelayMomokaResult =
-  | CreateMomokaPublicationResult
-  | LensProfileManagerRelayError;
+export type RelayMomokaResult = CreateMomokaPublicationResult | LensProfileManagerRelayError;
 
 export type RelayQueueResult = {
   __typename?: 'RelayQueueResult';
@@ -5483,16 +5592,7 @@ export enum SearchPublicationType {
   Quote = 'QUOTE'
 }
 
-export type SecondTierCondition =
-  | AdvancedContractCondition
-  | AndCondition
-  | CollectCondition
-  | EoaOwnershipCondition
-  | Erc20OwnershipCondition
-  | FollowCondition
-  | NftOwnershipCondition
-  | OrCondition
-  | ProfileOwnershipCondition;
+export type SecondTierCondition = AdvancedContractCondition | AndCondition | CollectCondition | EoaOwnershipCondition | Erc20OwnershipCondition | FollowCondition | NftOwnershipCondition | OrCondition | ProfileOwnershipCondition;
 
 export type SensitiveReasonInput = {
   reason: PublicationReportingReason;
@@ -5594,17 +5694,21 @@ export type Subscription = {
   userSigNonces: UserSigNonces;
 };
 
+
 export type SubscriptionAuthorizationRecordRevokedArgs = {
   authorizationId: Scalars['UUID']['input'];
 };
+
 
 export type SubscriptionNewNotificationArgs = {
   for: Scalars['ProfileId']['input'];
 };
 
+
 export type SubscriptionNewPublicationStatsArgs = {
   for: Scalars['PublicationId']['input'];
 };
+
 
 export type SubscriptionUserSigNoncesArgs = {
   address: Scalars['EvmAddress']['input'];
@@ -5676,14 +5780,7 @@ export type TextOnlyMetadataV3 = {
   tags?: Maybe<Array<Scalars['String']['output']>>;
 };
 
-export type ThirdTierCondition =
-  | AdvancedContractCondition
-  | CollectCondition
-  | EoaOwnershipCondition
-  | Erc20OwnershipCondition
-  | FollowCondition
-  | NftOwnershipCondition
-  | ProfileOwnershipCondition;
+export type ThirdTierCondition = AdvancedContractCondition | CollectCondition | EoaOwnershipCondition | Erc20OwnershipCondition | FollowCondition | NftOwnershipCondition | ProfileOwnershipCondition;
 
 export type ThreeDMetadataV3 = {
   __typename?: 'ThreeDMetadataV3';
@@ -5995,4155 +6092,2810 @@ export type WorldcoinPhoneVerifyWebhookRequest = {
   signalType: WorldcoinPhoneVerifyType;
 };
 
-export type AmountFieldsFragment = {
-  __typename?: 'Amount';
-  value: string;
-  asFiat?: { __typename?: 'FiatAmount'; value: string } | null;
-  asset: { __typename?: 'Erc20' } & Erc20FieldsFragment;
-};
-
-type AnyPublicationMetadataFields_ArticleMetadataV3_Fragment = {
-  __typename?: 'ArticleMetadataV3';
-} & ArticleMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_AudioMetadataV3_Fragment = {
-  __typename?: 'AudioMetadataV3';
-} & AudioMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = {
-  __typename?: 'CheckingInMetadataV3';
-};
-
-type AnyPublicationMetadataFields_EmbedMetadataV3_Fragment = {
-  __typename?: 'EmbedMetadataV3';
-};
-
-type AnyPublicationMetadataFields_EventMetadataV3_Fragment = {
-  __typename?: 'EventMetadataV3';
-};
-
-type AnyPublicationMetadataFields_ImageMetadataV3_Fragment = {
-  __typename?: 'ImageMetadataV3';
-} & ImageMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_LinkMetadataV3_Fragment = {
-  __typename?: 'LinkMetadataV3';
-} & LinkMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment = {
-  __typename?: 'LiveStreamMetadataV3';
-} & LiveStreamMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_MintMetadataV3_Fragment = {
-  __typename?: 'MintMetadataV3';
-} & MintMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_SpaceMetadataV3_Fragment = {
-  __typename?: 'SpaceMetadataV3';
-};
-
-type AnyPublicationMetadataFields_StoryMetadataV3_Fragment = {
-  __typename?: 'StoryMetadataV3';
-};
-
-type AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment = {
-  __typename?: 'TextOnlyMetadataV3';
-} & TextOnlyMetadataV3FieldsFragment;
-
-type AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment = {
-  __typename?: 'ThreeDMetadataV3';
-};
-
-type AnyPublicationMetadataFields_TransactionMetadataV3_Fragment = {
-  __typename?: 'TransactionMetadataV3';
-};
-
-type AnyPublicationMetadataFields_VideoMetadataV3_Fragment = {
-  __typename?: 'VideoMetadataV3';
-} & VideoMetadataV3FieldsFragment;
-
-export type AnyPublicationMetadataFieldsFragment =
-  | AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
-  | AnyPublicationMetadataFields_AudioMetadataV3_Fragment
-  | AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
-  | AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
-  | AnyPublicationMetadataFields_EventMetadataV3_Fragment
-  | AnyPublicationMetadataFields_ImageMetadataV3_Fragment
-  | AnyPublicationMetadataFields_LinkMetadataV3_Fragment
-  | AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
-  | AnyPublicationMetadataFields_MintMetadataV3_Fragment
-  | AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
-  | AnyPublicationMetadataFields_StoryMetadataV3_Fragment
-  | AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
-  | AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
-  | AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
-  | AnyPublicationMetadataFields_VideoMetadataV3_Fragment;
-
-export type CommentBaseFieldsFragment = {
-  __typename?: 'Comment';
-  id: any;
-  isHidden: boolean;
-  isEncrypted: boolean;
-  createdAt: any;
-  publishedOn?: { __typename?: 'App'; id: any } | null;
-  momoka?: { __typename?: 'MomokaInfo'; proof: any } | null;
-  by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  stats: { __typename?: 'PublicationStats' } & PublicationStatsFieldsFragment;
-  operations: {
-    __typename?: 'PublicationOperations';
-  } & PublicationOperationFieldsFragment;
-  metadata:
-    | ({
-        __typename?: 'ArticleMetadataV3';
-      } & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment)
-    | ({
-        __typename?: 'AudioMetadataV3';
-      } & AnyPublicationMetadataFields_AudioMetadataV3_Fragment)
-    | ({
-        __typename?: 'CheckingInMetadataV3';
-      } & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment)
-    | ({
-        __typename?: 'EmbedMetadataV3';
-      } & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment)
-    | ({
-        __typename?: 'EventMetadataV3';
-      } & AnyPublicationMetadataFields_EventMetadataV3_Fragment)
-    | ({
-        __typename?: 'ImageMetadataV3';
-      } & AnyPublicationMetadataFields_ImageMetadataV3_Fragment)
-    | ({
-        __typename?: 'LinkMetadataV3';
-      } & AnyPublicationMetadataFields_LinkMetadataV3_Fragment)
-    | ({
-        __typename?: 'LiveStreamMetadataV3';
-      } & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment)
-    | ({
-        __typename?: 'MintMetadataV3';
-      } & AnyPublicationMetadataFields_MintMetadataV3_Fragment)
-    | ({
-        __typename?: 'SpaceMetadataV3';
-      } & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment)
-    | ({
-        __typename?: 'StoryMetadataV3';
-      } & AnyPublicationMetadataFields_StoryMetadataV3_Fragment)
-    | ({
-        __typename?: 'TextOnlyMetadataV3';
-      } & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment)
-    | ({
-        __typename?: 'ThreeDMetadataV3';
-      } & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment)
-    | ({
-        __typename?: 'TransactionMetadataV3';
-      } & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment)
-    | ({
-        __typename?: 'VideoMetadataV3';
-      } & AnyPublicationMetadataFields_VideoMetadataV3_Fragment);
-  openActionModules: Array<
-    | ({
-        __typename?: 'LegacyAaveFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyERC4626FeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyFreeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyLimitedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyRevertCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacySimpleCollectModuleSettings';
-      } & OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyTimedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'MultirecipientFeeCollectOpenActionSettings';
-      } & OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment)
-    | ({
-        __typename?: 'SimpleCollectOpenActionSettings';
-      } & OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment)
-    | ({
-        __typename?: 'UnknownOpenActionModuleSettings';
-      } & OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment)
-  >;
-  root:
-    | ({ __typename?: 'Post' } & PostFieldsFragment)
-    | ({ __typename?: 'Quote' } & QuoteBaseFieldsFragment);
-  profilesMentioned: Array<{
-    __typename?: 'ProfileMentioned';
-    snapshotHandleMentioned: {
-      __typename?: 'HandleInfo';
-    } & HandleInfoFieldsFragment;
-  }>;
-};
-
-export type CommentFieldsFragment = {
-  __typename?: 'Comment';
-  commentOn:
-    | ({ __typename?: 'Comment' } & CommentBaseFieldsFragment)
-    | ({ __typename?: 'Post' } & PostFieldsFragment)
-    | ({ __typename?: 'Quote' } & QuoteBaseFieldsFragment);
-} & CommentBaseFieldsFragment;
-
-export type EncryptableImageSetFieldsFragment = {
-  __typename?: 'EncryptableImageSet';
-  optimized?: { __typename?: 'Image'; uri: any } | null;
-};
-
-export type Erc20FieldsFragment = {
-  __typename?: 'Erc20';
-  name: string;
-  symbol: string;
-  decimals: number;
-  contract: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-};
-
-type FollowModuleFields_FeeFollowModuleSettings_Fragment = {
-  __typename?: 'FeeFollowModuleSettings';
-  type: FollowModuleType;
-  recipient: any;
-  amount: { __typename?: 'Amount' } & AmountFieldsFragment;
-};
-
-type FollowModuleFields_RevertFollowModuleSettings_Fragment = {
-  __typename?: 'RevertFollowModuleSettings';
-  type: FollowModuleType;
-};
-
-type FollowModuleFields_UnknownFollowModuleSettings_Fragment = {
-  __typename?: 'UnknownFollowModuleSettings';
-  type: FollowModuleType;
-};
-
-export type FollowModuleFieldsFragment =
-  | FollowModuleFields_FeeFollowModuleSettings_Fragment
-  | FollowModuleFields_RevertFollowModuleSettings_Fragment
-  | FollowModuleFields_UnknownFollowModuleSettings_Fragment;
-
-export type HandleInfoFieldsFragment = {
-  __typename?: 'HandleInfo';
-  fullHandle: any;
-  localName: string;
-  linkedTo?: { __typename?: 'HandleLinkedTo'; nftTokenId: any } | null;
-};
-
-export type ImageSetFieldsFragment = {
-  __typename?: 'ImageSet';
-  optimized?: { __typename?: 'Image'; uri: any } | null;
-  raw: { __typename?: 'Image'; uri: any };
-};
-
-export type ListProfileFieldsFragment = {
-  __typename?: 'Profile';
-  id: any;
-  peerToPeerRecommendedByMe: boolean;
-  handle?: ({ __typename?: 'HandleInfo' } & HandleInfoFieldsFragment) | null;
-  ownedBy: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-  operations: {
-    __typename?: 'ProfileOperations';
-  } & ProfileOperationsFieldsFragment;
-  metadata?:
-    | ({ __typename?: 'ProfileMetadata' } & ProfileMetadataFieldsFragment)
-    | null;
-  followModule?:
-    | ({
-        __typename?: 'FeeFollowModuleSettings';
-      } & FollowModuleFields_FeeFollowModuleSettings_Fragment)
-    | ({
-        __typename?: 'RevertFollowModuleSettings';
-      } & FollowModuleFields_RevertFollowModuleSettings_Fragment)
-    | ({
-        __typename?: 'UnknownFollowModuleSettings';
-      } & FollowModuleFields_UnknownFollowModuleSettings_Fragment)
-    | null;
-};
-
-export type MetadataAttributeFieldsFragment = {
-  __typename?: 'MetadataAttribute';
-  type: MetadataAttributeType;
-  key: string;
-  value: string;
-};
-
-export type MirrorFieldsFragment = {
-  __typename?: 'Mirror';
-  id: any;
-  isHidden: boolean;
-  createdAt: any;
-  publishedOn?: { __typename?: 'App'; id: any } | null;
-  momoka?: { __typename?: 'MomokaInfo'; proof: any } | null;
-  by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  mirrorOn:
-    | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-    | ({ __typename?: 'Post' } & PostFieldsFragment)
-    | ({ __typename?: 'Quote' } & QuoteFieldsFragment);
-};
-
-export type NetworkAddressFieldsFragment = {
-  __typename?: 'NetworkAddress';
-  address: any;
-  chainId: any;
-};
-
-type OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyAaveFeeCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyERC4626FeeCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyFeeCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyFreeCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyLimitedFeeCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment =
-  { __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings' };
-
-type OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment =
-  { __typename?: 'LegacyMultirecipientFeeCollectModuleSettings' };
-
-type OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyRevertCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = {
-  __typename?: 'LegacySimpleCollectModuleSettings';
-};
-
-type OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment = {
-  __typename?: 'LegacyTimedFeeCollectModuleSettings';
-};
-
-type OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment =
-  {
-    __typename?: 'MultirecipientFeeCollectOpenActionSettings';
-    type: OpenActionModuleType;
-    collectNft?: any | null;
-    collectLimit?: string | null;
-    referralFee: number;
-    followerOnly: boolean;
-    endsAt?: any | null;
-    contract: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-    amount: { __typename?: 'Amount' } & AmountFieldsFragment;
-    recipients: Array<{
-      __typename?: 'RecipientDataOutput';
-      recipient: any;
-      split: number;
-    }>;
-  };
-
-type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = {
-  __typename?: 'SimpleCollectOpenActionSettings';
-  type: OpenActionModuleType;
-  collectNft?: any | null;
-  collectLimit?: string | null;
-  followerOnly: boolean;
-  recipient: any;
-  referralFee: number;
-  endsAt?: any | null;
-  contract: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-  amount: { __typename?: 'Amount' } & AmountFieldsFragment;
-};
-
-type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = {
-  __typename?: 'UnknownOpenActionModuleSettings';
-  type: OpenActionModuleType;
-  initializeResultData?: any | null;
-  initializeCalldata?: any | null;
-  openActionModuleReturnData?: any | null;
-  contract: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-};
-
-export type OpenActionModulesFieldsFragment =
-  | OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment
-  | OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment
-  | OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment
-  | OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment
-  | OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment;
-
-export type PostFieldsFragment = {
-  __typename?: 'Post';
-  id: any;
-  isHidden: boolean;
-  isEncrypted: boolean;
-  createdAt: any;
-  publishedOn?: { __typename?: 'App'; id: any } | null;
-  momoka?: { __typename?: 'MomokaInfo'; proof: any } | null;
-  by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  stats: { __typename?: 'PublicationStats' } & PublicationStatsFieldsFragment;
-  operations: {
-    __typename?: 'PublicationOperations';
-  } & PublicationOperationFieldsFragment;
-  metadata:
-    | ({
-        __typename?: 'ArticleMetadataV3';
-      } & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment)
-    | ({
-        __typename?: 'AudioMetadataV3';
-      } & AnyPublicationMetadataFields_AudioMetadataV3_Fragment)
-    | ({
-        __typename?: 'CheckingInMetadataV3';
-      } & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment)
-    | ({
-        __typename?: 'EmbedMetadataV3';
-      } & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment)
-    | ({
-        __typename?: 'EventMetadataV3';
-      } & AnyPublicationMetadataFields_EventMetadataV3_Fragment)
-    | ({
-        __typename?: 'ImageMetadataV3';
-      } & AnyPublicationMetadataFields_ImageMetadataV3_Fragment)
-    | ({
-        __typename?: 'LinkMetadataV3';
-      } & AnyPublicationMetadataFields_LinkMetadataV3_Fragment)
-    | ({
-        __typename?: 'LiveStreamMetadataV3';
-      } & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment)
-    | ({
-        __typename?: 'MintMetadataV3';
-      } & AnyPublicationMetadataFields_MintMetadataV3_Fragment)
-    | ({
-        __typename?: 'SpaceMetadataV3';
-      } & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment)
-    | ({
-        __typename?: 'StoryMetadataV3';
-      } & AnyPublicationMetadataFields_StoryMetadataV3_Fragment)
-    | ({
-        __typename?: 'TextOnlyMetadataV3';
-      } & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment)
-    | ({
-        __typename?: 'ThreeDMetadataV3';
-      } & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment)
-    | ({
-        __typename?: 'TransactionMetadataV3';
-      } & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment)
-    | ({
-        __typename?: 'VideoMetadataV3';
-      } & AnyPublicationMetadataFields_VideoMetadataV3_Fragment);
-  openActionModules: Array<
-    | ({
-        __typename?: 'LegacyAaveFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyERC4626FeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyFreeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyLimitedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyRevertCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacySimpleCollectModuleSettings';
-      } & OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyTimedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'MultirecipientFeeCollectOpenActionSettings';
-      } & OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment)
-    | ({
-        __typename?: 'SimpleCollectOpenActionSettings';
-      } & OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment)
-    | ({
-        __typename?: 'UnknownOpenActionModuleSettings';
-      } & OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment)
-  >;
-  profilesMentioned: Array<{
-    __typename?: 'ProfileMentioned';
-    snapshotHandleMentioned: {
-      __typename?: 'HandleInfo';
-    } & HandleInfoFieldsFragment;
-  }>;
-};
-
-export type ProfileFieldsFragment = {
-  __typename?: 'Profile';
-  id: any;
-  signless: boolean;
-  sponsor: boolean;
-  createdAt: any;
-  interests: Array<string>;
-  peerToPeerRecommendedByMe: boolean;
-  handle?: ({ __typename?: 'HandleInfo' } & HandleInfoFieldsFragment) | null;
-  ownedBy: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-  stats: { __typename?: 'ProfileStats' } & ProfileStatsFieldsFragment;
-  operations: {
-    __typename?: 'ProfileOperations';
-  } & ProfileOperationsFieldsFragment;
-  followNftAddress?:
-    | ({ __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment)
-    | null;
-  followModule?:
-    | ({
-        __typename?: 'FeeFollowModuleSettings';
-      } & FollowModuleFields_FeeFollowModuleSettings_Fragment)
-    | ({
-        __typename?: 'RevertFollowModuleSettings';
-      } & FollowModuleFields_RevertFollowModuleSettings_Fragment)
-    | ({
-        __typename?: 'UnknownFollowModuleSettings';
-      } & FollowModuleFields_UnknownFollowModuleSettings_Fragment)
-    | null;
-  metadata?:
-    | ({ __typename?: 'ProfileMetadata' } & ProfileMetadataFieldsFragment)
-    | null;
-};
-
-export type ProfileMetadataFieldsFragment = {
-  __typename?: 'ProfileMetadata';
-  displayName?: string | null;
-  bio?: any | null;
-  picture?:
-    | ({ __typename?: 'ImageSet' } & ImageSetFieldsFragment)
-    | { __typename?: 'NftImage' }
-    | null;
-  coverPicture?: ({ __typename?: 'ImageSet' } & ImageSetFieldsFragment) | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-};
-
-export type ProfileOperationsFieldsFragment = {
-  __typename?: 'ProfileOperations';
-  id: any;
-  isBlockedByMe: { __typename?: 'OptimisticStatusResult'; value: boolean };
-  isFollowedByMe: { __typename?: 'OptimisticStatusResult'; value: boolean };
-  isFollowingMe: { __typename?: 'OptimisticStatusResult'; value: boolean };
-};
-
-export type ProfileStatsFieldsFragment = {
-  __typename?: 'ProfileStats';
-  id: any;
-  followers: number;
-  following: number;
-  publications: number;
-  comments: number;
-  posts: number;
-  mirrors: number;
-  quotes: number;
-  lensClassifierScore?: number | null;
-};
-
-export type PublicationOperationFieldsFragment = {
-  __typename?: 'PublicationOperations';
-  isNotInterested: boolean;
-  hasBookmarked: boolean;
-  hasReacted: boolean;
-  canMirror: TriStateValue;
-  hasMirrored: boolean;
-  hasQuoted: boolean;
-  hasActed: { __typename?: 'OptimisticStatusResult'; value: boolean };
-};
-
-export type PublicationProfileFieldsFragment = {
-  __typename?: 'Profile';
-  id: any;
-  peerToPeerRecommendedByMe: boolean;
-  handle?: ({ __typename?: 'HandleInfo' } & HandleInfoFieldsFragment) | null;
-  operations: {
-    __typename?: 'ProfileOperations';
-  } & ProfileOperationsFieldsFragment;
-  ownedBy: { __typename?: 'NetworkAddress' } & NetworkAddressFieldsFragment;
-  metadata?:
-    | ({ __typename?: 'ProfileMetadata' } & ProfileMetadataFieldsFragment)
-    | null;
-};
-
-export type PublicationStatsFieldsFragment = {
-  __typename?: 'PublicationStats';
-  id: any;
-  comments: number;
-  mirrors: number;
-  quotes: number;
-  reactions: number;
-  countOpenActions: number;
-  bookmarks: number;
-};
-
-export type QuoteBaseFieldsFragment = {
-  __typename?: 'Quote';
-  id: any;
-  isHidden: boolean;
-  isEncrypted: boolean;
-  createdAt: any;
-  publishedOn?: { __typename?: 'App'; id: any } | null;
-  momoka?: { __typename?: 'MomokaInfo'; proof: any } | null;
-  by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  stats: { __typename?: 'PublicationStats' } & PublicationStatsFieldsFragment;
-  operations: {
-    __typename?: 'PublicationOperations';
-  } & PublicationOperationFieldsFragment;
-  metadata:
-    | ({
-        __typename?: 'ArticleMetadataV3';
-      } & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment)
-    | ({
-        __typename?: 'AudioMetadataV3';
-      } & AnyPublicationMetadataFields_AudioMetadataV3_Fragment)
-    | ({
-        __typename?: 'CheckingInMetadataV3';
-      } & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment)
-    | ({
-        __typename?: 'EmbedMetadataV3';
-      } & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment)
-    | ({
-        __typename?: 'EventMetadataV3';
-      } & AnyPublicationMetadataFields_EventMetadataV3_Fragment)
-    | ({
-        __typename?: 'ImageMetadataV3';
-      } & AnyPublicationMetadataFields_ImageMetadataV3_Fragment)
-    | ({
-        __typename?: 'LinkMetadataV3';
-      } & AnyPublicationMetadataFields_LinkMetadataV3_Fragment)
-    | ({
-        __typename?: 'LiveStreamMetadataV3';
-      } & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment)
-    | ({
-        __typename?: 'MintMetadataV3';
-      } & AnyPublicationMetadataFields_MintMetadataV3_Fragment)
-    | ({
-        __typename?: 'SpaceMetadataV3';
-      } & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment)
-    | ({
-        __typename?: 'StoryMetadataV3';
-      } & AnyPublicationMetadataFields_StoryMetadataV3_Fragment)
-    | ({
-        __typename?: 'TextOnlyMetadataV3';
-      } & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment)
-    | ({
-        __typename?: 'ThreeDMetadataV3';
-      } & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment)
-    | ({
-        __typename?: 'TransactionMetadataV3';
-      } & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment)
-    | ({
-        __typename?: 'VideoMetadataV3';
-      } & AnyPublicationMetadataFields_VideoMetadataV3_Fragment);
-  openActionModules: Array<
-    | ({
-        __typename?: 'LegacyAaveFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyERC4626FeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyFreeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyLimitedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyRevertCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacySimpleCollectModuleSettings';
-      } & OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'LegacyTimedFeeCollectModuleSettings';
-      } & OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment)
-    | ({
-        __typename?: 'MultirecipientFeeCollectOpenActionSettings';
-      } & OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment)
-    | ({
-        __typename?: 'SimpleCollectOpenActionSettings';
-      } & OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment)
-    | ({
-        __typename?: 'UnknownOpenActionModuleSettings';
-      } & OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment)
-  >;
-  profilesMentioned: Array<{
-    __typename?: 'ProfileMentioned';
-    snapshotHandleMentioned: {
-      __typename?: 'HandleInfo';
-    } & HandleInfoFieldsFragment;
-  }>;
-};
-
-export type QuoteFieldsFragment = {
-  __typename?: 'Quote';
-  quoteOn:
-    | ({ __typename?: 'Comment' } & CommentBaseFieldsFragment)
-    | ({ __typename?: 'Post' } & PostFieldsFragment)
-    | ({ __typename?: 'Quote' } & QuoteBaseFieldsFragment);
-} & QuoteBaseFieldsFragment;
-
-export type ActedNotificationFieldsFragment = {
-  __typename?: 'ActedNotification';
-  id: any;
-  actions: Array<{
-    __typename?: 'OpenActionProfileActed';
-    actedAt: any;
-    by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  }>;
-  publication:
-    | ({ __typename?: 'Comment' } & NotificationCommentFieldsFragment)
-    | {
-        __typename?: 'Mirror';
-        mirrorOn:
-          | ({ __typename?: 'Comment' } & NotificationCommentFieldsFragment)
-          | ({ __typename?: 'Post' } & NotificationPostFieldsFragment)
-          | ({ __typename?: 'Quote' } & NotificationQuoteFieldsFragment);
-      }
-    | ({ __typename?: 'Post' } & NotificationPostFieldsFragment)
-    | ({ __typename?: 'Quote' } & NotificationQuoteFieldsFragment);
-};
-
-export type CommentNotificationFieldsFragment = {
-  __typename?: 'CommentNotification';
-  id: any;
-  comment: {
-    __typename?: 'Comment';
-    by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-    commentOn:
-      | { __typename: 'Comment' }
-      | { __typename: 'Post' }
-      | { __typename: 'Quote' };
-  } & NotificationCommentFieldsFragment;
-};
-
-export type FollowNotificationFieldsFragment = {
-  __typename?: 'FollowNotification';
-  id: any;
-  followers: Array<
-    { __typename?: 'Profile' } & PublicationProfileFieldsFragment
-  >;
-};
-
-export type MentionNotificationFieldsFragment = {
-  __typename?: 'MentionNotification';
-  id: any;
-  publication:
-    | ({
-        __typename?: 'Comment';
-        by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-      } & NotificationCommentFieldsFragment)
-    | ({
-        __typename?: 'Post';
-        by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-      } & NotificationPostFieldsFragment)
-    | ({
-        __typename?: 'Quote';
-        by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-      } & NotificationQuoteFieldsFragment);
-};
-
-export type MirrorNotificationFieldsFragment = {
-  __typename?: 'MirrorNotification';
-  id: any;
-  mirrors: Array<{
-    __typename?: 'ProfileMirrorResult';
-    profile: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  }>;
-  publication:
-    | ({ __typename?: 'Comment' } & NotificationCommentFieldsFragment)
-    | ({ __typename?: 'Post' } & NotificationPostFieldsFragment)
-    | ({ __typename?: 'Quote' } & NotificationQuoteFieldsFragment);
-};
-
-type NotificationFields_ActedNotification_Fragment = {
-  __typename?: 'ActedNotification';
-} & ActedNotificationFieldsFragment;
-
-type NotificationFields_CommentNotification_Fragment = {
-  __typename?: 'CommentNotification';
-} & CommentNotificationFieldsFragment;
-
-type NotificationFields_FollowNotification_Fragment = {
-  __typename?: 'FollowNotification';
-} & FollowNotificationFieldsFragment;
-
-type NotificationFields_MentionNotification_Fragment = {
-  __typename?: 'MentionNotification';
-} & MentionNotificationFieldsFragment;
-
-type NotificationFields_MirrorNotification_Fragment = {
-  __typename?: 'MirrorNotification';
-} & MirrorNotificationFieldsFragment;
-
-type NotificationFields_QuoteNotification_Fragment = {
-  __typename?: 'QuoteNotification';
-} & QuoteNotificationFieldsFragment;
-
-type NotificationFields_ReactionNotification_Fragment = {
-  __typename?: 'ReactionNotification';
-} & ReactionNotificationFieldsFragment;
-
-export type NotificationFieldsFragment =
-  | NotificationFields_ActedNotification_Fragment
-  | NotificationFields_CommentNotification_Fragment
-  | NotificationFields_FollowNotification_Fragment
-  | NotificationFields_MentionNotification_Fragment
-  | NotificationFields_MirrorNotification_Fragment
-  | NotificationFields_QuoteNotification_Fragment
-  | NotificationFields_ReactionNotification_Fragment;
-
-export type QuoteNotificationFieldsFragment = {
-  __typename?: 'QuoteNotification';
-  id: any;
-  quote: {
-    __typename?: 'Quote';
-    by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-    quoteOn:
-      | { __typename: 'Comment' }
-      | { __typename: 'Post' }
-      | { __typename: 'Quote' };
-  } & NotificationQuoteFieldsFragment;
-};
-
-export type ReactionNotificationFieldsFragment = {
-  __typename?: 'ReactionNotification';
-  id: any;
-  publication:
-    | ({ __typename?: 'Comment' } & NotificationCommentFieldsFragment)
-    | ({ __typename?: 'Post' } & NotificationPostFieldsFragment)
-    | ({ __typename?: 'Quote' } & NotificationQuoteFieldsFragment);
-  reactions: Array<{
-    __typename?: 'ProfileReactedResult';
-    profile: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-  }>;
-};
-
-export type NotificationCommentFieldsFragment = {
-  __typename?: 'Comment';
-  id: any;
-  metadata:
-    | ({
-        __typename?: 'ArticleMetadataV3';
-      } & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment)
-    | ({
-        __typename?: 'AudioMetadataV3';
-      } & AnyPublicationMetadataFields_AudioMetadataV3_Fragment)
-    | ({
-        __typename?: 'CheckingInMetadataV3';
-      } & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment)
-    | ({
-        __typename?: 'EmbedMetadataV3';
-      } & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment)
-    | ({
-        __typename?: 'EventMetadataV3';
-      } & AnyPublicationMetadataFields_EventMetadataV3_Fragment)
-    | ({
-        __typename?: 'ImageMetadataV3';
-      } & AnyPublicationMetadataFields_ImageMetadataV3_Fragment)
-    | ({
-        __typename?: 'LinkMetadataV3';
-      } & AnyPublicationMetadataFields_LinkMetadataV3_Fragment)
-    | ({
-        __typename?: 'LiveStreamMetadataV3';
-      } & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment)
-    | ({
-        __typename?: 'MintMetadataV3';
-      } & AnyPublicationMetadataFields_MintMetadataV3_Fragment)
-    | ({
-        __typename?: 'SpaceMetadataV3';
-      } & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment)
-    | ({
-        __typename?: 'StoryMetadataV3';
-      } & AnyPublicationMetadataFields_StoryMetadataV3_Fragment)
-    | ({
-        __typename?: 'TextOnlyMetadataV3';
-      } & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment)
-    | ({
-        __typename?: 'ThreeDMetadataV3';
-      } & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment)
-    | ({
-        __typename?: 'TransactionMetadataV3';
-      } & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment)
-    | ({
-        __typename?: 'VideoMetadataV3';
-      } & AnyPublicationMetadataFields_VideoMetadataV3_Fragment);
-  profilesMentioned: Array<{
-    __typename?: 'ProfileMentioned';
-    snapshotHandleMentioned: {
-      __typename?: 'HandleInfo';
-    } & HandleInfoFieldsFragment;
-  }>;
-};
-
-export type NotificationPostFieldsFragment = {
-  __typename?: 'Post';
-  id: any;
-  metadata:
-    | ({
-        __typename?: 'ArticleMetadataV3';
-      } & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment)
-    | ({
-        __typename?: 'AudioMetadataV3';
-      } & AnyPublicationMetadataFields_AudioMetadataV3_Fragment)
-    | ({
-        __typename?: 'CheckingInMetadataV3';
-      } & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment)
-    | ({
-        __typename?: 'EmbedMetadataV3';
-      } & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment)
-    | ({
-        __typename?: 'EventMetadataV3';
-      } & AnyPublicationMetadataFields_EventMetadataV3_Fragment)
-    | ({
-        __typename?: 'ImageMetadataV3';
-      } & AnyPublicationMetadataFields_ImageMetadataV3_Fragment)
-    | ({
-        __typename?: 'LinkMetadataV3';
-      } & AnyPublicationMetadataFields_LinkMetadataV3_Fragment)
-    | ({
-        __typename?: 'LiveStreamMetadataV3';
-      } & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment)
-    | ({
-        __typename?: 'MintMetadataV3';
-      } & AnyPublicationMetadataFields_MintMetadataV3_Fragment)
-    | ({
-        __typename?: 'SpaceMetadataV3';
-      } & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment)
-    | ({
-        __typename?: 'StoryMetadataV3';
-      } & AnyPublicationMetadataFields_StoryMetadataV3_Fragment)
-    | ({
-        __typename?: 'TextOnlyMetadataV3';
-      } & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment)
-    | ({
-        __typename?: 'ThreeDMetadataV3';
-      } & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment)
-    | ({
-        __typename?: 'TransactionMetadataV3';
-      } & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment)
-    | ({
-        __typename?: 'VideoMetadataV3';
-      } & AnyPublicationMetadataFields_VideoMetadataV3_Fragment);
-  profilesMentioned: Array<{
-    __typename?: 'ProfileMentioned';
-    snapshotHandleMentioned: {
-      __typename?: 'HandleInfo';
-    } & HandleInfoFieldsFragment;
-  }>;
-};
-
-export type NotificationQuoteFieldsFragment = {
-  __typename?: 'Quote';
-  id: any;
-  metadata:
-    | ({
-        __typename?: 'ArticleMetadataV3';
-      } & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment)
-    | ({
-        __typename?: 'AudioMetadataV3';
-      } & AnyPublicationMetadataFields_AudioMetadataV3_Fragment)
-    | ({
-        __typename?: 'CheckingInMetadataV3';
-      } & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment)
-    | ({
-        __typename?: 'EmbedMetadataV3';
-      } & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment)
-    | ({
-        __typename?: 'EventMetadataV3';
-      } & AnyPublicationMetadataFields_EventMetadataV3_Fragment)
-    | ({
-        __typename?: 'ImageMetadataV3';
-      } & AnyPublicationMetadataFields_ImageMetadataV3_Fragment)
-    | ({
-        __typename?: 'LinkMetadataV3';
-      } & AnyPublicationMetadataFields_LinkMetadataV3_Fragment)
-    | ({
-        __typename?: 'LiveStreamMetadataV3';
-      } & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment)
-    | ({
-        __typename?: 'MintMetadataV3';
-      } & AnyPublicationMetadataFields_MintMetadataV3_Fragment)
-    | ({
-        __typename?: 'SpaceMetadataV3';
-      } & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment)
-    | ({
-        __typename?: 'StoryMetadataV3';
-      } & AnyPublicationMetadataFields_StoryMetadataV3_Fragment)
-    | ({
-        __typename?: 'TextOnlyMetadataV3';
-      } & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment)
-    | ({
-        __typename?: 'ThreeDMetadataV3';
-      } & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment)
-    | ({
-        __typename?: 'TransactionMetadataV3';
-      } & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment)
-    | ({
-        __typename?: 'VideoMetadataV3';
-      } & AnyPublicationMetadataFields_VideoMetadataV3_Fragment);
-  profilesMentioned: Array<{
-    __typename?: 'ProfileMentioned';
-    snapshotHandleMentioned: {
-      __typename?: 'HandleInfo';
-    } & HandleInfoFieldsFragment;
-  }>;
-};
-
-export type ArticleMetadataV3FieldsFragment = {
-  __typename?: 'ArticleMetadataV3';
-  id: string;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-};
-
-export type AudioMetadataV3FieldsFragment = {
-  __typename?: 'AudioMetadataV3';
-  id: string;
-  title: string;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  asset: {
-    __typename?: 'PublicationMetadataMediaAudio';
-  } & PublicationMetadataMediaAudioFieldsFragment;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-};
-
-export type ImageMetadataV3FieldsFragment = {
-  __typename?: 'ImageMetadataV3';
-  id: string;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-  asset: {
-    __typename?: 'PublicationMetadataMediaImage';
-  } & PublicationMetadataMediaImageFieldsFragment;
-};
-
-export type LinkMetadataV3FieldsFragment = {
-  __typename?: 'LinkMetadataV3';
-  id: string;
-  content: any;
-  sharingLink: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-};
-
-export type LiveStreamMetadataV3FieldsFragment = {
-  __typename?: 'LiveStreamMetadataV3';
-  id: string;
-  playbackURL: any;
-  liveURL: any;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-};
-
-export type MintMetadataV3FieldsFragment = {
-  __typename?: 'MintMetadataV3';
-  id: string;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-};
-
-export type TextOnlyMetadataV3FieldsFragment = {
-  __typename?: 'TextOnlyMetadataV3';
-  id: string;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-};
-
-export type VideoMetadataV3FieldsFragment = {
-  __typename?: 'VideoMetadataV3';
-  id: string;
-  content: any;
-  tags?: Array<string> | null;
-  attributes?: Array<
-    { __typename?: 'MetadataAttribute' } & MetadataAttributeFieldsFragment
-  > | null;
-  asset: {
-    __typename?: 'PublicationMetadataMediaVideo';
-  } & PublicationMetadataMediaVideoFieldsFragment;
-  attachments?: Array<
-    | ({
-        __typename?: 'PublicationMetadataMediaAudio';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaImage';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment)
-    | ({
-        __typename?: 'PublicationMetadataMediaVideo';
-      } & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment)
-  > | null;
-};
-
-export type PublicationMetadataMediaAudioFieldsFragment = {
-  __typename?: 'PublicationMetadataMediaAudio';
-  artist?: any | null;
-  license?: PublicationMetadataLicenseType | null;
-  audio: {
-    __typename?: 'EncryptableAudioSet';
-    optimized?: { __typename?: 'Audio'; uri: any } | null;
-  };
-  cover?:
-    | ({
-        __typename?: 'EncryptableImageSet';
-      } & EncryptableImageSetFieldsFragment)
-    | null;
-};
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = {
-  __typename?: 'PublicationMetadataMediaAudio';
-} & PublicationMetadataMediaAudioFieldsFragment;
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = {
-  __typename?: 'PublicationMetadataMediaImage';
-} & PublicationMetadataMediaImageFieldsFragment;
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = {
-  __typename?: 'PublicationMetadataMediaVideo';
-} & PublicationMetadataMediaVideoFieldsFragment;
-
-export type PublicationMetadataMediaFieldsFragment =
-  | PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
-  | PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
-  | PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment;
-
-export type PublicationMetadataMediaImageFieldsFragment = {
-  __typename?: 'PublicationMetadataMediaImage';
-  image: {
-    __typename?: 'EncryptableImageSet';
-  } & EncryptableImageSetFieldsFragment;
-};
-
-export type PublicationMetadataMediaVideoFieldsFragment = {
-  __typename?: 'PublicationMetadataMediaVideo';
-  license?: PublicationMetadataLicenseType | null;
-  video: {
-    __typename?: 'EncryptableVideoSet';
-    optimized?: { __typename?: 'Video'; uri: any } | null;
-  };
-  cover?:
-    | ({
-        __typename?: 'EncryptableImageSet';
-      } & EncryptableImageSetFieldsFragment)
-    | null;
-};
+export type AmountFieldsFragment = { __typename?: 'Amount', value: string, asFiat?: { __typename?: 'FiatAmount', value: string } | null, asset: (
+    { __typename?: 'Erc20' }
+    & Erc20FieldsFragment
+  ) };
+
+type AnyPublicationMetadataFields_ArticleMetadataV3_Fragment = (
+  { __typename?: 'ArticleMetadataV3' }
+  & ArticleMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_AudioMetadataV3_Fragment = (
+  { __typename?: 'AudioMetadataV3' }
+  & AudioMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = { __typename?: 'CheckingInMetadataV3' };
+
+type AnyPublicationMetadataFields_EmbedMetadataV3_Fragment = { __typename?: 'EmbedMetadataV3' };
+
+type AnyPublicationMetadataFields_EventMetadataV3_Fragment = { __typename?: 'EventMetadataV3' };
+
+type AnyPublicationMetadataFields_ImageMetadataV3_Fragment = (
+  { __typename?: 'ImageMetadataV3' }
+  & ImageMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_LinkMetadataV3_Fragment = (
+  { __typename?: 'LinkMetadataV3' }
+  & LinkMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment = (
+  { __typename?: 'LiveStreamMetadataV3' }
+  & LiveStreamMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_MintMetadataV3_Fragment = (
+  { __typename?: 'MintMetadataV3' }
+  & MintMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_SpaceMetadataV3_Fragment = { __typename?: 'SpaceMetadataV3' };
+
+type AnyPublicationMetadataFields_StoryMetadataV3_Fragment = { __typename?: 'StoryMetadataV3' };
+
+type AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment = (
+  { __typename?: 'TextOnlyMetadataV3' }
+  & TextOnlyMetadataV3FieldsFragment
+);
+
+type AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment = { __typename?: 'ThreeDMetadataV3' };
+
+type AnyPublicationMetadataFields_TransactionMetadataV3_Fragment = { __typename?: 'TransactionMetadataV3' };
+
+type AnyPublicationMetadataFields_VideoMetadataV3_Fragment = (
+  { __typename?: 'VideoMetadataV3' }
+  & VideoMetadataV3FieldsFragment
+);
+
+export type AnyPublicationMetadataFieldsFragment = AnyPublicationMetadataFields_ArticleMetadataV3_Fragment | AnyPublicationMetadataFields_AudioMetadataV3_Fragment | AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment | AnyPublicationMetadataFields_EmbedMetadataV3_Fragment | AnyPublicationMetadataFields_EventMetadataV3_Fragment | AnyPublicationMetadataFields_ImageMetadataV3_Fragment | AnyPublicationMetadataFields_LinkMetadataV3_Fragment | AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment | AnyPublicationMetadataFields_MintMetadataV3_Fragment | AnyPublicationMetadataFields_SpaceMetadataV3_Fragment | AnyPublicationMetadataFields_StoryMetadataV3_Fragment | AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment | AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment | AnyPublicationMetadataFields_TransactionMetadataV3_Fragment | AnyPublicationMetadataFields_VideoMetadataV3_Fragment;
+
+export type CommentBaseFieldsFragment = { __typename?: 'Comment', id: any, isHidden: boolean, isEncrypted: boolean, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+    { __typename?: 'Profile' }
+    & PublicationProfileFieldsFragment
+  ), stats: (
+    { __typename?: 'PublicationStats' }
+    & PublicationStatsFieldsFragment
+  ), operations: (
+    { __typename?: 'PublicationOperations' }
+    & PublicationOperationFieldsFragment
+  ), metadata: (
+    { __typename?: 'ArticleMetadataV3' }
+    & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
+  ) | (
+    { __typename?: 'AudioMetadataV3' }
+    & AnyPublicationMetadataFields_AudioMetadataV3_Fragment
+  ) | (
+    { __typename?: 'CheckingInMetadataV3' }
+    & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EmbedMetadataV3' }
+    & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EventMetadataV3' }
+    & AnyPublicationMetadataFields_EventMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ImageMetadataV3' }
+    & AnyPublicationMetadataFields_ImageMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LinkMetadataV3' }
+    & AnyPublicationMetadataFields_LinkMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LiveStreamMetadataV3' }
+    & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
+  ) | (
+    { __typename?: 'MintMetadataV3' }
+    & AnyPublicationMetadataFields_MintMetadataV3_Fragment
+  ) | (
+    { __typename?: 'SpaceMetadataV3' }
+    & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
+  ) | (
+    { __typename?: 'StoryMetadataV3' }
+    & AnyPublicationMetadataFields_StoryMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TextOnlyMetadataV3' }
+    & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ThreeDMetadataV3' }
+    & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TransactionMetadataV3' }
+    & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
+  ) | (
+    { __typename?: 'VideoMetadataV3' }
+    & AnyPublicationMetadataFields_VideoMetadataV3_Fragment
+  ), openActionModules: Array<(
+    { __typename?: 'LegacyAaveFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyERC4626FeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyFreeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyLimitedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyMultirecipientFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyRevertCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacySimpleCollectModuleSettings' }
+    & OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyTimedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'MultirecipientFeeCollectOpenActionSettings' }
+    & OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment
+  ) | (
+    { __typename?: 'SimpleCollectOpenActionSettings' }
+    & OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment
+  ) | (
+    { __typename?: 'UnknownOpenActionModuleSettings' }
+    & OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment
+  )>, root: (
+    { __typename?: 'Post' }
+    & PostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & QuoteBaseFieldsFragment
+  ), profilesMentioned: Array<{ __typename?: 'ProfileMentioned', snapshotHandleMentioned: (
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    ) }> };
+
+export type CommentFieldsFragment = (
+  { __typename?: 'Comment', commentOn: (
+    { __typename?: 'Comment' }
+    & CommentBaseFieldsFragment
+  ) | (
+    { __typename?: 'Post' }
+    & PostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & QuoteBaseFieldsFragment
+  ) }
+  & CommentBaseFieldsFragment
+);
+
+export type EncryptableImageSetFieldsFragment = { __typename?: 'EncryptableImageSet', optimized?: { __typename?: 'Image', uri: any } | null };
+
+export type Erc20FieldsFragment = { __typename?: 'Erc20', name: string, symbol: string, decimals: number, contract: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ) };
+
+type FollowModuleFields_FeeFollowModuleSettings_Fragment = { __typename?: 'FeeFollowModuleSettings', type: FollowModuleType, recipient: any, amount: (
+    { __typename?: 'Amount' }
+    & AmountFieldsFragment
+  ) };
+
+type FollowModuleFields_RevertFollowModuleSettings_Fragment = { __typename?: 'RevertFollowModuleSettings', type: FollowModuleType };
+
+type FollowModuleFields_UnknownFollowModuleSettings_Fragment = { __typename?: 'UnknownFollowModuleSettings', type: FollowModuleType };
+
+export type FollowModuleFieldsFragment = FollowModuleFields_FeeFollowModuleSettings_Fragment | FollowModuleFields_RevertFollowModuleSettings_Fragment | FollowModuleFields_UnknownFollowModuleSettings_Fragment;
+
+export type HandleInfoFieldsFragment = { __typename?: 'HandleInfo', fullHandle: any, localName: string, linkedTo?: { __typename?: 'HandleLinkedTo', nftTokenId: any } | null };
+
+export type ImageSetFieldsFragment = { __typename?: 'ImageSet', optimized?: { __typename?: 'Image', uri: any } | null, raw: { __typename?: 'Image', uri: any } };
+
+export type ListProfileFieldsFragment = { __typename?: 'Profile', id: any, peerToPeerRecommendedByMe: boolean, handle?: (
+    { __typename?: 'HandleInfo' }
+    & HandleInfoFieldsFragment
+  ) | null, ownedBy: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ), operations: (
+    { __typename?: 'ProfileOperations' }
+    & ProfileOperationsFieldsFragment
+  ), metadata?: (
+    { __typename?: 'ProfileMetadata' }
+    & ProfileMetadataFieldsFragment
+  ) | null, followModule?: (
+    { __typename?: 'FeeFollowModuleSettings' }
+    & FollowModuleFields_FeeFollowModuleSettings_Fragment
+  ) | (
+    { __typename?: 'RevertFollowModuleSettings' }
+    & FollowModuleFields_RevertFollowModuleSettings_Fragment
+  ) | (
+    { __typename?: 'UnknownFollowModuleSettings' }
+    & FollowModuleFields_UnknownFollowModuleSettings_Fragment
+  ) | null };
+
+export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string };
+
+export type MirrorFieldsFragment = { __typename?: 'Mirror', id: any, isHidden: boolean, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+    { __typename?: 'Profile' }
+    & PublicationProfileFieldsFragment
+  ), mirrorOn: (
+    { __typename?: 'Comment' }
+    & CommentFieldsFragment
+  ) | (
+    { __typename?: 'Post' }
+    & PostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & QuoteFieldsFragment
+  ) };
+
+export type NetworkAddressFieldsFragment = { __typename?: 'NetworkAddress', address: any, chainId: any };
+
+type OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment = { __typename?: 'LegacyAaveFeeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment = { __typename?: 'LegacyERC4626FeeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment = { __typename?: 'LegacyFeeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment = { __typename?: 'LegacyFreeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment = { __typename?: 'LegacyLimitedFeeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment = { __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment = { __typename?: 'LegacyMultirecipientFeeCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment = { __typename?: 'LegacyRevertCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = { __typename?: 'LegacySimpleCollectModuleSettings' };
+
+type OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment = { __typename?: 'LegacyTimedFeeCollectModuleSettings' };
+
+type OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment = { __typename?: 'MultirecipientFeeCollectOpenActionSettings', type: OpenActionModuleType, collectNft?: any | null, collectLimit?: string | null, referralFee: number, followerOnly: boolean, endsAt?: any | null, contract: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ), amount: (
+    { __typename?: 'Amount' }
+    & AmountFieldsFragment
+  ), recipients: Array<{ __typename?: 'RecipientDataOutput', recipient: any, split: number }> };
+
+type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = { __typename?: 'SimpleCollectOpenActionSettings', type: OpenActionModuleType, collectNft?: any | null, collectLimit?: string | null, followerOnly: boolean, recipient: any, referralFee: number, endsAt?: any | null, contract: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ), amount: (
+    { __typename?: 'Amount' }
+    & AmountFieldsFragment
+  ) };
+
+type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = { __typename?: 'UnknownOpenActionModuleSettings', type: OpenActionModuleType, initializeResultData?: any | null, initializeCalldata?: any | null, openActionModuleReturnData?: any | null, contract: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ) };
+
+export type OpenActionModulesFieldsFragment = OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment | OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment | OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment | OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment;
+
+export type PostFieldsFragment = { __typename?: 'Post', id: any, isHidden: boolean, isEncrypted: boolean, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+    { __typename?: 'Profile' }
+    & PublicationProfileFieldsFragment
+  ), stats: (
+    { __typename?: 'PublicationStats' }
+    & PublicationStatsFieldsFragment
+  ), operations: (
+    { __typename?: 'PublicationOperations' }
+    & PublicationOperationFieldsFragment
+  ), metadata: (
+    { __typename?: 'ArticleMetadataV3' }
+    & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
+  ) | (
+    { __typename?: 'AudioMetadataV3' }
+    & AnyPublicationMetadataFields_AudioMetadataV3_Fragment
+  ) | (
+    { __typename?: 'CheckingInMetadataV3' }
+    & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EmbedMetadataV3' }
+    & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EventMetadataV3' }
+    & AnyPublicationMetadataFields_EventMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ImageMetadataV3' }
+    & AnyPublicationMetadataFields_ImageMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LinkMetadataV3' }
+    & AnyPublicationMetadataFields_LinkMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LiveStreamMetadataV3' }
+    & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
+  ) | (
+    { __typename?: 'MintMetadataV3' }
+    & AnyPublicationMetadataFields_MintMetadataV3_Fragment
+  ) | (
+    { __typename?: 'SpaceMetadataV3' }
+    & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
+  ) | (
+    { __typename?: 'StoryMetadataV3' }
+    & AnyPublicationMetadataFields_StoryMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TextOnlyMetadataV3' }
+    & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ThreeDMetadataV3' }
+    & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TransactionMetadataV3' }
+    & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
+  ) | (
+    { __typename?: 'VideoMetadataV3' }
+    & AnyPublicationMetadataFields_VideoMetadataV3_Fragment
+  ), openActionModules: Array<(
+    { __typename?: 'LegacyAaveFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyERC4626FeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyFreeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyLimitedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyMultirecipientFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyRevertCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacySimpleCollectModuleSettings' }
+    & OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyTimedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'MultirecipientFeeCollectOpenActionSettings' }
+    & OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment
+  ) | (
+    { __typename?: 'SimpleCollectOpenActionSettings' }
+    & OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment
+  ) | (
+    { __typename?: 'UnknownOpenActionModuleSettings' }
+    & OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment
+  )>, profilesMentioned: Array<{ __typename?: 'ProfileMentioned', snapshotHandleMentioned: (
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    ) }> };
+
+export type ProfileFieldsFragment = { __typename?: 'Profile', id: any, signless: boolean, sponsor: boolean, createdAt: any, interests: Array<string>, peerToPeerRecommendedByMe: boolean, handle?: (
+    { __typename?: 'HandleInfo' }
+    & HandleInfoFieldsFragment
+  ) | null, ownedBy: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ), stats: (
+    { __typename?: 'ProfileStats' }
+    & ProfileStatsFieldsFragment
+  ), operations: (
+    { __typename?: 'ProfileOperations' }
+    & ProfileOperationsFieldsFragment
+  ), followNftAddress?: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ) | null, followModule?: (
+    { __typename?: 'FeeFollowModuleSettings' }
+    & FollowModuleFields_FeeFollowModuleSettings_Fragment
+  ) | (
+    { __typename?: 'RevertFollowModuleSettings' }
+    & FollowModuleFields_RevertFollowModuleSettings_Fragment
+  ) | (
+    { __typename?: 'UnknownFollowModuleSettings' }
+    & FollowModuleFields_UnknownFollowModuleSettings_Fragment
+  ) | null, metadata?: (
+    { __typename?: 'ProfileMetadata' }
+    & ProfileMetadataFieldsFragment
+  ) | null };
+
+export type ProfileMetadataFieldsFragment = { __typename?: 'ProfileMetadata', displayName?: string | null, bio?: any | null, picture?: (
+    { __typename?: 'ImageSet' }
+    & ImageSetFieldsFragment
+  ) | { __typename?: 'NftImage' } | null, coverPicture?: (
+    { __typename?: 'ImageSet' }
+    & ImageSetFieldsFragment
+  ) | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null };
+
+export type ProfileOperationsFieldsFragment = { __typename?: 'ProfileOperations', id: any, isBlockedByMe: { __typename?: 'OptimisticStatusResult', value: boolean }, isFollowedByMe: { __typename?: 'OptimisticStatusResult', value: boolean }, isFollowingMe: { __typename?: 'OptimisticStatusResult', value: boolean } };
+
+export type ProfileStatsFieldsFragment = { __typename?: 'ProfileStats', id: any, followers: number, following: number, publications: number, comments: number, posts: number, mirrors: number, quotes: number, lensClassifierScore?: number | null };
+
+export type PublicationOperationFieldsFragment = { __typename?: 'PublicationOperations', isNotInterested: boolean, hasBookmarked: boolean, hasReacted: boolean, canMirror: TriStateValue, hasMirrored: boolean, hasQuoted: boolean, hasActed: { __typename?: 'OptimisticStatusResult', value: boolean } };
+
+export type PublicationProfileFieldsFragment = { __typename?: 'Profile', id: any, peerToPeerRecommendedByMe: boolean, handle?: (
+    { __typename?: 'HandleInfo' }
+    & HandleInfoFieldsFragment
+  ) | null, operations: (
+    { __typename?: 'ProfileOperations' }
+    & ProfileOperationsFieldsFragment
+  ), ownedBy: (
+    { __typename?: 'NetworkAddress' }
+    & NetworkAddressFieldsFragment
+  ), metadata?: (
+    { __typename?: 'ProfileMetadata' }
+    & ProfileMetadataFieldsFragment
+  ) | null };
+
+export type PublicationStatsFieldsFragment = { __typename?: 'PublicationStats', id: any, comments: number, mirrors: number, quotes: number, reactions: number, countOpenActions: number, bookmarks: number };
+
+export type QuoteBaseFieldsFragment = { __typename?: 'Quote', id: any, isHidden: boolean, isEncrypted: boolean, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+    { __typename?: 'Profile' }
+    & PublicationProfileFieldsFragment
+  ), stats: (
+    { __typename?: 'PublicationStats' }
+    & PublicationStatsFieldsFragment
+  ), operations: (
+    { __typename?: 'PublicationOperations' }
+    & PublicationOperationFieldsFragment
+  ), metadata: (
+    { __typename?: 'ArticleMetadataV3' }
+    & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
+  ) | (
+    { __typename?: 'AudioMetadataV3' }
+    & AnyPublicationMetadataFields_AudioMetadataV3_Fragment
+  ) | (
+    { __typename?: 'CheckingInMetadataV3' }
+    & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EmbedMetadataV3' }
+    & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EventMetadataV3' }
+    & AnyPublicationMetadataFields_EventMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ImageMetadataV3' }
+    & AnyPublicationMetadataFields_ImageMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LinkMetadataV3' }
+    & AnyPublicationMetadataFields_LinkMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LiveStreamMetadataV3' }
+    & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
+  ) | (
+    { __typename?: 'MintMetadataV3' }
+    & AnyPublicationMetadataFields_MintMetadataV3_Fragment
+  ) | (
+    { __typename?: 'SpaceMetadataV3' }
+    & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
+  ) | (
+    { __typename?: 'StoryMetadataV3' }
+    & AnyPublicationMetadataFields_StoryMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TextOnlyMetadataV3' }
+    & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ThreeDMetadataV3' }
+    & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TransactionMetadataV3' }
+    & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
+  ) | (
+    { __typename?: 'VideoMetadataV3' }
+    & AnyPublicationMetadataFields_VideoMetadataV3_Fragment
+  ), openActionModules: Array<(
+    { __typename?: 'LegacyAaveFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyERC4626FeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyFreeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyLimitedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyMultirecipientFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyRevertCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacySimpleCollectModuleSettings' }
+    & OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'LegacyTimedFeeCollectModuleSettings' }
+    & OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment
+  ) | (
+    { __typename?: 'MultirecipientFeeCollectOpenActionSettings' }
+    & OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment
+  ) | (
+    { __typename?: 'SimpleCollectOpenActionSettings' }
+    & OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment
+  ) | (
+    { __typename?: 'UnknownOpenActionModuleSettings' }
+    & OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment
+  )>, profilesMentioned: Array<{ __typename?: 'ProfileMentioned', snapshotHandleMentioned: (
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    ) }> };
+
+export type QuoteFieldsFragment = (
+  { __typename?: 'Quote', quoteOn: (
+    { __typename?: 'Comment' }
+    & CommentBaseFieldsFragment
+  ) | (
+    { __typename?: 'Post' }
+    & PostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & QuoteBaseFieldsFragment
+  ) }
+  & QuoteBaseFieldsFragment
+);
+
+export type ActedNotificationFieldsFragment = { __typename?: 'ActedNotification', id: any, actions: Array<{ __typename?: 'OpenActionProfileActed', actedAt: any, by: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ) }>, publication: (
+    { __typename?: 'Comment' }
+    & NotificationCommentFieldsFragment
+  ) | { __typename?: 'Mirror', mirrorOn: (
+      { __typename?: 'Comment' }
+      & NotificationCommentFieldsFragment
+    ) | (
+      { __typename?: 'Post' }
+      & NotificationPostFieldsFragment
+    ) | (
+      { __typename?: 'Quote' }
+      & NotificationQuoteFieldsFragment
+    ) } | (
+    { __typename?: 'Post' }
+    & NotificationPostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & NotificationQuoteFieldsFragment
+  ) };
+
+export type CommentNotificationFieldsFragment = { __typename?: 'CommentNotification', id: any, comment: (
+    { __typename?: 'Comment', by: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ), commentOn: { __typename: 'Comment' } | { __typename: 'Post' } | { __typename: 'Quote' } }
+    & NotificationCommentFieldsFragment
+  ) };
+
+export type FollowNotificationFieldsFragment = { __typename?: 'FollowNotification', id: any, followers: Array<(
+    { __typename?: 'Profile' }
+    & PublicationProfileFieldsFragment
+  )> };
+
+export type MentionNotificationFieldsFragment = { __typename?: 'MentionNotification', id: any, publication: (
+    { __typename?: 'Comment', by: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ) }
+    & NotificationCommentFieldsFragment
+  ) | (
+    { __typename?: 'Post', by: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ) }
+    & NotificationPostFieldsFragment
+  ) | (
+    { __typename?: 'Quote', by: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ) }
+    & NotificationQuoteFieldsFragment
+  ) };
+
+export type MirrorNotificationFieldsFragment = { __typename?: 'MirrorNotification', id: any, mirrors: Array<{ __typename?: 'ProfileMirrorResult', profile: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ) }>, publication: (
+    { __typename?: 'Comment' }
+    & NotificationCommentFieldsFragment
+  ) | (
+    { __typename?: 'Post' }
+    & NotificationPostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & NotificationQuoteFieldsFragment
+  ) };
+
+type NotificationFields_ActedNotification_Fragment = (
+  { __typename?: 'ActedNotification' }
+  & ActedNotificationFieldsFragment
+);
+
+type NotificationFields_CommentNotification_Fragment = (
+  { __typename?: 'CommentNotification' }
+  & CommentNotificationFieldsFragment
+);
+
+type NotificationFields_FollowNotification_Fragment = (
+  { __typename?: 'FollowNotification' }
+  & FollowNotificationFieldsFragment
+);
+
+type NotificationFields_MentionNotification_Fragment = (
+  { __typename?: 'MentionNotification' }
+  & MentionNotificationFieldsFragment
+);
+
+type NotificationFields_MirrorNotification_Fragment = (
+  { __typename?: 'MirrorNotification' }
+  & MirrorNotificationFieldsFragment
+);
+
+type NotificationFields_QuoteNotification_Fragment = (
+  { __typename?: 'QuoteNotification' }
+  & QuoteNotificationFieldsFragment
+);
+
+type NotificationFields_ReactionNotification_Fragment = (
+  { __typename?: 'ReactionNotification' }
+  & ReactionNotificationFieldsFragment
+);
+
+export type NotificationFieldsFragment = NotificationFields_ActedNotification_Fragment | NotificationFields_CommentNotification_Fragment | NotificationFields_FollowNotification_Fragment | NotificationFields_MentionNotification_Fragment | NotificationFields_MirrorNotification_Fragment | NotificationFields_QuoteNotification_Fragment | NotificationFields_ReactionNotification_Fragment;
+
+export type QuoteNotificationFieldsFragment = { __typename?: 'QuoteNotification', id: any, quote: (
+    { __typename?: 'Quote', by: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ), quoteOn: { __typename: 'Comment' } | { __typename: 'Post' } | { __typename: 'Quote' } }
+    & NotificationQuoteFieldsFragment
+  ) };
+
+export type ReactionNotificationFieldsFragment = { __typename?: 'ReactionNotification', id: any, publication: (
+    { __typename?: 'Comment' }
+    & NotificationCommentFieldsFragment
+  ) | (
+    { __typename?: 'Post' }
+    & NotificationPostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & NotificationQuoteFieldsFragment
+  ), reactions: Array<{ __typename?: 'ProfileReactedResult', profile: (
+      { __typename?: 'Profile' }
+      & PublicationProfileFieldsFragment
+    ) }> };
+
+export type NotificationCommentFieldsFragment = { __typename?: 'Comment', id: any, metadata: (
+    { __typename?: 'ArticleMetadataV3' }
+    & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
+  ) | (
+    { __typename?: 'AudioMetadataV3' }
+    & AnyPublicationMetadataFields_AudioMetadataV3_Fragment
+  ) | (
+    { __typename?: 'CheckingInMetadataV3' }
+    & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EmbedMetadataV3' }
+    & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EventMetadataV3' }
+    & AnyPublicationMetadataFields_EventMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ImageMetadataV3' }
+    & AnyPublicationMetadataFields_ImageMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LinkMetadataV3' }
+    & AnyPublicationMetadataFields_LinkMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LiveStreamMetadataV3' }
+    & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
+  ) | (
+    { __typename?: 'MintMetadataV3' }
+    & AnyPublicationMetadataFields_MintMetadataV3_Fragment
+  ) | (
+    { __typename?: 'SpaceMetadataV3' }
+    & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
+  ) | (
+    { __typename?: 'StoryMetadataV3' }
+    & AnyPublicationMetadataFields_StoryMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TextOnlyMetadataV3' }
+    & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ThreeDMetadataV3' }
+    & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TransactionMetadataV3' }
+    & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
+  ) | (
+    { __typename?: 'VideoMetadataV3' }
+    & AnyPublicationMetadataFields_VideoMetadataV3_Fragment
+  ), profilesMentioned: Array<{ __typename?: 'ProfileMentioned', snapshotHandleMentioned: (
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    ) }> };
+
+export type NotificationPostFieldsFragment = { __typename?: 'Post', id: any, metadata: (
+    { __typename?: 'ArticleMetadataV3' }
+    & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
+  ) | (
+    { __typename?: 'AudioMetadataV3' }
+    & AnyPublicationMetadataFields_AudioMetadataV3_Fragment
+  ) | (
+    { __typename?: 'CheckingInMetadataV3' }
+    & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EmbedMetadataV3' }
+    & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EventMetadataV3' }
+    & AnyPublicationMetadataFields_EventMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ImageMetadataV3' }
+    & AnyPublicationMetadataFields_ImageMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LinkMetadataV3' }
+    & AnyPublicationMetadataFields_LinkMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LiveStreamMetadataV3' }
+    & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
+  ) | (
+    { __typename?: 'MintMetadataV3' }
+    & AnyPublicationMetadataFields_MintMetadataV3_Fragment
+  ) | (
+    { __typename?: 'SpaceMetadataV3' }
+    & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
+  ) | (
+    { __typename?: 'StoryMetadataV3' }
+    & AnyPublicationMetadataFields_StoryMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TextOnlyMetadataV3' }
+    & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ThreeDMetadataV3' }
+    & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TransactionMetadataV3' }
+    & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
+  ) | (
+    { __typename?: 'VideoMetadataV3' }
+    & AnyPublicationMetadataFields_VideoMetadataV3_Fragment
+  ), profilesMentioned: Array<{ __typename?: 'ProfileMentioned', snapshotHandleMentioned: (
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    ) }> };
+
+export type NotificationQuoteFieldsFragment = { __typename?: 'Quote', id: any, metadata: (
+    { __typename?: 'ArticleMetadataV3' }
+    & AnyPublicationMetadataFields_ArticleMetadataV3_Fragment
+  ) | (
+    { __typename?: 'AudioMetadataV3' }
+    & AnyPublicationMetadataFields_AudioMetadataV3_Fragment
+  ) | (
+    { __typename?: 'CheckingInMetadataV3' }
+    & AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EmbedMetadataV3' }
+    & AnyPublicationMetadataFields_EmbedMetadataV3_Fragment
+  ) | (
+    { __typename?: 'EventMetadataV3' }
+    & AnyPublicationMetadataFields_EventMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ImageMetadataV3' }
+    & AnyPublicationMetadataFields_ImageMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LinkMetadataV3' }
+    & AnyPublicationMetadataFields_LinkMetadataV3_Fragment
+  ) | (
+    { __typename?: 'LiveStreamMetadataV3' }
+    & AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment
+  ) | (
+    { __typename?: 'MintMetadataV3' }
+    & AnyPublicationMetadataFields_MintMetadataV3_Fragment
+  ) | (
+    { __typename?: 'SpaceMetadataV3' }
+    & AnyPublicationMetadataFields_SpaceMetadataV3_Fragment
+  ) | (
+    { __typename?: 'StoryMetadataV3' }
+    & AnyPublicationMetadataFields_StoryMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TextOnlyMetadataV3' }
+    & AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment
+  ) | (
+    { __typename?: 'ThreeDMetadataV3' }
+    & AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment
+  ) | (
+    { __typename?: 'TransactionMetadataV3' }
+    & AnyPublicationMetadataFields_TransactionMetadataV3_Fragment
+  ) | (
+    { __typename?: 'VideoMetadataV3' }
+    & AnyPublicationMetadataFields_VideoMetadataV3_Fragment
+  ), profilesMentioned: Array<{ __typename?: 'ProfileMentioned', snapshotHandleMentioned: (
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    ) }> };
+
+export type ArticleMetadataV3FieldsFragment = { __typename?: 'ArticleMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
+export type AudioMetadataV3FieldsFragment = { __typename?: 'AudioMetadataV3', id: string, title: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, asset: (
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaAudioFieldsFragment
+  ), attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
+export type ImageMetadataV3FieldsFragment = { __typename?: 'ImageMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null, asset: (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaImageFieldsFragment
+  ) };
+
+export type LinkMetadataV3FieldsFragment = { __typename?: 'LinkMetadataV3', id: string, content: any, sharingLink: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
+export type LiveStreamMetadataV3FieldsFragment = { __typename?: 'LiveStreamMetadataV3', id: string, playbackURL: any, liveURL: any, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
+export type MintMetadataV3FieldsFragment = { __typename?: 'MintMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
+export type TextOnlyMetadataV3FieldsFragment = { __typename?: 'TextOnlyMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null };
+
+export type VideoMetadataV3FieldsFragment = { __typename?: 'VideoMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, asset: (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaVideoFieldsFragment
+  ), attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
+export type PublicationMetadataMediaAudioFieldsFragment = { __typename?: 'PublicationMetadataMediaAudio', artist?: any | null, license?: PublicationMetadataLicenseType | null, audio: { __typename?: 'EncryptableAudioSet', optimized?: { __typename?: 'Audio', uri: any } | null }, cover?: (
+    { __typename?: 'EncryptableImageSet' }
+    & EncryptableImageSetFieldsFragment
+  ) | null };
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = (
+  { __typename?: 'PublicationMetadataMediaAudio' }
+  & PublicationMetadataMediaAudioFieldsFragment
+);
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = (
+  { __typename?: 'PublicationMetadataMediaImage' }
+  & PublicationMetadataMediaImageFieldsFragment
+);
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = (
+  { __typename?: 'PublicationMetadataMediaVideo' }
+  & PublicationMetadataMediaVideoFieldsFragment
+);
+
+export type PublicationMetadataMediaFieldsFragment = PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment | PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment | PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment;
+
+export type PublicationMetadataMediaImageFieldsFragment = { __typename?: 'PublicationMetadataMediaImage', image: (
+    { __typename?: 'EncryptableImageSet' }
+    & EncryptableImageSetFieldsFragment
+  ) };
+
+export type PublicationMetadataMediaVideoFieldsFragment = { __typename?: 'PublicationMetadataMediaVideo', license?: PublicationMetadataLicenseType | null, video: { __typename?: 'EncryptableVideoSet', optimized?: { __typename?: 'Video', uri: any } | null }, cover?: (
+    { __typename?: 'EncryptableImageSet' }
+    & EncryptableImageSetFieldsFragment
+  ) | null };
 
 export type AuthenticateMutationVariables = Exact<{
   request: SignedAuthChallenge;
 }>;
 
-export type AuthenticateMutation = {
-  __typename?: 'Mutation';
-  authenticate: {
-    __typename?: 'AuthenticationResult';
-    accessToken: any;
-    refreshToken: any;
-    identityToken: any;
-  };
-};
+
+export type AuthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename?: 'AuthenticationResult', accessToken: any, refreshToken: any, identityToken: any } };
 
 export type BroadcastOnchainMutationVariables = Exact<{
   request: BroadcastRequest;
 }>;
 
-export type BroadcastOnchainMutation = {
-  __typename?: 'Mutation';
-  broadcastOnchain:
-    | { __typename?: 'RelayError'; reason: RelayErrorReasonType }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type BroadcastOnchainMutation = { __typename?: 'Mutation', broadcastOnchain: { __typename?: 'RelayError', reason: RelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type BroadcastOnMomokaMutationVariables = Exact<{
   request: BroadcastRequest;
 }>;
 
-export type BroadcastOnMomokaMutation = {
-  __typename?: 'Mutation';
-  broadcastOnMomoka:
-    | { __typename?: 'CreateMomokaPublicationResult'; id: any }
-    | { __typename?: 'RelayError'; reason: RelayErrorReasonType };
-};
+
+export type BroadcastOnMomokaMutation = { __typename?: 'Mutation', broadcastOnMomoka: { __typename?: 'CreateMomokaPublicationResult', id: any } | { __typename?: 'RelayError', reason: RelayErrorReasonType } };
 
 export type AddProfileInterestsMutationVariables = Exact<{
   request: ProfileInterestsRequest;
 }>;
 
-export type AddProfileInterestsMutation = {
-  __typename?: 'Mutation';
-  addProfileInterests?: any | null;
-};
+
+export type AddProfileInterestsMutation = { __typename?: 'Mutation', addProfileInterests?: any | null };
 
 export type BlockMutationVariables = Exact<{
   request: BlockRequest;
 }>;
 
-export type BlockMutation = {
-  __typename?: 'Mutation';
-  block:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type BlockMutation = { __typename?: 'Mutation', block: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type CreateProfileWithHandleMutationVariables = Exact<{
   request: CreateProfileWithHandleRequest;
 }>;
 
-export type CreateProfileWithHandleMutation = {
-  __typename?: 'Mutation';
-  createProfileWithHandle:
-    | {
-        __typename?: 'CreateProfileWithHandleErrorResult';
-        reason: CreateProfileWithHandleErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type CreateProfileWithHandleMutation = { __typename?: 'Mutation', createProfileWithHandle: { __typename?: 'CreateProfileWithHandleErrorResult', reason: CreateProfileWithHandleErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type DismissRecommendedProfilesMutationVariables = Exact<{
   request: DismissRecommendedProfilesRequest;
 }>;
 
-export type DismissRecommendedProfilesMutation = {
-  __typename?: 'Mutation';
-  dismissRecommendedProfiles?: any | null;
-};
+
+export type DismissRecommendedProfilesMutation = { __typename?: 'Mutation', dismissRecommendedProfiles?: any | null };
 
 export type FollowMutationVariables = Exact<{
   request: FollowLensManagerRequest;
 }>;
 
-export type FollowMutation = {
-  __typename?: 'Mutation';
-  follow:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type FollowMutation = { __typename?: 'Mutation', follow: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type HideManagedProfileMutationVariables = Exact<{
   request: HideManagedProfileRequest;
 }>;
 
-export type HideManagedProfileMutation = {
-  __typename?: 'Mutation';
-  hideManagedProfile?: any | null;
-};
+
+export type HideManagedProfileMutation = { __typename?: 'Mutation', hideManagedProfile?: any | null };
 
 export type LinkHandleToProfileMutationVariables = Exact<{
   request: LinkHandleToProfileRequest;
 }>;
 
-export type LinkHandleToProfileMutation = {
-  __typename?: 'Mutation';
-  linkHandleToProfile:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type LinkHandleToProfileMutation = { __typename?: 'Mutation', linkHandleToProfile: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type PeerToPeerRecommendMutationVariables = Exact<{
   request: PeerToPeerRecommendRequest;
 }>;
 
-export type PeerToPeerRecommendMutation = {
-  __typename?: 'Mutation';
-  peerToPeerRecommend?: any | null;
-};
+
+export type PeerToPeerRecommendMutation = { __typename?: 'Mutation', peerToPeerRecommend?: any | null };
 
 export type PeerToPeerUnrecommendMutationVariables = Exact<{
   request: PeerToPeerRecommendRequest;
 }>;
 
-export type PeerToPeerUnrecommendMutation = {
-  __typename?: 'Mutation';
-  peerToPeerUnrecommend?: any | null;
-};
+
+export type PeerToPeerUnrecommendMutation = { __typename?: 'Mutation', peerToPeerUnrecommend?: any | null };
 
 export type RemoveProfileInterestsMutationVariables = Exact<{
   request: ProfileInterestsRequest;
 }>;
 
-export type RemoveProfileInterestsMutation = {
-  __typename?: 'Mutation';
-  removeProfileInterests?: any | null;
-};
+
+export type RemoveProfileInterestsMutation = { __typename?: 'Mutation', removeProfileInterests?: any | null };
 
 export type ReportProfileMutationVariables = Exact<{
   request: ReportProfileRequest;
 }>;
 
-export type ReportProfileMutation = {
-  __typename?: 'Mutation';
-  reportProfile?: any | null;
-};
+
+export type ReportProfileMutation = { __typename?: 'Mutation', reportProfile?: any | null };
 
 export type RevokeAuthenticationMutationVariables = Exact<{
   request: RevokeAuthenticationRequest;
 }>;
 
-export type RevokeAuthenticationMutation = {
-  __typename?: 'Mutation';
-  revokeAuthentication?: any | null;
-};
+
+export type RevokeAuthenticationMutation = { __typename?: 'Mutation', revokeAuthentication?: any | null };
 
 export type SetDefaultProfileMutationVariables = Exact<{
   request: SetDefaultProfileRequest;
 }>;
 
-export type SetDefaultProfileMutation = {
-  __typename?: 'Mutation';
-  setDefaultProfile?: any | null;
-};
+
+export type SetDefaultProfileMutation = { __typename?: 'Mutation', setDefaultProfile?: any | null };
 
 export type SetProfileMetadataMutationVariables = Exact<{
   request: OnchainSetProfileMetadataRequest;
 }>;
 
-export type SetProfileMetadataMutation = {
-  __typename?: 'Mutation';
-  setProfileMetadata:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type SetProfileMetadataMutation = { __typename?: 'Mutation', setProfileMetadata: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type UnblockMutationVariables = Exact<{
   request: UnblockRequest;
 }>;
 
-export type UnblockMutation = {
-  __typename?: 'Mutation';
-  unblock:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type UnblockMutation = { __typename?: 'Mutation', unblock: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type UnfollowMutationVariables = Exact<{
   request: UnfollowRequest;
 }>;
 
-export type UnfollowMutation = {
-  __typename?: 'Mutation';
-  unfollow:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type UnfollowMutation = { __typename?: 'Mutation', unfollow: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type UnhideManagedProfileMutationVariables = Exact<{
   request: UnhideManagedProfileRequest;
 }>;
 
-export type UnhideManagedProfileMutation = {
-  __typename?: 'Mutation';
-  unhideManagedProfile?: any | null;
-};
+
+export type UnhideManagedProfileMutation = { __typename?: 'Mutation', unhideManagedProfile?: any | null };
 
 export type UnlinkHandleFromProfileMutationVariables = Exact<{
   request: UnlinkHandleFromProfileRequest;
 }>;
 
-export type UnlinkHandleFromProfileMutation = {
-  __typename?: 'Mutation';
-  unlinkHandleFromProfile:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type UnlinkHandleFromProfileMutation = { __typename?: 'Mutation', unlinkHandleFromProfile: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type CreateBlockProfilesTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: BlockRequest;
 }>;
 
-export type CreateBlockProfilesTypedDataMutation = {
-  __typename?: 'Mutation';
-  createBlockProfilesTypedData: {
-    __typename?: 'CreateBlockProfilesBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateBlockProfilesEIP712TypedData';
-      value: {
-        __typename?: 'CreateBlockProfilesEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        byProfileId: any;
-        idsOfProfilesToSetBlockStatus: Array<any>;
-        blockStatus: Array<boolean>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateBlockProfilesEIP712TypedDataTypes';
-        SetBlockStatus: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-    };
-  };
-};
+
+export type CreateBlockProfilesTypedDataMutation = { __typename?: 'Mutation', createBlockProfilesTypedData: { __typename?: 'CreateBlockProfilesBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateBlockProfilesEIP712TypedData', value: { __typename?: 'CreateBlockProfilesEIP712TypedDataValue', nonce: any, deadline: any, byProfileId: any, idsOfProfilesToSetBlockStatus: Array<any>, blockStatus: Array<boolean> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateBlockProfilesEIP712TypedDataTypes', SetBlockStatus: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> } } } };
 
 export type CreateChangeProfileManagersTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: ChangeProfileManagersRequest;
 }>;
 
-export type CreateChangeProfileManagersTypedDataMutation = {
-  __typename?: 'Mutation';
-  createChangeProfileManagersTypedData: {
-    __typename?: 'CreateChangeProfileManagersBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateChangeProfileManagersEIP712TypedData';
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateChangeProfileManagersEIP712TypedDataTypes';
-        ChangeDelegatedExecutorsConfig: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      value: {
-        __typename?: 'CreateChangeProfileManagersEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        delegatorProfileId: any;
-        delegatedExecutors: Array<any>;
-        approvals: Array<boolean>;
-        configNumber: number;
-        switchToGivenConfig: boolean;
-      };
-    };
-  };
-};
+
+export type CreateChangeProfileManagersTypedDataMutation = { __typename?: 'Mutation', createChangeProfileManagersTypedData: { __typename?: 'CreateChangeProfileManagersBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateChangeProfileManagersEIP712TypedData', domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateChangeProfileManagersEIP712TypedDataTypes', ChangeDelegatedExecutorsConfig: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, value: { __typename?: 'CreateChangeProfileManagersEIP712TypedDataValue', nonce: any, deadline: any, delegatorProfileId: any, delegatedExecutors: Array<any>, approvals: Array<boolean>, configNumber: number, switchToGivenConfig: boolean } } } };
 
 export type CreateFollowTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: FollowRequest;
 }>;
 
-export type CreateFollowTypedDataMutation = {
-  __typename?: 'Mutation';
-  createFollowTypedData: {
-    __typename?: 'CreateFollowBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateFollowEIP712TypedData';
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateFollowEIP712TypedDataTypes';
-        Follow: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      value: {
-        __typename?: 'CreateFollowEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        followerProfileId: any;
-        idsOfProfilesToFollow: Array<any>;
-        followTokenIds: Array<any>;
-        datas: Array<any>;
-      };
-    };
-  };
-};
+
+export type CreateFollowTypedDataMutation = { __typename?: 'Mutation', createFollowTypedData: { __typename?: 'CreateFollowBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateFollowEIP712TypedData', domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateFollowEIP712TypedDataTypes', Follow: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, value: { __typename?: 'CreateFollowEIP712TypedDataValue', nonce: any, deadline: any, followerProfileId: any, idsOfProfilesToFollow: Array<any>, followTokenIds: Array<any>, datas: Array<any> } } } };
 
 export type CreateLinkHandleToProfileTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: LinkHandleToProfileRequest;
 }>;
 
-export type CreateLinkHandleToProfileTypedDataMutation = {
-  __typename?: 'Mutation';
-  createLinkHandleToProfileTypedData: {
-    __typename?: 'CreateLinkHandleToProfileBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateLinkHandleToProfileEIP712TypedData';
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateLinkHandleToProfileEIP712TypedDataTypes';
-        Link: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      value: {
-        __typename?: 'CreateLinkHandleToProfileEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        handleId: any;
-        profileId: any;
-      };
-    };
-  };
-};
+
+export type CreateLinkHandleToProfileTypedDataMutation = { __typename?: 'Mutation', createLinkHandleToProfileTypedData: { __typename?: 'CreateLinkHandleToProfileBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateLinkHandleToProfileEIP712TypedData', domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateLinkHandleToProfileEIP712TypedDataTypes', Link: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, value: { __typename?: 'CreateLinkHandleToProfileEIP712TypedDataValue', nonce: any, deadline: any, handleId: any, profileId: any } } } };
 
 export type CreateOnchainSetProfileMetadataTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainSetProfileMetadataRequest;
 }>;
 
-export type CreateOnchainSetProfileMetadataTypedDataMutation = {
-  __typename?: 'Mutation';
-  createOnchainSetProfileMetadataTypedData: {
-    __typename?: 'CreateOnchainSetProfileMetadataBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateOnchainSetProfileMetadataEIP712TypedData';
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateOnchainSetProfileMetadataEIP712TypedDataTypes';
-        SetProfileMetadataURI: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      value: {
-        __typename?: 'CreateOnchainSetProfileMetadataEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        metadataURI: any;
-      };
-    };
-  };
-};
+
+export type CreateOnchainSetProfileMetadataTypedDataMutation = { __typename?: 'Mutation', createOnchainSetProfileMetadataTypedData: { __typename?: 'CreateOnchainSetProfileMetadataBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateOnchainSetProfileMetadataEIP712TypedData', domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateOnchainSetProfileMetadataEIP712TypedDataTypes', SetProfileMetadataURI: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, value: { __typename?: 'CreateOnchainSetProfileMetadataEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, metadataURI: any } } } };
 
 export type CreateSetFollowModuleTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: SetFollowModuleRequest;
 }>;
 
-export type CreateSetFollowModuleTypedDataMutation = {
-  __typename?: 'Mutation';
-  createSetFollowModuleTypedData: {
-    __typename?: 'CreateSetFollowModuleBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateSetFollowModuleEIP712TypedData';
-      types: {
-        __typename?: 'CreateSetFollowModuleEIP712TypedDataTypes';
-        SetFollowModule: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateSetFollowModuleEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        followModule: any;
-        followModuleInitData: any;
-      };
-    };
-  };
-};
+
+export type CreateSetFollowModuleTypedDataMutation = { __typename?: 'Mutation', createSetFollowModuleTypedData: { __typename?: 'CreateSetFollowModuleBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateSetFollowModuleEIP712TypedData', types: { __typename?: 'CreateSetFollowModuleEIP712TypedDataTypes', SetFollowModule: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateSetFollowModuleEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, followModule: any, followModuleInitData: any } } } };
 
 export type CreateUnblockProfilesTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: UnblockRequest;
 }>;
 
-export type CreateUnblockProfilesTypedDataMutation = {
-  __typename?: 'Mutation';
-  createUnblockProfilesTypedData: {
-    __typename?: 'CreateUnblockProfilesBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateUnblockProfilesEIP712TypedData';
-      types: {
-        __typename?: 'CreateUnblockProfilesEIP712TypedDataTypes';
-        SetBlockStatus: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateUnblockProfilesEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        byProfileId: any;
-        idsOfProfilesToSetBlockStatus: Array<any>;
-        blockStatus: Array<boolean>;
-      };
-    };
-  };
-};
+
+export type CreateUnblockProfilesTypedDataMutation = { __typename?: 'Mutation', createUnblockProfilesTypedData: { __typename?: 'CreateUnblockProfilesBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateUnblockProfilesEIP712TypedData', types: { __typename?: 'CreateUnblockProfilesEIP712TypedDataTypes', SetBlockStatus: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateUnblockProfilesEIP712TypedDataValue', nonce: any, deadline: any, byProfileId: any, idsOfProfilesToSetBlockStatus: Array<any>, blockStatus: Array<boolean> } } } };
 
 export type CreateUnfollowTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: UnfollowRequest;
 }>;
 
-export type CreateUnfollowTypedDataMutation = {
-  __typename?: 'Mutation';
-  createUnfollowTypedData: {
-    __typename?: 'CreateUnfollowBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateUnfollowEIP712TypedData';
-      types: {
-        __typename?: 'CreateUnfollowEIP712TypedDataTypes';
-        Unfollow: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateUnfollowEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        unfollowerProfileId: any;
-        idsOfProfilesToUnfollow: Array<any>;
-      };
-    };
-  };
-};
+
+export type CreateUnfollowTypedDataMutation = { __typename?: 'Mutation', createUnfollowTypedData: { __typename?: 'CreateUnfollowBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateUnfollowEIP712TypedData', types: { __typename?: 'CreateUnfollowEIP712TypedDataTypes', Unfollow: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateUnfollowEIP712TypedDataValue', nonce: any, deadline: any, unfollowerProfileId: any, idsOfProfilesToUnfollow: Array<any> } } } };
 
 export type CreateUnlinkHandleFromProfileTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: UnlinkHandleFromProfileRequest;
 }>;
 
-export type CreateUnlinkHandleFromProfileTypedDataMutation = {
-  __typename?: 'Mutation';
-  createUnlinkHandleFromProfileTypedData: {
-    __typename?: 'CreateUnlinkHandleFromProfileBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateUnlinkHandleFromProfileEIP712TypedData';
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateUnlinkHandleFromProfileEIP712TypedDataTypes';
-        Unlink: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      value: {
-        __typename?: 'CreateUnlinkHandleFromProfileEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        handleId: any;
-        profileId: any;
-      };
-    };
-  };
-};
+
+export type CreateUnlinkHandleFromProfileTypedDataMutation = { __typename?: 'Mutation', createUnlinkHandleFromProfileTypedData: { __typename?: 'CreateUnlinkHandleFromProfileBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateUnlinkHandleFromProfileEIP712TypedData', domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateUnlinkHandleFromProfileEIP712TypedDataTypes', Unlink: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, value: { __typename?: 'CreateUnlinkHandleFromProfileEIP712TypedDataValue', nonce: any, deadline: any, handleId: any, profileId: any } } } };
 
 export type ActOnOpenActionMutationVariables = Exact<{
   request: ActOnOpenActionLensManagerRequest;
 }>;
 
-export type ActOnOpenActionMutation = {
-  __typename?: 'Mutation';
-  actOnOpenAction:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type ActOnOpenActionMutation = { __typename?: 'Mutation', actOnOpenAction: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type AddPublicationBookmarkMutationVariables = Exact<{
   request: PublicationBookmarkRequest;
 }>;
 
-export type AddPublicationBookmarkMutation = {
-  __typename?: 'Mutation';
-  addPublicationBookmark?: any | null;
-};
+
+export type AddPublicationBookmarkMutation = { __typename?: 'Mutation', addPublicationBookmark?: any | null };
 
 export type AddPublicationNotInterestedMutationVariables = Exact<{
   request: PublicationNotInterestedRequest;
 }>;
 
-export type AddPublicationNotInterestedMutation = {
-  __typename?: 'Mutation';
-  addPublicationNotInterested?: any | null;
-};
+
+export type AddPublicationNotInterestedMutation = { __typename?: 'Mutation', addPublicationNotInterested?: any | null };
 
 export type AddReactionMutationVariables = Exact<{
   request: ReactionRequest;
 }>;
 
-export type AddReactionMutation = {
-  __typename?: 'Mutation';
-  addReaction?: any | null;
-};
+
+export type AddReactionMutation = { __typename?: 'Mutation', addReaction?: any | null };
 
 export type HideCommentMutationVariables = Exact<{
   request: HideCommentRequest;
 }>;
 
-export type HideCommentMutation = {
-  __typename?: 'Mutation';
-  hideComment?: any | null;
-};
+
+export type HideCommentMutation = { __typename?: 'Mutation', hideComment?: any | null };
 
 export type HidePublicationMutationVariables = Exact<{
   request: HidePublicationRequest;
 }>;
 
-export type HidePublicationMutation = {
-  __typename?: 'Mutation';
-  hidePublication?: any | null;
-};
+
+export type HidePublicationMutation = { __typename?: 'Mutation', hidePublication?: any | null };
 
 export type ModDisputeReportMutationVariables = Exact<{
   request: ModDisputeReportRequest;
 }>;
 
-export type ModDisputeReportMutation = {
-  __typename?: 'Mutation';
-  modDisputeReport?: any | null;
-};
+
+export type ModDisputeReportMutation = { __typename?: 'Mutation', modDisputeReport?: any | null };
 
 export type RemovePublicationBookmarkMutationVariables = Exact<{
   request: PublicationBookmarkRequest;
 }>;
 
-export type RemovePublicationBookmarkMutation = {
-  __typename?: 'Mutation';
-  removePublicationBookmark?: any | null;
-};
+
+export type RemovePublicationBookmarkMutation = { __typename?: 'Mutation', removePublicationBookmark?: any | null };
 
 export type RemoveReactionMutationVariables = Exact<{
   request: ReactionRequest;
 }>;
 
-export type RemoveReactionMutation = {
-  __typename?: 'Mutation';
-  removeReaction?: any | null;
-};
+
+export type RemoveReactionMutation = { __typename?: 'Mutation', removeReaction?: any | null };
 
 export type ReportPublicationMutationVariables = Exact<{
   request: ReportPublicationRequest;
 }>;
 
-export type ReportPublicationMutation = {
-  __typename?: 'Mutation';
-  reportPublication?: any | null;
-};
+
+export type ReportPublicationMutation = { __typename?: 'Mutation', reportPublication?: any | null };
 
 export type UndoPublicationNotInterestedMutationVariables = Exact<{
   request: PublicationNotInterestedRequest;
 }>;
 
-export type UndoPublicationNotInterestedMutation = {
-  __typename?: 'Mutation';
-  undoPublicationNotInterested?: any | null;
-};
+
+export type UndoPublicationNotInterestedMutation = { __typename?: 'Mutation', undoPublicationNotInterested?: any | null };
 
 export type UnhideCommentMutationVariables = Exact<{
   request: UnhideCommentRequest;
 }>;
 
-export type UnhideCommentMutation = {
-  __typename?: 'Mutation';
-  unhideComment?: any | null;
-};
+
+export type UnhideCommentMutation = { __typename?: 'Mutation', unhideComment?: any | null };
 
 export type SignFrameActionMutationVariables = Exact<{
   request: FrameLensManagerEip712Request;
 }>;
 
-export type SignFrameActionMutation = {
-  __typename?: 'Mutation';
-  signFrameAction: {
-    __typename?: 'FrameLensManagerSignatureResult';
-    signature: any;
-  };
-};
+
+export type SignFrameActionMutation = { __typename?: 'Mutation', signFrameAction: { __typename?: 'FrameLensManagerSignatureResult', signature: any } };
 
 export type CommentOnMomokaMutationVariables = Exact<{
   request: MomokaCommentRequest;
 }>;
 
-export type CommentOnMomokaMutation = {
-  __typename?: 'Mutation';
-  commentOnMomoka:
-    | { __typename?: 'CreateMomokaPublicationResult'; id: any }
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      };
-};
+
+export type CommentOnMomokaMutation = { __typename?: 'Mutation', commentOnMomoka: { __typename?: 'CreateMomokaPublicationResult', id: any } | { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } };
 
 export type MirrorOnMomokaMutationVariables = Exact<{
   request: MomokaMirrorRequest;
 }>;
 
-export type MirrorOnMomokaMutation = {
-  __typename?: 'Mutation';
-  mirrorOnMomoka:
-    | { __typename?: 'CreateMomokaPublicationResult'; id: any }
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      };
-};
+
+export type MirrorOnMomokaMutation = { __typename?: 'Mutation', mirrorOnMomoka: { __typename?: 'CreateMomokaPublicationResult', id: any } | { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } };
 
 export type PostOnMomokaMutationVariables = Exact<{
   request: MomokaPostRequest;
 }>;
 
-export type PostOnMomokaMutation = {
-  __typename?: 'Mutation';
-  postOnMomoka:
-    | { __typename?: 'CreateMomokaPublicationResult'; id: any }
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      };
-};
+
+export type PostOnMomokaMutation = { __typename?: 'Mutation', postOnMomoka: { __typename?: 'CreateMomokaPublicationResult', id: any } | { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } };
 
 export type QuoteOnMomokaMutationVariables = Exact<{
   request: MomokaQuoteRequest;
 }>;
 
-export type QuoteOnMomokaMutation = {
-  __typename?: 'Mutation';
-  quoteOnMomoka:
-    | { __typename?: 'CreateMomokaPublicationResult'; id: any }
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      };
-};
+
+export type QuoteOnMomokaMutation = { __typename?: 'Mutation', quoteOnMomoka: { __typename?: 'CreateMomokaPublicationResult', id: any } | { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } };
 
 export type CommentOnchainMutationVariables = Exact<{
   request: OnchainCommentRequest;
 }>;
 
-export type CommentOnchainMutation = {
-  __typename?: 'Mutation';
-  commentOnchain:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type CommentOnchainMutation = { __typename?: 'Mutation', commentOnchain: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type MirrorOnchainMutationVariables = Exact<{
   request: OnchainMirrorRequest;
 }>;
 
-export type MirrorOnchainMutation = {
-  __typename?: 'Mutation';
-  mirrorOnchain:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type MirrorOnchainMutation = { __typename?: 'Mutation', mirrorOnchain: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type PostOnchainMutationVariables = Exact<{
   request: OnchainPostRequest;
 }>;
 
-export type PostOnchainMutation = {
-  __typename?: 'Mutation';
-  postOnchain:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type PostOnchainMutation = { __typename?: 'Mutation', postOnchain: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type QuoteOnchainMutationVariables = Exact<{
   request: OnchainQuoteRequest;
 }>;
 
-export type QuoteOnchainMutation = {
-  __typename?: 'Mutation';
-  quoteOnchain:
-    | {
-        __typename?: 'LensProfileManagerRelayError';
-        reason: LensProfileManagerRelayErrorReasonType;
-      }
-    | { __typename?: 'RelaySuccess'; txId: any };
-};
+
+export type QuoteOnchainMutation = { __typename?: 'Mutation', quoteOnchain: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
 
 export type CreateMomokaCommentTypedDataMutationVariables = Exact<{
   request: MomokaCommentRequest;
 }>;
 
-export type CreateMomokaCommentTypedDataMutation = {
-  __typename?: 'Mutation';
-  createMomokaCommentTypedData: {
-    __typename?: 'CreateMomokaCommentBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateMomokaCommentEIP712TypedData';
-      types: {
-        __typename?: 'CreateMomokaCommentEIP712TypedDataTypes';
-        Comment: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateMomokaCommentEIP712TypedDataValue';
-        actionModules: Array<any>;
-        actionModulesInitDatas: Array<any>;
-        contentURI: any;
-        deadline: any;
-        nonce: any;
-        pointedProfileId: any;
-        pointedPubId: any;
-        profileId: any;
-        referenceModule: any;
-        referenceModuleData: any;
-        referenceModuleInitData: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-      };
-    };
-  };
-};
+
+export type CreateMomokaCommentTypedDataMutation = { __typename?: 'Mutation', createMomokaCommentTypedData: { __typename?: 'CreateMomokaCommentBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateMomokaCommentEIP712TypedData', types: { __typename?: 'CreateMomokaCommentEIP712TypedDataTypes', Comment: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateMomokaCommentEIP712TypedDataValue', actionModules: Array<any>, actionModulesInitDatas: Array<any>, contentURI: any, deadline: any, nonce: any, pointedProfileId: any, pointedPubId: any, profileId: any, referenceModule: any, referenceModuleData: any, referenceModuleInitData: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any> } } } };
 
 export type CreateMomokaMirrorTypedDataMutationVariables = Exact<{
   request: MomokaMirrorRequest;
 }>;
 
-export type CreateMomokaMirrorTypedDataMutation = {
-  __typename?: 'Mutation';
-  createMomokaMirrorTypedData: {
-    __typename?: 'CreateMomokaMirrorBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateMomokaMirrorEIP712TypedData';
-      types: {
-        __typename?: 'CreateMomokaMirrorEIP712TypedDataTypes';
-        Mirror: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateMomokaMirrorEIP712TypedDataValue';
-        nonce: any;
-        metadataURI: string;
-        deadline: any;
-        profileId: any;
-        pointedProfileId: any;
-        pointedPubId: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-        referenceModuleData: any;
-      };
-    };
-  };
-};
+
+export type CreateMomokaMirrorTypedDataMutation = { __typename?: 'Mutation', createMomokaMirrorTypedData: { __typename?: 'CreateMomokaMirrorBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateMomokaMirrorEIP712TypedData', types: { __typename?: 'CreateMomokaMirrorEIP712TypedDataTypes', Mirror: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateMomokaMirrorEIP712TypedDataValue', nonce: any, metadataURI: string, deadline: any, profileId: any, pointedProfileId: any, pointedPubId: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any>, referenceModuleData: any } } } };
 
 export type CreateMomokaPostTypedDataMutationVariables = Exact<{
   request: MomokaPostRequest;
 }>;
 
-export type CreateMomokaPostTypedDataMutation = {
-  __typename?: 'Mutation';
-  createMomokaPostTypedData: {
-    __typename?: 'CreateMomokaPostBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateMomokaPostEIP712TypedData';
-      types: {
-        __typename?: 'CreateMomokaPostEIP712TypedDataTypes';
-        Post: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateMomokaPostEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        contentURI: any;
-        actionModules: Array<any>;
-        actionModulesInitDatas: Array<any>;
-        referenceModule: any;
-        referenceModuleInitData: any;
-      };
-    };
-  };
-};
+
+export type CreateMomokaPostTypedDataMutation = { __typename?: 'Mutation', createMomokaPostTypedData: { __typename?: 'CreateMomokaPostBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateMomokaPostEIP712TypedData', types: { __typename?: 'CreateMomokaPostEIP712TypedDataTypes', Post: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateMomokaPostEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, contentURI: any, actionModules: Array<any>, actionModulesInitDatas: Array<any>, referenceModule: any, referenceModuleInitData: any } } } };
 
 export type CreateMomokaQuoteTypedDataMutationVariables = Exact<{
   request: MomokaQuoteRequest;
 }>;
 
-export type CreateMomokaQuoteTypedDataMutation = {
-  __typename?: 'Mutation';
-  createMomokaQuoteTypedData: {
-    __typename?: 'CreateMomokaQuoteBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateMomokaQuoteEIP712TypedData';
-      types: {
-        __typename?: 'CreateMomokaQuoteEIP712TypedDataTypes';
-        Quote: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateMomokaQuoteEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        contentURI: any;
-        pointedProfileId: any;
-        pointedPubId: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-        actionModules: Array<any>;
-        actionModulesInitDatas: Array<any>;
-        referenceModule: any;
-        referenceModuleData: any;
-        referenceModuleInitData: any;
-      };
-    };
-  };
-};
+
+export type CreateMomokaQuoteTypedDataMutation = { __typename?: 'Mutation', createMomokaQuoteTypedData: { __typename?: 'CreateMomokaQuoteBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateMomokaQuoteEIP712TypedData', types: { __typename?: 'CreateMomokaQuoteEIP712TypedDataTypes', Quote: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateMomokaQuoteEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, contentURI: any, pointedProfileId: any, pointedPubId: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any>, actionModules: Array<any>, actionModulesInitDatas: Array<any>, referenceModule: any, referenceModuleData: any, referenceModuleInitData: any } } } };
 
 export type CreateActOnOpenActionTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: ActOnOpenActionRequest;
 }>;
 
-export type CreateActOnOpenActionTypedDataMutation = {
-  __typename?: 'Mutation';
-  createActOnOpenActionTypedData: {
-    __typename?: 'CreateActOnOpenActionBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateActOnOpenActionEIP712TypedData';
-      types: {
-        __typename?: 'CreateActOnOpenActionEIP712TypedDataTypes';
-        Act: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateActOnOpenActionEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        publicationActedProfileId: any;
-        publicationActedId: any;
-        actorProfileId: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-        actionModuleAddress: any;
-        actionModuleData: any;
-      };
-    };
-  };
-};
+
+export type CreateActOnOpenActionTypedDataMutation = { __typename?: 'Mutation', createActOnOpenActionTypedData: { __typename?: 'CreateActOnOpenActionBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateActOnOpenActionEIP712TypedData', types: { __typename?: 'CreateActOnOpenActionEIP712TypedDataTypes', Act: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateActOnOpenActionEIP712TypedDataValue', nonce: any, deadline: any, publicationActedProfileId: any, publicationActedId: any, actorProfileId: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any>, actionModuleAddress: any, actionModuleData: any } } } };
 
 export type CreateOnchainCommentTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainCommentRequest;
 }>;
 
-export type CreateOnchainCommentTypedDataMutation = {
-  __typename?: 'Mutation';
-  createOnchainCommentTypedData: {
-    __typename?: 'CreateOnchainCommentBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateOnchainCommentEIP712TypedData';
-      types: {
-        __typename?: 'CreateOnchainCommentEIP712TypedDataTypes';
-        Comment: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateOnchainCommentEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        contentURI: any;
-        pointedProfileId: any;
-        pointedPubId: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-        referenceModuleData: any;
-        actionModules: Array<any>;
-        actionModulesInitDatas: Array<any>;
-        referenceModule: any;
-        referenceModuleInitData: any;
-      };
-    };
-  };
-};
+
+export type CreateOnchainCommentTypedDataMutation = { __typename?: 'Mutation', createOnchainCommentTypedData: { __typename?: 'CreateOnchainCommentBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateOnchainCommentEIP712TypedData', types: { __typename?: 'CreateOnchainCommentEIP712TypedDataTypes', Comment: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateOnchainCommentEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, contentURI: any, pointedProfileId: any, pointedPubId: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any>, referenceModuleData: any, actionModules: Array<any>, actionModulesInitDatas: Array<any>, referenceModule: any, referenceModuleInitData: any } } } };
 
 export type CreateOnchainMirrorTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainMirrorRequest;
 }>;
 
-export type CreateOnchainMirrorTypedDataMutation = {
-  __typename?: 'Mutation';
-  createOnchainMirrorTypedData: {
-    __typename?: 'CreateOnchainMirrorBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateOnchainMirrorEIP712TypedData';
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      types: {
-        __typename?: 'CreateOnchainMirrorEIP712TypedDataTypes';
-        Mirror: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      value: {
-        __typename?: 'CreateOnchainMirrorEIP712TypedDataValue';
-        nonce: any;
-        metadataURI: string;
-        deadline: any;
-        profileId: any;
-        pointedProfileId: any;
-        pointedPubId: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-        referenceModuleData: any;
-      };
-    };
-  };
-};
+
+export type CreateOnchainMirrorTypedDataMutation = { __typename?: 'Mutation', createOnchainMirrorTypedData: { __typename?: 'CreateOnchainMirrorBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateOnchainMirrorEIP712TypedData', domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, types: { __typename?: 'CreateOnchainMirrorEIP712TypedDataTypes', Mirror: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, value: { __typename?: 'CreateOnchainMirrorEIP712TypedDataValue', nonce: any, metadataURI: string, deadline: any, profileId: any, pointedProfileId: any, pointedPubId: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any>, referenceModuleData: any } } } };
 
 export type CreateOnchainPostTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainPostRequest;
 }>;
 
-export type CreateOnchainPostTypedDataMutation = {
-  __typename?: 'Mutation';
-  createOnchainPostTypedData: {
-    __typename?: 'CreateOnchainPostBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateOnchainPostEIP712TypedData';
-      types: {
-        __typename?: 'CreateOnchainPostEIP712TypedDataTypes';
-        Post: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateOnchainPostEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        contentURI: any;
-        actionModules: Array<any>;
-        actionModulesInitDatas: Array<any>;
-        referenceModule: any;
-        referenceModuleInitData: any;
-      };
-    };
-  };
-};
+
+export type CreateOnchainPostTypedDataMutation = { __typename?: 'Mutation', createOnchainPostTypedData: { __typename?: 'CreateOnchainPostBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateOnchainPostEIP712TypedData', types: { __typename?: 'CreateOnchainPostEIP712TypedDataTypes', Post: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateOnchainPostEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, contentURI: any, actionModules: Array<any>, actionModulesInitDatas: Array<any>, referenceModule: any, referenceModuleInitData: any } } } };
 
 export type CreateOnchainQuoteTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: OnchainQuoteRequest;
 }>;
 
-export type CreateOnchainQuoteTypedDataMutation = {
-  __typename?: 'Mutation';
-  createOnchainQuoteTypedData: {
-    __typename?: 'CreateOnchainQuoteBroadcastItemResult';
-    id: any;
-    expiresAt: any;
-    typedData: {
-      __typename?: 'CreateOnchainQuoteEIP712TypedData';
-      types: {
-        __typename?: 'CreateOnchainQuoteEIP712TypedDataTypes';
-        Quote: Array<{
-          __typename?: 'EIP712TypedDataField';
-          name: string;
-          type: string;
-        }>;
-      };
-      domain: {
-        __typename?: 'EIP712TypedDataDomain';
-        name: string;
-        chainId: any;
-        version: string;
-        verifyingContract: any;
-      };
-      value: {
-        __typename?: 'CreateOnchainQuoteEIP712TypedDataValue';
-        nonce: any;
-        deadline: any;
-        profileId: any;
-        contentURI: any;
-        pointedProfileId: any;
-        pointedPubId: any;
-        referrerProfileIds: Array<any>;
-        referrerPubIds: Array<any>;
-        referenceModuleData: any;
-        actionModules: Array<any>;
-        actionModulesInitDatas: Array<any>;
-        referenceModule: any;
-        referenceModuleInitData: any;
-      };
-    };
-  };
-};
+
+export type CreateOnchainQuoteTypedDataMutation = { __typename?: 'Mutation', createOnchainQuoteTypedData: { __typename?: 'CreateOnchainQuoteBroadcastItemResult', id: any, expiresAt: any, typedData: { __typename?: 'CreateOnchainQuoteEIP712TypedData', types: { __typename?: 'CreateOnchainQuoteEIP712TypedDataTypes', Quote: Array<{ __typename?: 'EIP712TypedDataField', name: string, type: string }> }, domain: { __typename?: 'EIP712TypedDataDomain', name: string, chainId: any, version: string, verifyingContract: any }, value: { __typename?: 'CreateOnchainQuoteEIP712TypedDataValue', nonce: any, deadline: any, profileId: any, contentURI: any, pointedProfileId: any, pointedPubId: any, referrerProfileIds: Array<any>, referrerPubIds: Array<any>, referenceModuleData: any, actionModules: Array<any>, actionModulesInitDatas: Array<any>, referenceModule: any, referenceModuleInitData: any } } } };
 
 export type ApprovedAuthenticationsQueryVariables = Exact<{
   request: ApprovedAuthenticationRequest;
 }>;
 
-export type ApprovedAuthenticationsQuery = {
-  __typename?: 'Query';
-  approvedAuthentications: {
-    __typename?: 'PaginatedApprovedAuthenticationResult';
-    items: Array<{
-      __typename?: 'ApprovedAuthentication';
-      authorizationId: any;
-      browser?: string | null;
-      os?: string | null;
-      origin?: any | null;
-      expiresAt: any;
-      createdAt: any;
-      updatedAt: any;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ApprovedAuthenticationsQuery = { __typename?: 'Query', approvedAuthentications: { __typename?: 'PaginatedApprovedAuthenticationResult', items: Array<{ __typename?: 'ApprovedAuthentication', authorizationId: any, browser?: string | null, os?: string | null, origin?: any | null, expiresAt: any, createdAt: any, updatedAt: any }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ApprovedModuleAllowanceAmountQueryVariables = Exact<{
   request: ApprovedModuleAllowanceAmountRequest;
 }>;
 
-export type ApprovedModuleAllowanceAmountQuery = {
-  __typename?: 'Query';
-  approvedModuleAllowanceAmount: Array<{
-    __typename?: 'ApprovedAllowanceAmountResult';
-    moduleName: string;
-    allowance: {
-      __typename?: 'Amount';
-      value: string;
-      asset: { __typename?: 'Erc20' } & Erc20FieldsFragment;
-    };
-    moduleContract: {
-      __typename?: 'NetworkAddress';
-    } & NetworkAddressFieldsFragment;
-  }>;
-};
+
+export type ApprovedModuleAllowanceAmountQuery = { __typename?: 'Query', approvedModuleAllowanceAmount: Array<{ __typename?: 'ApprovedAllowanceAmountResult', moduleName: string, allowance: { __typename?: 'Amount', value: string, asset: (
+        { __typename?: 'Erc20' }
+        & Erc20FieldsFragment
+      ) }, moduleContract: (
+      { __typename?: 'NetworkAddress' }
+      & NetworkAddressFieldsFragment
+    ) }> };
 
 export type ChallengeQueryVariables = Exact<{
   request: ChallengeRequest;
 }>;
 
-export type ChallengeQuery = {
-  __typename?: 'Query';
-  challenge: { __typename?: 'AuthChallengeResult'; id: any; text: string };
-};
+
+export type ChallengeQuery = { __typename?: 'Query', challenge: { __typename?: 'AuthChallengeResult', id: any, text: string } };
 
 export type CurrentProfileQueryVariables = Exact<{
   request: ProfileRequest;
 }>;
 
-export type CurrentProfileQuery = {
-  __typename?: 'Query';
-  profile?:
-    | ({
-        __typename?: 'Profile';
-        handle?:
-          | ({
-              __typename?: 'HandleInfo';
-              guardian: {
-                __typename?: 'HandleGuardianResult';
-                cooldownEndsOn?: any | null;
-                protected: boolean;
-              };
-            } & HandleInfoFieldsFragment)
-          | null;
-        guardian?: {
-          __typename?: 'ProfileGuardianResult';
-          protected: boolean;
-          cooldownEndsOn?: any | null;
-        } | null;
-      } & ProfileFieldsFragment)
-    | null;
-  userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnchainSigNonce: any };
-};
+
+export type CurrentProfileQuery = { __typename?: 'Query', profile?: (
+    { __typename?: 'Profile', handle?: (
+      { __typename?: 'HandleInfo', guardian: { __typename?: 'HandleGuardianResult', cooldownEndsOn?: any | null, protected: boolean } }
+      & HandleInfoFieldsFragment
+    ) | null, guardian?: { __typename?: 'ProfileGuardianResult', protected: boolean, cooldownEndsOn?: any | null } | null }
+    & ProfileFieldsFragment
+  ) | null, userSigNonces: { __typename?: 'UserSigNonces', lensHubOnchainSigNonce: any } };
 
 export type DefaultProfileQueryVariables = Exact<{
   request: DefaultProfileRequest;
 }>;
 
-export type DefaultProfileQuery = {
-  __typename?: 'Query';
-  defaultProfile?: ({ __typename?: 'Profile' } & ProfileFieldsFragment) | null;
-};
+
+export type DefaultProfileQuery = { __typename?: 'Query', defaultProfile?: (
+    { __typename?: 'Profile' }
+    & ProfileFieldsFragment
+  ) | null };
 
 export type ExploreProfilesQueryVariables = Exact<{
   request: ExploreProfilesRequest;
 }>;
 
-export type ExploreProfilesQuery = {
-  __typename?: 'Query';
-  exploreProfiles: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ExploreProfilesQuery = { __typename?: 'Query', exploreProfiles: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ExplorePublicationsQueryVariables = Exact<{
   request: ExplorePublicationRequest;
 }>;
 
-export type ExplorePublicationsQuery = {
-  __typename?: 'Query';
-  explorePublications: {
-    __typename?: 'PaginatedExplorePublicationResult';
-    items: Array<
-      | ({ __typename?: 'Post' } & PostFieldsFragment)
-      | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ExplorePublicationsQuery = { __typename?: 'Query', explorePublications: { __typename?: 'PaginatedExplorePublicationResult', items: Array<(
+      { __typename?: 'Post' }
+      & PostFieldsFragment
+    ) | (
+      { __typename?: 'Quote' }
+      & QuoteFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type FeedQueryVariables = Exact<{
   request: FeedRequest;
 }>;
 
-export type FeedQuery = {
-  __typename?: 'Query';
-  feed: {
-    __typename?: 'PaginatedFeedResult';
-    items: Array<{
-      __typename?: 'FeedItem';
-      id: string;
-      root:
-        | { __typename?: 'Comment'; id: any }
-        | ({ __typename?: 'Post' } & PostFieldsFragment)
-        | ({ __typename?: 'Quote' } & QuoteFieldsFragment);
-      mirrors: Array<{
-        __typename?: 'Mirror';
-        by: { __typename?: 'Profile' } & PublicationProfileFieldsFragment;
-      }>;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type FeedQuery = { __typename?: 'Query', feed: { __typename?: 'PaginatedFeedResult', items: Array<{ __typename?: 'FeedItem', id: string, root: { __typename?: 'Comment', id: any } | (
+        { __typename?: 'Post' }
+        & PostFieldsFragment
+      ) | (
+        { __typename?: 'Quote' }
+        & QuoteFieldsFragment
+      ), mirrors: Array<{ __typename?: 'Mirror', by: (
+          { __typename?: 'Profile' }
+          & PublicationProfileFieldsFragment
+        ) }> }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type FollowRevenuesQueryVariables = Exact<{
   request: FollowRevenueRequest;
 }>;
 
-export type FollowRevenuesQuery = {
-  __typename?: 'Query';
-  followRevenues: {
-    __typename?: 'FollowRevenueResult';
-    revenues: Array<{
-      __typename?: 'RevenueAggregate';
-      total: { __typename?: 'Amount' } & AmountFieldsFragment;
-    }>;
-  };
-};
+
+export type FollowRevenuesQuery = { __typename?: 'Query', followRevenues: { __typename?: 'FollowRevenueResult', revenues: Array<{ __typename?: 'RevenueAggregate', total: (
+        { __typename?: 'Amount' }
+        & AmountFieldsFragment
+      ) }> } };
 
 export type FollowersQueryVariables = Exact<{
   request: FollowersRequest;
 }>;
 
-export type FollowersQuery = {
-  __typename?: 'Query';
-  followers: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type FollowersQuery = { __typename?: 'Query', followers: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type FollowingQueryVariables = Exact<{
   request: FollowingRequest;
 }>;
 
-export type FollowingQuery = {
-  __typename?: 'Query';
-  following: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type FollowingQuery = { __typename?: 'Query', following: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ForYouQueryVariables = Exact<{
   request: PublicationForYouRequest;
 }>;
 
-export type ForYouQuery = {
-  __typename?: 'Query';
-  forYou: {
-    __typename?: 'PaginatedForYouResult';
-    items: Array<{
-      __typename?: 'ForYouResult';
-      source: ForYouSource;
-      publication:
-        | ({ __typename?: 'Post' } & PostFieldsFragment)
-        | ({ __typename?: 'Quote' } & QuoteFieldsFragment);
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
 
-export type GenerateLensApiRelayAddressQueryVariables = Exact<{
-  [key: string]: never;
-}>;
+export type ForYouQuery = { __typename?: 'Query', forYou: { __typename?: 'PaginatedForYouResult', items: Array<{ __typename?: 'ForYouResult', source: ForYouSource, publication: (
+        { __typename?: 'Post' }
+        & PostFieldsFragment
+      ) | (
+        { __typename?: 'Quote' }
+        & QuoteFieldsFragment
+      ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type GenerateLensApiRelayAddressQuery = {
-  __typename?: 'Query';
-  generateLensAPIRelayAddress: any;
-};
+export type GenerateLensApiRelayAddressQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GenerateLensApiRelayAddressQuery = { __typename?: 'Query', generateLensAPIRelayAddress: any };
 
 export type GenerateModuleCurrencyApprovalDataQueryVariables = Exact<{
   request: GenerateModuleCurrencyApprovalDataRequest;
 }>;
 
-export type GenerateModuleCurrencyApprovalDataQuery = {
-  __typename?: 'Query';
-  generateModuleCurrencyApprovalData: {
-    __typename?: 'GenerateModuleCurrencyApprovalResult';
-    to: any;
-    from: any;
-    data: any;
-  };
-};
+
+export type GenerateModuleCurrencyApprovalDataQuery = { __typename?: 'Query', generateModuleCurrencyApprovalData: { __typename?: 'GenerateModuleCurrencyApprovalResult', to: any, from: any, data: any } };
 
 export type HandleToAddressQueryVariables = Exact<{
   request: HandleToAddressRequest;
 }>;
 
-export type HandleToAddressQuery = {
-  __typename?: 'Query';
-  handleToAddress?: any | null;
-};
+
+export type HandleToAddressQuery = { __typename?: 'Query', handleToAddress?: any | null };
 
 export type LatestPaidActionsQueryVariables = Exact<{
   request: PaginatedRequest;
 }>;
 
-export type LatestPaidActionsQuery = {
-  __typename?: 'Query';
-  latestPaidActions: {
-    __typename?: 'LatestPaidActionsResult';
-    items: Array<
-      | { __typename?: 'FollowPaidAction' }
-      | {
-          __typename?: 'OpenActionPaidAction';
-          actedOn:
-            | ({ __typename?: 'Comment' } & CommentBaseFieldsFragment)
-            | ({ __typename?: 'Post' } & PostFieldsFragment)
-            | ({ __typename?: 'Quote' } & QuoteBaseFieldsFragment);
-          latestActed: Array<{
-            __typename?: 'LatestActed';
-            actedAt: any;
-            profile: {
-              __typename?: 'Profile';
-            } & PublicationProfileFieldsFragment;
-          }>;
-        }
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type LatestPaidActionsQuery = { __typename?: 'Query', latestPaidActions: { __typename?: 'LatestPaidActionsResult', items: Array<{ __typename?: 'FollowPaidAction' } | { __typename?: 'OpenActionPaidAction', actedOn: (
+        { __typename?: 'Comment' }
+        & CommentBaseFieldsFragment
+      ) | (
+        { __typename?: 'Post' }
+        & PostFieldsFragment
+      ) | (
+        { __typename?: 'Quote' }
+        & QuoteBaseFieldsFragment
+      ), latestActed: Array<{ __typename?: 'LatestActed', actedAt: any, profile: (
+          { __typename?: 'Profile' }
+          & PublicationProfileFieldsFragment
+        ) }> }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type LensTransactionStatusQueryVariables = Exact<{
   request: LensTransactionStatusRequest;
 }>;
 
-export type LensTransactionStatusQuery = {
-  __typename?: 'Query';
-  lensTransactionStatus?: {
-    __typename?: 'LensTransactionResult';
-    status: LensTransactionStatusType;
-    txHash: any;
-    reason?: LensTransactionFailureType | null;
-    extraInfo?: string | null;
-  } | null;
-};
+
+export type LensTransactionStatusQuery = { __typename?: 'Query', lensTransactionStatus?: { __typename?: 'LensTransactionResult', status: LensTransactionStatusType, txHash: any, reason?: LensTransactionFailureType | null, extraInfo?: string | null } | null };
 
 export type ModExplorePublicationsQueryVariables = Exact<{
   request: ModExplorePublicationRequest;
 }>;
 
-export type ModExplorePublicationsQuery = {
-  __typename?: 'Query';
-  modExplorePublications: {
-    __typename?: 'PaginatedModExplorePublicationResult';
-    items: Array<
-      | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-      | ({ __typename?: 'Post' } & PostFieldsFragment)
-      | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ModExplorePublicationsQuery = { __typename?: 'Query', modExplorePublications: { __typename?: 'PaginatedModExplorePublicationResult', items: Array<(
+      { __typename?: 'Comment' }
+      & CommentFieldsFragment
+    ) | (
+      { __typename?: 'Post' }
+      & PostFieldsFragment
+    ) | (
+      { __typename?: 'Quote' }
+      & QuoteFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ModLatestReportsQueryVariables = Exact<{
   request: ModReportsRequest;
 }>;
 
-export type ModLatestReportsQuery = {
-  __typename?: 'Query';
-  modLatestReports: {
-    __typename?: 'PaginatedModReports';
-    items: Array<{
-      __typename?: 'ModReport';
-      reason: string;
-      subreason: string;
-      additionalInfo?: string | null;
-      createdAt: any;
-      reporter: { __typename?: 'Profile' } & ProfileFieldsFragment;
-      reportedPublication?:
-        | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-        | ({ __typename?: 'Post' } & PostFieldsFragment)
-        | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-        | null;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ModLatestReportsQuery = { __typename?: 'Query', modLatestReports: { __typename?: 'PaginatedModReports', items: Array<{ __typename?: 'ModReport', reason: string, subreason: string, additionalInfo?: string | null, createdAt: any, reporter: (
+        { __typename?: 'Profile' }
+        & ProfileFieldsFragment
+      ), reportedPublication?: (
+        { __typename?: 'Comment' }
+        & CommentFieldsFragment
+      ) | (
+        { __typename?: 'Post' }
+        & PostFieldsFragment
+      ) | (
+        { __typename?: 'Quote' }
+        & QuoteFieldsFragment
+      ) | null }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ModuleMetadataQueryVariables = Exact<{
   request: ModuleMetadataRequest;
 }>;
 
-export type ModuleMetadataQuery = {
-  __typename?: 'Query';
-  moduleMetadata?: {
-    __typename?: 'GetModuleMetadataResult';
-    moduleType: ModuleType;
-    signlessApproved: boolean;
-    sponsoredApproved: boolean;
-    verified: boolean;
-    metadata: {
-      __typename?: 'ModuleMetadata';
-      authors: Array<string>;
-      description: string;
-      initializeCalldataABI: any;
-      initializeResultDataABI?: any | null;
-      name: string;
-      processCalldataABI: any;
-      title: string;
-      attributes: Array<{
-        __typename?: 'MetadataAttribute';
-        key: string;
-        type: MetadataAttributeType;
-        value: string;
-      }>;
-    };
-  } | null;
-};
+
+export type ModuleMetadataQuery = { __typename?: 'Query', moduleMetadata?: { __typename?: 'GetModuleMetadataResult', moduleType: ModuleType, signlessApproved: boolean, sponsoredApproved: boolean, verified: boolean, metadata: { __typename?: 'ModuleMetadata', authors: Array<string>, description: string, initializeCalldataABI: any, initializeResultDataABI?: any | null, name: string, processCalldataABI: any, title: string, attributes: Array<{ __typename?: 'MetadataAttribute', key: string, type: MetadataAttributeType, value: string }> } } | null };
 
 export type MutualFollowersQueryVariables = Exact<{
   request: MutualFollowersRequest;
 }>;
 
-export type MutualFollowersQuery = {
-  __typename?: 'Query';
-  mutualFollowers: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type MutualFollowersQuery = { __typename?: 'Query', mutualFollowers: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type NotificationsQueryVariables = Exact<{
   request: NotificationRequest;
 }>;
 
-export type NotificationsQuery = {
-  __typename?: 'Query';
-  notifications: {
-    __typename?: 'PaginatedNotificationResult';
-    items: Array<
-      | ({
-          __typename?: 'ActedNotification';
-        } & NotificationFields_ActedNotification_Fragment)
-      | ({
-          __typename?: 'CommentNotification';
-        } & NotificationFields_CommentNotification_Fragment)
-      | ({
-          __typename?: 'FollowNotification';
-        } & NotificationFields_FollowNotification_Fragment)
-      | ({
-          __typename?: 'MentionNotification';
-        } & NotificationFields_MentionNotification_Fragment)
-      | ({
-          __typename?: 'MirrorNotification';
-        } & NotificationFields_MirrorNotification_Fragment)
-      | ({
-          __typename?: 'QuoteNotification';
-        } & NotificationFields_QuoteNotification_Fragment)
-      | ({
-          __typename?: 'ReactionNotification';
-        } & NotificationFields_ReactionNotification_Fragment)
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<(
+      { __typename?: 'ActedNotification' }
+      & NotificationFields_ActedNotification_Fragment
+    ) | (
+      { __typename?: 'CommentNotification' }
+      & NotificationFields_CommentNotification_Fragment
+    ) | (
+      { __typename?: 'FollowNotification' }
+      & NotificationFields_FollowNotification_Fragment
+    ) | (
+      { __typename?: 'MentionNotification' }
+      & NotificationFields_MentionNotification_Fragment
+    ) | (
+      { __typename?: 'MirrorNotification' }
+      & NotificationFields_MirrorNotification_Fragment
+    ) | (
+      { __typename?: 'QuoteNotification' }
+      & NotificationFields_QuoteNotification_Fragment
+    ) | (
+      { __typename?: 'ReactionNotification' }
+      & NotificationFields_ReactionNotification_Fragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type OwnedHandlesQueryVariables = Exact<{
   request: OwnedHandlesRequest;
 }>;
 
-export type OwnedHandlesQuery = {
-  __typename?: 'Query';
-  ownedHandles: {
-    __typename?: 'PaginatedHandlesResult';
-    items: Array<{ __typename?: 'HandleInfo' } & HandleInfoFieldsFragment>;
-  };
-};
+
+export type OwnedHandlesQuery = { __typename?: 'Query', ownedHandles: { __typename?: 'PaginatedHandlesResult', items: Array<(
+      { __typename?: 'HandleInfo' }
+      & HandleInfoFieldsFragment
+    )> } };
 
 export type ProfileQueryVariables = Exact<{
   request: ProfileRequest;
 }>;
 
-export type ProfileQuery = {
-  __typename?: 'Query';
-  profile?: ({ __typename?: 'Profile' } & ProfileFieldsFragment) | null;
-};
+
+export type ProfileQuery = { __typename?: 'Query', profile?: (
+    { __typename?: 'Profile' }
+    & ProfileFieldsFragment
+  ) | null };
 
 export type ProfileActionHistoryQueryVariables = Exact<{
   request: ProfileActionHistoryRequest;
 }>;
 
-export type ProfileActionHistoryQuery = {
-  __typename?: 'Query';
-  profileActionHistory: {
-    __typename?: 'PaginatedProfileActionHistoryResult';
-    items: Array<{
-      __typename?: 'ProfileActionHistory';
-      id: number;
-      actionType: ProfileActionHistoryType;
-      who: any;
-      txHash?: any | null;
-      actionedOn: any;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ProfileActionHistoryQuery = { __typename?: 'Query', profileActionHistory: { __typename?: 'PaginatedProfileActionHistoryResult', items: Array<{ __typename?: 'ProfileActionHistory', id: number, actionType: ProfileActionHistoryType, who: any, txHash?: any | null, actionedOn: any }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ProfileInterestsOptionsQueryVariables = Exact<{
   request: ProfileRequest;
 }>;
 
-export type ProfileInterestsOptionsQuery = {
-  __typename?: 'Query';
-  profileInterestsOptions: Array<string>;
-  profile?: {
-    __typename?: 'Profile';
-    id: any;
-    interests: Array<string>;
-  } | null;
-};
+
+export type ProfileInterestsOptionsQuery = { __typename?: 'Query', profileInterestsOptions: Array<string>, profile?: { __typename?: 'Profile', id: any, interests: Array<string> } | null };
 
 export type ProfileManagersQueryVariables = Exact<{
   request: ProfileManagersRequest;
 }>;
 
-export type ProfileManagersQuery = {
-  __typename?: 'Query';
-  profileManagers: {
-    __typename?: 'PaginatedProfileManagersResult';
-    items: Array<{
-      __typename?: 'ProfilesManagedResult';
-      address: any;
-      isLensManager: boolean;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ProfileManagersQuery = { __typename?: 'Query', profileManagers: { __typename?: 'PaginatedProfileManagersResult', items: Array<{ __typename?: 'ProfilesManagedResult', address: any, isLensManager: boolean }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ProfileRecommendationsQueryVariables = Exact<{
   request: ProfileRecommendationsRequest;
 }>;
 
-export type ProfileRecommendationsQuery = {
-  __typename?: 'Query';
-  profileRecommendations: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-  };
-};
+
+export type ProfileRecommendationsQuery = { __typename?: 'Query', profileRecommendations: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )> } };
 
 export type ProfilesQueryVariables = Exact<{
   request: ProfilesRequest;
 }>;
 
-export type ProfilesQuery = {
-  __typename?: 'Query';
-  profiles: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ProfilesManagedQueryVariables = Exact<{
   profilesManagedRequest: ProfilesManagedRequest;
   lastLoggedInProfileRequest: LastLoggedInProfileRequest;
 }>;
 
-export type ProfilesManagedQuery = {
-  __typename?: 'Query';
-  profilesManaged: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-  lastLoggedInProfile?:
-    | ({ __typename?: 'Profile' } & ListProfileFieldsFragment)
-    | null;
-};
+
+export type ProfilesManagedQuery = { __typename?: 'Query', profilesManaged: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } }, lastLoggedInProfile?: (
+    { __typename?: 'Profile' }
+    & ListProfileFieldsFragment
+  ) | null };
 
 export type PublicationQueryVariables = Exact<{
   request: PublicationRequest;
 }>;
 
-export type PublicationQuery = {
-  __typename?: 'Query';
-  publication?:
-    | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-    | ({ __typename?: 'Mirror' } & MirrorFieldsFragment)
-    | ({ __typename?: 'Post' } & PostFieldsFragment)
-    | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-    | null;
-};
+
+export type PublicationQuery = { __typename?: 'Query', publication?: (
+    { __typename?: 'Comment' }
+    & CommentFieldsFragment
+  ) | (
+    { __typename?: 'Mirror' }
+    & MirrorFieldsFragment
+  ) | (
+    { __typename?: 'Post' }
+    & PostFieldsFragment
+  ) | (
+    { __typename?: 'Quote' }
+    & QuoteFieldsFragment
+  ) | null };
 
 export type PublicationBookmarksQueryVariables = Exact<{
   request: PublicationBookmarksRequest;
 }>;
 
-export type PublicationBookmarksQuery = {
-  __typename?: 'Query';
-  publicationBookmarks: {
-    __typename?: 'PaginatedPublicationsResult';
-    items: Array<
-      | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-      | ({ __typename?: 'Mirror' } & MirrorFieldsFragment)
-      | ({ __typename?: 'Post' } & PostFieldsFragment)
-      | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type PublicationBookmarksQuery = { __typename?: 'Query', publicationBookmarks: { __typename?: 'PaginatedPublicationsResult', items: Array<(
+      { __typename?: 'Comment' }
+      & CommentFieldsFragment
+    ) | (
+      { __typename?: 'Mirror' }
+      & MirrorFieldsFragment
+    ) | (
+      { __typename?: 'Post' }
+      & PostFieldsFragment
+    ) | (
+      { __typename?: 'Quote' }
+      & QuoteFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type PublicationsQueryVariables = Exact<{
   request: PublicationsRequest;
 }>;
 
-export type PublicationsQuery = {
-  __typename?: 'Query';
-  publications: {
-    __typename?: 'PaginatedPublicationsResult';
-    items: Array<
-      | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-      | ({ __typename?: 'Mirror' } & MirrorFieldsFragment)
-      | ({ __typename?: 'Post' } & PostFieldsFragment)
-      | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type PublicationsQuery = { __typename?: 'Query', publications: { __typename?: 'PaginatedPublicationsResult', items: Array<(
+      { __typename?: 'Comment' }
+      & CommentFieldsFragment
+    ) | (
+      { __typename?: 'Mirror' }
+      & MirrorFieldsFragment
+    ) | (
+      { __typename?: 'Post' }
+      & PostFieldsFragment
+    ) | (
+      { __typename?: 'Quote' }
+      & QuoteFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type SearchProfilesQueryVariables = Exact<{
   request: ProfileSearchRequest;
 }>;
 
-export type SearchProfilesQuery = {
-  __typename?: 'Query';
-  searchProfiles: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type SearchProfilesQuery = { __typename?: 'Query', searchProfiles: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type SearchPublicationsQueryVariables = Exact<{
   request: PublicationSearchRequest;
 }>;
 
-export type SearchPublicationsQuery = {
-  __typename?: 'Query';
-  searchPublications: {
-    __typename?: 'PaginatedPublicationPrimaryResult';
-    items: Array<
-      | ({ __typename?: 'Comment' } & CommentFieldsFragment)
-      | ({ __typename?: 'Post' } & PostFieldsFragment)
-      | ({ __typename?: 'Quote' } & QuoteFieldsFragment)
-    >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type SearchPublicationsQuery = { __typename?: 'Query', searchPublications: { __typename?: 'PaginatedPublicationPrimaryResult', items: Array<(
+      { __typename?: 'Comment' }
+      & CommentFieldsFragment
+    ) | (
+      { __typename?: 'Post' }
+      & PostFieldsFragment
+    ) | (
+      { __typename?: 'Quote' }
+      & QuoteFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type StaffPicksQueryVariables = Exact<{
-  batch1?: InputMaybe<
-    Array<Scalars['ProfileId']['input']> | Scalars['ProfileId']['input']
-  >;
-  batch2?: InputMaybe<
-    Array<Scalars['ProfileId']['input']> | Scalars['ProfileId']['input']
-  >;
-  batch3?: InputMaybe<
-    Array<Scalars['ProfileId']['input']> | Scalars['ProfileId']['input']
-  >;
+  batch1?: InputMaybe<Array<Scalars['ProfileId']['input']> | Scalars['ProfileId']['input']>;
+  batch2?: InputMaybe<Array<Scalars['ProfileId']['input']> | Scalars['ProfileId']['input']>;
+  batch3?: InputMaybe<Array<Scalars['ProfileId']['input']> | Scalars['ProfileId']['input']>;
 }>;
 
-export type StaffPicksQuery = {
-  __typename?: 'Query';
-  batch1: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-  };
-  batch2: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-  };
-  batch3: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-  };
-};
+
+export type StaffPicksQuery = { __typename?: 'Query', batch1: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )> }, batch2: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )> }, batch3: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )> } };
 
 export type UserRateLimitQueryVariables = Exact<{
   request: UserCurrentRateLimitRequest;
 }>;
 
-export type UserRateLimitQuery = {
-  __typename?: 'Query';
-  userRateLimit: {
-    __typename?: 'UserCurrentRateLimitResult';
-    momoka: {
-      __typename?: 'UserCurrentRateLimit';
-      hourAllowanceLeft: number;
-      hourAllowanceUsed: number;
-      hourAllowance: number;
-      dayAllowanceLeft: number;
-      dayAllowanceUsed: number;
-      dayAllowance: number;
-    };
-    onchain: {
-      __typename?: 'UserCurrentRateLimit';
-      hourAllowanceLeft: number;
-      hourAllowanceUsed: number;
-      hourAllowance: number;
-      dayAllowanceLeft: number;
-      dayAllowanceUsed: number;
-      dayAllowance: number;
-    };
-  };
-};
+
+export type UserRateLimitQuery = { __typename?: 'Query', userRateLimit: { __typename?: 'UserCurrentRateLimitResult', momoka: { __typename?: 'UserCurrentRateLimit', hourAllowanceLeft: number, hourAllowanceUsed: number, hourAllowance: number, dayAllowanceLeft: number, dayAllowanceUsed: number, dayAllowance: number }, onchain: { __typename?: 'UserCurrentRateLimit', hourAllowanceLeft: number, hourAllowanceUsed: number, hourAllowance: number, dayAllowanceLeft: number, dayAllowanceUsed: number, dayAllowance: number } } };
 
 export type WhoActedOnPublicationQueryVariables = Exact<{
   request: WhoActedOnPublicationRequest;
 }>;
 
-export type WhoActedOnPublicationQuery = {
-  __typename?: 'Query';
-  whoActedOnPublication: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type WhoActedOnPublicationQuery = { __typename?: 'Query', whoActedOnPublication: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type WhoHaveBlockedQueryVariables = Exact<{
   request: WhoHaveBlockedRequest;
 }>;
 
-export type WhoHaveBlockedQuery = {
-  __typename?: 'Query';
-  whoHaveBlocked: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{ __typename?: 'Profile' } & ListProfileFieldsFragment>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type WhoHaveBlockedQuery = { __typename?: 'Query', whoHaveBlocked: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & ListProfileFieldsFragment
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type WhoReactedPublicationQueryVariables = Exact<{
   request: WhoReactedPublicationRequest;
 }>;
 
-export type WhoReactedPublicationQuery = {
-  __typename?: 'Query';
-  whoReactedPublication: {
-    __typename?: 'PaginatedWhoReactedResult';
-    items: Array<{
-      __typename?: 'ProfileWhoReactedResult';
-      profile: { __typename?: 'Profile' } & ListProfileFieldsFragment;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
+
+export type WhoReactedPublicationQuery = { __typename?: 'Query', whoReactedPublication: { __typename?: 'PaginatedWhoReactedResult', items: Array<{ __typename?: 'ProfileWhoReactedResult', profile: (
+        { __typename?: 'Profile' }
+        & ListProfileFieldsFragment
+      ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type UserSigNoncesSubscriptionSubscriptionVariables = Exact<{
   address: Scalars['EvmAddress']['input'];
 }>;
 
-export type UserSigNoncesSubscriptionSubscription = {
-  __typename?: 'Subscription';
-  userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnchainSigNonce: any };
-};
+
+export type UserSigNoncesSubscriptionSubscription = { __typename?: 'Subscription', userSigNonces: { __typename?: 'UserSigNonces', lensHubOnchainSigNonce: any } };
 
 export const HandleInfoFieldsFragmentDoc = gql`
-  fragment HandleInfoFields on HandleInfo {
-    fullHandle
-    localName
-    linkedTo {
-      nftTokenId
-    }
+    fragment HandleInfoFields on HandleInfo {
+  fullHandle
+  localName
+  linkedTo {
+    nftTokenId
   }
-`;
+}
+    `;
 export const NetworkAddressFieldsFragmentDoc = gql`
-  fragment NetworkAddressFields on NetworkAddress {
-    address
-    chainId
-  }
-`;
+    fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+    `;
 export const ProfileOperationsFieldsFragmentDoc = gql`
-  fragment ProfileOperationsFields on ProfileOperations {
-    id
-    isBlockedByMe {
-      value
-    }
-    isFollowedByMe {
-      value
-    }
-    isFollowingMe {
-      value
-    }
-  }
-`;
-export const ImageSetFieldsFragmentDoc = gql`
-  fragment ImageSetFields on ImageSet {
-    optimized {
-      uri
-    }
-    raw {
-      uri
-    }
-  }
-`;
-export const MetadataAttributeFieldsFragmentDoc = gql`
-  fragment MetadataAttributeFields on MetadataAttribute {
-    type
-    key
+    fragment ProfileOperationsFields on ProfileOperations {
+  id
+  isBlockedByMe {
     value
   }
-`;
+  isFollowedByMe {
+    value
+  }
+  isFollowingMe {
+    value
+  }
+}
+    `;
+export const ImageSetFieldsFragmentDoc = gql`
+    fragment ImageSetFields on ImageSet {
+  optimized {
+    uri
+  }
+  raw {
+    uri
+  }
+}
+    `;
+export const MetadataAttributeFieldsFragmentDoc = gql`
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+    `;
 export const ProfileMetadataFieldsFragmentDoc = gql`
-  fragment ProfileMetadataFields on ProfileMetadata {
-    displayName
-    bio
-    picture {
-      ... on ImageSet {
-        ...ImageSetFields
-      }
-    }
-    coverPicture {
+    fragment ProfileMetadataFields on ProfileMetadata {
+  displayName
+  bio
+  picture {
+    ... on ImageSet {
       ...ImageSetFields
     }
-    attributes {
-      ...MetadataAttributeFields
-    }
   }
-  ${ImageSetFieldsFragmentDoc}
-  ${MetadataAttributeFieldsFragmentDoc}
-`;
+  coverPicture {
+    ...ImageSetFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+    ${ImageSetFieldsFragmentDoc}
+${MetadataAttributeFieldsFragmentDoc}`;
 export const Erc20FieldsFragmentDoc = gql`
-  fragment Erc20Fields on Asset {
-    ... on Erc20 {
-      name
-      symbol
-      decimals
-      contract {
-        ...NetworkAddressFields
-      }
+    fragment Erc20Fields on Asset {
+  ... on Erc20 {
+    name
+    symbol
+    decimals
+    contract {
+      ...NetworkAddressFields
     }
   }
-  ${NetworkAddressFieldsFragmentDoc}
-`;
+}
+    ${NetworkAddressFieldsFragmentDoc}`;
 export const AmountFieldsFragmentDoc = gql`
-  fragment AmountFields on Amount {
-    asFiat(request: { for: USD }) {
-      value
-    }
-    asset {
-      ...Erc20Fields
-    }
+    fragment AmountFields on Amount {
+  asFiat(request: {for: USD}) {
     value
   }
-  ${Erc20FieldsFragmentDoc}
-`;
+  asset {
+    ...Erc20Fields
+  }
+  value
+}
+    ${Erc20FieldsFragmentDoc}`;
 export const FollowModuleFieldsFragmentDoc = gql`
-  fragment FollowModuleFields on FollowModule {
-    ... on FeeFollowModuleSettings {
-      type
-      amount {
-        ...AmountFields
-      }
-      recipient
+    fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    type
+    amount {
+      ...AmountFields
     }
-    ... on RevertFollowModuleSettings {
-      type
-    }
-    ... on UnknownFollowModuleSettings {
-      type
-    }
+    recipient
   }
-  ${AmountFieldsFragmentDoc}
-`;
+  ... on RevertFollowModuleSettings {
+    type
+  }
+  ... on UnknownFollowModuleSettings {
+    type
+  }
+}
+    ${AmountFieldsFragmentDoc}`;
 export const ListProfileFieldsFragmentDoc = gql`
-  fragment ListProfileFields on Profile {
-    id
-    handle {
-      ...HandleInfoFields
-    }
-    ownedBy {
-      ...NetworkAddressFields
-    }
-    operations {
-      ...ProfileOperationsFields
-    }
-    metadata {
-      ...ProfileMetadataFields
-    }
-    followModule {
-      ...FollowModuleFields
-    }
-    peerToPeerRecommendedByMe
+    fragment ListProfileFields on Profile {
+  id
+  handle {
+    ...HandleInfoFields
   }
-  ${HandleInfoFieldsFragmentDoc}
-  ${NetworkAddressFieldsFragmentDoc}
-  ${ProfileOperationsFieldsFragmentDoc}
-  ${ProfileMetadataFieldsFragmentDoc}
-  ${FollowModuleFieldsFragmentDoc}
-`;
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  operations {
+    ...ProfileOperationsFields
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  followModule {
+    ...FollowModuleFields
+  }
+  peerToPeerRecommendedByMe
+}
+    ${HandleInfoFieldsFragmentDoc}
+${NetworkAddressFieldsFragmentDoc}
+${ProfileOperationsFieldsFragmentDoc}
+${ProfileMetadataFieldsFragmentDoc}
+${FollowModuleFieldsFragmentDoc}`;
 export const PublicationProfileFieldsFragmentDoc = gql`
-  fragment PublicationProfileFields on Profile {
-    id
-    handle {
-      ...HandleInfoFields
-    }
-    operations {
-      ...ProfileOperationsFields
-    }
-    ownedBy {
-      ...NetworkAddressFields
-    }
-    metadata {
-      ...ProfileMetadataFields
-    }
-    peerToPeerRecommendedByMe
+    fragment PublicationProfileFields on Profile {
+  id
+  handle {
+    ...HandleInfoFields
   }
-  ${HandleInfoFieldsFragmentDoc}
-  ${ProfileOperationsFieldsFragmentDoc}
-  ${NetworkAddressFieldsFragmentDoc}
-  ${ProfileMetadataFieldsFragmentDoc}
-`;
+  operations {
+    ...ProfileOperationsFields
+  }
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  peerToPeerRecommendedByMe
+}
+    ${HandleInfoFieldsFragmentDoc}
+${ProfileOperationsFieldsFragmentDoc}
+${NetworkAddressFieldsFragmentDoc}
+${ProfileMetadataFieldsFragmentDoc}`;
 export const PublicationStatsFieldsFragmentDoc = gql`
-  fragment PublicationStatsFields on PublicationStats {
-    id
-    comments
-    mirrors
-    quotes
-    reactions(request: { type: UPVOTE })
-    countOpenActions(request: { anyOf: [{ category: COLLECT }] })
-    bookmarks
-  }
-`;
+    fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions(request: {anyOf: [{category: COLLECT}]})
+  bookmarks
+}
+    `;
 export const PublicationOperationFieldsFragmentDoc = gql`
-  fragment PublicationOperationFields on PublicationOperations {
-    isNotInterested
-    hasBookmarked
-    hasActed {
-      value
-    }
-    hasReacted(request: { type: UPVOTE })
-    canMirror
-    hasMirrored
-    hasQuoted
+    fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasActed {
+    value
   }
-`;
+  hasReacted(request: {type: UPVOTE})
+  canMirror
+  hasMirrored
+  hasQuoted
+}
+    `;
 export const EncryptableImageSetFieldsFragmentDoc = gql`
-  fragment EncryptableImageSetFields on EncryptableImageSet {
+    fragment EncryptableImageSetFields on EncryptableImageSet {
+  optimized {
+    uri
+  }
+}
+    `;
+export const PublicationMetadataMediaVideoFieldsFragmentDoc = gql`
+    fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
     optimized {
       uri
     }
   }
-`;
-export const PublicationMetadataMediaVideoFieldsFragmentDoc = gql`
-  fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
-    video {
-      optimized {
-        uri
-      }
-    }
-    cover {
-      ...EncryptableImageSetFields
-    }
-    license
+  cover {
+    ...EncryptableImageSetFields
   }
-  ${EncryptableImageSetFieldsFragmentDoc}
-`;
+  license
+}
+    ${EncryptableImageSetFieldsFragmentDoc}`;
 export const PublicationMetadataMediaImageFieldsFragmentDoc = gql`
-  fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
-    image {
-      ...EncryptableImageSetFields
-    }
+    fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    ...EncryptableImageSetFields
   }
-  ${EncryptableImageSetFieldsFragmentDoc}
-`;
+}
+    ${EncryptableImageSetFieldsFragmentDoc}`;
 export const PublicationMetadataMediaAudioFieldsFragmentDoc = gql`
-  fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
-    artist
-    audio {
-      optimized {
-        uri
-      }
+    fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  artist
+  audio {
+    optimized {
+      uri
     }
-    cover {
-      ...EncryptableImageSetFields
-    }
-    license
   }
-  ${EncryptableImageSetFieldsFragmentDoc}
-`;
+  cover {
+    ...EncryptableImageSetFields
+  }
+  license
+}
+    ${EncryptableImageSetFieldsFragmentDoc}`;
 export const PublicationMetadataMediaFieldsFragmentDoc = gql`
-  fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
-    ... on PublicationMetadataMediaVideo {
-      ...PublicationMetadataMediaVideoFields
-    }
-    ... on PublicationMetadataMediaImage {
-      ...PublicationMetadataMediaImageFields
-    }
-    ... on PublicationMetadataMediaAudio {
-      ...PublicationMetadataMediaAudioFields
-    }
+    fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    ...PublicationMetadataMediaVideoFields
   }
-  ${PublicationMetadataMediaVideoFieldsFragmentDoc}
-  ${PublicationMetadataMediaImageFieldsFragmentDoc}
-  ${PublicationMetadataMediaAudioFieldsFragmentDoc}
-`;
+  ... on PublicationMetadataMediaImage {
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+    ${PublicationMetadataMediaVideoFieldsFragmentDoc}
+${PublicationMetadataMediaImageFieldsFragmentDoc}
+${PublicationMetadataMediaAudioFieldsFragmentDoc}`;
 export const VideoMetadataV3FieldsFragmentDoc = gql`
-  fragment VideoMetadataV3Fields on VideoMetadataV3 {
-    id
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    asset {
-      ...PublicationMetadataMediaVideoFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
+    fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaVideoFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-`;
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaVideoFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const ArticleMetadataV3FieldsFragmentDoc = gql`
-  fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
-    id
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
+    fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-`;
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const AudioMetadataV3FieldsFragmentDoc = gql`
-  fragment AudioMetadataV3Fields on AudioMetadataV3 {
-    id
-    title
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    asset {
-      ...PublicationMetadataMediaAudioFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
+    fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  id
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaAudioFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-`;
+  asset {
+    ...PublicationMetadataMediaAudioFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaAudioFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const ImageMetadataV3FieldsFragmentDoc = gql`
-  fragment ImageMetadataV3Fields on ImageMetadataV3 {
-    id
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
-    asset {
-      ...PublicationMetadataMediaImageFields
-    }
+    fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-  ${PublicationMetadataMediaImageFieldsFragmentDoc}
-`;
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  asset {
+    ...PublicationMetadataMediaImageFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}
+${PublicationMetadataMediaImageFieldsFragmentDoc}`;
 export const LinkMetadataV3FieldsFragmentDoc = gql`
-  fragment LinkMetadataV3Fields on LinkMetadataV3 {
-    id
-    content
-    sharingLink
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
+    fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  id
+  content
+  sharingLink
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-`;
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const LiveStreamMetadataV3FieldsFragmentDoc = gql`
-  fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
-    id
-    playbackURL
-    liveURL
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
+    fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  id
+  playbackURL
+  liveURL
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-`;
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const MintMetadataV3FieldsFragmentDoc = gql`
-  fragment MintMetadataV3Fields on MintMetadataV3 {
-    id
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
-    attachments {
-      ...PublicationMetadataMediaFields
-    }
+    fragment MintMetadataV3Fields on MintMetadataV3 {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-  ${PublicationMetadataMediaFieldsFragmentDoc}
-`;
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const TextOnlyMetadataV3FieldsFragmentDoc = gql`
-  fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-    id
-    content
-    tags
-    attributes {
-      ...MetadataAttributeFields
-    }
+    fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
   }
-  ${MetadataAttributeFieldsFragmentDoc}
-`;
+}
+    ${MetadataAttributeFieldsFragmentDoc}`;
 export const AnyPublicationMetadataFieldsFragmentDoc = gql`
-  fragment AnyPublicationMetadataFields on PublicationMetadata {
-    ... on VideoMetadataV3 {
-      ...VideoMetadataV3Fields
-    }
-    ... on ArticleMetadataV3 {
-      ...ArticleMetadataV3Fields
-    }
-    ... on AudioMetadataV3 {
-      ...AudioMetadataV3Fields
-    }
-    ... on ImageMetadataV3 {
-      ...ImageMetadataV3Fields
-    }
-    ... on LinkMetadataV3 {
-      ...LinkMetadataV3Fields
-    }
-    ... on LiveStreamMetadataV3 {
-      ...LiveStreamMetadataV3Fields
-    }
-    ... on MintMetadataV3 {
-      ...MintMetadataV3Fields
-    }
-    ... on TextOnlyMetadataV3 {
-      ...TextOnlyMetadataV3Fields
-    }
+    fragment AnyPublicationMetadataFields on PublicationMetadata {
+  ... on VideoMetadataV3 {
+    ...VideoMetadataV3Fields
   }
-  ${VideoMetadataV3FieldsFragmentDoc}
-  ${ArticleMetadataV3FieldsFragmentDoc}
-  ${AudioMetadataV3FieldsFragmentDoc}
-  ${ImageMetadataV3FieldsFragmentDoc}
-  ${LinkMetadataV3FieldsFragmentDoc}
-  ${LiveStreamMetadataV3FieldsFragmentDoc}
-  ${MintMetadataV3FieldsFragmentDoc}
-  ${TextOnlyMetadataV3FieldsFragmentDoc}
-`;
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
+  ... on AudioMetadataV3 {
+    ...AudioMetadataV3Fields
+  }
+  ... on ImageMetadataV3 {
+    ...ImageMetadataV3Fields
+  }
+  ... on LinkMetadataV3 {
+    ...LinkMetadataV3Fields
+  }
+  ... on LiveStreamMetadataV3 {
+    ...LiveStreamMetadataV3Fields
+  }
+  ... on MintMetadataV3 {
+    ...MintMetadataV3Fields
+  }
+  ... on TextOnlyMetadataV3 {
+    ...TextOnlyMetadataV3Fields
+  }
+}
+    ${VideoMetadataV3FieldsFragmentDoc}
+${ArticleMetadataV3FieldsFragmentDoc}
+${AudioMetadataV3FieldsFragmentDoc}
+${ImageMetadataV3FieldsFragmentDoc}
+${LinkMetadataV3FieldsFragmentDoc}
+${LiveStreamMetadataV3FieldsFragmentDoc}
+${MintMetadataV3FieldsFragmentDoc}
+${TextOnlyMetadataV3FieldsFragmentDoc}`;
 export const OpenActionModulesFieldsFragmentDoc = gql`
-  fragment OpenActionModulesFields on OpenActionModule {
-    ... on SimpleCollectOpenActionSettings {
-      type
-      contract {
-        ...NetworkAddressFields
-      }
-      amount {
-        ...AmountFields
-      }
-      collectNft
-      collectLimit
-      followerOnly
+    fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectNft
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+    }
+    collectNft
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
       recipient
-      referralFee
-      endsAt
-    }
-    ... on MultirecipientFeeCollectOpenActionSettings {
-      type
-      contract {
-        ...NetworkAddressFields
-      }
-      amount {
-        ...AmountFields
-      }
-      collectNft
-      collectLimit
-      referralFee
-      followerOnly
-      endsAt
-      recipients {
-        recipient
-        split
-      }
-    }
-    ... on UnknownOpenActionModuleSettings {
-      type
-      contract {
-        ...NetworkAddressFields
-      }
-      initializeResultData
-      initializeCalldata
-      openActionModuleReturnData
+      split
     }
   }
-  ${NetworkAddressFieldsFragmentDoc}
-  ${AmountFieldsFragmentDoc}
-`;
+  ... on UnknownOpenActionModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    initializeResultData
+    initializeCalldata
+    openActionModuleReturnData
+  }
+}
+    ${NetworkAddressFieldsFragmentDoc}
+${AmountFieldsFragmentDoc}`;
 export const PostFieldsFragmentDoc = gql`
-  fragment PostFields on Post {
+    fragment PostFields on Post {
+  id
+  publishedOn {
     id
-    publishedOn {
-      id
-    }
-    isHidden
-    isEncrypted
-    momoka {
-      proof
-    }
-    createdAt
-    by {
-      ...PublicationProfileFields
-    }
-    stats {
-      ...PublicationStatsFields
-    }
-    operations {
-      ...PublicationOperationFields
-    }
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    openActionModules {
-      ...OpenActionModulesFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
-    }
   }
-  ${PublicationProfileFieldsFragmentDoc}
-  ${PublicationStatsFieldsFragmentDoc}
-  ${PublicationOperationFieldsFragmentDoc}
-  ${AnyPublicationMetadataFieldsFragmentDoc}
-  ${OpenActionModulesFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
-export const QuoteBaseFieldsFragmentDoc = gql`
-  fragment QuoteBaseFields on Quote {
-    id
-    publishedOn {
-      id
-    }
-    isHidden
-    isEncrypted
-    momoka {
-      proof
-    }
-    createdAt
-    by {
-      ...PublicationProfileFields
-    }
-    stats {
-      ...PublicationStatsFields
-    }
-    operations {
-      ...PublicationOperationFields
-    }
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    openActionModules {
-      ...OpenActionModulesFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
-    }
+  isHidden
+  isEncrypted
+  momoka {
+    proof
   }
-  ${PublicationProfileFieldsFragmentDoc}
-  ${PublicationStatsFieldsFragmentDoc}
-  ${PublicationOperationFieldsFragmentDoc}
-  ${AnyPublicationMetadataFieldsFragmentDoc}
-  ${OpenActionModulesFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
-export const CommentBaseFieldsFragmentDoc = gql`
-  fragment CommentBaseFields on Comment {
-    id
-    publishedOn {
-      id
-    }
-    isHidden
-    isEncrypted
-    momoka {
-      proof
-    }
-    createdAt
-    by {
-      ...PublicationProfileFields
-    }
-    stats {
-      ...PublicationStatsFields
-    }
-    operations {
-      ...PublicationOperationFields
-    }
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    openActionModules {
-      ...OpenActionModulesFields
-    }
-    root {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Quote {
-        ...QuoteBaseFields
-      }
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
-    }
+  createdAt
+  by {
+    ...PublicationProfileFields
   }
-  ${PublicationProfileFieldsFragmentDoc}
-  ${PublicationStatsFieldsFragmentDoc}
-  ${PublicationOperationFieldsFragmentDoc}
-  ${AnyPublicationMetadataFieldsFragmentDoc}
-  ${OpenActionModulesFieldsFragmentDoc}
-  ${PostFieldsFragmentDoc}
-  ${QuoteBaseFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
-export const CommentFieldsFragmentDoc = gql`
-  fragment CommentFields on Comment {
-    ...CommentBaseFields
-    commentOn {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Comment {
-        ...CommentBaseFields
-      }
-      ... on Quote {
-        ...QuoteBaseFields
-      }
-    }
+  stats {
+    ...PublicationStatsFields
   }
-  ${CommentBaseFieldsFragmentDoc}
-  ${PostFieldsFragmentDoc}
-  ${QuoteBaseFieldsFragmentDoc}
-`;
-export const QuoteFieldsFragmentDoc = gql`
-  fragment QuoteFields on Quote {
-    ...QuoteBaseFields
-    quoteOn {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Comment {
-        ...CommentBaseFields
-      }
-      ... on Quote {
-        ...QuoteBaseFields
-      }
-    }
+  operations {
+    ...PublicationOperationFields
   }
-  ${QuoteBaseFieldsFragmentDoc}
-  ${PostFieldsFragmentDoc}
-  ${CommentBaseFieldsFragmentDoc}
-`;
-export const MirrorFieldsFragmentDoc = gql`
-  fragment MirrorFields on Mirror {
-    id
-    publishedOn {
-      id
-    }
-    isHidden
-    momoka {
-      proof
-    }
-    createdAt
-    by {
-      ...PublicationProfileFields
-    }
-    mirrorOn {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Comment {
-        ...CommentFields
-      }
-      ... on Quote {
-        ...QuoteFields
-      }
-    }
+  metadata {
+    ...AnyPublicationMetadataFields
   }
-  ${PublicationProfileFieldsFragmentDoc}
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
-export const ProfileStatsFieldsFragmentDoc = gql`
-  fragment ProfileStatsFields on ProfileStats {
-    id
-    followers
-    following
-    publications
-    comments
-    posts
-    mirrors
-    quotes
-    lensClassifierScore
+  openActionModules {
+    ...OpenActionModulesFields
   }
-`;
-export const ProfileFieldsFragmentDoc = gql`
-  fragment ProfileFields on Profile {
-    id
-    handle {
+  profilesMentioned {
+    snapshotHandleMentioned {
       ...HandleInfoFields
     }
-    ownedBy {
-      ...NetworkAddressFields
-    }
-    signless
-    sponsor
-    createdAt
-    stats {
-      ...ProfileStatsFields
-    }
-    operations {
-      ...ProfileOperationsFields
-    }
-    interests
-    followNftAddress {
-      ...NetworkAddressFields
-    }
-    followModule {
-      ...FollowModuleFields
-    }
-    metadata {
-      ...ProfileMetadataFields
-    }
-    peerToPeerRecommendedByMe
   }
-  ${HandleInfoFieldsFragmentDoc}
-  ${NetworkAddressFieldsFragmentDoc}
-  ${ProfileStatsFieldsFragmentDoc}
-  ${ProfileOperationsFieldsFragmentDoc}
-  ${FollowModuleFieldsFragmentDoc}
-  ${ProfileMetadataFieldsFragmentDoc}
-`;
+}
+    ${PublicationProfileFieldsFragmentDoc}
+${PublicationStatsFieldsFragmentDoc}
+${PublicationOperationFieldsFragmentDoc}
+${AnyPublicationMetadataFieldsFragmentDoc}
+${OpenActionModulesFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
+export const QuoteBaseFieldsFragmentDoc = gql`
+    fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  isEncrypted
+  momoka {
+    proof
+  }
+  createdAt
+  by {
+    ...PublicationProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
+}
+    ${PublicationProfileFieldsFragmentDoc}
+${PublicationStatsFieldsFragmentDoc}
+${PublicationOperationFieldsFragmentDoc}
+${AnyPublicationMetadataFieldsFragmentDoc}
+${OpenActionModulesFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
+export const CommentBaseFieldsFragmentDoc = gql`
+    fragment CommentBaseFields on Comment {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  isEncrypted
+  momoka {
+    proof
+  }
+  createdAt
+  by {
+    ...PublicationProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  root {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
+}
+    ${PublicationProfileFieldsFragmentDoc}
+${PublicationStatsFieldsFragmentDoc}
+${PublicationOperationFieldsFragmentDoc}
+${AnyPublicationMetadataFieldsFragmentDoc}
+${OpenActionModulesFieldsFragmentDoc}
+${PostFieldsFragmentDoc}
+${QuoteBaseFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
+export const CommentFieldsFragmentDoc = gql`
+    fragment CommentFields on Comment {
+  ...CommentBaseFields
+  commentOn {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+}
+    ${CommentBaseFieldsFragmentDoc}
+${PostFieldsFragmentDoc}
+${QuoteBaseFieldsFragmentDoc}`;
+export const QuoteFieldsFragmentDoc = gql`
+    fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+}
+    ${QuoteBaseFieldsFragmentDoc}
+${PostFieldsFragmentDoc}
+${CommentBaseFieldsFragmentDoc}`;
+export const MirrorFieldsFragmentDoc = gql`
+    fragment MirrorFields on Mirror {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  createdAt
+  by {
+    ...PublicationProfileFields
+  }
+  mirrorOn {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentFields
+    }
+    ... on Quote {
+      ...QuoteFields
+    }
+  }
+}
+    ${PublicationProfileFieldsFragmentDoc}
+${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
+export const ProfileStatsFieldsFragmentDoc = gql`
+    fragment ProfileStatsFields on ProfileStats {
+  id
+  followers
+  following
+  publications
+  comments
+  posts
+  mirrors
+  quotes
+  lensClassifierScore
+}
+    `;
+export const ProfileFieldsFragmentDoc = gql`
+    fragment ProfileFields on Profile {
+  id
+  handle {
+    ...HandleInfoFields
+  }
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  signless
+  sponsor
+  createdAt
+  stats {
+    ...ProfileStatsFields
+  }
+  operations {
+    ...ProfileOperationsFields
+  }
+  interests
+  followNftAddress {
+    ...NetworkAddressFields
+  }
+  followModule {
+    ...FollowModuleFields
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  peerToPeerRecommendedByMe
+}
+    ${HandleInfoFieldsFragmentDoc}
+${NetworkAddressFieldsFragmentDoc}
+${ProfileStatsFieldsFragmentDoc}
+${ProfileOperationsFieldsFragmentDoc}
+${FollowModuleFieldsFragmentDoc}
+${ProfileMetadataFieldsFragmentDoc}`;
 export const NotificationPostFieldsFragmentDoc = gql`
-  fragment NotificationPostFields on Post {
-    id
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
+    fragment NotificationPostFields on Post {
+  id
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
     }
   }
-  ${AnyPublicationMetadataFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
+}
+    ${AnyPublicationMetadataFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
 export const NotificationCommentFieldsFragmentDoc = gql`
-  fragment NotificationCommentFields on Comment {
-    id
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
+    fragment NotificationCommentFields on Comment {
+  id
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
     }
   }
-  ${AnyPublicationMetadataFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
+}
+    ${AnyPublicationMetadataFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
 export const NotificationQuoteFieldsFragmentDoc = gql`
-  fragment NotificationQuoteFields on Quote {
-    id
-    metadata {
-      ...AnyPublicationMetadataFields
-    }
-    profilesMentioned {
-      snapshotHandleMentioned {
-        ...HandleInfoFields
-      }
+    fragment NotificationQuoteFields on Quote {
+  id
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
     }
   }
-  ${AnyPublicationMetadataFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
+}
+    ${AnyPublicationMetadataFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
 export const ReactionNotificationFieldsFragmentDoc = gql`
-  fragment ReactionNotificationFields on ReactionNotification {
-    id
-    publication {
-      ... on Post {
-        ...NotificationPostFields
-      }
-      ... on Comment {
-        ...NotificationCommentFields
-      }
-      ... on Quote {
-        ...NotificationQuoteFields
+    fragment ReactionNotificationFields on ReactionNotification {
+  id
+  publication {
+    ... on Post {
+      ...NotificationPostFields
+    }
+    ... on Comment {
+      ...NotificationCommentFields
+    }
+    ... on Quote {
+      ...NotificationQuoteFields
+    }
+  }
+  reactions {
+    profile {
+      ...PublicationProfileFields
+    }
+  }
+}
+    ${NotificationPostFieldsFragmentDoc}
+${NotificationCommentFieldsFragmentDoc}
+${NotificationQuoteFieldsFragmentDoc}
+${PublicationProfileFieldsFragmentDoc}`;
+export const CommentNotificationFieldsFragmentDoc = gql`
+    fragment CommentNotificationFields on CommentNotification {
+  id
+  comment {
+    ...NotificationCommentFields
+    by {
+      ...PublicationProfileFields
+    }
+    commentOn {
+      __typename
+    }
+  }
+}
+    ${NotificationCommentFieldsFragmentDoc}
+${PublicationProfileFieldsFragmentDoc}`;
+export const MirrorNotificationFieldsFragmentDoc = gql`
+    fragment MirrorNotificationFields on MirrorNotification {
+  id
+  mirrors {
+    profile {
+      ...PublicationProfileFields
+    }
+  }
+  publication {
+    ... on Post {
+      ...NotificationPostFields
+    }
+    ... on Comment {
+      ...NotificationCommentFields
+    }
+    ... on Quote {
+      ...NotificationQuoteFields
+    }
+  }
+}
+    ${PublicationProfileFieldsFragmentDoc}
+${NotificationPostFieldsFragmentDoc}
+${NotificationCommentFieldsFragmentDoc}
+${NotificationQuoteFieldsFragmentDoc}`;
+export const QuoteNotificationFieldsFragmentDoc = gql`
+    fragment QuoteNotificationFields on QuoteNotification {
+  id
+  quote {
+    ...NotificationQuoteFields
+    by {
+      ...PublicationProfileFields
+    }
+    quoteOn {
+      __typename
+    }
+  }
+}
+    ${NotificationQuoteFieldsFragmentDoc}
+${PublicationProfileFieldsFragmentDoc}`;
+export const ActedNotificationFieldsFragmentDoc = gql`
+    fragment ActedNotificationFields on ActedNotification {
+  id
+  actions {
+    actedAt
+    by {
+      ...PublicationProfileFields
+    }
+  }
+  publication {
+    ... on Post {
+      ...NotificationPostFields
+    }
+    ... on Comment {
+      ...NotificationCommentFields
+    }
+    ... on Mirror {
+      mirrorOn {
+        ... on Post {
+          ...NotificationPostFields
+        }
+        ... on Comment {
+          ...NotificationCommentFields
+        }
+        ... on Quote {
+          ...NotificationQuoteFields
+        }
       }
     }
-    reactions {
-      profile {
+    ... on Quote {
+      ...NotificationQuoteFields
+    }
+  }
+}
+    ${PublicationProfileFieldsFragmentDoc}
+${NotificationPostFieldsFragmentDoc}
+${NotificationCommentFieldsFragmentDoc}
+${NotificationQuoteFieldsFragmentDoc}`;
+export const FollowNotificationFieldsFragmentDoc = gql`
+    fragment FollowNotificationFields on FollowNotification {
+  id
+  followers {
+    ...PublicationProfileFields
+  }
+}
+    ${PublicationProfileFieldsFragmentDoc}`;
+export const MentionNotificationFieldsFragmentDoc = gql`
+    fragment MentionNotificationFields on MentionNotification {
+  id
+  publication {
+    ... on Post {
+      ...NotificationPostFields
+      by {
         ...PublicationProfileFields
       }
     }
-  }
-  ${NotificationPostFieldsFragmentDoc}
-  ${NotificationCommentFieldsFragmentDoc}
-  ${NotificationQuoteFieldsFragmentDoc}
-  ${PublicationProfileFieldsFragmentDoc}
-`;
-export const CommentNotificationFieldsFragmentDoc = gql`
-  fragment CommentNotificationFields on CommentNotification {
-    id
-    comment {
+    ... on Comment {
       ...NotificationCommentFields
       by {
         ...PublicationProfileFields
       }
-      commentOn {
-        __typename
-      }
     }
-  }
-  ${NotificationCommentFieldsFragmentDoc}
-  ${PublicationProfileFieldsFragmentDoc}
-`;
-export const MirrorNotificationFieldsFragmentDoc = gql`
-  fragment MirrorNotificationFields on MirrorNotification {
-    id
-    mirrors {
-      profile {
-        ...PublicationProfileFields
-      }
-    }
-    publication {
-      ... on Post {
-        ...NotificationPostFields
-      }
-      ... on Comment {
-        ...NotificationCommentFields
-      }
-      ... on Quote {
-        ...NotificationQuoteFields
-      }
-    }
-  }
-  ${PublicationProfileFieldsFragmentDoc}
-  ${NotificationPostFieldsFragmentDoc}
-  ${NotificationCommentFieldsFragmentDoc}
-  ${NotificationQuoteFieldsFragmentDoc}
-`;
-export const QuoteNotificationFieldsFragmentDoc = gql`
-  fragment QuoteNotificationFields on QuoteNotification {
-    id
-    quote {
+    ... on Quote {
       ...NotificationQuoteFields
       by {
         ...PublicationProfileFields
       }
-      quoteOn {
-        __typename
-      }
     }
   }
-  ${NotificationQuoteFieldsFragmentDoc}
-  ${PublicationProfileFieldsFragmentDoc}
-`;
-export const ActedNotificationFieldsFragmentDoc = gql`
-  fragment ActedNotificationFields on ActedNotification {
-    id
-    actions {
-      actedAt
-      by {
-        ...PublicationProfileFields
-      }
-    }
-    publication {
-      ... on Post {
-        ...NotificationPostFields
-      }
-      ... on Comment {
-        ...NotificationCommentFields
-      }
-      ... on Mirror {
-        mirrorOn {
-          ... on Post {
-            ...NotificationPostFields
-          }
-          ... on Comment {
-            ...NotificationCommentFields
-          }
-          ... on Quote {
-            ...NotificationQuoteFields
-          }
-        }
-      }
-      ... on Quote {
-        ...NotificationQuoteFields
-      }
-    }
-  }
-  ${PublicationProfileFieldsFragmentDoc}
-  ${NotificationPostFieldsFragmentDoc}
-  ${NotificationCommentFieldsFragmentDoc}
-  ${NotificationQuoteFieldsFragmentDoc}
-`;
-export const FollowNotificationFieldsFragmentDoc = gql`
-  fragment FollowNotificationFields on FollowNotification {
-    id
-    followers {
-      ...PublicationProfileFields
-    }
-  }
-  ${PublicationProfileFieldsFragmentDoc}
-`;
-export const MentionNotificationFieldsFragmentDoc = gql`
-  fragment MentionNotificationFields on MentionNotification {
-    id
-    publication {
-      ... on Post {
-        ...NotificationPostFields
-        by {
-          ...PublicationProfileFields
-        }
-      }
-      ... on Comment {
-        ...NotificationCommentFields
-        by {
-          ...PublicationProfileFields
-        }
-      }
-      ... on Quote {
-        ...NotificationQuoteFields
-        by {
-          ...PublicationProfileFields
-        }
-      }
-    }
-  }
-  ${NotificationPostFieldsFragmentDoc}
-  ${PublicationProfileFieldsFragmentDoc}
-  ${NotificationCommentFieldsFragmentDoc}
-  ${NotificationQuoteFieldsFragmentDoc}
-`;
+}
+    ${NotificationPostFieldsFragmentDoc}
+${PublicationProfileFieldsFragmentDoc}
+${NotificationCommentFieldsFragmentDoc}
+${NotificationQuoteFieldsFragmentDoc}`;
 export const NotificationFieldsFragmentDoc = gql`
-  fragment NotificationFields on Notification {
-    ... on ReactionNotification {
-      ...ReactionNotificationFields
-    }
-    ... on CommentNotification {
-      ...CommentNotificationFields
-    }
-    ... on MirrorNotification {
-      ...MirrorNotificationFields
-    }
-    ... on QuoteNotification {
-      ...QuoteNotificationFields
-    }
-    ... on ActedNotification {
-      ...ActedNotificationFields
-    }
-    ... on FollowNotification {
-      ...FollowNotificationFields
-    }
-    ... on MentionNotification {
-      ...MentionNotificationFields
-    }
+    fragment NotificationFields on Notification {
+  ... on ReactionNotification {
+    ...ReactionNotificationFields
   }
-  ${ReactionNotificationFieldsFragmentDoc}
-  ${CommentNotificationFieldsFragmentDoc}
-  ${MirrorNotificationFieldsFragmentDoc}
-  ${QuoteNotificationFieldsFragmentDoc}
-  ${ActedNotificationFieldsFragmentDoc}
-  ${FollowNotificationFieldsFragmentDoc}
-  ${MentionNotificationFieldsFragmentDoc}
-`;
+  ... on CommentNotification {
+    ...CommentNotificationFields
+  }
+  ... on MirrorNotification {
+    ...MirrorNotificationFields
+  }
+  ... on QuoteNotification {
+    ...QuoteNotificationFields
+  }
+  ... on ActedNotification {
+    ...ActedNotificationFields
+  }
+  ... on FollowNotification {
+    ...FollowNotificationFields
+  }
+  ... on MentionNotification {
+    ...MentionNotificationFields
+  }
+}
+    ${ReactionNotificationFieldsFragmentDoc}
+${CommentNotificationFieldsFragmentDoc}
+${MirrorNotificationFieldsFragmentDoc}
+${QuoteNotificationFieldsFragmentDoc}
+${ActedNotificationFieldsFragmentDoc}
+${FollowNotificationFieldsFragmentDoc}
+${MentionNotificationFieldsFragmentDoc}`;
 export const AuthenticateDocument = gql`
-  mutation Authenticate($request: SignedAuthChallenge!) {
-    authenticate(request: $request) {
-      accessToken
-      refreshToken
-      identityToken
-    }
+    mutation Authenticate($request: SignedAuthChallenge!) {
+  authenticate(request: $request) {
+    accessToken
+    refreshToken
+    identityToken
   }
-`;
-export type AuthenticateMutationFn = Apollo.MutationFunction<
-  AuthenticateMutation,
-  AuthenticateMutationVariables
->;
+}
+    `;
+export type AuthenticateMutationFn = Apollo.MutationFunction<AuthenticateMutation, AuthenticateMutationVariables>;
 
 /**
  * __useAuthenticateMutation__
@@ -10162,43 +8914,26 @@ export type AuthenticateMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAuthenticateMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    AuthenticateMutation,
-    AuthenticateMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    AuthenticateMutation,
-    AuthenticateMutationVariables
-  >(AuthenticateDocument, options);
-}
-export type AuthenticateMutationHookResult = ReturnType<
-  typeof useAuthenticateMutation
->;
-export type AuthenticateMutationResult =
-  Apollo.MutationResult<AuthenticateMutation>;
-export type AuthenticateMutationOptions = Apollo.BaseMutationOptions<
-  AuthenticateMutation,
-  AuthenticateMutationVariables
->;
+export function useAuthenticateMutation(baseOptions?: Apollo.MutationHookOptions<AuthenticateMutation, AuthenticateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AuthenticateMutation, AuthenticateMutationVariables>(AuthenticateDocument, options);
+      }
+export type AuthenticateMutationHookResult = ReturnType<typeof useAuthenticateMutation>;
+export type AuthenticateMutationResult = Apollo.MutationResult<AuthenticateMutation>;
+export type AuthenticateMutationOptions = Apollo.BaseMutationOptions<AuthenticateMutation, AuthenticateMutationVariables>;
 export const BroadcastOnchainDocument = gql`
-  mutation BroadcastOnchain($request: BroadcastRequest!) {
-    broadcastOnchain(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on RelayError {
-        reason
-      }
+    mutation BroadcastOnchain($request: BroadcastRequest!) {
+  broadcastOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on RelayError {
+      reason
     }
   }
-`;
-export type BroadcastOnchainMutationFn = Apollo.MutationFunction<
-  BroadcastOnchainMutation,
-  BroadcastOnchainMutationVariables
->;
+}
+    `;
+export type BroadcastOnchainMutationFn = Apollo.MutationFunction<BroadcastOnchainMutation, BroadcastOnchainMutationVariables>;
 
 /**
  * __useBroadcastOnchainMutation__
@@ -10217,43 +8952,26 @@ export type BroadcastOnchainMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useBroadcastOnchainMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    BroadcastOnchainMutation,
-    BroadcastOnchainMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    BroadcastOnchainMutation,
-    BroadcastOnchainMutationVariables
-  >(BroadcastOnchainDocument, options);
-}
-export type BroadcastOnchainMutationHookResult = ReturnType<
-  typeof useBroadcastOnchainMutation
->;
-export type BroadcastOnchainMutationResult =
-  Apollo.MutationResult<BroadcastOnchainMutation>;
-export type BroadcastOnchainMutationOptions = Apollo.BaseMutationOptions<
-  BroadcastOnchainMutation,
-  BroadcastOnchainMutationVariables
->;
+export function useBroadcastOnchainMutation(baseOptions?: Apollo.MutationHookOptions<BroadcastOnchainMutation, BroadcastOnchainMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BroadcastOnchainMutation, BroadcastOnchainMutationVariables>(BroadcastOnchainDocument, options);
+      }
+export type BroadcastOnchainMutationHookResult = ReturnType<typeof useBroadcastOnchainMutation>;
+export type BroadcastOnchainMutationResult = Apollo.MutationResult<BroadcastOnchainMutation>;
+export type BroadcastOnchainMutationOptions = Apollo.BaseMutationOptions<BroadcastOnchainMutation, BroadcastOnchainMutationVariables>;
 export const BroadcastOnMomokaDocument = gql`
-  mutation BroadcastOnMomoka($request: BroadcastRequest!) {
-    broadcastOnMomoka(request: $request) {
-      ... on CreateMomokaPublicationResult {
-        id
-      }
-      ... on RelayError {
-        reason
-      }
+    mutation BroadcastOnMomoka($request: BroadcastRequest!) {
+  broadcastOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on RelayError {
+      reason
     }
   }
-`;
-export type BroadcastOnMomokaMutationFn = Apollo.MutationFunction<
-  BroadcastOnMomokaMutation,
-  BroadcastOnMomokaMutationVariables
->;
+}
+    `;
+export type BroadcastOnMomokaMutationFn = Apollo.MutationFunction<BroadcastOnMomokaMutation, BroadcastOnMomokaMutationVariables>;
 
 /**
  * __useBroadcastOnMomokaMutation__
@@ -10272,36 +8990,19 @@ export type BroadcastOnMomokaMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useBroadcastOnMomokaMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    BroadcastOnMomokaMutation,
-    BroadcastOnMomokaMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    BroadcastOnMomokaMutation,
-    BroadcastOnMomokaMutationVariables
-  >(BroadcastOnMomokaDocument, options);
-}
-export type BroadcastOnMomokaMutationHookResult = ReturnType<
-  typeof useBroadcastOnMomokaMutation
->;
-export type BroadcastOnMomokaMutationResult =
-  Apollo.MutationResult<BroadcastOnMomokaMutation>;
-export type BroadcastOnMomokaMutationOptions = Apollo.BaseMutationOptions<
-  BroadcastOnMomokaMutation,
-  BroadcastOnMomokaMutationVariables
->;
+export function useBroadcastOnMomokaMutation(baseOptions?: Apollo.MutationHookOptions<BroadcastOnMomokaMutation, BroadcastOnMomokaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BroadcastOnMomokaMutation, BroadcastOnMomokaMutationVariables>(BroadcastOnMomokaDocument, options);
+      }
+export type BroadcastOnMomokaMutationHookResult = ReturnType<typeof useBroadcastOnMomokaMutation>;
+export type BroadcastOnMomokaMutationResult = Apollo.MutationResult<BroadcastOnMomokaMutation>;
+export type BroadcastOnMomokaMutationOptions = Apollo.BaseMutationOptions<BroadcastOnMomokaMutation, BroadcastOnMomokaMutationVariables>;
 export const AddProfileInterestsDocument = gql`
-  mutation AddProfileInterests($request: ProfileInterestsRequest!) {
-    addProfileInterests(request: $request)
-  }
-`;
-export type AddProfileInterestsMutationFn = Apollo.MutationFunction<
-  AddProfileInterestsMutation,
-  AddProfileInterestsMutationVariables
->;
+    mutation AddProfileInterests($request: ProfileInterestsRequest!) {
+  addProfileInterests(request: $request)
+}
+    `;
+export type AddProfileInterestsMutationFn = Apollo.MutationFunction<AddProfileInterestsMutation, AddProfileInterestsMutationVariables>;
 
 /**
  * __useAddProfileInterestsMutation__
@@ -10320,43 +9021,26 @@ export type AddProfileInterestsMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAddProfileInterestsMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    AddProfileInterestsMutation,
-    AddProfileInterestsMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    AddProfileInterestsMutation,
-    AddProfileInterestsMutationVariables
-  >(AddProfileInterestsDocument, options);
-}
-export type AddProfileInterestsMutationHookResult = ReturnType<
-  typeof useAddProfileInterestsMutation
->;
-export type AddProfileInterestsMutationResult =
-  Apollo.MutationResult<AddProfileInterestsMutation>;
-export type AddProfileInterestsMutationOptions = Apollo.BaseMutationOptions<
-  AddProfileInterestsMutation,
-  AddProfileInterestsMutationVariables
->;
+export function useAddProfileInterestsMutation(baseOptions?: Apollo.MutationHookOptions<AddProfileInterestsMutation, AddProfileInterestsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddProfileInterestsMutation, AddProfileInterestsMutationVariables>(AddProfileInterestsDocument, options);
+      }
+export type AddProfileInterestsMutationHookResult = ReturnType<typeof useAddProfileInterestsMutation>;
+export type AddProfileInterestsMutationResult = Apollo.MutationResult<AddProfileInterestsMutation>;
+export type AddProfileInterestsMutationOptions = Apollo.BaseMutationOptions<AddProfileInterestsMutation, AddProfileInterestsMutationVariables>;
 export const BlockDocument = gql`
-  mutation Block($request: BlockRequest!) {
-    block(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation Block($request: BlockRequest!) {
+  block(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type BlockMutationFn = Apollo.MutationFunction<
-  BlockMutation,
-  BlockMutationVariables
->;
+}
+    `;
+export type BlockMutationFn = Apollo.MutationFunction<BlockMutation, BlockMutationVariables>;
 
 /**
  * __useBlockMutation__
@@ -10375,40 +9059,26 @@ export type BlockMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useBlockMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    BlockMutation,
-    BlockMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<BlockMutation, BlockMutationVariables>(
-    BlockDocument,
-    options
-  );
-}
+export function useBlockMutation(baseOptions?: Apollo.MutationHookOptions<BlockMutation, BlockMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BlockMutation, BlockMutationVariables>(BlockDocument, options);
+      }
 export type BlockMutationHookResult = ReturnType<typeof useBlockMutation>;
 export type BlockMutationResult = Apollo.MutationResult<BlockMutation>;
-export type BlockMutationOptions = Apollo.BaseMutationOptions<
-  BlockMutation,
-  BlockMutationVariables
->;
+export type BlockMutationOptions = Apollo.BaseMutationOptions<BlockMutation, BlockMutationVariables>;
 export const CreateProfileWithHandleDocument = gql`
-  mutation CreateProfileWithHandle($request: CreateProfileWithHandleRequest!) {
-    createProfileWithHandle(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on CreateProfileWithHandleErrorResult {
-        reason
-      }
+    mutation CreateProfileWithHandle($request: CreateProfileWithHandleRequest!) {
+  createProfileWithHandle(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on CreateProfileWithHandleErrorResult {
+      reason
     }
   }
-`;
-export type CreateProfileWithHandleMutationFn = Apollo.MutationFunction<
-  CreateProfileWithHandleMutation,
-  CreateProfileWithHandleMutationVariables
->;
+}
+    `;
+export type CreateProfileWithHandleMutationFn = Apollo.MutationFunction<CreateProfileWithHandleMutation, CreateProfileWithHandleMutationVariables>;
 
 /**
  * __useCreateProfileWithHandleMutation__
@@ -10427,38 +9097,19 @@ export type CreateProfileWithHandleMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateProfileWithHandleMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateProfileWithHandleMutation,
-    CreateProfileWithHandleMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateProfileWithHandleMutation,
-    CreateProfileWithHandleMutationVariables
-  >(CreateProfileWithHandleDocument, options);
-}
-export type CreateProfileWithHandleMutationHookResult = ReturnType<
-  typeof useCreateProfileWithHandleMutation
->;
-export type CreateProfileWithHandleMutationResult =
-  Apollo.MutationResult<CreateProfileWithHandleMutation>;
-export type CreateProfileWithHandleMutationOptions = Apollo.BaseMutationOptions<
-  CreateProfileWithHandleMutation,
-  CreateProfileWithHandleMutationVariables
->;
+export function useCreateProfileWithHandleMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileWithHandleMutation, CreateProfileWithHandleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateProfileWithHandleMutation, CreateProfileWithHandleMutationVariables>(CreateProfileWithHandleDocument, options);
+      }
+export type CreateProfileWithHandleMutationHookResult = ReturnType<typeof useCreateProfileWithHandleMutation>;
+export type CreateProfileWithHandleMutationResult = Apollo.MutationResult<CreateProfileWithHandleMutation>;
+export type CreateProfileWithHandleMutationOptions = Apollo.BaseMutationOptions<CreateProfileWithHandleMutation, CreateProfileWithHandleMutationVariables>;
 export const DismissRecommendedProfilesDocument = gql`
-  mutation DismissRecommendedProfiles(
-    $request: DismissRecommendedProfilesRequest!
-  ) {
-    dismissRecommendedProfiles(request: $request)
-  }
-`;
-export type DismissRecommendedProfilesMutationFn = Apollo.MutationFunction<
-  DismissRecommendedProfilesMutation,
-  DismissRecommendedProfilesMutationVariables
->;
+    mutation DismissRecommendedProfiles($request: DismissRecommendedProfilesRequest!) {
+  dismissRecommendedProfiles(request: $request)
+}
+    `;
+export type DismissRecommendedProfilesMutationFn = Apollo.MutationFunction<DismissRecommendedProfilesMutation, DismissRecommendedProfilesMutationVariables>;
 
 /**
  * __useDismissRecommendedProfilesMutation__
@@ -10477,44 +9128,26 @@ export type DismissRecommendedProfilesMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useDismissRecommendedProfilesMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DismissRecommendedProfilesMutation,
-    DismissRecommendedProfilesMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    DismissRecommendedProfilesMutation,
-    DismissRecommendedProfilesMutationVariables
-  >(DismissRecommendedProfilesDocument, options);
-}
-export type DismissRecommendedProfilesMutationHookResult = ReturnType<
-  typeof useDismissRecommendedProfilesMutation
->;
-export type DismissRecommendedProfilesMutationResult =
-  Apollo.MutationResult<DismissRecommendedProfilesMutation>;
-export type DismissRecommendedProfilesMutationOptions =
-  Apollo.BaseMutationOptions<
-    DismissRecommendedProfilesMutation,
-    DismissRecommendedProfilesMutationVariables
-  >;
+export function useDismissRecommendedProfilesMutation(baseOptions?: Apollo.MutationHookOptions<DismissRecommendedProfilesMutation, DismissRecommendedProfilesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DismissRecommendedProfilesMutation, DismissRecommendedProfilesMutationVariables>(DismissRecommendedProfilesDocument, options);
+      }
+export type DismissRecommendedProfilesMutationHookResult = ReturnType<typeof useDismissRecommendedProfilesMutation>;
+export type DismissRecommendedProfilesMutationResult = Apollo.MutationResult<DismissRecommendedProfilesMutation>;
+export type DismissRecommendedProfilesMutationOptions = Apollo.BaseMutationOptions<DismissRecommendedProfilesMutation, DismissRecommendedProfilesMutationVariables>;
 export const FollowDocument = gql`
-  mutation Follow($request: FollowLensManagerRequest!) {
-    follow(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation Follow($request: FollowLensManagerRequest!) {
+  follow(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type FollowMutationFn = Apollo.MutationFunction<
-  FollowMutation,
-  FollowMutationVariables
->;
+}
+    `;
+export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMutationVariables>;
 
 /**
  * __useFollowMutation__
@@ -10533,33 +9166,19 @@ export type FollowMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useFollowMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    FollowMutation,
-    FollowMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<FollowMutation, FollowMutationVariables>(
-    FollowDocument,
-    options
-  );
-}
+export function useFollowMutation(baseOptions?: Apollo.MutationHookOptions<FollowMutation, FollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FollowMutation, FollowMutationVariables>(FollowDocument, options);
+      }
 export type FollowMutationHookResult = ReturnType<typeof useFollowMutation>;
 export type FollowMutationResult = Apollo.MutationResult<FollowMutation>;
-export type FollowMutationOptions = Apollo.BaseMutationOptions<
-  FollowMutation,
-  FollowMutationVariables
->;
+export type FollowMutationOptions = Apollo.BaseMutationOptions<FollowMutation, FollowMutationVariables>;
 export const HideManagedProfileDocument = gql`
-  mutation HideManagedProfile($request: HideManagedProfileRequest!) {
-    hideManagedProfile(request: $request)
-  }
-`;
-export type HideManagedProfileMutationFn = Apollo.MutationFunction<
-  HideManagedProfileMutation,
-  HideManagedProfileMutationVariables
->;
+    mutation HideManagedProfile($request: HideManagedProfileRequest!) {
+  hideManagedProfile(request: $request)
+}
+    `;
+export type HideManagedProfileMutationFn = Apollo.MutationFunction<HideManagedProfileMutation, HideManagedProfileMutationVariables>;
 
 /**
  * __useHideManagedProfileMutation__
@@ -10578,43 +9197,26 @@ export type HideManagedProfileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useHideManagedProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    HideManagedProfileMutation,
-    HideManagedProfileMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    HideManagedProfileMutation,
-    HideManagedProfileMutationVariables
-  >(HideManagedProfileDocument, options);
-}
-export type HideManagedProfileMutationHookResult = ReturnType<
-  typeof useHideManagedProfileMutation
->;
-export type HideManagedProfileMutationResult =
-  Apollo.MutationResult<HideManagedProfileMutation>;
-export type HideManagedProfileMutationOptions = Apollo.BaseMutationOptions<
-  HideManagedProfileMutation,
-  HideManagedProfileMutationVariables
->;
+export function useHideManagedProfileMutation(baseOptions?: Apollo.MutationHookOptions<HideManagedProfileMutation, HideManagedProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<HideManagedProfileMutation, HideManagedProfileMutationVariables>(HideManagedProfileDocument, options);
+      }
+export type HideManagedProfileMutationHookResult = ReturnType<typeof useHideManagedProfileMutation>;
+export type HideManagedProfileMutationResult = Apollo.MutationResult<HideManagedProfileMutation>;
+export type HideManagedProfileMutationOptions = Apollo.BaseMutationOptions<HideManagedProfileMutation, HideManagedProfileMutationVariables>;
 export const LinkHandleToProfileDocument = gql`
-  mutation LinkHandleToProfile($request: LinkHandleToProfileRequest!) {
-    linkHandleToProfile(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation LinkHandleToProfile($request: LinkHandleToProfileRequest!) {
+  linkHandleToProfile(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type LinkHandleToProfileMutationFn = Apollo.MutationFunction<
-  LinkHandleToProfileMutation,
-  LinkHandleToProfileMutationVariables
->;
+}
+    `;
+export type LinkHandleToProfileMutationFn = Apollo.MutationFunction<LinkHandleToProfileMutation, LinkHandleToProfileMutationVariables>;
 
 /**
  * __useLinkHandleToProfileMutation__
@@ -10633,36 +9235,19 @@ export type LinkHandleToProfileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useLinkHandleToProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    LinkHandleToProfileMutation,
-    LinkHandleToProfileMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    LinkHandleToProfileMutation,
-    LinkHandleToProfileMutationVariables
-  >(LinkHandleToProfileDocument, options);
-}
-export type LinkHandleToProfileMutationHookResult = ReturnType<
-  typeof useLinkHandleToProfileMutation
->;
-export type LinkHandleToProfileMutationResult =
-  Apollo.MutationResult<LinkHandleToProfileMutation>;
-export type LinkHandleToProfileMutationOptions = Apollo.BaseMutationOptions<
-  LinkHandleToProfileMutation,
-  LinkHandleToProfileMutationVariables
->;
+export function useLinkHandleToProfileMutation(baseOptions?: Apollo.MutationHookOptions<LinkHandleToProfileMutation, LinkHandleToProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LinkHandleToProfileMutation, LinkHandleToProfileMutationVariables>(LinkHandleToProfileDocument, options);
+      }
+export type LinkHandleToProfileMutationHookResult = ReturnType<typeof useLinkHandleToProfileMutation>;
+export type LinkHandleToProfileMutationResult = Apollo.MutationResult<LinkHandleToProfileMutation>;
+export type LinkHandleToProfileMutationOptions = Apollo.BaseMutationOptions<LinkHandleToProfileMutation, LinkHandleToProfileMutationVariables>;
 export const PeerToPeerRecommendDocument = gql`
-  mutation PeerToPeerRecommend($request: PeerToPeerRecommendRequest!) {
-    peerToPeerRecommend(request: $request)
-  }
-`;
-export type PeerToPeerRecommendMutationFn = Apollo.MutationFunction<
-  PeerToPeerRecommendMutation,
-  PeerToPeerRecommendMutationVariables
->;
+    mutation PeerToPeerRecommend($request: PeerToPeerRecommendRequest!) {
+  peerToPeerRecommend(request: $request)
+}
+    `;
+export type PeerToPeerRecommendMutationFn = Apollo.MutationFunction<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>;
 
 /**
  * __usePeerToPeerRecommendMutation__
@@ -10681,36 +9266,19 @@ export type PeerToPeerRecommendMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function usePeerToPeerRecommendMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    PeerToPeerRecommendMutation,
-    PeerToPeerRecommendMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    PeerToPeerRecommendMutation,
-    PeerToPeerRecommendMutationVariables
-  >(PeerToPeerRecommendDocument, options);
-}
-export type PeerToPeerRecommendMutationHookResult = ReturnType<
-  typeof usePeerToPeerRecommendMutation
->;
-export type PeerToPeerRecommendMutationResult =
-  Apollo.MutationResult<PeerToPeerRecommendMutation>;
-export type PeerToPeerRecommendMutationOptions = Apollo.BaseMutationOptions<
-  PeerToPeerRecommendMutation,
-  PeerToPeerRecommendMutationVariables
->;
+export function usePeerToPeerRecommendMutation(baseOptions?: Apollo.MutationHookOptions<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>(PeerToPeerRecommendDocument, options);
+      }
+export type PeerToPeerRecommendMutationHookResult = ReturnType<typeof usePeerToPeerRecommendMutation>;
+export type PeerToPeerRecommendMutationResult = Apollo.MutationResult<PeerToPeerRecommendMutation>;
+export type PeerToPeerRecommendMutationOptions = Apollo.BaseMutationOptions<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>;
 export const PeerToPeerUnrecommendDocument = gql`
-  mutation PeerToPeerUnrecommend($request: PeerToPeerRecommendRequest!) {
-    peerToPeerUnrecommend(request: $request)
-  }
-`;
-export type PeerToPeerUnrecommendMutationFn = Apollo.MutationFunction<
-  PeerToPeerUnrecommendMutation,
-  PeerToPeerUnrecommendMutationVariables
->;
+    mutation PeerToPeerUnrecommend($request: PeerToPeerRecommendRequest!) {
+  peerToPeerUnrecommend(request: $request)
+}
+    `;
+export type PeerToPeerUnrecommendMutationFn = Apollo.MutationFunction<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>;
 
 /**
  * __usePeerToPeerUnrecommendMutation__
@@ -10729,36 +9297,19 @@ export type PeerToPeerUnrecommendMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function usePeerToPeerUnrecommendMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    PeerToPeerUnrecommendMutation,
-    PeerToPeerUnrecommendMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    PeerToPeerUnrecommendMutation,
-    PeerToPeerUnrecommendMutationVariables
-  >(PeerToPeerUnrecommendDocument, options);
-}
-export type PeerToPeerUnrecommendMutationHookResult = ReturnType<
-  typeof usePeerToPeerUnrecommendMutation
->;
-export type PeerToPeerUnrecommendMutationResult =
-  Apollo.MutationResult<PeerToPeerUnrecommendMutation>;
-export type PeerToPeerUnrecommendMutationOptions = Apollo.BaseMutationOptions<
-  PeerToPeerUnrecommendMutation,
-  PeerToPeerUnrecommendMutationVariables
->;
+export function usePeerToPeerUnrecommendMutation(baseOptions?: Apollo.MutationHookOptions<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>(PeerToPeerUnrecommendDocument, options);
+      }
+export type PeerToPeerUnrecommendMutationHookResult = ReturnType<typeof usePeerToPeerUnrecommendMutation>;
+export type PeerToPeerUnrecommendMutationResult = Apollo.MutationResult<PeerToPeerUnrecommendMutation>;
+export type PeerToPeerUnrecommendMutationOptions = Apollo.BaseMutationOptions<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>;
 export const RemoveProfileInterestsDocument = gql`
-  mutation RemoveProfileInterests($request: ProfileInterestsRequest!) {
-    removeProfileInterests(request: $request)
-  }
-`;
-export type RemoveProfileInterestsMutationFn = Apollo.MutationFunction<
-  RemoveProfileInterestsMutation,
-  RemoveProfileInterestsMutationVariables
->;
+    mutation RemoveProfileInterests($request: ProfileInterestsRequest!) {
+  removeProfileInterests(request: $request)
+}
+    `;
+export type RemoveProfileInterestsMutationFn = Apollo.MutationFunction<RemoveProfileInterestsMutation, RemoveProfileInterestsMutationVariables>;
 
 /**
  * __useRemoveProfileInterestsMutation__
@@ -10777,36 +9328,19 @@ export type RemoveProfileInterestsMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useRemoveProfileInterestsMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    RemoveProfileInterestsMutation,
-    RemoveProfileInterestsMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    RemoveProfileInterestsMutation,
-    RemoveProfileInterestsMutationVariables
-  >(RemoveProfileInterestsDocument, options);
-}
-export type RemoveProfileInterestsMutationHookResult = ReturnType<
-  typeof useRemoveProfileInterestsMutation
->;
-export type RemoveProfileInterestsMutationResult =
-  Apollo.MutationResult<RemoveProfileInterestsMutation>;
-export type RemoveProfileInterestsMutationOptions = Apollo.BaseMutationOptions<
-  RemoveProfileInterestsMutation,
-  RemoveProfileInterestsMutationVariables
->;
+export function useRemoveProfileInterestsMutation(baseOptions?: Apollo.MutationHookOptions<RemoveProfileInterestsMutation, RemoveProfileInterestsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveProfileInterestsMutation, RemoveProfileInterestsMutationVariables>(RemoveProfileInterestsDocument, options);
+      }
+export type RemoveProfileInterestsMutationHookResult = ReturnType<typeof useRemoveProfileInterestsMutation>;
+export type RemoveProfileInterestsMutationResult = Apollo.MutationResult<RemoveProfileInterestsMutation>;
+export type RemoveProfileInterestsMutationOptions = Apollo.BaseMutationOptions<RemoveProfileInterestsMutation, RemoveProfileInterestsMutationVariables>;
 export const ReportProfileDocument = gql`
-  mutation ReportProfile($request: ReportProfileRequest!) {
-    reportProfile(request: $request)
-  }
-`;
-export type ReportProfileMutationFn = Apollo.MutationFunction<
-  ReportProfileMutation,
-  ReportProfileMutationVariables
->;
+    mutation ReportProfile($request: ReportProfileRequest!) {
+  reportProfile(request: $request)
+}
+    `;
+export type ReportProfileMutationFn = Apollo.MutationFunction<ReportProfileMutation, ReportProfileMutationVariables>;
 
 /**
  * __useReportProfileMutation__
@@ -10825,36 +9359,19 @@ export type ReportProfileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useReportProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    ReportProfileMutation,
-    ReportProfileMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    ReportProfileMutation,
-    ReportProfileMutationVariables
-  >(ReportProfileDocument, options);
-}
-export type ReportProfileMutationHookResult = ReturnType<
-  typeof useReportProfileMutation
->;
-export type ReportProfileMutationResult =
-  Apollo.MutationResult<ReportProfileMutation>;
-export type ReportProfileMutationOptions = Apollo.BaseMutationOptions<
-  ReportProfileMutation,
-  ReportProfileMutationVariables
->;
+export function useReportProfileMutation(baseOptions?: Apollo.MutationHookOptions<ReportProfileMutation, ReportProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReportProfileMutation, ReportProfileMutationVariables>(ReportProfileDocument, options);
+      }
+export type ReportProfileMutationHookResult = ReturnType<typeof useReportProfileMutation>;
+export type ReportProfileMutationResult = Apollo.MutationResult<ReportProfileMutation>;
+export type ReportProfileMutationOptions = Apollo.BaseMutationOptions<ReportProfileMutation, ReportProfileMutationVariables>;
 export const RevokeAuthenticationDocument = gql`
-  mutation RevokeAuthentication($request: RevokeAuthenticationRequest!) {
-    revokeAuthentication(request: $request)
-  }
-`;
-export type RevokeAuthenticationMutationFn = Apollo.MutationFunction<
-  RevokeAuthenticationMutation,
-  RevokeAuthenticationMutationVariables
->;
+    mutation RevokeAuthentication($request: RevokeAuthenticationRequest!) {
+  revokeAuthentication(request: $request)
+}
+    `;
+export type RevokeAuthenticationMutationFn = Apollo.MutationFunction<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>;
 
 /**
  * __useRevokeAuthenticationMutation__
@@ -10873,36 +9390,19 @@ export type RevokeAuthenticationMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useRevokeAuthenticationMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    RevokeAuthenticationMutation,
-    RevokeAuthenticationMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    RevokeAuthenticationMutation,
-    RevokeAuthenticationMutationVariables
-  >(RevokeAuthenticationDocument, options);
-}
-export type RevokeAuthenticationMutationHookResult = ReturnType<
-  typeof useRevokeAuthenticationMutation
->;
-export type RevokeAuthenticationMutationResult =
-  Apollo.MutationResult<RevokeAuthenticationMutation>;
-export type RevokeAuthenticationMutationOptions = Apollo.BaseMutationOptions<
-  RevokeAuthenticationMutation,
-  RevokeAuthenticationMutationVariables
->;
+export function useRevokeAuthenticationMutation(baseOptions?: Apollo.MutationHookOptions<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>(RevokeAuthenticationDocument, options);
+      }
+export type RevokeAuthenticationMutationHookResult = ReturnType<typeof useRevokeAuthenticationMutation>;
+export type RevokeAuthenticationMutationResult = Apollo.MutationResult<RevokeAuthenticationMutation>;
+export type RevokeAuthenticationMutationOptions = Apollo.BaseMutationOptions<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>;
 export const SetDefaultProfileDocument = gql`
-  mutation SetDefaultProfile($request: SetDefaultProfileRequest!) {
-    setDefaultProfile(request: $request)
-  }
-`;
-export type SetDefaultProfileMutationFn = Apollo.MutationFunction<
-  SetDefaultProfileMutation,
-  SetDefaultProfileMutationVariables
->;
+    mutation SetDefaultProfile($request: SetDefaultProfileRequest!) {
+  setDefaultProfile(request: $request)
+}
+    `;
+export type SetDefaultProfileMutationFn = Apollo.MutationFunction<SetDefaultProfileMutation, SetDefaultProfileMutationVariables>;
 
 /**
  * __useSetDefaultProfileMutation__
@@ -10921,43 +9421,26 @@ export type SetDefaultProfileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useSetDefaultProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    SetDefaultProfileMutation,
-    SetDefaultProfileMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    SetDefaultProfileMutation,
-    SetDefaultProfileMutationVariables
-  >(SetDefaultProfileDocument, options);
-}
-export type SetDefaultProfileMutationHookResult = ReturnType<
-  typeof useSetDefaultProfileMutation
->;
-export type SetDefaultProfileMutationResult =
-  Apollo.MutationResult<SetDefaultProfileMutation>;
-export type SetDefaultProfileMutationOptions = Apollo.BaseMutationOptions<
-  SetDefaultProfileMutation,
-  SetDefaultProfileMutationVariables
->;
+export function useSetDefaultProfileMutation(baseOptions?: Apollo.MutationHookOptions<SetDefaultProfileMutation, SetDefaultProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetDefaultProfileMutation, SetDefaultProfileMutationVariables>(SetDefaultProfileDocument, options);
+      }
+export type SetDefaultProfileMutationHookResult = ReturnType<typeof useSetDefaultProfileMutation>;
+export type SetDefaultProfileMutationResult = Apollo.MutationResult<SetDefaultProfileMutation>;
+export type SetDefaultProfileMutationOptions = Apollo.BaseMutationOptions<SetDefaultProfileMutation, SetDefaultProfileMutationVariables>;
 export const SetProfileMetadataDocument = gql`
-  mutation SetProfileMetadata($request: OnchainSetProfileMetadataRequest!) {
-    setProfileMetadata(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation SetProfileMetadata($request: OnchainSetProfileMetadataRequest!) {
+  setProfileMetadata(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type SetProfileMetadataMutationFn = Apollo.MutationFunction<
-  SetProfileMetadataMutation,
-  SetProfileMetadataMutationVariables
->;
+}
+    `;
+export type SetProfileMetadataMutationFn = Apollo.MutationFunction<SetProfileMetadataMutation, SetProfileMetadataMutationVariables>;
 
 /**
  * __useSetProfileMetadataMutation__
@@ -10976,43 +9459,26 @@ export type SetProfileMetadataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useSetProfileMetadataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    SetProfileMetadataMutation,
-    SetProfileMetadataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    SetProfileMetadataMutation,
-    SetProfileMetadataMutationVariables
-  >(SetProfileMetadataDocument, options);
-}
-export type SetProfileMetadataMutationHookResult = ReturnType<
-  typeof useSetProfileMetadataMutation
->;
-export type SetProfileMetadataMutationResult =
-  Apollo.MutationResult<SetProfileMetadataMutation>;
-export type SetProfileMetadataMutationOptions = Apollo.BaseMutationOptions<
-  SetProfileMetadataMutation,
-  SetProfileMetadataMutationVariables
->;
+export function useSetProfileMetadataMutation(baseOptions?: Apollo.MutationHookOptions<SetProfileMetadataMutation, SetProfileMetadataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetProfileMetadataMutation, SetProfileMetadataMutationVariables>(SetProfileMetadataDocument, options);
+      }
+export type SetProfileMetadataMutationHookResult = ReturnType<typeof useSetProfileMetadataMutation>;
+export type SetProfileMetadataMutationResult = Apollo.MutationResult<SetProfileMetadataMutation>;
+export type SetProfileMetadataMutationOptions = Apollo.BaseMutationOptions<SetProfileMetadataMutation, SetProfileMetadataMutationVariables>;
 export const UnblockDocument = gql`
-  mutation Unblock($request: UnblockRequest!) {
-    unblock(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation Unblock($request: UnblockRequest!) {
+  unblock(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type UnblockMutationFn = Apollo.MutationFunction<
-  UnblockMutation,
-  UnblockMutationVariables
->;
+}
+    `;
+export type UnblockMutationFn = Apollo.MutationFunction<UnblockMutation, UnblockMutationVariables>;
 
 /**
  * __useUnblockMutation__
@@ -11031,40 +9497,26 @@ export type UnblockMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUnblockMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UnblockMutation,
-    UnblockMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<UnblockMutation, UnblockMutationVariables>(
-    UnblockDocument,
-    options
-  );
-}
+export function useUnblockMutation(baseOptions?: Apollo.MutationHookOptions<UnblockMutation, UnblockMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnblockMutation, UnblockMutationVariables>(UnblockDocument, options);
+      }
 export type UnblockMutationHookResult = ReturnType<typeof useUnblockMutation>;
 export type UnblockMutationResult = Apollo.MutationResult<UnblockMutation>;
-export type UnblockMutationOptions = Apollo.BaseMutationOptions<
-  UnblockMutation,
-  UnblockMutationVariables
->;
+export type UnblockMutationOptions = Apollo.BaseMutationOptions<UnblockMutation, UnblockMutationVariables>;
 export const UnfollowDocument = gql`
-  mutation Unfollow($request: UnfollowRequest!) {
-    unfollow(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation Unfollow($request: UnfollowRequest!) {
+  unfollow(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type UnfollowMutationFn = Apollo.MutationFunction<
-  UnfollowMutation,
-  UnfollowMutationVariables
->;
+}
+    `;
+export type UnfollowMutationFn = Apollo.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
 
 /**
  * __useUnfollowMutation__
@@ -11083,33 +9535,19 @@ export type UnfollowMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUnfollowMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UnfollowMutation,
-    UnfollowMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<UnfollowMutation, UnfollowMutationVariables>(
-    UnfollowDocument,
-    options
-  );
-}
+export function useUnfollowMutation(baseOptions?: Apollo.MutationHookOptions<UnfollowMutation, UnfollowMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, options);
+      }
 export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
 export type UnfollowMutationResult = Apollo.MutationResult<UnfollowMutation>;
-export type UnfollowMutationOptions = Apollo.BaseMutationOptions<
-  UnfollowMutation,
-  UnfollowMutationVariables
->;
+export type UnfollowMutationOptions = Apollo.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
 export const UnhideManagedProfileDocument = gql`
-  mutation UnhideManagedProfile($request: UnhideManagedProfileRequest!) {
-    unhideManagedProfile(request: $request)
-  }
-`;
-export type UnhideManagedProfileMutationFn = Apollo.MutationFunction<
-  UnhideManagedProfileMutation,
-  UnhideManagedProfileMutationVariables
->;
+    mutation UnhideManagedProfile($request: UnhideManagedProfileRequest!) {
+  unhideManagedProfile(request: $request)
+}
+    `;
+export type UnhideManagedProfileMutationFn = Apollo.MutationFunction<UnhideManagedProfileMutation, UnhideManagedProfileMutationVariables>;
 
 /**
  * __useUnhideManagedProfileMutation__
@@ -11128,43 +9566,26 @@ export type UnhideManagedProfileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUnhideManagedProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UnhideManagedProfileMutation,
-    UnhideManagedProfileMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UnhideManagedProfileMutation,
-    UnhideManagedProfileMutationVariables
-  >(UnhideManagedProfileDocument, options);
-}
-export type UnhideManagedProfileMutationHookResult = ReturnType<
-  typeof useUnhideManagedProfileMutation
->;
-export type UnhideManagedProfileMutationResult =
-  Apollo.MutationResult<UnhideManagedProfileMutation>;
-export type UnhideManagedProfileMutationOptions = Apollo.BaseMutationOptions<
-  UnhideManagedProfileMutation,
-  UnhideManagedProfileMutationVariables
->;
+export function useUnhideManagedProfileMutation(baseOptions?: Apollo.MutationHookOptions<UnhideManagedProfileMutation, UnhideManagedProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnhideManagedProfileMutation, UnhideManagedProfileMutationVariables>(UnhideManagedProfileDocument, options);
+      }
+export type UnhideManagedProfileMutationHookResult = ReturnType<typeof useUnhideManagedProfileMutation>;
+export type UnhideManagedProfileMutationResult = Apollo.MutationResult<UnhideManagedProfileMutation>;
+export type UnhideManagedProfileMutationOptions = Apollo.BaseMutationOptions<UnhideManagedProfileMutation, UnhideManagedProfileMutationVariables>;
 export const UnlinkHandleFromProfileDocument = gql`
-  mutation UnlinkHandleFromProfile($request: UnlinkHandleFromProfileRequest!) {
-    unlinkHandleFromProfile(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation UnlinkHandleFromProfile($request: UnlinkHandleFromProfileRequest!) {
+  unlinkHandleFromProfile(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type UnlinkHandleFromProfileMutationFn = Apollo.MutationFunction<
-  UnlinkHandleFromProfileMutation,
-  UnlinkHandleFromProfileMutationVariables
->;
+}
+    `;
+export type UnlinkHandleFromProfileMutationFn = Apollo.MutationFunction<UnlinkHandleFromProfileMutation, UnlinkHandleFromProfileMutationVariables>;
 
 /**
  * __useUnlinkHandleFromProfileMutation__
@@ -11183,63 +9604,43 @@ export type UnlinkHandleFromProfileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUnlinkHandleFromProfileMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UnlinkHandleFromProfileMutation,
-    UnlinkHandleFromProfileMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UnlinkHandleFromProfileMutation,
-    UnlinkHandleFromProfileMutationVariables
-  >(UnlinkHandleFromProfileDocument, options);
-}
-export type UnlinkHandleFromProfileMutationHookResult = ReturnType<
-  typeof useUnlinkHandleFromProfileMutation
->;
-export type UnlinkHandleFromProfileMutationResult =
-  Apollo.MutationResult<UnlinkHandleFromProfileMutation>;
-export type UnlinkHandleFromProfileMutationOptions = Apollo.BaseMutationOptions<
-  UnlinkHandleFromProfileMutation,
-  UnlinkHandleFromProfileMutationVariables
->;
+export function useUnlinkHandleFromProfileMutation(baseOptions?: Apollo.MutationHookOptions<UnlinkHandleFromProfileMutation, UnlinkHandleFromProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnlinkHandleFromProfileMutation, UnlinkHandleFromProfileMutationVariables>(UnlinkHandleFromProfileDocument, options);
+      }
+export type UnlinkHandleFromProfileMutationHookResult = ReturnType<typeof useUnlinkHandleFromProfileMutation>;
+export type UnlinkHandleFromProfileMutationResult = Apollo.MutationResult<UnlinkHandleFromProfileMutation>;
+export type UnlinkHandleFromProfileMutationOptions = Apollo.BaseMutationOptions<UnlinkHandleFromProfileMutation, UnlinkHandleFromProfileMutationVariables>;
 export const CreateBlockProfilesTypedDataDocument = gql`
-  mutation CreateBlockProfilesTypedData(
-    $options: TypedDataOptions
-    $request: BlockRequest!
-  ) {
-    createBlockProfilesTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        value {
-          nonce
-          deadline
-          byProfileId
-          idsOfProfilesToSetBlockStatus
-          blockStatus
-        }
-        domain {
+    mutation CreateBlockProfilesTypedData($options: TypedDataOptions, $request: BlockRequest!) {
+  createBlockProfilesTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      value {
+        nonce
+        deadline
+        byProfileId
+        idsOfProfilesToSetBlockStatus
+        blockStatus
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        SetBlockStatus {
           name
-          chainId
-          version
-          verifyingContract
-        }
-        types {
-          SetBlockStatus {
-            name
-            type
-          }
+          type
         }
       }
     }
   }
-`;
-export type CreateBlockProfilesTypedDataMutationFn = Apollo.MutationFunction<
-  CreateBlockProfilesTypedDataMutation,
-  CreateBlockProfilesTypedDataMutationVariables
->;
+}
+    `;
+export type CreateBlockProfilesTypedDataMutationFn = Apollo.MutationFunction<CreateBlockProfilesTypedDataMutation, CreateBlockProfilesTypedDataMutationVariables>;
 
 /**
  * __useCreateBlockProfilesTypedDataMutation__
@@ -11259,67 +9660,45 @@ export type CreateBlockProfilesTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateBlockProfilesTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateBlockProfilesTypedDataMutation,
-    CreateBlockProfilesTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateBlockProfilesTypedDataMutation,
-    CreateBlockProfilesTypedDataMutationVariables
-  >(CreateBlockProfilesTypedDataDocument, options);
-}
-export type CreateBlockProfilesTypedDataMutationHookResult = ReturnType<
-  typeof useCreateBlockProfilesTypedDataMutation
->;
-export type CreateBlockProfilesTypedDataMutationResult =
-  Apollo.MutationResult<CreateBlockProfilesTypedDataMutation>;
-export type CreateBlockProfilesTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateBlockProfilesTypedDataMutation,
-    CreateBlockProfilesTypedDataMutationVariables
-  >;
+export function useCreateBlockProfilesTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateBlockProfilesTypedDataMutation, CreateBlockProfilesTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBlockProfilesTypedDataMutation, CreateBlockProfilesTypedDataMutationVariables>(CreateBlockProfilesTypedDataDocument, options);
+      }
+export type CreateBlockProfilesTypedDataMutationHookResult = ReturnType<typeof useCreateBlockProfilesTypedDataMutation>;
+export type CreateBlockProfilesTypedDataMutationResult = Apollo.MutationResult<CreateBlockProfilesTypedDataMutation>;
+export type CreateBlockProfilesTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateBlockProfilesTypedDataMutation, CreateBlockProfilesTypedDataMutationVariables>;
 export const CreateChangeProfileManagersTypedDataDocument = gql`
-  mutation CreateChangeProfileManagersTypedData(
-    $options: TypedDataOptions
-    $request: ChangeProfileManagersRequest!
-  ) {
-    createChangeProfileManagersTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
+    mutation CreateChangeProfileManagersTypedData($options: TypedDataOptions, $request: ChangeProfileManagersRequest!) {
+  createChangeProfileManagersTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        ChangeDelegatedExecutorsConfig {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        types {
-          ChangeDelegatedExecutorsConfig {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          delegatorProfileId
-          delegatedExecutors
-          approvals
-          configNumber
-          switchToGivenConfig
-        }
+      }
+      value {
+        nonce
+        deadline
+        delegatorProfileId
+        delegatedExecutors
+        approvals
+        configNumber
+        switchToGivenConfig
       }
     }
   }
-`;
-export type CreateChangeProfileManagersTypedDataMutationFn =
-  Apollo.MutationFunction<
-    CreateChangeProfileManagersTypedDataMutation,
-    CreateChangeProfileManagersTypedDataMutationVariables
-  >;
+}
+    `;
+export type CreateChangeProfileManagersTypedDataMutationFn = Apollo.MutationFunction<CreateChangeProfileManagersTypedDataMutation, CreateChangeProfileManagersTypedDataMutationVariables>;
 
 /**
  * __useCreateChangeProfileManagersTypedDataMutation__
@@ -11339,65 +9718,44 @@ export type CreateChangeProfileManagersTypedDataMutationFn =
  *   },
  * });
  */
-export function useCreateChangeProfileManagersTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateChangeProfileManagersTypedDataMutation,
-    CreateChangeProfileManagersTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateChangeProfileManagersTypedDataMutation,
-    CreateChangeProfileManagersTypedDataMutationVariables
-  >(CreateChangeProfileManagersTypedDataDocument, options);
-}
-export type CreateChangeProfileManagersTypedDataMutationHookResult = ReturnType<
-  typeof useCreateChangeProfileManagersTypedDataMutation
->;
-export type CreateChangeProfileManagersTypedDataMutationResult =
-  Apollo.MutationResult<CreateChangeProfileManagersTypedDataMutation>;
-export type CreateChangeProfileManagersTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateChangeProfileManagersTypedDataMutation,
-    CreateChangeProfileManagersTypedDataMutationVariables
-  >;
+export function useCreateChangeProfileManagersTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateChangeProfileManagersTypedDataMutation, CreateChangeProfileManagersTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateChangeProfileManagersTypedDataMutation, CreateChangeProfileManagersTypedDataMutationVariables>(CreateChangeProfileManagersTypedDataDocument, options);
+      }
+export type CreateChangeProfileManagersTypedDataMutationHookResult = ReturnType<typeof useCreateChangeProfileManagersTypedDataMutation>;
+export type CreateChangeProfileManagersTypedDataMutationResult = Apollo.MutationResult<CreateChangeProfileManagersTypedDataMutation>;
+export type CreateChangeProfileManagersTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateChangeProfileManagersTypedDataMutation, CreateChangeProfileManagersTypedDataMutationVariables>;
 export const CreateFollowTypedDataDocument = gql`
-  mutation CreateFollowTypedData(
-    $options: TypedDataOptions
-    $request: FollowRequest!
-  ) {
-    createFollowTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
+    mutation CreateFollowTypedData($options: TypedDataOptions, $request: FollowRequest!) {
+  createFollowTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        Follow {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        types {
-          Follow {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          followerProfileId
-          idsOfProfilesToFollow
-          followTokenIds
-          datas
-        }
+      }
+      value {
+        nonce
+        deadline
+        followerProfileId
+        idsOfProfilesToFollow
+        followTokenIds
+        datas
       }
     }
   }
-`;
-export type CreateFollowTypedDataMutationFn = Apollo.MutationFunction<
-  CreateFollowTypedDataMutation,
-  CreateFollowTypedDataMutationVariables
->;
+}
+    `;
+export type CreateFollowTypedDataMutationFn = Apollo.MutationFunction<CreateFollowTypedDataMutation, CreateFollowTypedDataMutationVariables>;
 
 /**
  * __useCreateFollowTypedDataMutation__
@@ -11417,63 +9775,42 @@ export type CreateFollowTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateFollowTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateFollowTypedDataMutation,
-    CreateFollowTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateFollowTypedDataMutation,
-    CreateFollowTypedDataMutationVariables
-  >(CreateFollowTypedDataDocument, options);
-}
-export type CreateFollowTypedDataMutationHookResult = ReturnType<
-  typeof useCreateFollowTypedDataMutation
->;
-export type CreateFollowTypedDataMutationResult =
-  Apollo.MutationResult<CreateFollowTypedDataMutation>;
-export type CreateFollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
-  CreateFollowTypedDataMutation,
-  CreateFollowTypedDataMutationVariables
->;
+export function useCreateFollowTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateFollowTypedDataMutation, CreateFollowTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateFollowTypedDataMutation, CreateFollowTypedDataMutationVariables>(CreateFollowTypedDataDocument, options);
+      }
+export type CreateFollowTypedDataMutationHookResult = ReturnType<typeof useCreateFollowTypedDataMutation>;
+export type CreateFollowTypedDataMutationResult = Apollo.MutationResult<CreateFollowTypedDataMutation>;
+export type CreateFollowTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateFollowTypedDataMutation, CreateFollowTypedDataMutationVariables>;
 export const CreateLinkHandleToProfileTypedDataDocument = gql`
-  mutation CreateLinkHandleToProfileTypedData(
-    $options: TypedDataOptions
-    $request: LinkHandleToProfileRequest!
-  ) {
-    createLinkHandleToProfileTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
+    mutation CreateLinkHandleToProfileTypedData($options: TypedDataOptions, $request: LinkHandleToProfileRequest!) {
+  createLinkHandleToProfileTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        Link {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        types {
-          Link {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          handleId
-          profileId
-        }
+      }
+      value {
+        nonce
+        deadline
+        handleId
+        profileId
       }
     }
   }
-`;
-export type CreateLinkHandleToProfileTypedDataMutationFn =
-  Apollo.MutationFunction<
-    CreateLinkHandleToProfileTypedDataMutation,
-    CreateLinkHandleToProfileTypedDataMutationVariables
-  >;
+}
+    `;
+export type CreateLinkHandleToProfileTypedDataMutationFn = Apollo.MutationFunction<CreateLinkHandleToProfileTypedDataMutation, CreateLinkHandleToProfileTypedDataMutationVariables>;
 
 /**
  * __useCreateLinkHandleToProfileTypedDataMutation__
@@ -11493,67 +9830,42 @@ export type CreateLinkHandleToProfileTypedDataMutationFn =
  *   },
  * });
  */
-export function useCreateLinkHandleToProfileTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateLinkHandleToProfileTypedDataMutation,
-    CreateLinkHandleToProfileTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateLinkHandleToProfileTypedDataMutation,
-    CreateLinkHandleToProfileTypedDataMutationVariables
-  >(CreateLinkHandleToProfileTypedDataDocument, options);
-}
-export type CreateLinkHandleToProfileTypedDataMutationHookResult = ReturnType<
-  typeof useCreateLinkHandleToProfileTypedDataMutation
->;
-export type CreateLinkHandleToProfileTypedDataMutationResult =
-  Apollo.MutationResult<CreateLinkHandleToProfileTypedDataMutation>;
-export type CreateLinkHandleToProfileTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateLinkHandleToProfileTypedDataMutation,
-    CreateLinkHandleToProfileTypedDataMutationVariables
-  >;
+export function useCreateLinkHandleToProfileTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateLinkHandleToProfileTypedDataMutation, CreateLinkHandleToProfileTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateLinkHandleToProfileTypedDataMutation, CreateLinkHandleToProfileTypedDataMutationVariables>(CreateLinkHandleToProfileTypedDataDocument, options);
+      }
+export type CreateLinkHandleToProfileTypedDataMutationHookResult = ReturnType<typeof useCreateLinkHandleToProfileTypedDataMutation>;
+export type CreateLinkHandleToProfileTypedDataMutationResult = Apollo.MutationResult<CreateLinkHandleToProfileTypedDataMutation>;
+export type CreateLinkHandleToProfileTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateLinkHandleToProfileTypedDataMutation, CreateLinkHandleToProfileTypedDataMutationVariables>;
 export const CreateOnchainSetProfileMetadataTypedDataDocument = gql`
-  mutation CreateOnchainSetProfileMetadataTypedData(
-    $options: TypedDataOptions
-    $request: OnchainSetProfileMetadataRequest!
-  ) {
-    createOnchainSetProfileMetadataTypedData(
-      options: $options
-      request: $request
-    ) {
-      id
-      expiresAt
-      typedData {
-        domain {
+    mutation CreateOnchainSetProfileMetadataTypedData($options: TypedDataOptions, $request: OnchainSetProfileMetadataRequest!) {
+  createOnchainSetProfileMetadataTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        SetProfileMetadataURI {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        types {
-          SetProfileMetadataURI {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          profileId
-          metadataURI
-        }
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        metadataURI
       }
     }
   }
-`;
-export type CreateOnchainSetProfileMetadataTypedDataMutationFn =
-  Apollo.MutationFunction<
-    CreateOnchainSetProfileMetadataTypedDataMutation,
-    CreateOnchainSetProfileMetadataTypedDataMutationVariables
-  >;
+}
+    `;
+export type CreateOnchainSetProfileMetadataTypedDataMutationFn = Apollo.MutationFunction<CreateOnchainSetProfileMetadataTypedDataMutation, CreateOnchainSetProfileMetadataTypedDataMutationVariables>;
 
 /**
  * __useCreateOnchainSetProfileMetadataTypedDataMutation__
@@ -11573,63 +9885,43 @@ export type CreateOnchainSetProfileMetadataTypedDataMutationFn =
  *   },
  * });
  */
-export function useCreateOnchainSetProfileMetadataTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateOnchainSetProfileMetadataTypedDataMutation,
-    CreateOnchainSetProfileMetadataTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateOnchainSetProfileMetadataTypedDataMutation,
-    CreateOnchainSetProfileMetadataTypedDataMutationVariables
-  >(CreateOnchainSetProfileMetadataTypedDataDocument, options);
-}
-export type CreateOnchainSetProfileMetadataTypedDataMutationHookResult =
-  ReturnType<typeof useCreateOnchainSetProfileMetadataTypedDataMutation>;
-export type CreateOnchainSetProfileMetadataTypedDataMutationResult =
-  Apollo.MutationResult<CreateOnchainSetProfileMetadataTypedDataMutation>;
-export type CreateOnchainSetProfileMetadataTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateOnchainSetProfileMetadataTypedDataMutation,
-    CreateOnchainSetProfileMetadataTypedDataMutationVariables
-  >;
+export function useCreateOnchainSetProfileMetadataTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnchainSetProfileMetadataTypedDataMutation, CreateOnchainSetProfileMetadataTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnchainSetProfileMetadataTypedDataMutation, CreateOnchainSetProfileMetadataTypedDataMutationVariables>(CreateOnchainSetProfileMetadataTypedDataDocument, options);
+      }
+export type CreateOnchainSetProfileMetadataTypedDataMutationHookResult = ReturnType<typeof useCreateOnchainSetProfileMetadataTypedDataMutation>;
+export type CreateOnchainSetProfileMetadataTypedDataMutationResult = Apollo.MutationResult<CreateOnchainSetProfileMetadataTypedDataMutation>;
+export type CreateOnchainSetProfileMetadataTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateOnchainSetProfileMetadataTypedDataMutation, CreateOnchainSetProfileMetadataTypedDataMutationVariables>;
 export const CreateSetFollowModuleTypedDataDocument = gql`
-  mutation CreateSetFollowModuleTypedData(
-    $options: TypedDataOptions
-    $request: SetFollowModuleRequest!
-  ) {
-    createSetFollowModuleTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          SetFollowModule {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateSetFollowModuleTypedData($options: TypedDataOptions, $request: SetFollowModuleRequest!) {
+  createSetFollowModuleTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        SetFollowModule {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          profileId
-          followModule
-          followModuleInitData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        followModule
+        followModuleInitData
       }
     }
   }
-`;
-export type CreateSetFollowModuleTypedDataMutationFn = Apollo.MutationFunction<
-  CreateSetFollowModuleTypedDataMutation,
-  CreateSetFollowModuleTypedDataMutationVariables
->;
+}
+    `;
+export type CreateSetFollowModuleTypedDataMutationFn = Apollo.MutationFunction<CreateSetFollowModuleTypedDataMutation, CreateSetFollowModuleTypedDataMutationVariables>;
 
 /**
  * __useCreateSetFollowModuleTypedDataMutation__
@@ -11649,64 +9941,43 @@ export type CreateSetFollowModuleTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateSetFollowModuleTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateSetFollowModuleTypedDataMutation,
-    CreateSetFollowModuleTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateSetFollowModuleTypedDataMutation,
-    CreateSetFollowModuleTypedDataMutationVariables
-  >(CreateSetFollowModuleTypedDataDocument, options);
-}
-export type CreateSetFollowModuleTypedDataMutationHookResult = ReturnType<
-  typeof useCreateSetFollowModuleTypedDataMutation
->;
-export type CreateSetFollowModuleTypedDataMutationResult =
-  Apollo.MutationResult<CreateSetFollowModuleTypedDataMutation>;
-export type CreateSetFollowModuleTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateSetFollowModuleTypedDataMutation,
-    CreateSetFollowModuleTypedDataMutationVariables
-  >;
+export function useCreateSetFollowModuleTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateSetFollowModuleTypedDataMutation, CreateSetFollowModuleTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSetFollowModuleTypedDataMutation, CreateSetFollowModuleTypedDataMutationVariables>(CreateSetFollowModuleTypedDataDocument, options);
+      }
+export type CreateSetFollowModuleTypedDataMutationHookResult = ReturnType<typeof useCreateSetFollowModuleTypedDataMutation>;
+export type CreateSetFollowModuleTypedDataMutationResult = Apollo.MutationResult<CreateSetFollowModuleTypedDataMutation>;
+export type CreateSetFollowModuleTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateSetFollowModuleTypedDataMutation, CreateSetFollowModuleTypedDataMutationVariables>;
 export const CreateUnblockProfilesTypedDataDocument = gql`
-  mutation CreateUnblockProfilesTypedData(
-    $options: TypedDataOptions
-    $request: UnblockRequest!
-  ) {
-    createUnblockProfilesTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          SetBlockStatus {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateUnblockProfilesTypedData($options: TypedDataOptions, $request: UnblockRequest!) {
+  createUnblockProfilesTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        SetBlockStatus {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          byProfileId
-          idsOfProfilesToSetBlockStatus
-          blockStatus
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        byProfileId
+        idsOfProfilesToSetBlockStatus
+        blockStatus
       }
     }
   }
-`;
-export type CreateUnblockProfilesTypedDataMutationFn = Apollo.MutationFunction<
-  CreateUnblockProfilesTypedDataMutation,
-  CreateUnblockProfilesTypedDataMutationVariables
->;
+}
+    `;
+export type CreateUnblockProfilesTypedDataMutationFn = Apollo.MutationFunction<CreateUnblockProfilesTypedDataMutation, CreateUnblockProfilesTypedDataMutationVariables>;
 
 /**
  * __useCreateUnblockProfilesTypedDataMutation__
@@ -11726,63 +9997,42 @@ export type CreateUnblockProfilesTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateUnblockProfilesTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUnblockProfilesTypedDataMutation,
-    CreateUnblockProfilesTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateUnblockProfilesTypedDataMutation,
-    CreateUnblockProfilesTypedDataMutationVariables
-  >(CreateUnblockProfilesTypedDataDocument, options);
-}
-export type CreateUnblockProfilesTypedDataMutationHookResult = ReturnType<
-  typeof useCreateUnblockProfilesTypedDataMutation
->;
-export type CreateUnblockProfilesTypedDataMutationResult =
-  Apollo.MutationResult<CreateUnblockProfilesTypedDataMutation>;
-export type CreateUnblockProfilesTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateUnblockProfilesTypedDataMutation,
-    CreateUnblockProfilesTypedDataMutationVariables
-  >;
+export function useCreateUnblockProfilesTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateUnblockProfilesTypedDataMutation, CreateUnblockProfilesTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUnblockProfilesTypedDataMutation, CreateUnblockProfilesTypedDataMutationVariables>(CreateUnblockProfilesTypedDataDocument, options);
+      }
+export type CreateUnblockProfilesTypedDataMutationHookResult = ReturnType<typeof useCreateUnblockProfilesTypedDataMutation>;
+export type CreateUnblockProfilesTypedDataMutationResult = Apollo.MutationResult<CreateUnblockProfilesTypedDataMutation>;
+export type CreateUnblockProfilesTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateUnblockProfilesTypedDataMutation, CreateUnblockProfilesTypedDataMutationVariables>;
 export const CreateUnfollowTypedDataDocument = gql`
-  mutation CreateUnfollowTypedData(
-    $options: TypedDataOptions
-    $request: UnfollowRequest!
-  ) {
-    createUnfollowTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Unfollow {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateUnfollowTypedData($options: TypedDataOptions, $request: UnfollowRequest!) {
+  createUnfollowTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Unfollow {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          unfollowerProfileId
-          idsOfProfilesToUnfollow
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        unfollowerProfileId
+        idsOfProfilesToUnfollow
       }
     }
   }
-`;
-export type CreateUnfollowTypedDataMutationFn = Apollo.MutationFunction<
-  CreateUnfollowTypedDataMutation,
-  CreateUnfollowTypedDataMutationVariables
->;
+}
+    `;
+export type CreateUnfollowTypedDataMutationFn = Apollo.MutationFunction<CreateUnfollowTypedDataMutation, CreateUnfollowTypedDataMutationVariables>;
 
 /**
  * __useCreateUnfollowTypedDataMutation__
@@ -11802,66 +10052,42 @@ export type CreateUnfollowTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateUnfollowTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUnfollowTypedDataMutation,
-    CreateUnfollowTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateUnfollowTypedDataMutation,
-    CreateUnfollowTypedDataMutationVariables
-  >(CreateUnfollowTypedDataDocument, options);
-}
-export type CreateUnfollowTypedDataMutationHookResult = ReturnType<
-  typeof useCreateUnfollowTypedDataMutation
->;
-export type CreateUnfollowTypedDataMutationResult =
-  Apollo.MutationResult<CreateUnfollowTypedDataMutation>;
-export type CreateUnfollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
-  CreateUnfollowTypedDataMutation,
-  CreateUnfollowTypedDataMutationVariables
->;
+export function useCreateUnfollowTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateUnfollowTypedDataMutation, CreateUnfollowTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUnfollowTypedDataMutation, CreateUnfollowTypedDataMutationVariables>(CreateUnfollowTypedDataDocument, options);
+      }
+export type CreateUnfollowTypedDataMutationHookResult = ReturnType<typeof useCreateUnfollowTypedDataMutation>;
+export type CreateUnfollowTypedDataMutationResult = Apollo.MutationResult<CreateUnfollowTypedDataMutation>;
+export type CreateUnfollowTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateUnfollowTypedDataMutation, CreateUnfollowTypedDataMutationVariables>;
 export const CreateUnlinkHandleFromProfileTypedDataDocument = gql`
-  mutation CreateUnlinkHandleFromProfileTypedData(
-    $options: TypedDataOptions
-    $request: UnlinkHandleFromProfileRequest!
-  ) {
-    createUnlinkHandleFromProfileTypedData(
-      options: $options
-      request: $request
-    ) {
-      id
-      expiresAt
-      typedData {
-        domain {
+    mutation CreateUnlinkHandleFromProfileTypedData($options: TypedDataOptions, $request: UnlinkHandleFromProfileRequest!) {
+  createUnlinkHandleFromProfileTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        Unlink {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        types {
-          Unlink {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          deadline
-          handleId
-          profileId
-        }
+      }
+      value {
+        nonce
+        deadline
+        handleId
+        profileId
       }
     }
   }
-`;
-export type CreateUnlinkHandleFromProfileTypedDataMutationFn =
-  Apollo.MutationFunction<
-    CreateUnlinkHandleFromProfileTypedDataMutation,
-    CreateUnlinkHandleFromProfileTypedDataMutationVariables
-  >;
+}
+    `;
+export type CreateUnlinkHandleFromProfileTypedDataMutationFn = Apollo.MutationFunction<CreateUnlinkHandleFromProfileTypedDataMutation, CreateUnlinkHandleFromProfileTypedDataMutationVariables>;
 
 /**
  * __useCreateUnlinkHandleFromProfileTypedDataMutation__
@@ -11881,43 +10107,26 @@ export type CreateUnlinkHandleFromProfileTypedDataMutationFn =
  *   },
  * });
  */
-export function useCreateUnlinkHandleFromProfileTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateUnlinkHandleFromProfileTypedDataMutation,
-    CreateUnlinkHandleFromProfileTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateUnlinkHandleFromProfileTypedDataMutation,
-    CreateUnlinkHandleFromProfileTypedDataMutationVariables
-  >(CreateUnlinkHandleFromProfileTypedDataDocument, options);
-}
-export type CreateUnlinkHandleFromProfileTypedDataMutationHookResult =
-  ReturnType<typeof useCreateUnlinkHandleFromProfileTypedDataMutation>;
-export type CreateUnlinkHandleFromProfileTypedDataMutationResult =
-  Apollo.MutationResult<CreateUnlinkHandleFromProfileTypedDataMutation>;
-export type CreateUnlinkHandleFromProfileTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateUnlinkHandleFromProfileTypedDataMutation,
-    CreateUnlinkHandleFromProfileTypedDataMutationVariables
-  >;
+export function useCreateUnlinkHandleFromProfileTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateUnlinkHandleFromProfileTypedDataMutation, CreateUnlinkHandleFromProfileTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUnlinkHandleFromProfileTypedDataMutation, CreateUnlinkHandleFromProfileTypedDataMutationVariables>(CreateUnlinkHandleFromProfileTypedDataDocument, options);
+      }
+export type CreateUnlinkHandleFromProfileTypedDataMutationHookResult = ReturnType<typeof useCreateUnlinkHandleFromProfileTypedDataMutation>;
+export type CreateUnlinkHandleFromProfileTypedDataMutationResult = Apollo.MutationResult<CreateUnlinkHandleFromProfileTypedDataMutation>;
+export type CreateUnlinkHandleFromProfileTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateUnlinkHandleFromProfileTypedDataMutation, CreateUnlinkHandleFromProfileTypedDataMutationVariables>;
 export const ActOnOpenActionDocument = gql`
-  mutation ActOnOpenAction($request: ActOnOpenActionLensManagerRequest!) {
-    actOnOpenAction(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation ActOnOpenAction($request: ActOnOpenActionLensManagerRequest!) {
+  actOnOpenAction(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type ActOnOpenActionMutationFn = Apollo.MutationFunction<
-  ActOnOpenActionMutation,
-  ActOnOpenActionMutationVariables
->;
+}
+    `;
+export type ActOnOpenActionMutationFn = Apollo.MutationFunction<ActOnOpenActionMutation, ActOnOpenActionMutationVariables>;
 
 /**
  * __useActOnOpenActionMutation__
@@ -11936,36 +10145,19 @@ export type ActOnOpenActionMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useActOnOpenActionMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    ActOnOpenActionMutation,
-    ActOnOpenActionMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    ActOnOpenActionMutation,
-    ActOnOpenActionMutationVariables
-  >(ActOnOpenActionDocument, options);
-}
-export type ActOnOpenActionMutationHookResult = ReturnType<
-  typeof useActOnOpenActionMutation
->;
-export type ActOnOpenActionMutationResult =
-  Apollo.MutationResult<ActOnOpenActionMutation>;
-export type ActOnOpenActionMutationOptions = Apollo.BaseMutationOptions<
-  ActOnOpenActionMutation,
-  ActOnOpenActionMutationVariables
->;
+export function useActOnOpenActionMutation(baseOptions?: Apollo.MutationHookOptions<ActOnOpenActionMutation, ActOnOpenActionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ActOnOpenActionMutation, ActOnOpenActionMutationVariables>(ActOnOpenActionDocument, options);
+      }
+export type ActOnOpenActionMutationHookResult = ReturnType<typeof useActOnOpenActionMutation>;
+export type ActOnOpenActionMutationResult = Apollo.MutationResult<ActOnOpenActionMutation>;
+export type ActOnOpenActionMutationOptions = Apollo.BaseMutationOptions<ActOnOpenActionMutation, ActOnOpenActionMutationVariables>;
 export const AddPublicationBookmarkDocument = gql`
-  mutation AddPublicationBookmark($request: PublicationBookmarkRequest!) {
-    addPublicationBookmark(request: $request)
-  }
-`;
-export type AddPublicationBookmarkMutationFn = Apollo.MutationFunction<
-  AddPublicationBookmarkMutation,
-  AddPublicationBookmarkMutationVariables
->;
+    mutation AddPublicationBookmark($request: PublicationBookmarkRequest!) {
+  addPublicationBookmark(request: $request)
+}
+    `;
+export type AddPublicationBookmarkMutationFn = Apollo.MutationFunction<AddPublicationBookmarkMutation, AddPublicationBookmarkMutationVariables>;
 
 /**
  * __useAddPublicationBookmarkMutation__
@@ -11984,38 +10176,19 @@ export type AddPublicationBookmarkMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAddPublicationBookmarkMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    AddPublicationBookmarkMutation,
-    AddPublicationBookmarkMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    AddPublicationBookmarkMutation,
-    AddPublicationBookmarkMutationVariables
-  >(AddPublicationBookmarkDocument, options);
-}
-export type AddPublicationBookmarkMutationHookResult = ReturnType<
-  typeof useAddPublicationBookmarkMutation
->;
-export type AddPublicationBookmarkMutationResult =
-  Apollo.MutationResult<AddPublicationBookmarkMutation>;
-export type AddPublicationBookmarkMutationOptions = Apollo.BaseMutationOptions<
-  AddPublicationBookmarkMutation,
-  AddPublicationBookmarkMutationVariables
->;
+export function useAddPublicationBookmarkMutation(baseOptions?: Apollo.MutationHookOptions<AddPublicationBookmarkMutation, AddPublicationBookmarkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddPublicationBookmarkMutation, AddPublicationBookmarkMutationVariables>(AddPublicationBookmarkDocument, options);
+      }
+export type AddPublicationBookmarkMutationHookResult = ReturnType<typeof useAddPublicationBookmarkMutation>;
+export type AddPublicationBookmarkMutationResult = Apollo.MutationResult<AddPublicationBookmarkMutation>;
+export type AddPublicationBookmarkMutationOptions = Apollo.BaseMutationOptions<AddPublicationBookmarkMutation, AddPublicationBookmarkMutationVariables>;
 export const AddPublicationNotInterestedDocument = gql`
-  mutation AddPublicationNotInterested(
-    $request: PublicationNotInterestedRequest!
-  ) {
-    addPublicationNotInterested(request: $request)
-  }
-`;
-export type AddPublicationNotInterestedMutationFn = Apollo.MutationFunction<
-  AddPublicationNotInterestedMutation,
-  AddPublicationNotInterestedMutationVariables
->;
+    mutation AddPublicationNotInterested($request: PublicationNotInterestedRequest!) {
+  addPublicationNotInterested(request: $request)
+}
+    `;
+export type AddPublicationNotInterestedMutationFn = Apollo.MutationFunction<AddPublicationNotInterestedMutation, AddPublicationNotInterestedMutationVariables>;
 
 /**
  * __useAddPublicationNotInterestedMutation__
@@ -12034,37 +10207,19 @@ export type AddPublicationNotInterestedMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAddPublicationNotInterestedMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    AddPublicationNotInterestedMutation,
-    AddPublicationNotInterestedMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    AddPublicationNotInterestedMutation,
-    AddPublicationNotInterestedMutationVariables
-  >(AddPublicationNotInterestedDocument, options);
-}
-export type AddPublicationNotInterestedMutationHookResult = ReturnType<
-  typeof useAddPublicationNotInterestedMutation
->;
-export type AddPublicationNotInterestedMutationResult =
-  Apollo.MutationResult<AddPublicationNotInterestedMutation>;
-export type AddPublicationNotInterestedMutationOptions =
-  Apollo.BaseMutationOptions<
-    AddPublicationNotInterestedMutation,
-    AddPublicationNotInterestedMutationVariables
-  >;
+export function useAddPublicationNotInterestedMutation(baseOptions?: Apollo.MutationHookOptions<AddPublicationNotInterestedMutation, AddPublicationNotInterestedMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddPublicationNotInterestedMutation, AddPublicationNotInterestedMutationVariables>(AddPublicationNotInterestedDocument, options);
+      }
+export type AddPublicationNotInterestedMutationHookResult = ReturnType<typeof useAddPublicationNotInterestedMutation>;
+export type AddPublicationNotInterestedMutationResult = Apollo.MutationResult<AddPublicationNotInterestedMutation>;
+export type AddPublicationNotInterestedMutationOptions = Apollo.BaseMutationOptions<AddPublicationNotInterestedMutation, AddPublicationNotInterestedMutationVariables>;
 export const AddReactionDocument = gql`
-  mutation AddReaction($request: ReactionRequest!) {
-    addReaction(request: $request)
-  }
-`;
-export type AddReactionMutationFn = Apollo.MutationFunction<
-  AddReactionMutation,
-  AddReactionMutationVariables
->;
+    mutation AddReaction($request: ReactionRequest!) {
+  addReaction(request: $request)
+}
+    `;
+export type AddReactionMutationFn = Apollo.MutationFunction<AddReactionMutation, AddReactionMutationVariables>;
 
 /**
  * __useAddReactionMutation__
@@ -12083,36 +10238,19 @@ export type AddReactionMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useAddReactionMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    AddReactionMutation,
-    AddReactionMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<AddReactionMutation, AddReactionMutationVariables>(
-    AddReactionDocument,
-    options
-  );
-}
-export type AddReactionMutationHookResult = ReturnType<
-  typeof useAddReactionMutation
->;
-export type AddReactionMutationResult =
-  Apollo.MutationResult<AddReactionMutation>;
-export type AddReactionMutationOptions = Apollo.BaseMutationOptions<
-  AddReactionMutation,
-  AddReactionMutationVariables
->;
+export function useAddReactionMutation(baseOptions?: Apollo.MutationHookOptions<AddReactionMutation, AddReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddReactionMutation, AddReactionMutationVariables>(AddReactionDocument, options);
+      }
+export type AddReactionMutationHookResult = ReturnType<typeof useAddReactionMutation>;
+export type AddReactionMutationResult = Apollo.MutationResult<AddReactionMutation>;
+export type AddReactionMutationOptions = Apollo.BaseMutationOptions<AddReactionMutation, AddReactionMutationVariables>;
 export const HideCommentDocument = gql`
-  mutation HideComment($request: HideCommentRequest!) {
-    hideComment(request: $request)
-  }
-`;
-export type HideCommentMutationFn = Apollo.MutationFunction<
-  HideCommentMutation,
-  HideCommentMutationVariables
->;
+    mutation HideComment($request: HideCommentRequest!) {
+  hideComment(request: $request)
+}
+    `;
+export type HideCommentMutationFn = Apollo.MutationFunction<HideCommentMutation, HideCommentMutationVariables>;
 
 /**
  * __useHideCommentMutation__
@@ -12131,36 +10269,19 @@ export type HideCommentMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useHideCommentMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    HideCommentMutation,
-    HideCommentMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<HideCommentMutation, HideCommentMutationVariables>(
-    HideCommentDocument,
-    options
-  );
-}
-export type HideCommentMutationHookResult = ReturnType<
-  typeof useHideCommentMutation
->;
-export type HideCommentMutationResult =
-  Apollo.MutationResult<HideCommentMutation>;
-export type HideCommentMutationOptions = Apollo.BaseMutationOptions<
-  HideCommentMutation,
-  HideCommentMutationVariables
->;
+export function useHideCommentMutation(baseOptions?: Apollo.MutationHookOptions<HideCommentMutation, HideCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<HideCommentMutation, HideCommentMutationVariables>(HideCommentDocument, options);
+      }
+export type HideCommentMutationHookResult = ReturnType<typeof useHideCommentMutation>;
+export type HideCommentMutationResult = Apollo.MutationResult<HideCommentMutation>;
+export type HideCommentMutationOptions = Apollo.BaseMutationOptions<HideCommentMutation, HideCommentMutationVariables>;
 export const HidePublicationDocument = gql`
-  mutation HidePublication($request: HidePublicationRequest!) {
-    hidePublication(request: $request)
-  }
-`;
-export type HidePublicationMutationFn = Apollo.MutationFunction<
-  HidePublicationMutation,
-  HidePublicationMutationVariables
->;
+    mutation HidePublication($request: HidePublicationRequest!) {
+  hidePublication(request: $request)
+}
+    `;
+export type HidePublicationMutationFn = Apollo.MutationFunction<HidePublicationMutation, HidePublicationMutationVariables>;
 
 /**
  * __useHidePublicationMutation__
@@ -12179,36 +10300,19 @@ export type HidePublicationMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useHidePublicationMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    HidePublicationMutation,
-    HidePublicationMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    HidePublicationMutation,
-    HidePublicationMutationVariables
-  >(HidePublicationDocument, options);
-}
-export type HidePublicationMutationHookResult = ReturnType<
-  typeof useHidePublicationMutation
->;
-export type HidePublicationMutationResult =
-  Apollo.MutationResult<HidePublicationMutation>;
-export type HidePublicationMutationOptions = Apollo.BaseMutationOptions<
-  HidePublicationMutation,
-  HidePublicationMutationVariables
->;
+export function useHidePublicationMutation(baseOptions?: Apollo.MutationHookOptions<HidePublicationMutation, HidePublicationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<HidePublicationMutation, HidePublicationMutationVariables>(HidePublicationDocument, options);
+      }
+export type HidePublicationMutationHookResult = ReturnType<typeof useHidePublicationMutation>;
+export type HidePublicationMutationResult = Apollo.MutationResult<HidePublicationMutation>;
+export type HidePublicationMutationOptions = Apollo.BaseMutationOptions<HidePublicationMutation, HidePublicationMutationVariables>;
 export const ModDisputeReportDocument = gql`
-  mutation ModDisputeReport($request: ModDisputeReportRequest!) {
-    modDisputeReport(request: $request)
-  }
-`;
-export type ModDisputeReportMutationFn = Apollo.MutationFunction<
-  ModDisputeReportMutation,
-  ModDisputeReportMutationVariables
->;
+    mutation ModDisputeReport($request: ModDisputeReportRequest!) {
+  modDisputeReport(request: $request)
+}
+    `;
+export type ModDisputeReportMutationFn = Apollo.MutationFunction<ModDisputeReportMutation, ModDisputeReportMutationVariables>;
 
 /**
  * __useModDisputeReportMutation__
@@ -12227,36 +10331,19 @@ export type ModDisputeReportMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useModDisputeReportMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    ModDisputeReportMutation,
-    ModDisputeReportMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    ModDisputeReportMutation,
-    ModDisputeReportMutationVariables
-  >(ModDisputeReportDocument, options);
-}
-export type ModDisputeReportMutationHookResult = ReturnType<
-  typeof useModDisputeReportMutation
->;
-export type ModDisputeReportMutationResult =
-  Apollo.MutationResult<ModDisputeReportMutation>;
-export type ModDisputeReportMutationOptions = Apollo.BaseMutationOptions<
-  ModDisputeReportMutation,
-  ModDisputeReportMutationVariables
->;
+export function useModDisputeReportMutation(baseOptions?: Apollo.MutationHookOptions<ModDisputeReportMutation, ModDisputeReportMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ModDisputeReportMutation, ModDisputeReportMutationVariables>(ModDisputeReportDocument, options);
+      }
+export type ModDisputeReportMutationHookResult = ReturnType<typeof useModDisputeReportMutation>;
+export type ModDisputeReportMutationResult = Apollo.MutationResult<ModDisputeReportMutation>;
+export type ModDisputeReportMutationOptions = Apollo.BaseMutationOptions<ModDisputeReportMutation, ModDisputeReportMutationVariables>;
 export const RemovePublicationBookmarkDocument = gql`
-  mutation RemovePublicationBookmark($request: PublicationBookmarkRequest!) {
-    removePublicationBookmark(request: $request)
-  }
-`;
-export type RemovePublicationBookmarkMutationFn = Apollo.MutationFunction<
-  RemovePublicationBookmarkMutation,
-  RemovePublicationBookmarkMutationVariables
->;
+    mutation RemovePublicationBookmark($request: PublicationBookmarkRequest!) {
+  removePublicationBookmark(request: $request)
+}
+    `;
+export type RemovePublicationBookmarkMutationFn = Apollo.MutationFunction<RemovePublicationBookmarkMutation, RemovePublicationBookmarkMutationVariables>;
 
 /**
  * __useRemovePublicationBookmarkMutation__
@@ -12275,37 +10362,19 @@ export type RemovePublicationBookmarkMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useRemovePublicationBookmarkMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    RemovePublicationBookmarkMutation,
-    RemovePublicationBookmarkMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    RemovePublicationBookmarkMutation,
-    RemovePublicationBookmarkMutationVariables
-  >(RemovePublicationBookmarkDocument, options);
-}
-export type RemovePublicationBookmarkMutationHookResult = ReturnType<
-  typeof useRemovePublicationBookmarkMutation
->;
-export type RemovePublicationBookmarkMutationResult =
-  Apollo.MutationResult<RemovePublicationBookmarkMutation>;
-export type RemovePublicationBookmarkMutationOptions =
-  Apollo.BaseMutationOptions<
-    RemovePublicationBookmarkMutation,
-    RemovePublicationBookmarkMutationVariables
-  >;
+export function useRemovePublicationBookmarkMutation(baseOptions?: Apollo.MutationHookOptions<RemovePublicationBookmarkMutation, RemovePublicationBookmarkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemovePublicationBookmarkMutation, RemovePublicationBookmarkMutationVariables>(RemovePublicationBookmarkDocument, options);
+      }
+export type RemovePublicationBookmarkMutationHookResult = ReturnType<typeof useRemovePublicationBookmarkMutation>;
+export type RemovePublicationBookmarkMutationResult = Apollo.MutationResult<RemovePublicationBookmarkMutation>;
+export type RemovePublicationBookmarkMutationOptions = Apollo.BaseMutationOptions<RemovePublicationBookmarkMutation, RemovePublicationBookmarkMutationVariables>;
 export const RemoveReactionDocument = gql`
-  mutation RemoveReaction($request: ReactionRequest!) {
-    removeReaction(request: $request)
-  }
-`;
-export type RemoveReactionMutationFn = Apollo.MutationFunction<
-  RemoveReactionMutation,
-  RemoveReactionMutationVariables
->;
+    mutation RemoveReaction($request: ReactionRequest!) {
+  removeReaction(request: $request)
+}
+    `;
+export type RemoveReactionMutationFn = Apollo.MutationFunction<RemoveReactionMutation, RemoveReactionMutationVariables>;
 
 /**
  * __useRemoveReactionMutation__
@@ -12324,36 +10393,19 @@ export type RemoveReactionMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useRemoveReactionMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    RemoveReactionMutation,
-    RemoveReactionMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    RemoveReactionMutation,
-    RemoveReactionMutationVariables
-  >(RemoveReactionDocument, options);
-}
-export type RemoveReactionMutationHookResult = ReturnType<
-  typeof useRemoveReactionMutation
->;
-export type RemoveReactionMutationResult =
-  Apollo.MutationResult<RemoveReactionMutation>;
-export type RemoveReactionMutationOptions = Apollo.BaseMutationOptions<
-  RemoveReactionMutation,
-  RemoveReactionMutationVariables
->;
+export function useRemoveReactionMutation(baseOptions?: Apollo.MutationHookOptions<RemoveReactionMutation, RemoveReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveReactionMutation, RemoveReactionMutationVariables>(RemoveReactionDocument, options);
+      }
+export type RemoveReactionMutationHookResult = ReturnType<typeof useRemoveReactionMutation>;
+export type RemoveReactionMutationResult = Apollo.MutationResult<RemoveReactionMutation>;
+export type RemoveReactionMutationOptions = Apollo.BaseMutationOptions<RemoveReactionMutation, RemoveReactionMutationVariables>;
 export const ReportPublicationDocument = gql`
-  mutation ReportPublication($request: ReportPublicationRequest!) {
-    reportPublication(request: $request)
-  }
-`;
-export type ReportPublicationMutationFn = Apollo.MutationFunction<
-  ReportPublicationMutation,
-  ReportPublicationMutationVariables
->;
+    mutation ReportPublication($request: ReportPublicationRequest!) {
+  reportPublication(request: $request)
+}
+    `;
+export type ReportPublicationMutationFn = Apollo.MutationFunction<ReportPublicationMutation, ReportPublicationMutationVariables>;
 
 /**
  * __useReportPublicationMutation__
@@ -12372,38 +10424,19 @@ export type ReportPublicationMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useReportPublicationMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    ReportPublicationMutation,
-    ReportPublicationMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    ReportPublicationMutation,
-    ReportPublicationMutationVariables
-  >(ReportPublicationDocument, options);
-}
-export type ReportPublicationMutationHookResult = ReturnType<
-  typeof useReportPublicationMutation
->;
-export type ReportPublicationMutationResult =
-  Apollo.MutationResult<ReportPublicationMutation>;
-export type ReportPublicationMutationOptions = Apollo.BaseMutationOptions<
-  ReportPublicationMutation,
-  ReportPublicationMutationVariables
->;
+export function useReportPublicationMutation(baseOptions?: Apollo.MutationHookOptions<ReportPublicationMutation, ReportPublicationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReportPublicationMutation, ReportPublicationMutationVariables>(ReportPublicationDocument, options);
+      }
+export type ReportPublicationMutationHookResult = ReturnType<typeof useReportPublicationMutation>;
+export type ReportPublicationMutationResult = Apollo.MutationResult<ReportPublicationMutation>;
+export type ReportPublicationMutationOptions = Apollo.BaseMutationOptions<ReportPublicationMutation, ReportPublicationMutationVariables>;
 export const UndoPublicationNotInterestedDocument = gql`
-  mutation UndoPublicationNotInterested(
-    $request: PublicationNotInterestedRequest!
-  ) {
-    undoPublicationNotInterested(request: $request)
-  }
-`;
-export type UndoPublicationNotInterestedMutationFn = Apollo.MutationFunction<
-  UndoPublicationNotInterestedMutation,
-  UndoPublicationNotInterestedMutationVariables
->;
+    mutation UndoPublicationNotInterested($request: PublicationNotInterestedRequest!) {
+  undoPublicationNotInterested(request: $request)
+}
+    `;
+export type UndoPublicationNotInterestedMutationFn = Apollo.MutationFunction<UndoPublicationNotInterestedMutation, UndoPublicationNotInterestedMutationVariables>;
 
 /**
  * __useUndoPublicationNotInterestedMutation__
@@ -12422,37 +10455,19 @@ export type UndoPublicationNotInterestedMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUndoPublicationNotInterestedMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UndoPublicationNotInterestedMutation,
-    UndoPublicationNotInterestedMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UndoPublicationNotInterestedMutation,
-    UndoPublicationNotInterestedMutationVariables
-  >(UndoPublicationNotInterestedDocument, options);
-}
-export type UndoPublicationNotInterestedMutationHookResult = ReturnType<
-  typeof useUndoPublicationNotInterestedMutation
->;
-export type UndoPublicationNotInterestedMutationResult =
-  Apollo.MutationResult<UndoPublicationNotInterestedMutation>;
-export type UndoPublicationNotInterestedMutationOptions =
-  Apollo.BaseMutationOptions<
-    UndoPublicationNotInterestedMutation,
-    UndoPublicationNotInterestedMutationVariables
-  >;
+export function useUndoPublicationNotInterestedMutation(baseOptions?: Apollo.MutationHookOptions<UndoPublicationNotInterestedMutation, UndoPublicationNotInterestedMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UndoPublicationNotInterestedMutation, UndoPublicationNotInterestedMutationVariables>(UndoPublicationNotInterestedDocument, options);
+      }
+export type UndoPublicationNotInterestedMutationHookResult = ReturnType<typeof useUndoPublicationNotInterestedMutation>;
+export type UndoPublicationNotInterestedMutationResult = Apollo.MutationResult<UndoPublicationNotInterestedMutation>;
+export type UndoPublicationNotInterestedMutationOptions = Apollo.BaseMutationOptions<UndoPublicationNotInterestedMutation, UndoPublicationNotInterestedMutationVariables>;
 export const UnhideCommentDocument = gql`
-  mutation UnhideComment($request: UnhideCommentRequest!) {
-    unhideComment(request: $request)
-  }
-`;
-export type UnhideCommentMutationFn = Apollo.MutationFunction<
-  UnhideCommentMutation,
-  UnhideCommentMutationVariables
->;
+    mutation UnhideComment($request: UnhideCommentRequest!) {
+  unhideComment(request: $request)
+}
+    `;
+export type UnhideCommentMutationFn = Apollo.MutationFunction<UnhideCommentMutation, UnhideCommentMutationVariables>;
 
 /**
  * __useUnhideCommentMutation__
@@ -12471,38 +10486,21 @@ export type UnhideCommentMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUnhideCommentMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UnhideCommentMutation,
-    UnhideCommentMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    UnhideCommentMutation,
-    UnhideCommentMutationVariables
-  >(UnhideCommentDocument, options);
-}
-export type UnhideCommentMutationHookResult = ReturnType<
-  typeof useUnhideCommentMutation
->;
-export type UnhideCommentMutationResult =
-  Apollo.MutationResult<UnhideCommentMutation>;
-export type UnhideCommentMutationOptions = Apollo.BaseMutationOptions<
-  UnhideCommentMutation,
-  UnhideCommentMutationVariables
->;
+export function useUnhideCommentMutation(baseOptions?: Apollo.MutationHookOptions<UnhideCommentMutation, UnhideCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnhideCommentMutation, UnhideCommentMutationVariables>(UnhideCommentDocument, options);
+      }
+export type UnhideCommentMutationHookResult = ReturnType<typeof useUnhideCommentMutation>;
+export type UnhideCommentMutationResult = Apollo.MutationResult<UnhideCommentMutation>;
+export type UnhideCommentMutationOptions = Apollo.BaseMutationOptions<UnhideCommentMutation, UnhideCommentMutationVariables>;
 export const SignFrameActionDocument = gql`
-  mutation SignFrameAction($request: FrameLensManagerEIP712Request!) {
-    signFrameAction(request: $request) {
-      signature
-    }
+    mutation SignFrameAction($request: FrameLensManagerEIP712Request!) {
+  signFrameAction(request: $request) {
+    signature
   }
-`;
-export type SignFrameActionMutationFn = Apollo.MutationFunction<
-  SignFrameActionMutation,
-  SignFrameActionMutationVariables
->;
+}
+    `;
+export type SignFrameActionMutationFn = Apollo.MutationFunction<SignFrameActionMutation, SignFrameActionMutationVariables>;
 
 /**
  * __useSignFrameActionMutation__
@@ -12521,43 +10519,26 @@ export type SignFrameActionMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useSignFrameActionMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    SignFrameActionMutation,
-    SignFrameActionMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    SignFrameActionMutation,
-    SignFrameActionMutationVariables
-  >(SignFrameActionDocument, options);
-}
-export type SignFrameActionMutationHookResult = ReturnType<
-  typeof useSignFrameActionMutation
->;
-export type SignFrameActionMutationResult =
-  Apollo.MutationResult<SignFrameActionMutation>;
-export type SignFrameActionMutationOptions = Apollo.BaseMutationOptions<
-  SignFrameActionMutation,
-  SignFrameActionMutationVariables
->;
+export function useSignFrameActionMutation(baseOptions?: Apollo.MutationHookOptions<SignFrameActionMutation, SignFrameActionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignFrameActionMutation, SignFrameActionMutationVariables>(SignFrameActionDocument, options);
+      }
+export type SignFrameActionMutationHookResult = ReturnType<typeof useSignFrameActionMutation>;
+export type SignFrameActionMutationResult = Apollo.MutationResult<SignFrameActionMutation>;
+export type SignFrameActionMutationOptions = Apollo.BaseMutationOptions<SignFrameActionMutation, SignFrameActionMutationVariables>;
 export const CommentOnMomokaDocument = gql`
-  mutation CommentOnMomoka($request: MomokaCommentRequest!) {
-    commentOnMomoka(request: $request) {
-      ... on CreateMomokaPublicationResult {
-        id
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation CommentOnMomoka($request: MomokaCommentRequest!) {
+  commentOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type CommentOnMomokaMutationFn = Apollo.MutationFunction<
-  CommentOnMomokaMutation,
-  CommentOnMomokaMutationVariables
->;
+}
+    `;
+export type CommentOnMomokaMutationFn = Apollo.MutationFunction<CommentOnMomokaMutation, CommentOnMomokaMutationVariables>;
 
 /**
  * __useCommentOnMomokaMutation__
@@ -12576,43 +10557,26 @@ export type CommentOnMomokaMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCommentOnMomokaMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CommentOnMomokaMutation,
-    CommentOnMomokaMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CommentOnMomokaMutation,
-    CommentOnMomokaMutationVariables
-  >(CommentOnMomokaDocument, options);
-}
-export type CommentOnMomokaMutationHookResult = ReturnType<
-  typeof useCommentOnMomokaMutation
->;
-export type CommentOnMomokaMutationResult =
-  Apollo.MutationResult<CommentOnMomokaMutation>;
-export type CommentOnMomokaMutationOptions = Apollo.BaseMutationOptions<
-  CommentOnMomokaMutation,
-  CommentOnMomokaMutationVariables
->;
+export function useCommentOnMomokaMutation(baseOptions?: Apollo.MutationHookOptions<CommentOnMomokaMutation, CommentOnMomokaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CommentOnMomokaMutation, CommentOnMomokaMutationVariables>(CommentOnMomokaDocument, options);
+      }
+export type CommentOnMomokaMutationHookResult = ReturnType<typeof useCommentOnMomokaMutation>;
+export type CommentOnMomokaMutationResult = Apollo.MutationResult<CommentOnMomokaMutation>;
+export type CommentOnMomokaMutationOptions = Apollo.BaseMutationOptions<CommentOnMomokaMutation, CommentOnMomokaMutationVariables>;
 export const MirrorOnMomokaDocument = gql`
-  mutation MirrorOnMomoka($request: MomokaMirrorRequest!) {
-    mirrorOnMomoka(request: $request) {
-      ... on CreateMomokaPublicationResult {
-        id
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation MirrorOnMomoka($request: MomokaMirrorRequest!) {
+  mirrorOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type MirrorOnMomokaMutationFn = Apollo.MutationFunction<
-  MirrorOnMomokaMutation,
-  MirrorOnMomokaMutationVariables
->;
+}
+    `;
+export type MirrorOnMomokaMutationFn = Apollo.MutationFunction<MirrorOnMomokaMutation, MirrorOnMomokaMutationVariables>;
 
 /**
  * __useMirrorOnMomokaMutation__
@@ -12631,43 +10595,26 @@ export type MirrorOnMomokaMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useMirrorOnMomokaMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    MirrorOnMomokaMutation,
-    MirrorOnMomokaMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    MirrorOnMomokaMutation,
-    MirrorOnMomokaMutationVariables
-  >(MirrorOnMomokaDocument, options);
-}
-export type MirrorOnMomokaMutationHookResult = ReturnType<
-  typeof useMirrorOnMomokaMutation
->;
-export type MirrorOnMomokaMutationResult =
-  Apollo.MutationResult<MirrorOnMomokaMutation>;
-export type MirrorOnMomokaMutationOptions = Apollo.BaseMutationOptions<
-  MirrorOnMomokaMutation,
-  MirrorOnMomokaMutationVariables
->;
+export function useMirrorOnMomokaMutation(baseOptions?: Apollo.MutationHookOptions<MirrorOnMomokaMutation, MirrorOnMomokaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MirrorOnMomokaMutation, MirrorOnMomokaMutationVariables>(MirrorOnMomokaDocument, options);
+      }
+export type MirrorOnMomokaMutationHookResult = ReturnType<typeof useMirrorOnMomokaMutation>;
+export type MirrorOnMomokaMutationResult = Apollo.MutationResult<MirrorOnMomokaMutation>;
+export type MirrorOnMomokaMutationOptions = Apollo.BaseMutationOptions<MirrorOnMomokaMutation, MirrorOnMomokaMutationVariables>;
 export const PostOnMomokaDocument = gql`
-  mutation PostOnMomoka($request: MomokaPostRequest!) {
-    postOnMomoka(request: $request) {
-      ... on CreateMomokaPublicationResult {
-        id
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation PostOnMomoka($request: MomokaPostRequest!) {
+  postOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type PostOnMomokaMutationFn = Apollo.MutationFunction<
-  PostOnMomokaMutation,
-  PostOnMomokaMutationVariables
->;
+}
+    `;
+export type PostOnMomokaMutationFn = Apollo.MutationFunction<PostOnMomokaMutation, PostOnMomokaMutationVariables>;
 
 /**
  * __usePostOnMomokaMutation__
@@ -12686,43 +10633,26 @@ export type PostOnMomokaMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function usePostOnMomokaMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    PostOnMomokaMutation,
-    PostOnMomokaMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    PostOnMomokaMutation,
-    PostOnMomokaMutationVariables
-  >(PostOnMomokaDocument, options);
-}
-export type PostOnMomokaMutationHookResult = ReturnType<
-  typeof usePostOnMomokaMutation
->;
-export type PostOnMomokaMutationResult =
-  Apollo.MutationResult<PostOnMomokaMutation>;
-export type PostOnMomokaMutationOptions = Apollo.BaseMutationOptions<
-  PostOnMomokaMutation,
-  PostOnMomokaMutationVariables
->;
+export function usePostOnMomokaMutation(baseOptions?: Apollo.MutationHookOptions<PostOnMomokaMutation, PostOnMomokaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PostOnMomokaMutation, PostOnMomokaMutationVariables>(PostOnMomokaDocument, options);
+      }
+export type PostOnMomokaMutationHookResult = ReturnType<typeof usePostOnMomokaMutation>;
+export type PostOnMomokaMutationResult = Apollo.MutationResult<PostOnMomokaMutation>;
+export type PostOnMomokaMutationOptions = Apollo.BaseMutationOptions<PostOnMomokaMutation, PostOnMomokaMutationVariables>;
 export const QuoteOnMomokaDocument = gql`
-  mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
-    quoteOnMomoka(request: $request) {
-      ... on CreateMomokaPublicationResult {
-        id
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
+  quoteOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type QuoteOnMomokaMutationFn = Apollo.MutationFunction<
-  QuoteOnMomokaMutation,
-  QuoteOnMomokaMutationVariables
->;
+}
+    `;
+export type QuoteOnMomokaMutationFn = Apollo.MutationFunction<QuoteOnMomokaMutation, QuoteOnMomokaMutationVariables>;
 
 /**
  * __useQuoteOnMomokaMutation__
@@ -12741,43 +10671,26 @@ export type QuoteOnMomokaMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useQuoteOnMomokaMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    QuoteOnMomokaMutation,
-    QuoteOnMomokaMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    QuoteOnMomokaMutation,
-    QuoteOnMomokaMutationVariables
-  >(QuoteOnMomokaDocument, options);
-}
-export type QuoteOnMomokaMutationHookResult = ReturnType<
-  typeof useQuoteOnMomokaMutation
->;
-export type QuoteOnMomokaMutationResult =
-  Apollo.MutationResult<QuoteOnMomokaMutation>;
-export type QuoteOnMomokaMutationOptions = Apollo.BaseMutationOptions<
-  QuoteOnMomokaMutation,
-  QuoteOnMomokaMutationVariables
->;
+export function useQuoteOnMomokaMutation(baseOptions?: Apollo.MutationHookOptions<QuoteOnMomokaMutation, QuoteOnMomokaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<QuoteOnMomokaMutation, QuoteOnMomokaMutationVariables>(QuoteOnMomokaDocument, options);
+      }
+export type QuoteOnMomokaMutationHookResult = ReturnType<typeof useQuoteOnMomokaMutation>;
+export type QuoteOnMomokaMutationResult = Apollo.MutationResult<QuoteOnMomokaMutation>;
+export type QuoteOnMomokaMutationOptions = Apollo.BaseMutationOptions<QuoteOnMomokaMutation, QuoteOnMomokaMutationVariables>;
 export const CommentOnchainDocument = gql`
-  mutation CommentOnchain($request: OnchainCommentRequest!) {
-    commentOnchain(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation CommentOnchain($request: OnchainCommentRequest!) {
+  commentOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type CommentOnchainMutationFn = Apollo.MutationFunction<
-  CommentOnchainMutation,
-  CommentOnchainMutationVariables
->;
+}
+    `;
+export type CommentOnchainMutationFn = Apollo.MutationFunction<CommentOnchainMutation, CommentOnchainMutationVariables>;
 
 /**
  * __useCommentOnchainMutation__
@@ -12796,43 +10709,26 @@ export type CommentOnchainMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCommentOnchainMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CommentOnchainMutation,
-    CommentOnchainMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CommentOnchainMutation,
-    CommentOnchainMutationVariables
-  >(CommentOnchainDocument, options);
-}
-export type CommentOnchainMutationHookResult = ReturnType<
-  typeof useCommentOnchainMutation
->;
-export type CommentOnchainMutationResult =
-  Apollo.MutationResult<CommentOnchainMutation>;
-export type CommentOnchainMutationOptions = Apollo.BaseMutationOptions<
-  CommentOnchainMutation,
-  CommentOnchainMutationVariables
->;
+export function useCommentOnchainMutation(baseOptions?: Apollo.MutationHookOptions<CommentOnchainMutation, CommentOnchainMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CommentOnchainMutation, CommentOnchainMutationVariables>(CommentOnchainDocument, options);
+      }
+export type CommentOnchainMutationHookResult = ReturnType<typeof useCommentOnchainMutation>;
+export type CommentOnchainMutationResult = Apollo.MutationResult<CommentOnchainMutation>;
+export type CommentOnchainMutationOptions = Apollo.BaseMutationOptions<CommentOnchainMutation, CommentOnchainMutationVariables>;
 export const MirrorOnchainDocument = gql`
-  mutation MirrorOnchain($request: OnchainMirrorRequest!) {
-    mirrorOnchain(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation MirrorOnchain($request: OnchainMirrorRequest!) {
+  mirrorOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type MirrorOnchainMutationFn = Apollo.MutationFunction<
-  MirrorOnchainMutation,
-  MirrorOnchainMutationVariables
->;
+}
+    `;
+export type MirrorOnchainMutationFn = Apollo.MutationFunction<MirrorOnchainMutation, MirrorOnchainMutationVariables>;
 
 /**
  * __useMirrorOnchainMutation__
@@ -12851,43 +10747,26 @@ export type MirrorOnchainMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useMirrorOnchainMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    MirrorOnchainMutation,
-    MirrorOnchainMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    MirrorOnchainMutation,
-    MirrorOnchainMutationVariables
-  >(MirrorOnchainDocument, options);
-}
-export type MirrorOnchainMutationHookResult = ReturnType<
-  typeof useMirrorOnchainMutation
->;
-export type MirrorOnchainMutationResult =
-  Apollo.MutationResult<MirrorOnchainMutation>;
-export type MirrorOnchainMutationOptions = Apollo.BaseMutationOptions<
-  MirrorOnchainMutation,
-  MirrorOnchainMutationVariables
->;
+export function useMirrorOnchainMutation(baseOptions?: Apollo.MutationHookOptions<MirrorOnchainMutation, MirrorOnchainMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MirrorOnchainMutation, MirrorOnchainMutationVariables>(MirrorOnchainDocument, options);
+      }
+export type MirrorOnchainMutationHookResult = ReturnType<typeof useMirrorOnchainMutation>;
+export type MirrorOnchainMutationResult = Apollo.MutationResult<MirrorOnchainMutation>;
+export type MirrorOnchainMutationOptions = Apollo.BaseMutationOptions<MirrorOnchainMutation, MirrorOnchainMutationVariables>;
 export const PostOnchainDocument = gql`
-  mutation PostOnchain($request: OnchainPostRequest!) {
-    postOnchain(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation PostOnchain($request: OnchainPostRequest!) {
+  postOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type PostOnchainMutationFn = Apollo.MutationFunction<
-  PostOnchainMutation,
-  PostOnchainMutationVariables
->;
+}
+    `;
+export type PostOnchainMutationFn = Apollo.MutationFunction<PostOnchainMutation, PostOnchainMutationVariables>;
 
 /**
  * __usePostOnchainMutation__
@@ -12906,43 +10785,26 @@ export type PostOnchainMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function usePostOnchainMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    PostOnchainMutation,
-    PostOnchainMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<PostOnchainMutation, PostOnchainMutationVariables>(
-    PostOnchainDocument,
-    options
-  );
-}
-export type PostOnchainMutationHookResult = ReturnType<
-  typeof usePostOnchainMutation
->;
-export type PostOnchainMutationResult =
-  Apollo.MutationResult<PostOnchainMutation>;
-export type PostOnchainMutationOptions = Apollo.BaseMutationOptions<
-  PostOnchainMutation,
-  PostOnchainMutationVariables
->;
+export function usePostOnchainMutation(baseOptions?: Apollo.MutationHookOptions<PostOnchainMutation, PostOnchainMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PostOnchainMutation, PostOnchainMutationVariables>(PostOnchainDocument, options);
+      }
+export type PostOnchainMutationHookResult = ReturnType<typeof usePostOnchainMutation>;
+export type PostOnchainMutationResult = Apollo.MutationResult<PostOnchainMutation>;
+export type PostOnchainMutationOptions = Apollo.BaseMutationOptions<PostOnchainMutation, PostOnchainMutationVariables>;
 export const QuoteOnchainDocument = gql`
-  mutation QuoteOnchain($request: OnchainQuoteRequest!) {
-    quoteOnchain(request: $request) {
-      ... on RelaySuccess {
-        txId
-      }
-      ... on LensProfileManagerRelayError {
-        reason
-      }
+    mutation QuoteOnchain($request: OnchainQuoteRequest!) {
+  quoteOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
     }
   }
-`;
-export type QuoteOnchainMutationFn = Apollo.MutationFunction<
-  QuoteOnchainMutation,
-  QuoteOnchainMutationVariables
->;
+}
+    `;
+export type QuoteOnchainMutationFn = Apollo.MutationFunction<QuoteOnchainMutation, QuoteOnchainMutationVariables>;
 
 /**
  * __useQuoteOnchainMutation__
@@ -12961,68 +10823,51 @@ export type QuoteOnchainMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useQuoteOnchainMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    QuoteOnchainMutation,
-    QuoteOnchainMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    QuoteOnchainMutation,
-    QuoteOnchainMutationVariables
-  >(QuoteOnchainDocument, options);
-}
-export type QuoteOnchainMutationHookResult = ReturnType<
-  typeof useQuoteOnchainMutation
->;
-export type QuoteOnchainMutationResult =
-  Apollo.MutationResult<QuoteOnchainMutation>;
-export type QuoteOnchainMutationOptions = Apollo.BaseMutationOptions<
-  QuoteOnchainMutation,
-  QuoteOnchainMutationVariables
->;
+export function useQuoteOnchainMutation(baseOptions?: Apollo.MutationHookOptions<QuoteOnchainMutation, QuoteOnchainMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<QuoteOnchainMutation, QuoteOnchainMutationVariables>(QuoteOnchainDocument, options);
+      }
+export type QuoteOnchainMutationHookResult = ReturnType<typeof useQuoteOnchainMutation>;
+export type QuoteOnchainMutationResult = Apollo.MutationResult<QuoteOnchainMutation>;
+export type QuoteOnchainMutationOptions = Apollo.BaseMutationOptions<QuoteOnchainMutation, QuoteOnchainMutationVariables>;
 export const CreateMomokaCommentTypedDataDocument = gql`
-  mutation CreateMomokaCommentTypedData($request: MomokaCommentRequest!) {
-    createMomokaCommentTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Comment {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateMomokaCommentTypedData($request: MomokaCommentRequest!) {
+  createMomokaCommentTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Comment {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          actionModules
-          actionModulesInitDatas
-          contentURI
-          deadline
-          nonce
-          pointedProfileId
-          pointedPubId
-          profileId
-          referenceModule
-          referenceModuleData
-          referenceModuleInitData
-          referrerProfileIds
-          referrerPubIds
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        actionModules
+        actionModulesInitDatas
+        contentURI
+        deadline
+        nonce
+        pointedProfileId
+        pointedPubId
+        profileId
+        referenceModule
+        referenceModuleData
+        referenceModuleInitData
+        referrerProfileIds
+        referrerPubIds
       }
     }
   }
-`;
-export type CreateMomokaCommentTypedDataMutationFn = Apollo.MutationFunction<
-  CreateMomokaCommentTypedDataMutation,
-  CreateMomokaCommentTypedDataMutationVariables
->;
+}
+    `;
+export type CreateMomokaCommentTypedDataMutationFn = Apollo.MutationFunction<CreateMomokaCommentTypedDataMutation, CreateMomokaCommentTypedDataMutationVariables>;
 
 /**
  * __useCreateMomokaCommentTypedDataMutation__
@@ -13041,65 +10886,47 @@ export type CreateMomokaCommentTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateMomokaCommentTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateMomokaCommentTypedDataMutation,
-    CreateMomokaCommentTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateMomokaCommentTypedDataMutation,
-    CreateMomokaCommentTypedDataMutationVariables
-  >(CreateMomokaCommentTypedDataDocument, options);
-}
-export type CreateMomokaCommentTypedDataMutationHookResult = ReturnType<
-  typeof useCreateMomokaCommentTypedDataMutation
->;
-export type CreateMomokaCommentTypedDataMutationResult =
-  Apollo.MutationResult<CreateMomokaCommentTypedDataMutation>;
-export type CreateMomokaCommentTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateMomokaCommentTypedDataMutation,
-    CreateMomokaCommentTypedDataMutationVariables
-  >;
+export function useCreateMomokaCommentTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateMomokaCommentTypedDataMutation, CreateMomokaCommentTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMomokaCommentTypedDataMutation, CreateMomokaCommentTypedDataMutationVariables>(CreateMomokaCommentTypedDataDocument, options);
+      }
+export type CreateMomokaCommentTypedDataMutationHookResult = ReturnType<typeof useCreateMomokaCommentTypedDataMutation>;
+export type CreateMomokaCommentTypedDataMutationResult = Apollo.MutationResult<CreateMomokaCommentTypedDataMutation>;
+export type CreateMomokaCommentTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateMomokaCommentTypedDataMutation, CreateMomokaCommentTypedDataMutationVariables>;
 export const CreateMomokaMirrorTypedDataDocument = gql`
-  mutation CreateMomokaMirrorTypedData($request: MomokaMirrorRequest!) {
-    createMomokaMirrorTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Mirror {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateMomokaMirrorTypedData($request: MomokaMirrorRequest!) {
+  createMomokaMirrorTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Mirror {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          metadataURI
-          deadline
-          profileId
-          pointedProfileId
-          pointedPubId
-          referrerProfileIds
-          referrerPubIds
-          referenceModuleData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        metadataURI
+        deadline
+        profileId
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
+        referenceModuleData
       }
     }
   }
-`;
-export type CreateMomokaMirrorTypedDataMutationFn = Apollo.MutationFunction<
-  CreateMomokaMirrorTypedDataMutation,
-  CreateMomokaMirrorTypedDataMutationVariables
->;
+}
+    `;
+export type CreateMomokaMirrorTypedDataMutationFn = Apollo.MutationFunction<CreateMomokaMirrorTypedDataMutation, CreateMomokaMirrorTypedDataMutationVariables>;
 
 /**
  * __useCreateMomokaMirrorTypedDataMutation__
@@ -13118,64 +10945,46 @@ export type CreateMomokaMirrorTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateMomokaMirrorTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateMomokaMirrorTypedDataMutation,
-    CreateMomokaMirrorTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateMomokaMirrorTypedDataMutation,
-    CreateMomokaMirrorTypedDataMutationVariables
-  >(CreateMomokaMirrorTypedDataDocument, options);
-}
-export type CreateMomokaMirrorTypedDataMutationHookResult = ReturnType<
-  typeof useCreateMomokaMirrorTypedDataMutation
->;
-export type CreateMomokaMirrorTypedDataMutationResult =
-  Apollo.MutationResult<CreateMomokaMirrorTypedDataMutation>;
-export type CreateMomokaMirrorTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateMomokaMirrorTypedDataMutation,
-    CreateMomokaMirrorTypedDataMutationVariables
-  >;
+export function useCreateMomokaMirrorTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateMomokaMirrorTypedDataMutation, CreateMomokaMirrorTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMomokaMirrorTypedDataMutation, CreateMomokaMirrorTypedDataMutationVariables>(CreateMomokaMirrorTypedDataDocument, options);
+      }
+export type CreateMomokaMirrorTypedDataMutationHookResult = ReturnType<typeof useCreateMomokaMirrorTypedDataMutation>;
+export type CreateMomokaMirrorTypedDataMutationResult = Apollo.MutationResult<CreateMomokaMirrorTypedDataMutation>;
+export type CreateMomokaMirrorTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateMomokaMirrorTypedDataMutation, CreateMomokaMirrorTypedDataMutationVariables>;
 export const CreateMomokaPostTypedDataDocument = gql`
-  mutation CreateMomokaPostTypedData($request: MomokaPostRequest!) {
-    createMomokaPostTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Post {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateMomokaPostTypedData($request: MomokaPostRequest!) {
+  createMomokaPostTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Post {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          actionModules
-          actionModulesInitDatas
-          referenceModule
-          referenceModuleInitData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        actionModules
+        actionModulesInitDatas
+        referenceModule
+        referenceModuleInitData
       }
     }
   }
-`;
-export type CreateMomokaPostTypedDataMutationFn = Apollo.MutationFunction<
-  CreateMomokaPostTypedDataMutation,
-  CreateMomokaPostTypedDataMutationVariables
->;
+}
+    `;
+export type CreateMomokaPostTypedDataMutationFn = Apollo.MutationFunction<CreateMomokaPostTypedDataMutation, CreateMomokaPostTypedDataMutationVariables>;
 
 /**
  * __useCreateMomokaPostTypedDataMutation__
@@ -13194,69 +11003,51 @@ export type CreateMomokaPostTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateMomokaPostTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateMomokaPostTypedDataMutation,
-    CreateMomokaPostTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateMomokaPostTypedDataMutation,
-    CreateMomokaPostTypedDataMutationVariables
-  >(CreateMomokaPostTypedDataDocument, options);
-}
-export type CreateMomokaPostTypedDataMutationHookResult = ReturnType<
-  typeof useCreateMomokaPostTypedDataMutation
->;
-export type CreateMomokaPostTypedDataMutationResult =
-  Apollo.MutationResult<CreateMomokaPostTypedDataMutation>;
-export type CreateMomokaPostTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateMomokaPostTypedDataMutation,
-    CreateMomokaPostTypedDataMutationVariables
-  >;
+export function useCreateMomokaPostTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateMomokaPostTypedDataMutation, CreateMomokaPostTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMomokaPostTypedDataMutation, CreateMomokaPostTypedDataMutationVariables>(CreateMomokaPostTypedDataDocument, options);
+      }
+export type CreateMomokaPostTypedDataMutationHookResult = ReturnType<typeof useCreateMomokaPostTypedDataMutation>;
+export type CreateMomokaPostTypedDataMutationResult = Apollo.MutationResult<CreateMomokaPostTypedDataMutation>;
+export type CreateMomokaPostTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateMomokaPostTypedDataMutation, CreateMomokaPostTypedDataMutationVariables>;
 export const CreateMomokaQuoteTypedDataDocument = gql`
-  mutation CreateMomokaQuoteTypedData($request: MomokaQuoteRequest!) {
-    createMomokaQuoteTypedData(request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Quote {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateMomokaQuoteTypedData($request: MomokaQuoteRequest!) {
+  createMomokaQuoteTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Quote {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          pointedProfileId
-          pointedPubId
-          referrerProfileIds
-          referrerPubIds
-          actionModules
-          actionModulesInitDatas
-          referenceModule
-          referenceModuleData
-          referenceModuleInitData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
+        actionModules
+        actionModulesInitDatas
+        referenceModule
+        referenceModuleData
+        referenceModuleInitData
       }
     }
   }
-`;
-export type CreateMomokaQuoteTypedDataMutationFn = Apollo.MutationFunction<
-  CreateMomokaQuoteTypedDataMutation,
-  CreateMomokaQuoteTypedDataMutationVariables
->;
+}
+    `;
+export type CreateMomokaQuoteTypedDataMutationFn = Apollo.MutationFunction<CreateMomokaQuoteTypedDataMutation, CreateMomokaQuoteTypedDataMutationVariables>;
 
 /**
  * __useCreateMomokaQuoteTypedDataMutation__
@@ -13275,68 +11066,47 @@ export type CreateMomokaQuoteTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateMomokaQuoteTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateMomokaQuoteTypedDataMutation,
-    CreateMomokaQuoteTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateMomokaQuoteTypedDataMutation,
-    CreateMomokaQuoteTypedDataMutationVariables
-  >(CreateMomokaQuoteTypedDataDocument, options);
-}
-export type CreateMomokaQuoteTypedDataMutationHookResult = ReturnType<
-  typeof useCreateMomokaQuoteTypedDataMutation
->;
-export type CreateMomokaQuoteTypedDataMutationResult =
-  Apollo.MutationResult<CreateMomokaQuoteTypedDataMutation>;
-export type CreateMomokaQuoteTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateMomokaQuoteTypedDataMutation,
-    CreateMomokaQuoteTypedDataMutationVariables
-  >;
+export function useCreateMomokaQuoteTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateMomokaQuoteTypedDataMutation, CreateMomokaQuoteTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMomokaQuoteTypedDataMutation, CreateMomokaQuoteTypedDataMutationVariables>(CreateMomokaQuoteTypedDataDocument, options);
+      }
+export type CreateMomokaQuoteTypedDataMutationHookResult = ReturnType<typeof useCreateMomokaQuoteTypedDataMutation>;
+export type CreateMomokaQuoteTypedDataMutationResult = Apollo.MutationResult<CreateMomokaQuoteTypedDataMutation>;
+export type CreateMomokaQuoteTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateMomokaQuoteTypedDataMutation, CreateMomokaQuoteTypedDataMutationVariables>;
 export const CreateActOnOpenActionTypedDataDocument = gql`
-  mutation CreateActOnOpenActionTypedData(
-    $options: TypedDataOptions
-    $request: ActOnOpenActionRequest!
-  ) {
-    createActOnOpenActionTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Act {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateActOnOpenActionTypedData($options: TypedDataOptions, $request: ActOnOpenActionRequest!) {
+  createActOnOpenActionTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Act {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          publicationActedProfileId
-          publicationActedId
-          actorProfileId
-          referrerProfileIds
-          referrerPubIds
-          actionModuleAddress
-          actionModuleData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        publicationActedProfileId
+        publicationActedId
+        actorProfileId
+        referrerProfileIds
+        referrerPubIds
+        actionModuleAddress
+        actionModuleData
       }
     }
   }
-`;
-export type CreateActOnOpenActionTypedDataMutationFn = Apollo.MutationFunction<
-  CreateActOnOpenActionTypedDataMutation,
-  CreateActOnOpenActionTypedDataMutationVariables
->;
+}
+    `;
+export type CreateActOnOpenActionTypedDataMutationFn = Apollo.MutationFunction<CreateActOnOpenActionTypedDataMutation, CreateActOnOpenActionTypedDataMutationVariables>;
 
 /**
  * __useCreateActOnOpenActionTypedDataMutation__
@@ -13356,72 +11126,51 @@ export type CreateActOnOpenActionTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateActOnOpenActionTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateActOnOpenActionTypedDataMutation,
-    CreateActOnOpenActionTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateActOnOpenActionTypedDataMutation,
-    CreateActOnOpenActionTypedDataMutationVariables
-  >(CreateActOnOpenActionTypedDataDocument, options);
-}
-export type CreateActOnOpenActionTypedDataMutationHookResult = ReturnType<
-  typeof useCreateActOnOpenActionTypedDataMutation
->;
-export type CreateActOnOpenActionTypedDataMutationResult =
-  Apollo.MutationResult<CreateActOnOpenActionTypedDataMutation>;
-export type CreateActOnOpenActionTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateActOnOpenActionTypedDataMutation,
-    CreateActOnOpenActionTypedDataMutationVariables
-  >;
+export function useCreateActOnOpenActionTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateActOnOpenActionTypedDataMutation, CreateActOnOpenActionTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateActOnOpenActionTypedDataMutation, CreateActOnOpenActionTypedDataMutationVariables>(CreateActOnOpenActionTypedDataDocument, options);
+      }
+export type CreateActOnOpenActionTypedDataMutationHookResult = ReturnType<typeof useCreateActOnOpenActionTypedDataMutation>;
+export type CreateActOnOpenActionTypedDataMutationResult = Apollo.MutationResult<CreateActOnOpenActionTypedDataMutation>;
+export type CreateActOnOpenActionTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateActOnOpenActionTypedDataMutation, CreateActOnOpenActionTypedDataMutationVariables>;
 export const CreateOnchainCommentTypedDataDocument = gql`
-  mutation CreateOnchainCommentTypedData(
-    $options: TypedDataOptions
-    $request: OnchainCommentRequest!
-  ) {
-    createOnchainCommentTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Comment {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateOnchainCommentTypedData($options: TypedDataOptions, $request: OnchainCommentRequest!) {
+  createOnchainCommentTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Comment {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          pointedProfileId
-          pointedPubId
-          referrerProfileIds
-          referrerPubIds
-          referenceModuleData
-          actionModules
-          actionModulesInitDatas
-          referenceModule
-          referenceModuleInitData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
+        referenceModuleData
+        actionModules
+        actionModulesInitDatas
+        referenceModule
+        referenceModuleInitData
       }
     }
   }
-`;
-export type CreateOnchainCommentTypedDataMutationFn = Apollo.MutationFunction<
-  CreateOnchainCommentTypedDataMutation,
-  CreateOnchainCommentTypedDataMutationVariables
->;
+}
+    `;
+export type CreateOnchainCommentTypedDataMutationFn = Apollo.MutationFunction<CreateOnchainCommentTypedDataMutation, CreateOnchainCommentTypedDataMutationVariables>;
 
 /**
  * __useCreateOnchainCommentTypedDataMutation__
@@ -13441,69 +11190,48 @@ export type CreateOnchainCommentTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateOnchainCommentTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateOnchainCommentTypedDataMutation,
-    CreateOnchainCommentTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateOnchainCommentTypedDataMutation,
-    CreateOnchainCommentTypedDataMutationVariables
-  >(CreateOnchainCommentTypedDataDocument, options);
-}
-export type CreateOnchainCommentTypedDataMutationHookResult = ReturnType<
-  typeof useCreateOnchainCommentTypedDataMutation
->;
-export type CreateOnchainCommentTypedDataMutationResult =
-  Apollo.MutationResult<CreateOnchainCommentTypedDataMutation>;
-export type CreateOnchainCommentTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateOnchainCommentTypedDataMutation,
-    CreateOnchainCommentTypedDataMutationVariables
-  >;
+export function useCreateOnchainCommentTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnchainCommentTypedDataMutation, CreateOnchainCommentTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnchainCommentTypedDataMutation, CreateOnchainCommentTypedDataMutationVariables>(CreateOnchainCommentTypedDataDocument, options);
+      }
+export type CreateOnchainCommentTypedDataMutationHookResult = ReturnType<typeof useCreateOnchainCommentTypedDataMutation>;
+export type CreateOnchainCommentTypedDataMutationResult = Apollo.MutationResult<CreateOnchainCommentTypedDataMutation>;
+export type CreateOnchainCommentTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateOnchainCommentTypedDataMutation, CreateOnchainCommentTypedDataMutationVariables>;
 export const CreateOnchainMirrorTypedDataDocument = gql`
-  mutation CreateOnchainMirrorTypedData(
-    $options: TypedDataOptions
-    $request: OnchainMirrorRequest!
-  ) {
-    createOnchainMirrorTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        domain {
+    mutation CreateOnchainMirrorTypedData($options: TypedDataOptions, $request: OnchainMirrorRequest!) {
+  createOnchainMirrorTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        Mirror {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        types {
-          Mirror {
-            name
-            type
-          }
-        }
-        value {
-          nonce
-          metadataURI
-          deadline
-          profileId
-          metadataURI
-          pointedProfileId
-          pointedPubId
-          referrerProfileIds
-          referrerPubIds
-          referenceModuleData
-        }
+      }
+      value {
+        nonce
+        metadataURI
+        deadline
+        profileId
+        metadataURI
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
+        referenceModuleData
       }
     }
   }
-`;
-export type CreateOnchainMirrorTypedDataMutationFn = Apollo.MutationFunction<
-  CreateOnchainMirrorTypedDataMutation,
-  CreateOnchainMirrorTypedDataMutationVariables
->;
+}
+    `;
+export type CreateOnchainMirrorTypedDataMutationFn = Apollo.MutationFunction<CreateOnchainMirrorTypedDataMutation, CreateOnchainMirrorTypedDataMutationVariables>;
 
 /**
  * __useCreateOnchainMirrorTypedDataMutation__
@@ -13523,67 +11251,46 @@ export type CreateOnchainMirrorTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateOnchainMirrorTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateOnchainMirrorTypedDataMutation,
-    CreateOnchainMirrorTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateOnchainMirrorTypedDataMutation,
-    CreateOnchainMirrorTypedDataMutationVariables
-  >(CreateOnchainMirrorTypedDataDocument, options);
-}
-export type CreateOnchainMirrorTypedDataMutationHookResult = ReturnType<
-  typeof useCreateOnchainMirrorTypedDataMutation
->;
-export type CreateOnchainMirrorTypedDataMutationResult =
-  Apollo.MutationResult<CreateOnchainMirrorTypedDataMutation>;
-export type CreateOnchainMirrorTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateOnchainMirrorTypedDataMutation,
-    CreateOnchainMirrorTypedDataMutationVariables
-  >;
+export function useCreateOnchainMirrorTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnchainMirrorTypedDataMutation, CreateOnchainMirrorTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnchainMirrorTypedDataMutation, CreateOnchainMirrorTypedDataMutationVariables>(CreateOnchainMirrorTypedDataDocument, options);
+      }
+export type CreateOnchainMirrorTypedDataMutationHookResult = ReturnType<typeof useCreateOnchainMirrorTypedDataMutation>;
+export type CreateOnchainMirrorTypedDataMutationResult = Apollo.MutationResult<CreateOnchainMirrorTypedDataMutation>;
+export type CreateOnchainMirrorTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateOnchainMirrorTypedDataMutation, CreateOnchainMirrorTypedDataMutationVariables>;
 export const CreateOnchainPostTypedDataDocument = gql`
-  mutation CreateOnchainPostTypedData(
-    $options: TypedDataOptions
-    $request: OnchainPostRequest!
-  ) {
-    createOnchainPostTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Post {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateOnchainPostTypedData($options: TypedDataOptions, $request: OnchainPostRequest!) {
+  createOnchainPostTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Post {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          actionModules
-          actionModulesInitDatas
-          referenceModule
-          referenceModuleInitData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        actionModules
+        actionModulesInitDatas
+        referenceModule
+        referenceModuleInitData
       }
     }
   }
-`;
-export type CreateOnchainPostTypedDataMutationFn = Apollo.MutationFunction<
-  CreateOnchainPostTypedDataMutation,
-  CreateOnchainPostTypedDataMutationVariables
->;
+}
+    `;
+export type CreateOnchainPostTypedDataMutationFn = Apollo.MutationFunction<CreateOnchainPostTypedDataMutation, CreateOnchainPostTypedDataMutationVariables>;
 
 /**
  * __useCreateOnchainPostTypedDataMutation__
@@ -13603,72 +11310,51 @@ export type CreateOnchainPostTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateOnchainPostTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateOnchainPostTypedDataMutation,
-    CreateOnchainPostTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateOnchainPostTypedDataMutation,
-    CreateOnchainPostTypedDataMutationVariables
-  >(CreateOnchainPostTypedDataDocument, options);
-}
-export type CreateOnchainPostTypedDataMutationHookResult = ReturnType<
-  typeof useCreateOnchainPostTypedDataMutation
->;
-export type CreateOnchainPostTypedDataMutationResult =
-  Apollo.MutationResult<CreateOnchainPostTypedDataMutation>;
-export type CreateOnchainPostTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateOnchainPostTypedDataMutation,
-    CreateOnchainPostTypedDataMutationVariables
-  >;
+export function useCreateOnchainPostTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnchainPostTypedDataMutation, CreateOnchainPostTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnchainPostTypedDataMutation, CreateOnchainPostTypedDataMutationVariables>(CreateOnchainPostTypedDataDocument, options);
+      }
+export type CreateOnchainPostTypedDataMutationHookResult = ReturnType<typeof useCreateOnchainPostTypedDataMutation>;
+export type CreateOnchainPostTypedDataMutationResult = Apollo.MutationResult<CreateOnchainPostTypedDataMutation>;
+export type CreateOnchainPostTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateOnchainPostTypedDataMutation, CreateOnchainPostTypedDataMutationVariables>;
 export const CreateOnchainQuoteTypedDataDocument = gql`
-  mutation CreateOnchainQuoteTypedData(
-    $options: TypedDataOptions
-    $request: OnchainQuoteRequest!
-  ) {
-    createOnchainQuoteTypedData(options: $options, request: $request) {
-      id
-      expiresAt
-      typedData {
-        types {
-          Quote {
-            name
-            type
-          }
-        }
-        domain {
+    mutation CreateOnchainQuoteTypedData($options: TypedDataOptions, $request: OnchainQuoteRequest!) {
+  createOnchainQuoteTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Quote {
           name
-          chainId
-          version
-          verifyingContract
+          type
         }
-        value {
-          nonce
-          deadline
-          profileId
-          contentURI
-          pointedProfileId
-          pointedPubId
-          referrerProfileIds
-          referrerPubIds
-          referenceModuleData
-          actionModules
-          actionModulesInitDatas
-          referenceModule
-          referenceModuleInitData
-        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
+        referenceModuleData
+        actionModules
+        actionModulesInitDatas
+        referenceModule
+        referenceModuleInitData
       }
     }
   }
-`;
-export type CreateOnchainQuoteTypedDataMutationFn = Apollo.MutationFunction<
-  CreateOnchainQuoteTypedDataMutation,
-  CreateOnchainQuoteTypedDataMutationVariables
->;
+}
+    `;
+export type CreateOnchainQuoteTypedDataMutationFn = Apollo.MutationFunction<CreateOnchainQuoteTypedDataMutation, CreateOnchainQuoteTypedDataMutationVariables>;
 
 /**
  * __useCreateOnchainQuoteTypedDataMutation__
@@ -13688,46 +11374,31 @@ export type CreateOnchainQuoteTypedDataMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateOnchainQuoteTypedDataMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreateOnchainQuoteTypedDataMutation,
-    CreateOnchainQuoteTypedDataMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    CreateOnchainQuoteTypedDataMutation,
-    CreateOnchainQuoteTypedDataMutationVariables
-  >(CreateOnchainQuoteTypedDataDocument, options);
-}
-export type CreateOnchainQuoteTypedDataMutationHookResult = ReturnType<
-  typeof useCreateOnchainQuoteTypedDataMutation
->;
-export type CreateOnchainQuoteTypedDataMutationResult =
-  Apollo.MutationResult<CreateOnchainQuoteTypedDataMutation>;
-export type CreateOnchainQuoteTypedDataMutationOptions =
-  Apollo.BaseMutationOptions<
-    CreateOnchainQuoteTypedDataMutation,
-    CreateOnchainQuoteTypedDataMutationVariables
-  >;
+export function useCreateOnchainQuoteTypedDataMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnchainQuoteTypedDataMutation, CreateOnchainQuoteTypedDataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnchainQuoteTypedDataMutation, CreateOnchainQuoteTypedDataMutationVariables>(CreateOnchainQuoteTypedDataDocument, options);
+      }
+export type CreateOnchainQuoteTypedDataMutationHookResult = ReturnType<typeof useCreateOnchainQuoteTypedDataMutation>;
+export type CreateOnchainQuoteTypedDataMutationResult = Apollo.MutationResult<CreateOnchainQuoteTypedDataMutation>;
+export type CreateOnchainQuoteTypedDataMutationOptions = Apollo.BaseMutationOptions<CreateOnchainQuoteTypedDataMutation, CreateOnchainQuoteTypedDataMutationVariables>;
 export const ApprovedAuthenticationsDocument = gql`
-  query ApprovedAuthentications($request: ApprovedAuthenticationRequest!) {
-    approvedAuthentications(request: $request) {
-      items {
-        authorizationId
-        browser
-        os
-        origin
-        expiresAt
-        createdAt
-        updatedAt
-      }
-      pageInfo {
-        next
-      }
+    query ApprovedAuthentications($request: ApprovedAuthenticationRequest!) {
+  approvedAuthentications(request: $request) {
+    items {
+      authorizationId
+      browser
+      os
+      origin
+      expiresAt
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      next
     }
   }
-`;
+}
+    `;
 
 /**
  * __useApprovedAuthenticationsQuery__
@@ -13745,84 +11416,39 @@ export const ApprovedAuthenticationsDocument = gql`
  *   },
  * });
  */
-export function useApprovedAuthenticationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ApprovedAuthenticationsQuery,
-    ApprovedAuthenticationsQueryVariables
-  > &
-    (
-      | { variables: ApprovedAuthenticationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ApprovedAuthenticationsQuery,
-    ApprovedAuthenticationsQueryVariables
-  >(ApprovedAuthenticationsDocument, options);
-}
-export function useApprovedAuthenticationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ApprovedAuthenticationsQuery,
-    ApprovedAuthenticationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ApprovedAuthenticationsQuery,
-    ApprovedAuthenticationsQueryVariables
-  >(ApprovedAuthenticationsDocument, options);
-}
-export function useApprovedAuthenticationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ApprovedAuthenticationsQuery,
-        ApprovedAuthenticationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ApprovedAuthenticationsQuery,
-    ApprovedAuthenticationsQueryVariables
-  >(ApprovedAuthenticationsDocument, options);
-}
-export type ApprovedAuthenticationsQueryHookResult = ReturnType<
-  typeof useApprovedAuthenticationsQuery
->;
-export type ApprovedAuthenticationsLazyQueryHookResult = ReturnType<
-  typeof useApprovedAuthenticationsLazyQuery
->;
-export type ApprovedAuthenticationsSuspenseQueryHookResult = ReturnType<
-  typeof useApprovedAuthenticationsSuspenseQuery
->;
-export type ApprovedAuthenticationsQueryResult = Apollo.QueryResult<
-  ApprovedAuthenticationsQuery,
-  ApprovedAuthenticationsQueryVariables
->;
-export const ApprovedModuleAllowanceAmountDocument = gql`
-  query ApprovedModuleAllowanceAmount(
-    $request: ApprovedModuleAllowanceAmountRequest!
-  ) {
-    approvedModuleAllowanceAmount(request: $request) {
-      allowance {
-        value
-        asset {
-          ...Erc20Fields
+export function useApprovedAuthenticationsQuery(baseOptions: Apollo.QueryHookOptions<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables> & ({ variables: ApprovedAuthenticationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables>(ApprovedAuthenticationsDocument, options);
+      }
+export function useApprovedAuthenticationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables>(ApprovedAuthenticationsDocument, options);
         }
+export function useApprovedAuthenticationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables>(ApprovedAuthenticationsDocument, options);
+        }
+export type ApprovedAuthenticationsQueryHookResult = ReturnType<typeof useApprovedAuthenticationsQuery>;
+export type ApprovedAuthenticationsLazyQueryHookResult = ReturnType<typeof useApprovedAuthenticationsLazyQuery>;
+export type ApprovedAuthenticationsSuspenseQueryHookResult = ReturnType<typeof useApprovedAuthenticationsSuspenseQuery>;
+export type ApprovedAuthenticationsQueryResult = Apollo.QueryResult<ApprovedAuthenticationsQuery, ApprovedAuthenticationsQueryVariables>;
+export const ApprovedModuleAllowanceAmountDocument = gql`
+    query ApprovedModuleAllowanceAmount($request: ApprovedModuleAllowanceAmountRequest!) {
+  approvedModuleAllowanceAmount(request: $request) {
+    allowance {
+      value
+      asset {
+        ...Erc20Fields
       }
-      moduleContract {
-        ...NetworkAddressFields
-      }
-      moduleName
     }
+    moduleContract {
+      ...NetworkAddressFields
+    }
+    moduleName
   }
-  ${Erc20FieldsFragmentDoc}
-  ${NetworkAddressFieldsFragmentDoc}
-`;
+}
+    ${Erc20FieldsFragmentDoc}
+${NetworkAddressFieldsFragmentDoc}`;
 
 /**
  * __useApprovedModuleAllowanceAmountQuery__
@@ -13840,75 +11466,30 @@ export const ApprovedModuleAllowanceAmountDocument = gql`
  *   },
  * });
  */
-export function useApprovedModuleAllowanceAmountQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ApprovedModuleAllowanceAmountQuery,
-    ApprovedModuleAllowanceAmountQueryVariables
-  > &
-    (
-      | {
-          variables: ApprovedModuleAllowanceAmountQueryVariables;
-          skip?: boolean;
+export function useApprovedModuleAllowanceAmountQuery(baseOptions: Apollo.QueryHookOptions<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables> & ({ variables: ApprovedModuleAllowanceAmountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>(ApprovedModuleAllowanceAmountDocument, options);
+      }
+export function useApprovedModuleAllowanceAmountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>(ApprovedModuleAllowanceAmountDocument, options);
         }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ApprovedModuleAllowanceAmountQuery,
-    ApprovedModuleAllowanceAmountQueryVariables
-  >(ApprovedModuleAllowanceAmountDocument, options);
-}
-export function useApprovedModuleAllowanceAmountLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ApprovedModuleAllowanceAmountQuery,
-    ApprovedModuleAllowanceAmountQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ApprovedModuleAllowanceAmountQuery,
-    ApprovedModuleAllowanceAmountQueryVariables
-  >(ApprovedModuleAllowanceAmountDocument, options);
-}
-export function useApprovedModuleAllowanceAmountSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ApprovedModuleAllowanceAmountQuery,
-        ApprovedModuleAllowanceAmountQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ApprovedModuleAllowanceAmountQuery,
-    ApprovedModuleAllowanceAmountQueryVariables
-  >(ApprovedModuleAllowanceAmountDocument, options);
-}
-export type ApprovedModuleAllowanceAmountQueryHookResult = ReturnType<
-  typeof useApprovedModuleAllowanceAmountQuery
->;
-export type ApprovedModuleAllowanceAmountLazyQueryHookResult = ReturnType<
-  typeof useApprovedModuleAllowanceAmountLazyQuery
->;
-export type ApprovedModuleAllowanceAmountSuspenseQueryHookResult = ReturnType<
-  typeof useApprovedModuleAllowanceAmountSuspenseQuery
->;
-export type ApprovedModuleAllowanceAmountQueryResult = Apollo.QueryResult<
-  ApprovedModuleAllowanceAmountQuery,
-  ApprovedModuleAllowanceAmountQueryVariables
->;
+export function useApprovedModuleAllowanceAmountSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>(ApprovedModuleAllowanceAmountDocument, options);
+        }
+export type ApprovedModuleAllowanceAmountQueryHookResult = ReturnType<typeof useApprovedModuleAllowanceAmountQuery>;
+export type ApprovedModuleAllowanceAmountLazyQueryHookResult = ReturnType<typeof useApprovedModuleAllowanceAmountLazyQuery>;
+export type ApprovedModuleAllowanceAmountSuspenseQueryHookResult = ReturnType<typeof useApprovedModuleAllowanceAmountSuspenseQuery>;
+export type ApprovedModuleAllowanceAmountQueryResult = Apollo.QueryResult<ApprovedModuleAllowanceAmountQuery, ApprovedModuleAllowanceAmountQueryVariables>;
 export const ChallengeDocument = gql`
-  query Challenge($request: ChallengeRequest!) {
-    challenge(request: $request) {
-      id
-      text
-    }
+    query Challenge($request: ChallengeRequest!) {
+  challenge(request: $request) {
+    id
+    text
   }
-`;
+}
+    `;
 
 /**
  * __useChallengeQuery__
@@ -13926,79 +11507,44 @@ export const ChallengeDocument = gql`
  *   },
  * });
  */
-export function useChallengeQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ChallengeQuery,
-    ChallengeQueryVariables
-  > &
-    ({ variables: ChallengeQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ChallengeQuery, ChallengeQueryVariables>(
-    ChallengeDocument,
-    options
-  );
-}
-export function useChallengeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ChallengeQuery,
-    ChallengeQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ChallengeQuery, ChallengeQueryVariables>(
-    ChallengeDocument,
-    options
-  );
-}
-export function useChallengeSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<ChallengeQuery, ChallengeQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<ChallengeQuery, ChallengeQueryVariables>(
-    ChallengeDocument,
-    options
-  );
-}
-export type ChallengeQueryHookResult = ReturnType<typeof useChallengeQuery>;
-export type ChallengeLazyQueryHookResult = ReturnType<
-  typeof useChallengeLazyQuery
->;
-export type ChallengeSuspenseQueryHookResult = ReturnType<
-  typeof useChallengeSuspenseQuery
->;
-export type ChallengeQueryResult = Apollo.QueryResult<
-  ChallengeQuery,
-  ChallengeQueryVariables
->;
-export const CurrentProfileDocument = gql`
-  query CurrentProfile($request: ProfileRequest!) {
-    profile(request: $request) {
-      ...ProfileFields
-      handle {
-        ...HandleInfoFields
-        guardian {
-          cooldownEndsOn
-          protected
-        }
+export function useChallengeQuery(baseOptions: Apollo.QueryHookOptions<ChallengeQuery, ChallengeQueryVariables> & ({ variables: ChallengeQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ChallengeQuery, ChallengeQueryVariables>(ChallengeDocument, options);
       }
+export function useChallengeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChallengeQuery, ChallengeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ChallengeQuery, ChallengeQueryVariables>(ChallengeDocument, options);
+        }
+export function useChallengeSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ChallengeQuery, ChallengeQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ChallengeQuery, ChallengeQueryVariables>(ChallengeDocument, options);
+        }
+export type ChallengeQueryHookResult = ReturnType<typeof useChallengeQuery>;
+export type ChallengeLazyQueryHookResult = ReturnType<typeof useChallengeLazyQuery>;
+export type ChallengeSuspenseQueryHookResult = ReturnType<typeof useChallengeSuspenseQuery>;
+export type ChallengeQueryResult = Apollo.QueryResult<ChallengeQuery, ChallengeQueryVariables>;
+export const CurrentProfileDocument = gql`
+    query CurrentProfile($request: ProfileRequest!) {
+  profile(request: $request) {
+    ...ProfileFields
+    handle {
+      ...HandleInfoFields
       guardian {
-        protected
         cooldownEndsOn
+        protected
       }
     }
-    userSigNonces {
-      lensHubOnchainSigNonce
+    guardian {
+      protected
+      cooldownEndsOn
     }
   }
-  ${ProfileFieldsFragmentDoc}
-  ${HandleInfoFieldsFragmentDoc}
-`;
+  userSigNonces {
+    lensHubOnchainSigNonce
+  }
+}
+    ${ProfileFieldsFragmentDoc}
+${HandleInfoFieldsFragmentDoc}`;
 
 /**
  * __useCurrentProfileQuery__
@@ -14016,72 +11562,29 @@ export const CurrentProfileDocument = gql`
  *   },
  * });
  */
-export function useCurrentProfileQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    CurrentProfileQuery,
-    CurrentProfileQueryVariables
-  > &
-    (
-      | { variables: CurrentProfileQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<CurrentProfileQuery, CurrentProfileQueryVariables>(
-    CurrentProfileDocument,
-    options
-  );
-}
-export function useCurrentProfileLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    CurrentProfileQuery,
-    CurrentProfileQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<CurrentProfileQuery, CurrentProfileQueryVariables>(
-    CurrentProfileDocument,
-    options
-  );
-}
-export function useCurrentProfileSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        CurrentProfileQuery,
-        CurrentProfileQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    CurrentProfileQuery,
-    CurrentProfileQueryVariables
-  >(CurrentProfileDocument, options);
-}
-export type CurrentProfileQueryHookResult = ReturnType<
-  typeof useCurrentProfileQuery
->;
-export type CurrentProfileLazyQueryHookResult = ReturnType<
-  typeof useCurrentProfileLazyQuery
->;
-export type CurrentProfileSuspenseQueryHookResult = ReturnType<
-  typeof useCurrentProfileSuspenseQuery
->;
-export type CurrentProfileQueryResult = Apollo.QueryResult<
-  CurrentProfileQuery,
-  CurrentProfileQueryVariables
->;
+export function useCurrentProfileQuery(baseOptions: Apollo.QueryHookOptions<CurrentProfileQuery, CurrentProfileQueryVariables> & ({ variables: CurrentProfileQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentProfileQuery, CurrentProfileQueryVariables>(CurrentProfileDocument, options);
+      }
+export function useCurrentProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentProfileQuery, CurrentProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentProfileQuery, CurrentProfileQueryVariables>(CurrentProfileDocument, options);
+        }
+export function useCurrentProfileSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CurrentProfileQuery, CurrentProfileQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CurrentProfileQuery, CurrentProfileQueryVariables>(CurrentProfileDocument, options);
+        }
+export type CurrentProfileQueryHookResult = ReturnType<typeof useCurrentProfileQuery>;
+export type CurrentProfileLazyQueryHookResult = ReturnType<typeof useCurrentProfileLazyQuery>;
+export type CurrentProfileSuspenseQueryHookResult = ReturnType<typeof useCurrentProfileSuspenseQuery>;
+export type CurrentProfileQueryResult = Apollo.QueryResult<CurrentProfileQuery, CurrentProfileQueryVariables>;
 export const DefaultProfileDocument = gql`
-  query DefaultProfile($request: DefaultProfileRequest!) {
-    defaultProfile(request: $request) {
-      ...ProfileFields
-    }
+    query DefaultProfile($request: DefaultProfileRequest!) {
+  defaultProfile(request: $request) {
+    ...ProfileFields
   }
-  ${ProfileFieldsFragmentDoc}
-`;
+}
+    ${ProfileFieldsFragmentDoc}`;
 
 /**
  * __useDefaultProfileQuery__
@@ -14099,77 +11602,34 @@ export const DefaultProfileDocument = gql`
  *   },
  * });
  */
-export function useDefaultProfileQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    DefaultProfileQuery,
-    DefaultProfileQueryVariables
-  > &
-    (
-      | { variables: DefaultProfileQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(
-    DefaultProfileDocument,
-    options
-  );
-}
-export function useDefaultProfileLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    DefaultProfileQuery,
-    DefaultProfileQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(
-    DefaultProfileDocument,
-    options
-  );
-}
-export function useDefaultProfileSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        DefaultProfileQuery,
-        DefaultProfileQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    DefaultProfileQuery,
-    DefaultProfileQueryVariables
-  >(DefaultProfileDocument, options);
-}
-export type DefaultProfileQueryHookResult = ReturnType<
-  typeof useDefaultProfileQuery
->;
-export type DefaultProfileLazyQueryHookResult = ReturnType<
-  typeof useDefaultProfileLazyQuery
->;
-export type DefaultProfileSuspenseQueryHookResult = ReturnType<
-  typeof useDefaultProfileSuspenseQuery
->;
-export type DefaultProfileQueryResult = Apollo.QueryResult<
-  DefaultProfileQuery,
-  DefaultProfileQueryVariables
->;
+export function useDefaultProfileQuery(baseOptions: Apollo.QueryHookOptions<DefaultProfileQuery, DefaultProfileQueryVariables> & ({ variables: DefaultProfileQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(DefaultProfileDocument, options);
+      }
+export function useDefaultProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DefaultProfileQuery, DefaultProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(DefaultProfileDocument, options);
+        }
+export function useDefaultProfileSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<DefaultProfileQuery, DefaultProfileQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(DefaultProfileDocument, options);
+        }
+export type DefaultProfileQueryHookResult = ReturnType<typeof useDefaultProfileQuery>;
+export type DefaultProfileLazyQueryHookResult = ReturnType<typeof useDefaultProfileLazyQuery>;
+export type DefaultProfileSuspenseQueryHookResult = ReturnType<typeof useDefaultProfileSuspenseQuery>;
+export type DefaultProfileQueryResult = Apollo.QueryResult<DefaultProfileQuery, DefaultProfileQueryVariables>;
 export const ExploreProfilesDocument = gql`
-  query ExploreProfiles($request: ExploreProfilesRequest!) {
-    exploreProfiles(request: $request) {
-      items {
-        ...ProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query ExploreProfiles($request: ExploreProfilesRequest!) {
+  exploreProfiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ProfileFieldsFragmentDoc}
-`;
+}
+    ${ProfileFieldsFragmentDoc}`;
 
 /**
  * __useExploreProfilesQuery__
@@ -14187,83 +11647,40 @@ export const ExploreProfilesDocument = gql`
  *   },
  * });
  */
-export function useExploreProfilesQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ExploreProfilesQuery,
-    ExploreProfilesQueryVariables
-  > &
-    (
-      | { variables: ExploreProfilesQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ExploreProfilesQuery, ExploreProfilesQueryVariables>(
-    ExploreProfilesDocument,
-    options
-  );
-}
-export function useExploreProfilesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ExploreProfilesQuery,
-    ExploreProfilesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ExploreProfilesQuery,
-    ExploreProfilesQueryVariables
-  >(ExploreProfilesDocument, options);
-}
-export function useExploreProfilesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ExploreProfilesQuery,
-        ExploreProfilesQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ExploreProfilesQuery,
-    ExploreProfilesQueryVariables
-  >(ExploreProfilesDocument, options);
-}
-export type ExploreProfilesQueryHookResult = ReturnType<
-  typeof useExploreProfilesQuery
->;
-export type ExploreProfilesLazyQueryHookResult = ReturnType<
-  typeof useExploreProfilesLazyQuery
->;
-export type ExploreProfilesSuspenseQueryHookResult = ReturnType<
-  typeof useExploreProfilesSuspenseQuery
->;
-export type ExploreProfilesQueryResult = Apollo.QueryResult<
-  ExploreProfilesQuery,
-  ExploreProfilesQueryVariables
->;
-export const ExplorePublicationsDocument = gql`
-  query ExplorePublications($request: ExplorePublicationRequest!) {
-    explorePublications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Quote {
-          ...QuoteFields
-        }
+export function useExploreProfilesQuery(baseOptions: Apollo.QueryHookOptions<ExploreProfilesQuery, ExploreProfilesQueryVariables> & ({ variables: ExploreProfilesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ExploreProfilesQuery, ExploreProfilesQueryVariables>(ExploreProfilesDocument, options);
       }
-      pageInfo {
-        next
+export function useExploreProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExploreProfilesQuery, ExploreProfilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ExploreProfilesQuery, ExploreProfilesQueryVariables>(ExploreProfilesDocument, options);
+        }
+export function useExploreProfilesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ExploreProfilesQuery, ExploreProfilesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ExploreProfilesQuery, ExploreProfilesQueryVariables>(ExploreProfilesDocument, options);
+        }
+export type ExploreProfilesQueryHookResult = ReturnType<typeof useExploreProfilesQuery>;
+export type ExploreProfilesLazyQueryHookResult = ReturnType<typeof useExploreProfilesLazyQuery>;
+export type ExploreProfilesSuspenseQueryHookResult = ReturnType<typeof useExploreProfilesSuspenseQuery>;
+export type ExploreProfilesQueryResult = Apollo.QueryResult<ExploreProfilesQuery, ExploreProfilesQueryVariables>;
+export const ExplorePublicationsDocument = gql`
+    query ExplorePublications($request: ExplorePublicationRequest!) {
+  explorePublications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Quote {
+        ...QuoteFields
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${PostFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __useExplorePublicationsQuery__
@@ -14281,95 +11698,52 @@ export const ExplorePublicationsDocument = gql`
  *   },
  * });
  */
-export function useExplorePublicationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ExplorePublicationsQuery,
-    ExplorePublicationsQueryVariables
-  > &
-    (
-      | { variables: ExplorePublicationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ExplorePublicationsQuery,
-    ExplorePublicationsQueryVariables
-  >(ExplorePublicationsDocument, options);
-}
-export function useExplorePublicationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ExplorePublicationsQuery,
-    ExplorePublicationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ExplorePublicationsQuery,
-    ExplorePublicationsQueryVariables
-  >(ExplorePublicationsDocument, options);
-}
-export function useExplorePublicationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ExplorePublicationsQuery,
-        ExplorePublicationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ExplorePublicationsQuery,
-    ExplorePublicationsQueryVariables
-  >(ExplorePublicationsDocument, options);
-}
-export type ExplorePublicationsQueryHookResult = ReturnType<
-  typeof useExplorePublicationsQuery
->;
-export type ExplorePublicationsLazyQueryHookResult = ReturnType<
-  typeof useExplorePublicationsLazyQuery
->;
-export type ExplorePublicationsSuspenseQueryHookResult = ReturnType<
-  typeof useExplorePublicationsSuspenseQuery
->;
-export type ExplorePublicationsQueryResult = Apollo.QueryResult<
-  ExplorePublicationsQuery,
-  ExplorePublicationsQueryVariables
->;
-export const FeedDocument = gql`
-  query Feed($request: FeedRequest!) {
-    feed(request: $request) {
-      items {
-        id
-        root {
-          ... on Post {
-            ...PostFields
-          }
-          ... on Comment {
-            id
-          }
-          ... on Quote {
-            ...QuoteFields
-          }
+export function useExplorePublicationsQuery(baseOptions: Apollo.QueryHookOptions<ExplorePublicationsQuery, ExplorePublicationsQueryVariables> & ({ variables: ExplorePublicationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>(ExplorePublicationsDocument, options);
+      }
+export function useExplorePublicationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>(ExplorePublicationsDocument, options);
         }
-        mirrors {
-          by {
-            ...PublicationProfileFields
-          }
+export function useExplorePublicationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>(ExplorePublicationsDocument, options);
+        }
+export type ExplorePublicationsQueryHookResult = ReturnType<typeof useExplorePublicationsQuery>;
+export type ExplorePublicationsLazyQueryHookResult = ReturnType<typeof useExplorePublicationsLazyQuery>;
+export type ExplorePublicationsSuspenseQueryHookResult = ReturnType<typeof useExplorePublicationsSuspenseQuery>;
+export type ExplorePublicationsQueryResult = Apollo.QueryResult<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>;
+export const FeedDocument = gql`
+    query Feed($request: FeedRequest!) {
+  feed(request: $request) {
+    items {
+      id
+      root {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          id
+        }
+        ... on Quote {
+          ...QuoteFields
         }
       }
-      pageInfo {
-        next
+      mirrors {
+        by {
+          ...PublicationProfileFields
+        }
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${PostFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-  ${PublicationProfileFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}
+${PublicationProfileFieldsFragmentDoc}`;
 
 /**
  * __useFeedQuery__
@@ -14387,54 +11761,33 @@ export const FeedDocument = gql`
  *   },
  * });
  */
-export function useFeedQuery(
-  baseOptions: Apollo.QueryHookOptions<FeedQuery, FeedQueryVariables> &
-    ({ variables: FeedQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options);
-}
-export function useFeedLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<FeedQuery, FeedQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<FeedQuery, FeedQueryVariables>(
-    FeedDocument,
-    options
-  );
-}
-export function useFeedSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<FeedQuery, FeedQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<FeedQuery, FeedQueryVariables>(
-    FeedDocument,
-    options
-  );
-}
+export function useFeedQuery(baseOptions: Apollo.QueryHookOptions<FeedQuery, FeedQueryVariables> & ({ variables: FeedQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options);
+      }
+export function useFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FeedQuery, FeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options);
+        }
+export function useFeedSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FeedQuery, FeedQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options);
+        }
 export type FeedQueryHookResult = ReturnType<typeof useFeedQuery>;
 export type FeedLazyQueryHookResult = ReturnType<typeof useFeedLazyQuery>;
-export type FeedSuspenseQueryHookResult = ReturnType<
-  typeof useFeedSuspenseQuery
->;
+export type FeedSuspenseQueryHookResult = ReturnType<typeof useFeedSuspenseQuery>;
 export type FeedQueryResult = Apollo.QueryResult<FeedQuery, FeedQueryVariables>;
 export const FollowRevenuesDocument = gql`
-  query FollowRevenues($request: FollowRevenueRequest!) {
-    followRevenues(request: $request) {
-      revenues {
-        total {
-          ...AmountFields
-        }
+    query FollowRevenues($request: FollowRevenueRequest!) {
+  followRevenues(request: $request) {
+    revenues {
+      total {
+        ...AmountFields
       }
     }
   }
-  ${AmountFieldsFragmentDoc}
-`;
+}
+    ${AmountFieldsFragmentDoc}`;
 
 /**
  * __useFollowRevenuesQuery__
@@ -14452,77 +11805,34 @@ export const FollowRevenuesDocument = gql`
  *   },
  * });
  */
-export function useFollowRevenuesQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    FollowRevenuesQuery,
-    FollowRevenuesQueryVariables
-  > &
-    (
-      | { variables: FollowRevenuesQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(
-    FollowRevenuesDocument,
-    options
-  );
-}
-export function useFollowRevenuesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    FollowRevenuesQuery,
-    FollowRevenuesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(
-    FollowRevenuesDocument,
-    options
-  );
-}
-export function useFollowRevenuesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        FollowRevenuesQuery,
-        FollowRevenuesQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    FollowRevenuesQuery,
-    FollowRevenuesQueryVariables
-  >(FollowRevenuesDocument, options);
-}
-export type FollowRevenuesQueryHookResult = ReturnType<
-  typeof useFollowRevenuesQuery
->;
-export type FollowRevenuesLazyQueryHookResult = ReturnType<
-  typeof useFollowRevenuesLazyQuery
->;
-export type FollowRevenuesSuspenseQueryHookResult = ReturnType<
-  typeof useFollowRevenuesSuspenseQuery
->;
-export type FollowRevenuesQueryResult = Apollo.QueryResult<
-  FollowRevenuesQuery,
-  FollowRevenuesQueryVariables
->;
+export function useFollowRevenuesQuery(baseOptions: Apollo.QueryHookOptions<FollowRevenuesQuery, FollowRevenuesQueryVariables> & ({ variables: FollowRevenuesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(FollowRevenuesDocument, options);
+      }
+export function useFollowRevenuesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FollowRevenuesQuery, FollowRevenuesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(FollowRevenuesDocument, options);
+        }
+export function useFollowRevenuesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FollowRevenuesQuery, FollowRevenuesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(FollowRevenuesDocument, options);
+        }
+export type FollowRevenuesQueryHookResult = ReturnType<typeof useFollowRevenuesQuery>;
+export type FollowRevenuesLazyQueryHookResult = ReturnType<typeof useFollowRevenuesLazyQuery>;
+export type FollowRevenuesSuspenseQueryHookResult = ReturnType<typeof useFollowRevenuesSuspenseQuery>;
+export type FollowRevenuesQueryResult = Apollo.QueryResult<FollowRevenuesQuery, FollowRevenuesQueryVariables>;
 export const FollowersDocument = gql`
-  query Followers($request: FollowersRequest!) {
-    followers(request: $request) {
-      items {
-        ...ListProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query Followers($request: FollowersRequest!) {
+  followers(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useFollowersQuery__
@@ -14540,69 +11850,34 @@ export const FollowersDocument = gql`
  *   },
  * });
  */
-export function useFollowersQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    FollowersQuery,
-    FollowersQueryVariables
-  > &
-    ({ variables: FollowersQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<FollowersQuery, FollowersQueryVariables>(
-    FollowersDocument,
-    options
-  );
-}
-export function useFollowersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    FollowersQuery,
-    FollowersQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<FollowersQuery, FollowersQueryVariables>(
-    FollowersDocument,
-    options
-  );
-}
-export function useFollowersSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<FollowersQuery, FollowersQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<FollowersQuery, FollowersQueryVariables>(
-    FollowersDocument,
-    options
-  );
-}
+export function useFollowersQuery(baseOptions: Apollo.QueryHookOptions<FollowersQuery, FollowersQueryVariables> & ({ variables: FollowersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FollowersQuery, FollowersQueryVariables>(FollowersDocument, options);
+      }
+export function useFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FollowersQuery, FollowersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FollowersQuery, FollowersQueryVariables>(FollowersDocument, options);
+        }
+export function useFollowersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FollowersQuery, FollowersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FollowersQuery, FollowersQueryVariables>(FollowersDocument, options);
+        }
 export type FollowersQueryHookResult = ReturnType<typeof useFollowersQuery>;
-export type FollowersLazyQueryHookResult = ReturnType<
-  typeof useFollowersLazyQuery
->;
-export type FollowersSuspenseQueryHookResult = ReturnType<
-  typeof useFollowersSuspenseQuery
->;
-export type FollowersQueryResult = Apollo.QueryResult<
-  FollowersQuery,
-  FollowersQueryVariables
->;
+export type FollowersLazyQueryHookResult = ReturnType<typeof useFollowersLazyQuery>;
+export type FollowersSuspenseQueryHookResult = ReturnType<typeof useFollowersSuspenseQuery>;
+export type FollowersQueryResult = Apollo.QueryResult<FollowersQuery, FollowersQueryVariables>;
 export const FollowingDocument = gql`
-  query Following($request: FollowingRequest!) {
-    following(request: $request) {
-      items {
-        ...ListProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query Following($request: FollowingRequest!) {
+  following(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useFollowingQuery__
@@ -14620,78 +11895,43 @@ export const FollowingDocument = gql`
  *   },
  * });
  */
-export function useFollowingQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    FollowingQuery,
-    FollowingQueryVariables
-  > &
-    ({ variables: FollowingQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<FollowingQuery, FollowingQueryVariables>(
-    FollowingDocument,
-    options
-  );
-}
-export function useFollowingLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    FollowingQuery,
-    FollowingQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<FollowingQuery, FollowingQueryVariables>(
-    FollowingDocument,
-    options
-  );
-}
-export function useFollowingSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<FollowingQuery, FollowingQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<FollowingQuery, FollowingQueryVariables>(
-    FollowingDocument,
-    options
-  );
-}
-export type FollowingQueryHookResult = ReturnType<typeof useFollowingQuery>;
-export type FollowingLazyQueryHookResult = ReturnType<
-  typeof useFollowingLazyQuery
->;
-export type FollowingSuspenseQueryHookResult = ReturnType<
-  typeof useFollowingSuspenseQuery
->;
-export type FollowingQueryResult = Apollo.QueryResult<
-  FollowingQuery,
-  FollowingQueryVariables
->;
-export const ForYouDocument = gql`
-  query ForYou($request: PublicationForYouRequest!) {
-    forYou(request: $request) {
-      items {
-        publication {
-          ... on Post {
-            ...PostFields
-          }
-          ... on Quote {
-            ...QuoteFields
-          }
+export function useFollowingQuery(baseOptions: Apollo.QueryHookOptions<FollowingQuery, FollowingQueryVariables> & ({ variables: FollowingQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FollowingQuery, FollowingQueryVariables>(FollowingDocument, options);
+      }
+export function useFollowingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FollowingQuery, FollowingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FollowingQuery, FollowingQueryVariables>(FollowingDocument, options);
         }
-        source
+export function useFollowingSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FollowingQuery, FollowingQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FollowingQuery, FollowingQueryVariables>(FollowingDocument, options);
+        }
+export type FollowingQueryHookResult = ReturnType<typeof useFollowingQuery>;
+export type FollowingLazyQueryHookResult = ReturnType<typeof useFollowingLazyQuery>;
+export type FollowingSuspenseQueryHookResult = ReturnType<typeof useFollowingSuspenseQuery>;
+export type FollowingQueryResult = Apollo.QueryResult<FollowingQuery, FollowingQueryVariables>;
+export const ForYouDocument = gql`
+    query ForYou($request: PublicationForYouRequest!) {
+  forYou(request: $request) {
+    items {
+      publication {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Quote {
+          ...QuoteFields
+        }
       }
-      pageInfo {
-        next
-      }
+      source
+    }
+    pageInfo {
+      next
     }
   }
-  ${PostFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __useForYouQuery__
@@ -14709,53 +11949,27 @@ export const ForYouDocument = gql`
  *   },
  * });
  */
-export function useForYouQuery(
-  baseOptions: Apollo.QueryHookOptions<ForYouQuery, ForYouQueryVariables> &
-    ({ variables: ForYouQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ForYouQuery, ForYouQueryVariables>(
-    ForYouDocument,
-    options
-  );
-}
-export function useForYouLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ForYouQuery, ForYouQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ForYouQuery, ForYouQueryVariables>(
-    ForYouDocument,
-    options
-  );
-}
-export function useForYouSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<ForYouQuery, ForYouQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<ForYouQuery, ForYouQueryVariables>(
-    ForYouDocument,
-    options
-  );
-}
+export function useForYouQuery(baseOptions: Apollo.QueryHookOptions<ForYouQuery, ForYouQueryVariables> & ({ variables: ForYouQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ForYouQuery, ForYouQueryVariables>(ForYouDocument, options);
+      }
+export function useForYouLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ForYouQuery, ForYouQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ForYouQuery, ForYouQueryVariables>(ForYouDocument, options);
+        }
+export function useForYouSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ForYouQuery, ForYouQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ForYouQuery, ForYouQueryVariables>(ForYouDocument, options);
+        }
 export type ForYouQueryHookResult = ReturnType<typeof useForYouQuery>;
 export type ForYouLazyQueryHookResult = ReturnType<typeof useForYouLazyQuery>;
-export type ForYouSuspenseQueryHookResult = ReturnType<
-  typeof useForYouSuspenseQuery
->;
-export type ForYouQueryResult = Apollo.QueryResult<
-  ForYouQuery,
-  ForYouQueryVariables
->;
+export type ForYouSuspenseQueryHookResult = ReturnType<typeof useForYouSuspenseQuery>;
+export type ForYouQueryResult = Apollo.QueryResult<ForYouQuery, ForYouQueryVariables>;
 export const GenerateLensApiRelayAddressDocument = gql`
-  query GenerateLensAPIRelayAddress {
-    generateLensAPIRelayAddress
-  }
-`;
+    query GenerateLensAPIRelayAddress {
+  generateLensAPIRelayAddress
+}
+    `;
 
 /**
  * __useGenerateLensApiRelayAddressQuery__
@@ -14772,71 +11986,31 @@ export const GenerateLensApiRelayAddressDocument = gql`
  *   },
  * });
  */
-export function useGenerateLensApiRelayAddressQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GenerateLensApiRelayAddressQuery,
-    GenerateLensApiRelayAddressQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GenerateLensApiRelayAddressQuery,
-    GenerateLensApiRelayAddressQueryVariables
-  >(GenerateLensApiRelayAddressDocument, options);
-}
-export function useGenerateLensApiRelayAddressLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GenerateLensApiRelayAddressQuery,
-    GenerateLensApiRelayAddressQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GenerateLensApiRelayAddressQuery,
-    GenerateLensApiRelayAddressQueryVariables
-  >(GenerateLensApiRelayAddressDocument, options);
-}
-export function useGenerateLensApiRelayAddressSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GenerateLensApiRelayAddressQuery,
-        GenerateLensApiRelayAddressQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GenerateLensApiRelayAddressQuery,
-    GenerateLensApiRelayAddressQueryVariables
-  >(GenerateLensApiRelayAddressDocument, options);
-}
-export type GenerateLensApiRelayAddressQueryHookResult = ReturnType<
-  typeof useGenerateLensApiRelayAddressQuery
->;
-export type GenerateLensApiRelayAddressLazyQueryHookResult = ReturnType<
-  typeof useGenerateLensApiRelayAddressLazyQuery
->;
-export type GenerateLensApiRelayAddressSuspenseQueryHookResult = ReturnType<
-  typeof useGenerateLensApiRelayAddressSuspenseQuery
->;
-export type GenerateLensApiRelayAddressQueryResult = Apollo.QueryResult<
-  GenerateLensApiRelayAddressQuery,
-  GenerateLensApiRelayAddressQueryVariables
->;
+export function useGenerateLensApiRelayAddressQuery(baseOptions?: Apollo.QueryHookOptions<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>(GenerateLensApiRelayAddressDocument, options);
+      }
+export function useGenerateLensApiRelayAddressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>(GenerateLensApiRelayAddressDocument, options);
+        }
+export function useGenerateLensApiRelayAddressSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>(GenerateLensApiRelayAddressDocument, options);
+        }
+export type GenerateLensApiRelayAddressQueryHookResult = ReturnType<typeof useGenerateLensApiRelayAddressQuery>;
+export type GenerateLensApiRelayAddressLazyQueryHookResult = ReturnType<typeof useGenerateLensApiRelayAddressLazyQuery>;
+export type GenerateLensApiRelayAddressSuspenseQueryHookResult = ReturnType<typeof useGenerateLensApiRelayAddressSuspenseQuery>;
+export type GenerateLensApiRelayAddressQueryResult = Apollo.QueryResult<GenerateLensApiRelayAddressQuery, GenerateLensApiRelayAddressQueryVariables>;
 export const GenerateModuleCurrencyApprovalDataDocument = gql`
-  query GenerateModuleCurrencyApprovalData(
-    $request: GenerateModuleCurrencyApprovalDataRequest!
-  ) {
-    generateModuleCurrencyApprovalData(request: $request) {
-      to
-      from
-      data
-    }
+    query GenerateModuleCurrencyApprovalData($request: GenerateModuleCurrencyApprovalDataRequest!) {
+  generateModuleCurrencyApprovalData(request: $request) {
+    to
+    from
+    data
   }
-`;
+}
+    `;
 
 /**
  * __useGenerateModuleCurrencyApprovalDataQuery__
@@ -14854,71 +12028,27 @@ export const GenerateModuleCurrencyApprovalDataDocument = gql`
  *   },
  * });
  */
-export function useGenerateModuleCurrencyApprovalDataQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GenerateModuleCurrencyApprovalDataQuery,
-    GenerateModuleCurrencyApprovalDataQueryVariables
-  > &
-    (
-      | {
-          variables: GenerateModuleCurrencyApprovalDataQueryVariables;
-          skip?: boolean;
+export function useGenerateModuleCurrencyApprovalDataQuery(baseOptions: Apollo.QueryHookOptions<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables> & ({ variables: GenerateModuleCurrencyApprovalDataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables>(GenerateModuleCurrencyApprovalDataDocument, options);
+      }
+export function useGenerateModuleCurrencyApprovalDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables>(GenerateModuleCurrencyApprovalDataDocument, options);
         }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GenerateModuleCurrencyApprovalDataQuery,
-    GenerateModuleCurrencyApprovalDataQueryVariables
-  >(GenerateModuleCurrencyApprovalDataDocument, options);
-}
-export function useGenerateModuleCurrencyApprovalDataLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GenerateModuleCurrencyApprovalDataQuery,
-    GenerateModuleCurrencyApprovalDataQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GenerateModuleCurrencyApprovalDataQuery,
-    GenerateModuleCurrencyApprovalDataQueryVariables
-  >(GenerateModuleCurrencyApprovalDataDocument, options);
-}
-export function useGenerateModuleCurrencyApprovalDataSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GenerateModuleCurrencyApprovalDataQuery,
-        GenerateModuleCurrencyApprovalDataQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GenerateModuleCurrencyApprovalDataQuery,
-    GenerateModuleCurrencyApprovalDataQueryVariables
-  >(GenerateModuleCurrencyApprovalDataDocument, options);
-}
-export type GenerateModuleCurrencyApprovalDataQueryHookResult = ReturnType<
-  typeof useGenerateModuleCurrencyApprovalDataQuery
->;
-export type GenerateModuleCurrencyApprovalDataLazyQueryHookResult = ReturnType<
-  typeof useGenerateModuleCurrencyApprovalDataLazyQuery
->;
-export type GenerateModuleCurrencyApprovalDataSuspenseQueryHookResult =
-  ReturnType<typeof useGenerateModuleCurrencyApprovalDataSuspenseQuery>;
-export type GenerateModuleCurrencyApprovalDataQueryResult = Apollo.QueryResult<
-  GenerateModuleCurrencyApprovalDataQuery,
-  GenerateModuleCurrencyApprovalDataQueryVariables
->;
+export function useGenerateModuleCurrencyApprovalDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables>(GenerateModuleCurrencyApprovalDataDocument, options);
+        }
+export type GenerateModuleCurrencyApprovalDataQueryHookResult = ReturnType<typeof useGenerateModuleCurrencyApprovalDataQuery>;
+export type GenerateModuleCurrencyApprovalDataLazyQueryHookResult = ReturnType<typeof useGenerateModuleCurrencyApprovalDataLazyQuery>;
+export type GenerateModuleCurrencyApprovalDataSuspenseQueryHookResult = ReturnType<typeof useGenerateModuleCurrencyApprovalDataSuspenseQuery>;
+export type GenerateModuleCurrencyApprovalDataQueryResult = Apollo.QueryResult<GenerateModuleCurrencyApprovalDataQuery, GenerateModuleCurrencyApprovalDataQueryVariables>;
 export const HandleToAddressDocument = gql`
-  query HandleToAddress($request: HandleToAddressRequest!) {
-    handleToAddress(request: $request)
-  }
-`;
+    query HandleToAddress($request: HandleToAddressRequest!) {
+  handleToAddress(request: $request)
+}
+    `;
 
 /**
  * __useHandleToAddressQuery__
@@ -14936,98 +12066,55 @@ export const HandleToAddressDocument = gql`
  *   },
  * });
  */
-export function useHandleToAddressQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    HandleToAddressQuery,
-    HandleToAddressQueryVariables
-  > &
-    (
-      | { variables: HandleToAddressQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<HandleToAddressQuery, HandleToAddressQueryVariables>(
-    HandleToAddressDocument,
-    options
-  );
-}
-export function useHandleToAddressLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    HandleToAddressQuery,
-    HandleToAddressQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    HandleToAddressQuery,
-    HandleToAddressQueryVariables
-  >(HandleToAddressDocument, options);
-}
-export function useHandleToAddressSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        HandleToAddressQuery,
-        HandleToAddressQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    HandleToAddressQuery,
-    HandleToAddressQueryVariables
-  >(HandleToAddressDocument, options);
-}
-export type HandleToAddressQueryHookResult = ReturnType<
-  typeof useHandleToAddressQuery
->;
-export type HandleToAddressLazyQueryHookResult = ReturnType<
-  typeof useHandleToAddressLazyQuery
->;
-export type HandleToAddressSuspenseQueryHookResult = ReturnType<
-  typeof useHandleToAddressSuspenseQuery
->;
-export type HandleToAddressQueryResult = Apollo.QueryResult<
-  HandleToAddressQuery,
-  HandleToAddressQueryVariables
->;
+export function useHandleToAddressQuery(baseOptions: Apollo.QueryHookOptions<HandleToAddressQuery, HandleToAddressQueryVariables> & ({ variables: HandleToAddressQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<HandleToAddressQuery, HandleToAddressQueryVariables>(HandleToAddressDocument, options);
+      }
+export function useHandleToAddressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HandleToAddressQuery, HandleToAddressQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<HandleToAddressQuery, HandleToAddressQueryVariables>(HandleToAddressDocument, options);
+        }
+export function useHandleToAddressSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<HandleToAddressQuery, HandleToAddressQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<HandleToAddressQuery, HandleToAddressQueryVariables>(HandleToAddressDocument, options);
+        }
+export type HandleToAddressQueryHookResult = ReturnType<typeof useHandleToAddressQuery>;
+export type HandleToAddressLazyQueryHookResult = ReturnType<typeof useHandleToAddressLazyQuery>;
+export type HandleToAddressSuspenseQueryHookResult = ReturnType<typeof useHandleToAddressSuspenseQuery>;
+export type HandleToAddressQueryResult = Apollo.QueryResult<HandleToAddressQuery, HandleToAddressQueryVariables>;
 export const LatestPaidActionsDocument = gql`
-  query LatestPaidActions($request: PaginatedRequest!) {
-    latestPaidActions(request: $request) {
-      items {
-        ... on OpenActionPaidAction {
-          actedOn {
-            ... on Post {
-              ...PostFields
-            }
-            ... on Comment {
-              ...CommentBaseFields
-            }
-            ... on Quote {
-              ...QuoteBaseFields
-            }
+    query LatestPaidActions($request: PaginatedRequest!) {
+  latestPaidActions(request: $request) {
+    items {
+      ... on OpenActionPaidAction {
+        actedOn {
+          ... on Post {
+            ...PostFields
           }
-          latestActed {
-            actedAt
-            profile {
-              ...PublicationProfileFields
-            }
+          ... on Comment {
+            ...CommentBaseFields
+          }
+          ... on Quote {
+            ...QuoteBaseFields
+          }
+        }
+        latestActed {
+          actedAt
+          profile {
+            ...PublicationProfileFields
           }
         }
       }
-      pageInfo {
-        next
-      }
+    }
+    pageInfo {
+      next
     }
   }
-  ${PostFieldsFragmentDoc}
-  ${CommentBaseFieldsFragmentDoc}
-  ${QuoteBaseFieldsFragmentDoc}
-  ${PublicationProfileFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${CommentBaseFieldsFragmentDoc}
+${QuoteBaseFieldsFragmentDoc}
+${PublicationProfileFieldsFragmentDoc}`;
 
 /**
  * __useLatestPaidActionsQuery__
@@ -15045,74 +12132,32 @@ export const LatestPaidActionsDocument = gql`
  *   },
  * });
  */
-export function useLatestPaidActionsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    LatestPaidActionsQuery,
-    LatestPaidActionsQueryVariables
-  > &
-    (
-      | { variables: LatestPaidActionsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    LatestPaidActionsQuery,
-    LatestPaidActionsQueryVariables
-  >(LatestPaidActionsDocument, options);
-}
-export function useLatestPaidActionsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    LatestPaidActionsQuery,
-    LatestPaidActionsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    LatestPaidActionsQuery,
-    LatestPaidActionsQueryVariables
-  >(LatestPaidActionsDocument, options);
-}
-export function useLatestPaidActionsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        LatestPaidActionsQuery,
-        LatestPaidActionsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    LatestPaidActionsQuery,
-    LatestPaidActionsQueryVariables
-  >(LatestPaidActionsDocument, options);
-}
-export type LatestPaidActionsQueryHookResult = ReturnType<
-  typeof useLatestPaidActionsQuery
->;
-export type LatestPaidActionsLazyQueryHookResult = ReturnType<
-  typeof useLatestPaidActionsLazyQuery
->;
-export type LatestPaidActionsSuspenseQueryHookResult = ReturnType<
-  typeof useLatestPaidActionsSuspenseQuery
->;
-export type LatestPaidActionsQueryResult = Apollo.QueryResult<
-  LatestPaidActionsQuery,
-  LatestPaidActionsQueryVariables
->;
+export function useLatestPaidActionsQuery(baseOptions: Apollo.QueryHookOptions<LatestPaidActionsQuery, LatestPaidActionsQueryVariables> & ({ variables: LatestPaidActionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LatestPaidActionsQuery, LatestPaidActionsQueryVariables>(LatestPaidActionsDocument, options);
+      }
+export function useLatestPaidActionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LatestPaidActionsQuery, LatestPaidActionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LatestPaidActionsQuery, LatestPaidActionsQueryVariables>(LatestPaidActionsDocument, options);
+        }
+export function useLatestPaidActionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<LatestPaidActionsQuery, LatestPaidActionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LatestPaidActionsQuery, LatestPaidActionsQueryVariables>(LatestPaidActionsDocument, options);
+        }
+export type LatestPaidActionsQueryHookResult = ReturnType<typeof useLatestPaidActionsQuery>;
+export type LatestPaidActionsLazyQueryHookResult = ReturnType<typeof useLatestPaidActionsLazyQuery>;
+export type LatestPaidActionsSuspenseQueryHookResult = ReturnType<typeof useLatestPaidActionsSuspenseQuery>;
+export type LatestPaidActionsQueryResult = Apollo.QueryResult<LatestPaidActionsQuery, LatestPaidActionsQueryVariables>;
 export const LensTransactionStatusDocument = gql`
-  query LensTransactionStatus($request: LensTransactionStatusRequest!) {
-    lensTransactionStatus(request: $request) {
-      status
-      txHash
-      reason
-      extraInfo
-    }
+    query LensTransactionStatus($request: LensTransactionStatusRequest!) {
+  lensTransactionStatus(request: $request) {
+    status
+    txHash
+    reason
+    extraInfo
   }
-`;
+}
+    `;
 
 /**
  * __useLensTransactionStatusQuery__
@@ -15130,87 +12175,44 @@ export const LensTransactionStatusDocument = gql`
  *   },
  * });
  */
-export function useLensTransactionStatusQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    LensTransactionStatusQuery,
-    LensTransactionStatusQueryVariables
-  > &
-    (
-      | { variables: LensTransactionStatusQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    LensTransactionStatusQuery,
-    LensTransactionStatusQueryVariables
-  >(LensTransactionStatusDocument, options);
-}
-export function useLensTransactionStatusLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    LensTransactionStatusQuery,
-    LensTransactionStatusQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    LensTransactionStatusQuery,
-    LensTransactionStatusQueryVariables
-  >(LensTransactionStatusDocument, options);
-}
-export function useLensTransactionStatusSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        LensTransactionStatusQuery,
-        LensTransactionStatusQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    LensTransactionStatusQuery,
-    LensTransactionStatusQueryVariables
-  >(LensTransactionStatusDocument, options);
-}
-export type LensTransactionStatusQueryHookResult = ReturnType<
-  typeof useLensTransactionStatusQuery
->;
-export type LensTransactionStatusLazyQueryHookResult = ReturnType<
-  typeof useLensTransactionStatusLazyQuery
->;
-export type LensTransactionStatusSuspenseQueryHookResult = ReturnType<
-  typeof useLensTransactionStatusSuspenseQuery
->;
-export type LensTransactionStatusQueryResult = Apollo.QueryResult<
-  LensTransactionStatusQuery,
-  LensTransactionStatusQueryVariables
->;
-export const ModExplorePublicationsDocument = gql`
-  query ModExplorePublications($request: ModExplorePublicationRequest!) {
-    modExplorePublications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Quote {
-          ...QuoteFields
-        }
+export function useLensTransactionStatusQuery(baseOptions: Apollo.QueryHookOptions<LensTransactionStatusQuery, LensTransactionStatusQueryVariables> & ({ variables: LensTransactionStatusQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>(LensTransactionStatusDocument, options);
       }
-      pageInfo {
-        next
+export function useLensTransactionStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>(LensTransactionStatusDocument, options);
+        }
+export function useLensTransactionStatusSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>(LensTransactionStatusDocument, options);
+        }
+export type LensTransactionStatusQueryHookResult = ReturnType<typeof useLensTransactionStatusQuery>;
+export type LensTransactionStatusLazyQueryHookResult = ReturnType<typeof useLensTransactionStatusLazyQuery>;
+export type LensTransactionStatusSuspenseQueryHookResult = ReturnType<typeof useLensTransactionStatusSuspenseQuery>;
+export type LensTransactionStatusQueryResult = Apollo.QueryResult<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>;
+export const ModExplorePublicationsDocument = gql`
+    query ModExplorePublications($request: ModExplorePublicationRequest!) {
+  modExplorePublications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Quote {
+        ...QuoteFields
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __useModExplorePublicationsQuery__
@@ -15228,97 +12230,54 @@ export const ModExplorePublicationsDocument = gql`
  *   },
  * });
  */
-export function useModExplorePublicationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ModExplorePublicationsQuery,
-    ModExplorePublicationsQueryVariables
-  > &
-    (
-      | { variables: ModExplorePublicationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ModExplorePublicationsQuery,
-    ModExplorePublicationsQueryVariables
-  >(ModExplorePublicationsDocument, options);
-}
-export function useModExplorePublicationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ModExplorePublicationsQuery,
-    ModExplorePublicationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ModExplorePublicationsQuery,
-    ModExplorePublicationsQueryVariables
-  >(ModExplorePublicationsDocument, options);
-}
-export function useModExplorePublicationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ModExplorePublicationsQuery,
-        ModExplorePublicationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ModExplorePublicationsQuery,
-    ModExplorePublicationsQueryVariables
-  >(ModExplorePublicationsDocument, options);
-}
-export type ModExplorePublicationsQueryHookResult = ReturnType<
-  typeof useModExplorePublicationsQuery
->;
-export type ModExplorePublicationsLazyQueryHookResult = ReturnType<
-  typeof useModExplorePublicationsLazyQuery
->;
-export type ModExplorePublicationsSuspenseQueryHookResult = ReturnType<
-  typeof useModExplorePublicationsSuspenseQuery
->;
-export type ModExplorePublicationsQueryResult = Apollo.QueryResult<
-  ModExplorePublicationsQuery,
-  ModExplorePublicationsQueryVariables
->;
-export const ModLatestReportsDocument = gql`
-  query ModLatestReports($request: ModReportsRequest!) {
-    modLatestReports(request: $request) {
-      items {
-        reason
-        subreason
-        additionalInfo
-        createdAt
-        reporter {
-          ...ProfileFields
-        }
-        reportedPublication {
-          ... on Post {
-            ...PostFields
-          }
-          ... on Comment {
-            ...CommentFields
-          }
-          ... on Quote {
-            ...QuoteFields
-          }
-        }
+export function useModExplorePublicationsQuery(baseOptions: Apollo.QueryHookOptions<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables> & ({ variables: ModExplorePublicationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>(ModExplorePublicationsDocument, options);
       }
-      pageInfo {
-        next
+export function useModExplorePublicationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>(ModExplorePublicationsDocument, options);
+        }
+export function useModExplorePublicationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>(ModExplorePublicationsDocument, options);
+        }
+export type ModExplorePublicationsQueryHookResult = ReturnType<typeof useModExplorePublicationsQuery>;
+export type ModExplorePublicationsLazyQueryHookResult = ReturnType<typeof useModExplorePublicationsLazyQuery>;
+export type ModExplorePublicationsSuspenseQueryHookResult = ReturnType<typeof useModExplorePublicationsSuspenseQuery>;
+export type ModExplorePublicationsQueryResult = Apollo.QueryResult<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>;
+export const ModLatestReportsDocument = gql`
+    query ModLatestReports($request: ModReportsRequest!) {
+  modLatestReports(request: $request) {
+    items {
+      reason
+      subreason
+      additionalInfo
+      createdAt
+      reporter {
+        ...ProfileFields
+      }
+      reportedPublication {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+        ... on Quote {
+          ...QuoteFields
+        }
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${ProfileFieldsFragmentDoc}
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${ProfileFieldsFragmentDoc}
+${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __useModLatestReportsQuery__
@@ -15336,88 +12295,46 @@ export const ModLatestReportsDocument = gql`
  *   },
  * });
  */
-export function useModLatestReportsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ModLatestReportsQuery,
-    ModLatestReportsQueryVariables
-  > &
-    (
-      | { variables: ModLatestReportsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ModLatestReportsQuery, ModLatestReportsQueryVariables>(
-    ModLatestReportsDocument,
-    options
-  );
-}
-export function useModLatestReportsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ModLatestReportsQuery,
-    ModLatestReportsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ModLatestReportsQuery,
-    ModLatestReportsQueryVariables
-  >(ModLatestReportsDocument, options);
-}
-export function useModLatestReportsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ModLatestReportsQuery,
-        ModLatestReportsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ModLatestReportsQuery,
-    ModLatestReportsQueryVariables
-  >(ModLatestReportsDocument, options);
-}
-export type ModLatestReportsQueryHookResult = ReturnType<
-  typeof useModLatestReportsQuery
->;
-export type ModLatestReportsLazyQueryHookResult = ReturnType<
-  typeof useModLatestReportsLazyQuery
->;
-export type ModLatestReportsSuspenseQueryHookResult = ReturnType<
-  typeof useModLatestReportsSuspenseQuery
->;
-export type ModLatestReportsQueryResult = Apollo.QueryResult<
-  ModLatestReportsQuery,
-  ModLatestReportsQueryVariables
->;
-export const ModuleMetadataDocument = gql`
-  query ModuleMetadata($request: ModuleMetadataRequest!) {
-    moduleMetadata(request: $request) {
-      metadata {
-        attributes {
-          key
-          type
-          value
-        }
-        authors
-        description
-        initializeCalldataABI
-        initializeResultDataABI
-        name
-        processCalldataABI
-        title
+export function useModLatestReportsQuery(baseOptions: Apollo.QueryHookOptions<ModLatestReportsQuery, ModLatestReportsQueryVariables> & ({ variables: ModLatestReportsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ModLatestReportsQuery, ModLatestReportsQueryVariables>(ModLatestReportsDocument, options);
       }
-      moduleType
-      signlessApproved
-      sponsoredApproved
-      verified
+export function useModLatestReportsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ModLatestReportsQuery, ModLatestReportsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ModLatestReportsQuery, ModLatestReportsQueryVariables>(ModLatestReportsDocument, options);
+        }
+export function useModLatestReportsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ModLatestReportsQuery, ModLatestReportsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ModLatestReportsQuery, ModLatestReportsQueryVariables>(ModLatestReportsDocument, options);
+        }
+export type ModLatestReportsQueryHookResult = ReturnType<typeof useModLatestReportsQuery>;
+export type ModLatestReportsLazyQueryHookResult = ReturnType<typeof useModLatestReportsLazyQuery>;
+export type ModLatestReportsSuspenseQueryHookResult = ReturnType<typeof useModLatestReportsSuspenseQuery>;
+export type ModLatestReportsQueryResult = Apollo.QueryResult<ModLatestReportsQuery, ModLatestReportsQueryVariables>;
+export const ModuleMetadataDocument = gql`
+    query ModuleMetadata($request: ModuleMetadataRequest!) {
+  moduleMetadata(request: $request) {
+    metadata {
+      attributes {
+        key
+        type
+        value
+      }
+      authors
+      description
+      initializeCalldataABI
+      initializeResultDataABI
+      name
+      processCalldataABI
+      title
     }
+    moduleType
+    signlessApproved
+    sponsoredApproved
+    verified
   }
-`;
+}
+    `;
 
 /**
  * __useModuleMetadataQuery__
@@ -15435,77 +12352,34 @@ export const ModuleMetadataDocument = gql`
  *   },
  * });
  */
-export function useModuleMetadataQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ModuleMetadataQuery,
-    ModuleMetadataQueryVariables
-  > &
-    (
-      | { variables: ModuleMetadataQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(
-    ModuleMetadataDocument,
-    options
-  );
-}
-export function useModuleMetadataLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ModuleMetadataQuery,
-    ModuleMetadataQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(
-    ModuleMetadataDocument,
-    options
-  );
-}
-export function useModuleMetadataSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ModuleMetadataQuery,
-        ModuleMetadataQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ModuleMetadataQuery,
-    ModuleMetadataQueryVariables
-  >(ModuleMetadataDocument, options);
-}
-export type ModuleMetadataQueryHookResult = ReturnType<
-  typeof useModuleMetadataQuery
->;
-export type ModuleMetadataLazyQueryHookResult = ReturnType<
-  typeof useModuleMetadataLazyQuery
->;
-export type ModuleMetadataSuspenseQueryHookResult = ReturnType<
-  typeof useModuleMetadataSuspenseQuery
->;
-export type ModuleMetadataQueryResult = Apollo.QueryResult<
-  ModuleMetadataQuery,
-  ModuleMetadataQueryVariables
->;
+export function useModuleMetadataQuery(baseOptions: Apollo.QueryHookOptions<ModuleMetadataQuery, ModuleMetadataQueryVariables> & ({ variables: ModuleMetadataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(ModuleMetadataDocument, options);
+      }
+export function useModuleMetadataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ModuleMetadataQuery, ModuleMetadataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(ModuleMetadataDocument, options);
+        }
+export function useModuleMetadataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ModuleMetadataQuery, ModuleMetadataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(ModuleMetadataDocument, options);
+        }
+export type ModuleMetadataQueryHookResult = ReturnType<typeof useModuleMetadataQuery>;
+export type ModuleMetadataLazyQueryHookResult = ReturnType<typeof useModuleMetadataLazyQuery>;
+export type ModuleMetadataSuspenseQueryHookResult = ReturnType<typeof useModuleMetadataSuspenseQuery>;
+export type ModuleMetadataQueryResult = Apollo.QueryResult<ModuleMetadataQuery, ModuleMetadataQueryVariables>;
 export const MutualFollowersDocument = gql`
-  query MutualFollowers($request: MutualFollowersRequest!) {
-    mutualFollowers(request: $request) {
-      items {
-        ...ListProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query MutualFollowers($request: MutualFollowersRequest!) {
+  mutualFollowers(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useMutualFollowersQuery__
@@ -15523,77 +12397,34 @@ export const MutualFollowersDocument = gql`
  *   },
  * });
  */
-export function useMutualFollowersQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    MutualFollowersQuery,
-    MutualFollowersQueryVariables
-  > &
-    (
-      | { variables: MutualFollowersQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<MutualFollowersQuery, MutualFollowersQueryVariables>(
-    MutualFollowersDocument,
-    options
-  );
-}
-export function useMutualFollowersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    MutualFollowersQuery,
-    MutualFollowersQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    MutualFollowersQuery,
-    MutualFollowersQueryVariables
-  >(MutualFollowersDocument, options);
-}
-export function useMutualFollowersSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        MutualFollowersQuery,
-        MutualFollowersQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    MutualFollowersQuery,
-    MutualFollowersQueryVariables
-  >(MutualFollowersDocument, options);
-}
-export type MutualFollowersQueryHookResult = ReturnType<
-  typeof useMutualFollowersQuery
->;
-export type MutualFollowersLazyQueryHookResult = ReturnType<
-  typeof useMutualFollowersLazyQuery
->;
-export type MutualFollowersSuspenseQueryHookResult = ReturnType<
-  typeof useMutualFollowersSuspenseQuery
->;
-export type MutualFollowersQueryResult = Apollo.QueryResult<
-  MutualFollowersQuery,
-  MutualFollowersQueryVariables
->;
+export function useMutualFollowersQuery(baseOptions: Apollo.QueryHookOptions<MutualFollowersQuery, MutualFollowersQueryVariables> & ({ variables: MutualFollowersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MutualFollowersQuery, MutualFollowersQueryVariables>(MutualFollowersDocument, options);
+      }
+export function useMutualFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MutualFollowersQuery, MutualFollowersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MutualFollowersQuery, MutualFollowersQueryVariables>(MutualFollowersDocument, options);
+        }
+export function useMutualFollowersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<MutualFollowersQuery, MutualFollowersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MutualFollowersQuery, MutualFollowersQueryVariables>(MutualFollowersDocument, options);
+        }
+export type MutualFollowersQueryHookResult = ReturnType<typeof useMutualFollowersQuery>;
+export type MutualFollowersLazyQueryHookResult = ReturnType<typeof useMutualFollowersLazyQuery>;
+export type MutualFollowersSuspenseQueryHookResult = ReturnType<typeof useMutualFollowersSuspenseQuery>;
+export type MutualFollowersQueryResult = Apollo.QueryResult<MutualFollowersQuery, MutualFollowersQueryVariables>;
 export const NotificationsDocument = gql`
-  query Notifications($request: NotificationRequest!) {
-    notifications(request: $request) {
-      items {
-        ...NotificationFields
-      }
-      pageInfo {
-        next
-      }
+    query Notifications($request: NotificationRequest!) {
+  notifications(request: $request) {
+    items {
+      ...NotificationFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${NotificationFieldsFragmentDoc}
-`;
+}
+    ${NotificationFieldsFragmentDoc}`;
 
 /**
  * __useNotificationsQuery__
@@ -15611,74 +12442,31 @@ export const NotificationsDocument = gql`
  *   },
  * });
  */
-export function useNotificationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    NotificationsQuery,
-    NotificationsQueryVariables
-  > &
-    (
-      | { variables: NotificationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<NotificationsQuery, NotificationsQueryVariables>(
-    NotificationsDocument,
-    options
-  );
-}
-export function useNotificationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    NotificationsQuery,
-    NotificationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<NotificationsQuery, NotificationsQueryVariables>(
-    NotificationsDocument,
-    options
-  );
-}
-export function useNotificationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        NotificationsQuery,
-        NotificationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    NotificationsQuery,
-    NotificationsQueryVariables
-  >(NotificationsDocument, options);
-}
-export type NotificationsQueryHookResult = ReturnType<
-  typeof useNotificationsQuery
->;
-export type NotificationsLazyQueryHookResult = ReturnType<
-  typeof useNotificationsLazyQuery
->;
-export type NotificationsSuspenseQueryHookResult = ReturnType<
-  typeof useNotificationsSuspenseQuery
->;
-export type NotificationsQueryResult = Apollo.QueryResult<
-  NotificationsQuery,
-  NotificationsQueryVariables
->;
-export const OwnedHandlesDocument = gql`
-  query OwnedHandles($request: OwnedHandlesRequest!) {
-    ownedHandles(request: $request) {
-      items {
-        ...HandleInfoFields
+export function useNotificationsQuery(baseOptions: Apollo.QueryHookOptions<NotificationsQuery, NotificationsQueryVariables> & ({ variables: NotificationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
       }
+export function useNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NotificationsQuery, NotificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
+        }
+export function useNotificationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<NotificationsQuery, NotificationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
+        }
+export type NotificationsQueryHookResult = ReturnType<typeof useNotificationsQuery>;
+export type NotificationsLazyQueryHookResult = ReturnType<typeof useNotificationsLazyQuery>;
+export type NotificationsSuspenseQueryHookResult = ReturnType<typeof useNotificationsSuspenseQuery>;
+export type NotificationsQueryResult = Apollo.QueryResult<NotificationsQuery, NotificationsQueryVariables>;
+export const OwnedHandlesDocument = gql`
+    query OwnedHandles($request: OwnedHandlesRequest!) {
+  ownedHandles(request: $request) {
+    items {
+      ...HandleInfoFields
     }
   }
-  ${HandleInfoFieldsFragmentDoc}
-`;
+}
+    ${HandleInfoFieldsFragmentDoc}`;
 
 /**
  * __useOwnedHandlesQuery__
@@ -15696,72 +12484,29 @@ export const OwnedHandlesDocument = gql`
  *   },
  * });
  */
-export function useOwnedHandlesQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    OwnedHandlesQuery,
-    OwnedHandlesQueryVariables
-  > &
-    (
-      | { variables: OwnedHandlesQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<OwnedHandlesQuery, OwnedHandlesQueryVariables>(
-    OwnedHandlesDocument,
-    options
-  );
-}
-export function useOwnedHandlesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    OwnedHandlesQuery,
-    OwnedHandlesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<OwnedHandlesQuery, OwnedHandlesQueryVariables>(
-    OwnedHandlesDocument,
-    options
-  );
-}
-export function useOwnedHandlesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        OwnedHandlesQuery,
-        OwnedHandlesQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<OwnedHandlesQuery, OwnedHandlesQueryVariables>(
-    OwnedHandlesDocument,
-    options
-  );
-}
-export type OwnedHandlesQueryHookResult = ReturnType<
-  typeof useOwnedHandlesQuery
->;
-export type OwnedHandlesLazyQueryHookResult = ReturnType<
-  typeof useOwnedHandlesLazyQuery
->;
-export type OwnedHandlesSuspenseQueryHookResult = ReturnType<
-  typeof useOwnedHandlesSuspenseQuery
->;
-export type OwnedHandlesQueryResult = Apollo.QueryResult<
-  OwnedHandlesQuery,
-  OwnedHandlesQueryVariables
->;
+export function useOwnedHandlesQuery(baseOptions: Apollo.QueryHookOptions<OwnedHandlesQuery, OwnedHandlesQueryVariables> & ({ variables: OwnedHandlesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OwnedHandlesQuery, OwnedHandlesQueryVariables>(OwnedHandlesDocument, options);
+      }
+export function useOwnedHandlesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OwnedHandlesQuery, OwnedHandlesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OwnedHandlesQuery, OwnedHandlesQueryVariables>(OwnedHandlesDocument, options);
+        }
+export function useOwnedHandlesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OwnedHandlesQuery, OwnedHandlesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<OwnedHandlesQuery, OwnedHandlesQueryVariables>(OwnedHandlesDocument, options);
+        }
+export type OwnedHandlesQueryHookResult = ReturnType<typeof useOwnedHandlesQuery>;
+export type OwnedHandlesLazyQueryHookResult = ReturnType<typeof useOwnedHandlesLazyQuery>;
+export type OwnedHandlesSuspenseQueryHookResult = ReturnType<typeof useOwnedHandlesSuspenseQuery>;
+export type OwnedHandlesQueryResult = Apollo.QueryResult<OwnedHandlesQuery, OwnedHandlesQueryVariables>;
 export const ProfileDocument = gql`
-  query Profile($request: ProfileRequest!) {
-    profile(request: $request) {
-      ...ProfileFields
-    }
+    query Profile($request: ProfileRequest!) {
+  profile(request: $request) {
+    ...ProfileFields
   }
-  ${ProfileFieldsFragmentDoc}
-`;
+}
+    ${ProfileFieldsFragmentDoc}`;
 
 /**
  * __useProfileQuery__
@@ -15779,64 +12524,38 @@ export const ProfileDocument = gql`
  *   },
  * });
  */
-export function useProfileQuery(
-  baseOptions: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables> &
-    ({ variables: ProfileQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(
-    ProfileDocument,
-    options
-  );
-}
-export function useProfileLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(
-    ProfileDocument,
-    options
-  );
-}
-export function useProfileSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<ProfileQuery, ProfileQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<ProfileQuery, ProfileQueryVariables>(
-    ProfileDocument,
-    options
-  );
-}
+export function useProfileQuery(baseOptions: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables> & ({ variables: ProfileQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+      }
+export function useProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+        }
+export function useProfileSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+        }
 export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
 export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
-export type ProfileSuspenseQueryHookResult = ReturnType<
-  typeof useProfileSuspenseQuery
->;
-export type ProfileQueryResult = Apollo.QueryResult<
-  ProfileQuery,
-  ProfileQueryVariables
->;
+export type ProfileSuspenseQueryHookResult = ReturnType<typeof useProfileSuspenseQuery>;
+export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const ProfileActionHistoryDocument = gql`
-  query ProfileActionHistory($request: ProfileActionHistoryRequest!) {
-    profileActionHistory(request: $request) {
-      items {
-        id
-        actionType
-        who
-        txHash
-        actionedOn
-      }
-      pageInfo {
-        next
-      }
+    query ProfileActionHistory($request: ProfileActionHistoryRequest!) {
+  profileActionHistory(request: $request) {
+    items {
+      id
+      actionType
+      who
+      txHash
+      actionedOn
+    }
+    pageInfo {
+      next
     }
   }
-`;
+}
+    `;
 
 /**
  * __useProfileActionHistoryQuery__
@@ -15854,73 +12573,31 @@ export const ProfileActionHistoryDocument = gql`
  *   },
  * });
  */
-export function useProfileActionHistoryQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfileActionHistoryQuery,
-    ProfileActionHistoryQueryVariables
-  > &
-    (
-      | { variables: ProfileActionHistoryQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ProfileActionHistoryQuery,
-    ProfileActionHistoryQueryVariables
-  >(ProfileActionHistoryDocument, options);
-}
-export function useProfileActionHistoryLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfileActionHistoryQuery,
-    ProfileActionHistoryQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ProfileActionHistoryQuery,
-    ProfileActionHistoryQueryVariables
-  >(ProfileActionHistoryDocument, options);
-}
-export function useProfileActionHistorySuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ProfileActionHistoryQuery,
-        ProfileActionHistoryQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ProfileActionHistoryQuery,
-    ProfileActionHistoryQueryVariables
-  >(ProfileActionHistoryDocument, options);
-}
-export type ProfileActionHistoryQueryHookResult = ReturnType<
-  typeof useProfileActionHistoryQuery
->;
-export type ProfileActionHistoryLazyQueryHookResult = ReturnType<
-  typeof useProfileActionHistoryLazyQuery
->;
-export type ProfileActionHistorySuspenseQueryHookResult = ReturnType<
-  typeof useProfileActionHistorySuspenseQuery
->;
-export type ProfileActionHistoryQueryResult = Apollo.QueryResult<
-  ProfileActionHistoryQuery,
-  ProfileActionHistoryQueryVariables
->;
+export function useProfileActionHistoryQuery(baseOptions: Apollo.QueryHookOptions<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables> & ({ variables: ProfileActionHistoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables>(ProfileActionHistoryDocument, options);
+      }
+export function useProfileActionHistoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables>(ProfileActionHistoryDocument, options);
+        }
+export function useProfileActionHistorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables>(ProfileActionHistoryDocument, options);
+        }
+export type ProfileActionHistoryQueryHookResult = ReturnType<typeof useProfileActionHistoryQuery>;
+export type ProfileActionHistoryLazyQueryHookResult = ReturnType<typeof useProfileActionHistoryLazyQuery>;
+export type ProfileActionHistorySuspenseQueryHookResult = ReturnType<typeof useProfileActionHistorySuspenseQuery>;
+export type ProfileActionHistoryQueryResult = Apollo.QueryResult<ProfileActionHistoryQuery, ProfileActionHistoryQueryVariables>;
 export const ProfileInterestsOptionsDocument = gql`
-  query ProfileInterestsOptions($request: ProfileRequest!) {
-    profileInterestsOptions
-    profile(request: $request) {
-      id
-      interests
-    }
+    query ProfileInterestsOptions($request: ProfileRequest!) {
+  profileInterestsOptions
+  profile(request: $request) {
+    id
+    interests
   }
-`;
+}
+    `;
 
 /**
  * __useProfileInterestsOptionsQuery__
@@ -15938,77 +12615,35 @@ export const ProfileInterestsOptionsDocument = gql`
  *   },
  * });
  */
-export function useProfileInterestsOptionsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfileInterestsOptionsQuery,
-    ProfileInterestsOptionsQueryVariables
-  > &
-    (
-      | { variables: ProfileInterestsOptionsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ProfileInterestsOptionsQuery,
-    ProfileInterestsOptionsQueryVariables
-  >(ProfileInterestsOptionsDocument, options);
-}
-export function useProfileInterestsOptionsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfileInterestsOptionsQuery,
-    ProfileInterestsOptionsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ProfileInterestsOptionsQuery,
-    ProfileInterestsOptionsQueryVariables
-  >(ProfileInterestsOptionsDocument, options);
-}
-export function useProfileInterestsOptionsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ProfileInterestsOptionsQuery,
-        ProfileInterestsOptionsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ProfileInterestsOptionsQuery,
-    ProfileInterestsOptionsQueryVariables
-  >(ProfileInterestsOptionsDocument, options);
-}
-export type ProfileInterestsOptionsQueryHookResult = ReturnType<
-  typeof useProfileInterestsOptionsQuery
->;
-export type ProfileInterestsOptionsLazyQueryHookResult = ReturnType<
-  typeof useProfileInterestsOptionsLazyQuery
->;
-export type ProfileInterestsOptionsSuspenseQueryHookResult = ReturnType<
-  typeof useProfileInterestsOptionsSuspenseQuery
->;
-export type ProfileInterestsOptionsQueryResult = Apollo.QueryResult<
-  ProfileInterestsOptionsQuery,
-  ProfileInterestsOptionsQueryVariables
->;
+export function useProfileInterestsOptionsQuery(baseOptions: Apollo.QueryHookOptions<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables> & ({ variables: ProfileInterestsOptionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables>(ProfileInterestsOptionsDocument, options);
+      }
+export function useProfileInterestsOptionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables>(ProfileInterestsOptionsDocument, options);
+        }
+export function useProfileInterestsOptionsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables>(ProfileInterestsOptionsDocument, options);
+        }
+export type ProfileInterestsOptionsQueryHookResult = ReturnType<typeof useProfileInterestsOptionsQuery>;
+export type ProfileInterestsOptionsLazyQueryHookResult = ReturnType<typeof useProfileInterestsOptionsLazyQuery>;
+export type ProfileInterestsOptionsSuspenseQueryHookResult = ReturnType<typeof useProfileInterestsOptionsSuspenseQuery>;
+export type ProfileInterestsOptionsQueryResult = Apollo.QueryResult<ProfileInterestsOptionsQuery, ProfileInterestsOptionsQueryVariables>;
 export const ProfileManagersDocument = gql`
-  query ProfileManagers($request: ProfileManagersRequest!) {
-    profileManagers(request: $request) {
-      items {
-        address
-        isLensManager
-      }
-      pageInfo {
-        next
-      }
+    query ProfileManagers($request: ProfileManagersRequest!) {
+  profileManagers(request: $request) {
+    items {
+      address
+      isLensManager
+    }
+    pageInfo {
+      next
     }
   }
-`;
+}
+    `;
 
 /**
  * __useProfileManagersQuery__
@@ -16026,74 +12661,31 @@ export const ProfileManagersDocument = gql`
  *   },
  * });
  */
-export function useProfileManagersQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfileManagersQuery,
-    ProfileManagersQueryVariables
-  > &
-    (
-      | { variables: ProfileManagersQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ProfileManagersQuery, ProfileManagersQueryVariables>(
-    ProfileManagersDocument,
-    options
-  );
-}
-export function useProfileManagersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfileManagersQuery,
-    ProfileManagersQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ProfileManagersQuery,
-    ProfileManagersQueryVariables
-  >(ProfileManagersDocument, options);
-}
-export function useProfileManagersSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ProfileManagersQuery,
-        ProfileManagersQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ProfileManagersQuery,
-    ProfileManagersQueryVariables
-  >(ProfileManagersDocument, options);
-}
-export type ProfileManagersQueryHookResult = ReturnType<
-  typeof useProfileManagersQuery
->;
-export type ProfileManagersLazyQueryHookResult = ReturnType<
-  typeof useProfileManagersLazyQuery
->;
-export type ProfileManagersSuspenseQueryHookResult = ReturnType<
-  typeof useProfileManagersSuspenseQuery
->;
-export type ProfileManagersQueryResult = Apollo.QueryResult<
-  ProfileManagersQuery,
-  ProfileManagersQueryVariables
->;
-export const ProfileRecommendationsDocument = gql`
-  query ProfileRecommendations($request: ProfileRecommendationsRequest!) {
-    profileRecommendations(request: $request) {
-      items {
-        ...ListProfileFields
+export function useProfileManagersQuery(baseOptions: Apollo.QueryHookOptions<ProfileManagersQuery, ProfileManagersQueryVariables> & ({ variables: ProfileManagersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileManagersQuery, ProfileManagersQueryVariables>(ProfileManagersDocument, options);
       }
+export function useProfileManagersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileManagersQuery, ProfileManagersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileManagersQuery, ProfileManagersQueryVariables>(ProfileManagersDocument, options);
+        }
+export function useProfileManagersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfileManagersQuery, ProfileManagersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfileManagersQuery, ProfileManagersQueryVariables>(ProfileManagersDocument, options);
+        }
+export type ProfileManagersQueryHookResult = ReturnType<typeof useProfileManagersQuery>;
+export type ProfileManagersLazyQueryHookResult = ReturnType<typeof useProfileManagersLazyQuery>;
+export type ProfileManagersSuspenseQueryHookResult = ReturnType<typeof useProfileManagersSuspenseQuery>;
+export type ProfileManagersQueryResult = Apollo.QueryResult<ProfileManagersQuery, ProfileManagersQueryVariables>;
+export const ProfileRecommendationsDocument = gql`
+    query ProfileRecommendations($request: ProfileRecommendationsRequest!) {
+  profileRecommendations(request: $request) {
+    items {
+      ...ListProfileFields
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useProfileRecommendationsQuery__
@@ -16111,77 +12703,34 @@ export const ProfileRecommendationsDocument = gql`
  *   },
  * });
  */
-export function useProfileRecommendationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfileRecommendationsQuery,
-    ProfileRecommendationsQueryVariables
-  > &
-    (
-      | { variables: ProfileRecommendationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ProfileRecommendationsQuery,
-    ProfileRecommendationsQueryVariables
-  >(ProfileRecommendationsDocument, options);
-}
-export function useProfileRecommendationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfileRecommendationsQuery,
-    ProfileRecommendationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ProfileRecommendationsQuery,
-    ProfileRecommendationsQueryVariables
-  >(ProfileRecommendationsDocument, options);
-}
-export function useProfileRecommendationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ProfileRecommendationsQuery,
-        ProfileRecommendationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ProfileRecommendationsQuery,
-    ProfileRecommendationsQueryVariables
-  >(ProfileRecommendationsDocument, options);
-}
-export type ProfileRecommendationsQueryHookResult = ReturnType<
-  typeof useProfileRecommendationsQuery
->;
-export type ProfileRecommendationsLazyQueryHookResult = ReturnType<
-  typeof useProfileRecommendationsLazyQuery
->;
-export type ProfileRecommendationsSuspenseQueryHookResult = ReturnType<
-  typeof useProfileRecommendationsSuspenseQuery
->;
-export type ProfileRecommendationsQueryResult = Apollo.QueryResult<
-  ProfileRecommendationsQuery,
-  ProfileRecommendationsQueryVariables
->;
+export function useProfileRecommendationsQuery(baseOptions: Apollo.QueryHookOptions<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables> & ({ variables: ProfileRecommendationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables>(ProfileRecommendationsDocument, options);
+      }
+export function useProfileRecommendationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables>(ProfileRecommendationsDocument, options);
+        }
+export function useProfileRecommendationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables>(ProfileRecommendationsDocument, options);
+        }
+export type ProfileRecommendationsQueryHookResult = ReturnType<typeof useProfileRecommendationsQuery>;
+export type ProfileRecommendationsLazyQueryHookResult = ReturnType<typeof useProfileRecommendationsLazyQuery>;
+export type ProfileRecommendationsSuspenseQueryHookResult = ReturnType<typeof useProfileRecommendationsSuspenseQuery>;
+export type ProfileRecommendationsQueryResult = Apollo.QueryResult<ProfileRecommendationsQuery, ProfileRecommendationsQueryVariables>;
 export const ProfilesDocument = gql`
-  query Profiles($request: ProfilesRequest!) {
-    profiles(request: $request) {
-      items {
-        ...ProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query Profiles($request: ProfilesRequest!) {
+  profiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ProfileFieldsFragmentDoc}
-`;
+}
+    ${ProfileFieldsFragmentDoc}`;
 
 /**
  * __useProfilesQuery__
@@ -16199,72 +12748,37 @@ export const ProfilesDocument = gql`
  *   },
  * });
  */
-export function useProfilesQuery(
-  baseOptions: Apollo.QueryHookOptions<ProfilesQuery, ProfilesQueryVariables> &
-    ({ variables: ProfilesQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ProfilesQuery, ProfilesQueryVariables>(
-    ProfilesDocument,
-    options
-  );
-}
-export function useProfilesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfilesQuery,
-    ProfilesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ProfilesQuery, ProfilesQueryVariables>(
-    ProfilesDocument,
-    options
-  );
-}
-export function useProfilesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<ProfilesQuery, ProfilesQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<ProfilesQuery, ProfilesQueryVariables>(
-    ProfilesDocument,
-    options
-  );
-}
+export function useProfilesQuery(baseOptions: Apollo.QueryHookOptions<ProfilesQuery, ProfilesQueryVariables> & ({ variables: ProfilesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfilesQuery, ProfilesQueryVariables>(ProfilesDocument, options);
+      }
+export function useProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfilesQuery, ProfilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfilesQuery, ProfilesQueryVariables>(ProfilesDocument, options);
+        }
+export function useProfilesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfilesQuery, ProfilesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfilesQuery, ProfilesQueryVariables>(ProfilesDocument, options);
+        }
 export type ProfilesQueryHookResult = ReturnType<typeof useProfilesQuery>;
-export type ProfilesLazyQueryHookResult = ReturnType<
-  typeof useProfilesLazyQuery
->;
-export type ProfilesSuspenseQueryHookResult = ReturnType<
-  typeof useProfilesSuspenseQuery
->;
-export type ProfilesQueryResult = Apollo.QueryResult<
-  ProfilesQuery,
-  ProfilesQueryVariables
->;
+export type ProfilesLazyQueryHookResult = ReturnType<typeof useProfilesLazyQuery>;
+export type ProfilesSuspenseQueryHookResult = ReturnType<typeof useProfilesSuspenseQuery>;
+export type ProfilesQueryResult = Apollo.QueryResult<ProfilesQuery, ProfilesQueryVariables>;
 export const ProfilesManagedDocument = gql`
-  query ProfilesManaged(
-    $profilesManagedRequest: ProfilesManagedRequest!
-    $lastLoggedInProfileRequest: LastLoggedInProfileRequest!
-  ) {
-    profilesManaged(request: $profilesManagedRequest) {
-      items {
-        ...ListProfileFields
-      }
-      pageInfo {
-        next
-      }
-    }
-    lastLoggedInProfile(request: $lastLoggedInProfileRequest) {
+    query ProfilesManaged($profilesManagedRequest: ProfilesManagedRequest!, $lastLoggedInProfileRequest: LastLoggedInProfileRequest!) {
+  profilesManaged(request: $profilesManagedRequest) {
+    items {
       ...ListProfileFields
     }
+    pageInfo {
+      next
+    }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+  lastLoggedInProfile(request: $lastLoggedInProfileRequest) {
+    ...ListProfileFields
+  }
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useProfilesManagedQuery__
@@ -16283,86 +12797,43 @@ export const ProfilesManagedDocument = gql`
  *   },
  * });
  */
-export function useProfilesManagedQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfilesManagedQuery,
-    ProfilesManagedQueryVariables
-  > &
-    (
-      | { variables: ProfilesManagedQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ProfilesManagedQuery, ProfilesManagedQueryVariables>(
-    ProfilesManagedDocument,
-    options
-  );
-}
-export function useProfilesManagedLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfilesManagedQuery,
-    ProfilesManagedQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ProfilesManagedQuery,
-    ProfilesManagedQueryVariables
-  >(ProfilesManagedDocument, options);
-}
-export function useProfilesManagedSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        ProfilesManagedQuery,
-        ProfilesManagedQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    ProfilesManagedQuery,
-    ProfilesManagedQueryVariables
-  >(ProfilesManagedDocument, options);
-}
-export type ProfilesManagedQueryHookResult = ReturnType<
-  typeof useProfilesManagedQuery
->;
-export type ProfilesManagedLazyQueryHookResult = ReturnType<
-  typeof useProfilesManagedLazyQuery
->;
-export type ProfilesManagedSuspenseQueryHookResult = ReturnType<
-  typeof useProfilesManagedSuspenseQuery
->;
-export type ProfilesManagedQueryResult = Apollo.QueryResult<
-  ProfilesManagedQuery,
-  ProfilesManagedQueryVariables
->;
+export function useProfilesManagedQuery(baseOptions: Apollo.QueryHookOptions<ProfilesManagedQuery, ProfilesManagedQueryVariables> & ({ variables: ProfilesManagedQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfilesManagedQuery, ProfilesManagedQueryVariables>(ProfilesManagedDocument, options);
+      }
+export function useProfilesManagedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfilesManagedQuery, ProfilesManagedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfilesManagedQuery, ProfilesManagedQueryVariables>(ProfilesManagedDocument, options);
+        }
+export function useProfilesManagedSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProfilesManagedQuery, ProfilesManagedQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProfilesManagedQuery, ProfilesManagedQueryVariables>(ProfilesManagedDocument, options);
+        }
+export type ProfilesManagedQueryHookResult = ReturnType<typeof useProfilesManagedQuery>;
+export type ProfilesManagedLazyQueryHookResult = ReturnType<typeof useProfilesManagedLazyQuery>;
+export type ProfilesManagedSuspenseQueryHookResult = ReturnType<typeof useProfilesManagedSuspenseQuery>;
+export type ProfilesManagedQueryResult = Apollo.QueryResult<ProfilesManagedQuery, ProfilesManagedQueryVariables>;
 export const PublicationDocument = gql`
-  query Publication($request: PublicationRequest!) {
-    publication(request: $request) {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Comment {
-        ...CommentFields
-      }
-      ... on Mirror {
-        ...MirrorFields
-      }
-      ... on Quote {
-        ...QuoteFields
-      }
+    query Publication($request: PublicationRequest!) {
+  publication(request: $request) {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentFields
+    }
+    ... on Mirror {
+      ...MirrorFields
+    }
+    ... on Quote {
+      ...QuoteFields
     }
   }
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${MirrorFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${MirrorFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __usePublicationQuery__
@@ -16380,89 +12851,48 @@ export const PublicationDocument = gql`
  *   },
  * });
  */
-export function usePublicationQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    PublicationQuery,
-    PublicationQueryVariables
-  > &
-    (
-      | { variables: PublicationQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<PublicationQuery, PublicationQueryVariables>(
-    PublicationDocument,
-    options
-  );
-}
-export function usePublicationLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    PublicationQuery,
-    PublicationQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<PublicationQuery, PublicationQueryVariables>(
-    PublicationDocument,
-    options
-  );
-}
-export function usePublicationSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        PublicationQuery,
-        PublicationQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<PublicationQuery, PublicationQueryVariables>(
-    PublicationDocument,
-    options
-  );
-}
-export type PublicationQueryHookResult = ReturnType<typeof usePublicationQuery>;
-export type PublicationLazyQueryHookResult = ReturnType<
-  typeof usePublicationLazyQuery
->;
-export type PublicationSuspenseQueryHookResult = ReturnType<
-  typeof usePublicationSuspenseQuery
->;
-export type PublicationQueryResult = Apollo.QueryResult<
-  PublicationQuery,
-  PublicationQueryVariables
->;
-export const PublicationBookmarksDocument = gql`
-  query PublicationBookmarks($request: PublicationBookmarksRequest!) {
-    publicationBookmarks(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Mirror {
-          ...MirrorFields
-        }
-        ... on Quote {
-          ...QuoteFields
-        }
+export function usePublicationQuery(baseOptions: Apollo.QueryHookOptions<PublicationQuery, PublicationQueryVariables> & ({ variables: PublicationQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
       }
-      pageInfo {
-        next
+export function usePublicationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PublicationQuery, PublicationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
+        }
+export function usePublicationSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PublicationQuery, PublicationQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
+        }
+export type PublicationQueryHookResult = ReturnType<typeof usePublicationQuery>;
+export type PublicationLazyQueryHookResult = ReturnType<typeof usePublicationLazyQuery>;
+export type PublicationSuspenseQueryHookResult = ReturnType<typeof usePublicationSuspenseQuery>;
+export type PublicationQueryResult = Apollo.QueryResult<PublicationQuery, PublicationQueryVariables>;
+export const PublicationBookmarksDocument = gql`
+    query PublicationBookmarks($request: PublicationBookmarksRequest!) {
+  publicationBookmarks(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Mirror {
+        ...MirrorFields
+      }
+      ... on Quote {
+        ...QuoteFields
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${MirrorFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${MirrorFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __usePublicationBookmarksQuery__
@@ -16480,91 +12910,48 @@ export const PublicationBookmarksDocument = gql`
  *   },
  * });
  */
-export function usePublicationBookmarksQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    PublicationBookmarksQuery,
-    PublicationBookmarksQueryVariables
-  > &
-    (
-      | { variables: PublicationBookmarksQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    PublicationBookmarksQuery,
-    PublicationBookmarksQueryVariables
-  >(PublicationBookmarksDocument, options);
-}
-export function usePublicationBookmarksLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    PublicationBookmarksQuery,
-    PublicationBookmarksQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    PublicationBookmarksQuery,
-    PublicationBookmarksQueryVariables
-  >(PublicationBookmarksDocument, options);
-}
-export function usePublicationBookmarksSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        PublicationBookmarksQuery,
-        PublicationBookmarksQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    PublicationBookmarksQuery,
-    PublicationBookmarksQueryVariables
-  >(PublicationBookmarksDocument, options);
-}
-export type PublicationBookmarksQueryHookResult = ReturnType<
-  typeof usePublicationBookmarksQuery
->;
-export type PublicationBookmarksLazyQueryHookResult = ReturnType<
-  typeof usePublicationBookmarksLazyQuery
->;
-export type PublicationBookmarksSuspenseQueryHookResult = ReturnType<
-  typeof usePublicationBookmarksSuspenseQuery
->;
-export type PublicationBookmarksQueryResult = Apollo.QueryResult<
-  PublicationBookmarksQuery,
-  PublicationBookmarksQueryVariables
->;
-export const PublicationsDocument = gql`
-  query Publications($request: PublicationsRequest!) {
-    publications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Mirror {
-          ...MirrorFields
-        }
-        ... on Quote {
-          ...QuoteFields
-        }
+export function usePublicationBookmarksQuery(baseOptions: Apollo.QueryHookOptions<PublicationBookmarksQuery, PublicationBookmarksQueryVariables> & ({ variables: PublicationBookmarksQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>(PublicationBookmarksDocument, options);
       }
-      pageInfo {
-        next
+export function usePublicationBookmarksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>(PublicationBookmarksDocument, options);
+        }
+export function usePublicationBookmarksSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>(PublicationBookmarksDocument, options);
+        }
+export type PublicationBookmarksQueryHookResult = ReturnType<typeof usePublicationBookmarksQuery>;
+export type PublicationBookmarksLazyQueryHookResult = ReturnType<typeof usePublicationBookmarksLazyQuery>;
+export type PublicationBookmarksSuspenseQueryHookResult = ReturnType<typeof usePublicationBookmarksSuspenseQuery>;
+export type PublicationBookmarksQueryResult = Apollo.QueryResult<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>;
+export const PublicationsDocument = gql`
+    query Publications($request: PublicationsRequest!) {
+  publications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Mirror {
+        ...MirrorFields
+      }
+      ... on Quote {
+        ...QuoteFields
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${MirrorFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${MirrorFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __usePublicationsQuery__
@@ -16582,77 +12969,34 @@ export const PublicationsDocument = gql`
  *   },
  * });
  */
-export function usePublicationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    PublicationsQuery,
-    PublicationsQueryVariables
-  > &
-    (
-      | { variables: PublicationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<PublicationsQuery, PublicationsQueryVariables>(
-    PublicationsDocument,
-    options
-  );
-}
-export function usePublicationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    PublicationsQuery,
-    PublicationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<PublicationsQuery, PublicationsQueryVariables>(
-    PublicationsDocument,
-    options
-  );
-}
-export function usePublicationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        PublicationsQuery,
-        PublicationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<PublicationsQuery, PublicationsQueryVariables>(
-    PublicationsDocument,
-    options
-  );
-}
-export type PublicationsQueryHookResult = ReturnType<
-  typeof usePublicationsQuery
->;
-export type PublicationsLazyQueryHookResult = ReturnType<
-  typeof usePublicationsLazyQuery
->;
-export type PublicationsSuspenseQueryHookResult = ReturnType<
-  typeof usePublicationsSuspenseQuery
->;
-export type PublicationsQueryResult = Apollo.QueryResult<
-  PublicationsQuery,
-  PublicationsQueryVariables
->;
+export function usePublicationsQuery(baseOptions: Apollo.QueryHookOptions<PublicationsQuery, PublicationsQueryVariables> & ({ variables: PublicationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PublicationsQuery, PublicationsQueryVariables>(PublicationsDocument, options);
+      }
+export function usePublicationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PublicationsQuery, PublicationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PublicationsQuery, PublicationsQueryVariables>(PublicationsDocument, options);
+        }
+export function usePublicationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PublicationsQuery, PublicationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PublicationsQuery, PublicationsQueryVariables>(PublicationsDocument, options);
+        }
+export type PublicationsQueryHookResult = ReturnType<typeof usePublicationsQuery>;
+export type PublicationsLazyQueryHookResult = ReturnType<typeof usePublicationsLazyQuery>;
+export type PublicationsSuspenseQueryHookResult = ReturnType<typeof usePublicationsSuspenseQuery>;
+export type PublicationsQueryResult = Apollo.QueryResult<PublicationsQuery, PublicationsQueryVariables>;
 export const SearchProfilesDocument = gql`
-  query SearchProfiles($request: ProfileSearchRequest!) {
-    searchProfiles(request: $request) {
-      items {
-        ...ProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query SearchProfiles($request: ProfileSearchRequest!) {
+  searchProfiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ProfileFieldsFragmentDoc}
-`;
+}
+    ${ProfileFieldsFragmentDoc}`;
 
 /**
  * __useSearchProfilesQuery__
@@ -16670,87 +13014,44 @@ export const SearchProfilesDocument = gql`
  *   },
  * });
  */
-export function useSearchProfilesQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    SearchProfilesQuery,
-    SearchProfilesQueryVariables
-  > &
-    (
-      | { variables: SearchProfilesQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(
-    SearchProfilesDocument,
-    options
-  );
-}
-export function useSearchProfilesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    SearchProfilesQuery,
-    SearchProfilesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(
-    SearchProfilesDocument,
-    options
-  );
-}
-export function useSearchProfilesSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        SearchProfilesQuery,
-        SearchProfilesQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    SearchProfilesQuery,
-    SearchProfilesQueryVariables
-  >(SearchProfilesDocument, options);
-}
-export type SearchProfilesQueryHookResult = ReturnType<
-  typeof useSearchProfilesQuery
->;
-export type SearchProfilesLazyQueryHookResult = ReturnType<
-  typeof useSearchProfilesLazyQuery
->;
-export type SearchProfilesSuspenseQueryHookResult = ReturnType<
-  typeof useSearchProfilesSuspenseQuery
->;
-export type SearchProfilesQueryResult = Apollo.QueryResult<
-  SearchProfilesQuery,
-  SearchProfilesQueryVariables
->;
-export const SearchPublicationsDocument = gql`
-  query SearchPublications($request: PublicationSearchRequest!) {
-    searchPublications(request: $request) {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Quote {
-          ...QuoteFields
-        }
+export function useSearchProfilesQuery(baseOptions: Apollo.QueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables> & ({ variables: SearchProfilesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
       }
-      pageInfo {
-        next
+export function useSearchProfilesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
+        }
+export function useSearchProfilesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
+        }
+export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
+export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
+export type SearchProfilesSuspenseQueryHookResult = ReturnType<typeof useSearchProfilesSuspenseQuery>;
+export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
+export const SearchPublicationsDocument = gql`
+    query SearchPublications($request: PublicationSearchRequest!) {
+  searchPublications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Quote {
+        ...QuoteFields
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${PostFieldsFragmentDoc}
-  ${CommentFieldsFragmentDoc}
-  ${QuoteFieldsFragmentDoc}
-`;
+}
+    ${PostFieldsFragmentDoc}
+${CommentFieldsFragmentDoc}
+${QuoteFieldsFragmentDoc}`;
 
 /**
  * __useSearchPublicationsQuery__
@@ -16768,88 +13069,41 @@ export const SearchPublicationsDocument = gql`
  *   },
  * });
  */
-export function useSearchPublicationsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    SearchPublicationsQuery,
-    SearchPublicationsQueryVariables
-  > &
-    (
-      | { variables: SearchPublicationsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    SearchPublicationsQuery,
-    SearchPublicationsQueryVariables
-  >(SearchPublicationsDocument, options);
-}
-export function useSearchPublicationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    SearchPublicationsQuery,
-    SearchPublicationsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    SearchPublicationsQuery,
-    SearchPublicationsQueryVariables
-  >(SearchPublicationsDocument, options);
-}
-export function useSearchPublicationsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        SearchPublicationsQuery,
-        SearchPublicationsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    SearchPublicationsQuery,
-    SearchPublicationsQueryVariables
-  >(SearchPublicationsDocument, options);
-}
-export type SearchPublicationsQueryHookResult = ReturnType<
-  typeof useSearchPublicationsQuery
->;
-export type SearchPublicationsLazyQueryHookResult = ReturnType<
-  typeof useSearchPublicationsLazyQuery
->;
-export type SearchPublicationsSuspenseQueryHookResult = ReturnType<
-  typeof useSearchPublicationsSuspenseQuery
->;
-export type SearchPublicationsQueryResult = Apollo.QueryResult<
-  SearchPublicationsQuery,
-  SearchPublicationsQueryVariables
->;
+export function useSearchPublicationsQuery(baseOptions: Apollo.QueryHookOptions<SearchPublicationsQuery, SearchPublicationsQueryVariables> & ({ variables: SearchPublicationsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchPublicationsQuery, SearchPublicationsQueryVariables>(SearchPublicationsDocument, options);
+      }
+export function useSearchPublicationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchPublicationsQuery, SearchPublicationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchPublicationsQuery, SearchPublicationsQueryVariables>(SearchPublicationsDocument, options);
+        }
+export function useSearchPublicationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchPublicationsQuery, SearchPublicationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchPublicationsQuery, SearchPublicationsQueryVariables>(SearchPublicationsDocument, options);
+        }
+export type SearchPublicationsQueryHookResult = ReturnType<typeof useSearchPublicationsQuery>;
+export type SearchPublicationsLazyQueryHookResult = ReturnType<typeof useSearchPublicationsLazyQuery>;
+export type SearchPublicationsSuspenseQueryHookResult = ReturnType<typeof useSearchPublicationsSuspenseQuery>;
+export type SearchPublicationsQueryResult = Apollo.QueryResult<SearchPublicationsQuery, SearchPublicationsQueryVariables>;
 export const StaffPicksDocument = gql`
-  query StaffPicks(
-    $batch1: [ProfileId!]
-    $batch2: [ProfileId!]
-    $batch3: [ProfileId!]
-  ) {
-    batch1: profiles(request: { where: { profileIds: $batch1 } }) {
-      items {
-        ...ListProfileFields
-      }
-    }
-    batch2: profiles(request: { where: { profileIds: $batch2 } }) {
-      items {
-        ...ListProfileFields
-      }
-    }
-    batch3: profiles(request: { where: { profileIds: $batch3 } }) {
-      items {
-        ...ListProfileFields
-      }
+    query StaffPicks($batch1: [ProfileId!], $batch2: [ProfileId!], $batch3: [ProfileId!]) {
+  batch1: profiles(request: {where: {profileIds: $batch1}}) {
+    items {
+      ...ListProfileFields
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+  batch2: profiles(request: {where: {profileIds: $batch2}}) {
+    items {
+      ...ListProfileFields
+    }
+  }
+  batch3: profiles(request: {where: {profileIds: $batch3}}) {
+    items {
+      ...ListProfileFields
+    }
+  }
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useStaffPicksQuery__
@@ -16869,77 +13123,44 @@ export const StaffPicksDocument = gql`
  *   },
  * });
  */
-export function useStaffPicksQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    StaffPicksQuery,
-    StaffPicksQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<StaffPicksQuery, StaffPicksQueryVariables>(
-    StaffPicksDocument,
-    options
-  );
-}
-export function useStaffPicksLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    StaffPicksQuery,
-    StaffPicksQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<StaffPicksQuery, StaffPicksQueryVariables>(
-    StaffPicksDocument,
-    options
-  );
-}
-export function useStaffPicksSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<StaffPicksQuery, StaffPicksQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<StaffPicksQuery, StaffPicksQueryVariables>(
-    StaffPicksDocument,
-    options
-  );
-}
+export function useStaffPicksQuery(baseOptions?: Apollo.QueryHookOptions<StaffPicksQuery, StaffPicksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<StaffPicksQuery, StaffPicksQueryVariables>(StaffPicksDocument, options);
+      }
+export function useStaffPicksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StaffPicksQuery, StaffPicksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<StaffPicksQuery, StaffPicksQueryVariables>(StaffPicksDocument, options);
+        }
+export function useStaffPicksSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<StaffPicksQuery, StaffPicksQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<StaffPicksQuery, StaffPicksQueryVariables>(StaffPicksDocument, options);
+        }
 export type StaffPicksQueryHookResult = ReturnType<typeof useStaffPicksQuery>;
-export type StaffPicksLazyQueryHookResult = ReturnType<
-  typeof useStaffPicksLazyQuery
->;
-export type StaffPicksSuspenseQueryHookResult = ReturnType<
-  typeof useStaffPicksSuspenseQuery
->;
-export type StaffPicksQueryResult = Apollo.QueryResult<
-  StaffPicksQuery,
-  StaffPicksQueryVariables
->;
+export type StaffPicksLazyQueryHookResult = ReturnType<typeof useStaffPicksLazyQuery>;
+export type StaffPicksSuspenseQueryHookResult = ReturnType<typeof useStaffPicksSuspenseQuery>;
+export type StaffPicksQueryResult = Apollo.QueryResult<StaffPicksQuery, StaffPicksQueryVariables>;
 export const UserRateLimitDocument = gql`
-  query UserRateLimit($request: UserCurrentRateLimitRequest!) {
-    userRateLimit(request: $request) {
-      momoka {
-        hourAllowanceLeft
-        hourAllowanceUsed
-        hourAllowance
-        dayAllowanceLeft
-        dayAllowanceUsed
-        dayAllowance
-      }
-      onchain {
-        hourAllowanceLeft
-        hourAllowanceUsed
-        hourAllowance
-        dayAllowanceLeft
-        dayAllowanceUsed
-        dayAllowance
-      }
+    query UserRateLimit($request: UserCurrentRateLimitRequest!) {
+  userRateLimit(request: $request) {
+    momoka {
+      hourAllowanceLeft
+      hourAllowanceUsed
+      hourAllowance
+      dayAllowanceLeft
+      dayAllowanceUsed
+      dayAllowance
+    }
+    onchain {
+      hourAllowanceLeft
+      hourAllowanceUsed
+      hourAllowance
+      dayAllowanceLeft
+      dayAllowanceUsed
+      dayAllowance
     }
   }
-`;
+}
+    `;
 
 /**
  * __useUserRateLimitQuery__
@@ -16957,77 +13178,34 @@ export const UserRateLimitDocument = gql`
  *   },
  * });
  */
-export function useUserRateLimitQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    UserRateLimitQuery,
-    UserRateLimitQueryVariables
-  > &
-    (
-      | { variables: UserRateLimitQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<UserRateLimitQuery, UserRateLimitQueryVariables>(
-    UserRateLimitDocument,
-    options
-  );
-}
-export function useUserRateLimitLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    UserRateLimitQuery,
-    UserRateLimitQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<UserRateLimitQuery, UserRateLimitQueryVariables>(
-    UserRateLimitDocument,
-    options
-  );
-}
-export function useUserRateLimitSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        UserRateLimitQuery,
-        UserRateLimitQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    UserRateLimitQuery,
-    UserRateLimitQueryVariables
-  >(UserRateLimitDocument, options);
-}
-export type UserRateLimitQueryHookResult = ReturnType<
-  typeof useUserRateLimitQuery
->;
-export type UserRateLimitLazyQueryHookResult = ReturnType<
-  typeof useUserRateLimitLazyQuery
->;
-export type UserRateLimitSuspenseQueryHookResult = ReturnType<
-  typeof useUserRateLimitSuspenseQuery
->;
-export type UserRateLimitQueryResult = Apollo.QueryResult<
-  UserRateLimitQuery,
-  UserRateLimitQueryVariables
->;
+export function useUserRateLimitQuery(baseOptions: Apollo.QueryHookOptions<UserRateLimitQuery, UserRateLimitQueryVariables> & ({ variables: UserRateLimitQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserRateLimitQuery, UserRateLimitQueryVariables>(UserRateLimitDocument, options);
+      }
+export function useUserRateLimitLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserRateLimitQuery, UserRateLimitQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserRateLimitQuery, UserRateLimitQueryVariables>(UserRateLimitDocument, options);
+        }
+export function useUserRateLimitSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UserRateLimitQuery, UserRateLimitQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UserRateLimitQuery, UserRateLimitQueryVariables>(UserRateLimitDocument, options);
+        }
+export type UserRateLimitQueryHookResult = ReturnType<typeof useUserRateLimitQuery>;
+export type UserRateLimitLazyQueryHookResult = ReturnType<typeof useUserRateLimitLazyQuery>;
+export type UserRateLimitSuspenseQueryHookResult = ReturnType<typeof useUserRateLimitSuspenseQuery>;
+export type UserRateLimitQueryResult = Apollo.QueryResult<UserRateLimitQuery, UserRateLimitQueryVariables>;
 export const WhoActedOnPublicationDocument = gql`
-  query WhoActedOnPublication($request: WhoActedOnPublicationRequest!) {
-    whoActedOnPublication(request: $request) {
-      items {
-        ...ListProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query WhoActedOnPublication($request: WhoActedOnPublicationRequest!) {
+  whoActedOnPublication(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useWhoActedOnPublicationQuery__
@@ -17045,77 +13223,34 @@ export const WhoActedOnPublicationDocument = gql`
  *   },
  * });
  */
-export function useWhoActedOnPublicationQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    WhoActedOnPublicationQuery,
-    WhoActedOnPublicationQueryVariables
-  > &
-    (
-      | { variables: WhoActedOnPublicationQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    WhoActedOnPublicationQuery,
-    WhoActedOnPublicationQueryVariables
-  >(WhoActedOnPublicationDocument, options);
-}
-export function useWhoActedOnPublicationLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    WhoActedOnPublicationQuery,
-    WhoActedOnPublicationQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    WhoActedOnPublicationQuery,
-    WhoActedOnPublicationQueryVariables
-  >(WhoActedOnPublicationDocument, options);
-}
-export function useWhoActedOnPublicationSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        WhoActedOnPublicationQuery,
-        WhoActedOnPublicationQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    WhoActedOnPublicationQuery,
-    WhoActedOnPublicationQueryVariables
-  >(WhoActedOnPublicationDocument, options);
-}
-export type WhoActedOnPublicationQueryHookResult = ReturnType<
-  typeof useWhoActedOnPublicationQuery
->;
-export type WhoActedOnPublicationLazyQueryHookResult = ReturnType<
-  typeof useWhoActedOnPublicationLazyQuery
->;
-export type WhoActedOnPublicationSuspenseQueryHookResult = ReturnType<
-  typeof useWhoActedOnPublicationSuspenseQuery
->;
-export type WhoActedOnPublicationQueryResult = Apollo.QueryResult<
-  WhoActedOnPublicationQuery,
-  WhoActedOnPublicationQueryVariables
->;
+export function useWhoActedOnPublicationQuery(baseOptions: Apollo.QueryHookOptions<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables> & ({ variables: WhoActedOnPublicationQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables>(WhoActedOnPublicationDocument, options);
+      }
+export function useWhoActedOnPublicationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables>(WhoActedOnPublicationDocument, options);
+        }
+export function useWhoActedOnPublicationSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables>(WhoActedOnPublicationDocument, options);
+        }
+export type WhoActedOnPublicationQueryHookResult = ReturnType<typeof useWhoActedOnPublicationQuery>;
+export type WhoActedOnPublicationLazyQueryHookResult = ReturnType<typeof useWhoActedOnPublicationLazyQuery>;
+export type WhoActedOnPublicationSuspenseQueryHookResult = ReturnType<typeof useWhoActedOnPublicationSuspenseQuery>;
+export type WhoActedOnPublicationQueryResult = Apollo.QueryResult<WhoActedOnPublicationQuery, WhoActedOnPublicationQueryVariables>;
 export const WhoHaveBlockedDocument = gql`
-  query WhoHaveBlocked($request: WhoHaveBlockedRequest!) {
-    whoHaveBlocked(request: $request) {
-      items {
-        ...ListProfileFields
-      }
-      pageInfo {
-        next
-      }
+    query WhoHaveBlocked($request: WhoHaveBlockedRequest!) {
+  whoHaveBlocked(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
     }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useWhoHaveBlockedQuery__
@@ -17133,79 +13268,36 @@ export const WhoHaveBlockedDocument = gql`
  *   },
  * });
  */
-export function useWhoHaveBlockedQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    WhoHaveBlockedQuery,
-    WhoHaveBlockedQueryVariables
-  > &
-    (
-      | { variables: WhoHaveBlockedQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>(
-    WhoHaveBlockedDocument,
-    options
-  );
-}
-export function useWhoHaveBlockedLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    WhoHaveBlockedQuery,
-    WhoHaveBlockedQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>(
-    WhoHaveBlockedDocument,
-    options
-  );
-}
-export function useWhoHaveBlockedSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        WhoHaveBlockedQuery,
-        WhoHaveBlockedQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    WhoHaveBlockedQuery,
-    WhoHaveBlockedQueryVariables
-  >(WhoHaveBlockedDocument, options);
-}
-export type WhoHaveBlockedQueryHookResult = ReturnType<
-  typeof useWhoHaveBlockedQuery
->;
-export type WhoHaveBlockedLazyQueryHookResult = ReturnType<
-  typeof useWhoHaveBlockedLazyQuery
->;
-export type WhoHaveBlockedSuspenseQueryHookResult = ReturnType<
-  typeof useWhoHaveBlockedSuspenseQuery
->;
-export type WhoHaveBlockedQueryResult = Apollo.QueryResult<
-  WhoHaveBlockedQuery,
-  WhoHaveBlockedQueryVariables
->;
-export const WhoReactedPublicationDocument = gql`
-  query WhoReactedPublication($request: WhoReactedPublicationRequest!) {
-    whoReactedPublication(request: $request) {
-      items {
-        profile {
-          ...ListProfileFields
-        }
+export function useWhoHaveBlockedQuery(baseOptions: Apollo.QueryHookOptions<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables> & ({ variables: WhoHaveBlockedQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>(WhoHaveBlockedDocument, options);
       }
-      pageInfo {
-        next
+export function useWhoHaveBlockedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>(WhoHaveBlockedDocument, options);
+        }
+export function useWhoHaveBlockedSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>(WhoHaveBlockedDocument, options);
+        }
+export type WhoHaveBlockedQueryHookResult = ReturnType<typeof useWhoHaveBlockedQuery>;
+export type WhoHaveBlockedLazyQueryHookResult = ReturnType<typeof useWhoHaveBlockedLazyQuery>;
+export type WhoHaveBlockedSuspenseQueryHookResult = ReturnType<typeof useWhoHaveBlockedSuspenseQuery>;
+export type WhoHaveBlockedQueryResult = Apollo.QueryResult<WhoHaveBlockedQuery, WhoHaveBlockedQueryVariables>;
+export const WhoReactedPublicationDocument = gql`
+    query WhoReactedPublication($request: WhoReactedPublicationRequest!) {
+  whoReactedPublication(request: $request) {
+    items {
+      profile {
+        ...ListProfileFields
       }
     }
+    pageInfo {
+      next
+    }
   }
-  ${ListProfileFieldsFragmentDoc}
-`;
+}
+    ${ListProfileFieldsFragmentDoc}`;
 
 /**
  * __useWhoReactedPublicationQuery__
@@ -17223,71 +13315,29 @@ export const WhoReactedPublicationDocument = gql`
  *   },
  * });
  */
-export function useWhoReactedPublicationQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    WhoReactedPublicationQuery,
-    WhoReactedPublicationQueryVariables
-  > &
-    (
-      | { variables: WhoReactedPublicationQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    WhoReactedPublicationQuery,
-    WhoReactedPublicationQueryVariables
-  >(WhoReactedPublicationDocument, options);
-}
-export function useWhoReactedPublicationLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    WhoReactedPublicationQuery,
-    WhoReactedPublicationQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    WhoReactedPublicationQuery,
-    WhoReactedPublicationQueryVariables
-  >(WhoReactedPublicationDocument, options);
-}
-export function useWhoReactedPublicationSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        WhoReactedPublicationQuery,
-        WhoReactedPublicationQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    WhoReactedPublicationQuery,
-    WhoReactedPublicationQueryVariables
-  >(WhoReactedPublicationDocument, options);
-}
-export type WhoReactedPublicationQueryHookResult = ReturnType<
-  typeof useWhoReactedPublicationQuery
->;
-export type WhoReactedPublicationLazyQueryHookResult = ReturnType<
-  typeof useWhoReactedPublicationLazyQuery
->;
-export type WhoReactedPublicationSuspenseQueryHookResult = ReturnType<
-  typeof useWhoReactedPublicationSuspenseQuery
->;
-export type WhoReactedPublicationQueryResult = Apollo.QueryResult<
-  WhoReactedPublicationQuery,
-  WhoReactedPublicationQueryVariables
->;
+export function useWhoReactedPublicationQuery(baseOptions: Apollo.QueryHookOptions<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables> & ({ variables: WhoReactedPublicationQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables>(WhoReactedPublicationDocument, options);
+      }
+export function useWhoReactedPublicationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables>(WhoReactedPublicationDocument, options);
+        }
+export function useWhoReactedPublicationSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables>(WhoReactedPublicationDocument, options);
+        }
+export type WhoReactedPublicationQueryHookResult = ReturnType<typeof useWhoReactedPublicationQuery>;
+export type WhoReactedPublicationLazyQueryHookResult = ReturnType<typeof useWhoReactedPublicationLazyQuery>;
+export type WhoReactedPublicationSuspenseQueryHookResult = ReturnType<typeof useWhoReactedPublicationSuspenseQuery>;
+export type WhoReactedPublicationQueryResult = Apollo.QueryResult<WhoReactedPublicationQuery, WhoReactedPublicationQueryVariables>;
 export const UserSigNoncesSubscriptionDocument = gql`
-  subscription UserSigNoncesSubscription($address: EvmAddress!) {
-    userSigNonces(address: $address) {
-      lensHubOnchainSigNonce
-    }
+    subscription UserSigNoncesSubscription($address: EvmAddress!) {
+  userSigNonces(address: $address) {
+    lensHubOnchainSigNonce
   }
-`;
+}
+    `;
 
 /**
  * __useUserSigNoncesSubscriptionSubscription__
@@ -17305,160 +13355,187 @@ export const UserSigNoncesSubscriptionDocument = gql`
  *   },
  * });
  */
-export function useUserSigNoncesSubscriptionSubscription(
-  baseOptions: Apollo.SubscriptionHookOptions<
-    UserSigNoncesSubscriptionSubscription,
-    UserSigNoncesSubscriptionSubscriptionVariables
-  > &
-    (
-      | {
-          variables: UserSigNoncesSubscriptionSubscriptionVariables;
-          skip?: boolean;
-        }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSubscription<
-    UserSigNoncesSubscriptionSubscription,
-    UserSigNoncesSubscriptionSubscriptionVariables
-  >(UserSigNoncesSubscriptionDocument, options);
-}
-export type UserSigNoncesSubscriptionSubscriptionHookResult = ReturnType<
-  typeof useUserSigNoncesSubscriptionSubscription
->;
-export type UserSigNoncesSubscriptionSubscriptionResult =
-  Apollo.SubscriptionResult<UserSigNoncesSubscriptionSubscription>;
+export function useUserSigNoncesSubscriptionSubscription(baseOptions: Apollo.SubscriptionHookOptions<UserSigNoncesSubscriptionSubscription, UserSigNoncesSubscriptionSubscriptionVariables> & ({ variables: UserSigNoncesSubscriptionSubscriptionVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<UserSigNoncesSubscriptionSubscription, UserSigNoncesSubscriptionSubscriptionVariables>(UserSigNoncesSubscriptionDocument, options);
+      }
+export type UserSigNoncesSubscriptionSubscriptionHookResult = ReturnType<typeof useUserSigNoncesSubscriptionSubscription>;
+export type UserSigNoncesSubscriptionSubscriptionResult = Apollo.SubscriptionResult<UserSigNoncesSubscriptionSubscription>;
 
-export interface PossibleTypesResultData {
-  possibleTypes: {
-    [key: string]: string[];
-  };
-}
-const result: PossibleTypesResultData = {
-  possibleTypes: {
-    AnyPublication: ['Comment', 'Mirror', 'Post', 'Quote'],
-    Asset: ['Erc20'],
-    BroadcastMomokaResult: ['CreateMomokaPublicationResult', 'RelayError'],
-    ClaimProfileWithHandleResult: [
-      'ClaimProfileWithHandleErrorResult',
-      'RelaySuccess'
+      export interface PossibleTypesResultData {
+        possibleTypes: {
+          [key: string]: string[]
+        }
+      }
+      const result: PossibleTypesResultData = {
+  "possibleTypes": {
+    "AnyPublication": [
+      "Comment",
+      "Mirror",
+      "Post",
+      "Quote"
     ],
-    CommentablePublication: ['Post', 'Quote'],
-    CreateProfileWithHandleResult: [
-      'CreateProfileWithHandleErrorResult',
-      'RelaySuccess'
+    "Asset": [
+      "Erc20"
     ],
-    ExplorePublication: ['Post', 'Quote'],
-    FeedHighlight: ['Post', 'Quote'],
-    FollowModule: [
-      'FeeFollowModuleSettings',
-      'RevertFollowModuleSettings',
-      'UnknownFollowModuleSettings'
+    "BroadcastMomokaResult": [
+      "CreateMomokaPublicationResult",
+      "RelayError"
     ],
-    LensProfileManagerRelayResult: [
-      'LensProfileManagerRelayError',
-      'RelaySuccess'
+    "ClaimProfileWithHandleResult": [
+      "ClaimProfileWithHandleErrorResult",
+      "RelaySuccess"
     ],
-    MirrorablePublication: ['Comment', 'Post', 'Quote'],
-    MomokaTransaction: [
-      'MomokaCommentTransaction',
-      'MomokaMirrorTransaction',
-      'MomokaPostTransaction',
-      'MomokaQuoteTransaction'
+    "CommentablePublication": [
+      "Post",
+      "Quote"
     ],
-    MomokaVerificationStatus: [
-      'MomokaVerificationStatusFailure',
-      'MomokaVerificationStatusSuccess'
+    "CreateProfileWithHandleResult": [
+      "CreateProfileWithHandleErrorResult",
+      "RelaySuccess"
     ],
-    Notification: [
-      'ActedNotification',
-      'CommentNotification',
-      'FollowNotification',
-      'MentionNotification',
-      'MirrorNotification',
-      'QuoteNotification',
-      'ReactionNotification'
+    "ExplorePublication": [
+      "Post",
+      "Quote"
     ],
-    OpenActionModule: [
-      'LegacyAaveFeeCollectModuleSettings',
-      'LegacyERC4626FeeCollectModuleSettings',
-      'LegacyFeeCollectModuleSettings',
-      'LegacyFreeCollectModuleSettings',
-      'LegacyLimitedFeeCollectModuleSettings',
-      'LegacyLimitedTimedFeeCollectModuleSettings',
-      'LegacyMultirecipientFeeCollectModuleSettings',
-      'LegacyRevertCollectModuleSettings',
-      'LegacySimpleCollectModuleSettings',
-      'LegacyTimedFeeCollectModuleSettings',
-      'MultirecipientFeeCollectOpenActionSettings',
-      'SimpleCollectOpenActionSettings',
-      'UnknownOpenActionModuleSettings'
+    "FeedHighlight": [
+      "Post",
+      "Quote"
     ],
-    OpenActionResult: [
-      'KnownCollectOpenActionResult',
-      'UnknownOpenActionResult'
+    "FollowModule": [
+      "FeeFollowModuleSettings",
+      "RevertFollowModuleSettings",
+      "UnknownFollowModuleSettings"
     ],
-    PaidAction: ['FollowPaidAction', 'OpenActionPaidAction'],
-    PrimaryPublication: ['Comment', 'Post', 'Quote'],
-    ProfilePicture: ['ImageSet', 'NftImage'],
-    PublicationForYou: ['Post', 'Quote'],
-    PublicationMetadata: [
-      'ArticleMetadataV3',
-      'AudioMetadataV3',
-      'CheckingInMetadataV3',
-      'EmbedMetadataV3',
-      'EventMetadataV3',
-      'ImageMetadataV3',
-      'LinkMetadataV3',
-      'LiveStreamMetadataV3',
-      'MintMetadataV3',
-      'SpaceMetadataV3',
-      'StoryMetadataV3',
-      'TextOnlyMetadataV3',
-      'ThreeDMetadataV3',
-      'TransactionMetadataV3',
-      'VideoMetadataV3'
+    "LensProfileManagerRelayResult": [
+      "LensProfileManagerRelayError",
+      "RelaySuccess"
     ],
-    PublicationMetadataEncryptionStrategy: ['PublicationMetadataLitEncryption'],
-    PublicationMetadataMedia: [
-      'PublicationMetadataMediaAudio',
-      'PublicationMetadataMediaImage',
-      'PublicationMetadataMediaVideo'
+    "MirrorablePublication": [
+      "Comment",
+      "Post",
+      "Quote"
     ],
-    ReferenceModule: [
-      'DegreesOfSeparationReferenceModuleSettings',
-      'FollowOnlyReferenceModuleSettings',
-      'LegacyDegreesOfSeparationReferenceModuleSettings',
-      'LegacyFollowOnlyReferenceModuleSettings',
-      'UnknownReferenceModuleSettings'
+    "MomokaTransaction": [
+      "MomokaCommentTransaction",
+      "MomokaMirrorTransaction",
+      "MomokaPostTransaction",
+      "MomokaQuoteTransaction"
     ],
-    RelayMomokaResult: [
-      'CreateMomokaPublicationResult',
-      'LensProfileManagerRelayError'
+    "MomokaVerificationStatus": [
+      "MomokaVerificationStatusFailure",
+      "MomokaVerificationStatusSuccess"
     ],
-    RelayResult: ['RelayError', 'RelaySuccess'],
-    SecondTierCondition: [
-      'AdvancedContractCondition',
-      'AndCondition',
-      'CollectCondition',
-      'EoaOwnershipCondition',
-      'Erc20OwnershipCondition',
-      'FollowCondition',
-      'NftOwnershipCondition',
-      'OrCondition',
-      'ProfileOwnershipCondition'
+    "Notification": [
+      "ActedNotification",
+      "CommentNotification",
+      "FollowNotification",
+      "MentionNotification",
+      "MirrorNotification",
+      "QuoteNotification",
+      "ReactionNotification"
     ],
-    SupportedModule: ['KnownSupportedModule', 'UnknownSupportedModule'],
-    ThirdTierCondition: [
-      'AdvancedContractCondition',
-      'CollectCondition',
-      'EoaOwnershipCondition',
-      'Erc20OwnershipCondition',
-      'FollowCondition',
-      'NftOwnershipCondition',
-      'ProfileOwnershipCondition'
+    "OpenActionModule": [
+      "LegacyAaveFeeCollectModuleSettings",
+      "LegacyERC4626FeeCollectModuleSettings",
+      "LegacyFeeCollectModuleSettings",
+      "LegacyFreeCollectModuleSettings",
+      "LegacyLimitedFeeCollectModuleSettings",
+      "LegacyLimitedTimedFeeCollectModuleSettings",
+      "LegacyMultirecipientFeeCollectModuleSettings",
+      "LegacyRevertCollectModuleSettings",
+      "LegacySimpleCollectModuleSettings",
+      "LegacyTimedFeeCollectModuleSettings",
+      "MultirecipientFeeCollectOpenActionSettings",
+      "SimpleCollectOpenActionSettings",
+      "UnknownOpenActionModuleSettings"
+    ],
+    "OpenActionResult": [
+      "KnownCollectOpenActionResult",
+      "UnknownOpenActionResult"
+    ],
+    "PaidAction": [
+      "FollowPaidAction",
+      "OpenActionPaidAction"
+    ],
+    "PrimaryPublication": [
+      "Comment",
+      "Post",
+      "Quote"
+    ],
+    "ProfilePicture": [
+      "ImageSet",
+      "NftImage"
+    ],
+    "PublicationForYou": [
+      "Post",
+      "Quote"
+    ],
+    "PublicationMetadata": [
+      "ArticleMetadataV3",
+      "AudioMetadataV3",
+      "CheckingInMetadataV3",
+      "EmbedMetadataV3",
+      "EventMetadataV3",
+      "ImageMetadataV3",
+      "LinkMetadataV3",
+      "LiveStreamMetadataV3",
+      "MintMetadataV3",
+      "SpaceMetadataV3",
+      "StoryMetadataV3",
+      "TextOnlyMetadataV3",
+      "ThreeDMetadataV3",
+      "TransactionMetadataV3",
+      "VideoMetadataV3"
+    ],
+    "PublicationMetadataEncryptionStrategy": [
+      "PublicationMetadataLitEncryption"
+    ],
+    "PublicationMetadataMedia": [
+      "PublicationMetadataMediaAudio",
+      "PublicationMetadataMediaImage",
+      "PublicationMetadataMediaVideo"
+    ],
+    "ReferenceModule": [
+      "DegreesOfSeparationReferenceModuleSettings",
+      "FollowOnlyReferenceModuleSettings",
+      "LegacyDegreesOfSeparationReferenceModuleSettings",
+      "LegacyFollowOnlyReferenceModuleSettings",
+      "UnknownReferenceModuleSettings"
+    ],
+    "RelayMomokaResult": [
+      "CreateMomokaPublicationResult",
+      "LensProfileManagerRelayError"
+    ],
+    "RelayResult": [
+      "RelayError",
+      "RelaySuccess"
+    ],
+    "SecondTierCondition": [
+      "AdvancedContractCondition",
+      "AndCondition",
+      "CollectCondition",
+      "EoaOwnershipCondition",
+      "Erc20OwnershipCondition",
+      "FollowCondition",
+      "NftOwnershipCondition",
+      "OrCondition",
+      "ProfileOwnershipCondition"
+    ],
+    "SupportedModule": [
+      "KnownSupportedModule",
+      "UnknownSupportedModule"
+    ],
+    "ThirdTierCondition": [
+      "AdvancedContractCondition",
+      "CollectCondition",
+      "EoaOwnershipCondition",
+      "Erc20OwnershipCondition",
+      "FollowCondition",
+      "NftOwnershipCondition",
+      "ProfileOwnershipCondition"
     ]
   }
 };
-export default result;
+      export default result;
+    

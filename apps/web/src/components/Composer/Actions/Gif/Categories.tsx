@@ -1,10 +1,10 @@
-import type { Category } from '@hey/types/giphy';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Category } from "@hey/types/giphy";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { GIPHY_KEY } from '@hey/data/constants';
-import { H5 } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { GIPHY_KEY } from "@hey/data/constants";
+import { H5 } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface CategoriesProps {
   setSearchText: Dispatch<SetStateAction<string>>;
@@ -14,7 +14,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
   const getGiphyCategories = async () => {
     try {
       const response = await axios.get(
-        'https://api.giphy.com/v1/gifs/categories',
+        "https://api.giphy.com/v1/gifs/categories",
         { params: { api_key: GIPHY_KEY } }
       );
 
@@ -26,7 +26,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
 
   const { data: categories } = useQuery({
     queryFn: getGiphyCategories,
-    queryKey: ['getGiphyCategories']
+    queryKey: ["getGiphyCategories"]
   });
 
   return (
@@ -45,8 +45,8 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
             height={128}
             src={category.gif?.images?.original_still?.url}
           />
-          <div className="absolute bottom-0 right-0 w-full bg-gradient-to-b from-transparent to-gray-800 px-2 py-1 text-right">
-            <H5 className="capitalize text-white">{category.name}</H5>
+          <div className="absolute right-0 bottom-0 w-full bg-gradient-to-b from-transparent to-gray-800 px-2 py-1 text-right">
+            <H5 className="text-white capitalize">{category.name}</H5>
           </div>
         </button>
       ))}

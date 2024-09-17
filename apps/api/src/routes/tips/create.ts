@@ -1,14 +1,14 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import { Regex } from '@hey/data/regex';
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { number, object, string } from 'zod';
+import { Regex } from "@hey/data/regex";
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { number, object, string } from "zod";
 
 type ExtensionRequest = {
   amount: number;
@@ -48,7 +48,7 @@ export const post = [
       body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
       const data = await prisma.tip.create({
@@ -59,7 +59,7 @@ export const post = [
           publicationId: id,
           toAddress,
           tokenAddress,
-          toProfileId: id.split('-')[0],
+          toProfileId: id.split("-")[0],
           txHash
         }
       });

@@ -1,11 +1,11 @@
-import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { FC } from 'react';
+import type { EditorExtension } from "@helpers/prosekit/extension";
+import type { FC } from "react";
 
-import { BoldIcon, ItalicIcon } from '@heroicons/react/24/outline';
-import { useEditor } from 'prosekit/react';
-import { InlinePopover } from 'prosekit/react/inline-popover';
+import { BoldIcon, ItalicIcon } from "@heroicons/react/24/outline";
+import { useEditor } from "prosekit/react";
+import { InlinePopover } from "prosekit/react/inline-popover";
 
-import Toggle from './Toggle';
+import Toggle from "./Toggle";
 
 const InlineMenu: FC = () => {
   const editor = useEditor<EditorExtension>({ update: true });

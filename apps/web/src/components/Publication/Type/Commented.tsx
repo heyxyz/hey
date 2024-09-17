@@ -1,7 +1,7 @@
-import type { Comment } from '@hey/lens';
-import type { FC } from 'react';
+import type { Comment } from "@hey/lens";
+import type { FC } from "react";
 
-import ThreadBody from '../ThreadBody';
+import ThreadBody from "../ThreadBody";
 
 interface CommentedProps {
   publication: Comment;

@@ -1,35 +1,35 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import IndexStatus from '@components/Shared/IndexStatus';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import IndexStatus from "@components/Shared/IndexStatus";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
-} from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { Button, Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface ToggleLensManagerProps {
-  buttonSize?: 'sm';
+  buttonSize?: "sm";
 }
 
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
-  buttonSize = 'md'
+  buttonSize = "md"
 }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
@@ -44,13 +44,13 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { canBroadcast, canUseSignless } =
     checkDispatcherPermissions(currentProfile);
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
       return;
     }
 
     setIsLoading(false);
-    toast.success('Profile updated successfully!');
+    toast.success("Profile updated successfully!");
     Leafwatch.track(SETTINGS.MANAGER.TOGGLE);
   };
 
@@ -78,7 +78,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'changeDelegatedExecutorsConfig'
+      functionName: "changeDelegatedExecutorsConfig"
     });
   };
 
@@ -112,7 +112,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
           }
 
@@ -134,7 +134,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       return await createChangeProfileManagersTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: { approveSignless: canUseSignless ? false : true }
+          request: { approveSignless: !canUseSignless }
         }
       });
     } catch (error) {
@@ -143,7 +143,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   };
 
   const broadcastTxId =
-    broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
+    broadcastData?.broadcastOnchain.__typename === "RelaySuccess" &&
     broadcastData.broadcastOnchain.txId;
 
   return writeHash || broadcastTxId ? (
@@ -152,11 +152,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     </div>
   ) : (
     <Button
-      className={cn({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
+      className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
       disabled={isLoading}
       icon={
         isLoading ? (
-          <Spinner size="xs" variant={canUseSignless ? 'danger' : 'primary'} />
+          <Spinner size="xs" variant={canUseSignless ? "danger" : "primary"} />
         ) : canUseSignless ? (
           <XMarkIcon className="size-4" />
         ) : (
@@ -164,9 +164,9 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         )
       }
       onClick={toggleDispatcher}
-      variant={canUseSignless ? 'danger' : 'primary'}
+      variant={canUseSignless ? "danger" : "primary"}
     >
-      {canUseSignless ? 'Disable' : 'Enable'}
+      {canUseSignless ? "Disable" : "Enable"}
     </Button>
   );
 };

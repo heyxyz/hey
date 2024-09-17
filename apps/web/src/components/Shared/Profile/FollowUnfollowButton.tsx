@@ -1,13 +1,13 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { FollowModuleType } from '@hey/lens';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { FollowModuleType } from "@hey/lens";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Follow from './Follow';
-import SuperFollow from './SuperFollow';
-import Unfollow from './Unfollow';
+import Follow from "./Follow";
+import SuperFollow from "./SuperFollow";
+import Unfollow from "./Unfollow";
 
 interface FollowUnfollowButtonProps {
   buttonClassName?: string;
@@ -21,14 +21,14 @@ interface FollowUnfollowButtonProps {
 }
 
 const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
-  buttonClassName = '',
-  followTitle = 'Follow',
+  buttonClassName = "",
+  followTitle = "Follow",
   hideFollowButton = false,
   hideUnfollowButton = false,
   profile,
   small = false,
-  superFollowTitle = 'Super Follow',
-  unfollowTitle = 'Following'
+  superFollowTitle = "Super Follow",
+  unfollowTitle = "Following"
 }) => {
   const { currentProfile } = useProfileStore();
 

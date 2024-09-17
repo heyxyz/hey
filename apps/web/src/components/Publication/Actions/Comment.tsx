@@ -1,12 +1,12 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
-import humanize from '@hey/helpers/humanize';
-import nFormatter from '@hey/helpers/nFormatter';
-import { Tooltip } from '@hey/ui';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import humanize from "@hey/helpers/humanize";
+import nFormatter from "@hey/helpers/nFormatter";
+import { Tooltip } from "@hey/ui";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 interface CommentProps {
   publication: MirrorablePublication;
@@ -17,8 +17,8 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   const { push } = useRouter();
   const count = publication.stats.comments;
   const iconClassName = showCount
-    ? 'w-[17px] sm:w-[20px]'
-    : 'w-[15px] sm:w-[18px]';
+    ? "w-[17px] sm:w-[20px]"
+    : "w-[15px] sm:w-[18px]";
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
@@ -31,7 +31,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
         whileTap={{ scale: 0.9 }}
       >
         <Tooltip
-          content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
+          content={count > 0 ? `${humanize(count)} Comments` : "Comment"}
           placement="top"
           withDelay
         >

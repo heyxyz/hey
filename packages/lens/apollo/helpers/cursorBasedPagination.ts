@@ -1,6 +1,6 @@
-import type { FieldPolicy, StoreValue } from '@apollo/client/core';
+import type { FieldPolicy, StoreValue } from "@apollo/client/core";
 
-import type { PaginatedResultInfo } from '../../generated';
+import type { PaginatedResultInfo } from "../../generated";
 
 interface CursorBasedPagination<T = StoreValue> {
   items: T[];
@@ -16,7 +16,7 @@ type SafeReadonly<T> = T extends object ? Readonly<T> : T;
  * @returns Field policy for cursor-based pagination.
  */
 export const cursorBasedPagination = <T extends CursorBasedPagination>(
-  keyArgs: FieldPolicy['keyArgs']
+  keyArgs: FieldPolicy["keyArgs"]
 ): FieldPolicy<T> => {
   return {
     keyArgs,

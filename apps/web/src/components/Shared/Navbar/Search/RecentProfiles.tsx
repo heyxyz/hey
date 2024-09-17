@@ -1,17 +1,17 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import UserProfile from '@components/Shared/UserProfile';
-import { Leafwatch } from '@helpers/leafwatch';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource, SEARCH } from '@hey/data/tracking';
-import getProfile from '@hey/helpers/getProfile';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useProfilesQuery } from '@hey/lens';
-import { H6 } from '@hey/ui';
-import { useRouter } from 'next/router';
-import { useSearchStore } from 'src/store/persisted/useSearchStore';
+import Loader from "@components/Shared/Loader";
+import UserProfile from "@components/Shared/UserProfile";
+import { Leafwatch } from "@helpers/leafwatch";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
+import getProfile from "@hey/helpers/getProfile";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { useProfilesQuery } from "@hey/lens";
+import { H6 } from "@hey/ui";
+import { useRouter } from "next/router";
+import { useSearchStore } from "src/store/persisted/useSearchStore";
 
 interface RecentProfilesProps {
   onProfileClick: () => void;
@@ -43,13 +43,14 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
         <Loader className="my-3" message="Loading recent profiles" small />
       ) : (
         <div>
-          <div className="flex items-center justify-between px-4 pb-2 pt-1">
+          <div className="flex items-center justify-between px-4 pt-1 pb-2">
             <b>Recent</b>
             <button
               onClick={() => {
                 clearProfiles();
                 Leafwatch.track(SEARCH.CLEAR_ALL_RECENT_SEARCH);
               }}
+              type="button"
             >
               <H6 className="ld-text-gray-500">Clear all</H6>
             </button>

@@ -3,13 +3,13 @@ import type {
   LatestActed,
   MultirecipientFeeCollectOpenActionSettings,
   SimpleCollectOpenActionSettings
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import getCollectModuleData from '@hey/helpers/getCollectModuleData';
-import getTokenImage from '@hey/helpers/getTokenImage';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
+import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import getCollectModuleData from "@hey/helpers/getCollectModuleData";
+import getTokenImage from "@hey/helpers/getTokenImage";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];
@@ -27,8 +27,8 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   const openActions = targetPublication.openActionModules
     .filter(
       (module) =>
-        module.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
-        module.__typename === 'SimpleCollectOpenActionSettings'
+        module.__typename === "MultirecipientFeeCollectOpenActionSettings" ||
+        module.__typename === "SimpleCollectOpenActionSettings"
     )
     .map((module) =>
       getCollectModuleData(

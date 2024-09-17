@@ -6,10 +6,6 @@
   "scripts": {
     "dev": "nodemon -w src -x tsx src/server.ts",
     "get-invoice-countries": "ts-node ./src/script/get-invoice-countries.ts",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
-    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "save-invoices": "ts-node ./src/script/save-invoices.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
     "typecheck": "tsc --pretty"

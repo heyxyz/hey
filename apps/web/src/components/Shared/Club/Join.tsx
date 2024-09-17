@@ -1,12 +1,12 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Button } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import errorToast from "@helpers/errorToast";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Button } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface JoinProps {
   id: string;
@@ -26,7 +26,7 @@ const Join: FC<JoinProps> = ({ id, setJoined, small }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      toast.success('Joined club successfully!');
+      toast.success("Joined club successfully!");
       setJoined(true);
     } catch (error) {
       errorToast(error);
@@ -41,7 +41,7 @@ const Join: FC<JoinProps> = ({ id, setJoined, small }) => {
       disabled={isLoading}
       onClick={handleJoin}
       outline
-      size={small ? 'sm' : 'md'}
+      size={small ? "sm" : "md"}
     >
       Join
     </Button>

@@ -1,14 +1,14 @@
-import clickhouseClient from '@hey/db/clickhouseClient';
-import { lRangeRedis, lTrimRedis } from '@hey/db/redisClient';
-import logger from '@hey/helpers/logger';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import { lRangeRedis, lTrimRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
 
 const batchProcessImpressions = async () => {
   try {
     const startTime = Date.now();
-    const impressions = (await lRangeRedis('impressions', 0, 999999)) || [];
+    const impressions = (await lRangeRedis("impressions", 0, 999999)) || [];
 
     if (impressions.length === 0) {
-      logger.info('[Cron] batchProcessImpressions - No impressions to process');
+      logger.info("[Cron] batchProcessImpressions - No impressions to process");
       return;
     }
 
@@ -17,8 +17,8 @@ const batchProcessImpressions = async () => {
     );
 
     await clickhouseClient.insert({
-      format: 'JSONEachRow',
-      table: 'impressions',
+      format: "JSONEachRow",
+      table: "impressions",
       values: parsedImpressions
     });
 
@@ -29,10 +29,10 @@ const batchProcessImpressions = async () => {
       `[Cron] batchProcessImpressions - Batch inserted ${parsedImpressions.length} impressions to Clickhouse in ${timeTaken}ms`
     );
 
-    await lTrimRedis('impressions', impressions.length, -1);
+    await lTrimRedis("impressions", impressions.length, -1);
   } catch (error) {
     logger.error(
-      '[Cron] batchProcessImpressions - Error processing impressions',
+      "[Cron] batchProcessImpressions - Error processing impressions",
       error
     );
   }

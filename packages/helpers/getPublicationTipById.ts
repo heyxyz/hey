@@ -1,4 +1,4 @@
-import type { PublicationTip } from '@hey/types/hey';
+import type { PublicationTip } from "@hey/types/hey";
 
 /**
  * Get the tip object of a publication

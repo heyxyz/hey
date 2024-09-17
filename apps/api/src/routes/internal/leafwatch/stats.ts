@@ -1,10 +1,10 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import clickhouseClient from '@hey/db/clickhouseClient';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import validateIsStaff from 'src/helpers/middlewares/validateIsStaff';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 
 export const get = [
   validateLensAccount,
@@ -92,12 +92,12 @@ export const get = [
       const results: any = await Promise.all(
         queries.map((query) =>
           clickhouseClient
-            .query({ format: 'JSONEachRow', query })
+            .query({ format: "JSONEachRow", query })
             .then((rows) => rows.json())
         )
       );
 
-      logger.info('Fetched Leafwatch stats');
+      logger.info("Fetched Leafwatch stats");
 
       return res.status(200).json({
         dau: results[4].map((row: any, index: number) => ({

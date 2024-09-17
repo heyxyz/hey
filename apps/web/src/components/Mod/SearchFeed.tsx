@@ -1,17 +1,17 @@
-import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import HigherActions from '@components/Publication/Actions/HigherActions';
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { LimitType, useSearchPublicationsQuery } from '@hey/lens';
-import { Button, Card, EmptyState, ErrorMessage, Input } from '@hey/ui';
-import { useEffect, useState } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+import HigherActions from "@components/Publication/Actions/HigherActions";
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
+import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
+import { useEffect, useState } from "react";
+import { Virtuoso } from "react-virtuoso";
 
-import { useModFilterStore } from './Filter';
+import { useModFilterStore } from "./Filter";
 
 const SearchFeed: FC = () => {
   const {
@@ -23,7 +23,7 @@ const SearchFeed: FC = () => {
     setRefreshing
   } = useModFilterStore();
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const request: PublicationSearchRequest = {
     limit: LimitType.Fifty,
@@ -52,7 +52,6 @@ const SearchFeed: FC = () => {
   useEffect(() => {
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const onEndReached = async () => {

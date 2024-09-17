@@ -1,9 +1,8 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
     "formulahendry.auto-close-tag",
     "mikestead.dotenv",
-    "dbaeumer.vscode-eslint",
+    "biomejs.biome",
     "GitHub.copilot-nightly",
     "GitHub.remotehub",
     "eamodio.gitlens",

@@ -1,10 +1,10 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import { ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { Tooltip } from '@hey/ui';
-import { motion } from 'framer-motion';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
+import { ShieldCheckIcon } from "@heroicons/react/24/outline";
+import { Tooltip } from "@hey/ui";
+import { motion } from "framer-motion";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
 interface ModProps {
   isFullPublication?: boolean;
@@ -15,8 +15,8 @@ const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
 
   const iconClassName = isFullPublication
-    ? 'w-[17px] sm:w-[20px]'
-    : 'w-[15px] sm:w-[18px]';
+    ? "w-[17px] sm:w-[20px]"
+    : "w-[15px] sm:w-[18px]";
 
   return (
     <motion.button

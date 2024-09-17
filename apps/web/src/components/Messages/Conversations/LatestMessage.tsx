@@ -1,8 +1,8 @@
-import type { CachedConversation } from '@xmtp/react-sdk';
-import type { FC, ReactNode } from 'react';
+import type { CachedConversation } from "@xmtp/react-sdk";
+import type { FC, ReactNode } from "react";
 
-import { ContentTypeText } from '@xmtp/content-type-text';
-import { useLastMessage } from '@xmtp/react-sdk';
+import { ContentTypeText } from "@xmtp/content-type-text";
+import { useLastMessage } from "@xmtp/react-sdk";
 
 const Wrapper: FC<{
   children: ReactNode;

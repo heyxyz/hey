@@ -1,28 +1,28 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import FullPageLoader from '@components/Shared/FullPageLoader';
-import GlobalAlerts from '@components/Shared/GlobalAlerts';
-import GlobalBanners from '@components/Shared/GlobalBanners';
-import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import PageMetatags from '@components/Shared/PageMetatags';
-import getCurrentSession from '@helpers/getCurrentSession';
-import getToastOptions from '@helpers/getToastOptions';
-import { useCurrentProfileQuery } from '@hey/lens';
-import { useIsClient } from '@uidotdev/usehooks';
-import { useTheme } from 'next-themes';
-import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { hydrateAuthTokens, signOut } from 'src/store/persisted/useAuthStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { isAddress } from 'viem';
-import { useDisconnect } from 'wagmi';
+import FullPageLoader from "@components/Shared/FullPageLoader";
+import GlobalAlerts from "@components/Shared/GlobalAlerts";
+import GlobalBanners from "@components/Shared/GlobalBanners";
+import BottomNavigation from "@components/Shared/Navbar/BottomNavigation";
+import PageMetatags from "@components/Shared/PageMetatags";
+import getCurrentSession from "@helpers/getCurrentSession";
+import getToastOptions from "@helpers/getToastOptions";
+import { useCurrentProfileQuery } from "@hey/lens";
+import { useIsClient } from "@uidotdev/usehooks";
+import { useTheme } from "next-themes";
+import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { isAddress } from "viem";
+import { useDisconnect } from "wagmi";
 
-import GlobalModals from '../Shared/GlobalModals';
-import Navbar from '../Shared/Navbar';
+import GlobalModals from "../Shared/GlobalModals";
+import Navbar from "../Shared/Navbar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -75,7 +75,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     validateAuthentication();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const profileLoading = !currentProfile && loading;
@@ -88,7 +87,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       <PageMetatags />
       <Toaster
-        containerStyle={{ wordBreak: 'break-word' }}
+        containerStyle={{ wordBreak: "break-word" }}
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />

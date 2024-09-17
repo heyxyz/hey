@@ -1,11 +1,11 @@
-import type { CachedMessage } from '@xmtp/react-sdk';
-import type { FC } from 'react';
+import type { CachedMessage } from "@xmtp/react-sdk";
+import type { FC } from "react";
 
-import getTimeFromNow from '@hey/helpers/datetime/getTimeFromNow';
-import cn from '@hey/ui/cn';
-import { ContentTypeText } from '@xmtp/content-type-text';
-import { hasReaction, useReactions } from '@xmtp/react-sdk';
-import { useAccount } from 'wagmi';
+import getTimeFromNow from "@hey/helpers/datetime/getTimeFromNow";
+import cn from "@hey/ui/cn";
+import { ContentTypeText } from "@xmtp/content-type-text";
+import { hasReaction, useReactions } from "@xmtp/react-sdk";
+import { useAccount } from "wagmi";
 
 interface MessagesProps {
   message: CachedMessage;
@@ -20,17 +20,17 @@ const Messages: FC<MessagesProps> = ({ message }) => {
   if (message.contentType === ContentTypeText.toString()) {
     return (
       <div
-        className={cn('flex flex-col', { 'items-end': isSender })}
+        className={cn("flex flex-col", { "items-end": isSender })}
         key={message.id}
       >
-        <div className={cn('flex', { 'justify-end': isSender })}>
+        <div className={cn("flex", { "justify-end": isSender })}>
           <div
             className={cn(
               isSender
-                ? 'bg-gray-700 text-white dark:bg-gray-100 dark:text-black'
-                : 'bg-gray-100 dark:bg-gray-700',
-              'max-w-xs break-words rounded-3xl px-4 py-2',
-              isSender ? 'rounded-br-lg' : 'rounded-bl-lg'
+                ? "bg-gray-700 text-white dark:bg-gray-100 dark:text-black"
+                : "bg-gray-100 dark:bg-gray-700",
+              "max-w-xs break-words rounded-3xl px-4 py-2",
+              isSender ? "rounded-br-lg" : "rounded-bl-lg"
             )}
           >
             {message.content}
@@ -40,9 +40,9 @@ const Messages: FC<MessagesProps> = ({ message }) => {
           {getTimeFromNow(message.sentAt)}
         </div>
         {messageHasReaction && (
-          <div className="mb-1 mt-1 flex w-fit space-x-2 rounded-full">
-            {reactions.map((reaction, index) => (
-              <div key={index}>
+          <div className="mt-1 mb-1 flex w-fit space-x-2 rounded-full">
+            {reactions.map((reaction) => (
+              <div key={reaction.id}>
                 <span>{reaction.content}</span>
               </div>
             ))}

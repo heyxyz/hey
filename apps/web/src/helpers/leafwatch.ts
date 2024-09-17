@@ -1,12 +1,12 @@
-import { HEY_API_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { HEY_API_URL } from "@hey/data/constants";
+import { Localstorage } from "@hey/data/storage";
 
-import { getAuthApiHeadersWithAccessToken } from './getAuthApiHeaders';
+import { getAuthApiHeadersWithAccessToken } from "./getAuthApiHeaders";
 
 let worker: Worker;
 
-if (typeof Worker !== 'undefined') {
-  worker = new Worker(new URL('./leafwatchWorker', import.meta.url));
+if (typeof Worker !== "undefined") {
+  worker = new Worker(new URL("./leafwatchWorker", import.meta.url));
 }
 
 /**
@@ -21,7 +21,7 @@ export const Leafwatch = {
     worker.postMessage({
       fingerprint: fingerprint || undefined,
       identityToken:
-        getAuthApiHeadersWithAccessToken()['X-Identity-Token'] || undefined,
+        getAuthApiHeadersWithAccessToken()["X-Identity-Token"] || undefined,
       name,
       properties,
       referrer: referrerDomain,
@@ -31,9 +31,9 @@ export const Leafwatch = {
     worker.onmessage = (event: MessageEvent) => {
       const response = event.data;
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${HEY_API_URL}/leafwatch/events`);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('x-identity-token', response.identityToken);
+      xhr.open("POST", `${HEY_API_URL}/leafwatch/events`);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("x-identity-token", response.identityToken);
       xhr.send(JSON.stringify(response));
     };
   }

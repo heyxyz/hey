@@ -1,18 +1,18 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { AUTH } from '@hey/data/tracking';
-import { useAuthenticateMutation, useChallengeLazyQuery } from '@hey/lens';
-import { Button, H4, Spinner } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { signIn } from 'src/store/persisted/useAuthStore';
-import { useAccount, useSignMessage } from 'wagmi';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { AUTH } from "@hey/data/tracking";
+import { useAuthenticateMutation, useChallengeLazyQuery } from "@hey/lens";
+import { Button, H4, Spinner } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { signIn } from "src/store/persisted/useAuthStore";
+import { useAccount, useSignMessage } from "wagmi";
 
-import { useSignupStore } from '.';
+import { useSignupStore } from ".";
 
 const Success: FC = () => {
   const { profileId } = useSignupStore();
@@ -27,7 +27,7 @@ const Success: FC = () => {
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
 
   const [loadChallenge] = useChallengeLazyQuery({
-    fetchPolicy: 'no-cache'
+    fetchPolicy: "no-cache"
   });
   const [authenticate] = useAuthenticateMutation();
 
@@ -56,7 +56,7 @@ const Success: FC = () => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       const identityToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, identityToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { profile_id: profileId, source: 'signup' });
+      Leafwatch.track(AUTH.LOGIN, { profile_id: profileId, source: "signup" });
       location.reload();
     } catch {}
   };

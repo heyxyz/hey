@@ -1,5 +1,5 @@
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   liveVideoConfig: {
@@ -18,9 +18,9 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  liveVideoConfig: { id: '', playbackId: '', streamKey: '' },
+  liveVideoConfig: { id: "", playbackId: "", streamKey: "" },
   resetLiveVideoConfig: () =>
-    set(() => ({ liveVideoConfig: { id: '', playbackId: '', streamKey: '' } })),
+    set(() => ({ liveVideoConfig: { id: "", playbackId: "", streamKey: "" } })),
   setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),
   setShowLiveVideoEditor: (showLiveVideoEditor) =>
     set(() => ({ showLiveVideoEditor })),

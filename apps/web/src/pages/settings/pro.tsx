@@ -1,3 +1,3 @@
-import ProSettings from '@components/Settings/Pro';
+import ProSettings from "@components/Settings/Pro";
 
 export default ProSettings;

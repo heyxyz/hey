@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { AUTH } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { Leafwatch } from "@helpers/leafwatch";
+import { AUTH } from "@hey/data/tracking";
+import { Button } from "@hey/ui";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
-import { useSignupStore } from '../Auth/Signup';
+import { useSignupStore } from "../Auth/Signup";
 
 const SignupButton: FC = () => {
   const { setShowAuthModal } = useGlobalModalStateStore();
@@ -14,8 +14,8 @@ const SignupButton: FC = () => {
   return (
     <Button
       onClick={() => {
-        setScreen('choose');
-        setShowAuthModal(true, 'signup');
+        setScreen("choose");
+        setShowAuthModal(true, "signup");
         Leafwatch.track(AUTH.OPEN_SIGNUP);
       }}
       outline

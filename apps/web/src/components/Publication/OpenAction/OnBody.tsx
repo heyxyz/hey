@@ -1,9 +1,9 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 
-import DecentOpenAction from './UnknownModule/Decent';
+import DecentOpenAction from "./UnknownModule/Decent";
 
 interface OpenActionOnBodyProps {
   publication: MirrorablePublication;
@@ -11,7 +11,7 @@ interface OpenActionOnBodyProps {
 
 const OpenActionOnBody: FC<OpenActionOnBodyProps> = ({ publication }) => {
   const module = publication.openActionModules
-    .filter((module) => module.__typename === 'UnknownOpenActionModuleSettings')
+    .filter((module) => module.__typename === "UnknownOpenActionModuleSettings")
     .find(
       (module) =>
         module.contract.address === VerifiedOpenActionModules.DecentNFT

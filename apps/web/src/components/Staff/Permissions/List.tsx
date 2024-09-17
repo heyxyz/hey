@@ -1,13 +1,13 @@
-import type { Permission as TPermission } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Permission as TPermission } from "@hey/types/hey";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
-import { Permission } from '@hey/data/permissions';
-import getAllPermissions from '@hey/helpers/api/getAllPermissions';
-import formatDate from '@hey/helpers/datetime/formatDate';
+import Loader from "@components/Shared/Loader";
+import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import { Permission } from "@hey/data/permissions";
+import getAllPermissions from "@hey/helpers/api/getAllPermissions";
+import formatDate from "@hey/helpers/datetime/formatDate";
 import {
   Badge,
   Button,
@@ -16,12 +16,12 @@ import {
   EmptyState,
   ErrorMessage,
   Modal
-} from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+} from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import Assign from './Assign';
+import Assign from "./Assign";
 
 const List: FC = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
@@ -35,7 +35,7 @@ const List: FC = () => {
         setPermissions(permissions);
         return permissions;
       }),
-    queryKey: ['getAllPermissions']
+    queryKey: ["getAllPermissions"]
   });
 
   return (
@@ -65,7 +65,7 @@ const List: FC = () => {
                         className={cn(
                           (permission.key === Permission.Suspended ||
                             permission.key === Permission.CommentSuspended) &&
-                            'text-red-500'
+                            "text-red-500"
                         )}
                       >
                         {permission.key}

@@ -1,16 +1,16 @@
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
-import formatAddress from '@hey/helpers/formatAddress';
-import getStampFyiURL from '@hey/helpers/getStampFyiURL';
-import imageKit from '@hey/helpers/imageKit';
-import { Image } from '@hey/ui';
-import Link from 'next/link';
-import useEnsName from 'src/hooks/useEnsName';
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { POLYGONSCAN_URL } from "@hey/data/constants";
+import formatAddress from "@hey/helpers/formatAddress";
+import getStampFyiURL from "@hey/helpers/getStampFyiURL";
+import imageKit from "@hey/helpers/imageKit";
+import { Image } from "@hey/ui";
+import Link from "next/link";
+import useEnsName from "src/hooks/useEnsName";
 
-import Slug from './Slug';
+import Slug from "./Slug";
 
 interface WalletProfileProps {
   address: Address;

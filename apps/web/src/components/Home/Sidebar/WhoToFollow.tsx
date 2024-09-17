@@ -1,18 +1,18 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import UserProfile from '@components/Shared/UserProfile';
-import { Leafwatch } from '@helpers/leafwatch';
-import { UsersIcon } from '@heroicons/react/24/outline';
-import { PROFILE, ProfileLinkSource } from '@hey/data/tracking';
-import { LimitType, useProfileRecommendationsQuery } from '@hey/lens';
-import { Card, ErrorMessage, H5, Modal } from '@hey/ui';
-import { useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
+import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import UserProfile from "@components/Shared/UserProfile";
+import { Leafwatch } from "@helpers/leafwatch";
+import { UsersIcon } from "@heroicons/react/24/outline";
+import { PROFILE, ProfileLinkSource } from "@hey/data/tracking";
+import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
+import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
+import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Suggested from '../Suggested';
+import Suggested from "../Suggested";
 
 const Title: FC = () => <H5>Who to Follow</H5>;
 
@@ -39,7 +39,7 @@ const WhoToFollow: FC = () => {
         <UserProfileShimmer showFollowUnfollowButton />
         <UserProfileShimmer showFollowUnfollowButton />
         <UserProfileShimmer showFollowUnfollowButton />
-        <div className="pb-1 pt-2">
+        <div className="pt-2 pb-1">
           <div className="shimmer h-3 w-5/12 rounded-full" />
         </div>
       </Card>

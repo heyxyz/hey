@@ -1,14 +1,14 @@
-import clickhouseClient from '@hey/db/clickhouseClient';
-import { generateForeverExpiry, getRedis, setRedis } from '@hey/db/redisClient';
-import logger from '@hey/helpers/logger';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
 
 const backupImpressionsToS3 = async () => {
   try {
-    const cacheKey = 'backups:impressions:offset';
+    const cacheKey = "backups:impressions:offset";
     const batchSize = 100000;
 
     // Get the last offset from Redis (or start from 0 if no offset is stored)
-    let offset = parseInt((await getRedis(cacheKey)) || '0', 10);
+    let offset = Number.parseInt((await getRedis(cacheKey)) || "0", 10);
 
     // Calculate the range for the current batch
     const startRange = offset;
@@ -17,7 +17,7 @@ const backupImpressionsToS3 = async () => {
 
     // Check the number of rows in the current batch
     const rowsCountResult = await clickhouseClient.query({
-      format: 'JSONEachRow',
+      format: "JSONEachRow",
       query: `
         SELECT count(*) as count
         FROM (
@@ -31,10 +31,10 @@ const backupImpressionsToS3 = async () => {
 
     const rowsCount = await rowsCountResult.json<{ count: string }>();
 
-    if (parseInt(rowsCount[0].count) === batchSize) {
+    if (Number.parseInt(rowsCount[0].count) === batchSize) {
       // Proceed with the backup if there are rows to back up
       await clickhouseClient.query({
-        format: 'JSONEachRow',
+        format: "JSONEachRow",
         query: `
           INSERT INTO FUNCTION
           s3(
@@ -58,7 +58,8 @@ const backupImpressionsToS3 = async () => {
         `[Cron] backupImpressionsToS3 - Backup completed successfully for ${s3Path} with offset ${offset}`
       );
     } else {
-      const remainingImpressions = batchSize - parseInt(rowsCount[0].count);
+      const remainingImpressions =
+        batchSize - Number.parseInt(rowsCount[0].count);
 
       logger.info(
         `[Cron] backupImpressionsToS3 - No more impressions to back up at offset ${offset}. ${remainingImpressions} impressions still need to be backed up.`
@@ -66,7 +67,7 @@ const backupImpressionsToS3 = async () => {
     }
   } catch (error) {
     logger.error(
-      '[Cron] backupImpressionsToS3 - Error processing impressions',
+      "[Cron] backupImpressionsToS3 - Error processing impressions",
       error
     );
   }

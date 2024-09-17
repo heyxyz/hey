@@ -1,17 +1,17 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import getAllowanceModule from '@helpers/getAllowanceModule';
-import getAllowanceOpenAction from '@helpers/getAllowanceOpenAction';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import getAllowanceModule from "@helpers/getAllowanceModule";
+import getAllowanceOpenAction from "@helpers/getAllowanceOpenAction";
+import { POLYGONSCAN_URL } from "@hey/data/constants";
 import {
   type ApprovedAllowanceAmountResult,
   OpenActionModuleType
-} from '@hey/lens';
-import { Card } from '@hey/ui';
-import Link from 'next/link';
-import { useState } from 'react';
+} from "@hey/lens";
+import { Card } from "@hey/ui";
+import Link from "next/link";
+import { useState } from "react";
 
-import AllowanceButton from './Button';
+import AllowanceButton from "./Button";
 
 interface ModuleProps {
   module: ApprovedAllowanceAmountResult;
@@ -19,7 +19,7 @@ interface ModuleProps {
 
 const Module: FC<ModuleProps> = ({ module }) => {
   const [allowed, setAllowed] = useState(
-    parseFloat(module?.allowance.value) > 0
+    Number.parseFloat(module?.allowance.value) > 0
   );
 
   return (
@@ -28,7 +28,7 @@ const Module: FC<ModuleProps> = ({ module }) => {
       forceRounded
       key={module?.moduleName}
     >
-      <div className="mb-3 mr-1.5 overflow-hidden sm:mb-0">
+      <div className="mr-1.5 mb-3 overflow-hidden sm:mb-0">
         <div className="whitespace-nowrap font-bold">
           {module.moduleName === OpenActionModuleType.UnknownOpenActionModule
             ? getAllowanceOpenAction(module?.moduleContract.address).name

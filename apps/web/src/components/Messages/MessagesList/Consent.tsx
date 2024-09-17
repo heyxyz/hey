@@ -1,12 +1,12 @@
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { MESSAGES } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
-import { useClient, useConsent } from '@xmtp/react-sdk';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { Leafwatch } from "@helpers/leafwatch";
+import { MESSAGES } from "@hey/data/tracking";
+import { Button } from "@hey/ui";
+import { useClient, useConsent } from "@xmtp/react-sdk";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface ConsentProps {
   address: Address;
@@ -29,7 +29,6 @@ const Consent: FC<ConsentProps> = ({ address }) => {
     if (client?.address) {
       getIsAllowed();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   const handleAllow = async () => {
@@ -39,7 +38,7 @@ const Consent: FC<ConsentProps> = ({ address }) => {
       setAllowed(true);
       Leafwatch.track(MESSAGES.ALLOW_USER, { address });
 
-      return toast.success('Allowed');
+      return toast.success("Allowed");
     } finally {
       setAllowing(false);
     }
@@ -52,7 +51,7 @@ const Consent: FC<ConsentProps> = ({ address }) => {
       setAllowed(false);
       Leafwatch.track(MESSAGES.BLOCK_USER, { address });
 
-      return toast.success('Blocked');
+      return toast.success("Blocked");
     } finally {
       setDenying(false);
     }

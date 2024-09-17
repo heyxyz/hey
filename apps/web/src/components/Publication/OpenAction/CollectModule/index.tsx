@@ -3,11 +3,11 @@ import type {
   MultirecipientFeeCollectOpenActionSettings,
   OpenActionModule,
   SimpleCollectOpenActionSettings
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import CountdownTimer from '@components/Shared/CountdownTimer';
-import Slug from '@components/Shared/Slug';
+import CountdownTimer from "@components/Shared/CountdownTimer";
+import Slug from "@components/Shared/Slug";
 import {
   BanknotesIcon,
   CheckCircleIcon,
@@ -16,28 +16,28 @@ import {
   PhotoIcon,
   PuzzlePieceIcon,
   UsersIcon
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 import {
   APP_NAME,
   COLLECT_FEES_ADDRESS,
   POLYGONSCAN_URL
-} from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import formatAddress from '@hey/helpers/formatAddress';
-import getProfile from '@hey/helpers/getProfile';
-import getTokenImage from '@hey/helpers/getTokenImage';
-import humanize from '@hey/helpers/humanize';
-import nFormatter from '@hey/helpers/nFormatter';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { H3, H4, HelpTooltip, Tooltip, WarningMessage } from '@hey/ui';
-import { useCounter } from '@uidotdev/usehooks';
-import Link from 'next/link';
-import plur from 'plur';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
+} from "@hey/data/constants";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import formatAddress from "@hey/helpers/formatAddress";
+import getProfile from "@hey/helpers/getProfile";
+import getTokenImage from "@hey/helpers/getTokenImage";
+import humanize from "@hey/helpers/humanize";
+import nFormatter from "@hey/helpers/nFormatter";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { H3, H4, HelpTooltip, Tooltip, WarningMessage } from "@hey/ui";
+import { useCounter } from "@uidotdev/usehooks";
+import Link from "next/link";
+import plur from "plur";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 
-import CollectAction from './CollectAction';
-import DownloadCollectors from './DownloadCollectors';
-import Splits from './Splits';
+import CollectAction from "./CollectAction";
+import DownloadCollectors from "./DownloadCollectors";
+import Splits from "./Splits";
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
@@ -59,21 +59,21 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
     | SimpleCollectOpenActionSettings;
 
   const endTimestamp = collectModule?.endsAt;
-  const collectLimit = parseInt(collectModule?.collectLimit || '0');
-  const amount = parseFloat(collectModule?.amount?.value || '0');
+  const collectLimit = Number.parseInt(collectModule?.collectLimit || "0");
+  const amount = Number.parseFloat(collectModule?.amount?.value || "0");
   const usdPrice = collectModule?.amount?.asFiat?.value;
   const currency = collectModule?.amount?.asset?.symbol;
   const referralFee = collectModule?.referralFee;
   const recipients =
     (collectModule.__typename ===
-      'MultirecipientFeeCollectOpenActionSettings' &&
+      "MultirecipientFeeCollectOpenActionSettings" &&
       collectModule?.recipients) ||
     [];
   const recipientsWithoutFees = recipients?.filter(
     (split) => split.recipient !== COLLECT_FEES_ADDRESS
   );
   const isMultirecipientFeeCollectModule =
-    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings' &&
+    collectModule.__typename === "MultirecipientFeeCollectOpenActionSettings" &&
     recipientsWithoutFees.length > 1;
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
@@ -127,7 +127,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         ) : null}
         <div className="mb-4">
           <H4>
-            {targetPublication.__typename} by{' '}
+            {targetPublication.__typename} by{" "}
             <Slug slug={getProfile(targetPublication.by).slugWithPrefix} />
           </H4>
         </div>
@@ -151,7 +151,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
               {isTokenEnabled && usdPrice ? (
                 <>
                   <span className="ld-text-gray-500 px-0.5">·</span>
-                  <span className="ld-text-gray-500 text-xs font-bold">
+                  <span className="ld-text-gray-500 font-bold text-xs">
                     ${usdPrice}
                   </span>
                 </>
@@ -188,8 +188,8 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 className="font-bold"
                 href={`/posts/${targetPublication.id}/collectors`}
               >
-                {humanize(countOpenActions)}{' '}
-                {plur('collector', countOpenActions)}
+                {humanize(countOpenActions)}{" "}
+                {plur("collector", countOpenActions)}
               </Link>
               <DownloadCollectors publication={targetPublication} />
             </div>
@@ -212,10 +212,10 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             <div className="flex items-center space-x-2">
               <ClockIcon className="ld-text-gray-500 size-4" />
               <div className="space-x-1.5">
-                <span>{isSaleEnded ? 'Sale ended on:' : 'Sale ends:'}</span>
+                <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
                 <span className="font-bold text-gray-600">
                   {isSaleEnded ? (
-                    `${formatDate(endTimestamp, 'MMM D, YYYY, hh:mm A')}`
+                    `${formatDate(endTimestamp, "MMM D, YYYY, hh:mm A")}`
                   ) : (
                     <CountdownTimer targetDate={endTimestamp} />
                   )}

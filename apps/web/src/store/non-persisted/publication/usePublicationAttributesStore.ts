@@ -1,7 +1,7 @@
-import type { MetadataAttribute } from '@lens-protocol/metadata';
+import type { MetadataAttribute } from "@lens-protocol/metadata";
 
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   addAttribute: (attribute: MetadataAttribute) => void;

@@ -1,7 +1,7 @@
-import { IndexDB, Localstorage } from '@hey/data/storage';
-import { delMany } from 'idb-keyval';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { IndexDB, Localstorage } from "@hey/data/storage";
+import { delMany } from "idb-keyval";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface Tokens {
   accessToken: null | string;
@@ -10,10 +10,10 @@ interface Tokens {
 }
 
 interface State {
-  accessToken: Tokens['accessToken'];
+  accessToken: Tokens["accessToken"];
   hydrateAuthTokens: () => Tokens;
-  identityToken: Tokens['identityToken'];
-  refreshToken: Tokens['refreshToken'];
+  identityToken: Tokens["identityToken"];
+  refreshToken: Tokens["refreshToken"];
   signIn: (tokens: {
     accessToken: string;
     identityToken: string;
@@ -49,8 +49,8 @@ const store = create(
         // Clean XMTP keys
         const keys = Object.keys(localStorage).filter(
           (key) =>
-            key.startsWith('xmtp/production/') ||
-            key.startsWith('xmtp:production:')
+            key.startsWith("xmtp/production/") ||
+            key.startsWith("xmtp:production:")
         );
         for (const key of keys) {
           localStorage.removeItem(key);

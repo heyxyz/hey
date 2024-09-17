@@ -1,28 +1,28 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import authLink from '@helpers/authLink';
-import getLivepeerTheme from '@helpers/getLivepeerTheme';
-import { LIVEPEER_KEY } from '@hey/data/constants';
-import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
+import authLink from "@helpers/authLink";
+import getLivepeerTheme from "@helpers/getLivepeerTheme";
+import { LIVEPEER_KEY } from "@hey/data/constants";
+import { ApolloProvider, apolloClient } from "@hey/lens/apollo";
 import {
-  createReactClient,
   LivepeerConfig,
+  createReactClient,
   studioProvider
-} from '@livepeer/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from 'next-themes';
+} from "@livepeer/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "next-themes";
 
-import ErrorBoundary from '../ErrorBoundary';
-import Layout from '../Layout';
-import FeatureFlagProvider from './FeatureFlagProvider';
-import LeafwatchProvider from './LeafwatchProvider';
-import LensSubscriptionsProvider from './LensSubscriptionsProvider';
-import OptimisticTransactionsProvider from './OptimisticTransactionsProvider';
-import PreferencesProvider from './PreferencesProvider';
-import ProProvider from './ProProvider';
-import SentryProvider from './SentryProvider';
-import ServiceWorkerProvider from './ServiceWorkerProvider';
-import Web3Provider from './Web3Provider';
+import ErrorBoundary from "../ErrorBoundary";
+import Layout from "../Layout";
+import FeatureFlagProvider from "./FeatureFlagProvider";
+import LeafwatchProvider from "./LeafwatchProvider";
+import LensSubscriptionsProvider from "./LensSubscriptionsProvider";
+import OptimisticTransactionsProvider from "./OptimisticTransactionsProvider";
+import PreferencesProvider from "./PreferencesProvider";
+import ProProvider from "./ProProvider";
+import SentryProvider from "./SentryProvider";
+import ServiceWorkerProvider from "./ServiceWorkerProvider";
+import Web3Provider from "./Web3Provider";
 
 const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({

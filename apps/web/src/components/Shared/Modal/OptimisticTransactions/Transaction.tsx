@@ -1,10 +1,10 @@
-import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Tooltip } from '@hey/ui';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { Tooltip } from "@hey/ui";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface TransactionProps {
   transaction: OptimisticTransaction;
@@ -46,10 +46,11 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
       <div className="flex items-center space-x-2">
         <Tooltip content="Indexing" placement="top">
           <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
-            <div className="animate-shimmer size-2 rounded-full bg-gray-500" />
+            <div className="size-2 animate-shimmer rounded-full bg-gray-500" />
           </div>
         </Tooltip>
         <button
+          type="button"
           onClick={() =>
             removeTransaction(
               (transaction.txId || transaction.txHash) as string

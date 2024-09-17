@@ -1,28 +1,28 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import MutualFollowers from '@components/Profile/MutualFollowers';
-import isVerified from '@helpers/isVerified';
+import MutualFollowers from "@components/Profile/MutualFollowers";
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getMentions from '@hey/helpers/getMentions';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import nFormatter from '@hey/helpers/nFormatter';
-import truncateByWords from '@hey/helpers/truncateByWords';
-import { useProfileLazyQuery } from '@hey/lens';
-import { Card, Image } from '@hey/ui';
-import * as HoverCard from '@radix-ui/react-hover-card';
-import plur from 'plur';
-import { useState } from 'react';
+} from "@heroicons/react/24/solid";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getMentions from "@hey/helpers/getMentions";
+import getProfile from "@hey/helpers/getProfile";
+import hasMisused from "@hey/helpers/hasMisused";
+import nFormatter from "@hey/helpers/nFormatter";
+import truncateByWords from "@hey/helpers/truncateByWords";
+import { useProfileLazyQuery } from "@hey/lens";
+import { Card, Image } from "@hey/ui";
+import * as HoverCard from "@radix-ui/react-hover-card";
+import plur from "plur";
+import { useState } from "react";
 
-import Markup from './Markup';
-import FollowUnfollowButton from './Profile/FollowUnfollowButton';
-import Slug from './Slug';
+import Markup from "./Markup";
+import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
+import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
 
@@ -40,7 +40,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   showUserPreview = true
 }) => {
   const [loadProfile, { data, loading: networkLoading }] = useProfileLazyQuery({
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: "cache-and-network"
   });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
@@ -107,7 +107,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) && (
-            <CheckBadgeIcon className="text-brand-500 size-4" />
+            <CheckBadgeIcon className="size-4 text-brand-500" />
           )}
           {hasMisused(profile.id) && (
             <ExclamationCircleIcon className="size-4 text-red-500" />
@@ -145,12 +145,12 @@ const UserPreview: FC<UserPreviewProps> = ({
             </div>
             <div className="ld-text-gray-500 text-sm">Following</div>
           </div>
-          <div className="text-md flex items-center space-x-1">
+          <div className="flex items-center space-x-1 text-md">
             <div className="text-base">
               {nFormatter(profile.stats.followers)}
             </div>
             <div className="ld-text-gray-500 text-sm">
-              {plur('Follower', profile.stats.followers)}
+              {plur("Follower", profile.stats.followers)}
             </div>
           </div>
         </div>

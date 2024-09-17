@@ -7,11 +7,11 @@ const getSite = (document: Document): null | string => {
     document.querySelector('meta[property="twitter:site"]');
 
   if (og) {
-    return og.getAttribute('content');
+    return og.getAttribute("content");
   }
 
   if (twitter) {
-    return twitter.getAttribute('content');
+    return twitter.getAttribute("content");
   }
 
   return null;

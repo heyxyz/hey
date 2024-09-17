@@ -1,7 +1,7 @@
-import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
+import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
 
 const commonHeaders = {
-  'X-Identity-Token': hydrateAuthTokens().identityToken
+  "X-Identity-Token": hydrateAuthTokens().identityToken
 };
 
 /**
@@ -10,7 +10,7 @@ const commonHeaders = {
  */
 export const getAuthApiHeadersWithAccessToken = () => {
   return {
-    'X-Access-Token': hydrateAuthTokens().accessToken,
+    "X-Access-Token": hydrateAuthTokens().accessToken,
     ...commonHeaders
   };
 };

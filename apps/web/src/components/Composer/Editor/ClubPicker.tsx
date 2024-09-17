@@ -1,18 +1,18 @@
-import type { EditorExtension } from '@helpers/prosekit/extension';
-import type { FC } from 'react';
-import type { ClubProfile } from 'src/hooks/prosekit/useClubQuery';
+import type { EditorExtension } from "@helpers/prosekit/extension";
+import type { FC } from "react";
+import type { ClubProfile } from "src/hooks/prosekit/useClubQuery";
 
-import { EditorRegex } from '@hey/data/regex';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useEditor } from 'prosekit/react';
+import { EditorRegex } from "@hey/data/regex";
+import { Image } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,
   AutocompleteList,
   AutocompletePopover
-} from 'prosekit/react/autocomplete';
-import { useState } from 'react';
-import useClubQuery from 'src/hooks/prosekit/useClubQuery';
+} from "prosekit/react/autocomplete";
+import { useState } from "react";
+import useClubQuery from "src/hooks/prosekit/useClubQuery";
 
 interface ClubItemProps {
   club: ClubProfile;
@@ -44,23 +44,23 @@ const ClubItem: FC<ClubItemProps> = ({ club, onSelect }) => {
 
 const ClubPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
-  const [queryString, setQueryString] = useState<string>('');
+  const [queryString, setQueryString] = useState<string>("");
   const results = useClubQuery(queryString);
 
   const handleClubInsert = (club: ClubProfile) => {
     editor.commands.insertMention({
       id: club.id.toString(),
-      kind: 'club',
+      kind: "club",
       value: club.displayHandle
     });
-    editor.commands.insertText({ text: ' ' });
+    editor.commands.insertText({ text: " " });
   };
 
   return (
     <AutocompletePopover
       className={cn(
-        'z-10 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900',
-        results.length === 0 && 'hidden'
+        "z-10 block w-52 rounded-xl border bg-white p-0 shadow-sm dark:border-gray-700 dark:bg-gray-900",
+        results.length === 0 && "hidden"
       )}
       offset={10}
       onQueryChange={setQueryString}

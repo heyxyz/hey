@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test } from "vitest";
 
-import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from '../rpcs';
+import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from "../rpcs";
 
-describe('rpc liveliness', () => {
+describe("rpc liveliness", () => {
   for (const rpc of POLYGON_RPCS) {
     test(`should return 200 for POLYGON_RPCS - ${rpc}`, async () => {
       const response = await fetch(rpc);

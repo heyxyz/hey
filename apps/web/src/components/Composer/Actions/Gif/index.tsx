@@ -1,15 +1,15 @@
-import type { IGif } from '@hey/types/giphy';
-import type { FC } from 'react';
+import type { IGif } from "@hey/types/giphy";
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import { Modal, Tooltip } from '@hey/ui';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { Leafwatch } from "@helpers/leafwatch";
+import { GifIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { PUBLICATION } from "@hey/data/tracking";
+import { Modal, Tooltip } from "@hey/ui";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 
-import GifSelector from './GifSelector';
+import GifSelector from "./GifSelector";
 
 interface GiphyProps {
   setGifAttachment: (gif: IGif) => void;

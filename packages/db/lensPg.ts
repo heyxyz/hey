@@ -1,10 +1,10 @@
-import type { IDatabase, IFormatting, IHelpers, IMain } from 'pg-promise';
-import type { IConnectionParameters } from 'pg-promise/typescript/pg-subset';
-import type pg from 'pg-promise/typescript/pg-subset';
+import type { IDatabase, IFormatting, IHelpers, IMain } from "pg-promise";
+import type { IConnectionParameters } from "pg-promise/typescript/pg-subset";
+import type pg from "pg-promise/typescript/pg-subset";
 
-import logger from '@hey/helpers/logger';
-import dotenv from 'dotenv';
-import pgPromise from 'pg-promise';
+import logger from "@hey/helpers/logger";
+import dotenv from "dotenv";
+import pgPromise from "pg-promise";
 
 dotenv.config({ override: true });
 
@@ -20,13 +20,13 @@ type DatabaseQuery = string;
 
 class Database {
   private _connectionBase: IConnectionParameters = {
-    database: 'social_production_lens_v2_polygon',
-    host: 'lens.hey.xyz',
+    database: "social_production_lens_v2_polygon",
+    host: "lens.hey.xyz",
     idleTimeoutMillis: 30000,
     max: 1500,
     password: process.env.LENS_DATABASE_PASSWORD,
     port: 6969,
-    user: 'hey'
+    user: "hey"
   };
 
   private _readDb: DatabaseInstance;

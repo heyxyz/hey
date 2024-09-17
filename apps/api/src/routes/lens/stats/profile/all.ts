@@ -1,10 +1,10 @@
-import type { Handler } from 'express';
+import type { Handler } from "express";
 
-import lensPg from '@hey/db/lensPg';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
-import { noBody } from 'src/helpers/responses';
+import lensPg from "@hey/db/lensPg";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { CACHE_AGE_30_MINS } from "src/helpers/constants";
+import { noBody } from "src/helpers/responses";
 
 export const get: Handler = async (req, res) => {
   const { id } = req.query;
@@ -48,7 +48,7 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Cache-Control', CACHE_AGE_30_MINS)
+      .setHeader("Cache-Control", CACHE_AGE_30_MINS)
       .json({ result, success: true });
   } catch (error) {
     catchedError(res, error);

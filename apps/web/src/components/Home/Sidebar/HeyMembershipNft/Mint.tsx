@@ -1,18 +1,18 @@
-import type { Post } from '@hey/lens';
-import type { FC } from 'react';
+import type { Post } from "@hey/lens";
+import type { FC } from "react";
 
-import CollectAction from '@components/Publication/OpenAction/CollectModule/CollectAction';
-import Loader from '@components/Shared/Loader';
-import { signatureFont } from '@helpers/fonts';
+import CollectAction from "@components/Publication/OpenAction/CollectModule/CollectAction";
+import Loader from "@components/Shared/Loader";
+import { signatureFont } from "@helpers/fonts";
 import {
   APP_NAME,
   HEY_MEMBERSHIP_NFT_PUBLICATION_ID
-} from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { usePublicationQuery } from '@hey/lens';
-import { ErrorMessage, H3 } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
+} from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { usePublicationQuery } from "@hey/lens";
+import { ErrorMessage, H3 } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
 
 interface MintProps {
   onCollectSuccess: () => void;
@@ -36,7 +36,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
         error={
           error || {
             message: Errors.SomethingWentWrong,
-            name: 'Failed to load NFT'
+            name: "Failed to load NFT"
           }
         }
         title="Failed to load NFT"
@@ -52,30 +52,31 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
       <img
         className="mb-4 h-[250px] w-full rounded-xl border object-cover dark:border-gray-700"
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
+        alt="NFT"
       />
       <div className="linkify mt-5 space-y-3 font-serif">
         <b>Thanks for Being a {APP_NAME} Member!</b>
         <div>
           Your journey with us has been invaluable. By supporting "{APP_NAME}",
           you're not just a part of our story, but you're also fueling the
-          vibrant future of{' '}
+          vibrant future of{" "}
           <Link
             className="font-bold"
             href="https://gitlab.com/yo/hey"
             target="_blank"
           >
             open-source
-          </Link>{' '}
+          </Link>{" "}
           development. Here's to more innovation and collaboration ahead!
         </div>
         <H3
           className={cn(
-            'flex items-center space-x-2 pt-3',
+            "flex items-center space-x-2 pt-3",
             signatureFont.className
           )}
         >
           <div>-</div>
-          <img className="size-6" src="/logo.png" />
+          <img className="size-6" src="/logo.png" alt="Logo" />
           <div>Team Hey</div>
         </H3>
       </div>

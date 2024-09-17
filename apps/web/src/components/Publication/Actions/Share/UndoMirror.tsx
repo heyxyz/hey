@@ -1,18 +1,18 @@
-import type { AnyPublication } from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { MenuItem } from '@headlessui/react';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { useHidePublicationMutation } from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import cn from '@hey/ui/cn';
-import { toast } from 'react-hot-toast';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { MenuItem } from "@headlessui/react";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { useHidePublicationMutation } from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import cn from "@hey/ui/cn";
+import { toast } from "react-hot-toast";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface MirrorProps {
   isLoading: boolean;
@@ -50,7 +50,7 @@ const UndoMirror: FC<MirrorProps> = ({
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.UNDO_MIRROR);
-      toast.success('Undone mirror successfully');
+      toast.success("Undone mirror successfully");
     },
     update: updateCache
   });
@@ -76,8 +76,8 @@ const UndoMirror: FC<MirrorProps> = ({
       as="div"
       className={({ focus }) =>
         cn(
-          { 'dropdown-active': focus },
-          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
+          { "dropdown-active": focus },
+          "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-red-500 text-sm"
         )
       }
       disabled={isLoading}
