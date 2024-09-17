@@ -1,28 +1,28 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { OG } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { OG } from "@hey/types/misc";
+import type { FC } from "react";
 
-import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import getURLs from '@hey/helpers/getURLs';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Card } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import DecentOpenActionShimmer from "@components/Shared/Shimmer/DecentOpenActionShimmer";
+import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
+import getPublicationData from "@hey/helpers/getPublicationData";
+import getURLs from "@hey/helpers/getURLs";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Card } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-import FeedEmbed from './FeedEmbed';
+import FeedEmbed from "./FeedEmbed";
 
-export const OPEN_ACTION_EMBED_TOOLTIP = 'Open action embedded';
-export const OPEN_ACTION_NO_EMBED_TOOLTIP = 'Mint not available anymore';
+export const OPEN_ACTION_EMBED_TOOLTIP = "Open action embedded";
+export const OPEN_ACTION_NO_EMBED_TOOLTIP = "Mint not available anymore";
 
 export const openActionCTA = (platformName?: string): string => {
-  const name = platformName || '';
+  const name = platformName || "";
   const platform = name.toLowerCase();
-  return ['opensea', 'rarible', 'superrare'].includes(platform)
-    ? 'Buy'
-    : 'Mint';
+  return ["opensea", "rarible", "superrare"].includes(platform)
+    ? "Buy"
+    : "Mint";
 };
 interface DecentOpenActionProps {
   publication: MirrorablePublication;
@@ -30,7 +30,7 @@ interface DecentOpenActionProps {
 
 const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
   const { metadata } = publication;
-  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredContent = getPublicationData(metadata)?.content || "";
 
   const urls = getURLs(filteredContent);
   const url = urls[0] as string;
@@ -43,7 +43,7 @@ const DecentOpenAction: FC<DecentOpenActionProps> = ({ publication }) => {
       });
       return response.data.oembed;
     },
-    queryKey: ['getOembed', url],
+    queryKey: ["getOembed", url],
     refetchOnMount: false
   });
 

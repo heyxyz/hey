@@ -1,9 +1,9 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from "@hey/lens";
 
-import getPublicationOGImages from '@helpers/getPublicationOGImages';
-import { APP_NAME } from '@hey/data/constants';
-import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
-import getProfile from '@hey/helpers/getProfile';
+import getPublicationOGImages from "@helpers/getPublicationOGImages";
+import { APP_NAME } from "@hey/data/constants";
+import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import getProfile from "@hey/helpers/getProfile";
 
 const getCollectModuleMetadata = (publication: MirrorablePublication) => {
   const { openActionModules } = publication;
@@ -26,14 +26,14 @@ const getCollectModuleMetadata = (publication: MirrorablePublication) => {
   const { slugWithPrefix } = getProfile(publication.by);
 
   return {
-    'eth:nft:chain': 'polygon',
-    'eth:nft:collection': `${publication.__typename} by ${slugWithPrefix} • ${APP_NAME}`,
-    'eth:nft:contract_address': collectModule.contract.address,
-    'eth:nft:creator_address': publication.by.ownedBy.address,
-    'eth:nft:media_url': getPublicationOGImages(publication.metadata)[0],
-    'eth:nft:mint_count': publication.stats.countOpenActions,
-    'eth:nft:mint_url': `https://hey.xyz/posts/${publication.id}`,
-    'eth:nft:schema': 'ERC721'
+    "eth:nft:chain": "polygon",
+    "eth:nft:collection": `${publication.__typename} by ${slugWithPrefix} • ${APP_NAME}`,
+    "eth:nft:contract_address": collectModule.contract.address,
+    "eth:nft:creator_address": publication.by.ownedBy.address,
+    "eth:nft:media_url": getPublicationOGImages(publication.metadata)[0],
+    "eth:nft:mint_count": publication.stats.countOpenActions,
+    "eth:nft:mint_url": `https://hey.xyz/posts/${publication.id}`,
+    "eth:nft:schema": "ERC721"
   };
 };
 

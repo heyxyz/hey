@@ -2,33 +2,33 @@ import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfilesManagedRequest
-} from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
+} from "@hey/lens";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { KeyIcon } from '@heroicons/react/24/outline';
-import { XCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { AUTH } from '@hey/data/tracking';
+import SwitchNetwork from "@components/Shared/SwitchNetwork";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { KeyIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
+import { Errors } from "@hey/data/errors";
+import { AUTH } from "@hey/data/tracking";
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@hey/lens';
-import { Button, Card } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { CHAIN } from 'src/constants';
-import { signIn } from 'src/store/persisted/useAuthStore';
-import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi';
+} from "@hey/lens";
+import { Button, Card } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { CHAIN } from "src/constants";
+import { signIn } from "src/store/persisted/useAuthStore";
+import { useAccount, useChainId, useDisconnect, useSignMessage } from "wagmi";
 
-import Loader from '../Loader';
-import UserProfile from '../UserProfile';
-import SignupCard from './SignupCard';
-import WalletSelector from './WalletSelector';
+import Loader from "../Loader";
+import UserProfile from "../UserProfile";
+import SignupCard from "./SignupCard";
+import WalletSelector from "./WalletSelector";
 
 interface LoginProps {
   setHasProfiles: Dispatch<SetStateAction<boolean>>;
@@ -50,7 +50,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
-    fetchPolicy: 'no-cache'
+    fetchPolicy: "no-cache"
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
@@ -99,7 +99,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       const identityToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, identityToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { profile_id: id, source: 'login' });
+      Leafwatch.track(AUTH.LOGIN, { profile_id: id, source: "login" });
       location.reload();
     } catch {}
   };

@@ -1,3 +1,3 @@
-import ViewClub from '@components/Club';
+import ViewClub from "@components/Club";
 
 export default ViewClub;

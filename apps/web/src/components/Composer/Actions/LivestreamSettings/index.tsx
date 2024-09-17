@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { VideoCameraIcon } from '@heroicons/react/24/outline';
-import { Tooltip } from '@hey/ui';
-import { motion } from 'framer-motion';
-import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+import { VideoCameraIcon } from "@heroicons/react/24/outline";
+import { Tooltip } from "@hey/ui";
+import { motion } from "framer-motion";
+import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 
 const LivestreamSettings: FC = () => {
   const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =

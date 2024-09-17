@@ -1,18 +1,18 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
-import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
+import Loader from "@components/Shared/Loader";
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
+import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery
-} from '@hey/lens';
-import { CardHeader, ErrorMessage, Select } from '@hey/ui';
-import { useState } from 'react';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { CardHeader, ErrorMessage, Select } from "@hey/ui";
+import { useState } from "react";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Allowance from './Allowance';
+import Allowance from "./Allowance";
 
 const getAllowancePayload = (currency: string) => {
   return {
@@ -32,7 +32,7 @@ const CollectModules: FC = () => {
 
   const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: 'no-cache',
+      fetchPolicy: "no-cache",
       skip: !currentProfile?.id,
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
     });
@@ -71,7 +71,7 @@ const CollectModules: FC = () => {
               label: token.name,
               selected: token.contractAddress === selectedCurrency,
               value: token.contractAddress
-            })) || [{ label: 'Loading...', value: 'Loading...' }]
+            })) || [{ label: "Loading...", value: "Loading..." }]
           }
         />
         {loading || currencyLoading ? (

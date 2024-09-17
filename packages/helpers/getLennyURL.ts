@@ -1,5 +1,5 @@
-import { HEY_API_URL } from '@hey/data/constants';
-import urlcat from 'urlcat';
+import { HEY_API_URL } from "@hey/data/constants";
+import urlcat from "urlcat";
 
 /**
  * Returns the lenny avatar URL for the specified Lenny ID.

@@ -1,18 +1,18 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import clickhouseClient from '@hey/db/clickhouseClient';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { array, object, string } from 'zod';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { array, object, string } from "zod";
 
 type ExtensionRequest = {
   ids: string[];
 };
 
 const validationSchema = object({
-  ids: array(string().max(2000, { message: 'Too many ids!' }))
+  ids: array(string().max(2000, { message: "Too many ids!" }))
 });
 
 export const post = [
@@ -34,11 +34,11 @@ export const post = [
 
     try {
       const rows = await clickhouseClient.query({
-        format: 'JSONEachRow',
+        format: "JSONEachRow",
         query: `
           SELECT publication, count
           FROM total_impressions_per_publication_mv FINAL
-          WHERE publication IN (${ids.map((id) => `'${id}'`).join(',')});
+          WHERE publication IN (${ids.map((id) => `'${id}'`).join(",")});
         `
       });
 

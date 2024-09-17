@@ -1,19 +1,19 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
-import UserProfile from '@components/Shared/UserProfile';
-import { ArrowLeftIcon, HeartIcon } from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
+import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import UserProfile from "@components/Shared/UserProfile";
+import { ArrowLeftIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { ProfileLinkSource } from "@hey/data/tracking";
 import {
   LimitType,
   type Profile,
-  useWhoReactedPublicationQuery,
-  type WhoReactedPublicationRequest
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
-import Link from 'next/link';
-import { Virtuoso } from 'react-virtuoso';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+  type WhoReactedPublicationRequest,
+  useWhoReactedPublicationQuery
+} from "@hey/lens";
+import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
+import Link from "next/link";
+import { Virtuoso } from "react-virtuoso";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface LikesProps {
   publicationId: string;

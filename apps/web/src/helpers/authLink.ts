@@ -1,12 +1,12 @@
-import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
-import { LENS_API_URL } from '@hey/data/constants';
-import parseJwt from '@hey/helpers/parseJwt';
-import axios from 'axios';
+import { ApolloLink, fromPromise, toPromise } from "@apollo/client";
+import { LENS_API_URL } from "@hey/data/constants";
+import parseJwt from "@hey/helpers/parseJwt";
+import axios from "axios";
 import {
   hydrateAuthTokens,
   signIn,
   signOut
-} from 'src/store/persisted/useAuthStore';
+} from "src/store/persisted/useAuthStore";
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -30,7 +30,7 @@ const authLink = new ApolloLink((operation, forward) => {
 
   if (!expiringSoon) {
     operation.setContext({
-      headers: { 'X-Access-Token': accessToken || '' }
+      headers: { "X-Access-Token": accessToken || "" }
     });
 
     return forward(operation);
@@ -41,17 +41,17 @@ const authLink = new ApolloLink((operation, forward) => {
       .post(
         LENS_API_URL,
         {
-          operationName: 'Refresh',
+          operationName: "Refresh",
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: { request: { refreshToken } }
         },
-        { headers: { 'Content-Type': 'application/json' } }
+        { headers: { "Content-Type": "application/json" } }
       )
       .then(({ data }) => {
         const accessToken = data?.data?.refresh?.accessToken;
         const refreshToken = data?.data?.refresh?.refreshToken;
         const identityToken = data?.data?.refresh?.identityToken;
-        operation.setContext({ headers: { 'X-Access-Token': accessToken } });
+        operation.setContext({ headers: { "X-Access-Token": accessToken } });
         signIn({ accessToken, identityToken, refreshToken });
 
         return toPromise(forward(operation));

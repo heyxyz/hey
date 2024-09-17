@@ -1,27 +1,27 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { useEffect } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import MetaTags from "@components/Common/MetaTags";
+import NotLoggedIn from "@components/Shared/NotLoggedIn";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { useEffect } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import SettingsSidebar from '../Sidebar';
-import Followers from './Followers';
-import Following from './Following';
-import Notifications from './Notifications';
-import Profile from './Profile';
-import Publications from './Publications';
-import Tokens from './Tokens';
+import SettingsSidebar from "../Sidebar";
+import Followers from "./Followers";
+import Following from "./Following";
+import Notifications from "./Notifications";
+import Profile from "./Profile";
+import Publications from "./Publications";
+import Tokens from "./Tokens";
 
 const ExportSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
+    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "export" });
   }, []);
 
   if (!currentProfile) {

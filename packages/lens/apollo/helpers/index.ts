@@ -1,3 +1,3 @@
-import cursorBasedPagination from './cursorBasedPagination';
+import cursorBasedPagination from "./cursorBasedPagination";
 
 export { cursorBasedPagination };

@@ -1,5 +1,5 @@
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
 
 const cleanPreferences = async () => {
   try {
@@ -7,9 +7,9 @@ const cleanPreferences = async () => {
       where: { appIcon: 0, highSignalNotificationFilter: false }
     });
 
-    logger.info('[Cron] cleanPreferences - Cleaned up Preference');
+    logger.info("[Cron] cleanPreferences - Cleaned up Preference");
   } catch (error) {
-    logger.error('[Cron] cleanPreferences - Error cleaning preferences', error);
+    logger.error("[Cron] cleanPreferences - Error cleaning preferences", error);
   }
 };
 

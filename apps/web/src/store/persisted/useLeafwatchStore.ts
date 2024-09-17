@@ -1,7 +1,7 @@
-import { Localstorage } from '@hey/data/storage';
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { Localstorage } from "@hey/data/storage";
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface State {
   anonymousId: null | string;

@@ -1,18 +1,18 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import Footer from '@components/Shared/Footer';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { H2, H4 } from '@hey/ui';
-import Link from 'next/link';
-import { useEffect } from 'react';
+import Footer from "@components/Shared/Footer";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
+import { H2, H4 } from "@hey/ui";
+import Link from "next/link";
+import { useEffect } from "react";
 
 const Privacy: NextPage = () => {
-  const updatedAt = 'October 30, 2023';
+  const updatedAt = "October 30, 2023";
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
+    Leafwatch.track(PAGEVIEW, { page: "privacy" });
   }, []);
 
   return (
@@ -21,7 +21,7 @@ const Privacy: NextPage = () => {
         <div className="relative text-center">
           <H2 className="text-white">Privacy Policy</H2>
           <div className="mt-4 flex justify-center">
-            <div className="rounded-md bg-gray-800 px-2 py-0.5 text-xs text-white">
+            <div className="rounded-md bg-gray-800 px-2 py-0.5 text-white text-xs">
               Updated {updatedAt}
             </div>
           </div>
@@ -29,8 +29,8 @@ const Privacy: NextPage = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
-            <div className="ld-text-gray-500 max-w-none !p-8">
+          <div className="relative mx-auto max-w-3/4 rounded-lg sm:w-2/4">
+            <div className="ld-text-gray-500 !p-8 max-w-none">
               {/* 1. Overview beings */}
               <H4 className="mb-5">1. Overview</H4>
               <div className="space-y-5">
@@ -66,7 +66,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. Information Collection beings */}
-              <H4 className="mb-5 mt-8">2. Information Collection</H4>
+              <H4 className="mt-8 mb-5">2. Information Collection</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We may collect the following information about you when you
@@ -106,7 +106,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 2. Information Collection ends */}
               {/* 3. Use of Information begins */}
-              <H4 className="mb-5 mt-8">3. Use of Information</H4>
+              <H4 className="mt-8 mb-5">3. Use of Information</H4>
               <p className="leading-7">
                 We may need to use it to operate and manage the Services on this
                 Site (or other places), provide you support, ensure we comply
@@ -115,7 +115,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 3. Use of Information ends */}
               {/* 4. Third-Parties begins */}
-              <H4 className="mb-5 mt-8">4. Third-Parties</H4>
+              <H4 className="mt-8 mb-5">4. Third-Parties</H4>
               <p className="leading-7">
                 This Privacy Policy does not apply to websites, apps, products,
                 or services that we do not own or control. For example, your
@@ -124,7 +124,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 4. Third-Parties ends */}
               {/* 5. Analytics begins */}
-              <H4 className="mb-5 mt-8">5. Analytics</H4>
+              <H4 className="mt-8 mb-5">5. Analytics</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We use <b>ClickHouse</b> to collect various events from user
@@ -142,7 +142,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 5. Analytics ends */}
               {/* 6. Your Rights and Choices begins */}
-              <H4 className="mb-5 mt-8">6. Your Rights and Choices</H4>
+              <H4 className="mt-8 mb-5">6. Your Rights and Choices</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   We may collect the following information about you when you
@@ -163,7 +163,7 @@ const Privacy: NextPage = () => {
                     regard to these signals. Accordingly, unless and until the
                     law is interpreted to require us to do so, we do not monitor
                     or take action with respect to “Do Not Track” signals. For
-                    more information on “Do Not Track,” visit{' '}
+                    more information on “Do Not Track,” visit{" "}
                     <Link
                       href="https://allaboutdnt.com"
                       rel="noreferrer"
@@ -177,7 +177,7 @@ const Privacy: NextPage = () => {
               </div>
               {/* 6. Your Rights and Choices ends */}
               {/* 7. Data Security begins */}
-              <H4 className="mb-5 mt-8">7. Data Security</H4>
+              <H4 className="mt-8 mb-5">7. Data Security</H4>
               <p className="leading-7">
                 We implement and maintain reasonable administrative, physical,
                 and technical security safeguards to help protect information
@@ -188,7 +188,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 7. Data Security ends */}
               {/* 8. Children begins */}
-              <H4 className="mb-5 mt-8">8. Children</H4>
+              <H4 className="mt-8 mb-5">8. Children</H4>
               <p className="leading-7">
                 The Site is intended for general audiences and are not directed
                 at children. To use the Site, you must legally be able to enter
@@ -197,7 +197,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 8. Children ends */}
               {/* 9. Changes to Policy begins */}
-              <H4 className="mb-5 mt-8">9. Changes to Policy</H4>
+              <H4 className="mt-8 mb-5">9. Changes to Policy</H4>
               <p className="leading-7">
                 We reserve the right to revise and reissue this Privacy Policy
                 at any time. Any changes will be effective immediately upon our
@@ -207,7 +207,7 @@ const Privacy: NextPage = () => {
               </p>
               {/* 9. Changes to Policy ends */}
               {/* 10. Contact begins */}
-              <H4 className="mb-5 mt-8">10. Contact</H4>
+              <H4 className="mt-8 mb-5">10. Contact</H4>
               <p className="leading-7">
                 If you have any questions or comments about this Privacy Policy,
                 our data practices, or our compliance with applicable law,
@@ -217,7 +217,7 @@ const Privacy: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="mb-6 mt-2 flex justify-center">
+        <div className="mt-2 mb-6 flex justify-center">
           <Footer />
         </div>
       </div>

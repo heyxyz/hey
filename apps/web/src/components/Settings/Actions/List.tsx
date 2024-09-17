@@ -1,16 +1,16 @@
-import type { ProfileActionHistoryRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { ProfileActionHistoryRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { QueueListIcon } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import formatAddress from '@hey/helpers/formatAddress';
-import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
-import Link from 'next/link';
-import { Virtuoso } from 'react-virtuoso';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import Loader from "@components/Shared/Loader";
+import { QueueListIcon } from "@heroicons/react/24/outline";
+import { POLYGONSCAN_URL } from "@hey/data/constants";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import formatAddress from "@hey/helpers/formatAddress";
+import { LimitType, useProfileActionHistoryQuery } from "@hey/lens";
+import { EmptyState, ErrorMessage } from "@hey/ui";
+import Link from "next/link";
+import { Virtuoso } from "react-virtuoso";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const List: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -90,7 +90,7 @@ const List: FC = () => {
                 <span className="mx-2 border-l dark:border-gray-700" />
               </span>
             ) : null}
-            {formatDate(action.actionedOn, 'MMM D, YYYY - hh:mm:ss A')}
+            {formatDate(action.actionedOn, "MMM D, YYYY - hh:mm:ss A")}
           </div>
         </div>
       )}

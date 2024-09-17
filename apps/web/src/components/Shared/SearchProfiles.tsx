@@ -1,15 +1,15 @@
-import type { Profile, ProfileSearchRequest } from '@hey/lens';
-import type { ChangeEvent, FC } from 'react';
+import type { Profile, ProfileSearchRequest } from "@hey/lens";
+import type { ChangeEvent, FC } from "react";
 
 import {
   CustomFiltersType,
   LimitType,
   useSearchProfilesLazyQuery
-} from '@hey/lens';
-import { Card, Input } from '@hey/ui';
+} from "@hey/lens";
+import { Card, Input } from "@hey/ui";
 
-import Loader from './Loader';
-import SmallUserProfile from './SmallUserProfile';
+import Loader from "./Loader";
+import SmallUserProfile from "./SmallUserProfile";
 
 interface SearchProfilesProps {
   error?: boolean;
@@ -26,7 +26,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
   hideDropdown = false,
   onChange,
   onProfileSelected,
-  placeholder = 'Search…',
+  placeholder = "Search…",
   skipGardeners = false,
   value
 }) => {

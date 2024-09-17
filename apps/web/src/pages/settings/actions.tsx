@@ -1,3 +1,3 @@
-import ActionsSettings from '@components/Settings/Actions';
+import ActionsSettings from "@components/Settings/Actions";
 
 export default ActionsSettings;

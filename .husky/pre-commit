@@ -1,3 +1,2 @@
-pnpm lint
-pnpm prettier
+pnpm run biome:check
 pnpm typecheck

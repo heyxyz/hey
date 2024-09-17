@@ -1,33 +1,33 @@
 import type {
   MirrorablePublication,
   UnknownOpenActionModuleSettings
-} from '@hey/lens';
-import type { OG } from '@hey/types/misc';
-import type { ActionData, PublicationInfo, UIData } from 'nft-openaction-kit';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { OG } from "@hey/types/misc";
+import type { ActionData, PublicationInfo, UIData } from "nft-openaction-kit";
+import type { FC } from "react";
 
-import DecentOpenActionShimmer from '@components/Shared/Shimmer/DecentOpenActionShimmer';
-import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { REWARDS_PROFILE_ID, ZERO_ADDRESS } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Image, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { createTrackedSelector } from 'react-tracked';
-import { CHAIN } from 'src/constants';
-import { useNftOaCurrencyStore } from 'src/store/persisted/useNftOaCurrencyStore';
-import { useAccount } from 'wagmi';
-import { create } from 'zustand';
+import DecentOpenActionShimmer from "@components/Shared/Shimmer/DecentOpenActionShimmer";
+import getNftOpenActionKit from "@helpers/getNftOpenActionKit";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
+import { REWARDS_PROFILE_ID, ZERO_ADDRESS } from "@hey/data/constants";
+import { PUBLICATION } from "@hey/data/tracking";
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Button, Card, Image, Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { createTrackedSelector } from "react-tracked";
+import { CHAIN } from "src/constants";
+import { useNftOaCurrencyStore } from "src/store/persisted/useNftOaCurrencyStore";
+import { useAccount } from "wagmi";
+import { create } from "zustand";
 
-import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from '.';
-import ActionInfo from './ActionInfo';
-import DecentOpenActionModule from './Module';
+import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from ".";
+import ActionInfo from "./ActionInfo";
+import DecentOpenActionModule from "./Module";
 
 interface State {
   activeOpenActionModal: null | string;
@@ -47,14 +47,14 @@ const store = create<State>((set) => ({
 export const useNftOpenActionStore = createTrackedSelector(store);
 
 enum ActionDataResponseType {
-  FULL = 'FULL',
-  PARTIAL = 'PARTIAL'
+  FULL = "FULL",
+  PARTIAL = "PARTIAL"
 }
 
 const formatPublicationData = (
   targetPublication: MirrorablePublication
 ): PublicationInfo => {
-  const [profileId, pubId] = targetPublication.id.split('-');
+  const [profileId, pubId] = targetPublication.id.split("-");
 
   const unknownModules =
     targetPublication.openActionModules as UnknownOpenActionModuleSettings[];
@@ -68,8 +68,8 @@ const formatPublicationData = (
   return {
     actionModules,
     actionModulesInitDatas,
-    profileId: parseInt(profileId, 16).toString(),
-    pubId: parseInt(pubId, 16).toString()
+    profileId: Number.parseInt(profileId, 16).toString(),
+    pubId: Number.parseInt(pubId, 16).toString()
   };
 };
 
@@ -86,16 +86,16 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
 
   const [nft, setNft] = useState({
     chain: og.nft?.chain || null,
-    collectionName: og.nft?.collectionName || '',
+    collectionName: og.nft?.collectionName || "",
     contractAddress: og.nft?.contractAddress || ZERO_ADDRESS,
     creatorAddress: og.nft?.creatorAddress || ZERO_ADDRESS,
-    description: og.description || '',
+    description: og.description || "",
     endTime: null,
-    mediaUrl: og.nft?.mediaUrl || og.image || '',
+    mediaUrl: og.nft?.mediaUrl || og.image || "",
     mintCount: null,
     mintStatus: null,
     mintUrl: null,
-    schema: og.nft?.schema || '',
+    schema: og.nft?.schema || "",
     sourceUrl: og.url
   });
   const [isNftCoverLoaded, setIsNftCoverLoaded] = useState(false);
@@ -179,7 +179,7 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
       Boolean(publication.id),
     queryFn: getActionData,
     queryKey: [
-      'getActionData',
+      "getActionData",
       selectedNftOaCurrency,
       selectedQuantity,
       address,
@@ -189,8 +189,8 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
 
   const { data: uiData } = useQuery({
     queryFn: getUiData,
-    queryKey: ['uiData', publication.id],
-    staleTime: Infinity
+    queryKey: ["uiData", publication.id],
+    staleTime: Number.POSITIVE_INFINITY
   });
 
   const actionData = actionDataResponse?.data;
@@ -217,8 +217,8 @@ const FeedEmbed: FC<FeedEmbedProps> = ({ og, publication }) => {
           <Image
             alt={nft.collectionName}
             className={cn(
-              'relative h-full w-full object-contain transition-opacity duration-500',
-              isNftCoverLoaded ? 'visible opacity-100' : 'invisible opacity-0'
+              "relative h-full w-full object-contain transition-opacity duration-500",
+              isNftCoverLoaded ? "visible opacity-100" : "invisible opacity-0"
             )}
             onLoad={() => setIsNftCoverLoaded(true)}
             src={nft.mediaUrl}

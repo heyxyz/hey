@@ -1,10 +1,10 @@
-require('dotenv').config();
+require("dotenv").config();
 
-import type { HardhatUserConfig } from 'hardhat/config';
+import type { HardhatUserConfig } from "hardhat/config";
 
-import '@nomicfoundation/hardhat-toolbox';
-import '@openzeppelin/hardhat-upgrades';
-import '@nomiclabs/hardhat-ethers';
+import "@nomicfoundation/hardhat-toolbox";
+import "@openzeppelin/hardhat-upgrades";
+import "@nomiclabs/hardhat-ethers";
 
 const config: HardhatUserConfig = {
   etherscan: {
@@ -15,10 +15,10 @@ const config: HardhatUserConfig = {
     customChains: [
       {
         chainId: 80002,
-        network: 'polygonAmoy',
+        network: "polygonAmoy",
         urls: {
-          apiURL: 'https://api-amoy.polygonscan.com/api',
-          browserURL: 'https://amoy.polygonscan.com'
+          apiURL: "https://api-amoy.polygonscan.com/api",
+          browserURL: "https://amoy.polygonscan.com"
         }
       }
     ]
@@ -37,7 +37,7 @@ const config: HardhatUserConfig = {
   },
   solidity: {
     settings: { optimizer: { enabled: true }, viaIR: true },
-    version: '0.8.24'
+    version: "0.8.24"
   }
 };
 

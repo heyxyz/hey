@@ -1,16 +1,16 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   AtSymbolIcon,
   BellIcon,
   ChatBubbleLeftIcon,
   HeartIcon,
   ShoppingBagIcon
-} from '@heroicons/react/24/outline';
-import { NOTIFICATION } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
-import { NotificationTabType } from 'src/enums';
+} from "@heroicons/react/24/outline";
+import { NOTIFICATION } from "@hey/data/tracking";
+import { TabButton } from "@hey/ui";
+import { NotificationTabType } from "src/enums";
 
 interface FeedTypeProps {
   feedType: NotificationTabType;
@@ -26,27 +26,27 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
   const tabs = [
     {
       icon: <BellIcon className="size-4" />,
-      name: 'All notifications',
+      name: "All notifications",
       type: NotificationTabType.All
     },
     {
       icon: <AtSymbolIcon className="size-4" />,
-      name: 'Mentions',
+      name: "Mentions",
       type: NotificationTabType.Mentions
     },
     {
       icon: <ChatBubbleLeftIcon className="size-4" />,
-      name: 'Comments',
+      name: "Comments",
       type: NotificationTabType.Comments
     },
     {
       icon: <HeartIcon className="size-4" />,
-      name: 'Likes',
+      name: "Likes",
       type: NotificationTabType.Likes
     },
     {
       icon: <ShoppingBagIcon className="size-4" />,
-      name: 'Collects',
+      name: "Collects",
       type: NotificationTabType.Collects
     }
   ];

@@ -1,7 +1,7 @@
-import type { PublicationTip } from '@hey/types/hey';
+import type { PublicationTip } from "@hey/types/hey";
 
-import { HEY_API_URL } from '@hey/data/constants';
-import axios from 'axios';
+import { HEY_API_URL } from "@hey/data/constants";
+import axios from "axios";
 
 /**
  * Get the number of tips of a publication

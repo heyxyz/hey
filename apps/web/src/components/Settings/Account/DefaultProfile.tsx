@@ -1,23 +1,23 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
+import Loader from "@components/Shared/Loader";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import getAvatar from "@hey/helpers/getAvatar";
+import getProfile from "@hey/helpers/getProfile";
 import {
   useDefaultProfileQuery,
   useProfilesQuery,
   useSetDefaultProfileMutation
-} from '@hey/lens';
-import { Button, Card, CardHeader, Select } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/lens";
+import { Button, Card, CardHeader, Select } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const DefaultProfile: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -27,7 +27,7 @@ const DefaultProfile: FC = () => {
   );
 
   const onCompleted = () => {
-    toast.success('Default profile set successfully');
+    toast.success("Default profile set successfully");
     Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 

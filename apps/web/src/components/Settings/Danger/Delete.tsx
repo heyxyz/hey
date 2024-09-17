@@ -1,17 +1,17 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import UserProfile from '@components/Shared/UserProfile';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import UserProfile from "@components/Shared/UserProfile";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   ExclamationTriangleIcon,
   TrashIcon
-} from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { APP_NAME, LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+} from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { APP_NAME, LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
 import {
   Button,
   Card,
@@ -20,13 +20,13 @@ import {
   Modal,
   Spinner,
   WarningMessage
-} from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { signOut } from 'src/store/persisted/useAuthStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useDisconnect, useWriteContract } from 'wagmi';
+} from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { signOut } from "src/store/persisted/useAuthStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useDisconnect, useWriteContract } from "wagmi";
 
 const DeleteSettings: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -39,7 +39,7 @@ const DeleteSettings: FC = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
     signOut();
     disconnect?.();
-    location.href = '/';
+    location.href = "/";
   };
 
   const onError = (error: any) => {
@@ -56,7 +56,7 @@ const DeleteSettings: FC = () => {
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'burn'
+      functionName: "burn"
     });
   };
 
@@ -109,7 +109,7 @@ const DeleteSettings: FC = () => {
           <H5 className="text-red-500">Delete Lens profile</H5>
           <p>
             This will permanently delete your Profile NFT on the Lens Protocol.
-            You will not be able to use any apps built on Lens, including{' '}
+            You will not be able to use any apps built on Lens, including{" "}
             {APP_NAME}. All your data will be wiped out immediately and you
             won't be able to get it back.
           </p>
@@ -141,7 +141,7 @@ const DeleteSettings: FC = () => {
           onClick={() => setShowWarningModal(true)}
           variant="danger"
         >
-          {isLoading ? 'Deleting...' : 'Delete your account'}
+          {isLoading ? "Deleting..." : "Delete your account"}
         </Button>
       </div>
       <Modal

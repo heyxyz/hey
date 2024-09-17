@@ -1,3 +1,3 @@
-import Mod from '@components/Mod';
+import Mod from "@components/Mod";
 
 export default Mod;

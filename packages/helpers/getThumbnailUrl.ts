@@ -1,11 +1,11 @@
 import type {
   PublicationMetadataMediaAudio,
   PublicationMetadataMediaVideo
-} from '@hey/lens';
+} from "@hey/lens";
 
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 
-import sanitizeDStorageUrl from './sanitizeDStorageUrl';
+import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 /**
  * Returns the thumbnail URL for the specified publication metadata.

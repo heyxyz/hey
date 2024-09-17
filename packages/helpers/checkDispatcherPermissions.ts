@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from "@hey/lens";
 
 interface Permissions {
   canBroadcast: boolean;

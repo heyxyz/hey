@@ -1,5 +1,5 @@
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   pollConfig: {
@@ -13,9 +13,9 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  pollConfig: { length: 7, options: ['', ''] },
+  pollConfig: { length: 7, options: ["", ""] },
   resetPollConfig: () =>
-    set(() => ({ pollConfig: { length: 1, options: ['', ''] } })),
+    set(() => ({ pollConfig: { length: 1, options: ["", ""] } })),
   setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   showPollEditor: false

@@ -1,10 +1,10 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
-import { EVER_API, EVER_BUCKET, EVER_REGION } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
+import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 
 const params = {
   DurationSeconds: 900,
@@ -43,7 +43,7 @@ export const get = [
         RoleSessionName: undefined
       });
       const { Credentials: credentials } = await stsClient.send(command);
-      logger.info('STS token generated');
+      logger.info("STS token generated");
 
       return res.status(200).json({
         accessKeyId: credentials?.AccessKeyId,

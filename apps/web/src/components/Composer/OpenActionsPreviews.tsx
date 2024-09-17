@@ -1,24 +1,24 @@
-import type { OG } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { OG } from "@hey/types/misc";
+import type { FC } from "react";
 
-import DecentOpenActionPreview from '@components/Publication/OpenAction/UnknownModule/Decent/DecentOpenActionPreview';
-import getNftOpenActionKit from '@helpers/getNftOpenActionKit';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import DecentOpenActionPreview from "@components/Publication/OpenAction/UnknownModule/Decent/DecentOpenActionPreview";
+import getNftOpenActionKit from "@helpers/getNftOpenActionKit";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   HEY_API_URL,
   KNOWN_ATTRIBUTES,
   REWARDS_PROFILE_ID
-} from '@hey/data/constants';
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
-import getFavicon from '@hey/helpers/getFavicon';
-import getURLs from '@hey/helpers/getURLs';
-import { MetadataAttributeType } from '@lens-protocol/metadata';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
+} from "@hey/data/constants";
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
+import getFavicon from "@hey/helpers/getFavicon";
+import getURLs from "@hey/helpers/getURLs";
+import { MetadataAttributeType } from "@lens-protocol/metadata";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect } from "react";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
+import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 
 interface OpenActionsPreviewsProps {
   setNftOpenActionEmbed: (nftOpenActionEmbed: any) => void;
@@ -33,7 +33,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     usePublicationAttributesStore();
 
   const urls = getURLs(publicationContent);
-  const url = urls?.[0] || '';
+  const url = urls?.[0] || "";
 
   const fetchnftOpenActionEmbed = async (
     publicationContent: string
@@ -54,11 +54,11 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
             data: calldata
           }
         };
-      } else {
-        return undefined;
       }
+
+      return undefined;
     } catch (error) {
-      console.error('Error fetching open action embed:', error);
+      console.error("Error fetching open action embed:", error);
       return undefined;
     }
   };
@@ -67,7 +67,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     useQuery({
       enabled: Boolean(publicationContent),
       queryFn: () => fetchnftOpenActionEmbed(publicationContent),
-      queryKey: ['fetchnftOpenActionEmbed', publicationContent]
+      queryKey: ["fetchnftOpenActionEmbed", publicationContent]
     });
 
   const { data } = useQuery({
@@ -78,7 +78,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
       });
       return response.data.oembed;
     },
-    queryKey: ['getOembed', url],
+    queryKey: ["getOembed", url],
     refetchOnMount: false
   });
 
@@ -86,7 +86,6 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     if (urls.length) {
       removeAttribute(KNOWN_ATTRIBUTES.HIDE_OEMBED);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urls.length]);
 
   useEffect(() => {
@@ -95,12 +94,11 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     } else {
       setNftOpenActionEmbed(undefined);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftOpenActionEmbed]);
 
   const og: OG = {
     description: data?.description,
-    favicon: data?.url ? getFavicon(data.url) : '',
+    favicon: data?.url ? getFavicon(data.url) : "",
     frame: data?.frame,
     html: data?.html,
     image: data?.image,
@@ -115,7 +113,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     !urls.length ||
     attachments.length ||
     quotedPublication ||
-    getAttribute(KNOWN_ATTRIBUTES.HIDE_OEMBED)?.value === 'true'
+    getAttribute(KNOWN_ATTRIBUTES.HIDE_OEMBED)?.value === "true"
   ) {
     return null;
   }
@@ -134,7 +132,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
               addAttribute({
                 key: KNOWN_ATTRIBUTES.HIDE_OEMBED,
                 type: MetadataAttributeType.BOOLEAN,
-                value: 'true'
+                value: "true"
               })
             }
             type="button"

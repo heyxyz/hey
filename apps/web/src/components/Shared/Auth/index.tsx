@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Login from '@components/Shared/Auth/Login';
-import { APP_NAME } from '@hey/data/constants';
-import { useState } from 'react';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useAccount } from 'wagmi';
+import Login from "@components/Shared/Auth/Login";
+import { APP_NAME } from "@hey/data/constants";
+import { useState } from "react";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useAccount } from "wagmi";
 
-import AuthMessage from './AuthMessage';
-import Signup from './Signup';
-import { SignupMessage } from './Signup/ChooseHandle';
+import AuthMessage from "./AuthMessage";
+import Signup from "./Signup";
+import { SignupMessage } from "./Signup/ChooseHandle";
 
 const NotConnected = () => (
   <AuthMessage
@@ -24,7 +24,7 @@ const Auth: FC = () => {
 
   return (
     <div className="m-5">
-      {authModalType === 'signup' ? (
+      {authModalType === "signup" ? (
         <div className="space-y-5">
           {!isConnected && <NotConnected />}
           <Signup />

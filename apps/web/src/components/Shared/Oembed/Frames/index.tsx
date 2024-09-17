@@ -1,23 +1,23 @@
-import type { FrameTransaction, Frame as IFrame } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { FrameTransaction, Frame as IFrame } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { getAuthApiHeadersWithAccessToken } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { BoltIcon, LinkIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Button, Card, Input, Modal } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import axios from 'axios';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { createTrackedSelector } from 'react-tracked';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { create } from 'zustand';
+import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { BoltIcon, LinkIcon } from "@heroicons/react/24/outline";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Button, Card, Input, Modal } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import axios from "axios";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { createTrackedSelector } from "react-tracked";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { create } from "zustand";
 
-import Transaction from './Transaction';
+import Transaction from "./Transaction";
 
 interface ShowTransactionState {
   frame: IFrame | null;
@@ -40,7 +40,7 @@ interface FramesState {
 export const useFramesStore = createTrackedSelector(
   create<FramesState>((set) => ({
     frameData: null,
-    inputText: '',
+    inputText: "",
     isLoading: false,
     setFrameData: (frameData) => set({ frameData }),
     setInputText: (inputText) => set({ inputText }),
@@ -101,7 +101,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           acceptsLens: frame.acceptsLens,
           buttonAction: action,
           buttonIndex: index + 1,
-          inputText: action === 'post' ? inputText : undefined,
+          inputText: action === "post" ? inputText : undefined,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
           pubId: publicationId,
           state
@@ -113,19 +113,19 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         return toast.error(Errors.SomethingWentWrongWithFrame);
       }
 
-      if (action === 'post_redirect') {
-        if (typeof window !== 'undefined' && Boolean(data.frame.location)) {
+      if (action === "post_redirect") {
+        if (typeof window !== "undefined" && Boolean(data.frame.location)) {
           const message = `You are about to be redirected to ${data.frame.location!.toString()}`;
 
           if (window.confirm(message)) {
-            window.open(data.frame.location, '_blank')?.focus();
+            window.open(data.frame.location, "_blank")?.focus();
           }
         } else {
           return toast.error(Errors.SomethingWentWrongWithFrame);
         }
-      } else if (action === 'post') {
+      } else if (action === "post") {
         setFrameData(data.frame);
-      } else if (action === 'tx') {
+      } else if (action === "tx") {
         const txnData = data.frame.transaction;
         if (!txnData) {
           return toast.error(Errors.SomethingWentWrongWithFrame);
@@ -150,9 +150,9 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       <img
         alt={image}
         className={cn(
-          isLoading && 'animate-shimmer',
-          `aspect-[${(imageAspectRatio || '1.91:1').replace(':', '/')}]`,
-          'w-full rounded-t-xl object-cover'
+          isLoading && "animate-shimmer",
+          `aspect-[${(imageAspectRatio || "1.91:1").replace(":", "/")}]`,
+          "w-full rounded-t-xl object-cover"
         )}
         src={image}
       />
@@ -169,11 +169,11 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
       )}
       <div
         className={cn(
-          buttons.length === 1 && 'grid-cols-1',
-          buttons.length === 2 && 'grid-cols-2',
-          buttons.length === 3 && 'grid-cols-3',
-          buttons.length === 4 && 'grid-cols-2',
-          'grid gap-4 p-5 dark:border-gray-700'
+          buttons.length === 1 && "grid-cols-1",
+          buttons.length === 2 && "grid-cols-2",
+          buttons.length === 3 && "grid-cols-3",
+          buttons.length === 4 && "grid-cols-2",
+          "grid gap-4 p-5 dark:border-gray-700"
         )}
       >
         {buttons.map(({ action, button, target }, index) => (
@@ -181,11 +181,11 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
             className="flex items-center justify-center space-x-2"
             disabled={isLoading || !publicationId || !currentProfile}
             icon={
-              action === 'link' ||
-              action === 'post_redirect' ||
-              action === 'mint' ? (
+              action === "link" ||
+              action === "post_redirect" ||
+              action === "mint" ? (
                 <LinkIcon className="size-4" />
-              ) : action === 'tx' ? (
+              ) : action === "tx" ? (
                 <BoltIcon className="size-4" />
               ) : null
             }
@@ -196,13 +196,13 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
                 publication_id: publicationId
               });
 
-              if (action === 'link' || action === 'mint') {
-                const url = action === 'mint' ? frameUrl : target || frameUrl;
-                window.open(url, '_blank');
+              if (action === "link" || action === "mint") {
+                const url = action === "mint" ? frameUrl : target || frameUrl;
+                window.open(url, "_blank");
               } else if (
-                action === 'post' ||
-                action === 'tx' ||
-                action === 'post_redirect'
+                action === "post" ||
+                action === "tx" ||
+                action === "post_redirect"
               ) {
                 postFrameData(index, action);
               }
@@ -210,9 +210,9 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
             outline
             size="lg"
             type={
-              action === 'post' || action === 'post_redirect'
-                ? 'submit'
-                : 'button'
+              action === "post" || action === "post_redirect"
+                ? "submit"
+                : "button"
             }
           >
             <span>{button}</span>

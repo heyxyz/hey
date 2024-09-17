@@ -1,4 +1,4 @@
-import { isAddress } from 'viem';
+import { isAddress } from "viem";
 
 /**
  * Format the given Ethereum address by displaying only the first and last few characters.
@@ -9,7 +9,7 @@ import { isAddress } from 'viem';
  */
 const formatAddress = (address: null | string, slice = 4): string => {
   if (!address) {
-    return '';
+    return "";
   }
 
   address = address.toLowerCase();

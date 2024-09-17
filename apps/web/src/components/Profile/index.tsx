@@ -1,40 +1,40 @@
-import type { Profile } from '@hey/lens';
-import type { NextPage } from 'next';
+import type { Profile } from "@hey/lens";
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import NewPost from '@components/Composer/NewPost';
-import Cover from '@components/Shared/Cover';
-import { Leafwatch } from '@helpers/leafwatch';
-import { NoSymbolIcon } from '@heroicons/react/24/outline';
+import MetaTags from "@components/Common/MetaTags";
+import NewPost from "@components/Composer/NewPost";
+import Cover from "@components/Shared/Cover";
+import { Leafwatch } from "@helpers/leafwatch";
+import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   APP_NAME,
   HANDLE_PREFIX,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { PAGEVIEW } from '@hey/data/tracking';
-import getProfileDetails from '@hey/helpers/api/getProfileFlags';
-import getProfile from '@hey/helpers/getProfile';
-import { useProfileQuery } from '@hey/lens';
-import { EmptyState, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useFlag } from '@unleash/proxy-client-react';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { ProfileFeedType } from 'src/enums';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/data/constants";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { PAGEVIEW } from "@hey/data/tracking";
+import getProfileDetails from "@hey/helpers/api/getProfileFlags";
+import getProfile from "@hey/helpers/getProfile";
+import { useProfileQuery } from "@hey/lens";
+import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useFlag } from "@unleash/proxy-client-react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { ProfileFeedType } from "src/enums";
+import Custom404 from "src/pages/404";
+import Custom500 from "src/pages/500";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Details from './Details';
-import Feed from './Feed';
-import FeedType from './FeedType';
-import Followers from './Followers';
-import Following from './Following';
-import MutualFollowersList from './MutualFollowers/List';
-import ProfilePageShimmer from './Shimmer';
-import Stats from './Stats';
-import SuspendedDetails from './SuspendedDetails';
+import Details from "./Details";
+import Feed from "./Feed";
+import FeedType from "./FeedType";
+import Followers from "./Followers";
+import Following from "./Following";
+import MutualFollowersList from "./MutualFollowers/List";
+import ProfilePageShimmer from "./Shimmer";
+import Stats from "./Stats";
+import SuspendedDetails from "./SuspendedDetails";
 
 const ViewProfile: NextPage = () => {
   const {
@@ -46,25 +46,24 @@ const ViewProfile: NextPage = () => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const showFollowing =
-    pathname === '/u/[handle]/following' ||
-    pathname === '/profile/[id]/following';
+    pathname === "/u/[handle]/following" ||
+    pathname === "/profile/[id]/following";
   const showFollowers =
-    pathname === '/u/[handle]/followers' ||
-    pathname === '/profile/[id]/followers';
+    pathname === "/u/[handle]/followers" ||
+    pathname === "/profile/[id]/followers";
   const showMutuals =
-    pathname === '/u/[handle]/mutuals' || pathname === '/profile/[id]/mutuals';
+    pathname === "/u/[handle]/mutuals" || pathname === "/profile/[id]/mutuals";
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
-        page: 'profile',
+        page: "profile",
         subpage: pathname
-          .replace('/u/[handle]', '')
-          .replace('/profile/[id]', ''),
+          .replace("/u/[handle]", "")
+          .replace("/profile/[id]", ""),
         ...(source ? { source } : {})
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handle, id]);
 
   const lowerCaseProfileFeedType = [
@@ -101,7 +100,7 @@ const ViewProfile: NextPage = () => {
   const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
     enabled: Boolean(profile?.id),
     queryFn: () => getProfileDetails(profile?.id),
-    queryKey: ['getProfileDetailsOnProfile', profile?.id]
+    queryKey: ["getProfileDetailsOnProfile", profile?.id]
   });
 
   if (!isReady || profileLoading) {

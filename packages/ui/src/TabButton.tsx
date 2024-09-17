@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
-import cn from '../cn';
+import cn from "../cn";
 
 interface TabButtonProps {
   active: boolean;
@@ -18,7 +18,7 @@ interface TabButtonProps {
 const TabButton: FC<TabButtonProps> = ({
   active,
   badge,
-  className = '',
+  className = "",
   icon,
   name,
   onClick,
@@ -31,11 +31,11 @@ const TabButton: FC<TabButtonProps> = ({
     <button
       aria-label={name}
       className={cn(
-        { 'text-black dark:text-white': active },
-        { 'bg-gray-300 dark:bg-gray-300/20': active },
-        'hover:bg-gray-300 dark:hover:bg-gray-300/30',
-        'hover:text-black hover:dark:text-white',
-        'flex items-center justify-center space-x-2 rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5',
+        { "text-black dark:text-white": active },
+        { "bg-gray-300 dark:bg-gray-300/20": active },
+        "hover:bg-gray-300 dark:hover:bg-gray-300/30",
+        "hover:text-black hover:dark:text-white",
+        "flex items-center justify-center space-x-2 rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5",
         className
       )}
       onClick={() => {
@@ -49,7 +49,7 @@ const TabButton: FC<TabButtonProps> = ({
       type="button"
     >
       {icon}
-      <span className={cn({ 'hidden sm:block': !showOnSm })}>{name}</span>
+      <span className={cn({ "hidden sm:block": !showOnSm })}>{name}</span>
       {badge}
     </button>
   );

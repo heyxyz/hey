@@ -2,44 +2,44 @@ import type {
   ApprovedAllowanceAmountResult,
   FeeFollowModuleSettings,
   Profile
-} from '@hey/lens';
-import type { Dispatch, FC, SetStateAction } from 'react';
+} from "@hey/lens";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import AllowanceButton from '@components/Settings/Allowance/Button';
-import Loader from '@components/Shared/Loader';
-import NoBalanceError from '@components/Shared/NoBalanceError';
-import Slug from '@components/Shared/Slug';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB, POLYGONSCAN_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import formatAddress from '@hey/helpers/formatAddress';
-import getProfile from '@hey/helpers/getProfile';
-import getSignature from '@hey/helpers/getSignature';
-import getTokenImage from '@hey/helpers/getTokenImage';
+import AllowanceButton from "@components/Settings/Allowance/Button";
+import Loader from "@components/Shared/Loader";
+import NoBalanceError from "@components/Shared/NoBalanceError";
+import Slug from "@components/Shared/Slug";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { StarIcon, UserIcon } from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB, POLYGONSCAN_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PROFILE } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import formatAddress from "@hey/helpers/formatAddress";
+import getProfile from "@hey/helpers/getProfile";
+import getSignature from "@hey/helpers/getSignature";
+import getTokenImage from "@hey/helpers/getTokenImage";
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useProfileQuery
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button, H3, H5, Spinner, WarningMessage } from '@hey/ui';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { formatUnits } from 'viem';
-import { useBalance, useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { Button, H3, H5, Spinner, WarningMessage } from "@hey/ui";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { formatUnits } from "viem";
+import { useBalance, useSignTypedData, useWriteContract } from "wagmi";
 
 interface FollowModuleProps {
   profile: Profile;
@@ -77,15 +77,15 @@ const FollowModule: FC<FollowModuleProps> = ({
     });
   };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
       return;
     }
 
     updateCache();
     setIsLoading(false);
     setShowFollowModal(false);
-    toast.success('Followed successfully!');
+    toast.success("Followed successfully!");
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
       target: profile?.id
@@ -116,7 +116,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'follow'
+      functionName: "follow"
     });
   };
 
@@ -127,15 +127,15 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const followModule = data?.profile?.followModule as FeeFollowModuleSettings;
 
-  const amount = parseFloat(followModule?.amount?.value || '0');
+  const amount = Number.parseFloat(followModule?.amount?.value || "0");
   const currency = followModule?.amount?.asset?.symbol;
   const assetName = followModule?.amount?.asset?.name;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: 'no-cache',
+      fetchPolicy: "no-cache",
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        const allowedAmount = parseFloat(
+        const allowedAmount = Number.parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
         );
         setAllowed(allowedAmount > amount);
@@ -160,7 +160,7 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   if (
     balanceData &&
-    parseFloat(
+    Number.parseFloat(
       formatUnits(balanceData.value, followModule?.amount?.asset?.decimals)
     ) < amount
   ) {
@@ -195,7 +195,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === "RelayError") {
           return await write({ args });
         }
 
@@ -305,7 +305,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You will get Super follow badge in{' '}
+              You will get Super follow badge in{" "}
               {getProfile(profile).slugWithPrefix}'s profile
             </div>
           </li>
@@ -321,7 +321,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         ) : allowed ? (
           hasAmount ? (
             <Button
-              className="mt-5 !px-3 !py-1.5 text-sm"
+              className="!px-3 !py-1.5 mt-5 text-sm"
               disabled={isLoading}
               icon={
                 isLoading ? (

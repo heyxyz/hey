@@ -1,21 +1,21 @@
-import type { CollectModuleType } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { CollectModuleType } from "@hey/types/hey";
+import type { FC } from "react";
 
-import SearchProfiles from '@components/Shared/SearchProfiles';
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import SearchProfiles from "@components/Shared/SearchProfiles";
+import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
   UsersIcon,
   XCircleIcon
-} from '@heroicons/react/24/outline';
-import { ADDRESS_PLACEHOLDER } from '@hey/data/constants';
-import splitNumber from '@hey/helpers/splitNumber';
-import { Button, H6, Input } from '@hey/ui';
-import { useState } from 'react';
-import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { isAddress } from 'viem';
+} from "@heroicons/react/24/outline";
+import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
+import splitNumber from "@hey/helpers/splitNumber";
+import { Button, H6, Input } from "@hey/ui";
+import { useState } from "react";
+import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { isAddress } from "viem";
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
@@ -29,7 +29,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const { currentProfile } = useProfileStore();
   const { collectModule } = useCollectModuleStore((state) => state);
 
-  const currentAddress = currentProfile?.ownedBy.address || '';
+  const currentAddress = currentProfile?.ownedBy.address || "";
   const recipients = collectModule.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||
@@ -53,14 +53,14 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const onChangeRecipientOrSplit = (
     index: number,
     value: string,
-    type: 'recipient' | 'split'
+    type: "recipient" | "split"
   ) => {
     const getRecipients = (value: string) => {
       return recipients.map((recipient, i) => {
         if (i === index) {
           return {
             ...recipient,
-            [type]: type === 'split' ? parseInt(value) : value
+            [type]: type === "split" ? Number.parseInt(value) : value
           };
         }
         return recipient;
@@ -71,7 +71,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   };
 
   const updateRecipient = (index: number, value: string) => {
-    onChangeRecipientOrSplit(index, value, 'recipient');
+    onChangeRecipientOrSplit(index, value, "recipient");
   };
 
   const removeRecipient = (index: number) => {
@@ -103,7 +103,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         setOn={toggleSplit}
       />
       {isToggleOn ? (
-        <div className="ml-8 mt-4 space-y-3">
+        <div className="mt-4 ml-8 space-y-3">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
               <H6
@@ -134,7 +134,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                       onChangeRecipientOrSplit(
                         index,
                         event.target.value,
-                        'split'
+                        "split"
                       )
                     }
                     placeholder="5"
@@ -156,7 +156,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 icon={<PlusIcon className="size-3" />}
                 onClick={() => {
                   setCollectType({
-                    recipients: [...recipients, { recipient: '', split: 0 }]
+                    recipients: [...recipients, { recipient: "", split: 0 }]
                   });
                 }}
                 outline

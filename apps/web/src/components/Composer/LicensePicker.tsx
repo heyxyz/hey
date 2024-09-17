@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import getAssetLicense from '@helpers/getAssetLicense';
-import { Select, Tooltip } from '@hey/ui';
-import { MetadataLicenseType } from '@lens-protocol/metadata';
-import Link from 'next/link';
-import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
+import getAssetLicense from "@helpers/getAssetLicense";
+import { Select, Tooltip } from "@hey/ui";
+import { MetadataLicenseType } from "@lens-protocol/metadata";
+import Link from "next/link";
+import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
 
 const LicensePicker: FC = () => {
   const { license, setLicense } = usePublicationLicenseStore();
@@ -19,7 +19,7 @@ const LicensePicker: FC = () => {
 
   const options = [
     {
-      label: 'All rights reserved',
+      label: "All rights reserved",
       selected: license === null,
       value: null
     },
@@ -51,7 +51,7 @@ const LicensePicker: FC = () => {
       />
       <div className="ld-text-gray-500 linkify mt-2 text-sm">
         {getAssetLicense(license)?.helper ||
-          'You are not granting a license to the collector and retain all rights.'}
+          "You are not granting a license to the collector and retain all rights."}
         <Link
           className="ml-1.5"
           href="https://yoginth.notion.site/60f9d82c5a274a88b8444611c7a8a94a"

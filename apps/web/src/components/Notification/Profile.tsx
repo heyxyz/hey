@@ -1,19 +1,19 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import UserPreview from '@components/Shared/UserPreview';
-import isVerified from '@helpers/isVerified';
+import UserPreview from "@components/Shared/UserPreview";
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Image } from '@hey/ui';
-import Link from 'next/link';
+} from "@heroicons/react/24/solid";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getProfile from "@hey/helpers/getProfile";
+import hasMisused from "@hey/helpers/hasMisused";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Image } from "@hey/ui";
+import Link from "next/link";
 
 interface NotificationProfileProps {
   profile: Profile;
@@ -61,7 +61,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       >
         <span>{getProfile(profile).displayName}</span>
         {isVerified(profile.id) && (
-          <CheckBadgeIcon className="text-brand-500 size-4" />
+          <CheckBadgeIcon className="size-4 text-brand-500" />
         )}
         {hasMisused(profile.id) && <ExclamationCircleIcon className="size-4" />}
       </Link>

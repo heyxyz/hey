@@ -2,33 +2,33 @@ import type {
   LastLoggedInProfileRequest,
   Profile,
   ProfilesManagedRequest
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { Errors } from "@hey/data/errors";
+import { PROFILE } from "@hey/data/tracking";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getProfile from "@hey/helpers/getProfile";
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@hey/lens';
-import { ErrorMessage, H4, Image, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { signIn, signOut } from 'src/store/persisted/useAuthStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useAccount, useSignMessage } from 'wagmi';
+} from "@hey/lens";
+import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { signIn, signOut } from "src/store/persisted/useAuthStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccount, useSignMessage } from "wagmi";
 
-import WalletSelector from './Auth/WalletSelector';
-import Loader from './Loader';
+import WalletSelector from "./Auth/WalletSelector";
+import Loader from "./Loader";
 
 const SwitchProfiles: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -58,7 +58,7 @@ const SwitchProfiles: FC = () => {
     variables: { lastLoggedInProfileRequest, profilesManagedRequest }
   });
   const [loadChallenge] = useChallengeLazyQuery({
-    fetchPolicy: 'no-cache'
+    fetchPolicy: "no-cache"
   });
   const [authenticate] = useAuthenticateMutation();
 
@@ -126,7 +126,7 @@ const SwitchProfiles: FC = () => {
       />
       {profiles.map((profile, index) => (
         <button
-          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           key={profile?.id}
           onClick={async () => {
             const selectedProfile = profiles[index] as Profile;
@@ -147,8 +147,8 @@ const SwitchProfiles: FC = () => {
             />
             <div
               className={cn(
-                currentProfile?.id === profile?.id && 'font-bold',
-                'truncate'
+                currentProfile?.id === profile?.id && "font-bold",
+                "truncate"
               )}
             >
               {getProfile(profile as Profile).slugWithPrefix}

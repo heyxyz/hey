@@ -1,14 +1,14 @@
-import type { AnyPublication, LatestActed, PaginatedRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication, LatestActed, PaginatedRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import SinglePublication from '@components/Publication/SinglePublication';
-import PaidActionsShimmer from '@components/Shared/Shimmer/PaidActionsShimmer';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { LimitType, useLatestPaidActionsQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { Virtuoso } from 'react-virtuoso';
+import SinglePublication from "@components/Publication/SinglePublication";
+import PaidActionsShimmer from "@components/Shared/Shimmer/PaidActionsShimmer";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { LimitType, useLatestPaidActionsQuery } from "@hey/lens";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import { Virtuoso } from "react-virtuoso";
 
-import OpenActionPaidAction from './OpenActionPaidAction';
+import OpenActionPaidAction from "./OpenActionPaidAction";
 
 const PaidActions: FC = () => {
   const request: PaginatedRequest = { limit: LimitType.TwentyFive };
@@ -51,14 +51,14 @@ const PaidActions: FC = () => {
       className="[&>div>div]:space-y-5"
       components={{ Footer: () => <div className="pb-5" /> }}
       computeItemKey={(index, action) =>
-        action.__typename === 'OpenActionPaidAction'
+        action.__typename === "OpenActionPaidAction"
           ? `${action.actedOn?.id}-${index}`
           : index
       }
       data={actions}
       endReached={onEndReached}
       itemContent={(_, action) => {
-        return action.__typename === 'OpenActionPaidAction' ? (
+        return action.__typename === "OpenActionPaidAction" ? (
           <Card>
             <OpenActionPaidAction
               latestActed={action.latestActed as LatestActed[]}

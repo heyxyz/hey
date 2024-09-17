@@ -1,19 +1,21 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import errorToast from '@helpers/errorToast';
-import formatDate from '@hey/helpers/datetime/formatDate';
+import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import errorToast from "@helpers/errorToast";
+import formatDate from "@hey/helpers/datetime/formatDate";
 import {
   type ModReport,
   type Profile,
   useModDisputeReportMutation
-} from '@hey/lens';
-import { Button, Form, H5, TextArea, useZodForm } from '@hey/ui';
-import toast from 'react-hot-toast';
-import { object, string } from 'zod';
+} from "@hey/lens";
+import { Button, Form, H5, TextArea, useZodForm } from "@hey/ui";
+import toast from "react-hot-toast";
+import { object, string } from "zod";
 
 const disputeSchema = object({
-  reason: string().min(5, { message: 'Reason should be at least 5 characters' })
+  reason: string().min(5, {
+    message: "Reason should be at least 5 characters"
+  })
 });
 
 interface DisputeProps {
@@ -42,7 +44,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
       setShowDisputeModal(false);
       form.reset();
 
-      return toast.success('Disputed successfully!');
+      return toast.success("Disputed successfully!");
     } catch (error) {
       errorToast(error);
     }
@@ -68,7 +70,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
         <div>
           <H5>Reported at</H5>
           <div className="text-sm">
-            {formatDate(report.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
+            {formatDate(report.createdAt, "MMM D, YYYY - hh:mm:ss A")}
           </div>
         </div>
         <div>
@@ -89,7 +91,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
         <TextArea
           label="Why are you disputing this report?"
           placeholder="This should clearly articulate the grounds for disagreement with the original report."
-          {...form.register('reason')}
+          {...form.register("reason")}
           rows={5}
         />
         <Button className="w-full" disabled={loading}>

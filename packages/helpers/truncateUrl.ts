@@ -7,9 +7,9 @@
  */
 const truncateUrl = (url: string, maxLength: number): string => {
   const strippedUrl = url
-    .replace(/^(http|https):\/\//, '')
-    .replace(/^www\./, '');
-  if (new URL(url).hostname.endsWith('hey.xyz')) {
+    .replace(/^(http|https):\/\//, "")
+    .replace(/^www\./, "");
+  if (new URL(url).hostname.endsWith("hey.xyz")) {
     return strippedUrl;
   }
   if (strippedUrl.length > maxLength) {

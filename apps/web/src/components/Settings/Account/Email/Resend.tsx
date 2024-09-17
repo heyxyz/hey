@@ -1,18 +1,18 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import errorToast from "@helpers/errorToast";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import { Button } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const Resend: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -49,7 +49,7 @@ const Resend: FC = () => {
       setSent(true);
       Leafwatch.track(SETTINGS.ACCOUNT.RESEND_EMAIL_VERIFICATION);
 
-      return toast.success('Email verification sent to your email!');
+      return toast.success("Email verification sent to your email!");
     } catch (error) {
       onError(error);
     } finally {

@@ -1,4 +1,4 @@
-import type { PublicationViewCount } from '@hey/types/hey';
+import type { PublicationViewCount } from "@hey/types/hey";
 
 /**
  * Get the number of views of a publication

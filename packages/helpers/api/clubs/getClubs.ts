@@ -1,7 +1,7 @@
-import type { Club } from '@hey/types/club';
+import type { Club } from "@hey/types/club";
 
-import { HEY_API_URL } from '@hey/data/constants';
-import axios from 'axios';
+import { HEY_API_URL } from "@hey/data/constants";
+import axios from "axios";
 
 export interface Payload {
   club_handle?: null | string;

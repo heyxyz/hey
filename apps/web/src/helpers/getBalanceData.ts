@@ -1,9 +1,9 @@
-import type { BalanceData } from '@hey/helpers/formatTokenBalances';
-import type { FiatRate } from '@hey/types/lens';
+import type { BalanceData } from "@hey/helpers/formatTokenBalances";
+import type { FiatRate } from "@hey/types/lens";
 
 interface BalanceInfo {
   decimals?: number;
-  value?: bigint | BigInt;
+  value?: bigint | string | number;
 }
 
 interface CurrencyInfo {
@@ -21,9 +21,9 @@ const getBalanceData = (
       ?.fiat || 0;
 
   const value: bigint =
-    typeof balanceData?.value === 'bigint'
+    typeof balanceData?.value === "bigint"
       ? balanceData.value
-      : BigInt(balanceData?.value?.toString() || '0');
+      : BigInt(balanceData?.value ? balanceData.value.toString() : "0");
 
   return {
     decimals: balanceData?.decimals || 0,

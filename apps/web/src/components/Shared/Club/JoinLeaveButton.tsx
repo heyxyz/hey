@@ -1,10 +1,10 @@
-import type { Club } from '@hey/types/club';
-import type { FC } from 'react';
+import type { Club } from "@hey/types/club";
+import type { FC } from "react";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Join from './Join';
-import Leave from './Leave';
+import Join from "./Join";
+import Leave from "./Leave";
 
 interface JoinLeaveButtonProps {
   club: Club;

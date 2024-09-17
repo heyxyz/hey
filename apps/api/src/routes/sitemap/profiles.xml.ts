@@ -1,13 +1,13 @@
-import type { Handler } from 'express';
+import type { Handler } from "express";
 
-import lensPg from '@hey/db/lensPg';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { CACHE_AGE_1_DAY, SITEMAP_BATCH_SIZE } from 'src/helpers/constants';
-import { buildSitemapXml } from 'src/helpers/sitemap/buildSitemap';
+import lensPg from "@hey/db/lensPg";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { CACHE_AGE_1_DAY, SITEMAP_BATCH_SIZE } from "src/helpers/constants";
+import { buildSitemapXml } from "src/helpers/sitemap/buildSitemap";
 
 export const get: Handler = async (req, res) => {
-  const user_agent = req.headers['user-agent'];
+  const user_agent = req.headers["user-agent"];
 
   try {
     const response = await lensPg.query(`
@@ -32,8 +32,8 @@ export const get: Handler = async (req, res) => {
 
     return res
       .status(200)
-      .setHeader('Content-Type', 'text/xml')
-      .setHeader('Cache-Control', CACHE_AGE_1_DAY)
+      .setHeader("Content-Type", "text/xml")
+      .setHeader("Cache-Control", CACHE_AGE_1_DAY)
       .send(xml);
   } catch (error) {
     return catchedError(res, error);

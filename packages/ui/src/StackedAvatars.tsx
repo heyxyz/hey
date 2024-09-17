@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Image } from './Image';
+import { Image } from "./Image";
 
 interface StackedAvatarsProps {
   avatars: string[];
@@ -14,17 +14,15 @@ const StackedAvatars: FC<StackedAvatarsProps> = ({ avatars, limit }) => {
 
   return (
     <span className="flex">
-      <span className="contents -space-x-2">
-        {avatars
-          .slice(0, limit)
-          ?.map((avatar, index) => (
-            <Image
-              alt={avatar}
-              className="size-5 rounded-full border dark:border-gray-700"
-              key={avatar + index}
-              src={avatar}
-            />
-          ))}
+      <span className="-space-x-2 contents">
+        {avatars.slice(0, limit)?.map((avatar, index) => (
+          <Image
+            alt={avatar}
+            className="size-5 rounded-full border dark:border-gray-700"
+            key={avatar + index}
+            src={avatar}
+          />
+        ))}
       </span>
     </span>
   );

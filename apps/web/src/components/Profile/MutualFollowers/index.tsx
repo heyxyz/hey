@@ -1,13 +1,13 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { StackedAvatars } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import getAvatar from "@hey/helpers/getAvatar";
+import getProfile from "@hey/helpers/getProfile";
+import { LimitType, useMutualFollowersQuery } from "@hey/lens";
+import { StackedAvatars } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface MutualFollowersProps {
   handle: string;
@@ -39,8 +39,8 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <Link
       className={cn(
-        viaPopover ? 'text-xs' : 'text-sm',
-        'ld-text-gray-500 flex cursor-pointer flex-wrap items-center gap-2.5'
+        viaPopover ? "text-xs" : "text-sm",
+        "ld-text-gray-500 flex cursor-pointer flex-wrap items-center gap-2.5"
       )}
       href={`/u/${handle}/mutuals`}
     >
@@ -89,12 +89,12 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
         <span>{getProfile(profileOne).displayName}, </span>
         <span>
           {getProfile(profileTwo).displayName}
-          {isZero ? ' and ' : ', '}
+          {isZero ? " and " : ", "}
         </span>
         <span>{getProfile(profileThree).displayName} </span>
         {!isZero ? (
           <span>
-            and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
+            and {calculatedCount} {calculatedCount === 1 ? "other" : "others"}
           </span>
         ) : null}
       </Wrapper>

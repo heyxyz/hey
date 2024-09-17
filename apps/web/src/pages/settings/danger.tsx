@@ -1,3 +1,3 @@
-import DangerSettings from '@components/Settings/Danger';
+import DangerSettings from "@components/Settings/Danger";
 
 export default DangerSettings;

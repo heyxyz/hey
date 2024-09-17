@@ -1,13 +1,13 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import logger from '@hey/helpers/logger';
-import { Uploader } from '@irys/upload';
-import { Matic } from '@irys/upload-ethereum';
-import { signMetadata } from '@lens-protocol/metadata';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { noBody } from 'src/helpers/responses';
-import { privateKeyToAccount } from 'viem/accounts';
+import logger from "@hey/helpers/logger";
+import { Uploader } from "@irys/upload";
+import { Matic } from "@irys/upload-ethereum";
+import { signMetadata } from "@lens-protocol/metadata";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { noBody } from "src/helpers/responses";
+import { privateKeyToAccount } from "viem/accounts";
 
 const getIrysUploader = async () => {
   return await Uploader(Matic).withWallet(process.env.PRIVATE_KEY).build();
@@ -31,8 +31,8 @@ export const post = [
 
       const receipt = await irys.upload(JSON.stringify(signed), {
         tags: [
-          { name: 'content-type', value: 'application/json' },
-          { name: 'App-Name', value: 'Hey.xyz' }
+          { name: "content-type", value: "application/json" },
+          { name: "App-Name", value: "Hey.xyz" }
         ]
       });
 

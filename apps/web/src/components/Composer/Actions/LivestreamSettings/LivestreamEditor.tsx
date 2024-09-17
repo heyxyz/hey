@@ -1,20 +1,20 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import Video from '@components/Shared/Video';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
+import Video from "@components/Shared/Video";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
   ClipboardDocumentIcon,
   SignalIcon,
   VideoCameraIcon,
   VideoCameraSlashIcon
-} from '@heroicons/react/24/outline';
-import { XCircleIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Card, Spinner, Tooltip } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
+} from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Card, Spinner, Tooltip } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 
 interface WrapperProps {
   children: ReactNode;
@@ -36,7 +36,7 @@ const LivestreamEditor: FC = () => {
     setShowLiveVideoEditor
   } = usePublicationLiveStore();
 
-  const [screen, setScreen] = useState<'create' | 'record'>('create');
+  const [screen, setScreen] = useState<"create" | "record">("create");
   const [creating, setCreating] = useState(false);
 
   const createLiveStream = async (record: boolean) => {
@@ -54,7 +54,7 @@ const LivestreamEditor: FC = () => {
         streamKey: data.result.streamKey
       });
     } catch {
-      toast.error('Error creating live stream');
+      toast.error("Error creating live stream");
     } finally {
       setCreating(false);
     }
@@ -97,9 +97,9 @@ const LivestreamEditor: FC = () => {
                 <button
                   onClick={async () => {
                     await navigator.clipboard.writeText(
-                      'rtmp://rtmp.hey.xyz/live'
+                      "rtmp://rtmp.hey.xyz/live"
                     );
-                    toast.success('Copied to clipboard!');
+                    toast.success("Copied to clipboard!");
                   }}
                   type="button"
                 >
@@ -114,7 +114,7 @@ const LivestreamEditor: FC = () => {
                     await navigator.clipboard.writeText(
                       liveVideoConfig.streamKey
                     );
-                    toast.success('Copied to clipboard!');
+                    toast.success("Copied to clipboard!");
                   }}
                   type="button"
                 >
@@ -126,10 +126,10 @@ const LivestreamEditor: FC = () => {
               src={`https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`}
             />
           </>
-        ) : screen === 'create' ? (
+        ) : screen === "create" ? (
           <button
             className="w-full"
-            onClick={() => setScreen('record')}
+            onClick={() => setScreen("record")}
             type="button"
           >
             <Wrapper>

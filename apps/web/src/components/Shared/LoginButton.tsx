@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { AUTH } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { Leafwatch } from "@helpers/leafwatch";
+import { AUTH } from "@hey/data/tracking";
+import { Button } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
 interface LoginButtonProps {
   className?: string;
@@ -14,10 +14,10 @@ interface LoginButtonProps {
 }
 
 const LoginButton: FC<LoginButtonProps> = ({
-  className = '',
+  className = "",
   isBig = false,
   isFullWidth = false,
-  title = 'Login'
+  title = "Login"
 }) => {
   const { setShowAuthModal } = useGlobalModalStateStore();
 
@@ -30,7 +30,7 @@ const LoginButton: FC<LoginButtonProps> = ({
   return (
     <Button
       className={cn(
-        isFullWidth ? 'flex w-full items-center justify-center' : '',
+        isFullWidth ? "flex w-full items-center justify-center" : "",
         className
       )}
       icon={
@@ -43,7 +43,7 @@ const LoginButton: FC<LoginButtonProps> = ({
         />
       }
       onClick={handleClick}
-      size={isBig ? 'lg' : 'md'}
+      size={isBig ? "lg" : "md"}
     >
       {title}
     </Button>

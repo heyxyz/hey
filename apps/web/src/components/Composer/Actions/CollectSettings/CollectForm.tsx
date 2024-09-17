@@ -1,20 +1,20 @@
-import type { CollectModuleType } from '@hey/types/hey';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { CollectModuleType } from "@hey/types/hey";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import LicensePicker from '@components/Composer/LicensePicker';
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectOpenActionModuleType } from '@hey/lens';
-import { Button } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
-import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
-import { isAddress } from 'viem';
+import LicensePicker from "@components/Composer/LicensePicker";
+import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import { CollectOpenActionModuleType } from "@hey/lens";
+import { Button } from "@hey/ui";
+import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
+import { isAddress } from "viem";
 
-import AmountConfig from './AmountConfig';
-import CollectLimitConfig from './CollectLimitConfig';
-import FollowersConfig from './FollowersConfig';
-import ReferralConfig from './ReferralConfig';
-import SplitConfig from './SplitConfig';
-import TimeLimitConfig from './TimeLimitConfig';
+import AmountConfig from "./AmountConfig";
+import CollectLimitConfig from "./CollectLimitConfig";
+import FollowersConfig from "./FollowersConfig";
+import ReferralConfig from "./ReferralConfig";
+import SplitConfig from "./SplitConfig";
+import TimeLimitConfig from "./TimeLimitConfig";
 
 interface CollectFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -108,11 +108,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           outline
           variant="danger"
         >
-          {collectModule.type ? 'Reset' : 'Cancel'}
+          {collectModule.type ? "Reset" : "Cancel"}
         </Button>
         <Button
           disabled={
-            (parseFloat(collectModule.amount?.value as string) <= 0 &&
+            (Number.parseFloat(collectModule.amount?.value as string) <= 0 &&
               collectModule.type !== null) ||
             hasImproperSplits ||
             hasEmptyRecipients ||

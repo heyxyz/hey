@@ -1,19 +1,19 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   ChartBarIcon,
   ChatBubbleLeftIcon,
   FilmIcon,
   PencilSquareIcon,
   ShoppingBagIcon
-} from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
-import { ProfileFeedType } from 'src/enums';
-import { useProStore } from 'src/store/non-persisted/useProStore';
+} from "@heroicons/react/24/outline";
+import { PROFILE } from "@hey/data/tracking";
+import { TabButton } from "@hey/ui";
+import { ProfileFeedType } from "src/enums";
+import { useProStore } from "src/store/non-persisted/useProStore";
 
-import MediaFilter from './Filters/MediaFilter';
+import MediaFilter from "./Filters/MediaFilter";
 
 interface FeedTypeProps {
   feedType: ProfileFeedType;
@@ -35,27 +35,27 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const tabs = [
     {
       icon: <PencilSquareIcon className="size-4" />,
-      name: 'Feed',
+      name: "Feed",
       type: ProfileFeedType.Feed
     },
     {
       icon: <ChatBubbleLeftIcon className="size-4" />,
-      name: 'Replies',
+      name: "Replies",
       type: ProfileFeedType.Replies
     },
     {
       icon: <FilmIcon className="size-4" />,
-      name: 'Media',
+      name: "Media",
       type: ProfileFeedType.Media
     },
     {
       icon: <ShoppingBagIcon className="size-4" />,
-      name: 'Collected',
+      name: "Collected",
       type: ProfileFeedType.Collects
     },
     isPro && {
       icon: <ChartBarIcon className="size-4" />,
-      name: 'Stats',
+      name: "Stats",
       type: ProfileFeedType.Stats
     }
   ].filter(

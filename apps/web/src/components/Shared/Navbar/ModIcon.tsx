@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { Tooltip } from '@hey/ui';
-import { useFlag } from '@unleash/proxy-client-react';
-import Link from 'next/link';
+import { ShieldCheckIcon } from "@heroicons/react/24/outline";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { Tooltip } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
+import Link from "next/link";
 
 const ModIcon: FC = () => {
   const isGardener = useFlag(FeatureFlag.Gardener);

@@ -1,17 +1,17 @@
-import type { MirrorablePublication } from '@hey/lens';
+import type { MirrorablePublication } from "@hey/lens";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import allowedOpenActionModules from '@hey/helpers/allowedOpenActionModules';
-import humanize from '@hey/helpers/humanize';
-import nFormatter from '@hey/helpers/nFormatter';
-import { Modal, Tooltip } from '@hey/ui';
-import { motion } from 'framer-motion';
-import plur from 'plur';
-import { type FC, useState } from 'react';
+import { Leafwatch } from "@helpers/leafwatch";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { PUBLICATION } from "@hey/data/tracking";
+import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import humanize from "@hey/helpers/humanize";
+import nFormatter from "@hey/helpers/nFormatter";
+import { Modal, Tooltip } from "@hey/ui";
+import { motion } from "framer-motion";
+import plur from "plur";
+import { type FC, useState } from "react";
 
-import CollectModule from './CollectModule';
+import CollectModule from "./CollectModule";
 
 interface OpenActionProps {
   publication: MirrorablePublication;
@@ -33,14 +33,14 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
           setShowCollectModal(true);
           Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
             publication_id: publication.id,
-            source: 'icon'
+            source: "icon"
           });
         }}
         whileTap={{ scale: 0.9 }}
       >
         <Tooltip
           content={`${humanize(countOpenActions)} ${plur(
-            'Collect',
+            "Collect",
             countOpenActions
           )}`}
           placement="top"

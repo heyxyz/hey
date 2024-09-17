@@ -1,16 +1,16 @@
-import type { ActedNotification as TActedNotification } from '@hey/lens';
-import type { FC } from 'react';
+import type { ActedNotification as TActedNotification } from "@hey/lens";
+import type { FC } from "react";
 
-import Markup from '@components/Shared/Markup';
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import Link from 'next/link';
-import plur from 'plur';
-import usePushToImpressions from 'src/hooks/usePushToImpressions';
+import Markup from "@components/Shared/Markup";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import getPublicationData from "@hey/helpers/getPublicationData";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import Link from "next/link";
+import plur from "plur";
+import usePushToImpressions from "src/hooks/usePushToImpressions";
 
-import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
-import { NotificationProfileAvatar } from '../Profile';
+import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
+import { NotificationProfileAvatar } from "../Profile";
 
 interface ActedNotificationProps {
   notification: TActedNotification;
@@ -22,15 +22,15 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
     ? publication.mirrorOn
     : publication;
   const { metadata } = targetPublication;
-  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredContent = getPublicationData(metadata)?.content || "";
   const actions = notification?.actions;
   const firstProfile = actions?.[0]?.by;
   const length = actions.length - 1;
   const moreThanOneProfile = length > 1;
 
   const text = moreThanOneProfile
-    ? `and ${length} ${plur('other', length)} acted on your`
-    : 'acted on your';
+    ? `and ${length} ${plur("other", length)} acted on your`
+    : "acted on your";
   const type = notification?.publication.__typename;
 
   usePushToImpressions(notification.publication.id);

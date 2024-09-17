@@ -1,27 +1,27 @@
-import type { Poll } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Poll } from "@hey/types/hey";
+import type { FC } from "react";
 
-import Beta from '@components/Shared/Badges/Beta';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
+import Beta from "@components/Shared/Badges/Beta";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   Bars3BottomLeftIcon,
   CheckCircleIcon
-} from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import getTimetoNow from '@hey/helpers/datetime/getTimetoNow';
-import humanize from '@hey/helpers/humanize';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Card, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import axios from 'axios';
-import plur from 'plur';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@heroicons/react/24/solid";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import getTimetoNow from "@hey/helpers/datetime/getTimetoNow";
+import humanize from "@hey/helpers/humanize";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Card, Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import axios from "axios";
+import plur from "plur";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface ChoicesProps {
   poll: Poll;
@@ -60,7 +60,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
 
       refetch?.();
       Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
-      toast.success('Your poll has been casted!');
+      toast.success("Your poll has been casted!");
     } catch {
       toast.error(Errors.SomethingWentWrong);
     } finally {
@@ -86,8 +86,8 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
             ) : (
               <CheckCircleIcon
                 className={cn(
-                  voted ? 'text-green-500' : 'text-gray-500',
-                  'size-6'
+                  voted ? "text-green-500" : "text-gray-500",
+                  "size-6"
                 )}
               />
             )}
@@ -111,10 +111,10 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
         ))}
       </div>
       <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700">
-        <div className="flex items-center space-x-2 text-xs text-gray-500">
+        <div className="flex items-center space-x-2 text-gray-500 text-xs">
           <Bars3BottomLeftIcon className="size-4" />
           <span>
-            {humanize(totalResponses || 0)} {plur('vote', totalResponses || 0)}
+            {humanize(totalResponses || 0)} {plur("vote", totalResponses || 0)}
           </span>
           <span>·</span>
           {isPollLive ? (

@@ -1,27 +1,27 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import MetaTags from "@components/Common/MetaTags";
+import NotLoggedIn from "@components/Shared/NotLoggedIn";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
 import {
   Card,
   GridItemEight,
   GridItemFour,
   GridLayout,
   TabButton
-} from '@hey/ui';
-import { useEffect, useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/ui";
+import { useEffect, useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import SettingsSidebar from '../Sidebar';
-import CollectModules from './CollectModules';
-import OpenActions from './OpenActions';
+import SettingsSidebar from "../Sidebar";
+import CollectModules from "./CollectModules";
+import OpenActions from "./OpenActions";
 
 enum Type {
-  COLLECT_MODULES = 'COLLECT_MODULES',
-  OPEN_ACTIONS = 'OPEN_ACTIONS'
+  COLLECT_MODULES = "COLLECT_MODULES",
+  OPEN_ACTIONS = "OPEN_ACTIONS"
 }
 
 const AllowanceSettings: NextPage = () => {
@@ -29,7 +29,7 @@ const AllowanceSettings: NextPage = () => {
   const [type, setType] = useState<Type>(Type.COLLECT_MODULES);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "allowance" });
   }, []);
 
   if (!currentProfile) {

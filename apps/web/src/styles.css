@@ -1,4 +1,4 @@
-@import url('@hey/image-cropper/styles.css');
+@import url("@hey/image-cropper/styles.css");
 
 @tailwind base;
 @tailwind components;
@@ -85,8 +85,8 @@ body {
   & a,
   span[data-hashtag],
   span[data-cashtag],
-  span[data-mention='profile'],
-  span[data-mention='club'] {
+  span[data-mention="profile"],
+  span[data-mention="club"] {
     @apply text-brand-500;
   }
 
@@ -122,7 +122,7 @@ iframe {
   @apply hover:!bg-transparent;
 }
 
-.plyr--audio.plyr--full-ui input[type='range'] {
+.plyr--audio.plyr--full-ui input[type="range"] {
   @apply !text-white;
 }
 
@@ -237,6 +237,6 @@ ul {
 
 @keyframes pulse {
   50% {
-    background-position: 0% !important;
+    background-position: 0%;
   }
 }

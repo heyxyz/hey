@@ -1,7 +1,7 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import ProtectProfile from './ProtectProfile';
-import Suspended from './Suspended';
+import ProtectProfile from "./ProtectProfile";
+import Suspended from "./Suspended";
 
 const GlobalBanners: FC = () => {
   return (

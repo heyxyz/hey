@@ -1,24 +1,24 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import NewPost from '@components/Composer/NewPost';
-import Cover from '@components/Shared/Cover';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import getClub from '@hey/helpers/api/clubs/getClub';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import MetaTags from "@components/Common/MetaTags";
+import NewPost from "@components/Composer/NewPost";
+import Cover from "@components/Shared/Cover";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
+import getClub from "@hey/helpers/api/clubs/getClub";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Custom404 from "src/pages/404";
+import Custom500 from "src/pages/500";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Details from './Details';
-import Feed from './Feed';
-import Members from './Members';
-import ClubPageShimmer from './Shimmer';
+import Details from "./Details";
+import Feed from "./Feed";
+import Members from "./Members";
+import ClubPageShimmer from "./Shimmer";
 
 const ViewClub: NextPage = () => {
   const {
@@ -28,16 +28,15 @@ const ViewClub: NextPage = () => {
   } = useRouter();
   const { currentProfile } = useProfileStore();
 
-  const showMembers = pathname === '/c/[handle]/members';
+  const showMembers = pathname === "/c/[handle]/members";
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
-        page: 'club',
-        subpage: pathname.replace('/c/[handle]', '')
+        page: "club",
+        subpage: pathname.replace("/c/[handle]", "")
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handle]);
 
   const {
@@ -51,7 +50,7 @@ const ViewClub: NextPage = () => {
         club_handle: handle as string,
         profile_id: currentProfile?.id
       }),
-    queryKey: ['getClub', handle]
+    queryKey: ["getClub", handle]
   });
 
   if (!isReady || clubLoading) {

@@ -1,13 +1,13 @@
-import type { Handler } from 'express';
+import type { Handler } from "express";
 
-import LensEndpoint from '@hey/data/lens-endpoints';
-import clickhouseClient from '@hey/db/clickhouseClient';
-import logger from '@hey/helpers/logger';
-import axios from 'axios';
-import invoiceRates from 'src/data/invoice-rates';
-import catchedError from 'src/helpers/catchedError';
-import { HEY_USER_AGENT } from 'src/helpers/constants';
-import { noBody } from 'src/helpers/responses';
+import LensEndpoint from "@hey/data/lens-endpoints";
+import clickhouseClient from "@hey/db/clickhouseClient";
+import logger from "@hey/helpers/logger";
+import axios from "axios";
+import invoiceRates from "src/data/invoice-rates";
+import catchedError from "src/helpers/catchedError";
+import { HEY_USER_AGENT } from "src/helpers/constants";
+import { noBody } from "src/helpers/responses";
 
 const getRateForTimestamp = (timestamp: number): number | undefined => {
   const date = new Date(timestamp);
@@ -33,7 +33,7 @@ export const get: Handler = async (req, res) => {
   try {
     const [rows, lensResponse] = await Promise.all([
       clickhouseClient.query({
-        format: 'JSONEachRow',
+        format: "JSONEachRow",
         query: `
           SELECT city, country
           FROM events
@@ -65,8 +65,8 @@ export const get: Handler = async (req, res) => {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-            'User-agent': HEY_USER_AGENT
+            "Content-Type": "application/json",
+            "User-agent": HEY_USER_AGENT
           }
         }
       )
@@ -83,7 +83,7 @@ export const get: Handler = async (req, res) => {
 
     const lensProfile = {
       createdAt: lensData.data.profile.createdAt,
-      id: `SIGNUP-${parseInt(lensData.data.profile.id)}`,
+      id: `SIGNUP-${Number.parseInt(lensData.data.profile.id)}`,
       name:
         lensData?.data.profile.metadata?.displayName ||
         lensData.data.profile.handle?.localName ||
@@ -96,7 +96,7 @@ export const get: Handler = async (req, res) => {
       address:
         leafwatchData[0]?.city && leafwatchData[0]?.country
           ? `${leafwatchData[0].city}, ${leafwatchData[0].country}`
-          : 'Others',
+          : "Others",
       ...lensProfile,
       rate: rate || 600
     };

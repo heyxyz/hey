@@ -9,11 +9,11 @@ const getImage = (document: Document): null | string => {
     document.querySelector('meta[property="twitter:image:src"]');
 
   if (og) {
-    return og.getAttribute('content');
+    return og.getAttribute("content");
   }
 
   if (twitter) {
-    return twitter.getAttribute('content');
+    return twitter.getAttribute("content");
   }
 
   return null;

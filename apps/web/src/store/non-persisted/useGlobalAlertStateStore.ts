@@ -1,7 +1,7 @@
-import type { AnyPublication, MirrorablePublication, Profile } from '@hey/lens';
+import type { AnyPublication, MirrorablePublication, Profile } from "@hey/lens";
 
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   blockingorUnblockingProfile: null | Profile;

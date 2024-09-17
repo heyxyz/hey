@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import { heyFont } from 'src/fonts';
+import { heyFont } from "src/fonts";
 
-import '../globals.css';
+import "../globals.css";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

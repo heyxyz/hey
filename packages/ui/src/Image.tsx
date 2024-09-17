@@ -3,10 +3,10 @@ import type {
   ImgHTMLAttributes,
   Ref,
   SyntheticEvent
-} from 'react';
+} from "react";
 
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import { forwardRef, useCallback, useEffect, useState } from "react";
 
 export const Image = forwardRef(function Image(
   {
@@ -37,7 +37,7 @@ export const Image = forwardRef(function Image(
   return (
     <img
       {...props}
-      alt={props.alt || ''}
+      alt={props.alt || ""}
       onError={handleError}
       ref={ref}
       src={imageLoadFailed ? PLACEHOLDER_IMAGE : props.src}

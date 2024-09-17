@@ -2,21 +2,21 @@ import type {
   HideCommentRequest,
   MirrorablePublication,
   UnhideCommentRequest
-} from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { ApolloCache } from "@hey/lens/apollo";
+import type { FC } from "react";
 
-import { useHiddenCommentFeedStore } from '@components/Publication';
-import { MenuItem } from '@headlessui/react';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useHideCommentMutation, useUnhideCommentMutation } from '@hey/lens';
-import cn from '@hey/ui/cn';
-import { toast } from 'react-hot-toast';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { useHiddenCommentFeedStore } from "@components/Publication";
+import { MenuItem } from "@headlessui/react";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CheckCircleIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { useHideCommentMutation, useUnhideCommentMutation } from "@hey/lens";
+import cn from "@hey/ui/cn";
+import { toast } from "react-hot-toast";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface HideCommentProps {
   publication: MirrorablePublication;
@@ -40,7 +40,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
 
   const [hideComment] = useHideCommentMutation({
     onCompleted: () => {
-      toast.success('Comment hidden');
+      toast.success("Comment hidden");
       Leafwatch.track(PUBLICATION.TOGGLE_HIDE_COMMENT, {
         hidden: true,
         publication_id: publication.id
@@ -53,7 +53,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
 
   const [unhideComment] = useUnhideCommentMutation({
     onCompleted: () => {
-      toast.success('Comment unhidden');
+      toast.success("Comment unhidden");
       Leafwatch.track(PUBLICATION.TOGGLE_HIDE_COMMENT, {
         hidden: false,
         publication_id: publication.id
@@ -83,8 +83,8 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       as="div"
       className={({ focus }) =>
         cn(
-          { 'dropdown-active': focus },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
+          { "dropdown-active": focus },
+          "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
         )
       }
       onClick={(event) => {

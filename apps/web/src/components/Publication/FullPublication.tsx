@@ -1,27 +1,27 @@
-import type { AnyPublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { FC } from "react";
 
-import { QueueListIcon } from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import getProfileDetails from '@hey/helpers/api/getProfileFlags';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import getAppName from '@hey/helpers/getAppName';
-import { isMirrorPublication } from '@hey/helpers/publicationHelpers';
-import { Card, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useQuery } from '@tanstack/react-query';
-import { useFlag } from '@unleash/proxy-client-react';
-import { motion } from 'framer-motion';
-import usePushToImpressions from 'src/hooks/usePushToImpressions';
+import { QueueListIcon } from "@heroicons/react/24/outline";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import getProfileDetails from "@hey/helpers/api/getProfileFlags";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import getAppName from "@hey/helpers/getAppName";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { Card, Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useQuery } from "@tanstack/react-query";
+import { useFlag } from "@unleash/proxy-client-react";
+import { motion } from "framer-motion";
+import usePushToImpressions from "src/hooks/usePushToImpressions";
 
-import { useHiddenCommentFeedStore } from '.';
-import PublicationActions from './Actions';
-import HiddenPublication from './HiddenPublication';
-import PublicationAvatar from './PublicationAvatar';
-import PublicationBody from './PublicationBody';
-import PublicationHeader from './PublicationHeader';
-import PublicationStats from './PublicationStats';
-import PublicationType from './Type';
+import { useHiddenCommentFeedStore } from ".";
+import PublicationActions from "./Actions";
+import HiddenPublication from "./HiddenPublication";
+import PublicationAvatar from "./PublicationAvatar";
+import PublicationBody from "./PublicationBody";
+import PublicationHeader from "./PublicationHeader";
+import PublicationStats from "./PublicationStats";
+import PublicationType from "./Type";
 
 interface FullPublicationProps {
   hasHiddenComments: boolean;
@@ -46,15 +46,15 @@ const FullPublication: FC<FullPublicationProps> = ({
 
   const { data: profileDetails } = useQuery({
     enabled: Boolean(by.id),
-    queryFn: () => getProfileDetails(by.id || ''),
-    queryKey: ['getProfileDetailsOnPublication', by.id]
+    queryFn: () => getProfileDetails(by.id || ""),
+    queryKey: ["getProfileDetailsOnPublication", by.id]
   });
 
   const isSuspended = isStaff ? false : profileDetails?.isSuspended;
 
   if (isSuspended) {
     return (
-      <Card className="m-5 !bg-gray-100 dark:!bg-gray-800" forceRounded>
+      <Card className="!bg-gray-100 dark:!bg-gray-800 m-5" forceRounded>
         <div className="px-4 py-3 text-sm">
           Author Profile has been suspended!
         </div>
@@ -78,7 +78,7 @@ const FullPublication: FC<FullPublicationProps> = ({
                 publication={targetPublication}
               />
               <div className="ld-text-gray-500 my-3 text-sm">
-                <span>{formatDate(createdAt, 'hh:mm A · MMM D, YYYY')}</span>
+                <span>{formatDate(createdAt, "hh:mm A · MMM D, YYYY")}</span>
                 {publishedOn?.id ? (
                   <span> · Posted via {getAppName(publishedOn.id)}</span>
                 ) : null}
@@ -96,9 +96,9 @@ const FullPublication: FC<FullPublicationProps> = ({
                       aria-label="Like"
                       className={cn(
                         showHiddenComments
-                          ? 'text-green-500 hover:bg-green-300/20'
-                          : 'ld-text-gray-500 hover:bg-gray-300/20',
-                        'rounded-full p-1.5 outline-offset-2'
+                          ? "text-green-500 hover:bg-green-300/20"
+                          : "ld-text-gray-500 hover:bg-gray-300/20",
+                        "rounded-full p-1.5 outline-offset-2"
                       )}
                       onClick={() => setShowHiddenComments(!showHiddenComments)}
                       whileTap={{ scale: 0.9 }}
@@ -106,8 +106,8 @@ const FullPublication: FC<FullPublicationProps> = ({
                       <Tooltip
                         content={
                           showHiddenComments
-                            ? 'Hide hidden comments'
-                            : 'Show hidden comments'
+                            ? "Hide hidden comments"
+                            : "Show hidden comments"
                         }
                         placement="top"
                         withDelay

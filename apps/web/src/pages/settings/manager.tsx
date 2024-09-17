@@ -1,3 +1,3 @@
-import ManagerSettings from '@components/Settings/Manager';
+import ManagerSettings from "@components/Settings/Manager";
 
 export default ManagerSettings;

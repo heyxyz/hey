@@ -1,14 +1,14 @@
-import type { CollectModuleType } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { CollectModuleType } from "@hey/types/hey";
+import type { FC } from "react";
 
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { CollectOpenActionModuleType } from '@hey/lens';
-import { Input, Select } from '@hey/ui';
-import { useCollectModuleStore } from 'src/store/non-persisted/publication/useCollectModuleStore';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { CollectOpenActionModuleType } from "@hey/lens";
+import { Input, Select } from "@hey/ui";
+import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface AmountConfigProps {
   setCollectType: (data: CollectModuleType) => void;
@@ -32,7 +32,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
           setCollectType({
             amount: enabled
               ? null
-              : { currency: DEFAULT_COLLECT_TOKEN, value: '1' },
+              : { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
             recipients: enabled
               ? []
               : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
@@ -43,7 +43,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
         }}
       />
       {collectModule.amount?.value ? (
-        <div className="ml-8 mt-4">
+        <div className="mt-4 ml-8">
           <div className="flex space-x-2 text-sm">
             <Input
               label="Price"
@@ -53,13 +53,13 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
                 setCollectType({
                   amount: {
                     currency: collectModule.amount?.currency,
-                    value: event.target.value ? event.target.value : '0'
+                    value: event.target.value ? event.target.value : "0"
                   }
                 });
               }}
               placeholder="0.5"
               type="number"
-              value={parseFloat(collectModule.amount.value)}
+              value={Number.parseFloat(collectModule.amount.value)}
             />
             <div className="w-5/6">
               <div className="label">Select currency</div>

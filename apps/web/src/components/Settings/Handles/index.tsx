@@ -1,30 +1,30 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import Slug from '@components/Shared/Slug';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import MetaTags from "@components/Common/MetaTags";
+import NotLoggedIn from "@components/Shared/NotLoggedIn";
+import Slug from "@components/Shared/Slug";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
 import {
   Card,
   CardHeader,
   GridItemEight,
   GridItemFour,
   GridLayout
-} from '@hey/ui';
-import { useEffect } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/ui";
+import { useEffect } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import SettingsSidebar from '../Sidebar';
-import LinkHandle from './LinkHandle';
-import UnlinkHandle from './UnlinkHandle';
+import SettingsSidebar from "../Sidebar";
+import LinkHandle from "./LinkHandle";
+import UnlinkHandle from "./UnlinkHandle";
 
 const HandlesSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'handles' });
+    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "handles" });
   }, []);
 
   if (!currentProfile) {

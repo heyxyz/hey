@@ -7,22 +7,16 @@
     "build": "pnpm --recursive --parallel run build",
     "codegen": "pnpm --recursive --parallel run codegen",
     "dev": "pnpm --recursive --parallel run dev",
-    "lint": "pnpm --recursive --parallel run lint",
-    "lint:fix": "pnpm --recursive --parallel run lint:fix",
     "prepare": "husky install",
-    "prettier": "pnpm --recursive --parallel run prettier",
-    "prettier:fix": "pnpm --recursive --parallel run prettier:fix",
     "start": "pnpm --recursive --parallel run start",
     "test:dev": "pnpm --recursive run test:dev",
-    "typecheck": "pnpm --recursive --parallel run typecheck"
-  },
-  "eslintConfig": {
-    "root": true
+    "typecheck": "pnpm --recursive --parallel run typecheck",
+    "biome:check": "biome check . --diagnostic-level=error",
+    "biome:fix": "biome check --write ."
   },
   "devDependencies": {
-    "husky": "^9.1.6",
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.6"
+    "@biomejs/biome": "^1.9.0",
+    "husky": "^9.1.6"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {

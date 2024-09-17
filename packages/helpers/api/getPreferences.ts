@@ -1,7 +1,7 @@
-import type { Preferences } from '@hey/types/hey';
+import type { Preferences } from "@hey/types/hey";
 
-import { HEY_API_URL } from '@hey/data/constants';
-import axios from 'axios';
+import { HEY_API_URL } from "@hey/data/constants";
+import axios from "axios";
 
 /**
  * Get profile preferences

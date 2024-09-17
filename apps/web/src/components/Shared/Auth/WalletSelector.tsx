@@ -1,13 +1,13 @@
-import type { FC } from 'react';
-import type { Connector } from 'wagmi';
+import type { FC } from "react";
+import type { Connector } from "wagmi";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { KeyIcon } from '@heroicons/react/24/outline';
-import { XCircleIcon } from '@heroicons/react/24/solid';
-import { AUTH } from '@hey/data/tracking';
-import getWalletDetails from '@hey/helpers/getWalletDetails';
-import cn from '@hey/ui/cn';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { Leafwatch } from "@helpers/leafwatch";
+import { KeyIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
+import { AUTH } from "@hey/data/tracking";
+import getWalletDetails from "@hey/helpers/getWalletDetails";
+import cn from "@hey/ui/cn";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 const WalletSelector: FC = () => {
   const { connectAsync, connectors, error, isPending } = useConnect();
@@ -49,10 +49,10 @@ const WalletSelector: FC = () => {
             <button
               className={cn(
                 {
-                  'hover:bg-gray-100 dark:hover:bg-gray-700':
+                  "hover:bg-gray-100 dark:hover:bg-gray-700":
                     connector.id !== activeConnector?.id
                 },
-                'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+                "flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700"
               )}
               disabled={connector.id === activeConnector?.id || isPending}
               key={connector.id}
@@ -60,8 +60,8 @@ const WalletSelector: FC = () => {
               type="button"
             >
               <span>
-                {connector.id === 'injected'
-                  ? 'Browser Wallet'
+                {connector.id === "injected"
+                  ? "Browser Wallet"
                   : getWalletDetails(connector.name).name}
               </span>
               <img
@@ -78,7 +78,7 @@ const WalletSelector: FC = () => {
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="size-5" />
-          <div>{error?.message || 'Failed to connect'}</div>
+          <div>{error?.message || "Failed to connect"}</div>
         </div>
       ) : null}
     </div>

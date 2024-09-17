@@ -1,15 +1,15 @@
-import type { Request, Response } from 'express';
-import type { Address } from 'viem';
+import type { Request, Response } from "express";
+import type { Address } from "viem";
 
-import { HEY_MEMBERSHIP_NFT_PUBLICATION_ID } from '@hey/data/constants';
-import lensPg from '@hey/db/lensPg';
-import { getRedis, setRedis } from '@hey/db/redisClient';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { CACHE_AGE_INDEFINITE } from 'src/helpers/constants';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { noBody } from 'src/helpers/responses';
-import { getAddress } from 'viem';
+import { HEY_MEMBERSHIP_NFT_PUBLICATION_ID } from "@hey/data/constants";
+import lensPg from "@hey/db/lensPg";
+import { getRedis, setRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { noBody } from "src/helpers/responses";
+import { getAddress } from "viem";
 
 export const get = [
   rateLimiter({ requests: 100, within: 1 }),
@@ -35,7 +35,7 @@ export const get = [
 
         return res
           .status(200)
-          .setHeader('Cache-Control', CACHE_AGE_INDEFINITE)
+          .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
           .json({ hasHeyNft: true, success: true });
       }
 
@@ -63,8 +63,8 @@ export const get = [
       return res
         .status(200)
         .setHeader(
-          'Cache-Control',
-          hasHeyNft ? CACHE_AGE_INDEFINITE : 'no-cache'
+          "Cache-Control",
+          hasHeyNft ? CACHE_AGE_INDEFINITE : "no-cache"
         )
         .json({ hasHeyNft, success: true });
     } catch (error) {

@@ -1,5 +1,5 @@
-import { Card, CardHeader, Toggle } from '@hey/ui';
-import { type FC, useState } from 'react';
+import { Card, CardHeader, Toggle } from "@hey/ui";
+import { type FC, useState } from "react";
 
 const ToggleDesign: FC = () => {
   const [on, setOn] = useState(false);
