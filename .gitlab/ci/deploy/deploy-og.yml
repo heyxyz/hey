@@ -1,10 +1,7 @@
 Deploy OG:
   only:
-    refs:
-      - main
-    changes:
-      - apps/og/**/*
-      - packages/**/*
+    - main
+  when: manual
   needs: []
   environment: production
   stage: deploy
@@ -14,9 +11,11 @@ Deploy OG:
   before_script:
     - apk add --no-cache curl
   variables:
-    GITLAB_IMAGE_TAG: $CI_REGISTRY/yo/hey/og:latest
+    GITLAB_IMAGE_TAG_LATEST: $CI_REGISTRY/yo/hey/og:latest
+    GITLAB_IMAGE_TAG_COMMIT: $CI_REGISTRY/yo/hey/og:$CI_COMMIT_SHA
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-    - docker build -t $GITLAB_IMAGE_TAG -f ./apps/og/Dockerfile .
-    - docker push $GITLAB_IMAGE_TAG
+    - docker build -t $GITLAB_IMAGE_TAG_LATEST -t $GITLAB_IMAGE_TAG_COMMIT -f ./apps/og/Dockerfile .
+    - docker push $GITLAB_IMAGE_TAG_LATEST
+    - docker push $GITLAB_IMAGE_TAG_COMMIT
     - curl -s "https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$OG_RAILWAY_SERVICE_ID"
