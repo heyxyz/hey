@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@headlessui/react": "2.1.2",
+    "@headlessui/react": "2.1.8",
     "@heroicons/react": "^2.1.5",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
@@ -21,7 +21,7 @@
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "clsx": "^2.1.1",
-    "next": "^14.2.9",
+    "next": "^14.2.11",
     "react": "^18.3.1",
     "react-hook-form": "^7.53.0",
     "tailwind-merge": "^2.5.2",
@@ -29,9 +29,9 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.5.4",
-    "@types/react": "^18.3.5",
-    "tailwindcss": "^3.4.10",
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.6",
+    "tailwindcss": "^3.4.11",
     "typescript": "^5.6.2"
   }
 }
