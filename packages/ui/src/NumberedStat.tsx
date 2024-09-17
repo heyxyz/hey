@@ -1,9 +1,9 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import humanize from '@hey/helpers/humanize';
+import humanize from "@hey/helpers/humanize";
 
-import { Card } from './Card';
-import { H4 } from './Typography';
+import { Card } from "./Card";
+import { H4 } from "./Typography";
 
 interface NumberedStatsProps {
   action?: ReactNode;

@@ -1,26 +1,26 @@
 import type {
   ActOnOpenActionLensManagerRequest,
   OnchainReferrer
-} from '@hey/lens';
-import type { Address } from 'viem';
+} from "@hey/lens";
+import type { Address } from "viem";
 
-import errorToast from '@helpers/errorToast';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import errorToast from "@helpers/errorToast";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
-} from '@hey/lens';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
-import useHandleWrongNetwork from './useHandleWrongNetwork';
+import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 interface CreatePublicationProps {
   onSuccess?: () => void;
@@ -53,18 +53,18 @@ const useActOnUnknownOpenAction = ({
   };
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     onSuccess?.();
     setIsLoading(false);
-    toast.success(successToast || 'Success!', { duration: 5000 });
+    toast.success(successToast || "Success!", { duration: 5000 });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -87,7 +87,7 @@ const useActOnUnknownOpenAction = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'act'
+      functionName: "act"
     });
   };
 
@@ -108,12 +108,12 @@ const useActOnUnknownOpenAction = ({
             const { data } = await broadcastOnchain({
               variables: { request: { id, signature } }
             });
-            if (data?.broadcastOnchain.__typename === 'RelayError') {
+            if (data?.broadcastOnchain.__typename === "RelayError") {
               const txResult = await write({ args: [typedData.value] });
               setTxHash(txResult);
               return txResult;
             }
-            if (data?.broadcastOnchain.__typename === 'RelaySuccess') {
+            if (data?.broadcastOnchain.__typename === "RelaySuccess") {
               setTxId(data?.broadcastOnchain.txId);
             }
             incrementLensHubOnchainSigNonce();
@@ -144,17 +144,17 @@ const useActOnUnknownOpenAction = ({
   ) => {
     const { data, errors } = await actOnOpenAction({ variables: { request } });
 
-    if (errors?.toString().includes('has already acted on')) {
+    if (errors?.toString().includes("has already acted on")) {
       return;
     }
 
-    if (data?.actOnOpenAction.__typename === 'RelaySuccess') {
+    if (data?.actOnOpenAction.__typename === "RelaySuccess") {
       setTxId(data?.actOnOpenAction.txId);
     }
 
     if (
       !data?.actOnOpenAction ||
-      data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'
+      data?.actOnOpenAction.__typename === "LensProfileManagerRelayError"
     ) {
       return await createActOnOpenActionTypedData({ variables: { request } });
     }

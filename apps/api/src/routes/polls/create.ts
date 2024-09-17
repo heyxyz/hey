@@ -1,12 +1,12 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { array, number, object, string } from 'zod';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { array, number, object, string } from "zod";
 
 type ExtensionRequest = {
   length: number;
@@ -38,7 +38,7 @@ export const post = [
 
     if (length < 1 || length > 30) {
       return res.status(400).json({
-        error: 'Poll length should be between 1 and 30 days.',
+        error: "Poll length should be between 1 and 30 days.",
         success: false
       });
     }

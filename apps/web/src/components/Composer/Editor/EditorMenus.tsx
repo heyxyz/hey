@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import ClubPicker from './ClubPicker';
-import EmojiPicker from './EmojiPicker';
-import InlineMenu from './InlineMenu';
-import MentionPicker from './MentionPicker';
+import ClubPicker from "./ClubPicker";
+import EmojiPicker from "./EmojiPicker";
+import InlineMenu from "./InlineMenu";
+import MentionPicker from "./MentionPicker";
 
 const EditorMenus: FC = () => {
   return (

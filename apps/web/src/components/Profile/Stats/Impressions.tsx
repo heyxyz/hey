@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { HEY_API_URL, IS_MAINNET } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { Card, CardHeader, ErrorMessage } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import Loader from "@components/Shared/Loader";
+import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import { Card, CardHeader, ErrorMessage } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import {
   BarElement,
   CategoryScale,
@@ -14,10 +14,10 @@ import {
   LinearScale,
   Title,
   Tooltip
-} from 'chart.js';
-import { useTheme } from 'next-themes';
-import { Bar } from 'react-chartjs-2';
-import colors from 'tailwindcss/colors';
+} from "chart.js";
+import { useTheme } from "next-themes";
+import { Bar } from "react-chartjs-2";
+import colors from "tailwindcss/colors";
 
 ChartJS.register(
   CategoryScale,
@@ -53,7 +53,7 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getImpressionsStats,
-    queryKey: ['getImpressionsStats', profileId],
+    queryKey: ["getImpressionsStats", profileId],
     refetchInterval: 10000
   });
 
@@ -84,16 +84,16 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
             datasets: [
               {
                 backgroundColor:
-                  resolvedTheme === 'dark'
-                    ? colors['zinc']['900']
-                    : colors['zinc']['400'],
+                  resolvedTheme === "dark"
+                    ? colors["zinc"]["900"]
+                    : colors["zinc"]["400"],
                 borderRadius: 3,
                 data: data.map((impression) => impression.count),
-                label: 'Impressions'
+                label: "Impressions"
               }
             ],
             labels: data.map((impression) =>
-              formatDate(impression.date, 'MMM D')
+              formatDate(impression.date, "MMM D")
             )
           }}
           options={{

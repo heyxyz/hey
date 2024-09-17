@@ -1,12 +1,12 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { CardHeader } from '@hey/ui';
+import formatDate from "@hey/helpers/datetime/formatDate";
+import { CardHeader } from "@hey/ui";
 
-import type { StatsType } from './LeafwatchStats';
+import type { StatsType } from "./LeafwatchStats";
 
 interface ActiveUsersProps {
-  activeUsers: StatsType['dau'];
+  activeUsers: StatsType["dau"];
 }
 
 const ActiveUsers: FC<ActiveUsersProps> = ({ activeUsers }) => {

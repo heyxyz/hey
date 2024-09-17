@@ -1,29 +1,29 @@
-import type { UnlinkHandleFromProfileRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { UnlinkHandleFromProfileRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import IndexStatus from '@components/Shared/IndexStatus';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
-import { TokenHandleRegistry } from '@hey/abis';
-import { TOKEN_HANDLE_REGISTRY } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import IndexStatus from "@components/Shared/IndexStatus";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import { TokenHandleRegistry } from "@hey/abis";
+import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useBroadcastOnchainMutation,
   useCreateUnlinkHandleFromProfileTypedDataMutation,
   useUnlinkHandleFromProfileMutation
-} from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { Button, Spinner } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 const UnlinkHandle: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -37,17 +37,17 @@ const UnlinkHandle: FC = () => {
     checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     setUnlinking(false);
-    toast.success('Handle unlinked successfully!');
+    toast.success("Handle unlinked successfully!");
     Leafwatch.track(SETTINGS.HANDLE.UNLINK);
   };
 
@@ -66,7 +66,7 @@ const UnlinkHandle: FC = () => {
       abi: TokenHandleRegistry,
       address: TOKEN_HANDLE_REGISTRY,
       args,
-      functionName: 'unlink'
+      functionName: "unlink"
     });
   };
 
@@ -87,7 +87,7 @@ const UnlinkHandle: FC = () => {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args: [typedData.value] });
           }
           incrementLensHubOnchainSigNonce();
@@ -114,7 +114,7 @@ const UnlinkHandle: FC = () => {
 
     if (
       data?.unlinkHandleFromProfile.__typename ===
-      'LensProfileManagerRelayError'
+      "LensProfileManagerRelayError"
     ) {
       return await createUnlinkHandleFromProfileTypedData({
         variables: { request }
@@ -154,9 +154,9 @@ const UnlinkHandle: FC = () => {
 
   const lensManegaerTxId =
     linkHandleToProfileData?.unlinkHandleFromProfile.__typename ===
-      'RelaySuccess' && linkHandleToProfileData.unlinkHandleFromProfile.txId;
+      "RelaySuccess" && linkHandleToProfileData.unlinkHandleFromProfile.txId;
   const broadcastTxId =
-    broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
+    broadcastData?.broadcastOnchain.__typename === "RelaySuccess" &&
     broadcastData.broadcastOnchain.txId;
 
   return (

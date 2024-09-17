@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 interface Props {
   params: { id: string };
@@ -23,7 +23,7 @@ export default async function Page({ params }: Props) {
         rate: number;
       };
     };
-  } = await axios.get('https://api.hey.xyz/invoices/signup', {
+  } = await axios.get("https://api.hey.xyz/invoices/signup", {
     params: { id }
   });
 
@@ -44,16 +44,16 @@ export default async function Page({ params }: Props) {
                 className="size-8"
                 src="https://hey.xyz/logo.png"
               />
-              <h1 className="text-brand-600 mt-4 text-xl font-bold">
+              <h1 className="mt-4 font-bold text-brand-600 text-xl">
                 Yoginth from Hey
               </h1>
             </div>
             <div className="text-end">
-              <h2 className="text-2xl font-semibold text-gray-800 md:text-3xl">
+              <h2 className="font-semibold text-2xl text-gray-800 md:text-3xl">
                 Invoice
               </h2>
               <span className="mt-1 block text-gray-500">{invoiceId}</span>
-              <address className="mt-4 not-italic text-gray-800">
+              <address className="mt-4 text-gray-800 not-italic">
                 Yoginth
                 <br />
                 HD-322, WeWork Latitude, Hebbal
@@ -71,9 +71,9 @@ export default async function Page({ params }: Props) {
           </div>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <div>
-              <b className="text-lg text-gray-800">Bill to</b>
-              <h5 className="text-lg font-semibold text-gray-800">{name}</h5>
-              <address className="mt-2 not-italic text-gray-800">
+              <b className="text-gray-800 text-lg">Bill to</b>
+              <h5 className="font-semibold text-gray-800 text-lg">{name}</h5>
+              <address className="mt-2 text-gray-800 not-italic">
                 {address}
               </address>
             </div>
@@ -93,16 +93,16 @@ export default async function Page({ params }: Props) {
           <div className="mt-6">
             <div className="space-y-4 rounded-lg border p-4">
               <div className="hidden sm:grid sm:grid-cols-5">
-                <div className="text-xs font-medium uppercase text-gray-500 sm:col-span-2">
+                <div className="font-medium text-gray-500 text-xs uppercase sm:col-span-2">
                   Item
                 </div>
-                <div className="text-start text-xs font-medium uppercase text-gray-500">
+                <div className="text-start font-medium text-gray-500 text-xs uppercase">
                   Qty
                 </div>
-                <div className="text-start text-xs font-medium uppercase text-gray-500">
+                <div className="text-start font-medium text-gray-500 text-xs uppercase">
                   Rate
                 </div>
-                <div className="text-end text-xs font-medium uppercase text-gray-500">
+                <div className="text-end font-medium text-gray-500 text-xs uppercase">
                   Amount
                 </div>
               </div>

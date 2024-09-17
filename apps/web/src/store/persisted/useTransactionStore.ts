@@ -1,10 +1,10 @@
-import type { OptimisticTransaction } from '@hey/types/misc';
+import type { OptimisticTransaction } from "@hey/types/misc";
 
-import { IndexDB } from '@hey/data/storage';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { IndexDB } from "@hey/data/storage";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-import createIdbStorage from '../helpers/createIdbStorage';
+import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;

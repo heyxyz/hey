@@ -1,4 +1,4 @@
-import { FollowModuleType, OpenActionModuleType } from '@hey/lens';
+import { FollowModuleType, OpenActionModuleType } from "@hey/lens";
 
 /**
  * Returns the name and field of the specified module.
@@ -15,15 +15,15 @@ const getAllowanceModule = (
   switch (name) {
     // Collect Modules
     case OpenActionModuleType.SimpleCollectOpenActionModule:
-      return { field: 'openActionModule', name: 'Simple collect' };
+      return { field: "openActionModule", name: "Simple collect" };
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
-      return { field: 'openActionModule', name: 'Multirecipient paid collect' };
+      return { field: "openActionModule", name: "Multirecipient paid collect" };
     // Follow modules
     case FollowModuleType.FeeFollowModule:
-      return { field: 'followModule', name: 'Fee follow' };
+      return { field: "followModule", name: "Fee follow" };
 
     default:
-      return { field: 'collectModule', name };
+      return { field: "collectModule", name };
   }
 };
 

@@ -1,16 +1,16 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
-import Footer from '@components/Shared/Footer';
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { H2, H4 } from '@hey/ui';
-import Link from 'next/link';
-import { useEffect } from 'react';
+import Footer from "@components/Shared/Footer";
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME } from "@hey/data/constants";
+import { PAGEVIEW } from "@hey/data/tracking";
+import { H2, H4 } from "@hey/ui";
+import Link from "next/link";
+import { useEffect } from "react";
 
 const Rules: NextPage = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'rules' });
+    Leafwatch.track(PAGEVIEW, { page: "rules" });
   }, []);
 
   return (
@@ -22,8 +22,8 @@ const Rules: NextPage = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
-            <div className="ld-text-gray-500 max-w-none !p-8">
+          <div className="relative mx-auto max-w-3/4 rounded-lg sm:w-2/4">
+            <div className="ld-text-gray-500 !p-8 max-w-none">
               <div className="space-y-5">
                 <p className="leading-7">
                   To protect all users on {APP_NAME} and to prevent spam, we put
@@ -33,7 +33,7 @@ const Rules: NextPage = () => {
                 </p>
               </div>
               {/* Safety beings */}
-              <H4 className="mb-5 mt-8">Safety</H4>
+              <H4 className="mt-8 mb-5">Safety</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to display, share or promote any form of
@@ -51,7 +51,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Safety ends */}
               {/* Nudity beings */}
-              <H4 className="mb-5 mt-8">Nudity</H4>
+              <H4 className="mt-8 mb-5">Nudity</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   {APP_NAME} is not a place to display, share or promote any
@@ -68,7 +68,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Nudity ends */}
               {/* Spam beings */}
-              <H4 className="mb-5 mt-8">Spam</H4>
+              <H4 className="mt-8 mb-5">Spam</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to use {APP_NAME} as a platform to
@@ -88,7 +88,7 @@ const Rules: NextPage = () => {
               </div>
               {/* Spam ends */}
               {/* Impersonation beings */}
-              <H4 className="mb-5 mt-8">Impersonation</H4>
+              <H4 className="mt-8 mb-5">Impersonation</H4>
               <div className="space-y-5">
                 <p className="leading-7">
                   You are not allowed to impersonate other people on {APP_NAME}.
@@ -104,17 +104,17 @@ const Rules: NextPage = () => {
               </div>
               {/* Impersonation ends */}
               {/* Copyright and Trademarks beings */}
-              <H4 className="mb-5 mt-8">Copyright and Trademarks</H4>
+              <H4 className="mt-8 mb-5">Copyright and Trademarks</H4>
               <p className="leading-7">
                 You are not allowed to violate any intellectual property rights,
                 including copyright and trademark, of others.
               </p>
               {/* Copyright and Trademarks ends */}
               {/* Feedback beings */}
-              <H4 className="mb-5 mt-8">Feedback</H4>
+              <H4 className="mt-8 mb-5">Feedback</H4>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please{' '}
+                questions, please{" "}
                 <Link href="/support" target="_blank">
                   Contact us
                 </Link>
@@ -124,7 +124,7 @@ const Rules: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="mb-6 mt-2 flex justify-center">
+        <div className="mt-2 mb-6 flex justify-center">
           <Footer />
         </div>
       </div>

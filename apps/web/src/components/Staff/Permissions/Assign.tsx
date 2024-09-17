@@ -1,19 +1,19 @@
-import type { Permission } from '@hey/types/hey';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Permission } from "@hey/types/hey";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import { Button, Form, TextArea, useZodForm } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { object, string } from 'zod';
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HEY_API_URL } from "@hey/data/constants";
+import { STAFFTOOLS } from "@hey/data/tracking";
+import { Button, Form, TextArea, useZodForm } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { object, string } from "zod";
 
 const assignPermissionSchema = object({
   ids: string().regex(/0x[\dA-Fa-f]+/g, {
-    message: 'Invalid user IDs'
+    message: "Invalid user IDs"
   })
 });
 
@@ -40,9 +40,9 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
       {
         error: () => {
           setAssigning(false);
-          return 'Failed to assign permission';
+          return "Failed to assign permission";
         },
-        loading: 'Assigning permission...',
+        loading: "Assigning permission...",
         success: ({ data }) => {
           Leafwatch.track(STAFFTOOLS.PERMISSIONS.BULK_ASSIGN);
           setAssigning(false);
@@ -64,7 +64,7 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
       <TextArea
         placeholder='User IDs, Eg: ["0x0d", "0x05"]'
         rows={5}
-        {...form.register('ids')}
+        {...form.register("ids")}
       />
       <Button disabled={assigning} type="submit">
         Assign

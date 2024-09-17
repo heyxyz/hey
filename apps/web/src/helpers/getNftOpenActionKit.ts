@@ -1,8 +1,8 @@
-import { NftOpenActionKit } from 'nft-openaction-kit';
+import { NftOpenActionKit } from "nft-openaction-kit";
 
 const getNftOpenActionKit = () => {
   return new NftOpenActionKit({
-    decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || ''
+    decentApiKey: process.env.NEXT_PUBLIC_DECENT_API_KEY || ""
   });
 };
 

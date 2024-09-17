@@ -1,23 +1,23 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/24/outline';
-import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
-import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { SETTINGS } from '@hey/data/tracking';
-import { Card, CardHeader, Tooltip } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
+import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
+import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { SETTINGS } from "@hey/data/tracking";
+import { Card, CardHeader, Tooltip } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 
 const icons = [
-  { id: 0, name: 'Default' },
-  { id: 1, name: 'Pride' },
-  { id: 2, name: 'Emerald' },
-  { id: 3, name: 'Indigo' },
-  { id: 4, name: 'Violet' }
+  { id: 0, name: "Default" },
+  { id: 1, name: "Pride" },
+  { id: 2, name: "Emerald" },
+  { id: 3, name: "Indigo" },
+  { id: 4, name: "Violet" }
 ];
 
 const AppIcon: FC = () => {
@@ -35,15 +35,15 @@ const AppIcon: FC = () => {
       {
         error: () => {
           setUpdating(false);
-          return 'Error updating app icon';
+          return "Error updating app icon";
         },
-        loading: 'Updating app icon...',
+        loading: "Updating app icon...",
         success: () => {
           setUpdating(false);
           setAppIcon(id);
           Leafwatch.track(SETTINGS.PRO.APP_ICON, { appIcon: id });
 
-          return 'App icon updated';
+          return "App icon updated";
         }
       }
     );
@@ -62,6 +62,7 @@ const AppIcon: FC = () => {
               className="flex flex-col items-center space-y-2"
               disabled={updating}
               onClick={() => updateAppIcon(icon.id)}
+              type="button"
             >
               <img
                 alt={icon.name}

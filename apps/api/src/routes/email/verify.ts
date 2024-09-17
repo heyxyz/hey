@@ -1,8 +1,8 @@
-import type { Handler } from 'express';
+import type { Handler } from "express";
 
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import { noBody } from 'src/helpers/responses';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import { noBody } from "src/helpers/responses";
 
 export const get: Handler = async (req, res) => {
   const { token } = req.query;
@@ -19,8 +19,8 @@ export const get: Handler = async (req, res) => {
 
     logger.info(`Email verified for ${result.email}`);
 
-    return res.redirect('https://hey.xyz');
+    return res.redirect("https://hey.xyz");
   } catch (error) {
-    return res.status(400).send('Something went wrong');
+    return res.status(400).send("Something went wrong");
   }
 };

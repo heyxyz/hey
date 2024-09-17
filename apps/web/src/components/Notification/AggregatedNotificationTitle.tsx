@@ -1,10 +1,10 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import Link from 'next/link';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import Link from "next/link";
 
-import { NotificationProfileName } from './Profile';
+import { NotificationProfileName } from "./Profile";
 
 interface AggregatedNotificationTitleProps {
   firstProfile: Profile;

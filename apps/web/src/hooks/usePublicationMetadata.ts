@@ -1,21 +1,21 @@
-import getUserLocale from '@helpers/getUserLocale';
-import { APP_NAME } from '@hey/data/constants';
+import getUserLocale from "@helpers/getUserLocale";
+import { APP_NAME } from "@hey/data/constants";
 import {
   audio,
   image,
   liveStream,
   textOnly,
   video
-} from '@lens-protocol/metadata';
-import { useCallback } from 'react';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
-import { usePublicationAttributesStore } from 'src/store/non-persisted/publication/usePublicationAttributesStore';
-import { usePublicationAudioStore } from 'src/store/non-persisted/publication/usePublicationAudioStore';
-import { usePublicationLicenseStore } from 'src/store/non-persisted/publication/usePublicationLicenseStore';
-import { usePublicationLiveStore } from 'src/store/non-persisted/publication/usePublicationLiveStore';
-import { usePublicationStore } from 'src/store/non-persisted/publication/usePublicationStore';
-import { usePublicationVideoStore } from 'src/store/non-persisted/publication/usePublicationVideoStore';
-import { v4 as uuid } from 'uuid';
+} from "@lens-protocol/metadata";
+import { useCallback } from "react";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
+import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
+import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
+import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
+import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
+import { v4 as uuid } from "uuid";
 
 interface UsePublicationMetadataProps {
   baseMetadata: any;
@@ -33,9 +33,9 @@ const usePublicationMetadata = () => {
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
       const hasAttachments = attachments.length;
-      const isImage = attachments[0]?.type === 'Image';
-      const isAudio = attachments[0]?.type === 'Audio';
-      const isVideo = attachments[0]?.type === 'Video';
+      const isImage = attachments[0]?.type === "Image";
+      const isAudio = attachments[0]?.type === "Audio";
+      const isVideo = attachments[0]?.type === "Video";
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
 
       const localBaseMetadata = {
@@ -110,7 +110,7 @@ const usePublicationMetadata = () => {
             }),
             video: {
               cover: videoThumbnail.url,
-              duration: parseInt(videoDurationInSeconds),
+              duration: Number.parseInt(videoDurationInSeconds),
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
               ...(license && { license })

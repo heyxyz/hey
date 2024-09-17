@@ -1,33 +1,33 @@
-import type { Profile, UnfollowRequest } from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { Profile, UnfollowRequest } from "@hey/lens";
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PROFILE } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Button } from '@hey/ui';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { useApolloClient } from "@hey/lens/apollo";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { Button } from "@hey/ui";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -84,18 +84,18 @@ const Unfollow: FC<UnfollowProps> = ({
   };
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     updateCache();
     setIsLoading(false);
-    toast.success('Unfollowed successfully!');
+    toast.success("Unfollowed successfully!");
     Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: profile?.id });
   };
 
@@ -120,13 +120,13 @@ const Unfollow: FC<UnfollowProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'unfollow'
+      functionName: "unfollow"
     });
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === 'RelaySuccess') {
+      if (broadcastOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticUnfollow({ txId: broadcastOnchain.txId })
         );
@@ -146,7 +146,7 @@ const Unfollow: FC<UnfollowProps> = ({
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === "RelayError") {
           return await write({ args });
         }
         incrementLensHubOnchainSigNonce();
@@ -161,7 +161,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const [unfollow] = useUnfollowMutation({
     onCompleted: ({ unfollow }) => {
-      if (unfollow.__typename === 'RelaySuccess') {
+      if (unfollow.__typename === "RelaySuccess") {
         addTransaction(generateOptimisticUnfollow({ txId: unfollow.txId }));
       }
       onCompleted(unfollow.__typename);
@@ -171,7 +171,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const unfollowViaLensManager = async (request: UnfollowRequest) => {
     const { data } = await unfollow({ variables: { request } });
-    if (data?.unfollow?.__typename === 'LensProfileManagerRelayError') {
+    if (data?.unfollow?.__typename === "LensProfileManagerRelayError") {
       return await createUnfollowTypedData({ variables: { request } });
     }
   };
@@ -211,7 +211,7 @@ const Unfollow: FC<UnfollowProps> = ({
       className={buttonClassName}
       disabled={isLoading || isFollowPending(profile.id)}
       onClick={createUnfollow}
-      size={small ? 'sm' : 'md'}
+      size={small ? "sm" : "md"}
     >
       {title}
     </Button>

@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import getCurrentSession from '@helpers/getCurrentSession';
-import { useUserSigNoncesSubscriptionSubscription } from '@hey/lens';
-import { useEffect } from 'react';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useAccount } from 'wagmi';
+import getCurrentSession from "@helpers/getCurrentSession";
+import { useUserSigNoncesSubscriptionSubscription } from "@hey/lens";
+import { useEffect } from "react";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useAccount } from "wagmi";
 
 const LensSubscriptionsProvider: FC = () => {
   const { setLensHubOnchainSigNonce } = useNonceStore();

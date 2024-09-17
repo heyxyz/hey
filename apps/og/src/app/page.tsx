@@ -1,4 +1,4 @@
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME } from "@hey/data/constants";
 
 export default function Home() {
   return (

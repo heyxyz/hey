@@ -1,6 +1,6 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from "@hey/lens";
 
-import sanitizeDisplayName from './sanitizeDisplayName';
+import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getProfile = (
   profile: null | Profile,
@@ -15,16 +15,16 @@ const getProfile = (
 } => {
   if (!profile) {
     return {
-      displayName: '...',
-      link: '',
-      slug: '...',
-      slugWithPrefix: '...',
-      sourceLink: '',
-      staffLink: ''
+      displayName: "...",
+      link: "",
+      slug: "...",
+      slugWithPrefix: "...",
+      sourceLink: "",
+      staffLink: ""
     };
   }
 
-  const prefix = profile.handle ? '@' : '#';
+  const prefix = profile.handle ? "@" : "#";
   const slug = profile.handle?.localName || profile.id;
   const link = profile.handle
     ? `/u/${profile.handle.localName}`

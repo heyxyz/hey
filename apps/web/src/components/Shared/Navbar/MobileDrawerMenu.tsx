@@ -1,25 +1,25 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getProfile from "@hey/helpers/getProfile";
+import { Image } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Slug from '../Slug';
-import AppVersion from './NavItems/AppVersion';
-import Bookmarks from './NavItems/Bookmarks';
-import Logout from './NavItems/Logout';
-import Settings from './NavItems/Settings';
-import Support from './NavItems/Support';
-import SwitchProfile from './NavItems/SwitchProfile';
-import ThemeSwitch from './NavItems/ThemeSwitch';
-import YourProfile from './NavItems/YourProfile';
+import Slug from "../Slug";
+import AppVersion from "./NavItems/AppVersion";
+import Bookmarks from "./NavItems/Bookmarks";
+import Logout from "./NavItems/Logout";
+import Settings from "./NavItems/Settings";
+import Support from "./NavItems/Support";
+import SwitchProfile from "./NavItems/SwitchProfile";
+import ThemeSwitch from "./NavItems/ThemeSwitch";
+import YourProfile from "./NavItems/YourProfile";
 
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -29,7 +29,7 @@ const MobileDrawerMenu: FC = () => {
     setShowMobileDrawer(false);
   };
 
-  const itemClass = 'py-3 hover:bg-gray-100 dark:hover:bg-gray-800';
+  const itemClass = "py-3 hover:bg-gray-100 dark:hover:bg-gray-800";
 
   return (
     <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
@@ -64,24 +64,24 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <SwitchProfile className={cn(itemClass, 'px-4')} />
+          <SwitchProfile className={cn(itemClass, "px-4")} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
             <Link href={getProfile(currentProfile).link} onClick={closeDrawer}>
-              <YourProfile className={cn(itemClass, 'px-4')} />
+              <YourProfile className={cn(itemClass, "px-4")} />
             </Link>
             <Link href="/settings" onClick={closeDrawer}>
-              <Settings className={cn(itemClass, 'px-4')} />
+              <Settings className={cn(itemClass, "px-4")} />
             </Link>
             <Bookmarks
-              className={cn(itemClass, 'px-4')}
+              className={cn(itemClass, "px-4")}
               onClick={closeDrawer}
             />
             <ThemeSwitch
-              className={cn(itemClass, 'px-4')}
+              className={cn(itemClass, "px-4")}
               onClick={closeDrawer}
             />
           </div>
@@ -89,7 +89,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <Support className={cn(itemClass, 'px-4')} />
+          <Support className={cn(itemClass, "px-4")} />
           <div className="divider" />
         </div>
 
@@ -97,7 +97,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
             <Logout
-              className={cn(itemClass, 'px-4 py-3')}
+              className={cn(itemClass, "px-4 py-3")}
               onClick={closeDrawer}
             />
           </div>

@@ -1,18 +1,18 @@
-import type { ClubProfile } from '@hey/types/club';
-import type { FC } from 'react';
+import type { ClubProfile } from "@hey/types/club";
+import type { FC } from "react";
 
-import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
-import UserProfile from '@components/Shared/UserProfile';
-import { ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { type Profile, useProfilesQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import Link from 'next/link';
-import { Virtuoso } from 'react-virtuoso';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import UserProfile from "@components/Shared/UserProfile";
+import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { HEY_API_URL } from "@hey/data/constants";
+import { ProfileLinkSource } from "@hey/data/tracking";
+import { type Profile, useProfilesQuery } from "@hey/lens";
+import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Link from "next/link";
+import { Virtuoso } from "react-virtuoso";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface MembersProps {
   clubId: string;
@@ -48,7 +48,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   } = useQuery({
     enabled: Boolean(clubId),
     queryFn: getClubMembers,
-    queryKey: ['getClubMembers', clubId]
+    queryKey: ["getClubMembers", clubId]
   });
 
   const profileIds = clubMembers?.items.map((item) => item.id) || [];

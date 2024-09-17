@@ -1,10 +1,10 @@
-import { BRAND_COLOR } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import axios from 'axios';
+import { BRAND_COLOR } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
+import axios from "axios";
 
 const SLACK_CHANNELS = [
-  { channel: '#signups', id: 'B074BSCRYBY/oje0JD1ymgzB6ZTMNe0zBvRM' },
-  { channel: '#events', id: 'B074JCLS16Z/F5Lst6mYkthtDwBeCehwGGFR' }
+  { channel: "#signups", id: "B074BSCRYBY/oje0JD1ymgzB6ZTMNe0zBvRM" },
+  { channel: "#events", id: "B074JCLS16Z/F5Lst6mYkthtDwBeCehwGGFR" }
 ];
 
 const getChannelId = (channel: string) => {
@@ -27,7 +27,7 @@ const sendSlackMessage = async ({
   text: string;
 }): Promise<void> => {
   if (!process.env.SLACK_WEBHOOK_URL) {
-    return logger.error('Slack webhook URL not set');
+    return logger.error("Slack webhook URL not set");
   }
 
   return await axios.post(

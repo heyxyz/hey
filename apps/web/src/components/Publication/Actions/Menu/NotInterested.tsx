@@ -1,22 +1,22 @@
 import type {
   MirrorablePublication,
   PublicationNotInterestedRequest
-} from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { ApolloCache } from "@hey/lens/apollo";
+import type { FC } from "react";
 
-import { MenuItem } from '@headlessui/react';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import { MenuItem } from "@headlessui/react";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   useAddPublicationNotInterestedMutation,
   useUndoPublicationNotInterestedMutation
-} from '@hey/lens';
-import cn from '@hey/ui/cn';
-import { toast } from 'react-hot-toast';
+} from "@hey/lens";
+import cn from "@hey/ui/cn";
+import { toast } from "react-hot-toast";
 
 interface NotInterestedProps {
   publication: MirrorablePublication;
@@ -46,7 +46,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
 
   const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
     onCompleted: () => {
-      toast.success('Marked as not Interested');
+      toast.success("Marked as not Interested");
       Leafwatch.track(PUBLICATION.NOT_INTERESTED, {
         publication_id: publication.id
       });
@@ -59,7 +59,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   const [undoPublicationNotInterested] =
     useUndoPublicationNotInterestedMutation({
       onCompleted: () => {
-        toast.success('Undo Not interested');
+        toast.success("Undo Not interested");
         Leafwatch.track(PUBLICATION.UNDO_NOT_INTERESTED, {
           publication_id: publication.id
         });
@@ -82,8 +82,8 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       as="div"
       className={({ focus }) =>
         cn(
-          { 'dropdown-active': focus },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
+          { "dropdown-active": focus },
+          "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
         )
       }
       onClick={(event) => {

@@ -1,25 +1,25 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import MetaDetails from '@components/Shared/MetaDetails';
-import P2PRecommendation from '@components/Shared/Profile/P2PRecommendation';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
+import MetaDetails from "@components/Shared/MetaDetails";
+import P2PRecommendation from "@components/Shared/Profile/P2PRecommendation";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
   BanknotesIcon,
   HandRaisedIcon,
   HashtagIcon,
   PhotoIcon
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 import {
   CheckCircleIcon,
   ShieldCheckIcon,
   XCircleIcon
-} from '@heroicons/react/24/solid';
-import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
-import formatAddress from '@hey/helpers/formatAddress';
-import { H5 } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+} from "@heroicons/react/24/solid";
+import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
+import formatAddress from "@hey/helpers/formatAddress";
+import { H5 } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface ProfileOverviewProps {
   profile: Profile;
@@ -41,12 +41,12 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
 
   const { data: haveUsedHey } = useQuery({
     queryFn: getHaveUsedHey,
-    queryKey: ['getHaveUsedHey', profile.id]
+    queryKey: ["getHaveUsedHey", profile.id]
   });
 
   return (
     <>
-      <div className="divider my-5 border-dashed border-yellow-600" />
+      <div className="divider my-5 border-yellow-600 border-dashed" />
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="size-5" />
         <H5>Profile Overview</H5>

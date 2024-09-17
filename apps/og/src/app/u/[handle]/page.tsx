@@ -1,13 +1,13 @@
-import type { Profile } from '@hey/lens';
-import type { Metadata } from 'next';
+import type { Profile } from "@hey/lens";
+import type { Metadata } from "next";
 
-import { APP_NAME, HANDLE_PREFIX } from '@hey/data/constants';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import logger from '@hey/helpers/logger';
-import { ProfileDocument } from '@hey/lens';
-import { print } from 'graphql';
-import defaultMetadata from 'src/defaultMetadata';
+import { APP_NAME, HANDLE_PREFIX } from "@hey/data/constants";
+import getAvatar from "@hey/helpers/getAvatar";
+import getProfile from "@hey/helpers/getProfile";
+import logger from "@hey/helpers/logger";
+import { ProfileDocument } from "@hey/lens";
+import { print } from "graphql";
+import defaultMetadata from "src/defaultMetadata";
 
 interface Props {
   params: { handle: string };
@@ -16,15 +16,15 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = params;
 
-  const response = await fetch('https://api-v2.lens.dev', {
+  const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
-      operationName: 'Profile',
+      operationName: "Profile",
       query: print(ProfileDocument),
       variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
     }),
-    cache: 'no-store',
-    headers: { 'Content-Type': 'application/json' },
-    method: 'POST'
+    cache: "no-store",
+    headers: { "Content-Type": "application/json" },
+    method: "POST"
   });
 
   const data = await response.json();
@@ -44,17 +44,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     creator: displayName,
     description: description,
     keywords: [
-      'hey',
-      'hey.xyz',
-      'social media profile',
-      'social media',
-      'lenster',
-      'polygon',
-      'user profile',
-      'lens',
-      'lens protocol',
-      'decentralized',
-      'web3',
+      "hey",
+      "hey.xyz",
+      "social media profile",
+      "social media",
+      "lenster",
+      "polygon",
+      "user profile",
+      "lens",
+      "lens protocol",
+      "decentralized",
+      "web3",
       displayName,
       slugWithPrefix
     ],
@@ -62,19 +62,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       description: description,
       images: [getAvatar(profile)],
-      siteName: 'Hey',
-      type: 'profile',
+      siteName: "Hey",
+      type: "profile",
       url: `https://hey.xyz${link}`
     },
     other: {
-      'count:followers': profile.stats.followers,
-      'count:following': profile.stats.following,
-      'lens:handle': handle,
-      'lens:id': profile.id
+      "count:followers": profile.stats.followers,
+      "count:following": profile.stats.following,
+      "lens:handle": handle,
+      "lens:id": profile.id
     },
     publisher: displayName,
     title: title,
-    twitter: { card: 'summary', site: '@heydotxyz' }
+    twitter: { card: "summary", site: "@heydotxyz" }
   };
 }
 
@@ -85,7 +85,7 @@ export default async function Page({ params }: Props) {
     return <h1>{params.handle}</h1>;
   }
 
-  const profileUrl = `https://hey.xyz/u/${metadata.other?.['lens:handle']}`;
+  const profileUrl = `https://hey.xyz/u/${metadata.other?.["lens:handle"]}`;
 
   logger.info(`[OG] Fetched profile /u/${params.handle}`);
 
@@ -98,12 +98,12 @@ export default async function Page({ params }: Props) {
         <ul>
           <li>
             <a href={`${profileUrl}/following`}>
-              Following: {metadata.other?.['count:following']}
+              Following: {metadata.other?.["count:following"]}
             </a>
           </li>
           <li>
             <a href={`${profileUrl}/followers`}>
-              Followers: {metadata.other?.['count:followers']}
+              Followers: {metadata.other?.["count:followers"]}
             </a>
           </li>
         </ul>

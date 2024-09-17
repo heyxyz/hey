@@ -1,13 +1,13 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import New from '@components/Shared/Badges/New';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HomeFeedType } from '@hey/data/enums';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { HOME } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
-import { useFlag } from '@unleash/proxy-client-react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import New from "@components/Shared/Badges/New";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HomeFeedType } from "@hey/data/enums";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { HOME } from "@hey/data/tracking";
+import { TabButton } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface FeedTypeProps {
   feedType: HomeFeedType;
@@ -23,18 +23,18 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
 
   const tabs = [
     {
-      name: fallbackToCuratedFeed ? 'Curated Feed' : 'Following',
+      name: fallbackToCuratedFeed ? "Curated Feed" : "Following",
       track: HOME.SWITCH_FOLLOWING_FEED,
       type: HomeFeedType.FOLLOWING
     },
     enabled && {
       badge: <New />,
-      name: 'For You',
+      name: "For You",
       track: HOME.SWITCH_FORYOU_FEED,
       type: HomeFeedType.FORYOU
     },
     {
-      name: 'Premium',
+      name: "Premium",
       track: HOME.SWITCH_PREMIUM_FEED,
       type: HomeFeedType.PREMIUM
     }

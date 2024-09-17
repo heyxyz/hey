@@ -1,6 +1,6 @@
-import type { Address } from 'viem';
+import type { Address } from "viem";
 
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 
 /**
  * Returns the name of the specified open action module.
@@ -15,10 +15,10 @@ const getAllowanceOpenAction = (
 } => {
   switch (address) {
     case VerifiedOpenActionModules.DecentNFT:
-      return { name: 'NFT Mint Open Action' };
+      return { name: "NFT Mint Open Action" };
 
     default:
-      return { name: 'Unknown Open Action' };
+      return { name: "Unknown Open Action" };
   }
 };
 

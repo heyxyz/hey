@@ -2,24 +2,24 @@ import type {
   AnyPublication,
   ExplorePublicationRequest,
   PublicationMetadataMainFocusType
-} from '@hey/lens';
-import type { FC } from 'react';
-import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
+} from "@hey/lens";
+import type { FC } from "react";
+import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   CustomFiltersType,
   ExplorePublicationsOrderByType,
   LimitType,
   useExplorePublicationsQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useRef } from 'react';
-import { Virtuoso } from 'react-virtuoso';
-import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
+} from "@hey/lens";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import { useRef } from "react";
+import { Virtuoso } from "react-virtuoso";
+import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
+import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 

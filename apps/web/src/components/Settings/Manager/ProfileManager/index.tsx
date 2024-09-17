@@ -1,18 +1,18 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { Button, Card, Modal, TabButton } from '@hey/ui';
-import { useState } from 'react';
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { Button, Card, Modal, TabButton } from "@hey/ui";
+import { useState } from "react";
 
-import AddProfileManager from './AddProfileManager';
-import Managed from './Management/Managed';
-import Unmanaged from './Management/Unmanaged';
-import Managers from './Managers';
+import AddProfileManager from "./AddProfileManager";
+import Managed from "./Management/Managed";
+import Unmanaged from "./Management/Unmanaged";
+import Managers from "./Managers";
 
 enum Type {
-  MANAGED = 'MANAGED',
-  MANAGERS = 'MANAGERS',
-  UNMANAGED = 'UNMANAGED'
+  MANAGED = "MANAGED",
+  MANAGERS = "MANAGERS",
+  UNMANAGED = "UNMANAGED"
 }
 
 const ProfileManager: FC = () => {

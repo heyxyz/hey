@@ -1,18 +1,18 @@
-import type { ButtonType } from '@hey/types/misc';
-import type { Request, Response } from 'express';
+import type { ButtonType } from "@hey/types/misc";
+import type { Request, Response } from "express";
 
-import { IS_MAINNET } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import { parseHTML } from 'linkedom';
-import catchedError from 'src/helpers/catchedError';
-import { HEY_USER_AGENT } from 'src/helpers/constants';
-import signFrameAction from 'src/helpers/frames/signFrameAction';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import getFrame from 'src/helpers/oembed/meta/getFrame';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { number, object, string } from 'zod';
+import { IS_MAINNET } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import { parseHTML } from "linkedom";
+import catchedError from "src/helpers/catchedError";
+import { HEY_USER_AGENT } from "src/helpers/constants";
+import signFrameAction from "src/helpers/frames/signFrameAction";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import getFrame from "src/helpers/oembed/meta/getFrame";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { number, object, string } from "zod";
 
 type ExtensionRequest = {
   actionResponse?: string;
@@ -58,30 +58,30 @@ export const post = [
     } = body as ExtensionRequest;
 
     try {
-      const accessToken = req.headers['x-access-token'] as string;
-      const identityToken = req.headers['x-identity-token'] as string;
+      const accessToken = req.headers["x-access-token"] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
       const { id } = payload;
 
       let request = {
-        actionResponse: actionResponse || '',
+        actionResponse: actionResponse || "",
         buttonIndex,
-        inputText: inputText || '',
+        inputText: inputText || "",
         profileId: id,
         pubId,
-        specVersion: '1.0.0',
-        state: state || '',
+        specVersion: "1.0.0",
+        state: state || "",
         url: postUrl
       };
 
-      let signature = '';
+      let signature = "";
 
       // Sign request if Frame accepts Lens authenticated response
       if (req.body.acceptsLens) {
         const signatureResponse = await signFrameAction(
           request,
           accessToken,
-          IS_MAINNET ? 'mainnet' : 'testnet'
+          IS_MAINNET ? "mainnet" : "testnet"
         );
         if (signatureResponse) {
           signature = signatureResponse.signature;
@@ -98,16 +98,16 @@ export const post = [
 
       const response = await fetch(postUrl, {
         body: JSON.stringify({
-          clientProtocol: 'lens@1.0.0',
+          clientProtocol: "lens@1.0.0",
           trustedData,
           untrustedData
         }),
         headers: {
-          'Content-Type': 'application/json',
-          'User-Agent': HEY_USER_AGENT
+          "Content-Type": "application/json",
+          "User-Agent": HEY_USER_AGENT
         },
-        method: 'POST',
-        redirect: buttonAction === 'post_redirect' ? 'manual' : undefined
+        method: "POST",
+        redirect: buttonAction === "post_redirect" ? "manual" : undefined
       });
 
       const { status } = response;
@@ -116,7 +116,7 @@ export const post = [
       let data = {};
       if (status !== 302) {
         if (
-          response.headers.get('content-type')?.includes('application/json')
+          response.headers.get("content-type")?.includes("application/json")
         ) {
           data = await response.json();
         } else {
@@ -126,16 +126,16 @@ export const post = [
 
       logger.info(`Open frame button clicked by ${id} on ${postUrl}`);
 
-      if (buttonAction === 'tx') {
+      if (buttonAction === "tx") {
         return res
           .status(200)
           .json({ frame: { transaction: data }, success: true });
       }
 
-      if (buttonAction === 'post_redirect' && status === 302) {
+      if (buttonAction === "post_redirect" && status === 302) {
         return res
           .status(200)
-          .json({ frame: { location: headers.get('location') } });
+          .json({ frame: { location: headers.get("location") } });
       }
 
       const { document } = parseHTML(data);

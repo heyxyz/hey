@@ -1,6 +1,6 @@
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
-import { Button, Card, CardHeader, Modal } from '@hey/ui';
-import { type FC, useState } from 'react';
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { Button, Card, CardHeader, Modal } from "@hey/ui";
+import { type FC, useState } from "react";
 
 const ModalDesign: FC = () => {
   const [showXsModal, setShowXsModal] = useState(false);

@@ -1,22 +1,22 @@
-import type { Comment, PublicationsRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { Comment, PublicationsRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import { useHiddenCommentFeedStore } from '@components/Publication';
-import SinglePublication from '@components/Publication/SinglePublication';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import getAvatar from '@hey/helpers/getAvatar';
+import { useHiddenCommentFeedStore } from "@components/Publication";
+import SinglePublication from "@components/Publication/SinglePublication";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import getAvatar from "@hey/helpers/getAvatar";
 import {
   CommentRankingFilterType,
   CustomFiltersType,
   HiddenCommentsType,
   LimitType,
   usePublicationsQuery
-} from '@hey/lens';
-import { Card, StackedAvatars } from '@hey/ui';
-import { useState } from 'react';
-import { Virtuoso } from 'react-virtuoso';
-import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
+} from "@hey/lens";
+import { Card, StackedAvatars } from "@hey/ui";
+import { useState } from "react";
+import { Virtuoso } from "react-virtuoso";
+import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
+import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 interface NoneRelevantFeedProps {
   publicationId: string;
@@ -84,7 +84,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
           avatars={comments.map((comment) => getAvatar(comment.by))}
           limit={5}
         />
-        <div>{showMore ? 'Hide more comments' : 'Show more comments'}</div>
+        <div>{showMore ? "Hide more comments" : "Show more comments"}</div>
         {showMore ? (
           <ChevronUpIcon className="size-4" />
         ) : (
@@ -101,7 +101,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {
-              if (comment.__typename !== 'Comment' || comment.isHidden) {
+              if (comment.__typename !== "Comment" || comment.isHidden) {
                 return null;
               }
 

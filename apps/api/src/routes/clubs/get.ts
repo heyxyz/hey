@@ -1,12 +1,11 @@
-import type { Request, Response } from 'express';
-
-import { CLUBS_API_URL, CLUBS_APP_TOKEN } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { HEY_USER_AGENT } from 'src/helpers/constants';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { number, object, string } from 'zod';
+import { CLUBS_API_URL, CLUBS_APP_TOKEN } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
+import catchedError from "src/helpers/catchedError";
+import { HEY_USER_AGENT } from "src/helpers/constants";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { number, object, string } from "zod";
 
 const validationSchema = object({
   club_handle: string().optional(),
@@ -36,11 +35,11 @@ export const post = [
       const response = await fetch(`${CLUBS_API_URL}/fetch-clubs`, {
         body: JSON.stringify(body),
         headers: {
-          'App-Access-Token': CLUBS_APP_TOKEN,
-          'Content-Type': 'application/json',
-          'User-Agent': HEY_USER_AGENT
+          "App-Access-Token": CLUBS_APP_TOKEN,
+          "Content-Type": "application/json",
+          "User-Agent": HEY_USER_AGENT
         },
-        method: 'POST'
+        method: "POST"
       });
 
       logger.info(`Clubs fetched for ${body.club_handle}`);

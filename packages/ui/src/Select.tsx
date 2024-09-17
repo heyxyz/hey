@@ -4,13 +4,13 @@ import {
   ListboxOption,
   ListboxOptions,
   Transition
-} from '@headlessui/react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
-import { forwardRef, Fragment, useState } from 'react';
+} from "@headlessui/react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Fragment, forwardRef, useState } from "react";
 
-import cn from '../cn';
-import { Input } from './Input';
+import cn from "../cn";
+import { Input } from "./Input";
 
 interface SelectProps {
   className?: string;
@@ -37,7 +37,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     options,
     showSearch = false
   }) {
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState("");
     const selected = options?.find((option) => option.selected) || options?.[0];
 
     return (
@@ -45,13 +45,17 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <div className="relative">
           <ListboxButton
             className={cn(
-              'flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800',
+              "flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-none focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800",
               className
             )}
           >
             <span className="flex items-center space-x-2">
               {selected?.icon && (
-                <img className={iconClassName} src={selected?.icon} />
+                <img
+                  className={iconClassName}
+                  src={selected?.icon}
+                  alt={selected?.label}
+                />
               )}
               <span>{selected?.label}</span>
             </span>
@@ -89,8 +93,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   <ListboxOption
                     className={({ focus }: { focus: boolean }) =>
                       cn(
-                        { 'dropdown-active': focus },
-                        'm-2 cursor-pointer rounded-lg'
+                        { "dropdown-active": focus },
+                        "m-2 cursor-pointer rounded-lg"
                       )
                     }
                     disabled={option.disabled}
@@ -105,6 +109,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                               <img
                                 className={iconClassName}
                                 src={option.icon}
+                                alt={option.label}
                               />
                             )}
                             <span className="block truncate">

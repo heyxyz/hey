@@ -5,22 +5,22 @@
  */
 const getToastOptions = (theme?: string) => ({
   error: {
-    className: 'border border-red-500',
+    className: "border border-red-500",
     iconTheme: {
-      primary: '#EF4444',
-      secondary: 'white'
+      primary: "#EF4444",
+      secondary: "white"
     }
   },
-  loading: { className: 'border border-gray-300' },
+  loading: { className: "border border-gray-300" },
   style: {
-    background: theme === 'dark' ? '#18181B' : '',
-    color: theme === 'dark' ? '#fff' : ''
+    background: theme === "dark" ? "#18181B" : "",
+    color: theme === "dark" ? "#fff" : ""
   },
   success: {
-    className: 'border border-green-500',
+    className: "border border-green-500",
     iconTheme: {
-      primary: '#10B981',
-      secondary: 'white'
+      primary: "#10B981",
+      secondary: "white"
     }
   }
 });

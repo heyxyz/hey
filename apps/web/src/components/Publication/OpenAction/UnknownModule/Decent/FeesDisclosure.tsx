@@ -1,18 +1,18 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel
-} from '@headlessui/react';
+} from "@headlessui/react";
 import {
   ArrowTurnDownRightIcon,
   ChevronDownIcon
-} from '@heroicons/react/24/outline';
-import { HelpTooltip } from '@hey/ui'; // Assuming HelpTooltip is from @hey/ui
-import type { ActionData } from 'nft-openaction-kit';
+} from "@heroicons/react/24/outline";
+import { HelpTooltip } from "@hey/ui"; // Assuming HelpTooltip is from @hey/ui
+import type { ActionData } from "nft-openaction-kit";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 
 interface FeesDisclosureProps {
   actionData?: ActionData;
@@ -49,8 +49,8 @@ const FeesDisclosure: FC<FeesDisclosureProps> = ({
             <ArrowTurnDownRightIcon className="size-4" />
             <p>
               {actionData?.actArgumentsFormatted.dstChainId === 137
-                ? 'Transaction Fee'
-                : 'Bridge Fee'}
+                ? "Transaction Fee"
+                : "Bridge Fee"}
             </p>
           </span>
           <p>

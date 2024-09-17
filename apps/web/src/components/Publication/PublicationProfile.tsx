@@ -1,22 +1,22 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import Source from '@components/Publication/Source';
-import isVerified from '@helpers/isVerified';
+import Source from "@components/Publication/Source";
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import { apps } from '@hey/data/apps';
-import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import Link from 'next/link';
-import { memo } from 'react';
+} from "@heroicons/react/24/solid";
+import { apps } from "@hey/data/apps";
+import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
+import getProfile from "@hey/helpers/getProfile";
+import hasMisused from "@hey/helpers/hasMisused";
+import Link from "next/link";
+import { memo } from "react";
 
-import Slug from '../Shared/Slug';
-import UserPreview from '../Shared/UserPreview';
-import ClubHandle from './ClubHandle';
+import Slug from "../Shared/Slug";
+import UserPreview from "../Shared/UserPreview";
+import ClubHandle from "./ClubHandle";
 
 interface FeedUserProfileProps {
   profile: Profile;
@@ -60,7 +60,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
         />
       </WrappedLink>
       {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
+        <CheckBadgeIcon className="ml-1 size-4 text-brand-500" />
       ) : null}
       {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="ml-1 size-4" />

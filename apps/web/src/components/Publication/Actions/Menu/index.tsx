@@ -1,23 +1,23 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu, MenuButton, MenuItems } from '@headlessui/react';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import cn from '@hey/ui/cn';
-import { Fragment } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import MenuTransition from "@components/Shared/MenuTransition";
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import cn from "@hey/ui/cn";
+import { Fragment } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Bookmark from './Bookmark';
-import CopyPostText from './CopyPostText';
-import Delete from './Delete';
-import HideComment from './HideComment';
-import NotInterested from './NotInterested';
-import Recommend from './Recommend';
-import Report from './Report';
-import Share from './Share';
-import Translate from './Translate';
+import Bookmark from "./Bookmark";
+import CopyPostText from "./CopyPostText";
+import Delete from "./Delete";
+import HideComment from "./HideComment";
+import NotInterested from "./NotInterested";
+import Recommend from "./Recommend";
+import Report from "./Report";
+import Share from "./Share";
+import Translate from "./Translate";
 
 interface PublicationMenuProps {
   publication: MirrorablePublication;
@@ -25,7 +25,7 @@ interface PublicationMenuProps {
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
-  const iconClassName = 'w-[15px] sm:w-[18px]';
+  const iconClassName = "w-[15px] sm:w-[18px]";
 
   return (
     <Menu as="div" className="relative">
@@ -37,7 +37,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           type="button"
         >
           <EllipsisHorizontalIcon
-            className={cn('ld-text-gray-500', iconClassName)}
+            className={cn("ld-text-gray-500", iconClassName)}
           />
         </button>
       </MenuButton>

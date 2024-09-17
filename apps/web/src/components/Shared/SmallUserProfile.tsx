@@ -1,22 +1,22 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import isVerified from '@helpers/isVerified';
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import formatRelativeOrAbsolute from '@hey/helpers/datetime/formatRelativeOrAbsolute';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import hasMisused from '@hey/helpers/hasMisused';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import { memo } from 'react';
+} from "@heroicons/react/24/solid";
+import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getProfile from "@hey/helpers/getProfile";
+import hasMisused from "@hey/helpers/hasMisused";
+import { Image } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import { memo } from "react";
 
-import Slug from './Slug';
+import Slug from "./Slug";
 
 interface UserProfileProps {
   hideSlug?: boolean;
@@ -31,14 +31,14 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   linkToProfile = false,
   profile,
   smallAvatar = false,
-  timestamp = ''
+  timestamp = ""
 }) => {
   const UserAvatar: FC = () => (
     <Image
       alt={profile.id}
       className={cn(
-        smallAvatar ? 'size-4' : 'size-6',
-        'rounded-full border bg-gray-200 dark:border-gray-700'
+        smallAvatar ? "size-4" : "size-6",
+        "rounded-full border bg-gray-200 dark:border-gray-700"
       )}
       height={smallAvatar ? 16 : 24}
       loading="lazy"
@@ -52,11 +52,11 @@ const SmallUserProfile: FC<UserProfileProps> = ({
 
   const UserName: FC = () => (
     <div className="flex max-w-full flex-wrap items-center">
-      <div className={cn(!hideSlug && 'max-w-[75%]', 'mr-1 truncate')}>
+      <div className={cn(!hideSlug && "max-w-[75%]", "mr-1 truncate")}>
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) && (
-        <CheckBadgeIcon className="text-brand-500 mr-1 size-4" />
+        <CheckBadgeIcon className="mr-1 size-4 text-brand-500" />
       )}
       {hasMisused(profile.id) && (
         <ExclamationCircleIcon className="mr-2 size-4 text-red-500" />

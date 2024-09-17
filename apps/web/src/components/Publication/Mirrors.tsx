@@ -1,18 +1,18 @@
-import type { Profile, ProfilesRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile, ProfilesRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
-import UserProfile from '@components/Shared/UserProfile';
+import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import UserProfile from "@components/Shared/UserProfile";
 import {
   ArrowLeftIcon,
   ArrowsRightLeftIcon
-} from '@heroicons/react/24/outline';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { LimitType, useProfilesQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
-import Link from 'next/link';
-import { Virtuoso } from 'react-virtuoso';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@heroicons/react/24/outline";
+import { ProfileLinkSource } from "@hey/data/tracking";
+import { LimitType, useProfilesQuery } from "@hey/lens";
+import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
+import Link from "next/link";
+import { Virtuoso } from "react-virtuoso";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface MirrorsProps {
   publicationId: string;

@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import utc from 'dayjs/plugin/utc';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import utc from "dayjs/plugin/utc";
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
@@ -12,7 +12,7 @@ dayjs.extend(utc);
  * @returns The resulting date and time in UTC format.
  */
 const getTimeAddedNDay = (day: number) => {
-  return dayjs().add(day, 'day').utc().format();
+  return dayjs().add(day, "day").utc().format();
 };
 
 export default getTimeAddedNDay;

@@ -1,4 +1,4 @@
-import { VerifiedOpenActionModules } from '@hey/data/verified-openaction-modules';
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 
 const allowedUnknownOpenActionModules = [VerifiedOpenActionModules.DecentNFT];
 

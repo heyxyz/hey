@@ -3,50 +3,50 @@ import type {
   ApprovedAllowanceAmountResult,
   MirrorablePublication,
   OpenActionModule
-} from '@hey/lens';
-import type { OptimisticTransaction } from '@hey/types/misc';
-import type { FC, ReactNode } from 'react';
+} from "@hey/lens";
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC, ReactNode } from "react";
 
-import { useApolloClient } from '@apollo/client';
-import AllowanceButton from '@components/Settings/Allowance/Button';
-import LoginButton from '@components/Shared/LoginButton';
-import NoBalanceError from '@components/Shared/NoBalanceError';
-import FollowUnfollowButton from '@components/Shared/Profile/FollowUnfollowButton';
-import errorToast from '@helpers/errorToast';
-import getCurrentSession from '@helpers/getCurrentSession';
-import { Leafwatch } from '@helpers/leafwatch';
-import hasOptimisticallyCollected from '@helpers/optimistic/hasOptimisticallyCollected';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getCollectModuleData from '@hey/helpers/getCollectModuleData';
-import getOpenActionActOnKey from '@hey/helpers/getOpenActionActOnKey';
-import getSignature from '@hey/helpers/getSignature';
+import { useApolloClient } from "@apollo/client";
+import AllowanceButton from "@components/Settings/Allowance/Button";
+import LoginButton from "@components/Shared/LoginButton";
+import NoBalanceError from "@components/Shared/NoBalanceError";
+import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
+import errorToast from "@helpers/errorToast";
+import getCurrentSession from "@helpers/getCurrentSession";
+import { Leafwatch } from "@helpers/leafwatch";
+import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getCollectModuleData from "@hey/helpers/getCollectModuleData";
+import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
+import getSignature from "@hey/helpers/getSignature";
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
-} from '@hey/lens';
-import { OptmisticPublicationType } from '@hey/types/enums';
-import { Button, WarningMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useTransactionStore } from 'src/store/persisted/useTransactionStore';
-import { formatUnits } from 'viem';
+} from "@hey/lens";
+import { OptmisticPublicationType } from "@hey/types/enums";
+import { Button, WarningMessage } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { formatUnits } from "viem";
 import {
   useAccount,
   useBalance,
   useSignTypedData,
   useWriteContract
-} from 'wagmi';
+} from "wagmi";
 
 interface CollectActionProps {
   buttonTitle?: string;
@@ -60,8 +60,8 @@ interface CollectActionProps {
 }
 
 const CollectAction: FC<CollectActionProps> = ({
-  buttonTitle = 'Collect now',
-  className = '',
+  buttonTitle = "Collect now",
+  className = "",
   countOpenActions,
   forceShowCollect = false,
   noBalanceErrorMessages,
@@ -85,7 +85,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    collectModule?.amount || 0 > 0
+    collectModule?.amount
       ? false
       : publication.operations.hasActed.value ||
           hasOptimisticallyCollected(publication.id)
@@ -112,7 +112,7 @@ const CollectAction: FC<CollectActionProps> = ({
     : false;
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
-    openAction.__typename === 'SimpleCollectOpenActionSettings';
+    openAction.__typename === "SimpleCollectOpenActionSettings";
   const isFollowersOnly = collectModule?.followerOnly;
   const isFollowedByMe = isFollowersOnly
     ? publication?.by.operations.isFollowedByMe.value
@@ -163,21 +163,21 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
       return;
     }
 
     // Should not disable the button if it's a paid collect module
-    setHasActed(amount > 0 ? false : true);
+    setHasActed(amount <= 0);
     setIsLoading(false);
     onCollectSuccess?.();
     updateCache();
-    toast.success('Collected successfully!');
+    toast.success("Collected successfully!");
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       amount,
       collect_module: openAction?.type,
@@ -205,15 +205,15 @@ const CollectAction: FC<CollectActionProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'act'
+      functionName: "act"
     });
   };
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: 'no-cache',
+      fetchPolicy: "no-cache",
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        const allowedAmount = parseFloat(
+        const allowedAmount = Number.parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
         );
         setAllowed(allowedAmount > amount);
@@ -238,7 +238,7 @@ const CollectAction: FC<CollectActionProps> = ({
   let hasAmount = false;
   if (
     balanceData &&
-    parseFloat(formatUnits(balanceData.value, assetDecimals)) < amount
+    Number.parseFloat(formatUnits(balanceData.value, assetDecimals)) < amount
   ) {
     hasAmount = false;
   } else {
@@ -247,7 +247,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === 'RelaySuccess') {
+      if (broadcastOnchain.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticCollect({ txId: broadcastOnchain.txId })
         );
@@ -268,7 +268,7 @@ const CollectAction: FC<CollectActionProps> = ({
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args: [typedData.value] });
           }
           incrementLensHubOnchainSigNonce();
@@ -284,7 +284,7 @@ const CollectAction: FC<CollectActionProps> = ({
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({
     onCompleted: ({ actOnOpenAction }) => {
-      if (actOnOpenAction.__typename === 'RelaySuccess') {
+      if (actOnOpenAction.__typename === "RelaySuccess") {
         addTransaction(
           generateOptimisticCollect({ txId: actOnOpenAction.txId })
         );
@@ -300,13 +300,13 @@ const CollectAction: FC<CollectActionProps> = ({
   ) => {
     const { data, errors } = await actOnOpenAction({ variables: { request } });
 
-    if (errors?.toString().includes('has already acted on')) {
+    if (errors?.toString().includes("has already acted on")) {
       return;
     }
 
     if (
       !data?.actOnOpenAction ||
-      data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'
+      data?.actOnOpenAction.__typename === "LensProfileManagerRelayError"
     ) {
       return await createActOnOpenActionTypedData({ variables: { request } });
     }
@@ -359,7 +359,7 @@ const CollectAction: FC<CollectActionProps> = ({
   if (allowanceLoading) {
     return (
       <div
-        className={cn('shimmer mt-5 h-[34px] w-full rounded-full', className)}
+        className={cn("shimmer mt-5 h-[34px] w-full rounded-full", className)}
       />
     );
   }
@@ -368,7 +368,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <AllowanceButton
         allowed={allowed}
-        className={cn('mt-5 w-full', className)}
+        className={cn("mt-5 w-full", className)}
         module={
           allowanceData
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
@@ -381,8 +381,8 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (
     !hasAmount &&
-    (openAction.__typename === 'SimpleCollectOpenActionSettings' ||
-      openAction.__typename === 'MultirecipientFeeCollectOpenActionSettings')
+    (openAction.__typename === "SimpleCollectOpenActionSettings" ||
+      openAction.__typename === "MultirecipientFeeCollectOpenActionSettings")
   ) {
     return (
       <WarningMessage
@@ -417,7 +417,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   return (
     <Button
-      className={cn('mt-5 w-full justify-center', className)}
+      className={cn("mt-5 w-full justify-center", className)}
       disabled={isLoading}
       onClick={createCollect}
     >

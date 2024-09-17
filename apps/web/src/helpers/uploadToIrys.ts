@@ -1,7 +1,7 @@
-import { HEY_API_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 /**
  * Uploads the given data to Arweave.

@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
-import plur from 'plur';
-import { useState } from 'react';
-import { usePublicationPollStore } from 'src/store/non-persisted/publication/usePublicationPollStore';
+import { ClockIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3BottomLeftIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { Button, Card, Input, Modal, Tooltip } from "@hey/ui";
+import plur from "plur";
+import { useState } from "react";
+import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
 
 const PollEditor: FC = () => {
   const { pollConfig, resetPollConfig, setPollConfig, setShowPollEditor } =
@@ -26,7 +26,7 @@ const PollEditor: FC = () => {
             outline
             size="sm"
           >
-            {pollConfig.length} {plur('day', pollConfig.length)}
+            {pollConfig.length} {plur("day", pollConfig.length)}
           </Button>
           <Modal
             icon={<ClockIcon className="size-5" />}
@@ -117,7 +117,7 @@ const PollEditor: FC = () => {
             className="mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
               const newOptions = [...pollConfig.options];
-              newOptions.push('');
+              newOptions.push("");
               setPollConfig({ ...pollConfig, options: newOptions });
             }}
             type="button"

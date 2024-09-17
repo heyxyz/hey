@@ -1,15 +1,15 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import ClubPreview from '@components/Shared/ClubPreview';
-import Link from 'next/link';
+import ClubPreview from "@components/Shared/ClubPreview";
+import Link from "next/link";
 
 interface ClubHandleProps {
   tags: string[];
 }
 
 const ClubHandle: FC<ClubHandleProps> = ({ tags }) => {
-  const orbcommunities = tags.find((word) => word.includes('orbcommunities'));
-  const club = orbcommunities?.replaceAll('orbcommunities', '');
+  const orbcommunities = tags.find((word) => word.includes("orbcommunities"));
+  const club = orbcommunities?.replaceAll("orbcommunities", "");
 
   if (!club) {
     return null;

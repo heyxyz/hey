@@ -2,7 +2,7 @@ import type {
   MultirecipientFeeCollectOpenActionSettings,
   RecipientDataOutput,
   SimpleCollectOpenActionSettings
-} from '@hey/lens';
+} from "@hey/lens";
 
 const getCollectModuleData = (
   collectModule:
@@ -21,25 +21,25 @@ const getCollectModuleData = (
   referralFee?: number;
 } | null => {
   switch (collectModule.__typename) {
-    case 'SimpleCollectOpenActionSettings':
+    case "SimpleCollectOpenActionSettings":
       return {
-        amount: parseFloat(collectModule.amount.value || '0'),
+        amount: Number.parseFloat(collectModule.amount.value || "0"),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
         assetSymbol: collectModule.amount.asset.symbol,
-        collectLimit: parseInt(collectModule.collectLimit || '0'),
+        collectLimit: Number.parseInt(collectModule.collectLimit || "0"),
         endsAt: collectModule.endsAt,
         followerOnly: collectModule.followerOnly,
         recipient: collectModule.recipient,
         referralFee: collectModule.referralFee
       };
-    case 'MultirecipientFeeCollectOpenActionSettings':
+    case "MultirecipientFeeCollectOpenActionSettings":
       return {
-        amount: parseFloat(collectModule.amount.value || '0'),
+        amount: Number.parseFloat(collectModule.amount.value || "0"),
         assetAddress: collectModule.amount.asset.contract.address,
         assetDecimals: collectModule.amount.asset.decimals,
         assetSymbol: collectModule.amount.asset.symbol,
-        collectLimit: parseInt(collectModule.collectLimit || '0'),
+        collectLimit: Number.parseInt(collectModule.collectLimit || "0"),
         endsAt: collectModule.endsAt,
         followerOnly: collectModule.followerOnly,
         recipients: collectModule.recipients,

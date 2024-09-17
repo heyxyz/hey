@@ -1,15 +1,15 @@
-import { MainnetContracts } from '@hey/data/contracts';
-import lensPg from '@hey/db/lensPg';
-import logger from '@hey/helpers/logger';
-import fs from 'fs';
-import path from 'path';
-import puppeteer from 'puppeteer';
+import fs from "node:fs";
+import path from "node:path";
+import { MainnetContracts } from "@hey/data/contracts";
+import lensPg from "@hey/db/lensPg";
+import logger from "@hey/helpers/logger";
+import puppeteer from "puppeteer";
 
-const baseUrl = 'http://localhost:4786/signup/';
+const baseUrl = "http://localhost:4786/signup/";
 const rate = 70;
-const outputDir = path.join(__dirname, 'pdfs');
-const startDate = '2024-06-01 00:07:17';
-const endDate = '2024-06-30 23:58:57';
+const outputDir = path.join(__dirname, "pdfs");
+const startDate = "2024-06-01 00:07:17";
+const endDate = "2024-06-30 23:58:57";
 const batchSize = 7;
 
 const getProfiles = async () => {
@@ -33,21 +33,21 @@ const generatePdf = async (
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle0' });
-    await page.pdf({ format: 'A4', path: outputPath });
+    await page.goto(url, { waitUntil: "networkidle0" });
+    await page.pdf({ format: "A4", path: outputPath });
     await browser.close();
 
     const year = blockTimestamp.getFullYear();
-    const month = String(blockTimestamp.getMonth() + 1).padStart(2, '0');
-    const day = String(blockTimestamp.getDate()).padStart(2, '0');
-    const hours = String(blockTimestamp.getHours()).padStart(2, '0');
-    const minutes = String(blockTimestamp.getMinutes()).padStart(2, '0');
-    const seconds = String(blockTimestamp.getSeconds()).padStart(2, '0');
+    const month = String(blockTimestamp.getMonth() + 1).padStart(2, "0");
+    const day = String(blockTimestamp.getDate()).padStart(2, "0");
+    const hours = String(blockTimestamp.getHours()).padStart(2, "0");
+    const minutes = String(blockTimestamp.getMinutes()).padStart(2, "0");
+    const seconds = String(blockTimestamp.getSeconds()).padStart(2, "0");
     const formattedTimestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
     logger.info(`PDF generated at ${outputPath} at ${formattedTimestamp}`);
   } catch (error) {
-    logger.error('Error generating PDF:', error as Error);
+    logger.error("Error generating PDF:", error as Error);
   }
 };
 
@@ -64,7 +64,7 @@ const generatePdfsForUsers = async () => {
       const url = `${baseUrl}${profile.profile_id}?rate=${rate}`;
       const outputPath = path.join(
         outputDir,
-        `Invoice #${parseInt(profile.profile_id)}.pdf`
+        `Invoice #${Number.parseInt(profile.profile_id)}.pdf`
       );
       await generatePdf(url, outputPath, profile.block_timestamp);
     });

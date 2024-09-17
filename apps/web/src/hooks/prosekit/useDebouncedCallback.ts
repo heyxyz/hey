@@ -1,5 +1,5 @@
-import { useDebounce } from '@uidotdev/usehooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useDebounce } from "@uidotdev/usehooks";
+import { useCallback, useEffect, useState } from "react";
 
 const useDebouncedCallback = (callback: VoidFunction, delay: number) => {
   const [changeSignal, setChangeSignal] = useState(-1);

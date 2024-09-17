@@ -1,13 +1,13 @@
-import type { FollowRevenueRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { FollowRevenueRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import humanize from '@hey/helpers/humanize';
-import { useFollowRevenuesQuery } from '@hey/lens';
-import { Card, CardHeader, ErrorMessage, H5 } from '@hey/ui';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
+import Loader from "@components/Shared/Loader";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import humanize from "@hey/helpers/humanize";
+import { useFollowRevenuesQuery } from "@hey/lens";
+import { Card, CardHeader, ErrorMessage, H5 } from "@hey/ui";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 
 interface SuperFollowRevenueProps {
   profileId: string;
@@ -59,7 +59,7 @@ const SuperFollowRevenue: FC<SuperFollowRevenueProps> = ({ profileId }) => {
             )}
             <H5>{revenue.total.asset.name}</H5>
             <div className="text-sm">
-              {humanize(parseFloat(revenue.total.value))}{' '}
+              {humanize(Number.parseFloat(revenue.total.value))}{" "}
               {revenue.total.asset.symbol}
             </div>
             <div className="text-sm">(${revenue.total.asFiat?.value})</div>

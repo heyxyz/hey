@@ -1,15 +1,15 @@
-import type { MirrorablePublication } from '@hey/lens';
-import type { FC } from 'react';
+import type { MirrorablePublication } from "@hey/lens";
+import type { FC } from "react";
 
-import { MenuItem } from '@headlessui/react';
-import { Leafwatch } from '@helpers/leafwatch';
-import { LanguageIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import getPublicationData from '@hey/helpers/getPublicationData';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import cn from '@hey/ui/cn';
-import Link from 'next/link';
-import urlcat from 'urlcat';
+import { MenuItem } from "@headlessui/react";
+import { Leafwatch } from "@helpers/leafwatch";
+import { LanguageIcon } from "@heroicons/react/24/outline";
+import { PUBLICATION } from "@hey/data/tracking";
+import getPublicationData from "@hey/helpers/getPublicationData";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import cn from "@hey/ui/cn";
+import Link from "next/link";
+import urlcat from "urlcat";
 
 interface TranslateProps {
   publication: MirrorablePublication;
@@ -17,7 +17,7 @@ interface TranslateProps {
 
 const Translate: FC<TranslateProps> = ({ publication }) => {
   const filteredContent =
-    getPublicationData(publication.metadata)?.content || '';
+    getPublicationData(publication.metadata)?.content || "";
 
   if (filteredContent.length < 1) {
     return null;
@@ -25,7 +25,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
 
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
-      urlcat('https://translate.google.com/#auto|en|:text', { text })
+      urlcat("https://translate.google.com/#auto|en|:text", { text })
     );
   };
 
@@ -34,11 +34,11 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       as={Link}
       className={({ focus }) =>
         cn(
-          { 'dropdown-active': focus },
-          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
+          { "dropdown-active": focus },
+          "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
         )
       }
-      href={getGoogleTranslateUrl(filteredContent || '')}
+      href={getGoogleTranslateUrl(filteredContent || "")}
       onClick={(event) => {
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.TRANSLATE, {

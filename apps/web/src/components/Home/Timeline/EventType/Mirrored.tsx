@@ -1,8 +1,8 @@
-import type { Mirror } from '@hey/lens';
-import type { FC } from 'react';
+import type { Mirror } from "@hey/lens";
+import type { FC } from "react";
 
-import Profiles from '@components/Shared/Profiles';
-import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import Profiles from "@components/Shared/Profiles";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 
 interface MirroredProps {
   mirrors: Mirror[];

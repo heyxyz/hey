@@ -1,20 +1,20 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import * as RadixTooltip from "@radix-ui/react-tooltip";
 
 interface TooltipProps {
   children: ReactNode;
   className?: string;
   content: ReactNode;
-  placement?: 'bottom' | 'left' | 'right' | 'top';
+  placement?: "bottom" | "left" | "right" | "top";
   withDelay?: boolean;
 }
 
 export const Tooltip: FC<TooltipProps> = ({
   children,
-  className = '',
+  className = "",
   content,
-  placement = 'right',
+  placement = "right",
   withDelay = false
 }) => {
   return (
@@ -25,7 +25,7 @@ export const Tooltip: FC<TooltipProps> = ({
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
-            className="z-10 hidden !rounded-lg bg-gray-700 px-3 py-0.5 !text-xs !leading-6 tracking-wide text-white sm:block"
+            className="!rounded-lg !text-xs !leading-6 z-10 hidden bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
             side={placement}
             sideOffset={5}
           >

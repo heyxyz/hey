@@ -1,10 +1,10 @@
-import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import type { Profile, ProfileSearchRequest } from "@hey/lens";
 
-import isVerified from '@helpers/isVerified';
-import getAvatar from '@hey/helpers/getAvatar';
-import getProfile from '@hey/helpers/getProfile';
-import { LimitType, useSearchProfilesLazyQuery } from '@hey/lens';
-import { useEffect, useState } from 'react';
+import isVerified from "@helpers/isVerified";
+import getAvatar from "@hey/helpers/getAvatar";
+import getProfile from "@hey/helpers/getProfile";
+import { LimitType, useSearchProfilesLazyQuery } from "@hey/lens";
+import { useEffect, useState } from "react";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 

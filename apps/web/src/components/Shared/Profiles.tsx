@@ -1,7 +1,7 @@
-import type { Profile } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import FallbackProfileName from '@components/Shared/FallbackProfileName';
+import FallbackProfileName from "@components/Shared/FallbackProfileName";
 
 interface ProfileCirclesProps {
   context?: string;
@@ -28,7 +28,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
     );
   }
 
-  const andSep = ' and ';
+  const andSep = " and ";
 
   if (profiles.length === 2) {
     return (
@@ -47,7 +47,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
         <FallbackProfileName profile={profileOne} separator=", " />
         <FallbackProfileName
           profile={profileTwo}
-          separator={additionalCount === 0 ? andSep : ', '}
+          separator={additionalCount === 0 ? andSep : ", "}
         />
         <FallbackProfileName
           profile={profileThree}
@@ -55,7 +55,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
             additionalCount > 0 && (
               <span className="whitespace-nowrap">
                 {andSep}
-                {additionalCount} {additionalCount === 1 ? 'other' : 'others'}
+                {additionalCount} {additionalCount === 1 ? "other" : "others"}
               </span>
             )
           }

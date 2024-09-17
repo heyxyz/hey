@@ -1,9 +1,9 @@
-import type { Emoji } from '@hey/types/misc';
+import type { Emoji } from "@hey/types/misc";
 
-import { STATIC_ASSETS_URL } from '@hey/data/constants';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useMemo } from 'react';
+import { STATIC_ASSETS_URL } from "@hey/data/constants";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useMemo } from "react";
 
 const MAX_EMOJI_SUGGESTION_COUNT = 5;
 
@@ -13,7 +13,7 @@ const useEmojiQuery = (query: string): Emoji[] => {
       const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
       return response.data;
     },
-    queryKey: ['getEmojis']
+    queryKey: ["getEmojis"]
   });
 
   return useMemo(() => {

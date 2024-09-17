@@ -1,12 +1,12 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Footer from '@components/Shared/Footer';
-import ProfileListShimmer from '@components/Shared/Shimmer/ProfileListShimmer';
-import PublicationListShimmer from '@components/Shared/Shimmer/PublicationListShimmer';
-import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import Footer from "@components/Shared/Footer";
+import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import PublicationListShimmer from "@components/Shared/Shimmer/PublicationListShimmer";
+import PublicationShimmer from "@components/Shared/Shimmer/PublicationShimmer";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 
 interface PublicationPageShimmerProps {
   profileList?: boolean;

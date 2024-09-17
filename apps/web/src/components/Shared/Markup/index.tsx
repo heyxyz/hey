@@ -1,19 +1,19 @@
-import type { ProfileMentioned } from '@hey/lens';
-import type { FC } from 'react';
+import type { ProfileMentioned } from "@hey/lens";
+import type { FC } from "react";
 
-import { Regex } from '@hey/data/regex';
-import trimify from '@hey/helpers/trimify';
-import ReactMarkdown from 'react-markdown';
-import remarkBreaks from 'remark-breaks';
+import { Regex } from "@hey/data/regex";
+import trimify from "@hey/helpers/trimify";
+import ReactMarkdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
 // @ts-expect-error
-import linkifyRegex from 'remark-linkify-regex';
-import stripMarkdown from 'strip-markdown';
+import linkifyRegex from "remark-linkify-regex";
+import stripMarkdown from "strip-markdown";
 
-import Code from './Code';
-import MarkupLink from './MarkupLink';
+import Code from "./Code";
+import MarkupLink from "./MarkupLink";
 
 const plugins = [
-  [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'delete'] }],
+  [stripMarkdown, { keep: ["strong", "emphasis", "inlineCode", "delete"] }],
   remarkBreaks,
   linkifyRegex(Regex.url),
   linkifyRegex(Regex.mention),
@@ -29,7 +29,7 @@ interface MarkupProps {
 
 const Markup: FC<MarkupProps> = ({
   children,
-  className = '',
+  className = "",
   mentions = []
 }) => {
   if (!children) {

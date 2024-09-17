@@ -1,16 +1,15 @@
-import type { AnyPublication, PublicationsRequest } from '@hey/lens';
-import type { FC } from 'react';
-import type { StateSnapshot, VirtuosoHandle } from 'react-virtuoso';
-
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
-import { LimitType, usePublicationsQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useEffect, useRef } from 'react';
-import { Virtuoso } from 'react-virtuoso';
-import { useImpressionsStore } from 'src/store/non-persisted/useImpressionsStore';
-import { useTipsStore } from 'src/store/non-persisted/useTipsStore';
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
+import type { AnyPublication, PublicationsRequest } from "@hey/lens";
+import { LimitType, usePublicationsQuery } from "@hey/lens";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
+import { useEffect, useRef } from "react";
+import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
+import { Virtuoso } from "react-virtuoso";
+import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
+import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -36,7 +35,7 @@ const Feed: FC<FeedProps> = ({ handle }) => {
     onCompleted: async ({ publications }) => {
       const ids =
         publications?.items?.map((p) => {
-          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
@@ -64,7 +63,7 @@ const Feed: FC<FeedProps> = ({ handle }) => {
       });
       const ids =
         data?.publications?.items?.map((p) => {
-          return p.__typename === 'Mirror' ? p.mirrorOn?.id : p.id;
+          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);

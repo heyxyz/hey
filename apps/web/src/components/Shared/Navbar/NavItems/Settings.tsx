@@ -1,17 +1,17 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Cog6ToothIcon } from '@heroicons/react/24/outline';
-import cn from '@hey/ui/cn';
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import cn from "@hey/ui/cn";
 
 interface SettingsProps {
   className?: string;
 }
 
-const Settings: FC<SettingsProps> = ({ className = '' }) => {
+const Settings: FC<SettingsProps> = ({ className = "" }) => {
   return (
     <div
       className={cn(
-        'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
+        "flex w-full items-center space-x-1.5 text-gray-700 text-sm dark:text-gray-200",
         className
       )}
     >

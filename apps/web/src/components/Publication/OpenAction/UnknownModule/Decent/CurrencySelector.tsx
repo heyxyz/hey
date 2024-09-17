@@ -1,18 +1,18 @@
-import type { BalanceData } from '@hey/helpers/formatTokenBalances';
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { BalanceData } from "@hey/helpers/formatTokenBalances";
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import getBalanceData from '@helpers/getBalanceData';
+import getBalanceData from "@helpers/getBalanceData";
 import {
   STATIC_IMAGES_URL,
   SUPPORTED_DECENT_OA_TOKENS
-} from '@hey/data/constants';
-import formatTokenBalances from '@hey/helpers/formatTokenBalances';
-import getTokenImage from '@hey/helpers/getTokenImage';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useRatesStore } from 'src/store/persisted/useRatesStore';
-import { useAccount, useBalance } from 'wagmi';
+} from "@hey/data/constants";
+import formatTokenBalances from "@hey/helpers/formatTokenBalances";
+import getTokenImage from "@hey/helpers/getTokenImage";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useRatesStore } from "src/store/persisted/useRatesStore";
+import { useAccount, useBalance } from "wagmi";
 
 interface CurrencySelectorProps {
   onSelectCurrency: (currency: Address) => void;
@@ -95,7 +95,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                   />
                   <img
                     alt="Polygon"
-                    className="absolute bottom-0 right-0"
+                    className="absolute right-0 bottom-0"
                     height={16}
                     src={`${STATIC_IMAGES_URL}/chains/polygon.svg`}
                     title="Polygon"
@@ -113,7 +113,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                 ) : (
                   <p>
                     {balances[token.symbol as keyof typeof balances]?.token ||
-                      '--'}
+                      "--"}
                   </p>
                 )}
                 {isLoading ? (
@@ -122,7 +122,7 @@ const CurrencySelector: FC<CurrencySelectorProps> = ({ onSelectCurrency }) => {
                   <p className="text-sm opacity-50">
                     $
                     {balances[token.symbol as keyof typeof balances]?.usd ||
-                      '--'}
+                      "--"}
                   </p>
                 )}
               </div>

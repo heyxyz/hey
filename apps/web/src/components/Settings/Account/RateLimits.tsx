@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { useUserRateLimitQuery } from '@hey/lens';
-import { Card, CardHeader, ErrorMessage } from '@hey/ui';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import Loader from "@components/Shared/Loader";
+import { useUserRateLimitQuery } from "@hey/lens";
+import { Card, CardHeader, ErrorMessage } from "@hey/ui";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const ProgressBar: FC<{ max: number; value: number }> = ({ max, value }) => {
   return (
@@ -22,7 +22,7 @@ const RateLimits: FC = () => {
   const { currentProfile } = useProfileStore();
 
   const { data, error, loading } = useUserRateLimitQuery({
-    fetchPolicy: 'no-cache',
+    fetchPolicy: "no-cache",
     variables: {
       request: {
         profileId: currentProfile?.id,
@@ -46,10 +46,10 @@ const RateLimits: FC = () => {
           <b>Momoka</b>
           <div className="mt-1 space-y-5">
             <div className="space-y-2">
-              <span className="space-x-2 text-sm text-gray-500">
+              <span className="space-x-2 text-gray-500 text-sm">
                 <span>Hourly Allowance</span>
                 <b>
-                  {data.userRateLimit.momoka.hourAllowanceUsed} /{' '}
+                  {data.userRateLimit.momoka.hourAllowanceUsed} /{" "}
                   {data.userRateLimit.momoka.hourAllowance}
                 </b>
               </span>
@@ -59,10 +59,10 @@ const RateLimits: FC = () => {
               />
             </div>
             <div className="space-y-2">
-              <span className="space-x-2 text-sm text-gray-500">
+              <span className="space-x-2 text-gray-500 text-sm">
                 <span>Daily Allowance</span>
                 <b>
-                  {data.userRateLimit.momoka.dayAllowanceUsed} /{' '}
+                  {data.userRateLimit.momoka.dayAllowanceUsed} /{" "}
                   {data.userRateLimit.momoka.dayAllowance}
                 </b>
               </span>
@@ -76,10 +76,10 @@ const RateLimits: FC = () => {
           <b>On-chain</b>
           <div className="mt-1 space-y-5">
             <div className="space-y-2">
-              <span className="space-x-2 text-sm text-gray-500">
+              <span className="space-x-2 text-gray-500 text-sm">
                 <span>Hourly Allowance</span>
                 <b>
-                  {data.userRateLimit.onchain.hourAllowanceUsed} /{' '}
+                  {data.userRateLimit.onchain.hourAllowanceUsed} /{" "}
                   {data.userRateLimit.onchain.hourAllowance}
                 </b>
               </span>
@@ -89,10 +89,10 @@ const RateLimits: FC = () => {
               />
             </div>
             <div className="space-y-2">
-              <span className="space-x-2 text-sm text-gray-500">
+              <span className="space-x-2 text-gray-500 text-sm">
                 <span>Daily Allowance</span>
                 <b>
-                  {data.userRateLimit.onchain.dayAllowanceUsed} /{' '}
+                  {data.userRateLimit.onchain.dayAllowanceUsed} /{" "}
                   {data.userRateLimit.onchain.dayAllowance}
                 </b>
               </span>

@@ -1,13 +1,13 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { H6 } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { H6 } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import MenuTransition from '../MenuTransition';
-import Bookmarks from './NavItems/Bookmarks';
-import Support from './NavItems/Support';
+import MenuTransition from "../MenuTransition";
+import Bookmarks from "./NavItems/Bookmarks";
+import Support from "./NavItems/Support";
 const MoreNavItems: FC = () => {
   const { currentProfile } = useProfileStore();
 
@@ -17,10 +17,10 @@ const MoreNavItems: FC = () => {
         <>
           <MenuButton
             className={cn(
-              'w-full cursor-pointer rounded-md px-2 py-1 text-left tracking-wide md:px-3',
+              "w-full cursor-pointer rounded-md px-2 py-1 text-left tracking-wide md:px-3",
               {
-                'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': open,
-                'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
+                "bg-gray-200 text-black dark:bg-gray-800 dark:text-white": open,
+                "text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white":
                   !open
               }
             )}
@@ -37,7 +37,7 @@ const MoreNavItems: FC = () => {
                   <MenuItem
                     as="div"
                     className={({ focus }: { focus: boolean }) =>
-                      cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                      cn({ "dropdown-active": focus }, "m-2 rounded-lg")
                     }
                   >
                     <Bookmarks />
@@ -48,7 +48,7 @@ const MoreNavItems: FC = () => {
               <MenuItem
                 as="div"
                 className={({ focus }: { focus: boolean }) =>
-                  cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                  cn({ "dropdown-active": focus }, "m-2 rounded-lg")
                 }
               >
                 <Support />

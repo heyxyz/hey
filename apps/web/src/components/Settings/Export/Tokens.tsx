@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Card, CardHeader, H6 } from '@hey/ui';
-import toast from 'react-hot-toast';
-import { hydrateAuthTokens } from 'src/store/persisted/useAuthStore';
+import { Card, CardHeader, H6 } from "@hey/ui";
+import toast from "react-hot-toast";
+import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
 
 const Tokens: FC = () => {
   const { accessToken, identityToken, refreshToken } = hydrateAuthTokens();
@@ -14,9 +14,10 @@ const Tokens: FC = () => {
         <button
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
-            toast.success('Copied to clipboard');
+            toast.success("Copied to clipboard");
             navigator.clipboard.writeText(accessToken as string);
           }}
+          type="button"
         >
           <H6>{accessToken}</H6>
         </button>
@@ -26,9 +27,10 @@ const Tokens: FC = () => {
         <button
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
-            toast.success('Copied to clipboard');
+            toast.success("Copied to clipboard");
             navigator.clipboard.writeText(refreshToken as string);
           }}
+          type="button"
         >
           <H6>{refreshToken}</H6>
         </button>
@@ -37,8 +39,9 @@ const Tokens: FC = () => {
         <CardHeader title="Your temporary identity token" />
         <button
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
+          type="button"
           onClick={() => {
-            toast.success('Copied to clipboard');
+            toast.success("Copied to clipboard");
             navigator.clipboard.writeText(identityToken as string);
           }}
         >

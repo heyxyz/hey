@@ -4,9 +4,9 @@ import {
   gql,
   useApolloClient,
   useQuery
-} from '@apollo/client';
+} from "@apollo/client";
 
-import apolloClient from './client';
+import apolloClient from "./client";
 
 export {
   ApolloCache,

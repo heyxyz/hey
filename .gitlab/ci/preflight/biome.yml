@@ -1,6 +1,6 @@
-Prettier:
+Biome:
   stage: preflight
   tags:
     - hey
   script:
-    - pnpm prettier
+    - pnpm biome:check

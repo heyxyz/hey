@@ -1,6 +1,6 @@
-import { LENS_NETWORK } from '../constants';
-import { MainnetContracts, TestnetContracts } from '../contracts';
-import LensEndpoint from '../lens-endpoints';
+import { LENS_NETWORK } from "../constants";
+import { MainnetContracts, TestnetContracts } from "../contracts";
+import LensEndpoint from "../lens-endpoints";
 
 const getEnvConfig = (): {
   defaultCollectToken: string;
@@ -13,7 +13,7 @@ const getEnvConfig = (): {
   tokenHandleRegistry: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
-    case 'testnet':
+    case "testnet":
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
         heyLensSignup: TestnetContracts.HeyLensSignup,

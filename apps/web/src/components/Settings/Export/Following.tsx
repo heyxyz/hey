@@ -1,13 +1,13 @@
-import type { FollowingRequest } from '@hey/lens';
-import type { FC } from 'react';
+import type { FollowingRequest } from "@hey/lens";
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { SETTINGS } from '@hey/data/tracking';
-import downloadJson from '@hey/helpers/downloadJson';
-import { LimitType, useFollowingLazyQuery } from '@hey/lens';
-import { Button, Card, CardHeader } from '@hey/ui';
-import { useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { Leafwatch } from "@helpers/leafwatch";
+import { SETTINGS } from "@hey/data/tracking";
+import downloadJson from "@hey/helpers/downloadJson";
+import { LimitType, useFollowingLazyQuery } from "@hey/lens";
+import { Button, Card, CardHeader } from "@hey/ui";
+import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const Following: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -21,7 +21,7 @@ const Following: FC = () => {
   };
 
   const [exportFollowing] = useFollowingLazyQuery({
-    fetchPolicy: 'network-only'
+    fetchPolicy: "network-only"
   });
 
   const handleExportClick = async () => {
@@ -58,7 +58,7 @@ const Following: FC = () => {
   };
 
   const download = () => {
-    downloadJson(following, 'following', () => {
+    downloadJson(following, "following", () => {
       setFollowing([]);
       setFetchCompleted(false);
     });
@@ -82,7 +82,7 @@ const Following: FC = () => {
           </Button>
         ) : (
           <Button disabled={exporting} onClick={handleExportClick} outline>
-            {exporting ? 'Exporting...' : 'Export now'}
+            {exporting ? "Exporting..." : "Export now"}
           </Button>
         )}
       </div>

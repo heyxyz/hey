@@ -1,13 +1,13 @@
-import type { Amount } from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+import type { Amount } from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import getUniswapURL from '@hey/helpers/getUniswapURL';
-import Link from 'next/link';
+import { Leafwatch } from "@helpers/leafwatch";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { PUBLICATION } from "@hey/data/tracking";
+import getUniswapURL from "@hey/helpers/getUniswapURL";
+import Link from "next/link";
 
-import WrapWmatic from './WrapWmatic';
+import WrapWmatic from "./WrapWmatic";
 
 interface NoBalanceErrorProps {
   errorMessage?: ReactNode;
@@ -22,7 +22,7 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({
   const currency = moduleAmount?.asset?.symbol;
   const assetAddress = moduleAmount?.asset?.contract.address;
 
-  if (currency === 'WMATIC') {
+  if (currency === "WMATIC") {
     return (
       <WrapWmatic errorMessage={errorMessage} moduleAmount={moduleAmount} />
     );
@@ -40,8 +40,8 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({
         )}
       </div>
       <Link
-        className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
-        href={getUniswapURL(parseFloat(amount), assetAddress)}
+        className="flex items-center space-x-1.5 font-bold text-pink-500 text-xs"
+        href={getUniswapURL(Number.parseFloat(amount), assetAddress)}
         onClick={() => Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
         rel="noreferrer noopener"
         target="_blank"

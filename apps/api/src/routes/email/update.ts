@@ -1,16 +1,16 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import { APP_NAME } from '@hey/data/constants';
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import sendEmail from 'src/helpers/sendEmail';
-import { v4 as uuid } from 'uuid';
-import { boolean, object, string } from 'zod';
+import { APP_NAME } from "@hey/data/constants";
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import { invalidBody, noBody } from "src/helpers/responses";
+import sendEmail from "src/helpers/sendEmail";
+import { v4 as uuid } from "uuid";
+import { boolean, object, string } from "zod";
 
 type ExtensionRequest = {
   email: string;
@@ -41,7 +41,7 @@ export const post = [
     const { email, resend } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
       if (!resend) {

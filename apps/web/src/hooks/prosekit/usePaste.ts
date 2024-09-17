@@ -1,18 +1,18 @@
-import type { EditorExtension } from '@helpers/prosekit/extension';
+import type { EditorExtension } from "@helpers/prosekit/extension";
 
-import { defineDOMEventHandler, type Editor, union } from 'prosekit/core';
-import { useExtension } from 'prosekit/react';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
-import toast from 'react-hot-toast';
-import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationAttachmentStore } from 'src/store/non-persisted/publication/usePublicationAttachmentStore';
+import { type Editor, defineDOMEventHandler, union } from "prosekit/core";
+import { useExtension } from "prosekit/react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import toast from "react-hot-toast";
+import useUploadAttachments from "src/hooks/useUploadAttachments";
+import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 
 /**
  * Define a ProseKit extension for handling drop and paste events.
  */
 const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
   const handleFiles = (event: Event, files: FileList | null | undefined) => {
-    if (files && files.length) {
+    if (files?.length) {
       event.preventDefault();
       onPaste(files);
       return true;
@@ -21,17 +21,17 @@ const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
   };
 
   const dropExtension = defineDOMEventHandler(
-    'drop',
+    "drop",
     (_view, event): boolean => {
       return handleFiles(event, event?.dataTransfer?.files);
     }
   );
 
   const pasteExtension = defineDOMEventHandler(
-    'paste',
+    "paste",
     (_view, event): boolean => {
       // If the clipboard data contains text, we don't want to handle the image paste event.
-      if (event?.clipboardData?.getData('Text')) {
+      if (event?.clipboardData?.getData("Text")) {
         return false;
       }
 
@@ -52,7 +52,7 @@ export const usePaste = (editor: Editor<EditorExtension>) => {
         attachments.length === 4 ||
         attachments.length + pastedFiles.length > 4
       ) {
-        return toast.error('Please choose either 1 video or up to 4 photos.');
+        return toast.error("Please choose either 1 video or up to 4 photos.");
       }
 
       if (pastedFiles) {

@@ -1,6 +1,6 @@
-import type { NewAttachment } from '@hey/types/misc';
+import type { NewAttachment } from "@hey/types/misc";
 
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface State {
   addAttachments: (attachments: NewAttachment[]) => void;

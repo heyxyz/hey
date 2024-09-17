@@ -1,16 +1,16 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import IndexStatus from '@components/Shared/IndexStatus';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import IndexStatus from "@components/Shared/IndexStatus";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   ExclamationTriangleIcon,
   LockOpenIcon
-} from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+} from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
 import {
   Button,
   Card,
@@ -19,12 +19,12 @@ import {
   Modal,
   Spinner,
   WarningMessage
-} from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useWriteContract } from 'wagmi';
+} from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useWriteContract } from "wagmi";
 
 const ProfileGuardianSettings: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -48,7 +48,7 @@ const ProfileGuardianSettings: FC = () => {
     return await writeContractAsync({
       abi: LensHub,
       address: LENS_HUB,
-      functionName: 'DANGER__disableTokenGuardian'
+      functionName: "DANGER__disableTokenGuardian"
     });
   };
 
@@ -105,7 +105,7 @@ const ProfileGuardianSettings: FC = () => {
             onClick={() => setShowWarningModal(true)}
             variant="danger"
           >
-            {isLoading ? 'Disabling...' : 'Disable now'}
+            {isLoading ? "Disabling..." : "Disable now"}
           </Button>
         )}
       </div>
