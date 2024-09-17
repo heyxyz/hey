@@ -1,6 +1,6 @@
-import { IS_MAINNET } from '@hey/data/constants';
+import { IS_MAINNET } from "@hey/data/constants";
 
-import getCurrentSession from './getCurrentSession';
+import getCurrentSession from "./getCurrentSession";
 
 /**
  * Push publication to impressions queue
@@ -11,7 +11,7 @@ const pushToImpressions = (id: string): void => {
   const { id: sessionProfileId } = getCurrentSession();
 
   // Don't push impressions for the current user
-  const publicationProfileId = id.split('-')[0];
+  const publicationProfileId = id.split("-")[0];
   if (publicationProfileId === sessionProfileId) {
     return;
   }
@@ -19,7 +19,7 @@ const pushToImpressions = (id: string): void => {
   if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
     navigator.serviceWorker.controller.postMessage({
       id,
-      type: 'PUBLICATION_VISIBLE'
+      type: "PUBLICATION_VISIBLE"
     });
   }
 

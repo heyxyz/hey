@@ -1,11 +1,11 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import clickhouseClient from '@hey/db/clickhouseClient';
-import lensPg from '@hey/db/lensPg';
-import prisma from '@hey/db/prisma/db/client';
-import { getRedis } from '@hey/db/redisClient';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import lensPg from "@hey/db/lensPg";
+import prisma from "@hey/db/prisma/db/client";
+import { getRedis } from "@hey/db/redisClient";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 
 const measureQueryTime = async (
   queryFunction: () => Promise<any>
@@ -25,13 +25,13 @@ export const get = [
         () => prisma.$queryRaw`SELECT 1 as count;`
       );
       const lensPromise = measureQueryTime(() =>
-        lensPg.query(`SELECT 1 as count;`)
+        lensPg.query("SELECT 1 as count;")
       );
-      const redisPromise = measureQueryTime(() => getRedis('ping'));
+      const redisPromise = measureQueryTime(() => getRedis("ping"));
       const clickhousePromise = measureQueryTime(() =>
         clickhouseClient.query({
-          format: 'JSONEachRow',
-          query: 'SELECT 1 as count;'
+          format: "JSONEachRow",
+          query: "SELECT 1 as count;"
         })
       );
 
@@ -53,7 +53,7 @@ export const get = [
       if (
         Number(hey[0].count) !== 1 ||
         Number(lens[0].count) !== 1 ||
-        redis.toString() !== 'pong' ||
+        redis.toString() !== "pong" ||
         !clickhouseRows.json
       ) {
         return res.status(500).json({ success: false });
@@ -62,9 +62,9 @@ export const get = [
       // Format response times in milliseconds and return
       return res.status(200).json({
         meta: {
-          deployment: process.env.RAILWAY_DEPLOYMENT_ID || 'unknown',
-          replica: process.env.RAILWAY_REPLICA_ID || 'unknown',
-          snapshot: process.env.RAILWAY_SNAPSHOT_ID || 'unknown'
+          deployment: process.env.RAILWAY_DEPLOYMENT_ID || "unknown",
+          replica: process.env.RAILWAY_REPLICA_ID || "unknown",
+          snapshot: process.env.RAILWAY_SNAPSHOT_ID || "unknown"
         },
         responseTimes: {
           clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,

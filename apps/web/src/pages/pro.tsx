@@ -1,3 +1,3 @@
-import Pro from '@components/Pro';
+import Pro from "@components/Pro";
 
 export default Pro;

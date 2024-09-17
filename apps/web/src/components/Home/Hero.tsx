@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME } from "@hey/data/constants";
 
 const Hero: FC = () => {
   return (
@@ -12,10 +12,10 @@ const Hero: FC = () => {
           src="/logo.png"
         />
         <div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
-          <div className="text-2xl font-extrabold sm:text-5xl">
+          <div className="font-extrabold text-2xl sm:text-5xl">
             Welcome to {APP_NAME},
           </div>
-          <div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+          <div className="ld-text-gray-500 font-extrabold text-2xl sm:text-5xl">
             a social network built on Lens Protocol
           </div>
         </div>

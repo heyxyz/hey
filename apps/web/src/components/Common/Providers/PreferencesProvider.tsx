@@ -1,19 +1,19 @@
-import type { FiatRate } from '@hey/types/lens';
-import type { FC } from 'react';
+import type { FiatRate } from "@hey/types/lens";
+import type { FC } from "react";
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import getCurrentSession from '@helpers/getCurrentSession';
-import { HEY_API_URL, STALE_TIMES } from '@hey/data/constants';
-import { Permission } from '@hey/data/permissions';
-import getAllTokens from '@hey/helpers/api/getAllTokens';
-import getPreferences from '@hey/helpers/api/getPreferences';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useAllowedTokensStore } from 'src/store/persisted/useAllowedTokensStore';
-import { useRatesStore } from 'src/store/persisted/useRatesStore';
-import { useVerifiedMembersStore } from 'src/store/persisted/useVerifiedMembersStore';
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import getCurrentSession from "@helpers/getCurrentSession";
+import { HEY_API_URL, STALE_TIMES } from "@hey/data/constants";
+import { Permission } from "@hey/data/permissions";
+import getAllTokens from "@hey/helpers/api/getAllTokens";
+import getPreferences from "@hey/helpers/api/getPreferences";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useRatesStore } from "src/store/persisted/useRatesStore";
+import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
@@ -77,16 +77,16 @@ const PreferencesProvider: FC = () => {
   useQuery({
     enabled: Boolean(sessionProfileId),
     queryFn: getPreferencesData,
-    queryKey: ['getPreferences', sessionProfileId || '']
+    queryKey: ["getPreferences", sessionProfileId || ""]
   });
   useQuery({
     queryFn: getVerifiedMembersData,
-    queryKey: ['getVerifiedMembers'],
+    queryKey: ["getVerifiedMembers"],
     staleTime: STALE_TIMES.THIRTY_MINUTES
   });
   useQuery({
     queryFn: getAllowedTokensData,
-    queryKey: ['getAllowedTokens'],
+    queryKey: ["getAllowedTokens"],
     staleTime: STALE_TIMES.THIRTY_MINUTES
   });
   useQuery({
@@ -95,7 +95,7 @@ const PreferencesProvider: FC = () => {
         setFiatRates(rates);
         return rates;
       }),
-    queryKey: ['getFiatRates'],
+    queryKey: ["getFiatRates"],
     staleTime: STALE_TIMES.FIVE_MINUTES
   });
 

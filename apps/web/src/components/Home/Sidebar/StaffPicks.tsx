@@ -1,17 +1,17 @@
-import type { Profile } from '@hey/lens';
-import type { StaffPick } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { StaffPick } from "@hey/types/hey";
+import type { FC } from "react";
 
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import UserProfile from '@components/Shared/UserProfile';
-import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { ProfileLinkSource } from '@hey/data/tracking';
-import { useStaffPicksQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage, H5 } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import UserProfile from "@components/Shared/UserProfile";
+import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
+import { HEY_API_URL } from "@hey/data/constants";
+import { ProfileLinkSource } from "@hey/data/tracking";
+import { useStaffPicksQuery } from "@hey/lens";
+import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface BatchRange {
   end: number;
@@ -35,7 +35,7 @@ const StaffPicks: FC = () => {
     data: picks,
     error: picksError,
     isLoading: picksLoading
-  } = useQuery({ queryFn: getStaffPicks, queryKey: ['getStaffPicks'] });
+  } = useQuery({ queryFn: getStaffPicks, queryKey: ["getStaffPicks"] });
 
   const dividePicks = (
     picks: StaffPick[],

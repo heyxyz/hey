@@ -6,10 +6,6 @@
   "scripts": {
     "codegen": "prisma generate --schema ./prisma/db/schema.prisma",
     "postinstall": "pnpm codegen",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts",
-    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "prisma:clean": "prisma migrate reset --schema ./prisma/db/schema.prisma",
     "prisma:format": "prisma format --schema ./prisma/db/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema ./prisma/db/schema.prisma",

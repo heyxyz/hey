@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { BellIcon } from '@heroicons/react/24/outline';
-import { Tooltip } from '@hey/ui';
-import Link from 'next/link';
+import { BellIcon } from "@heroicons/react/24/outline";
+import { Tooltip } from "@hey/ui";
+import Link from "next/link";
 
 const NotificationIcon: FC = () => {
   return (

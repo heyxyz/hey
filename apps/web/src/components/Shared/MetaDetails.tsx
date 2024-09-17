@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import { H6 } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { toast } from 'react-hot-toast';
+import { H6 } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { toast } from "react-hot-toast";
 
 interface MetaDetailsProps {
   children: ReactNode;
@@ -22,16 +22,16 @@ const MetaDetails: FC<MetaDetailsProps> = ({
   const handleClick = async () => {
     if (value) {
       await navigator.clipboard.writeText(value);
-      toast.success('Copied to clipboard!');
+      toast.success("Copied to clipboard!");
     }
   };
 
   return (
     <div
       className={cn(
-        !noFlex && 'flex items-center gap-1',
-        value && 'cursor-pointer',
-        'linkify'
+        !noFlex && "flex items-center gap-1",
+        value && "cursor-pointer",
+        "linkify"
       )}
       onClick={handleClick}
     >
@@ -40,11 +40,11 @@ const MetaDetails: FC<MetaDetailsProps> = ({
         {title && (
           <div className="ld-text-gray-500">
             {title}
-            {!noFlex && ':'}
+            {!noFlex && ":"}
           </div>
         )}
       </H6>
-      <H6 className={noFlex ? 'mt-1' : ''}>{children}</H6>
+      <H6 className={noFlex ? "mt-1" : ""}>{children}</H6>
     </div>
   );
 };

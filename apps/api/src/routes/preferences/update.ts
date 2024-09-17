@@ -1,14 +1,14 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import prisma from '@hey/db/prisma/db/client';
-import { delRedis } from '@hey/db/redisClient';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import validateLensAccount from 'src/helpers/middlewares/validateLensAccount';
-import { invalidBody, noBody } from 'src/helpers/responses';
-import { boolean, number, object, string } from 'zod';
+import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import { invalidBody, noBody } from "src/helpers/responses";
+import { boolean, number, object, string } from "zod";
 
 type ExtensionRequest = {
   appIcon?: number;
@@ -41,7 +41,7 @@ export const post = [
     const { appIcon, highSignalNotificationFilter } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
       const data = await prisma.preference.upsert({

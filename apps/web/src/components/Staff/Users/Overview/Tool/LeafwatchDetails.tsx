@@ -1,18 +1,18 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import MetaDetails from '@components/Shared/MetaDetails';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
+import MetaDetails from "@components/Shared/MetaDetails";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
   CursorArrowRaysIcon,
   EyeIcon,
   GlobeAltIcon
-} from '@heroicons/react/24/outline';
-import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { HEY_API_URL } from '@hey/data/constants';
-import humanize from '@hey/helpers/humanize';
-import { H5 } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+} from "@heroicons/react/24/outline";
+import { AdjustmentsVerticalIcon } from "@heroicons/react/24/solid";
+import { HEY_API_URL } from "@hey/data/constants";
+import humanize from "@hey/helpers/humanize";
+import { H5 } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface LeafwatchDetailsProps {
   profileId: string;
@@ -41,7 +41,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   const { data: leafwatchDetails } = useQuery({
     enabled: Boolean(profileId),
     queryFn: getProfileDetails,
-    queryKey: ['getProfileDetails', profileId]
+    queryKey: ["getProfileDetails", profileId]
   });
 
   const getProfileImpressions = async (): Promise<{
@@ -63,7 +63,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   const { data: impressionDetails } = useQuery({
     enabled: Boolean(profileId),
     queryFn: getProfileImpressions,
-    queryKey: ['getProfileImpressions', profileId]
+    queryKey: ["getProfileImpressions", profileId]
   });
 
   if (!leafwatchDetails || !impressionDetails) {
@@ -72,7 +72,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
 
   return (
     <>
-      <div className="divider my-5 border-dashed border-yellow-600" />
+      <div className="divider my-5 border-yellow-600 border-dashed" />
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <AdjustmentsVerticalIcon className="size-5" />
         <H5>Leafwatch Details</H5>

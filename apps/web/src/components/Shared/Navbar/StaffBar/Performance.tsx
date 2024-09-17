@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import cn from '@hey/ui/cn';
-import { useEffect, useState } from 'react';
+import cn from "@hey/ui/cn";
+import { useEffect, useState } from "react";
 
-import { Badge } from '.';
+import { Badge } from ".";
 
 const Performance: FC = () => {
   const [ttfb, setTtfb] = useState(0);
@@ -11,11 +11,11 @@ const Performance: FC = () => {
   // Calculate TTFB
   useEffect(() => {
     new PerformanceObserver((entryList) => {
-      const [pageNav] = entryList.getEntriesByType('navigation');
+      const [pageNav] = entryList.getEntriesByType("navigation");
       setTtfb(pageNav.toJSON().responseStart.toFixed(0));
     }).observe({
       buffered: true,
-      type: 'navigation'
+      type: "navigation"
     });
   }, []);
 
@@ -23,9 +23,9 @@ const Performance: FC = () => {
     <Badge>
       <span
         className={cn({
-          'text-green-700 dark:text-green-400': ttfb < 200,
-          'text-red-700 dark:text-red-400': ttfb >= 400,
-          'text-yellow-700 dark:text-yellow-400': ttfb >= 200 && ttfb < 400
+          "text-green-700 dark:text-green-400": ttfb < 200,
+          "text-red-700 dark:text-red-400": ttfb >= 400,
+          "text-yellow-700 dark:text-yellow-400": ttfb >= 200 && ttfb < 400
         })}
       >
         {ttfb}ms <span className="text-[10px]">(TTFB)</span>

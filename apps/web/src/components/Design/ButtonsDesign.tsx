@@ -1,6 +1,6 @@
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { Button, Card, CardHeader } from '@hey/ui';
-import { type FC } from 'react';
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { Button, Card, CardHeader } from "@hey/ui";
+import type { FC } from "react";
 
 const ButtonsDesign: FC = () => {
   const ButtonVariants: FC<{
@@ -8,7 +8,7 @@ const ButtonsDesign: FC = () => {
   }> = ({ outline }) => {
     return (
       <div className="flex flex-wrap gap-5">
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-purple-500 border-dashed p-5">
           <Button
             icon={<PlusIcon className="size-5" />}
             outline={outline}
@@ -25,7 +25,7 @@ const ButtonsDesign: FC = () => {
             Disabled
           </Button>
         </div>
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-purple-500 border-dashed p-5">
           <Button icon={<PlusIcon className="size-5" />} outline={outline}>
             Active
           </Button>
@@ -37,7 +37,7 @@ const ButtonsDesign: FC = () => {
             Disabled
           </Button>
         </div>
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-purple-500 border-dashed p-5">
           <Button
             icon={<PlusIcon className="size-5" />}
             outline={outline}
@@ -54,7 +54,7 @@ const ButtonsDesign: FC = () => {
             Disabled
           </Button>
         </div>
-        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-dashed border-purple-500 p-5">
+        <div className="m-5 flex size-fit flex-col gap-y-5 rounded-xl border-2 border-purple-500 border-dashed p-5">
           <Button
             icon={<PlusIcon className="size-5" />}
             outline={outline}

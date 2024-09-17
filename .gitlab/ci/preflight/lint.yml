@@ -1,6 +1,0 @@
-Lint:
-  stage: preflight
-  tags:
-    - hey
-  script:
-    - pnpm lint

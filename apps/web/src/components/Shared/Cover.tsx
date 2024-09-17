@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { BRAND_COLOR, COVER, STATIC_IMAGES_URL } from '@hey/data/constants';
-import imageKit from '@hey/helpers/imageKit';
-import sanitizeDStorageUrl from '@hey/helpers/sanitizeDStorageUrl';
+import { BRAND_COLOR, COVER, STATIC_IMAGES_URL } from "@hey/data/constants";
+import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 
 interface CoverProps {
   cover: string;
@@ -17,9 +17,9 @@ const Cover: FC<CoverProps> = ({ cover }) => {
   const backgroundStyles = {
     backgroundColor: BRAND_COLOR,
     backgroundImage: `url(${backgroundImage})`,
-    backgroundPosition: 'center center',
-    backgroundRepeat: isDefaultCover ? 'repeat' : 'no-repeat',
-    backgroundSize: isDefaultCover ? '30%' : 'cover'
+    backgroundPosition: "center center",
+    backgroundRepeat: isDefaultCover ? "repeat" : "no-repeat",
+    backgroundSize: isDefaultCover ? "30%" : "cover"
   };
 
   return (

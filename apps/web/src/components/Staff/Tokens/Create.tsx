@@ -1,25 +1,25 @@
-import type { AllowedToken } from '@hey/types/hey';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { AllowedToken } from "@hey/types/hey";
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { HEY_API_URL } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import { Button, Form, Input, useZodForm } from '@hey/ui';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { object, string } from 'zod';
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { HEY_API_URL } from "@hey/data/constants";
+import { Regex } from "@hey/data/regex";
+import { STAFFTOOLS } from "@hey/data/tracking";
+import { Button, Form, Input, useZodForm } from "@hey/ui";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { object, string } from "zod";
 
 const createTokenSchema = object({
   contractAddress: string()
     .min(1)
     .max(42)
-    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' }),
-  decimals: string().min(1, { message: 'Decimals is required' }),
-  name: string().min(1, { message: 'Name is required' }),
-  symbol: string().min(1, { message: 'Symbol is required' })
+    .regex(Regex.ethereumAddress, { message: "Invalid Ethereum address" }),
+  decimals: string().min(1, { message: "Decimals is required" }),
+  name: string().min(1, { message: "Name is required" }),
+  symbol: string().min(1, { message: "Symbol is required" })
 });
 
 interface CreateProps {
@@ -45,21 +45,21 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/tokens/create`,
-        { contractAddress, decimals: parseInt(decimals), name, symbol },
+        { contractAddress, decimals: Number.parseInt(decimals), name, symbol },
         { headers: getAuthApiHeaders() }
       ),
       {
         error: () => {
           setCreating(false);
-          return 'Failed to create token';
+          return "Failed to create token";
         },
-        loading: 'Creating token...',
+        loading: "Creating token...",
         success: ({ data }) => {
           Leafwatch.track(STAFFTOOLS.TOKENS.CREATE);
           setTokens([...tokens, data?.token]);
           setCreating(false);
           setShowCreateModal(false);
-          return 'Token created';
+          return "Token created";
         }
       }
     );
@@ -77,13 +77,13 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
         className="text-sm"
         placeholder="Name"
         type="text"
-        {...form.register('name')}
+        {...form.register("name")}
       />
       <Input
         className="text-sm"
         placeholder="Symbol"
         type="text"
-        {...form.register('symbol')}
+        {...form.register("symbol")}
       />
       <Input
         className="text-sm"
@@ -91,13 +91,13 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
         min="0"
         placeholder="1"
         type="number"
-        {...form.register('decimals')}
+        {...form.register("decimals")}
       />
       <Input
         className="text-sm"
         placeholder="Contract Address"
         type="text"
-        {...form.register('contractAddress')}
+        {...form.register("contractAddress")}
       />
       <Button disabled={creating} type="submit">
         Create

@@ -1,12 +1,12 @@
-import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 
 const canvasImageFromVideo = (
   file: File,
   currentTime: number
 ): Promise<string> => {
   return new Promise((resolve) => {
-    const video = document.createElement('video');
-    const canvas = document.createElement('canvas');
+    const video = document.createElement("video");
+    const canvas = document.createElement("canvas");
     video.autoplay = true;
     video.muted = true;
     video.src = URL.createObjectURL(file);
@@ -15,11 +15,11 @@ const canvasImageFromVideo = (
     };
     video.oncanplay = () => {
       setTimeout(() => {
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        return resolve(canvas.toDataURL('image/png'));
+        return resolve(canvas.toDataURL("image/png"));
       }, 100);
     };
   });
@@ -35,7 +35,7 @@ export const generateVideoThumbnails = (
         return [];
       }
       // creating video element to get duration
-      const video = document.createElement('video');
+      const video = document.createElement("video");
       video.autoplay = true;
       video.muted = true;
       video.src = URL.createObjectURL(file);
@@ -58,18 +58,18 @@ export const generateVideoThumbnails = (
 export const generateVideoThumbnail = (url: string): Promise<string> => {
   return new Promise((resolve) => {
     try {
-      const video = document.createElement('video');
+      const video = document.createElement("video");
       video.src = url;
       video.currentTime = 0.01;
       video.muted = true;
       video.autoplay = true;
-      video.crossOrigin = 'anonymous';
-      video.preload = 'auto';
+      video.crossOrigin = "anonymous";
+      video.preload = "auto";
       video.onloadedmetadata = () => {
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         video.oncanplay = () => {
           setTimeout(() => {
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext("2d");
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);

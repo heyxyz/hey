@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { Card } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { Card } from "@hey/ui";
+import cn from "@hey/ui/cn";
 
 interface WrapperProps {
   children: ReactNode;
@@ -12,11 +12,11 @@ interface WrapperProps {
 
 const Wrapper: FC<WrapperProps> = ({
   children,
-  className = '',
+  className = "",
   zeroPadding = false
 }) => (
   <Card
-    className={cn('mt-3 cursor-auto', className, { 'p-5': !zeroPadding })}
+    className={cn("mt-3 cursor-auto", className, { "p-5": !zeroPadding })}
     forceRounded
     onClick={stopEventPropagation}
   >

@@ -1,11 +1,11 @@
-import type { PublicationStats as IPublicationStats } from '@hey/lens';
-import type { FC } from 'react';
+import type { PublicationStats as IPublicationStats } from "@hey/lens";
+import type { FC } from "react";
 
-import getPublicationsViews from '@hey/helpers/getPublicationsViews';
-import nFormatter from '@hey/helpers/nFormatter';
-import Link from 'next/link';
-import plur from 'plur';
-import { memo, useEffect, useState } from 'react';
+import getPublicationsViews from "@hey/helpers/getPublicationsViews";
+import nFormatter from "@hey/helpers/nFormatter";
+import Link from "next/link";
+import plur from "plur";
+import { memo, useEffect, useState } from "react";
 
 interface PublicationStatsProps {
   publicationId: string;
@@ -47,8 +47,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({
       <div className="ld-text-gray-500 flex flex-wrap items-center gap-x-6 gap-y-3 py-3 text-sm">
         {comments > 0 ? (
           <span>
-            <b className="text-black dark:text-white">{nFormatter(comments)}</b>{' '}
-            {plur('Comment', comments)}
+            <b className="text-black dark:text-white">{nFormatter(comments)}</b>{" "}
+            {plur("Comment", comments)}
           </span>
         ) : null}
         {mirrors > 0 ? (
@@ -56,8 +56,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({
             className="outline-offset-2"
             href={`/posts/${publicationId}/mirrors`}
           >
-            <b className="text-black dark:text-white">{nFormatter(mirrors)}</b>{' '}
-            {plur('Mirror', mirrors)}
+            <b className="text-black dark:text-white">{nFormatter(mirrors)}</b>{" "}
+            {plur("Mirror", mirrors)}
           </Link>
         ) : null}
         {quotes > 0 ? (
@@ -65,8 +65,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({
             className="outline-offset-2"
             href={`/posts/${publicationId}/quotes`}
           >
-            <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{' '}
-            {plur('Quote', quotes)}
+            <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{" "}
+            {plur("Quote", quotes)}
           </Link>
         ) : null}
         {reactions > 0 ? (
@@ -76,8 +76,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           >
             <b className="text-black dark:text-white">
               {nFormatter(reactions)}
-            </b>{' '}
-            {plur('Like', reactions)}
+            </b>{" "}
+            {plur("Like", reactions)}
           </Link>
         ) : null}
         {countOpenActions > 0 ? (
@@ -87,22 +87,22 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           >
             <b className="text-black dark:text-white">
               {nFormatter(countOpenActions)}
-            </b>{' '}
-            {plur('Collect', countOpenActions)}
+            </b>{" "}
+            {plur("Collect", countOpenActions)}
           </Link>
         ) : null}
         {bookmarks > 0 ? (
           <span>
             <b className="text-black dark:text-white">
               {nFormatter(bookmarks)}
-            </b>{' '}
-            {plur('Bookmark', bookmarks)}
+            </b>{" "}
+            {plur("Bookmark", bookmarks)}
           </span>
         ) : null}
         {views > 0 ? (
           <span>
-            <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
-            {plur('View', views)}
+            <b className="text-black dark:text-white">{nFormatter(views)}</b>{" "}
+            {plur("View", views)}
           </span>
         ) : null}
       </div>

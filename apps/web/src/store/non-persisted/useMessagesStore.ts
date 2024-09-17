@@ -1,8 +1,8 @@
-import type { CachedConversation } from '@xmtp/react-sdk';
-import type { Address } from 'viem';
+import type { CachedConversation } from "@xmtp/react-sdk";
+import type { Address } from "viem";
 
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface State {
   newConversationAddress: Address | null;

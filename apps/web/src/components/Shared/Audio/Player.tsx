@@ -1,9 +1,9 @@
-import type { APITypes } from 'plyr-react';
-import type { FC, Ref } from 'react';
+import type { APITypes } from "plyr-react";
+import type { FC, Ref } from "react";
 
-import Plyr from 'plyr-react';
-import 'plyr-react/plyr.css';
-import { memo } from 'react';
+import Plyr from "plyr-react";
+import "plyr-react/plyr.css";
+import { memo } from "react";
 
 interface PlayerProps {
   playerRef: Ref<APITypes>;
@@ -14,10 +14,10 @@ const Player: FC<PlayerProps> = ({ playerRef, src }) => {
   return (
     <Plyr
       options={{
-        controls: ['progress', 'current-time', 'mute', 'volume']
+        controls: ["progress", "current-time", "mute", "volume"]
       }}
       ref={playerRef}
-      source={{ sources: [{ src }], type: 'audio' }}
+      source={{ sources: [{ src }], type: "audio" }}
     />
   );
 };

@@ -1,18 +1,18 @@
-import type { AnyPublication } from '@hey/lens';
-import type { OG } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { AnyPublication } from "@hey/lens";
+import type { OG } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { HEY_API_URL } from '@hey/data/constants';
-import { ALLOWED_HTML_HOSTS } from '@hey/data/og';
-import getFavicon from '@hey/helpers/getFavicon';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { HEY_API_URL } from "@hey/data/constants";
+import { ALLOWED_HTML_HOSTS } from "@hey/data/og";
+import getFavicon from "@hey/helpers/getFavicon";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import Embed from './Embed';
-import EmptyOembed from './EmptyOembed';
-import Frame from './Frames';
-import Player from './Player';
+import Embed from "./Embed";
+import EmptyOembed from "./EmptyOembed";
+import Frame from "./Frames";
+import Player from "./Player";
 
 interface OembedProps {
   onLoad?: (og: OG) => void;
@@ -29,7 +29,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
       });
       return response.data.oembed;
     },
-    queryKey: ['getOembed', url],
+    queryKey: ["getOembed", url],
     refetchOnMount: false
   });
 
@@ -46,7 +46,6 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
     if (onLoad) {
       onLoad(data as OG);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   if (isLoading || error || !data) {
@@ -54,7 +53,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
       return null;
     }
 
-    const hostname = new URL(url).hostname.replace('www.', '');
+    const hostname = new URL(url).hostname.replace("www.", "");
 
     if (ALLOWED_HTML_HOSTS.includes(hostname)) {
       return <div className="shimmer mt-4 h-[415px] w-full rounded-xl" />;

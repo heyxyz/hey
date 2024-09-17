@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import { Card } from './Card';
+import { Card } from "./Card";
 
 interface EmptyStateProps {
   hideCard?: boolean;
@@ -15,7 +15,7 @@ export const EmptyState: FC<EmptyStateProps> = ({
 }) => {
   return (
     <Card
-      className={hideCard ? 'border-0 !bg-transparent !shadow-none' : ''}
+      className={hideCard ? "!bg-transparent !shadow-none border-0" : ""}
       forceRounded
     >
       <div className="grid justify-items-center space-y-2 p-5">

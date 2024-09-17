@@ -1,16 +1,16 @@
-import type { ApolloLink } from '@apollo/client';
+import type { ApolloLink } from "@apollo/client";
 
-import { ApolloClient, from, split } from '@apollo/client';
+import { ApolloClient, from, split } from "@apollo/client";
 
-import cache from './cache';
-import httpLink from './httpLink';
-import retryLink from './retryLink';
-import wsLink from './wsLink';
+import cache from "./cache";
+import httpLink from "./httpLink";
+import retryLink from "./retryLink";
+import wsLink from "./wsLink";
 
 const requestLink = split(
   ({ query }) => {
     const { kind, operation } = query.definitions[0] as any;
-    return kind === 'OperationDefinition' && operation === 'subscription';
+    return kind === "OperationDefinition" && operation === "subscription";
   },
   wsLink,
   httpLink

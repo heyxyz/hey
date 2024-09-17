@@ -1,8 +1,8 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from "express";
 
-import { Errors } from '@hey/data/errors';
+import { Errors } from "@hey/data/errors";
 
-import catchedError from '../catchedError';
+import catchedError from "../catchedError";
 
 /**
  * Middleware to validate secret

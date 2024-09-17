@@ -1,10 +1,10 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import clickhouseClient from '@hey/db/clickhouseClient';
-import logger from '@hey/helpers/logger';
-import catchedError from 'src/helpers/catchedError';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { noBody } from 'src/helpers/responses';
+import clickhouseClient from "@hey/db/clickhouseClient";
+import logger from "@hey/helpers/logger";
+import catchedError from "src/helpers/catchedError";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { noBody } from "src/helpers/responses";
 
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
@@ -17,7 +17,7 @@ export const get = [
 
     try {
       const rows = await clickhouseClient.query({
-        format: 'JSONEachRow',
+        format: "JSONEachRow",
         query: `
           WITH
             date_series AS (
@@ -53,7 +53,7 @@ export const get = [
         date: new Date(row.date).toISOString()
       }));
 
-      logger.info('Fetched profile impression stats');
+      logger.info("Fetched profile impression stats");
 
       return res.status(200).json({ impressions });
     } catch (error) {

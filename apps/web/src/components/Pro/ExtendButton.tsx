@@ -1,22 +1,22 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { MONTHLY_PRO_PRICE, PRO_EOA_ADDRESS } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { Button } from '@hey/ui';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProStore } from 'src/store/non-persisted/useProStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { parseEther } from 'viem';
-import { useSendTransaction, useTransactionReceipt } from 'wagmi';
+import errorToast from "@helpers/errorToast";
+import { MONTHLY_PRO_PRICE, PRO_EOA_ADDRESS } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { Button } from "@hey/ui";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useProStore } from "src/store/non-persisted/useProStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { parseEther } from "viem";
+import { useSendTransaction, useTransactionReceipt } from "wagmi";
 
 interface ExtendButtonProps {
-  size?: 'lg' | 'md';
+  size?: "lg" | "md";
 }
 
-const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
+const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
   const { currentProfile } = useProfileStore();
   const { isPro } = useProStore();
 
@@ -73,10 +73,10 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = 'lg' }) => {
       size={size}
     >
       {transactionLoading
-        ? 'Transaction pending...'
+        ? "Transaction pending..."
         : isPro
-          ? `Extend a Month`
-          : 'Upgrade to Pro'}
+          ? "Extend a Month"
+          : "Upgrade to Pro"}
     </Button>
   );
 };

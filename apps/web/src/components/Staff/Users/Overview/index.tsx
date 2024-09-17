@@ -1,16 +1,16 @@
-import type { Profile } from '@hey/lens';
-import type { NextPage } from 'next';
+import type { Profile } from "@hey/lens";
+import type { NextPage } from "next";
 
-import MetaTags from '@components/Common/MetaTags';
-import Loader from '@components/Shared/Loader';
-import StaffSidebar from '@components/Staff/Sidebar';
-import ProfileStaffTool from '@components/Staff/Users/Overview/Tool';
-import { Leafwatch } from '@helpers/leafwatch';
-import { UserIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@hey/data/constants';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { useProfileQuery } from '@hey/lens';
+import MetaTags from "@components/Common/MetaTags";
+import Loader from "@components/Shared/Loader";
+import StaffSidebar from "@components/Staff/Sidebar";
+import ProfileStaffTool from "@components/Staff/Users/Overview/Tool";
+import { Leafwatch } from "@helpers/leafwatch";
+import { UserIcon } from "@heroicons/react/24/outline";
+import { APP_NAME } from "@hey/data/constants";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { PAGEVIEW } from "@hey/data/tracking";
+import { useProfileQuery } from "@hey/lens";
 import {
   Card,
   EmptyState,
@@ -18,12 +18,12 @@ import {
   GridItemEight,
   GridItemFour,
   GridLayout
-} from '@hey/ui';
-import { useFlag } from '@unleash/proxy-client-react';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Custom404 from 'src/pages/404';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+} from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Custom404 from "src/pages/404";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const Overview: NextPage = () => {
   const {
@@ -35,8 +35,8 @@ const Overview: NextPage = () => {
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
-      page: 'staff-tools',
-      subpage: 'user-overview'
+      page: "staff-tools",
+      subpage: "user-overview"
     });
   }, []);
 
@@ -57,7 +57,7 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="border-dashed border-yellow-600 !bg-yellow-300/20 p-5">
+        <Card className="!bg-yellow-300/20 border-yellow-600 border-dashed p-5">
           {loading ? (
             <Loader className="my-5" message="Loading profile" />
           ) : !profile ? (

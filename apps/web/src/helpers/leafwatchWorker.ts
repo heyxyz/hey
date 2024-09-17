@@ -3,4 +3,4 @@ const onLeafwatchworkerMessage = (event: MessageEvent) => {
   postMessage(data);
 };
 
-addEventListener('message', onLeafwatchworkerMessage);
+addEventListener("message", onLeafwatchworkerMessage);

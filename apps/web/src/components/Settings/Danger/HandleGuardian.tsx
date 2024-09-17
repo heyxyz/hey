@@ -1,17 +1,17 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import IndexStatus from '@components/Shared/IndexStatus';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
+import IndexStatus from "@components/Shared/IndexStatus";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   ExclamationTriangleIcon,
   LockClosedIcon,
   LockOpenIcon
-} from '@heroicons/react/24/outline';
-import { LensHandles } from '@hey/abis';
-import { LENS_HANDLES } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+} from "@heroicons/react/24/outline";
+import { LensHandles } from "@hey/abis";
+import { LENS_HANDLES } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
 import {
   Button,
   Card,
@@ -20,12 +20,12 @@ import {
   Modal,
   Spinner,
   WarningMessage
-} from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { useWriteContract } from 'wagmi';
+} from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useWriteContract } from "wagmi";
 
 const HandleGuardianSettings: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -51,8 +51,8 @@ const HandleGuardianSettings: FC = () => {
       abi: LensHandles,
       address: LENS_HANDLES,
       functionName: isProtected
-        ? 'DANGER__disableTokenGuardian'
-        : 'enableTokenGuardian'
+        ? "DANGER__disableTokenGuardian"
+        : "enableTokenGuardian"
     });
   };
 
@@ -76,12 +76,12 @@ const HandleGuardianSettings: FC = () => {
       <CardHeader
         body={
           isProtected
-            ? 'This will disable the Handle Guardian and allow you to do some actions like transfer, burn and approve without restrictions.'
-            : 'This will enable the Handle Guardian and restrict you from doing some actions like transfer, burn and approve.'
+            ? "This will disable the Handle Guardian and allow you to do some actions like transfer, burn and approve without restrictions."
+            : "This will enable the Handle Guardian and restrict you from doing some actions like transfer, burn and approve."
         }
         title={
           <div className="text-red-500">
-            {isProtected ? 'Disable' : 'Enable'} handle guardian
+            {isProtected ? "Disable" : "Enable"} handle guardian
           </div>
         }
       />
@@ -124,11 +124,11 @@ const HandleGuardianSettings: FC = () => {
           >
             {isProtected
               ? isLoading
-                ? 'Disabling...'
-                : 'Disable now'
+                ? "Disabling..."
+                : "Disable now"
               : isLoading
-                ? 'Enabling...'
-                : 'Enable now'}
+                ? "Enabling..."
+                : "Enable now"}
           </Button>
         )}
       </div>

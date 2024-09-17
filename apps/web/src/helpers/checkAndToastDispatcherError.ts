@@ -1,8 +1,8 @@
-import type { RelayErrorReasonType } from '@hey/lens';
+import type { RelayErrorReasonType } from "@hey/lens";
 
-import { Errors } from '@hey/data/errors';
-import { LensProfileManagerRelayErrorReasonType } from '@hey/lens';
-import { toast } from 'react-hot-toast';
+import { Errors } from "@hey/data/errors";
+import { LensProfileManagerRelayErrorReasonType } from "@hey/lens";
+import { toast } from "react-hot-toast";
 
 /**
  * Check and toast dispatcher error
@@ -13,12 +13,12 @@ const checkAndToastDispatcherError = (
   reason: LensProfileManagerRelayErrorReasonType | RelayErrorReasonType
 ) => {
   if (reason === LensProfileManagerRelayErrorReasonType.RateLimited) {
-    toast.error(Errors.RateLimited, { id: 'error' });
+    toast.error(Errors.RateLimited, { id: "error" });
     return false;
   }
 
   if (reason === LensProfileManagerRelayErrorReasonType.AppNotAllowed) {
-    toast.error(Errors.AppNotAllowed, { id: 'error' });
+    toast.error(Errors.AppNotAllowed, { id: "error" });
     return false;
   }
 

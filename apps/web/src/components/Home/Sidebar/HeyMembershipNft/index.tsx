@@ -1,17 +1,17 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, HEY_API_URL } from '@hey/data/constants';
-import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
-import { Button, Card, H5, Modal } from '@hey/ui';
-import axios from 'axios';
-import { memo, useState } from 'react';
-import toast from 'react-hot-toast';
-import { usePreferencesStore } from 'src/store/non-persisted/usePreferencesStore';
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
+import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
+import { MISCELLANEOUS, PUBLICATION } from "@hey/data/tracking";
+import { Button, Card, H5, Modal } from "@hey/ui";
+import axios from "axios";
+import { memo, useState } from "react";
+import toast from "react-hot-toast";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 
-import Mint from './Mint';
+import Mint from "./Mint";
 
 const HeyMembershipNft: FC = () => {
   const {
@@ -30,12 +30,12 @@ const HeyMembershipNft: FC = () => {
         headers: getAuthApiHeaders()
       }),
       {
-        error: 'Error updating.',
-        loading: 'Updating...',
+        error: "Error updating.",
+        loading: "Updating...",
         success: () => {
           setHasDismissedOrMintedMembershipNft(true);
           setShowMintModal(false);
-          return 'Updated!';
+          return "Updated!";
         }
       }
     );
@@ -60,7 +60,7 @@ const HeyMembershipNft: FC = () => {
             onClick={() => {
               setShowMintModal(true);
               Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
-                from: 'mint_membership_nft'
+                from: "mint_membership_nft"
               });
             }}
             outline

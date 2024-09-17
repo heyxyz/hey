@@ -1,12 +1,12 @@
-import type { ListObjectsV2CommandOutput } from '@aws-sdk/client-s3';
+import type { ListObjectsV2CommandOutput } from "@aws-sdk/client-s3";
 
 import {
   DeleteObjectsCommand,
   ListObjectsV2Command,
   S3
-} from '@aws-sdk/client-s3';
-import { EVER_API, EVER_BUCKET, EVER_REGION } from '@hey/data/constants';
-import logger from '@hey/helpers/logger';
+} from "@aws-sdk/client-s3";
+import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
 
 const truncate4EverlandBucket = async () => {
   try {
@@ -83,7 +83,7 @@ const truncate4EverlandBucket = async () => {
     );
   } catch (error) {
     logger.error(
-      '[Cron] truncate4EverlandBucket - Error deleting objects',
+      "[Cron] truncate4EverlandBucket - Error deleting objects",
       error
     );
   }

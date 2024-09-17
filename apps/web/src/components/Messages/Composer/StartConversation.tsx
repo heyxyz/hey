@@ -1,27 +1,27 @@
-import type { CachedConversation } from '@xmtp/react-sdk';
-import type { ChangeEvent, FC } from 'react';
-import type { Address } from 'viem';
+import type { CachedConversation } from "@xmtp/react-sdk";
+import type { ChangeEvent, FC } from "react";
+import type { Address } from "viem";
 
-import LazyDefaultProfile from '@components/Shared/LazyDefaultProfile';
-import { Leafwatch } from '@helpers/leafwatch';
+import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
+import { Leafwatch } from "@helpers/leafwatch";
 import {
   ArrowRightCircleIcon,
   EnvelopeIcon,
   NoSymbolIcon
-} from '@heroicons/react/24/outline';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import { MESSAGES } from '@hey/data/tracking';
-import { Button, EmptyState, Input } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useFlag } from '@unleash/proxy-client-react';
+} from "@heroicons/react/24/outline";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import { MESSAGES } from "@hey/data/tracking";
+import { Button, EmptyState, Input } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useFlag } from "@unleash/proxy-client-react";
 import {
   useCanMessage,
   useConsent,
   useStartConversation
-} from '@xmtp/react-sdk';
-import { useEffect, useRef, useState } from 'react';
-import { useMessagesStore } from 'src/store/non-persisted/useMessagesStore';
-import { useAccount } from 'wagmi';
+} from "@xmtp/react-sdk";
+import { useEffect, useRef, useState } from "react";
+import { useMessagesStore } from "src/store/non-persisted/useMessagesStore";
+import { useAccount } from "wagmi";
 
 const StartConversation: FC = () => {
   const { address } = useAccount();
@@ -30,7 +30,7 @@ const StartConversation: FC = () => {
     setNewConversationAddress,
     setSelectedConversation
   } = useMessagesStore();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [isNotOnXmtp, setIsNotOnXmtp] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,7 +49,6 @@ const StartConversation: FC = () => {
 
   useEffect(() => {
     getIsOnXmtp();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newConversationAddress]);
 
   const handleMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +81,8 @@ const StartConversation: FC = () => {
       <div className="divider" />
       <div
         className={cn(
-          isStaff ? 'h-[79vh] max-h-[79vh]' : 'h-[81.5vh] max-h-[81.5vh]',
-          'flex items-center justify-center p-5'
+          isStaff ? "h-[79vh] max-h-[79vh]" : "h-[81.5vh] max-h-[81.5vh]",
+          "flex items-center justify-center p-5"
         )}
       >
         <EmptyState
@@ -99,10 +98,10 @@ const StartConversation: FC = () => {
           }
           message={
             isSameUser
-              ? 'You cannot message yourself'
+              ? "You cannot message yourself"
               : isNotOnXmtp
-                ? 'User is not on XMTP'
-                : 'Begin your conversation'
+                ? "User is not on XMTP"
+                : "Begin your conversation"
           }
         />
       </div>

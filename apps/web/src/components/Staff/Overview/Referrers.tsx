@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { CardHeader } from '@hey/ui';
+import { CardHeader } from "@hey/ui";
 
-import type { StatsType } from './LeafwatchStats';
+import type { StatsType } from "./LeafwatchStats";
 
 interface ReferrersProps {
-  referrers: StatsType['referrers'];
+  referrers: StatsType["referrers"];
 }
 
 const Referrers: FC<ReferrersProps> = ({ referrers }) => {

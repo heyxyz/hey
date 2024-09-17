@@ -1,4 +1,4 @@
-import type { FC, ReactNode, SyntheticEvent } from 'react';
+import type { FC, ReactNode, SyntheticEvent } from "react";
 
 import {
   Dialog,
@@ -6,18 +6,18 @@ import {
   DialogTitle,
   Transition,
   TransitionChild
-} from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Fragment } from 'react';
+} from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Fragment } from "react";
 
-import cn from '../cn';
+import cn from "../cn";
 
 interface ModalProps {
   children: ReactNode | ReactNode[];
   icon?: ReactNode;
   onClose?: () => void;
   show: boolean;
-  size?: 'lg' | 'md' | 'sm' | 'xs';
+  size?: "lg" | "md" | "sm" | "xs";
   title?: ReactNode;
 }
 
@@ -26,7 +26,7 @@ export const Modal: FC<ModalProps> = ({
   icon,
   onClose,
   show,
-  size = 'sm',
+  size = "sm",
   title
 }) => {
   const handleClose = (e: SyntheticEvent) => {
@@ -58,11 +58,11 @@ export const Modal: FC<ModalProps> = ({
         >
           <DialogPanel
             className={cn(
-              { 'sm:max-w-5xl': size === 'lg' },
-              { 'sm:max-w-3xl': size === 'md' },
-              { 'sm:max-w-lg': size === 'sm' },
-              { 'sm:max-w-sm': size === 'xs' },
-              'inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800'
+              { "sm:max-w-5xl": size === "lg" },
+              { "sm:max-w-3xl": size === "md" },
+              { "sm:max-w-lg": size === "sm" },
+              { "sm:max-w-sm": size === "xs" },
+              "inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800"
             )}
           >
             {title ? (

@@ -1,26 +1,26 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getProfile from "@hey/helpers/getProfile";
+import { Image } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import MenuTransition from '../MenuTransition';
-import Slug from '../Slug';
-import { NextLink } from './MenuItems';
-import MobileDrawerMenu from './MobileDrawerMenu';
-import AppVersion from './NavItems/AppVersion';
-import Logout from './NavItems/Logout';
-import OptimisticTransactions from './NavItems/OptimisticTransactions';
-import Settings from './NavItems/Settings';
-import SwitchProfile from './NavItems/SwitchProfile';
-import ThemeSwitch from './NavItems/ThemeSwitch';
-import YourProfile from './NavItems/YourProfile';
+import MenuTransition from "../MenuTransition";
+import Slug from "../Slug";
+import { NextLink } from "./MenuItems";
+import MobileDrawerMenu from "./MobileDrawerMenu";
+import AppVersion from "./NavItems/AppVersion";
+import Logout from "./NavItems/Logout";
+import OptimisticTransactions from "./NavItems/OptimisticTransactions";
+import Settings from "./NavItems/Settings";
+import SwitchProfile from "./NavItems/SwitchProfile";
+import ThemeSwitch from "./NavItems/ThemeSwitch";
+import YourProfile from "./NavItems/YourProfile";
 
 const SignedUser: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -62,7 +62,7 @@ const SignedUser: FC = () => {
           >
             <MenuItem
               as={NextLink}
-              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              className="m-2 flex items-center rounded-lg px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
               href={getProfile(currentProfile).link}
             >
               <div className="flex w-full flex-col">
@@ -80,8 +80,8 @@ const SignedUser: FC = () => {
               as="div"
               className={({ focus }: { focus: boolean }) =>
                 cn(
-                  { 'dropdown-active': focus },
-                  'm-2 rounded-lg border dark:border-gray-700'
+                  { "dropdown-active": focus },
+                  "m-2 rounded-lg border dark:border-gray-700"
                 )
               }
             >
@@ -91,7 +91,7 @@ const SignedUser: FC = () => {
             <MenuItem
               as={NextLink}
               className={({ focus }: { focus: boolean }) =>
-                cn({ 'dropdown-active': focus }, 'menu-item')
+                cn({ "dropdown-active": focus }, "menu-item")
               }
               href={getProfile(currentProfile).link}
             >
@@ -100,7 +100,7 @@ const SignedUser: FC = () => {
             <MenuItem
               as={NextLink}
               className={({ focus }: { focus: boolean }) =>
-                cn({ 'dropdown-active': focus }, 'menu-item')
+                cn({ "dropdown-active": focus }, "menu-item")
               }
               href="/settings"
             >
@@ -109,7 +109,7 @@ const SignedUser: FC = () => {
             <MenuItem
               as="div"
               className={({ focus }) =>
-                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                cn({ "dropdown-active": focus }, "m-2 rounded-lg")
               }
             >
               <Logout />
@@ -118,7 +118,7 @@ const SignedUser: FC = () => {
             <MenuItem
               as="div"
               className={({ focus }) =>
-                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                cn({ "dropdown-active": focus }, "m-2 rounded-lg")
               }
             >
               <ThemeSwitch />
@@ -126,7 +126,7 @@ const SignedUser: FC = () => {
             <MenuItem
               as="div"
               className={({ focus }) =>
-                cn({ 'dropdown-active': focus }, 'm-2 rounded-lg')
+                cn({ "dropdown-active": focus }, "m-2 rounded-lg")
               }
             >
               <OptimisticTransactions />

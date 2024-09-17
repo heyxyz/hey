@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import MetaDetails from '@components/Shared/MetaDetails';
+import MetaDetails from "@components/Shared/MetaDetails";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel
-} from '@headlessui/react';
+} from "@headlessui/react";
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
@@ -13,14 +13,14 @@ import {
   UserCircleIcon,
   UserIcon,
   UserPlusIcon
-} from '@heroicons/react/24/outline';
-import { HashtagIcon } from '@heroicons/react/24/solid';
-import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
-import formatDate from '@hey/helpers/datetime/formatDate';
-import { H5 } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import urlcat from 'urlcat';
+} from "@heroicons/react/24/outline";
+import { HashtagIcon } from "@heroicons/react/24/solid";
+import { GITCOIN_PASSPORT_KEY } from "@hey/data/constants";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import { H5 } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import urlcat from "urlcat";
 
 interface RankProps {
   address: string;
@@ -38,7 +38,7 @@ const Rank: FC<RankProps> = ({
   const getRank = async (strategy: string) => {
     try {
       const response = await axios.get(
-        urlcat('https://lens-api.k3l.io/profile/rank', { handle, strategy })
+        urlcat("https://lens-api.k3l.io/profile/rank", { handle, strategy })
       );
 
       return response.data;
@@ -50,11 +50,11 @@ const Rank: FC<RankProps> = ({
   const getGitcoinScore = async () => {
     try {
       const response = await axios.get(
-        urlcat('https://api.scorer.gitcoin.co/registry/score/:id/:address', {
+        urlcat("https://api.scorer.gitcoin.co/registry/score/:id/:address", {
           address,
           id: 335
         }),
-        { headers: { 'X-API-Key': GITCOIN_PASSPORT_KEY } }
+        { headers: { "X-API-Key": GITCOIN_PASSPORT_KEY } }
       );
 
       return response.data;
@@ -64,28 +64,28 @@ const Rank: FC<RankProps> = ({
   };
 
   const { data: followship, isLoading: followshipLoading } = useQuery({
-    queryFn: async () => await getRank('followship'),
-    queryKey: ['getRank', profileId, 'followship']
+    queryFn: async () => await getRank("followship"),
+    queryKey: ["getRank", profileId, "followship"]
   });
 
   const { data: engagement, isLoading: engagementLoading } = useQuery({
-    queryFn: async () => await getRank('engagement'),
-    queryKey: ['getRank', profileId, 'engagement']
+    queryFn: async () => await getRank("engagement"),
+    queryKey: ["getRank", profileId, "engagement"]
   });
 
   const { data: influencer, isLoading: influencerLoading } = useQuery({
-    queryFn: async () => await getRank('influencer'),
-    queryKey: ['getRank', profileId, 'influencer']
+    queryFn: async () => await getRank("influencer"),
+    queryKey: ["getRank", profileId, "influencer"]
   });
 
   const { data: creator, isLoading: creatorLoading } = useQuery({
-    queryFn: async () => await getRank('creator'),
-    queryKey: ['getRank', profileId, 'creator']
+    queryFn: async () => await getRank("creator"),
+    queryKey: ["getRank", profileId, "creator"]
   });
 
   const { data: gitcoinScore, isLoading: gitcoinScoreLoading } = useQuery({
     queryFn: getGitcoinScore,
-    queryKey: ['getGitcoinScore', profileId]
+    queryKey: ["getGitcoinScore", profileId]
   });
 
   return (
@@ -110,7 +110,7 @@ const Rank: FC<RankProps> = ({
           ) : followship ? (
             followship.rank
           ) : (
-            'Not ranked'
+            "Not ranked"
           )}
         </MetaDetails>
         <MetaDetails
@@ -122,7 +122,7 @@ const Rank: FC<RankProps> = ({
           ) : engagement ? (
             engagement.rank
           ) : (
-            'Not ranked'
+            "Not ranked"
           )}
         </MetaDetails>
         <MetaDetails
@@ -134,7 +134,7 @@ const Rank: FC<RankProps> = ({
           ) : influencer ? (
             influencer.rank
           ) : (
-            'Not ranked'
+            "Not ranked"
           )}
         </MetaDetails>
         <MetaDetails
@@ -146,7 +146,7 @@ const Rank: FC<RankProps> = ({
           ) : creator ? (
             creator.rank
           ) : (
-            'Not ranked'
+            "Not ranked"
           )}
         </MetaDetails>
         <Disclosure>
@@ -159,21 +159,23 @@ const Rank: FC<RankProps> = ({
                 <div className="shimmer h-4 w-5 rounded" />
               ) : gitcoinScore ? (
                 <span>
-                  {parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
+                  {Number.parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
                     <>
-                      {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
+                      {Number.parseFloat(
+                        gitcoinScore?.evidence?.rawScore
+                      ).toFixed(2)}
                       <span className="ld-text-gray-500 text-xs">
-                        {' '}
-                        (Updated:{' '}
+                        {" "}
+                        (Updated:{" "}
                         {formatDate(gitcoinScore?.last_score_timestamp)})
                       </span>
                     </>
                   ) : (
-                    'Not scored'
+                    "Not scored"
                   )}
                 </span>
               ) : (
-                'Not scored'
+                "Not scored"
               )}
             </MetaDetails>
           </DisclosureButton>

@@ -1,6 +1,0 @@
-Prettier:
-  stage: preflight
-  tags:
-    - hey
-  script:
-    - pnpm prettier

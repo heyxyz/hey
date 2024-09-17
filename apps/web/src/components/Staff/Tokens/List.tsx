@@ -1,20 +1,20 @@
-import type { AllowedToken } from '@hey/types/hey';
-import type { FC } from 'react';
+import type { AllowedToken } from "@hey/types/hey";
+import type { FC } from "react";
 
-import Loader from '@components/Shared/Loader';
-import { getAuthApiHeaders } from '@helpers/getAuthApiHeaders';
-import { Leafwatch } from '@helpers/leafwatch';
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { HEY_API_URL } from '@hey/data/constants';
-import { STAFFTOOLS } from '@hey/data/tracking';
-import getAllTokens from '@hey/helpers/api/getAllTokens';
-import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from '@hey/ui';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import Loader from "@components/Shared/Loader";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { HEY_API_URL } from "@hey/data/constants";
+import { STAFFTOOLS } from "@hey/data/tracking";
+import getAllTokens from "@hey/helpers/api/getAllTokens";
+import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
-import Create from './Create';
+import Create from "./Create";
 
 const List: FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -26,7 +26,7 @@ const List: FC = () => {
         setTokens(tokens);
         return tokens;
       }),
-    queryKey: ['getAllTokens']
+    queryKey: ["getAllTokens"]
   });
 
   const deleteToken = (id: string) => {
@@ -37,12 +37,12 @@ const List: FC = () => {
         { headers: getAuthApiHeaders() }
       ),
       {
-        error: 'Failed to delete token',
-        loading: 'Deleting token...',
+        error: "Failed to delete token",
+        loading: "Deleting token...",
         success: () => {
           Leafwatch.track(STAFFTOOLS.TOKENS.DELETE);
           setTokens(tokens.filter((token) => token.id !== id));
-          return 'Token deleted';
+          return "Token deleted";
         }
       }
     );

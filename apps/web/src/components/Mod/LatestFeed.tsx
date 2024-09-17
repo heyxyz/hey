@@ -2,26 +2,26 @@ import type {
   AnyPublication,
   MirrorablePublication,
   ModExplorePublicationRequest
-} from '@hey/lens';
-import type { FC } from 'react';
+} from "@hey/lens";
+import type { FC } from "react";
 
-import HigherActions from '@components/Publication/Actions/HigherActions';
-import SinglePublication from '@components/Publication/SinglePublication';
-import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
+import HigherActions from "@components/Publication/Actions/HigherActions";
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
+import { IS_MAINNET } from "@hey/data/constants";
 import {
   ExplorePublicationsOrderByType,
   LimitType,
   useModExplorePublicationsQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { useEffect } from 'react';
-import { Virtuoso } from 'react-virtuoso';
+} from "@hey/lens";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import { useEffect } from "react";
+import { Virtuoso } from "react-virtuoso";
 
-import { useModFilterStore } from './Filter';
+import { useModFilterStore } from "./Filter";
 
-const SKIPPED_PROFILE_IDS = IS_MAINNET ? ['0x027290', '0x24b6'] : [];
+const SKIPPED_PROFILE_IDS = IS_MAINNET ? ["0x027290", "0x24b6"] : [];
 
 const LatestFeed: FC = () => {
   const {
@@ -56,7 +56,6 @@ const LatestFeed: FC = () => {
   useEffect(() => {
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const onEndReached = async () => {

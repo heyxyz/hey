@@ -1,7 +1,7 @@
-import type { ApprovedModuleAllowanceAmountQuery } from '@hey/lens';
-import type { FC } from 'react';
+import type { ApprovedModuleAllowanceAmountQuery } from "@hey/lens";
+import type { FC } from "react";
 
-import Module from './Module';
+import Module from "./Module";
 
 interface AllowanceProps {
   allowance: ApprovedModuleAllowanceAmountQuery | undefined;

@@ -1,26 +1,26 @@
-import type { Profile } from '@hey/lens';
-import type { CachedConversation } from '@xmtp/react-sdk';
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { Profile } from "@hey/lens";
+import type { CachedConversation } from "@xmtp/react-sdk";
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import Slug from '@components/Shared/Slug';
-import isVerified from '@helpers/isVerified';
+import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import Slug from "@components/Shared/Slug";
+import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
-} from '@heroicons/react/24/solid';
-import formatAddress from '@hey/helpers/formatAddress';
-import getAvatar from '@hey/helpers/getAvatar';
-import getLennyURL from '@hey/helpers/getLennyURL';
-import getProfile from '@hey/helpers/getProfile';
-import getStampFyiURL from '@hey/helpers/getStampFyiURL';
-import hasMisused from '@hey/helpers/hasMisused';
-import { useDefaultProfileQuery } from '@hey/lens';
-import { Image } from '@hey/ui';
-import { useState } from 'react';
+} from "@heroicons/react/24/solid";
+import formatAddress from "@hey/helpers/formatAddress";
+import getAvatar from "@hey/helpers/getAvatar";
+import getLennyURL from "@hey/helpers/getLennyURL";
+import getProfile from "@hey/helpers/getProfile";
+import getStampFyiURL from "@hey/helpers/getStampFyiURL";
+import hasMisused from "@hey/helpers/hasMisused";
+import { useDefaultProfileQuery } from "@hey/lens";
+import { Image } from "@hey/ui";
+import { useState } from "react";
 
-import LatestMessage from './LatestMessage';
+import LatestMessage from "./LatestMessage";
 
 interface UserProps {
   address: Address;
@@ -88,7 +88,7 @@ const User: FC<UserProps> = ({ address, conversation }) => {
             slug={getProfile(profile).slugWithPrefix}
           />
           {isVerified(profile.id) ? (
-            <CheckBadgeIcon className="text-brand-500 ml-1 size-4" />
+            <CheckBadgeIcon className="ml-1 size-4 text-brand-500" />
           ) : null}
           {hasMisused(profile.id) ? (
             <ExclamationCircleIcon className="ml-1 size-4" />

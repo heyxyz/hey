@@ -1,15 +1,15 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import UserProfile from '@components/Shared/UserProfile';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import { useReportProfileMutation } from '@hey/lens';
+import UserProfile from "@components/Shared/UserProfile";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { Errors } from "@hey/data/errors";
+import { PROFILE } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { useReportProfileMutation } from "@hey/lens";
 import {
   Button,
   Card,
@@ -19,17 +19,17 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { object, string } from 'zod';
+} from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { object, string } from "zod";
 
-import Reason from './Reason';
+import Reason from "./Reason";
 
 const reportReportProfileSchema = object({
   additionalComments: string().max(260, {
-    message: 'Additional comments should not exceed 260 characters'
+    message: "Additional comments should not exceed 260 characters"
   })
 });
 
@@ -39,8 +39,8 @@ interface ReportProfileProps {
 
 const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
   const { isSuspended } = useProfileStatus();
-  const [type, setType] = useState('');
-  const [subReason, setSubReason] = useState('');
+  const [type, setType] = useState("");
+  const [subReason, setSubReason] = useState("");
 
   const form = useZodForm({
     schema: reportReportProfileSchema
@@ -68,7 +68,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             for: profile?.id,
             reason: {
               [type]: {
-                reason: type.replace('Reason', '').toUpperCase(),
+                reason: type.replace("Reason", "").toUpperCase(),
                 subreason: subReason
               }
             }
@@ -120,7 +120,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
                 <TextArea
                   label="Description"
                   placeholder="Please provide additional details"
-                  {...form.register('additionalComments')}
+                  {...form.register("additionalComments")}
                 />
                 <Button
                   className="flex w-full justify-center"

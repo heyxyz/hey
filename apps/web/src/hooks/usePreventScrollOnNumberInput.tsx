@@ -1,6 +1,6 @@
-import type { RefObject } from 'react';
+import type { RefObject } from "react";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const usePreventScrollOnNumberInput = (ref: RefObject<HTMLInputElement>) => {
   useEffect(() => {
@@ -11,10 +11,10 @@ const usePreventScrollOnNumberInput = (ref: RefObject<HTMLInputElement>) => {
         event.stopPropagation();
       };
 
-      input.addEventListener('wheel', preventScroll, { passive: false });
+      input.addEventListener("wheel", preventScroll, { passive: false });
 
       return () => {
-        input.removeEventListener('wheel', preventScroll);
+        input.removeEventListener("wheel", preventScroll);
       };
     }
   }, [ref]);

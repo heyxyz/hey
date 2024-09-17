@@ -1,19 +1,19 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import MenuTransition from "@components/Shared/MenuTransition";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   GlobeAltIcon,
   UserGroupIcon,
   UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ReferenceModuleType } from '@hey/lens';
-import { Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { motion } from 'framer-motion';
-import { useReferenceModuleStore } from 'src/store/non-persisted/useReferenceModuleStore';
+} from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { ReferenceModuleType } from "@hey/lens";
+import { Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { motion } from "framer-motion";
+import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 
 const ReferenceSettings: FC = () => {
   const {
@@ -25,10 +25,10 @@ const ReferenceSettings: FC = () => {
     setSelectedReferenceModule
   } = useReferenceModuleStore();
 
-  const MY_FOLLOWS = 'My follows';
-  const MY_FOLLOWERS = 'My followers';
-  const FRIENDS_OF_FRIENDS = 'Friends of friends';
-  const EVERYONE = 'Everyone';
+  const MY_FOLLOWS = "My follows";
+  const MY_FOLLOWERS = "My followers";
+  const FRIENDS_OF_FRIENDS = "Friends of friends";
+  const EVERYONE = "Everyone";
 
   const isFollowerOnlyReferenceModule =
     selectedReferenceModule === ReferenceModuleType.FollowerOnlyReferenceModule;
@@ -53,7 +53,7 @@ const ReferenceSettings: FC = () => {
   const Module: FC<ModuleProps> = ({ icon, onClick, selected, title }) => (
     <MenuItem
       as="a"
-      className={cn({ 'dropdown-active': selected }, 'menu-item')}
+      className={cn({ "dropdown-active": selected }, "menu-item")}
       onClick={onClick}
     >
       <div className="flex items-center justify-between space-x-2">
@@ -68,18 +68,18 @@ const ReferenceSettings: FC = () => {
 
   const getSelectedReferenceModuleTooltipText = () => {
     if (isMyFollowers) {
-      return 'My followers can comment and mirror';
+      return "My followers can comment and mirror";
     }
 
     if (isMyFollows) {
-      return 'My follows can comment and mirror';
+      return "My follows can comment and mirror";
     }
 
     if (isFriendsOfFriends) {
-      return 'Friend of friends can comment and mirror';
+      return "Friend of friends can comment and mirror";
     }
 
-    return 'Everyone can comment and mirror';
+    return "Everyone can comment and mirror";
   };
 
   return (

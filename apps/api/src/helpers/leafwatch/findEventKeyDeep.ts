@@ -1,8 +1,10 @@
 const findEventKeyDeep = (obj: any, target: string): null | string => {
   for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === 'string' && value === target) {
+    if (typeof value === "string" && value === target) {
       return key;
-    } else if (typeof value === 'object' && value !== null) {
+    }
+
+    if (typeof value === "object" && value !== null) {
       const result = findEventKeyDeep(value, target);
       if (result) {
         return result;

@@ -1,38 +1,38 @@
-import type { RedisClientType } from 'redis';
+import type { RedisClientType } from "redis";
 
-import hoursToSeconds from '@hey/helpers/hoursToSeconds';
-import logger from '@hey/helpers/logger';
-import randomNumber from '@hey/helpers/randomNumber';
-import dotenv from 'dotenv';
-import { createClient } from 'redis';
+import hoursToSeconds from "@hey/helpers/hoursToSeconds";
+import logger from "@hey/helpers/logger";
+import randomNumber from "@hey/helpers/randomNumber";
+import dotenv from "dotenv";
+import { createClient } from "redis";
 
 dotenv.config({ override: true });
 
-const noRedisError = () => logger.error('[Redis] Redis client not initialized');
+const noRedisError = () => logger.error("[Redis] Redis client not initialized");
 
 let redisClient: null | RedisClientType = null;
 
 if (process.env.REDIS_URL) {
   redisClient = createClient({ url: process.env.REDIS_URL });
 
-  redisClient.on('connect', () => logger.info('[Redis] Redis connect'));
-  redisClient.on('ready', () => logger.info('[Redis] Redis ready'));
-  redisClient.on('reconnecting', (err) =>
-    logger.error('[Redis] Redis reconnecting', err)
+  redisClient.on("connect", () => logger.info("[Redis] Redis connect"));
+  redisClient.on("ready", () => logger.info("[Redis] Redis ready"));
+  redisClient.on("reconnecting", (err) =>
+    logger.error("[Redis] Redis reconnecting", err)
   );
-  redisClient.on('error', (err) => logger.error('[Redis] Redis error', err));
-  redisClient.on('end', (err) => logger.error('[Redis] Redis end', err));
+  redisClient.on("error", (err) => logger.error("[Redis] Redis error", err));
+  redisClient.on("end", (err) => logger.error("[Redis] Redis end", err));
 
   const connectRedis = async () => {
-    logger.info('[Redis] Connecting to Redis');
+    logger.info("[Redis] Connecting to Redis");
     await redisClient!.connect();
   };
 
   connectRedis().catch((error) =>
-    logger.error('[Redis] Connection error', error)
+    logger.error("[Redis] Connection error", error)
   );
 } else {
-  logger.info('[Redis] REDIS_URL not set');
+  logger.info("[Redis] REDIS_URL not set");
 }
 
 // Generates a random expiry time between 1 and 3 hours
@@ -64,7 +64,7 @@ export const setRedis = async (
     return;
   }
 
-  if (typeof value !== 'string') {
+  if (typeof value !== "string") {
     value = JSON.stringify(value);
   }
 

@@ -1,5 +1,5 @@
-import { createTrackedSelector } from 'react-tracked';
-import { create } from 'zustand';
+import { createTrackedSelector } from "react-tracked";
+import { create } from "zustand";
 
 interface VideoThumbnail {
   mimeType: string;
@@ -8,9 +8,9 @@ interface VideoThumbnail {
 }
 
 export const DEFAULT_VIDEO_THUMBNAIL: VideoThumbnail = {
-  mimeType: '',
+  mimeType: "",
   uploading: false,
-  url: ''
+  url: ""
 };
 
 interface State {
@@ -29,7 +29,7 @@ const store = create<State>((set) => ({
     set(() => ({ videoDurationInSeconds })),
   setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
   uploadedPercentage: 0,
-  videoDurationInSeconds: '',
+  videoDurationInSeconds: "",
   videoThumbnail: DEFAULT_VIDEO_THUMBNAIL
 }));
 

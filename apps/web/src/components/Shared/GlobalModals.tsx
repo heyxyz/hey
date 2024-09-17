@@ -1,22 +1,22 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import NewPublication from '@components/Composer/NewPublication';
-import ReportPublication from '@components/Shared/Modal/ReportPublication';
+import NewPublication from "@components/Composer/NewPublication";
+import ReportPublication from "@components/Shared/Modal/ReportPublication";
 import {
   ArrowRightCircleIcon,
   CircleStackIcon,
   ShieldCheckIcon
-} from '@heroicons/react/24/outline';
-import { Modal } from '@hey/ui';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
-import { useAccount } from 'wagmi';
+} from "@heroicons/react/24/outline";
+import { Modal } from "@hey/ui";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useAccount } from "wagmi";
 
-import Auth from './Auth';
-import { useSignupStore } from './Auth/Signup';
-import GlobalModalsFromUrl from './GlobalModalsFromUrl';
-import OptimisticTransactions from './Modal/OptimisticTransactions';
-import ReportProfile from './Modal/ReportProfile';
-import SwitchProfiles from './SwitchProfiles';
+import Auth from "./Auth";
+import { useSignupStore } from "./Auth/Signup";
+import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
+import OptimisticTransactions from "./Modal/OptimisticTransactions";
+import ReportProfile from "./Modal/ReportProfile";
+import SwitchProfiles from "./SwitchProfiles";
 
 const GlobalModals: FC = () => {
   const {
@@ -41,11 +41,11 @@ const GlobalModals: FC = () => {
   const { address } = useAccount();
 
   const authModalTitle =
-    authModalType === 'signup'
-      ? signupScreen === 'choose'
-        ? 'Signup'
+    authModalType === "signup"
+      ? signupScreen === "choose"
+        ? "Signup"
         : null
-      : 'Login';
+      : "Login";
 
   return (
     <>
@@ -71,7 +71,7 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowProfileSwitchModal(false)}
         show={showProfileSwitchModal}
-        size={!address ? 'sm' : 'xs'}
+        size={!address ? "sm" : "xs"}
         title="Switch Profile"
       >
         <SwitchProfiles />

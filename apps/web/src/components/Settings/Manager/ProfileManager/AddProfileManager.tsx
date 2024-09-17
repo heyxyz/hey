@@ -1,29 +1,29 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
-import SearchProfiles from '@components/Shared/SearchProfiles';
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { ADDRESS_PLACEHOLDER, LENS_HUB } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import checkDispatcherPermissions from '@hey/helpers/checkDispatcherPermissions';
-import getSignature from '@hey/helpers/getSignature';
+import SearchProfiles from "@components/Shared/SearchProfiles";
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { LensHub } from "@hey/abis";
+import { ADDRESS_PLACEHOLDER, LENS_HUB } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getSignature from "@hey/helpers/getSignature";
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
-} from '@hey/lens';
-import { Button, Spinner } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useNonceStore } from 'src/store/non-persisted/useNonceStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
-import { isAddress } from 'viem';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from "@hey/lens";
+import { Button, Spinner } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useNonceStore } from "src/store/non-persisted/useNonceStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { isAddress } from "viem";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface AddProfileManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
@@ -39,21 +39,21 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
-  const [manager, setManager] = useState('');
+  const [manager, setManager] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
       return;
     }
 
     setIsLoading(false);
     setShowAddManagerModal(false);
-    setManager('');
-    toast.success('Manager added successfully!');
+    setManager("");
+    toast.success("Manager added successfully!");
     Leafwatch.track(SETTINGS.MANAGER.ADD_MANAGER);
   };
 
@@ -81,7 +81,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
       abi: LensHub,
       address: LENS_HUB,
       args,
-      functionName: 'changeDelegatedExecutorsConfig'
+      functionName: "changeDelegatedExecutorsConfig"
     });
   };
 
@@ -115,7 +115,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
             const { data } = await broadcastOnchain({
               variables: { request: { id, signature } }
             });
-            if (data?.broadcastOnchain.__typename === 'RelayError') {
+            if (data?.broadcastOnchain.__typename === "RelayError") {
               return await write({ args });
             }
             incrementLensHubOnchainSigNonce();

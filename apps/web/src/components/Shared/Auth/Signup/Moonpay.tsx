@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { MOONPAY_URL } from '@hey/data/constants';
-import { Button } from '@hey/ui';
-import urlcat from 'urlcat';
-import { useAccount } from 'wagmi';
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { MOONPAY_URL } from "@hey/data/constants";
+import { Button } from "@hey/ui";
+import urlcat from "urlcat";
+import { useAccount } from "wagmi";
 
 interface MoonpayProps {
   disabled: boolean;
@@ -16,11 +16,11 @@ const Moonpay: FC<MoonpayProps> = ({ disabled }) => {
   const handleBuy = () => {
     return window.open(
       urlcat(MOONPAY_URL, {
-        currencyCode: 'POL',
+        currencyCode: "POL",
         redirectURL: window.location.href,
         walletAddress: address
       }),
-      '_blank'
+      "_blank"
     );
   };
 

@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 
 const getNftChainInfo = (
   chain: string
@@ -7,40 +7,40 @@ const getNftChainInfo = (
   name: string;
 } => {
   switch (chain) {
-    case 'ethereum':
-    case 'goerli':
+    case "ethereum":
+    case "goerli":
       return {
         logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`,
-        name: chain === 'ethereum' ? 'Ethereum' : 'Goerli'
+        name: chain === "ethereum" ? "Ethereum" : "Goerli"
       };
-    case 'optimism':
-    case 'optimism-testnet':
+    case "optimism":
+    case "optimism-testnet":
       return {
         logo: `${STATIC_IMAGES_URL}/chains/optimism.svg`,
-        name: chain === 'optimism' ? 'Optimism' : 'Optimism Testnet'
+        name: chain === "optimism" ? "Optimism" : "Optimism Testnet"
       };
-    case 'zora':
-    case 'zora-testnet':
+    case "zora":
+    case "zora-testnet":
       return {
         logo: `${STATIC_IMAGES_URL}/chains/zora.svg`,
-        name: chain === 'zora' ? 'Zora' : 'Zora Testnet'
+        name: chain === "zora" ? "Zora" : "Zora Testnet"
       };
-    case 'base':
-    case 'base-testnet':
+    case "base":
+    case "base-testnet":
       return {
         logo: `${STATIC_IMAGES_URL}/chains/base.svg`,
-        name: chain === 'base' ? 'Base' : 'Base Testnet'
+        name: chain === "base" ? "Base" : "Base Testnet"
       };
-    case 'polygon':
-    case 'amoy':
+    case "polygon":
+    case "amoy":
       return {
         logo: `${STATIC_IMAGES_URL}/chains/polygon.svg`,
-        name: chain === 'polygon' ? 'Polygon' : 'Polygon Amoy'
+        name: chain === "polygon" ? "Polygon" : "Polygon Amoy"
       };
     default:
       return {
         logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`,
-        name: 'Ethereum'
+        name: "Ethereum"
       };
   }
 };

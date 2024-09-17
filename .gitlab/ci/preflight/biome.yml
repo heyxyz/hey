@@ -1,0 +1,4 @@
+Biome:
+  stage: preflight
+  script:
+    - pnpm biome:check

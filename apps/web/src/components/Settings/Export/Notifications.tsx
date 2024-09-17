@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import downloadJson from '@hey/helpers/downloadJson';
-import { useNotificationsLazyQuery } from '@hey/lens';
-import { Button, Card, CardHeader } from '@hey/ui';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
+import { Leafwatch } from "@helpers/leafwatch";
+import { Errors } from "@hey/data/errors";
+import { SETTINGS } from "@hey/data/tracking";
+import downloadJson from "@hey/helpers/downloadJson";
+import { useNotificationsLazyQuery } from "@hey/lens";
+import { Button, Card, CardHeader } from "@hey/ui";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 
 const Notifications: FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
@@ -17,7 +17,7 @@ const Notifications: FC = () => {
   const { isSuspended } = useProfileStatus();
 
   const [exportNotificiations] = useNotificationsLazyQuery({
-    fetchPolicy: 'network-only'
+    fetchPolicy: "network-only"
   });
 
   const handleExportClick = async () => {
@@ -60,7 +60,7 @@ const Notifications: FC = () => {
   };
 
   const download = () => {
-    downloadJson(notifications, 'notifications', () => {
+    downloadJson(notifications, "notifications", () => {
       setNotifications([]);
       setFetchCompleted(false);
     });
@@ -84,7 +84,7 @@ const Notifications: FC = () => {
           </Button>
         ) : (
           <Button disabled={exporting} onClick={handleExportClick} outline>
-            {exporting ? 'Exporting...' : 'Export now'}
+            {exporting ? "Exporting..." : "Export now"}
           </Button>
         )}
       </div>

@@ -1,3 +1,3 @@
-import Editor from './Editor';
+import Editor from "./Editor";
 export { Editor };
-export { useEditorContext, withEditorContext } from './EditorHandle';
+export { useEditorContext, withEditorContext } from "./EditorHandle";

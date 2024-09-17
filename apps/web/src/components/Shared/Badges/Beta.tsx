@@ -1,7 +1,7 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { StarIcon } from '@heroicons/react/24/solid';
-import { Badge } from '@hey/ui';
+import { StarIcon } from "@heroicons/react/24/solid";
+import { Badge } from "@hey/ui";
 
 const Beta: FC = () => {
   return (

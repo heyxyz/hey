@@ -1,20 +1,20 @@
-import type { PublicationMetadataMainFocusType } from '@hey/lens';
-import type { NextPage } from 'next';
+import type { PublicationMetadataMainFocusType } from "@hey/lens";
+import type { NextPage } from "next";
 
-import WhoToFollow from '@components/Home/Sidebar/WhoToFollow';
-import FeedFocusType from '@components/Shared/FeedFocusType';
-import Footer from '@components/Shared/Footer';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { Leafwatch } from '@helpers/leafwatch';
-import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
-import { ExplorePublicationsOrderByType } from '@hey/lens';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import WhoToFollow from "@components/Home/Sidebar/WhoToFollow";
+import FeedFocusType from "@components/Shared/FeedFocusType";
+import Footer from "@components/Shared/Footer";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import { Leafwatch } from "@helpers/leafwatch";
+import { EXPLORE, PAGEVIEW } from "@hey/data/tracking";
+import { ExplorePublicationsOrderByType } from "@hey/lens";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-import Feed from './Feed';
+import Feed from "./Feed";
 
 const Explore: NextPage = () => {
   const router = useRouter();
@@ -22,17 +22,17 @@ const Explore: NextPage = () => {
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
+    Leafwatch.track(PAGEVIEW, { page: "explore" });
   }, []);
 
   const tabs = [
-    { name: 'For you', type: ExplorePublicationsOrderByType.LensCurated },
-    { name: 'Popular', type: ExplorePublicationsOrderByType.TopCommented },
+    { name: "For you", type: ExplorePublicationsOrderByType.LensCurated },
+    { name: "Popular", type: ExplorePublicationsOrderByType.TopCommented },
     {
-      name: 'Trending',
+      name: "Trending",
       type: ExplorePublicationsOrderByType.TopCollectedOpenAction
     },
-    { name: 'Interesting', type: ExplorePublicationsOrderByType.TopMirrored }
+    { name: "Interesting", type: ExplorePublicationsOrderByType.TopMirrored }
   ];
 
   return (
@@ -53,8 +53,8 @@ const Explore: NextPage = () => {
               <Tab
                 className={({ selected }) =>
                   cn(
-                    { 'border-b-2 border-black dark:border-white': selected },
-                    'px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
+                    { "border-black border-b-2 dark:border-white": selected },
+                    "px-4 pb-2 font-medium text-xs outline-none sm:text-sm"
                   )
                 }
                 defaultChecked={index === 1}

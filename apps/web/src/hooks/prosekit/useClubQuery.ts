@@ -1,8 +1,8 @@
-import type { Club } from '@hey/types/club';
+import type { Club } from "@hey/types/club";
 
-import getClubs from '@hey/helpers/api/clubs/getClubs';
-import { useEffect, useState } from 'react';
-import { useProfileStore } from 'src/store/persisted/useProfileStore';
+import getClubs from "@hey/helpers/api/clubs/getClubs";
+import { useEffect, useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
@@ -40,7 +40,6 @@ const useClubQuery = (query: string): ClubProfile[] => {
         setResults(clubsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
       }
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return results;

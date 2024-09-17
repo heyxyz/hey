@@ -1,11 +1,11 @@
-import type { Profile } from '@hey/lens';
-import type { FC } from 'react';
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { UsersIcon } from '@heroicons/react/24/outline';
-import { useProfilesManagedQuery } from '@hey/lens';
-import { H5 } from '@hey/ui';
-import Link from 'next/link';
+import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import { UsersIcon } from "@heroicons/react/24/outline";
+import { useProfilesManagedQuery } from "@hey/lens";
+import { H5 } from "@hey/ui";
+import Link from "next/link";
 
 interface ManagedProfilesProps {
   address: string;
@@ -37,7 +37,7 @@ const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
                     profile={data?.lastLoggedInProfile as Profile}
                   />
                 </Link>
-                <div className="divider my-5 border-dashed border-yellow-600" />
+                <div className="divider my-5 border-yellow-600 border-dashed" />
               </div>
             ) : null}
             {data?.profilesManaged.items.map((profile) => (

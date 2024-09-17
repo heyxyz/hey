@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 
 interface WalletDetails {
   logo: string;
@@ -13,13 +13,13 @@ interface WalletDetails {
  */
 const getWalletDetails = (name: string): WalletDetails => {
   const walletDetails: Record<string, WalletDetails> = {
-    'Coinbase Wallet': {
+    "Coinbase Wallet": {
       logo: `${STATIC_IMAGES_URL}/wallets/coinbase.svg`,
-      name: 'Coinbase Wallet'
+      name: "Coinbase Wallet"
     },
     WalletConnect: {
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`,
-      name: 'WalletConnect'
+      name: "WalletConnect"
     }
   };
   const defaultDetails: WalletDetails = {

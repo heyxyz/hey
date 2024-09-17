@@ -2,19 +2,19 @@ import type {
   Amount,
   ApprovedAllowanceAmountResult,
   UnknownOpenActionModuleSettings
-} from '@hey/lens';
-import type { FC, ReactNode } from 'react';
+} from "@hey/lens";
+import type { FC, ReactNode } from "react";
 
-import AllowanceButton from '@components/Settings/Allowance/Button';
-import NoBalanceError from '@components/Shared/NoBalanceError';
-import getCurrentSession from '@helpers/getCurrentSession';
-import { useApprovedModuleAllowanceAmountQuery } from '@hey/lens';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { formatUnits } from 'viem';
-import { useAccount, useBalance } from 'wagmi';
+import AllowanceButton from "@components/Settings/Allowance/Button";
+import NoBalanceError from "@components/Shared/NoBalanceError";
+import getCurrentSession from "@helpers/getCurrentSession";
+import { useApprovedModuleAllowanceAmountQuery } from "@hey/lens";
+import { Button, Spinner, WarningMessage } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { formatUnits } from "viem";
+import { useAccount, useBalance } from "wagmi";
 
 interface ActionButtonProps {
   act: () => void;
@@ -28,7 +28,7 @@ interface ActionButtonProps {
 
 const ActionButton: FC<ActionButtonProps> = ({
   act,
-  className = '',
+  className = "",
   icon,
   isLoading = false,
   module,
@@ -39,19 +39,19 @@ const ActionButton: FC<ActionButtonProps> = ({
   const { id: sessionProfileId } = getCurrentSession();
   const { address } = useAccount();
 
-  const amount = Number(moduleAmount?.value || '0');
+  const amount = Number(moduleAmount?.value || "0");
   const assetAddress = moduleAmount?.asset?.contract.address;
   const assetDecimals = moduleAmount?.asset?.decimals || 18;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: 'no-cache',
+      fetchPolicy: "no-cache",
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         if (!amount) {
           return;
         }
 
-        const allowedAmount = parseFloat(
+        const allowedAmount = Number.parseFloat(
           approvedModuleAllowanceAmount[0]?.allowance.value
         );
         setAllowed(allowedAmount > amount);
@@ -74,7 +74,7 @@ const ActionButton: FC<ActionButtonProps> = ({
   let hasAmount = false;
   if (
     balanceData &&
-    parseFloat(formatUnits(balanceData.value, assetDecimals)) < amount
+    Number.parseFloat(formatUnits(balanceData.value, assetDecimals)) < amount
   ) {
     hasAmount = false;
   } else {
@@ -84,9 +84,9 @@ const ActionButton: FC<ActionButtonProps> = ({
   if (!sessionProfileId) {
     return (
       <Button
-        className={cn('mt-5', className)}
+        className={cn("mt-5", className)}
         icon={icon ? isLoading ? <Spinner size="xs" /> : icon : null}
-        onClick={() => toast.error('Login to perform this action')}
+        onClick={() => toast.error("Login to perform this action")}
       >
         {title}
       </Button>
@@ -96,7 +96,7 @@ const ActionButton: FC<ActionButtonProps> = ({
   if (allowanceLoading) {
     return (
       <div
-        className={cn('shimmer mt-5 h-[34px] w-28 rounded-full', className)}
+        className={cn("shimmer mt-5 h-[34px] w-28 rounded-full", className)}
       />
     );
   }
@@ -105,7 +105,7 @@ const ActionButton: FC<ActionButtonProps> = ({
     return (
       <AllowanceButton
         allowed={allowed}
-        className={cn('mt-5', className)}
+        className={cn("mt-5", className)}
         module={
           allowanceData
             ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
@@ -127,7 +127,7 @@ const ActionButton: FC<ActionButtonProps> = ({
 
   return (
     <Button
-      className={cn('mt-5', className)}
+      className={cn("mt-5", className)}
       disabled={isLoading || !amount}
       icon={icon ? isLoading ? <Spinner size="xs" /> : icon : null}
       onClick={act}

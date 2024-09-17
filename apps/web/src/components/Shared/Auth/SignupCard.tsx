@@ -1,20 +1,20 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { AUTH } from '@hey/data/tracking';
-import { Button, Card } from '@hey/ui';
-import { useGlobalModalStateStore } from 'src/store/non-persisted/useGlobalModalStateStore';
+import { Leafwatch } from "@helpers/leafwatch";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { AUTH } from "@hey/data/tracking";
+import { Button, Card } from "@hey/ui";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
-import { useSignupStore } from './Signup';
+import { useSignupStore } from "./Signup";
 
 const SignupCard: FC = () => {
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { setScreen } = useSignupStore();
 
   const handleSignupClick = () => {
-    setScreen('choose');
-    setShowAuthModal(true, 'signup');
+    setScreen("choose");
+    setShowAuthModal(true, "signup");
     Leafwatch.track(AUTH.OPEN_SIGNUP);
   };
 

@@ -1,14 +1,14 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from "express";
 
-import { Errors } from '@hey/data/errors';
-import lensPg from '@hey/db/lensPg';
-import logger from '@hey/helpers/logger';
-import parseJwt from '@hey/helpers/parseJwt';
-import { Parser } from '@json2csv/plainjs';
-import catchedError from 'src/helpers/catchedError';
-import { CACHE_AGE_30_MINS } from 'src/helpers/constants';
-import { rateLimiter } from 'src/helpers/middlewares/rateLimiter';
-import { noBody } from 'src/helpers/responses';
+import { Errors } from "@hey/data/errors";
+import lensPg from "@hey/db/lensPg";
+import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
+import { Parser } from "@json2csv/plainjs";
+import catchedError from "src/helpers/catchedError";
+import { CACHE_AGE_30_MINS } from "src/helpers/constants";
+import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import { noBody } from "src/helpers/responses";
 
 export const get = [
   rateLimiter({ requests: 10, within: 1 }),
@@ -21,9 +21,9 @@ export const get = [
     }
 
     try {
-      const identityToken = req.headers['x-identity-token'] as string;
+      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const targetProfileId = (id as string).split('-')[0];
+      const targetProfileId = (id as string).split("-")[0];
 
       if (payload.id !== targetProfileId) {
         return catchedError(res, new Error(Errors.Unauthorized), 401);
@@ -38,7 +38,7 @@ export const get = [
         [id]
       );
 
-      const fields = ['address'];
+      const fields = ["address"];
       const parser = new Parser({ fields });
       const csv = parser.parse(response);
 
@@ -46,12 +46,12 @@ export const get = [
 
       return res
         .status(200)
-        .setHeader('Content-Type', 'text/csv')
+        .setHeader("Content-Type", "text/csv")
         .setHeader(
-          'Content-Disposition',
+          "Content-Disposition",
           `attachment; filename="collect_addresses_${id}.csv"`
         )
-        .setHeader('Cache-Control', CACHE_AGE_30_MINS)
+        .setHeader("Cache-Control", CACHE_AGE_30_MINS)
         .send(csv);
     } catch (error) {
       catchedError(res, error);

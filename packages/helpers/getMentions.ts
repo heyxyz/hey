@@ -1,6 +1,6 @@
-import type { ProfileMentioned } from '@hey/lens';
+import type { ProfileMentioned } from "@hey/lens";
 
-import { Regex } from '@hey/data/regex';
+import { Regex } from "@hey/data/regex";
 
 const getMentions = (text: string): [] | ProfileMentioned[] => {
   if (!text) {
@@ -9,8 +9,8 @@ const getMentions = (text: string): [] | ProfileMentioned[] => {
 
   const mentions = text.match(Regex.mention);
   const processedMentions = mentions?.map((mention) => {
-    const splited = mention.split('/');
-    const handle = mention.replace('@', '');
+    const splited = mention.split("/");
+    const handle = mention.replace("@", "");
     const handleWithoutNameSpace = splited[splited.length - 1];
 
     return {

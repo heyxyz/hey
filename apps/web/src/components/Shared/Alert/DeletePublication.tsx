@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import errorToast from '@helpers/errorToast';
-import { Leafwatch } from '@helpers/leafwatch';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import { useHidePublicationMutation } from '@hey/lens';
-import { Alert } from '@hey/ui';
-import { toast } from 'react-hot-toast';
-import { useGlobalAlertStateStore } from 'src/store/non-persisted/useGlobalAlertStateStore';
-import { useProfileStatus } from 'src/store/non-persisted/useProfileStatus';
+import errorToast from "@helpers/errorToast";
+import { Leafwatch } from "@helpers/leafwatch";
+import { Errors } from "@hey/data/errors";
+import { PUBLICATION } from "@hey/data/tracking";
+import { useHidePublicationMutation } from "@hey/lens";
+import { Alert } from "@hey/ui";
+import { toast } from "react-hot-toast";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 
 const DeletePublication: FC = () => {
   const {
@@ -22,7 +22,7 @@ const DeletePublication: FC = () => {
     onCompleted: () => {
       setShowPublicationDeleteAlert(false, null);
       Leafwatch.track(PUBLICATION.DELETE);
-      toast.success('Publication deleted successfully');
+      toast.success("Publication deleted successfully");
     },
     update: (cache) => {
       cache.evict({

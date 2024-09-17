@@ -1,10 +1,10 @@
-import type { Address, PublicClient } from 'viem';
+import type { Address, PublicClient } from "viem";
 
-import prisma from '@hey/db/prisma/db/client';
-import logger from '@hey/helpers/logger';
-import getRpc from 'src/helpers/getRpc';
-import { createPublicClient, formatEther } from 'viem';
-import { polygon } from 'viem/chains';
+import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
+import getRpc from "src/helpers/getRpc";
+import { createPublicClient, formatEther } from "viem";
+import { polygon } from "viem/chains";
 
 const MAX_RETRIES = 10;
 const RETRY_DELAY_MS = 3000;
@@ -34,7 +34,7 @@ const fetchTransactionWithRetry = async (
 
 const updateProStatus = async (hash: Address) => {
   if (!hash) {
-    throw new Error('updateProStatus: No transaction hash provided');
+    throw new Error("updateProStatus: No transaction hash provided");
   }
 
   logger.info(`updateProStatus: Fetching transaction receipt for ${hash}`);
@@ -48,12 +48,12 @@ const updateProStatus = async (hash: Address) => {
     const transaction = await fetchTransactionWithRetry(client, hash);
     const id = transaction.input;
     const dailyRate = 0.333;
-    const value = parseFloat(formatEther(transaction.value));
+    const value = Number.parseFloat(formatEther(transaction.value));
     const numberOfDays = Math.round(value / dailyRate);
     const newExpiry = new Date(Date.now() + numberOfDays * 24 * 60 * 60 * 1000);
 
     if (!id) {
-      throw new Error('updateProStatus: No profile ID found');
+      throw new Error("updateProStatus: No profile ID found");
     }
 
     const existingPro = await prisma.pro.findUnique({ where: { id } });

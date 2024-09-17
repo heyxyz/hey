@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from "vitest";
 
-import formatTokenBalances from './formatTokenBalances';
+import formatTokenBalances from "./formatTokenBalances";
 
-describe('formatTokenBalances', () => {
-  it('should correctly format balances and calculate USD values', () => {
+describe("formatTokenBalances", () => {
+  it("should correctly format balances and calculate USD values", () => {
     const balances = {
       USDC: {
         decimals: 6,
@@ -26,21 +26,21 @@ describe('formatTokenBalances', () => {
     };
 
     const expected = {
-      USDC: { token: '1.00', usd: '1.00' },
-      WETH: { token: '0.5000', usd: '1500.00' },
-      WMATIC: { token: '2.00', usd: '3.00' }
+      USDC: { token: "1.00", usd: "1.00" },
+      WETH: { token: "0.5000", usd: "1500.00" },
+      WMATIC: { token: "2.00", usd: "3.00" }
     };
 
     expect(formatTokenBalances(balances)).toEqual(expected);
   });
 
-  it('should handle zero balances correctly', () => {
+  it("should handle zero balances correctly", () => {
     const balances = {
       USDC: { decimals: 6, fiatRate: 1, value: BigInt(0), visibleDecimals: 4 }
     };
 
     const expected = {
-      USDC: { token: '0.0000', usd: '0.00' }
+      USDC: { token: "0.0000", usd: "0.00" }
     };
 
     expect(formatTokenBalances(balances)).toEqual(expected);

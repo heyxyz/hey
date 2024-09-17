@@ -1,11 +1,11 @@
-import type { MarkupLinkProps } from '@hey/types/misc';
-import type { FC } from 'react';
+import type { MarkupLinkProps } from "@hey/types/misc";
+import type { FC } from "react";
 
-import { Leafwatch } from '@helpers/leafwatch';
-import { PUBLICATION } from '@hey/data/tracking';
-import stopEventPropagation from '@hey/helpers/stopEventPropagation';
-import Link from 'next/link';
-import urlcat from 'urlcat';
+import { Leafwatch } from "@helpers/leafwatch";
+import { PUBLICATION } from "@hey/data/tracking";
+import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import Link from "next/link";
+import urlcat from "urlcat";
 
 const Cashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {
@@ -17,10 +17,10 @@ const Cashtag: FC<MarkupLinkProps> = ({ title }) => {
   return (
     <Link
       className="outline-none focus:underline"
-      href={urlcat('/search', {
+      href={urlcat("/search", {
         q: title,
-        src: 'link_click',
-        type: 'pubs'
+        src: "link_click",
+        type: "pubs"
       })}
       onClick={(event) => {
         stopEventPropagation(event);

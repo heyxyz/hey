@@ -1,13 +1,13 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from "express";
 
-import { APP_NAME } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { FeatureFlag } from '@hey/data/feature-flags';
-import parseJwt from '@hey/helpers/parseJwt';
-import axios from 'axios';
+import { APP_NAME } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import { FeatureFlag } from "@hey/data/feature-flags";
+import parseJwt from "@hey/helpers/parseJwt";
+import axios from "axios";
 
-import catchedError from '../catchedError';
-import { FLAGS_API_URL, HEY_USER_AGENT } from '../constants';
+import catchedError from "../catchedError";
+import { FLAGS_API_URL, HEY_USER_AGENT } from "../constants";
 
 /**
  * Middleware to validate if the profile is staff
@@ -20,7 +20,7 @@ const validateHasCreatorToolsAccess = async (
   res: Response,
   next: NextFunction
 ) => {
-  const identityToken = req.headers['x-identity-token'] as string;
+  const identityToken = req.headers["x-identity-token"] as string;
   if (!identityToken) {
     return catchedError(res, new Error(Errors.Unauthorized), 401);
   }
@@ -31,11 +31,11 @@ const validateHasCreatorToolsAccess = async (
     const { data } = await axios.get(FLAGS_API_URL, {
       headers: {
         Authorization: APP_NAME,
-        'User-Agent': HEY_USER_AGENT
+        "User-Agent": HEY_USER_AGENT
       },
       params: {
-        appName: 'production',
-        environment: 'default',
+        appName: "production",
+        environment: "default",
         userId: payload.id
       }
     });

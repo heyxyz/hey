@@ -1,12 +1,12 @@
-import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
-import logger from '@hey/helpers/logger';
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import logger from "@hey/helpers/logger";
 
 const sesClient = new SESClient({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
   },
-  region: 'us-west-2'
+  region: "us-west-2"
 });
 
 const sendEmail = async ({
@@ -22,10 +22,10 @@ const sendEmail = async ({
     const command = new SendEmailCommand({
       Destination: { ToAddresses: [recipient] },
       Message: {
-        Body: { Html: { Charset: 'UTF-8', Data: body } },
-        Subject: { Charset: 'UTF-8', Data: subject }
+        Body: { Html: { Charset: "UTF-8", Data: body } },
+        Subject: { Charset: "UTF-8", Data: subject }
       },
-      Source: 'no-reply@hey.xyz'
+      Source: "no-reply@hey.xyz"
     });
     const response = await sesClient.send(command);
 

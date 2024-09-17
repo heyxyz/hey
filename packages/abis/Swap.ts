@@ -1,60 +1,60 @@
 export const Swap = [
   {
     components: [
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'srcToken', type: 'address' },
-      { internalType: 'uint256', name: 'amountIn', type: 'uint256' },
-      { internalType: 'uint256', name: 'erc20ForFee', type: 'uint256' },
-      { internalType: 'uint256', name: 'erc20Needed', type: 'uint256' },
-      { internalType: 'uint256', name: 'nativeNeeded', type: 'uint256' },
-      { internalType: 'uint256', name: 'deadline', type: 'uint256' },
-      { internalType: 'uint256', name: 'nonce', type: 'uint256' },
-      { internalType: 'bytes', name: 'signature', type: 'bytes' },
-      { internalType: 'bytes', name: 'swapPath', type: 'bytes' }
+      { internalType: "address", name: "from", type: "address" },
+      { internalType: "address", name: "srcToken", type: "address" },
+      { internalType: "uint256", name: "amountIn", type: "uint256" },
+      { internalType: "uint256", name: "erc20ForFee", type: "uint256" },
+      { internalType: "uint256", name: "erc20Needed", type: "uint256" },
+      { internalType: "uint256", name: "nativeNeeded", type: "uint256" },
+      { internalType: "uint256", name: "deadline", type: "uint256" },
+      { internalType: "uint256", name: "nonce", type: "uint256" },
+      { internalType: "bytes", name: "signature", type: "bytes" },
+      { internalType: "bytes", name: "swapPath", type: "bytes" }
     ],
-    internalType: 'struct TokenWrapperInstructions',
-    name: 'wrapperInstructions',
-    type: 'tuple'
+    internalType: "struct TokenWrapperInstructions",
+    name: "wrapperInstructions",
+    type: "tuple"
   },
   {
     components: [
       {
         components: [
-          { internalType: 'uint8', name: 'swapperId', type: 'uint8' },
-          { internalType: 'bytes', name: 'swapPayload', type: 'bytes' }
+          { internalType: "uint8", name: "swapperId", type: "uint8" },
+          { internalType: "bytes", name: "swapPayload", type: "bytes" }
         ],
-        internalType: 'struct SwapInstructions',
-        name: 'swapInstructions',
-        type: 'tuple'
+        internalType: "struct SwapInstructions",
+        name: "swapInstructions",
+        type: "tuple"
       },
-      { internalType: 'address', name: 'target', type: 'address' },
-      { internalType: 'address', name: 'paymentOperator', type: 'address' },
-      { internalType: 'address', name: 'refund', type: 'address' },
-      { internalType: 'bytes', name: 'payload', type: 'bytes' }
+      { internalType: "address", name: "target", type: "address" },
+      { internalType: "address", name: "paymentOperator", type: "address" },
+      { internalType: "address", name: "refund", type: "address" },
+      { internalType: "bytes", name: "payload", type: "bytes" }
     ],
-    internalType: 'struct SwapAndExecuteInstructions',
-    name: 'instructions',
-    type: 'tuple'
+    internalType: "struct SwapAndExecuteInstructions",
+    name: "instructions",
+    type: "tuple"
   },
   {
     components: [
-      { internalType: 'bytes4', name: 'appId', type: 'bytes4' },
-      { internalType: 'bytes4', name: 'affiliateId', type: 'bytes4' },
-      { internalType: 'uint256', name: 'bridgeFee', type: 'uint256' },
+      { internalType: "bytes4", name: "appId", type: "bytes4" },
+      { internalType: "bytes4", name: "affiliateId", type: "bytes4" },
+      { internalType: "uint256", name: "bridgeFee", type: "uint256" },
       {
         components: [
-          { internalType: 'address', name: 'recipient', type: 'address' },
-          { internalType: 'address', name: 'token', type: 'address' },
-          { internalType: 'uint256', name: 'amount', type: 'uint256' }
+          { internalType: "address", name: "recipient", type: "address" },
+          { internalType: "address", name: "token", type: "address" },
+          { internalType: "uint256", name: "amount", type: "uint256" }
         ],
-        internalType: 'struct Fee[]',
-        name: 'appFees',
-        type: 'tuple[]'
+        internalType: "struct Fee[]",
+        name: "appFees",
+        type: "tuple[]"
       }
     ],
-    internalType: 'struct FeeData',
-    name: 'feeData',
-    type: 'tuple'
+    internalType: "struct FeeData",
+    name: "feeData",
+    type: "tuple"
   },
-  { internalType: 'bytes', name: 'signature', type: 'bytes' }
+  { internalType: "bytes", name: "signature", type: "bytes" }
 ] as const;

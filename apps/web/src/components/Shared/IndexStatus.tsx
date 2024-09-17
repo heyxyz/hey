@@ -1,14 +1,14 @@
-import type { FC } from 'react';
-import type { Address } from 'viem';
+import type { FC } from "react";
+import type { Address } from "viem";
 
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
-} from '@hey/lens';
-import { Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
-import { useState } from 'react';
+} from "@hey/lens";
+import { Spinner } from "@hey/ui";
+import cn from "@hey/ui/cn";
+import { useState } from "react";
 
 interface IndexStatusProps {
   message?: string;
@@ -18,7 +18,7 @@ interface IndexStatusProps {
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
-  message = 'Transaction Indexing',
+  message = "Transaction Indexing",
   reload = false,
   txHash,
   txId
@@ -84,7 +84,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
   };
 
   return (
-    <span className={cn({ hidden: hide }, 'ml-auto text-sm font-medium')}>
+    <span className={cn({ hidden: hide }, "ml-auto font-medium text-sm")}>
       {getStatusContent()}
     </span>
   );

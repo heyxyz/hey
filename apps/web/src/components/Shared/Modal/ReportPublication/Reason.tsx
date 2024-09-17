@@ -1,12 +1,12 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from "react";
 
 import {
   PublicationReportingFraudSubreason,
   PublicationReportingIllegalSubreason,
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
-} from '@hey/lens';
-import { Select } from '@hey/ui';
+} from "@hey/lens";
+import { Select } from "@hey/ui";
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;
@@ -30,28 +30,28 @@ const Reason: FC<ReasonProps> = ({
           options={[
             {
               disabled: true,
-              label: 'Select type',
-              value: 'Select type'
+              label: "Select type",
+              value: "Select type"
             },
             {
-              label: 'Illegal',
-              selected: type === 'illegalReason',
-              value: 'illegalReason'
+              label: "Illegal",
+              selected: type === "illegalReason",
+              value: "illegalReason"
             },
             {
-              label: 'Fraud',
-              selected: type === 'fraudReason',
-              value: 'fraudReason'
+              label: "Fraud",
+              selected: type === "fraudReason",
+              value: "fraudReason"
             },
             {
-              label: 'Sensitive',
-              selected: type === 'sensitiveReason',
-              value: 'sensitiveReason'
+              label: "Sensitive",
+              selected: type === "sensitiveReason",
+              value: "sensitiveReason"
             },
             {
-              label: 'Spam',
-              selected: type === 'spamReason',
-              value: 'spamReason'
+              label: "Spam",
+              selected: type === "spamReason",
+              value: "spamReason"
             }
           ]}
         />
@@ -64,34 +64,34 @@ const Reason: FC<ReasonProps> = ({
             options={[
               {
                 disabled: true,
-                label: 'Select reason',
-                value: 'Select reason'
+                label: "Select reason",
+                value: "Select reason"
               },
-              ...(type === 'illegalReason'
+              ...(type === "illegalReason"
                 ? [
                     {
-                      label: 'Animal abuse',
+                      label: "Animal abuse",
                       selected:
                         subReason ===
                         PublicationReportingIllegalSubreason.AnimalAbuse,
                       value: PublicationReportingIllegalSubreason.AnimalAbuse
                     },
                     {
-                      label: 'Direct threat',
+                      label: "Direct threat",
                       selected:
                         subReason ===
                         PublicationReportingIllegalSubreason.DirectThreat,
                       value: PublicationReportingIllegalSubreason.DirectThreat
                     },
                     {
-                      label: 'Human abuse',
+                      label: "Human abuse",
                       selected:
                         subReason ===
                         PublicationReportingIllegalSubreason.HumanAbuse,
                       value: PublicationReportingIllegalSubreason.HumanAbuse
                     },
                     {
-                      label: 'Threat individual',
+                      label: "Threat individual",
                       selected:
                         subReason ===
                         PublicationReportingIllegalSubreason.ThreatIndividual,
@@ -99,14 +99,14 @@ const Reason: FC<ReasonProps> = ({
                         PublicationReportingIllegalSubreason.ThreatIndividual
                     },
                     {
-                      label: 'Violence',
+                      label: "Violence",
                       selected:
                         subReason ===
                         PublicationReportingIllegalSubreason.Violence,
                       value: PublicationReportingIllegalSubreason.Violence
                     },
                     {
-                      label: 'Intellectual property',
+                      label: "Intellectual property",
                       selected:
                         subReason ===
                         PublicationReportingIllegalSubreason.IntEllEctualProperty,
@@ -115,16 +115,16 @@ const Reason: FC<ReasonProps> = ({
                     }
                   ]
                 : []),
-              ...(type === 'fraudReason'
+              ...(type === "fraudReason"
                 ? [
                     {
-                      label: 'Scam',
+                      label: "Scam",
                       selected:
                         subReason === PublicationReportingFraudSubreason.Scam,
                       value: PublicationReportingFraudSubreason.Scam
                     },
                     {
-                      label: 'Impersonation',
+                      label: "Impersonation",
                       selected:
                         subReason ===
                         PublicationReportingFraudSubreason.Impersonation,
@@ -132,17 +132,17 @@ const Reason: FC<ReasonProps> = ({
                     }
                   ]
                 : []),
-              ...(type === 'sensitiveReason'
+              ...(type === "sensitiveReason"
                 ? [
                     {
-                      label: 'NSFW',
+                      label: "NSFW",
                       selected:
                         subReason ===
                         PublicationReportingSensitiveSubreason.Nsfw,
                       value: PublicationReportingSensitiveSubreason.Nsfw
                     },
                     {
-                      label: 'Offensive',
+                      label: "Offensive",
                       selected:
                         subReason ===
                         PublicationReportingSensitiveSubreason.Offensive,
@@ -150,59 +150,59 @@ const Reason: FC<ReasonProps> = ({
                     }
                   ]
                 : []),
-              ...(type === 'spamReason'
+              ...(type === "spamReason"
                 ? [
                     {
-                      label: 'Fake engagement',
+                      label: "Fake engagement",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.FakeEngagement,
                       value: PublicationReportingSpamSubreason.FakeEngagement
                     },
                     {
-                      label: 'Low signal',
+                      label: "Low signal",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.LowSignal,
                       value: PublicationReportingSpamSubreason.LowSignal
                     },
                     {
-                      label: 'Algorithm manipulation',
+                      label: "Algorithm manipulation",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.ManipulationAlgo,
                       value: PublicationReportingSpamSubreason.ManipulationAlgo
                     },
                     {
-                      label: 'Misleading',
+                      label: "Misleading",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.Misleading,
                       value: PublicationReportingSpamSubreason.Misleading
                     },
                     {
-                      label: 'Misuse hashtags',
+                      label: "Misuse hashtags",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.MisuseHashtags,
                       value: PublicationReportingSpamSubreason.MisuseHashtags
                     },
                     {
-                      label: 'Repetitive',
+                      label: "Repetitive",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.Repetitive,
                       value: PublicationReportingSpamSubreason.Repetitive
                     },
                     {
-                      label: 'Something else',
+                      label: "Something else",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.SomethingElse,
                       value: PublicationReportingSpamSubreason.SomethingElse
                     },
                     {
-                      label: 'Unrelated',
+                      label: "Unrelated",
                       selected:
                         subReason ===
                         PublicationReportingSpamSubreason.Unrelated,
