@@ -36,3 +36,4 @@ include:
   - local: ".gitlab/ci/clean/housekeep.yml"
   - local: ".gitlab/ci/clean/clean-merged-branches.yml"
   - local: ".gitlab/ci/qa.yml"
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
