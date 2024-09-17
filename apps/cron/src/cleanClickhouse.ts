@@ -14,6 +14,7 @@ const cleanClickhouse = async () => {
     "ALTER TABLE events DELETE WHERE url NOT LIKE '%hey.xyz%';",
     "TRUNCATE TABLE system.processors_profile_log;",
     "TRUNCATE TABLE system.asynchronous_metric_log;",
+    "TRUNCATE TABLE system.asynchronous_metric_log_0;",
     "TRUNCATE TABLE system.query_log;",
     "TRUNCATE TABLE system.query_log_0;",
     "TRUNCATE TABLE system.metric_log;",
@@ -23,7 +24,9 @@ const cleanClickhouse = async () => {
     "TRUNCATE TABLE system.trace_log_0;",
     "TRUNCATE TABLE system.opentelemetry_span_log;",
     "TRUNCATE TABLE system.part_log;",
-    "TRUNCATE TABLE system.part_log_0;"
+    "TRUNCATE TABLE system.part_log_0;",
+    "TRUNCATE TABLE system.blob_storage_log;",
+    "TRUNCATE TABLE system.query_views_log;"
   ];
 
   try {
