@@ -2,7 +2,6 @@ include:
   - component: gitlab.com/components/secret-detection/secret-detection@main
   - component: gitlab.com/components/code-quality/code-quality@main
   - component: gitlab.com/components/container-scanning/container-scanning@main
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
 
 secret_detection:
   stage: qa
