@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 
 import { APP_NAME } from "@hey/data/constants";
 import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import catchedError from "src/helpers/catchedError";
@@ -87,6 +88,7 @@ export const post = [
         subject: `Verify your ${APP_NAME} email address`
       });
 
+      await delRedis(`preference:${payload.id}`);
       logger.info(`Email updated to ${email} for ${payload.id}`);
 
       return res.status(200).json({ success: true });
