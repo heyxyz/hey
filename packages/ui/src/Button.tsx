@@ -57,11 +57,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const nonOutlineDisabledStyles = !outline &&
       disabled && {
-        "dark:text-gray-500 dark:hover:bg-white dark:hover:border-white dark:active:bg-white dark:active:border-white dark:border-white":
+        "dark:text-gray-600 dark:hover:bg-gray-800 dark:bg-gray-800 dark:hover:border-gray-800 dark:active:bg-gray-800 dark:active:border-gray-800 dark:border-gray-800":
           variant === "primary",
         "dark:text-red-900 dark:hover:bg-red-500 dark:hover:border-red-500 dark:active:bg-red-500 dark:active:border-red-500 dark:border-red-500":
           variant === "danger",
-        "text-gray-200 hover:bg-black hover:border-black active:bg-black active:border-black border-black":
+        "text-gray-500 hover:bg-gray-200 hover:border-gray-200 active:bg-gray-200 bg-gray-200 active:border-gray-200 border-gray-200":
           variant === "primary",
         "text-red-200 hover:bg-red-500 hover:border-red-500 active:bg-red-500 active:border-red-500 border-red-500":
           variant === "danger"
