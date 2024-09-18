@@ -3,5 +3,6 @@ export enum FeatureFlag {
   Gardener = "gardener",
   LensTeam = "lens-team",
   Pro = "pro",
-  Staff = "staff"
+  Staff = "staff",
+  ExportCollects = "export-collects"
 }
