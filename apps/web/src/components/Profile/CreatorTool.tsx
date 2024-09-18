@@ -7,7 +7,10 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
 import { CREATORTOOLS } from "@hey/data/tracking";
-import { STAFF_PICK_FEATURE_ID, VERIFIED_FEATURE_ID } from "@hey/db/constants";
+import {
+  STAFF_PICK_PERMISSION_ID,
+  VERIFIED_PERMISSION_ID
+} from "@hey/db/constants";
 import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -24,8 +27,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   const [permissions, setPermissions] = useState<string[]>([]);
 
   const allowedPermissions = [
-    { id: VERIFIED_FEATURE_ID, key: Permission.Verified },
-    { id: STAFF_PICK_FEATURE_ID, key: Permission.StaffPick }
+    { id: VERIFIED_PERMISSION_ID, key: Permission.Verified },
+    { id: STAFF_PICK_PERMISSION_ID, key: Permission.StaffPick }
   ];
 
   const { data: preferences, isLoading } = useQuery({
