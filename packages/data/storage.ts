@@ -6,7 +6,8 @@ export const Localstorage = {
   ModeStore: "mode.store",
   NftOaCurrencyStore: "nftoacurrency.store",
   NotificationStore: "notification.store",
-  TimelineStore: "timeline.store"
+  TimelineStore: "timeline.store",
+  UnleashRepositoryStore: "unleash:repository:repo"
 };
 
 export const IndexDB = {
