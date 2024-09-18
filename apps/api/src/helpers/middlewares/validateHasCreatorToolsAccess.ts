@@ -1,11 +1,9 @@
-import type { NextFunction, Request, Response } from "express";
-
 import { APP_NAME } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import parseJwt from "@hey/helpers/parseJwt";
 import axios from "axios";
-
+import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
 import { FLAGS_API_URL, HEY_USER_AGENT } from "../constants";
 
