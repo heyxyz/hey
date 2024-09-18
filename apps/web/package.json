@@ -44,7 +44,7 @@
     "framer-motion": "^11.5.4",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
-    "next": "^14.2.11",
+    "next": "^14.2.12",
     "next-themes": "^0.3.0",
     "nft-openaction-kit": "^1.0.35",
     "party-js": "^2.2.0",
@@ -73,7 +73,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.7",
+    "viem": "^2.21.9",
     "wagmi": "^2.12.12",
     "zod": "^3.23.8",
     "zustand": "^4.5.5"
@@ -84,12 +84,12 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.9",
     "@types/node": "^22.5.5",
-    "@types/react": "^18.3.6",
+    "@types/react": "^18.3.7",
     "@types/react-dom": "^18.3.0",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.11",
+    "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
     "vitest": "^2.1.1"
   }
