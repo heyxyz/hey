@@ -6,6 +6,7 @@ import { ONBOARDING } from "@hey/data/tracking";
 import { Card, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
+import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface StatusProps {
@@ -26,12 +27,14 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 
 const SetProfile: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { email, loading } = usePreferencesStore();
 
   const doneSetup =
     Boolean(currentProfile?.metadata?.displayName) &&
     Boolean(currentProfile?.metadata?.bio) &&
     Boolean(currentProfile?.metadata?.picture) &&
-    Boolean(currentProfile?.interests?.length);
+    Boolean(currentProfile?.interests?.length) &&
+    Boolean(loading || email);
 
   if (doneSetup) {
     return null;
@@ -53,6 +56,14 @@ const SetProfile: FC = () => {
           finished={Boolean(currentProfile?.metadata?.picture)}
           title="Set your avatar"
         />
+        <div>
+          <Link
+            href="/settings/account"
+            onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_EMAIL)}
+          >
+            <Status finished={Boolean(email)} title="Set your email address" />
+          </Link>
+        </div>
         <div>
           <Link
             href="/settings/interests"
