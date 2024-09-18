@@ -4,7 +4,6 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from "@heroicons/react/24/solid";
-import { apps } from "@hey/data/apps";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getProfile from "@hey/helpers/getProfile";
 import hasMisused from "@hey/helpers/hasMisused";
@@ -74,13 +73,8 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
           </Link>
         </span>
       ) : null}
-      {source && apps.includes(source) ? (
-        <span className="ld-text-gray-500 flex items-center">
-          <ClubHandle tags={tags} />
-          <span className="mx-1">·</span>
-          <Source publishedOn={source} />
-        </span>
-      ) : null}
+      <ClubHandle tags={tags} />
+      <Source publishedOn={source} />
     </div>
   );
 };
