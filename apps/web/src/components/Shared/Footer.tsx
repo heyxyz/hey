@@ -34,7 +34,7 @@ const links = [
     label: "GitLab",
     onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITLAB)
   },
-  { href: "http://hey.xyz/support", label: "Support" }
+  { href: "/support", label: "Support" }
 ];
 
 const Footer: FC = () => {
