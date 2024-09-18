@@ -229,6 +229,7 @@ export const MISCELLANEOUS = {
 
 export const ONBOARDING = {
   NAVIGATE_UPDATE_PROFILE: "Navigate to update profile from onboarding",
+  NAVIGATE_UPDATE_EMAIL: "Navigate to update email from onboarding",
   NAVIGATE_UPDATE_PROFILE_INTERESTS:
     "Navigate to update profile interests from onboarding"
 };
