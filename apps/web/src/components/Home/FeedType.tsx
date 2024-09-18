@@ -17,7 +17,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const { fallbackToCuratedFeed } = useProfileStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
   const isLensTeam = useFlag(FeatureFlag.LensTeam);
-
   const enabled = isGardener || isLensTeam;
 
   const tabs = [
