@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 
-import { STAFF_PICK_FEATURE_ID } from "@hey/db/constants";
+import { STAFF_PICK_PERMISSION_ID } from "@hey/db/constants";
 import prisma from "@hey/db/prisma/db/client";
 import { generateMediumExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
@@ -33,7 +33,7 @@ export const get = [
 
       const data = await prisma.profilePermission.findMany({
         select: { profileId: true },
-        where: { enabled: true, permissionId: STAFF_PICK_FEATURE_ID }
+        where: { enabled: true, permissionId: STAFF_PICK_PERMISSION_ID }
       });
 
       await setRedis(cacheKey, data, generateMediumExpiry());
