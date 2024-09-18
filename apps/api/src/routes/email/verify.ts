@@ -1,6 +1,7 @@
 import type { Handler } from "express";
 
 import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import { noBody } from "src/helpers/responses";
 
@@ -17,6 +18,7 @@ export const get: Handler = async (req, res) => {
       where: { verificationToken: token as string }
     });
 
+    await delRedis(`preference:${result.id}`);
     logger.info(`Email verified for ${result.email}`);
 
     return res.redirect("https://hey.xyz");
