@@ -10,7 +10,7 @@ interface LightBoxProps {
 
 export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
   return (
-    <Modal onClose={onClose} show={show} size="md">
+    <Modal onClose={onClose} show={show} size="sm">
       <img
         alt={url || ""}
         className="max-h-screen cursor-pointer rounded-xl"
