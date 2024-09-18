@@ -6,6 +6,8 @@ include:
 secret_detection:
   stage: qa
   before_script: []
+  rules:
+    - when: always
 
 code_quality:
   stage: qa
