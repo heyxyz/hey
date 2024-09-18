@@ -1,7 +1,6 @@
-import type { Handler } from "express";
-
 import { CLUBS_API_URL, CLUBS_APP_TOKEN } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
+import type { Handler } from "express";
 import catchedError from "src/helpers/catchedError";
 import { HEY_USER_AGENT } from "src/helpers/constants";
 import { invalidBody, noBody } from "src/helpers/responses";
