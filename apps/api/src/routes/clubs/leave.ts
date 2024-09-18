@@ -1,7 +1,6 @@
-import type { Request, Response } from "express";
-
 import { CLUBS_API_URL, CLUBS_APP_TOKEN } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { HEY_USER_AGENT } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
