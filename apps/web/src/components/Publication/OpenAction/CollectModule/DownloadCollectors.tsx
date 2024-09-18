@@ -5,7 +5,6 @@ import { HEY_API_URL } from "@hey/data/constants";
 import { PUBLICATION } from "@hey/data/tracking";
 import type { AnyPublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { AxiosResponse } from "axios";
 import axios from "axios";
 import { type FC, useState } from "react";
@@ -19,11 +18,6 @@ interface DownloadCollectorsProps {
 const DownloadCollectors: FC<DownloadCollectorsProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
   const [disabled, setDisabled] = useState(false);
-  const enabled = useFlag("export-collects");
-
-  if (!enabled) {
-    return null;
-  }
 
   if (currentProfile?.id !== publication.by.id) {
     return null;
