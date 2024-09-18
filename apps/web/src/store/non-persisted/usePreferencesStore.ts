@@ -17,6 +17,8 @@ interface State {
   setHighSignalNotificationFilter: (
     highSignalNotificationFilter: boolean
   ) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 const store = create<State>((set) => ({
@@ -36,7 +38,9 @@ const store = create<State>((set) => ({
   setHasDismissedOrMintedMembershipNft: (hasDismissedOrMintedMembershipNft) =>
     set(() => ({ hasDismissedOrMintedMembershipNft })),
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
-    set(() => ({ highSignalNotificationFilter }))
+    set(() => ({ highSignalNotificationFilter })),
+  setLoading: (loading) => set(() => ({ loading })),
+  loading: false
 }));
 
 export const usePreferencesStore = createTrackedSelector(store);
