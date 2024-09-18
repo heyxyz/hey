@@ -19,7 +19,6 @@ const sendVisiblePublicationsToServer = async () => {
       keepalive: true,
       method: "POST"
     });
-    console.log("Sent visible publications to Leafwatch");
   } catch (error) {
     console.error("Failed to send visible publications to Leafwatch", error);
   }
