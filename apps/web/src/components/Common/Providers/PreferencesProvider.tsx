@@ -24,11 +24,13 @@ const PreferencesProvider: FC = () => {
     setEmail,
     setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
-    setHighSignalNotificationFilter
+    setHighSignalNotificationFilter,
+    setLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
 
   const getPreferencesData = async () => {
+    setLoading(true);
     const preferences = await getPreferences(getAuthApiHeaders());
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
@@ -44,6 +46,7 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
     );
+    setLoading(false);
 
     return true;
   };
