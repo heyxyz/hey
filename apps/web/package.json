@@ -76,7 +76,7 @@
     "viem": "^2.21.9",
     "wagmi": "^2.12.12",
     "zod": "^3.23.8",
-    "zustand": "^4.5.5"
+    "zustand": "5.0.0-rc.2"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
