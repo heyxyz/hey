@@ -16,7 +16,6 @@ const Support: FC<SupportProps> = ({ className = "" }) => {
         className
       )}
       href="/support"
-      target="_blank"
     >
       <HandRaisedIcon className="size-4" />
       <div>Support</div>
