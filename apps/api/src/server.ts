@@ -33,6 +33,11 @@ const startServer = async () => {
   // Route configuration
   app.use("/", await router());
 
+  // Catch all valid pages that don't match any route and send custom 404
+  app.use((_, res) => {
+    res.status(404).send("404");
+  });
+
   // Start the server
   app.listen(4784, () => {
     logger.info("Server is listening on port 4784...");
