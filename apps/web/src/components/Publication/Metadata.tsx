@@ -1,10 +1,9 @@
-import type { PublicationMetadata } from "@hey/lens";
-import type { FC } from "react";
-
 import getAssetLicense from "@helpers/getAssetLicense";
 import { ScaleIcon } from "@heroicons/react/24/outline";
 import getPublicationData from "@hey/helpers/getPublicationData";
+import type { PublicationMetadata } from "@hey/lens";
 import { Card } from "@hey/ui";
+import type { FC } from "react";
 import { memo } from "react";
 
 interface MetadataProps {

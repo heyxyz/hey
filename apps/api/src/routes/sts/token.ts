@@ -1,8 +1,7 @@
-import type { Request, Response } from "express";
-
 import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
 import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 

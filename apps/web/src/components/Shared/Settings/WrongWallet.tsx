@@ -1,7 +1,5 @@
-import type { FC } from "react";
-
 import { Card, H5 } from "@hey/ui";
-
+import type { FC } from "react";
 import WalletSelector from "../Auth/WalletSelector";
 
 const WrongWallet: FC = () => {

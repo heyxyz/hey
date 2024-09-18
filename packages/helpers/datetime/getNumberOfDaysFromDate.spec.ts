@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { describe, expect, test } from "vitest";
-
 import getNumberOfDaysFromDate from "./getNumberOfDaysFromDate";
 
 describe("getNumberOfDaysFromDate", () => {

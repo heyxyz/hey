@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import getFavicon from "./getFavicon";
 
 describe("getFavicon", () => {

@@ -1,6 +1,3 @@
-import type { AnyPublication } from "@hey/lens";
-import type { FC } from "react";
-
 import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import hasOptimisticallyMirrored from "@helpers/optimistic/hasOptimisticallyMirrored";
@@ -9,11 +6,12 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPublication } from "@hey/lens";
 import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { motion } from "framer-motion";
+import type { FC } from "react";
 import { useState } from "react";
-
 import Mirror from "./Mirror";
 import Quote from "./Quote";
 import UndoMirror from "./UndoMirror";

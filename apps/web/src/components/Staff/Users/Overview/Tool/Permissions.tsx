@@ -1,9 +1,7 @@
-import type { FC } from "react";
-
 import { FlagIcon } from "@heroicons/react/24/outline";
 import { H5 } from "@hey/ui";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
-
 import UpdatePermissions from "./UpdatePermissions";
 
 interface PermissionsProps {

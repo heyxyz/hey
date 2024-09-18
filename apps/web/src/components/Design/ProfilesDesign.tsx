@@ -1,7 +1,6 @@
-import type { Profile } from "@hey/lens";
-
 import SmallUserProfile from "@components/Shared/SmallUserProfile";
 import UserProfile from "@components/Shared/UserProfile";
+import type { Profile } from "@hey/lens";
 import { Card, CardHeader, H5 } from "@hey/ui";
 import type { FC } from "react";
 

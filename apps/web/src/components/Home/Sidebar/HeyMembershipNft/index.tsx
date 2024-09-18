@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
@@ -7,10 +5,10 @@ import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
 import { MISCELLANEOUS, PUBLICATION } from "@hey/data/tracking";
 import { Button, Card, H5, Modal } from "@hey/ui";
 import axios from "axios";
+import type { FC } from "react";
 import { memo, useState } from "react";
 import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
-
 import Mint from "./Mint";
 
 const HeyMembershipNft: FC = () => {

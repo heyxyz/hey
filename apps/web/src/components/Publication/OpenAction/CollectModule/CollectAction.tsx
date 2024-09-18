@@ -1,12 +1,3 @@
-import type {
-  ActOnOpenActionLensManagerRequest,
-  ApprovedAllowanceAmountResult,
-  MirrorablePublication,
-  OpenActionModule
-} from "@hey/lens";
-import type { OptimisticTransaction } from "@hey/types/misc";
-import type { FC, ReactNode } from "react";
-
 import { useApolloClient } from "@apollo/client";
 import AllowanceButton from "@components/Settings/Allowance/Button";
 import LoginButton from "@components/Shared/LoginButton";
@@ -24,6 +15,12 @@ import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions"
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
 import getSignature from "@hey/helpers/getSignature";
+import type {
+  ActOnOpenActionLensManagerRequest,
+  ApprovedAllowanceAmountResult,
+  MirrorablePublication,
+  OpenActionModule
+} from "@hey/lens";
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
@@ -31,8 +28,10 @@ import {
   useCreateActOnOpenActionTypedDataMutation
 } from "@hey/lens";
 import { OptmisticPublicationType } from "@hey/types/enums";
+import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

@@ -1,7 +1,5 @@
-import type { FC, ReactNode } from "react";
-
 import { useRouter } from "next/router";
-
+import type { FC, ReactNode } from "react";
 import cn from "../cn";
 
 interface TabButtonProps {

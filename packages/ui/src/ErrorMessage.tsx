@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import cn from "../cn";
 
 interface ErrorMessageProps {

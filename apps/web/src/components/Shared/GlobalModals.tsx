@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import NewPublication from "@components/Composer/NewPublication";
 import ReportPublication from "@components/Shared/Modal/ReportPublication";
 import {
@@ -8,9 +6,9 @@ import {
   ShieldCheckIcon
 } from "@heroicons/react/24/outline";
 import { Modal } from "@hey/ui";
+import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccount } from "wagmi";
-
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";

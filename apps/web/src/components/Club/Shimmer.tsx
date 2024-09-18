@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import type { FC } from "react";
 
 interface ClubPageShimmerProps {
   profileList?: boolean;

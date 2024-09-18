@@ -1,6 +1,3 @@
-import type { UnlinkHandleFromProfileRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -11,12 +8,14 @@ import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
+import type { UnlinkHandleFromProfileRequest } from "@hey/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateUnlinkHandleFromProfileTypedDataMutation,
   useUnlinkHandleFromProfileMutation
 } from "@hey/lens";
 import { Button, Spinner } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

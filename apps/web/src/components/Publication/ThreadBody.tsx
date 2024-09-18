@@ -1,9 +1,7 @@
+import PublicationWrapper from "@components/Shared/PublicationWrapper";
 import type { AnyPublication } from "@hey/lens";
 import type { FC } from "react";
-
-import PublicationWrapper from "@components/Shared/PublicationWrapper";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-
 import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
 import PublicationAvatar from "./PublicationAvatar";

@@ -1,12 +1,11 @@
-import type { Profile } from "@hey/lens";
-import type { Metadata } from "next";
-
 import { APP_NAME, HANDLE_PREFIX } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import getProfile from "@hey/helpers/getProfile";
 import logger from "@hey/helpers/logger";
+import type { Profile } from "@hey/lens";
 import { ProfileDocument } from "@hey/lens";
 import { print } from "graphql";
+import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
 interface Props {

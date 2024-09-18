@@ -1,5 +1,3 @@
-import type { NextPage } from "next";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import {
@@ -11,9 +9,9 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import { H3, H4, H5 } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
-
 import ExtendButton from "./ExtendButton";
 
 const details = {

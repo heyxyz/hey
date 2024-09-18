@@ -1,5 +1,3 @@
-import type { FC, ReactNode, SyntheticEvent } from "react";
-
 import {
   Dialog,
   DialogPanel,
@@ -8,8 +6,8 @@ import {
   TransitionChild
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import type { FC, ReactNode, SyntheticEvent } from "react";
 import { Fragment } from "react";
-
 import cn from "../cn";
 
 interface ModalProps {

@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
@@ -17,11 +15,11 @@ import {
   TextArea,
   useZodForm
 } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { object, string } from "zod";
-
 import Reason from "./Reason";
 
 const newReportPublicationSchema = object({

@@ -1,7 +1,5 @@
 import type { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
-
 import { forwardRef } from "react";
-
 import cn from "../cn";
 
 interface BadgeProps

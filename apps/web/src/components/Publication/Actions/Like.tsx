@@ -1,7 +1,4 @@
 import type { ApolloCache } from "@apollo/client";
-import type { MirrorablePublication, ReactionRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HeartIcon } from "@heroicons/react/24/outline";
@@ -9,6 +6,7 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
 import nFormatter from "@hey/helpers/nFormatter";
+import type { MirrorablePublication, ReactionRequest } from "@hey/lens";
 import {
   PublicationReactionType,
   useAddReactionMutation,
@@ -18,6 +16,7 @@ import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
+import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";

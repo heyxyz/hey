@@ -1,5 +1,3 @@
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import Footer from "@components/Shared/Footer";
 import List from "@components/Staff/Users/List";
@@ -10,9 +8,9 @@ import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Custom404 from "src/pages/404";
-
 import FeedType from "./FeedType";
 import Filter from "./Filter";
 import LatestFeed from "./LatestFeed";

@@ -1,20 +1,18 @@
-import type { CachedConversation } from "@xmtp/react-sdk";
-import type { FC } from "react";
-
 import { ArrowLeftIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { CachedConversation } from "@xmtp/react-sdk";
 import {
   useClient,
   useConsent,
   useConversations,
   useStreamAllMessages
 } from "@xmtp/react-sdk";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-
 import Conversation from "./Conversation";
 import EnableMessages from "./EnableMessages";
 import NewConversation from "./NewConversation";

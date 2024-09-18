@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import MetaDetails from "@components/Shared/MetaDetails";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
@@ -13,6 +11,7 @@ import humanize from "@hey/helpers/humanize";
 import { H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { FC } from "react";
 
 interface LeafwatchDetailsProps {
   profileId: string;

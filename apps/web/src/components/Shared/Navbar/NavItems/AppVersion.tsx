@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import { APP_VERSION } from "@hey/data/constants";
 import Link from "next/link";
+import type { FC } from "react";
 import urlcat from "urlcat";
 
 interface AppVersionProps {

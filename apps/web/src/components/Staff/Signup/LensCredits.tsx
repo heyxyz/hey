@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import { PermissionlessCreator } from "@hey/abis";
 import { HEY_LENS_SIGNUP, PERMISSIONLESS_CREATOR } from "@hey/data/constants";
 import { NumberedStat } from "@hey/ui";
+import type { FC } from "react";
 import { useReadContract } from "wagmi";
 
 const LensCredits: FC = () => {

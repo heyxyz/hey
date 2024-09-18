@@ -1,16 +1,14 @@
-import type { Emoji } from "@hey/types/misc";
-import type { ChangeEvent, FC } from "react";
-
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { STATIC_ASSETS_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Emoji } from "@hey/types/misc";
 import { ErrorMessage, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { ChangeEvent, FC } from "react";
 import { useEffect, useRef, useState } from "react";
-
 import Loader from "../Loader";
 
 interface ListProps {

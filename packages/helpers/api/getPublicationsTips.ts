@@ -1,6 +1,5 @@
-import type { PublicationTip } from "@hey/types/hey";
-
 import { HEY_API_URL } from "@hey/data/constants";
+import type { PublicationTip } from "@hey/types/hey";
 import axios from "axios";
 
 /**

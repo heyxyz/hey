@@ -1,17 +1,15 @@
-import type { MirrorablePublication } from "@hey/lens";
-import type { OG } from "@hey/types/misc";
-import type { FC } from "react";
-
 import DecentOpenActionShimmer from "@components/Shared/Shimmer/DecentOpenActionShimmer";
 import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
 import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 import getPublicationData from "@hey/helpers/getPublicationData";
 import getURLs from "@hey/helpers/getURLs";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { MirrorablePublication } from "@hey/lens";
+import type { OG } from "@hey/types/misc";
 import { Card } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
+import type { FC } from "react";
 import FeedEmbed from "./FeedEmbed";
 
 export const OPEN_ACTION_EMBED_TOOLTIP = "Open action embedded";

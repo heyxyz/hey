@@ -1,8 +1,7 @@
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
-
 import isVerified from "@helpers/isVerified";
 import getAvatar from "@hey/helpers/getAvatar";
 import getProfile from "@hey/helpers/getProfile";
+import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import { LimitType, useSearchProfilesLazyQuery } from "@hey/lens";
 import { useEffect, useState } from "react";
 

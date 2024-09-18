@@ -1,8 +1,3 @@
-import type { MirrorablePublication } from "@hey/lens";
-import type { AllowedToken } from "@hey/types/hey";
-import type { FC } from "react";
-import type { Address } from "viem";
-
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -18,9 +13,12 @@ import {
 import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
+import type { MirrorablePublication } from "@hey/lens";
+import type { AllowedToken } from "@hey/types/hey";
 import { Button, H6, HelpTooltip, Input, Select, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
+import type { FC } from "react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
@@ -31,6 +29,7 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
+import type { Address } from "viem";
 import { formatUnits } from "viem";
 import {
   useAccount,

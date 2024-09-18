@@ -1,15 +1,13 @@
-import type {
-  ExploreProfilesRequest,
-  Profile,
-  ProfileSearchRequest
-} from "@hey/lens";
-import type { FC } from "react";
-
 import Loader from "@components/Shared/Loader";
 import P2PRecommendation from "@components/Shared/Profile/P2PRecommendation";
 import UserProfile from "@components/Shared/UserProfile";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getProfile from "@hey/helpers/getProfile";
+import type {
+  ExploreProfilesRequest,
+  Profile,
+  ProfileSearchRequest
+} from "@hey/lens";
 import {
   ExploreProfilesOrderByType,
   LimitType,
@@ -21,9 +19,9 @@ import cn from "@hey/ui/cn";
 import { useDebounce } from "@uidotdev/usehooks";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-
 import ViewReports from "./ViewReports";
 
 const List: FC = () => {

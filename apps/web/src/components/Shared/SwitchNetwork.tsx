@@ -1,9 +1,8 @@
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { SYSTEM } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
+import type { FC } from "react";
 import { useSwitchChain } from "wagmi";
 
 interface SwitchNetworkProps {

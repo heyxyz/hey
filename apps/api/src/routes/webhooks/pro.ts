@@ -1,5 +1,4 @@
 import type { Request, Response } from "express";
-
 import catchedError from "src/helpers/catchedError";
 import validateSecret from "src/helpers/middlewares/validateSecret";
 import { invalidBody, noBody } from "src/helpers/responses";

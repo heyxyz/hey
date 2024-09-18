@@ -1,11 +1,9 @@
-import type { FC } from "react";
-
 import Login from "@components/Shared/Auth/Login";
 import { APP_NAME } from "@hey/data/constants";
+import type { FC } from "react";
 import { useState } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccount } from "wagmi";
-
 import AuthMessage from "./AuthMessage";
 import Signup from "./Signup";
 import { SignupMessage } from "./Signup/ChooseHandle";

@@ -1,10 +1,3 @@
-import type {
-  ApprovedAllowanceAmountResult,
-  FeeFollowModuleSettings,
-  Profile
-} from "@hey/lens";
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import AllowanceButton from "@components/Settings/Allowance/Button";
 import Loader from "@components/Shared/Loader";
 import NoBalanceError from "@components/Shared/NoBalanceError";
@@ -21,6 +14,11 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getProfile from "@hey/helpers/getProfile";
 import getSignature from "@hey/helpers/getSignature";
 import getTokenImage from "@hey/helpers/getTokenImage";
+import type {
+  ApprovedAllowanceAmountResult,
+  FeeFollowModuleSettings,
+  Profile
+} from "@hey/lens";
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -32,6 +30,7 @@ import { useApolloClient } from "@hey/lens/apollo";
 import { Button, H3, H5, Spinner, WarningMessage } from "@hey/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

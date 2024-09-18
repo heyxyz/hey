@@ -1,6 +1,5 @@
-import type { FC } from "react";
-
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import type { FC } from "react";
 
 const ConversationsShimmer: FC = () => {
   return (

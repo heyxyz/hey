@@ -1,12 +1,3 @@
-import type { Area } from "@hey/image-cropper/types";
-import type { OnchainSetProfileMetadataRequest } from "@hey/lens";
-import type {
-  MetadataAttribute,
-  ProfileOptions
-} from "@lens-protocol/metadata";
-import type { ChangeEvent, FC } from "react";
-import type { z } from "zod";
-
 import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
 import errorToast from "@helpers/errorToast";
@@ -32,6 +23,8 @@ import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
+import type { Area } from "@hey/image-cropper/types";
+import type { OnchainSetProfileMetadataRequest } from "@hey/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
@@ -49,16 +42,22 @@ import {
   TextArea,
   useZodForm
 } from "@hey/ui";
+import type {
+  MetadataAttribute,
+  ProfileOptions
+} from "@lens-protocol/metadata";
 import {
   MetadataAttributeType,
   profile as profileMetadata
 } from "@lens-protocol/metadata";
+import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
+import type { z } from "zod";
 import { object, string, union } from "zod";
 
 const editProfileSchema = object({

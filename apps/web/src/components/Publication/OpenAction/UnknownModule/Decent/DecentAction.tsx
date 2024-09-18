@@ -1,14 +1,12 @@
-import type { Amount } from "@hey/lens";
-import type { UIData } from "nft-openaction-kit";
-import type { FC } from "react";
-
 import LoginButton from "@components/Shared/LoginButton";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Amount } from "@hey/lens";
 import { Button, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { UIData } from "nft-openaction-kit";
+import type { FC } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useBalance } from "wagmi";
-
 import { openActionCTA } from ".";
 
 interface DecentActionProps {

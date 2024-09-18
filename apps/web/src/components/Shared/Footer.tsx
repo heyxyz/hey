@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
@@ -7,6 +5,7 @@ import { MISCELLANEOUS } from "@hey/data/tracking";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
+import type { FC } from "react";
 
 const currentYear = new Date().getFullYear();
 

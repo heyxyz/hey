@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import Link from "next/link";
+import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import LoginButton from "../LoginButton";
 import SignedUser from "./SignedUser";
 import SignupButton from "./SignupButton";

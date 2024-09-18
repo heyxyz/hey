@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import { useProfileQuery } from "@hey/lens";
 import { H4, Spinner } from "@hey/ui";
-
+import type { FC } from "react";
 import { useSignupStore } from ".";
 
 const Minting: FC = () => {

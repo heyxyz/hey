@@ -1,7 +1,6 @@
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import { ModFeedType } from "@hey/data/enums";
 import { TabButton } from "@hey/ui";
+import type { Dispatch, FC, SetStateAction } from "react";
 
 interface FeedTypeProps {
   feedType: ModFeedType;

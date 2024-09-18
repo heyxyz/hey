@@ -1,6 +1,3 @@
-import type { OG } from "@hey/types/misc";
-import type { FC } from "react";
-
 import DecentOpenActionPreview from "@components/Publication/OpenAction/UnknownModule/Decent/DecentOpenActionPreview";
 import getNftOpenActionKit from "@helpers/getNftOpenActionKit";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -12,9 +9,11 @@ import {
 import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 import getFavicon from "@hey/helpers/getFavicon";
 import getURLs from "@hey/helpers/getURLs";
+import type { OG } from "@hey/types/misc";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { FC } from "react";
 import { useEffect } from "react";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";

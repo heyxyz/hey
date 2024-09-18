@@ -1,15 +1,13 @@
-import type { MetadataAsset } from "@hey/types/misc";
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { ATTACHMENT } from "@hey/data/constants";
 import { PUBLICATION } from "@hey/data/tracking";
 import imageKit from "@hey/helpers/imageKit";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { MetadataAsset } from "@hey/types/misc";
 import { Image, LightBox } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { memo, useState } from "react";
-
 import Audio from "./Audio";
 import Video from "./Video";
 
