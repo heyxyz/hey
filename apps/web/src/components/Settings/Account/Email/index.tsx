@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import { APP_NAME } from "@hey/data/constants";
 import { Card, CardHeader } from "@hey/ui";
-
+import type { FC } from "react";
 import EmailForm from "./EmailForm";
 import Resend from "./Resend";
 

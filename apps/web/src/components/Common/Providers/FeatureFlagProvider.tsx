@@ -1,8 +1,7 @@
-import type { FC, ReactNode } from "react";
-
 import getCurrentSession from "@helpers/getCurrentSession";
 import { APP_NAME } from "@hey/data/constants";
 import { FlagProvider } from "@unleash/proxy-client-react";
+import type { FC, ReactNode } from "react";
 
 interface FeatureFlagProviderProps {
   children: ReactNode;

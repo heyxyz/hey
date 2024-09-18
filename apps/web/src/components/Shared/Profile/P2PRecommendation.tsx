@@ -1,7 +1,4 @@
 import type { ApolloCache } from "@apollo/client";
-import type { PeerToPeerRecommendRequest, Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import {
@@ -11,11 +8,13 @@ import {
 import { Errors } from "@hey/data/errors";
 import { GARDENER } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { PeerToPeerRecommendRequest, Profile } from "@hey/lens";
 import {
   usePeerToPeerRecommendMutation,
   usePeerToPeerUnrecommendMutation
 } from "@hey/lens";
 import { Button } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";

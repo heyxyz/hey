@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { Button, H5, WarningMessage } from "@hey/ui";
+import type { FC } from "react";
 
 const permit2Copy = (selectedCurrencySymbol: string) =>
   `Approve ${selectedCurrencySymbol} token allowance to Permit2 contract with transaction.`;

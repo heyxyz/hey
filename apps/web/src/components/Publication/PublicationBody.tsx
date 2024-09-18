@@ -1,6 +1,3 @@
-import type { AnyPublication } from "@hey/lens";
-import type { FC } from "react";
-
 import Attachments from "@components/Shared/Attachments";
 import Quote from "@components/Shared/Embed/Quote";
 import Markup from "@components/Shared/Markup";
@@ -14,12 +11,13 @@ import getPublicationData from "@hey/helpers/getPublicationData";
 import getURLs from "@hey/helpers/getURLs";
 import isPublicationMetadataTypeAllowed from "@hey/helpers/isPublicationMetadataTypeAllowed";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import type { AnyPublication } from "@hey/lens";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
+import type { FC } from "react";
 import { memo } from "react";
 import { isIOS, isMobile } from "react-device-detect";
-
 import EncryptedPublication from "./EncryptedPublication";
 import Metadata from "./Metadata";
 import NotSupportedPublication from "./NotSupportedPublication";

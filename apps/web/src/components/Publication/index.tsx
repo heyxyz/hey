@@ -1,6 +1,3 @@
-import type { AnyPublication } from "@hey/lens";
-import type { NextPage } from "next";
-
 import Feed from "@components/Comment/Feed";
 import NoneRelevantFeed from "@components/Comment/NoneRelevantFeed";
 import MetaTags from "@components/Common/MetaTags";
@@ -16,6 +13,7 @@ import { PAGEVIEW, ProfileLinkSource } from "@hey/data/tracking";
 import getProfile from "@hey/helpers/getProfile";
 import getPublicationData from "@hey/helpers/getPublicationData";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import type { AnyPublication } from "@hey/lens";
 import {
   HiddenCommentsType,
   LimitType,
@@ -24,6 +22,7 @@ import {
 } from "@hey/lens";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { createTrackedSelector } from "react-tracked";
@@ -32,7 +31,6 @@ import Custom500 from "src/pages/500";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { create } from "zustand";
-
 import Collectors from "./Collectors";
 import FullPublication from "./FullPublication";
 import Likes from "./Likes";

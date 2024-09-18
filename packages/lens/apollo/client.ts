@@ -1,7 +1,5 @@
 import type { ApolloLink } from "@apollo/client";
-
 import { ApolloClient, from, split } from "@apollo/client";
-
 import cache from "./cache";
 import httpLink from "./httpLink";
 import retryLink from "./retryLink";

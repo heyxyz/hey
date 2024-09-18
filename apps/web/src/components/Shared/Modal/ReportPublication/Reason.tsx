@@ -1,5 +1,3 @@
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import {
   PublicationReportingFraudSubreason,
   PublicationReportingIllegalSubreason,
@@ -7,6 +5,7 @@ import {
   PublicationReportingSpamSubreason
 } from "@hey/lens";
 import { Select } from "@hey/ui";
+import type { Dispatch, FC, SetStateAction } from "react";
 
 interface ReasonProps {
   setSubReason: Dispatch<SetStateAction<string>>;

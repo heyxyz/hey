@@ -1,5 +1,4 @@
 import type { ListObjectsV2CommandOutput } from "@aws-sdk/client-s3";
-
 import {
   DeleteObjectsCommand,
   ListObjectsV2Command,

@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
@@ -15,11 +13,11 @@ import {
   Spinner
 } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useWriteContract } from "wagmi";
-
 import CountdownTimer from "../CountdownTimer";
 import IndexStatus from "../IndexStatus";
 

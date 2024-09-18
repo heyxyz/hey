@@ -1,8 +1,6 @@
+import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 import type { MirrorablePublication } from "@hey/lens";
 import type { FC } from "react";
-
-import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
-
 import DecentOpenAction from "./UnknownModule/Decent";
 
 interface OpenActionOnBodyProps {

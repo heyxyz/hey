@@ -1,9 +1,8 @@
-import type { FC } from "react";
-
 import Markup from "@components/Shared/Markup";
 import getMentions from "@hey/helpers/getMentions";
 import getMisuseDetails from "@hey/helpers/getMisuseDetails";
 import { Card } from "@hey/ui";
+import type { FC } from "react";
 
 interface ScamWarningProps {
   profileId: string;

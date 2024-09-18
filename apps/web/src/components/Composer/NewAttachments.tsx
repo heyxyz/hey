@@ -1,15 +1,13 @@
-import type { NewAttachment } from "@hey/types/misc";
-import type { FC } from "react";
-
 import ChooseThumbnail from "@components/Composer/ChooseThumbnail";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { NewAttachment } from "@hey/types/misc";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
-
 import Audio from "../Shared/Audio";
 
 const getClass = (attachments: number) => {

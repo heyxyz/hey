@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC, ReactNode } from "react";
-
 import Markup from "@components/Shared/Markup";
 import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
 import Slug from "@components/Shared/Slug";
@@ -28,16 +25,17 @@ import getMisuseDetails from "@hey/helpers/getMisuseDetails";
 import getProfile from "@hey/helpers/getProfile";
 import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import hasMisused from "@hey/helpers/hasMisused";
+import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
 import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import urlcat from "urlcat";
-
 import Badges from "./Badges";
 import Pro from "./Badges/Pro";
 import Followerings from "./Followerings";

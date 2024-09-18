@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
@@ -8,6 +6,7 @@ import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { SETTINGS } from "@hey/data/tracking";
 import { Card, CardHeader, Tooltip } from "@hey/ui";
 import axios from "axios";
+import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";

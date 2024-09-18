@@ -1,10 +1,8 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
+import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Follow from "./Follow";
 import SuperFollow from "./SuperFollow";
 import Unfollow from "./Unfollow";

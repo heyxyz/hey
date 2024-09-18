@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { HeyLensSignup } from "@hey/abis";
 import {
@@ -9,6 +7,7 @@ import {
 } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import { Button, Card, CardHeader, Form, Input, useZodForm } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useWriteContract } from "wagmi";

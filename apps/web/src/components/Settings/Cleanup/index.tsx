@@ -1,5 +1,3 @@
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -14,11 +12,11 @@ import {
   GridItemFour,
   GridLayout
 } from "@hey/ui";
+import type { NextPage } from "next";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-
 import SettingsSidebar from "../Sidebar";
 
 const CleanupSettings: NextPage = () => {

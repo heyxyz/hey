@@ -5,7 +5,6 @@ import {
   IPFS_GATEWAY
 } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
-
 import getAvatar from "./getAvatar";
 
 describe("getAvatar", () => {

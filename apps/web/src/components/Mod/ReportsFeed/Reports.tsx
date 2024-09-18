@@ -1,12 +1,10 @@
-import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import SinglePublication from "@components/Publication/SinglePublication";
 import Loader from "@components/Shared/Loader";
+import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
 import { LimitType, useModLatestReportsQuery } from "@hey/lens";
 import { Card, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-
 import ReportDetails from "./ReportDetails";
 
 interface ReportsProps {

@@ -1,16 +1,14 @@
-import type { NextPage } from "next";
-import type { NotificationTabType } from "src/enums";
-
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import type { NotificationTabType } from "src/enums";
 import { NotificationFeedType } from "src/enums";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import FeedType from "./FeedType";
 import List from "./List";
 import Settings from "./Settings";

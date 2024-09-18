@@ -1,6 +1,3 @@
-import type { PublicationMetadataMainFocusType } from "@hey/lens";
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import WhoToFollow from "@components/Home/Sidebar/WhoToFollow";
 import FeedFocusType from "@components/Shared/FeedFocusType";
@@ -9,10 +6,11 @@ import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
+import type { PublicationMetadataMainFocusType } from "@hey/lens";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Feed from "./Feed";
 
 const Bookmarks: NextPage = () => {

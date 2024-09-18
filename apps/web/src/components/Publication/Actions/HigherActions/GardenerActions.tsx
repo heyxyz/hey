@@ -1,14 +1,12 @@
-import type {
-  MirrorablePublication,
-  ReportPublicationRequest
-} from "@hey/lens";
-import type { FC, ReactNode } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { GARDENER } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type {
+  MirrorablePublication,
+  ReportPublicationRequest
+} from "@hey/lens";
 import {
   PublicationReportingReason,
   PublicationReportingSpamSubreason,
@@ -17,9 +15,9 @@ import {
 import { useApolloClient } from "@hey/lens/apollo";
 import { Button } from "@hey/ui";
 import { useRouter } from "next/router";
+import type { FC, ReactNode } from "react";
 import { toast } from "react-hot-toast";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-
 import SuspendButtons from "./SuspendButtons";
 
 interface GardenerActionsProps {

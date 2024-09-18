@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import { Regex } from "../../regex";
 
 const validate = (text: string) => {

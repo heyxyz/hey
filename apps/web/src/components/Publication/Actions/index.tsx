@@ -1,15 +1,13 @@
-import type { AnyPublication } from "@hey/lens";
-import type { FC } from "react";
-
 import { FeatureFlag } from "@hey/data/feature-flags";
 import getPublicationViewCountById from "@hey/helpers/getPublicationViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPublication } from "@hey/lens";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { FC } from "react";
 import { memo } from "react";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-
 import OpenAction from "../OpenAction";
 import Collect from "../OpenAction/Collect";
 import Comment from "./Comment";

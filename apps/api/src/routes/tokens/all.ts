@@ -1,8 +1,7 @@
-import type { Request, Response } from "express";
-
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";

@@ -1,5 +1,4 @@
 import imageCompression from "browser-image-compression";
-
 import { uploadFileToIPFS } from "./uploadToIPFS";
 
 /**

@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import { Spinner } from "../src/Spinner";
 
 interface PageLoadingProps {

@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import splitNumber from "./splitNumber";
 
 describe("splitNumber", () => {

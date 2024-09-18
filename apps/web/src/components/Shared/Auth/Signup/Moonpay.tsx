@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { MOONPAY_URL } from "@hey/data/constants";
 import { Button } from "@hey/ui";
+import type { FC } from "react";
 import urlcat from "urlcat";
 import { useAccount } from "wagmi";
 

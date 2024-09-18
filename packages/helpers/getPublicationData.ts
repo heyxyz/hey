@@ -1,8 +1,6 @@
+import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import type { PublicationMetadata } from "@hey/lens";
 import type { MetadataAsset } from "@hey/types/misc";
-
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
-
 import getAttachmentsData from "./getAttachmentsData";
 
 const getPublicationData = (

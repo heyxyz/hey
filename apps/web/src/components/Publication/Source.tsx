@@ -1,9 +1,8 @@
-import type { FC } from "react";
-
 import { apps } from "@hey/data/apps";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import getAppName from "@hey/helpers/getAppName";
 import { Tooltip } from "@hey/ui";
+import type { FC } from "react";
 
 interface SourceProps {
   publishedOn: string;

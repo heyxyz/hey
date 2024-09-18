@@ -1,10 +1,3 @@
-import type {
-  MirrorablePublication,
-  PublicationBookmarkRequest
-} from "@hey/lens";
-import type { ApolloCache } from "@hey/lens/apollo";
-import type { FC } from "react";
-
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -12,13 +5,19 @@ import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type {
+  MirrorablePublication,
+  PublicationBookmarkRequest
+} from "@hey/lens";
 import {
   useAddPublicationBookmarkMutation,
   useRemovePublicationBookmarkMutation
 } from "@hey/lens";
+import type { ApolloCache } from "@hey/lens/apollo";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useRouter } from "next/router";
+import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface BookmarkProps {

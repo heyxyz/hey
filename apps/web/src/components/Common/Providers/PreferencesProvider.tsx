@@ -1,14 +1,13 @@
-import type { FiatRate } from "@hey/types/lens";
-import type { FC } from "react";
-
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { HEY_API_URL, STALE_TIMES } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
 import getAllTokens from "@hey/helpers/api/getAllTokens";
 import getPreferences from "@hey/helpers/api/getPreferences";
+import type { FiatRate } from "@hey/types/lens";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { FC } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";

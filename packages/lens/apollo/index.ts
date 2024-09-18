@@ -5,7 +5,6 @@ import {
   useApolloClient,
   useQuery
 } from "@apollo/client";
-
 import apolloClient from "./client";
 
 export {

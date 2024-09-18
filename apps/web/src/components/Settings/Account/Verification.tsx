@@ -1,11 +1,10 @@
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckBadgeIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 import { SETTINGS } from "@hey/data/tracking";
 import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDate";
 import { Button, Card, H5 } from "@hey/ui";
+import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { hydrateVerifiedMembers } from "src/store/persisted/useVerifiedMembersStore";

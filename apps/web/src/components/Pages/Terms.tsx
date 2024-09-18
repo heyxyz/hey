@@ -1,9 +1,8 @@
-import type { NextPage } from "next";
-
 import Footer from "@components/Shared/Footer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { H2, H4 } from "@hey/ui";
+import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect } from "react";
 

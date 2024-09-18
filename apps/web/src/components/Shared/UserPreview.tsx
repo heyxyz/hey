@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC, ReactNode } from "react";
-
 import MutualFollowers from "@components/Profile/MutualFollowers";
 import isVerified from "@helpers/isVerified";
 import {
@@ -14,12 +11,13 @@ import getProfile from "@hey/helpers/getProfile";
 import hasMisused from "@hey/helpers/hasMisused";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
+import type { Profile } from "@hey/lens";
 import { useProfileLazyQuery } from "@hey/lens";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
+import type { FC, ReactNode } from "react";
 import { useState } from "react";
-
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
 import Slug from "./Slug";

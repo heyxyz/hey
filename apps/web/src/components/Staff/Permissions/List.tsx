@@ -1,6 +1,3 @@
-import type { Permission as TPermission } from "@hey/types/hey";
-import type { FC } from "react";
-
 import Loader from "@components/Shared/Loader";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
@@ -8,6 +5,7 @@ import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { Permission } from "@hey/data/permissions";
 import getAllPermissions from "@hey/helpers/api/getAllPermissions";
 import formatDate from "@hey/helpers/datetime/formatDate";
+import type { Permission as TPermission } from "@hey/types/hey";
 import {
   Badge,
   Button,
@@ -19,8 +17,8 @@ import {
 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
+import type { FC } from "react";
 import { useState } from "react";
-
 import Assign from "./Assign";
 
 const List: FC = () => {

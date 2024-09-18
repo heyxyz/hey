@@ -1,7 +1,6 @@
 import type { EditorExtension } from "@helpers/prosekit/extension";
-import type { Editor } from "prosekit/core";
-
 import { getMarkdownContent } from "@helpers/prosekit/markdownContent";
+import type { Editor } from "prosekit/core";
 import { useDocChange } from "prosekit/react";
 import { useCallback, useState } from "react";
 import useDebouncedCallback from "src/hooks/prosekit/useDebouncedCallback";

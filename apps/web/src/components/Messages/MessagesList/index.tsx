@@ -1,15 +1,13 @@
-import type { CachedConversation } from "@xmtp/react-sdk";
-import type { FC } from "react";
-import type { Address } from "viem";
-
 import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { CachedConversation } from "@xmtp/react-sdk";
 import { useMessages } from "@xmtp/react-sdk";
+import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import { useMessagesStore } from "src/store/non-persisted/useMessagesStore";
-
+import type { Address } from "viem";
 import Composer from "../Composer";
 import Consent from "./Consent";
 import Messages from "./Message";

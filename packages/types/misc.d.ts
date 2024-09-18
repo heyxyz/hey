@@ -1,6 +1,5 @@
 import type { Maybe } from "@hey/lens";
 import type { MetadataLicenseType } from "@lens-protocol/metadata";
-
 import type { OptmisticPublicationType } from "./enums";
 
 export interface IPFSResponse {

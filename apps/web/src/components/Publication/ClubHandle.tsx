@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import ClubPreview from "@components/Shared/ClubPreview";
 import Link from "next/link";
+import type { FC } from "react";
 
 interface ClubHandleProps {
   tags: string[];

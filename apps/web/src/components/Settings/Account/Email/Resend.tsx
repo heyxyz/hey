@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -8,6 +6,7 @@ import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
 import axios from "axios";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";

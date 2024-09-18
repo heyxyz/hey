@@ -1,8 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { CachedConversation } from "@xmtp/react-sdk";
-import type { FC } from "react";
-import type { Address } from "viem";
-
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import Slug from "@components/Shared/Slug";
 import isVerified from "@helpers/isVerified";
@@ -16,10 +11,13 @@ import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import hasMisused from "@hey/helpers/hasMisused";
+import type { Profile } from "@hey/lens";
 import { useDefaultProfileQuery } from "@hey/lens";
 import { Image } from "@hey/ui";
+import type { CachedConversation } from "@xmtp/react-sdk";
+import type { FC } from "react";
 import { useState } from "react";
-
+import type { Address } from "viem";
 import LatestMessage from "./LatestMessage";
 
 interface UserProps {
