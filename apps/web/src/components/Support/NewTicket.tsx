@@ -106,8 +106,8 @@ const NewTicket: FC = () => {
   }
 
   return (
-    <Card className="p-5 text-center">
-      <H4 className="pt-3 pb-8 font-normal">
+    <Card className="p-10 text-center">
+      <H4 className="pb-8 font-normal">
         Here you can ask any question about <b>{APP_NAME}</b>.
       </H4>
       <Form
