@@ -1,8 +1,5 @@
-import type { EditorExtension } from "@helpers/prosekit/extension";
-import type { FC } from "react";
-import type { MentionProfile } from "src/hooks/prosekit/useMentionQuery";
-
 import isVerified from "@helpers/isVerified";
+import type { EditorExtension } from "@helpers/prosekit/extension";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -17,7 +14,9 @@ import {
   AutocompleteList,
   AutocompletePopover
 } from "prosekit/react/autocomplete";
+import type { FC } from "react";
 import { useState } from "react";
+import type { MentionProfile } from "src/hooks/prosekit/useMentionQuery";
 import useMentionQuery from "src/hooks/prosekit/useMentionQuery";
 
 interface MentionItemProps {

@@ -1,14 +1,12 @@
-import type { NextPage } from "next";
-
 import NewPost from "@components/Composer/NewPost";
 import ExploreFeed from "@components/Explore/Feed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
 import Hero from "./Hero";

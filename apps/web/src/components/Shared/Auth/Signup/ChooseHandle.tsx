@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import {
@@ -21,12 +19,12 @@ import { AUTH } from "@hey/data/tracking";
 import { useHandleToAddressQuery } from "@hey/lens";
 import { Button, Form, Input, Spinner, useZodForm } from "@hey/ui";
 import Script from "next/script";
+import type { FC } from "react";
 import { useState } from "react";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { formatUnits, parseEther } from "viem";
 import { useAccount, useBalance, useWriteContract } from "wagmi";
 import { object, string } from "zod";
-
 import { useSignupStore } from ".";
 import AuthMessage from "../AuthMessage";
 import Moonpay from "./Moonpay";

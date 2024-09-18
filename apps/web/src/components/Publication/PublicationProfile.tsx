@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC, ReactNode } from "react";
-
 import Source from "@components/Publication/Source";
 import isVerified from "@helpers/isVerified";
 import {
@@ -11,9 +8,10 @@ import { apps } from "@hey/data/apps";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getProfile from "@hey/helpers/getProfile";
 import hasMisused from "@hey/helpers/hasMisused";
+import type { Profile } from "@hey/lens";
 import Link from "next/link";
+import type { FC, ReactNode } from "react";
 import { memo } from "react";
-
 import Slug from "../Shared/Slug";
 import UserPreview from "../Shared/UserPreview";
 import ClubHandle from "./ClubHandle";

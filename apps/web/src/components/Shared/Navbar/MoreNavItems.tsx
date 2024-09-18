@@ -1,10 +1,8 @@
-import type { FC } from "react";
-
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import MenuTransition from "../MenuTransition";
 import Bookmarks from "./NavItems/Bookmarks";
 import Support from "./NavItems/Support";

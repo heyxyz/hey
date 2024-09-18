@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { Tooltip } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 
 const MessagesIcon: FC = () => {
   return (

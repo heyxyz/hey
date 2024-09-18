@@ -1,6 +1,5 @@
-import type { FC, ReactNode } from "react";
-
 import { Transition } from "@headlessui/react";
+import type { FC, ReactNode } from "react";
 import { Fragment } from "react";
 
 interface MenuTransitionProps {

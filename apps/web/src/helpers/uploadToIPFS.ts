@@ -1,5 +1,3 @@
-import type { IPFSResponse } from "@hey/types/misc";
-
 import { S3 } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import {
@@ -8,6 +6,7 @@ import {
   EVER_REGION,
   HEY_API_URL
 } from "@hey/data/constants";
+import type { IPFSResponse } from "@hey/types/misc";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 

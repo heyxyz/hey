@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { APP_NAME, HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
@@ -16,6 +14,7 @@ import {
   Title,
   Tooltip
 } from "chart.js";
+import type { FC } from "react";
 import { Bar } from "react-chartjs-2";
 import colors from "tailwindcss/colors";
 

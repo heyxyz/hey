@@ -1,15 +1,14 @@
-import type { AnyPublication, FeedItem } from "@hey/lens";
-import type { FC } from "react";
-
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPublication, FeedItem } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { FC } from "react";
 import { memo } from "react";
 
 interface PublicationAvatarProps {

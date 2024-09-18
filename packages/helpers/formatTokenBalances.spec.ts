@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-
 import formatTokenBalances from "./formatTokenBalances";
 
 describe("formatTokenBalances", () => {

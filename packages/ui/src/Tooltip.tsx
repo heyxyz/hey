@@ -1,6 +1,5 @@
-import type { FC, ReactNode } from "react";
-
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import type { FC, ReactNode } from "react";
 
 interface TooltipProps {
   children: ReactNode;

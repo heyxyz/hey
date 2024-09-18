@@ -1,9 +1,8 @@
-import type { Request, Response } from "express";
-
 import clickhouseClient from "@hey/db/clickhouseClient";
 import lensPg from "@hey/db/lensPg";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis } from "@hey/db/redisClient";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 

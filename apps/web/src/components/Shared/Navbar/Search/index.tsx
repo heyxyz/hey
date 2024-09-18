@@ -1,12 +1,10 @@
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
-import type { ChangeEvent, FC, MutableRefObject } from "react";
-
 import Loader from "@components/Shared/Loader";
 import UserProfile from "@components/Shared/UserProfile";
 import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
 import getProfile from "@hey/helpers/getProfile";
+import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
   LimitType,
@@ -16,9 +14,9 @@ import { Card, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useClickAway, useDebounce } from "@uidotdev/usehooks";
 import { useRouter } from "next/router";
+import type { ChangeEvent, FC, MutableRefObject } from "react";
 import { useEffect, useState } from "react";
 import { useSearchStore } from "src/store/persisted/useSearchStore";
-
 import RecentProfiles from "./RecentProfiles";
 
 interface SearchProps {

@@ -1,14 +1,12 @@
-import type { ActedNotification as TActedNotification } from "@hey/lens";
-import type { FC } from "react";
-
 import Markup from "@components/Shared/Markup";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import getPublicationData from "@hey/helpers/getPublicationData";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import type { ActedNotification as TActedNotification } from "@hey/lens";
 import Link from "next/link";
 import plur from "plur";
+import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 import { NotificationProfileAvatar } from "../Profile";
 

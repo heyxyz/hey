@@ -1,6 +1,5 @@
 import logger from "@hey/helpers/logger";
 import cron from "node-cron";
-
 import backupEventsToS3 from "./backupEventsToS3";
 import backupImpressionsToS3 from "./backupImpressionsToS3";
 import batchProcessEvents from "./batchProcessEvents";

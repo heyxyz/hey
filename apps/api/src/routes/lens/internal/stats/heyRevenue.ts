@@ -1,11 +1,10 @@
-import type { Request, Response } from "express";
-
 import {
   HEY_LENS_SIGNUP,
   HEY_MEMBERSHIP_NFT_PUBLICATION_ID
 } from "@hey/data/constants";
 import lensPg from "@hey/db/lensPg";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";

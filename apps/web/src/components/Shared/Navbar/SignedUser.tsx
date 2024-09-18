@@ -1,15 +1,13 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
+import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
 import { NextLink } from "./MenuItems";

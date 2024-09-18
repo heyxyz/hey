@@ -1,7 +1,5 @@
-import type { ThemeConfig } from "@livepeer/react";
-
 import { BRAND_COLOR } from "@hey/data/constants";
-
+import type { ThemeConfig } from "@livepeer/react";
 import { heyFont } from "./fonts";
 
 const getLivepeerTheme: ThemeConfig = {

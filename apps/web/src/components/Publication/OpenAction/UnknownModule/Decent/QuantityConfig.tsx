@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-
+import type { FC } from "react";
 import { useNftOpenActionStore } from "./FeedEmbed";
 
 const QuantityConfig: FC = () => {

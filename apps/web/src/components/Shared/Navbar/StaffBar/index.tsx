@@ -1,5 +1,3 @@
-import type { FC, ReactNode } from "react";
-
 import { GlobeAltIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from "@hey/data/constants";
@@ -7,8 +5,8 @@ import { FeatureFlag } from "@hey/data/feature-flags";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
+import type { FC, ReactNode } from "react";
 import urlcat from "urlcat";
-
 import Performance from "./Performance";
 
 interface BadgeProps {

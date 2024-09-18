@@ -1,9 +1,7 @@
-import type { OG } from "@hey/types/misc";
-
 import getFavicon from "@hey/helpers/getFavicon";
+import type { OG } from "@hey/types/misc";
 import axios from "axios";
 import { parseHTML } from "linkedom";
-
 import { HEY_USER_AGENT } from "../constants";
 import getProxyUrl from "./getProxyUrl";
 import generateIframe from "./meta/generateIframe";

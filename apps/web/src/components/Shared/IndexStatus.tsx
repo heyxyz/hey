@@ -1,6 +1,3 @@
-import type { FC } from "react";
-import type { Address } from "viem";
-
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import {
   LensTransactionStatusType,
@@ -8,7 +5,9 @@ import {
 } from "@hey/lens";
 import { Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useState } from "react";
+import type { Address } from "viem";
 
 interface IndexStatusProps {
   message?: string;

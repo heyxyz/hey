@@ -1,11 +1,9 @@
-import type { Comment, PublicationsRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import { useHiddenCommentFeedStore } from "@components/Publication";
 import QueuedPublication from "@components/Publication/QueuedPublication";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import type { Comment, PublicationsRequest } from "@hey/lens";
 import {
   CommentRankingFilterType,
   CustomFiltersType,
@@ -15,6 +13,7 @@ import {
 } from "@hey/lens";
 import { OptmisticPublicationType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";

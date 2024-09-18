@@ -1,5 +1,3 @@
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import {
   ChartBarIcon,
@@ -10,9 +8,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
+import type { Dispatch, FC, SetStateAction } from "react";
 import { ProfileFeedType } from "src/enums";
 import { useProStore } from "src/store/non-persisted/useProStore";
-
 import MediaFilter from "./Filters/MediaFilter";
 
 interface FeedTypeProps {

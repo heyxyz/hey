@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
@@ -15,17 +12,18 @@ import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
 import getProfileDetails from "@hey/helpers/api/getProfileFlags";
 import getProfile from "@hey/helpers/getProfile";
+import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { ProfileFeedType } from "src/enums";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Details from "./Details";
 import Feed from "./Feed";
 import FeedType from "./FeedType";

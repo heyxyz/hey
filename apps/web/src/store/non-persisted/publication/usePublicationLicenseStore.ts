@@ -1,5 +1,4 @@
 import type { MetadataLicenseType } from "@lens-protocol/metadata";
-
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 

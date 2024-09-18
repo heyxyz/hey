@@ -1,10 +1,7 @@
-import type { Profile } from "@hey/lens";
-import type { OptimisticTransaction } from "@hey/types/misc";
-import type { FC } from "react";
-
 import Markup from "@components/Shared/Markup";
 import SmallUserProfile from "@components/Shared/SmallUserProfile";
 import getMentions from "@hey/helpers/getMentions";
+import type { Profile } from "@hey/lens";
 import {
   LensTransactionStatusType,
   PublicationDocument,
@@ -12,7 +9,9 @@ import {
   usePublicationLazyQuery
 } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
+import type { OptimisticTransaction } from "@hey/types/misc";
 import { Card, Tooltip } from "@hey/ui";
+import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface QueuedPublicationProps {

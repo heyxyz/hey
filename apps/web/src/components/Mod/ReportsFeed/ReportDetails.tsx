@@ -1,6 +1,3 @@
-import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import Reports from "@components/Mod/ReportsFeed/Reports";
 import SuspendButtons from "@components/Publication/Actions/HigherActions/SuspendButtons";
 import SmallUserProfile from "@components/Shared/SmallUserProfile";
@@ -11,9 +8,10 @@ import {
   HandRaisedIcon
 } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
+import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
-
 import Dispute from "./Dispute";
 
 interface ReportDetailsProps {

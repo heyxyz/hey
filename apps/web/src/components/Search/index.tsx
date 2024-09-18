@@ -1,14 +1,12 @@
-import type { NextPage } from "next";
-
 import Sidebar from "@components/Shared/Sidebar";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PencilSquareIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
-
 import Profiles from "./Profiles";
 import Publications from "./Publications";
 

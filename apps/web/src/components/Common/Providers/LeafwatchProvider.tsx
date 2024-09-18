@@ -1,6 +1,5 @@
-import type { FC } from "react";
-
 import setFingerprint from "@helpers/setFingerprint";
+import type { FC } from "react";
 import { useEffect } from "react";
 import { useLeafwatchStore } from "src/store/persisted/useLeafwatchStore";
 import { v4 as uuid } from "uuid";

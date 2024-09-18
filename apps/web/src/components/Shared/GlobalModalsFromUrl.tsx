@@ -1,12 +1,10 @@
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { AUTH } from "@hey/data/tracking";
 import { useRouter } from "next/router";
+import type { FC } from "react";
 import { useEffect } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import { useSignupStore } from "./Auth/Signup";
 
 const GlobalModalsFromUrl: FC = () => {

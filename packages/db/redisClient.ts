@@ -1,9 +1,8 @@
-import type { RedisClientType } from "redis";
-
 import hoursToSeconds from "@hey/helpers/hoursToSeconds";
 import logger from "@hey/helpers/logger";
 import randomNumber from "@hey/helpers/randomNumber";
 import dotenv from "dotenv";
+import type { RedisClientType } from "redis";
 import { createClient } from "redis";
 
 dotenv.config({ override: true });

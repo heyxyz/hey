@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
-
 import { Badge } from ".";
 
 const Performance: FC = () => {

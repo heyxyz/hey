@@ -1,10 +1,8 @@
-import type { Profile } from "@hey/lens";
-
 import { IndexDB } from "@hey/data/storage";
+import type { Profile } from "@hey/lens";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
 import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {

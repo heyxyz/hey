@@ -1,13 +1,12 @@
-import type { AnyPublication, PublicationForYouRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import QueuedPublication from "@components/Publication/QueuedPublication";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
+import type { AnyPublication, PublicationForYouRequest } from "@hey/lens";
 import { LimitType, useForYouQuery } from "@hey/lens";
 import { OptmisticPublicationType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";

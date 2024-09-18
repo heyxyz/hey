@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import getCurrentSession from "@helpers/getCurrentSession";
 import { useUserSigNoncesSubscriptionSubscription } from "@hey/lens";
+import type { FC } from "react";
 import { useEffect } from "react";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccount } from "wagmi";

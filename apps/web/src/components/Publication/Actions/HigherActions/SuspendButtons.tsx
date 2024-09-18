@@ -1,13 +1,12 @@
-import type { MirrorablePublication } from "@hey/lens";
-import type { FC } from "react";
-
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
+import type { MirrorablePublication } from "@hey/lens";
 import { Button } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import axios from "axios";
+import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface SuspendButtonsProps {

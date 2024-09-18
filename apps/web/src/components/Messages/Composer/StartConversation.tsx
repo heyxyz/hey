@@ -1,7 +1,3 @@
-import type { CachedConversation } from "@xmtp/react-sdk";
-import type { ChangeEvent, FC } from "react";
-import type { Address } from "viem";
-
 import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
 import { Leafwatch } from "@helpers/leafwatch";
 import {
@@ -14,13 +10,16 @@ import { MESSAGES } from "@hey/data/tracking";
 import { Button, EmptyState, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { CachedConversation } from "@xmtp/react-sdk";
 import {
   useCanMessage,
   useConsent,
   useStartConversation
 } from "@xmtp/react-sdk";
+import type { ChangeEvent, FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useMessagesStore } from "src/store/non-persisted/useMessagesStore";
+import type { Address } from "viem";
 import { useAccount } from "wagmi";
 
 const StartConversation: FC = () => {

@@ -1,5 +1,4 @@
 import { describe, expect, test, vi } from "vitest";
-
 import isPrideMonth from "./isPrideMonth";
 
 describe("isPrideMonth", () => {

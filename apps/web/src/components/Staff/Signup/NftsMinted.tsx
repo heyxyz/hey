@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import { HeyMembershipNft } from "@hey/abis";
 import { HEY_MEMBERSHIP_NFT } from "@hey/data/constants";
 import { NumberedStat } from "@hey/ui";
+import type { FC } from "react";
 import { useReadContract } from "wagmi";
 
 const NftsMinted: FC = () => {

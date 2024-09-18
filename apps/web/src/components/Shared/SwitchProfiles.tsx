@@ -1,10 +1,3 @@
-import type {
-  LastLoggedInProfileRequest,
-  Profile,
-  ProfilesManagedRequest
-} from "@hey/lens";
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -13,6 +6,11 @@ import { PROFILE } from "@hey/data/tracking";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
+import type {
+  LastLoggedInProfileRequest,
+  Profile,
+  ProfilesManagedRequest
+} from "@hey/lens";
 import {
   ManagedProfileVisibility,
   useAuthenticateMutation,
@@ -21,12 +19,12 @@ import {
 } from "@hey/lens";
 import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { signIn, signOut } from "src/store/persisted/useAuthStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useAccount, useSignMessage } from "wagmi";
-
 import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
