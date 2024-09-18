@@ -114,11 +114,7 @@ const Rules: NextPage = () => {
               <H4 className="mt-8 mb-5">Feedback</H4>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please{" "}
-                <Link href="/support" target="_blank">
-                  Contact us
-                </Link>
-                .
+                questions, please <Link href="/support">Contact us</Link>.
               </p>
               {/* Feedback ends */}
             </div>
