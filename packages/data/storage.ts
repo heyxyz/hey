@@ -7,7 +7,8 @@ export const Localstorage = {
   NftOaCurrencyStore: "nftoacurrency.store",
   NotificationStore: "notification.store",
   TimelineStore: "timeline.store",
-  UnleashRepositoryStore: "unleash:repository:repo"
+  UnleashRepositoryStore: "unleash:repository:repo",
+  UnleashRepositorySessionIdStore: "unleash:repository:sessionId"
 };
 
 export const IndexDB = {
