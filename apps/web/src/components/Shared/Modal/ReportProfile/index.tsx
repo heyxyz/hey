@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import UserProfile from "@components/Shared/UserProfile";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -9,6 +6,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { PROFILE } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Profile } from "@hey/lens";
 import { useReportProfileMutation } from "@hey/lens";
 import {
   Button,
@@ -20,11 +18,11 @@ import {
   TextArea,
   useZodForm
 } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { object, string } from "zod";
-
 import Reason from "./Reason";
 
 const reportReportProfileSchema = object({

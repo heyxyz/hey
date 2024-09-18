@@ -1,8 +1,6 @@
 import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import { useProfileQuery } from "@hey/lens";
-
+import type { FC } from "react";
 import SmallUserProfileShimmer from "./Shimmer/SmallUserProfileShimmer";
 import SmallUserProfile from "./SmallUserProfile";
 

@@ -1,7 +1,6 @@
-import type { Request, Response } from "express";
-
 import { rPushRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { invalidBody, noBody } from "src/helpers/responses";

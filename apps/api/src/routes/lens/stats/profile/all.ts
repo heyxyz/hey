@@ -1,7 +1,6 @@
-import type { Handler } from "express";
-
 import lensPg from "@hey/db/lensPg";
 import logger from "@hey/helpers/logger";
+import type { Handler } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { noBody } from "src/helpers/responses";

@@ -1,7 +1,5 @@
-import type { FC } from "react";
-
 import { CardHeader } from "@hey/ui";
-
+import type { FC } from "react";
 import type { StatsType } from "./LeafwatchStats";
 
 interface ReferrersProps {

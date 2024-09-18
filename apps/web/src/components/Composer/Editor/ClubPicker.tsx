@@ -1,7 +1,4 @@
 import type { EditorExtension } from "@helpers/prosekit/extension";
-import type { FC } from "react";
-import type { ClubProfile } from "src/hooks/prosekit/useClubQuery";
-
 import { EditorRegex } from "@hey/data/regex";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -11,7 +8,9 @@ import {
   AutocompleteList,
   AutocompletePopover
 } from "prosekit/react/autocomplete";
+import type { FC } from "react";
 import { useState } from "react";
+import type { ClubProfile } from "src/hooks/prosekit/useClubQuery";
 import useClubQuery from "src/hooks/prosekit/useClubQuery";
 
 interface ClubItemProps {

@@ -1,6 +1,5 @@
-import type { Club } from "@hey/types/club";
-
 import { HEY_API_URL } from "@hey/data/constants";
+import type { Club } from "@hey/types/club";
 import axios from "axios";
 
 export interface Payload {

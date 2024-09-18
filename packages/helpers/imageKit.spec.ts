@@ -4,7 +4,6 @@ import {
   PLACEHOLDER_IMAGE
 } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
-
 import imageKit from "./imageKit";
 
 describe("imageKit", () => {

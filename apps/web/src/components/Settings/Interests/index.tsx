@@ -1,5 +1,3 @@
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import Interests from "@components/Settings/Interests/Interests";
 import Beta from "@components/Shared/Badges/Beta";
@@ -15,9 +13,9 @@ import {
   GridLayout,
   H5
 } from "@hey/ui";
+import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import SettingsSidebar from "../Sidebar";
 
 const InterestsSettings: NextPage = () => {

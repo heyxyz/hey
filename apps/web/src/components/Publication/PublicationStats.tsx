@@ -1,10 +1,9 @@
-import type { PublicationStats as IPublicationStats } from "@hey/lens";
-import type { FC } from "react";
-
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
 import nFormatter from "@hey/helpers/nFormatter";
+import type { PublicationStats as IPublicationStats } from "@hey/lens";
 import Link from "next/link";
 import plur from "plur";
+import type { FC } from "react";
 import { memo, useEffect, useState } from "react";
 
 interface PublicationStatsProps {

@@ -1,11 +1,10 @@
-import type { FollowersRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
+import type { FollowersRequest } from "@hey/lens";
 import { LimitType, useFollowersLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

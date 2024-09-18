@@ -1,7 +1,6 @@
-import type { Address } from "viem";
-
 import { Localstorage } from "@hey/data/storage";
 import { createTrackedSelector } from "react-tracked";
+import type { Address } from "viem";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

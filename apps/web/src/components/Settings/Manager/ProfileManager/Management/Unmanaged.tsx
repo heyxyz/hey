@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import List from "./List";
 
 const Unmanaged: FC = () => {

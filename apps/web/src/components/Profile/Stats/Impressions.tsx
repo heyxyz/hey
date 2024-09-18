@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import Loader from "@components/Shared/Loader";
 import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
 import formatDate from "@hey/helpers/datetime/formatDate";
@@ -16,6 +14,7 @@ import {
   Tooltip
 } from "chart.js";
 import { useTheme } from "next-themes";
+import type { FC } from "react";
 import { Bar } from "react-chartjs-2";
 import colors from "tailwindcss/colors";
 

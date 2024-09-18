@@ -1,6 +1,3 @@
-import type { MirrorablePublication } from "@hey/lens";
-import type { FC } from "react";
-
 import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
@@ -8,13 +5,14 @@ import getPublicationTipById from "@hey/helpers/getPublicationTipById";
 import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { TipIcon } from "@hey/icons";
+import type { MirrorablePublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { motion } from "framer-motion";
 import party from "party-js";
+import type { FC } from "react";
 import { useRef } from "react";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
-
 import Action from "./Action";
 
 interface TipProps {

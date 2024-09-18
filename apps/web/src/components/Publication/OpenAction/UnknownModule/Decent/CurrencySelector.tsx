@@ -1,17 +1,16 @@
-import type { BalanceData } from "@hey/helpers/formatTokenBalances";
-import type { FC } from "react";
-import type { Address } from "viem";
-
 import getBalanceData from "@helpers/getBalanceData";
 import {
   STATIC_IMAGES_URL,
   SUPPORTED_DECENT_OA_TOKENS
 } from "@hey/data/constants";
+import type { BalanceData } from "@hey/helpers/formatTokenBalances";
 import formatTokenBalances from "@hey/helpers/formatTokenBalances";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { FC } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
+import type { Address } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
 interface CurrencySelectorProps {

@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import Loader from "@components/Shared/Loader";
 import StaffSidebar from "@components/Staff/Sidebar";
@@ -10,6 +7,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
+import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import {
   Card,
@@ -20,6 +18,7 @@ import {
   GridLayout
 } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";

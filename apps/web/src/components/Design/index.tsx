@@ -1,8 +1,6 @@
-import type { NextPage } from "next";
-
 import { GridLayout } from "@hey/ui";
 import { GridItemTwelve } from "@hey/ui/src/GridLayout";
-
+import type { NextPage } from "next";
 import AlertDesign from "./AlertDesign";
 import ButtonsDesign from "./ButtonsDesign";
 import ModalDesign from "./ModalDesign";

@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import Reports from "@components/Mod/ReportsFeed/Reports";
 import { FlagIcon } from "@heroicons/react/24/outline";
 import { Button, Modal } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 
 interface ViewReportsProps {

@@ -1,8 +1,7 @@
-import type { Request, Response } from "express";
-
 import { LensHub } from "@hey/abis";
 import { IPFS_GATEWAY, IS_MAINNET, LENS_HUB } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
 import getRpc from "src/helpers/getRpc";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";

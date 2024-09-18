@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import NotificationIcon from "@components/Notification/NotificationIcon";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
@@ -7,10 +5,10 @@ import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { FC } from "react";
 import { useState } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import MenuItems from "./MenuItems";
 import MessagesIcon from "./MessagesIcon";
 import ModIcon from "./ModIcon";

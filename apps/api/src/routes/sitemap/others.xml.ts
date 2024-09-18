@@ -1,6 +1,5 @@
-import type { Handler } from "express";
-
 import logger from "@hey/helpers/logger";
+import type { Handler } from "express";
 import catchedError from "src/helpers/catchedError";
 import { buildUrlsetXml } from "src/helpers/sitemap/buildSitemap";
 

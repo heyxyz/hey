@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import getAllowanceModule from "@helpers/getAllowanceModule";
 import getAllowanceOpenAction from "@helpers/getAllowanceOpenAction";
 import { POLYGONSCAN_URL } from "@hey/data/constants";
@@ -9,8 +7,8 @@ import {
 } from "@hey/lens";
 import { Card } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 import { useState } from "react";
-
 import AllowanceButton from "./Button";
 
 interface ModuleProps {

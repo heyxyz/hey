@@ -1,5 +1,4 @@
 import type { CollectModuleType } from "@hey/types/hey";
-
 import { create } from "zustand";
 
 const INITIAL_COLLECT_MODULE: CollectModuleType = {

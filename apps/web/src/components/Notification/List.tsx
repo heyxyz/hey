@@ -1,3 +1,4 @@
+import { BellIcon } from "@heroicons/react/24/outline";
 import type {
   ActedNotification as ActedNotificationType,
   CommentNotification as CommentNotificationType,
@@ -8,9 +9,6 @@ import type {
   QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
 } from "@hey/lens";
-import type { FC } from "react";
-
-import { BellIcon } from "@heroicons/react/24/outline";
 import {
   CustomFiltersType,
   NotificationType,
@@ -18,10 +16,10 @@ import {
 } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { NotificationTabType } from "src/enums";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
-
 import NotificationShimmer from "./Shimmer";
 import ActedNotification from "./Type/ActedNotification";
 import CommentNotification from "./Type/CommentNotification";

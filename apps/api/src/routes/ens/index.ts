@@ -1,6 +1,5 @@
-import type { Request, Response } from "express";
-
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { resolverAbi } from "src/helpers/ens/resolverAbi";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";

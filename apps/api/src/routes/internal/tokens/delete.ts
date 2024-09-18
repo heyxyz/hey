@@ -1,8 +1,7 @@
-import type { Request, Response } from "express";
-
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";

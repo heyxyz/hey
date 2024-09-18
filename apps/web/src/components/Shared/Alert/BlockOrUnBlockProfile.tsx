@@ -1,7 +1,3 @@
-import type { BlockRequest, UnblockRequest } from "@hey/lens";
-import type { ApolloCache } from "@hey/lens/apollo";
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
@@ -11,6 +7,7 @@ import { PROFILE } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getProfile from "@hey/helpers/getProfile";
 import getSignature from "@hey/helpers/getSignature";
+import type { BlockRequest, UnblockRequest } from "@hey/lens";
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
@@ -18,7 +15,9 @@ import {
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
 } from "@hey/lens";
+import type { ApolloCache } from "@hey/lens/apollo";
 import { Alert } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

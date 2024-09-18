@@ -1,11 +1,10 @@
-import type { Request, Response } from "express";
-import type { Address } from "viem";
-
 import { Errors } from "@hey/data/errors";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateSecret from "src/helpers/middlewares/validateSecret";
 import { invalidBody, noBody } from "src/helpers/responses";
+import type { Address } from "viem";
 import { http, createWalletClient } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { zora } from "viem/chains";

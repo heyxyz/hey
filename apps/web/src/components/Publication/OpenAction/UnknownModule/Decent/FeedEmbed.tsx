@@ -1,11 +1,3 @@
-import type {
-  MirrorablePublication,
-  UnknownOpenActionModuleSettings
-} from "@hey/lens";
-import type { OG } from "@hey/types/misc";
-import type { ActionData, PublicationInfo, UIData } from "nft-openaction-kit";
-import type { FC } from "react";
-
 import DecentOpenActionShimmer from "@components/Shared/Shimmer/DecentOpenActionShimmer";
 import getNftOpenActionKit from "@helpers/getNftOpenActionKit";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -15,16 +7,22 @@ import { PUBLICATION } from "@hey/data/tracking";
 import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type {
+  MirrorablePublication,
+  UnknownOpenActionModuleSettings
+} from "@hey/lens";
+import type { OG } from "@hey/types/misc";
 import { Button, Card, Image, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
+import type { ActionData, PublicationInfo, UIData } from "nft-openaction-kit";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { createTrackedSelector } from "react-tracked";
 import { CHAIN } from "src/constants";
 import { useNftOaCurrencyStore } from "src/store/persisted/useNftOaCurrencyStore";
 import { useAccount } from "wagmi";
 import { create } from "zustand";
-
 import { OPEN_ACTION_NO_EMBED_TOOLTIP, openActionCTA } from ".";
 import ActionInfo from "./ActionInfo";
 import DecentOpenActionModule from "./Module";

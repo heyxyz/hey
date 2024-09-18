@@ -1,6 +1,3 @@
-import type { Post } from "@hey/lens";
-import type { FC } from "react";
-
 import CollectAction from "@components/Publication/OpenAction/CollectModule/CollectAction";
 import Loader from "@components/Shared/Loader";
 import { signatureFont } from "@helpers/fonts";
@@ -9,10 +6,12 @@ import {
   HEY_MEMBERSHIP_NFT_PUBLICATION_ID
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import type { Post } from "@hey/lens";
 import { usePublicationQuery } from "@hey/lens";
 import { ErrorMessage, H3 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
+import type { FC } from "react";
 
 interface MintProps {
   onCollectSuccess: () => void;

@@ -1,11 +1,10 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import getProfile from "@hey/helpers/getProfile";
 import humanize from "@hey/helpers/humanize";
+import type { Profile } from "@hey/lens";
 import { H4 } from "@hey/ui";
 import Link from "next/link";
 import plur from "plur";
+import type { FC } from "react";
 
 interface FolloweringsProps {
   profile: Profile;

@@ -1,16 +1,14 @@
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import type { NextPage } from "next";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
 import Overview from "./Overview";

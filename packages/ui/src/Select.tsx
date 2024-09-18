@@ -8,7 +8,6 @@ import {
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Fragment, forwardRef, useState } from "react";
-
 import cn from "../cn";
 import { Input } from "./Input";
 

@@ -1,6 +1,5 @@
 import { HEY_API_URL } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
-
 import getLennyURL from "./getLennyURL";
 
 describe("getLennyURL", () => {

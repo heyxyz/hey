@@ -1,3 +1,7 @@
+import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import getCollectModuleData from "@hey/helpers/getCollectModuleData";
+import getTokenImage from "@hey/helpers/getTokenImage";
+import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type {
   AnyPublication,
   LatestActed,
@@ -5,11 +9,6 @@ import type {
   SimpleCollectOpenActionSettings
 } from "@hey/lens";
 import type { FC } from "react";
-
-import SmallUserProfile from "@components/Shared/SmallUserProfile";
-import getCollectModuleData from "@hey/helpers/getCollectModuleData";
-import getTokenImage from "@hey/helpers/getTokenImage";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];

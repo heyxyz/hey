@@ -1,17 +1,15 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import UserProfile from "@components/Shared/UserProfile";
 import { Leafwatch } from "@helpers/leafwatch";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { PROFILE, ProfileLinkSource } from "@hey/data/tracking";
+import type { Profile } from "@hey/lens";
 import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Suggested from "../Suggested";
 
 const Title: FC = () => <H5>Who to Follow</H5>;

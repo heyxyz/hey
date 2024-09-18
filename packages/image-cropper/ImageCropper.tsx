@@ -1,11 +1,7 @@
-import type { RefObject } from "react";
-
 import cn from "@hey/ui/cn";
 import normalizeWheel from "normalize-wheel";
+import type { RefObject } from "react";
 import { Component, createRef } from "react";
-
-import type { Area, MediaSize, Point, Size } from "./types";
-
 import {
   computeCroppedArea,
   getDistanceBetweenPoints,
@@ -13,6 +9,7 @@ import {
   restrictPosition,
   restrictValue
 } from "./cropUtils";
+import type { Area, MediaSize, Point, Size } from "./types";
 
 interface CropperProps {
   borderSize: number;

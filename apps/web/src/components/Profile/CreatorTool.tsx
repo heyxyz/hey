@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import ToggleWrapper from "@components/Staff/Users/Overview/Tool/ToggleWrapper";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -12,9 +9,11 @@ import {
   VERIFIED_PERMISSION_ID
 } from "@hey/db/constants";
 import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
+import type { Profile } from "@hey/lens";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 

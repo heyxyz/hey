@@ -1,6 +1,5 @@
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
-
 import getThumbnailUrl from "./getThumbnailUrl";
 
 describe("getThumbnailUrl", () => {

@@ -1,6 +1,3 @@
-import type { FrameTransaction, Frame as IFrame } from "@hey/types/misc";
-import type { FC } from "react";
-
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { BoltIcon, LinkIcon } from "@heroicons/react/24/outline";
@@ -8,15 +5,16 @@ import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { FrameTransaction, Frame as IFrame } from "@hey/types/misc";
 import { Button, Card, Input, Modal } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
+import type { FC } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { createTrackedSelector } from "react-tracked";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { create } from "zustand";
-
 import Transaction from "./Transaction";
 
 interface ShowTransactionState {

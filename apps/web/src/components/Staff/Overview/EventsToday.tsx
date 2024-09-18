@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import formatDate from "@hey/helpers/datetime/formatDate";
 import { CardHeader } from "@hey/ui";
 import {
@@ -14,9 +12,9 @@ import {
   Tooltip
 } from "chart.js";
 import { useTheme } from "next-themes";
+import type { FC } from "react";
 import { Line } from "react-chartjs-2";
 import colors from "tailwindcss/colors";
-
 import type { StatsType } from "./LeafwatchStats";
 
 ChartJS.register(

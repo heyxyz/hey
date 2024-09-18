@@ -1,6 +1,3 @@
-import type { Profile, RecipientDataOutput } from "@hey/lens";
-import type { FC } from "react";
-
 import Slug from "@components/Shared/Slug";
 import {
   APP_NAME,
@@ -11,9 +8,11 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getAvatar from "@hey/helpers/getAvatar";
 import getProfile from "@hey/helpers/getProfile";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
+import type { Profile, RecipientDataOutput } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
 import { Image } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 
 interface SplitsProps {
   recipients: RecipientDataOutput[];

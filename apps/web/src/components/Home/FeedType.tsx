@@ -1,5 +1,3 @@
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import New from "@components/Shared/Badges/New";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
@@ -7,6 +5,7 @@ import { FeatureFlag } from "@hey/data/feature-flags";
 import { HOME } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
+import type { Dispatch, FC, SetStateAction } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface FeedTypeProps {

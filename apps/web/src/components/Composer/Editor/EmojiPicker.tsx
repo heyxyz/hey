@@ -1,8 +1,6 @@
 import type { EditorExtension } from "@helpers/prosekit/extension";
-import type { Emoji } from "@hey/types/misc";
-import type { FC } from "react";
-
 import { EditorRegex } from "@hey/data/regex";
+import type { Emoji } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
 import { useEditor } from "prosekit/react";
 import {
@@ -10,6 +8,7 @@ import {
   AutocompleteList,
   AutocompletePopover
 } from "prosekit/react/autocomplete";
+import type { FC } from "react";
 import { useState } from "react";
 import useEmojiQuery from "src/hooks/prosekit/useEmojiQuery";
 

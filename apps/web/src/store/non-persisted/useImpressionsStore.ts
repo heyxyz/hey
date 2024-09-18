@@ -1,6 +1,5 @@
-import type { PublicationViewCount } from "@hey/types/hey";
-
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
+import type { PublicationViewCount } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 

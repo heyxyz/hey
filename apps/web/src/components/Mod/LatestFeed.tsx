@@ -1,24 +1,22 @@
-import type {
-  AnyPublication,
-  MirrorablePublication,
-  ModExplorePublicationRequest
-} from "@hey/lens";
-import type { FC } from "react";
-
 import HigherActions from "@components/Publication/Actions/HigherActions";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { IS_MAINNET } from "@hey/data/constants";
+import type {
+  AnyPublication,
+  MirrorablePublication,
+  ModExplorePublicationRequest
+} from "@hey/lens";
 import {
   ExplorePublicationsOrderByType,
   LimitType,
   useModExplorePublicationsQuery
 } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
 import { useEffect } from "react";
 import { Virtuoso } from "react-virtuoso";
-
 import { useModFilterStore } from "./Filter";
 
 const SKIPPED_PROFILE_IDS = IS_MAINNET ? ["0x027290", "0x24b6"] : [];

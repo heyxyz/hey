@@ -1,5 +1,4 @@
 import type { FC, ReactNode } from "react";
-
 import { H5 } from "./Typography";
 
 interface CardHeaderProps {

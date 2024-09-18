@@ -1,5 +1,3 @@
-import type { ChangeEvent, FC, MutableRefObject } from "react";
-
 import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
@@ -15,6 +13,7 @@ import {
 } from "@lens-protocol/metadata";
 import { useClickAway } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
+import type { ChangeEvent, FC, MutableRefObject } from "react";
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
 import useUploadAttachments from "src/hooks/useUploadAttachments";

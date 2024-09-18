@@ -1,6 +1,3 @@
-import type { CollectModuleType } from "@hey/types/hey";
-import type { FC } from "react";
-
 import SearchProfiles from "@components/Shared/SearchProfiles";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import {
@@ -11,7 +8,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import splitNumber from "@hey/helpers/splitNumber";
+import type { CollectModuleType } from "@hey/types/hey";
 import { Button, H6, Input } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
