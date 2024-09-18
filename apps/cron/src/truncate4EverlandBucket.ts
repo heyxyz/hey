@@ -19,7 +19,7 @@ const truncate4EverlandBucket = async () => {
       region: EVER_REGION
     });
 
-    const daysToSubtract = 15;
+    const daysToSubtract = 5;
     const currentDate = new Date();
     const dateDaysAgo = new Date(
       currentDate.setDate(currentDate.getDate() - daysToSubtract)
