@@ -20,7 +20,7 @@ const validationSchema = object({
 });
 
 export const post = [
-  rateLimiter({ requests: 200, within: 60 }),
+  rateLimiter({ requests: 3, within: 60 }),
   async (req: Request, res: Response) => {
     const { body } = req;
 
