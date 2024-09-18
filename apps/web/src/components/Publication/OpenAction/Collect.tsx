@@ -1,10 +1,12 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { FeatureFlag } from "@hey/data/feature-flags";
 import { PUBLICATION } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import type { MirrorablePublication } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useState } from "react";
 import CollectModule from "./CollectModule";
@@ -14,6 +16,7 @@ interface CollectProps {
 }
 
 const Collect: FC<CollectProps> = ({ publication }) => {
+  const enabled = useFlag(FeatureFlag.Collect);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const openActions = publication.openActionModules.filter((module) =>
     allowedOpenActionModules.includes(module.type)
@@ -22,6 +25,10 @@ const Collect: FC<CollectProps> = ({ publication }) => {
   const hasActed =
     publication.operations.hasActed.value ||
     hasOptimisticallyCollected(publication.id);
+
+  if (!enabled) {
+    return null;
+  }
 
   return (
     <>

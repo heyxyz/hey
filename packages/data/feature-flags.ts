@@ -4,5 +4,6 @@ export enum FeatureFlag {
   LensTeam = "lens-team",
   Pro = "pro",
   Staff = "staff",
+  Collect = "collect",
   ExportCollects = "export-collects"
 }
