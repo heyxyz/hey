@@ -1,10 +1,8 @@
-import type { NextFunction, Request, Response } from "express";
-
 import { Errors } from "@hey/data/errors";
 import lensPg from "@hey/db/lensPg";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import parseJwt from "@hey/helpers/parseJwt";
-
+import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
 
 /**
