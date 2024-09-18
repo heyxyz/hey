@@ -1,7 +1,5 @@
-import type { NextFunction, Request, Response } from "express";
-
 import { Errors } from "@hey/data/errors";
-
+import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
 
 /**

@@ -1,10 +1,8 @@
-import type { Address, PublicClient } from "viem";
-
 import { POLYGONSCAN_URL } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
+import type { Address, PublicClient } from "viem";
 import { createPublicClient, decodeEventLog, parseAbi } from "viem";
 import { polygon } from "viem/chains";
-
 import getRpc from "../../getRpc";
 import sendSlackMessage from "../../slack";
 

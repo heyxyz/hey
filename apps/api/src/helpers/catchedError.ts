@@ -1,6 +1,5 @@
-import type { Response } from "express";
-
 import logger from "@hey/helpers/logger";
+import type { Response } from "express";
 
 const catchedError = (res: Response, error: any, status?: number) => {
   const statusCode = status || 500;
