@@ -1,6 +1,5 @@
-import type { Address } from "viem";
-
 import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
+import type { Address } from "viem";
 
 /**
  * Returns the name of the specified open action module.

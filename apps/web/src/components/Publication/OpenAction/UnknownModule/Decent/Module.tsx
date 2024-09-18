@@ -1,14 +1,3 @@
-import type {
-  MirrorablePublication,
-  Profile,
-  UnknownOpenActionModuleSettings
-} from "@hey/lens";
-import type { AllowedToken } from "@hey/types/hey";
-import type { Nft, OptimisticTransaction } from "@hey/types/misc";
-import type { ActionData, UIData } from "nft-openaction-kit";
-import type { FC } from "react";
-import type { Address } from "viem";
-
 import {
   ArrowTopRightOnSquareIcon,
   ChevronLeftIcon,
@@ -36,12 +25,21 @@ import {
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import truncateByWords from "@hey/helpers/truncateByWords";
+import type {
+  MirrorablePublication,
+  Profile,
+  UnknownOpenActionModuleSettings
+} from "@hey/lens";
 import { useDefaultProfileQuery } from "@hey/lens";
 import { OptmisticPublicationType } from "@hey/types/enums";
+import type { AllowedToken } from "@hey/types/hey";
+import type { Nft, OptimisticTransaction } from "@hey/types/misc";
 import { H4, Image, Modal } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import type { ActionData, UIData } from "nft-openaction-kit";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CHAIN } from "src/constants";
@@ -51,9 +49,9 @@ import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore
 import { useNftOaCurrencyStore } from "src/store/persisted/useNftOaCurrencyStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import type { Address } from "viem";
 import { parseAbi } from "viem";
 import { useAccount, useWalletClient } from "wagmi";
-
 import CurrencySelector from "./CurrencySelector";
 import DecentAction from "./DecentAction";
 import { useNftOpenActionStore } from "./FeedEmbed";

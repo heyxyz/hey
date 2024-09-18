@@ -1,9 +1,8 @@
-import type { Request, Response } from "express";
-
 import logger from "@hey/helpers/logger";
 import { Uploader } from "@irys/upload";
 import { Matic } from "@irys/upload-ethereum";
 import { signMetadata } from "@lens-protocol/metadata";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { noBody } from "src/helpers/responses";

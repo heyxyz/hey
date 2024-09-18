@@ -1,6 +1,5 @@
 import { misused } from "@hey/data/misused";
 import { describe, expect, test } from "vitest";
-
 import getMisuseDetails from "./getMisuseDetails";
 
 describe("getMisuseDetails", () => {

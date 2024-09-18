@@ -1,5 +1,4 @@
 import type { NewAttachment } from "@hey/types/misc";
-
 import { create } from "zustand";
 
 interface State {

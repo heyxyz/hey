@@ -1,5 +1,3 @@
-import type { NextPage } from "next";
-
 import MetaTags from "@components/Common/MetaTags";
 import { Leafwatch } from "@helpers/leafwatch";
 import { loadKeys } from "@helpers/xmtp/keys";
@@ -11,10 +9,10 @@ import { EmptyState, H5 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useClient } from "@xmtp/react-sdk";
+import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useMessagesStore } from "src/store/non-persisted/useMessagesStore";
 import { useAccount, useWalletClient } from "wagmi";
-
 import StartConversation from "./Composer/StartConversation";
 import Conversations from "./Conversations";
 import MessagesList from "./MessagesList";

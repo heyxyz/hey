@@ -1,5 +1,4 @@
 import type { MisuseType } from "@hey/data/misused";
-
 import { misused } from "@hey/data/misused";
 
 /**

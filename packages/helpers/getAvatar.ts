@@ -1,5 +1,4 @@
 import { AVATAR } from "@hey/data/constants";
-
 import getLennyURL from "./getLennyURL";
 import imageKit from "./imageKit";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";

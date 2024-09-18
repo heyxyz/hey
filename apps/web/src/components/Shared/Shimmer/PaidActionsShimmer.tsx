@@ -1,7 +1,5 @@
-import type { FC } from "react";
-
 import { Card } from "@hey/ui";
-
+import type { FC } from "react";
 import PublicationShimmer from "./PublicationShimmer";
 import SmallUserProfileShimmer from "./SmallUserProfileShimmer";
 import UserProfileShimmer from "./UserProfileShimmer";

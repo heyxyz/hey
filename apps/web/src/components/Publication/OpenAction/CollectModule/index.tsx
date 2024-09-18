@@ -1,11 +1,3 @@
-import type {
-  AnyPublication,
-  MultirecipientFeeCollectOpenActionSettings,
-  OpenActionModule,
-  SimpleCollectOpenActionSettings
-} from "@hey/lens";
-import type { FC } from "react";
-
 import CountdownTimer from "@components/Shared/CountdownTimer";
 import Slug from "@components/Shared/Slug";
 import {
@@ -29,12 +21,18 @@ import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import type {
+  AnyPublication,
+  MultirecipientFeeCollectOpenActionSettings,
+  OpenActionModule,
+  SimpleCollectOpenActionSettings
+} from "@hey/lens";
 import { H3, H4, HelpTooltip, Tooltip, WarningMessage } from "@hey/ui";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
+import type { FC } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-
 import CollectAction from "./CollectAction";
 import DownloadCollectors from "./DownloadCollectors";
 import Splits from "./Splits";

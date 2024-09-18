@@ -1,7 +1,6 @@
-import type { FC, ReactNode } from "react";
-
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC, ReactNode } from "react";
 import { toast } from "react-hot-toast";
 
 interface MetaDetailsProps {

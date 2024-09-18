@@ -1,6 +1,5 @@
-import type { Club } from "@hey/types/club";
-
 import getClubs from "@hey/helpers/api/clubs/getClubs";
+import type { Club } from "@hey/types/club";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

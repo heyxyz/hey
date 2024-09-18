@@ -1,14 +1,13 @@
-import type { MirrorablePublication } from "@hey/lens";
-import type { FC } from "react";
-
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 import { PUBLICATION } from "@hey/data/tracking";
 import getPublicationData from "@hey/helpers/getPublicationData";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { MirrorablePublication } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
+import type { FC } from "react";
 import urlcat from "urlcat";
 
 interface TranslateProps {

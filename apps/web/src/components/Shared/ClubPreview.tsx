@@ -1,16 +1,14 @@
-import type { Club } from "@hey/types/club";
-import type { FC, ReactNode } from "react";
-
 import getClub from "@hey/helpers/api/clubs/getClub";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
+import type { Club } from "@hey/types/club";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { useMutation } from "@tanstack/react-query";
+import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import JoinLeaveButton from "./Club/JoinLeaveButton";
 import Markup from "./Markup";
 import Slug from "./Slug";

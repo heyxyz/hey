@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import {
   ARWEAVE_GATEWAY,
   IPFS_GATEWAY,
@@ -10,6 +8,7 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import cn from "@hey/ui/cn";
 import { Player } from "@livepeer/react";
+import type { FC } from "react";
 import { memo } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

@@ -1,13 +1,11 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 import { Fragment } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Block from "./Block";
 import CopyAddress from "./CopyAddress";
 import CopyLink from "./CopyLink";

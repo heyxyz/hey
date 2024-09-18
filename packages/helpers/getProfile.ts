@@ -1,5 +1,4 @@
 import type { Profile } from "@hey/lens";
-
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getProfile = (

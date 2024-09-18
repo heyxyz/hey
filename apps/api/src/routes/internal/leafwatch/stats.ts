@@ -1,7 +1,6 @@
-import type { Request, Response } from "express";
-
 import clickhouseClient from "@hey/db/clickhouseClient";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";

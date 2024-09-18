@@ -1,10 +1,9 @@
-import type { Profile } from "@hey/lens";
-import type { FC, ReactNode } from "react";
-
 import Slug from "@components/Shared/Slug";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import getProfile from "@hey/helpers/getProfile";
+import type { Profile } from "@hey/lens";
 import { H3, Image } from "@hey/ui";
+import type { FC, ReactNode } from "react";
 
 interface MetaDetailsProps {
   children: ReactNode;

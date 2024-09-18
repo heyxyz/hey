@@ -1,10 +1,9 @@
-import type { Request, Response } from "express";
-
 import { ALL_EVENTS } from "@hey/data/tracking";
 import { rPushRedis } from "@hey/db/redisClient";
 import getIp from "@hey/helpers/getIp";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import findEventKeyDeep from "src/helpers/leafwatch/findEventKeyDeep";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";

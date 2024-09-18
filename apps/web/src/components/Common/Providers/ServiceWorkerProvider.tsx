@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import { useEffect } from "react";
 
 const ServiceWorkerProvider: FC = () => {

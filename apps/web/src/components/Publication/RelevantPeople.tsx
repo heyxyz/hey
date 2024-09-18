@@ -1,15 +1,13 @@
-import type { Profile, ProfileMentioned } from "@hey/lens";
-import type { FC } from "react";
-
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import UserProfile from "@components/Shared/UserProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
+import type { Profile, ProfileMentioned } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {

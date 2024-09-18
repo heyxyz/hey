@@ -1,5 +1,4 @@
 import type { EditorExtension } from "@helpers/prosekit/extension";
-
 import { type Editor, defineDOMEventHandler, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";

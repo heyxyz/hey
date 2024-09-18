@@ -1,5 +1,3 @@
-import type { FC, ReactNode } from "react";
-
 import {
   Dialog,
   DialogPanel,
@@ -7,8 +5,8 @@ import {
   Transition,
   TransitionChild
 } from "@headlessui/react";
+import type { FC, ReactNode } from "react";
 import { Fragment } from "react";
-
 import { Button } from "./Button";
 import { H4 } from "./Typography";
 

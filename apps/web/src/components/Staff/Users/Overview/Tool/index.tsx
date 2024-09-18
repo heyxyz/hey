@@ -1,12 +1,10 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import UserProfile from "@components/Shared/UserProfile";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { IS_MAINNET } from "@hey/data/constants";
 import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
+import type { Profile } from "@hey/lens";
 import { useQuery } from "@tanstack/react-query";
-
+import type { FC } from "react";
 import LeafwatchDetails from "./LeafwatchDetails";
 import ManagedProfiles from "./ManagedProfiles";
 import Permissions from "./Permissions";

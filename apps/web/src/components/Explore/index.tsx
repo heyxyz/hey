@@ -1,19 +1,17 @@
-import type { PublicationMetadataMainFocusType } from "@hey/lens";
-import type { NextPage } from "next";
-
 import WhoToFollow from "@components/Home/Sidebar/WhoToFollow";
 import FeedFocusType from "@components/Shared/FeedFocusType";
 import Footer from "@components/Shared/Footer";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { EXPLORE, PAGEVIEW } from "@hey/data/tracking";
+import type { PublicationMetadataMainFocusType } from "@hey/lens";
 import { ExplorePublicationsOrderByType } from "@hey/lens";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Feed from "./Feed";
 
 const Explore: NextPage = () => {

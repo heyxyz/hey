@@ -1,8 +1,7 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import UserProfile from "@components/Shared/UserProfile";
 import { ProfileLinkSource } from "@hey/data/tracking";
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

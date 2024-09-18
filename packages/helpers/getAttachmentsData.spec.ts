@@ -1,7 +1,5 @@
 import type { PublicationMetadataMedia } from "@hey/lens";
-
 import { describe, expect, test } from "vitest";
-
 import getAttachmentsData from "./getAttachmentsData";
 
 describe("getAttachmentsData", () => {

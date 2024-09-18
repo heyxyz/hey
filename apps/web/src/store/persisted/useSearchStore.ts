@@ -2,7 +2,6 @@ import { IndexDB } from "@hey/data/storage";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
 import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {

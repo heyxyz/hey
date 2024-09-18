@@ -1,14 +1,13 @@
-import type { Request, Response } from "express";
-import type { Address } from "viem";
-
 import { HEY_LENS_SIGNUP } from "@hey/data/constants";
 import lensPg from "@hey/db/lensPg";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { noBody } from "src/helpers/responses";
+import type { Address } from "viem";
 import { getAddress } from "viem";
 
 export const get = [

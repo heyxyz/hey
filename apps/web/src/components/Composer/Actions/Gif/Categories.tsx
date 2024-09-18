@@ -1,10 +1,9 @@
-import type { Category } from "@hey/types/giphy";
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import { GIPHY_KEY } from "@hey/data/constants";
+import type { Category } from "@hey/types/giphy";
 import { H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { Dispatch, FC, SetStateAction } from "react";
 
 interface CategoriesProps {
   setSearchText: Dispatch<SetStateAction<string>>;

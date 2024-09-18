@@ -1,5 +1,3 @@
-import type { MentionAttrs } from "prosekit/extensions/mention";
-
 import { HANDLE_PREFIX } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import {
@@ -18,6 +16,7 @@ import { defineHeading } from "prosekit/extensions/heading";
 import { defineItalic } from "prosekit/extensions/italic";
 import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
 import { defineMarkRule } from "prosekit/extensions/mark-rule";
+import type { MentionAttrs } from "prosekit/extensions/mention";
 import { defineMentionCommands } from "prosekit/extensions/mention";
 import { defineModClickPrevention } from "prosekit/extensions/mod-click-prevention";
 import { definePlaceholder } from "prosekit/extensions/placeholder";

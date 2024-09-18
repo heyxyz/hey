@@ -1,6 +1,5 @@
-import type { FallbackTransport } from "viem";
-
 import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from "@hey/data/rpcs";
+import type { FallbackTransport } from "viem";
 import { http, fallback } from "viem";
 
 const getRpc = ({ mainnet }: { mainnet: boolean }): FallbackTransport => {

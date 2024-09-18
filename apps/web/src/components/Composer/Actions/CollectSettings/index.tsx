@@ -1,12 +1,10 @@
-import type { FC } from "react";
-
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { Modal, Tooltip } from "@hey/ui";
 import { motion } from "framer-motion";
+import type { FC } from "react";
 import { useState } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
-
 import CollectForm from "./CollectForm";
 
 const CollectSettings: FC = () => {

@@ -1,7 +1,5 @@
-import type { FC } from "react";
-
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
-
+import type { FC } from "react";
 import { Modal } from "./Modal";
 
 interface LightBoxProps {

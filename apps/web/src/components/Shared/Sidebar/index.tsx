@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import SidebarMenu from "@components/Shared/Sidebar/SidebarMenu";
 import SidebarTabs from "@components/Shared/Sidebar/SidebarTabs";
+import type { FC } from "react";
 
 export interface SidebarProps {
   items: {

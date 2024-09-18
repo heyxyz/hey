@@ -1,5 +1,4 @@
 import { IS_MAINNET } from "@hey/data/constants";
-
 import getCurrentSession from "./getCurrentSession";
 
 /**

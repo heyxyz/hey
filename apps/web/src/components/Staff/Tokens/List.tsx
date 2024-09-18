@@ -1,6 +1,3 @@
-import type { AllowedToken } from "@hey/types/hey";
-import type { FC } from "react";
-
 import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -8,12 +5,13 @@ import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { STAFFTOOLS } from "@hey/data/tracking";
 import getAllTokens from "@hey/helpers/api/getAllTokens";
+import type { AllowedToken } from "@hey/types/hey";
 import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
 import Create from "./Create";
 
 const List: FC = () => {

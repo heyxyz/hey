@@ -1,6 +1,5 @@
 import logger from "@hey/helpers/logger";
 import dotenv from "dotenv";
-
 import truncate4EverlandBucket from "./truncate4EverlandBucket";
 
 dotenv.config({ override: true });

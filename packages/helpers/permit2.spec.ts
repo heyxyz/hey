@@ -1,10 +1,8 @@
-import type { WalletClient } from "viem";
-
 import { IS_MAINNET } from "@hey/data/constants";
 import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
+import type { WalletClient } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 import { describe, expect, it, vi } from "vitest";
-
 import {
   constructPermit2Sig,
   getPermit2Allowance,

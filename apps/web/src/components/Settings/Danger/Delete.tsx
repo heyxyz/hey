@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import UserProfile from "@components/Shared/UserProfile";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -12,6 +9,7 @@ import { LensHub } from "@hey/abis";
 import { APP_NAME, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
+import type { Profile } from "@hey/lens";
 import {
   Button,
   Card,
@@ -21,6 +19,7 @@ import {
   Spinner,
   WarningMessage
 } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

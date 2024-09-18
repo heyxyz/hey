@@ -1,9 +1,8 @@
-import type { FC } from "react";
-
 import getCurrentSession from "@helpers/getCurrentSession";
 import { STALE_TIMES } from "@hey/data/constants";
 import getPro from "@hey/helpers/api/getPro";
 import { useQuery } from "@tanstack/react-query";
+import type { FC } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
 
 const ProProvider: FC = () => {

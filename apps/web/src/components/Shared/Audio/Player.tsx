@@ -1,7 +1,6 @@
 import type { APITypes } from "plyr-react";
-import type { FC, Ref } from "react";
-
 import Plyr from "plyr-react";
+import type { FC, Ref } from "react";
 import "plyr-react/plyr.css";
 import { memo } from "react";
 

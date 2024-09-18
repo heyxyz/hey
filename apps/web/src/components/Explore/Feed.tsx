@@ -1,14 +1,11 @@
+import SinglePublication from "@components/Publication/SinglePublication";
+import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import type {
   AnyPublication,
   ExplorePublicationRequest,
   PublicationMetadataMainFocusType
 } from "@hey/lens";
-import type { FC } from "react";
-import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
-
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
-import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   CustomFiltersType,
   ExplorePublicationsOrderByType,
@@ -16,7 +13,9 @@ import {
   useExplorePublicationsQuery
 } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
 import { useRef } from "react";
+import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";

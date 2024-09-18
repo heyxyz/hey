@@ -1,6 +1,5 @@
-import type { FC } from "react";
-
 import { H4 } from "@hey/ui";
+import type { FC } from "react";
 
 interface AuthMessageProps {
   description: string;

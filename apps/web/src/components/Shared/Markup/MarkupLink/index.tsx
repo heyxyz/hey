@@ -1,5 +1,4 @@
 import type { MarkupLinkProps } from "@hey/types/misc";
-
 import Cashtag from "./Cashtag";
 import Club from "./Club";
 import ExternalLink from "./ExternalLink";

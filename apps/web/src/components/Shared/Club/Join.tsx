@@ -1,10 +1,9 @@
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Button } from "@hey/ui";
 import axios from "axios";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 

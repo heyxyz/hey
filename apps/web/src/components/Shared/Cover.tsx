@@ -1,8 +1,7 @@
-import type { FC } from "react";
-
 import { BRAND_COLOR, COVER, STATIC_IMAGES_URL } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import type { FC } from "react";
 
 interface CoverProps {
   cover: string;

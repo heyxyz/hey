@@ -1,19 +1,17 @@
-import type { AnyPublication } from "@hey/lens";
-import type { FC } from "react";
-
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import getProfileDetails from "@hey/helpers/api/getProfileFlags";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import type { AnyPublication } from "@hey/lens";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
 import { motion } from "framer-motion";
+import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-
 import { useHiddenCommentFeedStore } from ".";
 import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";

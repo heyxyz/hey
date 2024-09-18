@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import parseJwt from "./parseJwt";
 
 describe("parseJwt", () => {

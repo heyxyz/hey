@@ -1,9 +1,7 @@
-import type { FC } from "react";
-
 import { CircleStackIcon } from "@heroicons/react/24/outline";
 import { EmptyState } from "@hey/ui";
+import type { FC } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-
 import Transaction from "./Transaction";
 
 const OptimisticTransactions: FC = () => {

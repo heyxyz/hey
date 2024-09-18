@@ -1,6 +1,5 @@
 import type { ApprovedModuleAllowanceAmountQuery } from "@hey/lens";
 import type { FC } from "react";
-
 import Module from "./Module";
 
 interface AllowanceProps {

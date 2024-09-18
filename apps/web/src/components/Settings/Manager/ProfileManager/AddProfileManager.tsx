@@ -1,5 +1,3 @@
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import SearchProfiles from "@components/Shared/SearchProfiles";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -16,6 +14,7 @@ import {
   useCreateChangeProfileManagersTypedDataMutation
 } from "@hey/lens";
 import { Button, Spinner } from "@hey/ui";
+import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
