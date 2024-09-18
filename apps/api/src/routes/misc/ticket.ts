@@ -1,3 +1,4 @@
+import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import axios from "axios";
 import type { Request, Response } from "express";
@@ -71,6 +72,8 @@ export const post = [
       ];
 
       Promise.all(promises);
+
+      logger.info(`New support ticket created for ${payload.id}`);
 
       return res.status(200).json({ id, success: true });
     } catch (error) {
