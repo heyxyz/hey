@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 
-import { VERIFIED_FEATURE_ID } from "@hey/db/constants";
+import { VERIFIED_PERMISSION_ID } from "@hey/db/constants";
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
@@ -13,7 +13,7 @@ import { boolean, object, string } from "zod";
 export const clearCache = async (profileId: string, featureId: string) => {
   await delRedis(`preference:${profileId}`);
   await delRedis(`profile:${profileId}`);
-  if (featureId === VERIFIED_FEATURE_ID) {
+  if (featureId === VERIFIED_PERMISSION_ID) {
     await delRedis("verified");
   }
 };
