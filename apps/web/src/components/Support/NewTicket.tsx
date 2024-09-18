@@ -1,5 +1,6 @@
+import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, LifebuoyIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
 import {
@@ -33,7 +34,7 @@ const newTicketSchema = object({
 });
 
 const NewTicket: FC = () => {
-  const { email } = usePreferencesStore();
+  const { email, loading } = usePreferencesStore();
   const { currentProfile } = useProfileStore();
   const [emailDisabled, setEmailDisabled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -78,6 +79,14 @@ const NewTicket: FC = () => {
     );
   };
 
+  if (loading) {
+    return (
+      <Card className="p-10 text-center">
+        <Loader className="my-10" />
+      </Card>
+    );
+  }
+
   if (currentProfile && !email) {
     return (
       <Card className="p-10 text-center">
@@ -107,7 +116,8 @@ const NewTicket: FC = () => {
 
   return (
     <Card className="p-10 text-center">
-      <H4 className="pb-8 font-normal">
+      <LifebuoyIcon className="mx-auto size-16" />
+      <H4 className="mt-3 mb-8 font-normal">
         Here you can ask any question about <b>{APP_NAME}</b>.
       </H4>
       <Form
