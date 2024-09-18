@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -11,8 +9,8 @@ import {
 import { CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { FC } from "react";
 import { useState } from "react";
-
 import ActiveUsers from "./ActiveUsers";
 import EventsToday from "./EventsToday";
 import ImpressionsToday from "./ImpressionsToday";

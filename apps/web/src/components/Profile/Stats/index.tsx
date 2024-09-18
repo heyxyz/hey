@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import Impressions from "./Impressions";
 import ProfileStats from "./ProfileStats";
 import SuperFollowRevenue from "./SuperFollowRevenue";

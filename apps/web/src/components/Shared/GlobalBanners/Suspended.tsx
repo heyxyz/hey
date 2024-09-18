@@ -1,9 +1,8 @@
-import type { FC } from "react";
-
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { GridItemEight, GridLayout } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 
 const Suspended: FC = () => {

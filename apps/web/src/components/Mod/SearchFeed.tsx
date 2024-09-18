@@ -1,16 +1,14 @@
-import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import HigherActions from "@components/Publication/Actions/HigherActions";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
 import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-
 import { useModFilterStore } from "./Filter";
 
 const SearchFeed: FC = () => {

@@ -1,12 +1,11 @@
-import type { MarkupLinkProps } from "@hey/types/misc";
-import type { FC } from "react";
-
 import ClubPreview from "@components/Shared/ClubPreview";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CLUB_HANDLE_PREFIX } from "@hey/data/constants";
 import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { MarkupLinkProps } from "@hey/types/misc";
 import Link from "next/link";
+import type { FC } from "react";
 
 const Club: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {

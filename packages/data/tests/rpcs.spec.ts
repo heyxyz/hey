@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import { POLYGON_AMOY_RPCS, POLYGON_RPCS } from "../rpcs";
 
 describe("rpc liveliness", () => {

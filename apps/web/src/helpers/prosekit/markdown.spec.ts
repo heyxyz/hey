@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import { htmlFromMarkdown, markdownFromHTML } from "./markdown";
 
 describe("markdownFromHTML", () => {

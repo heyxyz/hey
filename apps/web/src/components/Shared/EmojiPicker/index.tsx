@@ -1,11 +1,9 @@
-import type { Dispatch, FC, MutableRefObject, SetStateAction } from "react";
-
 import { FaceSmileIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { Tooltip } from "@hey/ui";
 import { useClickAway } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
-
+import type { Dispatch, FC, MutableRefObject, SetStateAction } from "react";
 import List from "./List";
 
 interface EmojiPickerProps {

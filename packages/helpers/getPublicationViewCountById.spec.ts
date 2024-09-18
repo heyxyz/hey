@@ -1,7 +1,5 @@
 import type { PublicationViewCount } from "@hey/types/hey";
-
 import { describe, expect, test } from "vitest";
-
 import getPublicationViewCountById from "./getPublicationViewCountById";
 
 describe("getPublicationViewCountById", () => {

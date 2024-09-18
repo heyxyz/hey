@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import { Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 
 interface LoaderProps {
   className?: string;

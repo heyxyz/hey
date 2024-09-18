@@ -1,5 +1,4 @@
 import type { Maybe } from "@hey/lens";
-
 import { MetadataLicenseType } from "@lens-protocol/metadata";
 
 const getAssetLicense = (

@@ -1,6 +1,3 @@
-import type { Frame as IFrame } from "@hey/types/misc";
-import type { FC } from "react";
-
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -9,8 +6,10 @@ import { Errors } from "@hey/data/errors";
 import formatAddress from "@hey/helpers/formatAddress";
 import getNftChainId from "@hey/helpers/getNftChainId";
 import getNftChainInfo from "@hey/helpers/getNftChainInfo";
+import type { Frame as IFrame } from "@hey/types/misc";
 import { Button, H4 } from "@hey/ui";
 import axios from "axios";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -24,7 +23,6 @@ import {
   zora
 } from "viem/chains";
 import { useSendTransaction, useSwitchChain } from "wagmi";
-
 import { useFramesStore } from ".";
 
 const SUPPORTED_CHAINS = [

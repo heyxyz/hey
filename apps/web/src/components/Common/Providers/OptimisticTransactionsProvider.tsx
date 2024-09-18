@@ -1,11 +1,10 @@
-import type { OptimisticTransaction } from "@hey/types/misc";
-import type { FC } from "react";
-
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from "@hey/lens";
 import { OptmisticPublicationType } from "@hey/types/enums";
+import type { OptimisticTransaction } from "@hey/types/misc";
+import type { FC } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const Transaction: FC<{ transaction: OptimisticTransaction }> = ({

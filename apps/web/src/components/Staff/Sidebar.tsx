@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import Sidebar from "@components/Shared/Sidebar";
 import {
   AdjustmentsHorizontalIcon,
@@ -9,6 +7,7 @@ import {
   UserIcon,
   UserPlusIcon
 } from "@heroicons/react/24/outline";
+import type { FC } from "react";
 
 const settingsSidebarItems = [
   {

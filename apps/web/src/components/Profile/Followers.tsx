@@ -1,13 +1,12 @@
-import type { FollowersRequest, Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import UserProfile from "@components/Shared/UserProfile";
 import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
+import type { FollowersRequest, Profile } from "@hey/lens";
 import { LimitType, useFollowersQuery } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

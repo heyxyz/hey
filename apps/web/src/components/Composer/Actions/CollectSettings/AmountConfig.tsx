@@ -1,11 +1,10 @@
-import type { CollectModuleType } from "@hey/types/hey";
-import type { FC } from "react";
-
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { CollectOpenActionModuleType } from "@hey/lens";
+import type { CollectModuleType } from "@hey/types/hey";
 import { Input, Select } from "@hey/ui";
+import type { FC } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";

@@ -1,5 +1,3 @@
-import type { FC, ReactNode } from "react";
-
 import authLink from "@helpers/authLink";
 import getLivepeerTheme from "@helpers/getLivepeerTheme";
 import { LIVEPEER_KEY } from "@hey/data/constants";
@@ -11,7 +9,7 @@ import {
 } from "@livepeer/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
-
+import type { FC, ReactNode } from "react";
 import ErrorBoundary from "../ErrorBoundary";
 import Layout from "../Layout";
 import FeatureFlagProvider from "./FeatureFlagProvider";

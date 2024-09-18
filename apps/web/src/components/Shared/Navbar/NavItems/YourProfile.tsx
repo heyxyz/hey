@@ -1,7 +1,6 @@
-import type { FC } from "react";
-
 import { UserIcon } from "@heroicons/react/24/outline";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 
 interface YourProfileProps {
   className?: string;

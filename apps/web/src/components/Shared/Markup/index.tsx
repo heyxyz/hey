@@ -1,14 +1,12 @@
-import type { ProfileMentioned } from "@hey/lens";
-import type { FC } from "react";
-
 import { Regex } from "@hey/data/regex";
 import trimify from "@hey/helpers/trimify";
+import type { ProfileMentioned } from "@hey/lens";
+import type { FC } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 // @ts-expect-error
 import linkifyRegex from "remark-linkify-regex";
 import stripMarkdown from "strip-markdown";
-
 import Code from "./Code";
 import MarkupLink from "./MarkupLink";
 

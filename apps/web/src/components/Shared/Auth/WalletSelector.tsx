@@ -1,12 +1,11 @@
-import type { FC } from "react";
-import type { Connector } from "wagmi";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { AUTH } from "@hey/data/tracking";
 import getWalletDetails from "@hey/helpers/getWalletDetails";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
+import type { Connector } from "wagmi";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 const WalletSelector: FC = () => {

@@ -1,7 +1,5 @@
 import type { FC, ReactNode } from "react";
-
 import React, { forwardRef } from "react";
-
 import cn from "../cn";
 
 interface TypographyProps {

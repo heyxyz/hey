@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import { APP_NAME, DESCRIPTION } from "@hey/data/constants";
 import { useRouter } from "next/router";
-
+import type { FC } from "react";
 import MetaTags from "../Common/MetaTags";
 
 const PageMetatags: FC = () => {

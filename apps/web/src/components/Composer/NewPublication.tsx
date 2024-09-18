@@ -1,17 +1,3 @@
-import type {
-  MirrorablePublication,
-  MomokaCommentRequest,
-  MomokaPostRequest,
-  MomokaQuoteRequest,
-  OnchainCommentRequest,
-  OnchainPostRequest,
-  OnchainQuoteRequest,
-  Quote
-} from "@hey/lens";
-import type { IGif } from "@hey/types/giphy";
-import type { NewAttachment } from "@hey/types/misc";
-import type { FC } from "react";
-
 import NewAttachments from "@components/Composer/NewAttachments";
 import QuotedPublication from "@components/Publication/QuotedPublication";
 import { AudioPublicationSchema } from "@components/Shared/Audio";
@@ -27,10 +13,23 @@ import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getMentions from "@hey/helpers/getMentions";
 import getProfile from "@hey/helpers/getProfile";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
+import type {
+  MirrorablePublication,
+  MomokaCommentRequest,
+  MomokaPostRequest,
+  MomokaQuoteRequest,
+  OnchainCommentRequest,
+  OnchainPostRequest,
+  OnchainQuoteRequest,
+  Quote
+} from "@hey/lens";
 import { ReferenceModuleType } from "@hey/lens";
+import type { IGif } from "@hey/types/giphy";
+import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
 import dynamic from "next/dynamic";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
@@ -56,7 +55,6 @@ import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import PollEditor from "./Actions/PollSettings/PollEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";

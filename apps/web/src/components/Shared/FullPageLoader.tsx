@@ -1,7 +1,5 @@
-import type { FC } from "react";
-
 import isPrideMonth from "@hey/helpers/isPrideMonth";
-
+import type { FC } from "react";
 import PageMetatags from "./PageMetatags";
 
 const FullPageLoader: FC = () => {

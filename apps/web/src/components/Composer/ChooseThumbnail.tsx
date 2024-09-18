@@ -1,11 +1,10 @@
-import type { ChangeEvent, FC } from "react";
-
 import ThumbnailsShimmer from "@components/Shared/Shimmer/ThumbnailsShimmer";
 import { uploadFileToIPFS } from "@helpers/uploadToIPFS";
 import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { generateVideoThumbnails } from "@hey/helpers/generateVideoThumbnails";
 import getFileFromDataURL from "@hey/helpers/getFileFromDataURL";
 import { Spinner } from "@hey/ui";
+import type { ChangeEvent, FC } from "react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";

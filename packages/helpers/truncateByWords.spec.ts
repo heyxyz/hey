@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import truncateByWords from "./truncateByWords";
 
 describe("truncateByWords", () => {

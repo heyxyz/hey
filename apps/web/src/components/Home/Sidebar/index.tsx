@@ -1,11 +1,9 @@
-import type { FC } from "react";
-
 import SignupCard from "@components/Shared/Auth/SignupCard";
 import Footer from "@components/Shared/Footer";
 import { IS_MAINNET } from "@hey/data/constants";
+import type { FC } from "react";
 import { memo } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import EnableLensManager from "./EnableLensManager";
 import HeyMembershipNft from "./HeyMembershipNft";
 import SetProfile from "./SetProfile";

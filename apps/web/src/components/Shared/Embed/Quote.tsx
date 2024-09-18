@@ -1,8 +1,6 @@
+import QuotedPublication from "@components/Publication/QuotedPublication";
 import type { PrimaryPublication } from "@hey/lens";
 import type { FC } from "react";
-
-import QuotedPublication from "@components/Publication/QuotedPublication";
-
 import Wrapper from "./Wrapper";
 
 interface QuoteProps {

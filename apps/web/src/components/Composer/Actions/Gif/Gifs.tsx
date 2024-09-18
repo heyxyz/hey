@@ -1,9 +1,8 @@
-import type { IGif } from "@hey/types/giphy";
-import type { Dispatch, FC, SetStateAction } from "react";
-
 import { GIPHY_KEY } from "@hey/data/constants";
+import type { IGif } from "@hey/types/giphy";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import type { Dispatch, FC, SetStateAction } from "react";
 
 interface CategoriesProps {
   debouncedGifInput: string;

@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC, ReactNode } from "react";
-
 import FullPageLoader from "@components/Shared/FullPageLoader";
 import GlobalAlerts from "@components/Shared/GlobalAlerts";
 import GlobalBanners from "@components/Shared/GlobalBanners";
@@ -8,9 +5,11 @@ import BottomNavigation from "@components/Shared/Navbar/BottomNavigation";
 import PageMetatags from "@components/Shared/PageMetatags";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
+import type { Profile } from "@hey/lens";
 import { useCurrentProfileQuery } from "@hey/lens";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useTheme } from "next-themes";
+import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
@@ -20,7 +19,6 @@ import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { isAddress } from "viem";
 import { useDisconnect } from "wagmi";
-
 import GlobalModals from "../Shared/GlobalModals";
 import Navbar from "../Shared/Navbar";
 

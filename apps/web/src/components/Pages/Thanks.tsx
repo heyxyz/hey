@@ -1,14 +1,13 @@
-import type { NextPage } from "next";
-import type { FC, ReactNode } from "react";
-
 import Footer from "@components/Shared/Footer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { H2 } from "@hey/ui";
+import type { NextPage } from "next";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 import urlcat from "urlcat";
 

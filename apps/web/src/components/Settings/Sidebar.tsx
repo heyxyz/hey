@@ -1,6 +1,3 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import Sidebar from "@components/Shared/Sidebar";
 import UserProfile from "@components/Shared/UserProfile";
 import {
@@ -19,6 +16,8 @@ import {
   StarIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
+import type { Profile } from "@hey/lens";
+import type { FC } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

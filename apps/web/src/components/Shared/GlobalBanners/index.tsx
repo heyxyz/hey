@@ -1,5 +1,4 @@
 import type { FC } from "react";
-
 import ProtectProfile from "./ProtectProfile";
 import Suspended from "./Suspended";
 

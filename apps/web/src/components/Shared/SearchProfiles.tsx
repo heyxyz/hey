@@ -1,13 +1,11 @@
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
-import type { ChangeEvent, FC } from "react";
-
 import {
   CustomFiltersType,
   LimitType,
   useSearchProfilesLazyQuery
 } from "@hey/lens";
 import { Card, Input } from "@hey/ui";
-
+import type { ChangeEvent, FC } from "react";
 import Loader from "./Loader";
 import SmallUserProfile from "./SmallUserProfile";
 

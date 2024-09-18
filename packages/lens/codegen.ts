@@ -1,5 +1,4 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-
 import LensEndpoint from "@hey/data/lens-endpoints";
 
 const config: CodegenConfig = {

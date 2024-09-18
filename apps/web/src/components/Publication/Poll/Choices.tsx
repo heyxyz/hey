@@ -1,6 +1,3 @@
-import type { Poll } from "@hey/types/hey";
-import type { FC } from "react";
-
 import Beta from "@components/Shared/Badges/Beta";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -14,10 +11,12 @@ import { PUBLICATION } from "@hey/data/tracking";
 import getTimetoNow from "@hey/helpers/datetime/getTimetoNow";
 import humanize from "@hey/helpers/humanize";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Poll } from "@hey/types/hey";
 import { Card, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
 import plur from "plur";
+import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";

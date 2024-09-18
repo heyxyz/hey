@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { ComponentProps, FC } from "react";
 import type {
   FieldValues,
@@ -5,11 +6,8 @@ import type {
   UseFormProps,
   UseFormReturn
 } from "react-hook-form";
-import type { TypeOf, ZodSchema } from "zod";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-
+import type { TypeOf, ZodSchema } from "zod";
 import cn from "../cn";
 import { H6 } from "./Typography";
 

@@ -1,13 +1,11 @@
-import type { FC } from "react";
-
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import { Card, Image } from "@hey/ui";
 import { useRouter } from "next/router";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import NewPublication from "./NewPublication";
 
 interface NewPostProps {

@@ -3,7 +3,6 @@ import type { Profile } from "@hey/lens";
 import { Card } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
-
 import CreatorTool from "./CreatorTool";
 import GardenerTool from "./GardenerTool";
 

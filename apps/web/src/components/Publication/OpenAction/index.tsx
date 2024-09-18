@@ -1,16 +1,14 @@
-import type { MirrorablePublication } from "@hey/lens";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { PUBLICATION } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
+import type { MirrorablePublication } from "@hey/lens";
 import { Modal, Tooltip } from "@hey/ui";
 import { motion } from "framer-motion";
 import plur from "plur";
 import { type FC, useState } from "react";
-
 import CollectModule from "./CollectModule";
 
 interface OpenActionProps {

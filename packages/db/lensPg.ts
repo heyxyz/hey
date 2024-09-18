@@ -1,10 +1,9 @@
-import type { IDatabase, IFormatting, IHelpers, IMain } from "pg-promise";
-import type { IConnectionParameters } from "pg-promise/typescript/pg-subset";
-import type pg from "pg-promise/typescript/pg-subset";
-
 import logger from "@hey/helpers/logger";
 import dotenv from "dotenv";
+import type { IDatabase, IFormatting, IHelpers, IMain } from "pg-promise";
 import pgPromise from "pg-promise";
+import type { IConnectionParameters } from "pg-promise/typescript/pg-subset";
+import type pg from "pg-promise/typescript/pg-subset";
 
 dotenv.config({ override: true });
 

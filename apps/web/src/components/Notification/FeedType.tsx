@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import { Leafwatch } from "@helpers/leafwatch";
 import {
   AtSymbolIcon,
@@ -10,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { NOTIFICATION } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
+import type { FC } from "react";
 import { NotificationTabType } from "src/enums";
 
 interface FeedTypeProps {

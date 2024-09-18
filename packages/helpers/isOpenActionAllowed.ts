@@ -1,5 +1,4 @@
 import type { Maybe, OpenActionModule } from "@hey/lens";
-
 import allowedOpenActionModules from "./allowedOpenActionModules";
 
 const isOpenActionAllowed = (

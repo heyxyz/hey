@@ -1,6 +1,5 @@
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { forwardRef } from "react";
-
 import cn from "../cn";
 
 interface RangeSliderProps extends SliderPrimitive.SliderProps {

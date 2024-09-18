@@ -1,16 +1,14 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
+import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
+import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-
 import Slug from "../Slug";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";

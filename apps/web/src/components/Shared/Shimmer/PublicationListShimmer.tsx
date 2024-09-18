@@ -1,8 +1,6 @@
-import type { FC } from "react";
-
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Card } from "@hey/ui";
-
+import type { FC } from "react";
 import PublicationShimmer from "./PublicationShimmer";
 
 const PublicationListShimmer: FC = () => {

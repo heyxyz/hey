@@ -1,11 +1,10 @@
+import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import type {
   DetailedHTMLProps,
   ImgHTMLAttributes,
   Ref,
   SyntheticEvent
 } from "react";
-
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 
 export const Image = forwardRef(function Image(

@@ -1,6 +1,5 @@
-import type { ChangeEventHandler, FC } from "react";
-
 import { PaperClipIcon } from "@heroicons/react/24/outline";
+import type { ChangeEventHandler, FC } from "react";
 import { useId } from "react";
 
 interface ChooseFileProps {

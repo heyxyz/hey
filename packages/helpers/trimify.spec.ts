@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-
 import trimify from "./trimify";
 
 describe("trimify", () => {

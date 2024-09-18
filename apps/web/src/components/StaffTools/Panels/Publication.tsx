@@ -1,11 +1,10 @@
-import type { MirrorablePublication } from "@hey/lens";
-import type { FC } from "react";
-
 import MetaDetails from "@components/Shared/MetaDetails";
 import { HashtagIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { isCommentPublication } from "@hey/helpers/publicationHelpers";
+import type { MirrorablePublication } from "@hey/lens";
 import { Card, H5 } from "@hey/ui";
+import type { FC } from "react";
 
 interface PublicationStaffToolProps {
   publication: MirrorablePublication;

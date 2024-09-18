@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import UserProfile from "@components/Shared/UserProfile";
 import { ArrowLeftIcon, HeartIcon } from "@heroicons/react/24/outline";
@@ -12,6 +10,7 @@ import {
 } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

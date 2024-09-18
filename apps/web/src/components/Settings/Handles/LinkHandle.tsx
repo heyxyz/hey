@@ -1,6 +1,3 @@
-import type { LinkHandleToProfileRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import IndexStatus from "@components/Shared/IndexStatus";
 import LazySmallUserProfile from "@components/Shared/LazySmallUserProfile";
 import Loader from "@components/Shared/Loader";
@@ -18,6 +15,7 @@ import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
+import type { LinkHandleToProfileRequest } from "@hey/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
@@ -25,6 +23,7 @@ import {
   useOwnedHandlesQuery
 } from "@hey/lens";
 import { Button, EmptyState, Spinner } from "@hey/ui";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

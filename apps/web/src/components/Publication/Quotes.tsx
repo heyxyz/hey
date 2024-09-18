@@ -1,15 +1,14 @@
-import type { PublicationsRequest, Quote } from "@hey/lens";
-import type { FC } from "react";
-
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationListShimmer from "@components/Shared/Shimmer/PublicationListShimmer";
 import {
   ArrowLeftIcon,
   ChatBubbleBottomCenterTextIcon
 } from "@heroicons/react/24/outline";
+import type { PublicationsRequest, Quote } from "@hey/lens";
 import { CustomFiltersType, LimitType, usePublicationsQuery } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import Link from "next/link";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";

@@ -1,12 +1,11 @@
-import type { Profile } from "@hey/lens";
-import type { FC } from "react";
-
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface CopyAddressProps {

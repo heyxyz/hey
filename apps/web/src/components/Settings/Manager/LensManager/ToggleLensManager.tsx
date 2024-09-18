@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -16,6 +14,7 @@ import {
 } from "@hey/lens";
 import { Button, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";

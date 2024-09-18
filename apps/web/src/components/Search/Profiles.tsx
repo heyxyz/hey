@@ -1,16 +1,15 @@
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
-import type { FC } from "react";
-
 import UserProfilesShimmer from "@components/Shared/Shimmer/UserProfilesShimmer";
 import UserProfile from "@components/Shared/UserProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
+import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
   LimitType,
   useSearchProfilesQuery
 } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 
 interface ProfilesProps {

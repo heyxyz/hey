@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
-
 import { APP_NAME, DEFAULT_OG, DESCRIPTION } from "@hey/data/constants";
+import type { Metadata } from "next";
 
 const defaultMetadata: Metadata = {
   alternates: { canonical: "https://hey.xyz" },
