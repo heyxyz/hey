@@ -17,7 +17,7 @@
     "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.0",
+    "@biomejs/biome": "^1.9.1",
     "husky": "^9.1.6"
   },
   "packageManager": "pnpm@9.1.4",
