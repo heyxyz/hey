@@ -63,11 +63,9 @@ export const setRedis = async (
     return;
   }
 
-  if (typeof value !== "string") {
-    value = JSON.stringify(value);
-  }
+  const redisValue = typeof value !== "string" ? JSON.stringify(value) : value;
 
-  return await redisClient.set(key, value, { EX: expiry });
+  return await redisClient.set(key, redisValue, { EX: expiry });
 };
 
 export const getRedis = async (key: string) => {
