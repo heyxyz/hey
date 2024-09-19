@@ -9,8 +9,8 @@ import logger from "@hey/helpers/logger";
 
 const truncate4EverlandBucket = async () => {
   try {
-    const accessKeyId = process.env.EVER_ACCESS_KEY!;
-    const secretAccessKey = process.env.EVER_ACCESS_SECRET!;
+    const accessKeyId = process.env.EVER_ACCESS_KEY;
+    const secretAccessKey = process.env.EVER_ACCESS_SECRET;
 
     const s3Client = new S3({
       credentials: { accessKeyId, secretAccessKey },
@@ -42,7 +42,7 @@ const truncate4EverlandBucket = async () => {
         );
         objectsToDelete = objectsToDelete.concat(
           oldObjects
-            .map((object) => ({ Key: object.Key! }))
+            .map((object) => ({ Key: object.Key as string }))
             .filter((obj) => obj.Key)
         );
       }
