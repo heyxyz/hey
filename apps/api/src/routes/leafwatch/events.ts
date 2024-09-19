@@ -9,32 +9,26 @@ import findEventKeyDeep from "src/helpers/leafwatch/findEventKeyDeep";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { UAParser } from "ua-parser-js";
-import { any, array, object, string } from "zod";
+import { any, object, string } from "zod";
 
 type ExtensionRequest = {
-  events: {
-    fingerprint?: string;
-    name: string;
-    properties?: string;
-    referrer?: string;
-    url: string;
-  }[];
+  fingerprint?: string;
+  name: string;
+  properties?: string;
+  referrer?: string;
+  url: string;
 };
 
 const validationSchema = object({
-  events: array(
-    object({
-      fingerprint: string().nullable().optional(),
-      name: string().min(1, { message: "Name is required!" }),
-      properties: any(),
-      referrer: string().nullable().optional(),
-      url: string()
-    })
-  )
+  fingerprint: string().nullable().optional(),
+  name: string().min(1, { message: "Name is required!" }),
+  properties: any(),
+  referrer: string().nullable().optional(),
+  url: string()
 });
 
 export const post = [
-  rateLimiter({ requests: 50, within: 1 }),
+  rateLimiter({ requests: 250, within: 1 }),
   async (req: Request, res: Response) => {
     const { body } = req;
 
@@ -48,14 +42,11 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { events } = body as ExtensionRequest;
+    const { fingerprint, name, properties, referrer, url } =
+      body as ExtensionRequest;
 
-    for (const event of events) {
-      if (!findEventKeyDeep(ALL_EVENTS, event.name)?.length) {
-        return res
-          .status(400)
-          .json({ error: "Invalid event found!", success: false });
-      }
+    if (!findEventKeyDeep(ALL_EVENTS, name)?.length) {
+      return res.status(400).json({ error: "Invalid event!", success: false });
     }
 
     const user_agent = req.headers["user-agent"];
@@ -72,22 +63,24 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const values = events.map((event) => ({
+      const values = {
         actor: payload.id || null,
         browser: ua.browser.name || null,
         city: cfIpCity || null,
         country: cfIpCountry || null,
         created: new Date().toISOString().slice(0, 19).replace("T", " "),
-        fingerprint: event.fingerprint || null,
+        fingerprint: fingerprint || null,
         ip: ip || null,
-        name: event.name,
-        properties: event.properties || null,
-        referrer: event.referrer || null,
-        url: event.url || null
-      }));
+        name,
+        properties: properties || null,
+        referrer: referrer || null,
+        url: url || null
+      };
 
       const queue = await rPushRedis("events", JSON.stringify(values));
-      logger.info(`Ingested ${values.length} events to Leafwatch`);
+      logger.info(
+        `Ingested event to Leafwatch - ${values.name} - ${values.actor}`
+      );
 
       return res.status(200).json({ queue, success: true });
     } catch (error) {
