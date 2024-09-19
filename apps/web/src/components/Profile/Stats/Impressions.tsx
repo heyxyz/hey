@@ -84,8 +84,8 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
               {
                 backgroundColor:
                   resolvedTheme === "dark"
-                    ? colors["zinc"]["900"]
-                    : colors["zinc"]["400"],
+                    ? colors.zinc["900"]
+                    : colors.zinc["400"],
                 borderRadius: 3,
                 data: data.map((impression) => impression.count),
                 label: "Impressions"

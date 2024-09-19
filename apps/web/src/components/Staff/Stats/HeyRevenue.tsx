@@ -85,12 +85,12 @@ const HeyRevenue: FC = () => {
           data={{
             datasets: [
               {
-                backgroundColor: colors["green"]["500"],
+                backgroundColor: colors.green["500"],
                 data: data.map((signup) => signup.signups_count),
                 label: "Signups"
               },
               {
-                backgroundColor: colors["blue"]["500"],
+                backgroundColor: colors.blue["500"],
                 borderRadius: 3,
                 data: data.map((signup) => signup.mint_count),
                 label: "Mints"
