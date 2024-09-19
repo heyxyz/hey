@@ -51,7 +51,7 @@
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
-    "nodemon": "^3.1.5",
+    "nodemon": "^3.1.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   }
