@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@aws-sdk/client-s3": "^3.651.1",
-    "@aws-sdk/lib-storage": "^3.651.1",
+    "@aws-sdk/client-s3": "^3.654.0",
+    "@aws-sdk/lib-storage": "^3.654.0",
     "@headlessui/react": "2.1.8",
     "@heroicons/react": "^2.1.5",
     "@hey/abis": "workspace:*",
