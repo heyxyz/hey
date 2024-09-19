@@ -1,14 +1,14 @@
 require("dotenv").config();
-import type { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-import "@openzeppelin/hardhat-upgrades";
 import "@nomiclabs/hardhat-ethers";
+import "@openzeppelin/hardhat-upgrades";
+import type { HardhatUserConfig } from "hardhat/config";
 
 const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
-      polygon: process.env.POLYGON_ETHERSCAN_API_KEY!,
-      polygonAmoy: process.env.POLYGON_ETHERSCAN_API_KEY!
+      polygon: process.env.POLYGON_ETHERSCAN_API_KEY as string,
+      polygonAmoy: process.env.POLYGON_ETHERSCAN_API_KEY as string
     },
     customChains: [
       {
@@ -23,12 +23,12 @@ const config: HardhatUserConfig = {
   },
   networks: {
     polygon: {
-      accounts: [process.env.PRIVATE_KEY!],
+      accounts: [process.env.PRIVATE_KEY as string],
       gasPrice: 200000000000, // 200 gwei
       url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     },
     polygonAmoy: {
-      accounts: [process.env.PRIVATE_KEY!],
+      accounts: [process.env.PRIVATE_KEY as string],
       gasPrice: 100000000000, // 100 gwei
       url: `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     }

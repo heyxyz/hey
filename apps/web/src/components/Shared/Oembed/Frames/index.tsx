@@ -113,7 +113,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
 
       if (action === "post_redirect") {
         if (typeof window !== "undefined" && Boolean(data.frame.location)) {
-          const message = `You are about to be redirected to ${data.frame.location!.toString()}`;
+          const message = `You are about to be redirected to ${data.frame.location?.toString()}`;
 
           if (window.confirm(message)) {
             window.open(data.frame.location, "_blank")?.focus();
