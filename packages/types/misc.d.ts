@@ -75,6 +75,7 @@ export interface Frame {
 export interface OG {
   description: null | string;
   favicon: null | string;
+  tweet: null | string;
   frame: Frame | null;
   html: null | string;
   image: null | string;
