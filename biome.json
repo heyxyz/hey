@@ -30,8 +30,7 @@
         "useMediaCaption": "off"
       },
       "style": {
-        "noNonNullAssertion": "off",
-        "noParameterAssign": "warn"
+        "noNonNullAssertion": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "warn"
