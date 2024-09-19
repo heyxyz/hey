@@ -40,7 +40,6 @@
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noMisleadingCharacterClass": "warn",
         "noAssignInExpressions": "off",
         "noArrayIndexKey": "warn"
       },
