@@ -12,17 +12,16 @@ export const Leafwatch = {
     const fingerprint = localStorage.getItem(Localstorage.FingerprintStore);
 
     if (IS_MAINNET && navigator.serviceWorker?.controller) {
-      console.log("posting impression to service worker");
       navigator.serviceWorker.controller.postMessage({
         event: {
           fingerprint: fingerprint || undefined,
-          identityToken:
-            getAuthApiHeadersWithAccessToken()["X-Identity-Token"] || undefined,
           name,
           properties,
           referrer: referrerDomain,
           url: window.location.href
         },
+        identityToken:
+          getAuthApiHeadersWithAccessToken()["X-Identity-Token"] || undefined,
         type: "EVENT"
       });
     }

@@ -5,6 +5,7 @@ const EVENTS_ENDPOINT = "https://api.hey.xyz/leafwatch/events";
 const SYNC_INTERVAL = 5000;
 
 const visiblePublications = new Set<string>();
+let identityToken: string | undefined;
 let recordedEvents: Record<string, unknown>[] = [];
 
 const sendVisiblePublicationsToServer = async () => {
@@ -38,7 +39,10 @@ const sendEventsToServer = async () => {
   try {
     await fetch(EVENTS_ENDPOINT, {
       body: JSON.stringify({ events: eventsToSend }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Identity-Token": identityToken as string
+      },
       keepalive: true,
       method: "POST"
     });
@@ -59,6 +63,7 @@ self.addEventListener("message", (event) => {
     visiblePublications.add(event.data.id);
   }
   if (event.data?.type === "EVENT") {
+    identityToken = event.data.identityToken;
     recordedEvents.push(event.data.event);
   }
 });
