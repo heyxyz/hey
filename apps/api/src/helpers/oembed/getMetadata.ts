@@ -12,6 +12,7 @@ import getImage from "./meta/getImage";
 import getNft from "./meta/getNft";
 import getSite from "./meta/getSite";
 import getTitle from "./meta/getTitle";
+import getTweet from "./meta/getTweet";
 
 const getMetadata = async (url: string): Promise<null | OG> => {
   try {
@@ -27,6 +28,7 @@ const getMetadata = async (url: string): Promise<null | OG> => {
       favicon: getFavicon(url),
       frame: getFrame(document, url),
       html: generateIframe(getEmbedUrl(document), url),
+      tweet: getTweet(url),
       image: getProxyUrl(image),
       lastIndexedAt: new Date().toISOString(),
       nft: getNft(document, url),
