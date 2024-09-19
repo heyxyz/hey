@@ -94,7 +94,7 @@ const nextConfig = {
       }
     ];
   },
-  transpilePackages: ["data"]
+  transpilePackages: ["data", "react-tweet"]
 };
 
 module.exports = withSentryConfig(nextConfig);
