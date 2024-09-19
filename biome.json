@@ -29,9 +29,6 @@
         "useKeyWithClickEvents": "warn",
         "useMediaCaption": "off"
       },
-      "style": {
-        "noNonNullAssertion": "off"
-      },
       "security": {
         "noDangerouslySetInnerHtml": "warn"
       },

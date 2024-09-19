@@ -24,7 +24,7 @@ if (process.env.REDIS_URL) {
 
   const connectRedis = async () => {
     logger.info("[Redis] Connecting to Redis");
-    await redisClient!.connect();
+    await redisClient?.connect();
   };
 
   connectRedis().catch((error) =>
