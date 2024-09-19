@@ -18,7 +18,7 @@ const pushToImpressions = (id: string): void => {
   if (IS_MAINNET && id && navigator.serviceWorker?.controller) {
     navigator.serviceWorker.controller.postMessage({
       id,
-      type: "PUBLICATION_VISIBLE"
+      type: "PUBLICATION_IMPRESSION"
     });
   }
 
