@@ -100,6 +100,7 @@ const OpenActionsPreviews: FC<OpenActionsPreviewsProps> = ({
     favicon: data?.url ? getFavicon(data.url) : "",
     frame: data?.frame,
     html: data?.html,
+    tweet: data?.tweet,
     image: data?.image,
     nft: data?.nft,
     site: data?.site,
