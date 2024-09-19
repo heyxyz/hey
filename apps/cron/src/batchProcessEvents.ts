@@ -12,7 +12,7 @@ const batchProcessEvents = async () => {
       return;
     }
 
-    const parsedEvents = events.map((event) => JSON.parse(event));
+    const parsedEvents = events.flatMap((event) => JSON.parse(event));
 
     await clickhouseClient.insert({
       format: "JSONEachRow",
