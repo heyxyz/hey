@@ -1,6 +1,6 @@
 default:
   interruptible: true
-  image: node:18
+  image: node:20
 
 stages:
   - preflight
