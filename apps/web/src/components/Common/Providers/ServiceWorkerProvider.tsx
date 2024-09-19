@@ -4,17 +4,19 @@ import { useEffect } from "react";
 const ServiceWorkerProvider: FC = () => {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
+      // Unregister existing service workers
       navigator.serviceWorker.getRegistrations().then((registrations) => {
-        for (const registration of registrations) {
-          registration.unregister();
-        }
+        registrations.forEach((registration) => registration.unregister());
 
+        // Register new service worker after all previous ones are unregistered
         navigator.serviceWorker
           .register("/sw.js", { scope: "/" })
           .then(() => {
-            console.log("Service Worker registered successfully.");
+            console.log("New Service Worker registered successfully.");
           })
-          .catch(console.error);
+          .catch((error) => {
+            console.error("Service Worker registration failed:", error);
+          });
       });
     }
   }, []);
