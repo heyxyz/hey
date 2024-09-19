@@ -4,10 +4,12 @@ const IMPRESSIONS_ENDPOINT = "https://api.hey.xyz/leafwatch/impressions";
 const EVENTS_ENDPOINT = "https://api.hey.xyz/leafwatch/events";
 const SYNC_INTERVAL = 5000;
 
+// Track visible publications and events
 const visiblePublications = new Set<string>();
 let identityToken: string | undefined;
 let recordedEvents: Record<string, unknown>[] = [];
 
+// Send visible publications to the server
 const sendVisiblePublicationsToServer = async () => {
   if (visiblePublications.size === 0) {
     return;
@@ -28,6 +30,7 @@ const sendVisiblePublicationsToServer = async () => {
   }
 };
 
+// Send recorded events to the server
 const sendEventsToServer = async () => {
   if (recordedEvents.length === 0) {
     return;
@@ -51,9 +54,11 @@ const sendEventsToServer = async () => {
   }
 };
 
+// Set up intervals for syncing data
 setInterval(sendVisiblePublicationsToServer, SYNC_INTERVAL);
 setInterval(sendEventsToServer, SYNC_INTERVAL);
 
+// Activate and claim control over clients immediately
 const handleActivate = async (): Promise<void> => {
   await self.clients.claim();
 };
@@ -68,6 +73,14 @@ self.addEventListener("message", (event) => {
   }
 });
 
-self.addEventListener("activate", (event) => event.waitUntil(handleActivate()));
+// Install event to update immediately
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+});
+
+// Activate event
+self.addEventListener("activate", (event) => {
+  event.waitUntil(handleActivate());
+});
 
 export {};
