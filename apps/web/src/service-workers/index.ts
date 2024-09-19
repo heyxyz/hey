@@ -1,8 +1,12 @@
 declare let self: ServiceWorkerGlobalScope;
 
 const IMPRESSIONS_ENDPOINT = "https://api.hey.xyz/leafwatch/impressions";
-const PUBLICATIONS_VISIBILITY_INTERVAL = 5000;
+const EVENTS_ENDPOINT = "https://api.hey.xyz/leafwatch/events";
+const SYNC_INTERVAL = 5000;
+
 const visiblePublications = new Set<string>();
+let identityToken: string | undefined;
+let recordedEvents: Record<string, unknown>[] = [];
 
 const sendVisiblePublicationsToServer = async () => {
   if (visiblePublications.size === 0) {
@@ -24,15 +28,43 @@ const sendVisiblePublicationsToServer = async () => {
   }
 };
 
-setInterval(sendVisiblePublicationsToServer, PUBLICATIONS_VISIBILITY_INTERVAL);
+const sendEventsToServer = async () => {
+  if (recordedEvents.length === 0) {
+    return;
+  }
+
+  const eventsToSend = [...recordedEvents];
+  recordedEvents = [];
+
+  try {
+    await fetch(EVENTS_ENDPOINT, {
+      body: JSON.stringify({ events: eventsToSend }),
+      headers: {
+        "Content-Type": "application/json",
+        "X-Identity-Token": identityToken as string
+      },
+      keepalive: true,
+      method: "POST"
+    });
+  } catch (error) {
+    console.error("Failed to send recorded events to Leafwatch", error);
+  }
+};
+
+setInterval(sendVisiblePublicationsToServer, SYNC_INTERVAL);
+setInterval(sendEventsToServer, SYNC_INTERVAL);
 
 const handleActivate = async (): Promise<void> => {
   await self.clients.claim();
 };
 
 self.addEventListener("message", (event) => {
-  if (event.data?.type === "PUBLICATION_VISIBLE") {
+  if (event.data?.type === "PUBLICATION_IMPRESSION") {
     visiblePublications.add(event.data.id);
+  }
+  if (event.data?.type === "EVENT") {
+    identityToken = event.data.identityToken;
+    recordedEvents.push(event.data.event);
   }
 });
 
