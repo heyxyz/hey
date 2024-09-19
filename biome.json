@@ -10,7 +10,7 @@
       "**/artifacts/**",
       "**/node_modules/**",
       "**/.git/**",
-      "**/.github/**",
+      "**/.gitlab/**",
       "sw.js",
       "**/cache/**",
       ".openzeppelin",
