@@ -57,4 +57,4 @@ export const Swap = [
     type: "tuple"
   },
   { internalType: "bytes", name: "signature", type: "bytes" }
-];
+] as const;
