@@ -1,8 +1,4 @@
-import {
-  ARWEAVE_GATEWAY,
-  IPFS_GATEWAY,
-  VIDEO_THUMBNAIL
-} from "@hey/data/constants";
+import { IPFS_GATEWAY, VIDEO_THUMBNAIL } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -29,7 +25,6 @@ const Video: FC<VideoProps> = ({ className = "", poster, src }) => {
     <div className={cn("lp-player", className)} onClick={stopEventPropagation}>
       <Player
         autoUrlUpload={{
-          arweaveGateway: ARWEAVE_GATEWAY,
           fallback: true,
           ipfsGateway: IPFS_GATEWAY
         }}
