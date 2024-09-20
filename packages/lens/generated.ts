@@ -6370,10 +6370,7 @@ type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = { __type
     & AmountFieldsFragment
   ) };
 
-type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = { __typename?: 'UnknownOpenActionModuleSettings', type: OpenActionModuleType, initializeResultData?: any | null, initializeCalldata?: any | null, openActionModuleReturnData?: any | null, contract: (
-    { __typename?: 'NetworkAddress' }
-    & NetworkAddressFieldsFragment
-  ) };
+type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = { __typename?: 'UnknownOpenActionModuleSettings' };
 
 export type OpenActionModulesFieldsFragment = OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment | OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment | OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment | OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment;
 
@@ -7718,13 +7715,6 @@ export type ModLatestReportsQuery = { __typename?: 'Query', modLatestReports: { 
         & QuoteFieldsFragment
       ) | null }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type ModuleMetadataQueryVariables = Exact<{
-  request: ModuleMetadataRequest;
-}>;
-
-
-export type ModuleMetadataQuery = { __typename?: 'Query', moduleMetadata?: { __typename?: 'GetModuleMetadataResult', moduleType: ModuleType, signlessApproved: boolean, sponsoredApproved: boolean, verified: boolean, metadata: { __typename?: 'ModuleMetadata', authors: Array<string>, description: string, initializeCalldataABI: any, initializeResultDataABI?: any | null, name: string, processCalldataABI: any, title: string, attributes: Array<{ __typename?: 'MetadataAttribute', key: string, type: MetadataAttributeType, value: string }> } } | null };
-
 export type MutualFollowersQueryVariables = Exact<{
   request: MutualFollowersRequest;
 }>;
@@ -8406,15 +8396,6 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       recipient
       split
     }
-  }
-  ... on UnknownOpenActionModuleSettings {
-    type
-    contract {
-      ...NetworkAddressFields
-    }
-    initializeResultData
-    initializeCalldata
-    openActionModuleReturnData
   }
 }
     ${NetworkAddressFieldsFragmentDoc}
@@ -12311,63 +12292,6 @@ export type ModLatestReportsQueryHookResult = ReturnType<typeof useModLatestRepo
 export type ModLatestReportsLazyQueryHookResult = ReturnType<typeof useModLatestReportsLazyQuery>;
 export type ModLatestReportsSuspenseQueryHookResult = ReturnType<typeof useModLatestReportsSuspenseQuery>;
 export type ModLatestReportsQueryResult = Apollo.QueryResult<ModLatestReportsQuery, ModLatestReportsQueryVariables>;
-export const ModuleMetadataDocument = gql`
-    query ModuleMetadata($request: ModuleMetadataRequest!) {
-  moduleMetadata(request: $request) {
-    metadata {
-      attributes {
-        key
-        type
-        value
-      }
-      authors
-      description
-      initializeCalldataABI
-      initializeResultDataABI
-      name
-      processCalldataABI
-      title
-    }
-    moduleType
-    signlessApproved
-    sponsoredApproved
-    verified
-  }
-}
-    `;
-
-/**
- * __useModuleMetadataQuery__
- *
- * To run a query within a React component, call `useModuleMetadataQuery` and pass it any options that fit your needs.
- * When your component renders, `useModuleMetadataQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useModuleMetadataQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useModuleMetadataQuery(baseOptions: Apollo.QueryHookOptions<ModuleMetadataQuery, ModuleMetadataQueryVariables> & ({ variables: ModuleMetadataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(ModuleMetadataDocument, options);
-      }
-export function useModuleMetadataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ModuleMetadataQuery, ModuleMetadataQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(ModuleMetadataDocument, options);
-        }
-export function useModuleMetadataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ModuleMetadataQuery, ModuleMetadataQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ModuleMetadataQuery, ModuleMetadataQueryVariables>(ModuleMetadataDocument, options);
-        }
-export type ModuleMetadataQueryHookResult = ReturnType<typeof useModuleMetadataQuery>;
-export type ModuleMetadataLazyQueryHookResult = ReturnType<typeof useModuleMetadataLazyQuery>;
-export type ModuleMetadataSuspenseQueryHookResult = ReturnType<typeof useModuleMetadataSuspenseQuery>;
-export type ModuleMetadataQueryResult = Apollo.QueryResult<ModuleMetadataQuery, ModuleMetadataQueryVariables>;
 export const MutualFollowersDocument = gql`
     query MutualFollowers($request: MutualFollowersRequest!) {
   mutualFollowers(request: $request) {

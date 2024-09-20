@@ -74,7 +74,7 @@ self.addEventListener("message", (event) => {
 });
 
 // Install event to update immediately
-self.addEventListener("install", (event) => {
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
