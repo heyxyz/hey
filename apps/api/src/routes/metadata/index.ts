@@ -1,4 +1,5 @@
 import { PutObjectCommand, S3 } from "@aws-sdk/client-s3";
+import { METADATA_ENDPOINT } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
 import { signMetadata } from "@lens-protocol/metadata";
 import type { Request, Response } from "express";
@@ -18,6 +19,11 @@ export const post = [
     }
 
     try {
+      const account = privateKeyToAccount(`0x${process.env.PRIVATE_KEY}`);
+      const signed = await signMetadata(body, (message) =>
+        account.signMessage({ message })
+      );
+
       const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
       const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
@@ -26,11 +32,6 @@ export const post = [
         maxAttempts: 5,
         region: "eu-west-2"
       });
-
-      const account = privateKeyToAccount(`0x${process.env.PRIVATE_KEY}`);
-      const signed = await signMetadata(body, (message) =>
-        account.signMessage({ message })
-      );
 
       const key = uuid();
       const uploadParams = {
@@ -41,11 +42,9 @@ export const post = [
       };
 
       const command = new PutObjectCommand(uploadParams);
-      const response = await s3Client.send(command);
+      await s3Client.send(command);
 
-      logger.info(
-        `Uploaded metadata to Irys: https://gateway.irys.xyz/${response}`
-      );
+      logger.info(`Uploaded metadata to S3: ${METADATA_ENDPOINT}/${key}`);
 
       return res.status(200).json({ id: key, success: true });
     } catch (error) {

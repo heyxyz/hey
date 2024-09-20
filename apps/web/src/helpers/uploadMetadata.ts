@@ -10,9 +10,9 @@ import toast from "react-hot-toast";
  * @returns The Arweave transaction ID.
  * @throws An error if the upload fails.
  */
-const uploadToIrys = async (data: any): Promise<string> => {
+const uploadMetadata = async (data: any): Promise<string> => {
   try {
-    const upload = await axios.post(`${HEY_API_URL}/irys/metadata`, {
+    const upload = await axios.post(`${HEY_API_URL}/metadata`, {
       ...data
     });
     const { id }: { id: string } = upload.data;
@@ -24,4 +24,4 @@ const uploadToIrys = async (data: any): Promise<string> => {
   }
 };
 
-export default uploadToIrys;
+export default uploadMetadata;

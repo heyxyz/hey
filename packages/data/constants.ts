@@ -93,7 +93,7 @@ export const POLYGONSCAN_URL = IS_MAINNET
   ? "https://polygonscan.com"
   : "https://amoy.polygonscan.com";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
-export const ARWEAVE_GATEWAY = "https://gateway.irys.xyz";
+export const METADATA_ENDPOINT = "https://metadata.hey.xyz";
 export const EVER_API = "https://endpoint.4everland.co";
 export const EVER_REGION = "4EVERLAND";
 export const EVER_BUCKET = "hey-media";

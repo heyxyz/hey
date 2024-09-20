@@ -4,8 +4,8 @@ import { AudioPublicationSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import uploadToIrys from "@helpers/uploadToIrys";
-import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import uploadMetadata from "@helpers/uploadMetadata";
+import { KNOWN_ATTRIBUTES, METADATA_ENDPOINT } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
@@ -366,7 +366,7 @@ const NewPublication: FC<NewPublicationProps> = ({
       };
 
       const metadata = getMetadata({ baseMetadata });
-      const irysId = await uploadToIrys(metadata);
+      const metadataId = await uploadMetadata(metadata);
 
       // Payload for the open action module
       const openActionModules = [];
@@ -388,7 +388,7 @@ const NewPublication: FC<NewPublicationProps> = ({
         | MomokaQuoteRequest = {
         ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
-        contentURI: `https://gateway.irys.xyz/${irysId}`
+        contentURI: `${METADATA_ENDPOINT}/${metadataId}`
       };
 
       if (useMomoka && !nftOpenActionEmbed) {
@@ -430,7 +430,7 @@ const NewPublication: FC<NewPublicationProps> = ({
         | OnchainCommentRequest
         | OnchainPostRequest
         | OnchainQuoteRequest = {
-        contentURI: `https://gateway.irys.xyz/${irysId}`,
+        contentURI: `${METADATA_ENDPOINT}/${metadataId}`,
         ...(isComment && { commentOn: publication?.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,

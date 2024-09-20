@@ -18,8 +18,6 @@
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@irys/upload": "^0.0.7",
-    "@irys/upload-ethereum": "^0.0.7",
     "@json2csv/plainjs": "^7.0.6",
     "@lens-protocol/metadata": "^1.2.0",
     "axios": "^1.7.7",

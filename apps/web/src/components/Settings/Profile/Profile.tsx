@@ -3,13 +3,14 @@ import ImageCropperController from "@components/Shared/ImageCropperController";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import uploadCroppedImage, { readFile } from "@helpers/profilePictureUtils";
-import uploadToIrys from "@helpers/uploadToIrys";
+import uploadMetadata from "@helpers/uploadMetadata";
 import { InformationCircleIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import {
   AVATAR,
   COVER,
   LENS_HUB,
+  METADATA_ENDPOINT,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -276,10 +277,10 @@ const ProfileSettingsForm: FC = () => {
           return m.key !== "" && Boolean(trimify(m.value));
         });
       const metadata = profileMetadata(preparedProfileMetadata);
-      const irysId = await uploadToIrys(metadata);
+      const metadataId = await uploadMetadata(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: `https://gateway.irys.xyz/${irysId}`
+        metadataURI: `${METADATA_ENDPOINT}/${metadataId}`
       };
 
       if (canUseLensManager) {
