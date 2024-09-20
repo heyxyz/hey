@@ -21,7 +21,7 @@ export const get: Handler = async (req, res) => {
     logger.info(`Email verified for ${result.email}`);
 
     return res.redirect("https://hey.xyz");
-  } catch (error) {
+  } catch {
     return res.status(400).send("Something went wrong");
   }
 };

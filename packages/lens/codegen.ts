@@ -5,7 +5,6 @@ const config: CodegenConfig = {
   config: {
     inlineFragmentTypes: "combine"
   },
-  customFetch: "node-fetch",
   documents: "./documents/**/*.graphql",
   generates: {
     "generated.ts": {

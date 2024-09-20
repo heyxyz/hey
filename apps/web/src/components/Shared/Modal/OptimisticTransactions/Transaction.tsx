@@ -38,8 +38,6 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
           <div className="text-sm">
             {transaction.type} on {transaction.unfollowOn}
           </div>
-        ) : transaction.type === OptmisticPublicationType.NftMintOA ? (
-          <div className="text-sm">NFT Mint via Open Action</div>
         ) : null}
       </Tooltip>
       <div className="flex items-center space-x-2">

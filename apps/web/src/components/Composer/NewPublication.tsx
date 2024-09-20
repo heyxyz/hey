@@ -59,7 +59,6 @@ import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import PollEditor from "./Actions/PollSettings/PollEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
-import OpenActionsPreviews from "./OpenActionsPreviews";
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
 
@@ -154,7 +153,6 @@ const NewPublication: FC<NewPublicationProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [publicationContentError, setPublicationContentError] = useState("");
-  const [nftOpenActionEmbed, setNftOpenActionEmbed] = useState();
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
@@ -371,10 +369,6 @@ const NewPublication: FC<NewPublicationProps> = ({
       // Payload for the open action module
       const openActionModules = [];
 
-      if (nftOpenActionEmbed) {
-        openActionModules.push(nftOpenActionEmbed);
-      }
-
       if (collectModule.type) {
         openActionModules.push({
           collectOpenAction: collectModuleParams(collectModule)
@@ -391,7 +385,7 @@ const NewPublication: FC<NewPublicationProps> = ({
         contentURI: `${METADATA_ENDPOINT}/${metadataId}`
       };
 
-      if (useMomoka && !nftOpenActionEmbed) {
+      if (useMomoka) {
         if (canUseLensManager) {
           if (isComment) {
             return await createCommentOnMomka(
@@ -527,8 +521,7 @@ const NewPublication: FC<NewPublicationProps> = ({
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
-      <OpenActionsPreviews setNftOpenActionEmbed={setNftOpenActionEmbed} />
-      {!nftOpenActionEmbed ? <LinkPreviews /> : null}
+      <LinkPreviews />
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
