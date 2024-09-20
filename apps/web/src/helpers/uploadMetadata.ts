@@ -4,10 +4,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 /**
- * Uploads the given data to Arweave.
+ * Uploads the given data to hey-metadata S3 bucket.
  *
  * @param data The data to upload.
- * @returns The Arweave transaction ID.
+ * @returns The S3 transaction ID.
  * @throws An error if the upload fails.
  */
 const uploadMetadata = async (data: any): Promise<string> => {
