@@ -59,7 +59,6 @@ import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import PollEditor from "./Actions/PollSettings/PollEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
-import OpenActionsPreviews from "./OpenActionsPreviews";
 
 const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
 
@@ -527,7 +526,6 @@ const NewPublication: FC<NewPublicationProps> = ({
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
-      <OpenActionsPreviews setNftOpenActionEmbed={setNftOpenActionEmbed} />
       {!nftOpenActionEmbed ? <LinkPreviews /> : null}
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (

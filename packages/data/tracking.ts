@@ -62,11 +62,6 @@ export const PUBLICATION = {
   NEW_POST: "New post",
   NEW_QUOTE: "New quote",
   NOT_INTERESTED: "Not interested publication",
-  OPEN_ACTIONS: {
-    DECENT: {
-      OPEN_DECENT: "Open decent.xyz open action modal"
-    }
-  },
   OPEN_GIFS: "Open GIFs modal",
   OPEN_LIKES: "Open likes modal",
   OPEN_NFT: "Open NFT",
