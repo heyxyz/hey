@@ -5,6 +5,7 @@
   },
   "files": {
     "ignore": [
+      ".pnpm-store/*",
       "**/.next/**",
       "**/dist/**",
       "**/artifacts/**",
