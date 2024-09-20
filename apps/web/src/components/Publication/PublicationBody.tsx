@@ -5,7 +5,6 @@ import Oembed from "@components/Shared/Oembed";
 import Video from "@components/Shared/Video";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
-import { VerifiedOpenActionModules } from "@hey/data/verified-openaction-modules";
 import getPublicationAttribute from "@hey/helpers/getPublicationAttribute";
 import getPublicationData from "@hey/helpers/getPublicationData";
 import getURLs from "@hey/helpers/getURLs";
@@ -21,7 +20,6 @@ import { isIOS, isMobile } from "react-device-detect";
 import EncryptedPublication from "./EncryptedPublication";
 import Metadata from "./Metadata";
 import NotSupportedPublication from "./NotSupportedPublication";
-import OpenActionOnBody from "./OpenAction/OnBody";
 import Poll from "./Poll";
 
 interface PublicationBodyProps {
@@ -87,14 +85,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       metadata.attributes,
       KNOWN_ATTRIBUTES.HIDE_OEMBED
     ) === "true";
-  const hasDecentOpenAction = targetPublication.openActionModules
-    .filter((module) => module.__typename === "UnknownOpenActionModuleSettings")
-    .some(
-      (module) =>
-        module.contract.address === VerifiedOpenActionModules.DecentNFT
-    );
   const showOembed =
-    !hasDecentOpenAction &&
     !hideOembed &&
     !showSharingLink &&
     hasURLs &&
@@ -121,8 +112,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           <Link href={`/posts/${id}`}>Show more</Link>
         </H6>
       ) : null}
-      {/* Open Action */}
-      <OpenActionOnBody publication={targetPublication} />
       {/* Attachments and Quotes */}
       {showAttachments ? (
         <Attachments asset={filteredAsset} attachments={filteredAttachments} />

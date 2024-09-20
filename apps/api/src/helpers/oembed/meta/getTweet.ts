@@ -14,7 +14,7 @@ const getTweet = (url: string): null | string => {
     }
 
     return null;
-  } catch (error) {
+  } catch {
     return null;
   }
 };

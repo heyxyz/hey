@@ -3,7 +3,6 @@ export enum OptmisticPublicationType {
   Comment = "Comment",
   Follow = "Follow",
   Mirror = "Mirror",
-  NftMintOA = "NftMintOA",
   Post = "Post",
   Quote = "Quote",
   Unfollow = "Unfollow"

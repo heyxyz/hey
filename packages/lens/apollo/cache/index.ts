@@ -12,7 +12,6 @@ import createForYouFieldPolicy from './createForYouFieldPolicy';
 import createLatestPaidActionsFieldPolicy from './createLatestPaidActionsFieldPolicy';
 import createModLatestReportsFieldPolicy from './createModLatestReportsFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
-import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
 import createProfileActionHistoryFieldPolicy from './createProfileActionHistoryFieldPolicy';
 import createProfileManagersFieldPolicy from './createProfileManagersFieldPolicy';
@@ -38,10 +37,8 @@ const cache = new InMemoryCache({
         forYou: createForYouFieldPolicy(),
         latestPaidActions: createLatestPaidActionsFieldPolicy(),
         modExplorePublications: createExplorePublicationsFieldPolicy(),
-        modFollowers: createFollowersFieldPolicy(),
         modLatestReports: createModLatestReportsFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
-        nfts: createNftsFieldPolicy(),
         notifications: createNotificationsFieldPolicy(),
         profileActionHistory: createProfileActionHistoryFieldPolicy(),
         profileManagers: createProfileManagersFieldPolicy(),

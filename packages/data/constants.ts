@@ -59,30 +59,6 @@ export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? "0x100372BBF7f975f6b1448fB11AB0F814b2740EEd"
   : "0x75120677aBF34ae95a916C6E9DbB610a06536CC3";
 export const HEY_MEMBERSHIP_NFT_PUBLICATION_ID = "0x020b69-0x01";
-export const DEFAULT_DECENT_OA_TOKEN = {
-  contractAddress: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-  decimals: 18,
-  id: "WMATIC",
-  name: "Wrapped MATIC",
-  symbol: "WMATIC"
-};
-export const SUPPORTED_DECENT_OA_TOKENS: Record<
-  string,
-  { address: `0x${string}`; visibleDecimals: number }
-> = {
-  USDC: {
-    address: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-    visibleDecimals: 2
-  },
-  WETH: {
-    address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
-    visibleDecimals: 4
-  },
-  WMATIC: {
-    address: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-    visibleDecimals: 2
-  }
-};
 
 // URLs
 export const STATIC_ASSETS_URL = "https://hey-assets.b-cdn.net";
