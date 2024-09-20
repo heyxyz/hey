@@ -12,13 +12,12 @@ const sanitizeDStorageUrl = (hash?: string): string => {
   }
 
   const ipfsGateway = `${IPFS_GATEWAY}/`;
-  const arweaveGateway = "https://gateway.arweave.net/";
 
   let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}/${hash}`);
   link = link.replace("https://ipfs.io/ipfs/", ipfsGateway);
   link = link.replace("ipfs://ipfs/", ipfsGateway);
   link = link.replace("ipfs://", ipfsGateway);
-  link = link.replace("ar://", arweaveGateway);
+  link = link.replace("ar://", "https://gateway.arweave.net/");
 
   return link;
 };
