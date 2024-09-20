@@ -16,5 +16,5 @@ Deploy API:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $GITLAB_IMAGE_TAG_LATEST -t $GITLAB_IMAGE_TAG_COMMIT -f ./apps/api/Dockerfile .
     - docker push $GITLAB_IMAGE_TAG_LATEST
-    - docker push $GITLAB_IMAGE_TAG_COMMIT
     - curl -s "https://redeploy.heyxyz.workers.dev?secret=$SECRET&service=$API_RAILWAY_SERVICE_ID"
+    - docker push $GITLAB_IMAGE_TAG_COMMIT
