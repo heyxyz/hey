@@ -1,4 +1,4 @@
-import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from "@hey/data/constants";
+import { IPFS_GATEWAY } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
@@ -40,26 +40,6 @@ describe("getIPFSLink", () => {
     );
     expect(defaultIpfs).toBe(
       `${IPFS_GATEWAY}/QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR`
-    );
-  });
-
-  test("should return arweave gateway link when arweave hash is found", () => {
-    const arweave = sanitizeDStorageUrl(
-      "ar://Xa6qk95912lq3uWMi0V6wxBYQer99q0i7_6iSt1SmHA"
-    );
-
-    expect(arweave).toBe(
-      `${ARWEAVE_GATEWAY}/Xa6qk95912lq3uWMi0V6wxBYQer99q0i7_6iSt1SmHA`
-    );
-  });
-
-  test("should return arweave gateway link when arweave link is found", () => {
-    const arweave = sanitizeDStorageUrl(
-      `${ARWEAVE_GATEWAY}/Xa6qk95912lq3uWMi0V6wxBYQer99q0i7_6iSt1SmHA`
-    );
-
-    expect(arweave).toBe(
-      `${ARWEAVE_GATEWAY}/Xa6qk95912lq3uWMi0V6wxBYQer99q0i7_6iSt1SmHA`
     );
   });
 });

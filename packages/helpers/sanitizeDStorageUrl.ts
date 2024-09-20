@@ -1,4 +1,4 @@
-import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from "@hey/data/constants";
+import { IPFS_GATEWAY } from "@hey/data/constants";
 
 /**
  * Returns the IPFS link for a given hash.
@@ -12,7 +12,7 @@ const sanitizeDStorageUrl = (hash?: string): string => {
   }
 
   const ipfsGateway = `${IPFS_GATEWAY}/`;
-  const arweaveGateway = `${ARWEAVE_GATEWAY}/`;
+  const arweaveGateway = "https://gateway.arweave.net/";
 
   let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}/${hash}`);
   link = link.replace("https://ipfs.io/ipfs/", ipfsGateway);
