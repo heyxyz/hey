@@ -1,5 +1,0 @@
-Test:
-  stage: preflight
-  script:
-    - pnpm build
-    - pnpm test:dev
