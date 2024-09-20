@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "biome:check": "biome check . --diagnostic-level=error",
+    "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
     "build": "pnpm --recursive --parallel run build",
     "codegen": "pnpm --recursive --parallel run codegen",
