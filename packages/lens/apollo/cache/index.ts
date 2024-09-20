@@ -37,7 +37,6 @@ const cache = new InMemoryCache({
         forYou: createForYouFieldPolicy(),
         latestPaidActions: createLatestPaidActionsFieldPolicy(),
         modExplorePublications: createExplorePublicationsFieldPolicy(),
-        modFollowers: createFollowersFieldPolicy(),
         modLatestReports: createModLatestReportsFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
         notifications: createNotificationsFieldPolicy(),
