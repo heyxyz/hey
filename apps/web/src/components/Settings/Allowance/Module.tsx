@@ -1,10 +1,6 @@
 import getAllowanceModule from "@helpers/getAllowanceModule";
-import getAllowanceOpenAction from "@helpers/getAllowanceOpenAction";
 import { POLYGONSCAN_URL } from "@hey/data/constants";
-import {
-  type ApprovedAllowanceAmountResult,
-  OpenActionModuleType
-} from "@hey/lens";
+import type { ApprovedAllowanceAmountResult } from "@hey/lens";
 import { Card } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -28,9 +24,7 @@ const Module: FC<ModuleProps> = ({ module }) => {
     >
       <div className="mr-1.5 mb-3 overflow-hidden sm:mb-0">
         <div className="whitespace-nowrap font-bold">
-          {module.moduleName === OpenActionModuleType.UnknownOpenActionModule
-            ? getAllowanceOpenAction(module?.moduleContract.address).name
-            : getAllowanceModule(module?.moduleName).name}
+          {getAllowanceModule(module?.moduleName).name}
         </div>
         <Link
           className="ld-text-gray-500 truncate text-sm"
