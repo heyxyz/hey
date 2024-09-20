@@ -20,7 +20,8 @@
     "@biomejs/biome": "^1.9.2",
     "@pierre/vercel": "^1.1.1",
     "husky": "^9.1.6",
-    "pierre": "^2.1.9"
+    "pierre": "^2.1.9",
+    "vercel": "^37.5.3"
   },
   "packageManager": "pnpm@9.1.4",
   "engines": {
