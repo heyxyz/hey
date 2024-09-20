@@ -21,7 +21,6 @@ import { isIOS, isMobile } from "react-device-detect";
 import EncryptedPublication from "./EncryptedPublication";
 import Metadata from "./Metadata";
 import NotSupportedPublication from "./NotSupportedPublication";
-import OpenActionOnBody from "./OpenAction/OnBody";
 import Poll from "./Poll";
 
 interface PublicationBodyProps {
@@ -121,8 +120,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           <Link href={`/posts/${id}`}>Show more</Link>
         </H6>
       ) : null}
-      {/* Open Action */}
-      <OpenActionOnBody publication={targetPublication} />
       {/* Attachments and Quotes */}
       {showAttachments ? (
         <Attachments asset={filteredAsset} attachments={filteredAttachments} />

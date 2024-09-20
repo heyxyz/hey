@@ -354,9 +354,6 @@ importers:
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      nft-openaction-kit:
-        specifier: ^1.0.35
-        version: 1.0.35(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)(zod@3.23.8)
       party-js:
         specifier: ^2.2.0
         version: 2.2.0
@@ -8799,9 +8796,6 @@ packages:
         optional: true
       sass:
         optional: true
-
-  nft-openaction-kit@1.0.35:
-    resolution: {integrity: sha512-D9yjp5ZSFszE4wJy0c/U14gAwESnCvOT8DojLSSzzc8/wEzmvhezs/T5ANORrMeyJRHUZlxAN65DJxaQSWhw1w==}
 
   no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
@@ -22454,17 +22448,6 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-
-  nft-openaction-kit@1.0.35(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)(zod@3.23.8):
-    dependencies:
-      axios: 1.7.7(debug@4.3.7)
-      viem: 2.21.9(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)(zod@3.23.8)
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - typescript
-      - utf-8-validate
-      - zod
 
   no-case@3.0.4:
     dependencies:
