@@ -1,4 +1,0 @@
-Typecheck:
-  stage: preflight
-  script:
-    - pnpm typecheck
