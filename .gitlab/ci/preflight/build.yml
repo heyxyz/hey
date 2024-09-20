@@ -1,4 +1,0 @@
-Build:
-  stage: preflight
-  script:
-    - pnpm build
