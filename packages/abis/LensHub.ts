@@ -770,11 +770,7 @@ export const LensHub = [
         components: [
           { internalType: "address", name: "to", type: "address" },
           { internalType: "address", name: "followModule", type: "address" },
-          {
-            internalType: "bytes",
-            name: "followModuleInitData",
-            type: "bytes"
-          }
+          { internalType: "bytes", name: "followModuleInitData", type: "bytes" }
         ],
         internalType: "struct Types.CreateProfileParams",
         name: "createProfileParams",
