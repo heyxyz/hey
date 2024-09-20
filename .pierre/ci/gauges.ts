@@ -7,7 +7,7 @@ const linkToHeyGauge = new Gauge("Docs", {
 });
 
 const linkToHey = async () => {
-  linkToHeyGauge.update({ value: 0.9 });
+  linkToHeyGauge.update({ value: 1 });
 };
 
 export default [linkToHey];
