@@ -87,11 +87,7 @@ export const HeyLensSignup = [
         components: [
           { internalType: "address", name: "to", type: "address" },
           { internalType: "address", name: "followModule", type: "address" },
-          {
-            internalType: "bytes",
-            name: "followModuleInitData",
-            type: "bytes"
-          }
+          { internalType: "bytes", name: "followModuleInitData", type: "bytes" }
         ],
         internalType: "struct CreateProfileParams",
         name: "createProfileParams",
@@ -118,11 +114,7 @@ export const HeyLensSignup = [
         components: [
           { internalType: "address", name: "to", type: "address" },
           { internalType: "address", name: "followModule", type: "address" },
-          {
-            internalType: "bytes",
-            name: "followModuleInitData",
-            type: "bytes"
-          }
+          { internalType: "bytes", name: "followModuleInitData", type: "bytes" }
         ],
         internalType: "struct CreateProfileParams",
         name: "createProfileParams",
@@ -250,6 +242,13 @@ export const HeyLensSignup = [
   {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "withdrawFunds",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
