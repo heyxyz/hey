@@ -6,7 +6,7 @@
 export const regexLookbehindAvailable: boolean = ((): boolean => {
   try {
     return "ab".replace(/(?<=a)b/g, "c") === "ac";
-  } catch (error) {
+  } catch {
     return false;
   }
 })();
