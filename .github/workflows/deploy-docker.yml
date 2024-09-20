@@ -1,0 +1,122 @@
+name: Deploy Docker Images
+
+env:
+  API_RAILWAY_SERVICE_ID: 4a2a1bfb-e499-4c71-bf7f-d9ad47443c31
+  CRON_RAILWAY_SERVICE_ID: 348ba788-3282-4f27-9967-ca04eea9ac4b
+  OG_RAILWAY_SERVICE_ID: 76d31e4b-218d-4f82-974d-f2c8e91480e2
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      api-changed: ${{ steps.filter.outputs.api }}
+      cron-changed: ${{ steps.filter.outputs.cron }}
+      og-changed: ${{ steps.filter.outputs.og }}
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Check for changes 🔍
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+              - 'packages/**'
+            cron:
+              - 'apps/cron/**'
+              - 'packages/**'
+            og:
+              - 'apps/og/**'
+              - 'packages/**'
+
+  api:
+    needs: check-changes
+    if: needs.check-changes.outputs.api-changed == 'true'
+    name: heyxyz/api:latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Build and push heyxyz/api:latest 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: api
+          tag_name: 'latest'
+          docker_file: ./apps/api/Dockerfile
+
+      - name: Trigger API Deployment 🚀
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: 'https://redeploy.heyxyz.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.API_RAILWAY_SERVICE_ID }}" }'
+          method: 'GET'
+          timeout: 30000
+
+  cron:
+    needs: check-changes
+    if: needs.check-changes.outputs.cron-changed == 'true'
+    name: heyxyz/cron:latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Build and push heyxyz/cron:latest 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: cron
+          tag_name: 'latest'
+          docker_file: ./apps/cron/Dockerfile
+
+      - name: Trigger Cron Deployment 🚀
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: 'https://redeploy.heyxyz.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.CRON_RAILWAY_SERVICE_ID }}" }'
+          method: 'GET'
+          timeout: 30000
+
+  og:
+    needs: check-changes
+    if: needs.check-changes.outputs.og-changed == 'true'
+    name: heyxyz/og:latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Build and push heyxyz/og:latest 🚀
+        uses: ./.github/actions/docker
+        with:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+          image_name: og
+          tag_name: 'latest'
+          docker_file: ./apps/og/Dockerfile
+
+      - name: Trigger OG Deployment 🚀
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: 'https://redeploy.heyxyz.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.OG_RAILWAY_SERVICE_ID }}" }'
+          method: 'GET'
+          timeout: 30000

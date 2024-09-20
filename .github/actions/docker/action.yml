@@ -1,0 +1,52 @@
+name: Docker Build and Push
+description: "Build and push Docker image"
+
+inputs:
+  dockerhub_username:
+    description: "Dockerhub username"
+    required: true
+    default: ""
+  dockerhub_token:
+    description: "Dockerhub token"
+    required: true
+    default: ""
+  image_name:
+    description: "Image name"
+    required: true
+    default: ""
+  docker_file:
+    description: "Docker file"
+    required: true
+    default: ""
+  tag_name:
+    description: "Tag name"
+    required: false
+    default: "latest"
+  build_args:
+    description: "Build args"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up QEMU 🐳
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx 🐳
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub 🔑
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_token }}
+
+    - name: Build and push image 🚀
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ${{ inputs.docker_file }}
+        push: true
+        tags: heyxyz/${{ inputs.image_name }}:${{ inputs.tag_name }}
+        build-args: ${{ inputs.build_args }}
