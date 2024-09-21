@@ -1,5 +1,4 @@
-import { IndexDB, Localstorage } from "@hey/data/storage";
-import { delMany } from "idb-keyval";
+import { Localstorage } from "@hey/data/storage";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -40,7 +39,10 @@ const store = create(
       signOut: async () => {
         // Clear Localstorage
         const allLocalstorageStores = Object.values(Localstorage).filter(
-          (value) => value !== Localstorage.LeafwatchStore
+          (value) =>
+            value !== Localstorage.LeafwatchStore &&
+            value !== Localstorage.VerifiedMembersStore &&
+            value !== Localstorage.SearchStore
         );
         for (const store of allLocalstorageStores) {
           localStorage.removeItem(store);
@@ -55,14 +57,6 @@ const store = create(
         for (const key of keys) {
           localStorage.removeItem(key);
         }
-
-        // Clear IndexedDB
-        const allIndexedDBStores = Object.values(IndexDB).filter(
-          (value) =>
-            value !== IndexDB.VerifiedMembersStore &&
-            value !== IndexDB.SearchStore
-        );
-        await delMany(allIndexedDBStores);
       }
     }),
     { name: Localstorage.AuthStore }
