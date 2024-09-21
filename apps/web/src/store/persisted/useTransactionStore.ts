@@ -1,8 +1,7 @@
-import { IndexDB } from "@hey/data/storage";
+import { Localstorage } from "@hey/data/storage";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
@@ -39,7 +38,7 @@ const store = create(
       setIndexedPostHash: (hash) => set({ indexedPostHash: hash }),
       txnQueue: []
     }),
-    { name: IndexDB.TransactionStore, storage: createIdbStorage() }
+    { name: Localstorage.TransactionStore }
   )
 );
 

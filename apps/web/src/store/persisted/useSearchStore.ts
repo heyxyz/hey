@@ -1,8 +1,7 @@
-import { IndexDB } from "@hey/data/storage";
+import { Localstorage } from "@hey/data/storage";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   addProfile: (profile: string) => void;
@@ -28,7 +27,7 @@ const store = create(
       clearProfiles: () => set({ profiles: [] }),
       profiles: []
     }),
-    { name: IndexDB.SearchStore, storage: createIdbStorage() }
+    { name: Localstorage.SearchStore }
   )
 );
 
