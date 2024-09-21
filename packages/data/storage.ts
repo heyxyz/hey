@@ -3,9 +3,7 @@ export const Localstorage = {
   AuthStore: "auth.store",
   FingerprintStore: "fingerprint.store",
   LeafwatchStore: "leafwatch.store",
-  ModeStore: "mode.store",
   NotificationStore: "notification.store",
-  TimelineStore: "timeline.store",
   UnleashRepositoryStore: "unleash:repository:repo",
   UnleashRepositorySessionIdStore: "unleash:repository:sessionId"
 };
