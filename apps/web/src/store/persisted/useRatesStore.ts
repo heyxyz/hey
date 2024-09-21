@@ -1,9 +1,8 @@
-import { IndexDB } from "@hey/data/storage";
+import { Localstorage } from "@hey/data/storage";
 import type { FiatRate } from "@hey/types/lens";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   fiatRates: [] | FiatRate[];
@@ -16,7 +15,7 @@ const store = create(
       fiatRates: [],
       setFiatRates: (fiatRates) => set(() => ({ fiatRates }))
     }),
-    { name: IndexDB.RateStore, storage: createIdbStorage() }
+    { name: Localstorage.RateStore }
   )
 );
 

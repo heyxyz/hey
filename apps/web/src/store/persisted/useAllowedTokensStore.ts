@@ -1,9 +1,8 @@
-import { IndexDB } from "@hey/data/storage";
+import { Localstorage } from "@hey/data/storage";
 import type { AllowedToken } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   allowedTokens: [] | AllowedToken[];
@@ -16,7 +15,7 @@ const store = create(
       allowedTokens: [],
       setAllowedTokens: (allowedTokens) => set(() => ({ allowedTokens }))
     }),
-    { name: IndexDB.AllowedTokensStore, storage: createIdbStorage() }
+    { name: Localstorage.AllowedTokensStore }
   )
 );
 

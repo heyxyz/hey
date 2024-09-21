@@ -305,9 +305,6 @@ importers:
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
-      idb-keyval:
-        specifier: ^6.2.1
-        version: 6.2.1
       next:
         specifier: ^14.2.12
         version: 14.2.13(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
