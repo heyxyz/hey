@@ -120,9 +120,6 @@ importers:
       '@types/node':
         specifier: ^22.5.5
         version: 22.5.5
-      '@types/request-ip':
-        specifier: ^0.0.41
-        version: 0.0.41
       '@types/ua-parser-js':
         specifier: ^0.7.39
         version: 0.7.39
@@ -5205,9 +5202,6 @@ packages:
 
   '@types/react@18.3.8':
     resolution: {integrity: sha512-syBUrW3/XpnW4WJ41Pft+I+aPoDVbrBVQGEnbD7NijDGlVC+8gV/XKRY+7vMDlfPpbwYt0l1vd/Sj8bJGMbs9Q==}
-
-  '@types/request-ip@0.0.41':
-    resolution: {integrity: sha512-Qzz0PM2nSZej4lsLzzNfADIORZhhxO7PED0fXpg4FjXiHuJ/lMyUg+YFF5q8x9HPZH3Gl6N+NOM8QZjItNgGKg==}
 
   '@types/secp256k1@4.0.6':
     resolution: {integrity: sha512-hHxJU6PAEUn0TP4S/ZOzuTUvJWuZ6eIKeNKb5RBpODvSl6hp1Wrw4s7ATY50rklRCScUDpHzVA/DQdSjJ3UoYQ==}
@@ -17568,10 +17562,6 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.13
       csstype: 3.1.3
-
-  '@types/request-ip@0.0.41':
-    dependencies:
-      '@types/node': 22.5.5
 
   '@types/secp256k1@4.0.6':
     dependencies:
