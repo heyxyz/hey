@@ -11,13 +11,10 @@
       "**/artifacts/**",
       "**/node_modules/**",
       "**/.git/**",
-      "**/.gitlab/**",
       "sw.js",
       "**/cache/**",
       ".openzeppelin",
       "typechain-types",
-      "packages/tsconfig",
-      "**/generated/**",
       "generated.ts"
     ]
   },
@@ -26,11 +23,11 @@
     "rules": {
       "recommended": true,
       "a11y": {
-        "useKeyWithClickEvents": "warn",
+        "useKeyWithClickEvents": "off",
         "useMediaCaption": "off"
       },
       "security": {
-        "noDangerouslySetInnerHtml": "warn"
+        "noDangerouslySetInnerHtml": "off"
       },
       "correctness": {
         "noUnusedVariables": "error",
@@ -42,12 +39,12 @@
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noAssignInExpressions": "warn",
-        "noArrayIndexKey": "warn"
+        "noAssignInExpressions": "off",
+        "noArrayIndexKey": "off"
       },
       "complexity": {
         "noForEach": "warn",
-        "useLiteralKeys": "warn"
+        "useLiteralKeys": "off"
       },
       "nursery": {
         "useSortedClasses": {

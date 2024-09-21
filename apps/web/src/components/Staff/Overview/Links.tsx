@@ -38,10 +38,6 @@ const Links: FC = () => {
         <p className="mb-4 font-bold">Other helpful links 🌱</p>
         <ul className="mt-0 mb-3 list-disc space-y-1 pl-5">
           <ListItem
-            link="https://gitlab.com/yo/hey/-/issues/service_desk"
-            title="Service Desk"
-          />
-          <ListItem
             link="https://railway.app/project/659c7f82-0d18-4593-807f-5348c495e3ef"
             title="Railway"
           />
