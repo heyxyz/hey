@@ -12,7 +12,6 @@ import {
   NoSymbolIcon,
   QueueListIcon,
   ShareIcon,
-  SparklesIcon,
   StarIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
@@ -82,11 +81,6 @@ const SettingsSidebar: FC = () => {
       icon: <NoSymbolIcon className="size-4" />,
       title: "Blocked Profiles",
       url: "/settings/blocked"
-    },
-    {
-      icon: <SparklesIcon className="size-4" />,
-      title: "Cleanup",
-      url: "/settings/cleanup"
     },
     {
       icon: <CircleStackIcon className="size-4" />,
