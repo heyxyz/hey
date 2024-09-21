@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/nextjs";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import Custom500 from "src/pages/500";
@@ -21,7 +20,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    Sentry.captureException(error);
     console.error("Uncaught error:", error, errorInfo);
   }
 
