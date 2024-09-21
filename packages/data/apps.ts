@@ -12,5 +12,6 @@ export const apps = [
   "bloomers.tv",
   "kaira",
   "orna.art",
-  "firefly"
+  "firefly",
+  "0xppl"
 ];
