@@ -1,5 +1,0 @@
-Contact: https://gitlab.com/yo/hey/-/issues/new
-Expires: 2022-12-31T18:29:00.000Z
-Preferred-Languages: en
-Canonical: https://hey.xyz/.well-known/security.txt
-Policy: https://gitlab.com/yo/hey/-/blob/main/.gitlab/SECURITY.md

@@ -61,7 +61,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
           vibrant future of{" "}
           <Link
             className="font-bold"
-            href="https://gitlab.com/yo/hey"
+            href="https://github.com/heyxyz/hey"
             target="_blank"
           >
             open-source
