@@ -1,19 +1,15 @@
 #!/bin/bash
 
 #/ Usage: script/update-lock-file
-#/ Create a branch to update a lock file.
+#/ Create a branch to update a lock file with a unique name.
 
-# Delete update-lock-file branch if it exists
-if git branch | grep -q "update-lock-file"; then
-  echo "Deleting update-lock-file branch 🗑"
-  git branch -D update-lock-file
-  echo "Branch deleted 🎉"
-fi
+# Generate a unique branch name using a timestamp
+branch_name="update-lock-file-$(date +%Y%m%d%H%M%S)"
 
-# Create update-lock-file branch
-echo "Creating update-lock-file branch 🌱"
-git checkout -b update-lock-file
-echo "Branch created 🎉"
+# Create a new update-lock-file branch with the timestamp
+echo "Creating $branch_name branch 🌱"
+git checkout -b "$branch_name"
+echo "Branch $branch_name created 🎉"
 
 # Update lock file
 echo "Updating lock file 📦"
@@ -21,6 +17,6 @@ script/clean && pnpm install
 # Git operations
 git add -A
 git commit -am "chore: update lock file 📦"
-git push origin update-lock-file
+git push origin "$branch_name"
 gh pr create --fill
-echo "Lock file updated 🎉"
+echo "Lock file updated and PR created for $branch_name 🎉"
