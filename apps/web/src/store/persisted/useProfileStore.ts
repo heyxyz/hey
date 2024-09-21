@@ -1,9 +1,8 @@
-import { IndexDB } from "@hey/data/storage";
+import { Localstorage } from "@hey/data/storage";
 import type { Profile } from "@hey/lens";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   currentProfile: null | Profile;
@@ -21,7 +20,7 @@ const store = create(
       setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
         set(() => ({ fallbackToCuratedFeed }))
     }),
-    { name: IndexDB.ProfileStore, storage: createIdbStorage() }
+    { name: Localstorage.ProfileStore }
   )
 );
 

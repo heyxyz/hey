@@ -1,8 +1,7 @@
-import { IndexDB } from "@hey/data/storage";
+import { Localstorage } from "@hey/data/storage";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import createIdbStorage from "../helpers/createIdbStorage";
 
 interface State {
   hydrateVerifiedMembers: () => { verifiedMembers: string[] };
@@ -21,7 +20,7 @@ const store = create(
       setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
       verifiedMembers: []
     }),
-    { name: IndexDB.VerifiedMembersStore, storage: createIdbStorage() }
+    { name: Localstorage.VerifiedMembersStore }
   )
 );
 
