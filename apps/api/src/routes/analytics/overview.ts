@@ -57,6 +57,8 @@ const transformData = (result: any[][]): TransformedRecord[] => {
   const followsMap = mapData(followsData, "follows");
   const bookmarksMap = mapData(bookmarksData, "bookmarks");
 
+  console.log(bookmarksData);
+
   // Transform data for the last 30 days
   const last30Days = generateLast30Days();
   return last30Days.map((date) => ({
@@ -148,11 +150,11 @@ export const get = [
           ORDER BY date;
 
           -- Get number of bookmarks per day for the last 30 days
-          SELECT DATE(bookmarked_at) AS date, COUNT(*) AS bookmarks
+          SELECT TO_CHAR(date_trunc('day', bookmarked_at), 'YYYY-MM-DD') AS date, COUNT(*) AS bookmarks
           FROM personalisation.bookmarked_publication
           WHERE bookmarked_at >= NOW() - INTERVAL '30 days'
             AND SPLIT_PART(publication_id, '-', 1) = $1
-          GROUP BY DATE(bookmarked_at)
+          GROUP BY date_trunc('day', bookmarked_at)
           ORDER BY date;
         `,
         [id]
