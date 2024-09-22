@@ -6,7 +6,7 @@ import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { FrameTransaction, Frame as IFrame } from "@hey/types/misc";
-import { Button, Card, Input, Modal } from "@hey/ui";
+import { Button, Card, Image, Input, Modal } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
 import type { FC } from "react";
@@ -145,7 +145,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
 
   return (
     <Card className="mt-3" forceRounded onClick={stopEventPropagation}>
-      <img
+      <Image
         alt={image}
         className={cn(
           isLoading && "animate-shimmer",
