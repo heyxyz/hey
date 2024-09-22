@@ -1,9 +1,11 @@
 import lensPg from "@hey/db/lensPg";
+import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
-import { noBody } from "src/helpers/responses";
+import validateIsPro from "src/helpers/middlewares/validateIsPro";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 
 interface TransformedRecord {
   date: string;
@@ -76,14 +78,13 @@ const transformData = (result: any[][]): TransformedRecord[] => {
 
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
+  validateLensAccount,
+  validateIsPro,
   async (req: Request, res: Response) => {
-    const { id } = req.query;
-
-    if (!id) {
-      return noBody(res);
-    }
-
     try {
+      const identityToken = req.headers["x-identity-token"] as string;
+      const payload = parseJwt(identityToken);
+
       const result = await lensPg.multi(
         `
           -- Get number of likes per day for the last 30 days
@@ -157,8 +158,10 @@ export const get = [
           GROUP BY date_trunc('day', bookmarked_at)
           ORDER BY date;
         `,
-        [id]
+        [payload.id]
       );
+
+      // TODO: Add redis caching
 
       return res
         .status(200)
