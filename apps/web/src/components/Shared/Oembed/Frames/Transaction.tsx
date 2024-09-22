@@ -55,7 +55,9 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
   }
 
   const txnData = showTransaction.transaction;
-  const chainId = Number.parseInt(txnData.chainId.replace("eip155:", ""));
+  const chainId = txnData.chainId
+    ? Number.parseInt(txnData.chainId.replace("eip155:", ""))
+    : 1;
   const chainData = {
     logo: getNftChainInfo(getNftChainId(chainId.toString())).logo,
     name: getNftChainInfo(getNftChainId(chainId.toString())).name
