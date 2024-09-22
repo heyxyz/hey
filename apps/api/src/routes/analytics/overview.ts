@@ -1,4 +1,6 @@
 import lensPg from "@hey/db/lensPg";
+import { generateLongExpiry, getRedis, setRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -85,6 +87,17 @@ export const get = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
+      const cacheKey = `analytics:overview:${payload.id}`;
+      const cachedData = await getRedis(cacheKey);
+
+      if (cachedData) {
+        logger.info(`(cached) Analytics overview fetched for ${payload.id}`);
+        return res
+          .status(200)
+          .setHeader("Cache-Control", CACHE_AGE_30_MINS)
+          .json({ result: JSON.parse(cachedData), success: true });
+      }
+
       const result = await lensPg.multi(
         `
           -- Get number of likes per day for the last 30 days
@@ -161,7 +174,12 @@ export const get = [
         [payload.id]
       );
 
-      // TODO: Add redis caching
+      await setRedis(
+        cacheKey,
+        JSON.stringify(transformData(result)),
+        generateLongExpiry()
+      );
+      logger.info(`Analytics overview fetched for ${payload.id}`);
 
       return res
         .status(200)
