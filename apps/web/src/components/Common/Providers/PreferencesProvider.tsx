@@ -1,6 +1,6 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import getCurrentSession from "@helpers/getCurrentSession";
-import { HEY_API_URL, STALE_TIMES } from "@hey/data/constants";
+import { HEY_API_URL } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
 import getAllTokens from "@hey/helpers/api/getAllTokens";
 import getPreferences from "@hey/helpers/api/getPreferences";
@@ -83,13 +83,11 @@ const PreferencesProvider: FC = () => {
   });
   useQuery({
     queryFn: getVerifiedMembersData,
-    queryKey: ["getVerifiedMembers"],
-    staleTime: STALE_TIMES.THIRTY_MINUTES
+    queryKey: ["getVerifiedMembers"]
   });
   useQuery({
     queryFn: getAllowedTokensData,
-    queryKey: ["getAllowedTokens"],
-    staleTime: STALE_TIMES.THIRTY_MINUTES
+    queryKey: ["getAllowedTokens"]
   });
   useQuery({
     queryFn: () =>
@@ -97,8 +95,7 @@ const PreferencesProvider: FC = () => {
         setFiatRates(rates);
         return rates;
       }),
-    queryKey: ["getFiatRates"],
-    staleTime: STALE_TIMES.FIVE_MINUTES
+    queryKey: ["getFiatRates"]
   });
 
   return null;
