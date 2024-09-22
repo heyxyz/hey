@@ -10,6 +10,7 @@ import SpinnerDesign from "./SpinnerDesign";
 import ToggleDesign from "./ToggleDesign";
 import TooltipDesign from "./TooltipDesign";
 import TypographyDesign from "./TypographyDesign";
+import CardDesign from "./CardDesign";
 
 const Design: NextPage = () => {
   return (
@@ -22,6 +23,7 @@ const Design: NextPage = () => {
         <TooltipDesign />
         <ToggleDesign />
         <SpinnerDesign />
+        <CardDesign />
         <ErrorMessageDesign />
         <ProfilesDesign />
       </GridItemTwelve>
