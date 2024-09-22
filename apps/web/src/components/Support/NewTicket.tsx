@@ -1,4 +1,3 @@
-import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { EnvelopeIcon, LifebuoyIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -34,7 +33,7 @@ const newTicketSchema = object({
 });
 
 const NewTicket: FC = () => {
-  const { email, loading } = usePreferencesStore();
+  const { email } = usePreferencesStore();
   const { currentProfile } = useProfileStore();
   const [emailDisabled, setEmailDisabled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -78,14 +77,6 @@ const NewTicket: FC = () => {
       }
     );
   };
-
-  if (loading) {
-    return (
-      <Card className="p-10 text-center">
-        <Loader className="my-10" />
-      </Card>
-    );
-  }
 
   if (currentProfile && !email) {
     return (
