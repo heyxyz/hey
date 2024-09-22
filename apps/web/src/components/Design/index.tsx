@@ -5,6 +5,7 @@ import AlertDesign from "./AlertDesign";
 import BadgeDesign from "./BadgeDesign";
 import ButtonsDesign from "./ButtonsDesign";
 import CardDesign from "./CardDesign";
+import EmptyStateDesign from "./EmptyStateDesign";
 import ErrorMessageDesign from "./ErrorMessageDesign";
 import ModalDesign from "./ModalDesign";
 import ProfilesDesign from "./ProfilesDesign";
@@ -26,6 +27,7 @@ const Design: NextPage = () => {
         <SpinnerDesign />
         <BadgeDesign />
         <CardDesign />
+        <EmptyStateDesign />
         <ErrorMessageDesign />
         <ProfilesDesign />
       </GridItemTwelve>
