@@ -2,6 +2,7 @@ import { GridLayout } from "@hey/ui";
 import { GridItemTwelve } from "@hey/ui/src/GridLayout";
 import type { NextPage } from "next";
 import AlertDesign from "./AlertDesign";
+import BadgeDesign from "./BadgeDesign";
 import ButtonsDesign from "./ButtonsDesign";
 import CardDesign from "./CardDesign";
 import ErrorMessageDesign from "./ErrorMessageDesign";
@@ -23,6 +24,7 @@ const Design: NextPage = () => {
         <TooltipDesign />
         <ToggleDesign />
         <SpinnerDesign />
+        <BadgeDesign />
         <CardDesign />
         <ErrorMessageDesign />
         <ProfilesDesign />
