@@ -14,6 +14,7 @@ interface TransformedRecord {
   quotes: number;
   mentions: number;
   follows: number;
+  bookmarks: number;
 }
 
 const generateLast30Days = (): string[] => {
@@ -42,7 +43,8 @@ const transformData = (result: any[][]): TransformedRecord[] => {
     mirrorsData,
     quotesData,
     mentionsData,
-    followsData
+    followsData,
+    bookmarksData
   ] = result;
 
   // Generate maps for quick lookup
@@ -53,6 +55,7 @@ const transformData = (result: any[][]): TransformedRecord[] => {
   const quotesMap = mapData(quotesData, "quotes");
   const mentionsMap = mapData(mentionsData, "mentions");
   const followsMap = mapData(followsData, "follows");
+  const bookmarksMap = mapData(bookmarksData, "bookmarks");
 
   // Transform data for the last 30 days
   const last30Days = generateLast30Days();
@@ -64,7 +67,8 @@ const transformData = (result: any[][]): TransformedRecord[] => {
     mirrors: mirrorsMap[date] || 0,
     quotes: quotesMap[date] || 0,
     mentions: mentionsMap[date] || 0,
-    follows: followsMap[date] || 0
+    follows: followsMap[date] || 0,
+    bookmarks: bookmarksMap[date] || 0
   }));
 };
 
@@ -141,6 +145,14 @@ export const get = [
             AND notification_action_date >= NOW() - INTERVAL '30 days'
             AND notification_receiving_profile_id = $1
           GROUP BY date_trunc('day', notification_action_date)
+          ORDER BY date;
+
+          -- Get number of bookmarks per day for the last 30 days
+          SELECT DATE(bookmarked_at) AS date, COUNT(*) AS bookmarks
+          FROM personalisation.bookmarked_publication
+          WHERE bookmarked_at >= NOW() - INTERVAL '30 days'
+            AND SPLIT_PART(publication_id, '-', 1) = $1
+          GROUP BY DATE(bookmarked_at)
           ORDER BY date;
         `,
         [id]
