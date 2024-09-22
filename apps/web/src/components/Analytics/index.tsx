@@ -10,6 +10,7 @@ import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import Overview from "./Overview";
 
 const Analytics: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -34,7 +35,9 @@ const Analytics: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={`Analytics • ${APP_NAME}`} />
-      <GridItemTwelve className="space-y-5">gm</GridItemTwelve>
+      <GridItemTwelve className="space-y-5">
+        <Overview />
+      </GridItemTwelve>
     </GridLayout>
   );
 };

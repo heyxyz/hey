@@ -7,11 +7,12 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { noBody } from "src/helpers/responses";
 
 export const get = [
   rateLimiter({ requests: 10, within: 1 }),
-  // validateLensAccount,
+  validateLensAccount,
   async (req: Request, res: Response) => {
     const { id } = req.query;
 
