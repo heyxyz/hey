@@ -1,6 +1,6 @@
 import { run } from "pierre";
 
-export const label = "Run DB Migration";
+export const label = "Migrate DB";
 
 export default async ({ branch }) => {
   if (branch.name !== "main") {

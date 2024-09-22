@@ -1,6 +1,6 @@
 import { run } from "pierre";
 
-export const label = "Run Biome Linter";
+export const label = "Biome Lint";
 
 export default async () => {
   await run("pnpm biome:check");
