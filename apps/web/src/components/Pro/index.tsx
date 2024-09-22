@@ -24,8 +24,6 @@ const details = {
     "Early access to new features",
     "Priority support"
   ],
-  id: "monthly",
-  name: "Monthly",
   price: MONTHLY_PRO_PRICE
 };
 
@@ -65,8 +63,7 @@ const Pro: NextPage = () => {
             "rounded-2xl p-8 ring-1 ring-gray-900/10 sm:p-10 dark:ring-gray-100/20"
           )}
         >
-          <h3 className="font-bold">{details.name}</h3>
-          <p className="mt-4 flex items-baseline space-x-3">
+          <p className="flex items-baseline space-x-3">
             <img
               alt="POL"
               className="size-7"
