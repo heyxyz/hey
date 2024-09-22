@@ -89,6 +89,8 @@ export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
 export const ALCHEMY_API_KEY = "Xx-4a1SyWtS9U4h0cEuRmvgYtGeVOlv7";
 export const CLUBS_APP_TOKEN =
   "Qun7aDFo4FS7Dt2b9Ea8ve5TqvuXiCJXjZZTsao5Y9viFJxSEi5gYZa7DybrSzDGXST5L2vWMjBXzjsppj5RERo3AdPnJ3TVYuY2cLxBFa592rkjzU";
+export const UNLEASH_API_TOKEN =
+  "*:production.1cc40547dde90e0b342a3dffa825d52a9d9e13597c9dedea480aa9c0";
 
 // Named transforms for ImageKit
 export const AVATAR = "tr:w-350,h-350";

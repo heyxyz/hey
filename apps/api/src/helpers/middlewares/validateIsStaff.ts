@@ -1,4 +1,4 @@
-import { APP_NAME } from "@hey/data/constants";
+import { UNLEASH_API_TOKEN } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import parseJwt from "@hey/helpers/parseJwt";
@@ -28,7 +28,7 @@ const validateIsStaff = async (
 
     const { data } = await axios.get(UNLEASH_API_URL, {
       headers: {
-        Authorization: APP_NAME,
+        Authorization: UNLEASH_API_TOKEN,
         "User-Agent": HEY_USER_AGENT
       },
       params: {
