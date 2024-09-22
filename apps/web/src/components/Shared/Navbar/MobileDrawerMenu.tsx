@@ -1,10 +1,12 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { FeatureFlag } from "@hey/data/feature-flags";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
@@ -13,6 +15,7 @@ import Slug from "../Slug";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
+import Pro from "./NavItems/Pro";
 import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
 import SwitchProfile from "./NavItems/SwitchProfile";
@@ -22,6 +25,7 @@ import YourProfile from "./NavItems/YourProfile";
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
+  const proEnabled = useFlag(FeatureFlag.Pro);
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -74,6 +78,11 @@ const MobileDrawerMenu: FC = () => {
             <Link href="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
+            {proEnabled && (
+              <Link href="/pro" onClick={closeDrawer}>
+                <Pro className={cn(itemClass, "px-4")} />
+              </Link>
+            )}
             <Bookmarks
               className={cn(itemClass, "px-4")}
               onClick={closeDrawer}
@@ -90,7 +99,6 @@ const MobileDrawerMenu: FC = () => {
           <Support className={cn(itemClass, "px-4")} />
           <div className="divider" />
         </div>
-
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
