@@ -11,6 +11,8 @@ interface TransformedRecord {
   comments: number;
   collects: number;
   mirrors: number;
+  quotes: number;
+  mentions: number;
   follows: number;
 }
 
@@ -33,14 +35,23 @@ const mapData = (data: any[], key: string): Record<string, number> => {
 };
 
 const transformData = (result: any[][]): TransformedRecord[] => {
-  const [likesData, commentsData, collectsData, mirrorsData, followsData] =
-    result;
+  const [
+    likesData,
+    commentsData,
+    collectsData,
+    mirrorsData,
+    quotesData,
+    mentionsData,
+    followsData
+  ] = result;
 
   // Generate maps for quick lookup
   const likesMap = mapData(likesData, "likes");
   const commentsMap = mapData(commentsData, "comments");
   const collectsMap = mapData(collectsData, "collects");
   const mirrorsMap = mapData(mirrorsData, "mirrors");
+  const quotesMap = mapData(quotesData, "quotes");
+  const mentionsMap = mapData(mentionsData, "mentions");
   const followsMap = mapData(followsData, "follows");
 
   // Transform data for the last 30 days
@@ -51,6 +62,8 @@ const transformData = (result: any[][]): TransformedRecord[] => {
     comments: commentsMap[date] || 0,
     collects: collectsMap[date] || 0,
     mirrors: mirrorsMap[date] || 0,
+    quotes: quotesMap[date] || 0,
+    mentions: mentionsMap[date] || 0,
     follows: followsMap[date] || 0
   }));
 };
@@ -98,6 +111,24 @@ export const get = [
           SELECT TO_CHAR(date_trunc('day', notification_action_date), 'YYYY-MM-DD') AS date, COUNT(*) AS mirrors
           FROM notification.record
           WHERE notification_type = 'MIRRORED'
+            AND notification_action_date >= NOW() - INTERVAL '30 days'
+            AND notification_receiving_profile_id = $1
+          GROUP BY date_trunc('day', notification_action_date)
+          ORDER BY date;
+
+          -- Get number of quotes per day for the last 30 days
+          SELECT TO_CHAR(date_trunc('day', notification_action_date), 'YYYY-MM-DD') AS date, COUNT(*) AS quotes
+          FROM notification.record
+          WHERE notification_type = 'QUOTED'
+            AND notification_action_date >= NOW() - INTERVAL '30 days'
+            AND notification_receiving_profile_id = $1
+          GROUP BY date_trunc('day', notification_action_date)
+          ORDER BY date;
+
+          -- Get number of mentions per day for the last 30 days
+          SELECT TO_CHAR(date_trunc('day', notification_action_date), 'YYYY-MM-DD') AS date, COUNT(*) AS mentions
+          FROM notification.record
+          WHERE notification_type = 'MENTIONED'
             AND notification_action_date >= NOW() - INTERVAL '30 days'
             AND notification_receiving_profile_id = $1
           GROUP BY date_trunc('day', notification_action_date)
