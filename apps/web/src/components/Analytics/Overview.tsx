@@ -33,7 +33,8 @@ ChartJS.register(
 );
 
 const Overview: FC = () => {
-  const [selectedType, setSelectedType] = useState<string>("Likes");
+  const [primaryType, setPrimaryType] = useState<string>("Likes");
+  const [secondaryType, setSecondaryType] = useState<string>("Comments");
   const { resolvedTheme } = useTheme();
 
   const getAnalyticsOverview = async (): Promise<
@@ -88,20 +89,31 @@ const Overview: FC = () => {
     "Bookmarks"
   ];
 
-  const options = types.map((type) => ({
+  const primaryOptions = types.map((type) => ({
     label: type,
-    selected: type === selectedType,
+    selected: type === primaryType,
+    value: type
+  }));
+
+  const secondaryOptions = types.map((type) => ({
+    label: type,
+    selected: type === secondaryType,
     value: type
   }));
 
   return (
     <Card>
       <CardHeader title="Profile overview" />
-      <div className="m-5">
+      <div className="m-5 grid grid-cols-2 gap-4">
         <Select
-          defaultValue={selectedType}
-          onChange={(value) => setSelectedType(value)}
-          options={options}
+          defaultValue={primaryType}
+          onChange={(value) => setPrimaryType(value)}
+          options={primaryOptions}
+        />
+        <Select
+          defaultValue={secondaryType}
+          onChange={(value) => setSecondaryType(value)}
+          options={secondaryOptions}
         />
       </div>
       <div className="divider" />
@@ -112,22 +124,39 @@ const Overview: FC = () => {
               {
                 backgroundColor:
                   resolvedTheme === "dark"
-                    ? colors.zinc["900"]
-                    : colors.zinc["400"],
+                    ? colors.gray["900"]
+                    : colors.gray["400"],
                 borderColor:
-                  resolvedTheme === "dark" ? colors.white : colors.black,
+                  resolvedTheme === "dark"
+                    ? colors.gray["950"]
+                    : colors.gray["500"],
                 data: data.map(
-                  (stat) =>
-                    stat[selectedType.toLowerCase() as keyof typeof stat]
+                  (stat) => stat[primaryType.toLowerCase() as keyof typeof stat]
                 ),
                 fill: true,
-                label: "Likes"
+                label: primaryType
+              },
+              {
+                backgroundColor:
+                  resolvedTheme === "dark"
+                    ? colors.blue["900"]
+                    : colors.blue["400"],
+                borderColor:
+                  resolvedTheme === "dark"
+                    ? colors.blue["950"]
+                    : colors.blue["500"],
+                data: data.map(
+                  (stat) =>
+                    stat[secondaryType.toLowerCase() as keyof typeof stat]
+                ),
+                fill: true,
+                label: secondaryType
               }
             ],
             labels: data.map((stat) => formatDate(stat.date, "MMM D"))
           }}
           options={{
-            plugins: { legend: { display: false } },
+            plugins: { legend: { display: true } },
             responsive: true
           }}
         />
