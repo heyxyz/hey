@@ -17,7 +17,7 @@ import ExtendButton from "./ExtendButton";
 const details = {
   description: "Billed monthly",
   features: [
-    "Profile Analytics",
+    "Extended Analytics",
     "Choose your app icon",
     "Higher video and audio upload limits",
     "Pro Badge on your profile",
