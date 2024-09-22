@@ -6,36 +6,30 @@ import { Card, CardHeader, Select } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
-  Filler,
   Legend,
-  LineElement,
   LinearScale,
-  PointElement,
   Title,
   Tooltip
 } from "chart.js";
-import { useTheme } from "next-themes";
 import { type FC, useState } from "react";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import colors from "tailwindcss/colors";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
-  Filler,
   Legend
 );
 
 const Overview: FC = () => {
   const [primaryType, setPrimaryType] = useState<string>("Likes");
   const [secondaryType, setSecondaryType] = useState<string>("Comments");
-  const { resolvedTheme } = useTheme();
 
   const getAnalyticsOverview = async (): Promise<
     {
@@ -118,45 +112,30 @@ const Overview: FC = () => {
       </div>
       <div className="divider" />
       <div className="m-5">
-        <Line
+        <Bar
           data={{
             datasets: [
               {
-                backgroundColor:
-                  resolvedTheme === "dark"
-                    ? colors.gray["900"]
-                    : colors.gray["400"],
-                borderColor:
-                  resolvedTheme === "dark"
-                    ? colors.gray["950"]
-                    : colors.gray["500"],
+                backgroundColor: colors.green["500"],
                 data: data.map(
                   (stat) => stat[primaryType.toLowerCase() as keyof typeof stat]
                 ),
-                fill: true,
                 label: primaryType
               },
               {
-                backgroundColor:
-                  resolvedTheme === "dark"
-                    ? colors.blue["900"]
-                    : colors.blue["400"],
-                borderColor:
-                  resolvedTheme === "dark"
-                    ? colors.blue["950"]
-                    : colors.blue["500"],
+                backgroundColor: colors.blue["500"],
+                borderRadius: 3,
                 data: data.map(
                   (stat) =>
                     stat[secondaryType.toLowerCase() as keyof typeof stat]
                 ),
-                fill: true,
                 label: secondaryType
               }
             ],
             labels: data.map((stat) => formatDate(stat.date, "MMM D"))
           }}
           options={{
-            plugins: { legend: { display: true } },
+            scales: { x: { stacked: true }, y: { stacked: true } },
             responsive: true
           }}
         />
