@@ -1,5 +1,4 @@
 import getCurrentSession from "@helpers/getCurrentSession";
-import { APP_NAME } from "@hey/data/constants";
 import { FlagProvider } from "@unleash/proxy-client-react";
 import type { FC, ReactNode } from "react";
 
@@ -14,11 +13,12 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
     <FlagProvider
       config={{
         appName: "production",
-        clientKey: APP_NAME,
+        environment: "production",
+        clientKey:
+          "*:production.1cc40547dde90e0b342a3dffa825d52a9d9e13597c9dedea480aa9c0",
         context: { sessionId: authorizationId, userId: id },
-        disableMetrics: true,
         refreshInterval: 30,
-        url: "https://flags.hey.xyz/proxy"
+        url: "https://unleash.hey.xyz/api/frontend"
       }}
     >
       {children}
