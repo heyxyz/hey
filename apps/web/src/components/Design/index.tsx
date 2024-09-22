@@ -3,6 +3,7 @@ import { GridItemTwelve } from "@hey/ui/src/GridLayout";
 import type { NextPage } from "next";
 import AlertDesign from "./AlertDesign";
 import ButtonsDesign from "./ButtonsDesign";
+import CardDesign from "./CardDesign";
 import ErrorMessageDesign from "./ErrorMessageDesign";
 import ModalDesign from "./ModalDesign";
 import ProfilesDesign from "./ProfilesDesign";
@@ -10,7 +11,6 @@ import SpinnerDesign from "./SpinnerDesign";
 import ToggleDesign from "./ToggleDesign";
 import TooltipDesign from "./TooltipDesign";
 import TypographyDesign from "./TypographyDesign";
-import CardDesign from "./CardDesign";
 
 const Design: NextPage = () => {
   return (
