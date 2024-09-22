@@ -1,4 +1,5 @@
 import getCurrentSession from "@helpers/getCurrentSession";
+import { UNLEASH_API_TOKEN } from "@hey/data/constants";
 import { FlagProvider } from "@unleash/proxy-client-react";
 import type { FC, ReactNode } from "react";
 
@@ -14,8 +15,7 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
       config={{
         appName: "production",
         environment: "production",
-        clientKey:
-          "*:production.1cc40547dde90e0b342a3dffa825d52a9d9e13597c9dedea480aa9c0",
+        clientKey: UNLEASH_API_TOKEN,
         context: { sessionId: authorizationId, userId: id },
         refreshInterval: 30,
         url: "https://unleash.hey.xyz/api/frontend"
