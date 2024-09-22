@@ -6,7 +6,6 @@ declare namespace NodeJS {
     DATABASE_URL: string;
     EVER_ACCESS_KEY: string;
     EVER_ACCESS_SECRET: string;
-    GITLAB_ACCESS_TOKEN: string;
     LENS_DATABASE_PASSWORD: string;
     REDIS_URL: string;
   }
