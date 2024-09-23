@@ -1,4 +1,4 @@
-import { Gauge, Icons, type JobContext, annotate, run } from "pierre";
+import { Icons, type JobContext, annotate, run } from "pierre";
 
 const vercel = "./node_modules/.bin/vercel";
 
@@ -41,22 +41,12 @@ export const Job =
       .match(/https:\/\/[\w\n-]+\.vercel\.app/g)?.[0];
 
     if (previewURL) {
-      const baseData = {
-        icon: Icons.ArrowUpRightCircle,
-        href: previewURL,
-        description: previewURL
-      };
-
       annotate({
         color: "fg",
         label: ` ${PROJECT_NAME} App Preview`,
-        ...baseData
-      });
-      new Gauge(PROJECT_NAME, {
-        color: "blue",
-        label: PROJECT_NAME,
-        value: 1,
-        ...baseData
+        icon: Icons.Link,
+        href: previewURL,
+        description: previewURL
       });
 
       try {
@@ -82,7 +72,7 @@ export const Job =
 
         if (activeDeploy?.inspectorUrl) {
           annotate({
-            icon: Icons.Code,
+            icon: Icons.BoxTape,
             color: "fg",
             label: ` ${PROJECT_NAME} Deployment Build Details`,
             description: activeDeploy.inspectorUrl,
