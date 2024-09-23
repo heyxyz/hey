@@ -27,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-const Graph: FC = () => {
+const Impressions: FC = () => {
   const getImpressions = async (): Promise<
     {
       date: string;
@@ -85,4 +85,4 @@ const Graph: FC = () => {
   );
 };
 
-export default Graph;
+export default Impressions;

@@ -88,6 +88,10 @@ export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: "Switch notifications tab"
 };
 
+export const ANALYTICS = {
+  SWITCH_ANALYTICS_TAB: "Switch analytics tab"
+};
+
 export const HOME = {
   SELECT_USER_FEED: "Select user feed",
   SWITCH_FOLLOWING_FEED: "Switch to following feed",
