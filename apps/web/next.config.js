@@ -45,24 +45,6 @@ module.exports = {
         permanent: true,
         source: "/gitcoin"
       },
-      // Forms
-      {
-        destination:
-          "https://hey.height.app/?taskForm=Token-Allowlist-Request-mwarXOg6ks0A",
-        permanent: true,
-        source: "/-/token-request"
-      },
-      {
-        destination: "https://tana.pub/EltxDvrSt3Yn/hey-changelog",
-        permanent: true,
-        source: "/-/changelog"
-      },
-      {
-        destination:
-          "https://yoginth.notion.site/ff1926a080fa44bc9d40ee534f627949",
-        permanent: true,
-        source: "/-/mod-guide"
-      },
       // Redirect: hey.xyz/u/lens/<localname> > hey.xyz/u/<localname>
       {
         destination: "/u/:handle",
