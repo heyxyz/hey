@@ -1,5 +1,5 @@
 export const label = "Vercel";
-import { Icons, type JobContext, annotate, run } from "pierre";
+import { Gauge, Icons, type JobContext, annotate, run } from "pierre";
 
 const vercel = "./node_modules/.bin/vercel";
 
@@ -10,11 +10,11 @@ export interface VercelContext {
   VERCEL_PROJECT_NAME: string;
 }
 
-type VercelDeployment = {
+interface VercelDeployment {
   uid: string;
   url: string;
   inspectorUrl: string;
-};
+}
 
 const Job =
   ({
@@ -47,13 +47,14 @@ const Job =
       .match(/https:\/\/[\w\n-]+\.vercel\.app/g)?.[0];
 
     if (previewURL) {
-      annotate({
+      const baseData = {
         icon: Icons.ArrowUpRightCircle,
-        color: "fg",
-        label: "Vercel Preview",
-        description: previewURL,
-        href: previewURL
-      });
+        href: previewURL,
+        description: previewURL
+      };
+
+      annotate({ color: "fg", label: "Vercel Preview", ...baseData });
+      new Gauge("Vercel", { color: "blue", value: 1, ...baseData });
 
       try {
         const previewUrlNoScheme = previewURL.replace(/^https?:\/\//, "");
