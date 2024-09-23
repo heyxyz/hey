@@ -10,11 +10,11 @@ export interface VercelContext {
   VERCEL_PROJECT_NAME: string;
 }
 
-type VercelDeployment = {
+interface VercelDeployment {
   uid: string;
   url: string;
   inspectorUrl: string;
-};
+}
 
 const Job =
   ({
