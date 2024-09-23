@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 
-const settingsSidebarItems = [
+const sidebarItems = [
   {
     icon: <ClipboardIcon className="size-4" />,
     title: "Overview",
@@ -45,7 +45,7 @@ const settingsSidebarItems = [
 const StaffSidebar: FC = () => {
   return (
     <div className="mb-4 px-3 sm:px-0">
-      <Sidebar items={settingsSidebarItems} />
+      <Sidebar items={sidebarItems} />
     </div>
   );
 };
