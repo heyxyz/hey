@@ -1,12 +1,6 @@
 const allowedBots =
   ".*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*";
-const {
-  NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA,
-  VERCEL_DEPLOYMENT_ID,
-  VERCEL_GIT_COMMIT_SHA
-} = process.env;
-const COMMIT_SHA =
-  NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA || VERCEL_GIT_COMMIT_SHA || "local";
+const { VERCEL_DEPLOYMENT_ID } = process.env;
 const DEPLOYMENT_ID = VERCEL_DEPLOYMENT_ID || "unknown";
 
 /** @type {import('next').NextConfig} */
@@ -18,7 +12,6 @@ module.exports = {
           { key: "Referrer-Policy", value: "strict-origin" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-XSS-Protection", value: "1; mode=block" },
-          { key: "X-Hey-Version", value: COMMIT_SHA },
           { key: "X-Hey-Deployment", value: DEPLOYMENT_ID }
         ],
         source: "/(.*)"
