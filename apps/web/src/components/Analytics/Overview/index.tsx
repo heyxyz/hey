@@ -5,14 +5,15 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
 import { GridLayout, PageLoading } from "@hey/ui";
-import { GridItemTwelve } from "@hey/ui/src/GridLayout";
+import { GridItemEight, GridItemFour } from "@hey/ui/src/GridLayout";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-import Overview from "./Overview";
+import AnalyticsSidebar from "../Sidebar";
+import Graph from "./Graph";
 
-const Analytics: NextPage = () => {
+const Overview: NextPage = () => {
   const { currentProfile } = useProfileStore();
   const { isPro, loading } = useProStore();
 
@@ -34,12 +35,15 @@ const Analytics: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Analytics • ${APP_NAME}`} />
-      <GridItemTwelve className="space-y-5">
-        <Overview />
-      </GridItemTwelve>
+      <MetaTags title={`Analytics • Overview • ${APP_NAME}`} />
+      <GridItemFour>
+        <AnalyticsSidebar />
+      </GridItemFour>
+      <GridItemEight>
+        <Graph />
+      </GridItemEight>
     </GridLayout>
   );
 };
 
-export default Analytics;
+export default Overview;

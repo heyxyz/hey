@@ -24,7 +24,7 @@ const SettingsSidebar: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isPro } = useProStore();
 
-  const settingsSidebarItems = [
+  const sidebarItems = [
     {
       icon: <UserIcon className="size-4" />,
       title: "Profile",
@@ -33,7 +33,6 @@ const SettingsSidebar: FC = () => {
     {
       icon: <CpuChipIcon className="size-4" />,
       title: "Account",
-
       url: "/settings/account"
     },
     {
@@ -104,7 +103,7 @@ const SettingsSidebar: FC = () => {
           showUserPreview={false}
         />
       </div>
-      <Sidebar items={settingsSidebarItems} />
+      <Sidebar items={sidebarItems} />
     </div>
   );
 };
