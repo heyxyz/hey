@@ -19,6 +19,7 @@ import TextAreaDesign from "./TextAreaDesign";
 import ToggleDesign from "./ToggleDesign";
 import TooltipDesign from "./TooltipDesign";
 import TypographyDesign from "./TypographyDesign";
+import WarningMessageDesign from "./WarningMessageDesign";
 
 const Design: NextPage = () => {
   return (
@@ -40,6 +41,7 @@ const Design: NextPage = () => {
         <StackedAvatarsDesign />
         <CardDesign />
         <EmptyStateDesign />
+        <WarningMessageDesign />
         <ErrorMessageDesign />
         <ProfilesDesign />
       </GridItemTwelve>

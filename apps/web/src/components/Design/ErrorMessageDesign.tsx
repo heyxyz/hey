@@ -14,7 +14,7 @@ const ErrorMessageDesign: FC = () => {
           title="Title"
         />
         <ErrorMessage
-          className="!rounded-none"
+          className="rounded-none"
           error={{
             message: "Eror message with custom class",
             name: "Error"
