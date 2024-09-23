@@ -1,0 +1,88 @@
+import Loader from "@components/Shared/Loader";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { HEY_API_URL } from "@hey/data/constants";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import { Card, CardHeader } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip
+} from "chart.js";
+import type { FC } from "react";
+import { Bar } from "react-chartjs-2";
+import colors from "tailwindcss/colors";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const Graph: FC = () => {
+  const getImpressions = async (): Promise<
+    {
+      date: string;
+      impressions: number;
+    }[]
+  > => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/analytics/impressions`, {
+        headers: getAuthApiHeaders()
+      });
+
+      return response.data.result;
+    } catch {
+      return [];
+    }
+  };
+
+  const { data, isLoading } = useQuery({
+    queryFn: getImpressions,
+    queryKey: ["getImpressions"]
+  });
+
+  if (isLoading) {
+    return (
+      <Card>
+        <Loader className="my-10" message="Loading impressions" />
+      </Card>
+    );
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  return (
+    <Card>
+      <CardHeader title="Impressions" />
+      <div className="m-5">
+        <Bar
+          data={{
+            datasets: [
+              {
+                backgroundColor: colors.green["500"],
+                data: data.map((stat) => stat.impressions),
+                label: "Impressions",
+                borderRadius: 3
+              }
+            ],
+            labels: data.map((stat) => formatDate(stat.date, "MMM D"))
+          }}
+          options={{ responsive: true }}
+        />
+      </div>
+    </Card>
+  );
+};
+
+export default Graph;
