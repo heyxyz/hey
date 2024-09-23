@@ -9,6 +9,7 @@ import CheckboxDesign from "./CheckboxDesign";
 import EmptyStateDesign from "./EmptyStateDesign";
 import ErrorMessageDesign from "./ErrorMessageDesign";
 import HelpTooltipDesign from "./HelpTooltipDesign";
+import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
 import ProfilesDesign from "./ProfilesDesign";
 import SpinnerDesign from "./SpinnerDesign";
@@ -28,6 +29,7 @@ const Design: NextPage = () => {
         <HelpTooltipDesign />
         <ToggleDesign />
         <CheckboxDesign />
+        <InputDesign />
         <SpinnerDesign />
         <BadgeDesign />
         <CardDesign />

@@ -4,7 +4,7 @@ import type { FC } from "react";
 const HelpTooltipDesign: FC = () => {
   return (
     <Card>
-      <CardHeader title="Tooltip" />
+      <CardHeader title="Help Tooltip" />
       <div className="m-5 flex gap-5">
         <HelpTooltip>
           <div>
