@@ -31,7 +31,7 @@ const Graph: FC = () => {
   const [primaryType, setPrimaryType] = useState<string>("Likes");
   const [secondaryType, setSecondaryType] = useState<string>("Comments");
 
-  const getAnalyticsOverview = async (): Promise<
+  const getOverview = async (): Promise<
     {
       date: string;
       likes: number;
@@ -56,14 +56,14 @@ const Graph: FC = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryFn: getAnalyticsOverview,
-    queryKey: ["getAnalyticsOverview"]
+    queryFn: getOverview,
+    queryKey: ["getOverview"]
   });
 
   if (isLoading) {
     return (
       <Card>
-        <Loader className="my-10" message="Loading analytics overview" />
+        <Loader className="my-10" message="Loading overview" />
       </Card>
     );
   }
