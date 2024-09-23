@@ -1,5 +1,3 @@
-const project = "Web";
-export const label = `Deploy ${project}`;
 import { Gauge, Icons, type JobContext, annotate, run } from "pierre";
 
 const vercel = "./node_modules/.bin/vercel";
@@ -9,6 +7,7 @@ export interface VercelContext {
   VERCEL_PROJECT_ID: string;
   VERCEL_SCOPE: string;
   VERCEL_PROJECT_NAME: string;
+  NAME: string;
 }
 
 interface VercelDeployment {
@@ -17,12 +16,13 @@ interface VercelDeployment {
   inspectorUrl: string;
 }
 
-const Job =
+export const Job =
   ({
     VERCEL_ORG_ID,
     VERCEL_PROJECT_ID,
     VERCEL_SCOPE,
-    VERCEL_PROJECT_NAME
+    VERCEL_PROJECT_NAME,
+    NAME
   }: VercelContext) =>
   async (ctx: JobContext) => {
     const isProd = ctx.branch.name === "main";
@@ -38,7 +38,7 @@ const Job =
         ctx.branch.id
       } -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"}`,
       {
-        label: `Creating ${project} Deployment`,
+        label: `Creating ${NAME} Deployment`,
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
       }
     );
@@ -54,10 +54,10 @@ const Job =
         description: previewURL
       };
 
-      annotate({ color: "fg", label: ` ${project} App Preview`, ...baseData });
-      new Gauge(project, {
+      annotate({ color: "fg", label: ` ${NAME} App Preview`, ...baseData });
+      new Gauge(NAME, {
         color: "blue",
-        label: project,
+        label: NAME,
         value: 1,
         ...baseData
       });
@@ -87,7 +87,7 @@ const Job =
           annotate({
             icon: Icons.Code,
             color: "fg",
-            label: ` ${project} Deployment Build Details`,
+            label: ` ${NAME} Deployment Build Details`,
             description: activeDeploy.inspectorUrl,
             href: activeDeploy.inspectorUrl
           });
@@ -107,19 +107,12 @@ const Job =
     const { exitCode } = await run(
       `${vercel} inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
       {
-        label: ` ${project} Deployment Build`,
+        label: ` ${NAME} Deployment Build`,
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
       }
     );
 
     if (exitCode !== 0) {
-      throw new Error(` ${project} build failed`);
+      throw new Error(` ${NAME} build failed`);
     }
   };
-
-export default Job({
-  VERCEL_ORG_ID: "team_Zcr7s5jVtNqVKO8Q4w7Kcm9T",
-  VERCEL_PROJECT_ID: "prj_qmnJU7f5coeKD7x2VF33EP46jTHq",
-  VERCEL_SCOPE: "heyxyz",
-  VERCEL_PROJECT_NAME: project.toLowerCase()
-});
