@@ -19,7 +19,7 @@ const StackedAvatarsDesign: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Card" />
+      <CardHeader title="Stacked Avatars" />
       <div className="m-5 flex flex-col items-start gap-5">
         <div>
           <H5 className="mb-2">Simple Stacked Avatars</H5>
