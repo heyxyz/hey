@@ -20,13 +20,11 @@ const AnalyticsType: FC<AnalyticsTypeProps> = ({ tabType }) => {
     {
       icon: <ChartBarIcon className="size-4" />,
       name: "Overview",
-      url: "/analytics/overview",
       type: AnalyticsTabType.Overview
     },
     {
       icon: <EyeIcon className="size-4" />,
       name: "Impressions",
-      url: "/analytics/impressions",
       type: AnalyticsTabType.Impressions
     }
   ];
