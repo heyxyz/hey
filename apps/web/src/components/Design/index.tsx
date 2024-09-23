@@ -14,6 +14,7 @@ import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
 import ProfilesDesign from "./ProfilesDesign";
 import SpinnerDesign from "./SpinnerDesign";
+import StackedAvatarsDesign from "./StackedAvatarsDesign";
 import TextAreaDesign from "./TextAreaDesign";
 import ToggleDesign from "./ToggleDesign";
 import TooltipDesign from "./TooltipDesign";
@@ -36,6 +37,7 @@ const Design: NextPage = () => {
         <SpinnerDesign />
         <BadgeDesign />
         <ImageDesign />
+        <StackedAvatarsDesign />
         <CardDesign />
         <EmptyStateDesign />
         <ErrorMessageDesign />
