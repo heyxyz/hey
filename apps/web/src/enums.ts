@@ -6,6 +6,11 @@ export enum NotificationTabType {
   Mentions = "MENTIONS"
 }
 
+export enum AnalyticsTabType {
+  Overview = "OVERVIEW",
+  Impressions = "IMPRESSIONS"
+}
+
 export enum ProfileFeedType {
   Collects = "COLLECTS",
   Feed = "FEED",

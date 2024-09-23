@@ -27,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-const Graph: FC = () => {
+const Overview: FC = () => {
   const [primaryType, setPrimaryType] = useState<string>("Likes");
   const [secondaryType, setSecondaryType] = useState<string>("Comments");
 
@@ -144,4 +144,4 @@ const Graph: FC = () => {
   );
 };
 
-export default Graph;
+export default Overview;
