@@ -1,5 +1,4 @@
 import Loader from "@components/Shared/Loader";
-import P2PRecommendation from "@components/Shared/Profile/P2PRecommendation";
 import UserProfile from "@components/Shared/UserProfile";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getProfile from "@hey/helpers/getProfile";
@@ -151,9 +150,8 @@ const List: FC = () => {
                     timestamp={profile.createdAt}
                   />
                 </Link>
-                <div className="flex space-x-3">
+                <div>
                   <ViewReports id={profile.id} />
-                  <P2PRecommendation profile={profile as Profile} />
                 </div>
               </div>
             )}
