@@ -50,11 +50,10 @@ const Job =
       const baseData = {
         icon: Icons.ArrowUpRightCircle,
         href: previewURL,
-        description: previewURL,
-        label: "Vercel Preview"
+        description: previewURL
       };
 
-      annotate({ color: "fg", ...baseData });
+      annotate({ color: "fg", label: "Vercel Preview", ...baseData });
       new Gauge("Vercel", { color: "blue", value: 1, ...baseData });
 
       try {
