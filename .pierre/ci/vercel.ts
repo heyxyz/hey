@@ -55,7 +55,7 @@ const Job =
       };
 
       annotate({ color: "fg", ...baseData });
-      new Gauge(baseData.label, { color: "green", ...baseData });
+      new Gauge(baseData.label, { color: "green", value: 1, ...baseData });
 
       try {
         const previewUrlNoScheme = previewURL.replace(/^https?:\/\//, "");
