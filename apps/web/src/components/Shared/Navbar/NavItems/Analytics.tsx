@@ -15,7 +15,7 @@ const Analytics: FC<AnalyticsProps> = ({ className = "", onClick }) => {
         "flex w-full items-center space-x-1.5 px-2 py-1.5 text-gray-700 text-sm dark:text-gray-200",
         className
       )}
-      href="/analytics/overview"
+      href="/analytics"
       onClick={onClick}
     >
       <ChartBarIcon className="size-4" />
