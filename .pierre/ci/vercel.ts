@@ -41,8 +41,9 @@ const Job =
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
       }
     );
+
     const previewURL = stdout
-      .replace(/\r?\n|\r/g, " ") // try desperately to remove new lines
+      .replace(/\r?\n|\r/g, " ")
       .match(/https:\/\/[\w\n-]+\.vercel\.app/g)?.[0];
 
     if (previewURL) {
@@ -56,7 +57,6 @@ const Job =
 
       try {
         const previewUrlNoScheme = previewURL.replace(/^https?:\/\//, "");
-
         const response = await fetch(
           `https://api.vercel.com/v6/deployments?slug=${VERCEL_SCOPE}&app=${VERCEL_PROJECT_NAME}`,
           { headers: { Authorization: `Bearer ${VERCEL_ACCESS_TOKEN}` } }
@@ -97,16 +97,11 @@ const Job =
       console.log("WARN: Failed to extract preview URL");
     }
 
-    // Now run the inspect with --wait and --logs so that we get log output and
-    // wait for the build pass/fail
     const { exitCode } = await run(
       `${vercel} inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
       {
         label: "Vercel Deployment Build",
-        env: {
-          VERCEL_ORG_ID,
-          VERCEL_PROJECT_ID
-        }
+        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
       }
     );
 
