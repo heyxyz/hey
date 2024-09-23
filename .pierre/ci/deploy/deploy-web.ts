@@ -1,4 +1,5 @@
-export const label = "Vercel";
+const project = "Web";
+export const label = `Deploy ${project}`;
 import { Gauge, Icons, type JobContext, annotate, run } from "pierre";
 
 const vercel = "./node_modules/.bin/vercel";
@@ -37,7 +38,7 @@ const Job =
         ctx.branch.id
       } -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"}`,
       {
-        label: "Creating Vercel Deployment",
+        label: `Creating ${project} Deployment`,
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
       }
     );
@@ -53,8 +54,13 @@ const Job =
         description: previewURL
       };
 
-      annotate({ color: "fg", label: "Vercel Preview", ...baseData });
-      new Gauge("Vercel", { color: "blue", value: 1, ...baseData });
+      annotate({ color: "fg", label: ` ${project} App Preview`, ...baseData });
+      new Gauge(project, {
+        color: "blue",
+        label: project,
+        value: 1,
+        ...baseData
+      });
 
       try {
         const previewUrlNoScheme = previewURL.replace(/^https?:\/\//, "");
@@ -81,7 +87,7 @@ const Job =
           annotate({
             icon: Icons.Code,
             color: "fg",
-            label: "Vercel Build Details",
+            label: ` ${project} Deployment Build Details`,
             description: activeDeploy.inspectorUrl,
             href: activeDeploy.inspectorUrl
           });
@@ -101,13 +107,13 @@ const Job =
     const { exitCode } = await run(
       `${vercel} inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
       {
-        label: "Vercel Deployment Build",
+        label: ` ${project} Deployment Build`,
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
       }
     );
 
     if (exitCode !== 0) {
-      throw new Error("Vercel build failed");
+      throw new Error(` ${project} build failed`);
     }
   };
 
@@ -115,5 +121,5 @@ export default Job({
   VERCEL_ORG_ID: "team_Zcr7s5jVtNqVKO8Q4w7Kcm9T",
   VERCEL_PROJECT_ID: "prj_qmnJU7f5coeKD7x2VF33EP46jTHq",
   VERCEL_SCOPE: "heyxyz",
-  VERCEL_PROJECT_NAME: "web"
+  VERCEL_PROJECT_NAME: project.toLowerCase()
 });
