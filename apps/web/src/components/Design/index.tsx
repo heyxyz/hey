@@ -9,6 +9,7 @@ import CheckboxDesign from "./CheckboxDesign";
 import EmptyStateDesign from "./EmptyStateDesign";
 import ErrorMessageDesign from "./ErrorMessageDesign";
 import HelpTooltipDesign from "./HelpTooltipDesign";
+import ImageDesign from "./ImageDesign";
 import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
 import ProfilesDesign from "./ProfilesDesign";
@@ -34,6 +35,7 @@ const Design: NextPage = () => {
         <TextAreaDesign />
         <SpinnerDesign />
         <BadgeDesign />
+        <ImageDesign />
         <CardDesign />
         <EmptyStateDesign />
         <ErrorMessageDesign />
