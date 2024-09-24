@@ -1,10 +1,7 @@
+import Verified from "@components/Shared/Profile/Icons/Verified";
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import Slug from "@components/Shared/Slug";
-import isVerified from "@helpers/isVerified";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon
-} from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
@@ -85,9 +82,7 @@ const User: FC<UserProps> = ({ address, conversation }) => {
             className="ml-1 truncate text-sm"
             slug={getProfile(profile).slugWithPrefix}
           />
-          {isVerified(profile.id) ? (
-            <CheckBadgeIcon className="ml-1 size-4 text-brand-500" />
-          ) : null}
+          <Verified id={profile.id} iconClassName="ml-1 size-4" />
           {hasMisused(profile.id) ? (
             <ExclamationCircleIcon className="ml-1 size-4" />
           ) : null}

@@ -1,9 +1,6 @@
-import isVerified from "@helpers/isVerified";
+import Verified from "@components/Shared/Profile/Icons/Verified";
 import type { EditorExtension } from "@helpers/prosekit/extension";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon
-} from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { EditorRegex } from "@hey/data/regex";
 import hasMisused from "@hey/helpers/hasMisused";
 import { Image } from "@hey/ui";
@@ -41,9 +38,7 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
             <span>{profile.name}</span>
-            {isVerified(profile.id) ? (
-              <CheckBadgeIcon className="size-4 text-brand-500" />
-            ) : null}
+            <Verified id={profile.id} iconClassName="size-4" />
             {hasMisused(profile.id) ? (
               <ExclamationCircleIcon className="size-4 text-red-500" />
             ) : null}
