@@ -1,5 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import { GifIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { GifIcon } from "@heroicons/react/24/outline";
 import { PUBLICATION } from "@hey/data/tracking";
 import type { IGif } from "@hey/types/giphy";
 import { Modal, Tooltip } from "@hey/ui";
@@ -35,7 +35,6 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<PhotoIcon className="size-5" />}
         onClose={() => setShowModal(false)}
         show={showModal}
         title="Select GIF"

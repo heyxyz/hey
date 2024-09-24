@@ -1,10 +1,7 @@
 import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import {
-  ExclamationTriangleIcon,
-  LockOpenIcon
-} from "@heroicons/react/24/outline";
+import { LockOpenIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -109,7 +106,6 @@ const ProfileGuardianSettings: FC = () => {
         )}
       </div>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

@@ -1,10 +1,7 @@
 import UserProfile from "@components/Shared/UserProfile";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import {
-  ExclamationTriangleIcon,
-  TrashIcon
-} from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { APP_NAME, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -144,7 +141,6 @@ const DeleteSettings: FC = () => {
         </Button>
       </div>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

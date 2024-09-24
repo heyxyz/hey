@@ -28,7 +28,6 @@ const PollEditor: FC = () => {
             {pollConfig.length} {plur("day", pollConfig.length)}
           </Button>
           <Modal
-            icon={<ClockIcon className="size-5" />}
             onClose={() => setShowPollLengthModal(false)}
             show={showPollLengthModal}
             title="Poll length"

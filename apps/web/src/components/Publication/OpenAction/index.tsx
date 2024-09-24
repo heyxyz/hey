@@ -53,7 +53,6 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
         </span>
       ) : null}
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowCollectModal(false)}
         show={showCollectModal}
         title="Collect"

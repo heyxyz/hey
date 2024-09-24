@@ -1,10 +1,5 @@
 import NewPublication from "@components/Composer/NewPublication";
 import ReportPublication from "@components/Shared/Modal/ReportPublication";
-import {
-  ArrowRightCircleIcon,
-  CircleStackIcon,
-  ShieldCheckIcon
-} from "@heroicons/react/24/outline";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
@@ -49,7 +44,6 @@ const GlobalModals: FC = () => {
     <>
       <GlobalModalsFromUrl />
       <Modal
-        icon={<ShieldCheckIcon className="size-5" />}
         onClose={() =>
           setShowPublicationReportModal(false, reportingPublicationId)
         }
@@ -59,7 +53,6 @@ const GlobalModals: FC = () => {
         <ReportPublication publicationId={reportingPublicationId} />
       </Modal>
       <Modal
-        icon={<ShieldCheckIcon className="size-5" />}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
         show={showReportProfileModal}
         title="Report profile"
@@ -75,7 +68,6 @@ const GlobalModals: FC = () => {
         <SwitchProfiles />
       </Modal>
       <Modal
-        icon={<ArrowRightCircleIcon className="size-5" />}
         onClose={() => setShowAuthModal(false, authModalType)}
         show={showAuthModal}
         title={authModalTitle}
@@ -91,7 +83,6 @@ const GlobalModals: FC = () => {
         <NewPublication className="!rounded-b-xl !rounded-t-none border-none" />
       </Modal>
       <Modal
-        icon={<CircleStackIcon className="size-5" />}
         onClose={() => setShowOptimisticTransactionsModal(false)}
         show={showOptimisticTransactionsModal}
         title="Optimistic Transactions"

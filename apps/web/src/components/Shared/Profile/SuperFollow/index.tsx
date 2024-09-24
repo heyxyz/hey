@@ -1,5 +1,4 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import { StarIcon } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
@@ -47,7 +46,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
         {title}
       </Button>
       <Modal
-        icon={<StarIcon className="size-5" />}
         onClose={() => setShowFollowModal(false)}
         show={showFollowModal}
         title={

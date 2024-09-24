@@ -1,6 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PUBLICATION } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
@@ -46,7 +45,6 @@ const Collect: FC<CollectProps> = ({ publication }) => {
         {hasActed ? "Collected" : "Collect"}
       </Button>
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowCollectModal(false)}
         show={showCollectModal}
         title="Collect"
