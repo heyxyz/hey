@@ -38,6 +38,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         onClose={() => setShowFollowingModal(false)}
         show={showFollowingModal}
         title="Following"
+        size="md"
       >
         <Following handle={getProfile(profile).slug} profileId={profile.id} />
       </Modal>
@@ -45,6 +46,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         onClose={() => setShowFollowersModal(false)}
         show={showFollowersModal}
         title="Followers"
+        size="md"
       >
         <Followers handle={getProfile(profile).slug} profileId={profile.id} />
       </Modal>

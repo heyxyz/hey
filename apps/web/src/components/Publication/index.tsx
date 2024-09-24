@@ -33,7 +33,6 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { create } from "zustand";
 import Collectors from "./Collectors";
 import FullPublication from "./FullPublication";
-import Likes from "./Likes";
 import Mirrors from "./Mirrors";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
@@ -64,7 +63,6 @@ const ViewPublication: NextPage = () => {
 
   const showQuotes = pathname === "/posts/[id]/quotes";
   const showMirrors = pathname === "/posts/[id]/mirrors";
-  const showLikes = pathname === "/posts/[id]/likes";
   const showCollectors = pathname === "/posts/[id]/collectors";
 
   useEffect(() => {
@@ -96,7 +94,7 @@ const ViewPublication: NextPage = () => {
   if (!isReady || loading) {
     return (
       <PublicationPageShimmer
-        profileList={showMirrors || showLikes || showCollectors}
+        profileList={showMirrors || showCollectors}
         publicationList={showQuotes}
       />
     );
@@ -128,8 +126,6 @@ const ViewPublication: NextPage = () => {
       <GridItemEight className="space-y-5">
         {showQuotes ? (
           <Quotes publicationId={targetPublication.id} />
-        ) : showLikes ? (
-          <Likes publicationId={targetPublication.id} />
         ) : showMirrors ? (
           <Mirrors publicationId={targetPublication.id} />
         ) : showCollectors ? (

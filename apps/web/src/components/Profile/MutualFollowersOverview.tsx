@@ -58,6 +58,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
         onClose={() => setShowMutualFollowersModal(false)}
         show={showMutualFollowersModal}
         title="Mutual Followers"
+        size="md"
       >
         <MutualFollowers handle={handle} profileId={profileId} />
       </Modal>
