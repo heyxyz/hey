@@ -47,13 +47,13 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
     return (
       <EmptyState
         icon={<UsersIcon className="size-8" />}
-        hideCard
         message={
           <div>
             <span className="mr-1 font-bold">@{handle}</span>
             <span>doesn’t have any followers yet.</span>
           </div>
         }
+        hideCard
       />
     );
   }

@@ -1,4 +1,5 @@
 import Likes from "@components/Shared/Modal/Likes";
+import Mirrors from "@components/Shared/Modal/Mirrors";
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { PublicationStats as IPublicationStats } from "@hey/lens";
@@ -18,6 +19,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationStats
 }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
+  const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [views, setViews] = useState<number>(0);
 
   useEffect(() => {
@@ -54,13 +56,14 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </span>
         ) : null}
         {mirrors > 0 ? (
-          <Link
+          <button
             className="outline-offset-2"
-            href={`/posts/${publicationId}/mirrors`}
+            onClick={() => setShowMirrorsModal(true)}
+            type="button"
           >
             <b className="text-black dark:text-white">{nFormatter(mirrors)}</b>{" "}
             {plur("Mirror", mirrors)}
-          </Link>
+          </button>
         ) : null}
         {quotes > 0 ? (
           <Link
@@ -116,6 +119,14 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         size="md"
       >
         <Likes publicationId={publicationId} />
+      </Modal>
+      <Modal
+        onClose={() => setShowMirrorsModal(false)}
+        show={showMirrorsModal}
+        title="Mirrors"
+        size="md"
+      >
+        <Mirrors publicationId={publicationId} />
       </Modal>
     </>
   );
