@@ -15,10 +15,10 @@ import { useProStore } from "src/store/non-persisted/useProStore";
 import ExtendButton from "./ExtendButton";
 
 const details = {
-  description: "Billed monthly",
   features: [
     "Extended Analytics",
     "Choose your app icon",
+    "Set Profile Status",
     "Higher video and audio upload limits",
     "Pro Badge on your profile",
     "Early access to new features",
@@ -74,8 +74,8 @@ const Pro: NextPage = () => {
             </span>
             <span className="ld-text-gray-500">/month</span>
           </p>
-          <p className="ld-text-gray-500 mt-6">{details.description}</p>
-          <ul className="ld-text-gray-500 mt-8 space-y-1 text-sm sm:mt-10">
+          <p className="ld-text-gray-500 mt-3">Billed monthly</p>
+          <ul className="ld-text-gray-500 mt-5 space-y-1 text-sm">
             {details.features.map((feature) => (
               <li className="flex items-center space-x-3" key={feature}>
                 <CheckIcon aria-hidden="true" className="size-5" />

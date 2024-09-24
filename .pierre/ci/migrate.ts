@@ -4,8 +4,8 @@ export const label = "Migrate DB";
 
 export default async ({ branch }) => {
   if (branch.name !== "main") {
-    throw new Error("Skipping DB Migration on non-main branches 🚫");
+    await run('echo "Skipping DB Migration on non-main branches 🚫"');
+  } else {
+    await run("cd packages/db && pnpm prisma:migrate");
   }
-
-  await run("cd packages/db && pnpm prisma:migrate");
 };
