@@ -19,6 +19,7 @@ const details = {
   features: [
     "Extended Analytics",
     "Choose your app icon",
+    "Set Profile Status",
     "Higher video and audio upload limits",
     "Pro Badge on your profile",
     "Early access to new features",
