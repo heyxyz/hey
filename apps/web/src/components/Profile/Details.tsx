@@ -41,7 +41,7 @@ import Pro from "./Badges/Pro";
 import Followerings from "./Followerings";
 import InternalTools from "./InternalTools";
 import ProfileMenu from "./Menu";
-import MutualFollowers from "./MutualFollowers";
+import MutualFollowersOverview from "./MutualFollowersOverview";
 import ScamWarning from "./ScamWarning";
 
 export const MetaDetails = ({
@@ -149,7 +149,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
-          <MutualFollowers
+          <MutualFollowersOverview
             handle={getProfile(profile).slug}
             profileId={profile.id}
           />
