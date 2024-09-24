@@ -1,10 +1,5 @@
-import Pro from "@components/Profile/Badges/Pro";
 import MutualFollowersOverview from "@components/Profile/MutualFollowersOverview";
-import isVerified from "@helpers/isVerified";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon
-} from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
@@ -23,6 +18,8 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
+import Pro from "./Profile/Icons/Pro";
+import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
@@ -135,9 +132,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
-          {isVerified(profile.id) && (
-            <CheckBadgeIcon className="size-4 text-brand-500" />
-          )}
+          <Verified id={profile.id} iconClassName="size-4" />
           {hasMisused(profile.id) && (
             <ExclamationCircleIcon className="size-4 text-red-500" />
           )}

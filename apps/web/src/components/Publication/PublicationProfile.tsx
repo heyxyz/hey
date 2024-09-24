@@ -1,9 +1,6 @@
 import Source from "@components/Publication/Source";
-import isVerified from "@helpers/isVerified";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon
-} from "@heroicons/react/24/solid";
+import Verified from "@components/Shared/Profile/Icons/Verified";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getProfile from "@hey/helpers/getProfile";
 import hasMisused from "@hey/helpers/hasMisused";
@@ -56,9 +53,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
           slug={getProfile(profile).slugWithPrefix}
         />
       </WrappedLink>
-      {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="ml-1 size-4 text-brand-500" />
-      ) : null}
+      <Verified id={profile.id} iconClassName="ml-1 size-4" />
       {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="ml-1 size-4" />
       ) : null}

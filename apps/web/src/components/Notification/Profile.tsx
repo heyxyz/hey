@@ -1,9 +1,6 @@
+import Verified from "@components/Shared/Profile/Icons/Verified";
 import UserPreview from "@components/Shared/UserPreview";
-import isVerified from "@helpers/isVerified";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon
-} from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
@@ -59,9 +56,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
         onClick={stopEventPropagation}
       >
         <span>{getProfile(profile).displayName}</span>
-        {isVerified(profile.id) && (
-          <CheckBadgeIcon className="size-4 text-brand-500" />
-        )}
+        <Verified id={profile.id} iconClassName="size-4" />
         {hasMisused(profile.id) && <ExclamationCircleIcon className="size-4" />}
       </Link>
     </UserPreview>
