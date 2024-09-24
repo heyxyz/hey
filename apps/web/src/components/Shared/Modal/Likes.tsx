@@ -1,6 +1,6 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import UserProfile from "@components/Shared/UserProfile";
-import { ArrowLeftIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import {
   LimitType,
@@ -8,8 +8,7 @@ import {
   type WhoReactedPublicationRequest,
   useWhoReactedPublicationQuery
 } from "@hey/lens";
-import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
-import Link from "next/link";
+import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -51,6 +50,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
+          hideCard
           icon={<HeartIcon className="size-8" />}
           message="No likes."
         />
@@ -69,34 +69,24 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   }
 
   return (
-    <Card>
-      <div className="flex items-center space-x-3 p-5">
-        <Link href={`/posts/${publicationId}`}>
-          <ArrowLeftIcon className="size-5" />
-        </Link>
-        <H5>Liked by</H5>
-      </div>
-      <div className="divider" />
-      <Virtuoso
-        className="virtual-divider-list-window"
-        computeItemKey={(index, like) => `${like.profile.id}-${index}`}
-        data={profiles}
-        endReached={onEndReached}
-        itemContent={(_, like) => (
-          <div className="p-5">
-            <UserProfile
-              hideFollowButton={currentProfile?.id === like.profile.id}
-              hideUnfollowButton={currentProfile?.id === like.profile.id}
-              profile={like.profile as Profile}
-              showBio
-              showUserPreview={false}
-              source={ProfileLinkSource.Likes}
-            />
-          </div>
-        )}
-        useWindowScroll
-      />
-    </Card>
+    <Virtuoso
+      className="virtual-profile-list"
+      computeItemKey={(index, like) => `${like.profile.id}-${index}`}
+      data={profiles}
+      endReached={onEndReached}
+      itemContent={(_, like) => (
+        <div className="p-5">
+          <UserProfile
+            hideFollowButton={currentProfile?.id === like.profile.id}
+            hideUnfollowButton={currentProfile?.id === like.profile.id}
+            profile={like.profile as Profile}
+            showBio
+            showUserPreview={false}
+            source={ProfileLinkSource.Likes}
+          />
+        </div>
+      )}
+    />
   );
 };
 

@@ -1,6 +1,8 @@
+import Likes from "@components/Shared/Modal/Likes";
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { PublicationStats as IPublicationStats } from "@hey/lens";
+import { Modal } from "@hey/ui";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
@@ -15,6 +17,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   publicationId,
   publicationStats
 }) => {
+  const [showLikesModal, setShowLikesModal] = useState(false);
   const [views, setViews] = useState<number>(0);
 
   useEffect(() => {
@@ -69,15 +72,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </Link>
         ) : null}
         {reactions > 0 ? (
-          <Link
+          <button
             className="outline-offset-2"
-            href={`/posts/${publicationId}/likes`}
+            onClick={() => setShowLikesModal(true)}
+            type="button"
           >
             <b className="text-black dark:text-white">
               {nFormatter(reactions)}
             </b>{" "}
             {plur("Like", reactions)}
-          </Link>
+          </button>
         ) : null}
         {countOpenActions > 0 ? (
           <Link
@@ -105,6 +109,14 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </span>
         ) : null}
       </div>
+      <Modal
+        onClose={() => setShowLikesModal(false)}
+        show={showLikesModal}
+        title="Likes"
+        size="md"
+      >
+        <Likes publicationId={publicationId} />
+      </Modal>
     </>
   );
 };
