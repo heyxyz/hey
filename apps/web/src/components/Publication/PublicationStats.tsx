@@ -1,3 +1,4 @@
+import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Mirrors from "@components/Shared/Modal/Mirrors";
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
@@ -20,6 +21,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
 }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
+  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [views, setViews] = useState<number>(0);
 
   useEffect(() => {
@@ -87,15 +89,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({
           </button>
         ) : null}
         {countOpenActions > 0 ? (
-          <Link
+          <button
             className="outline-offset-2"
-            href={`/posts/${publicationId}/collectors`}
+            onClick={() => setShowCollectorsModal(true)}
+            type="button"
           >
             <b className="text-black dark:text-white">
               {nFormatter(countOpenActions)}
             </b>{" "}
             {plur("Collect", countOpenActions)}
-          </Link>
+          </button>
         ) : null}
         {bookmarks > 0 ? (
           <span>
@@ -127,6 +130,14 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         size="md"
       >
         <Mirrors publicationId={publicationId} />
+      </Modal>
+      <Modal
+        onClose={() => setShowCollectorsModal(false)}
+        show={showCollectorsModal}
+        title="Collectors"
+        size="md"
+      >
+        <Collectors publicationId={publicationId} />
       </Modal>
     </>
   );

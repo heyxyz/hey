@@ -31,7 +31,6 @@ import Custom500 from "src/pages/500";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { create } from "zustand";
-import Collectors from "./Collectors";
 import FullPublication from "./FullPublication";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
@@ -61,7 +60,6 @@ const ViewPublication: NextPage = () => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const showQuotes = pathname === "/posts/[id]/quotes";
-  const showCollectors = pathname === "/posts/[id]/collectors";
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -90,12 +88,7 @@ const ViewPublication: NextPage = () => {
   const hasHiddenComments = (comments?.publications.items.length || 0) > 0;
 
   if (!isReady || loading) {
-    return (
-      <PublicationPageShimmer
-        profileList={showCollectors}
-        publicationList={showQuotes}
-      />
-    );
+    return <PublicationPageShimmer publicationList={showQuotes} />;
   }
 
   if (!data?.publication) {
@@ -124,8 +117,6 @@ const ViewPublication: NextPage = () => {
       <GridItemEight className="space-y-5">
         {showQuotes ? (
           <Quotes publicationId={targetPublication.id} />
-        ) : showCollectors ? (
-          <Collectors publicationId={targetPublication.id} />
         ) : (
           <>
             <Card>
