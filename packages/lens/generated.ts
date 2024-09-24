@@ -11201,7 +11201,6 @@ export const CreateOnchainMirrorTypedDataDocument = gql`
         metadataURI
         deadline
         profileId
-        metadataURI
         pointedProfileId
         pointedPubId
         referrerProfileIds

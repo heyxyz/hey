@@ -111,7 +111,7 @@ const Interests: FC = () => {
                   <div>{subCategory.label}</div>
                 </Button>
               ))}
-              {!subCategories.length ? (
+              {subCategories.length ? null : (
                 <Button
                   className="font-medium capitalize"
                   disabled={
@@ -134,7 +134,7 @@ const Interests: FC = () => {
                 >
                   <div>{category.label}</div>
                 </Button>
-              ) : null}
+              )}
             </div>
           </div>
         )

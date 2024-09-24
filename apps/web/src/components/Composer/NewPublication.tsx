@@ -544,12 +544,12 @@ const NewPublication: FC<NewPublicationProps> = ({
             showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {!publication?.momoka?.proof ? (
+          {publication?.momoka?.proof ? null : (
             <>
               <CollectSettings />
               <ReferenceSettings />
             </>
-          ) : null}
+          )}
           <PollSettings />
           {!isComment && <LivestreamSettings />}
         </div>
