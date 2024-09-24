@@ -24,8 +24,16 @@ export const Job =
     await run("rm -rf .pnpm-store");
     await run('echo "$PWD"');
 
+    await run(
+      `${vercel} pull --yes -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"} --token $VERCEL_ACCESS_TOKEN`
+    );
+
+    await run(
+      `${vercel} build ${isProd ? "--prod" : ""} --token $VERCEL_ACCESS_TOKEN`
+    );
+
     const { stdout } = await run(
-      `${vercel} deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
+      `${vercel} deploy --prebuilt --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
       } --no-color --token $VERCEL_ACCESS_TOKEN -e PIERRE_BRANCH_ID=${
         ctx.branch.id
