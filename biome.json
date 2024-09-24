@@ -47,6 +47,7 @@
         "useLiteralKeys": "off"
       },
       "nursery": {
+        "noDuplicatedFields": "error",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",

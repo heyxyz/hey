@@ -23,7 +23,6 @@ mutation CreateOnchainMirrorTypedData(
         metadataURI
         deadline
         profileId
-        metadataURI
         pointedProfileId
         pointedPubId
         referrerProfileIds
