@@ -59,16 +59,18 @@ const Overview: NextPage = () => {
         <Card className="!bg-yellow-300/20 border-yellow-600 border-dashed p-5">
           {loading ? (
             <Loader className="my-5" message="Loading profile" />
-          ) : !profile ? (
+          ) : profile ? (
+            error ? (
+              <ErrorMessage error={error} />
+            ) : (
+              <ProfileStaffTool profile={profile} />
+            )
+          ) : (
             <EmptyState
               hideCard
               icon={<UserIcon className="size-8" />}
               message="No profile found"
             />
-          ) : error ? (
-            <ErrorMessage error={error} />
-          ) : (
-            <ProfileStaffTool profile={profile} />
           )}
         </Card>
       </GridItemEight>

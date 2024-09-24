@@ -60,13 +60,7 @@ const List: FC = () => {
           <Loader className="my-10" message="Loading tokens..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load tokens" />
-        ) : !tokens.length ? (
-          <EmptyState
-            hideCard
-            icon={<CurrencyDollarIcon className="size-8" />}
-            message={<span>No tokens found</span>}
-          />
-        ) : (
+        ) : tokens.length ? (
           <div className="space-y-6">
             {tokens?.map((token) => (
               <div className="flex items-center justify-between" key={token.id}>
@@ -92,6 +86,12 @@ const List: FC = () => {
               </div>
             ))}
           </div>
+        ) : (
+          <EmptyState
+            hideCard
+            icon={<CurrencyDollarIcon className="size-8" />}
+            message={<span>No tokens found</span>}
+          />
         )}
       </div>
       <Modal
