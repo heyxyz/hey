@@ -22,7 +22,6 @@ export const Job =
     const VERCEL_SCOPE = "heyxyz";
 
     await run("rm -rf .pnpm-store");
-    await run('echo "$PWD"');
 
     await run(`${vercel} pull --yes --token $VERCEL_ACCESS_TOKEN`, {
       label: `Pulling ${PROJECT_NAME} Deployment`,
