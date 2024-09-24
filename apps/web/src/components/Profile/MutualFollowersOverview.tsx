@@ -1,4 +1,6 @@
 import MutualFollowers from "@components/Shared/Modal/MutualFollowers";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PROFILE } from "@hey/data/tracking";
 import getAvatar from "@hey/helpers/getAvatar";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
@@ -55,7 +57,10 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
         {children}
       </div>
       <Modal
-        onClose={() => setShowMutualFollowersModal(false)}
+        onClose={() => {
+          Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+          setShowMutualFollowersModal(false);
+        }}
         show={showMutualFollowersModal}
         title="Mutual Followers"
         size="md"
