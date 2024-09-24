@@ -1,4 +1,5 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
+import Collectors from "@components/Shared/Modal/Collectors";
 import Slug from "@components/Shared/Slug";
 import {
   BanknotesIcon,
@@ -27,11 +28,11 @@ import type {
   OpenActionModule,
   SimpleCollectOpenActionSettings
 } from "@hey/lens";
-import { H3, H4, HelpTooltip, Tooltip, WarningMessage } from "@hey/ui";
+import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import CollectAction from "./CollectAction";
 import DownloadCollectors from "./DownloadCollectors";
@@ -44,6 +45,8 @@ interface CollectModuleProps {
 
 const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const { allowedTokens } = useAllowedTokensStore();
+  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
+
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -182,13 +185,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
           <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
               <UsersIcon className="ld-text-gray-500 size-4" />
-              <Link
+              <button
                 className="font-bold"
-                href={`/posts/${targetPublication.id}/collectors`}
+                onClick={() => setShowCollectorsModal(true)}
+                type="button"
               >
                 {humanize(countOpenActions)}{" "}
                 {plur("collector", countOpenActions)}
-              </Link>
+              </button>
               <DownloadCollectors publication={targetPublication} />
             </div>
             {collectLimit && !isAllCollected ? (
@@ -266,6 +270,14 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
           />
         </div>
       </div>
+      <Modal
+        onClose={() => setShowCollectorsModal(false)}
+        show={showCollectorsModal}
+        title="Collectors"
+        size="md"
+      >
+        <Collectors publicationId={targetPublication.id} />
+      </Modal>
     </>
   );
 };
