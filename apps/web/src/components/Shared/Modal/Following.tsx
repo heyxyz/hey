@@ -1,11 +1,10 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import UserProfile from "@components/Shared/UserProfile";
-import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { FollowingRequest, Profile } from "@hey/lens";
 import { LimitType, useFollowingQuery } from "@hey/lens";
-import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
-import Link from "next/link";
+import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -47,6 +46,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     return (
       <EmptyState
         icon={<UsersIcon className="size-8" />}
+        hideCard
         message={
           <div>
             <span className="mr-1 font-bold">@{handle}</span>
@@ -68,34 +68,24 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
   }
 
   return (
-    <Card>
-      <div className="flex items-center space-x-3 p-5">
-        <Link href={`/u/${handle}`}>
-          <ArrowLeftIcon className="size-5" />
-        </Link>
-        <H5>Following</H5>
-      </div>
-      <div className="divider" />
-      <Virtuoso
-        className="virtual-divider-list-window"
-        computeItemKey={(index, following) => `${following.id}-${index}`}
-        data={followings}
-        endReached={onEndReached}
-        itemContent={(_, following) => (
-          <div className="p-5">
-            <UserProfile
-              hideFollowButton={currentProfile?.id === following.id}
-              hideUnfollowButton={currentProfile?.id === following.id}
-              profile={following as Profile}
-              showBio
-              showUserPreview={false}
-              source={ProfileLinkSource.Following}
-            />
-          </div>
-        )}
-        useWindowScroll
-      />
-    </Card>
+    <Virtuoso
+      className="virtual-profile-list"
+      computeItemKey={(index, following) => `${following.id}-${index}`}
+      data={followings}
+      endReached={onEndReached}
+      itemContent={(_, following) => (
+        <div className="p-5">
+          <UserProfile
+            hideFollowButton={currentProfile?.id === following.id}
+            hideUnfollowButton={currentProfile?.id === following.id}
+            profile={following as Profile}
+            showBio
+            showUserPreview={false}
+            source={ProfileLinkSource.Following}
+          />
+        </div>
+      )}
+    />
   );
 };
 
