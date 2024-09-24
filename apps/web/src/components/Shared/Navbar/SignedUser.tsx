@@ -9,6 +9,7 @@ import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
@@ -18,6 +19,7 @@ import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import OptimisticTransactions from "./NavItems/OptimisticTransactions";
 import Pro from "./NavItems/Pro";
+import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
@@ -25,6 +27,7 @@ import YourProfile from "./NavItems/YourProfile";
 
 const SignedUser: FC = () => {
   const { currentProfile } = useProfileStore();
+  const { isPro } = useProStore();
   const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
   const proEnabled = useFlag(FeatureFlag.Pro);
 
@@ -90,6 +93,22 @@ const SignedUser: FC = () => {
               <SwitchProfile />
             </MenuItem>
             <div className="divider" />
+            {isPro && (
+              <>
+                <MenuItem
+                  as="div"
+                  className={({ focus }: { focus: boolean }) =>
+                    cn(
+                      { "dropdown-active": focus },
+                      "m-2 rounded-lg border dark:border-gray-700"
+                    )
+                  }
+                >
+                  <ProfileStatus id={currentProfile?.id} />
+                </MenuItem>
+                <div className="divider" />
+              </>
+            )}
             <MenuItem
               as={NextLink}
               className={({ focus }: { focus: boolean }) =>

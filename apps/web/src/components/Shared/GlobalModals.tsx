@@ -8,6 +8,7 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
+import ProfileStatus from "./Modal/ProfileStatus";
 import ReportProfile from "./Modal/ReportProfile";
 import SwitchProfiles from "./SwitchProfiles";
 
@@ -27,7 +28,9 @@ const GlobalModals: FC = () => {
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
-    showReportProfileModal
+    showReportProfileModal,
+    showEditStatusModal,
+    setShowEditStatusModal
   } = useGlobalModalStateStore();
 
   const { screen: signupScreen } = useSignupStore();
@@ -88,6 +91,13 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
+      </Modal>
+      <Modal
+        onClose={() => setShowEditStatusModal(false)}
+        show={showEditStatusModal}
+        title="Edit Status"
+      >
+        <ProfileStatus />
       </Modal>
     </>
   );
