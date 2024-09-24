@@ -36,9 +36,12 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
           }}
           whileTap={{ scale: 0.9 }}
         >
-          {emoji ? <span>{emoji}</span> : <FaceSmileIcon className="size-5" />}
+          {emoji ? (
+            <span className="text-lg">{emoji}</span>
+          ) : (
+            <FaceSmileIcon className="size-5" />
+          )}
         </motion.button>
-
         {showEmojiPicker ? (
           <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
             <List setEmoji={setEmoji} />

@@ -8,6 +8,7 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
+import ProfileStatus from "./Modal/ProfileStatus";
 import ReportProfile from "./Modal/ReportProfile";
 import SwitchProfiles from "./SwitchProfiles";
 
@@ -95,9 +96,8 @@ const GlobalModals: FC = () => {
         onClose={() => setShowEditStatusModal(false)}
         show={showEditStatusModal}
         title="Edit Status"
-        size="md"
       >
-        gm
+        <ProfileStatus />
       </Modal>
     </>
   );

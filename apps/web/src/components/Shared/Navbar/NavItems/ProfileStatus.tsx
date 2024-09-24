@@ -13,10 +13,10 @@ interface ProfileStatusProps {
 const ProfileStatus: FC<ProfileStatusProps> = ({ id, className = "" }) => {
   const { setShowEditStatusModal } = useGlobalModalStateStore();
 
-  const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     enabled: Boolean(id),
     queryFn: () => getProfileDetails(id),
-    queryKey: ["getProfileDetailsOnProfile", id]
+    queryKey: ["getCurrentProfileStatus", id]
   });
 
   return (
@@ -28,16 +28,16 @@ const ProfileStatus: FC<ProfileStatusProps> = ({ id, className = "" }) => {
       onClick={() => setShowEditStatusModal(true)}
       type="button"
     >
-      {profileDetailsLoading ? (
+      {isLoading ? (
         <>
           {/* TODO: Fix to use proper size-5 */}
           <div className="shimmer h-5 w-6 rounded-full" />
           <div className="shimmer h-4 w-full rounded-md" />
         </>
-      ) : profileDetails?.status ? (
+      ) : data?.status ? (
         <>
-          <span>{profileDetails.status.emoji}</span>
-          <span>{profileDetails.status.message}</span>
+          <span>{data.status.emoji}</span>
+          <span>{data.status.message}</span>
         </>
       ) : (
         <>
