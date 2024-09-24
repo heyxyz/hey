@@ -1,9 +1,11 @@
+import Pro from "@components/Profile/Badges/Pro";
 import MutualFollowersOverview from "@components/Profile/MutualFollowersOverview";
 import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from "@heroicons/react/24/solid";
+import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
@@ -15,6 +17,7 @@ import type { Profile } from "@hey/lens";
 import { useProfileLazyQuery } from "@hey/lens";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
+import { useQuery } from "@tanstack/react-query";
 import plur from "plur";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
@@ -43,6 +46,12 @@ const UserPreview: FC<UserPreviewProps> = ({
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
   const profile = data?.profile as Profile;
+
+  const { data: profileDetails } = useQuery({
+    enabled: Boolean(id),
+    queryFn: () => getProfileDetails(id as string),
+    queryKey: ["getProfileDetailsOnProfile", id]
+  });
 
   const onPreviewStart = async () => {
     if (profile || networkLoading) {
@@ -86,6 +95,28 @@ const UserPreview: FC<UserPreviewProps> = ({
       );
     }
 
+    if (profileDetails?.isSuspended) {
+      return (
+        <div className="flex h-12 items-center px-3">Profile is suspended</div>
+      );
+    }
+
+    const ProfileStatus: FC = () => {
+      if (!profileDetails?.status) {
+        return null;
+      }
+
+      return (
+        <div>
+          <div className="rounded-t-xl bg-yellow-50 px-4 py-2">
+            <span>{profileDetails.status.emoji}</span>
+            <b className="ml-2 text-sm">{profileDetails.status.message}</b>
+          </div>
+          <div className="divider" />
+        </div>
+      );
+    };
+
     const UserAvatar: FC = () => (
       <Image
         alt={profile.id}
@@ -110,6 +141,7 @@ const UserPreview: FC<UserPreviewProps> = ({
           {hasMisused(profile.id) && (
             <ExclamationCircleIcon className="size-4 text-red-500" />
           )}
+          <Pro id={profile.id} iconClassName="size-4" />
         </div>
         <span>
           <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
@@ -123,43 +155,46 @@ const UserPreview: FC<UserPreviewProps> = ({
     );
 
     return (
-      <div className="space-y-3 p-4">
-        <div className="flex items-center justify-between">
-          <UserAvatar />
-          <FollowUnfollowButton profile={profile} small />
-        </div>
-        <UserName />
-        {profile.metadata?.bio && (
-          <div className="linkify mt-2 break-words text-sm leading-6">
-            <Markup mentions={getMentions(profile.metadata.bio)}>
-              {truncateByWords(profile.metadata.bio, 20)}
-            </Markup>
+      <>
+        <ProfileStatus />
+        <div className="space-y-3 p-4">
+          <div className="flex items-center justify-between">
+            <UserAvatar />
+            <FollowUnfollowButton profile={profile} small />
           </div>
-        )}
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-1">
-            <div className="text-base">
-              {nFormatter(profile.stats.following)}
+          <UserName />
+          {profile.metadata?.bio && (
+            <div className="linkify mt-2 break-words text-sm leading-6">
+              <Markup mentions={getMentions(profile.metadata.bio)}>
+                {truncateByWords(profile.metadata.bio, 20)}
+              </Markup>
             </div>
-            <div className="ld-text-gray-500 text-sm">Following</div>
+          )}
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1">
+              <div className="text-base">
+                {nFormatter(profile.stats.following)}
+              </div>
+              <div className="ld-text-gray-500 text-sm">Following</div>
+            </div>
+            <div className="flex items-center space-x-1 text-md">
+              <div className="text-base">
+                {nFormatter(profile.stats.followers)}
+              </div>
+              <div className="ld-text-gray-500 text-sm">
+                {plur("Follower", profile.stats.followers)}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center space-x-1 text-md">
-            <div className="text-base">
-              {nFormatter(profile.stats.followers)}
-            </div>
-            <div className="ld-text-gray-500 text-sm">
-              {plur("Follower", profile.stats.followers)}
-            </div>
+          <div className="!text-xs">
+            <MutualFollowersOverview
+              handle={getProfile(profile).slug}
+              profileId={profile.id}
+              viaPopover
+            />
           </div>
         </div>
-        <div className="!text-xs">
-          <MutualFollowersOverview
-            handle={getProfile(profile).slug}
-            profileId={profile.id}
-            viaPopover
-          />
-        </div>
-      </div>
+      </>
     );
   };
 
