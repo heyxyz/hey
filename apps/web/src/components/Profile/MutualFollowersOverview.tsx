@@ -102,11 +102,11 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
           {isZero ? " and " : ", "}
         </span>
         <span>{getProfile(profileThree).displayName} </span>
-        {!isZero ? (
+        {isZero ? null : (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? "other" : "others"}
           </span>
-        ) : null}
+        )}
       </Wrapper>
     );
   }

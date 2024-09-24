@@ -65,7 +65,7 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowProfileSwitchModal(false)}
         show={showProfileSwitchModal}
-        size={!address ? "sm" : "xs"}
+        size={address ? "xs" : "sm"}
         title="Switch Profile"
       >
         <SwitchProfiles />

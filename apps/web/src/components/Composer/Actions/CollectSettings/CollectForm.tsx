@@ -52,11 +52,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   };
 
   const toggleCollect = () => {
-    if (!collectModule.type) {
-      setCollectType({ type: SimpleCollectOpenActionModule });
-    } else {
+    if (collectModule.type) {
       setLicense(null);
       reset();
+    } else {
+      setCollectType({ type: SimpleCollectOpenActionModule });
     }
   };
 

@@ -88,7 +88,7 @@ const List: FC = () => {
           placeholder="Search profiles..."
           value={searchText}
         />
-        {!searchText ? (
+        {searchText ? null : (
           <>
             <Select
               className="w-72"
@@ -110,7 +110,7 @@ const List: FC = () => {
               />
             </button>
           </>
-        ) : null}
+        )}
       </div>
       <div className="divider" />
       <div className="m-5">
@@ -118,13 +118,7 @@ const List: FC = () => {
           <Loader className="my-10" message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load profiles" />
-        ) : !profiles?.length ? (
-          <EmptyState
-            hideCard
-            icon={<UsersIcon className="size-8" />}
-            message={<span>No profiles</span>}
-          />
-        ) : (
+        ) : profiles?.length ? (
           <Virtuoso
             computeItemKey={(index, profile) => `${profile.id}-${index}`}
             data={profiles}
@@ -156,6 +150,12 @@ const List: FC = () => {
               </div>
             )}
             useWindowScroll
+          />
+        ) : (
+          <EmptyState
+            hideCard
+            icon={<UsersIcon className="size-8" />}
+            message={<span>No profiles</span>}
           />
         )}
       </div>

@@ -46,6 +46,9 @@
         "noForEach": "warn",
         "useLiteralKeys": "off"
       },
+      "style": {
+        "noNegationElse": "error"
+      },
       "nursery": {
         "noDuplicatedFields": "error",
         "useSortedClasses": {

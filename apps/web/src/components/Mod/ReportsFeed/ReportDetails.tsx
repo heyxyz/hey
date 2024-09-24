@@ -44,7 +44,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
         </div>
       </div>
       <div className="flex flex-col space-y-3">
-        {!hideViewReportsButton ? (
+        {hideViewReportsButton ? null : (
           <Button
             icon={<EyeIcon className="size-4" />}
             onClick={() => setShowReportsModal(true)}
@@ -53,7 +53,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           >
             View other reports
           </Button>
-        ) : null}
+        )}
         <Modal
           onClose={() => setShowReportsModal(false)}
           show={showReportsModal}

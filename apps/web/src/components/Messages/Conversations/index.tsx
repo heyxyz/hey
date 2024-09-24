@@ -124,9 +124,7 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
       >
         {isClientLoading || isLoading ? (
           <ConversationsShimmer />
-        ) : !client?.address ? (
-          <EnableMessages />
-        ) : (
+        ) : client?.address ? (
           <Virtuoso
             computeItemKey={(_, conversation) =>
               `${conversation.topic}-${conversation.peerAddress}`
@@ -141,6 +139,8 @@ const Conversations: FC<ConversationsProps> = ({ isClientLoading }) => {
               <Conversation conversation={conversation} />
             )}
           />
+        ) : (
+          <EnableMessages />
         )}
       </div>
     </div>
