@@ -74,7 +74,7 @@ const Pro: NextPage = () => {
             </span>
             <span className="ld-text-gray-500">/month</span>
           </p>
-          <p className="ld-text-gray-500 mt-5">Billed monthly</p>
+          <p className="ld-text-gray-500 mt-3">Billed monthly</p>
           <ul className="ld-text-gray-500 mt-5 space-y-1 text-sm">
             {details.features.map((feature) => (
               <li className="flex items-center space-x-3" key={feature}>
