@@ -22,14 +22,24 @@ export const Job =
     const VERCEL_SCOPE = "heyxyz";
 
     await run("rm -rf .pnpm-store");
-    await run('echo "$PWD"');
+
+    await run(`${vercel} pull --yes --token $VERCEL_ACCESS_TOKEN`, {
+      label: `Pulling ${PROJECT_NAME} Deployment`,
+      env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+    });
+
+    await run(
+      `${vercel} build ${isProd ? "--prod" : ""} --token $VERCEL_ACCESS_TOKEN`,
+      {
+        label: `Building ${PROJECT_NAME} Deployment`,
+        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+      }
+    );
 
     const { stdout } = await run(
-      `${vercel} deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
+      `${vercel} deploy --prebuilt --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
-      } --no-color --token $VERCEL_ACCESS_TOKEN -e PIERRE_BRANCH_ID=${
-        ctx.branch.id
-      } -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"}`,
+      } --no-color --token $VERCEL_ACCESS_TOKEN`,
       {
         label: `Creating ${PROJECT_NAME} Deployment`,
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
