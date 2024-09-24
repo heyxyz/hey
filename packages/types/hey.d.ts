@@ -81,5 +81,5 @@ export type Preferences = {
 
 export type ProfileDetails = {
   isSuspended: boolean;
-  status: { emoji: string; status: string } | null;
+  status: { emoji: string; message: string } | null;
 };
