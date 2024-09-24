@@ -1,11 +1,48 @@
-## 🌿 About Hey
+# Hey Monorepo
 
-Hey is a cutting-edge social media application that leverages the power of [Lens Protocol](https://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Hey aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
+## Requirements
 
-## ✅ Community
+- [Node.js](https://nodejs.org/en/download/) (v20 or higher)
+- [pnpm](https://pnpm.io/installation)
+- [PostgreSQL](https://www.postgresql.org/download/)
+- [Redis](https://redis.io/download)
 
-For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://hey.xyz/discord).
+## Installation
 
-## ⚖️ License
+We use [pnpm workspaces](https://pnpm.io/workspaces) to manage our monorepo.
 
-Hey is open-sourced software licensed under the © [AGPLv3](LICENSE).
+### Clone the repository
+
+Ping Yoginth for access to the repository on Pierre, make sure you have amazing ideas and you're ready to build the future of the web.
+
+```bash
+git clone git@git.pierre.co:/repos/hey/hey.git
+```
+
+### Install dependencies
+
+```bash
+pnpm install
+```
+
+### Create a `.env` file
+
+Copy the `.env.example` file and rename it to `.env` in all possible packages and apps fill the required variables.
+
+### Start the application
+
+```bash
+pnpm dev
+```
+
+### Build the application
+
+```bash
+pnpm build
+```
+
+### Test the application
+
+```bash
+pnpm test:dev
+```
