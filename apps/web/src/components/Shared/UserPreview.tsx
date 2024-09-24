@@ -1,4 +1,4 @@
-import MutualFollowers from "@components/Profile/MutualFollowers";
+import MutualFollowersOverview from "@components/Profile/MutualFollowersOverview";
 import isVerified from "@helpers/isVerified";
 import {
   CheckBadgeIcon,
@@ -153,7 +153,7 @@ const UserPreview: FC<UserPreviewProps> = ({
           </div>
         </div>
         <div className="!text-xs">
-          <MutualFollowers
+          <MutualFollowersOverview
             handle={getProfile(profile).slug}
             profileId={profile.id}
             viaPopover
