@@ -1,7 +1,7 @@
 import errorToast from "@helpers/errorToast";
 import getAllowanceModule from "@helpers/getAllowanceModule";
 import { Leafwatch } from "@helpers/leafwatch";
-import { ExclamationTriangleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { SETTINGS } from "@hey/data/tracking";
 import type { ApprovedAllowanceAmountResult } from "@hey/lens";
 import {
@@ -133,7 +133,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         {title}
       </Button>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Warning"

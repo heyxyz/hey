@@ -1,4 +1,3 @@
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { Button, Card, CardHeader, Modal } from "@hey/ui";
 import { type FC, useState } from "react";
 
@@ -16,7 +15,6 @@ const ModalDesign: FC = () => {
     <Card>
       <CardHeader title="Modal" />
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowXsModal(false)}
         show={showXsModal}
         size="xs"
@@ -25,7 +23,6 @@ const ModalDesign: FC = () => {
         {children}
       </Modal>
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowSmModal(false)}
         show={showSmModal}
         size="sm"
@@ -34,7 +31,6 @@ const ModalDesign: FC = () => {
         {children}
       </Modal>
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowMdModal(false)}
         show={showMdModal}
         size="md"
@@ -43,7 +39,6 @@ const ModalDesign: FC = () => {
         {children}
       </Modal>
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => setShowLgModal(false)}
         show={showLgModal}
         size="lg"

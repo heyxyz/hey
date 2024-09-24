@@ -1,6 +1,5 @@
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import UserProfile from "@components/Shared/UserProfile";
-import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileMentioned } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
@@ -78,7 +77,6 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         )}
       </Card>
       <Modal
-        icon={<UsersIcon className="size-5" />}
         onClose={() => setShowMore(false)}
         show={showMore}
         title="Relevant people"

@@ -12,7 +12,6 @@ import cn from "../cn";
 
 interface ModalProps {
   children: ReactNode | ReactNode[];
-  icon?: ReactNode;
   onClose?: () => void;
   show: boolean;
   size?: "lg" | "md" | "sm" | "xs";
@@ -21,7 +20,6 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = ({
   children,
-  icon,
   onClose,
   show,
   size = "sm",
@@ -65,10 +63,7 @@ export const Modal: FC<ModalProps> = ({
           >
             {title ? (
               <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
-                <div className="flex items-center space-x-2 font-bold">
-                  {icon}
-                  <div>{title}</div>
-                </div>
+                <b>{title}</b>
                 {onClose ? (
                   <button
                     className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
