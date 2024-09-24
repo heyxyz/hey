@@ -96,12 +96,12 @@ export default async function Page({ params }: Props) {
         <b>Stats</b>
         <ul>
           <li>
-            <a href={`${profileUrl}/following`}>
+            <a href={profileUrl}>
               Following: {metadata.other?.["count:following"]}
             </a>
           </li>
           <li>
-            <a href={`${profileUrl}/followers`}>
+            <a href={profileUrl}>
               Followers: {metadata.other?.["count:followers"]}
             </a>
           </li>
