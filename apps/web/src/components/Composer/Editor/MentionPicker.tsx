@@ -1,8 +1,7 @@
+import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import type { EditorExtension } from "@helpers/prosekit/extension";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { EditorRegex } from "@hey/data/regex";
-import hasMisused from "@hey/helpers/hasMisused";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useEditor } from "prosekit/react";
@@ -39,9 +38,7 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
           <div className="flex items-center space-x-1 text-sm">
             <span>{profile.name}</span>
             <Verified id={profile.id} iconClassName="size-4" />
-            {hasMisused(profile.id) ? (
-              <ExclamationCircleIcon className="size-4 text-red-500" />
-            ) : null}
+            <Misuse id={profile.id} iconClassName="size-4" />
           </div>
           <span className="text-xs">{profile.displayHandle}</span>
         </div>

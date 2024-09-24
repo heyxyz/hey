@@ -1,5 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
+import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import Slug from "@components/Shared/Slug";
 import {
@@ -9,7 +10,7 @@ import {
   MapPinIcon,
   ShieldCheckIcon
 } from "@heroicons/react/24/outline";
-import { ExclamationCircleIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import formatDate from "@hey/helpers/datetime/formatDate";
@@ -17,10 +18,8 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import getMisuseDetails from "@hey/helpers/getMisuseDetails";
 import getProfile from "@hey/helpers/getProfile";
 import getProfileAttribute from "@hey/helpers/getProfileAttribute";
-import hasMisused from "@hey/helpers/hasMisused";
 import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
 import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
@@ -67,7 +66,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { resolvedTheme } = useTheme();
 
   const followType = profile?.followModule?.type;
-  const misuseDetails = getMisuseDetails(profile.id);
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
@@ -92,12 +90,8 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getProfile(profile).displayName}</H3>
-          <Verified id={profile.id} />
-          {hasMisused(profile.id) ? (
-            <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon className="size-6 text-brand-500" />
-            </Tooltip>
-          ) : null}
+          <Verified id={profile.id} showTooltip />
+          <Misuse id={profile.id} showTooltip />
           {isSuspended ? (
             <Tooltip content="Suspended">
               <EyeSlashIcon className="size-6 text-brand-500" />

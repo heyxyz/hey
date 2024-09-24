@@ -1,13 +1,12 @@
+import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import Slug from "@components/Shared/Slug";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
-import hasMisused from "@hey/helpers/hasMisused";
 import type { Profile } from "@hey/lens";
 import { useDefaultProfileQuery } from "@hey/lens";
 import { Image } from "@hey/ui";
@@ -83,9 +82,7 @@ const User: FC<UserProps> = ({ address, conversation }) => {
             slug={getProfile(profile).slugWithPrefix}
           />
           <Verified id={profile.id} iconClassName="ml-1 size-4" />
-          {hasMisused(profile.id) ? (
-            <ExclamationCircleIcon className="ml-1 size-4" />
-          ) : null}
+          <Misuse id={profile.id} iconClassName="ml-1 size-4" />
         </div>
         <LatestMessage conversation={conversation} />
       </div>

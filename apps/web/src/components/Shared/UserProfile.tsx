@@ -1,10 +1,8 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import getProfile from "@hey/helpers/getProfile";
-import hasMisused from "@hey/helpers/hasMisused";
 import humanize from "@hey/helpers/humanize";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
@@ -14,6 +12,7 @@ import type { FC } from "react";
 import { memo } from "react";
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
+import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 import UserPreview from "./UserPreview";
@@ -69,9 +68,7 @@ const UserProfile: FC<UserProfileProps> = ({
           </div>
         </div>
         <Verified id={profile.id} iconClassName="ml-1 size-4" />
-        {hasMisused(profile.id) && (
-          <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
-        )}
+        <Misuse id={profile.id} iconClassName="ml-1 size-4" />
       </div>
       <div>
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
