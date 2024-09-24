@@ -25,11 +25,19 @@ export const Job =
     await run('echo "$PWD"');
 
     await run(
-      `${vercel} pull --yes -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"} --token $VERCEL_ACCESS_TOKEN`
+      `${vercel} pull --yes -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"} --token $VERCEL_ACCESS_TOKEN`,
+      {
+        label: `Pulling ${PROJECT_NAME} Deployment`,
+        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+      }
     );
 
     await run(
-      `${vercel} build ${isProd ? "--prod" : ""} --token $VERCEL_ACCESS_TOKEN`
+      `${vercel} build ${isProd ? "--prod" : ""} --token $VERCEL_ACCESS_TOKEN`,
+      {
+        label: `Building ${PROJECT_NAME} Deployment`,
+        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+      }
     );
 
     const { stdout } = await run(
