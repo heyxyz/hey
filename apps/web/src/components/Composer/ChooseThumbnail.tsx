@@ -148,7 +148,7 @@ const ChooseThumbnail: FC = () => {
             </>
           )}
         </label>
-        {!thumbnails.length ? <ThumbnailsShimmer /> : null}
+        {thumbnails.length ? null : <ThumbnailsShimmer />}
         {thumbnails.map(({ blobUrl, ipfsUrl }, index) => {
           const isSelected = selectedThumbnailIndex === index;
           const isUploaded = ipfsUrl === videoThumbnail.url;

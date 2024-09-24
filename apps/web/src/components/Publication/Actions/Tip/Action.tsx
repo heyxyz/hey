@@ -103,7 +103,7 @@ const Action: FC<ActionProps> = ({
     fiatRates.find(
       (rate) => rate.address === selectedCurrency?.contractAddress.toLowerCase()
     )?.fiat || 0;
-  const cryptoRate = !usdRate ? amount : Number((amount / usdRate).toFixed(2));
+  const cryptoRate = usdRate ? Number((amount / usdRate).toFixed(2)) : amount;
   const finalRate = cryptoRate * 10 ** (selectedCurrency?.decimals || 18);
 
   const balance = balanceData
@@ -357,15 +357,7 @@ const Action: FC<ActionProps> = ({
           disabled
           icon={<Spinner className="my-0.5" size="xs" />}
         />
-      ) : !hasAllowance ? (
-        <Button
-          className={submitButtonClassName}
-          disabled={isLoading}
-          onClick={enableTipping}
-        >
-          Enable tipping for {selectedCurrency?.symbol}
-        </Button>
-      ) : (
+      ) : hasAllowance ? (
         <Button
           className={submitButtonClassName}
           disabled={!amount || isLoading || !canTip}
@@ -383,6 +375,14 @@ const Action: FC<ActionProps> = ({
               Tip {amount} {selectedCurrency?.symbol}
             </b>
           )}
+        </Button>
+      ) : (
+        <Button
+          className={submitButtonClassName}
+          disabled={isLoading}
+          onClick={enableTipping}
+        >
+          Enable tipping for {selectedCurrency?.symbol}
         </Button>
       )}
     </div>

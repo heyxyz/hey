@@ -44,13 +44,7 @@ const List: FC = () => {
           <Loader className="my-10" message="Loading permissions..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load permissions" />
-        ) : !permissions.length ? (
-          <EmptyState
-            hideCard
-            icon={<AdjustmentsHorizontalIcon className="size-8" />}
-            message={<span>No permissions found</span>}
-          />
-        ) : (
+        ) : permissions.length ? (
           <div className="space-y-5">
             {permissions?.map((permission) => (
               <div key={permission.id}>
@@ -94,6 +88,12 @@ const List: FC = () => {
               </div>
             ))}
           </div>
+        ) : (
+          <EmptyState
+            hideCard
+            icon={<AdjustmentsHorizontalIcon className="size-8" />}
+            message={<span>No permissions found</span>}
+          />
         )}
       </div>
       <Modal
