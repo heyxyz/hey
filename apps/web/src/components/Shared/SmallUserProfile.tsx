@@ -1,15 +1,14 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
-import hasMisused from "@hey/helpers/hasMisused";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
+import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
@@ -51,9 +50,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
         {getProfile(profile).displayName}
       </div>
       <Verified id={profile.id} iconClassName="mr-1 size-4" />
-      {hasMisused(profile.id) && (
-        <ExclamationCircleIcon className="mr-2 size-4 text-red-500" />
-      )}
+      <Misuse id={profile.id} iconClassName="mr-2 size-4" />
       {!hideSlug && (
         <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
       )}

@@ -1,11 +1,9 @@
 import MutualFollowersOverview from "@components/Profile/MutualFollowersOverview";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import getProfile from "@hey/helpers/getProfile";
-import hasMisused from "@hey/helpers/hasMisused";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
 import type { Profile } from "@hey/lens";
@@ -18,6 +16,7 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
+import Misuse from "./Profile/Icons/Misuse";
 import Pro from "./Profile/Icons/Pro";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
@@ -133,9 +132,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
           <Verified id={profile.id} iconClassName="size-4" />
-          {hasMisused(profile.id) && (
-            <ExclamationCircleIcon className="size-4 text-red-500" />
-          )}
+          <Misuse id={profile.id} iconClassName="size-4" />
           <Pro id={profile.id} iconClassName="size-4" />
         </div>
         <span>

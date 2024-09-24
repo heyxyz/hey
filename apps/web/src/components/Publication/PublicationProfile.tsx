@@ -1,9 +1,8 @@
 import Source from "@components/Publication/Source";
+import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getProfile from "@hey/helpers/getProfile";
-import hasMisused from "@hey/helpers/hasMisused";
 import type { Profile } from "@hey/lens";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
@@ -54,9 +53,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
         />
       </WrappedLink>
       <Verified id={profile.id} iconClassName="ml-1 size-4" />
-      {hasMisused(profile.id) ? (
-        <ExclamationCircleIcon className="ml-1 size-4" />
-      ) : null}
+      <Misuse id={profile.id} iconClassName="ml-1 size-4" />
       {timestamp ? (
         <span className="ld-text-gray-500 truncate">
           <span className="mx-1">·</span>

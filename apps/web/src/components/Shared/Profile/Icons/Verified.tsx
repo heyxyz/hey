@@ -6,12 +6,23 @@ import type { FC } from "react";
 
 interface VerifiedProps {
   id: string;
+  showTooltip?: boolean;
   iconClassName?: string;
 }
 
-const Verified: FC<VerifiedProps> = ({ id, iconClassName = "" }) => {
+const Verified: FC<VerifiedProps> = ({
+  id,
+  showTooltip = false,
+  iconClassName = ""
+}) => {
   if (!isVerified(id)) {
     return null;
+  }
+
+  if (!showTooltip) {
+    return (
+      <CheckBadgeIcon className={cn("size-6 text-brand-500", iconClassName)} />
+    );
   }
 
   return (
