@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
+import Verified from "@components/Shared/Profile/Icons/Verified";
 import Slug from "@components/Shared/Slug";
-import isVerified from "@helpers/isVerified";
 import {
   ClockIcon,
   Cog6ToothIcon,
@@ -9,11 +9,7 @@ import {
   MapPinIcon,
   ShieldCheckIcon
 } from "@heroicons/react/24/outline";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon,
-  EyeSlashIcon
-} from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import formatDate from "@hey/helpers/datetime/formatDate";
@@ -36,8 +32,8 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import urlcat from "urlcat";
+import Pro from "../Shared/Profile/Icons/Pro";
 import Badges from "./Badges";
-import Pro from "./Badges/Pro";
 import Followerings from "./Followerings";
 import InternalTools from "./InternalTools";
 import ProfileMenu from "./Menu";
@@ -96,11 +92,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getProfile(profile).displayName}</H3>
-          {isVerified(profile.id) ? (
-            <Tooltip content="Verified">
-              <CheckBadgeIcon className="size-6 text-brand-500" />
-            </Tooltip>
-          ) : null}
+          <Verified id={profile.id} />
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon className="size-6 text-brand-500" />

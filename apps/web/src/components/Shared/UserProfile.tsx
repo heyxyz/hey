@@ -1,8 +1,4 @@
-import isVerified from "@helpers/isVerified";
-import {
-  CheckBadgeIcon,
-  ExclamationCircleIcon
-} from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
@@ -18,6 +14,7 @@ import type { FC } from "react";
 import { memo } from "react";
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
+import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 import UserPreview from "./UserPreview";
 
@@ -71,9 +68,7 @@ const UserProfile: FC<UserProfileProps> = ({
             {getProfile(profile).displayName}
           </div>
         </div>
-        {isVerified(profile.id) && (
-          <CheckBadgeIcon className="ml-1 size-4 text-brand-500" />
-        )}
+        <Verified id={profile.id} iconClassName="ml-1 size-4" />
         {hasMisused(profile.id) && (
           <ExclamationCircleIcon className="ml-1 size-4 text-red-500" />
         )}
