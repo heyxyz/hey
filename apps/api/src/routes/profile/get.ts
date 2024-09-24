@@ -41,9 +41,7 @@ export const get = [
       const response: ProfileDetails = {
         isSuspended:
           profilePermission?.permissionId === SUSPENDED_PERMISSION_ID,
-        status: profileStatus
-          ? { emoji: profileStatus.emoji, status: profileStatus.message }
-          : null
+        status: profileStatus || null
       };
 
       await setRedis(cacheKey, response);

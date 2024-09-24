@@ -27,7 +27,9 @@ const GlobalModals: FC = () => {
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
     showPublicationReportModal,
-    showReportProfileModal
+    showReportProfileModal,
+    showEditStatusModal,
+    setShowEditStatusModal
   } = useGlobalModalStateStore();
 
   const { screen: signupScreen } = useSignupStore();
@@ -88,6 +90,14 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
+      </Modal>
+      <Modal
+        onClose={() => setShowEditStatusModal(false)}
+        show={showEditStatusModal}
+        title="Edit Status"
+        size="md"
+      >
+        gm
       </Modal>
     </>
   );

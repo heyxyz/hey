@@ -33,6 +33,8 @@ interface State {
   showProfileSwitchModal: boolean;
   showPublicationReportModal: boolean;
   showReportProfileModal: boolean;
+  showEditStatusModal: boolean;
+  setShowEditStatusModal: (showEditStatusModal: boolean) => void;
 }
 
 const store = create<State>((set) => ({
@@ -64,7 +66,10 @@ const store = create<State>((set) => ({
   showOptimisticTransactionsModal: false,
   showProfileSwitchModal: false,
   showPublicationReportModal: false,
-  showReportProfileModal: false
+  showReportProfileModal: false,
+  showEditStatusModal: false,
+  setShowEditStatusModal: (showEditStatusModal) =>
+    set(() => ({ showEditStatusModal }))
 }));
 
 export const useGlobalModalStateStore = createTrackedSelector(store);

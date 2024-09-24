@@ -1,6 +1,6 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import getProfileDetails from "@hey/helpers/api/getProfileFlags";
+import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";

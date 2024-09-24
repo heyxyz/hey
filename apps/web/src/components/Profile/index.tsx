@@ -10,7 +10,7 @@ import {
 } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
-import getProfileDetails from "@hey/helpers/api/getProfileFlags";
+import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
