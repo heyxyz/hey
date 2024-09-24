@@ -1,7 +1,6 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import getProfile from "@hey/helpers/getProfile";
 import type { FollowNotification as TFollowNotification } from "@hey/lens";
-import { useRouter } from "next/router";
 import plur from "plur";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -13,7 +12,6 @@ interface FollowNotificationProps {
 }
 
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
-  const { push } = useRouter();
   const { currentProfile } = useProfileStore();
   const followers = notification?.followers;
   const firstProfile = followers?.[0];
@@ -26,10 +24,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   const type = "you";
 
   return (
-    <div
-      className="cursor-pointer space-y-2 p-5"
-      onClick={() => push(`${getProfile(currentProfile).link}/followers`)}
-    >
+    <div className="space-y-2 p-5">
       <div className="flex items-center space-x-3">
         <UserPlusIcon className="size-6" />
         <div className="flex items-center space-x-1">
