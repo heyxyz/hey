@@ -42,6 +42,7 @@ import Followerings from "./Followerings";
 import InternalTools from "./InternalTools";
 import ProfileMenu from "./Menu";
 import MutualFollowersOverview from "./MutualFollowersOverview";
+import ProfileStatus from "./ProfileStatus";
 import ScamWarning from "./ScamWarning";
 
 export const MetaDetails = ({
@@ -111,6 +112,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
             </Tooltip>
           ) : null}
           <Pro id={profile.id} />
+          <ProfileStatus id={profile.id} />
         </div>
         <div className="flex items-center space-x-3">
           <Slug
