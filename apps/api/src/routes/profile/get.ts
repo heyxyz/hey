@@ -28,17 +28,22 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [profilePermission] = await prisma.$transaction([
+      const [profilePermission, profileStatus] = await prisma.$transaction([
         prisma.profilePermission.findFirst({
           where: {
             permissionId: SUSPENDED_PERMISSION_ID,
             profileId: id as string
           }
-        })
+        }),
+        prisma.profileStatus.findFirst({ where: { id: id as string } })
       ]);
 
       const response: ProfileDetails = {
-        isSuspended: profilePermission?.permissionId === SUSPENDED_PERMISSION_ID
+        isSuspended:
+          profilePermission?.permissionId === SUSPENDED_PERMISSION_ID,
+        status: profileStatus
+          ? { emoji: profileStatus.emoji, status: profileStatus.message }
+          : null
       };
 
       await setRedis(cacheKey, response);

@@ -127,3 +127,10 @@ model ProfilePermission {
   // Indexes
   @@index([profileId, permissionId])
 }
+
+model ProfileStatus {
+  id        String   @id
+  message   String
+  emoji     String
+  createdAt DateTime @default(now())
+}
