@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@aws-sdk/client-s3": "^3.654.0",
-    "@aws-sdk/lib-storage": "^3.654.0",
+    "@aws-sdk/client-s3": "^3.657.0",
+    "@aws-sdk/lib-storage": "^3.657.0",
     "@headlessui/react": "2.1.8",
     "@heroicons/react": "^2.1.5",
     "@hey/abis": "workspace:*",
@@ -71,7 +71,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.12",
+    "viem": "^2.21.13",
     "wagmi": "^2.12.13",
     "zod": "^3.23.8",
     "zustand": "5.0.0-rc.2"
@@ -81,13 +81,13 @@
     "@hey/types": "workspace:*",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.9",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.6.1",
     "@types/react": "^18.3.7",
     "@types/react-dom": "^18.3.0",
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.12",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2",
     "vitest": "^2.1.1"
   }
