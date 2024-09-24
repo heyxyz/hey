@@ -10,9 +10,9 @@ const PublicationListShimmer: FC = () => {
         <ArrowLeftIcon className="size-5" />
         <div className="shimmer h-4 w-1/5 rounded-full" />
       </div>
-      <PublicationShimmer />
-      <PublicationShimmer />
-      <PublicationShimmer />
+      {Array.from({ length: 3 }).map((_, index) => (
+        <PublicationShimmer key={index} />
+      ))}
     </Card>
   );
 };

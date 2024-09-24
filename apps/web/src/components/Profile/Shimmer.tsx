@@ -1,15 +1,8 @@
-import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
-interface ProfilePageShimmerProps {
-  profileList?: boolean;
-}
-
-const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
-  profileList = false
-}) => {
+const ProfilePageShimmer: FC = () => {
   return (
     <>
       <div className="container mx-auto max-w-[1350px]">
@@ -51,21 +44,15 @@ const ProfilePageShimmer: FC<ProfilePageShimmerProps> = ({
           </div>
         </GridItemFour>
         <GridItemEight>
-          {profileList ? (
-            <ProfileListShimmer />
-          ) : (
-            <>
-              <div className="mt-3 mb-5 flex gap-3 px-5 sm:mt-0 sm:px-0">
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <div
-                    className="shimmer h-8 w-14 rounded-lg sm:w-28"
-                    key={index}
-                  />
-                ))}
-              </div>
-              <PublicationsShimmer />
-            </>
-          )}
+          <div className="mt-3 mb-5 flex gap-3 px-5 sm:mt-0 sm:px-0">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                className="shimmer h-8 w-14 rounded-lg sm:w-28"
+                key={index}
+              />
+            ))}
+          </div>
+          <PublicationsShimmer />
         </GridItemEight>
       </GridLayout>
     </>

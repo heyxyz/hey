@@ -1,25 +1,27 @@
+import MutualFollowers from "@components/Shared/Modal/MutualFollowers";
 import getAvatar from "@hey/helpers/getAvatar";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { LimitType, useMutualFollowersQuery } from "@hey/lens";
-import { StackedAvatars } from "@hey/ui";
+import { Modal, StackedAvatars } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import Link from "next/link";
-import type { FC, ReactNode } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-interface MutualFollowersProps {
+interface MutualFollowersOverviewProps {
   handle: string;
   profileId: string;
   viaPopover?: boolean;
 }
 
-const MutualFollowers: FC<MutualFollowersProps> = ({
+const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   handle,
   profileId,
   viaPopover = false
 }) => {
   const { currentProfile } = useProfileStore();
+  const [showMutualFollowersModal, setShowMutualFollowersModal] =
+    useState(false);
 
   const { data, error, loading } = useMutualFollowersQuery({
     skip: !profileId || !currentProfile?.id,
@@ -36,12 +38,13 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) || [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <Link
+    <button
       className={cn(
         viaPopover ? "text-xs" : "text-sm",
         "ld-text-gray-500 flex cursor-pointer flex-wrap items-center gap-2.5"
       )}
-      href={`/u/${handle}/mutuals`}
+      onClick={() => setShowMutualFollowersModal(true)}
+      type="button"
     >
       <StackedAvatars
         avatars={profiles.map((profile) => getAvatar(profile))}
@@ -51,7 +54,14 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
         <span>Followed by </span>
         {children}
       </div>
-    </Link>
+      <Modal
+        onClose={() => setShowMutualFollowersModal(false)}
+        show={showMutualFollowersModal}
+        title="Mutual Followers"
+      >
+        <MutualFollowers handle={handle} profileId={profileId} />
+      </Modal>
+    </button>
   );
 
   if (profiles.length === 0 || loading || error) {
@@ -110,4 +120,4 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   );
 };
 
-export default MutualFollowers;
+export default MutualFollowersOverview;

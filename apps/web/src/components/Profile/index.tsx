@@ -27,7 +27,6 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Details from "./Details";
 import Feed from "./Feed";
 import FeedType from "./FeedType";
-import MutualFollowersList from "./MutualFollowers/List";
 import ProfilePageShimmer from "./Shimmer";
 import Stats from "./Stats";
 import SuspendedDetails from "./SuspendedDetails";
@@ -40,9 +39,6 @@ const ViewProfile: NextPage = () => {
   } = useRouter();
   const { currentProfile } = useProfileStore();
   const isStaff = useFlag(FeatureFlag.Staff);
-
-  const showMutuals =
-    pathname === "/u/[handle]/mutuals" || pathname === "/profile/[id]/mutuals";
 
   useEffect(() => {
     if (isReady) {
@@ -94,7 +90,7 @@ const ViewProfile: NextPage = () => {
   });
 
   if (!isReady || profileLoading) {
-    return <ProfilePageShimmer profileList={showMutuals} />;
+    return <ProfilePageShimmer />;
   }
 
   if (!data?.profile) {
@@ -140,11 +136,6 @@ const ViewProfile: NextPage = () => {
             <EmptyState
               icon={<NoSymbolIcon className="size-8" />}
               message="Profile Suspended"
-            />
-          ) : showMutuals ? (
-            <MutualFollowersList
-              handle={getProfile(profile).slug}
-              profileId={profile.id}
             />
           ) : (
             <>
