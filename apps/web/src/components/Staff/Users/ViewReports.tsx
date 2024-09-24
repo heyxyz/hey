@@ -1,5 +1,4 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
-import { FlagIcon } from "@heroicons/react/24/outline";
 import { Button, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -17,7 +16,6 @@ const ViewReports: FC<ViewReportsProps> = ({ id }) => {
         View reports
       </Button>
       <Modal
-        icon={<FlagIcon className="size-5" />}
         onClose={() => setShowReportsModal(false)}
         show={showReportsModal}
         size="md"

@@ -1,11 +1,7 @@
 import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import {
-  ExclamationTriangleIcon,
-  LockClosedIcon,
-  LockOpenIcon
-} from "@heroicons/react/24/outline";
+import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
 import { LensHandles } from "@hey/abis";
 import { LENS_HANDLES } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -132,7 +128,6 @@ const HandleGuardianSettings: FC = () => {
         )}
       </div>
       <Modal
-        icon={<ExclamationTriangleIcon className="size-5" />}
         onClose={() => setShowWarningModal(false)}
         show={showWarningModal}
         title="Danger zone"

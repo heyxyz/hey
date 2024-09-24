@@ -2,7 +2,6 @@ import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProf
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
 import UserProfile from "@components/Shared/UserProfile";
 import { Leafwatch } from "@helpers/leafwatch";
-import { UsersIcon } from "@heroicons/react/24/outline";
 import { PROFILE, ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
@@ -91,7 +90,6 @@ const WhoToFollow: FC = () => {
         </button>
       </Card>
       <Modal
-        icon={<UsersIcon className="size-5" />}
         onClose={() => setShowMore(false)}
         show={showMore}
         title="Suggested for you"
