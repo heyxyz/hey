@@ -28,7 +28,10 @@ export const PROFILE = {
   SWITCH_PROFILE_STATS_TAB: "Switch profile stats tab",
   UNBLOCK: "Unblock profile",
   UNFOLLOW: "Unfollow profile",
-  UNRECOMENDED: "Unrecommended the profile"
+  UNRECOMENDED: "Unrecommended the profile",
+  OPEN_FOLLOWERS: "Open followers modal",
+  OPEN_FOLLOWING: "Open following modal",
+  OPEN_MUTUAL_FOLLOWERS: "Open mutual followers modal"
 };
 
 export const PUBLICATION = {
@@ -64,8 +67,8 @@ export const PUBLICATION = {
   NOT_INTERESTED: "Not interested publication",
   OPEN_GIFS: "Open GIFs modal",
   OPEN_LIKES: "Open likes modal",
-  OPEN_NFT: "Open NFT",
-  PIN: "Pin publication",
+  OPEN_MIRRORS: "Open mirrors modal",
+  OPEN_COLLECTORS: "Open collectors modal",
   REMOVE_BOOKMARK: "Remove bookmark publication",
   REPORT: "Report publication",
   SHARE: "Share publication",

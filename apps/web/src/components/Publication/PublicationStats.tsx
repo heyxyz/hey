@@ -1,6 +1,8 @@
 import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Mirrors from "@components/Shared/Modal/Mirrors";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PUBLICATION } from "@hey/data/tracking";
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { PublicationStats as IPublicationStats } from "@hey/lens";
@@ -116,7 +118,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         ) : null}
       </div>
       <Modal
-        onClose={() => setShowLikesModal(false)}
+        onClose={() => {
+          Leafwatch.track(PUBLICATION.OPEN_LIKES);
+          setShowLikesModal(false);
+        }}
         show={showLikesModal}
         title="Likes"
         size="md"
@@ -124,7 +129,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         <Likes publicationId={publicationId} />
       </Modal>
       <Modal
-        onClose={() => setShowMirrorsModal(false)}
+        onClose={() => {
+          Leafwatch.track(PUBLICATION.OPEN_MIRRORS);
+          setShowMirrorsModal(false);
+        }}
         show={showMirrorsModal}
         title="Mirrors"
         size="md"
@@ -132,7 +140,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({
         <Mirrors publicationId={publicationId} />
       </Modal>
       <Modal
-        onClose={() => setShowCollectorsModal(false)}
+        onClose={() => {
+          Leafwatch.track(PUBLICATION.OPEN_COLLECTORS);
+          setShowCollectorsModal(false);
+        }}
         show={showCollectorsModal}
         title="Collectors"
         size="md"

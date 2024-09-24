@@ -1,5 +1,7 @@
 import Followers from "@components/Shared/Modal/Followers";
 import Following from "@components/Shared/Modal/Following";
+import { Leafwatch } from "@helpers/leafwatch";
+import { PROFILE } from "@hey/data/tracking";
 import getProfile from "@hey/helpers/getProfile";
 import humanize from "@hey/helpers/humanize";
 import type { Profile } from "@hey/lens";
@@ -35,7 +37,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <div className="ld-text-gray-500">{plur("Follower", followers)}</div>
       </button>
       <Modal
-        onClose={() => setShowFollowingModal(false)}
+        onClose={() => {
+          Leafwatch.track(PROFILE.OPEN_FOLLOWING);
+          setShowFollowingModal(false);
+        }}
         show={showFollowingModal}
         title="Following"
         size="md"
@@ -43,7 +48,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <Following handle={getProfile(profile).slug} profileId={profile.id} />
       </Modal>
       <Modal
-        onClose={() => setShowFollowersModal(false)}
+        onClose={() => {
+          Leafwatch.track(PROFILE.OPEN_FOLLOWERS);
+          setShowFollowersModal(false);
+        }}
         show={showFollowersModal}
         title="Followers"
         size="md"
