@@ -181,4 +181,3 @@ const ViewProfile: NextPage = () => {
 };
 
 export default ViewProfile;
-
