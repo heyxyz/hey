@@ -1,12 +1,7 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
 import SuspendButtons from "@components/Publication/Actions/HigherActions/SuspendButtons";
 import SmallUserProfile from "@components/Shared/SmallUserProfile";
-import {
-  ChatBubbleOvalLeftEllipsisIcon,
-  EyeIcon,
-  FlagIcon,
-  HandRaisedIcon
-} from "@heroicons/react/24/outline";
+import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
@@ -60,7 +55,6 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           </Button>
         ) : null}
         <Modal
-          icon={<FlagIcon className="size-5" />}
           onClose={() => setShowReportsModal(false)}
           show={showReportsModal}
           size="md"
@@ -78,7 +72,6 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           Dispute this report
         </Button>
         <Modal
-          icon={<ChatBubbleOvalLeftEllipsisIcon className="size-5" />}
           onClose={() => setShowDisputeModal(false)}
           show={showDisputeModal}
           title="Dispute this report"

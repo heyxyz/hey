@@ -1,6 +1,5 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
-import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
 import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
 import { MISCELLANEOUS, PUBLICATION } from "@hey/data/tracking";
 import { Button, Card, H5, Modal } from "@hey/ui";
@@ -66,7 +65,6 @@ const HeyMembershipNft: FC = () => {
             Mint now
           </Button>
           <Modal
-            icon={<CursorArrowRaysIcon className="size-5" />}
             onClose={() => setShowMintModal(false)}
             show={showMintModal}
             title={`Special ${APP_NAME} NFT`}

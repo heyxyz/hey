@@ -26,7 +26,6 @@ const CollectSettings: FC = () => {
         </motion.button>
       </Tooltip>
       <Modal
-        icon={<ShoppingBagIcon className="size-5" />}
         onClose={() => {
           setShowModal(false);
           setLicense(null);
