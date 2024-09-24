@@ -50,13 +50,13 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
     return (
       <EmptyState
         icon={<UsersIcon className="size-8" />}
-        hideCard
         message={
           <div>
             <span className="mr-1 font-bold">{handle}</span>
             <span>doesn’t have any mutual followers.</span>
           </div>
         }
+        hideCard
       />
     );
   }

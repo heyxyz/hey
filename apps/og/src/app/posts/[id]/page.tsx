@@ -122,20 +122,14 @@ export default async function Page({ params }: Props) {
         <b>Stats</b>
         <ul>
           <li>
-            <a href={`${postUrl}/collectors`}>
-              Actions: {metadata.other?.["count:actions"]}
-            </a>
+            <a href={postUrl}>Actions: {metadata.other?.["count:actions"]}</a>
           </li>
           <li>Comments: {metadata.other?.["count:comments"]}</li>
           <li>
-            <a href={`${postUrl}/likes`}>
-              Likes: {metadata.other?.["count:likes"]}
-            </a>
+            <a href={postUrl}>Likes: {metadata.other?.["count:likes"]}</a>
           </li>
           <li>
-            <a href={`${postUrl}/mirrors`}>
-              Mirrors: {metadata.other?.["count:mirrors"]}
-            </a>
+            <a href={postUrl}>Mirrors: {metadata.other?.["count:mirrors"]}</a>
           </li>
           <li>
             <a href={`${postUrl}/quotes`}>

@@ -1,14 +1,10 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import UserProfile from "@components/Shared/UserProfile";
-import {
-  ArrowLeftIcon,
-  ArrowsRightLeftIcon
-} from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfilesRequest } from "@hey/lens";
 import { LimitType, useProfilesQuery } from "@hey/lens";
-import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
-import Link from "next/link";
+import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -52,6 +48,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
         <EmptyState
           icon={<ArrowsRightLeftIcon className="size-8" />}
           message="No mirrors."
+          hideCard
         />
       </div>
     );
@@ -68,34 +65,24 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <Card>
-      <div className="flex items-center space-x-3 p-5">
-        <Link href={`/posts/${publicationId}`}>
-          <ArrowLeftIcon className="size-5" />
-        </Link>
-        <H5>Mirrored by</H5>
-      </div>
-      <div className="divider" />
-      <Virtuoso
-        className="virtual-divider-list-window"
-        computeItemKey={(index, profile) => `${profile.id}-${index}`}
-        data={profiles}
-        endReached={onEndReached}
-        itemContent={(_, profile) => (
-          <div className="p-5">
-            <UserProfile
-              hideFollowButton={currentProfile?.id === profile.id}
-              hideUnfollowButton={currentProfile?.id === profile.id}
-              profile={profile as Profile}
-              showBio
-              showUserPreview={false}
-              source={ProfileLinkSource.Mirrors}
-            />
-          </div>
-        )}
-        useWindowScroll
-      />
-    </Card>
+    <Virtuoso
+      className="virtual-profile-list"
+      computeItemKey={(index, profile) => `${profile.id}-${index}`}
+      data={profiles}
+      endReached={onEndReached}
+      itemContent={(_, profile) => (
+        <div className="p-5">
+          <UserProfile
+            hideFollowButton={currentProfile?.id === profile.id}
+            hideUnfollowButton={currentProfile?.id === profile.id}
+            profile={profile as Profile}
+            showBio
+            showUserPreview={false}
+            source={ProfileLinkSource.Mirrors}
+          />
+        </div>
+      )}
+    />
   );
 };
 
