@@ -20,17 +20,27 @@ export const Job =
     const VERCEL_ACCESS_TOKEN = process.env.VERCEL_ACCESS_TOKEN;
     const VERCEL_ORG_ID = "team_Zcr7s5jVtNqVKO8Q4w7Kcm9T";
     const VERCEL_SCOPE = "heyxyz";
+    const env = { VERCEL_ORG_ID, VERCEL_PROJECT_ID };
 
     await run("rm -rf .pnpm-store");
 
+    await run(
+      `${vercel} pull --yes --environment=${
+        isProd ? "production" : "preview"
+      } --token $VERCEL_ACCESS_TOKEN`,
+      { label: `Pulling ${PROJECT_NAME} Deployment`, env }
+    );
+
+    await run(`${vercel} build --prod --token $VERCEL_ACCESS_TOKEN`, {
+      label: `Building ${PROJECT_NAME} Deployment`,
+      env
+    });
+
     const { stdout } = await run(
-      `${vercel} deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
+      `${vercel} deploy --prebuilt --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
       } --no-color --token $VERCEL_ACCESS_TOKEN`,
-      {
-        label: `Creating ${PROJECT_NAME} Deployment`,
-        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
-      }
+      { label: `Creating ${PROJECT_NAME} Deployment`, env }
     );
 
     const previewURL = stdout
@@ -90,10 +100,7 @@ export const Job =
 
     const { exitCode } = await run(
       `${vercel} inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
-      {
-        label: ` ${PROJECT_NAME} Deployment Build`,
-        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
-      }
+      { label: ` ${PROJECT_NAME} Deployment Build`, env }
     );
 
     if (exitCode !== 0) {
