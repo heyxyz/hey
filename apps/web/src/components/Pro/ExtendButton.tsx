@@ -104,6 +104,9 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
                 </b>
               </div>
             )}
+            <div className="text-sm">
+              Price: <b>{MONTHLY_PRO_PRICE * months} POL (MATIC)</b>
+            </div>
           </div>
           <RangeSlider
             displayValue={months.toString()}
