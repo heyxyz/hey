@@ -1,9 +1,11 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
+import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
+import isEmailAllowed from "@hey/helpers/isEmailAllowed";
 import { Button, Form, Input, useZodForm } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
@@ -64,6 +66,8 @@ const EmailForm: FC = () => {
     }
   };
 
+  const emailNotAllowed = !isEmailAllowed(form.watch("email"));
+
   return (
     <Form
       className="space-y-4"
@@ -72,14 +76,26 @@ const EmailForm: FC = () => {
         await setEmail(email);
       }}
     >
-      <Input
-        label="Email address"
-        placeholder="gavin@hooli.com"
-        {...form.register("email")}
-        type="email"
-      />
+      <div>
+        <Input
+          label="Email address"
+          placeholder="gavin@hooli.com"
+          error={emailNotAllowed}
+          {...form.register("email")}
+          type="email"
+        />
+        {emailNotAllowed && (
+          <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
+            <NoSymbolIcon className="size-4" />
+            <b>Email domain not allowed!</b>
+          </div>
+        )}
+      </div>
       <div className="ml-auto">
-        <Button disabled={isLoading || !form.formState.isDirty} type="submit">
+        <Button
+          disabled={isLoading || !form.formState.isDirty || emailNotAllowed}
+          type="submit"
+        >
           Set Email
         </Button>
       </div>
