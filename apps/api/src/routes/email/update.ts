@@ -1,6 +1,7 @@
 import { APP_NAME } from "@hey/data/constants";
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
+import isEmailAllowed from "@hey/helpers/isEmailAllowed";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
@@ -41,6 +42,12 @@ export const post = [
     const { email, resend } = body as ExtensionRequest;
 
     try {
+      if (!isEmailAllowed(email)) {
+        return res
+          .status(400)
+          .json({ error: "Email not allowed", success: false });
+      }
+
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
