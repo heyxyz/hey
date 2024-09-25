@@ -120,6 +120,19 @@ describe("getPublicationData", () => {
     });
   });
 
+  test("should return correct data for CheckingInMetadataV3", () => {
+    const metadata: any = {
+      __typename: "CheckingInMetadataV3",
+      attachments: ["attachment1", "attachment2"],
+      content: "This is a checking in publication"
+    };
+    const result = getPublicationData(metadata);
+    expect(result).toEqual({
+      attachments: expect.any(Array),
+      content: "This is a checking in publication"
+    });
+  });
+
   test("should return null for unknown metadata __typename", () => {
     const metadata: any = {
       __typename: "UnknownMetadataType",
