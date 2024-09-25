@@ -31,7 +31,7 @@ export const Job =
       }
     );
 
-    await run(`${vercel} build --prod --token $VERCEL_ACCESS_TOKEN`, {
+    await run(`${vercel} build --token $VERCEL_ACCESS_TOKEN`, {
       label: `Building ${PROJECT_NAME} Deployment`,
       env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
     });
