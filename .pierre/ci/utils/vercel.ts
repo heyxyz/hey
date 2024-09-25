@@ -28,13 +28,10 @@ export const Job =
       env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
     });
 
-    await run(
-      `${vercel} build ${isProd ? "--prod" : ""} --token $VERCEL_ACCESS_TOKEN`,
-      {
-        label: `Building ${PROJECT_NAME} Deployment`,
-        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
-      }
-    );
+    await run(`${vercel} build --prod --token $VERCEL_ACCESS_TOKEN`, {
+      label: `Building ${PROJECT_NAME} Deployment`,
+      env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+    });
 
     const { stdout } = await run(
       `${vercel} deploy --prebuilt --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
