@@ -18,6 +18,11 @@ const links = [
     onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)
   },
   {
+    href: "/u/hey",
+    label: APP_NAME,
+    onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_HEY)
+  },
+  {
     href: "https://status.hey.xyz",
     label: "Status",
     onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)
@@ -28,11 +33,6 @@ const links = [
     onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)
   },
   { href: "/rules", label: "Rules" },
-  {
-    href: "https://github.com/heyxyz/hey",
-    label: "GitHub",
-    onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)
-  },
   { href: "/support", label: "Support" }
 ];
 
