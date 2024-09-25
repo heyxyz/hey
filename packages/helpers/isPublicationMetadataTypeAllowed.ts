@@ -6,7 +6,8 @@ const allowedTypes = [
   "LinkMetadataV3",
   "VideoMetadataV3",
   "MintMetadataV3",
-  "LiveStreamMetadataV3"
+  "LiveStreamMetadataV3",
+  "CheckingInMetadataV3"
 ];
 
 const isPublicationMetadataTypeAllowed = (type?: string): boolean => {
