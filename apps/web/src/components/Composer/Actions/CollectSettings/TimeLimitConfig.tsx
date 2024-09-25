@@ -1,9 +1,10 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { ClockIcon } from "@heroicons/react/24/outline";
+import formatDate from "@hey/helpers/datetime/formatDate";
 import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDate";
 import getTimeAddedNDay from "@hey/helpers/datetime/getTimeAddedNDay";
 import type { CollectModuleType } from "@hey/types/hey";
-import { Input } from "@hey/ui";
+import { RangeSlider } from "@hey/ui";
 import type { FC } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 
@@ -28,19 +29,26 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
         }
       />
       {collectModule.endsAt ? (
-        <div className="mt-4 ml-8 text-sm">
-          <Input
-            label="Number of days"
-            max="100"
-            min="1"
-            onChange={(event) => {
-              setCollectType({
-                endsAt: getTimeAddedNDay(Number(event.target.value))
-              });
-            }}
-            placeholder="5"
-            type="number"
-            value={getNumberOfDaysFromDate(new Date(collectModule.endsAt))}
+        <div className="mt-4 ml-8 space-y-2 text-sm">
+          <div>
+            Number of days -{" "}
+            <b>
+              {formatDate(collectModule.endsAt, "MMM D, YYYY - hh:mm:ss A")}
+            </b>
+          </div>
+          <RangeSlider
+            showValueInThumb
+            min={1}
+            max={100}
+            displayValue={getNumberOfDaysFromDate(
+              new Date(collectModule.endsAt)
+            ).toString()}
+            defaultValue={[
+              getNumberOfDaysFromDate(new Date(collectModule.endsAt))
+            ]}
+            onValueChange={(value) =>
+              setCollectType({ endsAt: getTimeAddedNDay(Number(value[0])) })
+            }
           />
         </div>
       ) : null}
