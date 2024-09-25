@@ -1,6 +1,6 @@
 import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PROFILE, ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
@@ -68,7 +68,7 @@ const WhoToFollow: FC = () => {
             key={profile?.id}
           >
             <div className="w-full">
-              <UserProfile
+              <SingleProfile
                 hideFollowButton={currentProfile?.id === profile.id}
                 hideUnfollowButton={currentProfile?.id === profile.id}
                 profile={profile as Profile}

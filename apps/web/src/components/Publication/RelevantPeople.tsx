@@ -1,5 +1,5 @@
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileMentioned } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
@@ -57,7 +57,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         <ErrorMessage error={error} title="Failed to load relevant people" />
         {firstProfiles?.map((profile) => (
           <div className="truncate" key={profile?.id}>
-            <UserProfile
+            <SingleProfile
               hideFollowButton={currentProfile?.id === profile.id}
               hideUnfollowButton={currentProfile?.id === profile.id}
               profile={profile as Profile}

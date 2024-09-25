@@ -1,5 +1,5 @@
 import Loader from "@components/Shared/Loader";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
@@ -119,7 +119,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                       reset();
                     }}
                   >
-                    <UserProfile
+                    <SingleProfile
                       hideFollowButton
                       hideUnfollowButton
                       linkToProfile={false}

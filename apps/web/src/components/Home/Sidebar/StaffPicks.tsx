@@ -1,5 +1,5 @@
 import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { ProfileLinkSource } from "@hey/data/tracking";
@@ -122,7 +122,7 @@ const StaffPicks: FC = () => {
       />
       {filteredProfiles.map((profile) => (
         <div className="w-full truncate pr-1" key={profile.id}>
-          <UserProfile
+          <SingleProfile
             hideFollowButton={currentProfile?.id === profile.id}
             hideUnfollowButton
             profile={profile as Profile}

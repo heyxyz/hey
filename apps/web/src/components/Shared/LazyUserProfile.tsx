@@ -2,7 +2,7 @@ import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import type { FC } from "react";
 import UserProfileShimmer from "./Shimmer/UserProfileShimmer";
-import UserProfile from "./UserProfile";
+import SingleProfile from "./SingleProfile";
 
 interface LazyUserProfileProps {
   id: string;
@@ -22,7 +22,7 @@ const LazyUserProfile: FC<LazyUserProfileProps> = ({ id }) => {
   }
 
   return (
-    <UserProfile
+    <SingleProfile
       hideFollowButton
       hideUnfollowButton
       profile={data.profile as Profile}

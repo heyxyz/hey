@@ -1,4 +1,4 @@
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
@@ -21,7 +21,7 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ profiles }) => {
         data={profiles.slice(5)}
         itemContent={(_, profile) => (
           <div className="p-5">
-            <UserProfile
+            <SingleProfile
               hideFollowButton={currentProfile?.id === profile.id}
               hideUnfollowButton={currentProfile?.id === profile.id}
               profile={profile as Profile}

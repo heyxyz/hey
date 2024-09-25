@@ -1,5 +1,5 @@
+import SingleProfile from "@components/Shared/SingleProfile";
 import SmallUserProfile from "@components/Shared/SmallUserProfile";
-import UserProfile from "@components/Shared/UserProfile";
 import type { Profile } from "@hey/lens";
 import { Card, CardHeader, H5 } from "@hey/ui";
 import type { FC } from "react";
@@ -25,7 +25,7 @@ const ProfilesDesign: FC = () => {
       <div className="m-5 space-y-5">
         <div className="space-y-3">
           <H5>Profile</H5>
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             profile={profile as Profile}
@@ -33,7 +33,7 @@ const ProfilesDesign: FC = () => {
         </div>
         <div className="space-y-3">
           <H5>Profile with ID</H5>
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             profile={profile as Profile}
@@ -42,7 +42,7 @@ const ProfilesDesign: FC = () => {
         </div>
         <div className="space-y-3">
           <H5>Profile with Bio</H5>
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             profile={profile as Profile}
@@ -51,7 +51,7 @@ const ProfilesDesign: FC = () => {
         </div>
         <div className="space-y-3">
           <H5>Profile with Timestamp</H5>
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             profile={profile as Profile}
@@ -60,7 +60,7 @@ const ProfilesDesign: FC = () => {
         </div>
         <div className="space-y-3">
           <H5>Big Profile</H5>
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             isBig

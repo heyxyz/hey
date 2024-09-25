@@ -24,7 +24,7 @@ import { CHAIN } from "src/constants";
 import { signIn } from "src/store/persisted/useAuthStore";
 import { useAccount, useChainId, useDisconnect, useSignMessage } from "wagmi";
 import Loader from "../Loader";
-import UserProfile from "../UserProfile";
+import SingleProfile from "../SingleProfile";
 import SignupCard from "./SignupCard";
 import WalletSelector from "./WalletSelector";
 
@@ -135,7 +135,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
                   className="flex items-center justify-between p-3"
                   key={profile.id}
                 >
-                  <UserProfile
+                  <SingleProfile
                     hideFollowButton
                     hideUnfollowButton
                     linkToProfile={false}

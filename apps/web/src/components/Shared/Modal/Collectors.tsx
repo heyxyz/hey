@@ -1,5 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, WhoActedOnPublicationRequest } from "@hey/lens";
@@ -77,7 +77,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => (
         <div className="p-5">
-          <UserProfile
+          <SingleProfile
             hideFollowButton={currentProfile?.id === profile.id}
             hideUnfollowButton={currentProfile?.id === profile.id}
             profile={profile as Profile}

@@ -1,5 +1,5 @@
 import UserProfilesShimmer from "@components/Shared/Shimmer/UserProfilesShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
@@ -70,7 +70,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => (
         <Card className="p-5">
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             isBig
