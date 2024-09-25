@@ -1,0 +1,20 @@
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  id
+  content
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  address {
+    country
+    locality
+    postalCode
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}

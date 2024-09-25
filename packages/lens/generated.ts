@@ -6956,6 +6956,20 @@ export type AudioMetadataV3FieldsFragment = { __typename?: 'AudioMetadataV3', id
     & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
   )> | null };
 
+export type CheckingInMetadataV3FieldsFragment = { __typename?: 'CheckingInMetadataV3', id: string, content: any, tags?: Array<string> | null, geographic?: { __typename?: 'GeoLocation', latitude?: number | null, longitude?: number | null } | null, address?: { __typename?: 'PhysicalAddress', country: any, locality: any, postalCode?: any | null } | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & MetadataAttributeFieldsFragment
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+  )> | null };
+
 export type ImageMetadataV3FieldsFragment = { __typename?: 'ImageMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
     { __typename?: 'MetadataAttribute' }
     & MetadataAttributeFieldsFragment
@@ -8867,6 +8881,29 @@ ${QuoteNotificationFieldsFragmentDoc}
 ${ActedNotificationFieldsFragmentDoc}
 ${FollowNotificationFieldsFragmentDoc}
 ${MentionNotificationFieldsFragmentDoc}`;
+export const CheckingInMetadataV3FieldsFragmentDoc = gql`
+    fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  id
+  content
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  address {
+    country
+    locality
+    postalCode
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const AuthenticateDocument = gql`
     mutation Authenticate($request: SignedAuthChallenge!) {
   authenticate(request: $request) {
