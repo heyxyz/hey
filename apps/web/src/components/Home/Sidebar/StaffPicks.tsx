@@ -1,4 +1,4 @@
-import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
 import SingleProfile from "@components/Shared/SingleProfile";
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -72,11 +72,11 @@ const StaffPicks: FC = () => {
     return (
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
       </Card>
     );
   }

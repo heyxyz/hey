@@ -2,7 +2,7 @@ import type { Profile } from "@hey/lens";
 import { useDefaultProfileQuery } from "@hey/lens";
 import type { FC } from "react";
 import type { Address } from "viem";
-import UserProfileShimmer from "./Shimmer/UserProfileShimmer";
+import SingleProfileShimmer from "./Shimmer/SingleProfileShimmer";
 import SingleProfile from "./SingleProfile";
 import WalletProfile from "./WalletProfile";
 
@@ -17,7 +17,7 @@ const LazyDefaultProfile: FC<LazyDefaultProfileProps> = ({ address }) => {
   });
 
   if (loading) {
-    return <UserProfileShimmer />;
+    return <SingleProfileShimmer />;
   }
 
   if (!data?.defaultProfile) {

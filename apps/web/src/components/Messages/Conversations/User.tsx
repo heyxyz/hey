@@ -1,6 +1,6 @@
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
-import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
 import Slug from "@components/Shared/Slug";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -35,7 +35,7 @@ const User: FC<UserProps> = ({ address, conversation }) => {
   });
 
   if (loading) {
-    return <UserProfileShimmer />;
+    return <SingleProfileShimmer />;
   }
 
   const profile = (fetchedProfile || data?.defaultProfile) as Profile;

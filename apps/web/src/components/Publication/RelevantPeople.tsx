@@ -1,4 +1,4 @@
-import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
 import SingleProfile from "@components/Shared/SingleProfile";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileMentioned } from "@hey/lens";
@@ -33,11 +33,11 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
   if (loading) {
     return (
       <Card as="aside" className="space-y-4 p-5">
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
           <div className="shimmer h-3 w-5/12 rounded-full" />
         </div>

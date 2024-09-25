@@ -1,5 +1,5 @@
 import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
-import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
+import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
 import SingleProfile from "@components/Shared/SingleProfile";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PROFILE, ProfileLinkSource } from "@hey/data/tracking";
@@ -31,11 +31,11 @@ const WhoToFollow: FC = () => {
     return (
       <Card as="aside" className="space-y-4 p-5">
         <Title />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
           <div className="shimmer h-3 w-5/12 rounded-full" />
         </div>

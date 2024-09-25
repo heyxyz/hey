@@ -1,7 +1,7 @@
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import type { FC } from "react";
-import UserProfileShimmer from "./Shimmer/UserProfileShimmer";
+import SingleProfileShimmer from "./Shimmer/SingleProfileShimmer";
 import SingleProfile from "./SingleProfile";
 
 interface LazyUserProfileProps {
@@ -14,7 +14,7 @@ const LazyUserProfile: FC<LazyUserProfileProps> = ({ id }) => {
   });
 
   if (loading) {
-    return <UserProfileShimmer />;
+    return <SingleProfileShimmer />;
   }
 
   if (!data?.profile) {
