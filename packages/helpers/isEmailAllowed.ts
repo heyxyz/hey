@@ -1,6 +1,5 @@
+import { bannedEmailDomains } from "@hey/data/banned-email-domains";
 import MailChecker from "mailchecker";
-
-const disallowedDomains: string[] = ["mail3.me"];
 
 const isEmailAllowed = (email: string): boolean => {
   if (!MailChecker.isValid(email)) {
@@ -9,7 +8,7 @@ const isEmailAllowed = (email: string): boolean => {
 
   const emailDomain = email.split("@")[1];
 
-  if (disallowedDomains.includes(emailDomain)) {
+  if (bannedEmailDomains.includes(emailDomain)) {
     return false;
   }
 
