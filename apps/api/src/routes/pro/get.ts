@@ -3,7 +3,6 @@ import { generateMediumExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
-import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { noBody } from "src/helpers/responses";
 
@@ -25,7 +24,6 @@ export const get = [
 
         return res
           .status(200)
-          .setHeader("Cache-Control", CACHE_AGE_30_MINS)
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
