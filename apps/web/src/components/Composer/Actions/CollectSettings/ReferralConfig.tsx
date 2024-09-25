@@ -2,7 +2,7 @@ import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { CollectOpenActionModuleType } from "@hey/lens";
 import type { CollectModuleType } from "@hey/types/hey";
-import { Input } from "@hey/ui";
+import { RangeSlider } from "@hey/ui";
 import type { FC } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 
@@ -30,22 +30,17 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
         }
       />
       {collectModule.referralFee ? (
-        <div className="mt-4 ml-8 flex space-x-2 text-sm">
-          <Input
-            iconRight="%"
-            label="Referral fee"
-            max="100"
-            min="1"
-            onChange={(event) => {
-              setCollectType({
-                referralFee: Number.parseInt(
-                  event.target.value ? event.target.value : "0"
-                )
-              });
-            }}
-            placeholder="5"
-            type="number"
-            value={collectModule.referralFee}
+        <div className="mt-4 ml-8 space-y-2 text-sm">
+          <div>Referral fee</div>
+          <RangeSlider
+            showValueInThumb
+            min={1}
+            max={100}
+            displayValue={`${collectModule.referralFee.toString()}%`}
+            defaultValue={[collectModule.referralFee]}
+            onValueChange={(value) =>
+              setCollectType({ referralFee: Number(value[0]) })
+            }
           />
         </div>
       ) : null}
