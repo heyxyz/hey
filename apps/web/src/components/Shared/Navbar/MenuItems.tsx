@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import LoginButton from "../LoginButton";
-import SignedUser from "./SignedUser";
+import SignedProfile from "./SignedProfile";
 import SignupButton from "./SignupButton";
 
 export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
@@ -15,7 +15,7 @@ const MenuItems: FC = () => {
   const { currentProfile } = useProfileStore();
 
   if (currentProfile) {
-    return <SignedUser />;
+    return <SignedProfile />;
   }
 
   return (
