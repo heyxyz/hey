@@ -1,4 +1,5 @@
 import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import getRpc from "src/helpers/getRpc";
 import type { Address, PublicClient } from "viem";
@@ -73,6 +74,8 @@ const updateProStatus = async (hash: Address) => {
       update: { expiresAt },
       where: { id }
     });
+
+    await delRedis(`pro:${id}`);
 
     logger.info(
       `updateProStatus: Updated Pro status for ${id} to ${expiresAt}`
