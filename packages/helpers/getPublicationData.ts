@@ -70,11 +70,8 @@ const getPublicationData = (
       };
     }
     case "MintMetadataV3":
-      return {
-        attachments: getAttachmentsData(metadata.attachments),
-        content: metadata.content
-      };
     case "LiveStreamMetadataV3":
+    case "CheckingInMetadataV3":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content
