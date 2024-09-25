@@ -23,4 +23,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
   }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
+  }
 }

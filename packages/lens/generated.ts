@@ -6107,7 +6107,10 @@ type AnyPublicationMetadataFields_AudioMetadataV3_Fragment = (
   & AudioMetadataV3FieldsFragment
 );
 
-type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = { __typename?: 'CheckingInMetadataV3' };
+type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = (
+  { __typename?: 'CheckingInMetadataV3' }
+  & CheckingInMetadataV3FieldsFragment
+);
 
 type AnyPublicationMetadataFields_EmbedMetadataV3_Fragment = { __typename?: 'EmbedMetadataV3' };
 
@@ -8341,6 +8344,29 @@ export const TextOnlyMetadataV3FieldsFragmentDoc = gql`
   }
 }
     ${MetadataAttributeFieldsFragmentDoc}`;
+export const CheckingInMetadataV3FieldsFragmentDoc = gql`
+    fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  id
+  content
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  address {
+    country
+    locality
+    postalCode
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    ${MetadataAttributeFieldsFragmentDoc}
+${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const AnyPublicationMetadataFieldsFragmentDoc = gql`
     fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
@@ -8367,6 +8393,9 @@ export const AnyPublicationMetadataFieldsFragmentDoc = gql`
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
   }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
+  }
 }
     ${VideoMetadataV3FieldsFragmentDoc}
 ${ArticleMetadataV3FieldsFragmentDoc}
@@ -8375,7 +8404,8 @@ ${ImageMetadataV3FieldsFragmentDoc}
 ${LinkMetadataV3FieldsFragmentDoc}
 ${LiveStreamMetadataV3FieldsFragmentDoc}
 ${MintMetadataV3FieldsFragmentDoc}
-${TextOnlyMetadataV3FieldsFragmentDoc}`;
+${TextOnlyMetadataV3FieldsFragmentDoc}
+${CheckingInMetadataV3FieldsFragmentDoc}`;
 export const OpenActionModulesFieldsFragmentDoc = gql`
     fragment OpenActionModulesFields on OpenActionModule {
   ... on SimpleCollectOpenActionSettings {
@@ -8881,29 +8911,6 @@ ${QuoteNotificationFieldsFragmentDoc}
 ${ActedNotificationFieldsFragmentDoc}
 ${FollowNotificationFieldsFragmentDoc}
 ${MentionNotificationFieldsFragmentDoc}`;
-export const CheckingInMetadataV3FieldsFragmentDoc = gql`
-    fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
-  id
-  content
-  tags
-  geographic {
-    latitude
-    longitude
-  }
-  address {
-    country
-    locality
-    postalCode
-  }
-  attributes {
-    ...MetadataAttributeFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-}
-    ${MetadataAttributeFieldsFragmentDoc}
-${PublicationMetadataMediaFieldsFragmentDoc}`;
 export const AuthenticateDocument = gql`
     mutation Authenticate($request: SignedAuthChallenge!) {
   authenticate(request: $request) {
