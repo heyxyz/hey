@@ -6959,7 +6959,7 @@ export type AudioMetadataV3FieldsFragment = { __typename?: 'AudioMetadataV3', id
     & PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
   )> | null };
 
-export type CheckingInMetadataV3FieldsFragment = { __typename?: 'CheckingInMetadataV3', id: string, content: any, tags?: Array<string> | null, geographic?: { __typename?: 'GeoLocation', latitude?: number | null, longitude?: number | null } | null, address?: { __typename?: 'PhysicalAddress', country: any, locality: any, postalCode?: any | null } | null, attributes?: Array<(
+export type CheckingInMetadataV3FieldsFragment = { __typename?: 'CheckingInMetadataV3', id: string, content: any, tags?: Array<string> | null, location: any, geographic?: { __typename?: 'GeoLocation', latitude?: number | null, longitude?: number | null } | null, address?: { __typename?: 'PhysicalAddress', country: any, locality: any, postalCode?: any | null } | null, attributes?: Array<(
     { __typename?: 'MetadataAttribute' }
     & MetadataAttributeFieldsFragment
   )> | null, attachments?: Array<(
@@ -8349,6 +8349,7 @@ export const CheckingInMetadataV3FieldsFragmentDoc = gql`
   id
   content
   tags
+  location
   geographic {
     latitude
     longitude
