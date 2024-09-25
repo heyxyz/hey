@@ -44,10 +44,7 @@ export const get = [
       await setRedis(cacheKey, result, generateMediumExpiry());
       logger.info(`Fetched pro status for ${id}`);
 
-      return res
-        .status(200)
-        .setHeader("Cache-Control", CACHE_AGE_30_MINS)
-        .json({ result, success: true });
+      return res.status(200).json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
