@@ -23,10 +23,13 @@ export const Job =
 
     await run("rm -rf .pnpm-store");
 
-    await run(`${vercel} pull --yes --token $VERCEL_ACCESS_TOKEN`, {
-      label: `Pulling ${PROJECT_NAME} Deployment`,
-      env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
-    });
+    await run(
+      `${vercel} pull --environment=production --yes --token $VERCEL_ACCESS_TOKEN`,
+      {
+        label: `Pulling ${PROJECT_NAME} Deployment`,
+        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+      }
+    );
 
     await run(`${vercel} build --prod --token $VERCEL_ACCESS_TOKEN`, {
       label: `Building ${PROJECT_NAME} Deployment`,
@@ -36,7 +39,9 @@ export const Job =
     const { stdout } = await run(
       `${vercel} deploy --prebuilt --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
-      } --no-color --token $VERCEL_ACCESS_TOKEN`,
+      } --no-color --token $VERCEL_ACCESS_TOKEN -e PIERRE_BRANCH_ID=${
+        ctx.branch.id
+      } -e PIERRE_ENVIRONMENT=${isProd ? "production" : "preview"}`,
       {
         label: `Creating ${PROJECT_NAME} Deployment`,
         env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
