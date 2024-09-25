@@ -23,10 +23,13 @@ export const Job =
 
     await run("rm -rf .pnpm-store");
 
-    await run(`${vercel} pull --yes --token $VERCEL_ACCESS_TOKEN`, {
-      label: `Pulling ${PROJECT_NAME} Deployment`,
-      env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
-    });
+    await run(
+      `${vercel} pull --yes --environment=production --token $VERCEL_ACCESS_TOKEN`,
+      {
+        label: `Pulling ${PROJECT_NAME} Deployment`,
+        env: { VERCEL_ORG_ID, VERCEL_PROJECT_ID }
+      }
+    );
 
     await run(`${vercel} build --prod --token $VERCEL_ACCESS_TOKEN`, {
       label: `Building ${PROJECT_NAME} Deployment`,
