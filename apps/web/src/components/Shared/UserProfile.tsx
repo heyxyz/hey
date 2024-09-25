@@ -14,8 +14,8 @@ import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
 import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
+import ProfilePreview from "./ProfilePreview";
 import Slug from "./Slug";
-import UserPreview from "./UserPreview";
 
 interface UserProfileProps {
   hideFollowButton?: boolean;
@@ -93,7 +93,7 @@ const UserProfile: FC<UserProfileProps> = ({
   );
 
   const UserInfo: FC = () => (
-    <UserPreview
+    <ProfilePreview
       handle={profile.handle?.fullHandle}
       id={profile.id}
       showUserPreview={showUserPreview}
@@ -118,7 +118,7 @@ const UserProfile: FC<UserProfileProps> = ({
           )}
         </div>
       </div>
-    </UserPreview>
+    </ProfilePreview>
   );
 
   return (

@@ -1,5 +1,5 @@
+import ProfilePreview from "@components/Shared/ProfilePreview";
 import Slug from "@components/Shared/Slug";
-import UserPreview from "@components/Shared/UserPreview";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -48,13 +48,13 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
         });
       }}
     >
-      <UserPreview handle={handle}>
+      <ProfilePreview handle={handle}>
         <Slug
           prefix="@"
           slug={getLocalNameFromFullHandle(handle)}
           useBrandColor
         />
-      </UserPreview>
+      </ProfilePreview>
     </Link>
   ) : (
     <Slug prefix="@" slug={getLocalNameFromFullHandle(handle)} useBrandColor />

@@ -23,14 +23,14 @@ import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
 
-interface UserPreviewProps {
+interface ProfilePreviewProps {
   children: ReactNode;
   handle?: string;
   id?: string;
   showUserPreview?: boolean;
 }
 
-const UserPreview: FC<UserPreviewProps> = ({
+const ProfilePreview: FC<ProfilePreviewProps> = ({
   children,
   handle,
   id,
@@ -215,4 +215,4 @@ const UserPreview: FC<UserPreviewProps> = ({
   );
 };
 
-export default UserPreview;
+export default ProfilePreview;

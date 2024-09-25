@@ -7,8 +7,8 @@ import type { Profile } from "@hey/lens";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
+import ProfilePreview from "../Shared/ProfilePreview";
 import Slug from "../Shared/Slug";
-import UserPreview from "../Shared/UserPreview";
 import ClubHandle from "./ClubHandle";
 
 interface FeedUserProfileProps {
@@ -31,13 +31,13 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
       className="truncate outline-none hover:underline focus:underline"
       href={getProfile(profile).link}
     >
-      <UserPreview
+      <ProfilePreview
         handle={profile.handle?.fullHandle}
         id={profile.id}
         showUserPreview
       >
         {children}
-      </UserPreview>
+      </ProfilePreview>
     </Link>
   );
 
