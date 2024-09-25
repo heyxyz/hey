@@ -2,12 +2,12 @@ import { Card } from "@hey/ui";
 import type { FC } from "react";
 import SingleProfileShimmer from "./SingleProfileShimmer";
 
-interface UserProfilesShimmerProps {
+interface SingleProfilesShimmerProps {
   isBig?: boolean;
   showFollowUnfollowButton?: boolean;
 }
 
-const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({
+const SingleProfilesShimmer: FC<SingleProfilesShimmerProps> = ({
   isBig = false,
   showFollowUnfollowButton = false
 }) => {
@@ -35,4 +35,4 @@ const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({
   );
 };
 
-export default UserProfilesShimmer;
+export default SingleProfilesShimmer;

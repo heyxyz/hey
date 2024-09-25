@@ -1,4 +1,4 @@
-import UserProfilesShimmer from "@components/Shared/Shimmer/UserProfilesShimmer";
+import SingleProfilesShimmer from "@components/Shared/Shimmer/SingleProfilesShimmer";
 import SingleProfile from "@components/Shared/SingleProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
@@ -42,7 +42,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   };
 
   if (loading) {
-    return <UserProfilesShimmer isBig />;
+    return <SingleProfilesShimmer isBig />;
   }
 
   if (profiles?.length === 0) {
