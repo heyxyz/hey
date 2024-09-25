@@ -2,6 +2,7 @@ fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
   id
   content
   tags
+  location
   geographic {
     latitude
     longitude

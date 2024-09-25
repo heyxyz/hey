@@ -17,6 +17,7 @@ import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
 import { isIOS, isMobile } from "react-device-detect";
+import Checkin from "./Checkin";
 import EncryptedPublication from "./EncryptedPublication";
 import Metadata from "./Metadata";
 import NotSupportedPublication from "./NotSupportedPublication";
@@ -77,6 +78,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showPoll = Boolean(pollId);
   // Show sharing link
   const showSharingLink = metadata.__typename === "LinkMetadataV3";
+  // Show checking in
+  const showCheckin = metadata.__typename === "CheckingInMetadataV3";
   // Show quote
   const showQuote = targetPublication.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted publication
@@ -88,6 +91,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showOembed =
     !hideOembed &&
     !showSharingLink &&
+    !showCheckin &&
     hasURLs &&
     !showLive &&
     !showAttachments &&
@@ -123,6 +127,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           <Video src={metadata.liveURL || metadata.playbackURL} />
         </div>
       ) : null}
+      {showCheckin ? <Checkin publication={targetPublication} /> : null}
       {showOembed ? (
         <Oembed publication={targetPublication} url={urls[0]} />
       ) : null}
