@@ -2,7 +2,7 @@ import { Icons, type JobContext, annotate, run } from "pierre";
 
 const vercel = "./node_modules/.bin/vercel";
 
-export interface VercelContext {
+interface VercelContext {
   VERCEL_PROJECT_ID: string;
   PROJECT_NAME: string;
 }
@@ -18,10 +18,13 @@ export const Job =
   async (ctx: JobContext) => {
     const isProd = ctx.branch.name === "main";
     const VERCEL_ACCESS_TOKEN = process.env.VERCEL_ACCESS_TOKEN;
-    const VERCEL_ORG_ID = "team_Zcr7s5jVtNqVKO8Q4w7Kcm9T";
     const VERCEL_SCOPE = "heyxyz";
-    const env = { VERCEL_ORG_ID, VERCEL_PROJECT_ID };
+    const env = {
+      VERCEL_ORG_ID: "team_Zcr7s5jVtNqVKO8Q4w7Kcm9T",
+      VERCEL_PROJECT_ID
+    };
 
+    // Clean up the .pnpm-store
     await run("rm -rf .pnpm-store");
 
     // Pull environment variables from Vercel
@@ -91,8 +94,8 @@ export const Job =
         } else {
           console.log("WARN: Failed to extract inspector URL");
         }
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
         console.log(
           "WARN: Not-critical error thrown while trying to fetch inspector url."
         );
