@@ -1,5 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { FollowingRequest, Profile } from "@hey/lens";
@@ -75,7 +75,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
       endReached={onEndReached}
       itemContent={(_, following) => (
         <div className="p-5">
-          <UserProfile
+          <SingleProfile
             hideFollowButton={currentProfile?.id === following.id}
             hideUnfollowButton={currentProfile?.id === following.id}
             profile={following as Profile}

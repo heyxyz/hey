@@ -1,5 +1,5 @@
-import UserProfileShimmer from "@components/Shared/Shimmer/UserProfileShimmer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileMentioned } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
@@ -33,11 +33,11 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
   if (loading) {
     return (
       <Card as="aside" className="space-y-4 p-5">
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
-        <UserProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleProfileShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
           <div className="shimmer h-3 w-5/12 rounded-full" />
         </div>
@@ -57,7 +57,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         <ErrorMessage error={error} title="Failed to load relevant people" />
         {firstProfiles?.map((profile) => (
           <div className="truncate" key={profile?.id}>
-            <UserProfile
+            <SingleProfile
               hideFollowButton={currentProfile?.id === profile.id}
               hideUnfollowButton={currentProfile?.id === profile.id}
               profile={profile as Profile}

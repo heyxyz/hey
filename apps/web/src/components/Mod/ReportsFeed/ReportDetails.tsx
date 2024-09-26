@@ -1,6 +1,6 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
 import SuspendButtons from "@components/Publication/Actions/HigherActions/SuspendButtons";
-import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
@@ -40,7 +40,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           {formatDate(report.createdAt, "MMM D, YYYY - hh:mm:ss A")}
         </div>
         <div className="mt-2">
-          <SmallUserProfile profile={report.reporter as Profile} />
+          <SmallSingleProfile profile={report.reporter as Profile} />
         </div>
       </div>
       <div className="flex flex-col space-y-3">

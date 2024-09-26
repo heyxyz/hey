@@ -1,4 +1,4 @@
-import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
 import { useProfilesManagedQuery } from "@hey/lens";
@@ -32,7 +32,7 @@ const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
             {data?.lastLoggedInProfile ? (
               <div>
                 <Link href={`/staff/users/${data?.lastLoggedInProfile?.id}`}>
-                  <SmallUserProfile
+                  <SmallSingleProfile
                     profile={data?.lastLoggedInProfile as Profile}
                   />
                 </Link>
@@ -42,7 +42,7 @@ const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
             {data?.profilesManaged.items.map((profile) => (
               <div key={profile.id}>
                 <Link href={`/staff/users/${profile.id}`}>
-                  <SmallUserProfile profile={profile as Profile} />
+                  <SmallSingleProfile profile={profile as Profile} />
                 </Link>
               </div>
             ))}

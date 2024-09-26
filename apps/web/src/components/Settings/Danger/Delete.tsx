@@ -1,4 +1,4 @@
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -96,7 +96,7 @@ const DeleteSettings: FC = () => {
         title={<div className="text-red-500">Delete Lens profile</div>}
       />
       <div className="m-5 space-y-5">
-        <UserProfile
+        <SingleProfile
           hideFollowButton
           hideUnfollowButton
           profile={currentProfile as Profile}
