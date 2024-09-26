@@ -57,7 +57,7 @@ const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
         computeItemKey={(index, report) =>
           `${report.reporter.id}-${report.reportedPublication?.id}-${index}`
         }
-        data={reports}
+        data={reports?.filter((report) => report.reportedPublication)}
         endReached={onEndReached}
         itemContent={(_, report) => (
           <Card>
