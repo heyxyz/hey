@@ -8,6 +8,7 @@ import {
   Cog6ToothIcon,
   HashtagIcon,
   MapPinIcon,
+  PaintBrushIcon,
   ShieldCheckIcon
 } from "@heroicons/react/24/outline";
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
@@ -22,13 +23,14 @@ import getProfile from "@hey/helpers/getProfile";
 import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
-import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
+import { Button, H3, Image, LightBox, Modal, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
+import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import urlcat from "urlcat";
 import Pro from "../Shared/Profile/Icons/Pro";
@@ -61,7 +63,9 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
+  const { isPro } = useProStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
+  const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);
   const { resolvedTheme } = useTheme();
 
@@ -124,13 +128,24 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile.id ? (
-            <Button
-              icon={<Cog6ToothIcon className="size-5" />}
-              onClick={() => push("/settings")}
-              outline
-            >
-              Edit Profile
-            </Button>
+            <>
+              <Button
+                icon={<Cog6ToothIcon className="size-5" />}
+                onClick={() => push("/settings")}
+                outline
+              >
+                Edit Profile
+              </Button>
+              {isPro && (
+                <Button
+                  icon={<PaintBrushIcon className="size-5" />}
+                  onClick={() => setShowPersonalizeModal(true)}
+                  outline
+                >
+                  Personalize
+                </Button>
+              )}
+            </>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             <FollowUnfollowButton profile={profile} />
           ) : null}
@@ -235,6 +250,13 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
       </div>
       <Badges id={profile.id} />
       <InternalTools profile={profile} />
+      <Modal
+        onClose={() => setShowPersonalizeModal(false)}
+        show={showPersonalizeModal}
+        title="Personalize"
+      >
+        WIP
+      </Modal>
     </div>
   );
 };
