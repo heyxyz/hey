@@ -4,7 +4,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPublication from "@components/Composer/NewPublication";
 import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning";
 import Footer from "@components/Shared/Footer";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import PublicationStaffTool from "@components/StaffTools/Panels/Publication";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
@@ -140,7 +140,7 @@ const ViewPublication: NextPage = () => {
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
-          <UserProfile
+          <SingleProfile
             hideFollowButton={currentProfile?.id === targetPublication.by.id}
             hideUnfollowButton={currentProfile?.id === targetPublication.by.id}
             profile={targetPublication.by}

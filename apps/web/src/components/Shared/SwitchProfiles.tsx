@@ -84,7 +84,7 @@ const SwitchProfiles: FC = () => {
         message: challenge?.data?.challenge?.text
       });
 
-      // Auth user and set cookies
+      // Auth profile and set cookies
       const auth = await authenticate({
         variables: { request: { id: challenge.data.challenge.id, signature } }
       });

@@ -35,7 +35,7 @@ const Overview: NextPage = () => {
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
       page: "staff-tools",
-      subpage: "user-overview"
+      subpage: "profile-overview"
     });
   }, []);
 
@@ -51,7 +51,7 @@ const Overview: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Staff Tools • User Overview • ${APP_NAME}`} />
+      <MetaTags title={`Staff Tools • Profile Overview • ${APP_NAME}`} />
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>

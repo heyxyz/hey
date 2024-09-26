@@ -15,7 +15,7 @@ type ExtensionRequest = {
 const validationSchema = object({
   id: string(),
   ids: string().regex(/0x[\dA-Fa-f]+/g, {
-    message: "Invalid user IDs"
+    message: "Invalid profile IDs"
   })
 });
 

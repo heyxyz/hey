@@ -1,5 +1,5 @@
 import Sidebar from "@components/Shared/Sidebar";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
@@ -96,7 +96,7 @@ const SettingsSidebar: FC = () => {
   return (
     <div className="mb-4 px-3 sm:px-0">
       <div className="pb-3">
-        <UserProfile
+        <SingleProfile
           hideFollowButton
           hideUnfollowButton
           profile={currentProfile as Profile}
