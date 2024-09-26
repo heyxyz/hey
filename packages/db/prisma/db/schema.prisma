@@ -137,7 +137,7 @@ model ProfileStatus {
 
 model ProfilePersonalization {
   id                   String   @id
-  overviewFontStyle    String
-  publicationFontStyle String
+  overviewFontStyle    String?
+  publicationFontStyle String?
   createdAt            DateTime @default(now())
 }

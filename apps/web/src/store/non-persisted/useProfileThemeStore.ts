@@ -2,7 +2,8 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface Theme {
-  fontStyle: string;
+  overviewFontStyle?: string;
+  publicationFontStyle?: string;
 }
 
 interface State {
