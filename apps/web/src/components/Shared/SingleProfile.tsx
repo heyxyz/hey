@@ -14,10 +14,10 @@ import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
 import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
+import ProfilePreview from "./ProfilePreview";
 import Slug from "./Slug";
-import UserPreview from "./UserPreview";
 
-interface UserProfileProps {
+interface SingleProfileProps {
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
   isBig?: boolean;
@@ -30,7 +30,7 @@ interface UserProfileProps {
   timestamp?: Date;
 }
 
-const UserProfile: FC<UserProfileProps> = ({
+const SingleProfile: FC<SingleProfileProps> = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
   isBig = false,
@@ -92,8 +92,8 @@ const UserProfile: FC<UserProfileProps> = ({
     </>
   );
 
-  const UserInfo: FC = () => (
-    <UserPreview
+  const ProfileInfo: FC = () => (
+    <ProfilePreview
       handle={profile.handle?.fullHandle}
       id={profile.id}
       showUserPreview={showUserPreview}
@@ -118,7 +118,7 @@ const UserProfile: FC<UserProfileProps> = ({
           )}
         </div>
       </div>
-    </UserPreview>
+    </ProfilePreview>
   );
 
   return (
@@ -128,10 +128,10 @@ const UserProfile: FC<UserProfileProps> = ({
           as={getProfile(profile).link}
           href={getProfile(profile, source).sourceLink}
         >
-          <UserInfo />
+          <ProfileInfo />
         </Link>
       ) : (
-        <UserInfo />
+        <ProfileInfo />
       )}
       <FollowUnfollowButton
         hideFollowButton={hideFollowButton}
@@ -143,4 +143,4 @@ const UserProfile: FC<UserProfileProps> = ({
   );
 };
 
-export default memo(UserProfile);
+export default memo(SingleProfile);

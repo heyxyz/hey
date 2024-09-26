@@ -1,5 +1,5 @@
 import Loader from "@components/Shared/Loader";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import errorToast from "@helpers/errorToast";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type {
@@ -125,7 +125,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => (
         <div className="flex items-center justify-between py-2">
-          <UserProfile
+          <SingleProfile
             hideFollowButton
             hideUnfollowButton
             profile={profile as Profile}

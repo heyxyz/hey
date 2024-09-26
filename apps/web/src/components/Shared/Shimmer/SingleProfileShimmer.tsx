@@ -1,13 +1,13 @@
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 
-interface UserProfileShimmerProps {
+interface SingleProfileShimmerProps {
   className?: string;
   isBig?: boolean;
   showFollowUnfollowButton?: boolean;
 }
 
-const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
+const SingleProfileShimmer: FC<SingleProfileShimmerProps> = ({
   className = "",
   isBig = false,
   showFollowUnfollowButton = false
@@ -31,4 +31,4 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
   );
 };
 
-export default UserProfileShimmer;
+export default SingleProfileShimmer;

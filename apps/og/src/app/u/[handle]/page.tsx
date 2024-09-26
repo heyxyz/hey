@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "social media",
       "lenster",
       "polygon",
-      "user profile",
+      "profile",
       "lens",
       "lens protocol",
       "decentralized",

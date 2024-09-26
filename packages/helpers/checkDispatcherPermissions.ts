@@ -7,8 +7,8 @@ interface Permissions {
 }
 
 /**
- * Check if the user can use the lens manager or broadcast
- * @param profile The user's profile
+ * Check if the profile can use the lens manager or broadcast
+ * @param profile The profile
  * @returns An object with the permissions
  */
 const checkDispatcherPermissions = (profile: null | Profile): Permissions => {

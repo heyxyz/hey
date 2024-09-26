@@ -1,5 +1,5 @@
 import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
@@ -35,7 +35,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
         itemContent={(_, profile) => (
           <div className="flex items-center space-x-3 p-5">
             <div className="w-full">
-              <UserProfile
+              <SingleProfile
                 hideFollowButton={currentProfile?.id === profile.id}
                 hideUnfollowButton={currentProfile?.id === profile.id}
                 profile={profile as Profile}

@@ -1,4 +1,4 @@
-import UserProfile from "@components/Shared/UserProfile";
+import SingleProfile from "@components/Shared/SingleProfile";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { IS_MAINNET } from "@hey/data/constants";
 import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
@@ -24,7 +24,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
 
   return (
     <div>
-      <UserProfile
+      <SingleProfile
         hideFollowButton
         hideUnfollowButton
         isBig

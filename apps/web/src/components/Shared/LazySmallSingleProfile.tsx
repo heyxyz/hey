@@ -1,16 +1,16 @@
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import type { FC } from "react";
-import SmallUserProfileShimmer from "./Shimmer/SmallUserProfileShimmer";
-import SmallUserProfile from "./SmallUserProfile";
+import SmallSingleProfileShimmer from "./Shimmer/SmallSingleProfileShimmer";
+import SmallSingleProfile from "./SmallSingleProfile";
 
-interface LazySmallUserProfileProps {
+interface LazySmallSingleProfileProps {
   hideSlug?: boolean;
   id: string;
   linkToProfile?: boolean;
 }
 
-const LazySmallUserProfile: FC<LazySmallUserProfileProps> = ({
+const LazySmallSingleProfile: FC<LazySmallSingleProfileProps> = ({
   hideSlug = false,
   id,
   linkToProfile = false
@@ -20,7 +20,7 @@ const LazySmallUserProfile: FC<LazySmallUserProfileProps> = ({
   });
 
   if (loading) {
-    return <SmallUserProfileShimmer smallAvatar />;
+    return <SmallSingleProfileShimmer smallAvatar />;
   }
 
   if (!data?.profile) {
@@ -28,7 +28,7 @@ const LazySmallUserProfile: FC<LazySmallUserProfileProps> = ({
   }
 
   return (
-    <SmallUserProfile
+    <SmallSingleProfile
       hideSlug={hideSlug}
       linkToProfile={linkToProfile}
       profile={data.profile as Profile}
@@ -37,4 +37,4 @@ const LazySmallUserProfile: FC<LazySmallUserProfileProps> = ({
   );
 };
 
-export default LazySmallUserProfile;
+export default LazySmallSingleProfile;
