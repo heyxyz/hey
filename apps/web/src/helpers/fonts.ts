@@ -1,4 +1,9 @@
-import { Norican, Rubik_Mono_One } from "next/font/google";
+import {
+  Aboreto,
+  Akaya_Kanadaka,
+  Norican,
+  Rubik_Mono_One
+} from "next/font/google";
 import localFont from "next/font/local";
 
 export const heyFont = localFont({
@@ -31,6 +36,17 @@ export const signatureFont = Norican({
 });
 
 export const rubikMonoOneFont = Rubik_Mono_One({
+  subsets: ["latin"],
+  weight: "400"
+});
+
+// Profile theme fonts
+export const aboretoFont = Aboreto({
+  subsets: ["latin"],
+  weight: "400"
+});
+
+export const akayaKanadakaFont = Akaya_Kanadaka({
   subsets: ["latin"],
   weight: "400"
 });
