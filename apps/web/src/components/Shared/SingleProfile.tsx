@@ -92,7 +92,7 @@ const SingleProfile: FC<SingleProfileProps> = ({
     </>
   );
 
-  const UserInfo: FC = () => (
+  const ProfileInfo: FC = () => (
     <ProfilePreview
       handle={profile.handle?.fullHandle}
       id={profile.id}
@@ -128,10 +128,10 @@ const SingleProfile: FC<SingleProfileProps> = ({
           as={getProfile(profile).link}
           href={getProfile(profile, source).sourceLink}
         >
-          <UserInfo />
+          <ProfileInfo />
         </Link>
       ) : (
-        <UserInfo />
+        <ProfileInfo />
       )}
       <FollowUnfollowButton
         hideFollowButton={hideFollowButton}

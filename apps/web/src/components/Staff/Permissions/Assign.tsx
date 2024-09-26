@@ -12,7 +12,7 @@ import { object, string } from "zod";
 
 const assignPermissionSchema = object({
   ids: string().regex(/0x[\dA-Fa-f]+/g, {
-    message: "Invalid user IDs"
+    message: "Invalid profile IDs"
   })
 });
 
@@ -61,7 +61,7 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
       }}
     >
       <TextArea
-        placeholder='User IDs, Eg: ["0x0d", "0x05"]'
+        placeholder='Profile IDs, Eg: ["0x0d", "0x05"]'
         rows={5}
         {...form.register("ids")}
       />

@@ -53,7 +53,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
 
-      // If the user has no following, we should fallback to the curated feed
+      // If the profile has no following, we should fallback to the curated feed
       if (profile?.stats.followers === 0) {
         setFallbackToCuratedFeed(true);
       }

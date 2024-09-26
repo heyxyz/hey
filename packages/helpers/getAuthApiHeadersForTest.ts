@@ -51,7 +51,7 @@ const getAuthApiHeadersForTest = async ({ staff = true } = {}) => {
     message: challenge.challenge.text
   });
 
-  // Auth user
+  // Auth profile
   const { data: auth } = await apolloClient().mutate({
     mutation: AuthenticateDocument,
     variables: { request: { id: challenge.challenge.id, signature } }

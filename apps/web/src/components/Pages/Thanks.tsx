@@ -79,8 +79,8 @@ const Thanks: NextPage = () => {
                 })}
               >
                 Vercel combines the best developer experience with an obsessive
-                focus on end-user performance. Vercel platform enables frontend
-                teams to do their best work.
+                focus on end-profile performance. Vercel platform enables
+                frontend teams to do their best work.
               </Brand>
               <Brand
                 logo="4everland"

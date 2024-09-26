@@ -60,12 +60,12 @@ const updateProStatus = async (hash: Address) => {
 
     let expiresAt: Date;
     if (existingPro) {
-      // Extend the expiration date if the user already has a subscription
+      // Extend the expiration date if the profile already has a subscription
       expiresAt = new Date(
         existingPro.expiresAt.getTime() + numberOfDays * 24 * 60 * 60 * 1000
       );
     } else {
-      // Set a new expiration date if the user does not have a subscription
+      // Set a new expiration date if the profile does not have a subscription
       expiresAt = newExpiry;
     }
 
