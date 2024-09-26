@@ -34,18 +34,19 @@ import Stats from "./Stats";
 import SuspendedDetails from "./SuspendedDetails";
 
 const ViewProfile: NextPage = () => {
-  const { setTheme, theme } = useProfileThemeStore();
   const {
     isReady,
     pathname,
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+  const { setTheme, theme } = useProfileThemeStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     setTheme({
-      fontStyle: profileThemeFonts(Font.ArchivoNarrow)
+      overviewFontStyle: profileThemeFonts(Font.Audiowide),
+      publicationFontStyle: profileThemeFonts(Font.ArchivoNarrow)
     });
   }, []);
 
@@ -129,8 +130,8 @@ const ViewProfile: NextPage = () => {
               `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
-      <GridLayout className={theme?.fontStyle}>
-        <GridItemFour>
+      <GridLayout>
+        <GridItemFour className={theme?.overviewFontStyle}>
           {isSuspended ? (
             <SuspendedDetails profile={profile as Profile} />
           ) : (
