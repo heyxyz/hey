@@ -4,6 +4,7 @@ export { Button } from "./src/Button";
 export { Card } from "./src/Card";
 export { default as CardHeader } from "./src/CardHeader";
 export { Checkbox } from "./src/Checkbox";
+export { Drawer } from "./src/Drawer";
 export { EmptyState } from "./src/EmptyState";
 export { ErrorMessage } from "./src/ErrorMessage";
 export { FieldError, Form, useZodForm } from "./src/Form";
