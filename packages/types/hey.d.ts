@@ -79,7 +79,13 @@ export type Preferences = {
   permissions: string[];
 };
 
+export type ProfileTheme = {
+  overviewFontStyle?: string;
+  publicationFontStyle?: string;
+};
+
 export type ProfileDetails = {
   isSuspended: boolean;
   status: { emoji: string; message: string } | null;
+  theme: ProfileTheme | null;
 };

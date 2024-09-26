@@ -1,14 +1,10 @@
+import type { ProfileTheme } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
-interface Theme {
-  overviewFontStyle?: string;
-  publicationFontStyle?: string;
-}
-
 interface State {
-  theme: Theme | null;
-  setTheme: (theme: Theme | null) => void;
+  theme: ProfileTheme | null;
+  setTheme: (theme: ProfileTheme | null) => void;
 }
 
 const store = create<State>((set) => ({
