@@ -2,7 +2,7 @@ import LensEndpoint from "@hey/data/lens-endpoints";
 import clickhouseClient from "@hey/db/clickhouseClient";
 import logger from "@hey/helpers/logger";
 import axios from "axios";
-import type { Handler } from "express";
+import type { Request, Response } from "express";
 import invoiceRates from "src/data/invoice-rates";
 import catchedError from "src/helpers/catchedError";
 import { HEY_USER_AGENT } from "src/helpers/constants";
@@ -22,7 +22,7 @@ const getRateForTimestamp = (timestamp: number): number | undefined => {
   return rateEntry ? rateEntry.rate : undefined;
 };
 
-export const get: Handler = async (req, res) => {
+export const get = async (req: Request, res: Response) => {
   const { id } = req.query;
 
   if (!id) {
