@@ -2,6 +2,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { Leafwatch } from "@helpers/leafwatch";
+import profileThemeFonts from "@helpers/profileThemeFonts";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   APP_NAME,
@@ -39,15 +40,8 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { theme } = useProfileThemeStore();
+  const { theme, setTheme } = useProfileThemeStore();
   const isStaff = useFlag(FeatureFlag.Staff);
-
-  // useEffect(() => {
-  //   setTheme({
-  //     overviewFontStyle: profileThemeFonts(Font.Audiowide),
-  //     publicationFontStyle: profileThemeFonts(Font.ArchivoNarrow)
-  //   });
-  // }, []);
 
   useEffect(() => {
     if (isReady) {
@@ -97,6 +91,20 @@ const ViewProfile: NextPage = () => {
     queryFn: () => getProfileDetails(profile?.id),
     queryKey: ["getProfileDetailsOnProfile", profile?.id]
   });
+
+  useEffect(() => {
+    const theme = profileDetails?.theme;
+    if (theme) {
+      setTheme({
+        overviewFontStyle: profileThemeFonts(theme.overviewFontStyle as string),
+        publicationFontStyle: profileThemeFonts(
+          theme.publicationFontStyle as string
+        )
+      });
+    } else {
+      setTheme(null);
+    }
+  }, [profileDetails?.theme]);
 
   if (!isReady || profileLoading) {
     return <ProfilePageShimmer />;
