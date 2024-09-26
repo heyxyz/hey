@@ -12,6 +12,25 @@ const UpdateTheme: FC = () => {
   const { theme, setTheme } = useProfileThemeStore();
   const [updating, setUpdating] = useState(false);
 
+  const resetTheme = async () => {
+    setUpdating(true);
+    try {
+      await toast.promise(
+        axios.post(`${HEY_API_URL}/profile/theme/reset`, undefined, {
+          headers: getAuthApiHeaders()
+        }),
+        {
+          error: "Failed to reset profile theme",
+          loading: "Resetting profile theme...",
+          success: "Profile theme reset successfully"
+        }
+      );
+      setTheme(null);
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   const updateTheme = async () => {
     setUpdating(true);
     try {
@@ -73,6 +92,7 @@ const UpdateTheme: FC = () => {
           variant="danger"
           size="lg"
           className="w-full"
+          onClick={resetTheme}
           disabled={updating}
         >
           Reset
