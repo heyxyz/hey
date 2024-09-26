@@ -7,7 +7,7 @@ import {
 } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-import { Fragment, forwardRef, useState } from "react";
+import { Fragment, type ReactNode, forwardRef, useState } from "react";
 import cn from "../cn";
 import { Input } from "./Input";
 
@@ -21,6 +21,7 @@ interface SelectProps {
     helper?: string;
     icon?: string;
     label: string;
+    htmlLabel?: ReactNode;
     selected?: boolean;
     value: number | string;
   }[];
@@ -112,7 +113,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                               />
                             )}
                             <span className="block truncate">
-                              {option.label}
+                              {option.htmlLabel || option.label}
                             </span>
                           </span>
                           {selected ? (

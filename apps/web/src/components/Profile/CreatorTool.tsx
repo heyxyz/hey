@@ -68,8 +68,6 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
       setPermissions((prev) =>
         enabled ? [...prev, key] : prev.filter((f) => f !== key)
       );
-    } catch {
-      // Error handling is managed by toast.promise
     } finally {
       setUpdating(false);
     }

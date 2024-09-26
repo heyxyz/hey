@@ -107,7 +107,11 @@ const eczar = Eczar({ subsets: ["latin"], weight: "400" });
 const dmMono = DM_Mono({ subsets: ["latin"], weight: "400" });
 const bioRhyme = BioRhyme({ subsets: ["latin"], weight: "400" });
 
-const profileThemeFonts = (id: string): string => {
+const profileThemeFonts = (id: string | undefined): string => {
+  if (!id) {
+    return "";
+  }
+
   switch (id) {
     case Font.Aboreto:
       return aboreto.className;

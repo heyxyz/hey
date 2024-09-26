@@ -41,6 +41,7 @@ import ProfileMenu from "./Menu";
 import MutualFollowersOverview from "./MutualFollowersOverview";
 import ProfileStatus from "./ProfileStatus";
 import ScamWarning from "./ScamWarning";
+import UpdateTheme from "./UpdateTheme";
 
 export const MetaDetails = ({
   children,
@@ -255,7 +256,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         onClose={() => setShowPersonalizeModal(false)}
         show={showPersonalizeModal}
       >
-        WIP
+        <UpdateTheme />
       </Drawer>
     </div>
   );

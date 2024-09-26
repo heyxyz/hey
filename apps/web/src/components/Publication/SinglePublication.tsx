@@ -1,5 +1,6 @@
 import ActionType from "@components/Home/Timeline/EventType";
 import PublicationWrapper from "@components/Shared/PublicationWrapper";
+import profileThemeFonts from "@helpers/profileThemeFonts";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
@@ -45,7 +46,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       className={cn(
         isFirst && "rounded-t-xl",
         isLast && "rounded-b-xl",
-        theme?.publicationFontStyle,
+        profileThemeFonts(theme?.publicationFontStyle),
         "cursor-pointer px-5 pt-4 pb-3 hover:bg-gray-100 dark:hover:bg-gray-900"
       )}
       publication={rootPublication}

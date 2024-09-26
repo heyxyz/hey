@@ -96,10 +96,8 @@ const ViewProfile: NextPage = () => {
     const theme = profileDetails?.theme;
     if (theme) {
       setTheme({
-        overviewFontStyle: profileThemeFonts(theme.overviewFontStyle as string),
-        publicationFontStyle: profileThemeFonts(
-          theme.publicationFontStyle as string
-        )
+        overviewFontStyle: theme.overviewFontStyle,
+        publicationFontStyle: theme.publicationFontStyle
       });
     } else {
       setTheme(null);
@@ -138,7 +136,7 @@ const ViewProfile: NextPage = () => {
         }
       />
       <GridLayout>
-        <GridItemFour className={theme?.overviewFontStyle}>
+        <GridItemFour className={profileThemeFonts(theme?.overviewFontStyle)}>
           {isSuspended ? (
             <SuspendedDetails profile={profile as Profile} />
           ) : (
