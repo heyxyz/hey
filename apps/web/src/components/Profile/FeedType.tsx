@@ -1,4 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
+import profileThemeFonts from "@helpers/profileThemeFonts";
 import {
   ChartBarIcon,
   ChatBubbleLeftIcon,
@@ -68,7 +69,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
     <div
       className={cn(
         "flex items-center justify-between",
-        theme?.overviewFontStyle
+        profileThemeFonts(theme?.overviewFontStyle)
       )}
     >
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
