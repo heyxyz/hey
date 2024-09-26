@@ -5,6 +5,7 @@ import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
 import PublicationAvatar from "./PublicationAvatar";
@@ -35,6 +36,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showThread = true,
   showType = true
 }) => {
+  const { theme } = useProfileThemeStore();
   const rootPublication = feedItem ? feedItem?.root : publication;
   usePushToImpressions(rootPublication.id);
 
@@ -43,6 +45,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       className={cn(
         isFirst && "rounded-t-xl",
         isLast && "rounded-b-xl",
+        theme?.publicationFontStyle,
         "cursor-pointer px-5 pt-4 pb-3 hover:bg-gray-100 dark:hover:bg-gray-900"
       )}
       publication={rootPublication}
