@@ -1,5 +1,5 @@
 import Markup from "@components/Shared/Markup";
-import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getMentions from "@hey/helpers/getMentions";
 import type { Profile } from "@hey/lens";
 import {
@@ -70,7 +70,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <SmallUserProfile linkToProfile profile={currentProfile as Profile} />
+        <SmallSingleProfile linkToProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
           <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
             <div className="size-2 animate-shimmer rounded-full bg-gray-500" />

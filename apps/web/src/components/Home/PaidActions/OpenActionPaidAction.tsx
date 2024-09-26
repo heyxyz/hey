@@ -1,4 +1,4 @@
-import SmallUserProfile from "@components/Shared/SmallUserProfile";
+import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
@@ -55,7 +55,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
           </span>
           <span>by</span>
           <span>
-            <SmallUserProfile
+            <SmallSingleProfile
               hideSlug
               linkToProfile
               profile={latestActed[0].profile}

@@ -12,7 +12,7 @@ import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
-interface UserProfileProps {
+interface SmallSingleProfileProps {
   hideSlug?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
@@ -20,7 +20,7 @@ interface UserProfileProps {
   timestamp?: Date;
 }
 
-const SmallUserProfile: FC<UserProfileProps> = ({
+const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
   hideSlug = false,
   linkToProfile = false,
   profile,
@@ -63,7 +63,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
     </div>
   );
 
-  const UserInfo: FC = () => (
+  const ProfileInfo: FC = () => (
     <div className="flex items-center space-x-2">
       <UserAvatar />
       <UserName />
@@ -72,11 +72,11 @@ const SmallUserProfile: FC<UserProfileProps> = ({
 
   return linkToProfile ? (
     <Link href={getProfile(profile).link}>
-      <UserInfo />
+      <ProfileInfo />
     </Link>
   ) : (
-    <UserInfo />
+    <ProfileInfo />
   );
 };
 
-export default memo(SmallUserProfile);
+export default memo(SmallSingleProfile);
