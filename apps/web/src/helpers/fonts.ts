@@ -1,15 +1,4 @@
-import {
-  Aboreto,
-  Akaya_Kanadaka,
-  Archivo,
-  Archivo_Narrow,
-  Arimo,
-  Audiowide,
-  Norican,
-  Nunito,
-  Poppins,
-  Rubik_Mono_One
-} from "next/font/google";
+import { Norican, Rubik_Mono_One } from "next/font/google";
 import localFont from "next/font/local";
 
 export const heyFont = localFont({
@@ -47,42 +36,3 @@ export const rubikMonoOneFont = Rubik_Mono_One({
 });
 
 // Profile theme fonts
-export const aboretoFont = Aboreto({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const akayaKanadakaFont = Akaya_Kanadaka({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const archivoFont = Archivo({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const archivoNarrowFont = Archivo_Narrow({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const arimoFont = Arimo({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const audiowideFont = Audiowide({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const poppinsFont = Poppins({
-  subsets: ["latin"],
-  weight: "400"
-});
-
-export const nunitoFont = Nunito({
-  subsets: ["latin"],
-  weight: "400"
-});
