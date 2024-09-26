@@ -1,12 +1,12 @@
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 
-interface SmallUserProfileShimmerProps {
+interface SmallSingleProfileShimmerProps {
   hideSlug?: boolean;
   smallAvatar?: boolean;
 }
 
-const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
+const SmallSingleProfileShimmer: FC<SmallSingleProfileShimmerProps> = ({
   hideSlug = false,
   smallAvatar = false
 }) => {
@@ -24,4 +24,4 @@ const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
   );
 };
 
-export default SmallUserProfileShimmer;
+export default SmallSingleProfileShimmer;
