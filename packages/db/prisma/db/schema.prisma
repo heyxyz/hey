@@ -135,7 +135,7 @@ model ProfileStatus {
   createdAt DateTime @default(now())
 }
 
-model ProfilePersonalization {
+model ProfileTheme {
   id                   String   @id
   overviewFontStyle    String?
   publicationFontStyle String?
