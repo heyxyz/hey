@@ -2,7 +2,7 @@ import { SUSPENDED_PERMISSION_ID } from "@hey/db/constants";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
-import type { ProfileDetails } from "@hey/types/hey";
+import type { ProfileDetails, ProfileTheme } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
@@ -28,26 +28,27 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [profilePermission, profileStatus] = await prisma.$transaction([
-        prisma.profilePermission.findFirst({
-          where: {
-            permissionId: SUSPENDED_PERMISSION_ID,
-            profileId: id as string
-          }
-        }),
-        prisma.profileStatus.findFirst({ where: { id: id as string } })
-      ]);
+      const [profilePermission, profileStatus, profileTheme] =
+        await prisma.$transaction([
+          prisma.profilePermission.findFirst({
+            where: {
+              permissionId: SUSPENDED_PERMISSION_ID,
+              profileId: id as string
+            }
+          }),
+          prisma.profileStatus.findFirst({ where: { id: id as string } }),
+          prisma.profileTheme.findFirst({ where: { id: id as string } })
+        ]);
 
       const response: ProfileDetails = {
         isSuspended:
           profilePermission?.permissionId === SUSPENDED_PERMISSION_ID,
-        status: profileStatus || null
+        status: profileStatus || null,
+        theme: (profileTheme as ProfileTheme) || null
       };
 
       await setRedis(cacheKey, response);
       logger.info(`Profile details fetched for ${id}`);
-
-      return res.status(200).json({ result: response, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

@@ -2,6 +2,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { Leafwatch } from "@helpers/leafwatch";
+import profileThemeFonts from "@helpers/profileThemeFonts";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   APP_NAME,
@@ -23,6 +24,7 @@ import { useEffect } from "react";
 import { ProfileFeedType } from "src/enums";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
+import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Details from "./Details";
 import Feed from "./Feed";
@@ -38,6 +40,7 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
+  const { theme, setTheme } = useProfileThemeStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -89,6 +92,20 @@ const ViewProfile: NextPage = () => {
     queryKey: ["getProfileDetailsOnProfile", profile?.id]
   });
 
+  useEffect(() => {
+    const theme = profileDetails?.theme;
+    if (theme) {
+      setTheme({
+        overviewFontStyle: profileThemeFonts(theme.overviewFontStyle as string),
+        publicationFontStyle: profileThemeFonts(
+          theme.publicationFontStyle as string
+        )
+      });
+    } else {
+      setTheme(null);
+    }
+  }, [profileDetails?.theme]);
+
   if (!isReady || profileLoading) {
     return <ProfilePageShimmer />;
   }
@@ -121,7 +138,7 @@ const ViewProfile: NextPage = () => {
         }
       />
       <GridLayout>
-        <GridItemFour>
+        <GridItemFour className={theme?.overviewFontStyle}>
           {isSuspended ? (
             <SuspendedDetails profile={profile as Profile} />
           ) : (
