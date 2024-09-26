@@ -134,3 +134,10 @@ model ProfileStatus {
   emoji     String
   createdAt DateTime @default(now())
 }
+
+model ProfilePersonalization {
+  id                   String   @id
+  overviewFontStyle    String
+  publicationFontStyle String
+  createdAt            DateTime @default(now())
+}
