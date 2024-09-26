@@ -45,7 +45,7 @@ const ViewProfile: NextPage = () => {
 
   useEffect(() => {
     setTheme({
-      fontStyle: profileThemeFonts(Font.Audiowide)
+      fontStyle: profileThemeFonts(Font.ArchivoNarrow)
     });
   }, []);
 
