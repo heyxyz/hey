@@ -1,7 +1,6 @@
 import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
-import { akayaKanadakaFont } from "@helpers/fonts";
 import { Leafwatch } from "@helpers/leafwatch";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
@@ -22,6 +21,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { ProfileFeedType } from "src/enums";
+import profileThemeFonts, { Font } from "src/helpers/profileThemeFonts";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
@@ -45,7 +45,7 @@ const ViewProfile: NextPage = () => {
 
   useEffect(() => {
     setTheme({
-      fontStyle: akayaKanadakaFont.className
+      fontStyle: profileThemeFonts(Font.Audiowide)
     });
   }, []);
 
