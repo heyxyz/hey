@@ -24,23 +24,8 @@ export const Job =
 
     await run("rm -rf .pnpm-store");
 
-    // Pull environment variables from Vercel
-    await run(
-      `${vercel} pull --yes --environment=${
-        isProd ? "production" : "preview"
-      } --token $VERCEL_ACCESS_TOKEN`,
-      { label: `Pulling ${PROJECT_NAME} Deployment`, env }
-    );
-
-    // Build the project
-    await run(`${vercel} build --prod --token $VERCEL_ACCESS_TOKEN`, {
-      label: `Building ${PROJECT_NAME} Deployment`,
-      env
-    });
-
-    // Deploy the project
     const { stdout } = await run(
-      `${vercel} deploy --prebuilt --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
+      `${vercel} deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
       } --no-color --token $VERCEL_ACCESS_TOKEN`,
       { label: `Creating ${PROJECT_NAME} Deployment`, env }
