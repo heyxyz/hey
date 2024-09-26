@@ -23,7 +23,7 @@ import getProfile from "@hey/helpers/getProfile";
 import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
-import { Button, H3, Image, LightBox, Modal, Tooltip } from "@hey/ui";
+import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -250,13 +250,13 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
       </div>
       <Badges id={profile.id} />
       <InternalTools profile={profile} />
-      <Modal
+      <Drawer
+        title="Personalize"
         onClose={() => setShowPersonalizeModal(false)}
         show={showPersonalizeModal}
-        title="Personalize"
       >
         WIP
-      </Modal>
+      </Drawer>
     </div>
   );
 };
