@@ -7,15 +7,19 @@ import getPreferences from "@hey/helpers/api/getPreferences";
 import type { FiatRate } from "@hey/types/lens";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { FC } from "react";
+import { useRouter } from "next/router";
+import { type FC, useEffect } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
 const PreferencesProvider: FC = () => {
+  const { pathname } = useRouter();
   const { id: sessionProfileId } = getCurrentSession();
+  const { setTheme } = useProfileThemeStore();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
@@ -28,6 +32,10 @@ const PreferencesProvider: FC = () => {
     setLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
+
+  useEffect(() => {
+    setTheme(null);
+  }, [pathname]);
 
   const getPreferencesData = async () => {
     setLoading(true);
