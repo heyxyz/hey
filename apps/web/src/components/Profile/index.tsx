@@ -1,6 +1,7 @@
 import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
+import { akayaKanadakaFont } from "@helpers/fonts";
 import { Leafwatch } from "@helpers/leafwatch";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
@@ -23,6 +24,7 @@ import { useEffect } from "react";
 import { ProfileFeedType } from "src/enums";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
+import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Details from "./Details";
 import Feed from "./Feed";
@@ -32,6 +34,7 @@ import Stats from "./Stats";
 import SuspendedDetails from "./SuspendedDetails";
 
 const ViewProfile: NextPage = () => {
+  const { setTheme, theme } = useProfileThemeStore();
   const {
     isReady,
     pathname,
@@ -39,6 +42,12 @@ const ViewProfile: NextPage = () => {
   } = useRouter();
   const { currentProfile } = useProfileStore();
   const isStaff = useFlag(FeatureFlag.Staff);
+
+  useEffect(() => {
+    setTheme({
+      fontStyle: akayaKanadakaFont.className
+    });
+  }, []);
 
   useEffect(() => {
     if (isReady) {
@@ -120,7 +129,7 @@ const ViewProfile: NextPage = () => {
               `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
-      <GridLayout>
+      <GridLayout className={theme?.fontStyle}>
         <GridItemFour>
           {isSuspended ? (
             <SuspendedDetails profile={profile as Profile} />
