@@ -300,8 +300,8 @@ importers:
         specifier: ^0.24.0
         version: 0.24.0
       framer-motion:
-        specifier: ^11.8.0
-        version: 11.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 11.5.6
+        version: 11.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -346,7 +346,7 @@ importers:
         version: 9.0.1(@types/react@18.3.9)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.1
-        version: 2.0.1(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.1(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-tweet:
         specifier: ^3.2.1
         version: 3.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7265,8 +7265,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.8.0:
-    resolution: {integrity: sha512-q/axN/PFRdKmzPK6PO2OhbLUMWXXZuiejdM1/3FhC2hm4YIetc+qeco2EvWm4u1/UTFmevclE492wGFNfSZ4eQ==}
+  framer-motion@11.5.6:
+    resolution: {integrity: sha512-JMwUpAxv/DWgul9vPgX0ElKn0G66sUc6O9tOXsYwn3zxwvhxFljSXC0XT2QCzuTYBshwC8nyDAa1SYcV0Ldbhw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -14287,12 +14287,12 @@ snapshots:
   '@graphql-tools/optimize@1.4.0(graphql@16.9.0)':
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   '@graphql-tools/optimize@2.0.0(graphql@16.9.0)':
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   '@graphql-tools/prisma-loader@8.0.4(@types/node@22.7.2)(bufferutil@4.0.8)(graphql@16.9.0)(utf-8-validate@5.0.10)':
     dependencies:
@@ -14325,7 +14325,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.9.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.9.0)
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -14335,7 +14335,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.9.0)
       '@graphql-tools/utils': 10.5.4(graphql@16.9.0)
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -14381,13 +14381,13 @@ snapshots:
   '@graphql-tools/utils@8.13.1(graphql@16.9.0)':
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   '@graphql-tools/utils@9.2.1(graphql@16.9.0)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   '@graphql-tools/wrap@10.0.5(graphql@16.9.0)':
     dependencies:
@@ -20420,7 +20420,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.5.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.7.0
     optionalDependencies:
@@ -21228,7 +21228,7 @@ snapshots:
 
   is-lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   is-number@7.0.0: {}
 
@@ -21268,7 +21268,7 @@ snapshots:
 
   is-upper-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   is-windows@1.0.2: {}
 
@@ -21740,11 +21740,11 @@ snapshots:
 
   lower-case-first@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   lru-cache@10.4.3: {}
 
@@ -22505,7 +22505,7 @@ snapshots:
 
   nopt@3.0.6:
     dependencies:
-      abbrev: 1.0.9
+      abbrev: 1.1.1
 
   nopt@5.0.0:
     dependencies:
@@ -23550,12 +23550,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.9
 
-  react-tracked@2.0.1(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.1(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-tweet@3.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -24210,7 +24210,7 @@ snapshots:
 
   sponge-case@1.0.1:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   sprintf-js@1.0.3: {}
 
@@ -24395,7 +24395,7 @@ snapshots:
 
   swap-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   swr@2.2.5(react@18.3.1):
     dependencies:
@@ -24548,7 +24548,7 @@ snapshots:
 
   title-case@3.0.3:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   titleize@3.0.0: {}
 
@@ -24912,11 +24912,11 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   uqr@0.1.2: {}
 
@@ -24946,10 +24946,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.9
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-resize-observer@9.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
