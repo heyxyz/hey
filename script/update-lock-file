@@ -16,7 +16,7 @@ echo "Updating lock file 📦"
 script/clean && pnpm install
 # Git operations
 git add -A
-git commit -am "chore: update lock file 📦"
+git commit -am "Update lock file"
 git push origin "$branch_name"
 gh pr create --fill
 echo "Lock file updated and PR created for $branch_name 🎉"
