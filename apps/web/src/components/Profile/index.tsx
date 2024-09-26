@@ -21,7 +21,6 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { ProfileFeedType } from "src/enums";
-import profileThemeFonts, { Font } from "src/helpers/profileThemeFonts";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
@@ -40,15 +39,15 @@ const ViewProfile: NextPage = () => {
     query: { handle, id, source, type }
   } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { setTheme, theme } = useProfileThemeStore();
+  const { theme } = useProfileThemeStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  useEffect(() => {
-    setTheme({
-      overviewFontStyle: profileThemeFonts(Font.Audiowide),
-      publicationFontStyle: profileThemeFonts(Font.ArchivoNarrow)
-    });
-  }, []);
+  // useEffect(() => {
+  //   setTheme({
+  //     overviewFontStyle: profileThemeFonts(Font.Audiowide),
+  //     publicationFontStyle: profileThemeFonts(Font.ArchivoNarrow)
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (isReady) {
