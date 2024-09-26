@@ -57,7 +57,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   alt={selected?.label}
                 />
               )}
-              <span>{selected?.label}</span>
+              <span>{selected?.htmlLabel || selected?.label}</span>
             </span>
             <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
           </ListboxButton>
