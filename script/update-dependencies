@@ -18,6 +18,6 @@ pnpm update --interactive --recursive --latest
 script/clean && pnpm install
 # Git operations
 git add -A
-git commit -am "chore: update dependencies 📦"
+git commit -am "Update dependencies"
 git push origin "$branch_name"
 echo "Dependencies updated and pushed to $branch_name 🎉"
