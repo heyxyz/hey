@@ -1,10 +1,10 @@
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
-import type { Handler } from "express";
+import type { Request, Response } from "express";
 import { noBody } from "src/helpers/responses";
 
-export const get: Handler = async (req, res) => {
+export const get = async (req: Request, res: Response) => {
   const { token } = req.query;
 
   if (!token) {

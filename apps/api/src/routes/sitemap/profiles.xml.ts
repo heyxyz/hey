@@ -1,11 +1,11 @@
 import lensPg from "@hey/db/lensPg";
 import logger from "@hey/helpers/logger";
-import type { Handler } from "express";
+import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY, SITEMAP_BATCH_SIZE } from "src/helpers/constants";
 import { buildSitemapXml } from "src/helpers/sitemap/buildSitemap";
 
-export const get: Handler = async (req, res) => {
+export const get = async (req: Request, res: Response) => {
   const user_agent = req.headers["user-agent"];
 
   try {
