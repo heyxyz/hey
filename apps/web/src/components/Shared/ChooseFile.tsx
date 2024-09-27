@@ -4,9 +4,10 @@ import { useId } from "react";
 
 interface ChooseFileProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
+  disabled?: boolean;
 }
 
-const ChooseFile: FC<ChooseFileProps> = ({ onChange }) => {
+const ChooseFile: FC<ChooseFileProps> = ({ onChange, disabled }) => {
   const id = useId();
 
   return (
@@ -23,6 +24,7 @@ const ChooseFile: FC<ChooseFileProps> = ({ onChange }) => {
         className="hidden"
         id={id}
         onChange={onChange}
+        disabled={disabled}
         onClick={(event) => {
           (event.target as HTMLInputElement).value = "";
         }}

@@ -51,6 +51,8 @@ export const get = [
 
       await setRedis(cacheKey, response);
       logger.info(`Profile details fetched for ${id}`);
+
+      return res.status(200).json({ result: response, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
