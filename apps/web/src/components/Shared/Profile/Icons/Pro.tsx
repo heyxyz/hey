@@ -1,5 +1,5 @@
 import { StarIcon } from "@heroicons/react/24/solid";
-import getPro from "@hey/helpers/api/getPro";
+import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
@@ -12,11 +12,11 @@ interface ProProps {
 
 const Pro: FC<ProProps> = ({ id, iconClassName = "" }) => {
   const { data } = useQuery({
-    queryFn: () => getPro(id),
-    queryKey: ["getProForProfile", id]
+    queryFn: () => getProfileDetails(id),
+    queryKey: ["getProfileDetails", id]
   });
 
-  if (!data?.isPro) {
+  if (!data?.pro?.isPro) {
     return null;
   }
 

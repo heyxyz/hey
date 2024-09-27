@@ -36,15 +36,16 @@ export const get = [
               profileId: id as string
             }
           }),
-          prisma.pro.findFirst({ where: { id: id as string } }),
-          prisma.profileStatus.findFirst({ where: { id: id as string } }),
-          prisma.profileTheme.findFirst({ where: { id: id as string } })
+          prisma.pro.findUnique({ where: { id: id as string } }),
+          prisma.profileStatus.findUnique({ where: { id: id as string } }),
+          prisma.profileTheme.findUnique({ where: { id: id as string } })
         ]);
 
       const isPro = proStatus?.id;
       const response: ProfileDetails = {
         isSuspended:
           profilePermission?.permissionId === SUSPENDED_PERMISSION_ID,
+        pro: isPro ? { expiresAt: proStatus.expiresAt, isPro: true } : null,
         status: isPro ? profileStatus || null : null,
         theme: isPro ? (profileTheme as ProfileTheme) || null : null
       };

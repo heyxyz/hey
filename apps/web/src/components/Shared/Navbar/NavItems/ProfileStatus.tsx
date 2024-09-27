@@ -16,7 +16,7 @@ const ProfileStatus: FC<ProfileStatusProps> = ({ id, className = "" }) => {
   const { data, isLoading } = useQuery({
     enabled: Boolean(id),
     queryFn: () => getProfileDetails(id),
-    queryKey: ["getCurrentProfileStatus", id]
+    queryKey: ["getProfileDetails", id]
   });
 
   return (

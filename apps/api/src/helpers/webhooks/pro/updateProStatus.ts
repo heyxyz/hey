@@ -75,7 +75,7 @@ const updateProStatus = async (hash: Address) => {
       where: { id }
     });
 
-    await delRedis(`pro:${id}`);
+    await delRedis(`profile:${id}`);
 
     logger.info(
       `updateProStatus: Updated Pro status for ${id} to ${expiresAt}`
