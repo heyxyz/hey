@@ -2,6 +2,7 @@ import ExtendButton from "@components/Pro/ExtendButton";
 import { APP_NAME } from "@hey/data/constants";
 import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDate";
 import { Card, CardHeader } from "@hey/ui";
+import plur from "plur";
 import type { FC } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
 
@@ -30,7 +31,9 @@ const Overview: FC = () => {
       <div className="m-5 space-y-3">
         <b>
           Your pro subscription expires in{" "}
-          <span className={getColor(daysLeft)}>{daysLeft} days</span>
+          <span className={getColor(daysLeft)}>
+            {daysLeft} {plur("day", daysLeft)}
+          </span>
         </b>
         <div className="flex items-center space-x-5">
           <ExtendButton size="md" />
