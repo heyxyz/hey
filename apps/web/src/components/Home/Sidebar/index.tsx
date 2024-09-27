@@ -6,6 +6,7 @@ import { memo } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import EnableLensManager from "./EnableLensManager";
 import HeyMembershipNft from "./HeyMembershipNft";
+import ProExpiryWarning from "./ProExpiryWarning";
 import SetProfile from "./SetProfile";
 import StaffPicks from "./StaffPicks";
 import WhoToFollow from "./WhoToFollow";
@@ -23,6 +24,7 @@ const Sidebar: FC = () => {
       {/* Onboarding steps */}
       {loggedInWithProfile && (
         <>
+          <ProExpiryWarning />
           <EnableLensManager />
           <SetProfile />
         </>
