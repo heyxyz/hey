@@ -136,8 +136,9 @@ model ProfileStatus {
 }
 
 model ProfileTheme {
-  id                   String   @id
-  overviewFontStyle    String?
-  publicationFontStyle String?
-  createdAt            DateTime @default(now())
+  id                     String   @id
+  overviewFontStyle      String?
+  publicationFontStyle   String?
+  backgroundPatternImage String?
+  createdAt              DateTime @default(now())
 }
