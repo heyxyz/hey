@@ -11,7 +11,7 @@ const ProfileStatus: FC<ProfileStatusProps> = ({ id }) => {
   const { data } = useQuery({
     enabled: Boolean(id),
     queryFn: () => getProfileDetails(id),
-    queryKey: ["getProfileDetailsOnProfile", id]
+    queryKey: ["getProfileDetails", id]
   });
 
   if (!data?.status) {
