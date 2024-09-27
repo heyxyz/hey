@@ -27,7 +27,7 @@ const ProfileStatus: FC = () => {
         setEmoji(data?.status?.emoji || null);
         return data;
       }),
-    queryKey: ["getCurrentProfileStatus", currentProfile?.id]
+    queryKey: ["getProfileDetails", currentProfile?.id]
   });
 
   if (isLoading) {

@@ -43,12 +43,6 @@ const ProfilePreview: FC<ProfilePreviewProps> = ({
     useState<boolean>(networkLoading);
   const profile = data?.profile as Profile;
 
-  const { data: profileDetails } = useQuery({
-    enabled: Boolean(id),
-    queryFn: () => getProfileDetails(id as string),
-    queryKey: ["getProfileDetailsOnProfile", id]
-  });
-
   const onPreviewStart = async () => {
     if (profile || networkLoading) {
       return;
@@ -91,13 +85,13 @@ const ProfilePreview: FC<ProfilePreviewProps> = ({
       );
     }
 
-    if (profileDetails?.isSuspended) {
-      return (
-        <div className="flex h-12 items-center px-3">Profile is suspended</div>
-      );
-    }
-
     const ProfileStatus: FC = () => {
+      const { data: profileDetails } = useQuery({
+        enabled: Boolean(id),
+        queryFn: () => getProfileDetails(id as string),
+        queryKey: ["getProfileDetails", id]
+      });
+
       if (!profileDetails?.status) {
         return null;
       }
