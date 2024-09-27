@@ -1,7 +1,5 @@
 import { Icons, type JobContext, annotate, run } from "pierre";
 
-const vercel = "./node_modules/.bin/vercel";
-
 export interface VercelContext {
   VERCEL_PROJECT_ID: string;
   PROJECT_NAME: string;
@@ -25,7 +23,7 @@ export const Job =
     await run("rm -rf .pnpm-store");
 
     const { stdout } = await run(
-      `${vercel} deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
+      `npx vercel deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
       } --no-color --token $VERCEL_ACCESS_TOKEN --env GIT_COMMIT_SHA=${
         ctx.branch.latestSha
@@ -89,7 +87,7 @@ export const Job =
     }
 
     const { exitCode } = await run(
-      `${vercel} inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
+      `npx vercel inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
       { label: ` ${PROJECT_NAME} Deployment Build`, env }
     );
 
