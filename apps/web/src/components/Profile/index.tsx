@@ -93,15 +93,7 @@ const ViewProfile: NextPage = () => {
   });
 
   useEffect(() => {
-    const theme = profileDetails?.theme;
-    if (theme) {
-      setTheme({
-        overviewFontStyle: theme.overviewFontStyle,
-        publicationFontStyle: theme.publicationFontStyle
-      });
-    } else {
-      setTheme(null);
-    }
+    setTheme(profileDetails?.theme || null);
   }, [profileDetails?.theme]);
 
   if (!isReady || profileLoading) {
