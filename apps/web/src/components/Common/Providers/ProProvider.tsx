@@ -1,5 +1,5 @@
 import getCurrentSession from "@helpers/getCurrentSession";
-import getPro from "@hey/helpers/api/getPro";
+import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
@@ -12,15 +12,15 @@ const ProProvider: FC = () => {
     enabled: Boolean(sessionProfileId),
     queryFn: () => {
       setLoading(true);
-      return getPro(sessionProfileId)
+      return getProfileDetails(sessionProfileId)
         .then((data) => {
-          setIsPro(data.isPro);
-          setProExpiresAt(data.expiresAt);
+          setIsPro(data?.pro?.isPro || false);
+          setProExpiresAt(data?.pro?.expiresAt || null);
           return data;
         })
         .finally(() => setLoading(false));
     },
-    queryKey: ["getPro", sessionProfileId || ""]
+    queryKey: ["getProfileDetails", sessionProfileId || ""]
   });
 
   return null;
