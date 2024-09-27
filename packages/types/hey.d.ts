@@ -82,6 +82,7 @@ export type Preferences = {
 export type ProfileTheme = {
   overviewFontStyle?: string;
   publicationFontStyle?: string;
+  backgroundPatternImage?: string;
 };
 
 export type ProfileDetails = {
