@@ -25,9 +25,7 @@ export const Job =
     const { stdout } = await run(
       `npx vercel deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
-      } --no-color --token $VERCEL_ACCESS_TOKEN --env GIT_COMMIT_SHA=${
-        ctx.branch.latestSha
-      }`,
+      } --no-color --token $VERCEL_ACCESS_TOKEN`,
       { label: `Creating ${PROJECT_NAME} Deployment`, env }
     );
 
