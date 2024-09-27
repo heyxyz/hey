@@ -1,11 +1,12 @@
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { GlobeAltIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { IS_MAINNET, IS_PRODUCTION } from "@hey/data/constants";
+import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
+import urlcat from "urlcat";
 import Performance from "./Performance";
 
 interface BadgeProps {
@@ -43,6 +44,20 @@ const StaffBar: FC = () => {
             </span>
           </Badge>
         </div>
+        {GIT_COMMIT_SHA ? (
+          <Link
+            className="flex items-center space-x-1"
+            href={urlcat("https://pierre.co/hey/hey/history", {
+              commit: GIT_COMMIT_SHA
+            })}
+            rel="noreferrer noopener"
+            target="_blank"
+            title="Git commit SHA"
+          >
+            <HashtagIcon className="size-4" />
+            <Badge>{GIT_COMMIT_SHA}</Badge>
+          </Link>
+        ) : null}
       </div>
       <Link
         aria-label="Staff Dashboard"
