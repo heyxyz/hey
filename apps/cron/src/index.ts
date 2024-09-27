@@ -6,11 +6,11 @@ import batchProcessEvents from "./batchProcessEvents";
 import batchProcessImpressions from "./batchProcessImpressions";
 import cleanClickhouse from "./cleanClickhouse";
 import cleanEmailTokens from "./cleanEmailTokens";
+import cleanExpiredPro from "./cleanExpiredPro";
 import cleanPreferences from "./cleanPreferences";
 import dbVacuum from "./dbVacuum";
 import heartbeat from "./heartbeat";
 import truncate4EverlandBucket from "./truncate4EverlandBucket";
-import cleanExpiredPro from "./cleanExpiredPro";
 
 const startCronJobs = () => {
   logger.info("Cron jobs are started...");
