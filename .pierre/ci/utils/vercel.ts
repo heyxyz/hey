@@ -24,8 +24,6 @@ export const Job =
 
     await run("rm -rf .pnpm-store");
 
-    console.log(ctx.branch.baseSha);
-
     const { stdout } = await run(
       `${vercel} deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
         isProd ? "--prod" : ""
