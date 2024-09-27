@@ -13,13 +13,11 @@ import { object, string } from "zod";
 type ExtensionRequest = {
   overviewFontStyle: string | null;
   publicationFontStyle: string | null;
-  backgroundPatternImage: string | null;
 };
 
 const validationSchema = object({
   overviewFontStyle: string().optional(),
-  publicationFontStyle: string().optional(),
-  backgroundPatternImage: string().optional()
+  publicationFontStyle: string().optional()
 });
 
 export const post = [
@@ -39,17 +37,13 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { overviewFontStyle, publicationFontStyle, backgroundPatternImage } =
+    const { overviewFontStyle, publicationFontStyle } =
       body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const dbPayload = {
-        overviewFontStyle,
-        publicationFontStyle,
-        backgroundPatternImage
-      };
+      const dbPayload = { overviewFontStyle, publicationFontStyle };
 
       const data = await prisma.profileTheme.upsert({
         create: { id: payload.id, ...dbPayload },
