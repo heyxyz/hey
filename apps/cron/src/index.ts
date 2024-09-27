@@ -6,6 +6,7 @@ import batchProcessEvents from "./batchProcessEvents";
 import batchProcessImpressions from "./batchProcessImpressions";
 import cleanClickhouse from "./cleanClickhouse";
 import cleanEmailTokens from "./cleanEmailTokens";
+import cleanExpiredPro from "./cleanExpiredPro";
 import cleanPreferences from "./cleanPreferences";
 import dbVacuum from "./dbVacuum";
 import heartbeat from "./heartbeat";
@@ -36,6 +37,11 @@ const startCronJobs = () => {
 
   cron.schedule("*/5 * * * *", async () => {
     await cleanPreferences();
+    return;
+  });
+
+  cron.schedule("*/5 * * * *", async () => {
+    await cleanExpiredPro();
     return;
   });
 
