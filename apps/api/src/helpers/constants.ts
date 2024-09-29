@@ -1,5 +1,6 @@
 export const HEY_USER_AGENT = "HeyBot/0.1 (like TwitterBot)";
-export const UNLEASH_API_URL = "https://unleash.hey.xyz/api/frontend";
+export const UNLEASH_INTERNAL_URL =
+  "http://unleash.railway.internal/api/frontend";
 
 // Cache
 // Cache for 30 minutes
