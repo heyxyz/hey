@@ -83,6 +83,7 @@ model AllowedToken {
 model Pro {
   id        String   @id
   expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Tip {

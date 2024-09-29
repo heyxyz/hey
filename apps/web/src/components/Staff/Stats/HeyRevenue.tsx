@@ -33,7 +33,7 @@ const HeyRevenue: FC = () => {
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/lens/internal/stats/heyRevenue`,
+        `${HEY_API_URL}/lens/internal/stats/hey-revenue`,
         { headers: getAuthApiHeaders() }
       );
 
