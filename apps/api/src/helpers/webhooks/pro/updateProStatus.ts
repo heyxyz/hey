@@ -48,8 +48,8 @@ const updateProStatus = async (hash: Address) => {
     const transaction = await fetchTransactionWithRetry(client, hash);
     const id = transaction.input;
     const dailyRate = 0.333;
-    const value = Number.parseFloat(formatEther(transaction.value));
-    const numberOfDays = Math.round(value / dailyRate);
+    const amount = Number.parseFloat(formatEther(transaction.value));
+    const numberOfDays = Math.round(amount / dailyRate);
     const newExpiry = new Date(Date.now() + numberOfDays * 24 * 60 * 60 * 1000);
 
     if (!id) {
@@ -69,9 +69,15 @@ const updateProStatus = async (hash: Address) => {
       expiresAt = newExpiry;
     }
 
+    const payload = {
+      amount,
+      latestTransactionHash: hash,
+      expiresAt
+    };
+
     const data = await prisma.pro.upsert({
-      create: { expiresAt, id },
-      update: { expiresAt },
+      create: { ...payload, id },
+      update: payload,
       where: { id }
     });
 

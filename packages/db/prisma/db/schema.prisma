@@ -81,9 +81,14 @@ model AllowedToken {
 }
 
 model Pro {
-  id        String   @id
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+  id                    String   @id
+  latestTransactionHash String
+  amount                Int
+  expiresAt             DateTime
+  createdAt             DateTime @default(now())
+
+  // Indexes
+  @@index([expiresAt])
 }
 
 model Tip {

@@ -10,9 +10,7 @@ export const get = [
   validateIsStaff,
   async (_: Request, res: Response) => {
     try {
-      const result = await prisma.pro.groupBy({
-        by: ["createdAt"],
-        _count: { id: true },
+      const records = await prisma.pro.findMany({
         where: {
           createdAt: {
             gte: new Date(new Date().setDate(new Date().getDate() - 30))
@@ -21,10 +19,20 @@ export const get = [
         orderBy: { createdAt: "asc" }
       });
 
-      const formattedResult = result.map((item) => ({
-        date: item.createdAt,
-        count: item._count.id
-      }));
+      const groupedResults = records.reduce((acc: any, record: any) => {
+        const date = record.createdAt.toISOString().split("T")[0];
+
+        if (!acc[date]) {
+          acc[date] = { amount: 0 };
+        }
+
+        acc[date].amount += record.amount;
+        return acc;
+      }, {});
+
+      const formattedResult = Object.entries(groupedResults).map(
+        ([date, { amount }]: any) => ({ date, amount })
+      );
 
       logger.info("Fetched pro revenue stats");
 

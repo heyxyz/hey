@@ -30,7 +30,7 @@ ChartJS.register(
 
 const ProRevenue: FC = () => {
   const getProRevenueStats = async (): Promise<
-    { date: string; count: number }[] | null
+    { date: string; amount: number }[] | null
   > => {
     try {
       const response = await axios.get(
@@ -87,8 +87,8 @@ const ProRevenue: FC = () => {
               {
                 backgroundColor: colors.blue["500"],
                 borderRadius: 3,
-                data: data.map((signup) => signup.count),
-                label: "Upgrades"
+                data: data.map((signup) => signup.amount),
+                label: "Amount"
               }
             ],
             labels: data.map((signup) => formatDate(signup.date, "MMM D"))
