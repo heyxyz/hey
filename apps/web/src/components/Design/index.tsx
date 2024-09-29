@@ -13,6 +13,7 @@ import ImageDesign from "./ImageDesign";
 import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
 import ProfilesDesign from "./ProfilesDesign";
+import SelectDesign from "./SelectDesign";
 import SpinnerDesign from "./SpinnerDesign";
 import StackedAvatarsDesign from "./StackedAvatarsDesign";
 import TextAreaDesign from "./TextAreaDesign";
@@ -35,6 +36,7 @@ const Design: NextPage = () => {
         <CheckboxDesign />
         <InputDesign />
         <TextAreaDesign />
+        <SelectDesign />
         <SpinnerDesign />
         <BadgeDesign />
         <ImageDesign />
