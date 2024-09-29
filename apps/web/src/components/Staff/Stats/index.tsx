@@ -12,6 +12,7 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import StaffSidebar from "../Sidebar";
 import HeyRevenue from "./HeyRevenue";
 import LensStats from "./LensStats";
+import ProRevenue from "./ProRevenue";
 
 const Stats: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -32,6 +33,7 @@ const Stats: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <ProRevenue />
         <HeyRevenue />
         <LensStats />
       </GridItemEight>
