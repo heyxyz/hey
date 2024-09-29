@@ -10,9 +10,10 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import StaffSidebar from "../Sidebar";
-import HeyRevenue from "./HeyRevenue";
 import LensStats from "./LensStats";
+import NftRevenue from "./NftRevenue";
 import ProRevenue from "./ProRevenue";
+import SignupRevenue from "./SignupRevenue";
 
 const Stats: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -34,7 +35,8 @@ const Stats: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <ProRevenue />
-        <HeyRevenue />
+        <SignupRevenue />
+        <NftRevenue />
         <LensStats />
       </GridItemEight>
     </GridLayout>

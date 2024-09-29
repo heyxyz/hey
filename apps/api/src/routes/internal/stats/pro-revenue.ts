@@ -26,7 +26,7 @@ export const get = [
         count: item._count.id
       }));
 
-      logger.info("[Lens] Fetched signup and membership NFT stats");
+      logger.info("Fetched pro revenue stats");
 
       return res.status(200).json({ result: formattedResult, success: true });
     } catch (error) {
