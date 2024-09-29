@@ -1,4 +1,5 @@
 export const POLYGON_RPCS = [
+  "https://rpc.ankr.com/polygon",
   "https://polygon-bor-rpc.publicnode.com",
   "https://polygon-rpc.com",
   "https://polygon.drpc.org"
