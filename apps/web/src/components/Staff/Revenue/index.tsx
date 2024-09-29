@@ -10,14 +10,16 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import StaffSidebar from "../Sidebar";
-import LensStats from "./LensStats";
+import NftRevenue from "./NftRevenue";
+import ProRevenue from "./ProRevenue";
+import SignupRevenue from "./SignupRevenue";
 
-const Stats: NextPage = () => {
+const Revenue: NextPage = () => {
   const { currentProfile } = useProfileStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "staff-tools", subpage: "stats" });
+    Leafwatch.track(PAGEVIEW, { page: "staff-tools", subpage: "revenue" });
   }, []);
 
   if (!currentProfile || !isStaff) {
@@ -26,15 +28,17 @@ const Stats: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Staff Tools • Stats • ${APP_NAME}`} />
+      <MetaTags title={`Staff Tools • Revenue • ${APP_NAME}`} />
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <LensStats />
+        <ProRevenue />
+        <SignupRevenue />
+        <NftRevenue />
       </GridItemEight>
     </GridLayout>
   );
 };
 
-export default Stats;
+export default Revenue;
