@@ -4,7 +4,7 @@
 
 - [Node.js](https://nodejs.org/en/download/) (v20 or higher)
 - [pnpm](https://pnpm.io/installation)
-- [PostgreSQL](https://www.postgresql.org/download/)
+- [Postgres App](https://postgresapp.com/)
 - [Redis](https://redis.io/download)
 
 ## Installation
@@ -17,6 +17,18 @@ Ping Yoginth for access to the repository on Pierre, make sure you have amazing 
 
 ```bash
 git clone git@git.pierre.co:/repos/hey/hey.git
+```
+
+### Install NVM (Node Version Manager) and pnpm
+
+```bash
+brew install nvm pnpm
+```
+
+### Install Node.js
+
+```bash
+nvm install
 ```
 
 ### Install dependencies
