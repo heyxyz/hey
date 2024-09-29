@@ -1,5 +1,5 @@
 export const POLYGON_RPCS = [
-  "https://polygon.llamarpc.com",
+  "https://polygon.meowrpc.com",
   "https://polygon-bor-rpc.publicnode.com",
   "https://polygon-rpc.com",
   "https://polygon.drpc.org"
