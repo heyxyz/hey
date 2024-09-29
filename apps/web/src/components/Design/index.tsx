@@ -12,6 +12,7 @@ import HelpTooltipDesign from "./HelpTooltipDesign";
 import ImageDesign from "./ImageDesign";
 import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
+import NumberedStatDesign from "./NumberedStatDesign";
 import ProfilesDesign from "./ProfilesDesign";
 import SelectDesign from "./SelectDesign";
 import SpinnerDesign from "./SpinnerDesign";
@@ -45,6 +46,7 @@ const Design: NextPage = () => {
         <EmptyStateDesign />
         <WarningMessageDesign />
         <ErrorMessageDesign />
+        <NumberedStatDesign />
         <ProfilesDesign />
       </GridItemTwelve>
     </GridLayout>
