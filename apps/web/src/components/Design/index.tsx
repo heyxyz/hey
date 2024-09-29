@@ -14,6 +14,7 @@ import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
 import NumberedStatDesign from "./NumberedStatDesign";
 import ProfilesDesign from "./ProfilesDesign";
+import RangeSliderDesign from "./RangeSliderDesign";
 import SelectDesign from "./SelectDesign";
 import SpinnerDesign from "./SpinnerDesign";
 import StackedAvatarsDesign from "./StackedAvatarsDesign";
@@ -38,6 +39,7 @@ const Design: NextPage = () => {
         <InputDesign />
         <TextAreaDesign />
         <SelectDesign />
+        <RangeSliderDesign />
         <SpinnerDesign />
         <BadgeDesign />
         <ImageDesign />
