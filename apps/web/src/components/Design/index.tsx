@@ -18,6 +18,7 @@ import RangeSliderDesign from "./RangeSliderDesign";
 import SelectDesign from "./SelectDesign";
 import SpinnerDesign from "./SpinnerDesign";
 import StackedAvatarsDesign from "./StackedAvatarsDesign";
+import TabButtonDesign from "./TabButtonDesign";
 import TextAreaDesign from "./TextAreaDesign";
 import ToggleDesign from "./ToggleDesign";
 import TooltipDesign from "./TooltipDesign";
@@ -42,6 +43,7 @@ const Design: NextPage = () => {
         <RangeSliderDesign />
         <SpinnerDesign />
         <BadgeDesign />
+        <TabButtonDesign />
         <ImageDesign />
         <StackedAvatarsDesign />
         <CardDesign />
