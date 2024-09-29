@@ -9,11 +9,11 @@
 
 ## Installation
 
-We use [pnpm workspaces](https://pnpm.io/workspaces) to manage our monorepo.
+We use [pnpm workspaces](https://pnpm.io/workspaces) to efficiently manage our monorepo.
 
 ### Clone the repository
 
-Ping Yoginth for access to the repository on Pierre, make sure you have amazing ideas and you're ready to build the future of the web.
+To gain access to the repository on Pierre, contact Yoginth and share your innovative ideas—together, let's build the future of the web.
 
 ```bash
 git clone git@git.pierre.co:/repos/hey/hey.git
@@ -21,11 +21,15 @@ git clone git@git.pierre.co:/repos/hey/hey.git
 
 ### Install NVM (Node Version Manager) and pnpm
 
+If you're on macOS, you can install both with Homebrew:
+
 ```bash
 brew install nvm pnpm
 ```
 
 ### Install Node.js
+
+Use `nvm` to install the required version of Node.js:
 
 ```bash
 nvm install
@@ -33,21 +37,35 @@ nvm install
 
 ### Install dependencies
 
+Navigate to the root of the repository and install all dependencies:
+
 ```bash
 pnpm install
 ```
 
 ### Create a `.env` file
 
-Copy the `.env.example` file and rename it to `.env` in all possible packages and apps fill the required variables.
+Copy the `.env.example` file to create a `.env` file in all relevant packages and apps, and fill in the necessary environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Ensure to repeat this step for all packages and apps that require an `.env` file.
 
 ### Start the application
+
+Once everything is set up, run the application in development mode:
 
 ```bash
 pnpm dev
 ```
 
+## Build and Test
+
 ### Build the application
+
+To build the application, run:
 
 ```bash
 pnpm build
@@ -55,6 +73,12 @@ pnpm build
 
 ### Test the application
 
+For running tests in development mode:
+
 ```bash
 pnpm test:dev
 ```
+
+## GitHub Mirror
+
+We manage our repositories using [Pierre](https://pierre.co/). You can view our mirrored repository on GitHub here. While we don't accept pull requests (PRs) on GitHub, you're welcome to open issues.
