@@ -1,8 +1,9 @@
 import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { APP_NAME, HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
+import { ChartBarIcon } from "@heroicons/react/24/outline";
+import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
 import formatDate from "@hey/helpers/datetime/formatDate";
-import { Card, CardHeader, ErrorMessage } from "@hey/ui";
+import { Card, CardHeader, EmptyState, ErrorMessage } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -27,13 +28,13 @@ ChartJS.register(
   Legend
 );
 
-const HeyRevenue: FC = () => {
-  const getSignupsStats = async (): Promise<
-    { date: string; mint_count: number; signups_count: number }[] | null
+const NftRevenue: FC = () => {
+  const getNftRevenueStats = async (): Promise<
+    { date: string; count: number }[] | null
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/lens/internal/stats/hey-revenue`,
+        `${HEY_API_URL}/lens/internal/stats/nft-revenue`,
         { headers: getAuthApiHeaders() }
       );
 
@@ -45,67 +46,58 @@ const HeyRevenue: FC = () => {
 
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
-    queryFn: getSignupsStats,
-    queryKey: ["getSignupsStats"],
+    queryFn: getNftRevenueStats,
+    queryKey: ["getNftRevenueStats"],
     refetchInterval: 5000
   });
 
   if (isLoading) {
     return (
       <Card>
-        <Loader
-          className="my-10"
-          message={`Loading ${APP_NAME} revenue stats...`}
-        />
+        <Loader className="my-10" message="Loading NFT revenue stats..." />
       </Card>
     );
   }
 
   if (error) {
     return (
-      <ErrorMessage
-        error={error}
-        title={`Failed to load ${APP_NAME} revenue stats`}
-      />
+      <ErrorMessage error={error} title="Failed to load NFT revenue stats" />
     );
   }
 
   if (!data) {
-    return null;
+    return (
+      <EmptyState
+        icon={<ChartBarIcon className="size-8" />}
+        message="No data available"
+      />
+    );
   }
 
   return (
     <Card>
       <CardHeader
-        body="Revenue per day for last 30 days"
-        title={`${APP_NAME} Revenue`}
+        body="NFT revenue per day for last 30 days"
+        title="NFT Revenue"
       />
       <div className="m-5">
         <Bar
           data={{
             datasets: [
               {
-                backgroundColor: colors.green["500"],
-                data: data.map((signup) => signup.signups_count),
-                label: "Signups"
-              },
-              {
                 backgroundColor: colors.blue["500"],
                 borderRadius: 3,
-                data: data.map((signup) => signup.mint_count),
+                data: data.map((signup) => signup.count),
                 label: "Mints"
               }
             ],
             labels: data.map((signup) => formatDate(signup.date, "MMM D"))
           }}
-          options={{
-            responsive: true,
-            scales: { x: { stacked: true }, y: { stacked: true } }
-          }}
+          options={{ responsive: true }}
         />
       </div>
     </Card>
   );
 };
 
-export default HeyRevenue;
+export default NftRevenue;
