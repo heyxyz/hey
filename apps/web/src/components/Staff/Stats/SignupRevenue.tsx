@@ -28,13 +28,13 @@ ChartJS.register(
   Legend
 );
 
-const ProRevenue: FC = () => {
-  const getProRevenueStats = async (): Promise<
+const SignupRevenue: FC = () => {
+  const getSignupRevenueStats = async (): Promise<
     { date: string; count: number }[] | null
   > => {
     try {
       const response = await axios.get(
-        `${HEY_API_URL}/internal/stats/pro-revenue`,
+        `${HEY_API_URL}/lens/internal/stats/signup-revenue`,
         { headers: getAuthApiHeaders() }
       );
 
@@ -46,22 +46,22 @@ const ProRevenue: FC = () => {
 
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
-    queryFn: getProRevenueStats,
-    queryKey: ["getProRevenueStats"],
+    queryFn: getSignupRevenueStats,
+    queryKey: ["getSignupRevenueStats"],
     refetchInterval: 5000
   });
 
   if (isLoading) {
     return (
       <Card>
-        <Loader className="my-10" message="Loading pro revenue stats..." />
+        <Loader className="my-10" message="Loading signup revenue stats..." />
       </Card>
     );
   }
 
   if (error) {
     return (
-      <ErrorMessage error={error} title="Failed to load pro revenue stats" />
+      <ErrorMessage error={error} title="Failed to load signup revenue stats" />
     );
   }
 
@@ -77,8 +77,8 @@ const ProRevenue: FC = () => {
   return (
     <Card>
       <CardHeader
-        body="Pro revenue per day for last 30 days"
-        title="Pro Revenue"
+        body="Signup revenue per day for last 30 days"
+        title="Signup Revenue"
       />
       <div className="m-5">
         <Bar
@@ -88,7 +88,7 @@ const ProRevenue: FC = () => {
                 backgroundColor: colors.blue["500"],
                 borderRadius: 3,
                 data: data.map((signup) => signup.count),
-                label: "Upgrades"
+                label: "Signups"
               }
             ],
             labels: data.map((signup) => formatDate(signup.date, "MMM D"))
@@ -100,4 +100,4 @@ const ProRevenue: FC = () => {
   );
 };
 
-export default ProRevenue;
+export default SignupRevenue;
