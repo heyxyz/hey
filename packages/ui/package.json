@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.7.3",
-    "@types/react": "^18.3.9",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.10",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   }
