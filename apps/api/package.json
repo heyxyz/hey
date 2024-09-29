@@ -45,7 +45,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
-    "@types/node": "^22.7.3",
+    "@types/node": "^22.7.4",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
