@@ -25,5 +25,4 @@ fragment ProfileFields on Profile {
   metadata {
     ...ProfileMetadataFields
   }
-  peerToPeerRecommendedByMe
 }

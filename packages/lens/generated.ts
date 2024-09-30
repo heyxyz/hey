@@ -6296,7 +6296,7 @@ export type HandleInfoFieldsFragment = { __typename?: 'HandleInfo', fullHandle: 
 
 export type ImageSetFieldsFragment = { __typename?: 'ImageSet', optimized?: { __typename?: 'Image', uri: any } | null, raw: { __typename?: 'Image', uri: any } };
 
-export type ListProfileFieldsFragment = { __typename?: 'Profile', id: any, peerToPeerRecommendedByMe: boolean, handle?: (
+export type ListProfileFieldsFragment = { __typename?: 'Profile', id: any, handle?: (
     { __typename?: 'HandleInfo' }
     & HandleInfoFieldsFragment
   ) | null, ownedBy: (
@@ -6475,7 +6475,7 @@ export type PostFieldsFragment = { __typename?: 'Post', id: any, isHidden: boole
       & HandleInfoFieldsFragment
     ) }> };
 
-export type ProfileFieldsFragment = { __typename?: 'Profile', id: any, signless: boolean, sponsor: boolean, createdAt: any, interests: Array<string>, peerToPeerRecommendedByMe: boolean, handle?: (
+export type ProfileFieldsFragment = { __typename?: 'Profile', id: any, signless: boolean, sponsor: boolean, createdAt: any, interests: Array<string>, handle?: (
     { __typename?: 'HandleInfo' }
     & HandleInfoFieldsFragment
   ) | null, ownedBy: (
@@ -6521,7 +6521,7 @@ export type ProfileStatsFieldsFragment = { __typename?: 'ProfileStats', id: any,
 
 export type PublicationOperationFieldsFragment = { __typename?: 'PublicationOperations', isNotInterested: boolean, hasBookmarked: boolean, hasReacted: boolean, canMirror: TriStateValue, hasMirrored: boolean, hasQuoted: boolean, hasActed: { __typename?: 'OptimisticStatusResult', value: boolean } };
 
-export type PublicationProfileFieldsFragment = { __typename?: 'Profile', id: any, peerToPeerRecommendedByMe: boolean, handle?: (
+export type PublicationProfileFieldsFragment = { __typename?: 'Profile', id: any, handle?: (
     { __typename?: 'HandleInfo' }
     & HandleInfoFieldsFragment
   ) | null, operations: (
@@ -7155,20 +7155,6 @@ export type LinkHandleToProfileMutationVariables = Exact<{
 
 
 export type LinkHandleToProfileMutation = { __typename?: 'Mutation', linkHandleToProfile: { __typename?: 'LensProfileManagerRelayError', reason: LensProfileManagerRelayErrorReasonType } | { __typename?: 'RelaySuccess', txId: any } };
-
-export type PeerToPeerRecommendMutationVariables = Exact<{
-  request: PeerToPeerRecommendRequest;
-}>;
-
-
-export type PeerToPeerRecommendMutation = { __typename?: 'Mutation', peerToPeerRecommend?: any | null };
-
-export type PeerToPeerUnrecommendMutationVariables = Exact<{
-  request: PeerToPeerRecommendRequest;
-}>;
-
-
-export type PeerToPeerUnrecommendMutation = { __typename?: 'Mutation', peerToPeerUnrecommend?: any | null };
 
 export type RemoveProfileInterestsMutationVariables = Exact<{
   request: ProfileInterestsRequest;
@@ -8112,7 +8098,6 @@ export const ListProfileFieldsFragmentDoc = gql`
   followModule {
     ...FollowModuleFields
   }
-  peerToPeerRecommendedByMe
 }
     ${HandleInfoFieldsFragmentDoc}
 ${NetworkAddressFieldsFragmentDoc}
@@ -8134,7 +8119,6 @@ export const PublicationProfileFieldsFragmentDoc = gql`
   metadata {
     ...ProfileMetadataFields
   }
-  peerToPeerRecommendedByMe
 }
     ${HandleInfoFieldsFragmentDoc}
 ${ProfileOperationsFieldsFragmentDoc}
@@ -8679,7 +8663,6 @@ export const ProfileFieldsFragmentDoc = gql`
   metadata {
     ...ProfileMetadataFields
   }
-  peerToPeerRecommendedByMe
 }
     ${HandleInfoFieldsFragmentDoc}
 ${NetworkAddressFieldsFragmentDoc}
@@ -9268,68 +9251,6 @@ export function useLinkHandleToProfileMutation(baseOptions?: Apollo.MutationHook
 export type LinkHandleToProfileMutationHookResult = ReturnType<typeof useLinkHandleToProfileMutation>;
 export type LinkHandleToProfileMutationResult = Apollo.MutationResult<LinkHandleToProfileMutation>;
 export type LinkHandleToProfileMutationOptions = Apollo.BaseMutationOptions<LinkHandleToProfileMutation, LinkHandleToProfileMutationVariables>;
-export const PeerToPeerRecommendDocument = gql`
-    mutation PeerToPeerRecommend($request: PeerToPeerRecommendRequest!) {
-  peerToPeerRecommend(request: $request)
-}
-    `;
-export type PeerToPeerRecommendMutationFn = Apollo.MutationFunction<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>;
-
-/**
- * __usePeerToPeerRecommendMutation__
- *
- * To run a mutation, you first call `usePeerToPeerRecommendMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePeerToPeerRecommendMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [peerToPeerRecommendMutation, { data, loading, error }] = usePeerToPeerRecommendMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function usePeerToPeerRecommendMutation(baseOptions?: Apollo.MutationHookOptions<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>(PeerToPeerRecommendDocument, options);
-      }
-export type PeerToPeerRecommendMutationHookResult = ReturnType<typeof usePeerToPeerRecommendMutation>;
-export type PeerToPeerRecommendMutationResult = Apollo.MutationResult<PeerToPeerRecommendMutation>;
-export type PeerToPeerRecommendMutationOptions = Apollo.BaseMutationOptions<PeerToPeerRecommendMutation, PeerToPeerRecommendMutationVariables>;
-export const PeerToPeerUnrecommendDocument = gql`
-    mutation PeerToPeerUnrecommend($request: PeerToPeerRecommendRequest!) {
-  peerToPeerUnrecommend(request: $request)
-}
-    `;
-export type PeerToPeerUnrecommendMutationFn = Apollo.MutationFunction<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>;
-
-/**
- * __usePeerToPeerUnrecommendMutation__
- *
- * To run a mutation, you first call `usePeerToPeerUnrecommendMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePeerToPeerUnrecommendMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [peerToPeerUnrecommendMutation, { data, loading, error }] = usePeerToPeerUnrecommendMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function usePeerToPeerUnrecommendMutation(baseOptions?: Apollo.MutationHookOptions<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>(PeerToPeerUnrecommendDocument, options);
-      }
-export type PeerToPeerUnrecommendMutationHookResult = ReturnType<typeof usePeerToPeerUnrecommendMutation>;
-export type PeerToPeerUnrecommendMutationResult = Apollo.MutationResult<PeerToPeerUnrecommendMutation>;
-export type PeerToPeerUnrecommendMutationOptions = Apollo.BaseMutationOptions<PeerToPeerUnrecommendMutation, PeerToPeerUnrecommendMutationVariables>;
 export const RemoveProfileInterestsDocument = gql`
     mutation RemoveProfileInterests($request: ProfileInterestsRequest!) {
   removeProfileInterests(request: $request)
