@@ -1,8 +1,9 @@
 import SinglePublication from "@components/Publication/SinglePublication";
 import Loader from "@components/Shared/Loader";
+import { FlagIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
 import { LimitType, useModLatestReportsQuery } from "@hey/lens";
-import { Card, ErrorMessage } from "@hey/ui";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import ReportDetails from "./ReportDetails";
@@ -37,6 +38,17 @@ const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
 
   if (loading) {
     return <Loader className="my-10" message="Loading reports..." />;
+  }
+
+  if (reports?.length === 0) {
+    return (
+      <EmptyState
+        icon={<FlagIcon className="size-8" />}
+        message="No reports yet!"
+        className="my-5"
+        hideCard
+      />
+    );
   }
 
   if (error) {
