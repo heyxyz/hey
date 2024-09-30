@@ -71,8 +71,6 @@ describe("getAttachmentsData", () => {
     expect(result).toEqual([[]]);
   });
 
-  // Additional test cases
-
   test("should handle multiple attachments of different types", () => {
     const attachments: PublicationMetadataMedia[] = [
       {
