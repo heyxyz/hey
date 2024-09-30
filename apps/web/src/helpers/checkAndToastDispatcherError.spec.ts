@@ -6,9 +6,7 @@ import checkAndToastDispatcherError from "./checkAndToastDispatcherError";
 
 // Mock the `toast.error` function
 vi.mock("react-hot-toast", () => ({
-  toast: {
-    error: vi.fn()
-  }
+  toast: { error: vi.fn() }
 }));
 
 describe("checkAndToastDispatcherError", () => {
