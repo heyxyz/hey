@@ -13,7 +13,7 @@ const sanitizeDisplayName = (
     return null;
   }
 
-  return name.replace(Regex.profileNameFilter, " ").trim();
+  return name.replace(Regex.profileNameFilter, " ").trim().replace(/\s+/g, " ");
 };
 
 export default sanitizeDisplayName;
