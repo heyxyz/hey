@@ -16,4 +16,33 @@ describe("truncateByWords", () => {
 
     expect(truncateByWords(string, count)).toBe(string);
   });
+
+  test("should return the original string if the count is equal to the number of words", () => {
+    const string = "This string has five words";
+    const count = 5;
+
+    expect(truncateByWords(string, count)).toBe(string);
+  });
+
+  test("should handle an empty string", () => {
+    const string = "";
+    const count = 5;
+
+    expect(truncateByWords(string, count)).toBe(string);
+  });
+
+  test("should handle a string with fewer words than the count", () => {
+    const string = "This is short";
+    const count = 5;
+
+    expect(truncateByWords(string, count)).toBe(string);
+  });
+
+  test("should truncate correctly when the count is 0", () => {
+    const string = "This is a string that will be truncated";
+    const count = 0;
+    const expectedOutput = "…";
+
+    expect(truncateByWords(string, count)).toEqual(expectedOutput);
+  });
 });
