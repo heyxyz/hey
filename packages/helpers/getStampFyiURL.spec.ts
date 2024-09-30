@@ -16,4 +16,10 @@ describe("getStampFyiURL", () => {
     expect(result1).toBe(expectedURL);
     expect(result2).toBe(expectedURL);
   });
+
+  test("should return the correct URL when address has leading/trailing whitespaces", () => {
+    const addressWithSpaces = " 0x1234567890123456789012345678901234567890 ";
+    const result = getStampFyiURL(addressWithSpaces);
+    expect(result).toBe(expectedURL);
+  });
 });

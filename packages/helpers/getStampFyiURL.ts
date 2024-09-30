@@ -7,7 +7,7 @@ import urlcat from "urlcat";
  * @returns The cdn.stamp.fyi URL.
  */
 const getStampFyiURL = (address: string): string => {
-  const lowerCaseAddress = address.toLowerCase();
+  const lowerCaseAddress = address.toLowerCase().trim();
   return urlcat("https://cdn.stamp.fyi/avatar/eth::address", {
     address: lowerCaseAddress,
     s: 300
