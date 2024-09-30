@@ -10,4 +10,36 @@ describe("getLennyURL", () => {
 
     expect(result).toBe(expectedURL);
   });
+
+  test("should handle empty ID string", () => {
+    const id = "";
+    const expectedURL = `${HEY_API_URL}/avatar?id=`;
+    const result = getLennyURL(id);
+
+    expect(result).toBe(expectedURL);
+  });
+
+  test("should handle special characters in the ID", () => {
+    const id = "lenny-123!@#";
+    const expectedURL = `${HEY_API_URL}/avatar?id=lenny-123%21%40%23`;
+    const result = getLennyURL(id);
+
+    expect(result).toBe(expectedURL);
+  });
+
+  test("should handle numeric ID", () => {
+    const id = "12345";
+    const expectedURL = `${HEY_API_URL}/avatar?id=12345`;
+    const result = getLennyURL(id);
+
+    expect(result).toBe(expectedURL);
+  });
+
+  test("should handle long ID", () => {
+    const id = "long-id-abcdefghijklmnopqrstuvwxyz1234567890";
+    const expectedURL = `${HEY_API_URL}/avatar?id=${id}`;
+    const result = getLennyURL(id);
+
+    expect(result).toBe(expectedURL);
+  });
 });
