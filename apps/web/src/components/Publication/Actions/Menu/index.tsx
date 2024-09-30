@@ -12,7 +12,6 @@ import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
 import HideComment from "./HideComment";
 import NotInterested from "./NotInterested";
-import Recommend from "./Recommend";
 import Report from "./Report";
 import Share from "./Share";
 import Translate from "./Translate";
@@ -47,7 +46,6 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           {currentProfile ? (
             <>
               <NotInterested publication={publication} />
-              <Recommend publication={publication} />
               <HideComment publication={publication} />
               <Bookmark publication={publication} />
             </>
