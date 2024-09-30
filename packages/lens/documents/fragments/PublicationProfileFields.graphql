@@ -12,5 +12,4 @@ fragment PublicationProfileFields on Profile {
   metadata {
     ...ProfileMetadataFields
   }
-  peerToPeerRecommendedByMe
 }

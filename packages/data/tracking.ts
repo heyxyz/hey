@@ -176,10 +176,6 @@ export const MESSAGES = {
 };
 
 export const GARDENER = {
-  PROFILE: {
-    P2P_RECOMMEND: "P2P recommend profile",
-    P2P_UNRECOMMEND: "P2P unrecommend profile"
-  },
   REPORT: "Gardener report",
   SEARCH_PUBLICATION: "Gardener search publication"
 };
