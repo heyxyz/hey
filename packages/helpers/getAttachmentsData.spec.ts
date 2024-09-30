@@ -70,4 +70,76 @@ describe("getAttachmentsData", () => {
     const result = getAttachmentsData(attachments);
     expect(result).toEqual([[]]);
   });
+
+  // Additional test cases
+
+  test("should handle multiple attachments of different types", () => {
+    const attachments: PublicationMetadataMedia[] = [
+      {
+        __typename: "PublicationMetadataMediaImage",
+        image: { optimized: { uri: "image-uri-1" }, raw: { uri: "raw-uri-1" } }
+      },
+      {
+        __typename: "PublicationMetadataMediaVideo",
+        cover: {
+          optimized: { uri: "cover-uri" },
+          raw: { uri: "raw-cover-uri" }
+        },
+        video: {
+          optimized: { uri: "video-uri" },
+          raw: { uri: "raw-video-uri" }
+        }
+      }
+    ];
+    const result = getAttachmentsData(attachments);
+    expect(result).toEqual([
+      { type: "Image", uri: "image-uri-1" },
+      { coverUri: "cover-uri", type: "Video", uri: "video-uri" }
+    ]);
+  });
+
+  test("should return an array with 'null' values if optimized URIs are missing", () => {
+    const attachments: PublicationMetadataMedia[] = [
+      {
+        __typename: "PublicationMetadataMediaImage",
+        image: { optimized: { uri: null }, raw: { uri: "raw-uri" } }
+      },
+      {
+        __typename: "PublicationMetadataMediaAudio",
+        artist: "John Doe",
+        audio: { optimized: { uri: null }, raw: { uri: "raw-audio-uri" } },
+        cover: { optimized: { uri: null }, raw: { uri: "raw-cover-uri" } }
+      }
+    ];
+    const result = getAttachmentsData(attachments);
+    expect(result).toEqual([
+      { type: "Image", uri: null },
+      { artist: "John Doe", coverUri: null, type: "Audio", uri: null }
+    ]);
+  });
+
+  test("should return an empty array when optimized and raw URIs are missing", () => {
+    const attachments: PublicationMetadataMedia[] = [
+      {
+        __typename: "PublicationMetadataMediaImage",
+        image: { optimized: { uri: null }, raw: { uri: null } }
+      }
+    ];
+    const result = getAttachmentsData(attachments);
+    expect(result).toEqual([{ type: "Image", uri: null }]);
+  });
+
+  test("should handle attachments with missing properties", () => {
+    const attachments: any[] = [
+      {
+        __typename: "PublicationMetadataMediaVideo",
+        video: { optimized: { uri: "video-uri" } }
+        // Missing cover and raw URIs
+      }
+    ];
+    const result = getAttachmentsData(attachments);
+    expect(result).toEqual([
+      { type: "Video", uri: "video-uri", coverUri: undefined }
+    ]);
+  });
 });
