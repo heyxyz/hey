@@ -37,4 +37,51 @@ describe("getFavicon", () => {
 
     expect(result).toBe(expectedFaviconUrl);
   });
+
+  // Additional test cases
+
+  test("should handle subdomains correctly", () => {
+    const url = "https://blog.hey.xyz";
+    const expectedFaviconUrl =
+      "https://external-content.duckduckgo.com/ip3/blog.hey.xyz.ico";
+    const result = getFavicon(url);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
+
+  test("should handle URLs without protocol (assumed as https)", () => {
+    const url = "hey.xyz";
+    const expectedFaviconUrl =
+      "https://external-content.duckduckgo.com/ip3/hey.xyz.ico";
+    const result = getFavicon(`https://${url}`);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
+
+  test("should handle localhost URLs correctly", () => {
+    const url = "http://localhost:3000";
+    const expectedFaviconUrl =
+      "https://external-content.duckduckgo.com/ip3/localhost.ico";
+    const result = getFavicon(url);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
+
+  test("should handle IP address URLs correctly", () => {
+    const url = "http://192.168.0.1";
+    const expectedFaviconUrl =
+      "https://external-content.duckduckgo.com/ip3/192.168.0.1.ico";
+    const result = getFavicon(url);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
+
+  test("should handle URLs with query parameters correctly", () => {
+    const url = "https://hey.xyz?query=test";
+    const expectedFaviconUrl =
+      "https://external-content.duckduckgo.com/ip3/hey.xyz.ico";
+    const result = getFavicon(url);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
 });
