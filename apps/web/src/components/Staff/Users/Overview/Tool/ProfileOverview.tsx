@@ -1,5 +1,4 @@
 import MetaDetails from "@components/Shared/MetaDetails";
-import P2PRecommendation from "@components/Shared/Profile/P2PRecommendation";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
   BanknotesIcon,
@@ -109,9 +108,6 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
             <XCircleIcon className="size-4 text-red-500" />
           )}
         </MetaDetails>
-        <div className="pt-2">
-          <P2PRecommendation profile={profile} />
-        </div>
       </div>
     </>
   );

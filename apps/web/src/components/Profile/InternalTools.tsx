@@ -6,17 +6,15 @@ import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import CreatorTool from "./CreatorTool";
-import GardenerTool from "./GardenerTool";
 
 interface InternalToolsProps {
   profile: Profile;
 }
 
 const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
-  const hasGardenerToolAccess = useFlag(FeatureFlag.Gardener);
   const hasCreatorToolAccess = useFlag(FeatureFlag.CreatorTools);
 
-  if (!hasGardenerToolAccess && !hasCreatorToolAccess) {
+  if (!hasCreatorToolAccess) {
     return null;
   }
 
@@ -30,7 +28,6 @@ const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
       forceRounded
     >
       {hasCreatorToolAccess && <CreatorTool profile={profile} />}
-      {hasGardenerToolAccess && <GardenerTool profile={profile} />}
     </Card>
   );
 };
