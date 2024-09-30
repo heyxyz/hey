@@ -5,10 +5,10 @@ import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
  * @returns Auth API headers
  */
 export const getAuthApiHeadersWithAccessToken = () => {
-  const tokens = hydrateAuthTokens() || {};
+  const tokens = hydrateAuthTokens();
   return {
-    "X-Access-Token": tokens.accessToken || "",
-    "X-Identity-Token": tokens.identityToken || ""
+    "X-Access-Token": tokens.accessToken,
+    "X-Identity-Token": tokens.identityToken
   };
 };
 
@@ -18,6 +18,6 @@ export const getAuthApiHeadersWithAccessToken = () => {
  */
 export const getAuthApiHeaders = () => {
   return {
-    "X-Identity-Token": hydrateAuthTokens()?.identityToken || ""
+    "X-Identity-Token": hydrateAuthTokens()?.identityToken
   };
 };

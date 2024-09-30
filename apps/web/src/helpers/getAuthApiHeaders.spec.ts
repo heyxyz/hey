@@ -36,17 +36,4 @@ describe("getAuthApiHeaders", () => {
     const result = getAuthApiHeaders();
     expect(result).toEqual({ "X-Identity-Token": "mock-identity-token" });
   });
-
-  test("should return undefined tokens if hydrateAuthTokens returns undefined", () => {
-    (hydrateAuthTokens as any).mockReturnValue(undefined);
-
-    const resultWithAccessToken = getAuthApiHeadersWithAccessToken();
-    expect(resultWithAccessToken).toEqual({
-      "X-Access-Token": "",
-      "X-Identity-Token": ""
-    });
-
-    const resultWithoutAccessToken = getAuthApiHeaders();
-    expect(resultWithoutAccessToken).toEqual({ "X-Identity-Token": "" });
-  });
 });
