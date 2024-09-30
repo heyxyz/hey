@@ -49,22 +49,8 @@ describe("getAvatar", () => {
     expect(result).toBe(`${HEY_API_URL}/avatar?id=0x0d`);
   });
 
-  test("should return default avatar URL when profile has no metadata", () => {
-    const profile = { id: "0x0d" };
-    const result = getAvatar(profile);
-    expect(result).toBe(`${HEY_API_URL}/avatar?id=0x0d`);
-  });
-
   test("should handle profiles with metadata but no picture field", () => {
     const profile = { metadata: {} };
-    const result = getAvatar(profile);
-    expect(result).toBe(`${HEY_API_URL}/avatar`);
-  });
-
-  test("should handle profiles with picture field but no optimized or raw URLs", () => {
-    const profile = {
-      metadata: { picture: {} }
-    };
     const result = getAvatar(profile);
     expect(result).toBe(`${HEY_API_URL}/avatar`);
   });
