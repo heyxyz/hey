@@ -22,4 +22,20 @@ describe("getOpenActionActOnKey", () => {
       "unknownOpenAction"
     );
   });
+
+  test('should return "unknownOpenAction" for an empty string', () => {
+    expect(getOpenActionActOnKey("")).toBe("unknownOpenAction");
+  });
+
+  test('should return "unknownOpenAction" for null input', () => {
+    expect(getOpenActionActOnKey(null as any)).toBe("unknownOpenAction");
+  });
+
+  test('should return "unknownOpenAction" for undefined input', () => {
+    expect(getOpenActionActOnKey(undefined as any)).toBe("unknownOpenAction");
+  });
+
+  test('should return "unknownOpenAction" for numeric input', () => {
+    expect(getOpenActionActOnKey(123 as any)).toBe("unknownOpenAction");
+  });
 });
