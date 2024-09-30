@@ -1,7 +1,9 @@
 import HigherActions from "@components/Publication/Actions/HigherActions";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
+import { GARDENER } from "@hey/data/tracking";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
 import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
@@ -21,6 +23,7 @@ const SearchFeed: FC = () => {
     setRefreshing
   } = useModFilterStore();
 
+  const [searchInput, setSearchInput] = useState("");
   const [query, setQuery] = useState("");
 
   const request: PublicationSearchRequest = {
@@ -60,81 +63,62 @@ const SearchFeed: FC = () => {
     }
   };
 
-  const Search = () => {
-    return (
-      <div
+  return (
+    <div className="space-y-5">
+      <form
         className="flex items-center space-x-2"
-        // onSubmit={() => {
-        //   Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: value });
-        //   setQuery(value);
-        // }}
+        onSubmit={(event) => {
+          event.preventDefault();
+          setQuery(searchInput);
+          Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: searchInput });
+        }}
       >
         <Input
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => setSearchInput(event.target.value)}
           placeholder="Search Publications"
           type="text"
-          value={query}
+          value={searchInput}
         />
         <Button size="lg">Search</Button>
-      </div>
-    );
-  };
-
-  if (loading) {
-    return (
-      <div className="space-y-5">
-        <Search />
+      </form>
+      {loading ? (
         <PublicationsShimmer />
-      </div>
-    );
-  }
-
-  if (!query || publications?.length === 0) {
-    return (
-      <div className="space-y-5">
-        <Search />
+      ) : !query || publications?.length === 0 ? (
         <EmptyState
           icon={<ChatBubbleBottomCenterIcon className="size-8" />}
           message="No posts yet!"
         />
-      </div>
-    );
-  }
+      ) : error ? (
+        <ErrorMessage error={error} title="Failed to load search feed" />
+      ) : (
+        <Virtuoso
+          className="[&>div>div]:space-y-5"
+          components={{ Footer: () => <div className="pb-5" /> }}
+          computeItemKey={(index, publication) => `${publication.id}-${index}`}
+          data={publications}
+          endReached={onEndReached}
+          itemContent={(_, publication) => {
+            const targetPublication = isMirrorPublication(publication)
+              ? publication.mirrorOn
+              : publication;
 
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load search feed" />;
-  }
-
-  return (
-    <div className="space-y-5">
-      <Search />
-      <Virtuoso
-        className="[&>div>div]:space-y-5"
-        components={{ Footer: () => <div className="pb-5" /> }}
-        computeItemKey={(index, publication) => `${publication.id}-${index}`}
-        data={publications}
-        endReached={onEndReached}
-        itemContent={(_, publication) => {
-          const targetPublication = isMirrorPublication(publication)
-            ? publication.mirrorOn
-            : publication;
-
-          return (
-            <Card>
-              <SinglePublication
-                isFirst
-                isLast={false}
-                publication={publication as AnyPublication}
-                showActions={false}
-                showThread={false}
-              />
-              <div className="divider" />
-              <HigherActions publication={targetPublication} />
-            </Card>
-          );
-        }}
-        useWindowScroll
-      />
+            return (
+              <Card>
+                <SinglePublication
+                  isFirst
+                  isLast={false}
+                  publication={publication as AnyPublication}
+                  showActions={false}
+                  showThread={false}
+                />
+                <div className="divider" />
+                <HigherActions publication={targetPublication} />
+              </Card>
+            );
+          }}
+          useWindowScroll
+        />
+      )}
     </div>
   );
 };
