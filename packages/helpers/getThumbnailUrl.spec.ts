@@ -10,7 +10,7 @@ describe("getThumbnailUrl", () => {
     }
   };
 
-  test("should return an thumbnail if no metadata is provided", () => {
+  test("should return the thumbnail fallback URL if no metadata is provided", () => {
     const metadata = undefined;
     const result = getThumbnailUrl(metadata);
     const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
@@ -23,8 +23,32 @@ describe("getThumbnailUrl", () => {
     expect(result).toEqual("https://example.com/cover.png");
   });
 
-  test("should return the image URL if no original cover URL is available", () => {
+  test("should return the fallback thumbnail URL if no cover URL is available", () => {
     const metadata = { ...mockMetadata, cover: undefined };
+    const result = getThumbnailUrl(metadata as any);
+    const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
+    expect(result).toEqual(expectedUrl);
+  });
+
+  test("should return fallback thumbnail if cover's optimized uri is null", () => {
+    const metadata = {
+      cover: {
+        optimized: { uri: null },
+        raw: { uri: "https://example.com/cover-raw.png" }
+      }
+    };
+    const result = getThumbnailUrl(metadata as any);
+    const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
+    expect(result).toEqual(expectedUrl);
+  });
+
+  test("should return fallback thumbnail if optimized uri is an empty string", () => {
+    const metadata = {
+      cover: {
+        optimized: { uri: "" },
+        raw: { uri: "https://example.com/cover-raw.png" }
+      }
+    };
     const result = getThumbnailUrl(metadata as any);
     const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
     expect(result).toEqual(expectedUrl);
