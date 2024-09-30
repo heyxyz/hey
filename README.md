@@ -82,3 +82,7 @@ pnpm test:dev
 ## GitHub Mirror
 
 We manage our repositories using [Pierre](https://pierre.co/). You can view our mirrored repository on GitHub here. While we don't accept pull requests (PRs) on GitHub, you're welcome to open issues.
+
+## License
+
+This project is licensed under the AGPL-3.0 license. See the [LICENSE](./LICENSE) file for more details.
