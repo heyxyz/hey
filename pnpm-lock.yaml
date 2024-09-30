@@ -7742,8 +7742,8 @@ packages:
     resolution: {integrity: sha512-SU/971Kt5qVQfJpyDveVhQ/vya+5hvrjClFOcr8c0Fq5aODJjMwutrOfCU+eCnVD5gpx1Q3fEqkyom77zH1iIg==}
     engines: {node: '>= 0.4'}
 
-  json-stream-stringify@3.1.4:
-    resolution: {integrity: sha512-oGoz05ft577LolnXFQHD2CjnXDxXVA5b8lHwfEZgRXQUZeCMo6sObQQRq+NXuHQ3oTeMZHHmmPY2rjVwyqR62A==}
+  json-stream-stringify@3.1.5:
+    resolution: {integrity: sha512-wurRuTiw27mck9MWaUIGAunfwqhPDxnXQVN/+Rzi+IEQUUALU10AZs1nWkSdtjH7PAVuAUcqQjH11S/JHOWeaA==}
     engines: {node: '>=7.10.1'}
 
   json-to-pretty-yaml@1.2.2:
@@ -19719,7 +19719,7 @@ snapshots:
       glob: 7.2.0
       immutable: 4.3.7
       io-ts: 1.10.4
-      json-stream-stringify: 3.1.4
+      json-stream-stringify: 3.1.5
       keccak: 3.0.4
       lodash: 4.17.21
       mnemonist: 0.38.5
@@ -20422,7 +20422,7 @@ snapshots:
       jsonify: 0.0.1
       object-keys: 1.1.1
 
-  json-stream-stringify@3.1.4: {}
+  json-stream-stringify@3.1.5: {}
 
   json-to-pretty-yaml@1.2.2:
     dependencies:
