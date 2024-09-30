@@ -74,4 +74,40 @@ describe("getNftChainInfo", () => {
 
     expect(getNftChainInfo("base-testnet")).toEqual(expectedInfo);
   });
+
+  test("should return Polygon chain info when given chain polygon", () => {
+    const expectedInfo = {
+      logo: `${STATIC_IMAGES_URL}/chains/polygon.svg`,
+      name: "Polygon"
+    };
+
+    expect(getNftChainInfo("polygon")).toEqual(expectedInfo);
+  });
+
+  test("should return Polygon Amoy chain info when given chain amoy", () => {
+    const expectedInfo = {
+      logo: `${STATIC_IMAGES_URL}/chains/polygon.svg`,
+      name: "Polygon Amoy"
+    };
+
+    expect(getNftChainInfo("amoy")).toEqual(expectedInfo);
+  });
+
+  test("should return default Ethereum chain info for unknown chain", () => {
+    const expectedInfo = {
+      logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`,
+      name: "Ethereum"
+    };
+
+    expect(getNftChainInfo("unknown-chain")).toEqual(expectedInfo);
+  });
+
+  test("should return default Ethereum chain info for empty string chain", () => {
+    const expectedInfo = {
+      logo: `${STATIC_IMAGES_URL}/chains/ethereum.svg`,
+      name: "Ethereum"
+    };
+
+    expect(getNftChainInfo("")).toEqual(expectedInfo);
+  });
 });
