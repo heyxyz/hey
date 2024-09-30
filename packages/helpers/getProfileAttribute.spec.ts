@@ -25,4 +25,38 @@ describe("getProfileAttribute", () => {
     const attributes = undefined;
     expect(getProfileAttribute("location", attributes)).toEqual("");
   });
+
+  test("should return an empty string if the key is not found", () => {
+    const attributes: MetadataAttribute[] = [
+      {
+        key: "website",
+        type: MetadataAttributeType.String,
+        value: "https://www.example.com"
+      }
+    ];
+    expect(getProfileAttribute("location", attributes)).toEqual("");
+  });
+
+  test("should return an empty string if the value for the key is empty", () => {
+    const attributes: MetadataAttribute[] = [
+      { key: "location", type: MetadataAttributeType.String, value: "" }
+    ];
+    expect(getProfileAttribute("location", attributes)).toEqual("");
+  });
+
+  test("should return an empty string when attributes array is empty", () => {
+    const attributes: MetadataAttribute[] = [];
+    expect(getProfileAttribute("location", attributes)).toEqual("");
+  });
+
+  test("should return an empty string if key is valid but value is null", () => {
+    const attributes: MetadataAttribute[] = [
+      {
+        key: "location",
+        type: MetadataAttributeType.String,
+        value: null as any
+      }
+    ];
+    expect(getProfileAttribute("location", attributes)).toEqual("");
+  });
 });
