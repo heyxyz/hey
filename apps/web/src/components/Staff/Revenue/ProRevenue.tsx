@@ -93,7 +93,10 @@ const ProRevenue: FC = () => {
             ],
             labels: data.map((signup) => formatDate(signup.date, "MMM D"))
           }}
-          options={{ responsive: true }}
+          options={{
+            plugins: { legend: { display: false } },
+            responsive: true
+          }}
         />
       </div>
     </Card>
