@@ -26,4 +26,23 @@ describe("getPublicationViewCountById", () => {
 
     expect(result).toEqual(0);
   });
+
+  test("should return 0 if views array is empty", () => {
+    const views: PublicationViewCount[] = [];
+    const id = "1";
+    const result = getPublicationViewCountById(views, id);
+
+    expect(result).toEqual(0);
+  });
+
+  test("should return 0 if id is an empty string", () => {
+    const views: PublicationViewCount[] = [
+      { id: "1", views: 10 },
+      { id: "2", views: 5 }
+    ];
+    const id = "";
+    const result = getPublicationViewCountById(views, id);
+
+    expect(result).toEqual(0);
+  });
 });

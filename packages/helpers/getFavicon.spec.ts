@@ -38,8 +38,6 @@ describe("getFavicon", () => {
     expect(result).toBe(expectedFaviconUrl);
   });
 
-  // Additional test cases
-
   test("should handle subdomains correctly", () => {
     const url = "https://blog.hey.xyz";
     const expectedFaviconUrl =
