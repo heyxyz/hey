@@ -15,8 +15,8 @@ const getMentions = (text: string): [] | ProfileMentioned[] => {
     return {
       profile: {},
       snapshotHandleMentioned: {
-        fullHandle: handle,
-        localName: handleWithoutNameSpace
+        fullHandle: handle.toLowerCase(),
+        localName: handleWithoutNameSpace.toLowerCase()
       },
       stillOwnsHandle: true
     } as ProfileMentioned;
