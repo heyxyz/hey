@@ -41,8 +41,8 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
           data={{
             datasets: [
               {
-                backgroundColor: colors.blue["500"],
-                borderColor: colors.blue["800"],
+                backgroundColor: colors.blue[500],
+                borderColor: colors.blue[800],
                 data: impressionsToday.map((impression) => impression.count),
                 fill: true,
                 label: "Impressions"
