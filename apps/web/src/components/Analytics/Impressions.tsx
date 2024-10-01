@@ -78,7 +78,10 @@ const Impressions: FC = () => {
             ],
             labels: data.map((stat) => formatDate(stat.date, "MMM D"))
           }}
-          options={{ responsive: true }}
+          options={{
+            plugins: { legend: { display: false } },
+            responsive: true
+          }}
         />
       </div>
     </Card>
