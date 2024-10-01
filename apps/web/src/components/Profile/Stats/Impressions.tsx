@@ -13,7 +13,6 @@ import {
   Title,
   Tooltip
 } from "chart.js";
-import { useTheme } from "next-themes";
 import type { FC } from "react";
 import { Bar } from "react-chartjs-2";
 import colors from "tailwindcss/colors";
@@ -32,8 +31,6 @@ interface ImpressionsProps {
 }
 
 const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
-  const { resolvedTheme } = useTheme();
-
   const getImpressionsStats = async (): Promise<
     { count: number; date: string }[] | null
   > => {
@@ -82,10 +79,7 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
           data={{
             datasets: [
               {
-                backgroundColor:
-                  resolvedTheme === "dark"
-                    ? colors.zinc["900"]
-                    : colors.zinc["400"],
+                backgroundColor: colors.blue["500"],
                 borderRadius: 3,
                 data: data.map((impression) => impression.count),
                 label: "Impressions"
