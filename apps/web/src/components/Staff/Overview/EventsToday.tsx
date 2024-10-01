@@ -41,8 +41,8 @@ const EventsToday: FC<EventsTodayProps> = ({ eventsToday }) => {
           data={{
             datasets: [
               {
-                backgroundColor: colors.blue["500"],
-                borderColor: colors.blue["800"],
+                backgroundColor: colors.blue[500],
+                borderColor: colors.blue[800],
                 data: eventsToday.map((event) => event.count),
                 fill: true,
                 label: "Events"

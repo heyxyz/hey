@@ -79,7 +79,7 @@ const Impressions: FC<ImpressionsProps> = ({ profileId }) => {
           data={{
             datasets: [
               {
-                backgroundColor: colors.blue["500"],
+                backgroundColor: colors.blue[500],
                 borderRadius: 3,
                 data: data.map((impression) => impression.count),
                 label: "Impressions"

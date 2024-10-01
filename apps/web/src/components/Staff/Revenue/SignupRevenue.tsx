@@ -85,7 +85,7 @@ const SignupRevenue: FC = () => {
           data={{
             datasets: [
               {
-                backgroundColor: colors.blue["500"],
+                backgroundColor: colors.blue[500],
                 borderRadius: 3,
                 data: data.map((signup) => signup.count),
                 label: "Signups"

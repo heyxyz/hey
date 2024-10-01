@@ -116,14 +116,14 @@ const Overview: FC = () => {
           data={{
             datasets: [
               {
-                backgroundColor: colors.green["500"],
+                backgroundColor: colors.green[500],
                 data: data.map(
                   (stat) => stat[primaryType.toLowerCase() as keyof typeof stat]
                 ),
                 label: primaryType
               },
               {
-                backgroundColor: colors.blue["500"],
+                backgroundColor: colors.blue[500],
                 borderRadius: 3,
                 data: data.map(
                   (stat) =>

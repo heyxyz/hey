@@ -70,7 +70,7 @@ const Impressions: FC = () => {
           data={{
             datasets: [
               {
-                backgroundColor: colors.blue["500"],
+                backgroundColor: colors.blue[500],
                 data: data.map((stat) => stat.impressions),
                 label: "Impressions",
                 borderRadius: 3
