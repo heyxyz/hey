@@ -11,7 +11,6 @@ import {
   Title,
   Tooltip
 } from "chart.js";
-import { useTheme } from "next-themes";
 import type { FC } from "react";
 import { Line } from "react-chartjs-2";
 import colors from "tailwindcss/colors";
@@ -33,8 +32,6 @@ interface ImpressionsTodayProps {
 }
 
 const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
-  const { resolvedTheme } = useTheme();
-
   return (
     <>
       <div className="divider" />
@@ -44,12 +41,8 @@ const ImpressionsToday: FC<ImpressionsTodayProps> = ({ impressionsToday }) => {
           data={{
             datasets: [
               {
-                backgroundColor:
-                  resolvedTheme === "dark"
-                    ? colors.zinc["900"]
-                    : colors.zinc["400"],
-                borderColor:
-                  resolvedTheme === "dark" ? colors.white : colors.black,
+                backgroundColor: colors.blue["500"],
+                borderColor: colors.blue["800"],
                 data: impressionsToday.map((impression) => impression.count),
                 fill: true,
                 label: "Impressions"
