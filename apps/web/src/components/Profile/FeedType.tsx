@@ -1,7 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import profileThemeFonts from "@helpers/profileThemeFonts";
 import {
-  ChartBarIcon,
   ChatBubbleLeftIcon,
   FilmIcon,
   PencilSquareIcon,
@@ -12,7 +11,6 @@ import { TabButton } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { ProfileFeedType } from "src/enums";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import MediaFilter from "./Filters/MediaFilter";
 
@@ -22,7 +20,6 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
-  const { isPro } = useProStore();
   const { theme } = useProfileThemeStore();
 
   const switchTab = (type: ProfileFeedType) => {
@@ -54,11 +51,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       icon: <ShoppingBagIcon className="size-4" />,
       name: "Collected",
       type: ProfileFeedType.Collects
-    },
-    isPro && {
-      icon: <ChartBarIcon className="size-4" />,
-      name: "Stats",
-      type: ProfileFeedType.Stats
     }
   ].filter(
     (tab): tab is { icon: JSX.Element; name: string; type: ProfileFeedType } =>

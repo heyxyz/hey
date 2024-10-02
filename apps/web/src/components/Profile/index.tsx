@@ -30,7 +30,6 @@ import Details from "./Details";
 import Feed from "./Feed";
 import FeedType from "./FeedType";
 import ProfilePageShimmer from "./Shimmer";
-import Stats from "./Stats";
 import SuspendedDetails from "./SuspendedDetails";
 
 const ViewProfile: NextPage = () => {
@@ -59,8 +58,7 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Stats.toLowerCase()
+    ProfileFeedType.Collects.toLowerCase()
   ];
 
   const feedType = type
@@ -158,8 +156,6 @@ const ViewProfile: NextPage = () => {
                   profileId={profile.id}
                   type={feedType}
                 />
-              ) : feedType === ProfileFeedType.Stats ? (
-                <Stats profileId={profile.id} />
               ) : null}
             </>
           )}
