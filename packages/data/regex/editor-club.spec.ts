@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { regexLookbehindAvailable } from "../../can-use-regex-lookbehind";
-import { EditorRegex } from "../../regex";
+import { EditorRegex } from "../regex";
+import regexLookbehindAvailable from "../utils/regexLookbehindAvailable";
 
 describe("EditorRegex.club", () => {
   test("should match valid club mentions when lookbehind is available", () => {

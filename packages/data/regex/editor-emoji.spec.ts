@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { EditorRegex } from "../../regex";
+import { EditorRegex } from "../regex";
 
 describe("EditorRegex.emoji", () => {
   test("should match a valid emoji at the end of the line", () => {

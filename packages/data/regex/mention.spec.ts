@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Regex } from "../../regex";
+import { Regex } from "../regex";
 
 describe("Regex.mention", () => {
   test("should match a valid mention with namespace and handle", () => {

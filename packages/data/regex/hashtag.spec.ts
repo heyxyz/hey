@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Regex } from "../../regex";
+import { Regex } from "../regex";
 
 const validate = (text: string) => {
   Regex.hashtag.lastIndex = 0;
