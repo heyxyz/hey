@@ -1,4 +1,4 @@
-import { regexLookbehindAvailable } from "./can-use-regex-lookbehind";
+import regexLookbehindAvailable from "./utils/regexLookbehindAvailable";
 
 const RESTRICTED_SYMBOLS = "☑️✓✔✅";
 

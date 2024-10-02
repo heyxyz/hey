@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { regexLookbehindAvailable } from "../../can-use-regex-lookbehind";
-import { EditorRegex } from "../../regex";
+import { EditorRegex } from "../regex";
+import regexLookbehindAvailable from "../utils/regexLookbehindAvailable";
 
 describe("EditorRegex.mention", () => {
   test("should match valid mentions when lookbehind is available", () => {

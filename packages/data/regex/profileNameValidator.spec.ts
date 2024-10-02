@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Regex } from "../../regex";
+import { Regex } from "../regex";
 
 describe("Regex.profileNameValidator", () => {
   test("should return true for a valid profile name with no restricted symbols", () => {
