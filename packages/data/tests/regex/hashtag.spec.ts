@@ -6,7 +6,7 @@ const validate = (text: string) => {
   return Regex.hashtag.test(text);
 };
 
-describe("hashtag regex", () => {
+describe("Regex.hashtag", () => {
   test("should pass for valid hashtags", () => {
     expect(validate("#hashtag")).toBe(true);
     expect(validate("#HelloWorld")).toBe(true);

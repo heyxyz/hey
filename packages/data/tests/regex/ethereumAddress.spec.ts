@@ -6,7 +6,7 @@ const validate = (text: string) => {
   return Regex.ethereumAddress.test(text);
 };
 
-describe("ethereumAddress regex", () => {
+describe("Regex.ethereumAddress", () => {
   test("should pass for valid Ethereum addresses", () => {
     expect(validate("0x5AEDA56215b167893e80B4fE645BA6d5Bab767DE")).toBe(true);
     expect(validate("5aeda56215b167893e80b4fe645ba6d5bab767de")).toBe(true);
