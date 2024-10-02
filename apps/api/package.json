@@ -8,6 +8,7 @@
     "get-invoice-countries": "ts-node ./src/script/get-invoice-countries.ts",
     "save-invoices": "ts-node ./src/script/save-invoices.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
+    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -51,6 +52,7 @@
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
   }
 }
