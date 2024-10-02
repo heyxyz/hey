@@ -6,7 +6,7 @@ const validate = (text: string) => {
   return Regex.cashtag.test(text);
 };
 
-describe("cashtag regex", () => {
+describe("Regex.cashtag", () => {
   test("should pass for valid cashtag", () => {
     expect(validate("$bonsai")).toBe(true);
     expect(validate("$BONSAI")).toBe(true);

@@ -6,7 +6,7 @@ const validate = (text: string) => {
   return Regex.handle.test(text);
 };
 
-describe("handle regex", () => {
+describe("Regex.handle", () => {
   test("should pass for valid handles", () => {
     expect(validate("example")).toBe(true);
     expect(validate("handle123")).toBe(true);
