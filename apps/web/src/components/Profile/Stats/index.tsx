@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import Impressions from "./Impressions";
 import ProfileStats from "./ProfileStats";
 import SuperFollowRevenue from "./SuperFollowRevenue";
 
@@ -11,7 +10,6 @@ const Stats: FC<StatsProps> = ({ profileId }) => {
   return (
     <div className="space-y-5">
       <ProfileStats profileId={profileId} />
-      <Impressions profileId={profileId} />
       <SuperFollowRevenue profileId={profileId} />
     </div>
   );
