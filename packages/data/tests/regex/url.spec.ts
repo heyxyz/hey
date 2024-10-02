@@ -6,7 +6,7 @@ const validate = (text: string) => {
   return Regex.url.test(text);
 };
 
-describe("url regex", () => {
+describe("Regex.url", () => {
   test("should pass for valid URLs", () => {
     expect(validate("http://www.example.com")).toBe(true);
     expect(validate("https://www.example.com")).toBe(true);
