@@ -29,26 +29,6 @@ model MembershipNft {
   createdAt         DateTime @default(now())
 }
 
-model Banner {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String
-  createdAt DateTime @default(now())
-
-  // Relations
-  dissmissedBanners DissmissedBanner[]
-}
-
-model DissmissedBanner {
-  profileId String
-  bannerId  String   @db.Uuid
-  banner    Banner   @relation(fields: [bannerId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-
-  @@id([profileId, bannerId])
-  // Indexes
-  @@index([profileId, bannerId])
-}
-
 model Poll {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime  @default(now())
