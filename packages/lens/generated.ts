@@ -7595,16 +7595,6 @@ export type FeedQuery = { __typename?: 'Query', feed: { __typename?: 'PaginatedF
           & PublicationProfileFieldsFragment
         ) }> }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type FollowRevenuesQueryVariables = Exact<{
-  request: FollowRevenueRequest;
-}>;
-
-
-export type FollowRevenuesQuery = { __typename?: 'Query', followRevenues: { __typename?: 'FollowRevenueResult', revenues: Array<{ __typename?: 'RevenueAggregate', total: (
-        { __typename?: 'Amount' }
-        & AmountFieldsFragment
-      ) }> } };
-
 export type FollowersQueryVariables = Exact<{
   request: FollowersRequest;
 }>;
@@ -11723,50 +11713,6 @@ export type FeedQueryHookResult = ReturnType<typeof useFeedQuery>;
 export type FeedLazyQueryHookResult = ReturnType<typeof useFeedLazyQuery>;
 export type FeedSuspenseQueryHookResult = ReturnType<typeof useFeedSuspenseQuery>;
 export type FeedQueryResult = Apollo.QueryResult<FeedQuery, FeedQueryVariables>;
-export const FollowRevenuesDocument = gql`
-    query FollowRevenues($request: FollowRevenueRequest!) {
-  followRevenues(request: $request) {
-    revenues {
-      total {
-        ...AmountFields
-      }
-    }
-  }
-}
-    ${AmountFieldsFragmentDoc}`;
-
-/**
- * __useFollowRevenuesQuery__
- *
- * To run a query within a React component, call `useFollowRevenuesQuery` and pass it any options that fit your needs.
- * When your component renders, `useFollowRevenuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFollowRevenuesQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useFollowRevenuesQuery(baseOptions: Apollo.QueryHookOptions<FollowRevenuesQuery, FollowRevenuesQueryVariables> & ({ variables: FollowRevenuesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(FollowRevenuesDocument, options);
-      }
-export function useFollowRevenuesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FollowRevenuesQuery, FollowRevenuesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(FollowRevenuesDocument, options);
-        }
-export function useFollowRevenuesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FollowRevenuesQuery, FollowRevenuesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FollowRevenuesQuery, FollowRevenuesQueryVariables>(FollowRevenuesDocument, options);
-        }
-export type FollowRevenuesQueryHookResult = ReturnType<typeof useFollowRevenuesQuery>;
-export type FollowRevenuesLazyQueryHookResult = ReturnType<typeof useFollowRevenuesLazyQuery>;
-export type FollowRevenuesSuspenseQueryHookResult = ReturnType<typeof useFollowRevenuesSuspenseQuery>;
-export type FollowRevenuesQueryResult = Apollo.QueryResult<FollowRevenuesQuery, FollowRevenuesQueryVariables>;
 export const FollowersDocument = gql`
     query Followers($request: FollowersRequest!) {
   followers(request: $request) {
