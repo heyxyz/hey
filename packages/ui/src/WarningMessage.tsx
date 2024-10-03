@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from "react";
 import cn from "../cn";
+import { H6 } from "./Typography";
 
 interface WarningMessageProps {
   className?: string;
@@ -23,7 +24,7 @@ export const WarningMessage: FC<WarningMessageProps> = ({
         className
       )}
     >
-      {title ? <h3 className="font-medium text-sm">{title}</h3> : null}
+      {title ? <H6>{title}</H6> : null}
       <div className="text-sm">{message}</div>
     </div>
   );
