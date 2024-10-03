@@ -61,7 +61,7 @@ const updateProStatus = async (hash: Address) => {
     const numberOfDays = Math.round(amount / dailyRate);
     const newExpiry = new Date(Date.now() + numberOfDays * 24 * 60 * 60 * 1000);
 
-    if (!id) {
+    if (!id || id === "0x") {
       throw new Error("updateProStatus: No profile ID found");
     }
 
