@@ -1,13 +1,14 @@
 import SingleProfile from "@components/Shared/SingleProfile";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { IS_MAINNET } from "@hey/data/constants";
-import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
+import getInternalProfile from "@hey/helpers/api/getInternalProfile";
 import type { Profile } from "@hey/lens";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import LeafwatchDetails from "./LeafwatchDetails";
 import ManagedProfiles from "./ManagedProfiles";
 import Permissions from "./Permissions";
+import ProOverview from "./ProOverview";
 import ProfileOverview from "./ProfileOverview";
 import ProfilePreferences from "./ProfilePreferences";
 import Rank from "./Rank";
@@ -18,8 +19,8 @@ interface ProfileStaffToolProps {
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const { data: preferences } = useQuery({
-    queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
-    queryKey: ["getInternalPreferences", profile.id || ""]
+    queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
+    queryKey: ["getInternalProfile", profile.id || ""]
   });
 
   return (
@@ -34,7 +35,12 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         showUserPreview={false}
       />
       <ProfileOverview profile={profile} />
-      {preferences ? <ProfilePreferences preferences={preferences} /> : null}
+      {preferences ? (
+        <>
+          <ProOverview preferences={preferences} />
+          <ProfilePreferences preferences={preferences} />
+        </>
+      ) : null}
       {IS_MAINNET ? (
         <>
           <LeafwatchDetails profileId={profile.id} />

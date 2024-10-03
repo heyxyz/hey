@@ -8,7 +8,7 @@ import {
   STAFF_PICK_PERMISSION_ID,
   VERIFIED_PERMISSION_ID
 } from "@hey/db/constants";
-import getInternalPreferences from "@hey/helpers/api/getInternalPreferences";
+import getInternalProfile from "@hey/helpers/api/getInternalProfile";
 import type { Profile } from "@hey/lens";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -31,8 +31,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getInternalPreferences(profile.id, getAuthApiHeaders()),
-    queryKey: ["getInternalPreferences", profile.id]
+    queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
+    queryKey: ["getInternalProfile", profile.id]
   });
 
   useEffect(() => {
