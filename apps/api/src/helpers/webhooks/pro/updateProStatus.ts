@@ -1,7 +1,9 @@
+import { MONTHLY_PRO_PRICE } from "@hey/data/constants";
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import getRpc from "src/helpers/getRpc";
+import getRates from "src/helpers/lens/getRates";
 import type { Address, PublicClient } from "viem";
 import { createPublicClient, formatEther } from "viem";
 import { polygon } from "viem/chains";
@@ -45,9 +47,16 @@ const updateProStatus = async (hash: Address) => {
       transport: getRpc({ mainnet: true })
     });
 
+    const fiatResult = await getRates();
+    const usdRate =
+      fiatResult.find((rate) => rate.symbol === "WMATIC")?.fiat || 0;
+    const maticRate = usdRate
+      ? Number((MONTHLY_PRO_PRICE / usdRate).toFixed(2))
+      : MONTHLY_PRO_PRICE;
+    const dailyRate = maticRate / 31;
+
     const transaction = await fetchTransactionWithRetry(client, hash);
     const id = transaction.input;
-    const dailyRate = 0.333;
     const amount = Number.parseFloat(formatEther(transaction.value));
     const numberOfDays = Math.round(amount / dailyRate);
     const newExpiry = new Date(Date.now() + numberOfDays * 24 * 60 * 60 * 1000);
