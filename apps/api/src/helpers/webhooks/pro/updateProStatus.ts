@@ -70,6 +70,10 @@ const updateProStatus = async (hash: Address) => {
       orderBy: { expiresAt: "desc" }
     });
 
+    if (existingPro?.transactionHash === hash) {
+      throw new Error("updateProStatus: Transaction hash already used");
+    }
+
     let expiresAt: Date;
     if (existingPro) {
       // Extend the expiration date if the profile already has a subscription
