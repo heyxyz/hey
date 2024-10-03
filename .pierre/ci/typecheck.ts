@@ -5,7 +5,7 @@ import { Icons, annotate, run } from "pierre";
 const ANSI_COLOR_REGEX = /\x1b\[[0-9;]*m/g;
 
 // Your existing error regex
-const ERROR_REGEX = /^.*?: (.*?):([0-9]+):[0-9]+ - (.*?): (.*)$/;
+const ERROR_REGEX = /^(.*?): (.*?):([0-9]+):[0-9]+ - (.*?): (.*)$/;
 
 export const label = "Typecheck";
 
@@ -32,12 +32,13 @@ export default async () => {
       continue;
     }
 
-    const [, filepath, lineNo, errorCode, errorMessage] = match;
+    const [, packageName, filepath, lineNo, errorCode, errorMessage] = match;
+    const packagePath = packageName.replace(" typecheck", "");
 
     annotate({
       icon: Icons.CiFailed,
       color: "red",
-      filename: filepath,
+      filename: `${packagePath}/${filepath}`,
       line: Number.parseInt(lineNo),
       label: "Typescript failure",
       description: `${errorMessage} (${errorCode})`
