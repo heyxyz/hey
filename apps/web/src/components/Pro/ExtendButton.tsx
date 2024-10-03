@@ -111,14 +111,14 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
                   This is a non-refundable subscription. You will be charged
                   immediately for the duration of the subscription.
                 </div>
-                {proExpiresAt && (
-                  <div className="text-sm">
-                    New expiration date:{" "}
-                    <b>
-                      {formatDate(addMonthsToDate(proExpiresAt, months) as any)}
-                    </b>
-                  </div>
-                )}
+                <div className="text-sm">
+                  New expiration date:{" "}
+                  <b>
+                    {formatDate(
+                      addMonthsToDate(proExpiresAt || new Date(), months) as any
+                    )}
+                  </b>
+                </div>
                 <div className="text-sm">
                   Price: <b>{(maticRate * months).toFixed(2)} POL (MATIC)</b>
                 </div>
