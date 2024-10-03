@@ -21,7 +21,7 @@ const validateIsPro = async (
   }
 
   try {
-    const payload = parseJwt(identityToken);
+    const payload = parseJwt(identityToken as number);
 
     const data = await prisma.pro.findFirst({
       where: { profileId: payload.id, expiresAt: { gt: new Date() } },
