@@ -69,6 +69,12 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
     }
   };
 
+  const buttonTitle = transactionLoading
+    ? "Transaction pending..."
+    : isPro
+      ? "Extend Pro"
+      : "Upgrade to Pro";
+
   return (
     <>
       <Button
@@ -77,11 +83,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
         size={size}
         disabled={isLoading || transactionLoading}
       >
-        {transactionLoading
-          ? "Transaction pending..."
-          : isPro
-            ? "Extend Pro"
-            : "Upgrade to Pro"}
+        {buttonTitle}
       </Button>
       <Modal
         onClose={() => setShowUpgradeModal(false)}
@@ -125,11 +127,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
             onClick={handleUpgrade}
             disabled={isLoading || transactionLoading}
           >
-            {transactionLoading
-              ? "Transaction pending..."
-              : isPro
-                ? "Extend Pro"
-                : "Upgrade to Pro"}
+            {buttonTitle}
           </Button>
         </div>
       </Modal>
