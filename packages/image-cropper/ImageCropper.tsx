@@ -172,7 +172,7 @@ class ImageCropper extends Component<CropperProps, State> {
     };
   };
 
-  imageRef: RefObject<HTMLImageElement> = createRef();
+  imageRef: RefObject<HTMLImageElement> = createRef() as any;
 
   isTouching = false;
 
