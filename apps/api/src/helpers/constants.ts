@@ -2,8 +2,6 @@ export const HEY_USER_AGENT = "HeyBot/0.1 (like TwitterBot)";
 export const UNLEASH_API_URL = "https://unleash.hey.xyz/api/frontend";
 
 // Cache
-// Cache for 1 minute
-export const CACHE_AGE_1_MINUTE = "public, s-maxage=60, max-age=60";
 // Cache for 30 minutes
 export const CACHE_AGE_30_MINS = "public, s-maxage=1800, max-age=1800";
 // Cache for 6 hours
