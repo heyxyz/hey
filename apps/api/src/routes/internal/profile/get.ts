@@ -1,7 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
-import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
-import type { Preferences } from "@hey/types/hey";
+import type { InternalProfile } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -18,18 +17,8 @@ export const get = [
       return noBody(res);
     }
 
-    const cacheKey = `preference:${id}`;
-    const cachedData = await getRedis(cacheKey);
-
-    if (cachedData) {
-      logger.info(`(cached) Internal profile preferences fetched for ${id}`);
-      return res
-        .status(200)
-        .json({ result: JSON.parse(cachedData), success: true });
-    }
-
     try {
-      const [preference, permissions, email, membershipNft] =
+      const [preference, permissions, email, membershipNft, pro] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { id: id as string } }),
           prisma.profilePermission.findMany({
@@ -37,10 +26,15 @@ export const get = [
             where: { enabled: true, profileId: id as string }
           }),
           prisma.email.findUnique({ where: { id: id as string } }),
-          prisma.membershipNft.findUnique({ where: { id: id as string } })
+          prisma.membershipNft.findUnique({ where: { id: id as string } }),
+          prisma.pro.findFirst({
+            where: { profileId: id as string, expiresAt: { gt: new Date() } },
+            orderBy: { expiresAt: "desc" }
+          })
         ]);
 
-      const response: Preferences = {
+      const response: InternalProfile = {
+        pro: pro?.id ? { isPro: true, expiresAt: pro.expiresAt } : null,
         appIcon: preference?.appIcon || 0,
         email: email?.email || null,
         emailVerified: Boolean(email?.verified),
@@ -53,8 +47,7 @@ export const get = [
         permissions: permissions.map(({ permission }) => permission.key)
       };
 
-      await setRedis(cacheKey, response);
-      logger.info(`Internal profile preferences fetched for ${id}`);
+      logger.info(`Internal profile fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

@@ -11,12 +11,12 @@ import {
   XCircleIcon
 } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import type { Preferences } from "@hey/types/hey";
+import type { InternalProfile } from "@hey/types/hey";
 import { H5 } from "@hey/ui";
 import type { FC } from "react";
 
 interface ProfilePreferencesProps {
-  preferences: Preferences;
+  preferences: InternalProfile;
 }
 
 const ProfilePreferences: FC<ProfilePreferencesProps> = ({ preferences }) => {
