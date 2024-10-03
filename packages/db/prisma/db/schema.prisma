@@ -84,7 +84,7 @@ model Pro {
   id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   profileId       String
   transactionHash String
-  amount          Int
+  amount          Float
   expiresAt       DateTime
   createdAt       DateTime @default(now())
 
