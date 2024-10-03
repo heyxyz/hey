@@ -1,20 +1,20 @@
 import { HEY_API_URL } from "@hey/data/constants";
-import type { Preferences } from "@hey/types/hey";
+import type { InternalProfile } from "@hey/types/hey";
 import axios from "axios";
 
 /**
- * Get internal profile preferences
+ * Get internal profile
  * @param id profile id
  * @param headers auth headers
- * @returns profile preferences
+ * @returns internal profile
  */
-const getInternalPreferences = async (
+const getInternalProfile = async (
   id: string,
   headers: any
-): Promise<Preferences> => {
+): Promise<InternalProfile> => {
   try {
-    const response: { data: { result: Preferences } } = await axios.get(
-      `${HEY_API_URL}/internal/preferences/get`,
+    const response: { data: { result: InternalProfile } } = await axios.get(
+      `${HEY_API_URL}/internal/profile/get`,
       { headers, params: { id } }
     );
 
@@ -26,9 +26,10 @@ const getInternalPreferences = async (
       emailVerified: false,
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
-      permissions: []
+      permissions: [],
+      pro: null
     };
   }
 };
 
-export default getInternalPreferences;
+export default getInternalProfile;

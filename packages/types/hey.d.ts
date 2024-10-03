@@ -80,8 +80,12 @@ export type Preferences = {
 };
 
 export type Pro = {
-  expiresAt: Date | null;
   isPro: boolean;
+  expiresAt: Date | null;
+};
+
+export type InternalProfile = Preferences & {
+  pro: Pro | null;
 };
 
 export type ProfileTheme = {

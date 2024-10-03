@@ -28,7 +28,7 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [profilePermission, proStatus, profileStatus, profileTheme] =
+      const [profilePermission, pro, profileStatus, profileTheme] =
         await prisma.$transaction([
           prisma.profilePermission.findFirst({
             where: {
@@ -44,11 +44,11 @@ export const get = [
           prisma.profileTheme.findUnique({ where: { id: id as string } })
         ]);
 
-      const isPro = proStatus?.id;
+      const isPro = pro?.id;
       const response: ProfileDetails = {
         isSuspended:
           profilePermission?.permissionId === SUSPENDED_PERMISSION_ID,
-        pro: isPro ? { expiresAt: proStatus.expiresAt, isPro: true } : null,
+        pro: isPro ? { isPro: true, expiresAt: pro.expiresAt } : null,
         status: isPro ? profileStatus || null : null,
         theme: isPro ? (profileTheme as ProfileTheme) || null : null
       };
