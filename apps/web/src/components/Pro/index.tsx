@@ -1,10 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import {
-  APP_NAME,
-  MONTHLY_PRO_PRICE,
-  STATIC_IMAGES_URL
-} from "@hey/data/constants";
+import { APP_NAME, MONTHLY_PRO_PRICE } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import { H3, H4, H5 } from "@hey/ui";
@@ -14,18 +10,15 @@ import { useEffect } from "react";
 import { useProStore } from "src/store/non-persisted/useProStore";
 import ExtendButton from "./ExtendButton";
 
-const details = {
-  features: [
-    "Extended Analytics",
-    "Choose your app icon",
-    "Set Profile Status",
-    "Higher video and audio upload limits",
-    "Pro Badge on your profile",
-    "Early access to new features",
-    "Priority support"
-  ],
-  price: MONTHLY_PRO_PRICE
-};
+const features = [
+  "Extended Analytics",
+  "Choose your app icon",
+  "Set Profile Status",
+  "Higher video and audio upload limits",
+  "Pro Badge on your profile",
+  "Early access to new features",
+  "Priority support"
+];
 
 const Pro: NextPage = () => {
   const { proExpiresAt } = useProStore();
@@ -64,19 +57,14 @@ const Pro: NextPage = () => {
           )}
         >
           <p className="flex items-baseline space-x-3">
-            <img
-              alt="POL"
-              className="size-7"
-              src={`${STATIC_IMAGES_URL}/tokens/matic.svg`}
-            />
             <span className="font-bold text-5xl text-gray-900 tracking-tight dark:text-white">
-              {details.price}
+              ${MONTHLY_PRO_PRICE}
             </span>
             <span className="ld-text-gray-500">/month</span>
           </p>
           <p className="ld-text-gray-500 mt-3">Billed monthly</p>
           <ul className="ld-text-gray-500 mt-5 space-y-1 text-sm">
-            {details.features.map((feature) => (
+            {features.map((feature) => (
               <li className="flex items-center space-x-3" key={feature}>
                 <CheckIcon aria-hidden="true" className="size-5" />
                 <span>{feature}</span>

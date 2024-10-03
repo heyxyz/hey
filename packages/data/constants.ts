@@ -50,7 +50,7 @@ export const ZERO_PUBLICATION_ID = "0x00-0x00";
 export const HANDLE_PREFIX = "lens/";
 export const CLUB_HANDLE_PREFIX = "club/";
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
-export const MONTHLY_PRO_PRICE = 10;
+export const MONTHLY_PRO_PRICE = 5;
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? "0x100372BBF7f975f6b1448fB11AB0F814b2740EEd"
   : "0x75120677aBF34ae95a916C6E9DbB610a06536CC3";
