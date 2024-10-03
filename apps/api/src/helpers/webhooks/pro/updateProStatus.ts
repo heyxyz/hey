@@ -56,7 +56,10 @@ const updateProStatus = async (hash: Address) => {
       throw new Error("updateProStatus: No profile ID found");
     }
 
-    const existingPro = await prisma.pro.findUnique({ where: { id } });
+    const existingPro = await prisma.pro.findFirst({
+      where: { profileId: id, expiresAt: { gt: new Date() } },
+      orderBy: { expiresAt: "desc" }
+    });
 
     let expiresAt: Date;
     if (existingPro) {
@@ -69,16 +72,8 @@ const updateProStatus = async (hash: Address) => {
       expiresAt = newExpiry;
     }
 
-    const payload = {
-      amount,
-      latestTransactionHash: hash,
-      expiresAt
-    };
-
-    const data = await prisma.pro.upsert({
-      create: { ...payload, id },
-      update: payload,
-      where: { id }
+    const data = await prisma.pro.create({
+      data: { amount, transactionHash: hash, expiresAt, profileId: id }
     });
 
     await delRedis(`profile:${id}`);
