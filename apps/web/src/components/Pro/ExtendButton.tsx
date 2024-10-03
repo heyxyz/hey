@@ -3,7 +3,7 @@ import { MONTHLY_PRO_PRICE, PRO_EOA_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import addMonthsToDate from "@hey/helpers/datetime/addMonthsToDate";
 import formatDate from "@hey/helpers/datetime/formatDate";
-import { Button, Modal, RangeSlider } from "@hey/ui";
+import { Button, Modal, RangeSlider, WarningMessage } from "@hey/ui";
 import plur from "plur";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
@@ -97,44 +97,53 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
         title={isPro ? "Extend" : "Upgrade"}
       >
         <div className="m-5 space-y-5">
-          <div className="space-y-2">
-            <div>
-              {isPro ? "Extend your" : "Upgrade to"} Pro subscription for{" "}
-              <b>
-                {months} {plur("month", months)}
-              </b>
-            </div>
-            <div className="ld-text-gray-500 text-sm">
-              This is a non-refundable subscription. You will be charged
-              immediately for the duration of the subscription.
-            </div>
-            {proExpiresAt && (
-              <div className="text-sm">
-                New expiration date:{" "}
-                <b>
-                  {formatDate(addMonthsToDate(proExpiresAt, months) as any)}
-                </b>
+          {usdRate !== 0 ? (
+            <>
+              <div className="space-y-2">
+                <div>
+                  {isPro ? "Extend your" : "Upgrade to"} Pro subscription for{" "}
+                  <b>
+                    {months} {plur("month", months)}
+                  </b>
+                </div>
+                <div className="ld-text-gray-500 text-sm">
+                  This is a non-refundable subscription. You will be charged
+                  immediately for the duration of the subscription.
+                </div>
+                {proExpiresAt && (
+                  <div className="text-sm">
+                    New expiration date:{" "}
+                    <b>
+                      {formatDate(addMonthsToDate(proExpiresAt, months) as any)}
+                    </b>
+                  </div>
+                )}
+                <div className="text-sm">
+                  Price: <b>{(maticRate * months).toFixed(2)} POL (MATIC)</b>
+                </div>
               </div>
-            )}
-            <div className="text-sm">
-              Price: <b>{(maticRate * months).toFixed(2)} POL (MATIC)</b>
-            </div>
-          </div>
-          <RangeSlider
-            displayValue={months.toString()}
-            defaultValue={[months]}
-            showValueInThumb
-            max={50}
-            min={1}
-            onValueChange={(value) => setMonths(value[0])}
-          />
-          <Button
-            className="w-full"
-            onClick={handleUpgrade}
-            disabled={isLoading || transactionLoading}
-          >
-            {buttonTitle}
-          </Button>
+              <RangeSlider
+                displayValue={months.toString()}
+                defaultValue={[months]}
+                showValueInThumb
+                max={50}
+                min={1}
+                onValueChange={(value) => setMonths(value[0])}
+              />
+              <Button
+                className="w-full"
+                onClick={handleUpgrade}
+                disabled={isLoading || transactionLoading}
+              >
+                {buttonTitle}
+              </Button>
+            </>
+          ) : (
+            <WarningMessage
+              title="Failed to fetch rates"
+              message="Please try again later."
+            />
+          )}
         </div>
       </Modal>
     </>
