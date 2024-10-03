@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import cn from "../cn";
+import { H6 } from "./Typography";
 
 interface ErrorMessageProps {
   className?: string;
@@ -24,7 +25,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
       )}
     >
       <div className="flex flex-wrap items-center gap-2">
-        {title ? <h3 className="font-medium">{title}</h3> : null}
+        {title ? <H6>{title}</H6> : null}
       </div>
       <div className="break-words">{error?.message}</div>
     </div>
