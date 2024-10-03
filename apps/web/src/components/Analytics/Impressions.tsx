@@ -73,7 +73,7 @@ const Impressions: FC = () => {
                 backgroundColor: colors.blue[500],
                 data: data.map((stat) => stat.impressions),
                 label: "Impressions",
-                borderRadius: 3
+                borderRadius: 5
               }
             ],
             labels: data.map((stat) => formatDate(stat.date, "MMM D"))

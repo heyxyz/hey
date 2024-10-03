@@ -29,7 +29,7 @@ ChartJS.register(
 
 const Overview: FC = () => {
   const [primaryType, setPrimaryType] = useState<string>("Likes");
-  const [secondaryType, setSecondaryType] = useState<string>("Comments");
+  const [secondaryType, setSecondaryType] = useState<string>("None");
 
   const getOverview = async (): Promise<
     {
@@ -73,6 +73,7 @@ const Overview: FC = () => {
   }
 
   const types = [
+    "None",
     "Likes",
     "Comments",
     "Collects",
@@ -83,17 +84,21 @@ const Overview: FC = () => {
     "Bookmarks"
   ];
 
-  const primaryOptions = types.map((type) => ({
-    label: type,
-    selected: type === primaryType,
-    value: type
-  }));
+  const primaryOptions = types
+    .filter((type) => type !== "None")
+    .map((type) => ({
+      label: type,
+      selected: type === primaryType,
+      value: type
+    }));
 
-  const secondaryOptions = types.map((type) => ({
-    label: type,
-    selected: type === secondaryType,
-    value: type
-  }));
+  const secondaryOptions = types
+    .filter((type) => type !== primaryType)
+    .map((type) => ({
+      label: type,
+      selected: type === secondaryType,
+      value: type
+    }));
 
   return (
     <Card>
@@ -117,6 +122,7 @@ const Overview: FC = () => {
             datasets: [
               {
                 backgroundColor: colors.green[500],
+                borderRadius: secondaryType === "None" ? 5 : 0,
                 data: data.map(
                   (stat) => stat[primaryType.toLowerCase() as keyof typeof stat]
                 ),
@@ -124,7 +130,7 @@ const Overview: FC = () => {
               },
               {
                 backgroundColor: colors.blue[500],
-                borderRadius: 3,
+                borderRadius: 5,
                 data: data.map(
                   (stat) =>
                     stat[secondaryType.toLowerCase() as keyof typeof stat]
