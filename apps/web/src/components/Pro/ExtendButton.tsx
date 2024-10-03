@@ -116,7 +116,8 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
                   <b>
                     {formatDate(
                       addMonthsToDate(proExpiresAt || new Date(), months) as any
-                    )}
+                    )}{" "}
+                    (±3 days)
                   </b>
                 </div>
                 <div className="text-sm">
