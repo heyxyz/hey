@@ -73,7 +73,7 @@ pnpm build
 
 ### Test the application
 
-For running tests in development mode:
+For running tests in development mode
 
 ```bash
 pnpm test:dev
