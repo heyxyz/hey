@@ -50,6 +50,11 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
     }
   }, [isSuccess]);
 
+  const usdRate = fiatRates.find((rate) => rate.symbol === "WMATIC")?.fiat || 0;
+  const maticRate = usdRate
+    ? Number((MONTHLY_PRO_PRICE / usdRate).toFixed(2))
+    : MONTHLY_PRO_PRICE;
+
   const handleUpgrade = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
@@ -61,7 +66,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
       await sendTransactionAsync({
         data: currentProfile.id,
         to: PRO_EOA_ADDRESS,
-        value: parseEther((MONTHLY_PRO_PRICE * months).toString())
+        value: parseEther((maticRate * months).toString())
       });
       setShowUpgradeModal(false);
     } catch (error) {
@@ -71,10 +76,6 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
     }
   };
 
-  const usdRate = fiatRates.find((rate) => rate.symbol === "WMATIC")?.fiat || 0;
-  const maticRate = usdRate
-    ? Number((MONTHLY_PRO_PRICE / usdRate).toFixed(2))
-    : MONTHLY_PRO_PRICE;
   const buttonTitle = transactionLoading
     ? "Transaction pending..."
     : isPro
