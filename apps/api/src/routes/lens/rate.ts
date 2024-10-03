@@ -22,7 +22,7 @@ export const get = [
       }
 
       const result = await getRates();
-      await setRedis(cacheKey, result, 1800);
+      await setRedis(cacheKey, result, 300);
       logger.info("[Lens] Fetched USD conversion rates");
 
       return res
