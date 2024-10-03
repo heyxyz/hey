@@ -81,11 +81,12 @@ model AllowedToken {
 }
 
 model Pro {
-  id                    String   @id
-  latestTransactionHash String
-  amount                Int
-  expiresAt             DateTime
-  createdAt             DateTime @default(now())
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId       String
+  transactionHash String
+  amount          Int
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
 
   // Indexes
   @@index([expiresAt])
