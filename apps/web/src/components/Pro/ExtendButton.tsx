@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { parseEther } from "viem";
 import { useSendTransaction, useTransactionReceipt } from "wagmi";
 
@@ -21,6 +22,7 @@ interface ExtendButtonProps {
 const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
   const { currentProfile } = useProfileStore();
   const { isPro, proExpiresAt } = useProStore();
+  const { fiatRates } = useRatesStore();
 
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [months, setMonths] = useState(5);
@@ -69,6 +71,10 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
     }
   };
 
+  const usdRate = fiatRates.find((rate) => rate.symbol === "WMATIC")?.fiat || 0;
+  const maticRate = usdRate
+    ? Number((MONTHLY_PRO_PRICE / usdRate).toFixed(2))
+    : MONTHLY_PRO_PRICE;
   const buttonTitle = transactionLoading
     ? "Transaction pending..."
     : isPro
@@ -111,7 +117,7 @@ const ExtendButton: FC<ExtendButtonProps> = ({ size = "lg" }) => {
               </div>
             )}
             <div className="text-sm">
-              Price: <b>{MONTHLY_PRO_PRICE * months} POL (MATIC)</b>
+              Price: <b>{(maticRate * months).toFixed(2)} POL (MATIC)</b>
             </div>
           </div>
           <RangeSlider

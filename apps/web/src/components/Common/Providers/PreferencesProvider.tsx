@@ -4,7 +4,6 @@ import { HEY_API_URL } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
 import getAllTokens from "@hey/helpers/api/getAllTokens";
 import getPreferences from "@hey/helpers/api/getPreferences";
-import type { FiatRate } from "@hey/types/lens";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -29,7 +28,7 @@ const PreferencesProvider: FC = () => {
     setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
-    setLoading
+    setLoading: setPreferencesLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
 
@@ -38,7 +37,7 @@ const PreferencesProvider: FC = () => {
   }, [pathname]);
 
   const getPreferencesData = async () => {
-    setLoading(true);
+    setPreferencesLoading(true);
     const preferences = await getPreferences(getAuthApiHeaders());
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
@@ -54,12 +53,12 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
     );
-    setLoading(false);
+    setPreferencesLoading(false);
 
     return true;
   };
 
-  const getVerifiedMembersData = async () => {
+  const getVerifiedMembers = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/misc/verified`);
       setVerifiedMembers(response.data.result || []);
@@ -69,18 +68,19 @@ const PreferencesProvider: FC = () => {
     }
   };
 
-  const getAllowedTokensData = async () => {
+  const getAllowedTokens = async () => {
     const tokens = await getAllTokens();
     setAllowedTokens(tokens);
     return tokens;
   };
 
-  const getFiatRatesData = async (): Promise<FiatRate[]> => {
+  const getFiatRates = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/lens/rate`);
-      return response.data.result || [];
+      setFiatRates(response.data.result || []);
+      return true;
     } catch {
-      return [];
+      return false;
     }
   };
 
@@ -90,20 +90,17 @@ const PreferencesProvider: FC = () => {
     queryKey: ["getPreferences", sessionProfileId || ""]
   });
   useQuery({
-    queryFn: getVerifiedMembersData,
+    queryFn: getVerifiedMembers,
     queryKey: ["getVerifiedMembers"]
   });
   useQuery({
-    queryFn: getAllowedTokensData,
+    queryFn: getAllowedTokens,
     queryKey: ["getAllowedTokens"]
   });
   useQuery({
-    queryFn: () =>
-      getFiatRatesData().then((rates) => {
-        setFiatRates(rates);
-        return rates;
-      }),
-    queryKey: ["getFiatRates"]
+    queryFn: getFiatRates,
+    queryKey: ["getFiatRates"],
+    refetchInterval: 10000
   });
 
   return null;
