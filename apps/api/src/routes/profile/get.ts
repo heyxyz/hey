@@ -37,7 +37,8 @@ export const get = [
             }
           }),
           prisma.pro.findFirst({
-            where: { profileId: id as string, expiresAt: { gt: new Date() } }
+            where: { profileId: id as string, expiresAt: { gt: new Date() } },
+            orderBy: { expiresAt: "desc" }
           }),
           prisma.profileStatus.findUnique({ where: { id: id as string } }),
           prisma.profileTheme.findUnique({ where: { id: id as string } })

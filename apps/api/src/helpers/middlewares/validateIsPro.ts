@@ -24,10 +24,8 @@ const validateIsPro = async (
     const payload = parseJwt(identityToken);
 
     const data = await prisma.pro.findFirst({
-      where: {
-        profileId: payload.id,
-        expiresAt: { gt: new Date() }
-      }
+      where: { profileId: payload.id, expiresAt: { gt: new Date() } },
+      orderBy: { expiresAt: "desc" }
     });
 
     if (data?.id) {
