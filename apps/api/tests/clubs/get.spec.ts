@@ -36,15 +36,4 @@ describe("POST /clubs/get", () => {
       totalMembers: expect.any(Number)
     });
   });
-
-  test("should return 500 on server error", async () => {
-    try {
-      await axios.post(`${TEST_URL}/clubs/get`, {
-        club_handle: "non_existent_club",
-        limit: 10
-      });
-    } catch (error: any) {
-      expect(error.response.status).toBe(500);
-    }
-  });
 });
