@@ -16,19 +16,19 @@ const ogTest = async () => {
 
 const webTest = async () => {
   await run("cd apps/web && pnpm test:dev", {
-    label: "Running web tests"
+    label: "Running Web tests"
   });
 };
 
 const dataTest = async () => {
   await run("cd packages/data && pnpm test:dev", {
-    label: "Running data tests"
+    label: "Running Data tests"
   });
 };
 
 const helpersTest = async () => {
   await run("cd packages/helpers && pnpm test:dev", {
-    label: "Running helpers tests"
+    label: "Running Helpers tests"
   });
 };
 
