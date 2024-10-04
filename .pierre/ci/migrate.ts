@@ -9,7 +9,13 @@ export default async ({ branch }) => {
     });
   } else {
     await run("cd packages/db && pnpm prisma:migrate", {
-      label: "Migrating DB"
+      label: "Migrating Production DB",
+      env: { DATABASE_URL: process.env.DATABASE_URL as string }
+    });
+
+    await run("cd packages/db && pnpm prisma:migrate", {
+      label: "Migrating Test DB",
+      env: { DATABASE_URL: process.env.TEST_DATABASE_URL as string }
     });
   }
 };
