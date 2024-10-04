@@ -2,7 +2,8 @@ import {
   AVATAR,
   HEY_API_URL,
   HEY_IMAGEKIT_URL,
-  IPFS_GATEWAY
+  IPFS_GATEWAY,
+  TEST_LENS_ID
 } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
 import getAvatar from "./getAvatar";
@@ -44,9 +45,9 @@ describe("getAvatar", () => {
   });
 
   test("should use profile's ownedBy address to build URL when all else fails", () => {
-    const profile = { id: "0x0d" };
+    const profile = { id: TEST_LENS_ID };
     const result = getAvatar(profile);
-    expect(result).toBe(`${HEY_API_URL}/avatar?id=0x0d`);
+    expect(result).toBe(`${HEY_API_URL}/avatar?id=${TEST_LENS_ID}`);
   });
 
   test("should handle profiles with metadata but no picture field", () => {
