@@ -1,18 +1,13 @@
-import { TEST_AUTH_TOKEN } from "./constants";
+import dotenv from "dotenv";
 
-const getTestAuthHeaders = (type: "user" | "admin" | "gardener") => {
-  const token =
-    type === "user"
-      ? TEST_AUTH_TOKEN
-      : type === "admin"
-        ? TEST_AUTH_TOKEN
-        : type === "gardener"
-          ? TEST_AUTH_TOKEN
-          : null;
+dotenv.config({ override: true });
 
+const TEST_AUTH_TOKEN = process.env.TEST_AUTH_TOKEN;
+
+const getTestAuthHeaders = () => {
   return {
-    "X-Access-Token": token,
-    "X-Identity-Token": token
+    "X-Access-Token": TEST_AUTH_TOKEN,
+    "X-Identity-Token": TEST_AUTH_TOKEN
   };
 };
 
