@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon -w src -x tsx src/server.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
-    "test": "vitest run",
-    "test:dev": "start-server-and-test dev http://localhost:4784 test",
+    "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -50,7 +49,6 @@
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.7",
-    "start-server-and-test": "^2.0.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
     "vitest": "^2.1.2"
