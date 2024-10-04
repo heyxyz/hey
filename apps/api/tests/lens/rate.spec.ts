@@ -1,6 +1,6 @@
 import axios from "axios";
 import { describe, expect, test } from "vitest";
-import { TEST_URL } from "../constants";
+import { TEST_URL } from "../helpers/constants";
 
 describe("GET /lens/rate", () => {
   test("should return 200 and valid rate and structure", async () => {
