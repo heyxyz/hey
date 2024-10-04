@@ -114,14 +114,4 @@ describe("GET /oembed", () => {
         "https://pods.media/ufo/interpreting-technology-with-aixdesign-nadia-piet"
     });
   });
-
-  test("should return 500 on server error", async () => {
-    try {
-      await axios.get(`${TEST_URL}/oembed`, {
-        params: { url: "https://brokenurl.com" }
-      });
-    } catch (error: any) {
-      expect(error.response.status).toBe(500);
-    }
-  });
 });

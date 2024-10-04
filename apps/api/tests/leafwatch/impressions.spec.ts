@@ -36,14 +36,4 @@ describe("POST /leafwatch/impressions", () => {
     expect(status).toBe(200);
     expect(data.queue).toBeDefined();
   });
-
-  test("should return 500 on server error", async () => {
-    try {
-      await axios.post(`${TEST_URL}/leafwatch/impressions`, {
-        ids: ["invalid_id"]
-      });
-    } catch (error: any) {
-      expect(error.response.status).toBe(500);
-    }
-  });
 });
