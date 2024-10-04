@@ -1,4 +1,4 @@
-import { SUSPENDED_PERMISSION_ID } from "@hey/db/constants";
+import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
@@ -32,7 +32,7 @@ export const get = [
         await prisma.$transaction([
           prisma.profilePermission.findFirst({
             where: {
-              permissionId: SUSPENDED_PERMISSION_ID,
+              permissionId: PermissionId.Suspended,
               profileId: id as string
             }
           }),
@@ -46,8 +46,7 @@ export const get = [
 
       const isPro = pro?.id;
       const response: ProfileDetails = {
-        isSuspended:
-          profilePermission?.permissionId === SUSPENDED_PERMISSION_ID,
+        isSuspended: profilePermission?.permissionId === PermissionId.Suspended,
         pro: isPro ? { isPro: true, expiresAt: pro.expiresAt } : null,
         status: isPro ? profileStatus || null : null,
         theme: isPro ? (profileTheme as ProfileTheme) || null : null

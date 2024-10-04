@@ -2,6 +2,7 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
+import { PermissionId } from "@hey/data/permissions";
 import type { MirrorablePublication } from "@hey/lens";
 import { Button } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -42,9 +43,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
       <Button
         className="flex justify-center"
         icon={<NoSymbolIcon className="size-4" />}
-        onClick={() =>
-          updateFeatureFlag("8ed8b26a-279d-4111-9d39-a40164b273a0")
-        }
+        onClick={() => updateFeatureFlag(PermissionId.Suspended)}
         size="sm"
         variant="danger"
       >
@@ -53,9 +52,7 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
       <Button
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}
-        onClick={() =>
-          updateFeatureFlag("df931ea4-109f-4fde-a8b5-4b2170730e8c")
-        }
+        onClick={() => updateFeatureFlag(PermissionId.CommentSuspended)}
         size="sm"
         variant="danger"
       >
