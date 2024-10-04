@@ -13,6 +13,8 @@ export default async ({ branch }) => {
       env: { DATABASE_URL: process.env.DATABASE_URL as string }
     });
 
+    console.log(process.env.TEST_DATABASE_URL);
+
     await run("cd packages/db && pnpm prisma:migrate", {
       label: "Migrating Test DB",
       env: { DATABASE_URL: process.env.TEST_DATABASE_URL as string }
