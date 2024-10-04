@@ -3,6 +3,8 @@ import { run } from "pierre";
 export const label = "Migrate DB";
 
 export default async ({ branch }) => {
+  console.log(process.env.TEST_DATABASE_URL);
+
   if (branch.name !== "main") {
     await run('echo "Skipping DB Migration on non-main branches 🚫"', {
       label: "Skipping DB Migration"
@@ -12,8 +14,6 @@ export default async ({ branch }) => {
       label: "Migrating Production DB",
       env: { DATABASE_URL: process.env.DATABASE_URL as string }
     });
-
-    console.log(process.env.TEST_DATABASE_URL);
 
     await run("cd packages/db && pnpm prisma:migrate", {
       label: "Migrating Test DB",
