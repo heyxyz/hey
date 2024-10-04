@@ -1,28 +1,17 @@
-import type { Request, Response } from "express";
-import { describe, expect, test, vi } from "vitest";
-import { get } from "../src/routes/meta";
+import axios from "axios";
+import { TEST_URL } from "src/helpers/constants";
+import { describe, expect, test } from "vitest";
 
 describe("GET /meta", () => {
   test("should respond with status 200 and correct meta information", async () => {
-    const req = {} as Request;
-    const json = vi.fn();
-    const status = vi.fn(() => ({ json }));
-    const res = { status } as unknown as Response;
-    const next = vi.fn();
+    const { data, status } = await axios.get(`${TEST_URL}/meta`);
 
-    // Mock environment variables
-    process.env.RAILWAY_DEPLOYMENT_ID = "test-deployment";
-    process.env.RAILWAY_REPLICA_ID = "test-replica";
-    process.env.RAILWAY_SNAPSHOT_ID = "test-snapshot";
-
-    await get[1](req, res, next);
-
-    expect(status).toHaveBeenCalledWith(200);
-    expect(json).toHaveBeenCalledWith({
+    expect(status).toBe(200);
+    expect(data).toEqual({
       meta: {
-        deployment: "test-deployment",
-        replica: "test-replica",
-        snapshot: "test-snapshot"
+        deployment: "unknown",
+        replica: "unknown",
+        snapshot: "unknown"
       },
       responseTimes: expect.objectContaining({
         clickhouse: expect.any(String),
