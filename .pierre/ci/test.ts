@@ -20,9 +20,24 @@ const apiTest = async () => {
     env: { DATABASE_URL }
   });
 
-  await run("curl http://localhost:4784/health", {
-    label: "Checking API health"
-  });
+  let attempts = 10;
+  while (attempts > 0) {
+    try {
+      await run("curl http://localhost:4784/health", {
+        label: "Checking API health"
+      });
+      console.log("API is healthy!");
+      break;
+    } catch {
+      attempts--;
+      console.log(`API not ready yet. Retrying... (${10 - attempts}/10)`);
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait for 3 seconds before retrying
+    }
+  }
+
+  if (attempts === 0) {
+    throw new Error("API failed to start in the given time.");
+  }
 
   await run("cd apps/api && pnpm test:dev", {
     label: "Running API tests",
