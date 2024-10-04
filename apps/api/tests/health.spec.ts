@@ -1,15 +1,12 @@
-import type { Request, Response } from "express";
-import { describe, expect, test, vi } from "vitest";
-import { get } from "../src/routes/health";
+import axios from "axios";
+import { TEST_URL } from "src/helpers/constants";
+import { describe, expect, test } from "vitest";
 
 describe("GET /health", () => {
-  test('should respond with json containing { ping: "pong" }', async () => {
-    const req = {} as Request;
-    const json = vi.fn();
-    const res = { json } as unknown as Response;
+  test("should respond with pong", async () => {
+    const { data, status } = await axios.get(`${TEST_URL}/health`);
 
-    await get(req, res);
-
-    expect(json).toHaveBeenCalledWith({ ping: "pong" });
+    expect(status).toBe(200);
+    expect(data.ping).toBe("pong");
   });
 });
