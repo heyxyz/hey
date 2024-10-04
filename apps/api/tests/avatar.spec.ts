@@ -1,7 +1,7 @@
 import { IPFS_GATEWAY } from "@hey/data/constants";
 import axios from "axios";
-import { TEST_URL } from "src/helpers/constants";
 import { describe, expect, test } from "vitest";
+import { TEST_URL } from "./constants";
 
 describe("GET /avatar", () => {
   test("should return 400 if no id is provided", async () => {

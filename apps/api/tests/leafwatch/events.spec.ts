@@ -1,7 +1,7 @@
 import { PAGEVIEW } from "@hey/data/tracking";
 import axios from "axios";
-import { TEST_URL } from "src/helpers/constants";
 import { describe, expect, test } from "vitest";
+import { TEST_URL } from "../constants";
 
 describe("POST /leafwatch/events", () => {
   test("should return 400 if no body is provided", async () => {
