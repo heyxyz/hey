@@ -1,5 +1,6 @@
 export const HEY_USER_AGENT = "HeyBot/0.1 (like TwitterBot)";
 export const UNLEASH_API_URL = "https://unleash.hey.xyz/api/frontend";
+export const TEST_URL = "http://localhost:4784";
 
 // Cache
 // Cache for 30 minutes
