@@ -9,6 +9,7 @@
     "prisma:clean": "prisma migrate reset --schema ./prisma/db/schema.prisma",
     "prisma:format": "prisma format --schema ./prisma/db/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema ./prisma/db/schema.prisma",
+    "prisma:seed": "ts-node ./prisma/db/seed/index.ts",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "@hey/config": "workspace:*",
     "@types/node": "^22.7.4",
     "prisma": "^5.20.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   }
 }
