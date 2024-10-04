@@ -13,5 +13,6 @@ declare namespace NodeJS {
     PRIVATE_KEY: string;
     SECRET: string;
     SLACK_WEBHOOK_URL: string;
+    TEST_AUTH_TOKEN: string;
   }
 }
