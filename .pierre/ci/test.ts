@@ -3,10 +3,15 @@ import { run } from "pierre";
 export const label = "Test";
 
 const apiTest = async () => {
-  const DATABASE_URL = process.env.PRODUCTION_DATABASE_URL as string;
+  const DATABASE_URL = process.env.TEST_DATABASE_URL as string;
+
+  // await run("cd packages/db && pnpm prisma:clean", {
+  //   label: "Cleaning Test DB",
+  //   env: { DATABASE_URL }
+  // });
 
   await run("cd packages/db && pnpm prisma:seed", {
-    label: "Seeding DB",
+    label: "Seeding Test DB",
     env: { DATABASE_URL }
   });
 
