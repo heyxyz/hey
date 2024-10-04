@@ -14,7 +14,7 @@ describe("GET /avatar", () => {
 
   test("should return svg image if id is provided", async () => {
     const { data, status, headers } = await axios.get(`${TEST_URL}/avatar`, {
-      params: { id: "123" }
+      params: { id: "0x0d" }
     });
 
     expect(status).toBe(200);
