@@ -10,7 +10,7 @@ export default async ({ branch }) => {
   } else {
     await run("cd packages/db && pnpm prisma:migrate", {
       label: "Migrating Production DB",
-      env: { DATABASE_URL: process.env.DATABASE_URL as string }
+      env: { DATABASE_URL: process.env.PRODUCTION_DATABASE_URL as string }
     });
 
     await run("cd packages/db && pnpm prisma:migrate", {
