@@ -10,6 +10,11 @@ const apiTest = async () => {
     env: { DATABASE_URL }
   });
 
+  await run("cd apps/api && pnpm dev &", {
+    label: "Running API in background",
+    env: { DATABASE_URL }
+  });
+
   await run("cd apps/api && pnpm test:dev", {
     label: "Running API tests",
     env: { DATABASE_URL }
