@@ -9,7 +9,7 @@ const apiTest = async () => {
 };
 
 const ogTest = async () => {
-  await run("cd packages/og && pnpm test:dev", {
+  await run("cd apps/og && pnpm test:dev", {
     label: "Running OG tests"
   });
 };
