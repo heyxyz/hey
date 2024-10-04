@@ -4,7 +4,8 @@ export const label = "Test";
 
 const apiTest = async () => {
   await run("cd apps/api && pnpm test:dev", {
-    label: "Running API tests"
+    label: "Running API tests",
+    env: { DATABASE_URL: process.env.PRODUCTION_DATABASE_URL as string }
   });
 };
 
