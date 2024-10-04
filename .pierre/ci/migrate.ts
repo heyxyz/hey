@@ -3,8 +3,6 @@ import { run } from "pierre";
 export const label = "Migrate DB";
 
 export default async ({ branch }) => {
-  console.log(process.env.TEST_DATABASE_URL);
-
   if (branch.name !== "main") {
     await run('echo "Skipping DB Migration on non-main branches 🚫"', {
       label: "Skipping DB Migration"
