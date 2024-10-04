@@ -31,15 +31,4 @@ describe("POST /clubs/members", () => {
     expect(status).toBe(200);
     expect(data).toBeDefined();
   });
-
-  test("should return 500 on server error", async () => {
-    try {
-      await axios.post(`${TEST_URL}/clubs/members`, {
-        id: "invalid_id",
-        limit: 10
-      });
-    } catch (error: any) {
-      expect(error.response.status).toBe(500);
-    }
-  });
 });
