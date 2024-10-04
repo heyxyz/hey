@@ -1,12 +1,11 @@
-import { HEY_API_URL } from "@hey/data/constants";
+import { HEY_API_URL, TEST_LENS_ID } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
 import getLennyURL from "./getLennyURL";
 
 describe("getLennyURL", () => {
   test("should return the correct lenny avatar URL", () => {
-    const id = "0x0d";
-    const expectedURL = `${HEY_API_URL}/avatar?id=${id}`;
-    const result = getLennyURL(id);
+    const expectedURL = `${HEY_API_URL}/avatar?id=${TEST_LENS_ID}`;
+    const result = getLennyURL(TEST_LENS_ID);
 
     expect(result).toBe(expectedURL);
   });

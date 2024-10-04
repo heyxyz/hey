@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY } from "@hey/data/constants";
+import { IPFS_GATEWAY, TEST_LENS_ID } from "@hey/data/constants";
 import axios from "axios";
 import { describe, expect, test } from "vitest";
 import { TEST_URL } from "./helpers/constants";
@@ -14,7 +14,7 @@ describe("GET /avatar", () => {
 
   test("should return svg image if id is provided", async () => {
     const { data, status, headers } = await axios.get(`${TEST_URL}/avatar`, {
-      params: { id: "0x0d" }
+      params: { id: TEST_LENS_ID }
     });
 
     expect(status).toBe(200);
