@@ -20,7 +20,9 @@ export const Job =
     const VERCEL_SCOPE = "heyxyz";
     const env = { VERCEL_ORG_ID, VERCEL_PROJECT_ID };
 
-    await run("rm -rf .pnpm-store");
+    await run("rm -rf .pnpm-store", {
+      label: "Clearing .pnpm-store"
+    });
 
     const { stdout } = await run(
       `npx vercel deploy --scope ${VERCEL_SCOPE} ${isProd ? "" : "--no-wait"} --yes ${
