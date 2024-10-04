@@ -1,3 +1,9 @@
 {
-  "extends": "@hey/config/base.tsconfig.json"
+  "extends": "@hey/config/base.tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "noEmit": false,
+    "outDir": "dist",
+    "baseUrl": "."
+  }
 }
