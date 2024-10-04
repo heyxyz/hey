@@ -1,7 +1,7 @@
 import { HEY_IMAGEKIT_URL } from "@hey/data/constants";
 import axios from "axios";
-import { TEST_URL } from "src/helpers/constants";
 import { describe, expect, test } from "vitest";
+import { TEST_URL } from "../constants";
 
 describe("GET /oembed", () => {
   test("should return 400 if no url is provided", async () => {

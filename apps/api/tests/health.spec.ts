@@ -1,6 +1,6 @@
 import axios from "axios";
-import { TEST_URL } from "src/helpers/constants";
 import { describe, expect, test } from "vitest";
+import { TEST_URL } from "./constants";
 
 describe("GET /health", () => {
   test("should respond with status 200 and correct health information", async () => {
