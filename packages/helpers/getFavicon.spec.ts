@@ -82,4 +82,13 @@ describe("getFavicon", () => {
 
     expect(result).toBe(expectedFaviconUrl);
   });
+
+  test("should return a default favicon URL if the URL is invalid", () => {
+    const url = "invalid-url";
+    const expectedFaviconUrl =
+      "https://external-content.duckduckgo.com/ip3/unknowndomain.ico";
+    const result = getFavicon(url);
+
+    expect(result).toBe(expectedFaviconUrl);
+  });
 });
