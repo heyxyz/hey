@@ -1,4 +1,4 @@
-import { VERIFIED_PERMISSION_ID } from "@hey/db/constants";
+import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
@@ -24,7 +24,7 @@ export const get = [
 
       const data = await prisma.profilePermission.findMany({
         select: { profileId: true },
-        where: { enabled: true, permissionId: VERIFIED_PERMISSION_ID }
+        where: { enabled: true, permissionId: PermissionId.Verified }
       });
 
       const ids = data.map(({ profileId }) => profileId);
