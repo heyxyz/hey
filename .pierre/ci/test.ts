@@ -15,6 +15,10 @@ const apiTest = async () => {
     env: { DATABASE_URL }
   });
 
+  await run("curl http://localhost:4784/health", {
+    label: "Checking API health"
+  });
+
   await run("cd apps/api && pnpm test:dev", {
     label: "Running API tests",
     env: { DATABASE_URL }
