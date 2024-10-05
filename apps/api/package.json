@@ -11,9 +11,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.664.0",
-    "@aws-sdk/client-ses": "^3.664.0",
-    "@aws-sdk/client-sts": "^3.664.0",
+    "@aws-sdk/client-s3": "^3.665.0",
+    "@aws-sdk/client-ses": "^3.665.0",
+    "@aws-sdk/client-sts": "^3.665.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
@@ -25,7 +25,7 @@
     "dotenv": "^16.4.5",
     "express": "^5.0.0",
     "express-file-routing": "^3.0.3",
-    "express-rate-limit": "^7.4.0",
+    "express-rate-limit": "^7.4.1",
     "express-session": "^1.18.0",
     "fast-xml-parser": "^4.4.1",
     "linkedom": "^0.18.5",
