@@ -14,6 +14,7 @@ const features = [
   "Extended Analytics",
   "Choose your app icon",
   "Set Profile Status",
+  "Personalized profile page",
   "Higher video and audio upload limits",
   "Pro Badge on your profile",
   "Early access to new features",
