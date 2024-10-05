@@ -1,9 +1,14 @@
 import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
-import { describe, expect, test } from "vitest";
+import waitForTestCompletion from "tests/helpers/waitForTestCompletion";
+import { beforeAll, describe, expect, test } from "vitest";
 
 describe("POST /profile/theme/reset", () => {
+  beforeAll(async () => {
+    await waitForTestCompletion("GET /profile/get");
+  });
+
   test("should return 200 and reset the profile theme as a pro user", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/profile/theme/reset`,
