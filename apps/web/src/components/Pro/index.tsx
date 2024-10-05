@@ -42,8 +42,7 @@ const Pro: NextPage = () => {
       <div className="text-center font-bold">
         <H3 className="text-brand-500">Upgrade to Pro</H3>
         <H4 className="mt-4">
-          Enjoy an enhanced experience of {APP_NAME}, exclusive creator tools,
-          and more.
+          Enjoy an enhanced experience of {APP_NAME} Pro.
         </H4>
       </div>
       <H5 className="ld-text-gray-500 mx-auto mt-4 max-w-2xl text-center font-normal leading-7">
