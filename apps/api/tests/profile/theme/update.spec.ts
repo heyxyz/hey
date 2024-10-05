@@ -1,14 +1,9 @@
 import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
-import waitForTestCompletion from "tests/helpers/waitForTestCompletion";
-import { beforeAll, describe, expect, test } from "vitest";
+import { describe, expect, test } from "vitest";
 
 describe("POST /profile/theme/update", () => {
-  beforeAll(async () => {
-    await waitForTestCompletion("GET /profile/get");
-  });
-
   test("should return 400 if no body is provided", async () => {
     try {
       await axios.post(
