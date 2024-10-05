@@ -1,12 +1,10 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { FeatureFlag } from "@hey/data/feature-flags";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProStore } from "src/store/non-persisted/useProStore";
@@ -29,7 +27,6 @@ const SignedProfile: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isPro } = useProStore();
   const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
-  const proEnabled = useFlag(FeatureFlag.Pro);
 
   const Avatar = () => (
     <Image
@@ -127,17 +124,15 @@ const SignedProfile: FC = () => {
             >
               <Settings />
             </MenuItem>
-            {proEnabled && (
-              <MenuItem
-                as={NextLink}
-                className={({ focus }: { focus: boolean }) =>
-                  cn({ "dropdown-active": focus }, "menu-item")
-                }
-                href="/pro"
-              >
-                <Pro />
-              </MenuItem>
-            )}
+            <MenuItem
+              as={NextLink}
+              className={({ focus }: { focus: boolean }) =>
+                cn({ "dropdown-active": focus }, "menu-item")
+              }
+              href="/pro"
+            >
+              <Pro />
+            </MenuItem>
             <MenuItem
               as="div"
               className={({ focus }) =>
