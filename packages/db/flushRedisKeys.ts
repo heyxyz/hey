@@ -1,5 +1,5 @@
-import logger from "@hey/helpers/logger";
 import { exit } from "node:process";
+import logger from "@hey/helpers/logger";
 import redisClient, { generateForeverExpiry, setRedis } from "./redisClient";
 
 const flushRedisKeys = async () => {
