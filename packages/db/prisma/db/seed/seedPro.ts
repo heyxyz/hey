@@ -10,7 +10,7 @@ const seedPro = async (): Promise<number> => {
     data: {
       profileId: TEST_PRO_LENS_ID,
       amount: 13.16,
-      expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 50 * 24 * 60 * 60 * 1000),
       transactionHash: "0x123"
     }
   });
