@@ -29,7 +29,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   const { data } = useQuery({
     enabled: Boolean(publicationId),
     queryFn: () => getPublicationsViews([publicationId]),
-    queryKey: ["getPublicationsViews"],
+    queryKey: ["getPublicationsViews", publicationId],
     refetchInterval: 5000
   });
 
