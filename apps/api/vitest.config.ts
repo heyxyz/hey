@@ -6,6 +6,7 @@ dotenv.config({ override: true });
 export default defineConfig({
   test: {
     globals: true,
-    testTimeout: 30000
+    testTimeout: 30000,
+    hookTimeout: 30000
   }
 });

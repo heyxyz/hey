@@ -5,9 +5,14 @@ import {
 } from "@hey/data/constants";
 import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
-import { describe, expect, test } from "vitest";
+import { afterAll, describe, expect, test } from "vitest";
+import setTestId from "../helpers/setTestId";
 
 describe("GET /profile/get", () => {
+  afterAll(async () => {
+    await setTestId("GET /profile/get");
+  });
+
   test("should return 400 if no id is provided", async () => {
     try {
       await axios.get(`${TEST_URL}/profile/get`);
