@@ -2,6 +2,7 @@ import prisma from "../client";
 import seedPermissions from "./seedPermissions";
 import seedPreferences from "./seedPreferences";
 import seedProfilePermission from "./seedProfilePermission";
+import seedTokens from "./seedTokens";
 
 async function main() {
   const preferences = await seedPreferences();
@@ -12,6 +13,9 @@ async function main() {
 
   const profilePermissions = await seedProfilePermission();
   console.log(`Seeded ${profilePermissions} profile permissions`);
+
+  const tokens = await seedTokens();
+  console.log(`Seeded ${tokens} tokens`);
 }
 
 main()
