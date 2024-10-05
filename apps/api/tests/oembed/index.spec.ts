@@ -28,12 +28,12 @@ describe("GET /oembed", () => {
 
   test("should return oembed data with HTML", async () => {
     const { data, status } = await axios.get(`${TEST_URL}/oembed`, {
-      params: { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+      params: { url: "https://open.spotify.com/track/4ZnkygoWLzcGbQYCm3lkae" }
     });
 
     expect(status).toBe(200);
     expect(data.oembed).toMatchObject({
-      html: '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" height="415" allow="accelerometer; encrypted-media" allowfullscreen></iframe>'
+      html: '<iframe src="https://open.spotify.com/embed/track/4ZnkygoWLzcGbQYCm3lkae" style="max-width: 100%;" width="100%" height="155" allow="encrypted-media"></iframe>'
     });
   });
 
