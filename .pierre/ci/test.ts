@@ -5,6 +5,10 @@ export const label = "Test";
 const apiTest = async () => {
   const DATABASE_URL = process.env.TEST_DATABASE_URL as string;
 
+  await run("cd packages/db && pnpm redis:flush", {
+    label: "Flushing Test Redis"
+  });
+
   await run("cd packages/db && pnpm prisma:seed", {
     label: "Seeding Test DB",
     env: { DATABASE_URL }
