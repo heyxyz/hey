@@ -8,7 +8,10 @@ const seedProfilePermission = async (): Promise<number> => {
 
   // Seed profile permissions
   const profilePermissions = await prisma.profilePermission.createMany({
-    data: [{ permissionId: PermissionId.Verified, profileId: TEST_LENS_ID }]
+    data: [
+      { permissionId: PermissionId.Verified, profileId: TEST_LENS_ID },
+      { permissionId: PermissionId.StaffPick, profileId: TEST_LENS_ID }
+    ]
   });
 
   return profilePermissions.count;
