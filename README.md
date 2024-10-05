@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/download/) (v20 or higher)
+- [Node.js](https://nodejs.org/en/download/) (v18 or higher)
 - [pnpm](https://pnpm.io/installation)
 - [Postgres App](https://postgresapp.com/)
 - [Redis](https://redis.io/download)
@@ -85,4 +85,4 @@ We manage our repositories using [Pierre](https://pierre.co/). You can view our 
 
 ## License
 
-This project is licensed under the AGPL-3.0 license. See the [LICENSE](./LICENSE) file for more details.
+This project is licensed under the **AGPL-3.0** license. See the [LICENSE](./LICENSE) file for more details.
