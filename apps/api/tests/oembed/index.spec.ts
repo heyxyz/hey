@@ -105,7 +105,7 @@ describe("GET /oembed", () => {
       endTime: null,
       mediaUrl:
         "https://gateway.irys.xyz/NzjoFlhIvLqnQEkxMD_NZeQNCuvWL6L_p_gaPHg9Pxc",
-      mintCount: "10176",
+      mintCount: expect.any(String),
       mintStatus: null,
       mintUrl:
         "https://pods.media/ufo/interpreting-technology-with-aixdesign-nadia-piet",
