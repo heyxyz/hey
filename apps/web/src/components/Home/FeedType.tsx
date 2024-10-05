@@ -1,11 +1,10 @@
 import New from "@components/Shared/Badges/New";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
-import { FeatureFlag } from "@hey/data/feature-flags";
 import { HOME } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { Dispatch, FC, SetStateAction } from "react";
+import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface FeedTypeProps {
@@ -15,9 +14,7 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const { fallbackToCuratedFeed } = useProfileStore();
-  const isGardener = useFlag(FeatureFlag.Gardener);
-  const isLensTeam = useFlag(FeatureFlag.LensTeam);
-  const enabled = isGardener || isLensTeam;
+  const { isPro } = useProStore();
 
   const tabs = [
     {
@@ -25,7 +22,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       track: HOME.SWITCH_FOLLOWING_FEED,
       type: HomeFeedType.FOLLOWING
     },
-    enabled && {
+    isPro && {
       badge: <New />,
       name: "For You",
       track: HOME.SWITCH_FORYOU_FEED,
