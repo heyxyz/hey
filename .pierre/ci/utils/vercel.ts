@@ -38,7 +38,7 @@ export const Job =
     if (previewURL) {
       annotate({
         color: "fg",
-        label: ` ${PROJECT_NAME} App Preview`,
+        label: `${PROJECT_NAME} App Preview`,
         icon: Icons.Link,
         href: previewURL,
         description: previewURL
@@ -69,7 +69,7 @@ export const Job =
           annotate({
             icon: Icons.BoxTape,
             color: "fg",
-            label: ` ${PROJECT_NAME} Deployment Build Details`,
+            label: `${PROJECT_NAME} Deployment Build Details`,
             description: activeDeploy.inspectorUrl,
             href: activeDeploy.inspectorUrl
           });
@@ -88,10 +88,10 @@ export const Job =
 
     const { exitCode } = await run(
       `npx vercel inspect ${previewURL} --scope ${VERCEL_SCOPE} --logs --wait --timeout=15m --no-color --token $VERCEL_ACCESS_TOKEN`,
-      { label: ` ${PROJECT_NAME} Deployment Build`, env }
+      { label: `${PROJECT_NAME} Deployment Build`, env }
     );
 
     if (exitCode !== 0) {
-      throw new Error(` ${PROJECT_NAME} build failed`);
+      throw new Error(`${PROJECT_NAME} build failed`);
     }
   };
