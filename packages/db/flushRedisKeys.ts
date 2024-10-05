@@ -1,4 +1,10 @@
 import { exit } from "node:process";
+
+import {
+  TEST_LENS_ID,
+  TEST_PRO_LENS_ID,
+  TEST_SUSPENDED_LENS_ID
+} from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
 import redisClient, { generateForeverExpiry, setRedis } from "./redisClient";
 
@@ -16,8 +22,18 @@ const flushRedisKeys = async () => {
 
     await redisClient.flushAll();
     logger.info("All Redis keys have been deleted");
-    await setRedis("ping", "pong", generateForeverExpiry());
-    logger.info("[Redis] Ping key set");
+    const authId = "1fdbabe5-9beb-41e9-b0ea-a5ae8f662653";
+    await Promise.all([
+      setRedis("ping", "pong", generateForeverExpiry()),
+      setRedis(`auth:${TEST_LENS_ID}`, authId, generateForeverExpiry()),
+      setRedis(`auth:${TEST_PRO_LENS_ID}`, authId, generateForeverExpiry()),
+      setRedis(
+        `auth:${TEST_SUSPENDED_LENS_ID}`,
+        authId,
+        generateForeverExpiry()
+      )
+    ]);
+    logger.info("[Redis] Necessary keys have been set");
   } catch (error) {
     logger.error("Error deleting Redis keys", error);
   } finally {
