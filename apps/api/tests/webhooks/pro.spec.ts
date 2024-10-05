@@ -16,11 +16,10 @@ describe("POST /webhooks/pro", () => {
   });
 
   test("should return 200 and update pro status for valid request", async () => {
-    // Delete all pro before each test
-    await prisma.pro.deleteMany();
-
     const hash =
       "0xb2c82c68d396586991d616fec2c28c283917d3f2b73311cd1b337773838d31e9";
+
+    await prisma.pro.deleteMany({ where: { transactionHash: hash } });
 
     const { data, status } = await axios.post(
       `${TEST_URL}/webhooks/pro?secret=${process.env.SECRET}`,
