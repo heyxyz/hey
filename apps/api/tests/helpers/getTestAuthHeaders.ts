@@ -1,7 +1,3 @@
-import dotenv from "dotenv";
-
-dotenv.config({ override: true });
-
 const TEST_AUTH_TOKEN = process.env.TEST_AUTH_TOKEN;
 
 const getTestAuthHeaders = () => {
