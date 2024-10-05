@@ -16,7 +16,7 @@ const flushRedisKeys = async () => {
 
     await redisClient.flushAll();
     logger.info("All Redis keys have been deleted");
-    await setRedis("ping", "ping", generateForeverExpiry());
+    await setRedis("ping", "pong", generateForeverExpiry());
     logger.info("[Redis] Ping key set");
   } catch (error) {
     logger.error("Error deleting Redis keys", error);
