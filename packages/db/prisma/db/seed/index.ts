@@ -1,7 +1,10 @@
 import prisma from "../client";
 import seedPermissions from "./seedPermissions";
 import seedPreferences from "./seedPreferences";
+import seedPro from "./seedPro";
 import seedProfilePermission from "./seedProfilePermission";
+import seedProfileStatus from "./seedProfileStatus";
+import seedProfileTheme from "./seedProfileTheme";
 import seedTokens from "./seedTokens";
 
 async function main() {
@@ -16,6 +19,15 @@ async function main() {
 
   const tokens = await seedTokens();
   console.log(`Seeded ${tokens} tokens`);
+
+  const pro = await seedPro();
+  console.log(`Seeded ${pro} pro`);
+
+  const profileStatus = await seedProfileStatus();
+  console.log(`Seeded ${profileStatus} profile status`);
+
+  const profileTheme = await seedProfileTheme();
+  console.log(`Seeded ${profileTheme} profile theme`);
 }
 
 main()
