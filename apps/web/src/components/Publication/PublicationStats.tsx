@@ -7,10 +7,11 @@ import getPublicationsViews from "@hey/helpers/getPublicationsViews";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { PublicationStats as IPublicationStats } from "@hey/lens";
 import { Modal } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 interface PublicationStatsProps {
   publicationId: string;
@@ -24,15 +25,15 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
-  const [views, setViews] = useState<number>(0);
 
-  useEffect(() => {
-    // Get Views
-    getPublicationsViews([publicationId]).then((viewsResponse) => {
-      setViews(viewsResponse?.[0]?.views);
-    });
-  }, [publicationId]);
+  const { data } = useQuery({
+    enabled: Boolean(publicationId),
+    queryFn: () => getPublicationsViews([publicationId]),
+    queryKey: ["getPublicationsViews"],
+    refetchInterval: 5000
+  });
 
+  const views = data?.[0]?.views || 0;
   const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
     publicationStats;
 

@@ -6,7 +6,14 @@ import axios from "axios";
  * @param ids The ids of the publications
  * @returns The number of views of the publication
  */
-const getPublicationsViews = async (ids: string[]) => {
+const getPublicationsViews = async (
+  ids: string[]
+): Promise<
+  {
+    id: string;
+    views: number;
+  }[]
+> => {
   if (!IS_MAINNET) {
     return [];
   }
