@@ -43,7 +43,7 @@ import ProfileStatus from "./ProfileStatus";
 import ScamWarning from "./ScamWarning";
 import UpdateTheme from "./UpdateTheme";
 
-export const MetaDetails = ({
+const MetaDetails = ({
   children,
   icon
 }: {
