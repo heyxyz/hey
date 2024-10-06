@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 
-export interface LensStatsType {
+interface LensStatsType {
   authentications_count: string;
   relay_usage_count: string;
   publications_count: string;
