@@ -2,7 +2,7 @@ import type { Profile } from "@hey/lens";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
-export type AuthModalType = "login" | "signup";
+type AuthModalType = "login" | "signup";
 
 interface State {
   authModalType: AuthModalType;
