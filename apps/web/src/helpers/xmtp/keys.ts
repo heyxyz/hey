@@ -3,11 +3,11 @@ import type { Address } from "viem";
 // Create a client using keys returned from getKeys
 const ENCODING = "binary";
 
-export const getEnv = (): "dev" | "local" | "production" => {
+const getEnv = (): "dev" | "local" | "production" => {
   return "production";
 };
 
-export const buildLocalStorageKey = (walletAddress: Address) =>
+const buildLocalStorageKey = (walletAddress: Address) =>
   walletAddress ? `xmtp:${getEnv()}:keys:${walletAddress}` : "";
 
 export const loadKeys = (walletAddress: Address): null | Uint8Array => {
