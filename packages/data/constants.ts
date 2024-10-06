@@ -72,7 +72,6 @@ export const CLUBS_API_URL = "https://us-central1-orbapp.cloudfunctions.net";
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd";
-export const GITCOIN_PASSPORT_KEY = "xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS";
 export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
 export const CLUBS_APP_TOKEN =
   "Qun7aDFo4FS7Dt2b9Ea8ve5TqvuXiCJXjZZTsao5Y9viFJxSEi5gYZa7DybrSzDGXST5L2vWMjBXzjsppj5RERo3AdPnJ3TVYuY2cLxBFa592rkjzU";
