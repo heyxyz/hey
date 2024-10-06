@@ -8,7 +8,12 @@ export { Drawer } from "./src/Drawer";
 export { EmptyState } from "./src/EmptyState";
 export { ErrorMessage } from "./src/ErrorMessage";
 export { FieldError, Form, useZodForm } from "./src/Form";
-export { GridItemEight, GridItemFour, GridLayout } from "./src/GridLayout";
+export {
+  GridItemEight,
+  GridItemFour,
+  GridItemTwelve,
+  GridLayout
+} from "./src/GridLayout";
 export { default as HelpTooltip } from "./src/HelpTooltip";
 export { Image } from "./src/Image";
 export { Input } from "./src/Input";
