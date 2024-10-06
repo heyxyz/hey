@@ -72,6 +72,23 @@ const LeafwatchStats: FC = () => {
     refetchInterval: 5000
   });
 
+  const getProProfilesCount = async (): Promise<number> => {
+    const response = await axios.get(
+      `${HEY_API_URL}/internal/stats/pro-count`,
+      {
+        headers: getAuthApiHeaders()
+      }
+    );
+
+    return response.data?.result || 0;
+  };
+
+  const { data: proProfilesCount } = useQuery({
+    queryKey: ["getProProfilesCount"],
+    queryFn: getProProfilesCount,
+    refetchInterval: 5000
+  });
+
   useExploreProfilesQuery({
     fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
@@ -130,6 +147,10 @@ const LeafwatchStats: FC = () => {
         <CardHeader title="Others" />
         <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
+          <NumberedStat
+            count={proProfilesCount?.toString() || "0"}
+            name="Total Pro Profiles"
+          />
         </div>
       </div>
       <EventsToday eventsToday={data.eventsToday} />
