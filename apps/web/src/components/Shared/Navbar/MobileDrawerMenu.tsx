@@ -16,6 +16,7 @@ import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
 import Pro from "./NavItems/Pro";
+import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
 import SwitchProfile from "./NavItems/SwitchProfile";
@@ -67,6 +68,11 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchProfile className={cn(itemClass, "px-4")} />
+          <div className="divider" />
+          <ProfileStatus
+            className={cn(itemClass, "px-4")}
+            id={currentProfile?.id}
+          />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">

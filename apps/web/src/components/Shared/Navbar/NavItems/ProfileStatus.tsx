@@ -37,7 +37,9 @@ const ProfileStatus: FC<ProfileStatusProps> = ({ id, className = "" }) => {
       ) : data?.status ? (
         <>
           <span>{data.status.emoji}</span>
-          <span className="truncate">{data.status.message}</span>
+          <span className="truncate">
+            {data.status.message || "Set Status"}
+          </span>
         </>
       ) : (
         <>
