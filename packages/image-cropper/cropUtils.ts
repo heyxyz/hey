@@ -79,7 +79,7 @@ export const getMidpoint = (a: Point, b: Point): Point => {
   };
 };
 
-export const createImage = (url: string): Promise<HTMLImageElement> =>
+const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image();
     image.addEventListener("load", () => resolve(image));
