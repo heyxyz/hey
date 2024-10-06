@@ -26,12 +26,6 @@ export type AllowedToken = {
   symbol: string;
 };
 
-export type MembershipNft = {
-  createdAt: Date;
-  dismissedOrMinted: boolean;
-  id: string;
-};
-
 export type CollectModuleType = {
   amount?: AmountInput | null;
   collectLimit?: null | string;
@@ -56,7 +50,7 @@ export type PublicationTip = {
   tipped: boolean;
 };
 
-export type PollOption = {
+type PollOption = {
   id: string;
   option: string;
   percentage: number;

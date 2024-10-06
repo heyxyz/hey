@@ -161,11 +161,6 @@ export const SETTINGS = {
   }
 };
 
-export const INVITE = {
-  INVITE: "Invite address",
-  OPEN_INVITE: "Open invite modal"
-};
-
 export const MESSAGES = {
   ALLOW_USER: "Allow user",
   BLOCK_USER: "Block user",
@@ -242,7 +237,6 @@ export const ALL_EVENTS = {
   ...HOME,
   ...EXPLORE,
   ...SETTINGS,
-  ...INVITE,
   ...MESSAGES,
   ...GARDENER,
   ...STAFFTOOLS,
