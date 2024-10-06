@@ -16,14 +16,6 @@ export interface NewAttachment {
   uri?: string;
 }
 
-export interface UserSuggestion {
-  display: string;
-  id: string;
-  name: string;
-  picture: string;
-  uid: string;
-}
-
 export interface Nft {
   chain: null | string;
   collectionName: string;
@@ -99,14 +91,6 @@ export interface Emoji {
   tags: string[];
 }
 
-export interface MessageDescriptor {
-  comment?: string;
-  context?: string;
-  id?: string;
-  message?: string;
-  values?: Record<string, unknown>;
-}
-
 export interface OptimisticTransaction {
   collectOn?: string;
   commentOn?: string;
@@ -131,12 +115,4 @@ export interface MetadataAsset {
   title?: string;
   type: "Audio" | "Image" | "Video";
   uri: string;
-}
-
-export interface RewardPool {
-  cap: string;
-  percentReward: number;
-  rewardsAmount: string;
-  rewardsPoolId: string;
-  rewardsRemaining: string;
 }

@@ -31,23 +31,14 @@ export const BRAND_COLOR = "#FB3A5D";
 export const MAX_UINT256 = 2n ** 256n - 1n;
 
 // Misc
-export const WMATIC_ADDRESS = IS_MAINNET
-  ? "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
-  : "0x9c3c9283d3e44854697cd22d3faa240cfb032889";
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const PERMIT_2_ADDRESS = "0x000000000022D473030F116dDEE9F6B43aC78BA3";
 export const COLLECT_FEES_ADDRESS =
   "0x69696378FaEd01315c762e5122fFFBc7bab03570";
 export const PRO_EOA_ADDRESS = "0xCAFEfB235AE1c10dC579338d06D90F0c89c4e5D6";
-export const REWARDS_PROFILE_ID = "12"; // 0x0c
-export const TEST_WALLET_ADDRESS = "0xb9C6e304545386E95d5c4ab183EE97A13555A49d";
-export const TEST_PK =
-  "0x8b33302ca865bc1ed65bc02b71dd02067bd3dae3da2f8bb0d95b16509e9ac71e";
 export const TEST_LENS_ID = "0x01e0b1";
 export const TEST_PRO_LENS_ID = "0x01";
 export const TEST_SUSPENDED_LENS_ID = "0x02";
 export const HEY_CURATED_ID = "0x0214f6";
-export const ZERO_PUBLICATION_ID = "0x00-0x00";
 export const HANDLE_PREFIX = "lens/";
 export const CLUB_HANDLE_PREFIX = "club/";
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
@@ -83,7 +74,6 @@ export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd";
 export const GITCOIN_PASSPORT_KEY = "xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS";
 export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
-export const ALCHEMY_API_KEY = "Xx-4a1SyWtS9U4h0cEuRmvgYtGeVOlv7";
 export const CLUBS_APP_TOKEN =
   "Qun7aDFo4FS7Dt2b9Ea8ve5TqvuXiCJXjZZTsao5Y9viFJxSEi5gYZa7DybrSzDGXST5L2vWMjBXzjsppj5RERo3AdPnJ3TVYuY2cLxBFa592rkjzU";
 export const UNLEASH_API_TOKEN =

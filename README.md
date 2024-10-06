@@ -83,10 +83,10 @@ pnpm test:dev
 
 ### Remove unused exports and helpers
 
-We use `ts-unused-exports` to remove unused exports and helpers from the codebase. Note that this task should be run manually on individual packages and apps.
+We use `ts-prune` to find unused exports and helpers from the codebase. Note that this task should be run manually on individual packages and apps.
 
 ```bash
-npx ts-unused-exports ./tsconfig.json
+cd apps/web; npx ts-prune -i generated.ts
 ```
 
 ## GitHub Mirror
