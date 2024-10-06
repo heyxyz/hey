@@ -1,7 +1,6 @@
 import MetaTags from "@components/Common/MetaTags";
 import { APP_NAME } from "@hey/data/constants";
-import { GridLayout, PageLoading } from "@hey/ui";
-import { GridItemTwelve } from "@hey/ui/src/GridLayout";
+import { GridItemTwelve, GridLayout, PageLoading } from "@hey/ui";
 import type { NextPage } from "next";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import NewTicket from "./NewTicket";

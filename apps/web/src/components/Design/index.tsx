@@ -1,5 +1,4 @@
-import { GridLayout } from "@hey/ui";
-import { GridItemTwelve } from "@hey/ui/src/GridLayout";
+import { GridItemTwelve, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import AlertDesign from "./AlertDesign";
 import BadgeDesign from "./BadgeDesign";
