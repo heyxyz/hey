@@ -1,8 +1,8 @@
 import type { AnyPublication } from "@hey/lens";
 
-export type Typename<T = string> = { [key in "__typename"]?: T };
+type Typename<T = string> = { [key in "__typename"]?: T };
 
-export type PickByTypename<
+type PickByTypename<
   T extends Typename,
   P extends T["__typename"] | undefined
 > = T extends {
