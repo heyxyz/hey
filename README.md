@@ -79,6 +79,16 @@ For running tests in development mode:
 pnpm test:dev
 ```
 
+## Periodic Tasks
+
+### Remove unused exports and helpers
+
+We use `ts-unused-exports` to remove unused exports and helpers from the codebase. Note that this task should be run manually on individual packages and apps.
+
+```bash
+npx ts-unused-exports ./tsconfig.json
+```
+
 ## GitHub Mirror
 
 We manage our repositories using [Pierre](https://pierre.co/). You can view our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). While we don't accept pull requests (PRs) on GitHub, you're welcome to open issues.
