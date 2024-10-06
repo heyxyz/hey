@@ -14,18 +14,12 @@ import type { FC } from "react";
 import urlcat from "urlcat";
 
 interface RankProps {
-  address: string;
   handle?: string;
   lensClassifierScore: number;
   profileId: string;
 }
 
-const Rank: FC<RankProps> = ({
-  address,
-  handle,
-  lensClassifierScore,
-  profileId
-}) => {
+const Rank: FC<RankProps> = ({ handle, lensClassifierScore, profileId }) => {
   const getRank = async (strategy: string) => {
     try {
       const response = await axios.get(
