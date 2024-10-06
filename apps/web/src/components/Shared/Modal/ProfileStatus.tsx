@@ -84,24 +84,32 @@ const ProfileStatus: FC = () => {
 
   return (
     <div className="space-y-5 p-5">
-      <Input
-        placeholder="Status"
-        value={message || ""}
-        onChange={(e) => setMessage(e.target.value)}
-        prefix={
-          <div className={cn(emoji ? "mx-0.5" : "mt-1.5")}>
-            <EmojiPicker
-              emoji={emoji}
-              setEmoji={(emoji: string) => {
-                setShowEmojiPicker(false);
-                setEmoji(emoji);
-              }}
-              setShowEmojiPicker={setShowEmojiPicker}
-              showEmojiPicker={showEmojiPicker}
-            />
-          </div>
-        }
-      />
+      <div>
+        <Input
+          placeholder="Status"
+          value={message || ""}
+          onChange={(e) => setMessage(e.target.value)}
+          error={(message || "")?.length > 80}
+          prefix={
+            <div className={cn(emoji ? "mx-0.5" : "mt-1.5")}>
+              <EmojiPicker
+                emoji={emoji}
+                setEmoji={(emoji: string) => {
+                  setShowEmojiPicker(false);
+                  setEmoji(emoji);
+                }}
+                setShowEmojiPicker={setShowEmojiPicker}
+                showEmojiPicker={showEmojiPicker}
+              />
+            </div>
+          }
+        />
+        {(message || "")?.length > 70 && (
+          <b className="mt-2 text-red-500 text-sm">
+            {80 - (message || "").length} characters left
+          </b>
+        )}
+      </div>
       <div className="flex w-full items-center justify-between space-x-2">
         <Button className="w-full" variant="danger" onClick={handleClear}>
           Clear Status

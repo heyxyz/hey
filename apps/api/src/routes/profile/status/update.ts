@@ -16,7 +16,7 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
-  message: string(),
+  message: string().max(80),
   emoji: string()
 });
 
