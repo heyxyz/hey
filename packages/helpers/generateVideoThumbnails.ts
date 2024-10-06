@@ -1,5 +1,3 @@
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
-
 const canvasImageFromVideo = (
   file: File,
   currentTime: number
@@ -51,34 +49,6 @@ export const generateVideoThumbnails = (
       };
     } catch {
       resolve([]);
-    }
-  });
-};
-
-export const generateVideoThumbnail = (url: string): Promise<string> => {
-  return new Promise((resolve) => {
-    try {
-      const video = document.createElement("video");
-      video.src = url;
-      video.currentTime = 0.01;
-      video.muted = true;
-      video.autoplay = true;
-      video.crossOrigin = "anonymous";
-      video.preload = "auto";
-      video.onloadedmetadata = () => {
-        const canvas = document.createElement("canvas");
-        video.oncanplay = () => {
-          setTimeout(() => {
-            const ctx = canvas.getContext("2d");
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-            return resolve(canvas.toDataURL());
-          }, 100);
-        };
-      };
-    } catch {
-      resolve(PLACEHOLDER_IMAGE);
     }
   });
 };
