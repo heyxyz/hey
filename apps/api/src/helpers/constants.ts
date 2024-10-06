@@ -4,8 +4,6 @@ export const UNLEASH_API_URL = "https://unleash.hey.xyz/api/frontend";
 // Cache
 // Cache for 30 minutes
 export const CACHE_AGE_30_MINS = "public, s-maxage=1800, max-age=1800";
-// Cache for 6 hours
-export const CACHE_AGE_6_HOURS = "public, s-maxage=21600, max-age=21600";
 // Cache for 1 day
 export const CACHE_AGE_1_DAY = "public, s-maxage=86400, max-age=86400";
 // Cache for 30 days
