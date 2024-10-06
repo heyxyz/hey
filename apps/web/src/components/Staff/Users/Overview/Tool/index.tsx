@@ -46,7 +46,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <LeafwatchDetails profileId={profile.id} />
           <div className="divider my-5 border-yellow-600 border-dashed" />
           <Rank
-            address={profile.ownedBy.address}
             handle={profile.handle?.localName}
             lensClassifierScore={profile.stats.lensClassifierScore || 0}
             profileId={profile.id}
