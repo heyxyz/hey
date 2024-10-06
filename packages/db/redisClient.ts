@@ -84,14 +84,6 @@ export const delRedis = async (key: string) => {
   await redisClient.del(key);
 };
 
-export const getTtlRedis = async (key: string) => {
-  if (!redisClient) {
-    noRedisError();
-    return null;
-  }
-  return await redisClient.ttl(key);
-};
-
 export const rPushRedis = async (key: string, value: string) => {
   if (!redisClient) {
     noRedisError();
