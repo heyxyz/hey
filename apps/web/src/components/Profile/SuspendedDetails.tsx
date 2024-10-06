@@ -3,19 +3,7 @@ import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { H3, Image } from "@hey/ui";
-import type { FC, ReactNode } from "react";
-
-interface MetaDetailsProps {
-  children: ReactNode;
-  icon: ReactNode;
-}
-
-export const MetaDetails: FC<MetaDetailsProps> = ({ children, icon }) => (
-  <div className="flex items-center gap-2">
-    {icon}
-    <div className="truncate text-md">{children}</div>
-  </div>
-);
+import type { FC } from "react";
 
 interface SuspendedDetailsProps {
   profile: Profile;
