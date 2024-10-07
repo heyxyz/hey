@@ -9,7 +9,7 @@ describe("POST /profile/status/update", () => {
       await axios.post(
         `${TEST_URL}/profile/status/update`,
         {},
-        { headers: getTestAuthHeaders("pro") }
+        { headers: getTestAuthHeaders() }
       );
     } catch (error: any) {
       expect(error.response.status).toBe(400);
@@ -21,35 +21,23 @@ describe("POST /profile/status/update", () => {
       await axios.post(
         `${TEST_URL}/profile/status/update`,
         { randomField: "invalid" },
-        { headers: getTestAuthHeaders("pro") }
+        { headers: getTestAuthHeaders() }
       );
     } catch (error: any) {
       expect(error.response.status).toBe(400);
     }
   });
 
-  test("should return 200 and update the profile status as a pro user", async () => {
+  test("should return 200 and update the profile status", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/profile/status/update`,
       { emoji: "😀", message: "Status message" },
-      { headers: getTestAuthHeaders("pro") }
+      { headers: getTestAuthHeaders() }
     );
 
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
     expect(data.result.emoji).toBe("😀");
     expect(data.result.message).toBe("Status message");
-  });
-
-  test("should return 401 for a normal user", async () => {
-    try {
-      await axios.post(
-        `${TEST_URL}/profile/status/update`,
-        { emoji: "😀", message: "Status message" },
-        { headers: getTestAuthHeaders() }
-      );
-    } catch (error: any) {
-      expect(error.response.status).toBe(401);
-    }
   });
 });
