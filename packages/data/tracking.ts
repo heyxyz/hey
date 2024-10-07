@@ -147,9 +147,7 @@ export const SETTINGS = {
   },
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
-      "Toggle high signal notification filter"
-  },
-  PRO: {
+      "Toggle high signal notification filter",
     APP_ICON: "Update app icon"
   },
   PROFILE: {

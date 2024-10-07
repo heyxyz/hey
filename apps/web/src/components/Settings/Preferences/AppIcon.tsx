@@ -40,7 +40,7 @@ const AppIcon: FC = () => {
         success: () => {
           setUpdating(false);
           setAppIcon(id);
-          Leafwatch.track(SETTINGS.PRO.APP_ICON, { appIcon: id });
+          Leafwatch.track(SETTINGS.PREFERENCES.APP_ICON, { appIcon: id });
 
           return "App icon updated";
         }

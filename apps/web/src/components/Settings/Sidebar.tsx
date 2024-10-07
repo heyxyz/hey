@@ -12,7 +12,6 @@ import {
   NoSymbolIcon,
   QueueListIcon,
   ShareIcon,
-  StarIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
@@ -32,12 +31,6 @@ const SettingsSidebar: FC = () => {
       icon: <CpuChipIcon className="size-4" />,
       title: "Account",
       url: "/settings/account"
-    },
-    {
-      enabled: false,
-      icon: <StarIcon className="size-4" />,
-      title: "Pro",
-      url: "/settings/pro"
     },
     {
       icon: <AtSymbolIcon className="size-4" />,
