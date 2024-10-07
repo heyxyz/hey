@@ -8,7 +8,6 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Slug from "../Slug";
 import Analytics from "./NavItems/Analytics";
@@ -26,7 +25,6 @@ import YourProfile from "./NavItems/YourProfile";
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
-  const { isPro } = useProStore();
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -91,11 +89,9 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, "px-4")}
               onClick={closeDrawer}
             />
-            {isPro && (
-              <Link href="/analytics" onClick={closeDrawer}>
-                <Analytics className={cn(itemClass, "px-4")} />
-              </Link>
-            )}
+            <Link href="/analytics" onClick={closeDrawer}>
+              <Analytics className={cn(itemClass, "px-4")} />
+            </Link>
             <ThemeSwitch
               className={cn(itemClass, "px-4")}
               onClick={closeDrawer}

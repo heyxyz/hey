@@ -4,7 +4,6 @@ import { HomeFeedType } from "@hey/data/enums";
 import { HOME } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface FeedTypeProps {
@@ -14,7 +13,6 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   const { fallbackToCuratedFeed } = useProfileStore();
-  const { isPro } = useProStore();
 
   const tabs = [
     {
@@ -22,7 +20,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       track: HOME.SWITCH_FOLLOWING_FEED,
       type: HomeFeedType.FOLLOWING
     },
-    isPro && {
+    {
       badge: <New />,
       name: "For You",
       track: HOME.SWITCH_FORYOU_FEED,

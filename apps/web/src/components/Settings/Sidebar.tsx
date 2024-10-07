@@ -17,12 +17,10 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const SettingsSidebar: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { isPro } = useProStore();
 
   const sidebarItems = [
     {
@@ -36,7 +34,7 @@ const SettingsSidebar: FC = () => {
       url: "/settings/account"
     },
     {
-      enabled: isPro,
+      enabled: false,
       icon: <StarIcon className="size-4" />,
       title: "Pro",
       url: "/settings/pro"

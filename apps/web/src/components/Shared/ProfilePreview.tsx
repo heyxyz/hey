@@ -17,7 +17,6 @@ import { useState } from "react";
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
 import Misuse from "./Profile/Icons/Misuse";
-import Pro from "./Profile/Icons/Pro";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
@@ -127,7 +126,6 @@ const ProfilePreview: FC<ProfilePreviewProps> = ({
           <div className="text-md">{getProfile(profile).displayName}</div>
           <Verified id={profile.id} iconClassName="size-4" />
           <Misuse id={profile.id} iconClassName="size-4" />
-          <Pro id={profile.id} iconClassName="size-4" />
         </div>
         <span>
           <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />

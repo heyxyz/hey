@@ -30,10 +30,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import urlcat from "urlcat";
-import Pro from "../Shared/Profile/Icons/Pro";
 import Badges from "./Badges";
 import Followerings from "./Followerings";
 import InternalTools from "./InternalTools";
@@ -64,7 +62,6 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { isPro } = useProStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -102,7 +99,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               <EyeSlashIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
-          <Pro id={profile.id} />
           <ProfileStatus id={profile.id} />
         </div>
         <div className="flex items-center space-x-3">
@@ -137,15 +133,13 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               >
                 Edit Profile
               </Button>
-              {isPro && (
-                <Button
-                  icon={<PaintBrushIcon className="size-5" />}
-                  onClick={() => setShowPersonalizeModal(true)}
-                  outline
-                >
-                  Personalize
-                </Button>
-              )}
+              <Button
+                icon={<PaintBrushIcon className="size-5" />}
+                onClick={() => setShowPersonalizeModal(true)}
+                outline
+              >
+                Personalize
+              </Button>
             </>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             <FollowUnfollowButton profile={profile} />

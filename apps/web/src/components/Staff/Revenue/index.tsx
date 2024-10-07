@@ -11,7 +11,6 @@ import Custom404 from "src/pages/404";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import StaffSidebar from "../Sidebar";
 import NftRevenue from "./NftRevenue";
-import ProRevenue from "./ProRevenue";
 import SignupRevenue from "./SignupRevenue";
 
 const Revenue: NextPage = () => {
@@ -33,7 +32,6 @@ const Revenue: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <ProRevenue />
         <SignupRevenue />
         <NftRevenue />
       </GridItemEight>
