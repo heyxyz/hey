@@ -15,7 +15,6 @@ import MobileDrawerMenu from "./MobileDrawerMenu";
 import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import OptimisticTransactions from "./NavItems/OptimisticTransactions";
-import Pro from "./NavItems/Pro";
 import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import SwitchProfile from "./NavItems/SwitchProfile";
@@ -117,15 +116,6 @@ const SignedProfile: FC = () => {
               href="/settings"
             >
               <Settings />
-            </MenuItem>
-            <MenuItem
-              as={NextLink}
-              className={({ focus }: { focus: boolean }) =>
-                cn({ "dropdown-active": focus }, "menu-item")
-              }
-              href="/pro"
-            >
-              <Pro />
             </MenuItem>
             <MenuItem
               as="div"

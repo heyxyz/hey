@@ -73,14 +73,7 @@ export type Preferences = {
   permissions: string[];
 };
 
-export type Pro = {
-  isPro: boolean;
-  expiresAt: Date | null;
-};
-
-export type InternalProfile = Preferences & {
-  pro: Pro | null;
-};
+export type InternalProfile = Preferences;
 
 export type ProfileTheme = {
   overviewFontStyle?: string;
@@ -89,7 +82,6 @@ export type ProfileTheme = {
 
 export type ProfileDetails = {
   isSuspended: boolean;
-  pro: Pro | null;
   status: { emoji: string; message: string } | null;
   theme: ProfileTheme | null;
 };

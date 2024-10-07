@@ -8,7 +8,6 @@ import type { FC } from "react";
 import LeafwatchDetails from "./LeafwatchDetails";
 import ManagedProfiles from "./ManagedProfiles";
 import Permissions from "./Permissions";
-import ProOverview from "./ProOverview";
 import ProfileOverview from "./ProfileOverview";
 import ProfilePreferences from "./ProfilePreferences";
 import Rank from "./Rank";
@@ -35,12 +34,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         showUserPreview={false}
       />
       <ProfileOverview profile={profile} />
-      {preferences ? (
-        <>
-          <ProOverview preferences={preferences} />
-          <ProfilePreferences preferences={preferences} />
-        </>
-      ) : null}
+      {preferences ? <ProfilePreferences preferences={preferences} /> : null}
       {IS_MAINNET ? (
         <>
           <LeafwatchDetails profileId={profile.id} />

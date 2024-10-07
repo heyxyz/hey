@@ -14,7 +14,6 @@ import Analytics from "./NavItems/Analytics";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
-import Pro from "./NavItems/Pro";
 import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
@@ -81,9 +80,6 @@ const MobileDrawerMenu: FC = () => {
             </Link>
             <Link href="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
-            </Link>
-            <Link href="/pro" onClick={closeDrawer}>
-              <Pro className={cn(itemClass, "px-4")} />
             </Link>
             <Bookmarks
               className={cn(itemClass, "px-4")}
