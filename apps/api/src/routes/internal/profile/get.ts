@@ -18,7 +18,7 @@ export const get = [
     }
 
     try {
-      const [preference, permissions, email, membershipNft, pro] =
+      const [preference, permissions, email, membershipNft] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { id: id as string } }),
           prisma.profilePermission.findMany({
@@ -26,15 +26,10 @@ export const get = [
             where: { enabled: true, profileId: id as string }
           }),
           prisma.email.findUnique({ where: { id: id as string } }),
-          prisma.membershipNft.findUnique({ where: { id: id as string } }),
-          prisma.pro.findFirst({
-            where: { profileId: id as string, expiresAt: { gt: new Date() } },
-            orderBy: { expiresAt: "desc" }
-          })
+          prisma.membershipNft.findUnique({ where: { id: id as string } })
         ]);
 
       const response: InternalProfile = {
-        pro: pro?.id ? { isPro: true, expiresAt: pro.expiresAt } : null,
         appIcon: preference?.appIcon || 0,
         email: email?.email || null,
         emailVerified: Boolean(email?.verified),

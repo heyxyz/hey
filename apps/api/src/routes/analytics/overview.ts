@@ -6,7 +6,6 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
-import validateIsPro from "src/helpers/middlewares/validateIsPro";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 
 interface TransformedRecord {
@@ -81,7 +80,6 @@ const transformData = (result: any[][]): TransformedRecord[] => {
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
   validateLensAccount,
-  validateIsPro,
   async (req: Request, res: Response) => {
     try {
       const identityToken = req.headers["x-identity-token"] as string;

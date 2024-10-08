@@ -10,7 +10,6 @@ export const get = async (req: Request, res: Response) => {
     const sitemaps = [
       "https://hey.xyz",
       "https://hey.xyz/explore",
-      "https://hey.xyz/pro",
       "https://hey.xyz/thanks",
       "https://hey.xyz/terms",
       "https://hey.xyz/privacy",

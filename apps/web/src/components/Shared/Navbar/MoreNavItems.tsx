@@ -2,7 +2,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import MenuTransition from "../MenuTransition";
 import Analytics from "./NavItems/Analytics";
@@ -10,7 +9,6 @@ import Bookmarks from "./NavItems/Bookmarks";
 import Support from "./NavItems/Support";
 const MoreNavItems: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { isPro } = useProStore();
 
   return (
     <Menu as="div">
@@ -43,16 +41,14 @@ const MoreNavItems: FC = () => {
                   >
                     <Bookmarks />
                   </MenuItem>
-                  {isPro && (
-                    <MenuItem
-                      as="div"
-                      className={({ focus }: { focus: boolean }) =>
-                        cn({ "dropdown-active": focus }, "m-2 rounded-lg")
-                      }
-                    >
-                      <Analytics />
-                    </MenuItem>
-                  )}
+                  <MenuItem
+                    as="div"
+                    className={({ focus }: { focus: boolean }) =>
+                      cn({ "dropdown-active": focus }, "m-2 rounded-lg")
+                    }
+                  >
+                    <Analytics />
+                  </MenuItem>
                   <div className="divider" />
                 </>
               ) : null}
