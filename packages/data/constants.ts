@@ -36,7 +36,6 @@ export const COLLECT_FEES_ADDRESS =
   "0x69696378FaEd01315c762e5122fFFBc7bab03570";
 export const PRO_EOA_ADDRESS = "0xCAFEfB235AE1c10dC579338d06D90F0c89c4e5D6";
 export const TEST_LENS_ID = "0x01e0b1";
-export const TEST_PRO_LENS_ID = "0x01";
 export const TEST_SUSPENDED_LENS_ID = "0x02";
 export const HEY_CURATED_ID = "0x0214f6";
 export const HANDLE_PREFIX = "lens/";

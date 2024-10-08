@@ -1,4 +1,4 @@
-import { TEST_PRO_LENS_ID } from "@hey/data/constants";
+import { TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "../client";
 
 const seedProfileStatus = async (): Promise<number> => {
@@ -7,7 +7,7 @@ const seedProfileStatus = async (): Promise<number> => {
 
   // Seed profileStatus
   await prisma.profileStatus.create({
-    data: { id: TEST_PRO_LENS_ID, emoji: "😀", message: "Status message" }
+    data: { id: TEST_LENS_ID, emoji: "😀", message: "Status message" }
   });
 
   return 1;
