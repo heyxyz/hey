@@ -1,8 +1,4 @@
-import {
-  TEST_LENS_ID,
-  TEST_PRO_LENS_ID,
-  TEST_SUSPENDED_LENS_ID
-} from "@hey/data/constants";
+import { TEST_LENS_ID, TEST_SUSPENDED_LENS_ID } from "@hey/data/constants";
 import { delRedis } from "@hey/db/redisClient";
 import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
@@ -18,7 +14,7 @@ describe("GET /profile/get", () => {
   });
 
   test("should return 200 with status and theme", async () => {
-    await delRedis(`profile:${TEST_PRO_LENS_ID}`);
+    await delRedis(`profile:${TEST_LENS_ID}`);
     const { data, status } = await axios.get(`${TEST_URL}/profile/get`, {
       params: { id: TEST_LENS_ID }
     });
