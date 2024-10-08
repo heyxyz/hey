@@ -8,14 +8,12 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Slug from "../Slug";
 import Analytics from "./NavItems/Analytics";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
-import Pro from "./NavItems/Pro";
 import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
@@ -26,7 +24,6 @@ import YourProfile from "./NavItems/YourProfile";
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
-  const { isPro } = useProStore();
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -84,18 +81,13 @@ const MobileDrawerMenu: FC = () => {
             <Link href="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
-            <Link href="/pro" onClick={closeDrawer}>
-              <Pro className={cn(itemClass, "px-4")} />
-            </Link>
             <Bookmarks
               className={cn(itemClass, "px-4")}
               onClick={closeDrawer}
             />
-            {isPro && (
-              <Link href="/analytics" onClick={closeDrawer}>
-                <Analytics className={cn(itemClass, "px-4")} />
-              </Link>
-            )}
+            <Link href="/analytics" onClick={closeDrawer}>
+              <Analytics className={cn(itemClass, "px-4")} />
+            </Link>
             <ThemeSwitch
               className={cn(itemClass, "px-4")}
               onClick={closeDrawer}

@@ -5,7 +5,6 @@ import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
-import validateIsPro from "src/helpers/middlewares/validateIsPro";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
@@ -23,7 +22,6 @@ const validationSchema = object({
 export const post = [
   rateLimiter({ requests: 50, within: 1 }),
   validateLensAccount,
-  validateIsPro,
   async (req: Request, res: Response) => {
     const { body } = req;
 

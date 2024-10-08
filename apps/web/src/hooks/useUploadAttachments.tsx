@@ -5,11 +5,9 @@ import { useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { v4 as uuid } from "uuid";
 
 const useUploadAttachments = () => {
-  const { isPro } = useProStore();
   const { setUploadedPercentage } = usePublicationVideoStore();
   const {
     addAttachments,
@@ -26,8 +24,8 @@ const useUploadAttachments = () => {
         const isAudio = file.type.includes("audio");
 
         const IMAGE_UPLOAD_LIMIT = 50000000;
-        const VIDEO_UPLOAD_LIMIT = isPro ? 2000000000 : 500000000;
-        const AUDIO_UPLOAD_LIMIT = isPro ? 600000000 : 200000000;
+        const VIDEO_UPLOAD_LIMIT = 2000000000;
+        const AUDIO_UPLOAD_LIMIT = 600000000;
 
         if (isImage && file.size > IMAGE_UPLOAD_LIMIT) {
           toast.error(
@@ -128,8 +126,7 @@ const useUploadAttachments = () => {
       removeAttachments,
       updateAttachments,
       setIsUploading,
-      setUploadedPercentage,
-      isPro
+      setUploadedPercentage
     ]
   );
 
