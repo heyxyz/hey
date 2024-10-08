@@ -9,7 +9,7 @@
   "dependencies": {
     "@hey/ui": "workspace:*",
     "normalize-wheel": "^1.0.1",
-    "rc-slider": "^11.1.5",
+    "rc-slider": "^11.1.7",
     "react": "^18.3.1"
   },
   "devDependencies": {
