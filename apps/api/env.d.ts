@@ -14,7 +14,6 @@ declare namespace NodeJS {
     SECRET: string;
     SLACK_WEBHOOK_URL: string;
     TEST_AUTH_TOKEN: string;
-    TEST_PRO_AUTH_TOKEN: string;
     TEST_SUSPENDED_AUTH_TOKEN: string;
   }
 }
