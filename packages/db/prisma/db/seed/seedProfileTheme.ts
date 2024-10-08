@@ -1,4 +1,4 @@
-import { TEST_PRO_LENS_ID } from "@hey/data/constants";
+import { TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "../client";
 
 const seedProfileTheme = async (): Promise<number> => {
@@ -8,7 +8,7 @@ const seedProfileTheme = async (): Promise<number> => {
   // Seed profileTheme
   await prisma.profileTheme.create({
     data: {
-      id: TEST_PRO_LENS_ID,
+      id: TEST_LENS_ID,
       overviewFontStyle: "archivo",
       publicationFontStyle: "archivoNarrow"
     }

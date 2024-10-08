@@ -1,10 +1,6 @@
 import { exit } from "node:process";
 
-import {
-  TEST_LENS_ID,
-  TEST_PRO_LENS_ID,
-  TEST_SUSPENDED_LENS_ID
-} from "@hey/data/constants";
+import { TEST_LENS_ID, TEST_SUSPENDED_LENS_ID } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
 import redisClient, { generateForeverExpiry, setRedis } from "./redisClient";
 
@@ -26,7 +22,6 @@ const flushRedisKeys = async () => {
     await Promise.all([
       setRedis("ping", "pong", generateForeverExpiry()),
       setRedis(`auth:${TEST_LENS_ID}`, authId, generateForeverExpiry()),
-      setRedis(`auth:${TEST_PRO_LENS_ID}`, authId, generateForeverExpiry()),
       setRedis(
         `auth:${TEST_SUSPENDED_LENS_ID}`,
         authId,
