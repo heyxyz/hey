@@ -17,7 +17,6 @@ import LeafwatchProvider from "./LeafwatchProvider";
 import LensSubscriptionsProvider from "./LensSubscriptionsProvider";
 import OptimisticTransactionsProvider from "./OptimisticTransactionsProvider";
 import PreferencesProvider from "./PreferencesProvider";
-import ProProvider from "./ProProvider";
 import ServiceWorkerProvider from "./ServiceWorkerProvider";
 import Web3Provider from "./Web3Provider";
 
@@ -45,7 +44,6 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
             <OptimisticTransactionsProvider />
             <QueryClientProvider client={queryClient}>
               <PreferencesProvider />
-              <ProProvider />
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
                 <ThemeProvider attribute="class" defaultTheme="light">
                   <Layout>{children}</Layout>

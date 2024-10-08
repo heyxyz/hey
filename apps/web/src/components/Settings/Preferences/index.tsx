@@ -14,6 +14,7 @@ import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import SettingsSidebar from "../Sidebar";
+import AppIcon from "./AppIcon";
 import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
 
 const PreferencesSettings: NextPage = () => {
@@ -41,6 +42,7 @@ const PreferencesSettings: NextPage = () => {
             title="Your Preferences"
           />
           <div className="m-5">
+            <AppIcon />
             <HighSignalNotificationFilter />
           </div>
         </Card>

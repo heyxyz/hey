@@ -12,17 +12,14 @@ import {
   NoSymbolIcon,
   QueueListIcon,
   ShareIcon,
-  StarIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
-import { useProStore } from "src/store/non-persisted/useProStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const SettingsSidebar: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { isPro } = useProStore();
 
   const sidebarItems = [
     {
@@ -34,12 +31,6 @@ const SettingsSidebar: FC = () => {
       icon: <CpuChipIcon className="size-4" />,
       title: "Account",
       url: "/settings/account"
-    },
-    {
-      enabled: isPro,
-      icon: <StarIcon className="size-4" />,
-      title: "Pro",
-      url: "/settings/pro"
     },
     {
       icon: <AtSymbolIcon className="size-4" />,
