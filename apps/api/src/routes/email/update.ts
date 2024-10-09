@@ -6,10 +6,10 @@ import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
+import sendEmail from "src/helpers/email/sendEmail";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
-import sendEmail from "src/helpers/sendEmail";
 import { v4 as uuid } from "uuid";
 import { boolean, object, string } from "zod";
 
