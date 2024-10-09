@@ -6,7 +6,7 @@ import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCr
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { boolean, object, string } from "zod";
-import { clearCache } from "../permissions/assign";
+import { postUpdateTasks } from "../permissions/assign";
 
 type ExtensionRequest = {
   enabled: boolean;
@@ -45,7 +45,7 @@ export const post = [
           data: { permissionId: id, profileId: profile_id }
         });
 
-        await clearCache(profile_id, id);
+        await postUpdateTasks(profile_id, id);
         logger.info(`Enabled permissions for ${profile_id}`);
 
         return res.status(200).json({ enabled, success: true });
@@ -55,7 +55,7 @@ export const post = [
         where: { permissionId: id as string, profileId: profile_id as string }
       });
 
-      await clearCache(profile_id, id);
+      await postUpdateTasks(profile_id, id);
       logger.info(`Disabled permissions for ${profile_id}`);
 
       return res.status(200).json({ enabled, success: true });
