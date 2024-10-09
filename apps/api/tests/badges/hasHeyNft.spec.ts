@@ -29,9 +29,18 @@ describe("GET /badges/hasHeyNft", () => {
     expect(data.hasHeyNft).toBe(true);
   });
 
-  test("should return 200 and no NFT ownership when profile or address doesn't have it", async () => {
+  test("should return 200 and no NFT ownership when profile doesn't have it", async () => {
     const { data, status } = await axios.get(`${TEST_URL}/badges/hasHeyNft`, {
       params: { id: "0x01" }
+    });
+
+    expect(status).toBe(200);
+    expect(data.hasHeyNft).toBe(false);
+  });
+
+  test("should return 200 and no NFT ownership when address doesn't have it", async () => {
+    const { data, status } = await axios.get(`${TEST_URL}/badges/hasHeyNft`, {
+      params: { address: "0x0Cfc642C90ED27be228E504307049230545b2981" }
     });
 
     expect(status).toBe(200);
