@@ -16,12 +16,12 @@ export const postUpdateTasks = async (
   await delRedis(`preference:${profileId}`);
   await delRedis(`profile:${profileId}`);
   if (permissionId === PermissionId.StaffPick) {
-    // Send email to the user
+    // TODO: Send email to the user
     delRedis("staff-picks");
   }
 
   if (permissionId === PermissionId.Verified) {
-    // Send email to the user
+    // TODO: Send email to the user
     await delRedis("verified");
   }
 };
