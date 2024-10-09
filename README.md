@@ -98,6 +98,15 @@ script/clean-branches
 script/update-dependencies
 ```
 
+### Update lock file
+
+We use `pnpm` to update the lock file.
+
+```bash
+script/clean-branches
+script/update-lock-file
+```
+
 ## GitHub Mirror
 
 We manage our repositories using [Pierre](https://pierre.co/). You can view our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). While we don't accept pull requests (PRs) on GitHub, you're welcome to open issues.
