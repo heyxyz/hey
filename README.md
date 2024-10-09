@@ -89,6 +89,15 @@ We use `ts-prune` to find unused exports and helpers from the codebase. Note tha
 cd apps/web; npx ts-prune -i generated.ts
 ```
 
+### Update dependencies
+
+We use `pnpm` to update dependencies.
+
+```bash
+script/clean-branches
+script/update-dependencies
+```
+
 ## GitHub Mirror
 
 We manage our repositories using [Pierre](https://pierre.co/). You can view our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). While we don't accept pull requests (PRs) on GitHub, you're welcome to open issues.
