@@ -10,7 +10,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.666.0",
+    "@aws-sdk/client-s3": "^3.667.0",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
@@ -22,6 +22,6 @@
     "@hey/config": "workspace:*",
     "@types/node": "^22.7.5",
     "@types/node-cron": "^3.0.11",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   }
 }
