@@ -109,7 +109,7 @@ script/update-lock-file
 
 ## GitHub Mirror
 
-We manage our repositories using [Pierre](https://pierre.co/). You can view our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). While we don't accept pull requests (PRs) on GitHub, you're welcome to open issues.
+Our repositories are managed using [Pierre](https://pierre.co/). You can find our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). Although we do not accept pull requests (PRs) on GitHub, we encourage you to open issues.
 
 ## License
 
