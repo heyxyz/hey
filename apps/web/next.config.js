@@ -1,10 +1,14 @@
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true"
+});
+
 const allowedBots =
   ".*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*";
 const { VERCEL_DEPLOYMENT_ID } = process.env;
 const DEPLOYMENT_ID = VERCEL_DEPLOYMENT_ID || "unknown";
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withBundleAnalyzer({
   headers() {
     return [
       {
@@ -68,4 +72,4 @@ module.exports = {
     ];
   },
   transpilePackages: ["data", "react-tweet"]
-};
+});
