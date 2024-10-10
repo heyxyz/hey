@@ -19,7 +19,22 @@ export const postUpdateTasks = async (
   await delRedis(`preference:${profileId}`);
   await delRedis(`profile:${profileId}`);
   if (permissionId === PermissionId.StaffPick) {
-    // TODO: Send email to the user
+    if (enabled) {
+      sendEmailToProfile({
+        id: profileId,
+        subject: `Your account on ${APP_NAME} has been Staff Picked!`,
+        body: `
+          <html>
+            <body>
+              <p>Hey Hey!</p>
+              <p>Yay! Your account on ${APP_NAME} has been Staff Picked! 🌸</p>
+              <p>Thanks,</p>
+              <p>${APP_NAME} team</p>
+            </body>
+          </html>
+        `
+      });
+    }
     delRedis("staff-picks");
   }
 
