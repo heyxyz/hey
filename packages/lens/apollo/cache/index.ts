@@ -21,6 +21,7 @@ import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
 import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
 import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
 import createWhoHaveBlockedFieldPolicy from './createWhoHaveBlockedFieldPolicy';
+import createWhoReactedPublicationPolicy from './createWhoReactedPublicationPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -48,6 +49,7 @@ const cache = new InMemoryCache({
         publicationsProfileBookmarks: createPublicationsFieldPolicy(),
         searchProfiles: createSearchProfilesFieldPolicy(),
         searchPublications: createSearchPublicationsPolicy(),
+        whoReactedPublication: createWhoReactedPublicationPolicy(),
         whoActedOnPublication: createActedOnPublicationFieldPolicy(),
         whoHaveBlocked: createWhoHaveBlockedFieldPolicy()
       }
