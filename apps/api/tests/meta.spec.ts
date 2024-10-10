@@ -17,7 +17,8 @@ describe("GET /meta", () => {
         clickhouse: expect.any(String),
         hey: expect.any(String),
         lens: expect.any(String),
-        redis: expect.any(String)
+        redis: expect.any(String),
+        unleash: expect.any(String)
       })
     });
   });
