@@ -76,20 +76,20 @@ export const post = [
 
       sendEmail({
         body: `
-        <html>
-          <body>
-            <p>Welcome to Hey!</p> 
-            <br>
-            <p>Please click the link below to verify your email address: ${result.email}</p>
-            <a href="https://api.hey.xyz/email/verify?token=${result.verificationToken}">Verify Email →</a>
-            <br>
-            <p>If you didn't request this email, please ignore this email.</p>
-            <br>
-            <p>Thanks,</p>
-            <p>${APP_NAME} team</p>
-          </body>
-        </html>
-      `,
+          <html>
+            <body>
+              <p>Welcome to Hey!</p> 
+              <br>
+              <p>Please click the link below to verify your email address: ${result.email}</p>
+              <a href="https://api.hey.xyz/email/verify?token=${result.verificationToken}">Verify Email →</a>
+              <br>
+              <p>If you didn't request this email, please ignore this email.</p>
+              <br>
+              <p>Thanks,</p>
+              <p>${APP_NAME} team</p>
+            </body>
+          </html>
+        `,
         recipient: result.email,
         subject: `Verify your ${APP_NAME} email address`
       });

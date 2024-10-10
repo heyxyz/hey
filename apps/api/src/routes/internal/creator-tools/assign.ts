@@ -45,7 +45,7 @@ export const post = [
           data: { permissionId: id, profileId: profile_id }
         });
 
-        await postUpdateTasks(profile_id, id);
+        await postUpdateTasks(profile_id, id, true);
         logger.info(`Enabled permissions for ${profile_id}`);
 
         return res.status(200).json({ enabled, success: true });
@@ -55,7 +55,7 @@ export const post = [
         where: { permissionId: id as string, profileId: profile_id as string }
       });
 
-      await postUpdateTasks(profile_id, id);
+      await postUpdateTasks(profile_id, id, false);
       logger.info(`Disabled permissions for ${profile_id}`);
 
       return res.status(200).json({ enabled, success: true });
