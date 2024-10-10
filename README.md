@@ -136,6 +136,7 @@ In `apps/web`, we have a bundle analyzer available to view detailed information 
 To generate this output, run:
 
 ```bash
+cd apps/web
 ANALYZE=true pnpm build
 ```
 
