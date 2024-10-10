@@ -11,6 +11,7 @@ import {
   Inconsolata,
   Inter,
   Inter_Tight,
+  Josefin_Sans,
   Karla,
   Karma,
   Libre_Baskerville,
@@ -53,7 +54,8 @@ export enum Font {
   BioRhyme = "bioRhyme",
   ZillaSlab = "zillaSlab",
   Karma = "karma",
-  DMSans = "dmSans"
+  DMSans = "dmSans",
+  JosefinSans = "josefinSans"
 }
 
 const archivo = Archivo({ subsets: ["latin"], weight: ["400", "700"] });
@@ -103,6 +105,10 @@ const bioRhyme = BioRhyme({ subsets: ["latin"], weight: ["400", "700"] });
 const zillaSlab = Zilla_Slab({ subsets: ["latin"], weight: ["400", "700"] });
 const karma = Karma({ subsets: ["latin"], weight: ["400", "700"] });
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "700"] });
+const josefinSans = Josefin_Sans({
+  subsets: ["latin"],
+  weight: ["400", "700"]
+});
 
 const profileThemeFonts = (id: string | undefined): string => {
   if (!id) {
@@ -162,6 +168,8 @@ const profileThemeFonts = (id: string | undefined): string => {
       return karma.className;
     case Font.DMSans:
       return dmSans.className;
+    case Font.JosefinSans:
+      return josefinSans.className;
     default:
       return "";
   }
