@@ -1,9 +1,12 @@
+import { UNLEASH_API_TOKEN } from "@hey/data/constants";
 import clickhouseClient from "@hey/db/clickhouseClient";
 import lensPg from "@hey/db/lensPg";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis } from "@hey/db/redisClient";
+import axios from "axios";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
+import { UNLEASH_API_URL } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 
 const measureQueryTime = async (
@@ -33,27 +36,40 @@ export const get = [
           query: "SELECT 1 as count;"
         })
       );
+      const unleashPromise = measureQueryTime(() =>
+        axios.get(UNLEASH_API_URL, {
+          headers: { Authorization: UNLEASH_API_TOKEN }
+        })
+      );
 
       // Execute all promises simultaneously
-      const [heyResult, lensResult, redisResult, clickhouseResult] =
-        await Promise.all([
-          heyPromise,
-          lensPromise,
-          redisPromise,
-          clickhousePromise
-        ]);
+      const [
+        heyResult,
+        lensResult,
+        redisResult,
+        clickhouseResult,
+        unleashResult
+      ] = await Promise.all([
+        heyPromise,
+        lensPromise,
+        redisPromise,
+        clickhousePromise,
+        unleashPromise
+      ]);
 
       // Check responses
       const [hey, heyTime] = heyResult;
       const [lens, lensTime] = lensResult;
       const [redis, redisTime] = redisResult;
       const [clickhouseRows, clickhouseTime] = clickhouseResult;
+      const [unleash, unleashTime] = unleashResult;
 
       if (
         Number(hey[0].count) !== 1 ||
         Number(lens[0].count) !== 1 ||
         redis.toString() !== "pong" ||
-        !clickhouseRows.json
+        !clickhouseRows.json ||
+        unleash.data.toggles.length === 0
       ) {
         return res.status(500).json({ success: false });
       }
@@ -69,7 +85,8 @@ export const get = [
           clickhouse: `${Number(clickhouseTime / BigInt(1000000))}ms`,
           hey: `${Number(heyTime / BigInt(1000000))}ms`,
           lens: `${Number(lensTime / BigInt(1000000))}ms`,
-          redis: `${Number(redisTime / BigInt(1000000))}ms`
+          redis: `${Number(redisTime / BigInt(1000000))}ms`,
+          unleash: `${Number(unleashTime / BigInt(1000000))}ms`
         }
       });
     } catch (error) {
