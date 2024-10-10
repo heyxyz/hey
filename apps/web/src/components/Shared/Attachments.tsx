@@ -12,36 +12,13 @@ import Audio from "./Audio";
 import Video from "./Video";
 
 const getClass = (attachments: number) => {
-  switch (attachments) {
-    case 1:
-      return { aspect: "", row: "grid-cols-1 grid-rows-1" };
-    case 2:
-      return {
-        aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-2 grid-rows-1"
-      };
-    case 3:
-      return {
-        aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-2 grid-rows-2"
-      };
-    case 4:
-      return {
-        aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-2 grid-rows-2"
-      };
-    case 5:
-    case 6:
-      return {
-        aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-3 grid-rows-2"
-      };
-    default:
-      return {
-        aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-3 grid-rows-3"
-      };
-  }
+  const aspect = "aspect-w-16 aspect-h-12";
+  if (attachments === 1) return { aspect: "", row: "grid-cols-1 grid-rows-1" };
+  if (attachments === 2) return { aspect, row: "grid-cols-2 grid-rows-1" };
+  if (attachments <= 4) return { aspect, row: "grid-cols-2 grid-rows-2" };
+  if (attachments <= 6) return { aspect, row: "grid-cols-3 grid-rows-2" };
+  if (attachments <= 8) return { aspect, row: "grid-cols-4 grid-rows-2" };
+  return { aspect, row: "grid-cols-5 grid-rows-2" };
 };
 
 interface MetadataAttachment {
