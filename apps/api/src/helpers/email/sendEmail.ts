@@ -1,6 +1,6 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { emailQueue } from "@hey/db/queue";
 import logger from "@hey/helpers/logger";
-import Queue from "bull";
 
 // Initialize SES Client
 const sesClient = new SESClient({
@@ -11,11 +11,8 @@ const sesClient = new SESClient({
   region: "us-west-2"
 });
 
-// Create a Bull queue for email processing
-const emailQueue = new Queue("emailQueue");
-
 // Define a job processor for the queue
-emailQueue.process(async (job) => {
+emailQueue().process(async (job) => {
   const { recipient, subject, body } = job.data;
 
   try {
@@ -43,8 +40,12 @@ interface SendEmailParams {
 }
 
 const sendEmail = async ({ recipient, subject, body }: SendEmailParams) => {
-  await emailQueue.add({ recipient, subject, body });
-  logger.info(`Email task added to queue for recipient: ${recipient}`);
+  const { id } = await emailQueue().add({
+    recipient,
+    subject,
+    body
+  });
+  logger.info(`Email task added to queue for recipient: ${recipient} - ${id}`);
 };
 
 export default sendEmail;

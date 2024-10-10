@@ -21,7 +21,6 @@
     "@json2csv/plainjs": "^7.0.6",
     "@lens-protocol/metadata": "^1.2.0",
     "axios": "^1.7.7",
-    "bull": "^4.16.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^5.0.0",
