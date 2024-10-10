@@ -18,6 +18,7 @@
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@prisma/client": "^5.20.0",
+    "bull": "^4.16.3",
     "dotenv": "^16.4.5",
     "pg-promise": "^11.9.1",
     "redis": "^4.7.0"
