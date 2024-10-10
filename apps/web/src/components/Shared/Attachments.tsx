@@ -12,23 +12,13 @@ import Audio from "./Audio";
 import Video from "./Video";
 
 const getClass = (attachments: number) => {
-  if (attachments === 1) {
-    return { aspect: "", row: "grid-cols-1 grid-rows-1" };
-  }
-
-  if (attachments === 2) {
-    return {
-      aspect: "aspect-w-16 aspect-h-12",
-      row: "grid-cols-2 grid-rows-1"
-    };
-  }
-
-  if (attachments > 2) {
-    return {
-      aspect: "aspect-w-16 aspect-h-12",
-      row: "grid-cols-2 grid-rows-2"
-    };
-  }
+  const aspect = "aspect-w-16 aspect-h-12";
+  if (attachments === 1) return { aspect: "", row: "grid-cols-1 grid-rows-1" };
+  if (attachments === 2) return { aspect, row: "grid-cols-2 grid-rows-1" };
+  if (attachments <= 4) return { aspect, row: "grid-cols-2 grid-rows-2" };
+  if (attachments <= 6) return { aspect, row: "grid-cols-3 grid-rows-2" };
+  if (attachments <= 8) return { aspect, row: "grid-cols-4 grid-rows-2" };
+  return { aspect, row: "grid-cols-5 grid-rows-2" };
 };
 
 interface MetadataAttachment {
@@ -43,43 +33,22 @@ interface AttachmentsProps {
 
 const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
-  const processedAttachments = attachments.slice(0, 4);
+  const processedAttachments = attachments.slice(0, 10);
 
-  const assetIsImage = asset?.type === "Image";
-  const assetIsVideo = asset?.type === "Video";
-  const assetIsAudio = asset?.type === "Audio";
-
-  const attachmentsHasImage =
+  const assetType = asset?.type;
+  const hasImageAttachment =
     processedAttachments.some((attachment) => attachment.type === "Image") ||
-    assetIsImage;
+    assetType === "Image";
 
-  const determineDisplay = ():
-    | "displayAudioAsset"
-    | "displayVideoAsset"
-    | null
-    | string[] => {
-    if (assetIsVideo) {
-      return "displayVideoAsset";
-    }
-    if (assetIsAudio) {
-      return "displayAudioAsset";
-    }
-    if (attachmentsHasImage) {
-      const imageAttachments = processedAttachments.filter(
-        (attachment) => attachment.type === "Image"
-      );
-      const assetImage = asset?.uri;
-
-      const finalAttachments = imageAttachments.map(
-        (attachment) => attachment.uri
-      );
-      if (assetImage) {
-        finalAttachments.unshift(assetImage);
-      }
-
-      const attachmentsWithoutDuplicates = [...new Set(finalAttachments)];
-
-      return attachmentsWithoutDuplicates;
+  const determineDisplay = () => {
+    if (assetType === "Video") return "displayVideoAsset";
+    if (assetType === "Audio") return "displayAudioAsset";
+    if (hasImageAttachment) {
+      const imageAttachments = processedAttachments
+        .filter((attachment) => attachment.type === "Image")
+        .map((attachment) => attachment.uri);
+      if (asset?.uri) imageAttachments.unshift(asset.uri);
+      return [...new Set(imageAttachments)];
     }
     return null;
   };
