@@ -115,7 +115,7 @@ Our repositories are managed using [Pierre](https://pierre.co/). You can find ou
 
 ### Ripgrep
 
-We use [Ripgrep](https://github.com/BurntSushi/ripgrep) to search for text in the codebase. It's much faster than `grep` and `ag`.
+We use [Ripgrep](https://github.com/BurntSushi/ripgrep) to search for text in the codebase. It's like `grep` and `ag` had a baby, and that baby grew up to be a speed demon!
 
 Install it via Homebrew:
 
@@ -128,6 +128,18 @@ Search for text in the codebase:
 ```bash
 rg "const Verified"
 ```
+
+### Bundle Analyzer
+
+In `apps/web`, we have a bundle analyzer available to view detailed information about the size and contents of our production bundles.
+
+To generate this output, run:
+
+```bash
+ANALYZE=true pnpm build
+```
+
+Running this command will build the `apps/web` project and open three browser windows displaying bundle information for node, edge, and client bundles. The client bundle is crucial for page performance, while all bundles are important for development and build performance.
 
 ## Code of Conduct
 
