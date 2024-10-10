@@ -50,9 +50,6 @@ importers:
       axios:
         specifier: ^1.7.7
         version: 1.7.7(debug@4.3.7)
-      bull:
-        specifier: ^4.16.3
-        version: 4.16.3
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -527,6 +524,9 @@ importers:
       '@prisma/client':
         specifier: ^5.20.0
         version: 5.20.0(prisma@5.20.0)
+      bull:
+        specifier: ^4.16.3
+        version: 4.16.3
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
