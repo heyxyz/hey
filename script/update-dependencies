@@ -3,6 +3,9 @@
 #/ Usage: script/update-dependencies
 #/ Create a branch to update a dependency with a unique name.
 
+# Clean all branches
+script/clean-branches
+
 # Generate a unique branch name using a timestamp
 branch_name="update-dependencies-$(date +%Y%m%d%H%M%S)"
 
