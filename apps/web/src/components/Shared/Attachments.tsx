@@ -20,10 +20,34 @@ const getClass = (attachments: number) => {
         aspect: "aspect-w-16 aspect-h-12",
         row: "grid-cols-2 grid-rows-1"
       };
-    default:
+    case 3:
       return {
         aspect: "aspect-w-16 aspect-h-12",
         row: "grid-cols-2 grid-rows-2"
+      };
+    case 4:
+      return {
+        aspect: "aspect-w-16 aspect-h-12",
+        row: "grid-cols-2 grid-rows-2"
+      };
+    case 5:
+    case 6:
+      return {
+        aspect: "aspect-w-16 aspect-h-12",
+        row: "grid-cols-3 grid-rows-2"
+      };
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+      return {
+        aspect: "aspect-w-16 aspect-h-12",
+        row: "grid-cols-4 grid-rows-3"
+      };
+    default:
+      return {
+        aspect: "aspect-w-16 aspect-h-12",
+        row: "grid-cols-4 grid-rows-3"
       };
   }
 };
@@ -40,7 +64,7 @@ interface AttachmentsProps {
 
 const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
-  const processedAttachments = attachments.slice(0, 4);
+  const processedAttachments = attachments.slice(0, 10);
 
   const assetType = asset?.type;
   const hasImageAttachment =
