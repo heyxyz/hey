@@ -21,7 +21,7 @@ export const postUpdateTasks = async (
   }
 
   if (permissionId === PermissionId.Verified) {
-    // TODO: Send email to the user
+    // Update this
     await delRedis("verified");
   }
 };
