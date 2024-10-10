@@ -15,12 +15,14 @@ const getClass = (attachments: number) => {
   if (attachments === 1) {
     return { aspect: "", row: "grid-cols-1 grid-rows-1" };
   }
+
   if (attachments === 2) {
     return {
       aspect: "aspect-w-16 aspect-h-12",
       row: "grid-cols-2 grid-rows-1"
     };
   }
+
   if (attachments > 2) {
     return {
       aspect: "aspect-w-16 aspect-h-12",
@@ -113,7 +115,6 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
               className={cn(
                 getClass(displayDecision.length)?.aspect,
                 { "row-span-2": displayDecision.length === 3 && index === 0 },
-                { "col-span-2": displayDecision.length === 4 && index === 0 },
                 { "w-2/3": displayDecision.length === 1 }
               )}
               key={attachment}
