@@ -36,18 +36,10 @@ const getClass = (attachments: number) => {
         aspect: "aspect-w-16 aspect-h-12",
         row: "grid-cols-3 grid-rows-2"
       };
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-      return {
-        aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-4 grid-rows-3"
-      };
     default:
       return {
         aspect: "aspect-w-16 aspect-h-12",
-        row: "grid-cols-4 grid-rows-3"
+        row: "grid-cols-3 grid-rows-3"
       };
   }
 };
