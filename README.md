@@ -111,6 +111,28 @@ script/update-lock-file
 
 Our repositories are managed using [Pierre](https://pierre.co/). You can find our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). Although we do not accept pull requests (PRs) on GitHub, we encourage you to open issues.
 
+## Other tools you might like
+
+### Ripgrep
+
+We use [Ripgrep](https://github.com/BurntSushi/ripgrep) to search for text in the codebase. It's much faster than `grep` and `ag`.
+
+Install it via Homebrew:
+
+```bash
+brew install ripgrep
+```
+
+Search for text in the codebase:
+
+```bash
+rg "const Verified"
+```
+
+## Code of Conduct
+
+We have a [code of conduct](./CODE_OF_CONDUCT.md) that we expect all contributors and team members to adhere to.
+
 ## License
 
 This project is licensed under the **AGPL-3.0** license. See the [LICENSE](./LICENSE) file for more details.
