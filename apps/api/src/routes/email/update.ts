@@ -79,12 +79,12 @@ export const post = [
           <html>
             <body>
               <p>Welcome to Hey!</p> 
-              <br>
+              <br />
               <p>Please click the link below to verify your email address: ${result.email}</p>
               <a href="https://api.hey.xyz/email/verify?token=${result.verificationToken}">Verify Email →</a>
-              <br>
+              <br />
               <p>If you didn't request this email, please ignore this email.</p>
-              <br>
+              <br />
               <p>Thanks,</p>
               <p>${APP_NAME} team</p>
             </body>
