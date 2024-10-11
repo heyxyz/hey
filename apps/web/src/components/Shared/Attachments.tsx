@@ -6,6 +6,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MetadataAsset } from "@hey/types/misc";
 import { Image, LightBox } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { getSrc } from "@livepeer/react/external";
 import type { FC } from "react";
 import { memo, useState } from "react";
 import Audio from "./Audio";
@@ -95,7 +96,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
         </div>
       )}
       {displayDecision === "displayVideoAsset" && (
-        <Video poster={asset?.cover} src={asset?.uri as string} />
+        <Video src={getSrc(asset?.uri)} poster={asset?.cover as string} />
       )}
       {displayDecision === "displayAudioAsset" && (
         <Audio
