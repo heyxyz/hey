@@ -3,6 +3,7 @@ import profileThemeFonts, { Font } from "@helpers/profileThemeFonts";
 import { HEY_API_URL } from "@hey/data/constants";
 import camelCaseToReadable from "@hey/helpers/camelCaseToReadable";
 import { Button, Select } from "@hey/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,6 +12,7 @@ import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeSto
 const UpdateTheme: FC = () => {
   const { theme, setTheme } = useProfileThemeStore();
   const [updating, setUpdating] = useState(false);
+  const queryClient = useQueryClient();
 
   const resetTheme = async () => {
     setUpdating(true);
@@ -25,6 +27,7 @@ const UpdateTheme: FC = () => {
           success: "Profile theme reset successfully"
         }
       );
+      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
       setTheme(null);
     } finally {
       setUpdating(false);
@@ -44,6 +47,7 @@ const UpdateTheme: FC = () => {
           success: "Profile theme updated successfully"
         }
       );
+      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
     } finally {
       setUpdating(false);
     }
