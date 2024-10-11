@@ -1,5 +1,5 @@
+import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
 import Loader from "@components/Shared/Loader";
-import WalletProfile from "@components/Shared/WalletProfile";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { MinusCircleIcon, UserCircleIcon } from "@heroicons/react/24/outline";
@@ -184,7 +184,7 @@ const List: FC = () => {
       endReached={onEndReached}
       itemContent={(_, manager) => (
         <div className="flex items-center justify-between py-2">
-          <WalletProfile address={manager.address} />
+          <LazyDefaultProfile address={manager.address} />
           <Button
             disabled={removingAddress === manager.address}
             icon={

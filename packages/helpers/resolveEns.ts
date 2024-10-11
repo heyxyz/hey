@@ -11,6 +11,7 @@ const resolveEns = async (addresses: string[]) => {
     const response = await axios.post(`${HEY_API_URL}/ens`, {
       addresses: addresses.map((address) => address.split("/")[0])
     });
+
     return response.data;
   } catch {
     return [];

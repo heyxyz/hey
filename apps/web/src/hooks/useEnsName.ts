@@ -1,3 +1,4 @@
+import formatAddress from "@hey/helpers/formatAddress";
 import resolveEns from "@hey/helpers/resolveEns";
 import { useQuery } from "@tanstack/react-query";
 
@@ -16,7 +17,7 @@ const useEnsName = ({
 } => {
   const getEnsDetails = async () => {
     const { result } = await resolveEns([address]);
-    return result[0].length ? result[0] : address;
+    return result[0].length ? result[0] : formatAddress(address);
   };
 
   const { data, error, isLoading } = useQuery({
