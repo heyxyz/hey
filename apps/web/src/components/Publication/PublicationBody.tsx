@@ -13,6 +13,7 @@ import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { getSrc } from "@livepeer/react/external";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
@@ -124,7 +125,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showPoll ? <Poll id={pollId} /> : null}
       {showLive ? (
         <div className="mt-3">
-          <Video src={metadata.liveURL || metadata.playbackURL} />
+          <Video src={getSrc(metadata.liveURL || metadata.playbackURL)} />
         </div>
       ) : null}
       {showCheckin ? <Checkin publication={targetPublication} /> : null}

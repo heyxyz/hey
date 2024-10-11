@@ -1,12 +1,5 @@
 import authLink from "@helpers/authLink";
-import getLivepeerTheme from "@helpers/getLivepeerTheme";
-import { LIVEPEER_KEY } from "@hey/data/constants";
 import { ApolloProvider, apolloClient } from "@hey/lens/apollo";
-import {
-  LivepeerConfig,
-  createReactClient,
-  studioProvider
-} from "@livepeer/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import type { FC, ReactNode } from "react";
@@ -21,9 +14,6 @@ import ServiceWorkerProvider from "./ServiceWorkerProvider";
 import Web3Provider from "./Web3Provider";
 
 const lensApolloClient = apolloClient(authLink);
-const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: LIVEPEER_KEY })
-});
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
@@ -44,11 +34,9 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
             <OptimisticTransactionsProvider />
             <QueryClientProvider client={queryClient}>
               <PreferencesProvider />
-              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-                <ThemeProvider attribute="class" defaultTheme="light">
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-              </LivepeerConfig>
+              <ThemeProvider attribute="class" defaultTheme="light">
+                <Layout>{children}</Layout>
+              </ThemeProvider>
             </QueryClientProvider>
           </FeatureFlagProvider>
         </ApolloProvider>
