@@ -9,6 +9,7 @@ import {
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Card, Spinner, Tooltip } from "@hey/ui";
+import { getSrc } from "@livepeer/react/external";
 import axios from "axios";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
@@ -122,7 +123,9 @@ const LivestreamEditor: FC = () => {
               </div>
             </Card>
             <Video
-              src={`https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`}
+              src={getSrc(
+                `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`
+              )}
             />
           </>
         ) : screen === "create" ? (

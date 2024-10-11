@@ -26,7 +26,7 @@
     "@hey/lens": "workspace:*",
     "@hey/ui": "workspace:*",
     "@lens-protocol/metadata": "^1.2.0",
-    "@livepeer/react": "3.1.9",
+    "@livepeer/react": "^4.2.7",
     "@next/bundle-analyzer": "^14.2.15",
     "@radix-ui/react-hover-card": "^1.1.2",
     "@rajesh896/broprint.js": "^2.1.1",
