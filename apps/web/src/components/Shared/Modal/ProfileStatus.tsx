@@ -4,7 +4,7 @@ import { HEY_API_URL } from "@hey/data/constants";
 import getProfileDetails from "@hey/helpers/api/getProfileDetails";
 import { Button, ErrorMessage, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,6 +18,7 @@ const ProfileStatus: FC = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [emoji, setEmoji] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   const { isLoading, error } = useQuery({
     enabled: Boolean(currentProfile?.id),
@@ -56,6 +57,7 @@ const ProfileStatus: FC = () => {
           setMessage(null);
           setEmoji(null);
           setShowEditStatusModal(false);
+          queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
           return "Profile status cleared successfully";
         }
       }
@@ -76,6 +78,7 @@ const ProfileStatus: FC = () => {
           setMessage(null);
           setEmoji(null);
           setShowEditStatusModal(false);
+          queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
           return "Profile status updated successfully";
         }
       }
