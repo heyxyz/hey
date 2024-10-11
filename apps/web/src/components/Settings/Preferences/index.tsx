@@ -34,7 +34,7 @@ const PreferencesSettings: NextPage = () => {
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
-      <GridItemEight>
+      <GridItemEight className="space-y-5">
         <Card>
           <CardHeader
             body={`Update your preferences to control how you can change your
@@ -42,10 +42,10 @@ const PreferencesSettings: NextPage = () => {
             title="Your Preferences"
           />
           <div className="m-5">
-            <AppIcon />
             <HighSignalNotificationFilter />
           </div>
         </Card>
+        <AppIcon />
       </GridItemEight>
     </GridLayout>
   );
