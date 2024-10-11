@@ -58,9 +58,7 @@ const getPublicationData = (
       return {
         asset: {
           cover:
-            metadata.asset.cover?.optimized?.uri ||
-            videoAttachments?.coverUri ||
-            PLACEHOLDER_IMAGE,
+            metadata.asset.cover?.optimized?.uri || videoAttachments?.coverUri,
           // TODO: Fix this type
           license: metadata.asset.license as any,
           type: "Video",
