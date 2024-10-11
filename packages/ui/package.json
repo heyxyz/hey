@@ -8,7 +8,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@headlessui/react": "2.1.9",
+    "@headlessui/react": "2.1.10",
     "@heroicons/react": "^2.1.5",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
