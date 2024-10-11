@@ -27,7 +27,9 @@ export const postUpdateTasks = async (
           <html>
             <body>
               <p>Hey Hey!</p>
+              <br />
               <p>Yay! Your account on ${APP_NAME} has been Staff Picked! 🌸</p>
+              <br />
               <p>Thanks,</p>
               <p>${APP_NAME} team</p>
             </body>
@@ -47,9 +49,10 @@ export const postUpdateTasks = async (
           <html>
             <body>
               <p>Hey Hey!</p>
+              <br />
               <p>Yay! Your account on ${APP_NAME} has been verified! ✅</p>
               <a href="https://hey.xyz/profile/${profileId}">Visit your profile →</a>
-              <br>
+              <br />
               <p>Thanks,</p>
               <p>${APP_NAME} team</p>
             </body>
