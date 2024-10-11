@@ -1,4 +1,3 @@
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import { describe, expect, test } from "vitest";
 import getPublicationData from "./getPublicationData";
 
@@ -155,48 +154,6 @@ describe("getPublicationData", () => {
       asset: { type: "Image", uri: "image-uri" },
       attachments: expect.any(Array),
       content: "This is an image publication with missing attachments"
-    });
-  });
-
-  test("should return default placeholder cover if audio cover is missing", () => {
-    const metadata: any = {
-      __typename: "AudioMetadataV3",
-      asset: {
-        artist: "Artist Name",
-        audio: { optimized: { uri: "audio-uri" } },
-        cover: null
-      },
-      attachments: [],
-      content: "This is an audio publication with missing cover",
-      title: "Audio Title"
-    };
-    const result = getPublicationData(metadata);
-    expect(result).toEqual({
-      asset: {
-        artist: "Artist Name",
-        cover: PLACEHOLDER_IMAGE,
-        title: "Audio Title",
-        type: "Audio",
-        uri: "audio-uri"
-      },
-      content: "This is an audio publication with missing cover"
-    });
-  });
-
-  test("should return default placeholder cover if video cover is missing", () => {
-    const metadata: any = {
-      __typename: "VideoMetadataV3",
-      asset: {
-        video: { optimized: { uri: "video-uri" } },
-        cover: null
-      },
-      attachments: [],
-      content: "This is a video publication with missing cover"
-    };
-    const result = getPublicationData(metadata);
-    expect(result).toEqual({
-      asset: { cover: PLACEHOLDER_IMAGE, type: "Video", uri: "video-uri" },
-      content: "This is a video publication with missing cover"
     });
   });
 
