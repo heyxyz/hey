@@ -15,8 +15,6 @@ describe("GET /preferences/get", () => {
     testEmail = faker.internet.email();
     testPermissionKey = faker.string.uuid();
 
-    console.log(testEmail);
-
     const [, , , permission] = await Promise.all([
       prisma.preference.upsert({
         where: { id: TEST_LENS_ID },
