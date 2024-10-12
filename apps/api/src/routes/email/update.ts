@@ -23,6 +23,7 @@ const validationSchema = object({
   resend: boolean().optional()
 });
 
+// TODO: Throw if emails is already in use
 export const post = [
   rateLimiter({ requests: 50, within: 60 }),
   validateLensAccount,
