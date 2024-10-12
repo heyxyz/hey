@@ -1,4 +1,7 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+import bundleAnalyzer from "@next/bundle-analyzer";
+import { withAxiom } from "next-axiom";
+
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true"
 });
 
@@ -14,7 +17,7 @@ const compilerOptions = isDevelopment
   : { compiler: { reactRemoveProperties: { properties: ["^data-testid$"] } } };
 
 /** @type {import('next').NextConfig} */
-module.exports = withBundleAnalyzer({
+const nextConfig = {
   ...compilerOptions,
   headers() {
     return [
@@ -79,4 +82,6 @@ module.exports = withBundleAnalyzer({
     ];
   },
   transpilePackages: ["data", "react-tweet"]
-});
+};
+
+export default withBundleAnalyzer(withAxiom(nextConfig));
