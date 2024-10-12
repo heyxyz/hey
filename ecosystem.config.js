@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "hey",
-      script: "node_modules/.bin/next",
-      args: "start --port 80",
+      script: "pnpm",
+      args: "run prod",
       cwd: "./apps/web",
       instances: "max",
       exec_mode: "cluster",
