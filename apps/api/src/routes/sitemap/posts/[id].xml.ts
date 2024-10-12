@@ -14,6 +14,7 @@ export const config = {
   api: { responseLimit: "8mb" }
 };
 
+// TODO: Add tests
 export const get = async (req: Request, res: Response) => {
   const { id } = req.params;
 

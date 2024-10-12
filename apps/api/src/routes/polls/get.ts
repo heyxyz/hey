@@ -50,8 +50,6 @@ export const get = [
         where: { id: id as string }
       });
 
-      console.log(data);
-
       if (!data) {
         return res
           .status(400)
