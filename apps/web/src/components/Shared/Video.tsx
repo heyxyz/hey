@@ -10,13 +10,33 @@ import {
 import { Spinner } from "@hey/ui";
 import type { Src } from "@livepeer/react";
 import * as Player from "@livepeer/react/player";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
 const PlayerLoading = () => (
   <div className="absolute inset-0 flex flex-col items-center justify-center">
     <Spinner size="md" />
   </div>
 );
+
+interface ErrorProps {
+  matcher: Player.ErrorIndicatorProps["matcher"];
+  icon: ReactNode;
+  title: string;
+}
+
+const PlayerError: FC<ErrorProps> = ({ matcher, icon, title }) => {
+  return (
+    <Player.ErrorIndicator
+      matcher={matcher}
+      className="absolute inset-0 flex flex-col items-center justify-center bg-black"
+    >
+      <div className="flex flex-col items-center space-y-2 text-lg text-white">
+        {icon}
+        <b>{title}</b>
+      </div>
+    </Player.ErrorIndicator>
+  );
+};
 
 interface VideoProps {
   src: Src[] | null;
@@ -35,24 +55,16 @@ const Video: FC<VideoProps> = ({ src, poster }) => {
         <Player.LoadingIndicator>
           <PlayerLoading />
         </Player.LoadingIndicator>
-        <Player.ErrorIndicator
+        <PlayerError
           matcher="offline"
-          className="absolute inset-0 flex flex-col items-center justify-center bg-black"
-        >
-          <div className="flex flex-col items-center space-y-2 text-lg text-white">
-            <NoSymbolIcon className="size-8" />
-            <b>Stream is offline</b>
-          </div>
-        </Player.ErrorIndicator>
-        <Player.ErrorIndicator
+          icon={<NoSymbolIcon className="size-8" />}
+          title="Stream is offline"
+        />
+        <PlayerError
           matcher="access-control"
-          className="absolute inset-0 flex flex-col items-center justify-center"
-        >
-          <div className="flex flex-col items-center space-y-2 text-lg text-white">
-            <LockClosedIcon className="size-8" />
-            <b>Stream is private</b>
-          </div>
-        </Player.ErrorIndicator>
+          icon={<LockClosedIcon className="size-8" />}
+          title="Stream is private"
+        />
         <Player.Controls className="flex flex-col-reverse gap-1 bg-gradient-to-b from-black/5 via-80% via-black/30 to-black/60 px-3 py-2 duration-1000 md:px-3">
           <div className="flex justify-between gap-4">
             <div className="flex flex-1 items-center gap-3">
