@@ -7,8 +7,15 @@ const allowedBots =
 const { VERCEL_DEPLOYMENT_ID } = process.env;
 const DEPLOYMENT_ID = VERCEL_DEPLOYMENT_ID || "unknown";
 
+// Remove data-testid from production
+const isDevelopment = process.env.NODE_ENV === "development";
+const compilerOptions = isDevelopment
+  ? {}
+  : { compiler: { reactRemoveProperties: { properties: ["^data-testid$"] } } };
+
 /** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer({
+  ...compilerOptions,
   headers() {
     return [
       {
