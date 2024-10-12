@@ -8,7 +8,7 @@
     "build:sw": "node script/build-sw.mjs",
     "dev": "next dev --port 4783",
     "start": "next start --port 4783",
-    "prod": "next start --port 8080",
+    "prod": "next start --port 80",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
