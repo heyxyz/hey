@@ -5,11 +5,9 @@ module.exports = {
       script: "pnpm",
       args: "run prod",
       cwd: "./apps/web",
-      instances: "max",
+      instances: 5,
       exec_mode: "cluster",
-      env_production: {
-        NODE_ENV: "production"
-      }
+      env_production: { NODE_ENV: "production" }
     }
   ]
 };
