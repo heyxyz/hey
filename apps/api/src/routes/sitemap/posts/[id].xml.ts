@@ -1,4 +1,5 @@
 import lensPg from "@hey/db/lensPg";
+import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -23,43 +24,55 @@ export const get = async (req: Request, res: Response) => {
   }
 
   const user_agent = req.headers["user-agent"];
+  const redisKey = `sitemap:posts:batch:${id}`;
 
   try {
-    const offset = (Number(id) - 1) * SITEMAP_BATCH_SIZE || 0;
+    const cachedData = await getRedis(redisKey);
+    let entries: { lastmod: string; loc: string }[] = [];
 
-    const response = await lensPg.query(
-      `
-        SELECT pr.publication_id, pr.block_timestamp
-        FROM publication.record pr
-        WHERE pr.publication_type = 'POST' AND pr.is_hidden = false
-        ORDER BY pr.block_timestamp
-        LIMIT $1
-        OFFSET $2;
-      `,
-      [SITEMAP_BATCH_SIZE, offset]
-    );
+    if (cachedData) {
+      entries = JSON.parse(cachedData);
+      logger.info(
+        `(cached) [Lens] Fetched posts sitemap for batch ${id} having ${entries.length} entries from user-agent: ${user_agent}`
+      );
+    } else {
+      const offset = (Number(id) - 1) * SITEMAP_BATCH_SIZE || 0;
 
-    const entries = response.map((post) => ({
-      lastmod: post.block_timestamp
-        .toISOString()
-        .replace("T", " ")
-        .replace(".000Z", "")
-        .split(" ")[0],
-      loc: `https://hey.xyz/posts/${post.publication_id}`
-    }));
+      const response = await lensPg.query(
+        `
+          SELECT pr.publication_id, pr.block_timestamp
+          FROM publication.record pr
+          WHERE pr.publication_type = 'POST' AND pr.is_hidden = false
+          ORDER BY pr.block_timestamp
+          LIMIT $1
+          OFFSET $2;
+        `,
+        [SITEMAP_BATCH_SIZE, offset]
+      );
+
+      entries = response.map((post) => ({
+        lastmod: post.block_timestamp
+          .toISOString()
+          .replace("T", " ")
+          .replace(".000Z", "")
+          .split(" ")[0],
+        loc: `https://hey.xyz/posts/${post.publication_id}`
+      }));
+
+      await setRedis(redisKey, JSON.stringify(entries));
+      logger.info(
+        `[Lens] Fetched posts sitemap for batch ${id} having ${response.length} entries from user-agent: ${user_agent}`
+      );
+    }
 
     const xml = buildUrlsetXml(entries);
 
-    logger.info(
-      `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${user_agent}`
-    );
-    console.log(response.length === SITEMAP_BATCH_SIZE);
     return res
       .status(200)
       .setHeader("Content-Type", "text/xml")
       .setHeader(
         "Cache-Control",
-        response.length === SITEMAP_BATCH_SIZE
+        entries.length === SITEMAP_BATCH_SIZE
           ? CACHE_AGE_INDEFINITE
           : CACHE_AGE_1_DAY
       )
