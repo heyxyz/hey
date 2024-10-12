@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "hey",
       script: "pnpm",
-      args: "run start -p 80",
+      args: "run prod",
       cwd: "./apps/web",
       instances: "max",
       exec_mode: "cluster",
