@@ -60,8 +60,6 @@ const transformData = (result: any[][]): TransformedRecord[] => {
   const followsMap = mapData(followsData, "follows");
   const bookmarksMap = mapData(bookmarksData, "bookmarks");
 
-  console.log(bookmarksData);
-
   // Transform data for the last 30 days
   const last30Days = generateLast30Days();
   return last30Days.map((date) => ({

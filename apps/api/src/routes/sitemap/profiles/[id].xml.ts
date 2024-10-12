@@ -14,6 +14,7 @@ export const config = {
   api: { responseLimit: "8mb" }
 };
 
+// TODO: Add tests
 export const get = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -54,7 +55,7 @@ export const get = async (req: Request, res: Response) => {
     logger.info(
       `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${user_agent}`
     );
-    console.log(response.length === SITEMAP_BATCH_SIZE);
+
     return res
       .status(200)
       .setHeader("Content-Type", "text/xml")
