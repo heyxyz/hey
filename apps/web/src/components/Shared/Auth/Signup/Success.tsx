@@ -5,6 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { AUTH } from "@hey/data/tracking";
 import { useAuthenticateMutation, useChallengeLazyQuery } from "@hey/lens";
 import { Button, H4, Spinner } from "@hey/ui";
+import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ import { useAccount, useSignMessage } from "wagmi";
 import { useSignupStore } from ".";
 
 const Success: FC = () => {
+  const { reload } = useRouter();
   const { profileId } = useSignupStore();
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
@@ -55,7 +57,7 @@ const Success: FC = () => {
       const identityToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, identityToken, refreshToken });
       Leafwatch.track(AUTH.LOGIN, { profile_id: profileId, source: "signup" });
-      location.reload();
+      reload();
     } catch {}
   };
 

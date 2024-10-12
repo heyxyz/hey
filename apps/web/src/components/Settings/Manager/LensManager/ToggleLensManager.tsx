@@ -147,7 +147,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
   return writeHash || broadcastTxId ? (
     <div className="mt-2">
-      <IndexStatus reload txHash={writeHash} txId={broadcastTxId} />
+      <IndexStatus shouldReload txHash={writeHash} txId={broadcastTxId} />
     </div>
   ) : (
     <Button

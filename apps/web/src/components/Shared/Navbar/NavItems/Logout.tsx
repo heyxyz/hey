@@ -5,6 +5,7 @@ import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { AUTH } from "@hey/data/tracking";
 import { useRevokeAuthenticationMutation } from "@hey/lens";
 import cn from "@hey/ui/cn";
+import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
@@ -17,6 +18,7 @@ interface LogoutProps {
 }
 
 const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
+  const { reload } = useRouter();
   const { resetPreferences } = usePreferencesStore();
   const [revoking, setRevoking] = useState(false);
 
@@ -42,7 +44,7 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
       resetPreferences();
       signOut();
       disconnect?.();
-      location.reload();
+      reload();
     } catch (error) {
       onError(error);
     } finally {

@@ -106,7 +106,7 @@ const ProtectProfile: FC = () => {
         </GridItemEight>
         <GridItemFour className="mt-5 flex items-center sm:mt-0 sm:ml-auto">
           {writeHash ? (
-            <IndexStatus reload txHash={writeHash} />
+            <IndexStatus shouldReload txHash={writeHash} />
           ) : (
             <Button
               disabled={isPending}
