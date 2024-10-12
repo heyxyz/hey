@@ -19,6 +19,7 @@ import {
 } from "@hey/lens";
 import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -29,6 +30,7 @@ import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
 const SwitchProfiles: FC = () => {
+  const { reload } = useRouter();
   const { currentProfile } = useProfileStore();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
@@ -94,7 +96,7 @@ const SwitchProfiles: FC = () => {
       signOut();
       signIn({ accessToken, identityToken, refreshToken });
       Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
-      location.reload();
+      reload();
     } catch (error) {
       onError(error);
     }

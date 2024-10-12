@@ -5,23 +5,25 @@ import {
 } from "@hey/lens";
 import { Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import type { Address } from "viem";
 
 interface IndexStatusProps {
   message?: string;
-  reload?: boolean;
+  shouldReload?: boolean;
   txHash?: Address;
   txId?: string;
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
   message = "Transaction Indexing",
-  reload = false,
+  shouldReload = false,
   txHash,
   txId
 }) => {
+  const { reload } = useRouter();
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
 
@@ -32,8 +34,8 @@ const IndexStatus: FC<IndexStatusProps> = ({
         lensTransactionStatus?.status === LensTransactionStatusType.Complete
       ) {
         setPollInterval(0);
-        if (reload) {
-          location.reload();
+        if (shouldReload) {
+          reload();
         }
         setTimeout(() => {
           setHide(true);

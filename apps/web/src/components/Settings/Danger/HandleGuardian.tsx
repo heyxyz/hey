@@ -98,7 +98,7 @@ const HandleGuardianSettings: FC = () => {
         )}
         {data ? (
           <div className="mt-5">
-            <IndexStatus reload txHash={data} />
+            <IndexStatus shouldReload txHash={data} />
           </div>
         ) : (
           <Button

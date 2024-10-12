@@ -17,6 +17,7 @@ import {
   useProfilesManagedQuery
 } from "@hey/lens";
 import { Button, Card } from "@hey/ui";
+import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -33,6 +34,7 @@ interface LoginProps {
 }
 
 const Login: FC<LoginProps> = ({ setHasProfiles }) => {
+  const { reload } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -98,7 +100,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
       const identityToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, identityToken, refreshToken });
       Leafwatch.track(AUTH.LOGIN, { profile_id: id, source: "login" });
-      location.reload();
+      reload();
     } catch {}
   };
 

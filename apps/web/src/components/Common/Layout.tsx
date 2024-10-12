@@ -9,6 +9,7 @@ import type { Profile } from "@hey/lens";
 import { useCurrentProfileQuery } from "@hey/lens";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
@@ -27,6 +28,7 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const { reload } = useRouter();
   const { resolvedTheme } = useTheme();
   const { currentProfile, setCurrentProfile, setFallbackToCuratedFeed } =
     useProfileStore();
@@ -38,13 +40,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { id: sessionProfileId } = getCurrentSession();
 
-  const logout = (reload = false) => {
+  const logout = (shouldReload = false) => {
     resetPreferences();
     resetStatus();
     signOut();
     disconnect?.();
-    if (reload) {
-      location.reload();
+    if (shouldReload) {
+      reload();
     }
   };
 

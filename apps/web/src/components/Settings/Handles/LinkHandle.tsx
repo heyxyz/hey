@@ -211,7 +211,7 @@ const LinkHandle: FC = () => {
           {lensManegaerTxId || broadcastTxId || writeHash ? (
             <div className="mt-2">
               <IndexStatus
-                reload
+                shouldReload
                 txHash={writeHash}
                 txId={lensManegaerTxId || broadcastTxId}
               />
