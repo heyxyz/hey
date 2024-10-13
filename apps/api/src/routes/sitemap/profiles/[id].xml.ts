@@ -23,7 +23,7 @@ export const get = async (req: Request, res: Response) => {
     return noBody(res);
   }
 
-  const user_agent = req.headers["user-agent"];
+  const userAgent = req.headers["user-agent"];
   const redisKey = `sitemap:profiles:batch:${id}`;
 
   try {
@@ -33,7 +33,7 @@ export const get = async (req: Request, res: Response) => {
     if (cachedData) {
       entries = JSON.parse(cachedData);
       logger.info(
-        `(cached) [Lens] Fetched profiles sitemap for batch ${id} having ${entries.length} entries from user-agent: ${user_agent}`
+        `(cached) [Lens] Fetched profiles sitemap for batch ${id} having ${entries.length} entries from user-agent: ${userAgent}`
       );
     } else {
       const offset = (Number(id) - 1) * SITEMAP_BATCH_SIZE || 0;
@@ -63,7 +63,7 @@ export const get = async (req: Request, res: Response) => {
 
       await setRedis(redisKey, JSON.stringify(entries));
       logger.info(
-        `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${user_agent}`
+        `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${userAgent}`
       );
     }
 

@@ -4,7 +4,7 @@ import catchedError from "src/helpers/catchedError";
 import { buildSitemapXml } from "src/helpers/sitemap/buildSitemap";
 
 export const get = async (req: Request, res: Response) => {
-  const user_agent = req.headers["user-agent"];
+  const userAgent = req.headers["user-agent"];
 
   try {
     const sitemaps = [
@@ -19,7 +19,7 @@ export const get = async (req: Request, res: Response) => {
     const xml = buildSitemapXml(entries);
 
     logger.info(
-      `[Lens] Fetched all sitemaps index from user-agent: ${user_agent}`
+      `[Lens] Fetched all sitemaps index from user-agent: ${userAgent}`
     );
 
     return res.status(200).setHeader("Content-Type", "text/xml").send(xml);
