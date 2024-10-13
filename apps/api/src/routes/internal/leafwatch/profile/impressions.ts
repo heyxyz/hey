@@ -6,6 +6,7 @@ import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { noBody } from "src/helpers/responses";
 
+// TODO: Add tests
 export const get = [
   validateLensAccount,
   validateIsStaff,

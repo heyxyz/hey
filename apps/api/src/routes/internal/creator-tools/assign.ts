@@ -21,6 +21,7 @@ const validationSchema = object({
 });
 
 // TODO: Merge this with the one in permissions/assign
+// TODO: Add tests
 export const post = [
   validateLensAccount,
   validateHasCreatorToolsAccess,
