@@ -8,7 +8,7 @@
     "build:sw": "node script/build-sw.mjs",
     "dev": "next dev --port 4783",
     "start": "next start --port 4783",
-    "test:dev": "vitest run",
+    "test": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {

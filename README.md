@@ -76,7 +76,7 @@ pnpm build
 Want to run tests while you're developing? Here's how you do it:
 
 ```bash
-pnpm test:dev
+pnpm test
 ```
 
 ## Periodic Tasks
