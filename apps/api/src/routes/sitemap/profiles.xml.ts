@@ -7,7 +7,7 @@ import { CACHE_AGE_1_DAY, SITEMAP_BATCH_SIZE } from "src/helpers/constants";
 import { buildSitemapXml } from "src/helpers/sitemap/buildSitemap";
 
 export const get = async (req: Request, res: Response) => {
-  const user_agent = req.headers["user-agent"];
+  const userAgent = req.headers["user-agent"];
   const redisKey = "sitemap:profiles:total";
 
   try {
@@ -38,7 +38,7 @@ export const get = async (req: Request, res: Response) => {
     const xml = buildSitemapXml(entries);
 
     logger.info(
-      `[Lens] Fetched all profiles sitemap index having ${totalBatches} batches from user-agent: ${user_agent}`
+      `[Lens] Fetched all profiles sitemap index having ${totalBatches} batches from user-agent: ${userAgent}`
     );
 
     return res
