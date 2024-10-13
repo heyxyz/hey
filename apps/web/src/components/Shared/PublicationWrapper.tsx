@@ -1,6 +1,4 @@
 import type { AnyPublication } from "@hey/lens";
-import cn from "@hey/ui/cn";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 
@@ -29,15 +27,9 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   };
 
   return (
-    <motion.article
-      animate={{ opacity: 1 }}
-      className={cn(className)}
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
-      onClick={handleClick}
-    >
+    <article className={className} onClick={handleClick}>
       {children}
-    </motion.article>
+    </article>
   );
 };
 

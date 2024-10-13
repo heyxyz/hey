@@ -6,7 +6,6 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { MirrorablePublication } from "@hey/lens";
 import { Modal, Tooltip } from "@hey/ui";
-import { motion } from "framer-motion";
 import plur from "plur";
 import { type FC, useState } from "react";
 import CollectModule from "./CollectModule";
@@ -24,7 +23,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
-      <motion.button
+      <button
         aria-label="Collect"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => {
@@ -34,7 +33,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
             source: "icon"
           });
         }}
-        whileTap={{ scale: 0.9 }}
+        type="button"
       >
         <Tooltip
           content={`${humanize(countOpenActions)} ${plur(
@@ -46,7 +45,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
         >
           <ShoppingBagIcon className="w-[15px] sm:w-[18px]" />
         </Tooltip>
-      </motion.button>
+      </button>
       {countOpenActions > 0 ? (
         <span className="text-[11px] sm:text-xs">
           {nFormatter(countOpenActions)}
