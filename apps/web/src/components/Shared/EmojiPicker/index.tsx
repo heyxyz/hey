@@ -2,7 +2,6 @@ import { FaceSmileIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { Tooltip } from "@hey/ui";
 import { useClickAway } from "@uidotdev/usehooks";
-import { motion } from "framer-motion";
 import type { Dispatch, FC, MutableRefObject, SetStateAction } from "react";
 import List from "./List";
 
@@ -26,7 +25,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
   return (
     <Tooltip content="Emoji" placement="top">
       <div className="relative" ref={listRef}>
-        <motion.button
+        <button
           aria-label="Emoji"
           className="rounded-full outline-offset-8"
           onClick={(e) => {
@@ -34,14 +33,14 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
             stopEventPropagation(e);
             setShowEmojiPicker(!showEmojiPicker);
           }}
-          whileTap={{ scale: 0.9 }}
+          type="button"
         >
           {emoji ? (
             <span className="text-lg">{emoji}</span>
           ) : (
             <FaceSmileIcon className="size-5" />
           )}
-        </motion.button>
+        </button>
         {showEmojiPicker ? (
           <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
             <List setEmoji={setEmoji} />

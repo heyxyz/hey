@@ -10,7 +10,6 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { ReferenceModuleType } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { motion } from "framer-motion";
 import type { FC, ReactNode } from "react";
 import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 
@@ -86,9 +85,7 @@ const ReferenceSettings: FC = () => {
       <Menu as="div">
         <MenuButton
           aria-label="Reference Module"
-          as={motion.button}
           className="rounded-full outline-offset-8"
-          whileTap={{ scale: 0.9 }}
         >
           {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
           {isMyFollowers ? <UsersIcon className="w-5" /> : null}

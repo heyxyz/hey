@@ -3,7 +3,6 @@ import { GifIcon } from "@heroicons/react/24/outline";
 import { PUBLICATION } from "@hey/data/tracking";
 import type { IGif } from "@hey/types/giphy";
 import { Modal, Tooltip } from "@hey/ui";
-import { motion } from "framer-motion";
 import type { FC } from "react";
 import { useState } from "react";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
@@ -20,7 +19,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
   return (
     <>
       <Tooltip content="GIF" placement="top">
-        <motion.button
+        <button
           aria-label="GIF"
           className="rounded-full outline-offset-8"
           disabled={attachments.length >= 4}
@@ -29,10 +28,9 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
             Leafwatch.track(PUBLICATION.OPEN_GIFS);
           }}
           type="button"
-          whileTap={{ scale: 0.9 }}
         >
           <GifIcon className="size-5" />
-        </motion.button>
+        </button>
       </Tooltip>
       <Modal
         onClose={() => setShowModal(false)}

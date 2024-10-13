@@ -1,7 +1,6 @@
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
 import type { MirrorablePublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
-import { motion } from "framer-motion";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
@@ -18,16 +17,16 @@ const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
     : "w-[15px] sm:w-[18px]";
 
   return (
-    <motion.button
+    <button
       aria-label="Mod"
       className="rounded-full p-1.5 text-yellow-600 outline-offset-2 hover:bg-yellow-400/20"
       onClick={() => setShowGardenerActionsAlert(true, publication)}
-      whileTap={{ scale: 0.9 }}
+      type="button"
     >
       <Tooltip content="Mod actions" placement="top" withDelay>
         <ShieldCheckIcon className={iconClassName} />
       </Tooltip>
-    </motion.button>
+    </button>
   );
 };
 

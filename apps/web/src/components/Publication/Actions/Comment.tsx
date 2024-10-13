@@ -3,7 +3,6 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { MirrorablePublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 
@@ -21,13 +20,13 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
-      <motion.button
+      <button
         aria-label="Comment"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => {
           push(`/posts/${publication.id}`);
         }}
-        whileTap={{ scale: 0.9 }}
+        type="button"
       >
         <Tooltip
           content={count > 0 ? `${humanize(count)} Comments` : "Comment"}
@@ -36,7 +35,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
         >
           <ChatBubbleLeftIcon className={iconClassName} />
         </Tooltip>
-      </motion.button>
+      </button>
       {count > 0 && !showCount ? (
         <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
       ) : null}

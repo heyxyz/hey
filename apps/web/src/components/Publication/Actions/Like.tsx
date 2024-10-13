@@ -15,7 +15,6 @@ import {
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
-import { motion } from "framer-motion";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
@@ -120,14 +119,14 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         "flex items-center space-x-1"
       )}
     >
-      <motion.button
+      <button
         aria-label="Like"
         className={cn(
           hasReacted ? "hover:bg-brand-300/20" : "hover:bg-gray-300/20",
           "rounded-full p-1.5 outline-offset-2"
         )}
         onClick={createLike}
-        whileTap={{ scale: 0.9 }}
+        type="button"
       >
         <Tooltip
           content={hasReacted ? "Unlike" : "Like"}
@@ -140,7 +139,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
             <HeartIcon className={iconClassName} />
           )}
         </Tooltip>
-      </motion.button>
+      </button>
       {reactions > 0 && !showCount ? (
         <span className="text-[11px] sm:text-xs">{nFormatter(reactions)}</span>
       ) : null}

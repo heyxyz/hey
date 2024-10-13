@@ -1,6 +1,5 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { Modal, Tooltip } from "@hey/ui";
-import { motion } from "framer-motion";
 import type { FC } from "react";
 import { useState } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
@@ -15,15 +14,14 @@ const CollectSettings: FC = () => {
   return (
     <>
       <Tooltip content="Collect" placement="top">
-        <motion.button
+        <button
           aria-label="Collect Module"
           className="rounded-full outline-offset-8"
           onClick={() => setShowModal(!showModal)}
           type="button"
-          whileTap={{ scale: 0.9 }}
         >
           <ShoppingBagIcon className="size-5" />
-        </motion.button>
+        </button>
       </Tooltip>
       <Modal
         onClose={() => {
