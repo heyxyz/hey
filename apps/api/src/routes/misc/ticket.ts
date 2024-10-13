@@ -19,6 +19,7 @@ const validationSchema = object({
   title: string().min(5).max(1000)
 });
 
+// TODO: Add tests
 export const post = [
   rateLimiter({ requests: 3, within: 60 }),
   async (req: Request, res: Response) => {
