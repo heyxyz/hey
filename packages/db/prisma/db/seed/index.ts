@@ -1,4 +1,5 @@
 import prisma from "../client";
+import seedEmails from "./seedEmails";
 import seedPermissions from "./seedPermissions";
 import seedPreferences from "./seedPreferences";
 import seedProfilePermission from "./seedProfilePermission";
@@ -24,6 +25,9 @@ async function main() {
 
   const profileTheme = await seedProfileTheme();
   console.log(`Seeded ${profileTheme} profile theme`);
+
+  const emails = await seedEmails();
+  console.log(`Seeded ${emails} emails`);
 }
 
 main()
