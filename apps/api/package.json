@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon -w src -x tsx src/server.ts",
     "start": "NODE_ENV=production tsx src/server.ts",
-    "test": "vitest run",
-    "test:dev": "start-server-and-test dev http://localhost:4784 test",
+    "test:dev": "vitest run",
+    "test": "start-server-and-test dev http://localhost:4784 test:dev",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {

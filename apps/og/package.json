@@ -7,7 +7,7 @@
     "build": "next build",
     "dev": "next dev --port 4785",
     "start": "next start --port 4785",
-    "test:dev": "vitest run",
+    "test": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {

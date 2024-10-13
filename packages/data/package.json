@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "test:dev": "vitest run",
+    "test": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
