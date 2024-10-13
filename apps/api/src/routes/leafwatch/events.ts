@@ -58,14 +58,14 @@ export const post = [
       }
     }
 
-    const user_agent = req.headers["user-agent"];
+    const userAgent = req.headers["user-agent"];
     const ip = getIp(req);
     const cfIpCity = req.headers["cf-ipcity"];
     const cfIpCountry = req.headers["cf-ipcountry"];
 
     try {
       // Extract IP data
-      const parser = new UAParser(user_agent || "");
+      const parser = new UAParser(userAgent || "");
       const ua = parser.getResult();
 
       // Extract UTM parameters
