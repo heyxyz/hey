@@ -12,7 +12,6 @@ import {
   MediaImageMimeType
 } from "@lens-protocol/metadata";
 import { useClickAway } from "@uidotdev/usehooks";
-import { motion } from "framer-motion";
 import type { ChangeEvent, FC, MutableRefObject } from "react";
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
@@ -99,10 +98,8 @@ const Attachment: FC = () => {
       <Menu as="div">
         <MenuButton
           aria-label="More"
-          as={motion.button}
           className="rounded-full outline-offset-8"
           onClick={() => setShowMenu(!showMenu)}
-          whileTap={{ scale: 0.9 }}
         >
           {isUploading ? (
             <Spinner size="sm" />

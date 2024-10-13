@@ -9,7 +9,6 @@ import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
-import { motion } from "framer-motion";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { useHiddenCommentFeedStore } from ".";
@@ -90,7 +89,7 @@ const FullPublication: FC<FullPublicationProps> = ({
                 <PublicationActions publication={targetPublication} showCount />
                 {hasHiddenComments ? (
                   <div className="mt-2">
-                    <motion.button
+                    <button
                       aria-label="Like"
                       className={cn(
                         showHiddenComments
@@ -99,7 +98,7 @@ const FullPublication: FC<FullPublicationProps> = ({
                         "rounded-full p-1.5 outline-offset-2"
                       )}
                       onClick={() => setShowHiddenComments(!showHiddenComments)}
-                      whileTap={{ scale: 0.9 }}
+                      type="button"
                     >
                       <Tooltip
                         content={
@@ -112,7 +111,7 @@ const FullPublication: FC<FullPublicationProps> = ({
                       >
                         <QueueListIcon className="size-5" />
                       </Tooltip>
-                    </motion.button>
+                    </button>
                   </div>
                 ) : null}
               </div>

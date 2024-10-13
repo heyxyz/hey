@@ -9,7 +9,6 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication } from "@hey/lens";
 import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { motion } from "framer-motion";
 import type { FC } from "react";
 import { useState } from "react";
 import Mirror from "./Mirror";
@@ -40,7 +39,6 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
       <Menu as="div" className="relative">
         <MenuButton
           aria-label="Mirror"
-          as={motion.button}
           className={cn(
             hasShared
               ? "text-brand-500 hover:bg-brand-300/20"
@@ -48,7 +46,6 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
             "rounded-full p-1.5 outline-offset-2"
           )}
           onClick={stopEventPropagation}
-          whileTap={{ scale: 0.9 }}
         >
           {isLoading ? (
             <Spinner

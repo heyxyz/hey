@@ -8,7 +8,6 @@ import { TipIcon } from "@hey/icons";
 import type { MirrorablePublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { motion } from "framer-motion";
 import party from "party-js";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -48,7 +47,6 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
       <Menu as="div" className="relative">
         <MenuButton
           aria-label="Tip"
-          as={motion.button}
           className={cn(
             tip?.tipped
               ? "text-brand-500 hover:bg-brand-300/20"
@@ -56,7 +54,6 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
             "rounded-full p-1.5 outline-offset-2"
           )}
           onClick={stopEventPropagation}
-          whileTap={{ scale: 0.9 }}
         >
           <div ref={confettiDom} />
           <Tooltip content="Tip" placement="top" withDelay>
