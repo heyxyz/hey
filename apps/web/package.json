@@ -48,7 +48,7 @@
     "party-js": "^2.2.0",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
-    "prosekit": "^0.9.23",
+    "prosekit": "^0.10.0",
     "rc-slider": "^11.1.7",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
@@ -72,7 +72,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.23",
+    "viem": "^2.21.24",
     "wagmi": "^2.12.17",
     "zod": "^3.23.8",
     "zustand": "5.0.0-rc.2"
