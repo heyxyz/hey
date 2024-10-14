@@ -3,6 +3,8 @@
     "formulahendry.auto-close-tag",
     "mikestead.dotenv",
     "biomejs.biome",
+    "GitHub.github-vscode-theme",
+    "NomicFoundation.hardhat-solidity",
     "Supermaven.supermaven",
     "eamodio.gitlens",
     "wix.vscode-import-cost",
