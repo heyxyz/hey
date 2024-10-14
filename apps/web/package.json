@@ -58,7 +58,7 @@
     "react-markdown": "^9.0.0",
     "react-tracked": "^2.0.1",
     "react-tweet": "^3.2.1",
-    "react-virtuoso": "^4.10.4",
+    "react-virtuoso": "^4.11.0",
     "rehype-parse": "^9.0.1",
     "rehype-remark": "^10.0.0",
     "remark-breaks": "^4.0.0",
@@ -72,10 +72,10 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.24",
+    "viem": "^2.21.25",
     "wagmi": "^2.12.17",
     "zod": "^3.23.8",
-    "zustand": "5.0.0-rc.2"
+    "zustand": "5.0.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
@@ -90,6 +90,6 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.2"
+    "vitest": "^2.1.3"
   }
 }
