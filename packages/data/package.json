@@ -11,6 +11,6 @@
     "@hey/config": "workspace:*",
     "@types/node": "^22.7.5",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.2"
+    "vitest": "^2.1.3"
   }
 }
