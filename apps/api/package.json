@@ -35,7 +35,7 @@
     "ua-parser-js": "^2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.24",
+    "viem": "^2.21.25",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -53,6 +53,6 @@
     "start-server-and-test": "^2.0.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.2"
+    "vitest": "^2.1.3"
   }
 }
