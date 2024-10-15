@@ -6,5 +6,5 @@ export const POLYGON_RPCS = [
 
 export const POLYGON_AMOY_RPCS = [
   "https://rpc-amoy.polygon.technology",
-  "https://polygon-amoy-bor-rpc.publicnode.com"
+  "https://polygon-amoy.drpc.org"
 ];
