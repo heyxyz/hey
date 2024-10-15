@@ -164,4 +164,8 @@ We kindly ask all contributors and team members to follow our [Code of Conduct](
 
 This project is open-sourced under the **AGPL-3.0** license. For all the nitty-gritty details, check out the [LICENSE](./LICENSE) file. It's a real page-turner!
 
+## P.S
+
+We 💖 you to the moon and back! Your support is like a never-ending supply of coffee for our code. Thank you for making Hey the most awesome place in the universe!
+
 🌸
