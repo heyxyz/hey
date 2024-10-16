@@ -119,6 +119,7 @@ const FullPublication: FC<FullPublicationProps> = ({
           )}
         </div>
       </div>
+      {/* <Translate id={targetPublication.id} /> */}
     </article>
   );
 };

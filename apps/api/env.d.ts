@@ -15,5 +15,6 @@ declare namespace NodeJS {
     SLACK_WEBHOOK_URL: string;
     TEST_AUTH_TOKEN: string;
     TEST_SUSPENDED_AUTH_TOKEN: string;
+    OPENAI_API_KEY: string;
   }
 }
