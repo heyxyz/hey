@@ -1,5 +1,9 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
+import {
+  ChatBubbleLeftIcon,
+  ExclamationCircleIcon,
+  NoSymbolIcon
+} from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PermissionId } from "@hey/data/permissions";
@@ -42,12 +46,13 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
     <>
       <Button
         className="flex justify-center"
-        icon={<NoSymbolIcon className="size-4" />}
-        onClick={() => updateFeatureFlag(PermissionId.Suspended)}
+        icon={<ExclamationCircleIcon className="size-4" />}
+        onClick={() => updateFeatureFlag(PermissionId.SuspendWarning)}
         size="sm"
         variant="danger"
+        outline
       >
-        Profile Suspend
+        Warn Profile
       </Button>
       <Button
         className="flex justify-center"
@@ -57,6 +62,15 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         variant="danger"
       >
         Comment Suspend
+      </Button>
+      <Button
+        className="flex justify-center"
+        icon={<NoSymbolIcon className="size-4" />}
+        onClick={() => updateFeatureFlag(PermissionId.Suspended)}
+        size="sm"
+        variant="danger"
+      >
+        Profile Suspend
       </Button>
     </>
   );
