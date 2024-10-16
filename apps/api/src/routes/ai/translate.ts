@@ -1,10 +1,13 @@
 import lensPg from "@hey/db/lensPg";
+import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
+import logger from "@hey/helpers/logger";
 import { StructuredOutputParser } from "@langchain/core/output_parsers";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { ChatOpenAI } from "@langchain/openai";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
+import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
@@ -45,6 +48,17 @@ export const post = [
     const { id } = body as ExtensionRequest;
 
     try {
+      const cacheKey = `ai:translation:${id}`;
+      const cachedData = await getRedis(cacheKey);
+
+      if (cachedData) {
+        logger.info(`(cached) Translation fetched for ${id}`);
+        return res
+          .status(200)
+          .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
+          .json({ result: JSON.parse(cachedData), success: true });
+      }
+
       const translatedResponseSchema = object({
         translated: string().describe("The translated text")
       });
@@ -76,7 +90,13 @@ export const post = [
         translated: response.translated
       };
 
-      return res.status(200).json({ result, success: true });
+      await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
+      logger.info(`Translation fetched for ${id}`);
+
+      return res
+        .status(200)
+        .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
+        .json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
