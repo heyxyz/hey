@@ -71,7 +71,7 @@ export const post = [
       );
 
       const model = new ChatOpenAI({
-        modelName: "gpt-4-turbo",
+        modelName: "gpt-3.5-turbo",
         temperature: 0,
         maxRetries: 0,
         openAIApiKey: process.env.OPENAI_API_KEY,
