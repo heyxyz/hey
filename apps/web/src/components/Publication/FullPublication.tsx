@@ -18,6 +18,7 @@ import PublicationAvatar from "./PublicationAvatar";
 import PublicationBody from "./PublicationBody";
 import PublicationHeader from "./PublicationHeader";
 import PublicationStats from "./PublicationStats";
+import Translate from "./Translate";
 import PublicationType from "./Type";
 
 interface FullPublicationProps {
@@ -74,6 +75,7 @@ const FullPublication: FC<FullPublicationProps> = ({
                 contentClassName="full-page-publication-markup"
                 publication={targetPublication}
               />
+              <Translate publication={targetPublication} />
               <div className="ld-text-gray-500 my-3 text-sm">
                 <span>{formatDate(createdAt, "hh:mm A · MMM D, YYYY")}</span>
                 {publishedOn?.id ? (
@@ -119,7 +121,6 @@ const FullPublication: FC<FullPublicationProps> = ({
           )}
         </div>
       </div>
-      {/* <Translate id={targetPublication.id} /> */}
     </article>
   );
 };
