@@ -17,6 +17,8 @@ const TEMPLATE = `
 Translate the following text to English.
 Examples: Hello, How are you?, I am fine, thank you.
 Return only the translation in English.
+Keep the markdown formatting including line breaks.
+Never change the @ mentions, hashtags, links, or any other special characters.
 Text: {text}
 {format_instructions}
 `;
