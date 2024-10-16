@@ -5,8 +5,9 @@
   "license": "AGPL-3.0",
   "scripts": {
     "dev": "nodemon -w src -x tsx src/server.ts",
+    "dev:silent": "pnpm dev --silent > /dev/null 2>&1",
     "start": "NODE_ENV=production tsx src/server.ts",
-    "test": "start-server-and-test dev http://localhost:4784 test:dev",
+    "test": "start-server-and-test dev:silent http://localhost:4784 test:dev",
     "test:dev": "vitest run",
     "typecheck": "tsc --pretty"
   },
