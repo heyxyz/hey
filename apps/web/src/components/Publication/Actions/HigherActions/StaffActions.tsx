@@ -6,21 +6,29 @@ import {
 } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { PermissionId } from "@hey/data/permissions";
+import { Permission, PermissionId } from "@hey/data/permissions";
+import getInternalProfile from "@hey/helpers/api/getInternalProfile";
 import type { MirrorablePublication } from "@hey/lens";
 import { Button } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
 import axios from "axios";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
-interface SuspendButtonsProps {
+interface StaffActionsProps {
   onClick?: () => void;
   publication: MirrorablePublication;
 }
 
-const StaffActions: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
+const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
+
+  const { data: profile } = useQuery({
+    queryFn: () => getInternalProfile(publication.by.id, getAuthApiHeaders()),
+    queryKey: ["getInternalProfile", publication.by.id || ""],
+    enabled: isStaff
+  });
 
   if (!isStaff) {
     return null;
@@ -42,12 +50,21 @@ const StaffActions: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
     );
   };
 
+  const hasSuspendWarning = profile?.permissions.includes(
+    Permission.SuspendWarning
+  );
+  const isSuspended = profile?.permissions.includes(Permission.Suspended);
+  const isCommentSuspended = profile?.permissions.includes(
+    Permission.CommentSuspended
+  );
+
   return (
     <>
       <Button
         className="flex justify-center"
         icon={<ExclamationCircleIcon className="size-4" />}
         onClick={() => updateFeatureFlag(PermissionId.SuspendWarning)}
+        disabled={isSuspended || hasSuspendWarning}
         size="sm"
         variant="danger"
         outline
@@ -58,6 +75,7 @@ const StaffActions: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}
         onClick={() => updateFeatureFlag(PermissionId.CommentSuspended)}
+        disabled={isSuspended || isCommentSuspended}
         size="sm"
         variant="danger"
       >
@@ -67,6 +85,7 @@ const StaffActions: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
         className="flex justify-center"
         icon={<NoSymbolIcon className="size-4" />}
         onClick={() => updateFeatureFlag(PermissionId.Suspended)}
+        disabled={isSuspended}
         size="sm"
         variant="danger"
       >
