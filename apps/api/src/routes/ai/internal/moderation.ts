@@ -66,7 +66,6 @@ export const post = [
         .setHeader("Cache-Control", CACHE_AGE_1_DAY)
         .json({ result, success: true });
     } catch (error) {
-      console.log(error);
       return catchedError(res, error);
     }
   }
