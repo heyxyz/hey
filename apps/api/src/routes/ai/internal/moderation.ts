@@ -54,7 +54,7 @@ export const post = [
 
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const result = await openai.moderations.create({
-        model: "omni-moderation-2024-09-26",
+        model: "omni-moderation-latest",
         input: publicationResponse[0].content
       });
 
