@@ -1,5 +1,5 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
-import SuspendButtons from "@components/Publication/Actions/HigherActions/SuspendButtons";
+import StaffActions from "@components/Publication/Actions/HigherActions/StaffActions";
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
@@ -78,7 +78,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
         >
           <Dispute report={report} setShowDisputeModal={setShowDisputeModal} />
         </Modal>
-        <SuspendButtons
+        <StaffActions
           publication={report.reportedPublication as MirrorablePublication}
         />
       </div>

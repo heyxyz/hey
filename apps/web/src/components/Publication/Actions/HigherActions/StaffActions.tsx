@@ -19,7 +19,7 @@ interface SuspendButtonsProps {
   publication: MirrorablePublication;
 }
 
-const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
+const StaffActions: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   if (!isStaff) {
@@ -76,4 +76,4 @@ const SuspendButtons: FC<SuspendButtonsProps> = ({ onClick, publication }) => {
   );
 };
 
-export default SuspendButtons;
+export default StaffActions;
