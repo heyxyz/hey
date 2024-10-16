@@ -7,7 +7,7 @@ import { RunnableSequence } from "@langchain/core/runnables";
 import { ChatOpenAI } from "@langchain/openai";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
-import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
+import { CACHE_AGE_1_DAY } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
@@ -55,7 +55,7 @@ export const post = [
         logger.info(`(cached) Translation fetched for ${id}`);
         return res
           .status(200)
-          .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
+          .setHeader("Cache-Control", CACHE_AGE_1_DAY)
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
@@ -95,7 +95,7 @@ export const post = [
 
       return res
         .status(200)
-        .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
+        .setHeader("Cache-Control", CACHE_AGE_1_DAY)
         .json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
