@@ -54,16 +54,12 @@ export const post = [
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info(`(cached) Translation fetched for ${id}`);
+        logger.info(`(cached) AI Translation fetched for ${id}`);
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_1_DAY)
           .json({ result: JSON.parse(cachedData), success: true });
       }
-
-      const translatedResponseSchema = object({
-        translated: string().describe("The translated text")
-      });
 
       const publicationResponse = await lensPg.query(
         "SELECT content FROM publication.metadata WHERE publication_id = $1",
@@ -76,6 +72,9 @@ export const post = [
         maxRetries: 0,
         openAIApiKey: process.env.OPENAI_API_KEY,
         verbose: false
+      });
+      const translatedResponseSchema = object({
+        translated: string().describe("The translated text")
       });
       const parser = StructuredOutputParser.fromZodSchema(
         translatedResponseSchema
@@ -93,7 +92,7 @@ export const post = [
       };
 
       await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
-      logger.info(`Translation fetched for ${id}`);
+      logger.info(`AI Translation fetched for ${id}`);
 
       return res
         .status(200)
