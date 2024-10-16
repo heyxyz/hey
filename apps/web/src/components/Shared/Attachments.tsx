@@ -96,7 +96,12 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
         </div>
       )}
       {displayDecision === "displayVideoAsset" && (
-        <Video src={getSrc(asset?.uri)} poster={asset?.cover as string} />
+        <Video
+          src={
+            getSrc(asset?.uri) || [{ src: asset?.uri, type: "video" } as any]
+          }
+          poster={asset?.cover as string}
+        />
       )}
       {displayDecision === "displayAudioAsset" && (
         <Audio
