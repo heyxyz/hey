@@ -104,7 +104,6 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       onClick={() => reportPublication({ subreasons, type })}
       outline
       size="sm"
-      variant="danger"
     >
       {label}
     </Button>
@@ -136,19 +135,21 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
         ]}
         type="both"
       />
-      <StaffActions
-        onClick={() => {
-          reportPublication({
-            subreasons: [
-              PublicationReportingSpamSubreason.FakeEngagement,
-              PublicationReportingSpamSubreason.LowSignal,
-              PublicationReportingSpamSubreason.Misleading
-            ],
-            type: "suspend"
-          });
-        }}
-        publication={publication}
-      />
+      <div className="flex flex-wrap items-center gap-3 text-sm">
+        <StaffActions
+          onClick={() => {
+            reportPublication({
+              subreasons: [
+                PublicationReportingSpamSubreason.FakeEngagement,
+                PublicationReportingSpamSubreason.LowSignal,
+                PublicationReportingSpamSubreason.Misleading
+              ],
+              type: "suspend"
+            });
+          }}
+          publication={publication}
+        />
+      </div>
     </span>
   );
 };
