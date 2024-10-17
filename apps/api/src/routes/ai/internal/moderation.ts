@@ -1,11 +1,13 @@
 import lensPg from "@hey/db/lensPg";
-import { getRedis } from "@hey/db/redisClient";
+import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import OpenAI from "openai";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
+import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
+import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
 
@@ -19,7 +21,8 @@ const validationSchema = object({
 
 export const post = [
   rateLimiter({ requests: 50, within: 1 }),
-  // validateLensAccount,
+  validateLensAccount,
+  validateIsStaff,
   async (req: Request, res: Response) => {
     const { body } = req;
 
@@ -53,12 +56,13 @@ export const post = [
       );
 
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const result = await openai.moderations.create({
+      const response = await openai.moderations.create({
         model: "omni-moderation-latest",
-        input: publicationResponse[0].content
+        input: [{ text: publicationResponse[0].content, type: "text" }]
       });
 
-      // await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
+      const result = response.results[0];
+      await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
       logger.info(`AI Moderation fetched for ${id}`);
 
       return res
