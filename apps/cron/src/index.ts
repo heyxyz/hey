@@ -8,7 +8,6 @@ import cleanClickhouse from "./cleanClickhouse";
 import cleanEmailTokens from "./cleanEmailTokens";
 import cleanPreferences from "./cleanPreferences";
 import dbVacuum from "./dbVacuum";
-import getAndSavePublicationModeration from "./getAndSavePublicationModeration";
 import heartbeat from "./heartbeat";
 import truncate4EverlandBucket from "./truncate4EverlandBucket";
 
@@ -62,11 +61,6 @@ const startCronJobs = () => {
 
   cron.schedule("*/5 * * * *", async () => {
     await backupImpressionsToS3();
-    return;
-  });
-
-  cron.schedule("*/10 * * * * *", async () => {
-    await getAndSavePublicationModeration();
     return;
   });
 };
