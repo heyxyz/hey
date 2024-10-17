@@ -52,10 +52,12 @@ export const post = [
         [id]
       );
 
-      const openai = new OpenAI();
+      const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY
+      });
       const result = await openai.moderations.create({
         model: "omni-moderation-latest",
-        input: publicationResponse[0].content
+        input: [{ text: publicationResponse[0].content, type: "text" }]
       });
 
       // await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
