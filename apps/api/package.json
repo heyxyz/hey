@@ -20,8 +20,6 @@
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@json2csv/plainjs": "^7.0.6",
-    "@langchain/core": "^0.3.12",
-    "@langchain/openai": "^0.3.7",
     "@lens-protocol/metadata": "^1.2.0",
     "axios": "^1.7.7",
     "cors": "^2.8.5",

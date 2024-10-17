@@ -1,17 +1,15 @@
 import lensPg from "@hey/db/lensPg";
 import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
-import { StructuredOutputParser } from "@langchain/core/output_parsers";
-import { PromptTemplate } from "@langchain/core/prompts";
-import { RunnableSequence } from "@langchain/core/runnables";
-import { ChatOpenAI } from "@langchain/openai";
 import type { Request, Response } from "express";
+import OpenAI from "openai";
+import { zodFunction } from "openai/helpers/zod";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 
 const TEMPLATE = `
 Translate the following text to English.
@@ -20,7 +18,6 @@ Return only the translation in English.
 Keep the markdown formatting including line breaks.
 Never change the @ mentions, hashtags, links, or any other special characters.
 Text: {text}
-{format_instructions}
 `;
 
 type ExtensionRequest = {
@@ -66,29 +63,33 @@ export const post = [
         [id]
       );
 
-      const model = new ChatOpenAI({
-        modelName: "gpt-3.5-turbo",
-        temperature: 0,
-        maxRetries: 0,
-        openAIApiKey: process.env.OPENAI_API_KEY,
-        verbose: false
-      });
+      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const translatedResponseSchema = object({
         translated: string().describe("The translated text")
       });
-      const parser = StructuredOutputParser.fromZodSchema(
-        translatedResponseSchema
-      );
-      const prompt = PromptTemplate.fromTemplate(TEMPLATE);
-      const chain = RunnableSequence.from([prompt, model, parser]);
-      const response = await chain.invoke({
-        text: publicationResponse[0].content,
-        format_instructions: parser.getFormatInstructions()
+      const response = await openai.beta.chat.completions.parse({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: TEMPLATE.replace("{text}", publicationResponse[0].content)
+          }
+        ],
+        tools: [
+          zodFunction({
+            name: "translate",
+            parameters: translatedResponseSchema
+          })
+        ]
       });
+
+      type responseSchema = z.infer<typeof translatedResponseSchema>;
+      const translated = response.choices[0].message.tool_calls[0].function
+        .parsed_arguments as responseSchema;
 
       const result = {
         original: publicationResponse[0].content,
-        translated: response.translated
+        ...translated
       };
 
       await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
