@@ -19,7 +19,7 @@
     "mailchecker": "^6.0.11",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.21.27",
+    "viem": "^2.21.28",
     "winston": "^3.15.0"
   },
   "devDependencies": {
