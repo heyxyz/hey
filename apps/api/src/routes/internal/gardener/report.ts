@@ -1,5 +1,6 @@
 import { ReportPublicationDocument } from "@hey/lens";
 import { addTypenameToDocument } from "apollo-utilities";
+import axios from "axios";
 import type { Request, Response } from "express";
 import { print } from "graphql";
 import catchedError from "src/helpers/catchedError";
@@ -39,11 +40,11 @@ export const post = [
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-
       await Promise.all(
         subreasons.map(async (subreason: string) => {
-          await fetch("https://api-v2.lens.dev", {
-            body: JSON.stringify({
+          await axios.post(
+            "https://api-v2.lens.dev",
+            {
               operationName: "ReportPublication",
               query: print(addTypenameToDocument(ReportPublicationDocument)),
               variables: {
@@ -52,13 +53,14 @@ export const post = [
                   reason: { spamReason: { reason: "SPAM", subreason } }
                 }
               }
-            }),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`
             },
-            method: "POST"
-          });
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`
+              }
+            }
+          );
         })
       );
 
