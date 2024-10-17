@@ -32,3 +32,36 @@ AS
 SELECT publication, count() AS count
 FROM impressions
 GROUP BY publication;
+
+CREATE TABLE moderation (
+    id String,
+    flagged Bool,
+    harassment Bool,
+    harassment_threatening Bool,
+    sexual Bool,
+    hate Bool,
+    hate_threatening Bool,
+    illicit Bool,
+    illicit_violent Bool,
+    self_harm_intent Bool,
+    self_harm_instructions Bool,
+    self_harm Bool,
+    sexual_minors Bool,
+    violence Bool,
+    violence_graphic Bool,
+    harassment_score Float32,
+    harassment_threatening_score Float32,
+    sexual_score Float32,
+    hate_score Float32,
+    hate_threatening_score Float32,
+    illicit_score Float32,
+    illicit_violent_score Float32,
+    self_harm_intent_score Float32,
+    self_harm_instructions_score Float32,
+    self_harm_score Float32,
+    sexual_minors_score Float32,
+    violence_score Float32,
+    violence_graphic_score Float32,
+    created DateTime DEFAULT now()
+) ENGINE = MergeTree()
+ORDER BY created;
