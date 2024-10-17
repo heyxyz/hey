@@ -102,7 +102,7 @@ const Filter: FC = () => {
         <div className="divider my-3" />
         <div className="space-y-2">
           <b>Publication filters</b>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             <Checkbox
               checked={publicationTypes.includes(
                 ModExplorePublicationType.Post
@@ -162,7 +162,7 @@ const Filter: FC = () => {
                 : "Select all"}
             </button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             {Object.keys(PublicationMetadataMainFocusType).map((key) => (
               <Checkbox
                 checked={mainContentFocus.includes(
@@ -187,7 +187,7 @@ const Filter: FC = () => {
         <div className="divider my-3" />
         <div className="space-y-2">
           <b>Custom filters</b>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             <Checkbox
               checked={customFilters.includes(CustomFiltersType.Gardeners)}
               label="Gardeners"
@@ -221,7 +221,7 @@ const Filter: FC = () => {
               Reset
             </button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             {FILTER_APPS.map((app) => (
               <Checkbox
                 checked={apps?.includes(app)}
