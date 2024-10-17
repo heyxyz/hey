@@ -1,6 +1,7 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
+import type { Moderation } from "@hey/types/hey";
 import { Checkbox } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -14,14 +15,18 @@ interface AIModerationProps {
 const AIModeration: FC<AIModerationProps> = ({ id }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const getAIModeration = async () => {
-    const response = await axios.post(
-      `${HEY_API_URL}/ai/internal/moderation`,
-      { id },
-      { headers: getAuthApiHeaders() }
-    );
+  const getAIModeration = async (): Promise<Moderation | null> => {
+    try {
+      const response = await axios.post(
+        `${HEY_API_URL}/ai/internal/moderation`,
+        { id },
+        { headers: getAuthApiHeaders() }
+      );
 
-    return response.data?.result;
+      return response.data?.result;
+    } catch {
+      return null;
+    }
   };
 
   const { data } = useQuery({
@@ -42,18 +47,19 @@ const AIModeration: FC<AIModerationProps> = ({ id }) => {
     return null;
   }
 
-  const harassment = data.categories["harassment"];
-  const threatening = data.categories["harassment/threatening"];
-  const sexual = data.categories["sexual"];
-  const hate = data.categories["hate"];
-  const illicit = data.categories["illicit"];
-  const illicitViolent = data.categories["illicit/violent"];
-  const selfHarmIntent = data.categories["self-harm/intent"];
-  const selfHarmInstructions = data.categories["self-harm/instructions"];
-  const selfHarm = data.categories["self-harm"];
-  const sexualMinors = data.categories["sexual/minors"];
-  const violence = data.categories["violence"];
-  const violenceGraphic = data.categories["violence/graphic"];
+  const harassment = data.harassment;
+  const harassmentThreatening = data.harassment_threatening;
+  const sexual = data.sexual;
+  const hate = data.hate;
+  const hateThreatening = data.hate_threatening;
+  const illicit = data.illicit;
+  const illicitViolent = data.illicit_violent;
+  const selfHarmIntent = data.self_harm_intent;
+  const selfHarmInstructions = data.self_harm_instructions;
+  const selfHarm = data.self_harm;
+  const sexualMinors = data.sexual_minors;
+  const violence = data.violence;
+  const violenceGraphic = data.violence_graphic;
 
   return (
     <>
@@ -61,12 +67,13 @@ const AIModeration: FC<AIModerationProps> = ({ id }) => {
       <div className="m-5 flex flex-wrap gap-2">
         <Checkbox checked={harassment} label="Harassment" disabled />
         <Checkbox
-          checked={threatening}
+          checked={harassmentThreatening}
           label="Harassment/Threatening"
           disabled
         />
         <Checkbox checked={sexual} label="Sexual" disabled />
         <Checkbox checked={hate} label="Hate" disabled />
+        <Checkbox checked={hateThreatening} label="Hate/Threatening" disabled />
         <Checkbox checked={illicit} label="Illicit" disabled />
         <Checkbox checked={illicitViolent} label="Illicit/Violent" disabled />
         <Checkbox checked={selfHarmIntent} label="Self-harm/Intent" disabled />

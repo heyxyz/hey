@@ -1,5 +1,5 @@
+import clickhouseClient from "@hey/db/clickhouseClient";
 import lensPg from "@hey/db/lensPg";
-import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import OpenAI from "openai";
@@ -37,15 +37,19 @@ export const post = [
     const { id } = body as ExtensionRequest;
 
     try {
-      const cacheKey = `ai:moderation:${id}`;
-      const cachedData = await getRedis(cacheKey);
+      const rows = await clickhouseClient.query({
+        format: "JSONEachRow",
+        query: `SELECT * FROM moderation WHERE id = '${id}';`
+      });
 
-      if (cachedData) {
+      const result = await rows.json();
+
+      if (result.length > 0) {
         logger.info(`(cached) AI Moderation fetched for ${id}`);
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_1_DAY)
-          .json({ result: JSON.parse(cachedData), success: true });
+          .json({ result: result[0], success: true });
       }
 
       const publicationResponse = await lensPg.query(
@@ -59,14 +63,51 @@ export const post = [
         input: [{ type: "text", text: publicationResponse[0].content }]
       });
 
-      const result = response.results[0];
-      await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
+      const { flagged, categories, category_scores } = response.results[0];
+
+      const values = {
+        id,
+        flagged,
+        harassment: categories.harassment,
+        harassment_threatening: categories["harassment/threatening"],
+        sexual: categories.sexual,
+        hate: categories.hate,
+        hate_threatening: categories["hate/threatening"],
+        illicit: categories.illicit,
+        illicit_violent: categories["illicit/violent"],
+        self_harm_intent: categories["self-harm/intent"],
+        self_harm_instructions: categories["self-harm/instructions"],
+        self_harm: categories["self-harm"],
+        sexual_minors: categories["sexual/minors"],
+        violence: categories.violence,
+        violence_graphic: categories["violence/graphic"],
+        harassment_score: category_scores.harassment,
+        harassment_threatening_score: category_scores["harassment/threatening"],
+        sexual_score: category_scores.sexual,
+        hate_score: category_scores.hate,
+        hate_threatening_score: category_scores["hate/threatening"],
+        illicit_score: category_scores.illicit,
+        illicit_violent_score: category_scores["illicit/violent"],
+        self_harm_intent_score: category_scores["self-harm/intent"],
+        self_harm_instructions_score: category_scores["self-harm/instructions"],
+        self_harm_score: category_scores["self-harm"],
+        sexual_minors_score: category_scores["sexual/minors"],
+        violence_score: category_scores.violence,
+        violence_graphic_score: category_scores["violence/graphic"]
+      };
+
+      await clickhouseClient.insert({
+        format: "JSONEachRow",
+        table: "moderation",
+        values
+      });
+
       logger.info(`AI Moderation fetched for ${id}`);
 
       return res
         .status(200)
         .setHeader("Cache-Control", CACHE_AGE_1_DAY)
-        .json({ result, success: true });
+        .json({ result: values, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
