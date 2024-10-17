@@ -65,7 +65,7 @@ const startCronJobs = () => {
     return;
   });
 
-  cron.schedule("*/5 * * * * *", async () => {
+  cron.schedule("*/10 * * * * *", async () => {
     await getAndSavePublicationModeration();
     return;
   });
