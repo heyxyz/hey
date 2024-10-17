@@ -23,9 +23,9 @@ const ABI = [
   }
 ];
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   amount: string;
-};
+}
 
 const validationSchema = object({
   amount: string()

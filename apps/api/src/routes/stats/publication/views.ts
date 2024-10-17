@@ -6,9 +6,9 @@ import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { array, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   ids: string[];
-};
+}
 
 const validationSchema = object({
   ids: array(string().max(2000, { message: "Too many ids!" }))

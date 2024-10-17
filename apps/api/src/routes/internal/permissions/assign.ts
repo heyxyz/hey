@@ -64,11 +64,11 @@ export const postUpdateTasks = async (
   }
 };
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   enabled: boolean;
   id: string;
   profile_id: string;
-};
+}
 
 const validationSchema = object({
   enabled: boolean(),

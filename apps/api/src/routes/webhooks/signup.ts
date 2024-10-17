@@ -5,9 +5,9 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import sendSignupNotificationToSlack from "src/helpers/webhooks/signup/sendSignupNotificationToSlack";
 import { any, object } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   event: { activity: any };
-};
+}
 
 const validationSchema = object({
   event: object({ activity: any() })

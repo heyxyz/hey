@@ -8,9 +8,9 @@ import { http, createPublicClient, fallback } from "viem";
 import { mainnet } from "viem/chains";
 import { array, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   addresses: string[];
-};
+}
 
 const validationSchema = object({
   addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(100)
