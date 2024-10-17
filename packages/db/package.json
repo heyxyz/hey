@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.7.6",
     "prisma": "^5.21.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
