@@ -4,7 +4,7 @@ import logger from "@hey/helpers/logger";
 
 const getAndSavePublicationModeration = async () => {
   try {
-    const offsetKey = "publication_batch_offset-2";
+    const offsetKey = "cron:moderation-offset";
     let offset: any = await getRedis(offsetKey);
     offset = offset ? Number.parseInt(offset) : 0;
 
