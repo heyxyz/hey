@@ -14,7 +14,6 @@ import HideComment from "./HideComment";
 import NotInterested from "./NotInterested";
 import Report from "./Report";
 import Share from "./Share";
-import Translate from "./Translate";
 
 interface PublicationMenuProps {
   publication: MirrorablePublication;
@@ -52,7 +51,6 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : null}
           <div className="divider" />
           <Share publication={publication} />
-          <Translate publication={publication} />
           <CopyPostText publication={publication} />
           <div className="divider" />
           {currentProfile?.id === publication?.by?.id ? (
