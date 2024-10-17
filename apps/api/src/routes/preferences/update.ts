@@ -9,11 +9,11 @@ import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { boolean, number, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   appIcon?: number;
   highSignalNotificationFilter?: boolean;
   id?: string;
-};
+}
 
 const validationSchema = object({
   appIcon: number().optional(),

@@ -9,9 +9,9 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import { v4 as uuid } from "uuid";
 import { boolean, object } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   record: boolean;
-};
+}
 
 const validationSchema = object({
   record: boolean()

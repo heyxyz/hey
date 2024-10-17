@@ -9,14 +9,14 @@ import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { number, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   amount: number;
   fromAddress: string;
   id: string;
   toAddress: string;
   tokenAddress: string;
   txHash: string;
-};
+}
 
 const validationSchema = object({
   amount: number(),

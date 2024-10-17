@@ -7,10 +7,10 @@ import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   id: string;
   ids: string;
-};
+}
 
 const validationSchema = object({
   id: string(),
