@@ -1,21 +1,16 @@
+import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { HEY_API_URL } from "@hey/data/constants";
 import { GARDENER } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type {
-  MirrorablePublication,
-  ReportPublicationRequest
-} from "@hey/lens";
-import {
-  PublicationReportingReason,
-  PublicationReportingSpamSubreason,
-  useReportPublicationMutation
-} from "@hey/lens";
+import type { MirrorablePublication } from "@hey/lens";
+import { PublicationReportingSpamSubreason } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
 import { Button } from "@hey/ui";
+import axios from "axios";
 import { useRouter } from "next/router";
-import type { FC, ReactNode } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import StaffActions from "./StaffActions";
@@ -27,32 +22,27 @@ interface GardenerActionsProps {
 const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
-  const [createReport, { loading }] = useReportPublicationMutation();
+  const [loading, setLoading] = useState(false);
   const { cache } = useApolloClient();
 
-  const reportPublicationOnLens = async ({
-    subreason,
-    suspended
-  }: {
-    subreason: PublicationReportingSpamSubreason;
-    suspended?: boolean;
-  }) => {
+  const reportPublicationOnLens = async (
+    subreasons: PublicationReportingSpamSubreason[]
+  ) => {
     if (pathname === "/mod") {
       cache.evict({ id: cache.identify(publication) });
     }
 
-    const request: ReportPublicationRequest = {
-      for: publication.id,
-      ...(suspended && { additionalComments: `Suspended on ${APP_NAME}` }),
-      reason: {
-        spamReason: { reason: PublicationReportingReason.Spam, subreason }
-      }
-    };
-
-    return await createReport({
-      onCompleted: () => setShowGardenerActionsAlert(false, null),
-      variables: { request }
-    });
+    setLoading(true);
+    try {
+      await axios.post(
+        `${HEY_API_URL}/internal/gardener/report`,
+        { id: publication.id, subreasons },
+        { headers: getAuthApiHeadersWithAccessToken() }
+      );
+    } finally {
+      setLoading(false);
+      setShowGardenerActionsAlert(false, null);
+    }
   };
 
   const reportPublication = ({
@@ -66,23 +56,11 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
       publication_id: publication.id,
       type
     });
-    toast.promise(
-      Promise.all(
-        subreasons.map(async (subreason) => {
-          await reportPublicationOnLens({
-            subreason,
-            suspended:
-              type === "suspend" &&
-              subreason === PublicationReportingSpamSubreason.Misleading
-          });
-        })
-      ),
-      {
-        error: "Error reporting publication",
-        loading: "Reporting publication...",
-        success: "Publication reported successfully"
-      }
-    );
+    toast.promise(reportPublicationOnLens(subreasons), {
+      error: "Error reporting publication",
+      loading: "Reporting publication...",
+      success: "Publication reported successfully"
+    });
   };
 
   interface ReportButtonProps {
