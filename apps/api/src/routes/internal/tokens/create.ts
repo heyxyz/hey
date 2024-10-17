@@ -9,12 +9,12 @@ import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { number, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   contractAddress: string;
   decimals: number;
   name: string;
   symbol: string;
-};
+}
 
 const validationSchema = object({
   contractAddress: string()

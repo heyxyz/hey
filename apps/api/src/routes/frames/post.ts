@@ -13,7 +13,7 @@ import getFrame from "src/helpers/oembed/meta/getFrame";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { number, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   actionResponse?: string;
   buttonAction?: ButtonType;
   buttonIndex: number;
@@ -21,7 +21,7 @@ type ExtensionRequest = {
   postUrl: string;
   pubId: string;
   state?: string;
-};
+}
 
 const validationSchema = object({
   buttonAction: string().optional(),

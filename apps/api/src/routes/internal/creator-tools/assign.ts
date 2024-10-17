@@ -8,11 +8,11 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import { boolean, object, string } from "zod";
 import { postUpdateTasks } from "../permissions/assign";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   enabled: boolean;
   id: string;
   profile_id: string;
-};
+}
 
 const validationSchema = object({
   enabled: boolean(),

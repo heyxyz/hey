@@ -13,10 +13,10 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import { v4 as uuid } from "uuid";
 import { boolean, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   email: string;
   resend?: boolean;
-};
+}
 
 const validationSchema = object({
   email: string().email(),

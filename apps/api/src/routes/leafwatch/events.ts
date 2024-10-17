@@ -11,7 +11,7 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import { UAParser } from "ua-parser-js";
 import { any, array, object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   events: {
     fingerprint?: string;
     name: string;
@@ -19,7 +19,7 @@ type ExtensionRequest = {
     referrer?: string;
     url: string;
   }[];
-};
+}
 
 const validationSchema = object({
   events: array(

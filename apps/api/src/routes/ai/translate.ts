@@ -20,9 +20,9 @@ Never change the @ mentions, hashtags, links, or any other special characters.
 Text: {text}
 `;
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   id: string;
-};
+}
 
 const validationSchema = object({
   id: string()

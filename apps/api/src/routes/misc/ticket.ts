@@ -7,11 +7,11 @@ import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
 
-type ExtensionRequest = {
+interface ExtensionRequest {
   description: string;
   email: string;
   title: string;
-};
+}
 
 const validationSchema = object({
   description: string().min(20).max(20000),
