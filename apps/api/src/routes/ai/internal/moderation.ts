@@ -56,7 +56,7 @@ export const post = [
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const response = await openai.moderations.create({
         model: "omni-moderation-latest",
-        input: [{ text: publicationResponse[0].content, type: "text" }]
+        input: [{ type: "text", text: publicationResponse[0].content }]
       });
 
       const result = response.results[0];
