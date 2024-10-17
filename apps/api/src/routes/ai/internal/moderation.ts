@@ -5,8 +5,6 @@ import type { Request, Response } from "express";
 import OpenAI from "openai";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY } from "src/helpers/constants";
-import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
-import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
 
@@ -19,8 +17,8 @@ const validationSchema = object({
 });
 
 export const post = [
-  validateLensAccount,
-  validateIsStaff,
+  // validateLensAccount,
+  // validateIsStaff,
   async (req: Request, res: Response) => {
     const { body } = req;
 
@@ -53,14 +51,21 @@ export const post = [
       }
 
       const publicationResponse = await lensPg.query(
-        "SELECT content FROM publication.metadata WHERE publication_id = $1",
+        `
+          SELECT content FROM publication.metadata
+          WHERE publication_id = $1
+          AND is_encrypted = false
+          AND hide_from_feed = false
+          AND content IS NOT NULL
+        `,
         [id]
       );
 
+      const text = publicationResponse[0]?.content;
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const response = await openai.moderations.create({
         model: "omni-moderation-latest",
-        input: [{ type: "text", text: publicationResponse[0].content }]
+        input: [{ type: "text", text }]
       });
 
       const { flagged, categories, category_scores } = response.results[0];
