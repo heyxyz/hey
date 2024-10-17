@@ -5,6 +5,7 @@ import { isCommentPublication } from "@hey/helpers/publicationHelpers";
 import type { MirrorablePublication } from "@hey/lens";
 import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
+import AIModeration from "./AIModeration";
 
 interface PublicationStaffToolProps {
   publication: MirrorablePublication;
@@ -53,6 +54,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             ))}
           </MetaDetails>
         ) : null}
+        <AIModeration id={publication?.id} />
       </div>
     </Card>
   );

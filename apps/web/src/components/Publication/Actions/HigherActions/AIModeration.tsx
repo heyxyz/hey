@@ -64,7 +64,7 @@ const AIModeration: FC<AIModerationProps> = ({ id }) => {
   return (
     <>
       <div className="divider" />
-      <div className="m-5 flex flex-wrap gap-2">
+      <div className="m-5 flex flex-wrap gap-3 text-xs">
         <Checkbox checked={harassment} label="Harassment" disabled />
         <Checkbox
           checked={harassmentThreatening}
