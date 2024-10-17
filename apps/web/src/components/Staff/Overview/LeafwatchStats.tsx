@@ -51,6 +51,7 @@ export interface StatsType {
     count: string;
     referrer: string;
   }[];
+  moderations: string;
 }
 
 const LeafwatchStats: FC = () => {
@@ -130,6 +131,7 @@ const LeafwatchStats: FC = () => {
         <CardHeader title="Others" />
         <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
           <NumberedStat count={lensProfiles.toString()} name="Total Profiles" />
+          <NumberedStat count={data.moderations} name="Cached Moderations" />
         </div>
       </div>
       <EventsToday eventsToday={data.eventsToday} />
