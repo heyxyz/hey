@@ -55,97 +55,30 @@ const AIModeration: FC<AIModerationProps> = ({ id }) => {
   const violence = data.categories["violence"];
   const violenceGraphic = data.categories["violence/graphic"];
 
-  const harassmentScore = Number.parseFloat(
-    data.category_scores["harassment"]
-  ).toFixed(2);
-  const harassmentThreateningScore = Number.parseFloat(
-    data.category_scores["harassment/threatening"]
-  ).toFixed(2);
-  const sexualScore = Number.parseFloat(data.category_scores["sexual"]).toFixed(
-    2
-  );
-  const hateScore = Number.parseFloat(data.category_scores["hate"]).toFixed(2);
-  const illicitScore = Number.parseFloat(
-    data.category_scores["illicit"]
-  ).toFixed(2);
-  const illicitViolentScore = Number.parseFloat(
-    data.category_scores["illicit/violent"]
-  ).toFixed(2);
-  const selfHarmIntentScore = Number.parseFloat(
-    data.category_scores["self-harm/intent"]
-  ).toFixed(2);
-  const selfHarmInstructionsScore = Number.parseFloat(
-    data.category_scores["self-harm/instructions"]
-  ).toFixed(2);
-  const selfHarmScore = Number.parseFloat(
-    data.category_scores["self-harm"]
-  ).toFixed(2);
-  const sexualMinorsScore = Number.parseFloat(
-    data.category_scores["sexual/minors"]
-  ).toFixed(2);
-  const violenceScore = Number.parseFloat(
-    data.category_scores["violence"]
-  ).toFixed(2);
-  const violenceGraphicScore = Number.parseFloat(
-    data.category_scores["violence/graphic"]
-  ).toFixed(2);
-
   return (
     <>
       <div className="divider" />
       <div className="m-5 flex flex-wrap gap-2">
-        <Checkbox
-          checked={harassment}
-          label={`Harassment: ${harassmentScore}`}
-          disabled
-        />
+        <Checkbox checked={harassment} label="Harassment" disabled />
         <Checkbox
           checked={threatening}
-          label={`Harassment/Threatening: ${harassmentThreateningScore}`}
+          label="Harassment/Threatening"
           disabled
         />
-        <Checkbox checked={sexual} label={`Sexual: ${sexualScore}`} disabled />
-        <Checkbox checked={hate} label={`Hate: ${hateScore}`} disabled />
-        <Checkbox
-          checked={illicit}
-          label={`Illicit: ${illicitScore}`}
-          disabled
-        />
-        <Checkbox
-          checked={illicitViolent}
-          label={`Illicit/Violent: ${illicitViolentScore}`}
-          disabled
-        />
-        <Checkbox
-          checked={selfHarmIntent}
-          label={`Self-harm/Intent: ${selfHarmIntentScore}`}
-          disabled
-        />
+        <Checkbox checked={sexual} label="Sexual" disabled />
+        <Checkbox checked={hate} label="Hate" disabled />
+        <Checkbox checked={illicit} label="Illicit" disabled />
+        <Checkbox checked={illicitViolent} label="Illicit/Violent" disabled />
+        <Checkbox checked={selfHarmIntent} label="Self-harm/Intent" disabled />
         <Checkbox
           checked={selfHarmInstructions}
-          label={`Self-harm/Instructions: ${selfHarmInstructionsScore}`}
+          label="Self-harm/Instructions"
           disabled
         />
-        <Checkbox
-          checked={selfHarm}
-          label={`Self-harm: ${selfHarmScore}`}
-          disabled
-        />
-        <Checkbox
-          checked={sexualMinors}
-          label={`Sexual/Minors: ${sexualMinorsScore}`}
-          disabled
-        />
-        <Checkbox
-          checked={violence}
-          label={`Violence: ${violenceScore}`}
-          disabled
-        />
-        <Checkbox
-          checked={violenceGraphic}
-          label={`Violence/Graphic: ${violenceGraphicScore}`}
-          disabled
-        />
+        <Checkbox checked={selfHarm} label="Self-harm" disabled />
+        <Checkbox checked={sexualMinors} label="Sexual/Minors" disabled />
+        <Checkbox checked={violence} label="Violence" disabled />
+        <Checkbox checked={violenceGraphic} label="Violence/Graphic" disabled />
       </div>
     </>
   );
