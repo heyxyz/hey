@@ -1,5 +1,6 @@
 import type { MirrorablePublication } from "@hey/lens";
 import type { FC } from "react";
+import AIModeration from "./AIModeration";
 import GardenerActions from "./GardenerActions";
 
 interface HigherActionsProps {
@@ -8,9 +9,12 @@ interface HigherActionsProps {
 
 const HigherActions: FC<HigherActionsProps> = ({ publication }) => {
   return (
-    <div className="m-5">
-      <GardenerActions publication={publication} />
-    </div>
+    <>
+      <div className="m-5">
+        <GardenerActions publication={publication} />
+      </div>
+      <AIModeration id={publication.id} />
+    </>
   );
 };
 

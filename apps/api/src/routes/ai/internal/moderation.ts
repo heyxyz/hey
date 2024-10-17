@@ -5,7 +5,6 @@ import type { Request, Response } from "express";
 import OpenAI from "openai";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY } from "src/helpers/constants";
-import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
@@ -20,7 +19,6 @@ const validationSchema = object({
 });
 
 export const post = [
-  rateLimiter({ requests: 50, within: 1 }),
   validateLensAccount,
   validateIsStaff,
   async (req: Request, res: Response) => {
