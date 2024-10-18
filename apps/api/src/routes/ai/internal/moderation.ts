@@ -64,6 +64,13 @@ export const post = [
       );
 
       const text = publicationResponse[0]?.content;
+
+      if (!text) {
+        return res
+          .status(404)
+          .json({ success: false, error: "Publication content not found" });
+      }
+
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const response = await openai.moderations.create({
         model: "omni-moderation-latest",
