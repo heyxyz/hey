@@ -47,16 +47,6 @@ const store = create(
         for (const store of allLocalstorageStores) {
           localStorage.removeItem(store);
         }
-
-        // Clean XMTP keys
-        const keys = Object.keys(localStorage).filter(
-          (key) =>
-            key.startsWith("xmtp/production/") ||
-            key.startsWith("xmtp:production:")
-        );
-        for (const key of keys) {
-          localStorage.removeItem(key);
-        }
       }
     }),
     { name: Localstorage.AuthStore }

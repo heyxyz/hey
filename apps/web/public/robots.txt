@@ -5,7 +5,6 @@ Disallow: /staff/*
 Disallow: /mod
 Disallow: /bookmarks
 Disallow: /notifications
-Disallow: /messages
 Disallow: /search?q=
 
 User-agent: nsa

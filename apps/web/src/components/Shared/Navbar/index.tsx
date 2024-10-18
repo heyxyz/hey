@@ -10,7 +10,6 @@ import { useState } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import MenuItems from "./MenuItems";
-import MessagesIcon from "./MessagesIcon";
 import ModIcon from "./ModIcon";
 import MoreNavItems from "./MoreNavItems";
 import Search from "./Search";
@@ -116,7 +115,6 @@ const Navbar: FC = () => {
             {currentProfile ? (
               <>
                 <ModIcon />
-                <MessagesIcon />
                 <NotificationIcon />
               </>
             ) : null}
