@@ -107,7 +107,7 @@ const Rules: NextPage = () => {
                   the
                   {APP_NAME} team and its not automated.
                 </p>
-                <p className="leading-7 font-bold">
+                <p className="font-bold leading-7">
                   This is a {APP_NAME}-specific decision / feature and not a
                   protocol-level decision / feature.
                 </p>
