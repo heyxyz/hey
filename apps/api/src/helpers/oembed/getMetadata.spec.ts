@@ -12,7 +12,6 @@ import getImage from "./meta/getImage";
 import getNft from "./meta/getNft";
 import getSite from "./meta/getSite";
 import getTitle from "./meta/getTitle";
-import getTweet from "./meta/getTweet";
 
 // Mock the helper functions and axios
 vi.mock("axios");
@@ -23,7 +22,6 @@ vi.mock("./meta/getImage");
 vi.mock("./meta/getTitle");
 vi.mock("./meta/getSite");
 vi.mock("./meta/getFrame");
-vi.mock("./meta/getTweet");
 vi.mock("./meta/getNft");
 vi.mock("./meta/generateIframe");
 vi.mock("./meta/getEmbedUrl");
@@ -47,7 +45,6 @@ describe("getMetadata", () => {
     (getTitle as any).mockReturnValue("Example Title");
     (getSite as any).mockReturnValue("Example Site");
     (getFrame as any).mockReturnValue("<iframe></iframe>");
-    (getTweet as any).mockReturnValue(null);
     (getNft as any).mockReturnValue(null);
     (generateIframe as any).mockReturnValue("<iframe></iframe>");
     (getEmbedUrl as any).mockReturnValue("https://example.com/embed");
@@ -60,7 +57,6 @@ describe("getMetadata", () => {
       favicon: "https://example.com/favicon.ico",
       frame: "<iframe></iframe>",
       html: "<iframe></iframe>",
-      tweet: null,
       image: "https://proxy.example.com/image.jpg",
       lastIndexedAt: expect.any(String),
       nft: null,
@@ -85,7 +81,6 @@ describe("getMetadata", () => {
     (getTitle as any).mockReturnValue(undefined);
     (getSite as any).mockReturnValue(undefined);
     (getFrame as any).mockReturnValue(undefined);
-    (getTweet as any).mockReturnValue(undefined);
     (getNft as any).mockReturnValue(undefined);
     (generateIframe as any).mockReturnValue(undefined);
     (getEmbedUrl as any).mockReturnValue(undefined);
@@ -98,7 +93,6 @@ describe("getMetadata", () => {
       favicon: undefined,
       frame: undefined,
       html: undefined,
-      tweet: undefined,
       image: undefined,
       lastIndexedAt: expect.any(String),
       nft: undefined,

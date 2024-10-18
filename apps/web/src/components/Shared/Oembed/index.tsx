@@ -5,10 +5,8 @@ import type { AnyPublication } from "@hey/lens";
 import type { OG } from "@hey/types/misc";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useTheme } from "next-themes";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { Tweet } from "react-tweet";
 import Embed from "./Embed";
 import EmptyOembed from "./EmptyOembed";
 import Frame from "./Frames";
@@ -21,7 +19,6 @@ interface OembedProps {
 }
 
 const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
-  const { resolvedTheme } = useTheme();
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -72,20 +69,11 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
     nft: data?.nft,
     site: data?.site,
     title: data?.title,
-    tweet: data?.tweet,
     url: url as string
   };
 
-  if (!og.title && !og.html && !og.frame && !og.tweet) {
+  if (!og.title && !og.html && !og.frame) {
     return null;
-  }
-
-  if (og.tweet) {
-    return (
-      <div data-theme={resolvedTheme} className="w-full text-sm md:w-4/6">
-        <Tweet id={og.tweet} />
-      </div>
-    );
   }
 
   if (og.html) {
