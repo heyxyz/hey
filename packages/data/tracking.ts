@@ -159,15 +159,6 @@ export const SETTINGS = {
   }
 };
 
-export const MESSAGES = {
-  ALLOW_USER: "Allow user",
-  BLOCK_USER: "Block user",
-  ENABLE_MESSAGES: "Enable messages",
-  OPEN_CONVERSATION: "Open conversation",
-  SEND_MESSAGE: "Send message",
-  START_CONVERSATION: "Start conversation"
-};
-
 export const GARDENER = {
   REPORT: "Gardener report",
   SEARCH_PUBLICATION: "Gardener search publication"
@@ -235,7 +226,6 @@ export const ALL_EVENTS = {
   ...HOME,
   ...EXPLORE,
   ...SETTINGS,
-  ...MESSAGES,
   ...GARDENER,
   ...STAFFTOOLS,
   ...CREATORTOOLS,
