@@ -100,6 +100,17 @@ const Rules: NextPage = () => {
                   You must do this in a way which can be easily seen and
                   understood by other users.
                 </p>
+                <H4 className="mt-8 mb-5">Suspension</H4>
+                <p className="leading-7">
+                  Account suspension only apply to {APP_NAME} and not on Lens
+                  Protocol, decisions on suspension an account will be made by
+                  the
+                  {APP_NAME} team and its not automated.
+                </p>
+                <p className="leading-7 font-bold">
+                  This is a {APP_NAME}-specific decision / feature and not a
+                  protocol-level decision / feature.
+                </p>
               </div>
               {/* Impersonation ends */}
               {/* Copyright and Trademarks beings */}
