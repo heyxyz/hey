@@ -2,9 +2,9 @@ import clickhouseClient from "@hey/db/clickhouseClient";
 import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 
-const backupEventsToS3 = async () => {
+const backupModerationsToS3 = async () => {
   try {
-    const cacheKey = "backups:events:offset";
+    const cacheKey = "backups:moderations:offset";
     const batchSize = 100000;
 
     // Get the last offset from Redis (or start from 0 if no offset is stored)
@@ -13,7 +13,7 @@ const backupEventsToS3 = async () => {
     // Calculate the range for the current batch
     const startRange = offset;
     const endRange = offset + batchSize;
-    const s3Path = `events-${startRange}-${endRange}.csv`;
+    const s3Path = `moderations-${startRange}-${endRange}.csv`;
 
     // Check the number of rows in the current batch
     const rowsCountResult = await clickhouseClient.query({
@@ -22,7 +22,7 @@ const backupEventsToS3 = async () => {
         SELECT count(*) as count
         FROM (
           SELECT *
-          FROM events
+          FROM moderations
           ORDER BY created
           LIMIT ${batchSize} OFFSET ${offset}
         ) as subquery;
@@ -44,7 +44,7 @@ const backupEventsToS3 = async () => {
             'CSV'
           )
           SETTINGS s3_truncate_on_insert=1
-          SELECT * FROM events
+          SELECT * FROM moderations
           ORDER BY created
           LIMIT ${batchSize} OFFSET ${offset};
         `
@@ -55,18 +55,22 @@ const backupEventsToS3 = async () => {
       await setRedis(cacheKey, offset.toString(), generateForeverExpiry());
 
       logger.info(
-        `[Cron] backupEventsToS3 - Backup completed successfully for ${s3Path} with offset ${offset}`
+        `[Cron] backupModerationsToS3 - Backup completed successfully for ${s3Path} with offset ${offset}`
       );
     } else {
-      const remainingEvents = batchSize - Number.parseInt(rowsCount[0].count);
+      const remainingModerations =
+        batchSize - Number.parseInt(rowsCount[0].count);
 
       logger.info(
-        `[Cron] backupEventsToS3 - No more events to back up at offset ${offset}. ${remainingEvents} events still need to be backed up.`
+        `[Cron] backupModerationsToS3 - No more moderations to back up at offset ${offset}. ${remainingModerations} moderations still need to be backed up.`
       );
     }
   } catch (error) {
-    logger.error("[Cron] backupEventsToS3 - Error processing events", error);
+    logger.error(
+      "[Cron] backupModerationsToS3 - Error processing moderations",
+      error
+    );
   }
 };
 
-export default backupEventsToS3;
+export default backupModerationsToS3;

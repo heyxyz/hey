@@ -21,10 +21,10 @@ const backupImpressionsToS3 = async () => {
       query: `
         SELECT count(*) as count
         FROM (
-            SELECT *
-            FROM impressions
-            ORDER BY viewed
-            LIMIT ${batchSize} OFFSET ${offset}
+          SELECT *
+          FROM impressions
+          ORDER BY viewed
+          LIMIT ${batchSize} OFFSET ${offset}
         ) as subquery;
       `
     });
