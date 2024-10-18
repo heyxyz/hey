@@ -37,17 +37,6 @@ describe("GET /oembed", () => {
     });
   });
 
-  test("should return oembed data with Tweet ID", async () => {
-    const { data, status } = await axios.get(`${TEST_URL}/oembed`, {
-      params: { url: "https://x.com/yogicodes/status/1838260531829858491" }
-    });
-
-    expect(status).toBe(200);
-    expect(data.oembed).toMatchObject({
-      tweet: "1838260531829858491"
-    });
-  });
-
   test("should return oembed data with Frame", async () => {
     const { data, status } = await axios.get(`${TEST_URL}/oembed`, {
       params: {

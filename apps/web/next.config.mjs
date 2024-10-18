@@ -81,7 +81,7 @@ const nextConfig = {
       }
     ];
   },
-  transpilePackages: ["data", "react-tweet"]
+  transpilePackages: ["data"]
 };
 
 export default withBundleAnalyzer(withAxiom(nextConfig));
