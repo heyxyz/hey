@@ -1,4 +1,3 @@
-import { HEY_API_URL } from "@hey/data/constants";
 import lensPg from "@hey/db/lensPg";
 import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
@@ -26,7 +25,7 @@ const getAndSavePublicationModeration = async () => {
 
     if (publications.length > 0) {
       const axiosPromises = publications.map((pub: any) => {
-        return fetch(`${HEY_API_URL}/ai/internal/moderation`, {
+        return fetch("https://api.hey.xyz/ai/internal/moderation", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: pub.publication_id })
@@ -46,6 +45,7 @@ const getAndSavePublicationModeration = async () => {
       );
     }
   } catch (error) {
+    console.log(error);
     logger.error(
       "[Cron] getAndSavePublicationModeration - Error processing publications",
       error
