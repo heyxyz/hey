@@ -1,5 +1,6 @@
 import logger from "@hey/helpers/logger";
 import dotenv from "dotenv";
+import getAndSavePublicationModeration from "./getAndSavePublicationModeration";
 
 dotenv.config({ override: true });
 
@@ -8,7 +9,7 @@ const startJobs = async () => {
 
   while (true) {
     try {
-      console.log("Running job");
+      await getAndSavePublicationModeration();
     } catch (error) {
       logger.error("Error during jobs:", error);
     }

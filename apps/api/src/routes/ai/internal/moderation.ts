@@ -5,8 +5,6 @@ import type { Request, Response } from "express";
 import OpenAI from "openai";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_1_DAY } from "src/helpers/constants";
-import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
-import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
 
@@ -19,8 +17,8 @@ const validationSchema = object({
 });
 
 export const post = [
-  validateLensAccount,
-  validateIsStaff,
+  // validateLensAccount,
+  // validateIsStaff,
   async (req: Request, res: Response) => {
     const { body } = req;
 
@@ -66,6 +64,7 @@ export const post = [
       const text = publicationResponse[0]?.content;
 
       if (!text) {
+        logger.info(`Publication content not found for ${id} for moderation`);
         return res
           .status(404)
           .json({ success: false, error: "Publication content not found" });
