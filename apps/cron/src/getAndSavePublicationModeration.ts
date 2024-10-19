@@ -17,7 +17,7 @@ const getAndSavePublicationModeration = async () => {
         AND hide_from_feed = false
         AND content IS NOT NULL
         ORDER BY timestamp ASC
-        LIMIT 35
+        LIMIT 10
         OFFSET $1;
       `,
       [offset]
