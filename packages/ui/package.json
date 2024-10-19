@@ -19,13 +19,13 @@
     "clsx": "^2.1.1",
     "next": "^14.2.15",
     "react": "^18.3.1",
-    "react-hook-form": "^7.53.0",
+    "react-hook-form": "^7.53.1",
     "tailwind-merge": "^2.5.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.7.6",
+    "@types/node": "^22.7.7",
     "@types/react": "^18.3.11",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3"
