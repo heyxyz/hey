@@ -47,6 +47,11 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
 
   const filteredContent =
     getPublicationData(publication.metadata)?.content || "";
+
+  if (filteredContent?.length < 5) {
+    return null;
+  }
+
   const isEnglish =
     francAll(filteredContent, { only: ["eng"] })?.[0]?.[0] === "eng";
 
