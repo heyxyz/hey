@@ -4,8 +4,10 @@ import Footer from "@components/Shared/Footer";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { EXPLORE, PAGEVIEW } from "@hey/data/tracking";
-import type { PublicationMetadataMainFocusType } from "@hey/lens";
-import { ExplorePublicationsOrderByType } from "@hey/lens";
+import {
+  ExplorePublicationsOrderByType,
+  PublicationMetadataMainFocusType
+} from "@hey/lens";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { NextPage } from "next";
@@ -13,6 +15,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Feed from "./Feed";
+import ImageFeed from "./ImageFeed";
 
 const Explore: NextPage = () => {
   const router = useRouter();
@@ -71,7 +74,11 @@ const Explore: NextPage = () => {
           <TabPanels>
             {tabs.map((tab) => (
               <TabPanel key={tab.type}>
-                <Feed feedType={tab.type} focus={focus} />
+                {focus === PublicationMetadataMainFocusType.Image ? (
+                  <ImageFeed feedType={tab.type} />
+                ) : (
+                  <Feed feedType={tab.type} focus={focus} />
+                )}
               </TabPanel>
             ))}
           </TabPanels>
