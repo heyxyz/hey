@@ -96,6 +96,16 @@ export const post = [
 
     try {
       if (enabled) {
+        // Remove suspended warning if profile is being suspended
+        if (id === PermissionId.Suspended) {
+          await prisma.profilePermission.deleteMany({
+            where: {
+              permissionId: PermissionId.SuspendWarning,
+              profileId: profile_id
+            }
+          });
+        }
+
         await prisma.profilePermission.create({
           data: { permissionId: id, profileId: profile_id }
         });
