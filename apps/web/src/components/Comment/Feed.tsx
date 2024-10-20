@@ -89,7 +89,11 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
     return <ErrorMessage error={error} title="Failed to load comment feed" />;
   }
 
-  if (!isHidden && totalComments === 0) {
+  if (isHidden) {
+    return null;
+  }
+
+  if (totalComments === 0) {
     return (
       <EmptyState
         icon={<ChatBubbleLeftIcon className="size-8" />}
