@@ -11,7 +11,8 @@ export const get = [
   async (_: Request, res: Response) => {
     try {
       const data = await prisma.permission.findMany({
-        include: { _count: { select: { profiles: true } } }
+        include: { _count: { select: { profiles: true } } },
+        orderBy: { profiles: { _count: "desc" } }
       });
 
       logger.info("All permissions fetched");
