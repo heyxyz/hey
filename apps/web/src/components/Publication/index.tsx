@@ -130,11 +130,12 @@ const ViewPublication: NextPage = () => {
             {currentProfile && !publication.isHidden && !suspended ? (
               <NewPublication publication={targetPublication} />
             ) : null}
-            <Feed
-              isHidden={publication.isHidden}
-              publicationId={targetPublication.id}
-            />
-            <NoneRelevantFeed publicationId={targetPublication.id} />
+            {publication.isHidden ? null : (
+              <>
+                <Feed publicationId={targetPublication.id} />
+                <NoneRelevantFeed publicationId={targetPublication.id} />
+              </>
+            )}
           </>
         )}
       </GridItemEight>
