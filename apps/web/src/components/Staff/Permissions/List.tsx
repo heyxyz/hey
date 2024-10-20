@@ -32,7 +32,8 @@ const List: FC = () => {
         setPermissions(permissions);
         return permissions;
       }),
-    queryKey: ["getAllPermissions"]
+    queryKey: ["getAllPermissions"],
+    refetchInterval: 10000
   });
 
   return (
