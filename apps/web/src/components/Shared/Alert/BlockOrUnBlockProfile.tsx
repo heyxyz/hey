@@ -55,6 +55,7 @@ const BlockOrUnBlockProfile: FC = () => {
       },
       id: `ProfileOperations:${blockingorUnblockingProfile?.id}`
     });
+    cache.evict({ id: `Profile:${blockingorUnblockingProfile?.id}` });
   };
 
   const onCompleted = (
