@@ -95,7 +95,7 @@ const List: FC = () => {
         )}
       </div>
       <Modal
-        onClose={() => setShowCreateModal(!showCreateModal)}
+        onClose={() => setShowCreateModal(false)}
         show={showCreateModal}
         title="Create token"
       >

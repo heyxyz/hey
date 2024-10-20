@@ -1,5 +1,4 @@
 import Loader from "@components/Shared/Loader";
-import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { Permission } from "@hey/data/permissions";
@@ -45,35 +44,35 @@ const List: FC = () => {
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load permissions" />
         ) : permissions.length ? (
-          <div className="space-y-5">
+          <div className="space-y-7">
             {permissions?.map((permission) => (
-              <div key={permission.id}>
-                <ToggleWithHelper
-                  description={`Created on ${formatDate(permission.createdAt)}`}
-                  disabled={true}
-                  heading={
-                    <div className="flex items-center space-x-2">
-                      <b
-                        className={cn(
-                          (permission.key === Permission.Suspended ||
-                            permission.key === Permission.CommentSuspended ||
-                            permission.key === Permission.SuspendWarning) &&
-                            "text-red-500"
-                        )}
-                      >
-                        {permission.key}
-                      </b>
-                      <Badge variant="secondary">{permission.type}</Badge>
-                      {permission._count.profiles !== 0 && (
-                        <Badge variant="warning">
-                          {permission._count.profiles} assigned
-                        </Badge>
+              <div
+                key={permission.id}
+                className="flex items-center justify-between"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-2">
+                    <b
+                      className={cn(
+                        (permission.key === Permission.Suspended ||
+                          permission.key === Permission.CommentSuspended ||
+                          permission.key === Permission.SuspendWarning) &&
+                          "text-red-500"
                       )}
-                    </div>
-                  }
-                  on={true}
-                  setOn={() => {}}
-                />
+                    >
+                      {permission.key}
+                    </b>
+                    <Badge variant="secondary">{permission.type}</Badge>
+                    {permission._count.profiles !== 0 && (
+                      <Badge variant="warning">
+                        {permission._count.profiles} assigned
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="text-gray-500 text-sm">
+                    Created on {formatDate(permission.createdAt)}
+                  </div>
+                </div>
                 <div className="mt-2 space-x-2">
                   <Button
                     onClick={() => {
@@ -98,7 +97,7 @@ const List: FC = () => {
         )}
       </div>
       <Modal
-        onClose={() => setShowAssignModal(!showAssignModal)}
+        onClose={() => setShowAssignModal(false)}
         show={showAssignModal}
         title={`Assign permission - ${selectedPermission?.key}`}
       >
