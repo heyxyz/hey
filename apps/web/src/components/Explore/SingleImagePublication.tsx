@@ -1,6 +1,8 @@
+import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getPublicationData from "@hey/helpers/getPublicationData";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
+import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
@@ -18,28 +20,24 @@ const SingleImagePublication: FC<SingleImagePublicationProps> = ({
   const filteredAttachments =
     getPublicationData(targetPublication.metadata)?.attachments || [];
   const filteredAsset = getPublicationData(targetPublication.metadata)?.asset;
+  const backgroundImage = filteredAsset?.uri || filteredAttachments[0]?.uri;
 
   usePushToImpressions(targetPublication.id);
 
-  const backgroundImage = filteredAsset?.uri || filteredAttachments[0]?.uri;
-
   return (
-    <div
+    <Link
+      href={`/posts/${publication.id}`}
       key={publication.id}
-      className="relative h-80 overflow-hidden rounded-lg bg-center bg-cover"
+      className="relative h-80 overflow-hidden rounded-xl bg-center bg-cover"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
-        borderRadius: "16px"
+        backgroundImage: `url(${backgroundImage})`
       }}
     >
-      <div
-        className="absolute inset-0 bg-black opacity-50"
-        style={{ borderRadius: "inherit" }}
-      />
-      <div className="relative z-10 flex h-full items-end justify-start p-4">
-        <h1 className="font-bold text-white">Your Text Here</h1>
+      <div className="absolute inset-0 rounded-lg bg-black opacity-30" />
+      <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-bold text-sm text-white">
+        <SmallSingleProfile profile={targetPublication.by} hideSlug />
       </div>
-    </div>
+    </Link>
   );
 };
 
