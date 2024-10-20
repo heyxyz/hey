@@ -1,9 +1,5 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import {
-  ChatBubbleLeftIcon,
-  ExclamationCircleIcon,
-  NoSymbolIcon
-} from "@heroicons/react/24/outline";
+import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { Permission, PermissionId } from "@hey/data/permissions";
@@ -50,9 +46,6 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
     );
   };
 
-  const hasSuspendWarning = profile?.permissions.includes(
-    Permission.SuspendWarning
-  );
   const isSuspended = profile?.permissions.includes(Permission.Suspended);
   const isCommentSuspended = profile?.permissions.includes(
     Permission.CommentSuspended
@@ -60,17 +53,6 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
 
   return (
     <>
-      <Button
-        className="flex justify-center"
-        icon={<ExclamationCircleIcon className="size-4" />}
-        onClick={() => updateFeatureFlag(PermissionId.SuspendWarning)}
-        disabled={isSuspended || hasSuspendWarning}
-        size="sm"
-        variant="danger"
-        outline
-      >
-        Warn Profile
-      </Button>
       <Button
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}

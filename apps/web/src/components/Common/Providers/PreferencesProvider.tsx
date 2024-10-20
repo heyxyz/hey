@@ -48,10 +48,7 @@ const PreferencesProvider: FC = () => {
       isCommentSuspended: preferences.permissions.includes(
         Permission.CommentSuspended
       ),
-      isSuspended: preferences.permissions.includes(Permission.Suspended),
-      hasSuspendWarning: preferences.permissions.includes(
-        Permission.SuspendWarning
-      )
+      isSuspended: preferences.permissions.includes(Permission.Suspended)
     });
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
