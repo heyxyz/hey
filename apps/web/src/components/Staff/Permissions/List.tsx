@@ -56,8 +56,7 @@ const List: FC = () => {
                     <b
                       className={cn(
                         (permission.key === Permission.Suspended ||
-                          permission.key === Permission.CommentSuspended ||
-                          permission.key === Permission.SuspendWarning) &&
+                          permission.key === Permission.CommentSuspended) &&
                           "text-red-500"
                       )}
                     >
