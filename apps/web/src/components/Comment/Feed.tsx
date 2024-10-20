@@ -20,11 +20,10 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface FeedProps {
-  isHidden: boolean;
   publicationId: string;
 }
 
-const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
+const Feed: FC<FeedProps> = ({ publicationId }) => {
   const { txnQueue } = useTransactionStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
@@ -87,10 +86,6 @@ const Feed: FC<FeedProps> = ({ isHidden, publicationId }) => {
 
   if (error) {
     return <ErrorMessage error={error} title="Failed to load comment feed" />;
-  }
-
-  if (isHidden) {
-    return null;
   }
 
   if (totalComments === 0) {
