@@ -10,7 +10,6 @@ const seedPermissions = async (): Promise<number> => {
     data: [
       { id: PermissionId.CommentSuspended, key: Permission.CommentSuspended },
       { id: PermissionId.Suspended, key: Permission.Suspended },
-      { id: PermissionId.SuspendWarning, key: Permission.SuspendWarning },
       { id: PermissionId.Verified, key: Permission.Verified },
       { id: PermissionId.StaffPick, key: Permission.StaffPick },
       { id: PermissionId.Beta, key: Permission.Beta }

@@ -4,34 +4,28 @@ import { create } from "zustand";
 interface State {
   isCommentSuspended: boolean;
   isSuspended: boolean;
-  hasSuspendWarning: boolean;
   resetStatus: () => void;
   setStatus: ({
     isCommentSuspended,
-    isSuspended,
-    hasSuspendWarning
+    isSuspended
   }: {
     isCommentSuspended: boolean;
     isSuspended: boolean;
-    hasSuspendWarning: boolean;
   }) => void;
 }
 
 const store = create<State>((set) => ({
   isCommentSuspended: false,
   isSuspended: false,
-  hasSuspendWarning: false,
   resetStatus: () =>
     set(() => ({
       isCommentSuspended: false,
-      isSuspended: false,
-      hasSuspendWarning: false
+      isSuspended: false
     })),
-  setStatus: ({ isCommentSuspended, isSuspended, hasSuspendWarning }) =>
+  setStatus: ({ isCommentSuspended, isSuspended }) =>
     set(() => ({
       isCommentSuspended,
-      isSuspended,
-      hasSuspendWarning
+      isSuspended
     }))
 }));
 
