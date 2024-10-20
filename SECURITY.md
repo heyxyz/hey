@@ -1,12 +1,12 @@
 # Security
 
-Contact: support@hey.xyz
+Contact: <support@hey.xyz>
 
 At Hey, we consider the security of our systems a top priority. But no matter how much effort we put into system security, there can still be vulnerabilities present.
 
 If you discover a vulnerability, we would like to know about it so we can take steps to address it as quickly as possible. We would like to ask you to help us better protect our clients and our systems.
 
-## Out of scope vulnerabilities:
+## Out of scope vulnerabilities
 
 - Clickjacking on pages with no sensitive actions.
 - Unauthenticated/logout/login CSRF.
@@ -18,7 +18,7 @@ If you discover a vulnerability, we would like to know about it so we can take s
 - Lack of Secure or HTTP only flag on non-sensitive cookies
 - Deadlinks
 
-## Please do the following:
+## Please do the following
 
 - E-mail your findings to [support@hey.xyz](mailto:support@hey.xyz).
 - Do not run automated scanners on our infrastructure or dashboard. If you wish to do this, contact us and we will set up a sandbox for you.
@@ -27,7 +27,7 @@ If you discover a vulnerability, we would like to know about it so we can take s
 - Do not use attacks on physical security, social engineering, distributed denial of service, spam or applications of third parties,
 - Do provide sufficient information to reproduce the problem, so we will be able to resolve it as quickly as possible. Usually, the IP address or the URL of the affected system and a description of the vulnerability will be sufficient, but complex vulnerabilities may require further explanation.
 
-## What we promise:
+## What we promise
 
 - We will respond to your report within 3 business days with our evaluation of the report and an expected resolution date,
 - If you have followed the instructions above, we will not take any legal action against you in regard to the report,
