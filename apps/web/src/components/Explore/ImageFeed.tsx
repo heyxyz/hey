@@ -26,7 +26,7 @@ const ImageFeed: FC<ImageFeedProps> = ({
   const { fetchAndStoreTips } = useTipsStore();
 
   const request: ExplorePublicationRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     orderBy: feedType,
     where: {
       customFilters: [CustomFiltersType.Gardeners],
