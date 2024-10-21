@@ -2,7 +2,7 @@ import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { MinusCircleIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -17,7 +17,7 @@ import {
   useProfileManagersQuery
 } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
-import { Button, EmptyState, ErrorMessage, Spinner } from "@hey/ui";
+import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -187,13 +187,6 @@ const List: FC = () => {
           <LazyDefaultProfile address={manager.address} />
           <Button
             disabled={removingAddress === manager.address}
-            icon={
-              removingAddress === manager.address ? (
-                <Spinner size="xs" />
-              ) : (
-                <MinusCircleIcon className="size-4" />
-              )
-            }
             onClick={() => removeManager(manager.address)}
             outline
           >
