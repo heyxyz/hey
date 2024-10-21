@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import getAllowanceModule from "@helpers/getAllowanceModule";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -7,7 +8,7 @@ import {
   OpenActionModuleType,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from "@hey/lens";
-import { Button, Modal, WarningMessage } from "@hey/ui";
+import { Modal, WarningMessage } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
