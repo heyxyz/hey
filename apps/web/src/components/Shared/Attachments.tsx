@@ -112,11 +112,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
           title={asset?.title}
         />
       )}
-      <LightBox
-        onClose={() => setExpandedImage(null)}
-        show={Boolean(expandedImage)}
-        url={expandedImage}
-      />
+      <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
     </div>
   );
 };
