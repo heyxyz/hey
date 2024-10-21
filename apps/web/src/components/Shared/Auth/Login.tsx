@@ -1,4 +1,5 @@
 import SwitchNetwork from "@components/Shared/SwitchNetwork";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { KeyIcon } from "@heroicons/react/24/outline";
@@ -16,7 +17,7 @@ import {
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from "@hey/lens";
-import { Button, Card } from "@hey/ui";
+import { Card } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";

@@ -1,7 +1,8 @@
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { AUTH } from "@hey/data/tracking";
-import { Button, Card } from "@hey/ui";
+import { Card } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useSignupStore } from "./Signup";

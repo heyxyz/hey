@@ -1,4 +1,5 @@
 import SearchProfiles from "@components/Shared/SearchProfiles";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
@@ -12,7 +13,6 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from "@hey/lens";
-import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

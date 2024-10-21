@@ -1,9 +1,10 @@
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import { useNotificationsLazyQuery } from "@hey/lens";
-import { Button, Card, CardHeader } from "@hey/ui";
+import { Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

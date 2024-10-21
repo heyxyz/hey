@@ -1,4 +1,5 @@
 import IndexStatus from "@components/Shared/IndexStatus";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -12,7 +13,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from "@hey/lens";
-import { Button, Spinner } from "@hey/ui";
+import { Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";

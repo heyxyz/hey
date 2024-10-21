@@ -1,9 +1,10 @@
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import type { ProfileRequest, Profile as TProfile } from "@hey/lens";
 import { useProfileLazyQuery } from "@hey/lens";
-import { Button, Card, CardHeader } from "@hey/ui";
+import { Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";

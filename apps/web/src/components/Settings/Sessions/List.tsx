@@ -1,4 +1,5 @@
 import Loader from "@components/Shared/Loader";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
@@ -11,7 +12,7 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from "@hey/lens";
-import { Button, EmptyState, ErrorMessage } from "@hey/ui";
+import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

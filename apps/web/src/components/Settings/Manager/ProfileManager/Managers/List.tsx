@@ -1,5 +1,6 @@
 import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
 import Loader from "@components/Shared/Loader";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
@@ -17,7 +18,7 @@ import {
   useProfileManagersQuery
 } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
-import { Button, EmptyState, ErrorMessage } from "@hey/ui";
+import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

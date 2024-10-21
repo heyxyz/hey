@@ -1,4 +1,5 @@
 import Loader from "@components/Shared/Loader";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import sanitizeProfileInterests from "@helpers/sanitizeProfileInterests";
@@ -13,7 +14,6 @@ import {
   useRemoveProfileInterestsMutation
 } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
-import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";

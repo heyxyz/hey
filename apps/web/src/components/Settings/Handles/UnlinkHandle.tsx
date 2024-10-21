@@ -1,4 +1,5 @@
 import IndexStatus from "@components/Shared/IndexStatus";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { TokenHandleRegistry } from "@hey/abis";
@@ -13,7 +14,6 @@ import {
   useCreateUnlinkHandleFromProfileTypedDataMutation,
   useUnlinkHandleFromProfileMutation
 } from "@hey/lens";
-import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

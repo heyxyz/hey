@@ -2,6 +2,7 @@ import IndexStatus from "@components/Shared/IndexStatus";
 import LazySmallSingleProfile from "@components/Shared/LazySmallSingleProfile";
 import Loader from "@components/Shared/Loader";
 import Slug from "@components/Shared/Slug";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
@@ -18,7 +19,7 @@ import {
   useLinkHandleToProfileMutation,
   useOwnedHandlesQuery
 } from "@hey/lens";
-import { Button, EmptyState } from "@hey/ui";
+import { EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

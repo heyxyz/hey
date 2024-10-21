@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import {
@@ -17,7 +18,7 @@ import {
 import { Regex } from "@hey/data/regex";
 import { AUTH } from "@hey/data/tracking";
 import { useHandleToAddressQuery } from "@hey/lens";
-import { Button, Form, Input, Spinner, useZodForm } from "@hey/ui";
+import { Form, Input, Spinner, useZodForm } from "@hey/ui";
 import Script from "next/script";
 import type { FC } from "react";
 import { useState } from "react";
