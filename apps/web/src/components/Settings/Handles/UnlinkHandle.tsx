@@ -1,7 +1,6 @@
 import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import { TokenHandleRegistry } from "@hey/abis";
 import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -14,7 +13,7 @@ import {
   useCreateUnlinkHandleFromProfileTypedDataMutation,
   useUnlinkHandleFromProfileMutation
 } from "@hey/lens";
-import { Button, Spinner } from "@hey/ui";
+import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -169,18 +168,7 @@ const UnlinkHandle: FC = () => {
           />
         </div>
       ) : (
-        <Button
-          disabled={unlinking}
-          icon={
-            unlinking ? (
-              <Spinner size="xs" />
-            ) : (
-              <MinusCircleIcon className="size-4" />
-            )
-          }
-          onClick={unlink}
-          outline
-        >
+        <Button disabled={unlinking} onClick={unlink} outline>
           Un-link handle
         </Button>
       )}

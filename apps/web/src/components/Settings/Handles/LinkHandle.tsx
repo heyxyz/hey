@@ -4,11 +4,7 @@ import Loader from "@components/Shared/Loader";
 import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import {
-  AtSymbolIcon,
-  MinusCircleIcon,
-  PlusCircleIcon
-} from "@heroicons/react/24/outline";
+import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import { TokenHandleRegistry } from "@hey/abis";
 import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -22,7 +18,7 @@ import {
   useLinkHandleToProfileMutation,
   useOwnedHandlesQuery
 } from "@hey/lens";
-import { Button, EmptyState, Spinner } from "@hey/ui";
+import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -219,15 +215,6 @@ const LinkHandle: FC = () => {
           ) : (
             <Button
               disabled={linkingHandle === handle.fullHandle}
-              icon={
-                linkingHandle === handle.fullHandle ? (
-                  <Spinner size="xs" />
-                ) : handle.linkedTo ? (
-                  <MinusCircleIcon className="size-4" />
-                ) : (
-                  <PlusCircleIcon className="size-4" />
-                )
-              }
               onClick={() => link(handle.fullHandle)}
               outline
             >

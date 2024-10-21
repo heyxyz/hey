@@ -1,17 +1,11 @@
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
+import { LockOpenIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import {
-  Button,
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  Spinner
-} from "@hey/ui";
+import { Button, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import toast from "react-hot-toast";
@@ -108,17 +102,7 @@ const ProtectProfile: FC = () => {
           {writeHash ? (
             <IndexStatus shouldReload txHash={writeHash} />
           ) : (
-            <Button
-              disabled={isPending}
-              icon={
-                isPending ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <LockClosedIcon className="size-4" />
-                )
-              }
-              onClick={handleProtect}
-            >
+            <Button disabled={isPending} onClick={handleProtect}>
               Protect now
             </Button>
           )}
