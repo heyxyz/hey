@@ -56,7 +56,7 @@ const UpdateTheme: FC = () => {
   return (
     <div className="space-y-5">
       <div>
-        <div className="label">Overview font style</div>
+        <div className="label">Font style</div>
         <Select
           showSearch
           onChange={(value) => setTheme({ ...theme, fontStyle: value })}
