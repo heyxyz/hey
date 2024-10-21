@@ -7,16 +7,14 @@ import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
-import { number, object, string } from "zod";
+import { object, string } from "zod";
 
 interface ExtensionRequest {
   fontStyle: string | null;
-  buttonBorderRadius: number | null;
 }
 
 const validationSchema = object({
-  fontStyle: string().optional(),
-  buttonBorderRadius: number().optional()
+  fontStyle: string().optional()
 });
 
 export const post = [
@@ -35,12 +33,12 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { fontStyle, buttonBorderRadius } = body as ExtensionRequest;
+    const { fontStyle } = body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const dbPayload = { fontStyle, buttonBorderRadius };
+      const dbPayload = { fontStyle };
 
       const data = await prisma.profileTheme.upsert({
         create: { id: payload.id, ...dbPayload },
