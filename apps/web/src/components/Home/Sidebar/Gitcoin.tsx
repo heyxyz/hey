@@ -1,9 +1,10 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
+import Button from "@components/Shared/UI/Button";
 import { rubikMonoOneFont } from "@helpers/fonts";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { MISCELLANEOUS } from "@hey/data/tracking";
-import { Button, Card } from "@hey/ui";
+import { Card } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 

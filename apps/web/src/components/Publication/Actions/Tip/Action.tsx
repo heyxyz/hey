@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -15,7 +16,7 @@ import { PUBLICATION } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
 import type { MirrorablePublication } from "@hey/lens";
 import type { AllowedToken } from "@hey/types/hey";
-import { Button, H6, HelpTooltip, Input, Select, Spinner } from "@hey/ui";
+import { H6, HelpTooltip, Input, Select, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
 import type { FC } from "react";

@@ -1,10 +1,11 @@
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PUBLICATION } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import type { MirrorablePublication } from "@hey/lens";
-import { Button, Modal } from "@hey/ui";
+import { Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useState } from "react";

@@ -1,14 +1,20 @@
-import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import type {
+  ButtonHTMLAttributes,
+  CSSProperties,
+  DetailedHTMLProps,
+  ReactNode
+} from "react";
 import { forwardRef } from "react";
 import cn from "../cn";
 
-interface ButtonProps
+export interface ButtonProps
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
   children?: ReactNode;
   className?: string;
+  style?: CSSProperties;
   disabled?: boolean;
   icon?: ReactNode;
   outline?: boolean;
@@ -21,6 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       className = "",
+      style,
       disabled = false,
       icon,
       outline,
@@ -115,6 +122,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         disabled={disabled}
         ref={ref}
+        style={style}
         type={rest.type}
         {...rest}
       >

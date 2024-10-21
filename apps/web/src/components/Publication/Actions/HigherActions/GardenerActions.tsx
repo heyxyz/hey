@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
@@ -7,7 +8,6 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MirrorablePublication } from "@hey/lens";
 import { PublicationReportingSpamSubreason } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
-import { Button } from "@hey/ui";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { type FC, type ReactNode, useState } from "react";

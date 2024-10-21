@@ -1,8 +1,9 @@
+import Button from "@components/Shared/UI/Button";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import profileThemeFonts, { Font } from "@helpers/profileThemeFonts";
 import { HEY_API_URL } from "@hey/data/constants";
 import camelCaseToReadable from "@hey/helpers/camelCaseToReadable";
-import { Button, Select } from "@hey/ui";
+import { Select } from "@hey/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { type FC, useState } from "react";

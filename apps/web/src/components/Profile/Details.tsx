@@ -3,6 +3,7 @@ import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButto
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import Slug from "@components/Shared/Slug";
+import Button from "@components/Shared/UI/Button";
 import {
   ClockIcon,
   Cog6ToothIcon,
@@ -23,7 +24,7 @@ import getProfile from "@hey/helpers/getProfile";
 import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
-import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
+import { Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";

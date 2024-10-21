@@ -1,13 +1,14 @@
 import HigherActions from "@components/Publication/Actions/HigherActions";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
 import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
-import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
+import { Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";

@@ -1,5 +1,6 @@
 import SearchProfiles from "@components/Shared/SearchProfiles";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import Button from "@components/Shared/UI/Button";
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
@@ -9,7 +10,7 @@ import {
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import splitNumber from "@hey/helpers/splitNumber";
 import type { CollectModuleType } from "@hey/types/hey";
-import { Button, H6, Input } from "@hey/ui";
+import { H6, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";

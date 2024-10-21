@@ -2,6 +2,7 @@ import NewAttachments from "@components/Composer/NewAttachments";
 import QuotedPublication from "@components/Publication/QuotedPublication";
 import { AudioPublicationSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import uploadMetadata from "@helpers/uploadMetadata";
@@ -26,7 +27,7 @@ import type {
 import { ReferenceModuleType } from "@hey/lens";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
-import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
+import { Card, ErrorMessage, H6 } from "@hey/ui";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
 import dynamic from "next/dynamic";
 import type { FC } from "react";

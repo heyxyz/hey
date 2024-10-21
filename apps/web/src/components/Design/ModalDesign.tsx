@@ -1,4 +1,5 @@
-import { Button, Card, CardHeader, Modal } from "@hey/ui";
+import Button from "@components/Shared/UI/Button";
+import { Card, CardHeader, Modal } from "@hey/ui";
 import { type FC, useState } from "react";
 
 const ModalDesign: FC = () => {

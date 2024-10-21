@@ -1,10 +1,11 @@
+import Button from "@components/Shared/UI/Button";
 import { apps as knownApps } from "@hey/data/apps";
 import {
   CustomFiltersType,
   ModExplorePublicationType,
   PublicationMetadataMainFocusType
 } from "@hey/lens";
-import { Button, Card, Checkbox } from "@hey/ui";
+import { Card, Checkbox } from "@hey/ui";
 import type { FC } from "react";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";

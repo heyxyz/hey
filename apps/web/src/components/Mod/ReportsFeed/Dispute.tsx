@@ -1,4 +1,5 @@
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import {
@@ -6,7 +7,7 @@ import {
   type Profile,
   useModDisputeReportMutation
 } from "@hey/lens";
-import { Button, Form, H5, TextArea, useZodForm } from "@hey/ui";
+import { Form, H5, TextArea, useZodForm } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { object, string } from "zod";

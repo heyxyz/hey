@@ -1,10 +1,11 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
 import StaffActions from "@components/Publication/Actions/HigherActions/StaffActions";
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
+import Button from "@components/Shared/UI/Button";
 import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
-import { Button, Modal } from "@hey/ui";
+import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import Dispute from "./Dispute";

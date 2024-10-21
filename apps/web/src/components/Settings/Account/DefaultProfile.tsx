@@ -1,4 +1,5 @@
 import Loader from "@components/Shared/Loader";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
@@ -11,7 +12,7 @@ import {
   useProfilesQuery,
   useSetDefaultProfileMutation
 } from "@hey/lens";
-import { Button, Card, CardHeader, Select } from "@hey/ui";
+import { Card, CardHeader, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";

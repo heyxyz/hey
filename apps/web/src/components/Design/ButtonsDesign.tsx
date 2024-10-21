@@ -1,5 +1,6 @@
+import Button from "@components/Shared/UI/Button";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { Button, Card, CardHeader } from "@hey/ui";
+import { Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 
 const ButtonsDesign: FC = () => {

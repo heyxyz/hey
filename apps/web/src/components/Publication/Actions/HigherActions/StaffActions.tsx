@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -5,7 +6,6 @@ import { FeatureFlag } from "@hey/data/feature-flags";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import getInternalProfile from "@hey/helpers/api/getInternalProfile";
 import type { MirrorablePublication } from "@hey/lens";
-import { Button } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
 import axios from "axios";

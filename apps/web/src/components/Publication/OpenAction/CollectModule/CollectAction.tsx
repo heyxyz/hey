@@ -3,6 +3,7 @@ import AllowanceButton from "@components/Settings/Allowance/Button";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -29,7 +30,7 @@ import {
 } from "@hey/lens";
 import { OptmisticPublicationType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
-import { Button, WarningMessage } from "@hey/ui";
+import { WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
