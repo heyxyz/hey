@@ -79,7 +79,6 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
           <SingleProfile
             hideFollowButton={currentProfile?.id === follower.id}
             hideUnfollowButton={currentProfile?.id === follower.id}
-            showSuspendButton
             profile={follower as Profile}
             showBio
             showUserPreview={false}
