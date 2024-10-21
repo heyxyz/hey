@@ -1,7 +1,6 @@
 import SearchProfiles from "@components/Shared/SearchProfiles";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { ADDRESS_PLACEHOLDER, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -13,7 +12,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from "@hey/lens";
-import { Button, Spinner } from "@hey/ui";
+import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -172,13 +171,6 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         <Button
           className="ml-auto"
           disabled={isLoading || !isAddress(manager)}
-          icon={
-            isLoading ? (
-              <Spinner size="xs" />
-            ) : (
-              <PlusCircleIcon className="size-4" />
-            )
-          }
           onClick={addManager}
           type="submit"
         >
