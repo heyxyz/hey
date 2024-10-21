@@ -59,7 +59,7 @@ const UpdateTheme: FC = () => {
         <div className="label">Overview font style</div>
         <Select
           showSearch
-          onChange={(value) => setTheme({ ...theme, overviewFontStyle: value })}
+          onChange={(value) => setTheme({ ...theme, fontStyle: value })}
           options={Object.values(Font).map((font) => ({
             label: camelCaseToReadable(font),
             htmlLabel: (
@@ -67,26 +67,7 @@ const UpdateTheme: FC = () => {
                 {camelCaseToReadable(font)}
               </div>
             ),
-            selected: theme?.overviewFontStyle === font,
-            value: font
-          }))}
-        />
-      </div>
-      <div>
-        <div className="label">Publication font style</div>
-        <Select
-          showSearch
-          onChange={(value) =>
-            setTheme({ ...theme, publicationFontStyle: value })
-          }
-          options={Object.values(Font).map((font) => ({
-            label: camelCaseToReadable(font),
-            htmlLabel: (
-              <div className={profileThemeFonts(font)}>
-                {camelCaseToReadable(font)}
-              </div>
-            ),
-            selected: theme?.publicationFontStyle === font,
+            selected: theme?.fontStyle === font,
             value: font
           }))}
         />

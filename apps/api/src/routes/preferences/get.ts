@@ -2,7 +2,7 @@ import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
-import type { Preferences } from "@hey/types/hey";
+import type { Preferences, ProfileTheme } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
@@ -32,7 +32,7 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [preference, permissions, email, membershipNft] =
+      const [preference, permissions, email, membershipNft, theme] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { id: id as string } }),
           prisma.profilePermission.findMany({
@@ -40,7 +40,8 @@ export const get = [
             where: { enabled: true, profileId: id as string }
           }),
           prisma.email.findUnique({ where: { id: id as string } }),
-          prisma.membershipNft.findUnique({ where: { id: id as string } })
+          prisma.membershipNft.findUnique({ where: { id: id as string } }),
+          prisma.profileTheme.findUnique({ where: { id: id as string } })
         ]);
 
       const response: Preferences = {
@@ -53,7 +54,8 @@ export const get = [
         highSignalNotificationFilter: Boolean(
           preference?.highSignalNotificationFilter
         ),
-        permissions: permissions.map(({ permission }) => permission.key)
+        permissions: permissions.map(({ permission }) => permission.key),
+        theme: (theme as ProfileTheme) || null
       };
 
       await setRedis(cacheKey, response);
