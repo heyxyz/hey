@@ -2,6 +2,7 @@ import AllowanceButton from "@components/Settings/Allowance/Button";
 import Loader from "@components/Shared/Loader";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import Slug from "@components/Shared/Slug";
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { UserIcon } from "@heroicons/react/24/outline";
@@ -27,7 +28,7 @@ import {
   useProfileQuery
 } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
-import { Button, H3, H5, WarningMessage } from "@hey/ui";
+import { H3, H5, WarningMessage } from "@hey/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";

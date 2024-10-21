@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { BoltIcon, LinkIcon } from "@heroicons/react/24/outline";
@@ -6,7 +7,7 @@ import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { FrameTransaction, Frame as IFrame } from "@hey/types/misc";
-import { Button, Card, Image, Input, Modal } from "@hey/ui";
+import { Card, Image, Input, Modal } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
 import type { FC } from "react";

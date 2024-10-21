@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -7,7 +8,7 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getNftChainId from "@hey/helpers/getNftChainId";
 import getNftChainInfo from "@hey/helpers/getNftChainInfo";
 import type { Frame as IFrame } from "@hey/types/misc";
-import { Button, H4 } from "@hey/ui";
+import { H4 } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";

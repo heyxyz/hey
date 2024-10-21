@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LockOpenIcon } from "@heroicons/react/24/outline";
@@ -5,7 +6,7 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import { Button, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import toast from "react-hot-toast";

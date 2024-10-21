@@ -1,6 +1,6 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import type { Amount } from "@hey/lens";
-import { Button } from "@hey/ui";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { parseEther } from "viem";

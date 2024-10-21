@@ -1,8 +1,9 @@
 import MetaTags from "@components/Common/MetaTags";
+import Button from "@components/Shared/UI/Button";
 import { heyFont } from "@helpers/fonts";
 import { HomeIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
-import { Button, H2 } from "@hey/ui";
+import { H2 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";

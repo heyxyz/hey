@@ -1,4 +1,5 @@
-import { Alert, Button, Card, CardHeader } from "@hey/ui";
+import Button from "@components/Shared/UI/Button";
+import { Alert, Card, CardHeader } from "@hey/ui";
 import { type FC, useState } from "react";
 
 const AlertDesign: FC = () => {

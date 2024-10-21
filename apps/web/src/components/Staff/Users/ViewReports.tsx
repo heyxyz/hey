@@ -1,5 +1,6 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
-import { Button, Modal } from "@hey/ui";
+import Button from "@components/Shared/UI/Button";
+import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 

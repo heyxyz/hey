@@ -1,8 +1,9 @@
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PROFILE } from "@hey/data/tracking";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
-import { Button, Modal } from "@hey/ui";
+import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";

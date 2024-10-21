@@ -1,6 +1,6 @@
+import Button from "@components/Shared/UI/Button";
 import { Leafwatch } from "@helpers/leafwatch";
 import { AUTH } from "@hey/data/tracking";
-import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useSignupStore } from "../Auth/Signup";

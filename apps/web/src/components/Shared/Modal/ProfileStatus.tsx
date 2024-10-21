@@ -1,8 +1,9 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import Button from "@components/Shared/UI/Button";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import getProfileDetails from "@hey/helpers/api/getProfileDetails";
-import { Button, ErrorMessage, Input } from "@hey/ui";
+import { ErrorMessage, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
