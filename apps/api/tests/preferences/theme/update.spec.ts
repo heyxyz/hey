@@ -3,11 +3,11 @@ import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
-describe("POST /profile/theme/update", () => {
+describe("POST /preferences/theme/update", () => {
   test("should return 400 if no body is provided", async () => {
     try {
       await axios.post(
-        `${TEST_URL}/profile/theme/update`,
+        `${TEST_URL}/preferences/theme/update`,
         {},
         { headers: getTestAuthHeaders() }
       );
@@ -19,7 +19,7 @@ describe("POST /profile/theme/update", () => {
   test("should return 400 for invalid body (missing required fields)", async () => {
     try {
       await axios.post(
-        `${TEST_URL}/profile/theme/update`,
+        `${TEST_URL}/preferences/theme/update`,
         { randomField: "invalid" },
         { headers: getTestAuthHeaders() }
       );
@@ -30,14 +30,14 @@ describe("POST /profile/theme/update", () => {
 
   test("should return 200 and update the profile theme", async () => {
     const { data, status } = await axios.post(
-      `${TEST_URL}/profile/theme/update`,
-      { overviewFontStyle: "archivo", publicationFontStyle: "archivoNarrow" },
+      `${TEST_URL}/preferences/theme/update`,
+      { fontStyle: "archivo", buttonBorderRadius: 10 },
       { headers: getTestAuthHeaders() }
     );
 
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
-    expect(data.result.overviewFontStyle).toBe("archivo");
-    expect(data.result.publicationFontStyle).toBe("archivoNarrow");
+    expect(data.result.fontStyle).toBe("archivo");
+    expect(data.result.buttonBorderRadius).toBe(10);
   });
 });

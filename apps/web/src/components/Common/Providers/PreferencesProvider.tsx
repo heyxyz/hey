@@ -6,17 +6,15 @@ import getAllTokens from "@hey/helpers/api/getAllTokens";
 import getPreferences from "@hey/helpers/api/getPreferences";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useRouter } from "next/router";
-import { type FC, useEffect } from "react";
+import type { FC } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
 const PreferencesProvider: FC = () => {
-  const { pathname } = useRouter();
   const { id: sessionProfileId } = getCurrentSession();
   const { setTheme } = useProfileThemeStore();
   const { setVerifiedMembers } = useVerifiedMembersStore();
@@ -31,10 +29,6 @@ const PreferencesProvider: FC = () => {
     setLoading: setPreferencesLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
-
-  useEffect(() => {
-    setTheme(null);
-  }, [pathname]);
 
   const getPreferencesData = async () => {
     setPreferencesLoading(true);
@@ -54,6 +48,10 @@ const PreferencesProvider: FC = () => {
       preferences.hasDismissedOrMintedMembershipNft
     );
     setPreferencesLoading(false);
+    setTheme({
+      fontStyle: preferences.theme?.fontStyle,
+      buttonBorderRadius: preferences.theme?.buttonBorderRadius
+    });
 
     return true;
   };
