@@ -1,5 +1,4 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import profileThemeFonts from "@helpers/profileThemeFonts";
 import {
   ChatBubbleLeftIcon,
   FilmIcon,
@@ -8,10 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
-import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { ProfileFeedType } from "src/enums";
-import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import MediaFilter from "./Filters/MediaFilter";
 
 interface FeedTypeProps {
@@ -20,8 +17,6 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
-  const { theme } = useProfileThemeStore();
-
   const switchTab = (type: ProfileFeedType) => {
     if (setFeedType) {
       setFeedType(type);
@@ -58,12 +53,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
   );
 
   return (
-    <div
-      className={cn(
-        "flex items-center justify-between",
-        profileThemeFonts(theme?.overviewFontStyle)
-      )}
-    >
+    <div className="flex items-center justify-between">
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         {tabs.map((tab) => (
           <TabButton

@@ -1,6 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
-import type { InternalProfile } from "@hey/types/hey";
+import type { InternalProfile, ProfileTheme } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -18,7 +18,7 @@ export const get = [
     }
 
     try {
-      const [preference, permissions, email, membershipNft] =
+      const [preference, permissions, email, membershipNft, theme] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { id: id as string } }),
           prisma.profilePermission.findMany({
@@ -26,7 +26,8 @@ export const get = [
             where: { enabled: true, profileId: id as string }
           }),
           prisma.email.findUnique({ where: { id: id as string } }),
-          prisma.membershipNft.findUnique({ where: { id: id as string } })
+          prisma.membershipNft.findUnique({ where: { id: id as string } }),
+          prisma.profileTheme.findUnique({ where: { id: id as string } })
         ]);
 
       const response: InternalProfile = {
@@ -39,7 +40,8 @@ export const get = [
         highSignalNotificationFilter: Boolean(
           preference?.highSignalNotificationFilter
         ),
-        permissions: permissions.map(({ permission }) => permission.key)
+        permissions: permissions.map(({ permission }) => permission.key),
+        theme: (theme as ProfileTheme) || null
       };
 
       logger.info(`Internal profile fetched for ${id}`);

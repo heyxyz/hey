@@ -6,6 +6,7 @@ export const Localstorage = {
   NotificationStore: "notification.store",
   AllowedTokensStore: "allowedtokens.store",
   ProfileStore: "profile.store",
+  ProfileThemeStore: "profiletheme.store",
   RateStore: "rate.store",
   SearchStore: "search.store",
   TransactionStore: "transaction.store",

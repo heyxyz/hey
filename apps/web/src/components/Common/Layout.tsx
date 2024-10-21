@@ -5,6 +5,7 @@ import BottomNavigation from "@components/Shared/Navbar/BottomNavigation";
 import PageMetatags from "@components/Shared/PageMetatags";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
+import profileThemeFonts from "@helpers/profileThemeFonts";
 import type { Profile } from "@hey/lens";
 import { useCurrentProfileQuery } from "@hey/lens";
 import { useIsClient } from "@uidotdev/usehooks";
@@ -18,6 +19,7 @@ import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { isAddress } from "viem";
 import { useDisconnect } from "wagmi";
 import GlobalModals from "../Shared/GlobalModals";
@@ -30,6 +32,7 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { reload } = useRouter();
   const { resolvedTheme } = useTheme();
+  const { theme } = useProfileThemeStore();
   const { currentProfile, setCurrentProfile, setFallbackToCuratedFeed } =
     useProfileStore();
   const { resetPreferences } = usePreferencesStore();
@@ -84,7 +87,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <>
+    <main className={profileThemeFonts(theme?.fontStyle)}>
       <PageMetatags />
       <Toaster
         containerStyle={{ wordBreak: "break-word" }}
@@ -99,7 +102,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <BottomNavigation />
         {children}
       </div>
-    </>
+    </main>
   );
 };
 
