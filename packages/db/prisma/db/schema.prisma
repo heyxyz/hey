@@ -131,8 +131,7 @@ model ProfileStatus {
 }
 
 model ProfileTheme {
-  id                 String   @id
-  fontStyle          String?
-  buttonBorderRadius Int?
-  createdAt          DateTime @default(now())
+  id        String   @id
+  fontStyle String?
+  createdAt DateTime @default(now())
 }
