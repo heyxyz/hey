@@ -1,7 +1,6 @@
 import errorToast from "@helpers/errorToast";
-import { InboxIcon } from "@heroicons/react/24/outline";
 import type { Amount } from "@hey/lens";
-import { Button, Spinner } from "@hey/ui";
+import { Button } from "@hey/ui";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { parseEther } from "viem";
@@ -86,17 +85,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
               </span>
             )}
           </div>
-          <Button
-            disabled={isLoading}
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <InboxIcon className="size-4" />
-              )
-            }
-            onClick={deposit}
-          >
+          <Button disabled={isLoading} onClick={deposit}>
             Wrap POL to {currency}
           </Button>
         </>

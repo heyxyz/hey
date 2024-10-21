@@ -4,7 +4,7 @@ import NoBalanceError from "@components/Shared/NoBalanceError";
 import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { StarIcon, UserIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB, POLYGONSCAN_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -27,7 +27,7 @@ import {
   useProfileQuery
 } from "@hey/lens";
 import { useApolloClient } from "@hey/lens/apollo";
-import { Button, H3, H5, Spinner, WarningMessage } from "@hey/ui";
+import { Button, H3, H5, WarningMessage } from "@hey/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -322,13 +322,6 @@ const FollowModule: FC<FollowModuleProps> = ({
             <Button
               className="!px-3 !py-1.5 mt-5 text-sm"
               disabled={isLoading}
-              icon={
-                isLoading ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <StarIcon className="size-4" />
-                )
-              }
               onClick={createFollow}
               outline
             >
