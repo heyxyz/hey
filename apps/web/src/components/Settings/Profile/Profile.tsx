@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import uploadCroppedImage, { readFile } from "@helpers/profilePictureUtils";
 import uploadMetadata from "@helpers/uploadMetadata";
-import { InformationCircleIcon, PencilIcon } from "@heroicons/react/24/outline";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import {
   AVATAR,
@@ -39,7 +39,6 @@ import {
   Image,
   Input,
   Modal,
-  Spinner,
   TextArea,
   useZodForm
 } from "@hey/ui";
@@ -456,13 +455,6 @@ const ProfileSettingsForm: FC = () => {
                 !coverPictureSrc &&
                 !profilePictureSrc)
             }
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="size-4" />
-              )
-            }
             type="submit"
           >
             Save
@@ -497,13 +489,6 @@ const ProfileSettingsForm: FC = () => {
             </div>
             <Button
               disabled={uploadingCoverPicture || !coverPictureSrc}
-              icon={
-                uploadingCoverPicture ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <PencilIcon className="size-4" />
-                )
-              }
               onClick={() => uploadAndSave("cover")}
               type="submit"
             >
@@ -534,13 +519,6 @@ const ProfileSettingsForm: FC = () => {
           />
           <Button
             disabled={uploadingProfilePicture || !profilePictureSrc}
-            icon={
-              uploadingProfilePicture ? (
-                <Spinner size="xs" />
-              ) : (
-                <PencilIcon className="size-4" />
-              )
-            }
             onClick={() => uploadAndSave("avatar")}
             type="submit"
           >

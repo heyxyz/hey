@@ -1,6 +1,5 @@
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
@@ -11,7 +10,6 @@ import {
   EmptyState,
   ErrorMessage,
   Form,
-  Spinner,
   TextArea,
   useZodForm
 } from "@hey/ui";
@@ -111,13 +109,6 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
                 <Button
                   className="flex w-full justify-center"
                   disabled={submitLoading}
-                  icon={
-                    submitLoading ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <PencilSquareIcon className="size-4" />
-                    )
-                  }
                   type="submit"
                 >
                   Report
