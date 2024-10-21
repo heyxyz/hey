@@ -84,8 +84,7 @@ export const get = [
           GROUP BY referrer
           ORDER BY count DESC
           LIMIT 10
-        `,
-        "SELECT COUNT(*) AS count FROM moderation"
+        `
       ];
 
       // Execute all queries concurrently
@@ -111,7 +110,6 @@ export const get = [
         impressions: results[1][0],
         impressionsToday: results[3],
         referrers: results[6],
-        moderations: results[7][0].count,
         success: true
       });
     } catch (error) {
