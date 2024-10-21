@@ -48,7 +48,7 @@ export const post = [
         where: { id: payload.id }
       });
 
-      await delRedis(`profile:${payload.id}`);
+      await delRedis(`preference:${payload.id}`);
       logger.info(`Updated profile theme for ${payload.id}`);
 
       return res.status(200).json({ result: data, success: true });

@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
+import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 
 const UpdateTheme: FC = () => {
   const { theme, setTheme } = useProfileThemeStore();
@@ -18,7 +18,7 @@ const UpdateTheme: FC = () => {
     setUpdating(true);
     try {
       await toast.promise(
-        axios.post(`${HEY_API_URL}/profile/theme/reset`, undefined, {
+        axios.post(`${HEY_API_URL}/preferences/theme/reset`, undefined, {
           headers: getAuthApiHeaders()
         }),
         {
@@ -27,7 +27,7 @@ const UpdateTheme: FC = () => {
           success: "Profile theme reset successfully"
         }
       );
-      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
+      queryClient.invalidateQueries({ queryKey: ["getPreferences"] });
       setTheme(null);
     } finally {
       setUpdating(false);
@@ -38,7 +38,7 @@ const UpdateTheme: FC = () => {
     setUpdating(true);
     try {
       await toast.promise(
-        axios.post(`${HEY_API_URL}/profile/theme/update`, theme, {
+        axios.post(`${HEY_API_URL}/preferences/theme/update`, theme, {
           headers: getAuthApiHeaders()
         }),
         {
@@ -47,7 +47,7 @@ const UpdateTheme: FC = () => {
           success: "Profile theme updated successfully"
         }
       );
-      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
+      queryClient.invalidateQueries({ queryKey: ["getPreferences"] });
     } finally {
       setUpdating(false);
     }

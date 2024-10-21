@@ -9,8 +9,8 @@ import axios from "axios";
 import type { FC } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileThemeStore } from "src/store/non-persisted/useProfileThemeStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
