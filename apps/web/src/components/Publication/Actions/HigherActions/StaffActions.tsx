@@ -30,7 +30,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
     return null;
   }
 
-  const updateFeatureFlag = (id: string) => {
+  const suspendProfile = (id: string) => {
     onClick?.();
     toast.promise(
       axios.post(
@@ -56,7 +56,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
       <Button
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}
-        onClick={() => updateFeatureFlag(PermissionId.CommentSuspended)}
+        onClick={() => suspendProfile(PermissionId.CommentSuspended)}
         disabled={isSuspended || isCommentSuspended}
         size="sm"
         variant="danger"
@@ -66,7 +66,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
       <Button
         className="flex justify-center"
         icon={<NoSymbolIcon className="size-4" />}
-        onClick={() => updateFeatureFlag(PermissionId.Suspended)}
+        onClick={() => suspendProfile(PermissionId.Suspended)}
         disabled={isSuspended}
         size="sm"
         variant="danger"
