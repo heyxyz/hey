@@ -22,7 +22,7 @@ describe("GET /profile/get", () => {
     expect(status).toBe(200);
     expect(data.result.status.emoji).toBe("😀");
     expect(data.result.status.message).toBe("Status message");
-    expect(data.result.theme.fontStyle).toBe("archivo");
+    expect(data.result.theme.fontStyle).toBe("bioRhyme");
     expect(data.result.isSuspended).toBe(false);
   });
 
