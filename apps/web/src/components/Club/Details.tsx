@@ -27,11 +27,7 @@ const Details: FC<DetailsProps> = ({ club }) => {
           src={club.logo}
           width={128}
         />
-        <LightBox
-          onClose={() => setExpandedImage(null)}
-          show={Boolean(expandedImage)}
-          url={expandedImage}
-        />
+        <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
       </div>
       <div className="space-y-1 py-2">
         <H3 className="truncate">{club.name}</H3>
