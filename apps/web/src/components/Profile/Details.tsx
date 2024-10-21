@@ -83,11 +83,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           src={getAvatar(profile)}
           width={128}
         />
-        <LightBox
-          onClose={() => setExpandedImage(null)}
-          show={Boolean(expandedImage)}
-          url={expandedImage}
-        />
+        <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
