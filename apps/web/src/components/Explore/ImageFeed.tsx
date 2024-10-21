@@ -1,4 +1,5 @@
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import SingleImagePublication from "@components/Publication/SingleImagePublication";
+import ImagePublicationsShimmer from "@components/Shared/Shimmer/ImagePublicationsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   type AnyPublication,
@@ -13,7 +14,6 @@ import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
-import SingleImagePublication from "./SingleImagePublication";
 
 interface ImageFeedProps {
   feedType: ExplorePublicationsOrderByType;
@@ -48,7 +48,7 @@ const ImageFeed: FC<ImageFeedProps> = ({
   const publications = data?.explorePublications?.items;
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <ImagePublicationsShimmer />;
   }
 
   if (publications?.length === 0) {
