@@ -66,7 +66,6 @@ export type Poll = {
 
 export type ProfileTheme = {
   fontStyle?: string;
-  buttonBorderRadius?: number;
 };
 
 export type Preferences = {

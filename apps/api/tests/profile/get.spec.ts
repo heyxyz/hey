@@ -23,7 +23,6 @@ describe("GET /profile/get", () => {
     expect(data.result.status.emoji).toBe("😀");
     expect(data.result.status.message).toBe("Status message");
     expect(data.result.theme.fontStyle).toBe("archivo");
-    expect(data.result.theme.buttonBorderRadius).toBe(10);
     expect(data.result.isSuspended).toBe(false);
   });
 

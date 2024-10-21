@@ -48,10 +48,7 @@ const PreferencesProvider: FC = () => {
       preferences.hasDismissedOrMintedMembershipNft
     );
     setPreferencesLoading(false);
-    setTheme({
-      fontStyle: preferences.theme?.fontStyle,
-      buttonBorderRadius: preferences.theme?.buttonBorderRadius
-    });
+    setTheme({ fontStyle: preferences.theme?.fontStyle });
 
     return true;
   };
