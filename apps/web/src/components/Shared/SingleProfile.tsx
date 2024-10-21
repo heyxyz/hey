@@ -14,12 +14,14 @@ import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
 import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
+import SuspendButton from "./Profile/SuspendButton";
 import ProfilePreview from "./ProfilePreview";
 import Slug from "./Slug";
 
 interface SingleProfileProps {
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
+  showSuspendButton?: boolean;
   isBig?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
@@ -33,6 +35,7 @@ interface SingleProfileProps {
 const SingleProfile: FC<SingleProfileProps> = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
+  showSuspendButton = false,
   isBig = false,
   linkToProfile = true,
   profile,
@@ -133,12 +136,15 @@ const SingleProfile: FC<SingleProfileProps> = ({
       ) : (
         <ProfileInfo />
       )}
-      <FollowUnfollowButton
-        hideFollowButton={hideFollowButton}
-        hideUnfollowButton={hideUnfollowButton}
-        profile={profile}
-        small
-      />
+      <div className="flex items-center space-x-2">
+        <FollowUnfollowButton
+          hideFollowButton={hideFollowButton}
+          hideUnfollowButton={hideUnfollowButton}
+          profile={profile}
+          small
+        />
+        {showSuspendButton && <SuspendButton id={profile.id} />}
+      </div>
     </div>
   );
 };
