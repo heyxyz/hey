@@ -22,7 +22,7 @@ export const postUpdateTasks = async (
 
   await sendSlackMessage({
     channel: "#permissions",
-    color: enabled ? "#22c55e" : "#f43f5e",
+    color: enabled ? "#16a34a" : "#dc2626",
     text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${profileId}`
   });
 
