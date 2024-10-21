@@ -9,6 +9,7 @@ import sendEmailToProfile from "src/helpers/email/sendEmailToProfile";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
+import sendSlackMessage from "src/helpers/slack";
 import { boolean, object, string } from "zod";
 
 export const postUpdateTasks = async (
@@ -18,6 +19,13 @@ export const postUpdateTasks = async (
 ) => {
   await delRedis(`preference:${profileId}`);
   await delRedis(`profile:${profileId}`);
+
+  await sendSlackMessage({
+    channel: "#permissions",
+    color: enabled ? "#22c55e" : "#f43f5e",
+    text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${profileId}`
+  });
+
   if (permissionId === PermissionId.StaffPick) {
     if (enabled) {
       sendEmailToProfile({

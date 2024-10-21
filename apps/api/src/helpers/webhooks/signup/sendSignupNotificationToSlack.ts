@@ -52,9 +52,7 @@ const sendSignupNotificationToSlack = async (hash: Address) => {
     });
 
     const receipt = await fetchTransactionReceiptWithRetry(client, hash);
-
     const log = receipt.logs.find((log: any) => log.topics[0] === TOPIC);
-
     const data = log?.data;
     const decodedData = decodeEventLog({
       abi: parseAbi([
