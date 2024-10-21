@@ -133,5 +133,6 @@ model ProfileStatus {
 model ProfileTheme {
   id        String   @id
   fontStyle String?
+  darkMode  Boolean  @default(false)
   createdAt DateTime @default(now())
 }
