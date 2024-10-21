@@ -7,16 +7,16 @@ import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
-import { object, string } from "zod";
+import { number, object, string } from "zod";
 
 interface ExtensionRequest {
-  overviewFontStyle: string | null;
-  publicationFontStyle: string | null;
+  fontStyle: string | null;
+  buttonBorderRadius: number | null;
 }
 
 const validationSchema = object({
-  overviewFontStyle: string().optional(),
-  publicationFontStyle: string().optional()
+  fontStyle: string().optional(),
+  buttonBorderRadius: number().optional()
 });
 
 export const post = [
@@ -35,13 +35,12 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { overviewFontStyle, publicationFontStyle } =
-      body as ExtensionRequest;
+    const { fontStyle, buttonBorderRadius } = body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const dbPayload = { overviewFontStyle, publicationFontStyle };
+      const dbPayload = { fontStyle, buttonBorderRadius };
 
       const data = await prisma.profileTheme.upsert({
         create: { id: payload.id, ...dbPayload },
@@ -49,7 +48,7 @@ export const post = [
         where: { id: payload.id }
       });
 
-      await delRedis(`profile:${payload.id}`);
+      await delRedis(`preference:${payload.id}`);
       logger.info(`Updated profile theme for ${payload.id}`);
 
       return res.status(200).json({ result: data, success: true });

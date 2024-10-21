@@ -64,6 +64,11 @@ export type Poll = {
   options: PollOption[];
 };
 
+export type ProfileTheme = {
+  fontStyle?: string;
+  buttonBorderRadius?: number;
+};
+
 export type Preferences = {
   appIcon: number;
   email: null | string;
@@ -71,19 +76,14 @@ export type Preferences = {
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   permissions: string[];
+  theme: ProfileTheme | null;
 };
 
 export type InternalProfile = Preferences;
 
-export type ProfileTheme = {
-  overviewFontStyle?: string;
-  publicationFontStyle?: string;
-};
-
 export type ProfileDetails = {
   isSuspended: boolean;
   status: { emoji: string; message: string } | null;
-  theme: ProfileTheme | null;
 };
 
 export type Moderation = {
