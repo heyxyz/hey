@@ -1,3 +1,4 @@
+import Button from "@components/Shared/UI/Button";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
@@ -15,7 +16,6 @@ import {
 import { useApolloClient } from "@hey/lens/apollo";
 import { OptmisticPublicationType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
-import { Button } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
