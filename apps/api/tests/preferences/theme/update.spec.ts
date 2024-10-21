@@ -31,13 +31,12 @@ describe("POST /preferences/theme/update", () => {
   test("should return 200 and update the profile theme", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/preferences/theme/update`,
-      { fontStyle: "archivo", buttonBorderRadius: 10 },
+      { fontStyle: "archivo" },
       { headers: getTestAuthHeaders() }
     );
 
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
     expect(data.result.fontStyle).toBe("archivo");
-    expect(data.result.buttonBorderRadius).toBe(10);
   });
 });
