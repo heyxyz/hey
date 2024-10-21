@@ -4,7 +4,8 @@ import axios from "axios";
 
 const SLACK_CHANNELS = [
   { channel: "#signups", id: "B074BSCRYBY/oje0JD1ymgzB6ZTMNe0zBvRM" },
-  { channel: "#events", id: "B074JCLS16Z/F5Lst6mYkthtDwBeCehwGGFR" }
+  { channel: "#events", id: "B074JCLS16Z/F5Lst6mYkthtDwBeCehwGGFR" },
+  { channel: "#permissions", id: "B07SJR9RDQW/8ArvhaG4dYffWij0gi5iZY7g" }
 ];
 
 const getChannelId = (channel: string) => {
