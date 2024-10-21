@@ -1,24 +1,32 @@
+import { Dialog, DialogPanel } from "@headlessui/react";
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import type { FC } from "react";
-import { Modal } from "./Modal";
 
 interface LightBoxProps {
   onClose: () => void;
-  show: boolean;
   url: null | string;
 }
 
-export const LightBox: FC<LightBoxProps> = ({ onClose, show, url }) => {
+export const LightBox: FC<LightBoxProps> = ({ onClose, url }) => {
+  const show = Boolean(url);
+
+  if (!show) {
+    return null;
+  }
+
   return (
-    <Modal onClose={onClose} show={show} size="sm">
-      <img
-        alt={url || ""}
-        className="max-h-screen cursor-pointer rounded-xl"
-        height={1000}
-        onClick={() => window.open(url || "", "_blank")}
-        src={url || PLACEHOLDER_IMAGE}
-        width={1000}
-      />
-    </Modal>
+    <Dialog open={show} onClose={onClose} className="relative z-10">
+      <div className="fixed inset-0 flex w-screen items-center justify-center bg-gray-500/75 p-4 dark:bg-gray-900/80">
+        <DialogPanel>
+          <img
+            alt={url || ""}
+            className="max-h-screen max-w-fit cursor-pointer"
+            onClick={() => window.open(url || "", "_blank")}
+            src={url || PLACEHOLDER_IMAGE}
+            width={1000}
+          />
+        </DialogPanel>
+      </div>
+    </Dialog>
   );
 };
