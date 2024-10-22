@@ -1,3 +1,4 @@
+import logger from "@hey/helpers/logger";
 import { ReportPublicationDocument } from "@hey/lens";
 import { addTypenameToDocument } from "apollo-utilities";
 import axios from "axios";
@@ -8,6 +9,36 @@ import validateIsGardener from "src/helpers/middlewares/validateIsGardener";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { array, object, string } from "zod";
+
+export const reportPublication = async (
+  id: string,
+  subreasons: string[],
+  accessToken: string
+) => {
+  return await Promise.all(
+    subreasons.map(async (subreason: string) => {
+      await axios.post(
+        "https://api-v2.lens.dev",
+        {
+          operationName: "ReportPublication",
+          query: print(addTypenameToDocument(ReportPublicationDocument)),
+          variables: {
+            request: {
+              for: id,
+              reason: { spamReason: { reason: "SPAM", subreason } }
+            }
+          }
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      );
+    })
+  );
+};
 
 interface ExtensionRequest {
   id: string;
@@ -40,29 +71,8 @@ export const post = [
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-      await Promise.all(
-        subreasons.map(async (subreason: string) => {
-          await axios.post(
-            "https://api-v2.lens.dev",
-            {
-              operationName: "ReportPublication",
-              query: print(addTypenameToDocument(ReportPublicationDocument)),
-              variables: {
-                request: {
-                  for: id,
-                  reason: { spamReason: { reason: "SPAM", subreason } }
-                }
-              }
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`
-              }
-            }
-          );
-        })
-      );
+      await reportPublication(id, subreasons, accessToken);
+      logger.info(`[Lens] Reported publication ${id}`);
 
       return res
         .status(200)
