@@ -34,9 +34,9 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
           { headers: getAuthApiHeaders() }
         ),
         axios.post(
-          `${HEY_API_URL}/internal/gardener/report`,
+          `${HEY_API_URL}/internal/profile/report`,
           {
-            id: `${id}-0x01`,
+            id,
             subreasons: [
               PublicationReportingSpamSubreason.FakeEngagement,
               PublicationReportingSpamSubreason.LowSignal,
