@@ -7,16 +7,16 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect } from "react";
 
-const Rules: NextPage = () => {
+const Guidelines: NextPage = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "rules" });
+    Leafwatch.track(PAGEVIEW, { page: "guidelines" });
   }, []);
 
   return (
     <>
       <div className="flex h-48 w-full items-center justify-center bg-gray-400">
         <div className="relative text-center">
-          <H2 className="text-white">Rules</H2>
+          <H2 className="text-white">Community Guidelines</H2>
         </div>
       </div>
       <div className="relative">
@@ -138,4 +138,4 @@ const Rules: NextPage = () => {
   );
 };
 
-export default Rules;
+export default Guidelines;
