@@ -71,7 +71,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
 
   return (
     <div className="space-y-2.5">
-      <div className="font-bold">Creator Tool</div>
+      <div className="font-bold">Creator Tools</div>
       <div className="space-y-2 pt-2 font-bold">
         {allowedPermissions.map((permission) => (
           <ToggleWrapper key={permission.id} title={permission.key}>

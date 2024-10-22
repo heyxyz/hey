@@ -6,6 +6,7 @@ import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import CreatorTool from "./CreatorTool";
+import StaffTool from "./StaffTool";
 
 interface InternalToolsProps {
   profile: Profile;
@@ -13,8 +14,9 @@ interface InternalToolsProps {
 
 const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
   const hasCreatorToolAccess = useFlag(FeatureFlag.CreatorTools);
+  const isStaff = useFlag(FeatureFlag.Staff);
 
-  if (!hasCreatorToolAccess) {
+  if (!hasCreatorToolAccess || !isStaff) {
     return null;
   }
 
@@ -28,6 +30,7 @@ const InternalTools: FC<InternalToolsProps> = ({ profile }) => {
       forceRounded
     >
       {hasCreatorToolAccess && <CreatorTool profile={profile} />}
+      {isStaff && <StaffTool profile={profile} />}
     </Card>
   );
 };
