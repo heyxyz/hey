@@ -13,7 +13,8 @@ export const get = async (req: Request, res: Response) => {
       "https://hey.xyz/thanks",
       "https://hey.xyz/terms",
       "https://hey.xyz/privacy",
-      "https://hey.xyz/rules"
+      "https://hey.xyz/guidelines",
+      "https://hey.xyz/copyright"
     ];
 
     const entries = sitemaps.map((sitemap) => ({ loc: sitemap }));
