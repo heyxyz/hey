@@ -13,11 +13,13 @@ import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
+export const generateMetadata = async ({
+  params
+}: Props): Promise<Metadata> => {
+  const { id } = await params;
 
   const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
@@ -101,13 +103,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       site: "@heydotxyz"
     }
   };
-}
+};
 
-export default async function Page({ params }: Props) {
+const Page = async ({ params }: Props) => {
+  const { id } = await params;
   const metadata = await generateMetadata({ params });
 
   if (!metadata) {
-    return <h1>{params.id}</h1>;
+    return <h1>{id}</h1>;
   }
 
   const postUrl = `https://hey.xyz/posts/${metadata.other?.["lens:id"]}`;
@@ -140,4 +143,6 @@ export default async function Page({ params }: Props) {
       </div>
     </>
   );
-}
+};
+
+export default Page;
