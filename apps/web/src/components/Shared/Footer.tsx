@@ -32,7 +32,7 @@ const links = [
     label: "Feedback",
     onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)
   },
-  { href: "/rules", label: "Rules" },
+  { href: "/guidelines", label: "Guidelines" },
   { href: "/support", label: "Support" }
 ];
 
