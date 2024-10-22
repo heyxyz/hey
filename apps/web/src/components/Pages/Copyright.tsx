@@ -54,12 +54,11 @@ const Copyright: NextPage = () => {
                     http://www.copyright.gov/legislation/dmca.pdf
                   </Link>
                   , {APP_NAME} will respond expeditiously to claims of copyright
-                  infringement committed using the {APP_NAME}
-                  website, app, or other {APP_NAME} owned or controlled online
-                  network services accessible through a mobile device or other
-                  type of device (the "Sites") that are reported to {APP_NAME}'s
-                  Designated Copyright Agent, identified in the sample notice
-                  below.
+                  infringement committed using the {APP_NAME} website, app, or
+                  other {APP_NAME} owned or controlled online network services
+                  accessible through a mobile device or other type of device
+                  (the "Sites") that are reported to {APP_NAME}'s Designated
+                  Copyright Agent, identified in the sample notice below.
                 </p>
                 <p className="leading-7">
                   If you are a copyright owner, or are authorized to act on
