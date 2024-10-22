@@ -9,11 +9,13 @@ import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
 interface Props {
-  params: { handle: string };
+  params: Promise<{ handle: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { handle } = params;
+export const generateMetadata = async ({
+  params
+}: Props): Promise<Metadata> => {
+  const { handle } = await params;
 
   const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
@@ -75,18 +77,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: title,
     twitter: { card: "summary", site: "@heydotxyz" }
   };
-}
+};
 
-export default async function Page({ params }: Props) {
+const Page = async ({ params }: Props) => {
+  const { handle } = await params;
   const metadata = await generateMetadata({ params });
 
   if (!metadata) {
-    return <h1>{params.handle}</h1>;
+    return <h1>{handle}</h1>;
   }
 
   const profileUrl = `https://hey.xyz/u/${metadata.other?.["lens:handle"]}`;
 
-  logger.info(`[OG] Fetched profile /u/${params.handle}`);
+  logger.info(`[OG] Fetched profile /u/${handle}`);
 
   return (
     <>
@@ -109,4 +112,6 @@ export default async function Page({ params }: Props) {
       </div>
     </>
   );
-}
+};
+
+export default Page;
