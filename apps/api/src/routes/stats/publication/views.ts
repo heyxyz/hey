@@ -11,7 +11,7 @@ interface ExtensionRequest {
 }
 
 const validationSchema = object({
-  ids: array(string().max(2000, { message: "Too many ids!" }))
+  ids: array(string().max(2000))
 });
 
 export const post = [
