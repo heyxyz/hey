@@ -34,5 +34,6 @@ describe("GET /lists/get", () => {
     expect(data.result.name).toBe(newList.name);
     expect(data.result.description).toBe(newList.description);
     expect(data.result.avatar).toBe(newList.avatar);
+    expect(data.result.count).toStrictEqual(expect.any(Number));
   });
 });
