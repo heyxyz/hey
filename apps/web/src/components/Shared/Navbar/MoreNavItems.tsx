@@ -1,14 +1,17 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import MenuTransition from "../MenuTransition";
 import Analytics from "./NavItems/Analytics";
 import Bookmarks from "./NavItems/Bookmarks";
+import Lists from "./NavItems/Lists";
 import Support from "./NavItems/Support";
 const MoreNavItems: FC = () => {
   const { currentProfile } = useProfileStore();
+  const listsEnabled = useFlag("lists");
 
   return (
     <Menu as="div">
@@ -41,6 +44,16 @@ const MoreNavItems: FC = () => {
                   >
                     <Bookmarks />
                   </MenuItem>
+                  {listsEnabled && (
+                    <MenuItem
+                      as="div"
+                      className={({ focus }: { focus: boolean }) =>
+                        cn({ "dropdown-active": focus }, "m-2 rounded-lg")
+                      }
+                    >
+                      <Lists />
+                    </MenuItem>
+                  )}
                   <MenuItem
                     as="div"
                     className={({ focus }: { focus: boolean }) =>
