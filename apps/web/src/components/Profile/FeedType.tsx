@@ -2,11 +2,13 @@ import { Leafwatch } from "@helpers/leafwatch";
 import {
   ChatBubbleLeftIcon,
   FilmIcon,
+  ListBulletIcon,
   PencilSquareIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { ProfileFeedType } from "src/enums";
 import MediaFilter from "./Filters/MediaFilter";
@@ -17,6 +19,8 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
+  const isListsEnabled = useFlag("lists");
+
   const switchTab = (type: ProfileFeedType) => {
     if (setFeedType) {
       setFeedType(type);
@@ -46,7 +50,16 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       icon: <ShoppingBagIcon className="size-4" />,
       name: "Collected",
       type: ProfileFeedType.Collects
-    }
+    },
+    ...(isListsEnabled
+      ? [
+          {
+            icon: <ListBulletIcon className="size-4" />,
+            name: "Lists",
+            type: ProfileFeedType.Lists
+          }
+        ]
+      : [])
   ].filter(
     (tab): tab is { icon: JSX.Element; name: string; type: ProfileFeedType } =>
       Boolean(tab)
