@@ -27,6 +27,7 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Details from "./Details";
 import Feed from "./Feed";
 import FeedType from "./FeedType";
+import Lists from "./Lists";
 import ProfilePageShimmer from "./Shimmer";
 import SuspendedDetails from "./SuspendedDetails";
 
@@ -139,7 +140,10 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as ProfileFeedType} />
-              {currentProfile?.id === profile?.id ? <NewPost /> : null}
+              {currentProfile?.id === profile?.id &&
+              feedType !== ProfileFeedType.Lists ? (
+                <NewPost />
+              ) : null}
               {feedType === ProfileFeedType.Feed ||
               feedType === ProfileFeedType.Replies ||
               feedType === ProfileFeedType.Media ||
@@ -151,7 +155,7 @@ const ViewProfile: NextPage = () => {
                   type={feedType}
                 />
               ) : feedType === ProfileFeedType.Lists ? (
-                <div>WIP</div>
+                <Lists profile={profile} />
               ) : null}
             </>
           )}
