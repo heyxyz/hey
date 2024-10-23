@@ -25,7 +25,7 @@ const validationSchema = object({
   events: array(
     object({
       fingerprint: string().nullable().optional(),
-      name: string().min(1, { message: "Name is required!" }),
+      name: string().min(1),
       properties: any(),
       referrer: string().nullable().optional(),
       url: string()
