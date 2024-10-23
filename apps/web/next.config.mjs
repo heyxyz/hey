@@ -55,7 +55,7 @@ const nextConfig = {
       },
       {
         destination:
-          "https://explorer.gitcoin.co/#/round/10/44/14?utm_source=hey.xyz",
+          "https://explorer.gitcoin.co/#/round/42161/608/6?utm_source=hey.xyz",
         permanent: true,
         source: "/gitcoin"
       },
