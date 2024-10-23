@@ -13,7 +13,6 @@ import Slug from "../Slug";
 import Analytics from "./NavItems/Analytics";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
-import Lists from "./NavItems/Lists";
 import Logout from "./NavItems/Logout";
 import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
@@ -86,7 +85,6 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, "px-4")}
               onClick={closeDrawer}
             />
-            <Lists className={cn(itemClass, "px-4")} onClick={closeDrawer} />
             <Link href="/analytics" onClick={closeDrawer}>
               <Analytics className={cn(itemClass, "px-4")} />
             </Link>
