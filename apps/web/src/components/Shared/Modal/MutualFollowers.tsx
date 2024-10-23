@@ -53,7 +53,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
         message={
           <div>
             <span className="mr-1 font-bold">{handle}</span>
-            <span>doesn’t have any mutual followers.</span>
+            <span>doesn't have any mutual followers.</span>
           </div>
         }
         hideCard
