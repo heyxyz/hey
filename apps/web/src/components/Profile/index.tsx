@@ -55,7 +55,8 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Feed.toLowerCase(),
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase()
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Lists.toLowerCase()
   ];
 
   const feedType = type
@@ -149,6 +150,8 @@ const ViewProfile: NextPage = () => {
                   profileId={profile.id}
                   type={feedType}
                 />
+              ) : feedType === ProfileFeedType.Lists ? (
+                <div>WIP</div>
               ) : null}
             </>
           )}
