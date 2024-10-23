@@ -60,13 +60,26 @@ export const post = [
         return notFound(res);
       }
 
-      // Check if the list exists and belongs to the authenticated user
-      const list = await prisma.list.findUnique({
-        where: { id: listId, createdBy: payload.id }
-      });
+      // Check if the list exists and belongs to the authenticated user and the number of profiles in the list
+      const [list, count] = await prisma.$transaction([
+        prisma.list.findUnique({
+          where: { id: listId, createdBy: payload.id }
+        }),
+        prisma.listProfile.count({ where: { listId } })
+      ]);
 
       if (!list) {
         return catchedError(res, new Error(Errors.Unauthorized), 401);
+      }
+
+      if (count >= 50) {
+        return catchedError(
+          res,
+          new Error(
+            "You have reached the maximum number of profiles in a list!"
+          ),
+          400
+        );
       }
 
       if (add) {

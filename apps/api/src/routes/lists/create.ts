@@ -44,7 +44,7 @@ export const post = [
         where: { list: { createdBy: payload.id } }
       });
 
-      if (count > 10) {
+      if (count >= 10) {
         return catchedError(
           res,
           new Error("You have reached the maximum number of lists!"),
