@@ -156,7 +156,6 @@ const NewPublication: FC<NewPublicationProps> = ({
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
-
   const createPoll = useCreatePoll();
   const getMetadata = usePublicationMetadata();
 

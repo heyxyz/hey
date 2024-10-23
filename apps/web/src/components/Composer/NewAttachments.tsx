@@ -90,11 +90,8 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
         return (
           <div
             className={cn(
-              isImage
-                ? `${getClass(attachmentsLength)?.aspect}${
-                    attachmentsLength === 3 && index === 0 ? "row-span-2" : ""
-                  }`
-                : "",
+              isImage && getClass(attachmentsLength)?.aspect,
+              attachmentsLength === 3 && index === 0 && "row-span-2",
               {
                 "w-2/3": isImage && attachmentsLength === 1,
                 "w-full": isAudio || isVideo
