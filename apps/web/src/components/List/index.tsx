@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import Details from "./Details";
+import Feed from "./Feed";
 import Profiles from "./Profiles";
 import ListPageShimmer from "./Shimmer";
 
@@ -67,7 +68,7 @@ const ViewList: NextPage = () => {
           {showProfiles ? (
             <Profiles listId={list.id} name={list.name} />
           ) : (
-            <div>Feed</div>
+            <Feed id={list.id} name={list.name} />
           )}
         </GridItemEight>
       </GridLayout>
