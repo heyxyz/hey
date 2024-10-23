@@ -40,6 +40,18 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
+      const count = await prisma.listProfile.count({
+        where: { list: { createdBy: payload.id } }
+      });
+
+      if (count > 10) {
+        return catchedError(
+          res,
+          new Error("You have reached the maximum number of lists!"),
+          400
+        );
+      }
+
       const list = await prisma.list.create({
         data: { name, description, avatar, createdBy: payload.id }
       });
