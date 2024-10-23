@@ -10,12 +10,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface ListsProps {
   profile: Profile;
 }
 
 const Lists: FC<ListsProps> = ({ profile }) => {
+  const { currentProfile } = useProfileStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const getLists = async (): Promise<List[]> => {
@@ -39,9 +41,11 @@ const Lists: FC<ListsProps> = ({ profile }) => {
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <H5>{getProfile(profile).slugWithPrefix}'s Lists</H5>
-        <Button onClick={() => setShowCreateModal(!showCreateModal)}>
-          Create
-        </Button>
+        {profile.id === currentProfile?.id && (
+          <Button onClick={() => setShowCreateModal(!showCreateModal)}>
+            Create
+          </Button>
+        )}
       </div>
       <div className="divider" />
       <div className="m-5">
