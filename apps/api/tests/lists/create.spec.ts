@@ -4,11 +4,11 @@ import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
-describe("POST /internal/tokens/create", () => {
+describe("POST /lists/create", () => {
   test("should return 400 if body is missing", async () => {
     try {
       await axios.post(
-        `${TEST_URL}/internal/tokens/create`,
+        `${TEST_URL}/lists/create`,
         {},
         { headers: getTestAuthHeaders() }
       );
@@ -17,16 +17,11 @@ describe("POST /internal/tokens/create", () => {
     }
   });
 
-  test("should return 400 for invalid Ethereum address", async () => {
+  test("should return 400 for no name", async () => {
     try {
       await axios.post(
-        `${TEST_URL}/internal/tokens/create`,
-        {
-          contractAddress: "invalidAddress",
-          decimals: 18,
-          name: "Test Token",
-          symbol: "TT"
-        },
+        `${TEST_URL}/lists/create`,
+        { description: faker.lorem.sentence(), avatar: faker.image.url() },
         { headers: getTestAuthHeaders() }
       );
     } catch (error: any) {
@@ -34,28 +29,22 @@ describe("POST /internal/tokens/create", () => {
     }
   });
 
-  test("should return 200 and create a new token", async () => {
-    const contractAddress = faker.finance.ethereumAddress();
+  test("should return 200 and create a new list", async () => {
     const name = faker.commerce.productName();
-    const symbol = faker.commerce.productAdjective();
+    const description = faker.lorem.sentence();
+    const avatar = faker.image.url();
 
     const { data, status } = await axios.post(
-      `${TEST_URL}/internal/tokens/create`,
-      {
-        contractAddress,
-        decimals: 18,
-        name,
-        symbol
-      },
+      `${TEST_URL}/lists/create`,
+      { name, description, avatar },
       { headers: getTestAuthHeaders() }
     );
 
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
-    expect(data.result.contractAddress).toBe(contractAddress);
-    expect(data.result.decimals).toBe(18);
     expect(data.result.name).toBe(name);
-    expect(data.result.symbol).toBe(symbol);
+    expect(data.result.description).toBe(description);
+    expect(data.result.avatar).toBe(avatar);
   });
 
   test("should return 401 if the user is not staff", async () => {
@@ -70,6 +59,18 @@ describe("POST /internal/tokens/create", () => {
         },
         { headers: getTestAuthHeaders("suspended") }
       );
+    } catch (error: any) {
+      expect(error.response.status).toBe(401);
+    }
+  });
+
+  test("should return 401 if the identity token is missing", async () => {
+    try {
+      await axios.post(`${TEST_URL}/lists/create`, {
+        name: faker.commerce.productName(),
+        description: faker.lorem.sentence(),
+        avatar: faker.image.url()
+      });
     } catch (error: any) {
       expect(error.response.status).toBe(401);
     }
