@@ -28,6 +28,7 @@ export const get = [
 
       const data = await prisma.list.findUnique({
         include: {
+          _count: { select: { profiles: true } },
           profiles: { take: 10, select: { profileId: true } }
         },
         where: { id: id as string }
@@ -39,9 +40,12 @@ export const get = [
           .json({ error: "List not found.", success: false });
       }
 
+      const { _count, profiles, ...rest } = data;
+
       const result = {
-        ...data,
-        profiles: data.profiles.map((profile) => profile.profileId)
+        ...rest,
+        profiles: profiles.map((profile) => profile.profileId),
+        count: _count.profiles
       };
 
       await setRedis(cacheKey, result);
