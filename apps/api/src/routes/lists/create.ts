@@ -1,5 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
+import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
@@ -36,8 +37,11 @@ export const post = [
     const { name, description, avatar } = body as ExtensionRequest;
 
     try {
+      const identityToken = req.headers["x-identity-token"] as string;
+      const payload = parseJwt(identityToken);
+
       const list = await prisma.list.create({
-        data: { name, description, avatar }
+        data: { name, description, avatar, createdBy: payload.id }
       });
 
       logger.info(`Created a list ${list.id}`);

@@ -91,5 +91,6 @@ export type List = {
   description: string | null;
   avatar: string | null;
   count: number;
+  isAdded?: boolean;
   profiles?: string[];
 };

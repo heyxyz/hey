@@ -103,7 +103,7 @@ const GlobalModals: FC = () => {
         <ProfileStatus />
       </Modal>
       <Modal
-        onClose={() => setShowAddToListModal(false)}
+        onClose={() => setShowAddToListModal(false, null)}
         show={showAddToListModal}
         title="Add to list"
       >

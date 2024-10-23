@@ -36,7 +36,11 @@ interface State {
   showEditStatusModal: boolean;
   setShowEditStatusModal: (showEditStatusModal: boolean) => void;
   showAddToListModal: boolean;
-  setShowAddToListModal: (showAddToListModal: boolean) => void;
+  profileToAddToList: null | Profile;
+  setShowAddToListModal: (
+    showAddToListModal: boolean,
+    profileToAddToList: null | Profile
+  ) => void;
 }
 
 const store = create<State>((set) => ({
@@ -73,8 +77,9 @@ const store = create<State>((set) => ({
   setShowEditStatusModal: (showEditStatusModal) =>
     set(() => ({ showEditStatusModal })),
   showAddToListModal: false,
-  setShowAddToListModal: (showAddToListModal) =>
-    set(() => ({ showAddToListModal }))
+  profileToAddToList: null,
+  setShowAddToListModal: (showAddToListModal, profileToAddToList) =>
+    set(() => ({ profileToAddToList, showAddToListModal }))
 }));
 
 export const useGlobalModalStateStore = createTrackedSelector(store);

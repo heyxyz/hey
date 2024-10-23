@@ -40,7 +40,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           <CopyAddress profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (
             <>
-              <AddToList />
+              <AddToList profile={profile} />
               <Block profile={profile} />
               <Report profile={profile} />
             </>

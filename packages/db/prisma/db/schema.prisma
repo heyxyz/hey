@@ -142,6 +142,7 @@ model List {
   name        String
   description String?
   avatar      String?
+  createdBy   String
   createdAt   DateTime @default(now())
 
   // Relations
