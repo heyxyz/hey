@@ -16,6 +16,7 @@ const validationSchema = object({
   id: string().min(1)
 });
 
+// TODO: Add tests
 export const post = [
   validateLensAccount,
   async (req: Request, res: Response) => {
