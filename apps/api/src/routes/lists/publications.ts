@@ -36,6 +36,7 @@ export const get = [
           FROM publication_view
           WHERE profile_id IN (${profilesList})
           AND publication_type IN ('POST', 'MIRROR')
+          AND is_hidden = false
           ORDER BY timestamp DESC
           LIMIT 50
         `

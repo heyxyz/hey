@@ -7,6 +7,7 @@ export enum Errors {
   NoBody = "No body provided!",
   NoPermission = "You do not have permission to perform this action!",
   NotAllowed = "Not allowed!",
+  NotFound = "Not found!",
   RateLimited = "You are being rate limited!",
   SignWallet = "Please sign in your wallet.",
   SomethingWentWrong = "Something went wrong!",
