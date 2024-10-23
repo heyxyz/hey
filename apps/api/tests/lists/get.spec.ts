@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "@hey/db/prisma/db/client";
 import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
@@ -21,7 +22,8 @@ describe("GET /lists/get", () => {
       data: {
         name: faker.commerce.productName(),
         description: faker.lorem.sentence(),
-        avatar: faker.image.url()
+        avatar: faker.image.url(),
+        createdBy: TEST_LENS_ID
       }
     });
 
