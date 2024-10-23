@@ -143,6 +143,7 @@ model List {
   description String?
   avatar      String?
   createdBy   String
+  showOnHome  Boolean  @default(false)
   createdAt   DateTime @default(now())
 
   // Relations
