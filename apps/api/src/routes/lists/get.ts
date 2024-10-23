@@ -4,7 +4,7 @@ import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
-import { noBody } from "src/helpers/responses";
+import { noBody, notFound } from "src/helpers/responses";
 
 export const get = [
   rateLimiter({ requests: 500, within: 1 }),
@@ -35,9 +35,7 @@ export const get = [
       });
 
       if (!data) {
-        return res
-          .status(400)
-          .json({ error: "List not found.", success: false });
+        return notFound(res);
       }
 
       const { _count, profiles, ...rest } = data;
