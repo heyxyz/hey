@@ -120,7 +120,8 @@ model ProfilePermission {
 
   @@id([profileId, permissionId])
   // Indexes
-  @@index([profileId, permissionId])
+  @@index([profileId])
+  @@index([permissionId])
 }
 
 model ProfileStatus {
@@ -134,4 +135,26 @@ model ProfileTheme {
   id        String   @id
   fontStyle String?
   createdAt DateTime @default(now())
+}
+
+model List {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  description String?
+  avatar      String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  profiles ListProfile[]
+}
+
+model ListProfile {
+  profileId String
+  listId    String   @db.Uuid
+  list      List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([profileId, listId])
+  // Indexes
+  @@index([listId])
 }
