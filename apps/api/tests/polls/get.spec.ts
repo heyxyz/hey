@@ -44,7 +44,7 @@ describe("GET /polls/get", () => {
       });
     } catch (error: any) {
       expect(error.response.status).toBe(404);
-      expect(error.response.data.error).toBe("Poll not found.");
+      expect(error.response.data.error).toBe("Not found!");
     }
   });
 
