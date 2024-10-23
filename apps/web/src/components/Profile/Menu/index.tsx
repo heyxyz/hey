@@ -6,6 +6,7 @@ import type { Profile } from "@hey/lens";
 import type { FC } from "react";
 import { Fragment } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import AddToList from "./AddToList";
 import Block from "./Block";
 import CopyAddress from "./CopyAddress";
 import CopyLink from "./CopyLink";
@@ -39,6 +40,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           <CopyAddress profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (
             <>
+              <AddToList profile={profile} />
               <Block profile={profile} />
               <Report profile={profile} />
             </>

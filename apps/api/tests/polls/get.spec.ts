@@ -36,15 +36,15 @@ describe("GET /polls/get", () => {
     }
   });
 
-  test("should return 400 for non-existent poll", async () => {
+  test("should return 404 for non-existent poll", async () => {
     try {
       await axios.get(`${TEST_URL}/polls/get`, {
         headers: getTestAuthHeaders(),
         params: { id: faker.string.uuid() }
       });
     } catch (error: any) {
-      expect(error.response.status).toBe(400);
-      expect(error.response.data.error).toBe("Poll not found.");
+      expect(error.response.status).toBe(404);
+      expect(error.response.data.error).toBe("Not found!");
     }
   });
 

@@ -50,7 +50,7 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
         message={
           <div>
             <span className="mr-1 font-bold">@{handle}</span>
-            <span>doesn’t have any followers yet.</span>
+            <span>doesn't have any followers yet.</span>
           </div>
         }
         hideCard
