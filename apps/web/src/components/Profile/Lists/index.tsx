@@ -5,12 +5,13 @@ import { HEY_API_URL } from "@hey/data/constants";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import type { List } from "@hey/types/hey";
-import { Button, Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
+import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import Create from "./Create";
 
 interface ListsProps {
   profile: Profile;
@@ -67,6 +68,13 @@ const Lists: FC<ListsProps> = ({ profile }) => {
           />
         )}
       </div>
+      <Modal
+        show={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        title="Create List"
+      >
+        <Create />
+      </Modal>
     </Card>
   );
 };
