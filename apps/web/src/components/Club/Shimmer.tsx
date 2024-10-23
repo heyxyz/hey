@@ -1,6 +1,6 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
-import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
 interface ClubPageShimmerProps {
@@ -41,7 +41,13 @@ const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
           </div>
         </GridItemFour>
         <GridItemEight>
-          {profileList ? <ProfileListShimmer /> : <PublicationsShimmer />}
+          {profileList ? (
+            <Card>
+              <ProfileListShimmer />
+            </Card>
+          ) : (
+            <PublicationsShimmer />
+          )}
         </GridItemEight>
       </GridLayout>
     </>
