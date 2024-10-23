@@ -19,9 +19,9 @@ const Gitcoin: FC = () => {
         src={`${STATIC_IMAGES_URL}/brands/gitcoin.svg`}
       />
       <div className="space-y-3 text-center">
-        <b>Support {APP_NAME} on Gitcoin Grants Round 21</b>
+        <b>Support {APP_NAME} on Gitcoin Grants Round 22</b>
         <div className={rubikMonoOneFont.className}>
-          <CountdownTimer targetDate="2024-08-21T23:59:00+00:00" />
+          <CountdownTimer targetDate="2024-11-07T00:59:00+00:00" />
         </div>
         <div>
           <Link
