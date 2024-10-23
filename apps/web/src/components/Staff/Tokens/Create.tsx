@@ -55,7 +55,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
         loading: "Creating token...",
         success: ({ data }) => {
           Leafwatch.track(STAFFTOOLS.TOKENS.CREATE);
-          setTokens([...tokens, data?.token]);
+          setTokens([...tokens, data?.result]);
           setCreating(false);
           setShowCreateModal(false);
           return "Token created";
