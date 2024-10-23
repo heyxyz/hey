@@ -1,5 +1,5 @@
+import lensPg from "@hey/db/lensPg";
 import prisma from "@hey/db/prisma/db/client";
-import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -16,20 +16,8 @@ export const get = [
     }
 
     try {
-      const cacheKey = `list:${id}`;
-      const cachedData = await getRedis(cacheKey);
-
-      if (cachedData) {
-        logger.info(`(cached) List fetched for ${id}`);
-        return res
-          .status(200)
-          .json({ result: JSON.parse(cachedData), success: true });
-      }
-
       const data = await prisma.list.findUnique({
-        include: {
-          profiles: { take: 10, select: { profileId: true } }
-        },
+        select: { profiles: { select: { profileId: true } } },
         where: { id: id as string }
       });
 
@@ -39,15 +27,24 @@ export const get = [
           .json({ error: "List not found.", success: false });
       }
 
-      const result = {
-        ...data,
-        profiles: data.profiles.map((profile) => profile.profileId)
-      };
+      const profiles = data.profiles.map((profile) => profile.profileId);
+      const profilesList = profiles.map((p) => `'${p}'`).join(",");
 
-      await setRedis(cacheKey, result);
-      logger.info(`List fetched for ${id}`);
+      const result = await lensPg.query(
+        `
+          SELECT publication_id AS id
+          FROM publication_view
+          WHERE profile_id IN (${profilesList})
+          AND publication_type IN ('POST', 'MIRROR')
+          ORDER BY timestamp DESC
+          LIMIT 50
+        `
+      );
 
-      return res.status(200).json({ result, success: true });
+      const publications = result.map((row) => row.id);
+      logger.info(`List publications fetched for ${id}`);
+
+      return res.status(200).json({ result: publications, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
