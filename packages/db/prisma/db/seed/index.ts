@@ -1,5 +1,6 @@
 import prisma from "../client";
 import seedEmails from "./seedEmails";
+import seedLists from "./seedLists";
 import seedPermissions from "./seedPermissions";
 import seedPreferences from "./seedPreferences";
 import seedProfilePermission from "./seedProfilePermission";
@@ -28,6 +29,9 @@ async function main() {
 
   const emails = await seedEmails();
   console.log(`Seeded ${emails} emails`);
+
+  const lists = await seedLists();
+  console.log(`Seeded ${lists} lists`);
 }
 
 main()
