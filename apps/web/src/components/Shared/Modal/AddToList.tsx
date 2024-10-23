@@ -114,7 +114,7 @@ const AddToList: FC = () => {
     <div className="space-y-5 p-5">
       {data?.map((list) => (
         <div key={list.id} className="flex items-center justify-between">
-          <SingleList list={list} />
+          <SingleList list={list} linkToList={false} />
           <Button
             size="sm"
             onClick={() => handleAddToList(list.id, !list.isAdded)}
