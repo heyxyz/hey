@@ -15,13 +15,21 @@ const seedLists = async (): Promise<number> => {
         id: HEY_TEAM_ID,
         name: "Hey Team",
         description: "The team behind Hey",
-        avatar: `${LENS_MEDIA_SNAPSHOT_URL}/5cffa71e6bb1c1a9bf829a10fae9b52d41dee8b7883dc7ba08271aabfdeaf488.png`
+        avatar: `${LENS_MEDIA_SNAPSHOT_URL}/5cffa71e6bb1c1a9bf829a10fae9b52d41dee8b7883dc7ba08271aabfdeaf488.png`,
+        createdBy: "0x0d"
       },
       {
         id: LENS_TEAM_ID,
         name: "Lens Team",
         description: "The team behind Lens",
-        avatar: `${LENS_MEDIA_SNAPSHOT_URL}/bd59a48037d84e558706a277a44dff8ac277629ab12804b1b19be9df254e036c.png`
+        avatar: `${LENS_MEDIA_SNAPSHOT_URL}/bd59a48037d84e558706a277a44dff8ac277629ab12804b1b19be9df254e036c.png`,
+        createdBy: "0x0d"
+      },
+      {
+        name: "Test List",
+        description: "Test List",
+        avatar: `${LENS_MEDIA_SNAPSHOT_URL}/5cffa71e6bb1c1a9bf829a10fae9b52d41dee8b7883dc7ba08271aabfdeaf488.png`,
+        createdBy: "0x0d"
       }
     ]
   });

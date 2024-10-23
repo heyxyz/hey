@@ -84,3 +84,13 @@ export type ProfileDetails = {
   isSuspended: boolean;
   status: { emoji: string; message: string } | null;
 };
+
+export type List = {
+  id: string;
+  name: string;
+  description: string | null;
+  avatar: string | null;
+  count: number;
+  isAdded?: boolean;
+  profiles?: string[];
+};

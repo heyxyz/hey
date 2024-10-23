@@ -74,7 +74,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         message={
           <div>
             <b className="mr-1">/{handle}</b>
-            <span>doesn’t have any members.</span>
+            <span>doesn't have any members.</span>
           </div>
         }
       />

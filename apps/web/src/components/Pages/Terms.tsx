@@ -114,11 +114,11 @@ const Terms: NextPage = () => {
                   blockchain networks underlying the Lens Protocol; we do not
                   have possession, custody or control over any items on your
                   wallet and we do not have possession, custody, ability to
-                  delete or control over any items on any user’s wallet or
+                  delete or control over any items on any user's wallet or
                   interactions with the Lens Protocol.
                 </p>
                 <p className="leading-7">
-                  If you’re not comfortable with interacting with an inherently
+                  If you're not comfortable with interacting with an inherently
                   transparent blockchain, you should not engage with our Site to
                   create and manage a content on the Lens Protocol. You are
                   solely responsible for the safekeeping of the private key
