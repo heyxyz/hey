@@ -11,6 +11,7 @@ export const Localstorage = {
   SearchStore: "search.store",
   TransactionStore: "transaction.store",
   VerifiedMembersStore: "verifiedmembers.store",
+  PinnedListStore: "pinnedlist.store",
   UnleashRepositoryStore: "unleash:repository:repo",
   UnleashRepositorySessionIdStore: "unleash:repository:sessionId"
 };
