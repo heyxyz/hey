@@ -4,7 +4,6 @@ import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import { type Profile, useProfilesQuery } from "@hey/lens";
-import type { ClubProfile } from "@hey/types/club";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -13,57 +12,48 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-interface MembersProps {
-  clubId: string;
-  handle: string;
+interface ProfilesProps {
+  listId: string;
+  name: string;
 }
 
-const Members: FC<MembersProps> = ({ clubId, handle }) => {
+const Profiles: FC<ProfilesProps> = ({ listId, name }) => {
   const { currentProfile } = useProfileStore();
 
-  const getClubMembers = async (): Promise<{
-    items: ClubProfile[];
-    pageInfo: {
-      next: null | string;
-      prev: null | string;
-    };
-  } | null> => {
+  const getListProfiles = async (): Promise<string[]> => {
     try {
-      const response = await axios.post(`${HEY_API_URL}/clubs/members`, {
-        id: clubId,
-        limit: 50
+      const response = await axios.get(`${HEY_API_URL}/lists/profiles`, {
+        params: { id: listId }
       });
 
-      return response.data.data;
+      return response.data?.result;
     } catch {
-      return null;
+      return [];
     }
   };
 
   const {
-    data: clubMembers,
-    error: clubMembersError,
-    isLoading: clubMembersLoading
+    data: profileIds,
+    error: listProfilesError,
+    isLoading: listProfilesLoading
   } = useQuery({
-    enabled: Boolean(clubId),
-    queryFn: getClubMembers,
-    queryKey: ["getClubMembers", clubId]
+    enabled: Boolean(listId),
+    queryFn: getListProfiles,
+    queryKey: ["getListProfiles", listId]
   });
-
-  const profileIds = clubMembers?.items.map((item) => item.id) || [];
 
   const {
     data: lensProfiles,
     error: lensProfilesError,
     loading: lensProfilesLoading
   } = useProfilesQuery({
-    skip: !profileIds.length,
+    skip: !profileIds?.length,
     variables: { request: { where: { profileIds } } }
   });
 
   const members = lensProfiles?.profiles.items || [];
 
-  if (clubMembersLoading || lensProfilesLoading) {
+  if (listProfilesLoading || lensProfilesLoading) {
     return (
       <Card>
         <ProfileListShimmer />
@@ -77,20 +67,20 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
-            <b className="mr-1">/{handle}</b>
-            <span>doesn't have any members.</span>
+            <b className="mr-1">/{name}</b>
+            <span>doesn't have any profiles.</span>
           </div>
         }
       />
     );
   }
 
-  if (clubMembersError || lensProfilesError) {
+  if (listProfilesError || lensProfilesError) {
     return (
       <ErrorMessage
         className="m-5"
-        error={clubMembersError || lensProfilesError}
-        title="Failed to load members"
+        error={listProfilesError || lensProfilesError}
+        title="Failed to load profiles"
       />
     );
   }
@@ -98,10 +88,10 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   return (
     <Card>
       <div className="flex items-center space-x-3 p-5">
-        <Link href={`/c/${handle}`}>
+        <Link href={`/lists/${listId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
-        <H5>Members</H5>
+        <H5>Profiles</H5>
       </div>
       <div className="divider" />
       <Virtuoso
@@ -116,7 +106,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
               profile={member as Profile}
               showBio
               showUserPreview={false}
-              source={ProfileLinkSource.ClubMembers}
+              source={ProfileLinkSource.ListProfiles}
             />
           </div>
         )}
@@ -126,4 +116,4 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   );
 };
 
-export default Members;
+export default Profiles;
