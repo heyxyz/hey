@@ -1,15 +1,17 @@
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import type { List } from "@hey/types/hey";
 import { Image } from "@hey/ui";
+import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
 
 interface SingleListProps {
   list: List;
+  linkToList?: boolean;
 }
 
-const SingleList: FC<SingleListProps> = ({ list }) => {
-  return (
+const SingleList: FC<SingleListProps> = ({ list, linkToList = true }) => {
+  const ListInfo = () => (
     <div className="flex items-center space-x-3">
       <Image
         alt={list.id}
@@ -24,6 +26,18 @@ const SingleList: FC<SingleListProps> = ({ list }) => {
         <div className="text-gray-500 text-xs">{list.count} Members</div>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      {linkToList ? (
+        <Link href={`/lists/${list.id}`}>
+          <ListInfo />
+        </Link>
+      ) : (
+        <ListInfo />
+      )}
+    </>
   );
 };
 
