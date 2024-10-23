@@ -3,6 +3,7 @@ import SingleList from "@components/Shared/SingleList";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { ListBulletIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
+import getLists from "@hey/helpers/api/lists/getLists";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import type { List } from "@hey/types/hey";
@@ -26,21 +27,9 @@ const Lists: FC<ListsProps> = ({ profile }) => {
   const [deletingList, setDeletingList] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  const getLists = async (): Promise<List[]> => {
-    try {
-      const response = await axios.get(`${HEY_API_URL}/lists/all`, {
-        params: { id: profile.id }
-      });
-
-      return response.data?.result;
-    } catch {
-      return [];
-    }
-  };
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["getAllLists", profile.id],
-    queryFn: getLists
+    queryFn: () => getLists(profile.id)
   });
 
   const deleteList = async (id: string) => {
