@@ -8,7 +8,7 @@ import { noBody } from "src/helpers/responses";
 export const get = [
   rateLimiter({ requests: 500, within: 1 }),
   async (req: Request, res: Response) => {
-    const { id, viewingId } = req.query;
+    const { id, viewingId, pinned } = req.query;
 
     if (!id) {
       return noBody(res);
@@ -20,7 +20,10 @@ export const get = [
           _count: { select: { profiles: true } },
           profiles: { where: { profileId: viewingId as string } }
         },
-        where: { createdBy: id as string }
+        where: {
+          createdBy: id as string,
+          ...(pinned && { pinned: pinned === "true" })
+        }
       });
 
       const result = data.map((list) => {

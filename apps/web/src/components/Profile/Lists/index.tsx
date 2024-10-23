@@ -29,7 +29,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["getAllLists", profile.id],
-    queryFn: () => getLists(profile.id)
+    queryFn: () => getLists({ id: profile.id })
   });
 
   const deleteList = async (id: string) => {

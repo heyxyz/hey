@@ -4,12 +4,14 @@ import { HEY_API_URL } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
 import getAllTokens from "@hey/helpers/api/getAllTokens";
 import getPreferences from "@hey/helpers/api/getPreferences";
+import getLists from "@hey/helpers/api/lists/getLists";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
@@ -29,6 +31,7 @@ const PreferencesProvider: FC = () => {
     setLoading: setPreferencesLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
+  const { setPinnedLists } = usePinnedListStore();
 
   const getPreferencesData = async () => {
     setPreferencesLoading(true);
@@ -79,6 +82,12 @@ const PreferencesProvider: FC = () => {
     }
   };
 
+  const getPinnedLists = async () => {
+    const lists = await getLists({ id: sessionProfileId, pinned: true });
+    setPinnedLists(lists);
+    return lists;
+  };
+
   useQuery({
     enabled: Boolean(sessionProfileId),
     queryFn: getPreferencesData,
@@ -96,6 +105,10 @@ const PreferencesProvider: FC = () => {
     queryFn: getFiatRates,
     queryKey: ["getFiatRates"],
     refetchInterval: 10000
+  });
+  useQuery({
+    queryFn: getPinnedLists,
+    queryKey: ["getPinnedLists"]
   });
 
   return null;
