@@ -22,8 +22,8 @@ const AddToList: FC = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["getAllLists", currentProfile?.id],
-    queryFn: () => getLists(currentProfile?.id)
+    queryKey: ["getAllLists", profileToAddToList?.id],
+    queryFn: () => getLists(currentProfile?.id, profileToAddToList?.id)
   });
 
   if (isLoading) {
@@ -76,7 +76,7 @@ const AddToList: FC = () => {
           error: "Failed to add to list",
           success: () => {
             queryClient.setQueryData<List[]>(
-              ["getAllLists", currentProfile?.id],
+              ["getAllLists", profileToAddToList?.id],
               (oldData) =>
                 oldData?.map((list) =>
                   list.id === listId
