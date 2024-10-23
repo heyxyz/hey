@@ -30,22 +30,6 @@ const getS3Client = async (): Promise<S3> => {
     region: EVER_REGION
   });
 
-  client.middlewareStack.addRelativeTo(
-    (next: (args: any) => Promise<any>) => async (args: any) => {
-      const { response } = await next(args);
-      if (response.body == null) {
-        response.body = new Uint8Array();
-      }
-      return { response };
-    },
-    {
-      name: "nullFetchResponseBodyMiddleware",
-      override: true,
-      relation: "after",
-      toMiddleware: "deserializerMiddleware"
-    }
-  );
-
   return client;
 };
 

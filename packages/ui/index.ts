@@ -21,6 +21,7 @@ export { LightBox } from "./src/LightBox";
 export { Modal } from "./src/Modal";
 export { default as NumberedStat } from "./src/NumberedStat";
 export { PageLoading } from "./src/PageLoading";
+export { ProgressBar } from "./src/ProgressBar";
 export { RangeSlider } from "./src/RangeSlider";
 export { Select } from "./src/Select";
 export { Spinner } from "./src/Spinner";
