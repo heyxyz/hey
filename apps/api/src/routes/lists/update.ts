@@ -13,7 +13,7 @@ interface ExtensionRequest {
   name?: string;
   description?: string | null;
   avatar?: string | null;
-  showOnHome?: boolean;
+  pinned?: boolean;
 }
 
 const validationSchema = object({
@@ -21,7 +21,7 @@ const validationSchema = object({
   name: string().min(1).max(100),
   description: string().min(1).max(1000).optional(),
   avatar: string().min(1).max(1000).optional(),
-  showOnHome: boolean().optional()
+  pinned: boolean().optional()
 });
 
 export const post = [
@@ -39,8 +39,7 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { id, name, description, avatar, showOnHome } =
-      body as ExtensionRequest;
+    const { id, name, description, avatar, pinned } = body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
@@ -59,7 +58,7 @@ export const post = [
         name: name || list.name,
         description: description || list.description,
         avatar: avatar || list.avatar,
-        showOnHome: showOnHome || list.showOnHome
+        pinned: pinned || list.pinned
       };
 
       const result = await prisma.list.update({ where: { id }, data });
