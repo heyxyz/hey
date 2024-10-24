@@ -12,9 +12,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.677.0",
-    "@aws-sdk/client-ses": "^3.677.0",
-    "@aws-sdk/client-sts": "^3.677.0",
+    "@aws-sdk/client-s3": "^3.678.0",
+    "@aws-sdk/client-ses": "^3.678.0",
+    "@aws-sdk/client-sts": "^3.678.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
@@ -33,14 +33,14 @@
     "fast-xml-parser": "^4.4.1",
     "graphql": "^16.9.0",
     "linkedom": "^0.18.5",
-    "openai": "^4.68.2",
+    "openai": "^4.68.4",
     "rate-limit-redis": "^4.2.0",
     "request-ip": "^3.3.0",
     "tsx": "^4.19.1",
     "ua-parser-js": "^2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.33",
+    "viem": "^2.21.34",
     "zod": "^3.23.8"
   },
   "devDependencies": {
