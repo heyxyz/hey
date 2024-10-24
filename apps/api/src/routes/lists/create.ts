@@ -40,8 +40,8 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const count = await prisma.listProfile.count({
-        where: { list: { createdBy: payload.id } }
+      const count = await prisma.list.count({
+        where: { createdBy: payload.id }
       });
 
       if (count >= 10) {
