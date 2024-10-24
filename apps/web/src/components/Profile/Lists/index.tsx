@@ -1,13 +1,25 @@
 import Loader from "@components/Shared/Loader";
 import SingleList from "@components/Shared/SingleList";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { ListBulletIcon } from "@heroicons/react/24/outline";
+import {
+  BookmarkIcon as BookmarkIconOutline,
+  ListBulletIcon
+} from "@heroicons/react/24/outline";
+import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
 import getLists from "@hey/helpers/api/lists/getLists";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import type { List } from "@hey/types/hey";
-import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from "@hey/ui";
+import {
+  Button,
+  Card,
+  EmptyState,
+  ErrorMessage,
+  H5,
+  Modal,
+  Tooltip
+} from "@hey/ui";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
@@ -25,6 +37,8 @@ const Lists: FC<ListsProps> = ({ profile }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deletingList, setDeletingList] = useState<string | null>(null);
+  const [pinning, setPinning] = useState(false);
+  const [pinningList, setPinningList] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
@@ -70,6 +84,39 @@ const Lists: FC<ListsProps> = ({ profile }) => {
     }
   };
 
+  const pinList = async (id: string, pinned: boolean) => {
+    try {
+      setPinning(true);
+      setPinningList(id);
+
+      toast.promise(
+        axios.post(
+          `${HEY_API_URL}/lists/update`,
+          { id, pinned: !pinned },
+          { headers: getAuthApiHeaders() }
+        ),
+        {
+          error: "Failed to pin list",
+          loading: "Pinning list...",
+          success: () => {
+            queryClient.setQueryData<List[]>(
+              ["getAllLists", currentProfile?.id],
+              (oldData) =>
+                oldData?.map((list) =>
+                  list.id === id ? { ...list, pinned: !pinned } : list
+                )
+            );
+
+            return "List pinned";
+          }
+        }
+      );
+    } finally {
+      setPinning(false);
+      setPinningList(null);
+    }
+  };
+
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
@@ -92,15 +139,33 @@ const Lists: FC<ListsProps> = ({ profile }) => {
               <div key={list.id} className="flex items-center justify-between">
                 <SingleList list={list} />
                 {profile.id === currentProfile?.id && (
-                  <Button
-                    size="sm"
-                    variant="danger"
-                    disabled={deletingList === list.id && deleting}
-                    onClick={() => deleteList(list.id)}
-                    outline
-                  >
-                    Delete
-                  </Button>
+                  <div className="flex items-center gap-3">
+                    <Tooltip
+                      content={list.pinned ? "Unpin from Home" : "Pin to Home"}
+                      placement="top"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => pinList(list.id, list.pinned || false)}
+                        disabled={pinningList === list.id && pinning}
+                      >
+                        {list.pinned ? (
+                          <BookmarkIconSolid className="size-4" />
+                        ) : (
+                          <BookmarkIconOutline className="size-4" />
+                        )}
+                      </button>
+                    </Tooltip>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      disabled={deletingList === list.id && deleting}
+                      onClick={() => deleteList(list.id)}
+                      outline
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 )}
               </div>
             ))}
