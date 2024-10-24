@@ -18,7 +18,7 @@ interface ExtensionRequest {
 
 const validationSchema = object({
   id: string().uuid(),
-  name: string().min(1).max(100),
+  name: string().min(1).max(100).optional(),
   description: string().min(1).max(1000).optional(),
   avatar: string().min(1).max(1000).optional(),
   pinned: boolean().optional()
@@ -36,6 +36,7 @@ export const post = [
     const validation = validationSchema.safeParse(body);
 
     if (!validation.success) {
+      console.log(validation.error);
       return invalidBody(res);
     }
 
@@ -55,10 +56,10 @@ export const post = [
       }
 
       const data = {
-        name: name || list.name,
-        description: description || list.description,
-        avatar: avatar || list.avatar,
-        pinned: pinned || list.pinned
+        name: name ?? list.name,
+        description: description ?? list.description,
+        avatar: avatar ?? list.avatar,
+        pinned: pinned !== undefined ? pinned : list.pinned
       };
 
       const result = await prisma.list.update({ where: { id }, data });
