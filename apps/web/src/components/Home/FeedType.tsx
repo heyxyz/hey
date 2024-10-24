@@ -53,7 +53,7 @@ const FeedType: FC<FeedTypeProps> = ({
   );
 
   return (
-    <div className="flex gap-3 overflow-x-auto px-5 sm:px-0">
+    <div className="flex flex-wrap gap-3 px-5 sm:px-0">
       {tabs.map((tab) => (
         <TabButton
           active={feedType === tab.type}
