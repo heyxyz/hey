@@ -1,9 +1,12 @@
 import New from "@components/Shared/Badges/New";
+import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import { HomeFeedType } from "@hey/data/enums";
 import { HOME } from "@hey/data/tracking";
+import getLists from "@hey/helpers/api/lists/getLists";
 import { Image, TabButton } from "@hey/ui";
+import { useQuery } from "@tanstack/react-query";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -21,8 +24,20 @@ const FeedType: FC<FeedTypeProps> = ({
   pinnedListId,
   setPinnedListId
 }) => {
+  const { id: sessionProfileId } = getCurrentSession();
   const { fallbackToCuratedFeed } = useProfileStore();
-  const { pinnedLists } = usePinnedListStore();
+  const { pinnedLists, setPinnedLists } = usePinnedListStore();
+
+  const getPinnedLists = async () => {
+    const lists = await getLists({ id: sessionProfileId, pinned: true });
+    setPinnedLists(lists);
+    return lists;
+  };
+
+  useQuery({
+    queryFn: getPinnedLists,
+    queryKey: ["getPinnedLists"]
+  });
 
   const tabs = [
     {
