@@ -1,5 +1,6 @@
 import NewPost from "@components/Composer/NewPost";
 import ExploreFeed from "@components/Explore/Feed";
+import Feed from "@components/List/Feed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );
+  const [pinnedListId, setPinnedListId] = useState<string | null>(null);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "home" });
@@ -34,13 +36,20 @@ const Home: NextPage = () => {
           {loggedInWithProfile ? (
             <>
               <NewPost />
-              <FeedType feedType={feedType} setFeedType={setFeedType} />
+              <FeedType
+                feedType={feedType}
+                setFeedType={setFeedType}
+                pinnedListId={pinnedListId}
+                setPinnedListId={setPinnedListId}
+              />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.FORYOU ? (
                 <ForYou />
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
+              ) : feedType === HomeFeedType.PINNED && pinnedListId ? (
+                <Feed id={pinnedListId} />
               ) : null}
             </>
           ) : (

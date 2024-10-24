@@ -99,7 +99,8 @@ export const HOME = {
   SELECT_USER_FEED: "Select user feed",
   SWITCH_FOLLOWING_FEED: "Switch to following feed",
   SWITCH_FORYOU_FEED: "Switch to for you feed",
-  SWITCH_PREMIUM_FEED: "Switch to premium feed"
+  SWITCH_PREMIUM_FEED: "Switch to premium feed",
+  SWITCH_PINNED_LIST: "Switch to pinned list"
 };
 
 export const EXPLORE = {
