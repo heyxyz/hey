@@ -68,7 +68,7 @@ const ViewList: NextPage = () => {
           {showProfiles ? (
             <Profiles listId={list.id} name={list.name} />
           ) : (
-            <Feed id={list.id} name={list.name} />
+            <Feed id={list.id} />
           )}
         </GridItemEight>
       </GridLayout>
