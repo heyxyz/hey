@@ -1,9 +1,26 @@
+import ChooseFile from "@components/Shared/ChooseFile";
+import ImageCropperController from "@components/Shared/ImageCropperController";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { HEY_API_URL } from "@hey/data/constants";
-import { Button, Form, Input, TextArea, useZodForm } from "@hey/ui";
+import uploadCroppedImage, { readFile } from "@helpers/profilePictureUtils";
+import { AVATAR, HEY_API_URL } from "@hey/data/constants";
+import { Errors } from "@hey/data/errors";
+import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import { getCroppedImg } from "@hey/image-cropper/cropUtils";
+import type { Area } from "@hey/image-cropper/types";
+import {
+  Button,
+  Form,
+  Image,
+  Input,
+  Modal,
+  TextArea,
+  useZodForm
+} from "@hey/ui";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { type FC, useState } from "react";
+import { type ChangeEvent, type FC, useState } from "react";
 import toast from "react-hot-toast";
 import { object, string, type z } from "zod";
 
@@ -18,6 +35,13 @@ const newListSchema = object({
 
 const Create: FC = () => {
   const { push } = useRouter();
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatarIpfsUrl, setAvatarIpfsUrl] = useState("");
+  const [showAvatarCropModal, setShowAvatarCropModal] = useState(false);
+  const [uploadedAvatarUrl, setUploadedAvatarUrl] = useState("");
+  const [croppedAvatarAreaPixels, setCroppedAvatarAreaPixels] =
+    useState<Area | null>(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [creatingList, setCreatingList] = useState(false);
 
   const form = useZodForm({
@@ -33,7 +57,7 @@ const Create: FC = () => {
       await toast.promise(
         axios.post(
           `${HEY_API_URL}/lists/create`,
-          { name, description, avatar: "gm" },
+          { name, description, avatar: avatarIpfsUrl },
           { headers: getAuthApiHeaders() }
         ),
         {
@@ -50,6 +74,46 @@ const Create: FC = () => {
     }
   };
 
+  const uploadAndSave = async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        avatarUrl,
+        croppedAvatarAreaPixels
+      );
+
+      if (!croppedImage) {
+        return toast.error(Errors.SomethingWentWrong);
+      }
+
+      // Update Loading State
+      setUploadingAvatar(true);
+
+      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const dataUrl = croppedImage.toDataURL("image/png");
+
+      // Update Profile Picture
+      setAvatarIpfsUrl(ipfsUrl);
+      setUploadedAvatarUrl(dataUrl);
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setShowAvatarCropModal(false);
+      setUploadingAvatar(false);
+    }
+  };
+
+  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+    const file = evt.target.files?.[0];
+    if (file) {
+      setAvatarUrl(await readFile(file));
+      setShowAvatarCropModal(true);
+    }
+  };
+
+  const renderAvatarUrl = avatarUrl
+    ? imageKit(sanitizeDStorageUrl(avatarUrl), AVATAR)
+    : "";
+
   return (
     <div className="p-5">
       <Form className="space-y-4" form={form} onSubmit={createList}>
@@ -59,6 +123,20 @@ const Create: FC = () => {
           placeholder="Please provide additional details about the list"
           {...form.register("description")}
         />
+        <div className="space-y-1.5">
+          <div className="label">Avatar</div>
+          <div className="space-y-3">
+            <Image
+              alt="Avatar crop preview"
+              className="size-40 rounded-lg"
+              onError={({ currentTarget }) => {
+                currentTarget.src = sanitizeDStorageUrl(avatarIpfsUrl);
+              }}
+              src={uploadedAvatarUrl || renderAvatarUrl}
+            />
+            <ChooseFile onChange={onFileChange} />
+          </div>
+        </div>
         <Button
           className="flex w-full justify-center"
           disabled={creatingList}
@@ -67,6 +145,30 @@ const Create: FC = () => {
           {creatingList ? "Creating..." : "Create"}
         </Button>
       </Form>
+      <Modal
+        onClose={() => {
+          setAvatarUrl("");
+          setShowAvatarCropModal(false);
+        }}
+        show={showAvatarCropModal}
+        size="sm"
+        title="Crop avatar"
+      >
+        <div className="p-5 text-right">
+          <ImageCropperController
+            imageSrc={avatarUrl}
+            setCroppedAreaPixels={setCroppedAvatarAreaPixels}
+            targetSize={{ height: 300, width: 300 }}
+          />
+          <Button
+            disabled={uploadingAvatar || !avatarUrl}
+            onClick={uploadAndSave}
+            type="submit"
+          >
+            Upload
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
