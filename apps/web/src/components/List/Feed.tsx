@@ -72,7 +72,7 @@ const Feed: FC<FeedProps> = ({ id }) => {
     variables: { request }
   });
 
-  const publications = publicationsData?.publications?.items;
+  const publications = publicationsData?.publications?.items || [];
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {
