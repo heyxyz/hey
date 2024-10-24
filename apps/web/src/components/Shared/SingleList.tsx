@@ -1,4 +1,6 @@
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import { AVATAR, PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
 import { Image } from "@hey/ui";
 import Link from "next/link";
@@ -18,7 +20,11 @@ const SingleList: FC<SingleListProps> = ({ list, linkToList = true }) => {
         className="size-11 rounded-lg border bg-gray-200 dark:border-gray-700"
         height={44}
         loading="lazy"
-        src={list.avatar || PLACEHOLDER_IMAGE}
+        src={
+          list.avatar
+            ? imageKit(sanitizeDStorageUrl(list.avatar), AVATAR)
+            : PLACEHOLDER_IMAGE
+        }
         width={44}
       />
       <div className="flex flex-col">

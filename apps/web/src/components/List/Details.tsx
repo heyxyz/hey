@@ -1,7 +1,13 @@
 import Markup from "@components/Shared/Markup";
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import {
+  AVATAR,
+  EXPANDED_AVATAR,
+  PLACEHOLDER_IMAGE
+} from "@hey/data/constants";
 import getMentions from "@hey/helpers/getMentions";
 import humanize from "@hey/helpers/humanize";
+import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
 import { H3, H4, Image, LightBox } from "@hey/ui";
 import Link from "next/link";
@@ -22,8 +28,18 @@ const Details: FC<DetailsProps> = ({ list }) => {
           alt={list.name}
           className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
-          onClick={() => setExpandedImage(list.avatar)}
-          src={list.avatar || PLACEHOLDER_IMAGE}
+          onClick={() =>
+            setExpandedImage(
+              list.avatar
+                ? imageKit(sanitizeDStorageUrl(list.avatar), EXPANDED_AVATAR)
+                : PLACEHOLDER_IMAGE
+            )
+          }
+          src={
+            list.avatar
+              ? imageKit(sanitizeDStorageUrl(list.avatar), AVATAR)
+              : PLACEHOLDER_IMAGE
+          }
           width={128}
         />
         <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />

@@ -1,10 +1,12 @@
 import New from "@components/Shared/Badges/New";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import { AVATAR, PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import { HomeFeedType } from "@hey/data/enums";
 import { HOME } from "@hey/data/tracking";
 import getLists from "@hey/helpers/api/lists/getLists";
+import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import { Image, TabButton } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -95,7 +97,11 @@ const FeedType: FC<FeedTypeProps> = ({
                 className="size-4 rounded-md"
                 height={16}
                 width={16}
-                src={pinnedList.avatar || PLACEHOLDER_IMAGE}
+                src={
+                  pinnedList.avatar
+                    ? imageKit(sanitizeDStorageUrl(pinnedList.avatar), AVATAR)
+                    : PLACEHOLDER_IMAGE
+                }
                 alt={pinnedList.name}
               />
             }
