@@ -17,11 +17,11 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface FeedProps {
+interface BookmarksFeedProps {
   focus?: PublicationMetadataMainFocusType;
 }
 
-const Feed: FC<FeedProps> = ({ focus }) => {
+const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
@@ -113,4 +113,4 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   );
 };
 
-export default Feed;
+export default BookmarksFeed;
