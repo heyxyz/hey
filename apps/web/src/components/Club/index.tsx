@@ -13,8 +13,8 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import ClubFeed from "./ClubFeed";
 import Details from "./Details";
-import Feed from "./Feed";
 import Members from "./Members";
 import ClubPageShimmer from "./Shimmer";
 
@@ -87,7 +87,7 @@ const ViewClub: NextPage = () => {
                   ]}
                 />
               )}
-              <Feed handle={club.handle} />
+              <ClubFeed handle={club.handle} />
             </>
           )}
         </GridItemEight>

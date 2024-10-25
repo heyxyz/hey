@@ -13,11 +13,11 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface FeedProps {
+interface ClubFeedProps {
   handle: string;
 }
 
-const Feed: FC<FeedProps> = ({ handle }) => {
+const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
@@ -119,4 +119,4 @@ const Feed: FC<FeedProps> = ({ handle }) => {
   );
 };
 
-export default Feed;
+export default ClubFeed;
