@@ -22,12 +22,12 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface FeedProps {
+interface ExploreFeedProps {
   feedType?: ExplorePublicationsOrderByType;
   focus?: PublicationMetadataMainFocusType;
 }
 
-const Feed: FC<FeedProps> = ({
+const ExploreFeed: FC<ExploreFeedProps> = ({
   feedType = ExplorePublicationsOrderByType.LensCurated,
   focus
 }) => {
@@ -120,4 +120,4 @@ const Feed: FC<FeedProps> = ({
   );
 };
 
-export default Feed;
+export default ExploreFeed;

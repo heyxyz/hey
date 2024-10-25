@@ -14,7 +14,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-import Feed from "./Feed";
+import ExploreFeed from "./ExploreFeed";
 import ImageFeed from "./ImageFeed";
 
 const Explore: NextPage = () => {
@@ -77,7 +77,7 @@ const Explore: NextPage = () => {
                 {focus === PublicationMetadataMainFocusType.Image ? (
                   <ImageFeed feedType={tab.type} />
                 ) : (
-                  <Feed feedType={tab.type} focus={focus} />
+                  <ExploreFeed feedType={tab.type} focus={focus} />
                 )}
               </TabPanel>
             ))}
