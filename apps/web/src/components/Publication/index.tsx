@@ -1,4 +1,4 @@
-import Feed from "@components/Comment/Feed";
+import CommentFeed from "@components/Comment/CommentFeed";
 import NoneRelevantFeed from "@components/Comment/NoneRelevantFeed";
 import MetaTags from "@components/Common/MetaTags";
 import NewPublication from "@components/Composer/NewPublication";
@@ -132,7 +132,7 @@ const ViewPublication: NextPage = () => {
             ) : null}
             {publication.isHidden ? null : (
               <>
-                <Feed publicationId={targetPublication.id} />
+                <CommentFeed publicationId={targetPublication.id} />
                 <NoneRelevantFeed publicationId={targetPublication.id} />
               </>
             )}
