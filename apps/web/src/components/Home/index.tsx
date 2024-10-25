@@ -1,5 +1,5 @@
 import NewPost from "@components/Composer/NewPost";
-import ExploreFeed from "@components/Explore/Feed";
+import ExploreFeed from "@components/Explore/ExploreFeed";
 import ListFeed from "@components/List/ListFeed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
