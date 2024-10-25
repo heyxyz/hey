@@ -22,7 +22,7 @@ import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface FeedProps {
+interface ProfileFeedProps {
   handle: string;
   profileDetailsLoading: boolean;
   profileId: string;
@@ -33,7 +33,7 @@ interface FeedProps {
     | ProfileFeedType.Replies;
 }
 
-const Feed: FC<FeedProps> = ({
+const ProfileFeed: FC<ProfileFeedProps> = ({
   handle,
   profileDetailsLoading,
   profileId,
@@ -204,4 +204,4 @@ const Feed: FC<FeedProps> = ({
   );
 };
 
-export default Feed;
+export default ProfileFeed;
