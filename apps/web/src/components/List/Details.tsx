@@ -9,7 +9,7 @@ import humanize from "@hey/helpers/humanize";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
-import { Card, H3, H4, Image, LightBox } from "@hey/ui";
+import { Card, H4, H5, Image, LightBox } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
@@ -23,36 +23,36 @@ const Details: FC<DetailsProps> = ({ list }) => {
 
   return (
     <Card as="aside" className="mb-4 space-y-5 p-5">
-      <div className="size-32 sm:size-52">
-        <Image
-          alt={list.name}
-          className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
-          height={128}
-          onClick={() =>
-            setExpandedImage(
-              list.avatar
-                ? imageKit(sanitizeDStorageUrl(list.avatar), EXPANDED_AVATAR)
-                : PLACEHOLDER_IMAGE
-            )
-          }
-          src={
+      <Image
+        alt={list.name}
+        className="size-24 rounded-lg border bg-gray-200 dark:border-gray-700"
+        height={128}
+        onClick={() =>
+          setExpandedImage(
             list.avatar
-              ? imageKit(sanitizeDStorageUrl(list.avatar), AVATAR)
+              ? imageKit(sanitizeDStorageUrl(list.avatar), EXPANDED_AVATAR)
               : PLACEHOLDER_IMAGE
-          }
-          width={128}
-        />
-        <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
+          )
+        }
+        src={
+          list.avatar
+            ? imageKit(sanitizeDStorageUrl(list.avatar), AVATAR)
+            : PLACEHOLDER_IMAGE
+        }
+        width={128}
+      />
+      <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
+      <div className="space-y-1">
+        <H5>{list.name}</H5>
+        {list.description ? (
+          <div className="markup linkify mr-0 break-words text-md">
+            <Markup mentions={getMentions(list.description)}>
+              {list.description}
+            </Markup>
+          </div>
+        ) : null}
       </div>
-      <H3 className="truncate py-2">{list.name}</H3>
-      {list.description ? (
-        <div className="markup linkify mr-0 break-words text-md sm:mr-10">
-          <Markup mentions={getMentions(list.description)}>
-            {list.description}
-          </Markup>
-        </div>
-      ) : null}
-      <div className="space-y-5">
+      <div className="mt-5">
         <Link
           className="text-left outline-offset-4"
           href={`/lists/${list.id}/profiles`}
