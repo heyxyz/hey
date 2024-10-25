@@ -19,11 +19,11 @@ import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
-interface FeedProps {
+interface CommentFeedProps {
   publicationId: string;
 }
 
-const Feed: FC<FeedProps> = ({ publicationId }) => {
+const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
   const { txnQueue } = useTransactionStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
@@ -134,4 +134,4 @@ const Feed: FC<FeedProps> = ({ publicationId }) => {
   );
 };
 
-export default Feed;
+export default CommentFeed;
