@@ -1,6 +1,6 @@
 import NewPost from "@components/Composer/NewPost";
 import ExploreFeed from "@components/Explore/Feed";
-import Feed from "@components/List/Feed";
+import ListFeed from "@components/List/ListFeed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : feedType === HomeFeedType.PINNED && pinnedListId ? (
-                <Feed id={pinnedListId} />
+                <ListFeed id={pinnedListId} />
               ) : null}
             </>
           ) : (
