@@ -1,4 +1,5 @@
 import MetaTags from "@components/Common/MetaTags";
+import Footer from "@components/Shared/Footer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
@@ -61,9 +62,6 @@ const ViewList: NextPage = () => {
         title={`${list.name} • ${APP_NAME}`}
       />
       <GridLayout>
-        <GridItemFour>
-          <Details list={list} />
-        </GridItemFour>
         <GridItemEight className="space-y-5">
           {showProfiles ? (
             <Profiles listId={list.id} name={list.name} />
@@ -71,6 +69,10 @@ const ViewList: NextPage = () => {
             <Feed id={list.id} />
           )}
         </GridItemEight>
+        <GridItemFour>
+          <Details list={list} />
+          <Footer />
+        </GridItemFour>
       </GridLayout>
     </>
   );

@@ -9,7 +9,7 @@ import humanize from "@hey/helpers/humanize";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
-import { H3, H4, Image, LightBox } from "@hey/ui";
+import { Card, H3, H4, Image, LightBox } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
@@ -22,7 +22,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
 
   return (
-    <div className="mb-4 space-y-5 px-5 sm:px-0">
+    <Card as="aside" className="mb-4 space-y-5 p-5">
       <div className="size-32 sm:size-52">
         <Image
           alt={list.name}
@@ -61,7 +61,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
           <div className="ld-text-gray-500">Profiles</div>
         </Link>
       </div>
-    </div>
+    </Card>
   );
 };
 
