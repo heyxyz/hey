@@ -25,9 +25,9 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Details from "./Details";
-import Feed from "./Feed";
 import FeedType from "./FeedType";
 import Lists from "./Lists";
+import ProfileFeed from "./ProfileFeed";
 import ProfilePageShimmer from "./Shimmer";
 import SuspendedDetails from "./SuspendedDetails";
 
@@ -148,7 +148,7 @@ const ViewProfile: NextPage = () => {
               feedType === ProfileFeedType.Replies ||
               feedType === ProfileFeedType.Media ||
               feedType === ProfileFeedType.Collects ? (
-                <Feed
+                <ProfileFeed
                   handle={getProfile(profile).slugWithPrefix}
                   profileDetailsLoading={profileDetailsLoading}
                   profileId={profile.id}
