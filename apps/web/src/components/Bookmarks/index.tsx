@@ -11,7 +11,7 @@ import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-import Feed from "./Feed";
+import BookmarksFeed from "./BookmarksFeed";
 
 const Bookmarks: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -30,7 +30,7 @@ const Bookmarks: NextPage = () => {
       <MetaTags title={`Bookmarks • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <FeedFocusType focus={focus} setFocus={setFocus} />
-        <Feed focus={focus} />
+        <BookmarksFeed focus={focus} />
       </GridItemEight>
       <GridItemFour>
         <WhoToFollow />
