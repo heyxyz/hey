@@ -5,7 +5,7 @@ import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
 describe("GET /lists/all", () => {
-  test("should return 400 if no id is provided", async () => {
+  test("should return 400 if no ownerId is provided", async () => {
     try {
       await axios.get(`${TEST_URL}/lists/all`, {
         headers: getTestAuthHeaders()
@@ -17,7 +17,7 @@ describe("GET /lists/all", () => {
 
   test("should return 200 with a list of lists", async () => {
     const { data, status } = await axios.get(`${TEST_URL}/lists/all`, {
-      params: { id: TEST_LENS_ID }
+      params: { ownerId: TEST_LENS_ID }
     });
 
     expect(status).toBe(200);
