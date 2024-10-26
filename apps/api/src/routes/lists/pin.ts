@@ -1,25 +1,20 @@
-import { Errors } from "@hey/data/errors";
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
-import { invalidBody, noBody } from "src/helpers/responses";
-import { object, string } from "zod";
+import { invalidBody, noBody, notFound } from "src/helpers/responses";
+import { boolean, object, string } from "zod";
 
 interface ExtensionRequest {
   id: string;
-  name?: string;
-  description?: string | null;
-  avatar?: string | null;
+  pin: boolean;
 }
 
 const validationSchema = object({
   id: string().uuid(),
-  name: string().min(1).max(100).optional(),
-  description: string().min(1).max(1000).optional(),
-  avatar: string().min(1).max(1000).optional()
+  pin: boolean()
 });
 
 export const post = [
@@ -38,31 +33,36 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { id, name, description, avatar } = body as ExtensionRequest;
+    const { id, pin } = body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      // Check if the list exists and belongs to the authenticated user
+      // Check if the list exists
       const list = await prisma.list.findUnique({
-        where: { id, createdBy: payload.id }
+        where: { id }
       });
 
       if (!list) {
-        return catchedError(res, new Error(Errors.Unauthorized), 401);
+        return notFound(res);
       }
 
-      const data = {
-        name: name ?? list.name,
-        description: description ?? list.description,
-        avatar: avatar ?? list.avatar
-      };
+      if (pin) {
+        await prisma.pinnedList.create({
+          data: { profileId: payload.id, listId: id }
+        });
+        logger.info(`Pinned list ${id} for profile ${payload.id}`);
 
-      const result = await prisma.list.update({ where: { id }, data });
-      logger.info(`Updated a list ${result.id}`);
+        return res.status(200).json({ success: true });
+      }
 
-      return res.status(200).json({ result, success: true });
+      await prisma.pinnedList.delete({
+        where: { profileId_listId: { profileId: payload.id, listId: id } }
+      });
+      logger.info(`Unpinned list ${id} for profile ${payload.id}`);
+
+      return res.status(200).json({ success: true });
     } catch (error) {
       return catchedError(res, error);
     }

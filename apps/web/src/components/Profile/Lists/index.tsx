@@ -91,8 +91,8 @@ const Lists: FC<ListsProps> = ({ profile }) => {
 
       toast.promise(
         axios.post(
-          `${HEY_API_URL}/lists/update`,
-          { id, pinned: !pinned },
+          `${HEY_API_URL}/lists/pin`,
+          { id, pin: !pinned },
           { headers: getAuthApiHeaders() }
         ),
         {

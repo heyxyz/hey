@@ -143,11 +143,11 @@ model List {
   description String?
   avatar      String?
   createdBy   String
-  pinned      Boolean  @default(false)
   createdAt   DateTime @default(now())
 
   // Relations
-  profiles ListProfile[]
+  profiles   ListProfile[]
+  pinnedList PinnedList[]
 }
 
 model ListProfile {
@@ -157,6 +157,13 @@ model ListProfile {
   createdAt DateTime @default(now())
 
   @@id([profileId, listId])
-  // Indexes
-  @@index([listId])
+}
+
+model PinnedList {
+  profileId String
+  listId    String   @db.Uuid
+  list      List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([profileId, listId])
 }

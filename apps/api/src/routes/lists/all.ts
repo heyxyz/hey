@@ -8,7 +8,7 @@ import { noBody } from "src/helpers/responses";
 export const get = [
   rateLimiter({ requests: 500, within: 1 }),
   async (req: Request, res: Response) => {
-    const { id, viewingId, pinned } = req.query;
+    const { id, viewingId } = req.query;
 
     if (!id) {
       return noBody(res);
@@ -18,20 +18,19 @@ export const get = [
       const data = await prisma.list.findMany({
         include: {
           _count: { select: { profiles: true } },
-          profiles: { where: { profileId: viewingId as string } }
+          profiles: { where: { profileId: viewingId as string } },
+          pinnedList: { where: { profileId: viewingId as string } }
         },
-        where: {
-          createdBy: id as string,
-          ...(pinned && { pinned: pinned === "true" })
-        }
+        where: { createdBy: id as string }
       });
 
       const result = data.map((list) => {
-        const { _count, profiles, ...rest } = list;
+        const { _count, profiles, pinnedList, ...rest } = list;
 
         return {
           ...rest,
           count: _count.profiles,
+          pinned: pinnedList.length > 0,
           isAdded: profiles.length > 0
         };
       });
