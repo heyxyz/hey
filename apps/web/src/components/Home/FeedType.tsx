@@ -17,15 +17,15 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 interface FeedTypeProps {
   feedType: HomeFeedType;
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
-  pinnedListId: string | null;
-  setPinnedListId: Dispatch<SetStateAction<string | null>>;
+  pinnedList: List | null;
+  setPinnedList: Dispatch<SetStateAction<List | null>>;
 }
 
 const FeedType: FC<FeedTypeProps> = ({
   feedType,
   setFeedType,
-  pinnedListId,
-  setPinnedListId
+  pinnedList,
+  setPinnedList
 }) => {
   const { fallbackToCuratedFeed } = useProfileStore();
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
@@ -93,31 +93,31 @@ const FeedType: FC<FeedTypeProps> = ({
         />
       ))}
       {pinnedLists.length > 0 &&
-        pinnedLists.map((pinnedList) => (
+        pinnedLists.map((list) => (
           <TabButton
             active={
-              feedType === HomeFeedType.PINNED && pinnedListId === pinnedList.id
+              feedType === HomeFeedType.PINNED && list.id === pinnedList?.id
             }
-            key={pinnedList.id}
-            name={pinnedList.name}
+            key={list.id}
+            name={list.name}
             icon={
               <Image
                 className="size-4 rounded-md"
                 height={16}
                 width={16}
                 src={
-                  pinnedList.avatar
-                    ? imageKit(sanitizeDStorageUrl(pinnedList.avatar), AVATAR)
+                  list.avatar
+                    ? imageKit(sanitizeDStorageUrl(list.avatar), AVATAR)
                     : PLACEHOLDER_IMAGE
                 }
-                alt={pinnedList.name}
+                alt={list.name}
               />
             }
             onClick={() => {
               setFeedType(HomeFeedType.PINNED);
-              setPinnedListId(pinnedList.id);
+              setPinnedList(list);
               Leafwatch.track(HOME.SWITCH_PINNED_LIST, {
-                list: pinnedList.id
+                list: list.id
               });
             }}
             showOnSm
