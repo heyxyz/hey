@@ -9,6 +9,7 @@ import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
+import type { List } from "@hey/types/hey";
 import {
   Button,
   Form,
@@ -18,13 +19,18 @@ import {
   TextArea,
   useZodForm
 } from "@hey/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { type ChangeEvent, type FC, useState } from "react";
+import { type ChangeEvent, type FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { object, string, type z } from "zod";
 
-const newListSchema = object({
+interface CreateOrEditProps {
+  list?: List;
+}
+
+const createOrEditListSchema = object({
   name: string()
     .min(3, { message: "Name should be at least 3 characters" })
     .max(100, { message: "Name should not exceed 100 characters" }),
@@ -33,7 +39,7 @@ const newListSchema = object({
     .optional()
 });
 
-const Create: FC = () => {
+const CreateOrEdit: FC<CreateOrEditProps> = ({ list }) => {
   const { push } = useRouter();
   const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarIpfsUrl, setAvatarIpfsUrl] = useState("");
@@ -42,30 +48,48 @@ const Create: FC = () => {
   const [croppedAvatarAreaPixels, setCroppedAvatarAreaPixels] =
     useState<Area | null>(null);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
-  const [creatingList, setCreatingList] = useState(false);
+  const [creatingOrUpdatingList, setCreatingOrUpdatingList] = useState(false);
+  const queryClient = useQueryClient();
 
   const form = useZodForm({
-    schema: newListSchema
+    schema: createOrEditListSchema
   });
+
+  useEffect(() => {
+    if (list) {
+      form.setValue("name", list.name);
+      form.setValue("description", list.description || "");
+      setAvatarIpfsUrl(list.avatar || "");
+    }
+  }, [list]);
 
   const createList = async ({
     name,
     description
-  }: z.infer<typeof newListSchema>) => {
+  }: z.infer<typeof createOrEditListSchema>) => {
     try {
-      setCreatingList(true);
+      setCreatingOrUpdatingList(true);
       const { data } = await axios.post(
-        `${HEY_API_URL}/lists/create`,
-        { name, description, avatar: avatarIpfsUrl },
+        `${HEY_API_URL}/lists/${list ? "update" : "create"}`,
+        {
+          id: list?.id,
+          name,
+          description,
+          avatar: avatarIpfsUrl
+        },
         { headers: getAuthApiHeaders() }
       );
 
-      toast.success("List created");
+      if (list) {
+        queryClient.invalidateQueries({ queryKey: ["getList", list.id] });
+      }
+
+      toast.success(`List ${list ? "updated" : "created"}`);
       push(`/lists/${data?.result.id}`);
     } catch (error) {
       errorToast(error);
     } finally {
-      setCreatingList(false);
+      setCreatingOrUpdatingList(false);
     }
   };
 
@@ -127,17 +151,27 @@ const Create: FC = () => {
               onError={({ currentTarget }) => {
                 currentTarget.src = sanitizeDStorageUrl(avatarIpfsUrl);
               }}
-              src={uploadedAvatarUrl || renderAvatarUrl}
+              src={
+                uploadedAvatarUrl ||
+                renderAvatarUrl ||
+                sanitizeDStorageUrl(avatarIpfsUrl)
+              }
             />
             <ChooseFile onChange={onFileChange} />
           </div>
         </div>
         <Button
           className="flex w-full justify-center"
-          disabled={creatingList}
+          disabled={creatingOrUpdatingList}
           type="submit"
         >
-          {creatingList ? "Creating..." : "Create"}
+          {creatingOrUpdatingList
+            ? list
+              ? "Updating..."
+              : "Creating..."
+            : list
+              ? "Update"
+              : "Create"}
         </Button>
       </Form>
       <Modal
@@ -168,4 +202,4 @@ const Create: FC = () => {
   );
 };
 
-export default Create;
+export default CreateOrEdit;

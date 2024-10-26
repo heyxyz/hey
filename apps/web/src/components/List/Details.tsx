@@ -1,3 +1,4 @@
+import CreateOrEdit from "@components/Shared/List/CreateOrEdit";
 import PinUnpinButton from "@components/Shared/List/PinUnpinButton";
 import Markup from "@components/Shared/Markup";
 import {
@@ -10,7 +11,7 @@ import humanize from "@hey/helpers/humanize";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
-import { Card, H4, H5, Image, LightBox } from "@hey/ui";
+import { Button, Card, H4, H5, Image, LightBox, Modal } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
@@ -21,6 +22,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ list }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   return (
     <Card as="aside" className="mb-4 space-y-5 p-5">
@@ -62,7 +64,17 @@ const Details: FC<DetailsProps> = ({ list }) => {
           <div className="ld-text-gray-500">Profiles</div>
         </Link>
       </div>
-      <PinUnpinButton list={list} />
+      <div className="flex items-center space-x-2">
+        <PinUnpinButton list={list} />
+        <Button onClick={() => setShowEditModal(true)}>Edit</Button>
+      </div>
+      <Modal
+        onClose={() => setShowEditModal(false)}
+        show={showEditModal}
+        title="Edit List"
+      >
+        <CreateOrEdit list={list} />
+      </Modal>
     </Card>
   );
 };
