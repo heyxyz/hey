@@ -4,7 +4,7 @@ import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
-import { noBody, notFound } from "src/helpers/responses";
+import { noBody } from "src/helpers/responses";
 
 export const get = [
   rateLimiter({ requests: 500, within: 1 }),
@@ -21,8 +21,8 @@ export const get = [
         where: { id: id as string }
       });
 
-      if (!data) {
-        return notFound(res);
+      if (!data?.profiles.length) {
+        return res.status(200).json({ result: [], success: true });
       }
 
       const profiles = data.profiles.map((profile) => profile.profileId);
