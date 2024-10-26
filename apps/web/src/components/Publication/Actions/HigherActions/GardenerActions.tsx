@@ -59,7 +59,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     toast.promise(reportPublicationOnLens(subreasons), {
       error: "Error reporting publication",
       loading: "Reporting publication...",
-      success: "Publication reported successfully"
+      success: "Publication reported"
     });
   };
 

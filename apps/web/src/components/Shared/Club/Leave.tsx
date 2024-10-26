@@ -25,8 +25,8 @@ const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      toast.success("Left club successfully!");
       setJoined(false);
+      toast.success("Left club");
     } catch (error) {
       errorToast(error);
     } finally {

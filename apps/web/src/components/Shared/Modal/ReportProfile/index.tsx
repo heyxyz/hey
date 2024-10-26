@@ -82,7 +82,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
-          message="Profile reported successfully!"
+          message="Profile reported"
         />
       ) : profile ? (
         <div className="p-5">

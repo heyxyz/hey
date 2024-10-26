@@ -56,7 +56,7 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ publication }) => {
       {
         error: "Error downloading collectors",
         loading: "Downloading collectors...",
-        success: "Collectors downloaded successfully"
+        success: "Collectors downloaded"
       }
     );
   };

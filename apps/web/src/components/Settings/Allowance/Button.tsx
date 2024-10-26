@@ -54,11 +54,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(
-        allowed
-          ? "Module disabled successfully!"
-          : "Module enabled successfully!"
-      );
+      toast.success(allowed ? "Module disabled" : "Module enabled");
       setShowWarningModal(false);
       setAllowed(!allowed);
       Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {

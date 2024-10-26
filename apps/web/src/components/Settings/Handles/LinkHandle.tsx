@@ -50,7 +50,7 @@ const LinkHandle: FC = () => {
     }
 
     setLinkingHandle(null);
-    toast.success("Handle linked successfully!");
+    toast.success("Handle linked");
     Leafwatch.track(SETTINGS.HANDLE.LINK);
   };
 

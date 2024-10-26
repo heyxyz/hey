@@ -1,4 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import getProfileDetails from "@hey/helpers/api/getProfileDetails";
@@ -46,43 +47,37 @@ const ProfileStatus: FC = () => {
   }
 
   const handleClear = async () => {
-    toast.promise(
-      axios.post(`${HEY_API_URL}/profile/status/clear`, undefined, {
+    try {
+      await axios.post(`${HEY_API_URL}/profile/status/clear`, undefined, {
         headers: getAuthApiHeaders()
-      }),
-      {
-        error: "Error clearing profile status",
-        loading: "Clearing profile status...",
-        success: () => {
-          setMessage(null);
-          setEmoji(null);
-          setShowEditStatusModal(false);
-          queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
-          return "Profile status cleared successfully";
-        }
-      }
-    );
+      });
+
+      setMessage(null);
+      setEmoji(null);
+      setShowEditStatusModal(false);
+      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
+      toast.success("Profile status cleared");
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
-  const handleUpdate = () => {
-    toast.promise(
-      axios.post(
+  const handleUpdate = async () => {
+    try {
+      await axios.post(
         `${HEY_API_URL}/profile/status/update`,
         { emoji, message },
         { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: "Error updating profile status",
-        loading: "Updating profile status...",
-        success: () => {
-          setMessage(null);
-          setEmoji(null);
-          setShowEditStatusModal(false);
-          queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
-          return "Profile status updated successfully";
-        }
-      }
-    );
+      );
+
+      setMessage(null);
+      setEmoji(null);
+      setShowEditStatusModal(false);
+      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
+      toast.success("Profile status updated");
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (

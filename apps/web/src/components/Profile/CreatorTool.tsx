@@ -1,4 +1,5 @@
 import ToggleWrapper from "@components/Staff/Users/Overview/Tool/ToggleWrapper";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -41,29 +42,24 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
     const { id, key } = permission;
     const enabled = !permissions.includes(key);
 
-    setUpdating(true);
     try {
-      await toast.promise(
-        axios.post(
-          `${HEY_API_URL}/internal/creator-tools/assign`,
-          { enabled, id, profile_id: profile.id },
-          { headers: getAuthApiHeaders() }
-        ),
-        {
-          error: "Failed to update permission",
-          loading: "Updating the permission...",
-          success: "Permission updated"
-        }
+      setUpdating(true);
+      await axios.post(
+        `${HEY_API_URL}/internal/creator-tools/assign`,
+        { enabled, id, profile_id: profile.id },
+        { headers: getAuthApiHeaders() }
       );
 
+      toast.success("Permission updated");
+      setPermissions((prev) =>
+        enabled ? [...prev, key] : prev.filter((f) => f !== key)
+      );
       Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
         permission: key,
         profile_id: profile.id
       });
-
-      setPermissions((prev) =>
-        enabled ? [...prev, key] : prev.filter((f) => f !== key)
-      );
+    } catch (error) {
+      errorToast(error);
     } finally {
       setUpdating(false);
     }

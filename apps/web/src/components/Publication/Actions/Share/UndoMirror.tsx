@@ -49,7 +49,7 @@ const UndoMirror: FC<MirrorProps> = ({
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
       Leafwatch.track(PUBLICATION.UNDO_MIRROR);
-      toast.success("Undone mirror successfully");
+      toast.success("Undone mirror");
     },
     update: updateCache
   });

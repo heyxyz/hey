@@ -94,7 +94,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
     updateCache();
     setIsLoading(false);
-    toast.success("Unfollowed successfully!");
+    toast.success("Unfollowed");
     Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: profile?.id });
   };
 

@@ -176,7 +176,7 @@ const CollectAction: FC<CollectActionProps> = ({
     setIsLoading(false);
     onCollectSuccess?.();
     updateCache();
-    toast.success("Collected successfully!");
+    toast.success("Collected");
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       amount,
       collect_module: openAction?.type,

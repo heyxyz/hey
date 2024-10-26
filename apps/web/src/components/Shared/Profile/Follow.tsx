@@ -94,7 +94,7 @@ const Follow: FC<FollowProps> = ({
 
     updateCache();
     setIsLoading(false);
-    toast.success("Followed successfully!");
+    toast.success("Followed");
     Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: profile?.id });
   };
 

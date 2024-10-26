@@ -1,3 +1,4 @@
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -28,28 +29,22 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
     schema: assignPermissionSchema
   });
 
-  const assign = (ids: string) => {
-    setAssigning(true);
-    toast.promise(
-      axios.post(
+  const assign = async (ids: string) => {
+    try {
+      setAssigning(true);
+      const { data } = await axios.post(
         `${HEY_API_URL}/internal/permissions/bulkAssign`,
         { id: permission.id, ids },
         { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: () => {
-          setAssigning(false);
-          return "Failed to assign permission";
-        },
-        loading: "Assigning permission...",
-        success: ({ data }) => {
-          Leafwatch.track(STAFFTOOLS.PERMISSIONS.BULK_ASSIGN);
-          setAssigning(false);
-          setShowAssignModal(false);
-          return `Assigned permission to ${data.assigned} users`;
-        }
-      }
-    );
+      );
+
+      setAssigning(false);
+      setShowAssignModal(false);
+      toast.success(`Assigned permission to ${data.assigned} users`);
+      Leafwatch.track(STAFFTOOLS.PERMISSIONS.BULK_ASSIGN);
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (
