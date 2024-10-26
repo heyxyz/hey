@@ -13,6 +13,7 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
 import { Button, Card, H4, H5, Image, LightBox, Modal } from "@hey/ui";
 import Link from "next/link";
+import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -62,8 +63,10 @@ const Details: FC<DetailsProps> = ({ list }) => {
           className="text-left outline-offset-4"
           href={`/lists/${list.id}/profiles`}
         >
-          <H4>{humanize(list.count)}</H4>
-          <div className="ld-text-gray-500">Profiles</div>
+          <H4>{humanize(list.totalProfiles)}</H4>
+          <div className="ld-text-gray-500">
+            {plur("Profile", list.totalProfiles)}
+          </div>
         </Link>
       </div>
       <div className="flex items-center space-x-2">

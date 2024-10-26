@@ -29,7 +29,7 @@ export const get = [
 
         return {
           ...rest,
-          count: _count.profiles,
+          totalProfiles: _count.profiles,
           pinned: pinnedList.length > 0,
           isAdded: profiles.length > 0
         };
