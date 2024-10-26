@@ -27,7 +27,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-import Create from "./Create";
+import CreateOrEdit from "../../Shared/List/CreateOrEdit";
 
 interface ListsProps {
   profile: Profile;
@@ -171,7 +171,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
         onClose={() => setShowCreateModal(false)}
         title="Create List"
       >
-        <Create />
+        <CreateOrEdit />
       </Modal>
     </Card>
   );
