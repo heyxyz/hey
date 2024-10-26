@@ -1,4 +1,5 @@
 import prisma from "@hey/db/prisma/db/client";
+import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -15,6 +16,16 @@ export const get = [
     }
 
     try {
+      const cacheKey = `list:${id}`;
+      const cachedData = await getRedis(cacheKey);
+
+      if (cachedData) {
+        logger.info(`(cached) List fetched for ${id}`);
+        return res
+          .status(200)
+          .json({ result: JSON.parse(cachedData), success: true });
+      }
+
       const data = await prisma.list.findUnique({
         include: {
           _count: { select: { profiles: true } },
@@ -37,6 +48,7 @@ export const get = [
         pinned: pinnedList.length > 0
       };
 
+      await setRedis(cacheKey, JSON.stringify(result));
       logger.info(`List fetched for ${id}`);
 
       return res.status(200).json({ result, success: true });
