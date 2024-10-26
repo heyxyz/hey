@@ -7,14 +7,17 @@ import axios from "axios";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 
 interface PinUnpinButtonProps {
   list: List;
+  small?: boolean;
 }
 
-const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list }) => {
+const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list, small = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pinned, setPinned] = useState(list.pinned);
+  const { pinnedLists, setPinnedLists } = usePinnedListStore();
 
   useEffect(() => {
     setPinned(list.pinned);
@@ -30,6 +33,13 @@ const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list }) => {
       );
 
       setPinned(!pinned);
+      if (pinned) {
+        setPinnedLists(
+          pinnedLists.filter((pinnedList) => pinnedList.id !== list.id)
+        );
+      } else {
+        setPinnedLists([...pinnedLists, list]);
+      }
       toast.success(`List ${pinned ? "unpinned" : "pinned"}`);
     } catch (error) {
       errorToast(error);
@@ -44,6 +54,7 @@ const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list }) => {
       disabled={isLoading}
       onClick={handlePinUnpin}
       outline
+      size={small ? "sm" : "md"}
     >
       {pinned ? "Unpin" : "Pin"}
     </Button>

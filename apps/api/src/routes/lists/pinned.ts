@@ -14,8 +14,22 @@ export const get = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const result = await prisma.list.findMany({
+      const data = await prisma.list.findMany({
+        include: {
+          _count: { select: { profiles: true } },
+          pinnedList: { where: { profileId: payload.id } }
+        },
         where: { pinnedList: { some: { profileId: payload.id } } }
+      });
+
+      const result = data.map((list) => {
+        const { _count, pinnedList, ...rest } = list;
+
+        return {
+          ...rest,
+          count: _count.profiles,
+          pinned: pinnedList.length > 0
+        };
       });
 
       logger.info(`Pinned lists fetched for ${payload.id}`);

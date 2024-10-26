@@ -1,11 +1,13 @@
 import SinglePublication from "@components/Publication/SinglePublication";
+import PinUnpinButton from "@components/Shared/List/PinUnpinButton";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import SingleList from "@components/Shared/SingleList";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import type { AnyPublication, PublicationsRequest } from "@hey/lens";
 import { LimitType, usePublicationsQuery } from "@hey/lens";
 import type { List } from "@hey/types/hey";
-import { Card, CardHeader, EmptyState, ErrorMessage } from "@hey/ui";
+import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
@@ -19,9 +21,10 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface ListFeedProps {
   list: List;
+  showHeader?: boolean;
 }
 
-const ListFeed: FC<ListFeedProps> = ({ list }) => {
+const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
@@ -88,7 +91,19 @@ const ListFeed: FC<ListFeedProps> = ({ list }) => {
   }
 
   const Header = () => {
-    return <CardHeader title={list.name} />;
+    if (!showHeader) {
+      return null;
+    }
+
+    return (
+      <>
+        <div className="m-5 flex items-center justify-between">
+          <SingleList list={list} />
+          <PinUnpinButton list={list} small />
+        </div>
+        <div className="divider" />
+      </>
+    );
   };
 
   if (publications?.length === 0) {
