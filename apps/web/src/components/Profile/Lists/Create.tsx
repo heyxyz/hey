@@ -54,21 +54,16 @@ const Create: FC = () => {
   }: z.infer<typeof newListSchema>) => {
     try {
       setCreatingList(true);
-      await toast.promise(
-        axios.post(
-          `${HEY_API_URL}/lists/create`,
-          { name, description, avatar: avatarIpfsUrl },
-          { headers: getAuthApiHeaders() }
-        ),
-        {
-          error: "Failed to create list",
-          loading: "Creating list...",
-          success: ({ data }) => {
-            push(`/lists/${data?.result.id}`);
-            return "List created";
-          }
-        }
+      const { data } = await axios.post(
+        `${HEY_API_URL}/lists/create`,
+        { name, description, avatar: avatarIpfsUrl },
+        { headers: getAuthApiHeaders() }
       );
+
+      toast.success("List created");
+      push(`/lists/${data?.result.id}`);
+    } catch (error) {
+      errorToast(error);
     } finally {
       setCreatingList(false);
     }

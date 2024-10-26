@@ -1,4 +1,5 @@
 import ToggleWrapper from "@components/Staff/Users/Overview/Tool/ToggleWrapper";
+import errorToast from "@helpers/errorToast";
 import {
   getAuthApiHeaders,
   getAuthApiHeadersWithAccessToken
@@ -25,9 +26,9 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
     queryKey: ["getInternalProfile", id || ""]
   });
 
-  const suspendProfile = () => {
-    toast.promise(
-      Promise.all([
+  const suspendProfile = async () => {
+    try {
+      await Promise.all([
         axios.post(
           `${HEY_API_URL}/internal/permissions/assign`,
           { enabled: true, id: PermissionId.Suspended, profile_id: id },
@@ -45,18 +46,15 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
           },
           { headers: getAuthApiHeadersWithAccessToken() }
         )
-      ]),
-      {
-        error: "Error suspending profile",
-        loading: "Suspending profile...",
-        success: () => {
-          queryClient.invalidateQueries({
-            queryKey: ["getInternalProfile", id]
-          });
-          return "Profile suspended";
-        }
-      }
-    );
+      ]);
+
+      queryClient.invalidateQueries({
+        queryKey: ["getInternalProfile", id]
+      });
+      toast.success("Profile suspended");
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   const isSuspended =

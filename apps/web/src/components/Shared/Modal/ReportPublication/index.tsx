@@ -79,7 +79,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
-          message="Publication reported successfully!"
+          message="Publication reported"
         />
       ) : publicationId ? (
         <div className="p-5">

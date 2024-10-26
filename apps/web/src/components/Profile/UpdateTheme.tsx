@@ -1,3 +1,4 @@
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import profileThemeFonts, { Font } from "@helpers/profileThemeFonts";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -17,18 +18,14 @@ const UpdateTheme: FC = () => {
   const resetTheme = async () => {
     setUpdating(true);
     try {
-      await toast.promise(
-        axios.post(`${HEY_API_URL}/preferences/theme/reset`, undefined, {
-          headers: getAuthApiHeaders()
-        }),
-        {
-          error: "Failed to reset profile theme",
-          loading: "Resetting profile theme...",
-          success: "Profile theme reset successfully"
-        }
-      );
+      await axios.post(`${HEY_API_URL}/preferences/theme/reset`, undefined, {
+        headers: getAuthApiHeaders()
+      });
       queryClient.invalidateQueries({ queryKey: ["getPreferences"] });
       setTheme(null);
+      toast.success("Profile theme reset");
+    } catch (error) {
+      errorToast(error);
     } finally {
       setUpdating(false);
     }
@@ -37,17 +34,13 @@ const UpdateTheme: FC = () => {
   const updateTheme = async () => {
     setUpdating(true);
     try {
-      await toast.promise(
-        axios.post(`${HEY_API_URL}/preferences/theme/update`, theme, {
-          headers: getAuthApiHeaders()
-        }),
-        {
-          error: "Failed to update profile theme",
-          loading: "Updating profile theme...",
-          success: "Profile theme updated successfully"
-        }
-      );
+      await axios.post(`${HEY_API_URL}/preferences/theme/update`, theme, {
+        headers: getAuthApiHeaders()
+      });
       queryClient.invalidateQueries({ queryKey: ["getPreferences"] });
+      toast.success("Profile theme updated");
+    } catch (error) {
+      errorToast(error);
     } finally {
       setUpdating(false);
     }
