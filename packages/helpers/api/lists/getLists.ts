@@ -5,7 +5,6 @@ import axios from "axios";
 interface Payload {
   id: null | string;
   viewingId?: null | string;
-  pinned?: null | boolean;
 }
 
 const getLists = async (payload: Payload): Promise<List[]> => {
