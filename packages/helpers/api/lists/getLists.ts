@@ -3,7 +3,7 @@ import type { List } from "@hey/types/hey";
 import axios from "axios";
 
 interface Payload {
-  id: null | string;
+  ownerId: null | string;
   viewingId?: null | string;
 }
 
