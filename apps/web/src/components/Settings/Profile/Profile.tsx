@@ -77,8 +77,6 @@ const editProfileSchema = object({
   x: string().max(100, { message: "X handle must not exceed 100 characters" })
 });
 
-type FormData = z.infer<typeof editProfileSchema>;
-
 const ProfileSettingsForm: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
@@ -221,7 +219,7 @@ const ProfileSettingsForm: FC = () => {
     schema: editProfileSchema
   });
 
-  const editProfile = async (data: FormData) => {
+  const editProfile = async (data: z.infer<typeof editProfileSchema>) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -366,11 +364,7 @@ const ProfileSettingsForm: FC = () => {
   return (
     <>
       <Card className="p-5">
-        <Form
-          className="space-y-4"
-          form={form}
-          onSubmit={(data) => editProfile(data)}
-        >
+        <Form className="space-y-4" form={form} onSubmit={editProfile}>
           {error ? (
             <ErrorMessage
               className="mb-3"

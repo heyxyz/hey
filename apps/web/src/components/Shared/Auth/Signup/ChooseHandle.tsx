@@ -24,7 +24,7 @@ import { useState } from "react";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { formatUnits, parseEther } from "viem";
 import { useAccount, useBalance, useWriteContract } from "wagmi";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 import { useSignupStore } from ".";
 import AuthMessage from "../AuthMessage";
 import Moonpay from "./Moonpay";
@@ -99,7 +99,7 @@ const ChooseHandle: FC = () => {
     }
   });
 
-  const handleMint = async (handle: string) => {
+  const handleMint = async ({ handle }: z.infer<typeof newProfileSchema>) => {
     try {
       setIsLoading(true);
       await handleWrongNetwork();
@@ -132,7 +132,9 @@ const ChooseHandle: FC = () => {
       <Form
         className="space-y-5 pt-3"
         form={form}
-        onSubmit={async ({ handle }) => await handleMint(handle.toLowerCase())}
+        onSubmit={async ({ handle }) =>
+          await handleMint({ handle: handle.toLowerCase() })
+        }
       >
         <div className="mb-5">
           <Input

@@ -11,7 +11,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useWriteContract } from "wagmi";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 
 const newProfileSchema = object({
   address: string().regex(Regex.ethereumAddress),
@@ -35,7 +35,10 @@ const Mint: FC = () => {
     }
   });
 
-  const handleMint = async (handle: string, address: string) => {
+  const handleMint = async ({
+    handle,
+    address
+  }: z.infer<typeof newProfileSchema>) => {
     try {
       setIsLoading(true);
       return await writeContractAsync({
@@ -58,13 +61,7 @@ const Mint: FC = () => {
   return (
     <Card>
       <CardHeader title="Staff Mint" />
-      <Form
-        className="m-5 space-y-5"
-        form={form}
-        onSubmit={async ({ address, handle }) =>
-          await handleMint(handle, address)
-        }
-      >
+      <Form className="m-5 space-y-5" form={form} onSubmit={handleMint}>
         <Input
           placeholder="wagmi"
           prefix={`@${HANDLE_PREFIX}`}
