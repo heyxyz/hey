@@ -91,6 +91,7 @@ export type List = {
   description: string | null;
   avatar: string | null;
   totalProfiles: number;
+  totalPins: number;
   createdBy: string;
   isAdded?: boolean;
   pinned?: boolean;

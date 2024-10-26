@@ -28,7 +28,7 @@ export const get = [
 
       const data = await prisma.list.findUnique({
         include: {
-          _count: { select: { profiles: true } },
+          _count: { select: { profiles: true, pinnedList: true } },
           profiles: { take: 10, select: { profileId: true } },
           pinnedList: { where: { profileId: viewingId as string } }
         },
@@ -45,6 +45,7 @@ export const get = [
         ...rest,
         profiles: profiles.map((profile) => profile.profileId),
         totalProfiles: _count.profiles,
+        totalPins: _count.pinnedList,
         pinned: pinnedList.length > 0
       };
 

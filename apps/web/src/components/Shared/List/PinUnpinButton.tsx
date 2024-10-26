@@ -3,9 +3,10 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import type { List } from "@hey/types/hey";
 import { Button } from "@hey/ui";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 
@@ -16,31 +17,31 @@ interface PinUnpinButtonProps {
 
 const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list, small = false }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [pinned, setPinned] = useState(list.pinned);
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
-
-  useEffect(() => {
-    setPinned(list.pinned);
-  }, [list.pinned]);
+  const queryClient = useQueryClient();
 
   const handlePinUnpin = async () => {
     try {
       setIsLoading(true);
       await axios.post(
         `${HEY_API_URL}/lists/pin`,
-        { id: list.id, pin: !pinned },
+        { id: list.id, pin: !list.pinned },
         { headers: getAuthApiHeaders() }
       );
 
-      setPinned(!pinned);
-      if (pinned) {
+      if (list.pinned) {
         setPinnedLists(
           pinnedLists.filter((pinnedList) => pinnedList.id !== list.id)
         );
       } else {
         setPinnedLists([...pinnedLists, list]);
       }
-      toast.success(`List ${pinned ? "unpinned" : "pinned"}`);
+      queryClient.setQueryData(["getList", list.id], (data: List) => ({
+        ...data,
+        pinned: !list.pinned,
+        totalPins: data.totalPins + (list.pinned ? -1 : 1)
+      }));
+      toast.success(`List ${list.pinned ? "unpinned" : "pinned"}`);
     } catch (error) {
       errorToast(error);
     } finally {
@@ -56,7 +57,7 @@ const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list, small = false }) => {
       outline
       size={small ? "sm" : "md"}
     >
-      {pinned ? "Unpin" : "Pin"}
+      {list.pinned ? "Unpin" : "Pin"}
     </Button>
   );
 };
