@@ -25,7 +25,10 @@ const AddToList: FC = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["getAllLists", profileToAddToList?.id],
     queryFn: () =>
-      getLists({ id: currentProfile?.id, viewingId: profileToAddToList?.id })
+      getLists({
+        ownerId: currentProfile?.id,
+        viewingId: profileToAddToList?.id
+      })
   });
 
   if (isLoading) {

@@ -8,9 +8,9 @@ import { noBody } from "src/helpers/responses";
 export const get = [
   rateLimiter({ requests: 500, within: 1 }),
   async (req: Request, res: Response) => {
-    const { id, viewingId } = req.query;
+    const { ownerId, viewingId } = req.query;
 
-    if (!id) {
+    if (!ownerId) {
       return noBody(res);
     }
 
@@ -19,9 +19,9 @@ export const get = [
         include: {
           _count: { select: { profiles: true } },
           profiles: { where: { profileId: viewingId as string } },
-          pinnedList: { where: { profileId: id as string } }
+          pinnedList: { where: { profileId: ownerId as string } }
         },
-        where: { createdBy: id as string }
+        where: { createdBy: ownerId as string }
       });
 
       const result = data.map((list) => {
@@ -35,7 +35,7 @@ export const get = [
         };
       });
 
-      logger.info(`Lists fetched for ${id}`);
+      logger.info(`Lists fetched for ${ownerId}`);
 
       return res.status(200).json({ result, success: true });
     } catch (error) {
