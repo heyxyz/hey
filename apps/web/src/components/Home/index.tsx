@@ -4,6 +4,7 @@ import ListFeed from "@components/List/ListFeed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
+import type { List } from "@hey/types/hey";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -20,7 +21,7 @@ const Home: NextPage = () => {
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );
-  const [pinnedListId, setPinnedListId] = useState<string | null>(null);
+  const [pinnedList, setPinnedList] = useState<List | null>(null);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "home" });
@@ -39,8 +40,8 @@ const Home: NextPage = () => {
               <FeedType
                 feedType={feedType}
                 setFeedType={setFeedType}
-                pinnedListId={pinnedListId}
-                setPinnedListId={setPinnedListId}
+                pinnedList={pinnedList}
+                setPinnedList={setPinnedList}
               />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
@@ -48,8 +49,8 @@ const Home: NextPage = () => {
                 <ForYou />
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
-              ) : feedType === HomeFeedType.PINNED && pinnedListId ? (
-                <ListFeed id={pinnedListId} />
+              ) : feedType === HomeFeedType.PINNED && pinnedList ? (
+                <ListFeed list={pinnedList} />
               ) : null}
             </>
           ) : (

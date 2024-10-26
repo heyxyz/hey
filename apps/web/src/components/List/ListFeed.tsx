@@ -4,6 +4,7 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import type { AnyPublication, PublicationsRequest } from "@hey/lens";
 import { LimitType, usePublicationsQuery } from "@hey/lens";
+import type { List } from "@hey/types/hey";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,17 +18,17 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface ListFeedProps {
-  id: string;
+  list: List;
 }
 
-const ListFeed: FC<ListFeedProps> = ({ id }) => {
+const ListFeed: FC<ListFeedProps> = ({ list }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
     virtuosoState = { ranges: [], screenTop: 0 };
-  }, [id]);
+  }, [list.id]);
 
   const getListPublications = async (id: string): Promise<string[]> => {
     try {
@@ -46,8 +47,8 @@ const ListFeed: FC<ListFeedProps> = ({ id }) => {
     isLoading: loadingPublicationIds,
     error: errorPublicationIds
   } = useQuery({
-    queryKey: ["getListPublications", id],
-    queryFn: () => getListPublications(id)
+    queryKey: ["getListPublications", list.id],
+    queryFn: () => getListPublications(list.id)
   });
 
   const request: PublicationsRequest = {
