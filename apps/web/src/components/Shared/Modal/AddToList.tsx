@@ -80,7 +80,9 @@ const AddToList: FC = () => {
               ? {
                   ...list,
                   isAdded: add,
-                  count: add ? list.count + 1 : list.count - 1
+                  totalProfiles: add
+                    ? list.totalProfiles + 1
+                    : list.totalProfiles - 1
                 }
               : list
           )

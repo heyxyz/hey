@@ -90,7 +90,7 @@ export type List = {
   name: string;
   description: string | null;
   avatar: string | null;
-  count: number;
+  totalProfiles: number;
   createdBy: string;
   isAdded?: boolean;
   pinned?: boolean;

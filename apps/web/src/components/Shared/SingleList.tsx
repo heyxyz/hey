@@ -4,6 +4,7 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { List } from "@hey/types/hey";
 import { Image } from "@hey/ui";
 import Link from "next/link";
+import plur from "plur";
 import type { FC } from "react";
 import { memo } from "react";
 
@@ -29,7 +30,9 @@ const SingleList: FC<SingleListProps> = ({ list, linkToList = true }) => {
       />
       <div className="flex flex-col">
         <div className="font-bold">{list.name}</div>
-        <div className="text-gray-500 text-xs">{list.count} Members</div>
+        <div className="text-gray-500 text-xs">
+          {list.totalProfiles} {plur("Profile", list.totalProfiles)}
+        </div>
       </div>
     </div>
   );
