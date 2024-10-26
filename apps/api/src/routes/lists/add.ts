@@ -1,6 +1,7 @@
 import { Errors } from "@hey/data/errors";
 import lensPg from "@hey/db/lensPg";
 import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
@@ -41,6 +42,15 @@ export const post = [
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
+      const listProfilesCacheKey = `list:profiles:${listId}`;
+      const listCacheKey = `list:${listId}`;
+
+      const clearCache = async () => {
+        await Promise.all([
+          delRedis(listProfilesCacheKey),
+          delRedis(listCacheKey)
+        ]);
+      };
 
       const result = await lensPg.query(
         `
@@ -86,6 +96,7 @@ export const post = [
         const listProfile = await prisma.listProfile.create({
           data: { listId, profileId }
         });
+        await clearCache();
         logger.info(`Added profile ${profileId} to list ${listId}`);
 
         return res.status(200).json({ result: listProfile, success: true });
@@ -94,6 +105,7 @@ export const post = [
       await prisma.listProfile.delete({
         where: { profileId_listId: { profileId, listId } }
       });
+      await clearCache();
       logger.info(`Removed profile ${profileId} from list ${listId}`);
 
       return res.status(200).json({ success: true });

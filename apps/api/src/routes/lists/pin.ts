@@ -1,4 +1,5 @@
 import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
@@ -38,11 +39,10 @@ export const post = [
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
+      const listCacheKey = `list:${id}`;
 
       // Check if the list exists
-      const list = await prisma.list.findUnique({
-        where: { id }
-      });
+      const list = await prisma.list.findUnique({ where: { id } });
 
       if (!list) {
         return notFound(res);
@@ -52,6 +52,7 @@ export const post = [
         await prisma.pinnedList.create({
           data: { profileId: payload.id, listId: id }
         });
+        await delRedis(listCacheKey);
         logger.info(`Pinned list ${id} for profile ${payload.id}`);
 
         return res.status(200).json({ success: true });
@@ -60,6 +61,7 @@ export const post = [
       await prisma.pinnedList.delete({
         where: { profileId_listId: { profileId: payload.id, listId: id } }
       });
+      await delRedis(listCacheKey);
       logger.info(`Unpinned list ${id} for profile ${payload.id}`);
 
       return res.status(200).json({ success: true });

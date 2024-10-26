@@ -1,5 +1,6 @@
 import { Errors } from "@hey/data/errors";
 import prisma from "@hey/db/prisma/db/client";
+import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
@@ -37,6 +38,15 @@ export const post = [
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
+      const listCacheKey = `list:${id}`;
+      const listProfilesCacheKey = `list:profiles:${id}`;
+
+      const clearCache = async () => {
+        await Promise.all([
+          delRedis(listCacheKey),
+          delRedis(listProfilesCacheKey)
+        ]);
+      };
 
       // Check if the list exists and belongs to the authenticated user
       const list = await prisma.list.findUnique({
@@ -50,6 +60,7 @@ export const post = [
       await prisma.list.delete({
         where: { id }
       });
+      await clearCache();
       logger.info(`Deleted a list ${id} by ${payload.id}`);
 
       return res.status(200).json({ success: true });

@@ -1,5 +1,6 @@
 import lensPg from "@hey/db/lensPg";
 import prisma from "@hey/db/prisma/db/client";
+import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -16,6 +17,16 @@ export const get = [
     }
 
     try {
+      const cacheKey = `list:profiles:${id}`;
+      const cachedData = await getRedis(cacheKey);
+
+      if (cachedData) {
+        logger.info(`(cached) List profiles fetched for ${id}`);
+        return res
+          .status(200)
+          .json({ result: JSON.parse(cachedData), success: true });
+      }
+
       const data = await prisma.listProfile.findMany({
         where: { listId: id as string }
       });
@@ -34,7 +45,8 @@ export const get = [
       );
 
       const filteredProfiles = result.map((item) => item.profile_id);
-      logger.info(`Lists fetched for ${id}`);
+      await setRedis(cacheKey, JSON.stringify(filteredProfiles));
+      logger.info(`Lists profiles fetched for ${id}`);
 
       return res.status(200).json({ result: filteredProfiles, success: true });
     } catch (error) {
