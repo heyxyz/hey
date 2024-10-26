@@ -75,7 +75,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = ({ list }) => {
           id: list?.id,
           name,
           description,
-          avatar: avatarIpfsUrl
+          avatar: avatarIpfsUrl || undefined
         },
         { headers: getAuthApiHeaders() }
       );
