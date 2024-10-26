@@ -20,7 +20,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 import Reason from "./Reason";
 
 const reportReportProfileSchema = object({
@@ -51,7 +51,9 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
     }
   });
 
-  const reportProfile = async (additionalComments: null | string) => {
+  const reportProfile = async ({
+    additionalComments
+  }: z.infer<typeof reportReportProfileSchema>) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -95,13 +97,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             />
           </Card>
           <div className="divider my-5" />
-          <Form
-            className="space-y-4"
-            form={form}
-            onSubmit={({ additionalComments }) =>
-              reportProfile(additionalComments)
-            }
-          >
+          <Form className="space-y-4" form={form} onSubmit={reportProfile}>
             {submitError ? (
               <ErrorMessage error={submitError} title="Failed to report" />
             ) : null}
