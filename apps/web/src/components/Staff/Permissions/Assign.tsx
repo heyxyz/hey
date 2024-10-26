@@ -9,7 +9,7 @@ import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 
 const assignPermissionSchema = object({
   ids: string().regex(/0x[\dA-Fa-f]+/g, {
@@ -29,7 +29,7 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
     schema: assignPermissionSchema
   });
 
-  const assign = async (ids: string) => {
+  const assign = async ({ ids }: z.infer<typeof assignPermissionSchema>) => {
     try {
       setAssigning(true);
       const { data } = await axios.post(
@@ -48,13 +48,7 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
   };
 
   return (
-    <Form
-      className="m-5 space-y-4"
-      form={form}
-      onSubmit={async ({ ids }) => {
-        await assign(ids);
-      }}
-    >
+    <Form className="m-5 space-y-4" form={form} onSubmit={assign}>
       <TextArea
         placeholder='Profile IDs, Eg: ["0x0d", "0x05"]'
         rows={5}

@@ -9,7 +9,7 @@ import {
 import { Button, Form, H5, TextArea, useZodForm } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import toast from "react-hot-toast";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 
 const disputeSchema = object({
   reason: string().min(5, {
@@ -29,7 +29,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
     schema: disputeSchema
   });
 
-  const dispute = async (reason: string) => {
+  const dispute = async ({ reason }: z.infer<typeof disputeSchema>) => {
     try {
       await modDisputeReport({
         variables: {
@@ -79,13 +79,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
         </div>
       </div>
       <div className="divider my-5" />
-      <Form
-        className="space-y-4"
-        form={form}
-        onSubmit={async ({ reason }) => {
-          await dispute(reason);
-        }}
-      >
+      <Form className="space-y-4" form={form} onSubmit={dispute}>
         <TextArea
           label="Why are you disputing this report?"
           placeholder="This should clearly articulate the grounds for disagreement with the original report."

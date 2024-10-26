@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 
 const updateEmailSchema = object({
   email: string().email()
@@ -39,7 +39,7 @@ const EmailForm: FC = () => {
     errorToast(error);
   };
 
-  const setEmail = async (email: null | string) => {
+  const setEmail = async ({ email }: z.infer<typeof updateEmailSchema>) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -69,13 +69,7 @@ const EmailForm: FC = () => {
   const emailNotAllowed = !isEmailAllowed(form.watch("email"));
 
   return (
-    <Form
-      className="space-y-4"
-      form={form}
-      onSubmit={async ({ email }) => {
-        await setEmail(email);
-      }}
-    >
+    <Form className="space-y-4" form={form} onSubmit={setEmail}>
       <div>
         <Input
           label="Email address"

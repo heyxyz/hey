@@ -10,7 +10,7 @@ import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { object, string } from "zod";
+import { object, string, type z } from "zod";
 
 const createTokenSchema = object({
   contractAddress: string()
@@ -35,12 +35,12 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     schema: createTokenSchema
   });
 
-  const create = async (
-    name: string,
-    symbol: string,
-    decimals: string,
-    contractAddress: string
-  ) => {
+  const create = async ({
+    contractAddress,
+    decimals,
+    name,
+    symbol
+  }: z.infer<typeof createTokenSchema>) => {
     try {
       setCreating(true);
       const { data } = await axios.post(
@@ -61,13 +61,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
   };
 
   return (
-    <Form
-      className="m-5 space-y-4"
-      form={form}
-      onSubmit={async ({ contractAddress, decimals, name, symbol }) => {
-        await create(name, symbol, decimals, contractAddress);
-      }}
-    >
+    <Form className="m-5 space-y-4" form={form} onSubmit={create}>
       <Input
         className="text-sm"
         placeholder="Name"
