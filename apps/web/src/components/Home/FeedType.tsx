@@ -1,14 +1,15 @@
 import New from "@components/Shared/Badges/New";
-import getCurrentSession from "@helpers/getCurrentSession";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
-import { AVATAR, PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import { AVATAR, HEY_API_URL, PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import { HomeFeedType } from "@hey/data/enums";
 import { HOME } from "@hey/data/tracking";
-import getLists from "@hey/helpers/api/lists/getLists";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import type { List } from "@hey/types/hey";
 import { Image, TabButton } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -26,14 +27,21 @@ const FeedType: FC<FeedTypeProps> = ({
   pinnedListId,
   setPinnedListId
 }) => {
-  const { id: sessionProfileId } = getCurrentSession();
   const { fallbackToCuratedFeed } = useProfileStore();
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
 
-  const getPinnedLists = async () => {
-    const lists = await getLists({ id: sessionProfileId, pinned: true });
-    setPinnedLists(lists);
-    return lists;
+  const getPinnedLists = async (): Promise<List[]> => {
+    try {
+      const response = await axios.get(`${HEY_API_URL}/lists/pinned`, {
+        headers: getAuthApiHeaders()
+      });
+
+      const lists = response.data?.result;
+      setPinnedLists(lists);
+      return lists;
+    } catch {
+      return [];
+    }
   };
 
   useQuery({

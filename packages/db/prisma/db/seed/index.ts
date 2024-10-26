@@ -3,6 +3,7 @@ import seedEmails from "./seedEmails";
 import seedLists from "./seedLists";
 import seedListsProfiles from "./seedListsProfiles";
 import seedPermissions from "./seedPermissions";
+import seedPinnedList from "./seedPinnedList";
 import seedPreferences from "./seedPreferences";
 import seedProfilePermission from "./seedProfilePermission";
 import seedProfileStatus from "./seedProfileStatus";
@@ -36,6 +37,9 @@ async function main() {
 
   const listsProfiles = await seedListsProfiles();
   console.log(`Seeded ${listsProfiles} list profiles`);
+
+  const pinnedList = await seedPinnedList();
+  console.log(`Seeded ${pinnedList} pinned list`);
 }
 
 main()
