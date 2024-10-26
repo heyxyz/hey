@@ -22,4 +22,14 @@ describe("GET /lists/publications", () => {
     expect(status).toBe(200);
     expect(data.result).toHaveLength(50);
   });
+
+  test("should return 200 with a list's profile's publications with pagination", async () => {
+    const { data, status } = await axios.get(`${TEST_URL}/lists/publications`, {
+      params: { id: "0c34a529-8db6-40b8-9b35-7f474f7d509a", page: 2 }
+    });
+
+    expect(status).toBe(200);
+    expect(data.result).toHaveLength(50);
+    expect(data.offset).toBe(50);
+  });
 });
