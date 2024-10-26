@@ -27,9 +27,13 @@ const ListPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
             <div className="shimmer h-5 w-1/3 rounded-lg" />
             <div className="shimmer h-3 w-1/4 rounded-lg" />
           </div>
-          <div className="space-y-2 pt-2">
-            <div className="shimmer size-7 rounded-lg" />
-            <div className="shimmer h-3 w-20 rounded-lg" />
+          <div className="flex gap-5 pt-2">
+            {Array.from({ length: 2 }).map((_, index) => (
+              <div className="space-y-2" key={index}>
+                <div className="shimmer size-7 rounded-lg" />
+                <div className="shimmer h-3 w-20 rounded-lg" />
+              </div>
+            ))}
           </div>
           <div className="shimmer h-[34px] w-20 rounded-full" />
         </Card>

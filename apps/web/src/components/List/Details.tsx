@@ -58,7 +58,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
           </div>
         ) : null}
       </div>
-      <div className="mt-5">
+      <div className="mt-5 flex gap-8">
         <Link
           className="text-left outline-offset-4"
           href={`/lists/${list.id}/profiles`}
@@ -67,6 +67,13 @@ const Details: FC<DetailsProps> = ({ list }) => {
           <div className="ld-text-gray-500">
             {plur("Profile", list.totalProfiles)}
           </div>
+        </Link>
+        <Link
+          className="text-left outline-offset-4"
+          href={`/lists/${list.id}/profiles`}
+        >
+          <H4>{humanize(list.totalPins)}</H4>
+          <div className="ld-text-gray-500">{plur("Pin", list.totalPins)}</div>
         </Link>
       </div>
       <div className="flex items-center space-x-2">

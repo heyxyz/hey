@@ -17,7 +17,7 @@ export const get = [
     try {
       const data = await prisma.list.findMany({
         include: {
-          _count: { select: { profiles: true } },
+          _count: { select: { profiles: true, pinnedList: true } },
           profiles: { where: { profileId: viewingId as string } },
           pinnedList: { where: { profileId: ownerId as string } }
         },
@@ -30,6 +30,7 @@ export const get = [
         return {
           ...rest,
           totalProfiles: _count.profiles,
+          totalPins: _count.pinnedList,
           pinned: pinnedList.length > 0,
           isAdded: profiles.length > 0
         };
