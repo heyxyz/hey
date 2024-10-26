@@ -42,8 +42,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
       });
       setShowDisputeModal(false);
       form.reset();
-
-      return toast.success("Disputed successfully!");
+      toast.success("Disputed");
     } catch (error) {
       errorToast(error);
     }

@@ -130,7 +130,7 @@ const ProfileSettingsForm: FC = () => {
     }
 
     setIsLoading(false);
-    toast.success("Profile updated successfully!");
+    toast.success("Profile updated");
     Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 

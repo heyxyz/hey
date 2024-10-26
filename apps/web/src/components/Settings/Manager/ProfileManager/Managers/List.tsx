@@ -51,7 +51,7 @@ const List: FC = () => {
     }
 
     cache.evict({ id: `ProfilesManagedResult:${removingAddress}` });
-    toast.success("Manager removed successfully!");
+    toast.success("Manager removed");
     Leafwatch.track(SETTINGS.MANAGER.REMOVE_MANAGER);
   };
 

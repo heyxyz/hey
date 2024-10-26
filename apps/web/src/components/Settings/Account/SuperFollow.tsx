@@ -78,7 +78,7 @@ const SuperFollow: FC = () => {
     }
 
     setIsLoading(false);
-    toast.success("Super follow updated successfully!");
+    toast.success("Super follow updated");
     Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 

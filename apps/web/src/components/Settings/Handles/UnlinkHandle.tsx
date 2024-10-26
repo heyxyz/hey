@@ -45,7 +45,7 @@ const UnlinkHandle: FC = () => {
     }
 
     setUnlinking(false);
-    toast.success("Handle unlinked successfully!");
+    toast.success("Handle unlinked");
     Leafwatch.track(SETTINGS.HANDLE.UNLINK);
   };
 

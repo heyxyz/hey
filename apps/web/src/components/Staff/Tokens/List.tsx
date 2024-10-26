@@ -1,4 +1,5 @@
 import Loader from "@components/Shared/Loader";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
@@ -27,23 +28,20 @@ const List: FC = () => {
     queryKey: ["getAllTokens"]
   });
 
-  const deleteToken = (id: string) => {
-    toast.promise(
-      axios.post(
+  const deleteToken = async (id: string) => {
+    try {
+      await axios.post(
         `${HEY_API_URL}/internal/tokens/delete`,
         { id },
         { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: "Failed to delete token",
-        loading: "Deleting token...",
-        success: () => {
-          Leafwatch.track(STAFFTOOLS.TOKENS.DELETE);
-          setTokens(tokens.filter((token) => token.id !== id));
-          return "Token deleted";
-        }
-      }
-    );
+      );
+
+      setTokens(tokens.filter((token) => token.id !== id));
+      toast.success("Token deleted");
+      Leafwatch.track(STAFFTOOLS.TOKENS.DELETE);
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (

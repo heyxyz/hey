@@ -1,3 +1,4 @@
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -34,34 +35,29 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     schema: createTokenSchema
   });
 
-  const create = (
+  const create = async (
     name: string,
     symbol: string,
     decimals: string,
     contractAddress: string
   ) => {
-    setCreating(true);
-    toast.promise(
-      axios.post(
+    try {
+      setCreating(true);
+      const { data } = await axios.post(
         `${HEY_API_URL}/internal/tokens/create`,
         { contractAddress, decimals: Number.parseInt(decimals), name, symbol },
         { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: () => {
-          setCreating(false);
-          return "Failed to create token";
-        },
-        loading: "Creating token...",
-        success: ({ data }) => {
-          Leafwatch.track(STAFFTOOLS.TOKENS.CREATE);
-          setTokens([...tokens, data?.result]);
-          setCreating(false);
-          setShowCreateModal(false);
-          return "Token created";
-        }
-      }
-    );
+      );
+
+      setTokens([...tokens, data?.result]);
+      setShowCreateModal(false);
+      toast.success("Token created");
+      Leafwatch.track(STAFFTOOLS.TOKENS.CREATE);
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setCreating(false);
+    }
   };
 
   return (

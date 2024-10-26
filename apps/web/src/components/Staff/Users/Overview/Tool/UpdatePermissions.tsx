@@ -1,4 +1,5 @@
 import Loader from "@components/Shared/Loader";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -38,38 +39,31 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
   const availablePermissions = allPermissions || [];
   const enabledFlags = permissions;
 
-  const updatePermission = (permission: Permission) => {
+  const updatePermission = async (permission: Permission) => {
     const { id, key } = permission;
     const enabled = !enabledFlags.includes(key);
 
     setUpdating(true);
-    toast.promise(
-      axios.post(
+    try {
+      await axios.post(
         `${HEY_API_URL}/internal/permissions/assign`,
         { enabled, id, profile_id: profileId },
         { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: () => {
-          setUpdating(false);
-          return "Failed to update permission";
-        },
-        loading: "Updating permission...",
-        success: () => {
-          Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
-            permission: key,
-            profile_id: profileId
-          });
-          setUpdating(false);
-          setPermissions(
-            enabled
-              ? [...enabledFlags, key]
-              : enabledFlags.filter((f) => f !== key)
-          );
-          return "Permission updated";
-        }
-      }
-    );
+      );
+
+      setPermissions(
+        enabled ? [...enabledFlags, key] : enabledFlags.filter((f) => f !== key)
+      );
+      toast.success("Permission updated");
+      Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
+        permission: key,
+        profile_id: profileId
+      });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setUpdating(false);
+    }
   };
 
   return (

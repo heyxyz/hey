@@ -1,4 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -62,38 +63,29 @@ const AddToList: FC = () => {
     try {
       setIsAdding(true);
       setAddingListId(listId);
-      await toast.promise(
-        axios.post(
-          `${HEY_API_URL}/lists/add`,
-          {
-            listId,
-            profileId: profileToAddToList?.id,
-            add
-          },
-          { headers: getAuthApiHeaders() }
-        ),
-        {
-          loading: "Adding to list...",
-          error: "Failed to add to list",
-          success: () => {
-            queryClient.setQueryData<List[]>(
-              ["getAllLists", profileToAddToList?.id],
-              (oldData) =>
-                oldData?.map((list) =>
-                  list.id === listId
-                    ? {
-                        ...list,
-                        isAdded: add,
-                        count: add ? list.count + 1 : list.count - 1
-                      }
-                    : list
-                )
-            );
-
-            return "Added to list";
-          }
-        }
+      await axios.post(
+        `${HEY_API_URL}/lists/add`,
+        { listId, profileId: profileToAddToList?.id, add },
+        { headers: getAuthApiHeaders() }
       );
+
+      queryClient.setQueryData<List[]>(
+        ["getAllLists", profileToAddToList?.id],
+        (oldData) =>
+          oldData?.map((list) =>
+            list.id === listId
+              ? {
+                  ...list,
+                  isAdded: add,
+                  count: add ? list.count + 1 : list.count - 1
+                }
+              : list
+          )
+      );
+      toast.success(`${add ? "Added" : "Removed"} to list`);
+      // TODO: Add tracking
+    } catch (error) {
+      errorToast(error);
     } finally {
       setIsAdding(false);
       setAddingListId(null);

@@ -36,8 +36,8 @@ const List: FC = () => {
   const onCompleted = () => {
     setRevoking(false);
     setRevokeingSessionId(null);
+    toast.success("Session revoked");
     Leafwatch.track(SETTINGS.SESSIONS.REVOKE);
-    toast.success("Session revoked successfully!");
   };
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({

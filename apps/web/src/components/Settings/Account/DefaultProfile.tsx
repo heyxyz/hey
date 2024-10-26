@@ -26,7 +26,7 @@ const DefaultProfile: FC = () => {
   );
 
   const onCompleted = () => {
-    toast.success("Default profile set successfully");
+    toast.success("Default profile set");
     Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 

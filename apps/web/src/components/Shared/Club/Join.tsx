@@ -25,8 +25,8 @@ const Join: FC<JoinProps> = ({ id, setJoined, small }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      toast.success("Joined club successfully!");
       setJoined(true);
+      toast.success("Joined club");
     } catch (error) {
       errorToast(error);
     } finally {

@@ -1,5 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import SingleList from "@components/Shared/SingleList";
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
   BookmarkIcon as BookmarkIconOutline,
@@ -59,25 +60,19 @@ const Lists: FC<ListsProps> = ({ profile }) => {
         return toast.error("Operation cancelled");
       }
 
-      toast.promise(
-        axios.post(
-          `${HEY_API_URL}/lists/delete`,
-          { id },
-          { headers: getAuthApiHeaders() }
-        ),
-        {
-          error: "Failed to delete list",
-          loading: "Deleting list...",
-          success: () => {
-            queryClient.setQueryData<List[]>(
-              ["getAllLists", currentProfile?.id],
-              (oldData) => oldData?.filter((list) => list.id !== id)
-            );
-
-            return "List deleted";
-          }
-        }
+      await axios.post(
+        `${HEY_API_URL}/lists/delete`,
+        { id },
+        { headers: getAuthApiHeaders() }
       );
+
+      queryClient.setQueryData<List[]>(
+        ["getAllLists", currentProfile?.id],
+        (oldData) => oldData?.filter((list) => list.id !== id)
+      );
+      toast.success("List deleted");
+    } catch (error) {
+      errorToast(error);
     } finally {
       setDeleting(false);
       setDeletingList(null);
@@ -88,29 +83,22 @@ const Lists: FC<ListsProps> = ({ profile }) => {
     try {
       setPinning(true);
       setPinningList(id);
-
-      toast.promise(
-        axios.post(
-          `${HEY_API_URL}/lists/pin`,
-          { id, pin: !pinned },
-          { headers: getAuthApiHeaders() }
-        ),
-        {
-          error: "Failed to pin list",
-          loading: "Pinning list...",
-          success: () => {
-            queryClient.setQueryData<List[]>(
-              ["getAllLists", currentProfile?.id],
-              (oldData) =>
-                oldData?.map((list) =>
-                  list.id === id ? { ...list, pinned: !pinned } : list
-                )
-            );
-
-            return "List pinned";
-          }
-        }
+      await axios.post(
+        `${HEY_API_URL}/lists/pin`,
+        { id, pin: !pinned },
+        { headers: getAuthApiHeaders() }
       );
+
+      queryClient.setQueryData<List[]>(
+        ["getAllLists", currentProfile?.id],
+        (oldData) =>
+          oldData?.map((list) =>
+            list.id === id ? { ...list, pinned: !pinned } : list
+          )
+      );
+      toast.success("List pinned");
+    } catch (error) {
+      errorToast(error);
     } finally {
       setPinning(false);
       setPinningList(null);

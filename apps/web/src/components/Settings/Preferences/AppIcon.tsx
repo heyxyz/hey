@@ -1,3 +1,4 @@
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
@@ -8,7 +9,7 @@ import { Card, CardHeader, Tooltip } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 
 const icons = [
@@ -24,28 +25,22 @@ const AppIcon: FC = () => {
   const [updating, setUpdating] = useState(false);
 
   const updateAppIcon = (id: number) => {
-    setUpdating(true);
-    toast.promise(
+    try {
+      setUpdating(true);
       axios.post(
         `${HEY_API_URL}/preferences/update`,
         { appIcon: id },
         { headers: getAuthApiHeaders() }
-      ),
-      {
-        error: () => {
-          setUpdating(false);
-          return "Error updating app icon";
-        },
-        loading: "Updating app icon...",
-        success: () => {
-          setUpdating(false);
-          setAppIcon(id);
-          Leafwatch.track(SETTINGS.PREFERENCES.APP_ICON, { appIcon: id });
+      );
 
-          return "App icon updated";
-        }
-      }
-    );
+      setAppIcon(id);
+      toast.success("App icon updated");
+      Leafwatch.track(SETTINGS.PREFERENCES.APP_ICON, { appIcon: id });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      setUpdating(false);
+    }
   };
 
   return (

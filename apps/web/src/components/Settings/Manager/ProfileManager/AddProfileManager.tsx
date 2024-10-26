@@ -51,7 +51,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     setIsLoading(false);
     setShowAddManagerModal(false);
     setManager("");
-    toast.success("Manager added successfully!");
+    toast.success("Manager added");
     Leafwatch.track(SETTINGS.MANAGER.ADD_MANAGER);
   };
 
