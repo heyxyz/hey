@@ -68,13 +68,10 @@ const Details: FC<DetailsProps> = ({ list }) => {
             {plur("Profile", list.totalProfiles)}
           </div>
         </Link>
-        <Link
-          className="text-left outline-offset-4"
-          href={`/lists/${list.id}/profiles`}
-        >
+        <div className="text-left outline-offset-4">
           <H4>{humanize(list.totalPins)}</H4>
           <div className="ld-text-gray-500">{plur("Pin", list.totalPins)}</div>
-        </Link>
+        </div>
       </div>
       <div className="flex items-center space-x-2">
         <PinUnpinButton list={list} />
