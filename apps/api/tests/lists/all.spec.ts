@@ -23,7 +23,8 @@ describe("GET /lists/all", () => {
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
     expect(data.result.length).toBeGreaterThan(0);
-    expect(data.result[0].count).toStrictEqual(expect.any(Number));
+    expect(data.result[0].totalPins).toStrictEqual(expect.any(Number));
+    expect(data.result[0].totalProfiles).toStrictEqual(expect.any(Number));
   });
 
   test("should return 200 with isAdded as true if the user is added to the list", async () => {
