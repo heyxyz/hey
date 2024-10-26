@@ -50,7 +50,7 @@ const Home: NextPage = () => {
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
               ) : feedType === HomeFeedType.PINNED && pinnedList ? (
-                <ListFeed list={pinnedList} />
+                <ListFeed list={pinnedList} showHeader />
               ) : null}
             </>
           ) : (
