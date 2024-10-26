@@ -15,12 +15,14 @@ import { Button, Card, H4, H5, Image, LightBox, Modal } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface DetailsProps {
   list: List;
 }
 
 const Details: FC<DetailsProps> = ({ list }) => {
+  const { currentProfile } = useProfileStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -66,7 +68,9 @@ const Details: FC<DetailsProps> = ({ list }) => {
       </div>
       <div className="flex items-center space-x-2">
         <PinUnpinButton list={list} />
-        <Button onClick={() => setShowEditModal(true)}>Edit</Button>
+        {currentProfile?.id === list.createdBy && (
+          <Button onClick={() => setShowEditModal(true)}>Edit</Button>
+        )}
       </div>
       <Modal
         onClose={() => setShowEditModal(false)}
