@@ -5,7 +5,7 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { AnyPublication, PublicationsRequest } from "@hey/lens";
 import { LimitType, usePublicationsQuery } from "@hey/lens";
 import type { List } from "@hey/types/hey";
-import { Card, EmptyState, ErrorMessage } from "@hey/ui";
+import { Card, CardHeader, EmptyState, ErrorMessage } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
@@ -87,26 +87,38 @@ const ListFeed: FC<ListFeedProps> = ({ list }) => {
     return <PublicationsShimmer />;
   }
 
+  const Header = () => {
+    return <CardHeader title={list.name} />;
+  };
+
   if (publications?.length === 0) {
     return (
-      <EmptyState
-        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-        message="No publications found"
-      />
+      <Card>
+        <Header />
+        <EmptyState
+          icon={<ChatBubbleBottomCenterIcon className="size-8" />}
+          message="No publications found"
+          hideCard
+        />
+      </Card>
     );
   }
 
   if (errorPublicationIds || publicationsError) {
     return (
-      <ErrorMessage
-        error={errorPublicationIds || publicationsError}
-        title="Failed to load list feed"
-      />
+      <Card>
+        <Header />
+        <ErrorMessage
+          error={errorPublicationIds || publicationsError}
+          title="Failed to load list feed"
+        />
+      </Card>
     );
   }
 
   return (
     <Card>
+      <Header />
       <Virtuoso
         className="virtual-divider-list-window"
         computeItemKey={(index, publication) => `${publication.id}-${index}`}
