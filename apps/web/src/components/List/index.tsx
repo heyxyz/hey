@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Details from "./Details";
 import ListFeed from "./ListFeed";
 import Profiles from "./Profiles";
@@ -22,6 +23,7 @@ const ViewList: NextPage = () => {
     pathname,
     query: { id }
   } = useRouter();
+  const { currentProfile } = useProfileStore();
   const showProfiles = pathname === "/lists/[id]/profiles";
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const ViewList: NextPage = () => {
     isLoading: listLoading
   } = useQuery({
     enabled: Boolean(id),
-    queryFn: () => getList(id as string),
+    queryFn: () => getList({ id: id as string, viewingId: currentProfile?.id }),
     queryKey: ["getList", id]
   });
 

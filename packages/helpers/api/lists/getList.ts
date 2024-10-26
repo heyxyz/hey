@@ -2,10 +2,15 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { List } from "@hey/types/hey";
 import axios from "axios";
 
-const getList = async (id: string): Promise<List | null> => {
+interface Payload {
+  id: null | string;
+  viewingId?: null | string;
+}
+
+const getList = async (payload: Payload): Promise<List | null> => {
   try {
     const response = await axios.get(`${HEY_API_URL}/lists/get`, {
-      params: { id }
+      params: payload
     });
 
     return response.data?.result;
