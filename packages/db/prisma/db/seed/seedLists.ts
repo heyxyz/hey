@@ -1,4 +1,4 @@
-import { LENS_MEDIA_SNAPSHOT_URL } from "@hey/data/constants";
+import { LENS_MEDIA_SNAPSHOT_URL, TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "../client";
 
 export const HEY_TEAM_ID = "0c34a529-8db6-40b8-9b35-7f474f7d509a";
@@ -30,6 +30,12 @@ const seedLists = async (): Promise<number> => {
         description: "Test List",
         avatar: `${LENS_MEDIA_SNAPSHOT_URL}/5cffa71e6bb1c1a9bf829a10fae9b52d41dee8b7883dc7ba08271aabfdeaf488.png`,
         createdBy: "0x0d"
+      },
+      {
+        name: "Test List 2",
+        description: "Test List 2",
+        avatar: `${LENS_MEDIA_SNAPSHOT_URL}/5cffa71e6bb1c1a9bf829a10fae9b52d41dee8b7883dc7ba08271aabfdeaf488.png`,
+        createdBy: TEST_LENS_ID
       }
     ]
   });
