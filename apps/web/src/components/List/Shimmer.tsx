@@ -31,6 +31,7 @@ const ListPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
             <div className="shimmer size-7 rounded-lg" />
             <div className="shimmer h-3 w-20 rounded-lg" />
           </div>
+          <div className="shimmer h-[34px] w-20 rounded-full" />
         </Card>
         <Footer />
       </GridItemFour>

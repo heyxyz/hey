@@ -19,7 +19,7 @@ export const get = [
         include: {
           _count: { select: { profiles: true } },
           profiles: { where: { profileId: viewingId as string } },
-          pinnedList: { where: { profileId: viewingId as string } }
+          pinnedList: { where: { profileId: id as string } }
         },
         where: { createdBy: id as string }
       });

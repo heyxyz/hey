@@ -1,3 +1,4 @@
+import PinUnpinButton from "@components/Shared/List/PinUnpinButton";
 import Markup from "@components/Shared/Markup";
 import {
   AVATAR,
@@ -61,6 +62,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
           <div className="ld-text-gray-500">Profiles</div>
         </Link>
       </div>
+      <PinUnpinButton list={list} />
     </Card>
   );
 };
