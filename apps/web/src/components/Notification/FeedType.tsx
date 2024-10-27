@@ -6,10 +6,10 @@ import {
   HeartIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
+import { NotificationTabType } from "@hey/data/enums";
 import { NOTIFICATION } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { FC } from "react";
-import { NotificationTabType } from "src/enums";
 
 interface FeedTypeProps {
   feedType: NotificationTabType;

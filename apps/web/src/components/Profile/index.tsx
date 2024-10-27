@@ -8,6 +8,7 @@ import {
   HANDLE_PREFIX,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
+import { ProfileFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
 import getProfileDetails from "@hey/helpers/api/getProfileDetails";
@@ -20,7 +21,6 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { ProfileFeedType } from "src/enums";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
