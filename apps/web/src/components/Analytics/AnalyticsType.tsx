@@ -1,9 +1,9 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChartBarIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { AnalyticsTabType } from "@hey/data/enums";
 import { ANALYTICS } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { FC } from "react";
-import { AnalyticsTabType } from "src/enums";
 
 interface AnalyticsTypeProps {
   tabType: AnalyticsTabType;

@@ -6,10 +6,10 @@ import {
   PencilSquareIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
+import { ProfileFeedType } from "@hey/data/enums";
 import { PROFILE } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
-import { ProfileFeedType } from "src/enums";
 import MediaFilter from "./Filters/MediaFilter";
 
 interface FeedTypeProps {
