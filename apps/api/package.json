@@ -36,7 +36,7 @@
     "openai": "^4.68.4",
     "rate-limit-redis": "^4.2.0",
     "request-ip": "^3.3.0",
-    "tsx": "^4.19.1",
+    "tsx": "^4.19.2",
     "ua-parser-js": "^2.0.0-beta.3",
     "urlcat": "^3.1.0",
     "uuid": "^10.0.0",
@@ -44,7 +44,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.0.3",
+    "@faker-js/faker": "^9.1.0",
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
