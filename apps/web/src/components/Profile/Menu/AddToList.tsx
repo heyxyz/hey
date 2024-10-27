@@ -2,7 +2,6 @@ import { MenuItem } from "@headlessui/react";
 import { ListBulletIcon } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
@@ -12,11 +11,6 @@ interface AddToListProps {
 
 const AddToList: FC<AddToListProps> = ({ profile }) => {
   const { setShowAddToListModal } = useGlobalModalStateStore();
-  const enabled = useFlag("lists");
-
-  if (!enabled) {
-    return null;
-  }
 
   return (
     <MenuItem
