@@ -1,6 +1,7 @@
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
+import { ProfileFeedType } from "@hey/data/enums";
 import type { AnyPublication, PublicationsRequest } from "@hey/lens";
 import {
   LimitType,
@@ -13,7 +14,6 @@ import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
-import { ProfileFeedType } from "src/enums";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useProfileFeedStore } from "src/store/non-persisted/useProfileFeedStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
