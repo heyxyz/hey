@@ -4,6 +4,7 @@ export enum HomeFeedType {
   PREMIUM = "PREMIUM",
   PINNED = "PINNED"
 }
+
 export enum ModFeedType {
   LATEST = "LATEST",
   PROFILES = "PROFILES",
