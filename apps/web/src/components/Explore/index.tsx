@@ -1,3 +1,4 @@
+import Gitcoin from "@components/Home/Sidebar/Gitcoin";
 import WhoToFollow from "@components/Home/Sidebar/WhoToFollow";
 import FeedFocusType from "@components/Shared/FeedFocusType";
 import Footer from "@components/Shared/Footer";
@@ -85,6 +86,7 @@ const Explore: NextPage = () => {
         </TabGroup>
       </GridItemEight>
       <GridItemFour>
+        <Gitcoin />
         {currentProfile ? <WhoToFollow /> : null}
         <Footer />
       </GridItemFour>
