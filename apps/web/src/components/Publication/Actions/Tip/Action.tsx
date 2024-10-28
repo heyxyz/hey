@@ -18,7 +18,7 @@ import type { AllowedToken } from "@hey/types/hey";
 import { Button, H6, HelpTooltip, Input, Select, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import axios from "axios";
-import type { FC } from "react";
+import type { ChangeEvent, FC } from "react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
@@ -118,7 +118,7 @@ const Action: FC<ActionProps> = ({
     setOther(false);
   };
 
-  const onOtherAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value as unknown as number;
     setAmount(value);
   };

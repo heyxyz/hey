@@ -2,7 +2,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { AUTH } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import type { FC } from "react";
+import type { FC, MouseEvent } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
 interface LoginButtonProps {
@@ -20,7 +20,7 @@ const LoginButton: FC<LoginButtonProps> = ({
 }) => {
   const { setShowAuthModal } = useGlobalModalStateStore();
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setShowAuthModal(true);
     Leafwatch.track(AUTH.OPEN_LOGIN);

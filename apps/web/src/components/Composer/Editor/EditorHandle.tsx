@@ -1,7 +1,7 @@
 import type { EditorExtension } from "@helpers/prosekit/extension";
 import { setMarkdownContent } from "@helpers/prosekit/markdownContent";
 import type { Editor } from "prosekit/core";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface EditorHandle {
@@ -14,7 +14,11 @@ const SetHandleContext = createContext<((handle: EditorHandle) => void) | null>(
   null
 );
 
-const Provider = ({ children }: { children: React.ReactNode }) => {
+interface EditorProps {
+  children: ReactNode;
+}
+
+const Provider: FC<EditorProps> = ({ children }) => {
   const [handle, setHandle] = useState<EditorHandle | null>(null);
 
   return (
