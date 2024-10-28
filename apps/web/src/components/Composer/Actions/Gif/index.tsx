@@ -3,6 +3,7 @@ import { GifIcon } from "@heroicons/react/24/outline";
 import { PUBLICATION } from "@hey/data/tracking";
 import type { IGif } from "@hey/types/giphy";
 import { Modal, Tooltip } from "@hey/ui";
+import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
@@ -15,14 +16,21 @@ interface GiphyProps {
 const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
   const { attachments } = usePublicationAttachmentStore((state) => state);
   const [showModal, setShowModal] = useState(false);
+  const disable =
+    attachments.length > 0 &&
+    (attachments.some((attachment) => attachment.type === "Image")
+      ? attachments.length >= 4
+      : true);
 
   return (
     <>
       <Tooltip content="GIF" placement="top">
         <button
           aria-label="GIF"
-          className="rounded-full outline-offset-8"
-          disabled={attachments.length >= 4}
+          className={cn("rounded-full outline-offset-8", {
+            "opacity-50": disable
+          })}
+          disabled={disable}
           onClick={() => {
             setShowModal(!showModal);
             Leafwatch.track(PUBLICATION.OPEN_GIFS);
