@@ -28,6 +28,7 @@ import { useEffect } from "react";
 import { createTrackedSelector } from "react-tracked";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
+import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { create } from "zustand";
@@ -57,9 +58,11 @@ const ViewPublication: NextPage = () => {
 
   const { currentProfile } = useProfileStore();
   const { isCommentSuspended, isSuspended } = useProfileStatus();
+  const { preLoadedPublications } = useOptimisticNavigation();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const showQuotes = pathname === "/posts/[id]/quotes";
+  const preLoadedPublication = preLoadedPublications.find((p) => p.id === id);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -69,7 +72,7 @@ const ViewPublication: NextPage = () => {
   }, []);
 
   const { data, error, loading } = usePublicationQuery({
-    skip: !id,
+    skip: !id || preLoadedPublication?.id,
     variables: { request: { forId: id } }
   });
 
@@ -91,7 +94,7 @@ const ViewPublication: NextPage = () => {
     return <PublicationPageShimmer publicationList={showQuotes} />;
   }
 
-  if (!data?.publication) {
+  if (!preLoadedPublication && !data?.publication) {
     return <Custom404 />;
   }
 
@@ -99,7 +102,8 @@ const ViewPublication: NextPage = () => {
     return <Custom500 />;
   }
 
-  const publication = data.publication as AnyPublication;
+  const publication =
+    preLoadedPublication || (data?.publication as AnyPublication);
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;

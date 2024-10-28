@@ -6262,17 +6262,52 @@ export type CommentBaseFieldsFragment = { __typename?: 'Comment', id: any, isHid
 
 export type CommentFieldsFragment = (
   { __typename?: 'Comment', commentOn: (
-    { __typename?: 'Comment' }
+    { __typename?: 'Comment', commentOn: (
+      { __typename?: 'Comment', commentOn: (
+        { __typename?: 'Comment' }
+        & CommentBaseFieldsFragment
+        & CommentOnFields_Comment_Fragment
+      ) | (
+        { __typename?: 'Post' }
+        & CommentOnFields_Post_Fragment
+      ) | (
+        { __typename?: 'Quote' }
+        & CommentOnFields_Quote_Fragment
+      ) }
+      & CommentBaseFieldsFragment
+      & CommentOnFields_Comment_Fragment
+    ) | (
+      { __typename?: 'Post' }
+      & CommentOnFields_Post_Fragment
+    ) | (
+      { __typename?: 'Quote' }
+      & CommentOnFields_Quote_Fragment
+    ) }
     & CommentBaseFieldsFragment
+    & CommentOnFields_Comment_Fragment
   ) | (
     { __typename?: 'Post' }
-    & PostFieldsFragment
+    & CommentOnFields_Post_Fragment
   ) | (
     { __typename?: 'Quote' }
-    & QuoteBaseFieldsFragment
+    & CommentOnFields_Quote_Fragment
   ) }
   & CommentBaseFieldsFragment
 );
+
+type CommentOnFields_Comment_Fragment = { __typename?: 'Comment' };
+
+type CommentOnFields_Post_Fragment = (
+  { __typename?: 'Post' }
+  & PostFieldsFragment
+);
+
+type CommentOnFields_Quote_Fragment = (
+  { __typename?: 'Quote' }
+  & QuoteBaseFieldsFragment
+);
+
+export type CommentOnFieldsFragment = CommentOnFields_Comment_Fragment | CommentOnFields_Post_Fragment | CommentOnFields_Quote_Fragment;
 
 export type EncryptableImageSetFieldsFragment = { __typename?: 'EncryptableImageSet', optimized?: { __typename?: 'Image', uri: any } | null };
 
@@ -8546,24 +8581,41 @@ ${OpenActionModulesFieldsFragmentDoc}
 ${PostFieldsFragmentDoc}
 ${QuoteBaseFieldsFragmentDoc}
 ${HandleInfoFieldsFragmentDoc}`;
+export const CommentOnFieldsFragmentDoc = gql`
+    fragment CommentOnFields on PrimaryPublication {
+  ... on Post {
+    ...PostFields
+  }
+  ... on Quote {
+    ...QuoteBaseFields
+  }
+}
+    ${PostFieldsFragmentDoc}
+${QuoteBaseFieldsFragmentDoc}`;
 export const CommentFieldsFragmentDoc = gql`
     fragment CommentFields on Comment {
   ...CommentBaseFields
   commentOn {
-    ... on Post {
-      ...PostFields
-    }
+    ...CommentOnFields
     ... on Comment {
       ...CommentBaseFields
-    }
-    ... on Quote {
-      ...QuoteBaseFields
+      commentOn {
+        ...CommentOnFields
+        ... on Comment {
+          ...CommentBaseFields
+          commentOn {
+            ...CommentOnFields
+            ... on Comment {
+              ...CommentBaseFields
+            }
+          }
+        }
+      }
     }
   }
 }
     ${CommentBaseFieldsFragmentDoc}
-${PostFieldsFragmentDoc}
-${QuoteBaseFieldsFragmentDoc}`;
+${CommentOnFieldsFragmentDoc}`;
 export const QuoteFieldsFragmentDoc = gql`
     fragment QuoteFields on Quote {
   ...QuoteBaseFields

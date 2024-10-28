@@ -6,8 +6,11 @@ const seedProfileTheme = async (): Promise<number> => {
   await prisma.profileTheme.deleteMany();
 
   // Seed profileTheme
-  await prisma.profileTheme.create({
-    data: { id: TEST_LENS_ID, fontStyle: "bioRhyme" }
+  await prisma.profileTheme.createMany({
+    data: [
+      { id: TEST_LENS_ID, fontStyle: "bioRhyme" },
+      { id: "0x0d", fontStyle: "bioRhyme" }
+    ]
   });
 
   return 1;
