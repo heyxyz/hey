@@ -14,6 +14,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Poll } from "@hey/types/hey";
 import { Card, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import plur from "plur";
 import type { FC } from "react";
@@ -24,14 +25,14 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface ChoicesProps {
   poll: Poll;
-  refetch?: () => void;
 }
 
-const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
+const Choices: FC<ChoicesProps> = ({ poll }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
+  const queryClient = useQueryClient();
 
   const { endsAt, options } = poll;
   const totalResponses = options.reduce((acc, { responses }) => {
@@ -57,7 +58,7 @@ const Choices: FC<ChoicesProps> = ({ poll, refetch }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      refetch?.();
+      queryClient.refetchQueries({ queryKey: ["getPoll", poll.id] });
       Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
       toast.success("Your poll has been casted!");
     } catch {
