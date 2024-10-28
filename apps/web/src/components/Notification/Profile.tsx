@@ -8,7 +8,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import Link from "next/link";
-import type { FC } from "react";
+import type { FC, SyntheticEvent } from "react";
 
 interface NotificationProfileProps {
   profile: Profile;
@@ -17,7 +17,7 @@ interface NotificationProfileProps {
 export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+  const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     const target = event.currentTarget;
     target.src = getLennyURL(profile.id);
   };
