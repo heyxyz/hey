@@ -9,11 +9,11 @@ import { useState } from "react";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import GifSelector from "./GifSelector";
 
-interface GiphyProps {
+interface GifProps {
   setGifAttachment: (gif: IGif) => void;
 }
 
-const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
+const Gif: FC<GifProps> = ({ setGifAttachment }) => {
   const { attachments } = usePublicationAttachmentStore((state) => state);
   const [showModal, setShowModal] = useState(false);
   const disable =
