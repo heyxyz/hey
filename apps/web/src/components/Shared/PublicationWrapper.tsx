@@ -1,6 +1,7 @@
 import type { AnyPublication } from "@hey/lens";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
+import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
 
 interface PublicationWrapperProps {
   children: ReactNode | ReactNode[];
@@ -13,6 +14,8 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   className = "",
   publication
 }) => {
+  const { preLoadedPublications, setPreLoadedPublications } =
+    useOptimisticNavigation();
   const { pathname, push } = useRouter();
 
   const handleClick = () => {
@@ -22,6 +25,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
 
     const selection = window.getSelection();
     if (!selection || selection.toString().length === 0) {
+      setPreLoadedPublications([...preLoadedPublications, publication]);
       push(`/posts/${publication.id}`);
     }
   };
