@@ -63,12 +63,6 @@ const Attachment: FC = () => {
     return files.length === 1;
   };
 
-  const disableImageUpload = () => {
-    const notImage = attachments[0] && attachments[0].type !== "Image";
-    const isLimit = !notImage && attachments.length >= 4;
-    return notImage || isLimit;
-  };
-
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setShowMenu(false);
@@ -92,6 +86,14 @@ const Attachment: FC = () => {
       return toast.error("Something went wrong while uploading!");
     }
   };
+
+  const disableImageUpload = () => {
+    const notImage = attachments[0] && attachments[0].type !== "Image";
+    const isLimit = !notImage && attachments.length >= 4;
+    return notImage || isLimit;
+  };
+
+  const disableOtherUpload = attachments.length > 0;
 
   return (
     <Tooltip content="Media" placement="top">
@@ -118,6 +120,7 @@ const Attachment: FC = () => {
               className={({ focus }) =>
                 cn(
                   { "dropdown-active": focus },
+                  { "opacity-50": disableImageUpload() },
                   "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg"
                 )
               }
@@ -141,10 +144,11 @@ const Attachment: FC = () => {
               className={({ focus }) =>
                 cn(
                   { "dropdown-active": focus },
+                  { "opacity-50": disableOtherUpload },
                   "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg"
                 )
               }
-              disabled={Boolean(attachments.length)}
+              disabled={disableOtherUpload}
               htmlFor={`video_${id}`}
             >
               <VideoCameraIcon className="size-4" />
@@ -152,7 +156,7 @@ const Attachment: FC = () => {
               <input
                 accept={VideoMimeType.join(",")}
                 className="hidden"
-                disabled={Boolean(attachments.length)}
+                disabled={disableOtherUpload}
                 id={`video_${id}`}
                 onChange={handleAttachment}
                 type="file"
@@ -163,10 +167,11 @@ const Attachment: FC = () => {
               className={({ focus }) =>
                 cn(
                   { "dropdown-active": focus },
+                  { "opacity-50": disableOtherUpload },
                   "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg"
                 )
               }
-              disabled={Boolean(attachments.length)}
+              disabled={disableOtherUpload}
               htmlFor={`audio_${id}`}
             >
               <MusicalNoteIcon className="size-4" />
@@ -174,7 +179,7 @@ const Attachment: FC = () => {
               <input
                 accept={AudioMimeType.join(",")}
                 className="hidden"
-                disabled={Boolean(attachments.length)}
+                disabled={disableOtherUpload}
                 id={`audio_${id}`}
                 onChange={handleAttachment}
                 type="file"
