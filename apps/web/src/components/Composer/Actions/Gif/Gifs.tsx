@@ -4,14 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 
-interface CategoriesProps {
+interface GifsProps {
   debouncedGifInput: string;
   setGifAttachment: (gif: IGif) => void;
   setSearchText: Dispatch<SetStateAction<string>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const Gifs: FC<CategoriesProps> = ({
+const Gifs: FC<GifsProps> = ({
   debouncedGifInput,
   setGifAttachment,
   setSearchText,
