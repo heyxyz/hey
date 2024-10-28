@@ -5,7 +5,7 @@ import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import imageKit from "@hey/helpers/imageKit";
 import { Image } from "@hey/ui";
 import Link from "next/link";
-import type { FC } from "react";
+import type { FC, SyntheticEvent } from "react";
 import useEnsName from "src/hooks/useEnsName";
 import type { Address } from "viem";
 import Slug from "./Slug";
@@ -20,7 +20,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
     enabled: Boolean(address)
   });
 
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+  const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     const target = event.currentTarget;
     target.src = getStampFyiURL(address);
   };
