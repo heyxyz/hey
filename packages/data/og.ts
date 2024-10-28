@@ -6,7 +6,10 @@ export const ALLOWED_HTML_HOSTS = [
   "kick.com",
   "open.spotify.com",
   "soundcloud.com",
-  "oohlala.xyz"
+  "oohlala.xyz",
+  "suno.com"
 ];
 
 export const IGNORED_NFT_HOSTS = ["hey.xyz"];
+
+export const PREFER_PLAYER_HOSTS = ["suno.com"];

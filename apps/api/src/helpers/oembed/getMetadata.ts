@@ -1,3 +1,4 @@
+import { PREFER_PLAYER_HOSTS } from "@hey/data/og";
 import getFavicon from "@hey/helpers/getFavicon";
 import type { OG } from "@hey/types/misc";
 import axios from "axios";
@@ -22,11 +23,14 @@ const getMetadata = async (url: string): Promise<null | OG> => {
     const { document } = parseHTML(data);
     const image = getImage(document) as string;
 
+    const host = new URL(url).host;
+    const preferPlayer = PREFER_PLAYER_HOSTS.includes(host);
+
     const metadata: OG = {
       description: getDescription(document),
       favicon: getFavicon(url),
       frame: getFrame(document, url),
-      html: generateIframe(getEmbedUrl(document), url),
+      html: generateIframe(getEmbedUrl(document, preferPlayer), url),
       image: getProxyUrl(image),
       lastIndexedAt: new Date().toISOString(),
       nft: getNft(document, url),

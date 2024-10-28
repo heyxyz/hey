@@ -20,6 +20,7 @@ const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
+const sunoRegex = /^https?:\/\/suno\.com\/song\/[\dA-Za-z-]+$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -95,6 +96,14 @@ const generateIframe = (
     case "oohlala.xyz": {
       if (oohlalaUrlRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+      }
+
+      return null;
+    }
+    case "suno.com": {
+      if (sunoRegex.test(cleanedUrl)) {
+        const sunoSize = `style="max-width: 760px;" width="100%"`;
+        return `<iframe src="${pickedUrl}" ${sunoSize} height="155"></iframe>`;
       }
 
       return null;

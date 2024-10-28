@@ -1,4 +1,7 @@
-const getEmbedUrl = (document: Document): null | string => {
+const getEmbedUrl = (
+  document: Document,
+  preferPlayer = false
+): null | string => {
   const og =
     document.querySelector('meta[name="og:video:url"]') ||
     document.querySelector('meta[name="og:video:secure_url"]') ||
@@ -8,15 +11,11 @@ const getEmbedUrl = (document: Document): null | string => {
     document.querySelector('meta[name="twitter:player"]') ||
     document.querySelector('meta[property="twitter:player"]');
 
-  if (og) {
-    return og.getAttribute("content");
-  }
-
-  if (twitter) {
+  if (preferPlayer && twitter) {
     return twitter.getAttribute("content");
   }
 
-  return null;
+  return (og || twitter)?.getAttribute("content") ?? null;
 };
 
 export default getEmbedUrl;

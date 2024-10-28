@@ -84,4 +84,21 @@ describe("getEmbedUrl", () => {
 
     expect(result).toBeNull();
   });
+
+  test("should return the content of 'name=twitter:player' if it's present and preferred", () => {
+    const html = `
+      <html>
+        <head>
+          <meta property="og:video:url" content="https://cdn1.suno.ai/c87ff8b6-1912-440c-9745-0bb5ae7b01d0.mp4">
+          <meta name="twitter:player" content="https://suno.com/embed/c87ff8b6-1912-440c-9745-0bb5ae7b01d0">
+        </head>
+      </html>
+    `;
+    const { document } = parseHTML(html);
+    const result = getEmbedUrl(document, true);
+
+    expect(result).toBe(
+      "https://suno.com/embed/c87ff8b6-1912-440c-9745-0bb5ae7b01d0"
+    );
+  });
 });
