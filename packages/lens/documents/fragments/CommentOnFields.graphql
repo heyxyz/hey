@@ -1,0 +1,8 @@
+fragment CommentOnFields on PrimaryPublication {
+  ... on Post {
+    ...PostFields
+  }
+  ... on Quote {
+    ...QuoteBaseFields
+  }
+}

@@ -1,14 +1,21 @@
 fragment CommentFields on Comment {
   ...CommentBaseFields
   commentOn {
-    ... on Post {
-      ...PostFields
-    }
+    ...CommentOnFields
     ... on Comment {
       ...CommentBaseFields
-    }
-    ... on Quote {
-      ...QuoteBaseFields
+      commentOn {
+        ...CommentOnFields
+        ... on Comment {
+          ...CommentBaseFields
+          commentOn {
+            ...CommentOnFields
+            ... on Comment {
+              ...CommentBaseFields
+            }
+          }
+        }
+      }
     }
   }
 }
