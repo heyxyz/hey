@@ -68,7 +68,7 @@
     "unist-util-visit-parents": "^6.0.1",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
-    "uuid": "^10.0.0",
+    "uuid": "^11.0.1",
     "viem": "^2.21.35",
     "wagmi": "^2.12.25",
     "zod": "^3.23.8",
