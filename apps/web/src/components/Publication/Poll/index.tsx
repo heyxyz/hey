@@ -27,7 +27,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     }
   };
 
-  const { data, error, isLoading, refetch } = useQuery({
+  const { data, error, isLoading } = useQuery({
     queryFn: getPoll,
     queryKey: ["getPoll", id]
   });
@@ -47,7 +47,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
     return null;
   }
 
-  return <Choices poll={data} refetch={refetch} />;
+  return <Choices poll={data} />;
 };
 
 export default Poll;
