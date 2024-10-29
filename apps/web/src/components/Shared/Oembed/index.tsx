@@ -12,6 +12,8 @@ import EmptyOembed from "./EmptyOembed";
 import Frame from "./Frames";
 import Player from "./Player";
 
+const GET_OEMBED_QUERY_KEY = "getOembed";
+
 interface OembedProps {
   onLoad?: (og: OG) => void;
   publication?: AnyPublication;
@@ -27,7 +29,7 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
       });
       return response.data.oembed;
     },
-    queryKey: ["getOembed", url],
+    queryKey: [GET_OEMBED_QUERY_KEY, url],
     refetchOnMount: false
   });
 

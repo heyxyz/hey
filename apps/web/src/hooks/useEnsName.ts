@@ -2,6 +2,8 @@ import formatAddress from "@hey/helpers/formatAddress";
 import resolveEns from "@hey/helpers/resolveEns";
 import { useQuery } from "@tanstack/react-query";
 
+const GET_ENS_DETAILS_QUERY_KEY = "getEnsDetails";
+
 interface UseEnsNameProps {
   address: string;
   enabled?: boolean;
@@ -23,7 +25,7 @@ const useEnsName = ({
   const { data, error, isLoading } = useQuery({
     enabled,
     queryFn: getEnsDetails,
-    queryKey: ["getEnsDetails", address]
+    queryKey: [GET_ENS_DETAILS_QUERY_KEY, address]
   });
 
   return { ens: data, error, loading: isLoading };

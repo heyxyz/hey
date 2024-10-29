@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { ChangeEvent, FC } from "react";
 import { useEffect, useRef, useState } from "react";
+import { GET_EMOJIS_QUERY_KEY } from "src/hooks/prosekit/useEmojiQuery";
 import Loader from "../Loader";
 
 interface ListProps {
@@ -23,7 +24,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
       const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
       return response.data;
     },
-    queryKey: ["getEmojis"]
+    queryKey: [GET_EMOJIS_QUERY_KEY]
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

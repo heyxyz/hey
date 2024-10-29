@@ -1,6 +1,7 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
+import { GET_LIST_QUERY_KEY } from "@hey/helpers/api/lists/getList";
 import type { List } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import { useQueryClient } from "@tanstack/react-query";
@@ -36,7 +37,7 @@ const PinUnpinButton: FC<PinUnpinButtonProps> = ({ list, small = false }) => {
       } else {
         setPinnedLists([...pinnedLists, list]);
       }
-      queryClient.setQueryData(["getList", list.id], (data: List) => ({
+      queryClient.setQueryData([GET_LIST_QUERY_KEY, list.id], (data: List) => ({
         ...data,
         pinned: !list.pinned,
         totalPins: data.totalPins + (list.pinned ? -1 : 1)

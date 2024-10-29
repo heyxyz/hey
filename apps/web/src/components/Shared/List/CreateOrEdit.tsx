@@ -5,6 +5,7 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import uploadCroppedImage, { readFile } from "@helpers/profilePictureUtils";
 import { AVATAR, HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { GET_LIST_QUERY_KEY } from "@hey/helpers/api/lists/getList";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
@@ -81,7 +82,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = ({ list }) => {
       );
 
       if (list) {
-        queryClient.invalidateQueries({ queryKey: ["getList", list.id] });
+        queryClient.invalidateQueries({
+          queryKey: [GET_LIST_QUERY_KEY, list.id]
+        });
       }
 
       toast.success(`List ${list ? "updated" : "created"}`);

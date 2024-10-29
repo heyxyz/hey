@@ -19,6 +19,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 
+const GET_HAVE_USED_HEY_QUERY_KEY = "getHaveUsedHey";
+
 interface ProfileOverviewProps {
   profile: Profile;
 }
@@ -39,7 +41,7 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
 
   const { data: haveUsedHey } = useQuery({
     queryFn: getHaveUsedHey,
-    queryKey: ["getHaveUsedHey", profile.id]
+    queryKey: [GET_HAVE_USED_HEY_QUERY_KEY, profile.id]
   });
 
   return (

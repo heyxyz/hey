@@ -14,6 +14,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 
+const GET_PROFILE_IMPRESSIONS_QUERY_KEY = "getProfileImpressions";
+
 interface LeafwatchDetailsProps {
   profileId: string;
 }
@@ -63,7 +65,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   const { data: impressionDetails } = useQuery({
     enabled: Boolean(profileId),
     queryFn: getProfileImpressions,
-    queryKey: ["getProfileImpressions", profileId]
+    queryKey: [GET_PROFILE_IMPRESSIONS_QUERY_KEY, profileId]
   });
 
   if (!leafwatchDetails || !impressionDetails) {

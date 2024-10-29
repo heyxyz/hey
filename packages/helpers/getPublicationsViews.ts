@@ -1,6 +1,8 @@
 import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
 import axios from "axios";
 
+export const GET_PUBLICATIONS_VIEWS_QUERY_KEY = "getPublicationsViews";
+
 /**
  * Get the number of views of a publication
  * @param ids The ids of the publications
