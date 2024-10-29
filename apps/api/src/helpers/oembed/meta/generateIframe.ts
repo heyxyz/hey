@@ -1,7 +1,7 @@
 import { ALLOWED_HTML_HOSTS } from "@hey/data/og";
 
 // URLs that are manually picked to be embedded that dont have embed metatags
-const pickUrlSites = ["open.spotify.com", "kick.com"];
+const pickUrlSites = ["open.spotify.com", "kick.com", "suno.com"];
 
 // URLs that should not have query params removed
 const skipClean = ["youtube.com", "youtu.be"];
@@ -20,6 +20,8 @@ const tapeRegex =
   /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
+const sunoRegex =
+  /^https?:\/\/suno\.com\/song\/[\dA-Fa-f-]+(\?si=[\dA-Za-z]+)?$/;
 
 const generateIframe = (
   embedUrl: null | string,
@@ -95,6 +97,15 @@ const generateIframe = (
     case "oohlala.xyz": {
       if (oohlalaUrlRegex.test(cleanedUrl)) {
         return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+      }
+
+      return null;
+    }
+    case "suno.com": {
+      const sunoSize = `style="max-width: 100%;" width="100%"`;
+      if (sunoRegex.test(cleanedUrl)) {
+        const sunoUrl = pickedUrl.replace("/song", "/embed");
+        return `<iframe src="${sunoUrl}" ${sunoSize} height="155"></iframe>`;
       }
 
       return null;
