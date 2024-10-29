@@ -20,11 +20,11 @@ const imageKit = (url: string, name?: string): string => {
     const splitedUrl = url.split("/");
     const path = splitedUrl[splitedUrl.length - 1];
 
-    return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name},q-80/${path}` : url;
+    return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
   }
 
   if (url.includes(IPFS_GATEWAY)) {
-    return name ? `${HEY_IMAGEKIT_URL}/fallback/${name},q-80/${url}` : url;
+    return name ? `${HEY_IMAGEKIT_URL}/fallback/${name}/${url}` : url;
   }
 
   return url;

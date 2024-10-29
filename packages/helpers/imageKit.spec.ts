@@ -29,7 +29,7 @@ describe("imageKit", () => {
 
   test("should return the transformed url if it includes LENS_MEDIA_SNAPSHOT_URL", () => {
     const originalUrl = `${LENS_MEDIA_SNAPSHOT_URL}/some-image.jpg`;
-    const transformedUrl = `${LENS_MEDIA_SNAPSHOT_URL}/transformed,q-80/some-image.jpg`;
+    const transformedUrl = `${LENS_MEDIA_SNAPSHOT_URL}/transformed/some-image.jpg`;
 
     expect(imageKit(originalUrl, "transformed")).toBe(transformedUrl);
   });
@@ -44,7 +44,7 @@ describe("imageKit", () => {
     const originalUrl = `${IPFS_GATEWAY}/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
 
     expect(imageKit(originalUrl, "transformed")).toBe(
-      "https://ik.imagekit.io/lensterimg/fallback/transformed,q-80/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri"
+      "https://ik.imagekit.io/lensterimg/fallback/transformed/https://gw.ipfs-lens.dev/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri"
     );
   });
 });
