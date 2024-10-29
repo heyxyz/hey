@@ -2,7 +2,9 @@ import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { Permission } from "@hey/data/permissions";
-import getAllPermissions from "@hey/helpers/api/getAllPermissions";
+import getAllPermissions, {
+  GET_ALL_PERMISSIONS_QUERY_KEY
+} from "@hey/helpers/api/getAllPermissions";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { Permission as TPermission } from "@hey/types/hey";
 import {
@@ -32,7 +34,7 @@ const List: FC = () => {
         setPermissions(permissions);
         return permissions;
       }),
-    queryKey: ["getAllPermissions"],
+    queryKey: [GET_ALL_PERMISSIONS_QUERY_KEY],
     refetchInterval: 10000
   });
 

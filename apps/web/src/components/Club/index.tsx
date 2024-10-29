@@ -4,7 +4,7 @@ import Cover from "@components/Shared/Cover";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
-import getClub from "@hey/helpers/api/clubs/getClub";
+import getClub, { GET_CLUB_QUERY_KEY } from "@hey/helpers/api/clubs/getClub";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
@@ -48,7 +48,7 @@ const ViewClub: NextPage = () => {
         club_handle: handle as string,
         profile_id: currentProfile?.id
       }),
-    queryKey: ["getClub", handle]
+    queryKey: [GET_CLUB_QUERY_KEY, handle]
   });
 
   if (!isReady || clubLoading) {

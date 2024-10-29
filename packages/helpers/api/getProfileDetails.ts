@@ -2,6 +2,8 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { ProfileDetails } from "@hey/types/hey";
 import axios from "axios";
 
+export const GET_PROFILE_DETAILS_QUERY_KEY = "getProfileDetails";
+
 /**
  * Get profile details
  * @param id profile id

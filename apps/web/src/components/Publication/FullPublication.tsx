@@ -1,6 +1,8 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import getProfileDetails from "@hey/helpers/api/getProfileDetails";
+import getProfileDetails, {
+  GET_PROFILE_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getProfileDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
@@ -45,7 +47,7 @@ const FullPublication: FC<FullPublicationProps> = ({
   const { data: profileDetails } = useQuery({
     enabled: Boolean(by.id),
     queryFn: () => getProfileDetails(by.id || ""),
-    queryKey: ["getProfileDetails", by.id]
+    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, by.id]
   });
 
   const isSuspended = isStaff ? false : profileDetails?.isSuspended;

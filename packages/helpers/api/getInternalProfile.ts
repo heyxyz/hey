@@ -2,6 +2,8 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { InternalProfile } from "@hey/types/hey";
 import axios from "axios";
 
+export const GET_INTERNAL_PROFILE_QUERY_KEY = "getInternalProfile";
+
 /**
  * Get internal profile
  * @param id profile id
