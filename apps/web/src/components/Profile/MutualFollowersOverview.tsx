@@ -43,7 +43,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
     <button
       className={cn(
         viaPopover ? "text-xs" : "text-sm",
-        "ld-text-gray-500 flex cursor-pointer flex-wrap items-center gap-2.5"
+        "ld-text-gray-500 flex cursor-pointer items-center space-x-2"
       )}
       onClick={() => setShowMutualFollowersModal(true)}
       type="button"
@@ -52,7 +52,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
         avatars={profiles.map((profile) => getAvatar(profile))}
         limit={3}
       />
-      <div>
+      <div className="text-left">
         <span>Followed by </span>
         {children}
       </div>
