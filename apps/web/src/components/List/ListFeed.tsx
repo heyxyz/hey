@@ -17,6 +17,7 @@ import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
+export const GET_LIST_PUBLICATIONS_QUERY_KEY = "getListPublications";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface ListFeedProps {
@@ -50,8 +51,8 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     isLoading: loadingPublicationIds,
     error: errorPublicationIds
   } = useQuery({
-    queryKey: ["getListPublications", list.id],
-    queryFn: () => getListPublications(list.id)
+    queryFn: () => getListPublications(list.id),
+    queryKey: [GET_LIST_PUBLICATIONS_QUERY_KEY, list.id]
   });
 
   const request: PublicationsRequest = {

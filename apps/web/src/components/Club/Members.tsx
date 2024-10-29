@@ -13,6 +13,8 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
+export const GET_CLUB_MEMBERS_QUERY_KEY = "getClubMembers";
+
 interface MembersProps {
   clubId: string;
   handle: string;
@@ -47,7 +49,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   } = useQuery({
     enabled: Boolean(clubId),
     queryFn: getClubMembers,
-    queryKey: ["getClubMembers", clubId]
+    queryKey: [GET_CLUB_MEMBERS_QUERY_KEY, clubId]
   });
 
   const profileIds = clubMembers?.items.map((item) => item.id) || [];

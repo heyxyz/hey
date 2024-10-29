@@ -3,7 +3,7 @@ import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import getLists from "@hey/helpers/api/lists/getLists";
+import getLists, { GET_LISTS_QUERY_KEY } from "@hey/helpers/api/lists/getLists";
 import getProfile from "@hey/helpers/getProfile";
 import type { List } from "@hey/types/hey";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
@@ -23,12 +23,12 @@ const AddToList: FC = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["getAllLists", profileToAddToList?.id],
     queryFn: () =>
       getLists({
         ownerId: currentProfile?.id,
         viewingId: profileToAddToList?.id
-      })
+      }),
+    queryKey: [GET_LISTS_QUERY_KEY, profileToAddToList?.id]
   });
 
   if (isLoading) {
