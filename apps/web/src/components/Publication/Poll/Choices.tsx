@@ -22,6 +22,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { GET_POLL_QUERY_KEY } from ".";
 
 interface ChoicesProps {
   poll: Poll;
@@ -58,7 +59,7 @@ const Choices: FC<ChoicesProps> = ({ poll }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      queryClient.refetchQueries({ queryKey: ["getPoll", poll.id] });
+      queryClient.refetchQueries({ queryKey: [GET_POLL_QUERY_KEY, poll.id] });
       Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
       toast.success("Your poll has been casted!");
     } catch {

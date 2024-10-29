@@ -28,6 +28,8 @@ ChartJS.register(
   Legend
 );
 
+const GET_SIGNUP_REVENUE_STATS_QUERY_KEY = "getSignupRevenueStats";
+
 const SignupRevenue: FC = () => {
   const getSignupRevenueStats = async (): Promise<
     { date: string; count: number }[] | null
@@ -47,7 +49,7 @@ const SignupRevenue: FC = () => {
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getSignupRevenueStats,
-    queryKey: ["getSignupRevenueStats"],
+    queryKey: [GET_SIGNUP_REVENUE_STATS_QUERY_KEY],
     refetchInterval: 5000
   });
 

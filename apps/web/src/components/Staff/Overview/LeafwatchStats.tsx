@@ -16,6 +16,8 @@ import EventsToday from "./EventsToday";
 import ImpressionsToday from "./ImpressionsToday";
 import Referrers from "./Referrers";
 
+const GET_STATS_QUERY_KEY = "getStats";
+
 export interface StatsType {
   dau: {
     date: string;
@@ -68,7 +70,7 @@ const LeafwatchStats: FC = () => {
 
   const { data, error, isLoading } = useQuery({
     queryFn: getStats,
-    queryKey: ["getStats"],
+    queryKey: [GET_STATS_QUERY_KEY],
     refetchInterval: 5000
   });
 
