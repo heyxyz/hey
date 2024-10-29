@@ -10,7 +10,8 @@ vi.mock("@hey/data/og", () => ({
     "kick.com",
     "open.spotify.com",
     "soundcloud.com",
-    "oohlala.xyz"
+    "oohlala.xyz",
+    "suno.com"
   ]
 }));
 
@@ -117,6 +118,17 @@ describe("generateIframe", () => {
         "kick.com",
         "player.kick.com"
       )}" ${universalSize} allowfullscreen></iframe>`
+    );
+  });
+
+  test("should generate iframe for a Suno URL", () => {
+    const url = "https://suno.com/song/81989195-e10e-42b4-abe8-eacf24ee2b6d";
+    const embedUrl =
+      "https://suno.com/embed/81989195-e10e-42b4-abe8-eacf24ee2b6d";
+    const result = generateIframe(embedUrl, url);
+
+    expect(result).toBe(
+      `<iframe src="${embedUrl}" style="max-width: 100%;" width="100%" height="155"></iframe>`
     );
   });
 });
