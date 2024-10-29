@@ -14,6 +14,8 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
+export const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
+
 interface FeedTypeProps {
   feedType: HomeFeedType;
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
@@ -46,7 +48,7 @@ const FeedType: FC<FeedTypeProps> = ({
 
   useQuery({
     queryFn: getPinnedLists,
-    queryKey: ["getPinnedLists"]
+    queryKey: [GET_PINNED_LISTS_QUERY_KEY]
   });
 
   const tabs = [

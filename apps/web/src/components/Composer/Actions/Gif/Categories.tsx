@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 
+export const GET_GIPHY_CATEGORIES_QUERY_KEY = "getGiphyCategories";
+
 interface CategoriesProps {
   setSearchText: Dispatch<SetStateAction<string>>;
 }
@@ -25,7 +27,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
 
   const { data: categories } = useQuery({
     queryFn: getGiphyCategories,
-    queryKey: ["getGiphyCategories"]
+    queryKey: [GET_GIPHY_CATEGORIES_QUERY_KEY]
   });
 
   return (

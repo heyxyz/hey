@@ -18,6 +18,9 @@ import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
+export const GET_VERIFIED_MEMBERS_QUERY_KEY = "getVerifiedMembers";
+export const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
+
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
   const { setTheme } = useProfileThemeStore();
@@ -84,7 +87,7 @@ const PreferencesProvider: FC = () => {
   });
   useQuery({
     queryFn: getVerifiedMembers,
-    queryKey: ["getVerifiedMembers"]
+    queryKey: [GET_VERIFIED_MEMBERS_QUERY_KEY]
   });
   useQuery({
     queryFn: () =>
@@ -96,7 +99,7 @@ const PreferencesProvider: FC = () => {
   });
   useQuery({
     queryFn: getFiatRates,
-    queryKey: ["getFiatRates"],
+    queryKey: [GET_FIAT_RATES_QUERY_KEY],
     refetchInterval: 10000
   });
 

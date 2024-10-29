@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
-import getLists from "@hey/helpers/api/lists/getLists";
+import getLists, { GET_LISTS_QUERY_KEY } from "@hey/helpers/api/lists/getLists";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import type { List } from "@hey/types/hey";
@@ -43,8 +43,8 @@ const Lists: FC<ListsProps> = ({ profile }) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["getAllLists", profile.id],
-    queryFn: () => getLists({ ownerId: profile.id })
+    queryFn: () => getLists({ ownerId: profile.id }),
+    queryKey: [GET_LISTS_QUERY_KEY, profile.id]
   });
 
   const deleteList = async (id: string) => {
