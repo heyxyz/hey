@@ -5,8 +5,8 @@ import type { FC } from "react";
 import HeyNft from "./HeyNft";
 import HeyProfile from "./HeyProfile";
 
-export const GET_IS_HEY_PROFILE_QUERY_KEY = "getIsHeyProfile";
-export const GET_HAS_HEY_NFT_QUERY_KEY = "getHasHeyNft";
+const GET_IS_HEY_PROFILE_QUERY_KEY = "getIsHeyProfile";
+const GET_HAS_HEY_NFT_QUERY_KEY = "getHasHeyNft";
 
 interface BadgesProps {
   id: string;

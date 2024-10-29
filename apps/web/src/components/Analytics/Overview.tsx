@@ -27,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-export const GET_OVERVIEW_QUERY_KEY = "getOverview";
+const GET_OVERVIEW_QUERY_KEY = "getOverview";
 
 const Overview: FC = () => {
   const [primaryType, setPrimaryType] = useState<string>("Likes");

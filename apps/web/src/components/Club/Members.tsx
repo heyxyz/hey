@@ -13,7 +13,7 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-export const GET_CLUB_MEMBERS_QUERY_KEY = "getClubMembers";
+const GET_CLUB_MEMBERS_QUERY_KEY = "getClubMembers";
 
 interface MembersProps {
   clubId: string;

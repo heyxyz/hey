@@ -27,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-export const GET_IMPRESSIONS_QUERY_KEY = "getImpressions";
+const GET_IMPRESSIONS_QUERY_KEY = "getImpressions";
 
 const Impressions: FC = () => {
   const getImpressions = async (): Promise<

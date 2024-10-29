@@ -12,7 +12,7 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-export const GET_LIST_PROFILES_QUERY_KEY = "getListProfiles";
+const GET_LIST_PROFILES_QUERY_KEY = "getListProfiles";
 
 interface ProfilesProps {
   listId: string;
