@@ -20,7 +20,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
 
   return (
     <PublicationWrapper
-      className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
+      className="cursor-pointer p-4 transition-colors first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
       publication={publication}
     >
       <div className="flex items-center space-x-2">
