@@ -11,7 +11,9 @@ import {
 import { ProfileFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
-import getProfileDetails from "@hey/helpers/api/getProfileDetails";
+import getProfileDetails, {
+  GET_PROFILE_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getProfileDetails";
 import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
@@ -86,7 +88,7 @@ const ViewProfile: NextPage = () => {
   const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
     enabled: Boolean(profile?.id),
     queryFn: () => getProfileDetails(profile?.id),
-    queryKey: ["getProfileDetails", profile?.id]
+    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, profile?.id]
   });
 
   if (!isReady || profileLoading) {

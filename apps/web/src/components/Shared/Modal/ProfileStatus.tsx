@@ -2,7 +2,9 @@ import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
-import getProfileDetails from "@hey/helpers/api/getProfileDetails";
+import getProfileDetails, {
+  GET_PROFILE_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getProfileDetails";
 import { Button, ErrorMessage, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -29,7 +31,7 @@ const ProfileStatus: FC = () => {
         setEmoji(data?.status?.emoji || null);
         return data;
       }),
-    queryKey: ["getProfileDetails", currentProfile?.id]
+    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, currentProfile?.id]
   });
 
   if (isLoading) {
@@ -55,7 +57,9 @@ const ProfileStatus: FC = () => {
       setMessage(null);
       setEmoji(null);
       setShowEditStatusModal(false);
-      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
+      queryClient.invalidateQueries({
+        queryKey: [GET_PROFILE_DETAILS_QUERY_KEY]
+      });
       toast.success("Profile status cleared");
     } catch (error) {
       errorToast(error);
@@ -73,7 +77,9 @@ const ProfileStatus: FC = () => {
       setMessage(null);
       setEmoji(null);
       setShowEditStatusModal(false);
-      queryClient.invalidateQueries({ queryKey: ["getProfileDetails"] });
+      queryClient.invalidateQueries({
+        queryKey: [GET_PROFILE_DETAILS_QUERY_KEY]
+      });
       toast.success("Profile status updated");
     } catch (error) {
       errorToast(error);

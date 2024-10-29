@@ -2,8 +2,12 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
-import getAllTokens from "@hey/helpers/api/getAllTokens";
-import getPreferences from "@hey/helpers/api/getPreferences";
+import getAllTokens, {
+  GET_ALL_TOKENS_QUERY_KEY
+} from "@hey/helpers/api/getAllTokens";
+import getPreferences, {
+  GET_PREFERENCES_QUERY_KEY
+} from "@hey/helpers/api/getPreferences";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
@@ -63,12 +67,6 @@ const PreferencesProvider: FC = () => {
     }
   };
 
-  const getAllowedTokens = async () => {
-    const tokens = await getAllTokens();
-    setAllowedTokens(tokens);
-    return tokens;
-  };
-
   const getFiatRates = async () => {
     try {
       const response = await axios.get(`${HEY_API_URL}/lens/rate`);
@@ -82,15 +80,19 @@ const PreferencesProvider: FC = () => {
   useQuery({
     enabled: Boolean(sessionProfileId),
     queryFn: getPreferencesData,
-    queryKey: ["getPreferences", sessionProfileId || ""]
+    queryKey: [GET_PREFERENCES_QUERY_KEY, sessionProfileId || ""]
   });
   useQuery({
     queryFn: getVerifiedMembers,
     queryKey: ["getVerifiedMembers"]
   });
   useQuery({
-    queryFn: getAllowedTokens,
-    queryKey: ["getAllowedTokens"]
+    queryFn: () =>
+      getAllTokens().then((tokens) => {
+        setAllowedTokens(tokens);
+        return tokens;
+      }),
+    queryKey: [GET_ALL_TOKENS_QUERY_KEY]
   });
   useQuery({
     queryFn: getFiatRates,

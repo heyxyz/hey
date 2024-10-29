@@ -2,6 +2,8 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { Preferences } from "@hey/types/hey";
 import axios from "axios";
 
+export const GET_PREFERENCES_QUERY_KEY = "getPreferences";
+
 /**
  * Get profile preferences
  * @param headers auth headers
