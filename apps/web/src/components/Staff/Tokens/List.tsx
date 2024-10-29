@@ -5,7 +5,9 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { STAFFTOOLS } from "@hey/data/tracking";
-import getAllTokens from "@hey/helpers/api/getAllTokens";
+import getAllTokens, {
+  GET_ALL_TOKENS_QUERY_KEY
+} from "@hey/helpers/api/getAllTokens";
 import type { AllowedToken } from "@hey/types/hey";
 import { Button, Card, EmptyState, ErrorMessage, H5, Modal } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -25,7 +27,7 @@ const List: FC = () => {
         setTokens(tokens);
         return tokens;
       }),
-    queryKey: ["getAllTokens"]
+    queryKey: [GET_ALL_TOKENS_QUERY_KEY]
   });
 
   const deleteToken = async (id: string) => {

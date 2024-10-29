@@ -2,6 +2,8 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { AllowedToken } from "@hey/types/hey";
 import axios from "axios";
 
+export const GET_ALL_TOKENS_QUERY_KEY = "getAllTokens";
+
 /**
  * Get all allowed tokens
  * @returns all allowed tokens

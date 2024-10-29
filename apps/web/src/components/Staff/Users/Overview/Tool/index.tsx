@@ -1,7 +1,9 @@
 import SingleProfile from "@components/Shared/SingleProfile";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { IS_MAINNET } from "@hey/data/constants";
-import getInternalProfile from "@hey/helpers/api/getInternalProfile";
+import getInternalProfile, {
+  GET_INTERNAL_PROFILE_QUERY_KEY
+} from "@hey/helpers/api/getInternalProfile";
 import type { Profile } from "@hey/lens";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
@@ -19,7 +21,7 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const { data: preferences } = useQuery({
     queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
-    queryKey: ["getInternalProfile", profile.id || ""]
+    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, profile.id || ""]
   });
 
   return (

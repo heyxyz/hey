@@ -27,6 +27,8 @@ ChartJS.register(
   Legend
 );
 
+export const GET_IMPRESSIONS_QUERY_KEY = "getImpressions";
+
 const Impressions: FC = () => {
   const getImpressions = async (): Promise<
     {
@@ -47,7 +49,7 @@ const Impressions: FC = () => {
 
   const { data, isLoading } = useQuery({
     queryFn: getImpressions,
-    queryKey: ["getImpressions"]
+    queryKey: [GET_IMPRESSIONS_QUERY_KEY]
   });
 
   if (isLoading) {

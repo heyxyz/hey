@@ -1,4 +1,4 @@
-import getClub from "@hey/helpers/api/clubs/getClub";
+import getClub, { GET_CLUB_QUERY_KEY } from "@hey/helpers/api/clubs/getClub";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
@@ -30,7 +30,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   } = useMutation({
     mutationFn: () =>
       getClub({ club_handle: handle, profile_id: currentProfile?.id }),
-    mutationKey: ["getClub", handle]
+    mutationKey: [GET_CLUB_QUERY_KEY, handle]
   });
 
   const [syntheticLoading, setSyntheticLoading] =

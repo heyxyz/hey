@@ -27,6 +27,8 @@ ChartJS.register(
   Legend
 );
 
+export const GET_OVERVIEW_QUERY_KEY = "getOverview";
+
 const Overview: FC = () => {
   const [primaryType, setPrimaryType] = useState<string>("Likes");
   const [secondaryType, setSecondaryType] = useState<string>("None");
@@ -57,7 +59,7 @@ const Overview: FC = () => {
 
   const { data, isLoading } = useQuery({
     queryFn: getOverview,
-    queryKey: ["getOverview"]
+    queryKey: [GET_OVERVIEW_QUERY_KEY]
   });
 
   if (isLoading) {

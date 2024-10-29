@@ -4,7 +4,9 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { STAFFTOOLS } from "@hey/data/tracking";
-import getAllPermissions from "@hey/helpers/api/getAllPermissions";
+import getAllPermissions, {
+  GET_ALL_PERMISSIONS_QUERY_KEY
+} from "@hey/helpers/api/getAllPermissions";
 import type { Permission } from "@hey/types/hey";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -29,7 +31,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
 
   const { data: allPermissions, isLoading } = useQuery({
     queryFn: () => getAllPermissions(getAuthApiHeaders()),
-    queryKey: ["getAllPermissions"]
+    queryKey: [GET_ALL_PERMISSIONS_QUERY_KEY]
   });
 
   if (isLoading) {
