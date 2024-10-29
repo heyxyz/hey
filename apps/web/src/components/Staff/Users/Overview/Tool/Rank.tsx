@@ -13,6 +13,8 @@ import axios from "axios";
 import type { FC } from "react";
 import urlcat from "urlcat";
 
+const GET_RANK_QUERY_KEY = "getRank";
+
 interface RankProps {
   handle?: string;
   lensClassifierScore: number;
@@ -34,22 +36,22 @@ const Rank: FC<RankProps> = ({ handle, lensClassifierScore, profileId }) => {
 
   const { data: followship, isLoading: followshipLoading } = useQuery({
     queryFn: async () => await getRank("followship"),
-    queryKey: ["getRank", profileId, "followship"]
+    queryKey: [GET_RANK_QUERY_KEY, profileId, "followship"]
   });
 
   const { data: engagement, isLoading: engagementLoading } = useQuery({
     queryFn: async () => await getRank("engagement"),
-    queryKey: ["getRank", profileId, "engagement"]
+    queryKey: [GET_RANK_QUERY_KEY, profileId, "engagement"]
   });
 
   const { data: influencer, isLoading: influencerLoading } = useQuery({
     queryFn: async () => await getRank("influencer"),
-    queryKey: ["getRank", profileId, "influencer"]
+    queryKey: [GET_RANK_QUERY_KEY, profileId, "influencer"]
   });
 
   const { data: creator, isLoading: creatorLoading } = useQuery({
     queryFn: async () => await getRank("creator"),
-    queryKey: ["getRank", profileId, "creator"]
+    queryKey: [GET_RANK_QUERY_KEY, profileId, "creator"]
   });
 
   return (

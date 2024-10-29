@@ -51,7 +51,7 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
       ]);
 
       queryClient.invalidateQueries({
-        queryKey: ["getInternalProfile", id]
+        queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, id]
       });
       toast.success("Profile suspended");
     } catch (error) {

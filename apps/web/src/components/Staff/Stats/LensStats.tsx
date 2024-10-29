@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 
+const GET_LENS_STATS_QUERY_KEY = "getLensStats";
+
 interface LensStatsType {
   authentications_count: string;
   relay_usage_count: string;
@@ -38,7 +40,7 @@ const LensStats: FC = () => {
 
   const { data, error, isLoading } = useQuery({
     queryFn: getLensStats,
-    queryKey: ["getLensStats"],
+    queryKey: [GET_LENS_STATS_QUERY_KEY],
     refetchInterval: 5000
   });
 

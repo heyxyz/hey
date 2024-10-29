@@ -28,6 +28,8 @@ ChartJS.register(
   Legend
 );
 
+const GET_NFT_REVENUE_STATS_QUERY_KEY = "getNftRevenueStats";
+
 const NftRevenue: FC = () => {
   const getNftRevenueStats = async (): Promise<
     { date: string; count: number }[] | null
@@ -47,7 +49,7 @@ const NftRevenue: FC = () => {
   const { data, error, isLoading } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getNftRevenueStats,
-    queryKey: ["getNftRevenueStats"],
+    queryKey: [GET_NFT_REVENUE_STATS_QUERY_KEY],
     refetchInterval: 5000
   });
 

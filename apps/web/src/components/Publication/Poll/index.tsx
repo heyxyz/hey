@@ -8,6 +8,8 @@ import axios from "axios";
 import type { FC } from "react";
 import Choices from "./Choices";
 
+export const GET_POLL_QUERY_KEY = "getPoll";
+
 interface SnapshotProps {
   id: string;
 }
@@ -29,7 +31,7 @@ const Poll: FC<SnapshotProps> = ({ id }) => {
 
   const { data, error, isLoading } = useQuery({
     queryFn: getPoll,
-    queryKey: ["getPoll", id]
+    queryKey: [GET_POLL_QUERY_KEY, id]
   });
 
   if (isLoading) {

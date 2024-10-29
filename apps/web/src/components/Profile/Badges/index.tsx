@@ -5,6 +5,9 @@ import type { FC } from "react";
 import HeyNft from "./HeyNft";
 import HeyProfile from "./HeyProfile";
 
+export const GET_IS_HEY_PROFILE_QUERY_KEY = "getIsHeyProfile";
+export const GET_HAS_HEY_NFT_QUERY_KEY = "getHasHeyNft";
+
 interface BadgesProps {
   id: string;
 }
@@ -22,7 +25,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
 
   const { data: isHeyProfile } = useQuery({
     queryFn: getIsHeyProfile,
-    queryKey: ["getIsHeyProfile", id]
+    queryKey: [GET_IS_HEY_PROFILE_QUERY_KEY, id]
   });
   // End: Get isHeyProfile
 
@@ -39,7 +42,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
   const { data: hasHeyNft } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getHasHeyNft,
-    queryKey: ["getHasHeyNft", id]
+    queryKey: [GET_HAS_HEY_NFT_QUERY_KEY, id]
   });
   // End: Check has Hey NFT
 
