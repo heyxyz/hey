@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 
+export const GET_GIFS_QUERY_KEY = "getGifs";
+
 interface GifsProps {
   debouncedGifInput: string;
   setGifAttachment: (gif: IGif) => void;
@@ -38,7 +40,7 @@ const Gifs: FC<GifsProps> = ({
   const { data: gifs, isFetching } = useQuery({
     enabled: Boolean(debouncedGifInput),
     queryFn: () => getGifs(debouncedGifInput),
-    queryKey: ["getGifs", debouncedGifInput]
+    queryKey: [GET_GIFS_QUERY_KEY, debouncedGifInput]
   });
 
   if (isFetching) {

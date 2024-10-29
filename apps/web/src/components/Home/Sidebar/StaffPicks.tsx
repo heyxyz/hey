@@ -12,6 +12,8 @@ import axios from "axios";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
+export const GET_STAFF_PICKS_QUERY_KEY = "getStaffPicks";
+
 interface BatchRange {
   end: number;
   start: number;
@@ -34,7 +36,10 @@ const StaffPicks: FC = () => {
     data: picks,
     error: picksError,
     isLoading: picksLoading
-  } = useQuery({ queryFn: getStaffPicks, queryKey: ["getStaffPicks"] });
+  } = useQuery({
+    queryFn: getStaffPicks,
+    queryKey: [GET_STAFF_PICKS_QUERY_KEY]
+  });
 
   const dividePicks = (
     picks: StaffPick[],

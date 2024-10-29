@@ -3,7 +3,7 @@ import Footer from "@components/Shared/Footer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
-import getList from "@hey/helpers/api/lists/getList";
+import getList, { GET_LIST_QUERY_KEY } from "@hey/helpers/api/lists/getList";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
@@ -42,7 +42,7 @@ const ViewList: NextPage = () => {
   } = useQuery({
     enabled: Boolean(id),
     queryFn: () => getList({ id: id as string, viewingId: currentProfile?.id }),
-    queryKey: ["getList", id]
+    queryKey: [GET_LIST_QUERY_KEY, id]
   });
 
   if (!isReady || listLoading) {
