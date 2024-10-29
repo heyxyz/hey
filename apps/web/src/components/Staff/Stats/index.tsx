@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import StaffSidebar from "../Sidebar";
+import HeyStats from "./HeyStats";
 import LensStats from "./LensStats";
 
 const Stats: NextPage = () => {
@@ -31,6 +32,7 @@ const Stats: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <HeyStats />
         <LensStats />
       </GridItemEight>
     </GridLayout>
