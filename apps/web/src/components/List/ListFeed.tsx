@@ -17,7 +17,7 @@ import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
-export const GET_LIST_PUBLICATIONS_QUERY_KEY = "getListPublications";
+const GET_LIST_PUBLICATIONS_QUERY_KEY = "getListPublications";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface ListFeedProps {
