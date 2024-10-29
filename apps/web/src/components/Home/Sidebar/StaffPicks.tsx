@@ -12,7 +12,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-export const GET_STAFF_PICKS_QUERY_KEY = "getStaffPicks";
+const GET_STAFF_PICKS_QUERY_KEY = "getStaffPicks";
 
 interface BatchRange {
   end: number;

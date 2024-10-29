@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 
-export const GET_GIFS_QUERY_KEY = "getGifs";
+const GET_GIFS_QUERY_KEY = "getGifs";
 
 interface GifsProps {
   debouncedGifInput: string;

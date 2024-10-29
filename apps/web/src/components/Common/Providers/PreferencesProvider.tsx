@@ -18,8 +18,8 @@ import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
-export const GET_VERIFIED_MEMBERS_QUERY_KEY = "getVerifiedMembers";
-export const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
+const GET_VERIFIED_MEMBERS_QUERY_KEY = "getVerifiedMembers";
+const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();

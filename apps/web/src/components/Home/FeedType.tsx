@@ -14,7 +14,7 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-export const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
+const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
 
 interface FeedTypeProps {
   feedType: HomeFeedType;
