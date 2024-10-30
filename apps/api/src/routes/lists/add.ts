@@ -82,7 +82,7 @@ export const post = [
         return catchedError(res, new Error(Errors.Unauthorized), 401);
       }
 
-      if (count >= 500) {
+      if (count >= 50) {
         return catchedError(
           res,
           new Error(
