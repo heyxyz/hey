@@ -24,6 +24,7 @@ jobs:
   api-test:
     name: API Test
     runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
       - name: Checkout 🚪
