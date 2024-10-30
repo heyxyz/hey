@@ -2,7 +2,6 @@ name: Test
 
 env:
   REDIS_URL: ${{ secrets.REDIS_URL }}
-  DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
   TEST_AUTH_TOKEN: ${{ secrets.TEST_AUTH_TOKEN }}
   TEST_SUSPENDED_AUTH_TOKEN: ${{ secrets.TEST_SUSPENDED_AUTH_TOKEN }}
   LENS_DATABASE_PASSWORD: ${{ secrets.LENS_DATABASE_PASSWORD }}
@@ -44,4 +43,6 @@ jobs:
 
       - name: Run API Tests 🧪
         working-directory: ./apps/api
+        env:
+          DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
         run: pnpm test
