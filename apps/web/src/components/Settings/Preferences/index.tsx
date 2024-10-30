@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
+import DeveloperMode from "./DeveloperMode";
 import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
 
 const PreferencesSettings: NextPage = () => {
@@ -41,8 +42,9 @@ const PreferencesSettings: NextPage = () => {
             experience on ${APP_NAME}.`}
             title="Your Preferences"
           />
-          <div className="m-5">
+          <div className="m-5 space-y-5">
             <HighSignalNotificationFilter />
+            <DeveloperMode />
           </div>
         </Card>
         <AppIcon />
