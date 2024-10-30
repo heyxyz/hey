@@ -1,6 +1,6 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
-import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
+import { LinkIcon } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import getProfile from "@hey/helpers/getProfile";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -32,7 +32,7 @@ const CopyLink: FC<CopyLinkProps> = ({ profile }) => {
         Leafwatch.track(PROFILE.COPY_PROFILE_LINK, { profile_id: profile.id });
       }}
     >
-      <ClipboardDocumentIcon className="size-4" />
+      <LinkIcon className="size-4" />
       <div>Copy link</div>
     </MenuItem>
   );

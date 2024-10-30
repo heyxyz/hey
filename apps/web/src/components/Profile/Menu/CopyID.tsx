@@ -1,6 +1,6 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
-import { WalletIcon } from "@heroicons/react/24/outline";
+import { HashtagIcon } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
@@ -9,11 +9,11 @@ import type { FC } from "react";
 import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 
-interface CopyAddressProps {
+interface CopyIDProps {
   profile: Profile;
 }
 
-const CopyAddress: FC<CopyAddressProps> = ({ profile }) => {
+const CopyID: FC<CopyIDProps> = ({ profile }) => {
   const { developerMode } = usePreferencesStore();
 
   if (!developerMode) {
@@ -31,17 +31,17 @@ const CopyAddress: FC<CopyAddressProps> = ({ profile }) => {
       }
       onClick={async (event) => {
         stopEventPropagation(event);
-        await navigator.clipboard.writeText(profile.ownedBy.address);
-        toast.success("Address copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_ADDRESS, {
-          address: profile.ownedBy.address
+        await navigator.clipboard.writeText(profile.id);
+        toast.success("ID copied to clipboard!");
+        Leafwatch.track(PROFILE.COPY_PROFILE_ID, {
+          profile_id: profile.id
         });
       }}
     >
-      <WalletIcon className="size-4" />
-      <div>Copy address</div>
+      <HashtagIcon className="size-4" />
+      <div>Copy ID</div>
     </MenuItem>
   );
 };
 
-export default CopyAddress;
+export default CopyID;

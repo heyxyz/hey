@@ -9,6 +9,7 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import AddToList from "./AddToList";
 import Block from "./Block";
 import CopyAddress from "./CopyAddress";
+import CopyID from "./CopyID";
 import CopyLink from "./CopyLink";
 import Report from "./Report";
 
@@ -38,6 +39,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
         >
           <CopyLink profile={profile} />
           <CopyAddress profile={profile} />
+          <CopyID profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (
             <>
               <AddToList profile={profile} />
