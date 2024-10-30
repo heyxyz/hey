@@ -7,6 +7,7 @@ interface State {
   emailVerified: boolean;
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
+  developerMode: boolean;
   resetPreferences: () => void;
   setAppIcon: (appIcon: number) => void;
   setEmail: (email: null | string) => void;
@@ -17,6 +18,7 @@ interface State {
   setHighSignalNotificationFilter: (
     highSignalNotificationFilter: boolean
   ) => void;
+  setDeveloperMode: (developerMode: boolean) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }
@@ -27,6 +29,7 @@ const store = create<State>((set) => ({
   emailVerified: false,
   hasDismissedOrMintedMembershipNft: true,
   highSignalNotificationFilter: false,
+  developerMode: false,
   resetPreferences: () =>
     set(() => ({
       hasDismissedOrMintedMembershipNft: true,
@@ -39,6 +42,7 @@ const store = create<State>((set) => ({
     set(() => ({ hasDismissedOrMintedMembershipNft })),
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
     set(() => ({ highSignalNotificationFilter })),
+  setDeveloperMode: (developerMode) => set(() => ({ developerMode })),
   setLoading: (loading) => set(() => ({ loading })),
   loading: false
 }));

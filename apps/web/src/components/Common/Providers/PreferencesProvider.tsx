@@ -33,6 +33,7 @@ const PreferencesProvider: FC = () => {
     setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
+    setDeveloperMode,
     setLoading: setPreferencesLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
@@ -45,6 +46,7 @@ const PreferencesProvider: FC = () => {
     setAppIcon(preferences.appIcon);
     setEmail(preferences.email);
     setEmailVerified(preferences.emailVerified);
+    setDeveloperMode(preferences.developerMode);
     setStatus({
       isCommentSuspended: preferences.permissions.includes(
         Permission.CommentSuspended
