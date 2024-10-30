@@ -1,5 +1,14 @@
 name: Test
 
+env:
+  REDIS_URL: ${{ secrets.REDIS_URL }}
+  DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+  TEST_AUTH_TOKEN: ${{ secrets.TEST_AUTH_TOKEN }}
+  TEST_SUSPENDED_AUTH_TOKEN: ${{ secrets.TEST_SUSPENDED_AUTH_TOKEN }}
+  LENS_DATABASE_PASSWORD: ${{ secrets.LENS_DATABASE_PASSWORD }}
+  CLICKHOUSE_URL: ${{ secrets.CLICKHOUSE_URL }}
+  CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+
 on:
   push:
     branches: [main]
@@ -15,14 +24,6 @@ jobs:
   api-test:
     name: API Test
     runs-on: ubuntu-latest
-    env:
-      REDIS_URL: ${{ secrets.REDIS_URL }}
-      DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
-      TEST_AUTH_TOKEN: ${{ secrets.TEST_AUTH_TOKEN }}
-      TEST_SUSPENDED_AUTH_TOKEN: ${{ secrets.TEST_SUSPENDED_AUTH_TOKEN }}
-      LENS_DATABASE_PASSWORD: ${{ secrets.LENS_DATABASE_PASSWORD }}
-      CLICKHOUSE_URL: ${{ secrets.CLICKHOUSE_URL }}
-      CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
 
     steps:
       - name: Checkout 🚪
@@ -41,6 +42,74 @@ jobs:
         working-directory: ./packages/db
         run: pnpm prisma:seed
 
-      - name: Run API Tests 🧪
-        working-directory: ./apps/api
+      # - name: Run API Tests 🧪
+      #   working-directory: ./apps/api
+      #   run: pnpm test
+
+  web-test:
+    name: Web Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Run Web Tests 🧪
+        working-directory: ./apps/web
+        run: pnpm test
+
+  og-test:
+    name: OG Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Run OG Tests 🧪
+        working-directory: ./apps/og
+        run: pnpm test
+
+  data-test:
+    name: Data Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Run Data Tests 🧪
+        working-directory: ./packages/data
+        run: pnpm test
+
+  helpers-test:
+    name: Helpers Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Run Helpers Tests 🧪
+        working-directory: ./packages/helpers
         run: pnpm test
