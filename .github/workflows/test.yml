@@ -1,5 +1,9 @@
 name: Test
 
+env:
+  REDIS_URL: ${{ secrets.TEST_REDIS_URL }}
+  DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+
 on:
   push:
     branches: [main]
