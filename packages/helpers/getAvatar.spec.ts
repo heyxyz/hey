@@ -71,6 +71,8 @@ describe("getAvatar", () => {
       metadata: { picture: { optimized: { uri: ipfsLink } } }
     };
     const result = getAvatar(profile, "custom-transform");
-    expect(result).toContain("/fallback/custom-transform,");
+    expect(result).toContain(
+      `${HEY_IMAGEKIT_URL}/fallback/custom-transform/${ipfsLink}`
+    );
   });
 });
