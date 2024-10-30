@@ -18,11 +18,16 @@ describe("GET /preferences/get", () => {
     const [, , , permission] = await Promise.all([
       prisma.preference.upsert({
         where: { id: TEST_LENS_ID },
-        update: { appIcon: 2, highSignalNotificationFilter: true },
+        update: {
+          appIcon: 2,
+          highSignalNotificationFilter: true,
+          developerMode: true
+        },
         create: {
           id: TEST_LENS_ID,
           appIcon: 2,
-          highSignalNotificationFilter: true
+          highSignalNotificationFilter: true,
+          developerMode: true
         }
       }),
       prisma.email.upsert({
@@ -58,6 +63,7 @@ describe("GET /preferences/get", () => {
     expect(data.result.permissions).toContain(testPermissionKey);
     expect(data.result.hasDismissedOrMintedMembershipNft).toBe(true);
     expect(data.result.highSignalNotificationFilter).toBe(true);
+    expect(data.result.developerMode).toBe(true);
   });
 
   test("should return 401 if the identity token is missing", async () => {

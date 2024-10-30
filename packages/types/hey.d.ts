@@ -74,6 +74,7 @@ export type Preferences = {
   emailVerified: boolean;
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
+  developerMode: boolean;
   permissions: string[];
   theme: ProfileTheme | null;
 };
