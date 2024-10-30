@@ -1,0 +1,35 @@
+name: DB Migrate
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  production:
+    name: Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
+        uses: ./.github/actions/db-migration
+        with:
+          database_url: ${{ secrets.PRODUCTION_DATABASE_URL }}
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js, pnpm, dependencies and run migrations 🌸
+        uses: ./.github/actions/db-migration
+        with:
+          database_url: ${{ secrets.TEST_DATABASE_URL }}
