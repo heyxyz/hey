@@ -11,8 +11,8 @@ import axios from "axios";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { object, string, type z } from "zod";
 

@@ -8,8 +8,8 @@ import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { signOut } from "src/store/persisted/useAuthStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useDisconnect } from "wagmi";
 
 interface LogoutProps {
