@@ -1,7 +1,6 @@
 import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -12,7 +11,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from "@hey/lens";
-import { Button, Spinner } from "@hey/ui";
+import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
@@ -153,15 +152,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     <Button
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
       disabled={isLoading}
-      icon={
-        isLoading ? (
-          <Spinner size="xs" variant={canUseSignless ? "danger" : "primary"} />
-        ) : canUseSignless ? (
-          <XMarkIcon className="size-4" />
-        ) : (
-          <CheckCircleIcon className="size-4" />
-        )
-      }
       onClick={toggleDispatcher}
       variant={canUseSignless ? "danger" : "primary"}
     >
