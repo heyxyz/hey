@@ -3,7 +3,7 @@ import { APP_NAME } from "@hey/data/constants";
 import { Card, GridItemTwelve, GridLayout, H3, PageLoading } from "@hey/ui";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 
 const Support: NextPage = () => {
   const { loading } = usePreferencesStore();

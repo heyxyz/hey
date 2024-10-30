@@ -7,7 +7,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { memo, useState } from "react";
 import toast from "react-hot-toast";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Mint from "./Mint";
 
 const HeyMembershipNft: FC = () => {

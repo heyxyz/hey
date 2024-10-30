@@ -6,7 +6,7 @@ import { ONBOARDING } from "@hey/data/tracking";
 import { Card, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface StatusProps {

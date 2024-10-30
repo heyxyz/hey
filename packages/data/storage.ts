@@ -5,6 +5,7 @@ export const Localstorage = {
   LeafwatchStore: "leafwatch.store",
   NotificationStore: "notification.store",
   AllowedTokensStore: "allowedtokens.store",
+  PreferencesStore: "preferences.store",
   ProfileStore: "profile.store",
   ProfileThemeStore: "profiletheme.store",
   RateStore: "rate.store",
