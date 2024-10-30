@@ -87,6 +87,10 @@ export const PUBLICATION = {
   }
 };
 
+export const LIST = {
+  FOLLOW_ALL: "Follow all profiles in list"
+};
+
 export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: "Switch notifications tab"
 };
@@ -222,6 +226,7 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...PROFILE,
+  ...LIST,
   ...PUBLICATION,
   ...NOTIFICATION,
   ...HOME,

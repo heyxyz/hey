@@ -1,6 +1,9 @@
+import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
+import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { LIST } from "@hey/data/tracking";
 import { useFollowMutation } from "@hey/lens";
 import type { List } from "@hey/types/hey";
 import { Button } from "@hey/ui";
@@ -52,22 +55,29 @@ const FollowAllButton: FC<FollowAllButtonProps> = ({ list }) => {
       return toast.error(Errors.Suspended);
     }
 
-    if (!data || data.length === 0) {
-      toast.success("All profiles are already followed");
-      return;
-    }
+    try {
+      if (!data || data.length === 0) {
+        toast.success("All profiles are already followed");
+        return;
+      }
 
-    // Process in batches of 50 profiles
-    for (let i = 0; i < data.length; i += 50) {
-      const batch = data.slice(i, i + 50);
-      await bulkFollow({
-        variables: {
-          request: { follow: batch.map((profile) => ({ profileId: profile })) }
-        }
-      });
-    }
+      // Process in batches of 50 profiles
+      for (let i = 0; i < data.length; i += 50) {
+        const batch = data.slice(i, i + 50);
+        await bulkFollow({
+          variables: {
+            request: {
+              follow: batch.map((profile) => ({ profileId: profile }))
+            }
+          }
+        });
+      }
 
-    toast.success(`Successfully followed ${data.length} profiles`);
+      toast.success(`Successfully followed ${data.length} profiles`);
+      Leafwatch.track(LIST.FOLLOW_ALL, { list_id: list.id, profiles: data });
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (
