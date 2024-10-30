@@ -1,26 +1,40 @@
 #!/bin/bash
 
-#/ Usage: script/update-dependencies
-#/ Create a branch to update a dependency with a unique name.
+branch_name="update-dependencies-$(date +%Y-%m-%d)"
+commit_message="Update dependencies across all packages 📦"
 
-# Clean all branches
-script/clean-branches
+# Check for uncommitted changes
+if [[ $(git status --porcelain) ]]; then
+  echo "Uncommitted changes detected. Please commit or stash them before running this script."
+  exit 1
+fi
 
-# Generate a unique branch name using a timestamp
-branch_name="update-dependencies-$(date +%Y%m%d%H%M%S)"
-
-# Create a new update-dependencies branch with the timestamp
-echo "Creating $branch_name branch 🌱"
+# Create a new branch
 git checkout -b "$branch_name"
-echo "Branch $branch_name created 🎉"
 
-# Update dependencies in package.json
-echo "Updating dependencies in package.json 📦"
+# Update dependencies
 pnpm update --interactive --recursive --latest
-# Clean up pnpm-lock.yaml file and install dependencies
-script/clean && pnpm install
-# Git operations
-git add -A
-git commit -am "Update dependencies"
-git push origin "$branch_name"
-echo "Dependencies updated and pushed to $branch_name 🎉"
+
+# Check for changes
+if [[ ! $(git status --porcelain) ]]; then
+  echo "No changes in dependencies. Exiting."
+  exit 0
+fi
+
+# Call the clean script
+./script/clean
+
+# Install dependencies again
+pnpm install
+
+# Commit changes
+git add .
+git commit -m "$commit_message"
+
+# Push the branch
+git push -u origin "$branch_name"
+
+# Create a pull request
+gh pr create --fill
+
+echo "Dependencies updated and pushed to branch $branch_name."
