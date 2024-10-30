@@ -28,6 +28,7 @@ const getInternalProfile = async (
       emailVerified: false,
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
+      developerMode: false,
       permissions: [],
       theme: null
     };
