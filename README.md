@@ -16,7 +16,7 @@ We harness the power of [pnpm workspaces](https://pnpm.io/workspaces) to keep ou
 Want to join the cool kids' club and access the repository on Pierre? Hit up Yoginth with your brilliant ideas—let's team up and create the web's next big thing!
 
 ```bash
-git clone git@git.pierre.co:/repos/hey/hey.git
+git clone https://github.com/heyxyz/hey.git
 ```
 
 ### Install NVM (Node Version Manager) and pnpm
