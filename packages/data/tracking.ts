@@ -153,6 +153,7 @@ export const SETTINGS = {
   PREFERENCES: {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       "Toggle high signal notification filter",
+    TOGGLE_DEVELOPER_MODE: "Toggle developer mode",
     APP_ICON: "Update app icon"
   },
   PROFILE: {
