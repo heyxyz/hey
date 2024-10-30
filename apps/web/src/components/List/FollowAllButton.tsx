@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import toast from "react-hot-toast";
+import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 export const GET_FOLLOW_LIST_QUERY_KEY = "getFollowList";
 
@@ -15,6 +17,9 @@ interface FollowAllButtonProps {
 }
 
 const FollowAllButton: FC<FollowAllButtonProps> = ({ list }) => {
+  const { currentProfile } = useProfileStore();
+  const { setShowAuthModal } = useGlobalModalStateStore();
+
   const getFollowList = async (): Promise<string[]> => {
     try {
       const { data } = await axios.get(`${HEY_API_URL}/lists/follow`, {
@@ -34,7 +39,12 @@ const FollowAllButton: FC<FollowAllButtonProps> = ({ list }) => {
 
   const [bulkFollow, { loading: following }] = useFollowMutation();
 
-  const handleFollowAll = async () => {
+  const createBulkFollow = async () => {
+    if (!currentProfile) {
+      setShowAuthModal(true);
+      return;
+    }
+
     if (!data || data.length === 0) {
       toast.success("All profiles are already followed");
       return;
@@ -57,7 +67,7 @@ const FollowAllButton: FC<FollowAllButtonProps> = ({ list }) => {
     <Button
       aria-label="Follow all"
       disabled={isLoading || following}
-      onClick={handleFollowAll}
+      onClick={createBulkFollow}
       outline
     >
       Follow all
