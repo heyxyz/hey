@@ -73,7 +73,7 @@ const AddToList: FC = () => {
       );
 
       queryClient.setQueryData<List[]>(
-        ["getAllLists", profileToAddToList?.id],
+        [GET_LISTS_QUERY_KEY, profileToAddToList?.id],
         (oldData) =>
           oldData?.map((list) =>
             list.id === listId

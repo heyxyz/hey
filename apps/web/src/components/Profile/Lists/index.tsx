@@ -67,7 +67,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        ["getAllLists", currentProfile?.id],
+        [GET_LISTS_QUERY_KEY, currentProfile?.id],
         (oldData) => oldData?.filter((list) => list.id !== id)
       );
       toast.success("List deleted");
@@ -90,7 +90,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        ["getAllLists", currentProfile?.id],
+        [GET_LISTS_QUERY_KEY, currentProfile?.id],
         (oldData) =>
           oldData?.map((list) =>
             list.id === id ? { ...list, pinned: !pinned } : list
