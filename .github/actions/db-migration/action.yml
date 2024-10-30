@@ -1,0 +1,33 @@
+name: Docker Build and Push
+description: Build and push Docker image to registry
+
+inputs:
+  database_url:
+    required: true
+    default: ""
+    description: "Database URL for migration"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup pnpm 🌸
+      uses: pnpm/action-setup@v4
+
+    - name: Setup node 🍀
+      uses: actions/setup-node@v4
+      with:
+        check-latest: true
+        node-version-file: ".nvmrc"
+        cache: "pnpm"
+
+    - name: Install dependencies 📦
+      shell: bash
+      working-directory: ./apps/api
+      run: pnpm i
+
+    - name: Migrate 🚀
+      shell: bash
+      working-directory: ./packages/db
+      env:
+        DATABASE_URL: ${{ inputs.database_url }}
+      run: pnpm prisma:migrate
