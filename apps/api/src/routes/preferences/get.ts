@@ -54,6 +54,7 @@ export const get = [
         highSignalNotificationFilter: Boolean(
           preference?.highSignalNotificationFilter
         ),
+        developerMode: Boolean(preference?.developerMode),
         permissions: permissions.map(({ permission }) => permission.key),
         theme: (theme as ProfileTheme) || null
       };

@@ -13,7 +13,8 @@ describe("GET /internal/profile/get", () => {
       data: {
         id: faker.string.uuid(),
         appIcon: 1,
-        highSignalNotificationFilter: true
+        highSignalNotificationFilter: true,
+        developerMode: true
       }
     });
 
@@ -48,6 +49,7 @@ describe("GET /internal/profile/get", () => {
     expect(data.result.highSignalNotificationFilter).toBe(
       preference.highSignalNotificationFilter
     );
+    expect(data.result.developerMode).toBe(preference.developerMode);
   });
 
   test("should return 400 if id is missing", async () => {

@@ -10,15 +10,17 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import { boolean, number, object, string } from "zod";
 
 interface ExtensionRequest {
+  id?: string;
   appIcon?: number;
   highSignalNotificationFilter?: boolean;
-  id?: string;
+  developerMode?: boolean;
 }
 
 const validationSchema = object({
+  id: string().optional(),
   appIcon: number().optional(),
   highSignalNotificationFilter: boolean().optional(),
-  id: string().optional()
+  developerMode: boolean().optional()
 });
 
 export const post = [
@@ -37,22 +39,24 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { appIcon, highSignalNotificationFilter } = body as ExtensionRequest;
+    const { appIcon, highSignalNotificationFilter, developerMode } =
+      body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const data = await prisma.preference.upsert({
-        create: { appIcon, highSignalNotificationFilter, id: payload.id },
-        update: { appIcon, highSignalNotificationFilter },
+      const data = { appIcon, highSignalNotificationFilter, developerMode };
+      const result = await prisma.preference.upsert({
+        create: { ...data, id: payload.id },
+        update: data,
         where: { id: payload.id }
       });
 
       await delRedis(`preference:${payload.id}`);
       logger.info(`Updated preferences for ${payload.id}`);
 
-      return res.status(200).json({ result: data, success: true });
+      return res.status(200).json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
