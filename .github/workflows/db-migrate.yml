@@ -3,6 +3,8 @@ name: DB Migrate
 on:
   push:
     branches: [main]
+  pull_request:
+    types: [opened, synchronize]
   workflow_dispatch:
 
 concurrency:
@@ -13,7 +15,6 @@ jobs:
   production:
     name: Production
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
@@ -26,7 +27,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
