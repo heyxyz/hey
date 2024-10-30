@@ -39,6 +39,8 @@ jobs:
 
       - name: Seed DB 🌱
         working-directory: ./packages/db
+        env:
+          DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
         run: pnpm prisma:seed
 
       - name: Run API Tests 🧪
