@@ -107,10 +107,6 @@ script/clean-branches
 script/update-lock-file
 ```
 
-## GitHub Mirror
-
-Our repositories are managed using [Pierre](https://pierre.co/). You can find our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). Although we do not accept pull requests (PRs) on GitHub, we encourage you to open issues.
-
 ## Other tools you might like
 
 ### Ripgrep
