@@ -1,5 +1,9 @@
 name: Test
 
+env:
+  REDIS_URL: ${{ secrets.REDIS_URL }}
+  DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+
 on:
   push:
     branches: [main]
@@ -27,6 +31,4 @@ jobs:
 
       - name: Flush Redis 🧹
         working-directory: ./packages/db
-        env:
-          REDIS_URL: ${{ secrets.TEST_REDIS_URL }}
         run: pnpm redis:flush
