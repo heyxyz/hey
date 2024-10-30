@@ -19,7 +19,7 @@ import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
 import ActedNotification from "./Type/ActedNotification";
 import CommentNotification from "./Type/CommentNotification";

@@ -11,9 +11,9 @@ import getPreferences, {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";

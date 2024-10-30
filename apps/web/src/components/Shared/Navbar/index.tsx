@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
-import { usePreferencesStore } from "src/store/non-persisted/usePreferencesStore";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import MenuItems from "./MenuItems";
 import ModIcon from "./ModIcon";
