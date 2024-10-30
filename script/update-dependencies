@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#/ Usage: script/update-dependencies
+#/ Update dependencies across all packages
+
 branch_name="update-dependencies-$(date +%Y-%m-%d)"
 commit_message="Update dependencies across all packages 📦"
 
