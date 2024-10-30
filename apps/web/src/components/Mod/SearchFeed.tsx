@@ -53,7 +53,7 @@ const SearchFeed: FC = () => {
   useEffect(() => {
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));
-  }, [refresh, publicationTypes, mainContentFocus, customFilters]);
+  }, [refresh, publicationTypes, mainContentFocus, customFilters, searchInput]);
 
   const onEndReached = async () => {
     if (hasMore) {
@@ -70,6 +70,7 @@ const SearchFeed: FC = () => {
         onSubmit={(event) => {
           event.preventDefault();
           setQuery(searchInput);
+          setSearchInput("");
           Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: searchInput });
         }}
       >
