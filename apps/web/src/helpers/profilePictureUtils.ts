@@ -32,8 +32,8 @@ const uploadCroppedImage = async (
   });
   const cleanedFile = await imageCompression(file, {
     exifOrientation: 1,
-    maxSizeMB: 2,
-    maxWidthOrHeight: 4096,
+    maxSizeMB: 3,
+    maxWidthOrHeight: 2000,
     useWebWorker: true
   });
   const attachment = await uploadFileToIPFS(cleanedFile);
