@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flush-redis:
+    name: Flush Redis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js, pnpm and dependencies 🌸
+        uses: ./.github/actions/setup-pnpm
+
+      - name: Flush Redis 🧹
+        working-directory: ./packages/db
+        run: pnpm redis:flush
