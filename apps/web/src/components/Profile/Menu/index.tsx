@@ -38,8 +38,8 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           static
         >
           <CopyLink profile={profile} />
-          <CopyAddress profile={profile} />
-          <CopyID profile={profile} />
+          <CopyAddress address={profile.ownedBy.address} />
+          <CopyID id={profile.id} />
           {currentProfile && currentProfile?.id !== profile.id ? (
             <>
               <AddToList profile={profile} />

@@ -8,6 +8,7 @@ import type { FC } from "react";
 import { Fragment } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Bookmark from "./Bookmark";
+import CopyID from "./CopyID";
 import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
 import HideComment from "./HideComment";
@@ -52,6 +53,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           <div className="divider" />
           <Share publication={publication} />
           <CopyPostText publication={publication} />
+          <CopyID id={publication.id} />
           <div className="divider" />
           {currentProfile?.id === publication?.by?.id ? (
             <Delete publication={publication} />

@@ -3,17 +3,16 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { WalletIcon } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 
 interface CopyAddressProps {
-  profile: Profile;
+  address: string;
 }
 
-const CopyAddress: FC<CopyAddressProps> = ({ profile }) => {
+const CopyAddress: FC<CopyAddressProps> = ({ address }) => {
   const { developerMode } = usePreferencesStore();
 
   if (!developerMode) {
@@ -31,11 +30,9 @@ const CopyAddress: FC<CopyAddressProps> = ({ profile }) => {
       }
       onClick={async (event) => {
         stopEventPropagation(event);
-        await navigator.clipboard.writeText(profile.ownedBy.address);
+        await navigator.clipboard.writeText(address);
         toast.success("Address copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_ADDRESS, {
-          address: profile.ownedBy.address
-        });
+        Leafwatch.track(PROFILE.COPY_PROFILE_ADDRESS, { address });
       }}
     >
       <WalletIcon className="size-4" />

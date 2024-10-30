@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HashtagIcon } from "@heroicons/react/24/outline";
-import { PROFILE } from "@hey/data/tracking";
+import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -25,20 +25,22 @@ const CopyID: FC<CopyIDProps> = ({ id }) => {
       className={({ focus }) =>
         cn(
           { "dropdown-active": focus },
-          "m-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm"
+          "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
         )
       }
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(id);
         toast.success("ID copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_ID, {
-          profile_id: id
+        Leafwatch.track(PUBLICATION.COPY_ID, {
+          publication_id: id
         });
       }}
     >
-      <HashtagIcon className="size-4" />
-      <div>Copy ID</div>
+      <div className="flex items-center space-x-2">
+        <HashtagIcon className="size-4" />
+        <div>Copy ID</div>
+      </div>
     </MenuItem>
   );
 };

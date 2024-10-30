@@ -30,7 +30,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(filteredContent || "");
-        toast.success("Copied to clipboard!");
+        toast.success("Content copied to clipboard!");
         Leafwatch.track(PUBLICATION.COPY_TEXT, {
           publication_id: publication.id
         });

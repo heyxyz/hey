@@ -58,6 +58,7 @@ export const PUBLICATION = {
     OPEN_COLLECT: "Open collect modal",
     OPEN_UNISWAP: "Open Uniswap"
   },
+  COPY_ID: "Copy publication ID",
   COPY_TEXT: "Copy publication text",
   DELETE: "Delete publication",
   LIKE: "Like publication",
