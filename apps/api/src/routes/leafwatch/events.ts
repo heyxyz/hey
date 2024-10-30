@@ -62,14 +62,12 @@ export const post = [
     const ip = getIp(req);
     const cfIpCity = req.headers["cf-ipcity"];
     const cfIpCountry = req.headers["cf-ipcountry"];
+    const identityToken = req.headers["x-identity-token"] as string;
 
     try {
-      // Extract IP data
       const parser = new UAParser(userAgent || "");
       const ua = parser.getResult();
 
-      // Extract UTM parameters
-      const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
       const values = events.map((event) => ({
