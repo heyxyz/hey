@@ -24,6 +24,7 @@ const getPreferences = async (headers: any): Promise<Preferences> => {
       emailVerified: false,
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
+      developerMode: false,
       permissions: [],
       theme: null
     };

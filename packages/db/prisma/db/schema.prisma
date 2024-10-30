@@ -11,6 +11,7 @@ model Preference {
   id                           String   @id
   appIcon                      Int?     @default(0)
   highSignalNotificationFilter Boolean  @default(false)
+  developerMode                Boolean  @default(false)
   createdAt                    DateTime @default(now())
 }
 

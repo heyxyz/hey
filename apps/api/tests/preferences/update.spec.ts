@@ -10,12 +10,17 @@ describe("POST /preferences/update", () => {
   test("should return 200 and update preferences", async () => {
     const newAppIcon = faker.number.int({ min: 1, max: 10 });
     const highSignalNotificationFilter = faker.datatype.boolean();
+    const developerMode = faker.datatype.boolean();
 
     await delRedis(`preference:${TEST_LENS_ID}`);
 
     const { data, status } = await axios.post(
       `${TEST_URL}/preferences/update`,
-      { appIcon: newAppIcon, highSignalNotificationFilter },
+      {
+        appIcon: newAppIcon,
+        highSignalNotificationFilter,
+        developerMode
+      },
       { headers: getTestAuthHeaders() }
     );
 
@@ -25,6 +30,7 @@ describe("POST /preferences/update", () => {
     expect(data.result.highSignalNotificationFilter).toBe(
       highSignalNotificationFilter
     );
+    expect(data.result.developerMode).toBe(developerMode);
   });
 
   test("should return 400 if the request body is missing", async () => {
