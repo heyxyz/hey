@@ -17,6 +17,7 @@ import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import FollowAllButton from "./FollowAllButton";
 
 interface DetailsProps {
   list: List;
@@ -73,10 +74,17 @@ const Details: FC<DetailsProps> = ({ list }) => {
           <div className="ld-text-gray-500">{plur("Pin", list.totalPins)}</div>
         </div>
       </div>
-      <div className="flex items-center space-x-2">
-        <PinUnpinButton list={list} />
+      <div className="space-y-2">
+        <div>
+          <PinUnpinButton list={list} />
+        </div>
+        <div>
+          <FollowAllButton list={list} />
+        </div>
         {currentProfile?.id === list.createdBy && (
-          <Button onClick={() => setShowEditModal(true)}>Edit</Button>
+          <div>
+            <Button onClick={() => setShowEditModal(true)}>Edit</Button>
+          </div>
         )}
       </div>
       <Modal
