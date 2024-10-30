@@ -13,10 +13,10 @@ We harness the power of [pnpm workspaces](https://pnpm.io/workspaces) to keep ou
 
 ### Clone the repository
 
-Want to join the cool kids' club and access the repository on Pierre? Hit up Yoginth with your brilliant ideas—let's team up and create the web's next big thing!
+Clone the Hey monorepo to your local machine:
 
 ```bash
-git clone git@git.pierre.co:/repos/hey/hey.git
+git clone https://github.com/heyxyz/hey.git
 ```
 
 ### Install NVM (Node Version Manager) and pnpm
@@ -106,24 +106,6 @@ We trust `pnpm` to keep our lock file fresh and fabulous!
 script/clean-branches
 script/update-lock-file
 ```
-
-## GitHub Mirror
-
-Our repositories are managed using [Pierre](https://pierre.co/). You can find our mirrored repository on GitHub [here](https://github.com/heyxyz/hey). Although we do not accept pull requests (PRs) on GitHub, we encourage you to open issues.
-
-## Pierre
-
-### Create Incremental Branch
-
-This command will whip up a new incremental branch based on your current branch. It's like a clone, but cooler!
-
-Imagine you're on the `feature/login` branch, and you run the command below. Voilà! A shiny new branch called `feature/login@2` will appear, like magic!
-
-```bash
-npx pierre@latest version
-```
-
-Need to create a new branch with the latest changes and a sprinkle of your own magic? This command's got your back! Perfect for when you want to dazzle us with your PR changes.
 
 ## Other tools you might like
 
