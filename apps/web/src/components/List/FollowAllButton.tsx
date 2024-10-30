@@ -45,9 +45,7 @@ const FollowAllButton: FC<FollowAllButtonProps> = ({ list }) => {
       const batch = data.slice(i, i + 50);
       await bulkFollow({
         variables: {
-          request: {
-            follow: batch.map((profile) => ({ profileId: profile }))
-          }
+          request: { follow: batch.map((profile) => ({ profileId: profile })) }
         }
       });
     }
