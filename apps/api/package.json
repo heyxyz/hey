@@ -12,9 +12,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.679.0",
-    "@aws-sdk/client-ses": "^3.679.0",
-    "@aws-sdk/client-sts": "^3.679.0",
+    "@aws-sdk/client-s3": "^3.682.0",
+    "@aws-sdk/client-ses": "^3.682.0",
+    "@aws-sdk/client-sts": "^3.682.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
@@ -40,7 +40,7 @@
     "ua-parser-js": "2.0.0-rc.1",
     "urlcat": "^3.1.0",
     "uuid": "^11.0.2",
-    "viem": "^2.21.36",
+    "viem": "^2.21.37",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
-    "@types/node": "^22.8.2",
+    "@types/node": "^22.8.4",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
