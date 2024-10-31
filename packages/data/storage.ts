@@ -1,4 +1,3 @@
-// Localstorage keys
 export const Localstorage = {
   AuthStore: "auth.store",
   FingerprintStore: "fingerprint.store",
@@ -13,6 +12,7 @@ export const Localstorage = {
   TransactionStore: "transaction.store",
   VerifiedMembersStore: "verifiedmembers.store",
   PinnedListStore: "pinnedlist.store",
+  HomeTabStore: "hometab.store",
   UnleashRepositoryStore: "unleash:repository:repo",
   UnleashRepositorySessionIdStore: "unleash:repository:sessionId"
 };

@@ -10,27 +10,18 @@ import type { List } from "@hey/types/hey";
 import { Image, TabButton } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { FC } from "react";
+import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
 
-interface FeedTypeProps {
-  feedType: HomeFeedType;
-  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
-  pinnedList: List | null;
-  setPinnedList: Dispatch<SetStateAction<List | null>>;
-}
-
-const FeedType: FC<FeedTypeProps> = ({
-  feedType,
-  setFeedType,
-  pinnedList,
-  setPinnedList
-}) => {
+const FeedType: FC = () => {
   const { fallbackToCuratedFeed } = useProfileStore();
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
+  const { feedType, setFeedType, pinnedList, setPinnedList } =
+    useHomeTabStore();
 
   const getPinnedLists = async (): Promise<List[]> => {
     try {
@@ -118,9 +109,7 @@ const FeedType: FC<FeedTypeProps> = ({
             onClick={() => {
               setFeedType(HomeFeedType.PINNED);
               setPinnedList(list);
-              Leafwatch.track(HOME.SWITCH_PINNED_LIST, {
-                list: list.id
-              });
+              Leafwatch.track(HOME.SWITCH_PINNED_LIST, { list: list.id });
             }}
             showOnSm
           />
