@@ -168,3 +168,14 @@ model PinnedList {
 
   @@id([profileId, listId])
 }
+
+model MutedWord {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String
+  word      String
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+
+  // Indexes
+  @@index([profileId])
+}
