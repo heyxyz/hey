@@ -34,6 +34,7 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
     setDeveloperMode,
+    setMutedWords,
     setLoading: setPreferencesLoading
   } = usePreferencesStore();
   const { setStatus } = useProfileStatus();
@@ -56,6 +57,7 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
     );
+    setMutedWords(preferences.mutedWords);
     setPreferencesLoading(false);
     setTheme({ fontStyle: preferences.theme?.fontStyle });
 

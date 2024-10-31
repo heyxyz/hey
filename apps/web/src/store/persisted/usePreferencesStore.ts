@@ -10,6 +10,7 @@ interface State {
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   developerMode: boolean;
+  mutedWords: { word: string; expiresAt: Date | null }[];
   resetPreferences: () => void;
   setAppIcon: (appIcon: number) => void;
   setEmail: (email: null | string) => void;
@@ -21,6 +22,9 @@ interface State {
     highSignalNotificationFilter: boolean
   ) => void;
   setDeveloperMode: (developerMode: boolean) => void;
+  setMutedWords: (
+    mutedWords: { word: string; expiresAt: Date | null }[]
+  ) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }
@@ -34,6 +38,7 @@ const store = create(
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
       developerMode: false,
+      mutedWords: [],
       resetPreferences: () =>
         set(() => ({
           hasDismissedOrMintedMembershipNft: true,
@@ -48,6 +53,7 @@ const store = create(
       setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
         set(() => ({ highSignalNotificationFilter })),
       setDeveloperMode: (developerMode) => set(() => ({ developerMode })),
+      setMutedWords: (mutedWords) => set(() => ({ mutedWords })),
       setLoading: (loading) => set(() => ({ loading })),
       loading: false
     }),
