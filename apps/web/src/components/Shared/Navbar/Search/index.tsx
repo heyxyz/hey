@@ -34,7 +34,6 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const reset = () => {
     setShowDropdown(false);
     setProfiles([]);
-    setSearchText("");
   };
 
   const dropdownRef = useClickAway(() => {
@@ -57,7 +56,6 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
-    reset();
   };
 
   useEffect(() => {
