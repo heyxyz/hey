@@ -34,7 +34,6 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const reset = () => {
     setShowDropdown(false);
     setProfiles([]);
-    setSearchText("");
   };
 
   const dropdownRef = useClickAway(() => {
