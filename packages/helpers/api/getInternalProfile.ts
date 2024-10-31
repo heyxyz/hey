@@ -30,6 +30,7 @@ const getInternalProfile = async (
       highSignalNotificationFilter: false,
       developerMode: false,
       permissions: [],
+      mutedWords: [],
       theme: null
     };
   }

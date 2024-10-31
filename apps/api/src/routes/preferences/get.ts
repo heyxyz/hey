@@ -32,7 +32,7 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [preference, permissions, email, membershipNft, theme] =
+      const [preference, permissions, email, membershipNft, theme, mutedWords] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { id: id as string } }),
           prisma.profilePermission.findMany({
@@ -41,7 +41,8 @@ export const get = [
           }),
           prisma.email.findUnique({ where: { id: id as string } }),
           prisma.membershipNft.findUnique({ where: { id: id as string } }),
-          prisma.profileTheme.findUnique({ where: { id: id as string } })
+          prisma.profileTheme.findUnique({ where: { id: id as string } }),
+          prisma.mutedWord.findMany({ where: { profileId: id as string } })
         ]);
 
       const response: Preferences = {
@@ -55,8 +56,12 @@ export const get = [
           preference?.highSignalNotificationFilter
         ),
         developerMode: Boolean(preference?.developerMode),
+        theme: (theme as ProfileTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
-        theme: (theme as ProfileTheme) || null
+        mutedWords: mutedWords.map(({ word, expiresAt }) => ({
+          word,
+          expiresAt
+        }))
       };
 
       await setRedis(cacheKey, response);
