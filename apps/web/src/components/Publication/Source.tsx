@@ -17,7 +17,7 @@ const Source: FC<SourceProps> = ({ publishedOn }) => {
 
   return (
     <span className="ld-text-gray-500 flex items-center">
-      <span className="mx-1">·</span>
+      <span className="mr-1">·</span>
       <img
         alt="Logo"
         className="mt-0.5 h-3.5 rounded-sm"

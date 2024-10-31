@@ -28,7 +28,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
 }) => {
   const WrappedLink = ({ children }: { children: ReactNode }) => (
     <Link
-      className="truncate outline-none hover:underline focus:underline"
+      className="outline-none hover:underline focus:underline"
       href={getProfile(profile).link}
     >
       <ProfilePreview
@@ -42,21 +42,18 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   );
 
   return (
-    <div className="flex max-w-sm flex-wrap items-center">
+    <div className="flex flex-wrap items-center gap-x-1">
       <WrappedLink>
         <span className="font-semibold">{getProfile(profile).displayName}</span>
       </WrappedLink>
       <WrappedLink>
-        <Slug
-          className="ml-1 truncate text-sm"
-          slug={getProfile(profile).slugWithPrefix}
-        />
+        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
       </WrappedLink>
-      <Verified id={profile.id} iconClassName="ml-1 size-4" />
-      <Misuse id={profile.id} iconClassName="ml-1 size-4" />
+      <Verified id={profile.id} iconClassName="size-4" />
+      <Misuse id={profile.id} iconClassName="size-4" />
       {timestamp ? (
-        <span className="ld-text-gray-500 truncate">
-          <span className="mx-1">·</span>
+        <span className="ld-text-gray-500">
+          <span className="mr-1">·</span>
           <Link
             className="text-xs hover:underline"
             href={`/posts/${publicationId}`}
