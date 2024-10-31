@@ -26,6 +26,7 @@ const getPreferences = async (headers: any): Promise<Preferences> => {
       highSignalNotificationFilter: false,
       developerMode: false,
       permissions: [],
+      mutedWords: [],
       theme: null
     };
   }

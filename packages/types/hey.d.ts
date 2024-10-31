@@ -68,6 +68,11 @@ export type ProfileTheme = {
   fontStyle?: string;
 };
 
+export type MutedWord = {
+  word: string;
+  expiresAt: Date | null;
+};
+
 export type Preferences = {
   appIcon: number;
   email: null | string;
@@ -76,6 +81,7 @@ export type Preferences = {
   highSignalNotificationFilter: boolean;
   developerMode: boolean;
   permissions: string[];
+  mutedWords: MutedWord[];
   theme: ProfileTheme | null;
 };
 
