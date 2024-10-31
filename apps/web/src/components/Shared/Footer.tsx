@@ -12,6 +12,7 @@ const currentYear = new Date().getFullYear();
 const links = [
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
+  { href: "/guidelines", label: "Guidelines" },
   {
     href: "https://hey.xyz/discord",
     label: "Discord",
@@ -28,11 +29,10 @@ const links = [
     onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)
   },
   {
-    href: "https://feedback.hey.xyz",
-    label: "Feedback",
-    onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)
+    href: "https://github.com/heyxyz/hey",
+    label: "GitHub",
+    onClick: () => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)
   },
-  { href: "/guidelines", label: "Guidelines" },
   { href: "/support", label: "Support" }
 ];
 
