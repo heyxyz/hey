@@ -13,6 +13,7 @@ import axios from "axios";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 
 const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
 
@@ -31,6 +32,7 @@ const FeedType: FC<FeedTypeProps> = ({
 }) => {
   const { fallbackToCuratedFeed } = useProfileStore();
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
+  const { feedType: persistedFeedType, setFeedType: setPersistedFeedType } = useHomeTabStore();
 
   const getPinnedLists = async (): Promise<List[]> => {
     try {
@@ -83,12 +85,12 @@ const FeedType: FC<FeedTypeProps> = ({
     <div className="flex flex-wrap gap-3 px-5 sm:px-0">
       {tabs.map((tab) => (
         <TabButton
-          active={feedType === tab.type}
+          active={persistedFeedType === tab.type}
           badge={tab.badge}
           key={tab.type}
           name={tab.name}
           onClick={() => {
-            setFeedType(tab.type);
+            setPersistedFeedType(tab.type);
             Leafwatch.track(tab.track);
           }}
           showOnSm
@@ -98,7 +100,7 @@ const FeedType: FC<FeedTypeProps> = ({
         pinnedLists.map((list) => (
           <TabButton
             active={
-              feedType === HomeFeedType.PINNED && list.id === pinnedList?.id
+              persistedFeedType === HomeFeedType.PINNED && list.id === pinnedList?.id
             }
             key={list.id}
             name={list.name}
@@ -116,7 +118,7 @@ const FeedType: FC<FeedTypeProps> = ({
               />
             }
             onClick={() => {
-              setFeedType(HomeFeedType.PINNED);
+              setPersistedFeedType(HomeFeedType.PINNED);
               setPinnedList(list);
               Leafwatch.track(HOME.SWITCH_PINNED_LIST, {
                 list: list.id
