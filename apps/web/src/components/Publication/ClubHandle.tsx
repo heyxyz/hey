@@ -15,8 +15,8 @@ const ClubHandle: FC<ClubHandleProps> = ({ tags }) => {
   }
 
   return (
-    <span className="ld-text-gray-500 linkify truncate">
-      <span className="mx-1">·</span>
+    <span className="ld-text-gray-500 linkify">
+      <span className="mr-1">·</span>
       <ClubPreview handle={club}>
         <Link className="text-xs hover:underline" href={`/c/${club}`}>
           /{club}
