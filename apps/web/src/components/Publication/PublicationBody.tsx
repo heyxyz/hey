@@ -106,7 +106,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   if (
     mutedWords
-      .map((word) => word.word)
+      ?.map((word) => word.word)
       .some((word) =>
         filteredContent.toLowerCase().includes(word.toLowerCase())
       ) &&
