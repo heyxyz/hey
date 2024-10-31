@@ -32,7 +32,7 @@
     "@rajesh896/broprint.js": "^2.1.1",
     "@tanstack/react-query": "^5.59.16",
     "@uidotdev/usehooks": "^2.4.1",
-    "@unleash/proxy-client-react": "^4.3.1",
+    "@unleash/proxy-client-react": "^4.4.0",
     "axios": "^1.7.7",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.6",
