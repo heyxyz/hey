@@ -16,11 +16,13 @@ import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
 import Link from "next/link";
 import type { FC } from "react";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
+import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Checkin from "./Checkin";
 import EncryptedPublication from "./EncryptedPublication";
 import Metadata from "./Metadata";
+import MutedPublication from "./MutedPublication";
 import NotSupportedPublication from "./NotSupportedPublication";
 import Poll from "./Poll";
 
@@ -37,6 +39,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   quoted = false,
   showMore = false
 }) => {
+  const { mutedWords } = usePreferencesStore();
+  const [showMutedPublication, setShowMutedPublication] = useState(false);
+
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
@@ -98,6 +103,20 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showAttachments &&
     !quoted &&
     !showQuote;
+
+  if (
+    mutedWords
+      .map((word) => word.word)
+      .some((word) => filteredContent.includes(word)) &&
+    !showMutedPublication
+  ) {
+    return (
+      <MutedPublication
+        type={targetPublication.__typename}
+        setShowMutedPublication={setShowMutedPublication}
+      />
+    );
+  }
 
   return (
     <div className="break-words">

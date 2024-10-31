@@ -10,16 +10,13 @@ import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string } from "zod";
 
 interface ExtensionRequest {
-  word: string;
-  expiresAt: Date | null;
+  id: string;
 }
 
 const validationSchema = object({
-  word: string(),
-  expiresAt: string().nullable()
+  id: string().uuid()
 });
 
-// TODO: Add tests
 export const post = [
   rateLimiter({ requests: 50, within: 1 }),
   validateLensAccount,
@@ -36,22 +33,18 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { word, expiresAt } = body as ExtensionRequest;
+    const { id } = body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const result = await prisma.mutedWord.create({
-        data: {
-          word,
-          expiresAt,
-          profileId: payload.id
-        }
+      const result = await prisma.mutedWord.delete({
+        where: { id, profileId: payload.id }
       });
 
       await delRedis(`preference:${payload.id}`);
-      logger.info(`Muted a word by ${payload.id}`);
+      logger.info(`Unmuted a word by ${payload.id}`);
 
       return res.status(200).json({ result, success: true });
     } catch (error) {

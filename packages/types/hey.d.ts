@@ -69,6 +69,7 @@ export type ProfileTheme = {
 };
 
 export type MutedWord = {
+  id: string;
   word: string;
   expiresAt: Date | null;
 };

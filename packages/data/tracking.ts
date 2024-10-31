@@ -156,7 +156,9 @@ export const SETTINGS = {
     TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
       "Toggle high signal notification filter",
     TOGGLE_DEVELOPER_MODE: "Toggle developer mode",
-    APP_ICON: "Update app icon"
+    APP_ICON: "Update app icon",
+    MUTE_WORD: "Mute word",
+    UNMUTE_WORD: "Unmute word"
   },
   PROFILE: {
     SET_PICTURE: "Set profile picture",

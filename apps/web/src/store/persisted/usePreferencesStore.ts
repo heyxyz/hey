@@ -1,4 +1,5 @@
 import { Localstorage } from "@hey/data/storage";
+import type { MutedWord } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -10,6 +11,7 @@ interface State {
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   developerMode: boolean;
+  mutedWords: MutedWord[];
   resetPreferences: () => void;
   setAppIcon: (appIcon: number) => void;
   setEmail: (email: null | string) => void;
@@ -21,6 +23,7 @@ interface State {
     highSignalNotificationFilter: boolean
   ) => void;
   setDeveloperMode: (developerMode: boolean) => void;
+  setMutedWords: (mutedWords: MutedWord[]) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }
@@ -34,6 +37,7 @@ const store = create(
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
       developerMode: false,
+      mutedWords: [],
       resetPreferences: () =>
         set(() => ({
           hasDismissedOrMintedMembershipNft: true,
@@ -48,6 +52,7 @@ const store = create(
       setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
         set(() => ({ highSignalNotificationFilter })),
       setDeveloperMode: (developerMode) => set(() => ({ developerMode })),
+      setMutedWords: (mutedWords) => set(() => ({ mutedWords })),
       setLoading: (loading) => set(() => ({ loading })),
       loading: false
     }),
