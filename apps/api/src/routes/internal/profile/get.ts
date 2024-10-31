@@ -44,7 +44,8 @@ export const get = [
         developerMode: Boolean(preference?.developerMode),
         theme: (theme as ProfileTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
-        mutedWords: mutedWords.map(({ word, expiresAt }) => ({
+        mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
+          id,
           word,
           expiresAt
         }))

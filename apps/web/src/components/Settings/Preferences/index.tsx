@@ -17,6 +17,7 @@ import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
 import DeveloperMode from "./DeveloperMode";
 import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
+import MutedWords from "./MutedWords";
 
 const PreferencesSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -48,6 +49,7 @@ const PreferencesSettings: NextPage = () => {
           </div>
         </Card>
         <AppIcon />
+        <MutedWords />
       </GridItemEight>
     </GridLayout>
   );
