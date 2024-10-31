@@ -17,6 +17,7 @@ const validationSchema = object({
   id: string().uuid()
 });
 
+// TODO: Add tests
 export const post = [
   rateLimiter({ requests: 50, within: 1 }),
   validateLensAccount,
