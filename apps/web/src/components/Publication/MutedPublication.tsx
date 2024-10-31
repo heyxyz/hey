@@ -1,4 +1,6 @@
+import { Leafwatch } from "@helpers/leafwatch";
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
+import { PUBLICATION } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { Button, Card } from "@hey/ui";
 import type { FC } from "react";
@@ -23,6 +25,7 @@ const MutedPublication: FC<MutedPublicationProps> = ({
         onClick={(event) => {
           stopEventPropagation(event);
           setShowMutedPublication(true);
+          Leafwatch.track(PUBLICATION.TOGGLE_MUTED_PUBLICATION);
         }}
         outline
       >
