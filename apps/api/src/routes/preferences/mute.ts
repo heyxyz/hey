@@ -7,18 +7,19 @@ import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
-import { date, object, string } from "zod";
+import { object, string } from "zod";
 
 interface ExtensionRequest {
   word: string;
-  expiresAt?: Date;
+  expiresAt: Date | null;
 }
 
 const validationSchema = object({
   word: string(),
-  expiresAt: date().optional()
+  expiresAt: string().nullable()
 });
 
+// TODO: Add tests
 export const post = [
   rateLimiter({ requests: 50, within: 1 }),
   validateLensAccount,
@@ -42,7 +43,11 @@ export const post = [
       const payload = parseJwt(identityToken);
 
       const result = await prisma.mutedWord.create({
-        data: { word, expiresAt, profileId: payload.id }
+        data: {
+          word,
+          expiresAt,
+          profileId: payload.id
+        }
       });
 
       await delRedis(`preference:${payload.id}`);
