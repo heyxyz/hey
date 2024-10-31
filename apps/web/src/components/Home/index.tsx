@@ -4,10 +4,10 @@ import ListFeed from "@components/List/ListFeed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
-import type { List } from "@hey/types/hey";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
@@ -18,10 +18,7 @@ import Timeline from "./Timeline";
 
 const Home: NextPage = () => {
   const { currentProfile } = useProfileStore();
-  const [feedType, setFeedType] = useState<HomeFeedType>(
-    HomeFeedType.FOLLOWING
-  );
-  const [pinnedList, setPinnedList] = useState<List | null>(null);
+  const { feedType, pinnedList } = useHomeTabStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "home" });
@@ -37,12 +34,7 @@ const Home: NextPage = () => {
           {loggedInWithProfile ? (
             <>
               <NewPost />
-              <FeedType
-                feedType={feedType}
-                setFeedType={setFeedType}
-                pinnedList={pinnedList}
-                setPinnedList={setPinnedList}
-              />
+              <FeedType />
               {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.FORYOU ? (

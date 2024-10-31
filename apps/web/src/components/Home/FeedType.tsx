@@ -10,29 +10,18 @@ import type { List } from "@hey/types/hey";
 import { Image, TabButton } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { FC } from "react";
+import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
-import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 
 const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
 
-interface FeedTypeProps {
-  feedType: HomeFeedType;
-  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
-  pinnedList: List | null;
-  setPinnedList: Dispatch<SetStateAction<List | null>>;
-}
-
-const FeedType: FC<FeedTypeProps> = ({
-  feedType,
-  setFeedType,
-  pinnedList,
-  setPinnedList
-}) => {
+const FeedType: FC = () => {
   const { fallbackToCuratedFeed } = useProfileStore();
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
-  const { feedType: persistedFeedType, setFeedType: setPersistedFeedType } = useHomeTabStore();
+  const { feedType, setFeedType, pinnedList, setPinnedList } =
+    useHomeTabStore();
 
   const getPinnedLists = async (): Promise<List[]> => {
     try {
@@ -85,12 +74,12 @@ const FeedType: FC<FeedTypeProps> = ({
     <div className="flex flex-wrap gap-3 px-5 sm:px-0">
       {tabs.map((tab) => (
         <TabButton
-          active={persistedFeedType === tab.type}
+          active={feedType === tab.type}
           badge={tab.badge}
           key={tab.type}
           name={tab.name}
           onClick={() => {
-            setPersistedFeedType(tab.type);
+            setFeedType(tab.type);
             Leafwatch.track(tab.track);
           }}
           showOnSm
@@ -100,7 +89,7 @@ const FeedType: FC<FeedTypeProps> = ({
         pinnedLists.map((list) => (
           <TabButton
             active={
-              persistedFeedType === HomeFeedType.PINNED && list.id === pinnedList?.id
+              feedType === HomeFeedType.PINNED && list.id === pinnedList?.id
             }
             key={list.id}
             name={list.name}
@@ -118,11 +107,9 @@ const FeedType: FC<FeedTypeProps> = ({
               />
             }
             onClick={() => {
-              setPersistedFeedType(HomeFeedType.PINNED);
+              setFeedType(HomeFeedType.PINNED);
               setPinnedList(list);
-              Leafwatch.track(HOME.SWITCH_PINNED_LIST, {
-                list: list.id
-              });
+              Leafwatch.track(HOME.SWITCH_PINNED_LIST, { list: list.id });
             }}
             showOnSm
           />
