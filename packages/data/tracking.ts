@@ -79,6 +79,7 @@ export const PUBLICATION = {
     TIP: "Tip"
   },
   TOGGLE_HIDE_COMMENT: "Toggle publication hide comment",
+  TOGGLE_MUTED_PUBLICATION: "Toggle muted publication",
   TRANSLATE: "Translate publication",
   UNDO_MIRROR: "Undo mirror publication",
   UNDO_NOT_INTERESTED: "Undo not interested publication",
