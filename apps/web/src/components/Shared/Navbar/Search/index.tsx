@@ -56,6 +56,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
+    reset();
   };
 
   useEffect(() => {
