@@ -150,4 +150,4 @@ This project is open-sourced under the **AGPL-3.0** license. For all the nitty-g
 
 We 💖 you to the moon and back! Your support is like a never-ending supply of coffee for our code. Thank you for making Hey the most awesome place in the universe!
 
-🌸
+🌸 gm
