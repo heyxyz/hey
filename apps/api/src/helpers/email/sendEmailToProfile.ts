@@ -12,20 +12,20 @@ const sendEmailToProfile = async ({
   subject: string;
 }) => {
   try {
-    const result = await prisma.email.findUnique({ where: { id } });
+    const foundEmail = await prisma.email.findUnique({ where: { id } });
 
-    if (!result?.email) {
+    if (!foundEmail?.email) {
       return logger.error(`sendEmailToProfile: Email not found for ${id}`);
     }
 
     await sendEmail({
       body,
-      recipient: result?.email,
+      recipient: foundEmail?.email,
       subject
     });
 
     return logger.info(
-      `sendEmailToProfile: Email sent to ${result?.email} - ${id}`
+      `sendEmailToProfile: Email sent to ${foundEmail?.email} - ${id}`
     );
   } catch (error) {
     return logger.error(error as any);

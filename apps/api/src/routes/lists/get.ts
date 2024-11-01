@@ -26,7 +26,7 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const data = await prisma.list.findUnique({
+      const list = await prisma.list.findUnique({
         include: {
           _count: { select: { profiles: true, pinnedList: true } },
           profiles: { take: 10, select: { profileId: true } },
@@ -35,11 +35,11 @@ export const get = [
         where: { id: id as string }
       });
 
-      if (!data) {
+      if (!list) {
         return notFound(res);
       }
 
-      const { _count, profiles, pinnedList, ...rest } = data;
+      const { _count, profiles, pinnedList, ...rest } = list;
 
       const result = {
         ...rest,
