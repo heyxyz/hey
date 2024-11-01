@@ -40,10 +40,7 @@ export const post = [
       const [hasTipped, tipCounts] = await prisma.$transaction([
         prisma.tip.findMany({
           select: { publicationId: true },
-          where: {
-            fromProfileId: profileId,
-            publicationId: { in: ids }
-          }
+          where: { fromProfileId: profileId, publicationId: { in: ids } }
         }),
         prisma.tip.groupBy({
           _count: { publicationId: true },

@@ -13,7 +13,7 @@ const getAllTokens = async (): Promise<AllowedToken[]> => {
     const response = await axios.get(`${HEY_API_URL}/tokens/all`);
     const { data } = response;
 
-    return data?.tokens || [];
+    return data?.result || [];
   } catch {
     return [];
   }

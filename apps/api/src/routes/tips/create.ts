@@ -50,7 +50,7 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const data = await prisma.tip.create({
+      const tip = await prisma.tip.create({
         data: {
           amount,
           fromAddress,
@@ -63,9 +63,9 @@ export const post = [
         }
       });
 
-      logger.info(`Created a tip ${data.id}`);
+      logger.info(`Created a tip ${tip.id}`);
 
-      return res.status(200).json({ result: data, success: true });
+      return res.status(200).json({ result: tip, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

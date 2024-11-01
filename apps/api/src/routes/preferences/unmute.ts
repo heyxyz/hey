@@ -40,14 +40,14 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const result = await prisma.mutedWord.delete({
+      const mutedWord = await prisma.mutedWord.delete({
         where: { id, profileId: payload.id }
       });
 
       await delRedis(`preference:${payload.id}`);
       logger.info(`Unmuted a word by ${payload.id}`);
 
-      return res.status(200).json({ result, success: true });
+      return res.status(200).json({ result: mutedWord, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

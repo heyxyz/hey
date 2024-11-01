@@ -14,14 +14,14 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const data = await prisma.membershipNft.upsert({
+      const membershipNft = await prisma.membershipNft.upsert({
         create: { dismissedOrMinted: true, id: payload.id },
         update: { dismissedOrMinted: true },
         where: { id: payload.id }
       });
       logger.info(`Updated membership nft status for ${payload.id}`);
 
-      return res.status(200).json({ result: data, success: true });
+      return res.status(200).json({ result: membershipNft, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

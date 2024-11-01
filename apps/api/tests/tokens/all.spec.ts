@@ -7,7 +7,7 @@ describe("GET /tokens/all", () => {
     const { data, status } = await axios.get(`${TEST_URL}/tokens/all`);
 
     expect(status).toBe(200);
-    expect(data.tokens).toEqual(
+    expect(data.result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           id: expect.any(String),

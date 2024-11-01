@@ -47,7 +47,7 @@ export const post = [
       const payload = parseJwt(identityToken);
 
       const data = { appIcon, highSignalNotificationFilter, developerMode };
-      const result = await prisma.preference.upsert({
+      const preference = await prisma.preference.upsert({
         create: { ...data, id: payload.id },
         update: data,
         where: { id: payload.id }
@@ -56,7 +56,7 @@ export const post = [
       await delRedis(`preference:${payload.id}`);
       logger.info(`Updated preferences for ${payload.id}`);
 
-      return res.status(200).json({ result, success: true });
+      return res.status(200).json({ result: preference, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
