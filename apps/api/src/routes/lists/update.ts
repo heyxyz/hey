@@ -61,11 +61,11 @@ export const post = [
         avatar: avatar ?? list.avatar
       };
 
-      const result = await prisma.list.update({ where: { id }, data });
+      const updatedList = await prisma.list.update({ where: { id }, data });
       await delRedis(listCacheKey);
-      logger.info(`Updated a list ${result.id}`);
+      logger.info(`Updated a list ${updatedList.id}`);
 
-      return res.status(200).json({ result, success: true });
+      return res.status(200).json({ result: updatedList, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

@@ -19,7 +19,7 @@ const useCreatePoll = () => {
       { headers: getAuthApiHeaders() }
     );
 
-    return response.data.poll.id;
+    return response.data.result.id;
   };
 
   return createPoll;
