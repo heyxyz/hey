@@ -53,11 +53,11 @@ export const post = [
       const payload = parseJwt(identityToken);
 
       if (!resend) {
-        const data = await prisma.email.findUnique({
+        const result = await prisma.email.findUnique({
           where: { id: payload.id }
         });
 
-        if (data?.email === email) {
+        if (result?.email === email) {
           return res.status(200).json({ success: false });
         }
       }
@@ -71,7 +71,7 @@ export const post = [
 
       const result = await prisma.email.upsert({
         create: { id: payload.id, ...baseData },
-        update: { ...baseData },
+        update: baseData,
         where: { id: payload.id }
       });
 
