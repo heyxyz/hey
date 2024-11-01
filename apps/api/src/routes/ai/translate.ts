@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 import OpenAI from "openai";
 import { zodFunction } from "openai/helpers/zod";
 import catchedError from "src/helpers/catchedError";
-import { CACHE_AGE_1_DAY } from "src/helpers/constants";
+import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
@@ -54,11 +54,11 @@ export const post = [
         logger.info(`(cached) AI Translation fetched for ${id}`);
         return res
           .status(200)
-          .setHeader("Cache-Control", CACHE_AGE_1_DAY)
+          .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const result = await lensPg.query(
+      const publicationMetadata = await lensPg.query(
         "SELECT content FROM publication.metadata WHERE publication_id = $1",
         [id]
       );
@@ -72,7 +72,7 @@ export const post = [
         messages: [
           {
             role: "user",
-            content: TEMPLATE.replace("{text}", result[0].content)
+            content: TEMPLATE.replace("{text}", publicationMetadata[0].content)
           }
         ],
         tools: [
@@ -88,7 +88,7 @@ export const post = [
         .parsed_arguments as responseSchema;
 
       const finalResult = {
-        original: result[0].content,
+        original: publicationMetadata[0].content,
         ...translated
       };
 
@@ -101,7 +101,7 @@ export const post = [
 
       return res
         .status(200)
-        .setHeader("Cache-Control", CACHE_AGE_1_DAY)
+        .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
         .json({ result: finalResult, success: true });
     } catch (error) {
       return catchedError(res, error);

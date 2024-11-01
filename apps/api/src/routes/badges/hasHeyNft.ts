@@ -38,7 +38,7 @@ export const get = [
           .json({ hasHeyNft: true, success: true });
       }
 
-      const result = await lensPg.query(
+      const openActionModuleActed = await lensPg.query(
         `
           SELECT EXISTS (
             SELECT 1
@@ -52,7 +52,7 @@ export const get = [
         [id, formattedAddress, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
       );
 
-      const hasHeyNft = result[0]?.exists;
+      const hasHeyNft = openActionModuleActed[0]?.exists;
 
       if (hasHeyNft) {
         await setRedis(cacheKey, hasHeyNft);

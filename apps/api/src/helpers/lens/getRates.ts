@@ -3,7 +3,7 @@ import type { FiatRate } from "@hey/types/lens";
 
 const getRates = async (): Promise<FiatRate[]> => {
   try {
-    const result = await lensPg.query(`
+    const rates = await lensPg.query(`
       SELECT ec.name AS name,
         ec.symbol AS symbol,
         ec.decimals AS decimals,
@@ -14,7 +14,7 @@ const getRates = async (): Promise<FiatRate[]> => {
       WHERE fc.fiatsymbol = 'usd';
     `);
 
-    return result.map((row: any) => ({
+    return rates.map((row: any) => ({
       address: row.address.toLowerCase(),
       decimals: row.decimals,
       fiat: Number(row.fiat),

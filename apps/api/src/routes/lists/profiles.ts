@@ -31,10 +31,10 @@ export const get = [
         where: { listId: id as string }
       });
 
-      const profiles = listProfile.map((item) => item.profileId);
-      const profilesList = profiles.map((p) => `'${p}'`).join(",");
+      const profileIds = listProfile.map((item) => item.profileId);
+      const profilesList = profileIds.map((p) => `'${p}'`).join(",");
 
-      const lensProfiles = await lensPg.query(
+      const profiles = await lensPg.query(
         `
           SELECT profile_id
           FROM profile.record
@@ -44,7 +44,7 @@ export const get = [
         `
       );
 
-      const result = lensProfiles.map((item) => item.profile_id);
+      const result = profiles.map((item) => item.profile_id);
       await setRedis(cacheKey, JSON.stringify(result));
       logger.info(`Lists profiles fetched for ${id}`);
 

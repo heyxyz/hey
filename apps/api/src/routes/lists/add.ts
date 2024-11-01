@@ -52,7 +52,7 @@ export const post = [
         ]);
       };
 
-      const result = await lensPg.query(
+      const profile = await lensPg.query(
         `
           SELECT EXISTS (
             SELECT 1 FROM profile.record
@@ -64,7 +64,7 @@ export const post = [
         [profileId]
       );
 
-      const hasProfile = result[0]?.result;
+      const hasProfile = profile[0]?.result;
 
       if (!hasProfile) {
         return notFound(res);

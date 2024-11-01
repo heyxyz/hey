@@ -32,7 +32,7 @@ export const get = [
       const offset =
         (Number.parseInt(page as string) - 1) * Number.parseInt(size as string);
 
-      const lensPublications = await lensPg.query(
+      const publications = await lensPg.query(
         `
           SELECT publication_id AS id
           FROM publication_view
@@ -50,7 +50,7 @@ export const get = [
       );
 
       return res.status(200).json({
-        result: lensPublications.map((row) => row.id),
+        result: publications.map((row) => row.id),
         size,
         offset,
         success: true

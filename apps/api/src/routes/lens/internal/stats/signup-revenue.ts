@@ -11,7 +11,7 @@ export const get = [
   validateIsStaff,
   async (_: Request, res: Response) => {
     try {
-      const result = await lensPg.query(
+      const onboardingProfile = await lensPg.query(
         `
           SELECT
             block_timestamp::date AS date,
@@ -26,14 +26,14 @@ export const get = [
         [HEY_LENS_SIGNUP]
       );
 
-      const formattedResult = result.map((row) => ({
+      const result = onboardingProfile.map((row) => ({
         date: new Date(row.date).toISOString(),
         count: Number(row.signups_count)
       }));
 
       logger.info("[Lens] Fetched signup revenue stats");
 
-      return res.status(200).json({ result: formattedResult, success: true });
+      return res.status(200).json({ result, success: true });
     } catch (error) {
       catchedError(res, error);
     }
