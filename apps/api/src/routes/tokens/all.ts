@@ -18,7 +18,7 @@ export const get = [
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_1_DAY)
-          .json({ success: true, tokens: JSON.parse(cachedData) });
+          .json({ result: JSON.parse(cachedData), success: true });
       }
 
       const allowedToken = await prisma.allowedToken.findMany({
