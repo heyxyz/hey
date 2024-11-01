@@ -113,14 +113,14 @@ export const post = [
       const { status } = response;
       const { headers } = response;
 
-      let data = {};
+      let result = {};
       if (status !== 302) {
         if (
           response.headers.get("content-type")?.includes("application/json")
         ) {
-          data = await response.json();
+          result = await response.json();
         } else {
-          data = await response.text();
+          result = await response.text();
         }
       }
 
@@ -129,7 +129,7 @@ export const post = [
       if (buttonAction === "tx") {
         return res
           .status(200)
-          .json({ frame: { transaction: data }, success: true });
+          .json({ frame: { transaction: result }, success: true });
       }
 
       if (buttonAction === "post_redirect" && status === 302) {
@@ -138,7 +138,7 @@ export const post = [
           .json({ frame: { location: headers.get("location") } });
       }
 
-      const { document } = parseHTML(data);
+      const { document } = parseHTML(result);
 
       return res
         .status(200)

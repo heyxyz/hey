@@ -16,7 +16,7 @@ const backupEventsToS3 = async () => {
     const s3Path = `events-${startRange}-${endRange}.csv`;
 
     // Check the number of rows in the current batch
-    const rowsCountResult = await clickhouseClient.query({
+    const eventsCount = await clickhouseClient.query({
       format: "JSONEachRow",
       query: `
         SELECT count(*) as count
@@ -29,7 +29,7 @@ const backupEventsToS3 = async () => {
       `
     });
 
-    const rowsCount = await rowsCountResult.json<{ count: string }>();
+    const rowsCount = await eventsCount.json<{ count: string }>();
 
     if (Number.parseInt(rowsCount[0].count) === batchSize) {
       // Proceed with the backup if there are rows to back up

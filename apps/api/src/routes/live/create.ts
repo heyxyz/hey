@@ -38,38 +38,35 @@ export const post = [
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const livepeerResponse = await fetch(
-        "https://livepeer.studio/api/stream",
-        {
-          body: JSON.stringify({
-            name: `${payload.id}-${uuid()}`,
-            profiles: [
-              {
-                bitrate: 3000000,
-                fps: 0,
-                height: 720,
-                name: "720p0",
-                width: 1280
-              },
-              {
-                bitrate: 6000000,
-                fps: 0,
-                height: 1080,
-                name: "1080p0",
-                width: 1920
-              }
-            ],
-            record
-          }),
-          headers: {
-            Authorization: `Bearer ${LIVEPEER_KEY}`,
-            "content-type": "application/json"
-          },
-          method: "POST"
-        }
-      );
+      const response = await fetch("https://livepeer.studio/api/stream", {
+        body: JSON.stringify({
+          name: `${payload.id}-${uuid()}`,
+          profiles: [
+            {
+              bitrate: 3000000,
+              fps: 0,
+              height: 720,
+              name: "720p0",
+              width: 1280
+            },
+            {
+              bitrate: 6000000,
+              fps: 0,
+              height: 1080,
+              name: "1080p0",
+              width: 1920
+            }
+          ],
+          record
+        }),
+        headers: {
+          Authorization: `Bearer ${LIVEPEER_KEY}`,
+          "content-type": "application/json"
+        },
+        method: "POST"
+      });
 
-      const result = await livepeerResponse.json();
+      const result = await response.json();
       logger.info(`Created stream live stream by ${payload.id}`);
 
       return res.status(200).json({ result, success: true });

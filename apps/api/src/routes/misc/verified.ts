@@ -22,19 +22,19 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const data = await prisma.profilePermission.findMany({
+      const profilePermission = await prisma.profilePermission.findMany({
         select: { profileId: true },
         where: { enabled: true, permissionId: PermissionId.Verified }
       });
 
-      const ids = data.map(({ profileId }) => profileId);
-      await setRedis(cacheKey, ids);
+      const result = profilePermission.map(({ profileId }) => profileId);
+      await setRedis(cacheKey, result);
       logger.info("Verified profiles fetched");
 
       return res
         .status(200)
         .setHeader("Cache-Control", CACHE_AGE_30_MINS)
-        .json({ result: ids, success: true });
+        .json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

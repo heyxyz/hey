@@ -53,11 +53,11 @@ export const post = [
       const payload = parseJwt(identityToken);
 
       if (!resend) {
-        const data = await prisma.email.findUnique({
+        const foundEmail = await prisma.email.findUnique({
           where: { id: payload.id }
         });
 
-        if (data?.email === email) {
+        if (foundEmail?.email === email) {
           return res.status(200).json({ success: false });
         }
       }
@@ -69,9 +69,9 @@ export const post = [
         verified: false
       };
 
-      const result = await prisma.email.upsert({
+      const upsertedEmail = await prisma.email.upsert({
         create: { id: payload.id, ...baseData },
-        update: { ...baseData },
+        update: baseData,
         where: { id: payload.id }
       });
 
@@ -81,8 +81,8 @@ export const post = [
             <body>
               <p>Welcome to Hey!</p> 
               <br />
-              <p>Please click the link below to verify your email address: ${result.email}</p>
-              <a href="https://api.hey.xyz/email/verify?token=${result.verificationToken}">Verify Email →</a>
+              <p>Please click the link below to verify your email address: ${upsertedEmail.email}</p>
+              <a href="https://api.hey.xyz/email/verify?token=${upsertedEmail.verificationToken}">Verify Email →</a>
               <br />
               <p>If you didn't request this email, please ignore this email.</p>
               <br />
@@ -91,7 +91,7 @@ export const post = [
             </body>
           </html>
         `,
-        recipient: result.email,
+        recipient: upsertedEmail.email,
         subject: `Verify your ${APP_NAME} email address`
       });
 

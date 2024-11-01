@@ -39,7 +39,7 @@ export const post = [
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-      const response = await lensPg.query(
+      const publication = await lensPg.query(
         `
           SELECT publication_id AS id
           FROM publication.record
@@ -50,7 +50,7 @@ export const post = [
         [id]
       );
 
-      const publicationId = response[0]?.id;
+      const publicationId = publication[0]?.id;
 
       if (!publicationId) {
         return res.status(404).json({

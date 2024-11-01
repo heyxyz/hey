@@ -27,10 +27,10 @@ describe("GET /internal/permissions/all", () => {
     );
 
     expect(status).toBe(200);
-    expect(data.permissions).toBeDefined();
-    expect(data.permissions).toBeInstanceOf(Array);
+    expect(data.result).toBeDefined();
+    expect(data.result).toBeInstanceOf(Array);
 
-    const permissionKeys = data.permissions.map((p: any) => p.key);
+    const permissionKeys = data.result.map((p: any) => p.key);
     for (const key of testPermissionKeys) {
       expect(permissionKeys).toContain(key);
     }

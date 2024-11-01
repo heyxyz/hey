@@ -24,10 +24,10 @@ const AppIcon: FC = () => {
   const { appIcon, setAppIcon } = usePreferencesStore();
   const [updating, setUpdating] = useState(false);
 
-  const updateAppIcon = (id: number) => {
+  const updateAppIcon = async (id: number) => {
     try {
       setUpdating(true);
-      axios.post(
+      await axios.post(
         `${HEY_API_URL}/preferences/update`,
         { appIcon: id },
         { headers: getAuthApiHeaders() }

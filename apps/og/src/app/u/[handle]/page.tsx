@@ -28,13 +28,13 @@ export const generateMetadata = async ({
     method: "POST"
   });
 
-  const data = await response.json();
+  const result = await response.json();
 
-  if (!data.data.profile) {
+  if (!result.data.profile) {
     return defaultMetadata;
   }
 
-  const profile = data.data.profile as Profile;
+  const profile = result.data.profile as Profile;
   const { displayName, link, slugWithPrefix } = getProfile(profile);
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
   const description = (profile?.metadata?.bio || title).slice(0, 155);

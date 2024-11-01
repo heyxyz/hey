@@ -10,7 +10,7 @@ export const get = [
   validateIsStaff,
   async (_: Request, res: Response) => {
     try {
-      const data = await prisma.$transaction([
+      const result = await prisma.$transaction([
         prisma.list.count(),
         prisma.listProfile.count(),
         prisma.pinnedList.count(),
@@ -26,25 +26,26 @@ export const get = [
         prisma.tip.count()
       ]);
 
-      const result = {
-        lists: data[0],
-        listProfiles: data[1],
-        pinnedLists: data[2],
-        profilePermissions: data[3],
-        emails: data[4],
-        membershipNfts: data[5],
-        polls: data[6],
-        pollOptions: data[7],
-        pollResponses: data[8],
-        preferences: data[9],
-        profileStatuses: data[10],
-        profileThemes: data[11],
-        tips: data[12]
-      };
-
       logger.info("Fetched overview stats");
 
-      return res.status(200).json({ result, success: true });
+      return res.status(200).json({
+        result: {
+          lists: result[0],
+          listProfiles: result[1],
+          pinnedLists: result[2],
+          profilePermissions: result[3],
+          emails: result[4],
+          membershipNfts: result[5],
+          polls: result[6],
+          pollOptions: result[7],
+          pollResponses: result[8],
+          preferences: result[9],
+          profileStatuses: result[10],
+          profileThemes: result[11],
+          tips: result[12]
+        },
+        success: true
+      });
     } catch (error) {
       catchedError(res, error);
     }

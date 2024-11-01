@@ -30,19 +30,19 @@ const validateLensAccount = async (
       return next();
     }
 
-    const data = await lensPg.query(
+    const authentication = await lensPg.query(
       `
         SELECT EXISTS (
           SELECT 1 FROM authentication.record
           WHERE profile_id = $1
           AND authorization_id = $2
           LIMIT 1
-        ) AS result;
+        ) AS exists;
       `,
       [payload.id, payload.authorizationId]
     );
 
-    if (data[0]?.result) {
+    if (authentication[0]?.exists) {
       await setRedis(cacheKey, payload.authorizationId);
       return next();
     }

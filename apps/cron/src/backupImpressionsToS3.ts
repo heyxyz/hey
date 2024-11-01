@@ -16,7 +16,7 @@ const backupImpressionsToS3 = async () => {
     const s3Path = `impressions-${startRange}-${endRange}.csv`;
 
     // Check the number of rows in the current batch
-    const rowsCountResult = await clickhouseClient.query({
+    const impressionsCount = await clickhouseClient.query({
       format: "JSONEachRow",
       query: `
         SELECT count(*) as count
@@ -29,7 +29,7 @@ const backupImpressionsToS3 = async () => {
       `
     });
 
-    const rowsCount = await rowsCountResult.json<{ count: string }>();
+    const rowsCount = await impressionsCount.json<{ count: string }>();
 
     if (Number.parseInt(rowsCount[0].count) === batchSize) {
       // Proceed with the backup if there are rows to back up

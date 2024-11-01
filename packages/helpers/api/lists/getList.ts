@@ -11,11 +11,11 @@ interface Payload {
 
 const getList = async (payload: Payload): Promise<List | null> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/lists/get`, {
+    const { data } = await axios.get(`${HEY_API_URL}/lists/get`, {
       params: payload
     });
 
-    return response.data?.result;
+    return data?.result;
   } catch {
     return null;
   }

@@ -18,7 +18,7 @@ export const get = async (req: Request, res: Response) => {
       totalHandles = Number(cachedData);
       logger.info(`[Lens] Fetched totalHandles from Redis: ${totalHandles}`);
     } else {
-      const response = await lensPg.query(`
+      const handles = await lensPg.query(`
         SELECT COUNT(*) AS count
         FROM namespace.handle h
         JOIN namespace.handle_link hl ON h.handle_id = hl.handle_id
@@ -26,7 +26,7 @@ export const get = async (req: Request, res: Response) => {
         WHERE p.is_burnt = false;
       `);
 
-      totalHandles = Number(response[0]?.count) || 0;
+      totalHandles = Number(handles[0]?.count) || 0;
       await setRedis(redisKey, totalHandles);
       logger.info(`[Lens] Fetched totalHandles from DB: ${totalHandles}`);
     }

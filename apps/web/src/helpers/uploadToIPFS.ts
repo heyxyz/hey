@@ -18,12 +18,12 @@ const FALLBACK_TYPE = "image/jpeg";
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-  const token = await axios.get(`${HEY_API_URL}/sts/token`);
+  const { data } = await axios.get(`${HEY_API_URL}/sts/token`);
   const client = new S3({
     credentials: {
-      accessKeyId: token.data?.accessKeyId,
-      secretAccessKey: token.data?.secretAccessKey,
-      sessionToken: token.data?.sessionToken
+      accessKeyId: data?.accessKeyId,
+      secretAccessKey: data?.secretAccessKey,
+      sessionToken: data?.sessionToken
     },
     endpoint: EVER_API,
     maxAttempts: 10,

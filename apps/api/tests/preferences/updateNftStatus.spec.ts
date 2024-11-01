@@ -20,10 +20,10 @@ describe("POST /preferences/updateNftStatus", () => {
     expect(data.result).toBeDefined();
     expect(data.result.dismissedOrMinted).toBe(true);
 
-    const updatedEntry = await prisma.membershipNft.findUnique({
+    const membershipNft = await prisma.membershipNft.findUnique({
       where: { id: TEST_LENS_ID }
     });
-    expect(updatedEntry?.dismissedOrMinted).toBe(true);
+    expect(membershipNft?.dismissedOrMinted).toBe(true);
   });
 
   test("should return 401 if the identity token is missing", async () => {

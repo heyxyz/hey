@@ -10,8 +10,8 @@ const MAX_EMOJI_SUGGESTION_COUNT = 5;
 const useEmojiQuery = (query: string): Emoji[] => {
   const { data: emojis } = useQuery<Emoji[]>({
     queryFn: async () => {
-      const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
-      return response.data;
+      const { data } = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
+      return data;
     },
     queryKey: [GET_EMOJIS_QUERY_KEY]
   });

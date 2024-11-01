@@ -11,11 +11,11 @@ interface Payload {
 
 const getLists = async (payload: Payload): Promise<List[]> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/lists/all`, {
+    const { data } = await axios.get(`${HEY_API_URL}/lists/all`, {
       params: payload
     });
 
-    return response.data?.result;
+    return data?.result;
   } catch {
     return [];
   }

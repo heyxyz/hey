@@ -43,7 +43,7 @@ export const post = [
     }
 
     try {
-      const data = await prisma.poll.create({
+      const poll = await prisma.poll.create({
         data: {
           endsAt: new Date(Date.now() + length * 24 * 60 * 60 * 1000),
           options: {
@@ -56,9 +56,9 @@ export const post = [
         select: { createdAt: true, endsAt: true, id: true, options: true }
       });
 
-      logger.info(`Created a poll ${data.id}`);
+      logger.info(`Created a poll ${poll.id}`);
 
-      return res.status(200).json({ poll: data, success: true });
+      return res.status(200).json({ result: poll, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

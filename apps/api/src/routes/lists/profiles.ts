@@ -27,14 +27,14 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const data = await prisma.listProfile.findMany({
+      const listProfile = await prisma.listProfile.findMany({
         where: { listId: id as string }
       });
 
-      const profiles = data.map((item) => item.profileId);
-      const profilesList = profiles.map((p) => `'${p}'`).join(",");
+      const profileIds = listProfile.map((item) => item.profileId);
+      const profilesList = profileIds.map((p) => `'${p}'`).join(",");
 
-      const result = await lensPg.query(
+      const profiles = await lensPg.query(
         `
           SELECT profile_id
           FROM profile.record
@@ -44,11 +44,11 @@ export const get = [
         `
       );
 
-      const filteredProfiles = result.map((item) => item.profile_id);
-      await setRedis(cacheKey, JSON.stringify(filteredProfiles));
+      const result = profiles.map((item) => item.profile_id);
+      await setRedis(cacheKey, JSON.stringify(result));
       logger.info(`Lists profiles fetched for ${id}`);
 
-      return res.status(200).json({ result: filteredProfiles, success: true });
+      return res.status(200).json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

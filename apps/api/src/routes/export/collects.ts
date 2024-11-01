@@ -29,7 +29,7 @@ export const get = [
         return catchedError(res, new Error(Errors.Unauthorized), 401);
       }
 
-      const response = await lensPg.query(
+      const openActionModuleCollectNftOwnership = await lensPg.query(
         `
           SELECT po.owner_address as address
           FROM publication.open_action_module_collect_nft_ownership AS po
@@ -40,7 +40,7 @@ export const get = [
 
       const fields = ["address"];
       const parser = new Parser({ fields });
-      const csv = parser.parse(response);
+      const csv = parser.parse(openActionModuleCollectNftOwnership);
 
       logger.info(`[Lens] Exported collect addresses list for ${id}`);
 

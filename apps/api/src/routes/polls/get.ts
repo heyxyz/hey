@@ -30,7 +30,7 @@ export const get = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const data = await prisma.poll.findUnique({
+      const poll = await prisma.poll.findUnique({
         select: {
           endsAt: true,
           id: true,
@@ -50,19 +50,19 @@ export const get = [
         where: { id: id as string }
       });
 
-      if (!data) {
+      if (!poll) {
         return notFound(res);
       }
 
-      const totalResponses = data.options.reduce(
+      const totalResponses = poll.options.reduce(
         (acc, option) => acc + option._count.responses,
         0
       );
 
-      const sanitizedData = {
-        endsAt: data.endsAt,
-        id: data.id,
-        options: data.options.map((option) => ({
+      const result = {
+        endsAt: poll.endsAt,
+        id: poll.id,
+        options: poll.options.map((option) => ({
           id: option.id,
           option: option.option,
           percentage:
@@ -74,10 +74,10 @@ export const get = [
         }))
       };
 
-      await setRedis(cacheKey, sanitizedData);
+      await setRedis(cacheKey, result);
       logger.info("Poll fetched");
 
-      return res.status(200).json({ result: sanitizedData, success: true });
+      return res.status(200).json({ result, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

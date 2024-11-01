@@ -15,7 +15,7 @@ export const get = [
     }
 
     try {
-      const data = await prisma.list.findMany({
+      const list = await prisma.list.findMany({
         include: {
           _count: { select: { profiles: true, pinnedList: true } },
           profiles: { where: { profileId: viewingId as string } },
@@ -24,7 +24,7 @@ export const get = [
         where: { createdBy: ownerId as string }
       });
 
-      const result = data.map((list) => {
+      const result = list.map((list) => {
         const { _count, profiles, pinnedList, ...rest } = list;
 
         return {

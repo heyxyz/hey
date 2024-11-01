@@ -16,23 +16,23 @@ export const get = [
     }
 
     try {
-      const data = await prisma.list.findUnique({
+      const list = await prisma.list.findUnique({
         select: { profiles: { select: { profileId: true } } },
         where: { id: id as string }
       });
 
-      if (!data?.profiles.length) {
+      if (!list?.profiles.length) {
         return res.status(200).json({ result: [], success: true });
       }
 
-      const profiles = data.profiles.map((profile) => profile.profileId);
+      const profiles = list.profiles.map((profile) => profile.profileId);
       const profilesList = profiles.map((p) => `'${p}'`).join(",");
 
       // Calculate the offset for pagination
       const offset =
         (Number.parseInt(page as string) - 1) * Number.parseInt(size as string);
 
-      const result = await lensPg.query(
+      const publications = await lensPg.query(
         `
           SELECT publication_id AS id
           FROM publication_view
@@ -45,14 +45,16 @@ export const get = [
         [size, offset]
       );
 
-      const publications = result.map((row) => row.id);
       logger.info(
         `List publications fetched for ${id}, page ${page}, size ${size}`
       );
 
-      return res
-        .status(200)
-        .json({ result: publications, size, offset, success: true });
+      return res.status(200).json({
+        result: publications.map((row) => row.id),
+        size,
+        offset,
+        success: true
+      });
     } catch (error) {
       return catchedError(res, error);
     }

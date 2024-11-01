@@ -23,13 +23,13 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
   }
 
   const fetchTranslation = async () => {
-    const response = await axios.post(
+    const { data } = await axios.post(
       `${HEY_API_URL}/ai/translate`,
       { id: publication.id },
       { headers: getAuthApiHeaders() }
     );
 
-    return response.data.result;
+    return data.result;
   };
 
   const handleFetchTranslation = async () => {

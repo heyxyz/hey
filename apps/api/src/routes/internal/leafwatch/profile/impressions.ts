@@ -17,7 +17,7 @@ export const get = [
     }
 
     try {
-      const rows = await clickhouseClient.query({
+      const impressions = await clickhouseClient.query({
         format: "JSONEachRow",
         query: `
           WITH toYear(now()) AS current_year
@@ -44,7 +44,7 @@ export const get = [
         `
       });
 
-      const result = await rows.json<{
+      const result = await impressions.json<{
         day: number;
         impressions: number;
         totalImpressions: number;

@@ -41,36 +41,35 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const expired = await prisma.poll.findUnique({
-        select: { endsAt: true },
+      const pollCount = await prisma.poll.count({
         where: { endsAt: { lt: new Date() }, id: poll as string }
       });
 
-      if (expired) {
+      if (pollCount === 0) {
         return res.status(400).json({ error: "Poll expired.", success: false });
       }
       // End: Check if the poll expired
 
       // Begin: Check if the poll exists and delete the existing response
-      const existingResponse = await prisma.pollResponse.findFirst({
+      const existingPollResponse = await prisma.pollResponse.findFirst({
         where: { option: { pollId: poll as string }, profileId: payload.id }
       });
 
-      if (existingResponse?.id) {
+      if (existingPollResponse?.id) {
         await prisma.pollResponse.delete({
-          where: { id: existingResponse.id }
+          where: { id: existingPollResponse.id }
         });
       }
       // End: Check if the poll exists and delete the existing response
 
-      const data = await prisma.pollResponse.create({
+      const pollResponse = await prisma.pollResponse.create({
         data: { optionId: option, profileId: payload.id }
       });
 
       await delRedis(`poll:${poll}`);
-      logger.info(`Responded to a poll ${option}:${data.id}`);
+      logger.info(`Responded to a poll ${option}:${pollResponse.id}`);
 
-      return res.status(200).json({ id: data.id, success: true });
+      return res.status(200).json({ id: pollResponse.id, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

@@ -15,14 +15,14 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const data = await prisma.profileTheme.deleteMany({
+      const profileTheme = await prisma.profileTheme.deleteMany({
         where: { id: payload.id }
       });
 
       await delRedis(`preference:${payload.id}`);
       logger.info(`Reset profile theme for ${payload.id}`);
 
-      return res.status(200).json({ result: data, success: true });
+      return res.status(200).json({ result: profileTheme, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

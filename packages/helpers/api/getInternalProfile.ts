@@ -15,12 +15,12 @@ const getInternalProfile = async (
   headers: any
 ): Promise<InternalProfile> => {
   try {
-    const response: { data: { result: InternalProfile } } = await axios.get(
-      `${HEY_API_URL}/internal/profile/get`,
-      { headers, params: { id } }
-    );
+    const { data } = await axios.get(`${HEY_API_URL}/internal/profile/get`, {
+      headers,
+      params: { id }
+    });
 
-    return response.data.result;
+    return data.result;
   } catch {
     return {
       appIcon: 0,

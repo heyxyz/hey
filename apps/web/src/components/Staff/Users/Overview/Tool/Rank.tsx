@@ -24,11 +24,11 @@ interface RankProps {
 const Rank: FC<RankProps> = ({ handle, lensClassifierScore, profileId }) => {
   const getRank = async (strategy: string) => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         urlcat("https://lens-api.k3l.io/profile/rank", { handle, strategy })
       );
 
-      return response.data;
+      return data;
     } catch {
       return false;
     }
