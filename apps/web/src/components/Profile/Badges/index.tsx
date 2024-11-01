@@ -15,10 +15,9 @@ interface BadgesProps {
 const Badges: FC<BadgesProps> = ({ id }) => {
   // Begin: Get isHeyProfile
   const getIsHeyProfile = async (): Promise<boolean> => {
-    const response = await axios.get(`${HEY_API_URL}/badges/isHeyProfile`, {
+    const { data } = await axios.get(`${HEY_API_URL}/badges/isHeyProfile`, {
       params: { id }
     });
-    const { data } = response;
 
     return data?.isHeyProfile || false;
   };
@@ -31,10 +30,9 @@ const Badges: FC<BadgesProps> = ({ id }) => {
 
   // Begin: Check has Hey NFT
   const getHasHeyNft = async (): Promise<boolean> => {
-    const response = await axios.get(`${HEY_API_URL}/badges/hasHeyNft`, {
+    const { data } = await axios.get(`${HEY_API_URL}/badges/hasHeyNft`, {
       params: { id }
     });
-    const { data } = response;
 
     return data?.hasHeyNft || false;
   };

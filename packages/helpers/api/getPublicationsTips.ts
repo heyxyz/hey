@@ -13,13 +13,13 @@ const getPublicationsTips = async (
   headers: any
 ): Promise<PublicationTip[]> => {
   try {
-    const response = await axios.post(
+    const { data } = await axios.post(
       `${HEY_API_URL}/tips/get`,
       { ids },
       { headers }
     );
 
-    return response.data?.result || [];
+    return data?.result || [];
   } catch {
     return [];
   }

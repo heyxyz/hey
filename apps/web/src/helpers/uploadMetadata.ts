@@ -12,10 +12,10 @@ import toast from "react-hot-toast";
  */
 const uploadMetadata = async (data: any): Promise<string> => {
   try {
-    const upload = await axios.post(`${HEY_API_URL}/metadata`, {
+    const response = await axios.post(`${HEY_API_URL}/metadata`, {
       ...data
     });
-    const { id }: { id: string } = upload.data;
+    const { id }: { id: string } = response.data;
 
     return id;
   } catch {

@@ -13,9 +13,9 @@ export interface Payload {
 
 const getClubs = async (payload: Payload): Promise<Club[]> => {
   try {
-    const response = await axios.post(`${HEY_API_URL}/clubs/get`, payload);
+    const { data } = await axios.post(`${HEY_API_URL}/clubs/get`, payload);
 
-    return response.data.data.items;
+    return data.data.items;
   } catch {
     return [];
   }

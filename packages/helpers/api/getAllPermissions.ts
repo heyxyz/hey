@@ -10,10 +10,9 @@ export const GET_ALL_PERMISSIONS_QUERY_KEY = "getAllPermissions";
  * @returns all permissions
  */
 const getAllPermissions = async (headers: any): Promise<Permission[]> => {
-  const response = await axios.get(`${HEY_API_URL}/internal/permissions/all`, {
+  const { data } = await axios.get(`${HEY_API_URL}/internal/permissions/all`, {
     headers
   });
-  const { data } = response;
 
   return data?.result || [];
 };

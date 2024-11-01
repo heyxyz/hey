@@ -24,10 +24,10 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
-      const response = await axios.get(`${HEY_API_URL}/oembed`, {
+      const { data } = await axios.get(`${HEY_API_URL}/oembed`, {
         params: { url }
       });
-      return response.data.oembed;
+      return data.oembed;
     },
     queryKey: [GET_OEMBED_QUERY_KEY, url],
     refetchOnMount: false

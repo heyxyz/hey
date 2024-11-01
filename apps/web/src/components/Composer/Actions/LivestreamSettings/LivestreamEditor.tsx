@@ -42,12 +42,11 @@ const LivestreamEditor: FC = () => {
   const createLiveStream = async (record: boolean) => {
     try {
       setCreating(true);
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${HEY_API_URL}/live/create`,
         { record },
         { headers: getAuthApiHeaders() }
       );
-      const { data } = response;
       setLiveVideoConfig({
         id: data.result.id,
         playbackId: data.result.playbackId,

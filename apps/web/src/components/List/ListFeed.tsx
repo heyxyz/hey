@@ -36,11 +36,11 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
 
   const getListPublications = async (id: string): Promise<string[]> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/lists/publications`, {
+      const { data } = await axios.get(`${HEY_API_URL}/lists/publications`, {
         params: { id }
       });
 
-      return response.data?.result;
+      return data?.result;
     } catch {
       return [];
     }

@@ -27,11 +27,11 @@ const Gifs: FC<GifsProps> = ({
 
   const getGifs = async (input: string): Promise<IGif[]> => {
     try {
-      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
+      const { data } = await axios.get("https://api.giphy.com/v1/gifs/search", {
         params: { api_key: GIPHY_KEY, limit: 48, q: input }
       });
 
-      return response.data.data;
+      return data.data;
     } catch {
       return [];
     }

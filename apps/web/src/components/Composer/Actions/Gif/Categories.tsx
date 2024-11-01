@@ -14,12 +14,12 @@ interface CategoriesProps {
 const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
   const getGiphyCategories = async () => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         "https://api.giphy.com/v1/gifs/categories",
         { params: { api_key: GIPHY_KEY } }
       );
 
-      return response.data.data;
+      return data.data;
     } catch {
       return [];
     }

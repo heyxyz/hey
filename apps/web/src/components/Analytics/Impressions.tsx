@@ -37,11 +37,11 @@ const Impressions: FC = () => {
     }[]
   > => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/analytics/impressions`, {
+      const { data } = await axios.get(`${HEY_API_URL}/analytics/impressions`, {
         headers: getAuthApiHeaders()
       });
 
-      return response.data.result;
+      return data.result;
     } catch {
       return [];
     }

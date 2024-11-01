@@ -47,11 +47,11 @@ const Overview: FC = () => {
     }[]
   > => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/analytics/overview`, {
+      const { data } = await axios.get(`${HEY_API_URL}/analytics/overview`, {
         headers: getAuthApiHeaders()
       });
 
-      return response.data.result;
+      return data.result;
     } catch {
       return [];
     }

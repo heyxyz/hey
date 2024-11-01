@@ -8,11 +8,11 @@ import axios from "axios";
  */
 const resolveEns = async (addresses: string[]) => {
   try {
-    const response = await axios.post(`${HEY_API_URL}/ens`, {
+    const { data } = await axios.post(`${HEY_API_URL}/ens`, {
       addresses: addresses.map((address) => address.split("/")[0])
     });
 
-    return response.data;
+    return data;
   } catch {
     return [];
   }
