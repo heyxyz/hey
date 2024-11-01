@@ -27,7 +27,7 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const rows = await clickhouseClient.query({
+      const impressions = await clickhouseClient.query({
         format: "JSONEachRow",
         query: `
           WITH
@@ -45,7 +45,7 @@ export const get = [
         `
       });
 
-      const result = await rows.json();
+      const result = await impressions.json();
 
       await setRedis(cacheKey, JSON.stringify(result), generateLongExpiry());
       logger.info(`Analytics impressions fetched for ${payload.id}`);

@@ -17,7 +17,7 @@ export const get = [
     }
 
     try {
-      const rows = await clickhouseClient.query({
+      const details = await clickhouseClient.query({
         format: "JSONEachRow",
         query: `
           WITH events_counts AS (
@@ -43,7 +43,7 @@ export const get = [
         `
       });
 
-      const result = await rows.json<{
+      const result = await details.json<{
         actor: string;
         most_common_browser: string;
         most_common_browser_version: string;

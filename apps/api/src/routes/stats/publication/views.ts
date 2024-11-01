@@ -32,7 +32,7 @@ export const post = [
     const { ids } = body as ExtensionRequest;
 
     try {
-      const rows = await clickhouseClient.query({
+      const totalImpressions = await clickhouseClient.query({
         format: "JSONEachRow",
         query: `
           SELECT publication, count
@@ -41,7 +41,7 @@ export const post = [
         `
       });
 
-      const result = await rows.json<{
+      const result = await totalImpressions.json<{
         count: number;
         publication: string;
       }>();

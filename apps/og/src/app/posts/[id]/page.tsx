@@ -32,13 +32,13 @@ export const generateMetadata = async ({
     method: "POST"
   });
 
-  const data = await response.json();
+  const result = await response.json();
 
-  if (!data.data.publication) {
+  if (!result.data.publication) {
     return defaultMetadata;
   }
 
-  const publication = data.data.publication as AnyPublication;
+  const publication = result.data.publication as AnyPublication;
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
