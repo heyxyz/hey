@@ -58,7 +58,7 @@ export const post = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const publicationResponse = await lensPg.query(
+      const result = await lensPg.query(
         "SELECT content FROM publication.metadata WHERE publication_id = $1",
         [id]
       );
@@ -72,7 +72,7 @@ export const post = [
         messages: [
           {
             role: "user",
-            content: TEMPLATE.replace("{text}", publicationResponse[0].content)
+            content: TEMPLATE.replace("{text}", result[0].content)
           }
         ],
         tools: [
@@ -87,18 +87,22 @@ export const post = [
       const translated = response.choices[0].message.tool_calls[0].function
         .parsed_arguments as responseSchema;
 
-      const result = {
-        original: publicationResponse[0].content,
+      const finalResult = {
+        original: result[0].content,
         ...translated
       };
 
-      await setRedis(cacheKey, JSON.stringify(result), generateForeverExpiry());
+      await setRedis(
+        cacheKey,
+        JSON.stringify(finalResult),
+        generateForeverExpiry()
+      );
       logger.info(`AI Translation fetched for ${id}`);
 
       return res
         .status(200)
         .setHeader("Cache-Control", CACHE_AGE_1_DAY)
-        .json({ result, success: true });
+        .json({ result: finalResult, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
