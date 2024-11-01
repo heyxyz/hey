@@ -38,7 +38,7 @@ export const get = async (req: Request, res: Response) => {
     } else {
       const offset = (Number(id) - 1) * SITEMAP_BATCH_SIZE || 0;
 
-      const response = await lensPg.query(
+      const handles = await lensPg.query(
         `
           SELECT h.local_name, hl.block_timestamp
           FROM namespace.handle h
@@ -52,7 +52,7 @@ export const get = async (req: Request, res: Response) => {
         [SITEMAP_BATCH_SIZE, offset]
       );
 
-      entries = response.map((handle) => ({
+      entries = handles.map((handle) => ({
         lastmod: handle.block_timestamp
           .toISOString()
           .replace("T", " ")
@@ -63,7 +63,7 @@ export const get = async (req: Request, res: Response) => {
 
       await setRedis(redisKey, JSON.stringify(entries));
       logger.info(
-        `[Lens] Fetched profiles sitemap for batch ${id} having ${response.length} entries from user-agent: ${userAgent}`
+        `[Lens] Fetched profiles sitemap for batch ${id} having ${handles.length} entries from user-agent: ${userAgent}`
       );
     }
 

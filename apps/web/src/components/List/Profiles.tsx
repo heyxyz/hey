@@ -24,11 +24,11 @@ const Profiles: FC<ProfilesProps> = ({ listId, name }) => {
 
   const getListProfiles = async (): Promise<string[]> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/lists/profiles`, {
+      const { data } = await axios.get(`${HEY_API_URL}/lists/profiles`, {
         params: { id: listId }
       });
 
-      return response.data?.result;
+      return data?.result;
     } catch {
       return [];
     }

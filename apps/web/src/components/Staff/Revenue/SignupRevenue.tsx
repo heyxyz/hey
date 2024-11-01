@@ -35,12 +35,12 @@ const SignupRevenue: FC = () => {
     { date: string; count: number }[] | null
   > => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `${HEY_API_URL}/lens/internal/stats/signup-revenue`,
         { headers: getAuthApiHeaders() }
       );
 
-      return response.data?.result || null;
+      return data?.result || null;
     } catch {
       return null;
     }

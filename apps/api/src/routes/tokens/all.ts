@@ -21,17 +21,17 @@ export const get = [
           .json({ success: true, tokens: JSON.parse(cachedData) });
       }
 
-      const data = await prisma.allowedToken.findMany({
+      const allowedToken = await prisma.allowedToken.findMany({
         orderBy: { priority: "desc" }
       });
 
-      await setRedis(cacheKey, data);
+      await setRedis(cacheKey, allowedToken);
       logger.info("All tokens fetched");
 
       return res
         .status(200)
         .setHeader("Cache-Control", CACHE_AGE_1_DAY)
-        .json({ success: true, tokens: data });
+        .json({ result: allowedToken, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

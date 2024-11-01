@@ -25,11 +25,11 @@ const FeedType: FC = () => {
 
   const getPinnedLists = async (): Promise<List[]> => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/lists/pinned`, {
+      const { data } = await axios.get(`${HEY_API_URL}/lists/pinned`, {
         headers: getAuthApiHeaders()
       });
 
-      const lists = response.data?.result;
+      const lists = data?.result;
       setPinnedLists(lists);
       return lists;
     } catch {

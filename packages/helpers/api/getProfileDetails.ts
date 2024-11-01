@@ -13,11 +13,11 @@ const getProfileDetails = async (
   id: string
 ): Promise<null | ProfileDetails> => {
   try {
-    const response = await axios.get(`${HEY_API_URL}/profile/get`, {
+    const { data } = await axios.get(`${HEY_API_URL}/profile/get`, {
       params: { id }
     });
 
-    return response.data.result;
+    return data.result;
   } catch {
     return null;
   }

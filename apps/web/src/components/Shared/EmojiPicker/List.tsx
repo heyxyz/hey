@@ -21,8 +21,8 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   const [searchText, setSearchText] = useState("");
   const { data, error, isLoading } = useQuery({
     queryFn: async () => {
-      const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
-      return response.data;
+      const { data } = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
+      return data;
     },
     queryKey: [GET_EMOJIS_QUERY_KEY]
   });

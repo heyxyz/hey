@@ -30,18 +30,18 @@ export const get = [
           });
       }
 
-      const data = await prisma.profilePermission.findMany({
+      const profilePermission = await prisma.profilePermission.findMany({
         select: { profileId: true },
         where: { enabled: true, permissionId: PermissionId.StaffPick }
       });
 
-      await setRedis(cacheKey, data, generateMediumExpiry());
+      await setRedis(cacheKey, profilePermission, generateMediumExpiry());
       logger.info("Staff picks fetched");
 
       return res
         .status(200)
         .setHeader("Cache-Control", CACHE_AGE_30_MINS)
-        .json({ result: getRandomPicks(data), success: true });
+        .json({ result: getRandomPicks(profilePermission), success: true });
     } catch (error) {
       return catchedError(res, error);
     }

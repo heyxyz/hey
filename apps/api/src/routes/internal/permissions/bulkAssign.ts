@@ -38,23 +38,27 @@ export const post = [
     try {
       const parsedIds = JSON.parse(ids) as string[];
 
-      const profiles = await prisma.profilePermission.findMany({
+      const profilePermissions = await prisma.profilePermission.findMany({
         where: { permissionId, profileId: { in: parsedIds } }
       });
 
       const idsToAssign = parsedIds.filter(
-        (profile_id) =>
-          !profiles.some((profile) => profile.profileId === profile_id)
+        (profileId) =>
+          !profilePermissions.some(
+            (profilePermission) => profilePermission.profileId === profileId
+          )
       );
 
-      const result = await prisma.profilePermission.createMany({
+      const profilePermission = await prisma.profilePermission.createMany({
         data: idsToAssign.map((profileId) => ({ permissionId, profileId })),
         skipDuplicates: true
       });
 
       logger.info(`Bulk assigned permissions for ${parsedIds.length} profiles`);
 
-      return res.status(200).json({ assigned: result.count, success: true });
+      return res
+        .status(200)
+        .json({ assigned: profilePermission.count, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

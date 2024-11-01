@@ -28,11 +28,10 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     events: number;
   } | null> => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/details`,
         { headers: getAuthApiHeaders(), params: { id: profileId } }
       );
-      const { data } = response;
 
       return data.result;
     } catch {
@@ -50,11 +49,10 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     totalImpressions: number;
   } | null> => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
         { headers: getAuthApiHeaders(), params: { id: profileId } }
       );
-      const { data } = response;
 
       return data;
     } catch {

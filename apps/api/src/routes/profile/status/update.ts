@@ -41,7 +41,7 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const data = await prisma.profileStatus.upsert({
+      const profileStatus = await prisma.profileStatus.upsert({
         create: { message, emoji, id: payload.id },
         update: { message, emoji },
         where: { id: payload.id }
@@ -50,7 +50,7 @@ export const post = [
       await delRedis(`profile:${payload.id}`);
       logger.info(`Updated profile status for ${payload.id}`);
 
-      return res.status(200).json({ result: data, success: true });
+      return res.status(200).json({ result: profileStatus, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

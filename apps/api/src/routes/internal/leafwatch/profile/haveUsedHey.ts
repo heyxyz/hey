@@ -17,11 +17,11 @@ export const get = [
     }
 
     try {
-      const rows = await clickhouseClient.query({
+      const eventsCount = await clickhouseClient.query({
         format: "JSONEachRow",
         query: `SELECT count(*) as count FROM events WHERE actor = '${id}';`
       });
-      const result = await rows.json<{ count: number }>();
+      const result = await eventsCount.json<{ count: number }>();
       logger.info("Have used hey status fetched");
 
       return res

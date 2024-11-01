@@ -66,8 +66,8 @@ const PreferencesProvider: FC = () => {
 
   const getVerifiedMembers = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/misc/verified`);
-      setVerifiedMembers(response.data.result || []);
+      const { data } = await axios.get(`${HEY_API_URL}/misc/verified`);
+      setVerifiedMembers(data.result || []);
       return true;
     } catch {
       return false;
@@ -76,8 +76,8 @@ const PreferencesProvider: FC = () => {
 
   const getFiatRates = async () => {
     try {
-      const response = await axios.get(`${HEY_API_URL}/lens/rate`);
-      setFiatRates(response.data.result || []);
+      const { data } = await axios.get(`${HEY_API_URL}/lens/rate`);
+      setFiatRates(data.result || []);
       return true;
     } catch {
       return false;

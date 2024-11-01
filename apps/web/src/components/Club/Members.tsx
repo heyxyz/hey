@@ -31,12 +31,12 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
     };
   } | null> => {
     try {
-      const response = await axios.post(`${HEY_API_URL}/clubs/members`, {
+      const { data } = await axios.post(`${HEY_API_URL}/clubs/members`, {
         id: clubId,
         limit: 50
       });
 
-      return response.data.data;
+      return data.data;
     } catch {
       return null;
     }

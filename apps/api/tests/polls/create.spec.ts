@@ -55,17 +55,17 @@ describe("POST /polls/create", () => {
     );
 
     expect(status).toBe(200);
-    expect(data.poll).toBeDefined();
-    expect(data.poll.id).toBeDefined();
-    expect(data.poll.options).toBeInstanceOf(Array);
-    expect(data.poll.options).toHaveLength(options.length);
+    expect(data.result).toBeDefined();
+    expect(data.result.id).toBeDefined();
+    expect(data.result.options).toBeInstanceOf(Array);
+    expect(data.result.options).toHaveLength(options.length);
 
-    const pollInDb = await prisma.poll.findUnique({
-      where: { id: data.poll.id },
+    const poll = await prisma.poll.findUnique({
+      where: { id: data.result.id },
       include: { options: true }
     });
-    expect(pollInDb).not.toBeNull();
-    expect(pollInDb?.options).toHaveLength(options.length);
+    expect(poll).not.toBeNull();
+    expect(poll?.options).toHaveLength(options.length);
   });
 
   test("should return 401 if the identity token is missing", async () => {

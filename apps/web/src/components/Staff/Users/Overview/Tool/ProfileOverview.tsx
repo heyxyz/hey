@@ -28,12 +28,12 @@ interface ProfileOverviewProps {
 const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
   const getHaveUsedHey = async () => {
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
         { headers: getAuthApiHeaders(), params: { id: profile.id } }
       );
 
-      return response.data.haveUsedHey;
+      return data.haveUsedHey;
     } catch {
       return false;
     }
