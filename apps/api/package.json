@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.682.0",
+    "@aws-sdk/client-s3": "^3.685.0",
     "@aws-sdk/client-ses": "^3.682.0",
     "@aws-sdk/client-sts": "^3.682.0",
     "@hey/abis": "workspace:*",
@@ -33,7 +33,7 @@
     "fast-xml-parser": "^4.4.1",
     "graphql": "^16.9.0",
     "linkedom": "^0.18.5",
-    "openai": "^4.69.0",
+    "openai": "^4.70.2",
     "rate-limit-redis": "^4.2.0",
     "request-ip": "^3.3.0",
     "tsx": "^4.19.2",
