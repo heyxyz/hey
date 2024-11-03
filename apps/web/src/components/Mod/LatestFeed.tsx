@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useModFilterStore } from "./Filter";
 
-const SKIPPED_PROFILE_IDS = IS_MAINNET ? ["0x027290", "0x24b6"] : [];
+const SKIPPED_PROFILE_IDS = IS_MAINNET ? ["0x24b6"] : [];
 
 const LatestFeed: FC = () => {
   const {
