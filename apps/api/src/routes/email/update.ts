@@ -9,6 +9,7 @@ import catchedError from "src/helpers/catchedError";
 import sendEmail from "src/helpers/email/sendEmail";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
+import csrfProtection from "src/helpers/middlewares/csrf";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { v4 as uuid } from "uuid";
 import { boolean, object, string } from "zod";
@@ -27,6 +28,7 @@ const validationSchema = object({
 export const post = [
   rateLimiter({ requests: 50, within: 60 }),
   validateLensAccount,
+  csrfProtection,
   async (req: Request, res: Response) => {
     const { body } = req;
 

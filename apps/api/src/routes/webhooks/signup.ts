@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateSecret from "src/helpers/middlewares/validateSecret";
+import csrfProtection from "src/helpers/middlewares/csrf";
 import { invalidBody, noBody } from "src/helpers/responses";
 import sendSignupNotificationToSlack from "src/helpers/webhooks/signup/sendSignupNotificationToSlack";
 import { any, object } from "zod";
@@ -15,6 +16,7 @@ const validationSchema = object({
 
 export const post = [
   validateSecret,
+  csrfProtection,
   (req: Request, res: Response) => {
     const { body } = req;
 

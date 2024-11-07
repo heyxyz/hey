@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { router } from "express-file-routing";
+import helmet from "helmet";
 
 // Load environment variables
 dotenv.config({ override: true });
@@ -14,6 +15,8 @@ app.disable("x-powered-by");
 // Middleware configuration
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
+app.use(helmet()); // P06b1
+app.use(helmet.csrf()); // Pcd34
 
 //  Increase request timeout
 app.use((req, _, next) => {
