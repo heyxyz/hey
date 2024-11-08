@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Hey",
+    "slug": "hey",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "owner": "sasicodes",
+    "icon": "./assets/images/icon.png",
+    "scheme": "hey",
+    "newArchEnabled": true,
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "backgroundColor": "#f5f5f5"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "xyz.hey.mobile",
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "xyz.hey.mobile"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Let Hey capture your best moments! Allow camera access.",
+          "microphonePermission": "Let's capture your voice! Grant mic access.",
+          "recordAudioAndroid": true
+        }
+      ],
+      "expo-font",
+      "expo-router",
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a0f7da15-c7b0-460c-afca-858de9fe76c4"
+      }
+    }
+  }
+}
