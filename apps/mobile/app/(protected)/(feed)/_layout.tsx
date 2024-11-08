@@ -3,15 +3,13 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link, Slot } from "expo-router";
 import { Plus } from "lucide-react-native";
 import { View } from "react-native";
-import "react-native-reanimated";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function FeedLayout() {
   const { bottom } = useSafeAreaInsets();
 
   return (
-    <Animated.View entering={FadeIn} exiting={FadeOut} style={{ flex: 1 }}>
+    <>
       <EdgeGradient />
       <Slot />
       <View style={{ position: "absolute", bottom, right: 10, zIndex: 1 }}>
@@ -21,6 +19,6 @@ export default function FeedLayout() {
           </AnimatedButton>
         </Link>
       </View>
-    </Animated.View>
+    </>
   );
 }

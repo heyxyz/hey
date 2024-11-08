@@ -5,7 +5,6 @@ import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NetInfoProvider } from "../components/providers/net-info";
 
@@ -13,7 +12,7 @@ const lensApolloClient = apolloClient();
 
 SplashScreen.preventAutoHideAsync();
 
-export default function Layout() {
+const RootLayout = () => {
   const [fontLoaded] = useFonts({
     Sans: require("../assets/fonts/sans.ttf"),
     SansM: require("../assets/fonts/sans-m.ttf"),
@@ -44,4 +43,6 @@ export default function Layout() {
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
-}
+};
+
+export default RootLayout;
