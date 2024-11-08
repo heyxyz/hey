@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/store/auth";
+import { ApolloProvider, apolloClient } from "@hey/lens/apollo";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -7,6 +8,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NetInfoProvider } from "../components/providers/net-info";
+
+const lensApolloClient = apolloClient();
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,8 +37,10 @@ export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <NetInfoProvider />
-        <Slot />
+        <ApolloProvider client={lensApolloClient}>
+          <NetInfoProvider />
+          <Slot />
+        </ApolloProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
