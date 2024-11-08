@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "main": "expo-router/entry",
   "scripts": {
-    "expo:start": "expo start",
+    "expo:start": "expo start --dev-client",
     "build:local": "eas build --profile development --platform ios --local",
     "typecheck": "tsc --pretty"
   },
