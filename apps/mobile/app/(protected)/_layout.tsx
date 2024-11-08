@@ -8,7 +8,7 @@ import "react-native-reanimated";
 
 const RootLayout = () => {
   const id = useAuthStore((state) => state.session.id);
-  const hydrated = useAuthStore((state) => state.hydrated);
+  // const hydrated = useAuthStore((state) => state.hydrated);
   const setActiveProfile = useActiveProfile((state) => state.setProfile);
 
   const { data } = useCurrentProfileQuery({
@@ -23,9 +23,9 @@ const RootLayout = () => {
     }
   }, [data]);
 
-  if (!hydrated) {
-    return null;
-  }
+  // if (!hydrated) {
+  //   return null;
+  // }
 
   if (!id) {
     return <AuthScreen />;
