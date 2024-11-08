@@ -4,7 +4,6 @@ import { useActiveProfile } from "@/store/profile";
 import { type Profile, useCurrentProfileQuery } from "@hey/lens";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import "react-native-reanimated";
 
 const RootLayout = () => {
   const id = useAuthStore((state) => state.session.id);
