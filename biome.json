@@ -7,6 +7,7 @@
     "ignore": [
       ".pnpm-store/*",
       "**/.next/**",
+      "**/.expo/**",
       "**/dist/**",
       "**/artifacts/**",
       "**/node_modules/**",
@@ -15,7 +16,8 @@
       "**/cache/**",
       ".openzeppelin",
       "typechain-types",
-      "generated.ts"
+      "generated.ts",
+      "expo-env.d.ts"
     ]
   },
   "linter": {
