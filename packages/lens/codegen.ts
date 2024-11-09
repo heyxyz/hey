@@ -3,7 +3,8 @@ import LensEndpoint from "@hey/data/lens-endpoints";
 
 const config: CodegenConfig = {
   config: {
-    inlineFragmentTypes: "combine"
+    inlineFragmentTypes: "combine",
+    noGraphQLTag: true
   },
   documents: "./documents/**/*.graphql",
   generates: {
