@@ -58,7 +58,7 @@ const Notifications: FC = () => {
     await fetchNotifications();
   };
 
-  const download = () => {
+  const handleDownload = () => {
     downloadJson(notifications, "notifications", () => {
       setNotifications([]);
       setFetchCompleted(false);
@@ -78,7 +78,7 @@ const Notifications: FC = () => {
           </div>
         ) : null}
         {fetchCompleted ? (
-          <Button onClick={download} outline>
+          <Button onClick={handleDownload} outline>
             Download notifications
           </Button>
         ) : (

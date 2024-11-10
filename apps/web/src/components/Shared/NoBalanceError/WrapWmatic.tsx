@@ -56,7 +56,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
     });
   };
 
-  const deposit = async () => {
+  const handleDeposit = async () => {
     try {
       setIsLoading(true);
       return await writeAsync();
@@ -85,7 +85,7 @@ const WrapWmatic: FC<WrapWmaticProps> = ({ errorMessage, moduleAmount }) => {
               </span>
             )}
           </div>
-          <Button disabled={isLoading} onClick={deposit}>
+          <Button disabled={isLoading} onClick={handleDeposit}>
             Wrap POL to {currency}
           </Button>
         </>

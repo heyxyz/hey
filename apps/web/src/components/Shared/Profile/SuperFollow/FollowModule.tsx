@@ -206,7 +206,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     onError
   });
 
-  const createFollow = async () => {
+  const handleCreateFollow = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -322,7 +322,7 @@ const FollowModule: FC<FollowModuleProps> = ({
             <Button
               className="!px-3 !py-1.5 mt-5 text-sm"
               disabled={isLoading}
-              onClick={createFollow}
+              onClick={handleCreateFollow}
               outline
             >
               Super follow now

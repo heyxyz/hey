@@ -48,7 +48,7 @@ const List: FC = () => {
     }
   });
 
-  const revoke = async (authorizationId: string) => {
+  const handleRevoke = async (authorizationId: string) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -143,7 +143,7 @@ const List: FC = () => {
             disabled={
               revoking && revokeingSessionId === session.authorizationId
             }
-            onClick={() => revoke(session.authorizationId)}
+            onClick={() => handleRevoke(session.authorizationId)}
           >
             Revoke
           </Button>

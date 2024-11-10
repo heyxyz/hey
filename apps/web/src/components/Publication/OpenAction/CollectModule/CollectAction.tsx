@@ -311,7 +311,7 @@ const CollectAction: FC<CollectActionProps> = ({
     }
   };
 
-  const createCollect = async () => {
+  const handleCreateCollect = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -418,7 +418,7 @@ const CollectAction: FC<CollectActionProps> = ({
     <Button
       className={cn("mt-5 w-full justify-center", className)}
       disabled={isLoading}
-      onClick={createCollect}
+      onClick={handleCreateCollect}
     >
       {buttonTitle}
     </Button>

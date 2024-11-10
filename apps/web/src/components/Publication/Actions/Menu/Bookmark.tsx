@@ -93,7 +93,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     variables: { request }
   });
 
-  const togglePublicationProfileBookmark = async () => {
+  const handleTogglePublicationProfileBookmark = async () => {
     toggleHasBookmarked();
 
     if (hasBookmarked) {
@@ -116,7 +116,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        togglePublicationProfileBookmark();
+        handleTogglePublicationProfileBookmark();
       }}
     >
       <div className="flex items-center space-x-2">

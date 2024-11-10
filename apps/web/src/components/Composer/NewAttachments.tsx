@@ -62,7 +62,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
     }
   }, [videoRef, attachments]);
 
-  const removeAttachment = (attachment: any) => {
+  const handleRemoveAttachment = (attachment: any) => {
     const arr = attachments;
     setAttachments(
       arr.filter((element: any) => {
@@ -146,7 +146,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               <div className="absolute top-0 right-0 m-3">
                 <button
                   className="rounded-full bg-gray-900 p-1.5 opacity-75"
-                  onClick={() => removeAttachment(attachment)}
+                  onClick={() => handleRemoveAttachment(attachment)}
                   type="button"
                 >
                   <XMarkIcon className="size-4 text-white" />

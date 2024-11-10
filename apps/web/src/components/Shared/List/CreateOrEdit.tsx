@@ -96,7 +96,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = ({ list }) => {
     }
   };
 
-  const uploadAndSave = async () => {
+  const handleUploadAndSave = async () => {
     try {
       const croppedImage = await getCroppedImg(
         avatarUrl,
@@ -194,7 +194,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = ({ list }) => {
           />
           <Button
             disabled={uploadingAvatar || !avatarUrl}
-            onClick={uploadAndSave}
+            onClick={handleUploadAndSave}
             type="submit"
           >
             Upload

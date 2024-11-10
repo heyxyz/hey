@@ -39,7 +39,7 @@ const LivestreamEditor: FC = () => {
   const [screen, setScreen] = useState<"create" | "record">("create");
   const [creating, setCreating] = useState(false);
 
-  const createLiveStream = async (record: boolean) => {
+  const handleCreateLiveStream = async (record: boolean) => {
     try {
       setCreating(true);
       const { data } = await axios.post(
@@ -142,7 +142,7 @@ const LivestreamEditor: FC = () => {
           <div className="flex items-center space-x-3">
             <button
               className="w-full"
-              onClick={() => createLiveStream(true)}
+              onClick={() => handleCreateLiveStream(true)}
               type="button"
             >
               <Wrapper>
@@ -152,7 +152,7 @@ const LivestreamEditor: FC = () => {
             </button>
             <button
               className="w-full"
-              onClick={() => createLiveStream(false)}
+              onClick={() => handleCreateLiveStream(false)}
               type="button"
             >
               <Wrapper>

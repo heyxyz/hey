@@ -18,7 +18,7 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
   const { setPublicationContent, setTags } = usePublicationStore();
   const [showComposer, setShowComposer] = useState(false);
 
-  const openModal = () => {
+  const handleOpenModal = () => {
     if (tags) {
       setTags(tags);
     }
@@ -41,7 +41,7 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
         processedHashtags ? ` ${processedHashtags} ` : ""
       }${url ? `\n\n${url}` : ""}${via ? `\n\nvia @${via}` : ""}`;
 
-      openModal();
+      handleOpenModal();
       setPublicationContent(content);
     }
   }, [query]);
@@ -51,7 +51,10 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
   }
 
   return (
-    <Card className="cursor-pointer space-y-3 px-5 py-4" onClick={openModal}>
+    <Card
+      className="cursor-pointer space-y-3 px-5 py-4"
+      onClick={handleOpenModal}
+    >
       <div className="flex items-center space-x-3">
         <Image
           alt={currentProfile?.id}

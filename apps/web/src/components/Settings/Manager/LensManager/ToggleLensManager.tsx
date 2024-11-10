@@ -122,7 +122,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       onError
     });
 
-  const toggleDispatcher = async () => {
+  const handleToggleDispatcher = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -152,7 +152,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     <Button
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
       disabled={isLoading}
-      onClick={toggleDispatcher}
+      onClick={handleToggleDispatcher}
       variant={canUseSignless ? "danger" : "primary"}
     >
       {canUseSignless ? "Disable" : "Enable"}

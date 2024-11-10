@@ -175,7 +175,7 @@ const Unfollow: FC<UnfollowProps> = ({
     }
   };
 
-  const createUnfollow = async () => {
+  const handleCreateUnfollow = async () => {
     if (!currentProfile) {
       setShowAuthModal(true);
       return;
@@ -209,7 +209,7 @@ const Unfollow: FC<UnfollowProps> = ({
       aria-label={title}
       className={buttonClassName}
       disabled={isLoading || isFollowPending(profile.id)}
-      onClick={createUnfollow}
+      onClick={handleCreateUnfollow}
       size={small ? "sm" : "md"}
     >
       {title}

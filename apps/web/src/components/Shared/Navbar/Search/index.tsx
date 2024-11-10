@@ -31,13 +31,13 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
-  const reset = () => {
+  const handleReset = () => {
     setShowDropdown(false);
     setProfiles([]);
   };
 
   const dropdownRef = useClickAway(() => {
-    reset();
+    handleReset();
   }) as MutableRefObject<HTMLDivElement>;
 
   const [searchUsers, { loading: searchUsersLoading }] =
@@ -56,7 +56,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
     } else {
       push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
-    reset();
+    handleReset();
   };
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                 "cursor-pointer",
                 searchText ? "visible" : "invisible"
               )}
-              onClick={() => reset()}
+              onClick={handleReset}
             />
           }
           onChange={handleSearch}
@@ -103,7 +103,9 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
           ref={dropdownRef}
         >
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
-            {!debouncedSearchText && <RecentProfiles onProfileClick={reset} />}
+            {!debouncedSearchText && (
+              <RecentProfiles onProfileClick={handleReset} />
+            )}
             {searchUsersLoading ? (
               <Loader className="my-3" message="Searching users" small />
             ) : (
@@ -115,7 +117,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                     onClick={() => {
                       addToRecentProfiles(profile.id);
                       push(getProfile(profile).link);
-                      reset();
+                      handleReset();
                     }}
                   >
                     <SingleProfile

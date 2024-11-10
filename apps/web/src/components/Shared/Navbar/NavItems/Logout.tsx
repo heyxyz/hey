@@ -32,7 +32,7 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({ onError });
 
-  const logout = async () => {
+  const handleLogout = async () => {
     try {
       setRevoking(true);
       if (authorizationId) {
@@ -60,7 +60,7 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
       )}
       disabled={revoking}
       onClick={async () => {
-        await logout();
+        await handleLogout();
         onClick?.();
       }}
       type="button"

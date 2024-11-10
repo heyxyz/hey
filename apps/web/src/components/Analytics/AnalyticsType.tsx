@@ -10,7 +10,7 @@ interface AnalyticsTypeProps {
 }
 
 const AnalyticsType: FC<AnalyticsTypeProps> = ({ tabType }) => {
-  const switchTab = (type: AnalyticsTabType) => {
+  const handleSwitchTab = (type: AnalyticsTabType) => {
     Leafwatch.track(ANALYTICS.SWITCH_ANALYTICS_TAB, {
       analytics_type: type.toLowerCase()
     });
@@ -38,7 +38,7 @@ const AnalyticsType: FC<AnalyticsTypeProps> = ({ tabType }) => {
             icon={tab.icon}
             key={tab.type}
             name={tab.name}
-            onClick={() => switchTab(tab.type)}
+            onClick={() => handleSwitchTab(tab.type)}
             type={tab.type.toLowerCase()}
           />
         ))}

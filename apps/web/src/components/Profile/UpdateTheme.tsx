@@ -16,7 +16,7 @@ const UpdateTheme: FC = () => {
   const [updating, setUpdating] = useState(false);
   const queryClient = useQueryClient();
 
-  const resetTheme = async () => {
+  const handleResetTheme = async () => {
     setUpdating(true);
     try {
       await axios.post(`${HEY_API_URL}/preferences/theme/reset`, undefined, {
@@ -32,7 +32,7 @@ const UpdateTheme: FC = () => {
     }
   };
 
-  const updateTheme = async () => {
+  const handleUpdateTheme = async () => {
     setUpdating(true);
     try {
       await axios.post(`${HEY_API_URL}/preferences/theme/update`, theme, {
@@ -71,7 +71,7 @@ const UpdateTheme: FC = () => {
           variant="danger"
           size="lg"
           className="w-full"
-          onClick={resetTheme}
+          onClick={handleResetTheme}
           disabled={updating}
         >
           Reset
@@ -79,7 +79,7 @@ const UpdateTheme: FC = () => {
         <Button
           size="lg"
           className="w-full"
-          onClick={updateTheme}
+          onClick={handleUpdateTheme}
           disabled={updating}
         >
           Save

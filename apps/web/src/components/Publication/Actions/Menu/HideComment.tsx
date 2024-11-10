@@ -69,7 +69,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
     return null;
   }
 
-  const toggleHideComment = async () => {
+  const handleToggleHideComment = async () => {
     if (showHiddenComments) {
       return await unhideComment();
     }
@@ -88,7 +88,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        toggleHideComment();
+        handleToggleHideComment();
       }}
     >
       <div className="flex items-center space-x-2">

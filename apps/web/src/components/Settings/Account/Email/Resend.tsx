@@ -29,7 +29,7 @@ const Resend: FC = () => {
     errorToast(error);
   };
 
-  const resendVerification = async () => {
+  const handleResendVerification = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -69,7 +69,7 @@ const Resend: FC = () => {
         <Button
           className="mt-2"
           disabled={isLoading || sent}
-          onClick={resendVerification}
+          onClick={handleResendVerification}
           size="sm"
         >
           Resend verification

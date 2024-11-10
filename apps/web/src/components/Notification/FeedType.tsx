@@ -16,7 +16,7 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
-  const switchTab = (type: NotificationTabType) => {
+  const handleSwitchTab = (type: NotificationTabType) => {
     Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
       notification_type: type.toLowerCase()
     });
@@ -59,7 +59,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
             icon={tab.icon}
             key={tab.type}
             name={tab.name}
-            onClick={() => switchTab(tab.type)}
+            onClick={() => handleSwitchTab(tab.type)}
             type={tab.type.toLowerCase()}
           />
         ))}
