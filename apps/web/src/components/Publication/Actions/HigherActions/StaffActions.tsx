@@ -32,7 +32,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
     return null;
   }
 
-  const suspendProfile = (id: string) => {
+  const handleSuspendProfile = (id: string) => {
     onClick?.();
     toast.promise(
       axios.post(
@@ -58,7 +58,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
       <Button
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}
-        onClick={() => suspendProfile(PermissionId.CommentSuspended)}
+        onClick={() => handleSuspendProfile(PermissionId.CommentSuspended)}
         disabled={isSuspended || isCommentSuspended}
         size="sm"
         variant="danger"
@@ -68,7 +68,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
       <Button
         className="flex justify-center"
         icon={<NoSymbolIcon className="size-4" />}
-        onClick={() => suspendProfile(PermissionId.Suspended)}
+        onClick={() => handleSuspendProfile(PermissionId.Suspended)}
         disabled={isSuspended}
         size="sm"
         variant="danger"

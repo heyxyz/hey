@@ -47,7 +47,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
     queryKey: [GET_LISTS_QUERY_KEY, profile.id]
   });
 
-  const deleteList = async (id: string) => {
+  const handleDeleteList = async (id: string) => {
     try {
       setDeleting(true);
       setDeletingList(id);
@@ -79,7 +79,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
     }
   };
 
-  const pinList = async (id: string, pinned: boolean) => {
+  const handlePinList = async (id: string, pinned: boolean) => {
     try {
       setPinning(true);
       setPinningList(id);
@@ -134,7 +134,9 @@ const Lists: FC<ListsProps> = ({ profile }) => {
                     >
                       <button
                         type="button"
-                        onClick={() => pinList(list.id, list.pinned || false)}
+                        onClick={() =>
+                          handlePinList(list.id, list.pinned || false)
+                        }
                         disabled={pinningList === list.id && pinning}
                       >
                         {list.pinned ? (
@@ -148,7 +150,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
                       size="sm"
                       variant="danger"
                       disabled={deletingList === list.id && deleting}
-                      onClick={() => deleteList(list.id)}
+                      onClick={() => handleDeleteList(list.id)}
                       outline
                     >
                       Delete

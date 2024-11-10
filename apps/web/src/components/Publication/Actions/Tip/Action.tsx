@@ -113,7 +113,7 @@ const Action: FC<ActionProps> = ({
     : 0;
   const canTip = Number(balance) >= cryptoRate;
 
-  const onSetAmount = (amount: number) => {
+  const handleSetAmount = (amount: number) => {
     setAmount(amount);
     setOther(false);
   };
@@ -123,7 +123,7 @@ const Action: FC<ActionProps> = ({
     setAmount(value);
   };
 
-  const enableTipping = async () => {
+  const handleEnableTipping = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -304,7 +304,7 @@ const Action: FC<ActionProps> = ({
       <div className="space-x-4">
         <Button
           disabled={amountDisabled}
-          onClick={() => onSetAmount(2)}
+          onClick={() => handleSetAmount(2)}
           outline={amount !== 2}
           size="sm"
         >
@@ -312,7 +312,7 @@ const Action: FC<ActionProps> = ({
         </Button>
         <Button
           disabled={amountDisabled}
-          onClick={() => onSetAmount(5)}
+          onClick={() => handleSetAmount(5)}
           outline={amount !== 5}
           size="sm"
         >
@@ -320,7 +320,7 @@ const Action: FC<ActionProps> = ({
         </Button>
         <Button
           disabled={amountDisabled}
-          onClick={() => onSetAmount(10)}
+          onClick={() => handleSetAmount(10)}
           outline={amount !== 10}
           size="sm"
         >
@@ -329,7 +329,7 @@ const Action: FC<ActionProps> = ({
         <Button
           disabled={amountDisabled}
           onClick={() => {
-            onSetAmount(other ? 2 : 20);
+            handleSetAmount(other ? 2 : 20);
             setOther(!other);
           }}
           outline={!other}
@@ -380,7 +380,7 @@ const Action: FC<ActionProps> = ({
         <Button
           className={submitButtonClassName}
           disabled={isLoading}
-          onClick={enableTipping}
+          onClick={handleEnableTipping}
         >
           Enable tipping for {selectedCurrency?.symbol}
         </Button>

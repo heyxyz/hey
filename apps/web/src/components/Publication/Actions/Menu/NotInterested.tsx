@@ -68,7 +68,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       variables: { request }
     });
 
-  const togglePublicationProfileNotInterested = async () => {
+  const handleTogglePublicationProfileNotInterested = async () => {
     if (notInterested) {
       return await undoPublicationNotInterested();
     }
@@ -87,7 +87,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        togglePublicationProfileNotInterested();
+        handleTogglePublicationProfileNotInterested();
       }}
     >
       <div className="flex items-center space-x-2">

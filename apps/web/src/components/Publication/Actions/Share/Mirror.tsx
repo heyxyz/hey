@@ -259,7 +259,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     }
   };
 
-  const createMirror = async () => {
+  const handleCreateMirror = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -308,7 +308,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
         )
       }
       disabled={isLoading}
-      onClick={createMirror}
+      onClick={handleCreateMirror}
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="size-4" />

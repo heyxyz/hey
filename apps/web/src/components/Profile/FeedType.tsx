@@ -18,7 +18,7 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
-  const switchTab = (type: ProfileFeedType) => {
+  const handleSwitchTab = (type: ProfileFeedType) => {
     if (setFeedType) {
       setFeedType(type);
     }
@@ -67,7 +67,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
             icon={tab.icon}
             key={tab.type}
             name={tab.name}
-            onClick={() => switchTab(tab.type)}
+            onClick={() => handleSwitchTab(tab.type)}
             type={tab.type.toLowerCase()}
           />
         ))}
