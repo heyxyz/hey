@@ -30,7 +30,7 @@ const List: FC = () => {
     queryKey: [GET_ALL_TOKENS_QUERY_KEY]
   });
 
-  const deleteToken = async (id: string) => {
+  const handleDeleteToken = async (id: string) => {
     try {
       await axios.post(
         `${HEY_API_URL}/internal/tokens/delete`,
@@ -76,7 +76,7 @@ const List: FC = () => {
                   </div>
                 </div>
                 <Button
-                  onClick={() => deleteToken(token.id)}
+                  onClick={() => handleDeleteToken(token.id)}
                   outline
                   size="sm"
                   variant="danger"
