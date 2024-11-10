@@ -21,7 +21,6 @@ const TabButtonDesign: FC = () => {
               <TabButton
                 key={tab.name}
                 name={tab.name}
-                onClick={() => {}}
                 active={tab.active || false}
               />
             ))}
@@ -34,7 +33,6 @@ const TabButtonDesign: FC = () => {
               <TabButton
                 key={tab.name}
                 name={tab.name}
-                onClick={() => {}}
                 active={tab.active || false}
                 showOnSm
               />
@@ -48,7 +46,6 @@ const TabButtonDesign: FC = () => {
               <TabButton
                 key={tab.name}
                 name={tab.name}
-                onClick={() => {}}
                 active={tab.active || false}
                 badge={tab.active ? <New /> : null}
                 showOnSm
@@ -63,7 +60,6 @@ const TabButtonDesign: FC = () => {
               <TabButton
                 key={tab.name}
                 name={tab.name}
-                onClick={() => {}}
                 active={tab.active || false}
                 icon={<CheckBadgeIcon className="size-4" />}
                 showOnSm

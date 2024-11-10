@@ -74,7 +74,7 @@ const List: FC = () => {
     }
   };
 
-  const onRefetch = async () => {
+  const handleRefetch = async () => {
     setRefetching(true);
     await refetch();
     setRefetching(false);
@@ -104,7 +104,7 @@ const List: FC = () => {
                 })
               )}
             />
-            <button onClick={onRefetch} type="button">
+            <button onClick={handleRefetch} type="button">
               <ArrowPathIcon
                 className={cn(refetching && "animate-spin", "size-5")}
               />

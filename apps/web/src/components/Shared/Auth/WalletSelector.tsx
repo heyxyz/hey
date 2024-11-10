@@ -13,7 +13,7 @@ const WalletSelector: FC = () => {
   const { disconnect } = useDisconnect();
   const { connector: activeConnector } = useAccount();
 
-  const onConnect = async (connector: Connector) => {
+  const handleConnect = async (connector: Connector) => {
     try {
       await connectAsync({ connector });
       Leafwatch.track(AUTH.CONNECT_WALLET, {
@@ -55,7 +55,7 @@ const WalletSelector: FC = () => {
               )}
               disabled={connector.id === activeConnector?.id || isPending}
               key={connector.id}
-              onClick={() => onConnect(connector)}
+              onClick={() => handleConnect(connector)}
               type="button"
             >
               <span>

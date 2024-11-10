@@ -58,7 +58,7 @@ const Publications: FC = () => {
     await fetchPublications();
   };
 
-  const download = () => {
+  const handleDownload = () => {
     downloadJson(publications, "publications", () => {
       setPublications([]);
       setFetchCompleted(false);
@@ -78,7 +78,7 @@ const Publications: FC = () => {
           </div>
         ) : null}
         {fetchCompleted ? (
-          <Button onClick={download} outline>
+          <Button onClick={handleDownload} outline>
             Download publications
           </Button>
         ) : (

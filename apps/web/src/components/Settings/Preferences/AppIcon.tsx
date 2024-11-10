@@ -24,7 +24,7 @@ const AppIcon: FC = () => {
   const { appIcon, setAppIcon } = usePreferencesStore();
   const [updating, setUpdating] = useState(false);
 
-  const updateAppIcon = async (id: number) => {
+  const handleUpdateAppIcon = async (id: number) => {
     try {
       setUpdating(true);
       await axios.post(
@@ -55,7 +55,7 @@ const AppIcon: FC = () => {
             <button
               className="flex flex-col items-center space-y-2"
               disabled={updating}
-              onClick={() => updateAppIcon(icon.id)}
+              onClick={() => handleUpdateAppIcon(icon.id)}
               type="button"
             >
               <img

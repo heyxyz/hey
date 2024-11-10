@@ -100,7 +100,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
     );
   }
 
-  const toggleManagement = async (profileId: string) => {
+  const handleToggleManagement = async (profileId: string) => {
     try {
       if (managed) {
         await hideManagedProfile({ variables: { request: { profileId } } });
@@ -133,7 +133,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
           {address !== profile.ownedBy.address && (
             <Button
               disabled={hiding || unhiding}
-              onClick={() => toggleManagement(profile.id)}
+              onClick={() => handleToggleManagement(profile.id)}
               outline
               size="sm"
               variant="danger"

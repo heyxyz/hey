@@ -8,7 +8,7 @@ interface TabButtonProps {
   className?: string;
   icon?: ReactNode;
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
   showOnSm?: boolean;
   type?: string;
 }
@@ -42,7 +42,7 @@ const TabButton: FC<TabButtonProps> = ({
             shallow: true
           });
         }
-        onClick();
+        onClick?.();
       }}
       type="button"
     >

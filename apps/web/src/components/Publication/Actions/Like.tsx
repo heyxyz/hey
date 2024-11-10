@@ -83,7 +83,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     update: updateCache
   });
 
-  const createLike = async () => {
+  const handleCreateLike = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -125,7 +125,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           hasReacted ? "hover:bg-brand-300/20" : "hover:bg-gray-300/20",
           "rounded-full p-1.5 outline-offset-2"
         )}
-        onClick={createLike}
+        onClick={handleCreateLike}
         type="button"
       >
         <Tooltip

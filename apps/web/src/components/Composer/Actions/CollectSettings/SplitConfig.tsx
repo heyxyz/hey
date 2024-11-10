@@ -36,7 +36,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   );
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
-  const splitEvenly = () => {
+  const handleSplitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
     const splits = recipients.map((recipient, i) => {
       return {
@@ -73,7 +73,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
     onChangeRecipientOrSplit(index, value, "recipient");
   };
 
-  const removeRecipient = (index: number) => {
+  const handleRemoveRecipient = (index: number) => {
     const updatedRecipients = recipients.filter((_, i) => i !== index);
     if (updatedRecipients.length === 0) {
       setCollectType({
@@ -141,7 +141,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
                     value={recipient.split}
                   />
                 </div>
-                <button onClick={() => removeRecipient(index)} type="button">
+                <button
+                  onClick={() => handleRemoveRecipient(index)}
+                  type="button"
+                >
                   <XCircleIcon className="size-5" />
                 </button>
               </H6>
@@ -166,7 +169,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             )}
             <Button
               icon={<ArrowsRightLeftIcon className="size-3" />}
-              onClick={splitEvenly}
+              onClick={handleSplitEvenly}
               outline
               size="sm"
             >

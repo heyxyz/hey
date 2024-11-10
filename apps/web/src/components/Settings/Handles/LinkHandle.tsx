@@ -128,7 +128,7 @@ const LinkHandle: FC = () => {
     }
   };
 
-  const link = async (handle: string) => {
+  const handleLink = async (handle: string) => {
     if (!currentProfile) {
       return;
     }
@@ -215,7 +215,7 @@ const LinkHandle: FC = () => {
           ) : (
             <Button
               disabled={linkingHandle === handle.fullHandle}
-              onClick={() => link(handle.fullHandle)}
+              onClick={() => handleLink(handle.fullHandle)}
               outline
             >
               {handle.linkedTo ? "Unlink and Link" : "Link"}

@@ -75,9 +75,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
     <>
       <Card
         className="flex cursor-pointer items-center justify-center space-x-2.5 p-5"
-        onClick={() => {
-          setShowMore(!showMore);
-        }}
+        onClick={() => setShowMore(!showMore)}
       >
         <StackedAvatars
           avatars={comments.map((comment) => getAvatar(comment.by))}

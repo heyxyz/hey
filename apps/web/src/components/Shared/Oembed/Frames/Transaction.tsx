@@ -67,7 +67,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
     return <div className="m-5">Chain not supported</div>;
   }
 
-  const onTransaction = async () => {
+  const handleTransaction = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -159,7 +159,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
         <Button
           className="w-full"
           disabled={isLoading}
-          onClick={onTransaction}
+          onClick={handleTransaction}
           size="lg"
         >
           Submit

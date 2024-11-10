@@ -54,7 +54,7 @@ const UndoMirror: FC<MirrorProps> = ({
     update: updateCache
   });
 
-  const undoMirror = async () => {
+  const handleUndoMirror = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -80,7 +80,7 @@ const UndoMirror: FC<MirrorProps> = ({
         )
       }
       disabled={isLoading}
-      onClick={undoMirror}
+      onClick={handleUndoMirror}
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="size-4" />

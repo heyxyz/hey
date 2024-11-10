@@ -68,7 +68,7 @@ const SwitchProfiles: FC = () => {
 
   const profiles = data?.profilesManaged.items || [];
 
-  const switchProfile = async (id: string) => {
+  const handleSwitchProfile = async (id: string) => {
     try {
       setLoggingInProfileId(id);
       setIsLoading(true);
@@ -130,7 +130,7 @@ const SwitchProfiles: FC = () => {
           key={profile?.id}
           onClick={async () => {
             const selectedProfile = profiles[index] as Profile;
-            await switchProfile(selectedProfile.id);
+            await handleSwitchProfile(selectedProfile.id);
           }}
           type="button"
         >

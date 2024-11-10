@@ -36,7 +36,7 @@ const SignedProfile: FC = () => {
     />
   );
 
-  const openMobileMenuDrawer = () => {
+  const handleOpenMobileMenuDrawer = () => {
     setShowMobileDrawer(true);
   };
 
@@ -45,7 +45,7 @@ const SignedProfile: FC = () => {
       {showMobileDrawer ? <MobileDrawerMenu /> : null}
       <button
         className="focus:outline-none md:hidden"
-        onClick={() => openMobileMenuDrawer()}
+        onClick={handleOpenMobileMenuDrawer}
         type="button"
       >
         <Avatar />

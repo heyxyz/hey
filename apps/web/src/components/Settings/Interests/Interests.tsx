@@ -52,7 +52,7 @@ const Interests: FC = () => {
   const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
   const selectedTopics = data?.profile?.interests || [];
 
-  const onSelectTopic = (topic: ProfileInterestTypes) => {
+  const handleSelectTopic = (topic: ProfileInterestTypes) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -103,7 +103,7 @@ const Interests: FC = () => {
                   }
                   key={subCategory.id}
                   onClick={() =>
-                    onSelectTopic(subCategory.id as ProfileInterestTypes)
+                    handleSelectTopic(subCategory.id as ProfileInterestTypes)
                   }
                   outline
                   size="sm"
@@ -127,7 +127,7 @@ const Interests: FC = () => {
                   }
                   key={category.id}
                   onClick={() =>
-                    onSelectTopic(category.id as ProfileInterestTypes)
+                    handleSelectTopic(category.id as ProfileInterestTypes)
                   }
                   outline
                   size="sm"
