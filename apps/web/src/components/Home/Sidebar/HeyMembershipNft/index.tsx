@@ -21,7 +21,7 @@ const HeyMembershipNft: FC = () => {
     return null;
   }
 
-  const updateHeyMemberNftStatus = () => {
+  const handleUpdateHeyMemberNftStatus = () => {
     toast.promise(
       axios.post(`${HEY_API_URL}/preferences/updateNftStatus`, undefined, {
         headers: getAuthApiHeaders()
@@ -69,13 +69,13 @@ const HeyMembershipNft: FC = () => {
             show={showMintModal}
             title={`Special ${APP_NAME} NFT`}
           >
-            <Mint onCollectSuccess={updateHeyMemberNftStatus} />
+            <Mint onCollectSuccess={handleUpdateHeyMemberNftStatus} />
           </Modal>
           <button
             className="text-sm underline"
             onClick={() => {
+              handleUpdateHeyMemberNftStatus();
               Leafwatch.track(MISCELLANEOUS.DISMISSED_MEMBERSHIP_NFT_BANNER);
-              updateHeyMemberNftStatus();
             }}
             type="button"
           >

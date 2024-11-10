@@ -19,7 +19,7 @@ const Gifs: FC<GifsProps> = ({
   setSearchText,
   setShowModal
 }) => {
-  const onSelectGif = (item: IGif) => {
+  const handleSelectGif = (item: IGif) => {
     setGifAttachment(item);
     setSearchText("");
     setShowModal(false);
@@ -62,7 +62,7 @@ const Gifs: FC<GifsProps> = ({
         <button
           className="relative flex outline-none"
           key={gif.id}
-          onClick={() => onSelectGif(gif)}
+          onClick={() => handleSelectGif(gif)}
           type="button"
         >
           <img

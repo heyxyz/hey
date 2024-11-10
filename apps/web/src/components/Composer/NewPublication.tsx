@@ -294,7 +294,7 @@ const NewPublication: FC<NewPublicationProps> = ({
     return isComment ? "Comment" : isQuote ? "Quote" : "Post";
   };
 
-  const createPublication = async () => {
+  const handleCreatePublication = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -561,7 +561,7 @@ const NewPublication: FC<NewPublicationProps> = ({
               videoThumbnail.uploading ||
               exceededMentionsLimit
             }
-            onClick={createPublication}
+            onClick={handleCreatePublication}
           >
             {isComment ? "Comment" : "Post"}
           </Button>

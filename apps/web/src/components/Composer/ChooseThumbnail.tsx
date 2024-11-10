@@ -41,7 +41,7 @@ const ChooseThumbnail: FC = () => {
     return result;
   };
 
-  const onSelectThumbnail = (index: number) => {
+  const handleSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
     if (thumbnails[index]?.ipfsUrl === "") {
       setVideoThumbnail({ ...videoThumbnail, uploading: true });
@@ -88,7 +88,7 @@ const ChooseThumbnail: FC = () => {
   };
 
   useEffect(() => {
-    onSelectThumbnail(selectedThumbnailIndex);
+    handleSelectThumbnail(selectedThumbnailIndex);
   }, [selectedThumbnailIndex]);
 
   useEffect(() => {
@@ -158,7 +158,7 @@ const ChooseThumbnail: FC = () => {
               className="relative"
               disabled={isUploading}
               key={`${blobUrl}_${index}`}
-              onClick={() => onSelectThumbnail(index)}
+              onClick={() => handleSelectThumbnail(index)}
               type="button"
             >
               <img
