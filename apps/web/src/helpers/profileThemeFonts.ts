@@ -6,7 +6,6 @@ import {
   DM_Sans,
   Eczar,
   Gaegu,
-  Geist,
   IBM_Plex_Mono,
   IBM_Plex_Serif,
   Inconsolata,
@@ -56,8 +55,7 @@ export enum Font {
   ZillaSlab = "zillaSlab",
   Karma = "karma",
   DMSans = "dmSans",
-  JosefinSans = "josefinSans",
-  Geist = "geist"
+  JosefinSans = "josefinSans"
 }
 
 const archivo = Archivo({ subsets: ["latin"], weight: ["400", "700"] });
@@ -111,7 +109,6 @@ const josefinSans = Josefin_Sans({
   subsets: ["latin"],
   weight: ["400", "700"]
 });
-const geist = Geist({ subsets: ["latin"], weight: ["400", "700"] });
 
 const profileThemeFonts = (id: string | undefined): string => {
   if (!id) {
@@ -173,8 +170,6 @@ const profileThemeFonts = (id: string | undefined): string => {
       return dmSans.className;
     case Font.JosefinSans:
       return josefinSans.className;
-    case Font.Geist:
-      return geist.className;
     default:
       return "";
   }
