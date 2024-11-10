@@ -25,7 +25,7 @@ const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
 
-  const closeDrawer = () => {
+  const handleCloseDrawer = () => {
     setShowMobileDrawer(false);
   };
 
@@ -33,14 +33,14 @@ const MobileDrawerMenu: FC = () => {
 
   return (
     <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
-      <button className="px-5" onClick={closeDrawer} type="button">
+      <button className="px-5" onClick={handleCloseDrawer} type="button">
         <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
         <Link
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
           href={getProfile(currentProfile).link}
-          onClick={closeDrawer}
+          onClick={handleCloseDrawer}
         >
           <div className="flex w-full space-x-1.5">
             <Image
@@ -75,22 +75,25 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link href={getProfile(currentProfile).link} onClick={closeDrawer}>
+            <Link
+              href={getProfile(currentProfile).link}
+              onClick={handleCloseDrawer}
+            >
               <YourProfile className={cn(itemClass, "px-4")} />
             </Link>
-            <Link href="/settings" onClick={closeDrawer}>
+            <Link href="/settings" onClick={handleCloseDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
             <Bookmarks
               className={cn(itemClass, "px-4")}
-              onClick={closeDrawer}
+              onClick={handleCloseDrawer}
             />
-            <Link href="/analytics" onClick={closeDrawer}>
+            <Link href="/analytics" onClick={handleCloseDrawer}>
               <Analytics className={cn(itemClass, "px-4")} />
             </Link>
             <ThemeSwitch
               className={cn(itemClass, "px-4")}
-              onClick={closeDrawer}
+              onClick={handleCloseDrawer}
             />
           </div>
           <div className="divider" />
@@ -105,7 +108,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
             <Logout
               className={cn(itemClass, "px-4 py-3")}
-              onClick={closeDrawer}
+              onClick={handleCloseDrawer}
             />
           </div>
           <div className="divider" />

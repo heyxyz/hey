@@ -186,7 +186,7 @@ const Follow: FC<FollowProps> = ({
     return;
   };
 
-  const createFollow = async () => {
+  const handleCreateFollow = async () => {
     if (!currentProfile) {
       setShowAuthModal(true);
       return;
@@ -220,7 +220,7 @@ const Follow: FC<FollowProps> = ({
       aria-label={title}
       className={buttonClassName}
       disabled={isLoading || isUnfollowPending(profile.id)}
-      onClick={createFollow}
+      onClick={handleCreateFollow}
       outline
       size={small ? "sm" : "md"}
     >
