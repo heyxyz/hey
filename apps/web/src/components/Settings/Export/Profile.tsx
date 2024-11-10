@@ -35,7 +35,7 @@ const Profile: FC = () => {
     });
   };
 
-  const download = () => {
+  const handleDownload = () => {
     downloadJson(profile, "profile", () => {
       setProfile(null);
       setFetchCompleted(false);
@@ -50,7 +50,7 @@ const Profile: FC = () => {
       />
       <div className="m-5">
         {fetchCompleted ? (
-          <Button onClick={download} outline>
+          <Button onClick={handleDownload} outline>
             Download profile
           </Button>
         ) : (

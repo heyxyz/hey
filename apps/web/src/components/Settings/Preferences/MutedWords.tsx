@@ -20,7 +20,7 @@ const MutedWords: FC = () => {
   const [deleting, setDeleting] = useState<string | null>(null);
   const [muting, setMuting] = useState(false);
 
-  const updateMutedWords = async () => {
+  const handleUpdateMutedWords = async () => {
     try {
       setMuting(true);
       const { data } = await axios.post(
@@ -52,7 +52,7 @@ const MutedWords: FC = () => {
     }
   };
 
-  const unmuteWord = async (id: string) => {
+  const handleUnmuteWord = async (id: string) => {
     try {
       setDeleting(id);
       const { data } = await axios.post(
@@ -116,7 +116,7 @@ const MutedWords: FC = () => {
           <Button
             className="w-full"
             disabled={muting || !word}
-            onClick={updateMutedWords}
+            onClick={handleUpdateMutedWords}
             size="lg"
           >
             Mute word
@@ -140,7 +140,7 @@ const MutedWords: FC = () => {
                 </div>
                 <button
                   type="button"
-                  onClick={() => unmuteWord(mutedWord.id)}
+                  onClick={() => handleUnmuteWord(mutedWord.id)}
                   disabled={deleting === mutedWord.id}
                 >
                   <XCircleIcon className="size-5 text-red-500" />

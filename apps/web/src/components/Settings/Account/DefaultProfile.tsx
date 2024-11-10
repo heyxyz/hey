@@ -50,7 +50,7 @@ const DefaultProfile: FC = () => {
     onError
   });
 
-  const setDefaultProfile = async () => {
+  const handleSetDefaultProfile = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -105,7 +105,7 @@ const DefaultProfile: FC = () => {
           <Button
             className="ml-auto"
             disabled={loading}
-            onClick={setDefaultProfile}
+            onClick={handleSetDefaultProfile}
             type="submit"
           >
             Set Default Profile

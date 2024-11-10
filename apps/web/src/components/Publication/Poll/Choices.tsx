@@ -40,7 +40,7 @@ const Choices: FC<ChoicesProps> = ({ poll }) => {
     return acc + responses;
   }, 0);
 
-  const votePoll = async (id: string) => {
+  const handleVotePoll = async (id: string) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -79,7 +79,7 @@ const Choices: FC<ChoicesProps> = ({ poll }) => {
             className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-xs hover:bg-gray-100 sm:text-sm dark:hover:bg-gray-900"
             disabled={!isPollLive || pollSubmitting}
             key={id}
-            onClick={() => votePoll(id)}
+            onClick={() => handleVotePoll(id)}
             type="button"
           >
             {pollSubmitting && id === selectedOption ? (

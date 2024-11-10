@@ -54,7 +54,7 @@ const Followers: FC = () => {
     await fetchFollowers();
   };
 
-  const download = () => {
+  const handleDownload = () => {
     downloadJson(followers, "followers", () => {
       setFollowers([]);
       setFetchCompleted(false);
@@ -74,7 +74,7 @@ const Followers: FC = () => {
           </div>
         ) : null}
         {fetchCompleted ? (
-          <Button onClick={download} outline>
+          <Button onClick={handleDownload} outline>
             Download followers
           </Button>
         ) : (

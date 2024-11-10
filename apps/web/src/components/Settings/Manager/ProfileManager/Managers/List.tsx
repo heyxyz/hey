@@ -121,7 +121,7 @@ const List: FC = () => {
       onError
     });
 
-  const removeManager = async (address: Address) => {
+  const handleRemoveManager = async (address: Address) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -187,7 +187,7 @@ const List: FC = () => {
           <LazyDefaultProfile address={manager.address} />
           <Button
             disabled={removingAddress === manager.address}
-            onClick={() => removeManager(manager.address)}
+            onClick={() => handleRemoveManager(manager.address)}
             outline
           >
             Remove

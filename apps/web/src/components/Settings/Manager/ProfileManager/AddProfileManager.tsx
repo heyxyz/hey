@@ -131,7 +131,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
       onError
     });
 
-  const addManager = async () => {
+  const handleAddManager = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -171,7 +171,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         <Button
           className="ml-auto"
           disabled={isLoading || !isAddress(manager)}
-          onClick={addManager}
+          onClick={handleAddManager}
           type="submit"
         >
           Add manager

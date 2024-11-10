@@ -120,7 +120,7 @@ const UnlinkHandle: FC = () => {
     }
   };
 
-  const unlink = async () => {
+  const handleUnlink = async () => {
     if (!currentProfile) {
       return;
     }
@@ -168,7 +168,7 @@ const UnlinkHandle: FC = () => {
           />
         </div>
       ) : (
-        <Button disabled={unlinking} onClick={unlink} outline>
+        <Button disabled={unlinking} onClick={handleUnlink} outline>
           Un-link handle
         </Button>
       )}

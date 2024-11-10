@@ -141,7 +141,7 @@ const SuperFollow: FC = () => {
       onError
     });
 
-  const setSuperFollow = async (
+  const handleSetSuperFollow = async (
     amount: null | string,
     recipient: null | string
   ) => {
@@ -189,7 +189,7 @@ const SuperFollow: FC = () => {
         className="m-5 space-y-4"
         form={form}
         onSubmit={async ({ amount, recipient }) => {
-          await setSuperFollow(amount, recipient);
+          await handleSetSuperFollow(amount, recipient);
         }}
       >
         <div>
@@ -232,7 +232,7 @@ const SuperFollow: FC = () => {
               <Button
                 disabled={isLoading}
                 icon={<XMarkIcon className="size-4" />}
-                onClick={() => setSuperFollow(null, null)}
+                onClick={() => handleSetSuperFollow(null, null)}
                 outline
                 type="button"
                 variant="danger"

@@ -292,7 +292,7 @@ const ProfileSettingsForm: FC = () => {
     }
   };
 
-  const uploadAndSave = async (type: "avatar" | "cover") => {
+  const handleUploadAndSave = async (type: "avatar" | "cover") => {
     try {
       const croppedImage = await getCroppedImg(
         type === "avatar" ? profilePictureSrc : coverPictureSrc,
@@ -483,7 +483,7 @@ const ProfileSettingsForm: FC = () => {
             </div>
             <Button
               disabled={uploadingCoverPicture || !coverPictureSrc}
-              onClick={() => uploadAndSave("cover")}
+              onClick={() => handleUploadAndSave("cover")}
               type="submit"
             >
               Upload
@@ -513,7 +513,7 @@ const ProfileSettingsForm: FC = () => {
           />
           <Button
             disabled={uploadingProfilePicture || !profilePictureSrc}
-            onClick={() => uploadAndSave("avatar")}
+            onClick={() => handleUploadAndSave("avatar")}
             type="submit"
           >
             Upload
