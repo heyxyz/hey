@@ -1,3 +1,4 @@
+import type { ApolloCache } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -12,7 +13,6 @@ import {
   useAddPublicationNotInterestedMutation,
   useUndoPublicationNotInterestedMutation
 } from "@hey/lens";
-import type { ApolloCache } from "@hey/lens/apollo";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";

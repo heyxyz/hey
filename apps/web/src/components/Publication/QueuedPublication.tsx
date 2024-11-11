@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import Markup from "@components/Shared/Markup";
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getMentions from "@hey/helpers/getMentions";
@@ -8,7 +9,6 @@ import {
   useLensTransactionStatusQuery,
   usePublicationLazyQuery
 } from "@hey/lens";
-import { useApolloClient } from "@hey/lens/apollo";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Card, Tooltip } from "@hey/ui";
 import type { FC } from "react";

@@ -1,3 +1,4 @@
+import type { ApolloCache } from "@apollo/client";
 import { useHiddenCommentFeedStore } from "@components/Publication";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
@@ -11,7 +12,6 @@ import type {
   UnhideCommentRequest
 } from "@hey/lens";
 import { useHideCommentMutation, useUnhideCommentMutation } from "@hey/lens";
-import type { ApolloCache } from "@hey/lens/apollo";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";

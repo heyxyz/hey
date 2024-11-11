@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -12,7 +13,6 @@ import {
   useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
 } from "@hey/lens";
-import { useApolloClient } from "@hey/lens/apollo";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";

@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import AllowanceButton from "@components/Settings/Allowance/Button";
 import Loader from "@components/Shared/Loader";
 import NoBalanceError from "@components/Shared/NoBalanceError";
@@ -26,7 +27,6 @@ import {
   useCreateFollowTypedDataMutation,
   useProfileQuery
 } from "@hey/lens";
-import { useApolloClient } from "@hey/lens/apollo";
 import { Button, H3, H5, WarningMessage } from "@hey/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
