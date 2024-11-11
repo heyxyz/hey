@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
@@ -12,7 +13,6 @@ import {
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from "@hey/lens";
-import { useApolloClient } from "@hey/lens/apollo";
 import { OptmisticPublicationType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";

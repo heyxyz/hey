@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -7,7 +8,6 @@ import { PUBLICATION } from "@hey/data/tracking";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { useHidePublicationMutation } from "@hey/lens";
-import { useApolloClient } from "@hey/lens/apollo";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";

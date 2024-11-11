@@ -1,3 +1,4 @@
+import type { ApolloCache } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
@@ -15,7 +16,6 @@ import {
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
 } from "@hey/lens";
-import type { ApolloCache } from "@hey/lens/apollo";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
