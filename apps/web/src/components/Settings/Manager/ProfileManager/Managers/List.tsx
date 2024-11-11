@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
@@ -16,7 +17,6 @@ import {
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
 } from "@hey/lens";
-import { useApolloClient } from "@hey/lens/apollo";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

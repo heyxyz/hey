@@ -1,3 +1,4 @@
+import type { ApolloCache } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -13,7 +14,6 @@ import {
   useAddPublicationBookmarkMutation,
   useRemovePublicationBookmarkMutation
 } from "@hey/lens";
-import type { ApolloCache } from "@hey/lens/apollo";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useRouter } from "next/router";
