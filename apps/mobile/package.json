@@ -10,7 +10,10 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.9",
     "@expo/vector-icons": "^14.0.2",
+    "@hey/data": "workspace:*",
+    "@hey/lens": "workspace:*",
     "@react-navigation/native": "^6.0.2",
     "expo": "~51.0.28",
     "expo-constants": "~16.0.2",
@@ -21,6 +24,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
+    "graphql": "^16.9.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",

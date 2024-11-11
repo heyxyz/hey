@@ -1,17 +1,3 @@
-import {
-  ApolloCache,
-  ApolloProvider,
-  gql,
-  useApolloClient,
-  useQuery
-} from "@apollo/client";
-import apolloClient from "./client";
+import { gql, useApolloClient, useQuery } from "@apollo/client";
 
-export {
-  ApolloCache,
-  apolloClient,
-  ApolloProvider,
-  gql,
-  useApolloClient,
-  useQuery
-};
+export { gql, useApolloClient, useQuery };

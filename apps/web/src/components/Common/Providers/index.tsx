@@ -1,5 +1,6 @@
+import { ApolloProvider } from "@apollo/client";
 import authLink from "@helpers/authLink";
-import { ApolloProvider, apolloClient } from "@hey/lens/apollo";
+import webApolloClient from "@hey/lens/apollo/webApolloClient";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import type { FC, ReactNode } from "react";
@@ -13,7 +14,7 @@ import PreferencesProvider from "./PreferencesProvider";
 import ServiceWorkerProvider from "./ServiceWorkerProvider";
 import Web3Provider from "./Web3Provider";
 
-const lensApolloClient = apolloClient(authLink);
+const lensApolloClient = webApolloClient(authLink);
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });

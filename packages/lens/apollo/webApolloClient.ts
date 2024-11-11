@@ -14,13 +14,12 @@ const requestLink = split(
   httpLink
 );
 
-const apolloClient = (authLink?: ApolloLink) =>
+const webApolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
     cache,
-    connectToDevTools: true,
     link: authLink
       ? from([authLink, retryLink, requestLink])
       : from([retryLink, httpLink])
   });
 
-export default apolloClient;
+export default webApolloClient;
