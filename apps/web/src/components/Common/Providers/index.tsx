@@ -15,6 +15,7 @@ import ServiceWorkerProvider from "./ServiceWorkerProvider";
 import Web3Provider from "./Web3Provider";
 
 const lensApolloClient = webApolloClient(authLink);
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
