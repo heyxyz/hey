@@ -16,7 +16,7 @@ We harness the power of [pnpm workspaces](https://pnpm.io/workspaces) to keep ou
 Clone the Hey monorepo to your local machine:
 
 ```bash
-git clone https://github.com/heyxyz/hey.git
+git clone git@git.pierre.co:/repos/hey/hey.git
 ```
 
 ### Install NVM (Node Version Manager) and pnpm
