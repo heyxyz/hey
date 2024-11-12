@@ -79,5 +79,9 @@ Follow these rules when you write code:
 - Write concise, technical TypeScript code with accurate examples.
 - Use functional and declarative programming patterns; avoid classes.
 - Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
+- Use camelCase for variables, functions, and methods.
+- Use UPPERCASE for environment variables.
+- Start each function with a verb, Example: `handleClick`, `handleKeyDown`, `handleChange`, etc.
+- Use verbs for boolean variables. Example: `isLoading`, `hasError`, `canDelete`, etc.
+- Use complete words instead of abbreviations and correct spelling.
 - Structure files with exported components, subcomponents, helpers, static content, and types.
