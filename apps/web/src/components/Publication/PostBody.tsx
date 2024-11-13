@@ -20,7 +20,7 @@ import { memo, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Checkin from "./Checkin";
-import EncryptedPublication from "./EncryptedPublication";
+import EncryptedPost from "./EncryptedPost";
 import Metadata from "./Metadata";
 import MutedPost from "./MutedPost";
 import NotSupportedPublication from "./NotSupportedPublication";
@@ -65,7 +65,7 @@ const PostBody: FC<PostBodyProps> = ({
   }
 
   if (targetPublication.isEncrypted) {
-    return <EncryptedPublication />;
+    return <EncryptedPost />;
   }
 
   if (!isPostMetadataTypeAllowed(metadata.__typename)) {
