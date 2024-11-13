@@ -6,9 +6,9 @@ import type {
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 /**
- * Returns the thumbnail URL for the specified publication metadata.
+ * Returns the thumbnail URL for the specified post metadata.
  *
- * @param metadata The publication metadata.
+ * @param metadata The post metadata.
  * @returns The thumbnail URL.
  */
 const getThumbnailUrl = (

@@ -3,7 +3,7 @@ import { Select, Tooltip } from "@hey/ui";
 import { MetadataLicenseType } from "@lens-protocol/metadata";
 import Link from "next/link";
 import type { FC } from "react";
-import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
+import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 
 const LicensePicker: FC = () => {
   const { license, setLicense } = usePostLicenseStore();

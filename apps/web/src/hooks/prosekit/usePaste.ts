@@ -4,7 +4,7 @@ import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import toast from "react-hot-toast";
 import useUploadAttachments from "src/hooks/useUploadAttachments";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 
 /**
  * Define a ProseKit extension for handling drop and paste events.

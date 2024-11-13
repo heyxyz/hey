@@ -35,21 +35,21 @@ import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePublication from "src/hooks/useCreatePublication";
 import usePostMetadata from "src/hooks/usePostMetadata";
-import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
+import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import {
   DEFAULT_AUDIO_PUBLICATION,
   usePostAudioStore
-} from "src/store/non-persisted/publication/usePostAudioStore";
-import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
-import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
-import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+} from "src/store/non-persisted/post/usePostAudioStore";
+import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
+import { usePostPollStore } from "src/store/non-persisted/post/usePostPollStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
-} from "src/store/non-persisted/publication/usePostVideoStore";
+} from "src/store/non-persisted/post/usePostVideoStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
@@ -105,16 +105,11 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
-  const {
-    publicationContent,
-    quotedPost,
-    setPublicationContent,
-    setQuotedPost,
-    setTags
-  } = usePostStore();
+  const { postContent, quotedPost, setPostContent, setQuotedPost, setTags } =
+    usePostStore();
 
   // Audio store
-  const { audioPublication, setAudioPublication } = usePostAudioStore();
+  const { audioPost, setAudioPost } = usePostAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
@@ -149,7 +144,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-  const [publicationContentError, setPublicationContentError] = useState("");
+  const [postContentError, setPostContentError] = useState("");
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
@@ -174,7 +169,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const reset = () => {
     editor?.setMarkdown("");
     setIsLoading(false);
-    setPublicationContent("");
+    setPostContent("");
     setTags(null);
     setShowPollEditor(false);
     resetPollConfig();
@@ -183,7 +178,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     setAttachments([]);
     setQuotedPost(null);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
-    setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
+    setAudioPost(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
     resetCollectSettings();
@@ -259,18 +254,18 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   });
 
   useEffect(() => {
-    setPublicationContentError("");
-  }, [audioPublication]);
+    setPostContentError("");
+  }, [audioPost]);
 
   useEffect(() => {
-    if (getMentions(publicationContent).length > 50) {
+    if (getMentions(postContent).length > 50) {
       setExceededMentionsLimit(true);
-      setPublicationContentError("You can only mention 50 people at a time!");
+      setPostContentError("You can only mention 50 people at a time!");
     } else {
       setExceededMentionsLimit(false);
-      setPublicationContentError("");
+      setPostContentError("");
     }
-  }, [publicationContent]);
+  }, [postContent]);
 
   const getAnimationUrl = () => {
     const fallback =
@@ -303,40 +298,40 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     try {
       setIsLoading(true);
       if (hasAudio) {
-        setPublicationContentError("");
-        const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+        setPostContentError("");
+        const parsedData = AudioPublicationSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
           setIsLoading(false);
-          return setPublicationContentError(issue.message);
+          return setPostContentError(issue.message);
         }
       }
 
-      if (publicationContent.length === 0 && attachments.length === 0) {
+      if (postContent.length === 0 && attachments.length === 0) {
         setIsLoading(false);
-        return setPublicationContentError(
+        return setPostContentError(
           `${
             isComment ? "Comment" : isQuote ? "Quote" : "Post"
           } should not be empty!`
         );
       }
 
-      setPublicationContentError("");
+      setPostContentError("");
 
       let pollId: string | undefined;
       if (showPollEditor) {
         pollId = await createPoll();
       }
 
-      const processedPublicationContent =
-        publicationContent.length > 0 ? publicationContent : undefined;
+      const processedPostContent =
+        postContent.length > 0 ? postContent : undefined;
       const title = hasAudio
-        ? audioPublication.title
+        ? audioPost.title
         : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
       const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
-        content: processedPublicationContent,
+        content: processedPostContent,
         title,
         ...(hasAttributes && {
           attributes: [
@@ -353,7 +348,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         }),
         marketplace: {
           animation_url: getAnimationUrl(),
-          description: processedPublicationContent,
+          description: processedPostContent,
           external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
           name: title
         }
@@ -510,10 +505,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         />
       ) : null}
       <Editor />
-      {publicationContentError ? (
-        <H6 className="mt-1 px-5 pb-3 text-red-500">
-          {publicationContentError}
-        </H6>
+      {postContentError ? (
+        <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}

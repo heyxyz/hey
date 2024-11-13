@@ -1,7 +1,7 @@
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
-import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
+import { usePostPollStore } from "src/store/non-persisted/post/usePostPollStore";
 
 const PollSettings: FC = () => {
   const { resetPollConfig, setShowPollEditor, showPollEditor } =

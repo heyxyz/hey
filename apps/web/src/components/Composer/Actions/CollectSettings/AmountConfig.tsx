@@ -5,7 +5,7 @@ import { CollectOpenActionModuleType } from "@hey/lens";
 import type { CollectModuleType } from "@hey/types/hey";
 import { Input, Select } from "@hey/ui";
 import type { FC } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 

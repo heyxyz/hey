@@ -2,11 +2,11 @@ import type { Quote } from "@hey/lens";
 
 /**
  * Removes the `quoteOn` property from a Quote object.
- * @param publication The Quote object to remove the `quoteOn` property from.
+ * @param post The Quote object to remove the `quoteOn` property from.
  * @returns The Quote object without the `quoteOn` property.
  */
-const removeQuoteOn = (publication: Quote): Quote => {
-  const { quoteOn, ...rest } = publication;
+const removeQuoteOn = (post: Quote): Quote => {
+  const { quoteOn, ...rest } = post;
 
   return rest as Quote;
 };

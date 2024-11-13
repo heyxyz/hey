@@ -6,7 +6,7 @@ import { Modal, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 import GifSelector from "./GifSelector";
 
 interface GifProps {

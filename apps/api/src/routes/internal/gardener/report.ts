@@ -10,7 +10,7 @@ import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { array, object, string } from "zod";
 
-export const reportPublication = async (
+export const reportPost = async (
   id: string,
   subreasons: string[],
   accessToken: string
@@ -71,8 +71,8 @@ export const post = [
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-      await reportPublication(id, subreasons, accessToken);
-      logger.info(`[Lens] Reported publication ${id}`);
+      await reportPost(id, subreasons, accessToken);
+      logger.info(`[Lens] Reported post ${id}`);
 
       return res
         .status(200)

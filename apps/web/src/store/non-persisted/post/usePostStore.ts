@@ -3,19 +3,18 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  publicationContent: string;
+  postContent: string;
   quotedPost: AnyPublication | null;
-  setPublicationContent: (publicationContent: string) => void;
+  setPostContent: (postContent: string) => void;
   setQuotedPost: (quotedPost: AnyPublication | null) => void;
   setTags: (tags: null | string[]) => void;
   tags: null | string[];
 }
 
 const store = create<State>((set) => ({
-  publicationContent: "",
+  postContent: "",
   quotedPost: null,
-  setPublicationContent: (publicationContent) =>
-    set(() => ({ publicationContent })),
+  setPostContent: (postContent) => set(() => ({ postContent })),
   setQuotedPost: (quotedPost) => set(() => ({ quotedPost })),
   setTags: (tags) => set(() => ({ tags })),
   tags: null

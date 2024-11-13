@@ -7,7 +7,7 @@ import type { AnyPublication, Profile } from "@hey/lens";
 import type { APITypes } from "plyr-react";
 import type { ChangeEvent, FC } from "react";
 import { useRef, useState } from "react";
-import { usePostAudioStore } from "src/store/non-persisted/publication/usePostAudioStore";
+import { usePostAudioStore } from "src/store/non-persisted/post/usePostAudioStore";
 import { object, string } from "zod";
 import CoverImage from "./CoverImage";
 import Player from "./Player";
@@ -37,7 +37,7 @@ const Audio: FC<AudioProps> = ({
   src,
   title
 }) => {
-  const { audioPublication, setAudioPublication } = usePostAudioStore();
+  const { audioPost, setAudioPost } = usePostAudioStore();
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef<APITypes>(null);
@@ -65,8 +65,8 @@ const Audio: FC<AudioProps> = ({
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setAudioPublication({
-      ...audioPublication,
+    setAudioPost({
+      ...audioPost,
       [e.target.name]: e.target.value
     });
   };
@@ -85,7 +85,7 @@ const Audio: FC<AudioProps> = ({
           isNew={isNew}
           setCover={(previewUri, cover, mimeType) => {
             setNewPreviewUri(previewUri);
-            setAudioPublication({ ...audioPublication, cover, mimeType });
+            setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
         <div className="flex w-full flex-col justify-between truncate py-1 md:px-3">
@@ -107,7 +107,7 @@ const Audio: FC<AudioProps> = ({
                       name="title"
                       onChange={handleChange}
                       placeholder="Add title"
-                      value={audioPublication.title}
+                      value={audioPost.title}
                     />
                     <input
                       autoComplete="off"
@@ -115,7 +115,7 @@ const Audio: FC<AudioProps> = ({
                       name="artist"
                       onChange={handleChange}
                       placeholder="Add artist"
-                      value={audioPublication.artist}
+                      value={audioPost.artist}
                     />
                   </div>
                 ) : (
