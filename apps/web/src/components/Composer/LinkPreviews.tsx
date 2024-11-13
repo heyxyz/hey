@@ -10,13 +10,13 @@ import { usePostAttributesStore } from "src/store/non-persisted/publication/useP
 import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 
 const LinkPreviews: FC = () => {
-  const { publicationContent, quotedPost } = usePostStore();
+  const { postContent, quotedPost } = usePostStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { addAttribute, getAttribute, removeAttribute } =
     usePostAttributesStore();
   const [showRemove, setShowRemove] = useState(false);
 
-  const urls = getURLs(publicationContent);
+  const urls = getURLs(postContent);
 
   useEffect(() => {
     if (urls.length) {

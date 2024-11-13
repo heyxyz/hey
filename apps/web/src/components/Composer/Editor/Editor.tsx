@@ -20,8 +20,8 @@ const EditorMenus = dynamic(() => import("./EditorMenus"), { ssr: false });
 
 const Editor: FC = () => {
   const { currentProfile } = useProfileStore();
-  const { publicationContent } = usePostStore();
-  const defaultMarkdownRef = useRef(publicationContent);
+  const { postContent } = usePostStore();
+  const defaultMarkdownRef = useRef(postContent);
 
   const defaultContent = useMemo(() => {
     const markdown = defaultMarkdownRef.current;

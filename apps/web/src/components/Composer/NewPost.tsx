@@ -15,7 +15,7 @@ interface NewPostProps {
 const NewPost: FC<NewPostProps> = ({ tags }) => {
   const { isReady, query } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { setPublicationContent, setTags } = usePostStore();
+  const { setPostContent, setTags } = usePostStore();
   const [showComposer, setShowComposer] = useState(false);
 
   const handleOpenModal = () => {
@@ -42,7 +42,7 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
       }${url ? `\n\n${url}` : ""}${via ? `\n\nvia @${via}` : ""}`;
 
       handleOpenModal();
-      setPublicationContent(content);
+      setPostContent(content);
     }
   }, [query]);
 

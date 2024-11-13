@@ -62,7 +62,7 @@ const useCreatePublication = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
-  const { publicationContent } = usePostStore();
+  const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
@@ -79,7 +79,7 @@ const useCreatePublication = ({
   }): OptimisticTransaction => {
     return {
       ...(isComment && { commentOn: commentOn?.id }),
-      content: publicationContent,
+      content: postContent,
       txHash,
       txId,
       type: isComment
