@@ -3,7 +3,7 @@ import type { AnyPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PublicationActions from "./Actions";
-import HiddenPublication from "./HiddenPublication";
+import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostHeader from "./PostHeader";
 import PublicationBody from "./PublicationBody";
@@ -23,7 +23,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
         <div className="w-[calc(100%-55px)]">
           <PostHeader publication={publication} />
           {publication.isHidden ? (
-            <HiddenPublication type={publication.__typename} />
+            <HiddenPost type={publication.__typename} />
           ) : (
             <>
               <PublicationBody publication={publication} />

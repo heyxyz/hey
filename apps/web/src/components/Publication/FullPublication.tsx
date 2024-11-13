@@ -15,7 +15,7 @@ import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { useHiddenCommentFeedStore } from ".";
 import PublicationActions from "./Actions";
-import HiddenPublication from "./HiddenPublication";
+import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostHeader from "./PostHeader";
 import PublicationBody from "./PublicationBody";
@@ -70,7 +70,7 @@ const FullPublication: FC<FullPublicationProps> = ({
         <div className="w-[calc(100%-55px)]">
           <PostHeader publication={targetPublication} />
           {targetPublication.isHidden ? (
-            <HiddenPublication type={targetPublication.__typename} />
+            <HiddenPost type={targetPublication.__typename} />
           ) : (
             <>
               <PublicationBody

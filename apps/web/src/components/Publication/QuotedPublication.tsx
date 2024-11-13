@@ -2,7 +2,7 @@ import PublicationWrapper from "@components/Shared/PublicationWrapper";
 import type { PrimaryPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-import HiddenPublication from "./HiddenPublication";
+import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostHeader from "./PostHeader";
 import PublicationBody from "./PublicationBody";
@@ -28,7 +28,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
         <PostHeader isNew={isNew} publication={publication} quoted />
       </div>
       {publication.isHidden ? (
-        <HiddenPublication type={publication.__typename} />
+        <HiddenPost type={publication.__typename} />
       ) : (
         <PublicationBody publication={publication} quoted showMore />
       )}

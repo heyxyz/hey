@@ -6,7 +6,7 @@ import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PublicationActions from "./Actions";
-import HiddenPublication from "./HiddenPublication";
+import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostHeader from "./PostHeader";
 import PublicationBody from "./PublicationBody";
@@ -62,7 +62,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         <div className="w-[calc(100%-55px)]">
           <PostHeader feedItem={feedItem} publication={rootPublication} />
           {publication.isHidden ? (
-            <HiddenPublication type={publication.__typename} />
+            <HiddenPost type={publication.__typename} />
           ) : (
             <>
               <PublicationBody
