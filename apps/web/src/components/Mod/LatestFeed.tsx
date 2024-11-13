@@ -47,7 +47,7 @@ const LatestFeed: FC = () => {
   const { data, error, fetchMore, loading, refetch } =
     useModExplorePublicationsQuery({ variables: { request } });
 
-  const publications = data?.modExplorePublications?.items;
+  const posts = data?.modExplorePublications?.items;
   const pageInfo = data?.modExplorePublications?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -68,7 +68,7 @@ const LatestFeed: FC = () => {
     return <PostsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (posts?.length === 0) {
     return (
       <EmptyState
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
@@ -87,23 +87,22 @@ const LatestFeed: FC = () => {
     <Virtuoso
       className="[&>div>div]:space-y-5"
       components={{ Footer: () => <div className="pb-5" /> }}
-      computeItemKey={(index, publication) => `${publication.id}-${index}`}
-      data={publications?.filter(
-        (publication) =>
-          !SKIPPED_PROFILE_IDS.includes(publication?.by?.id as string)
+      computeItemKey={(index, post) => `${post.id}-${index}`}
+      data={posts?.filter(
+        (post) => !SKIPPED_PROFILE_IDS.includes(post?.by?.id as string)
       )}
       endReached={onEndReached}
-      itemContent={(_, publication) => (
+      itemContent={(_, post) => (
         <Card>
           <SinglePost
             isFirst
             isLast={false}
-            publication={publication as AnyPublication}
+            post={post as AnyPublication}
             showActions={false}
             showThread={false}
           />
           <div className="divider" />
-          <HigherActions publication={publication as MirrorablePublication} />
+          <HigherActions publication={post as MirrorablePublication} />
         </Card>
       )}
       useWindowScroll

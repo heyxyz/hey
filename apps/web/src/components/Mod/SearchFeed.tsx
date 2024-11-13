@@ -4,7 +4,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
 import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
@@ -46,7 +46,7 @@ const SearchFeed: FC = () => {
     });
 
   const search = data?.searchPublications;
-  const publications = search?.items as AnyPublication[];
+  const posts = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -83,7 +83,7 @@ const SearchFeed: FC = () => {
       </form>
       {loading ? (
         <PostsShimmer />
-      ) : !query || publications?.length === 0 ? (
+      ) : !query || posts?.length === 0 ? (
         <EmptyState
           icon={<ChatBubbleBottomCenterIcon className="size-8" />}
           message="No posts yet!"
@@ -94,25 +94,23 @@ const SearchFeed: FC = () => {
         <Virtuoso
           className="[&>div>div]:space-y-5"
           components={{ Footer: () => <div className="pb-5" /> }}
-          computeItemKey={(index, publication) => `${publication.id}-${index}`}
-          data={publications}
+          computeItemKey={(index, post) => `${post.id}-${index}`}
+          data={posts}
           endReached={onEndReached}
-          itemContent={(_, publication) => {
-            const targetPublication = isMirrorPublication(publication)
-              ? publication.mirrorOn
-              : publication;
+          itemContent={(_, post) => {
+            const targetPost = isRepost(post) ? post.mirrorOn : post;
 
             return (
               <Card>
                 <SinglePost
                   isFirst
                   isLast={false}
-                  publication={publication as AnyPublication}
+                  post={post as AnyPublication}
                   showActions={false}
                   showThread={false}
                 />
                 <div className="divider" />
-                <HigherActions publication={targetPublication} />
+                <HigherActions publication={targetPost} />
               </Card>
             );
           }}

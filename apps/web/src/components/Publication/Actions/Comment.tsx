@@ -7,13 +7,13 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 
 interface CommentProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
   showCount: boolean;
 }
 
-const Comment: FC<CommentProps> = ({ publication, showCount }) => {
+const Comment: FC<CommentProps> = ({ post, showCount }) => {
   const { push } = useRouter();
-  const count = publication.stats.comments;
+  const count = post.stats.comments;
   const iconClassName = showCount
     ? "w-[17px] sm:w-[20px]"
     : "w-[15px] sm:w-[18px]";
@@ -24,7 +24,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
         aria-label="Comment"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => {
-          push(`/posts/${publication.id}`);
+          push(`/posts/${post.id}`);
         }}
         type="button"
       >

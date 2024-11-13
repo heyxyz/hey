@@ -66,7 +66,7 @@ const PaidActions: FC = () => {
             <SinglePost
               isFirst={false}
               isLast
-              publication={action.actedOn as AnyPublication}
+              post={action.actedOn as AnyPublication}
               showThread={false}
             />
           </Card>

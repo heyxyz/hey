@@ -23,7 +23,7 @@ import getProfile from "@hey/helpers/getProfile";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type {
   AnyPublication,
   MultirecipientFeeCollectOpenActionSettings,
@@ -42,19 +42,17 @@ import Splits from "./Splits";
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
-  publication: AnyPublication;
+  post: AnyPublication;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
+const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const targetPublication = isMirrorPublication(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
 
   const [countOpenActions, { increment }] = useCounter(
-    targetPublication.stats.countOpenActions
+    targetPost.stats.countOpenActions
   );
 
   const collectModule = openAction as
@@ -130,8 +128,8 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         ) : null}
         <div className="mb-4">
           <H4>
-            {targetPublication.__typename} by{" "}
-            <Slug slug={getProfile(targetPublication.by).slugWithPrefix} />
+            {targetPost.__typename} by{" "}
+            <Slug slug={getProfile(targetPost.by).slugWithPrefix} />
           </H4>
         </div>
         {amount ? (
@@ -195,7 +193,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
                 {humanize(countOpenActions)}{" "}
                 {plur("collector", countOpenActions)}
               </button>
-              <DownloadCollectors publication={targetPublication} />
+              <DownloadCollectors publication={targetPost} />
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">
@@ -268,7 +266,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
             countOpenActions={countOpenActions}
             onCollectSuccess={() => increment()}
             openAction={openAction}
-            publication={targetPublication}
+            publication={targetPost}
           />
         </div>
       </div>
@@ -281,7 +279,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
         title="Collectors"
         size="md"
       >
-        <Collectors publicationId={targetPublication.id} />
+        <Collectors publicationId={targetPost.id} />
       </Modal>
     </>
   );

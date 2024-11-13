@@ -77,7 +77,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     variables: { request }
   });
 
-  const publications = publicationsData?.publications?.items || [];
+  const posts = publicationsData?.publications?.items || [];
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {
@@ -107,7 +107,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     );
   };
 
-  if (publications?.length === 0) {
+  if (posts?.length === 0) {
     return (
       <Card>
         <Header />
@@ -137,14 +137,14 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
       <Header />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, publication) => `${publication.id}-${index}`}
-        data={publications}
+        computeItemKey={(index, post) => `${post.id}-${index}`}
+        data={posts}
         isScrolling={onScrolling}
-        itemContent={(index, publication) => (
+        itemContent={(index, post) => (
           <SinglePost
             isFirst={index === 0}
-            isLast={index === (publications?.length || 0) - 1}
-            publication={publication as AnyPublication}
+            isLast={index === (posts?.length || 0) - 1}
+            post={post as AnyPublication}
           />
         )}
         ref={virtuoso}

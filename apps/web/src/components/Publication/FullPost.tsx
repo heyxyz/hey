@@ -5,7 +5,7 @@ import getProfileDetails, {
 } from "@hey/helpers/api/getProfileDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -33,13 +33,13 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
     useHiddenCommentFeedStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const targetPublication = isMirrorPublication(publication)
+  const targetPost = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const { by, createdAt, publishedOn } = targetPublication;
+  const { by, createdAt, publishedOn } = targetPost;
 
-  usePushToImpressions(targetPublication.id);
+  usePushToImpressions(targetPost.id);
 
   const { data: profileDetails } = useQuery({
     enabled: Boolean(by.id),
@@ -65,16 +65,16 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
       <div className="flex items-start space-x-3">
         <PostAvatar publication={publication} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader publication={targetPublication} />
-          {targetPublication.isHidden ? (
-            <HiddenPost type={targetPublication.__typename} />
+          <PostHeader publication={targetPost} />
+          {targetPost.isHidden ? (
+            <HiddenPost type={targetPost.__typename} />
           ) : (
             <>
               <PostBody
                 contentClassName="full-page-publication-markup"
-                publication={targetPublication}
+                post={targetPost}
               />
-              <Translate publication={targetPublication} />
+              <Translate publication={targetPost} />
               <div className="ld-text-gray-500 my-3 text-sm">
                 <span>{formatDate(createdAt, "hh:mm A · MMM D, YYYY")}</span>
                 {publishedOn?.id ? (
@@ -82,12 +82,12 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
                 ) : null}
               </div>
               <PostStats
-                publicationId={targetPublication.id}
-                publicationStats={targetPublication.stats}
+                publicationId={targetPost.id}
+                publicationStats={targetPost.stats}
               />
               <div className="divider" />
               <div className="flex items-center justify-between">
-                <PostActions publication={targetPublication} showCount />
+                <PostActions post={targetPost} showCount />
                 {hasHiddenComments ? (
                   <div className="mt-2">
                     <button

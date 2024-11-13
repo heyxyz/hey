@@ -9,7 +9,7 @@ import getPostAttribute from "@hey/helpers/getPostAttribute";
 import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -28,24 +28,22 @@ import Poll from "./Poll";
 
 interface PostBodyProps {
   contentClassName?: string;
-  publication: AnyPublication;
+  post: AnyPublication;
   quoted?: boolean;
   showMore?: boolean;
 }
 
 const PostBody: FC<PostBodyProps> = ({
   contentClassName = "",
-  publication,
+  post,
   quoted = false,
   showMore = false
 }) => {
   const { mutedWords } = usePreferencesStore();
   const [showMutedPublication, setShowMutedPublication] = useState(false);
 
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-  const { id, metadata } = targetPublication;
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const { id, metadata } = targetPost;
 
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAttachments = getPostData(metadata)?.attachments || [];
@@ -64,7 +62,7 @@ const PostBody: FC<PostBodyProps> = ({
     }
   }
 
-  if (targetPublication.isEncrypted) {
+  if (targetPost.isEncrypted) {
     return <EncryptedPost />;
   }
 
@@ -87,7 +85,7 @@ const PostBody: FC<PostBodyProps> = ({
   // Show checking in
   const showCheckin = metadata.__typename === "CheckingInMetadataV3";
   // Show quote
-  const showQuote = targetPublication.__typename === "Quote";
+  const showQuote = targetPost.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted publication
   const hideOembed =
     getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
@@ -112,7 +110,7 @@ const PostBody: FC<PostBodyProps> = ({
   ) {
     return (
       <MutedPost
-        type={targetPublication.__typename}
+        type={targetPost.__typename}
         setShowMutedPublication={setShowMutedPublication}
       />
     );
@@ -126,7 +124,7 @@ const PostBody: FC<PostBodyProps> = ({
           "markup linkify break-words text-md",
           contentClassName
         )}
-        mentions={targetPublication.profilesMentioned}
+        mentions={targetPost.profilesMentioned}
       >
         {content}
       </Markup>
@@ -147,15 +145,13 @@ const PostBody: FC<PostBodyProps> = ({
           <Video src={getSrc(metadata.liveURL || metadata.playbackURL)} />
         </div>
       ) : null}
-      {showCheckin ? <Checkin publication={targetPublication} /> : null}
-      {showOembed ? (
-        <Oembed publication={targetPublication} url={urls[0]} />
-      ) : null}
+      {showCheckin ? <Checkin publication={targetPost} /> : null}
+      {showOembed ? <Oembed publication={targetPost} url={urls[0]} /> : null}
       {showSharingLink ? (
-        <Oembed publication={targetPublication} url={metadata.sharingLink} />
+        <Oembed publication={targetPost} url={metadata.sharingLink} />
       ) : null}
-      {showQuote && <Quote publication={targetPublication.quoteOn} />}
-      <Metadata metadata={targetPublication.metadata} />
+      {showQuote && <Quote post={targetPost.quoteOn} />}
+      <Metadata metadata={targetPost.metadata} />
     </div>
   );
 };

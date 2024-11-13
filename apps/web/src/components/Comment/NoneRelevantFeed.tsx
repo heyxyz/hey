@@ -109,7 +109,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
                 <SinglePost
                   isFirst={isFirst}
                   isLast={isLast}
-                  publication={comment as Comment}
+                  post={comment as Comment}
                   showType={false}
                 />
               );

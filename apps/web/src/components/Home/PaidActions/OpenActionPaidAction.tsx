@@ -1,7 +1,7 @@
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type {
   AnyPublication,
   LatestActed,
@@ -19,11 +19,9 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   latestActed,
   publication
 }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
 
-  const openActions = targetPublication.openActionModules
+  const openActions = targetPost.openActionModules
     .filter(
       (module) =>
         module.__typename === "MultirecipientFeeCollectOpenActionSettings" ||

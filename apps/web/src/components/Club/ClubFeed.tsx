@@ -44,7 +44,7 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
     variables: { request }
   });
 
-  const publications = data?.publications?.items;
+  const posts = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -74,7 +74,7 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
     return <PostsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (posts?.length === 0) {
     return (
       <EmptyState
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
@@ -96,15 +96,15 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, publication) => `${publication.id}-${index}`}
-        data={publications}
+        computeItemKey={(index, post) => `${post.id}-${index}`}
+        data={posts}
         endReached={onEndReached}
         isScrolling={onScrolling}
-        itemContent={(index, publication) => (
+        itemContent={(index, post) => (
           <SinglePost
             isFirst={index === 0}
-            isLast={index === (publications?.length || 0) - 1}
-            publication={publication as AnyPublication}
+            isLast={index === (posts?.length || 0) - 1}
+            post={post as AnyPublication}
           />
         )}
         ref={virtuoso}

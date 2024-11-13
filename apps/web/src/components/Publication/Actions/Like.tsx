@@ -21,19 +21,17 @@ import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface LikeProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
   showCount: boolean;
 }
 
-const Like: FC<LikeProps> = ({ publication, showCount }) => {
+const Like: FC<LikeProps> = ({ post, showCount }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
 
-  const [hasReacted, toggleReact] = useToggle(
-    publication.operations.hasReacted
-  );
+  const [hasReacted, toggleReact] = useToggle(post.operations.hasReacted);
   const [reactions, { decrement, increment }] = useCounter(
-    publication.stats.reactions
+    post.stats.reactions
   );
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -47,13 +45,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           };
         }
       },
-      id: cache.identify(publication)
+      id: cache.identify(post)
     });
     cache.modify({
       fields: {
         reactions: () => (hasReacted ? reactions - 1 : reactions + 1)
       },
-      id: cache.identify(publication.stats)
+      id: cache.identify(post.stats)
     });
   };
 
@@ -61,7 +59,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     errorToast(error);
   };
 
-  const eventProperties = { publication_id: publication?.id };
+  const eventProperties = { publication_id: post?.id };
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => Leafwatch.track(PUBLICATION.LIKE, eventProperties),
@@ -93,7 +91,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     }
 
     const request: ReactionRequest = {
-      for: publication.id,
+      for: post.id,
       reaction: PublicationReactionType.Upvote
     };
 
