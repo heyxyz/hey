@@ -1,6 +1,6 @@
 import HigherActions from "@components/Publication/Actions/HigherActions";
 import SinglePost from "@components/Publication/SinglePost";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
@@ -82,7 +82,7 @@ const SearchFeed: FC = () => {
         <Button size="lg">Search</Button>
       </form>
       {loading ? (
-        <PublicationsShimmer />
+        <PostsShimmer />
       ) : !query || publications?.length === 0 ? (
         <EmptyState
           icon={<ChatBubbleBottomCenterIcon className="size-8" />}

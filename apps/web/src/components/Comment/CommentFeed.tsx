@@ -1,7 +1,7 @@
 import { useHiddenCommentFeedStore } from "@components/Publication";
 import QueuedPost from "@components/Publication/QueuedPost";
 import SinglePost from "@components/Publication/SinglePost";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { Comment, PublicationsRequest } from "@hey/lens";
 import {
@@ -81,7 +81,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (error) {

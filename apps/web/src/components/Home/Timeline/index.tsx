@@ -1,6 +1,6 @@
 import QueuedPost from "@components/Publication/QueuedPost";
 import SinglePost from "@components/Publication/SinglePost";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { HEY_CURATED_ID } from "@hey/data/constants";
 import type { AnyPublication, FeedItem, FeedRequest } from "@hey/lens";
@@ -78,7 +78,7 @@ const Timeline: FC = () => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (feed?.length === 0) {

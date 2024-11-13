@@ -1,5 +1,5 @@
 import SinglePost from "@components/Publication/SinglePost";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
 import {
@@ -66,7 +66,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (publications?.length === 0) {

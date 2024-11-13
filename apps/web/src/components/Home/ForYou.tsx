@@ -1,6 +1,6 @@
 import QueuedPost from "@components/Publication/QueuedPost";
 import SinglePost from "@components/Publication/SinglePost";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, PublicationForYouRequest } from "@hey/lens";
 import { LimitType, useForYouQuery } from "@hey/lens";
@@ -49,7 +49,7 @@ const ForYou: FC = () => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (publications?.length === 0) {

@@ -1,6 +1,6 @@
 import Footer from "@components/Shared/Footer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
@@ -17,7 +17,7 @@ const ListPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
             <ProfileListShimmer />
           </Card>
         ) : (
-          <PublicationsShimmer />
+          <PostsShimmer />
         )}
       </GridItemEight>
       <GridItemFour>

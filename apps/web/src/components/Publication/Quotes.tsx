@@ -1,4 +1,4 @@
-import PublicationListShimmer from "@components/Shared/Shimmer/PublicationListShimmer";
+import PostListShimmer from "@components/Shared/Shimmer/PostListShimmer";
 import {
   ArrowLeftIcon,
   ChatBubbleBottomCenterTextIcon
@@ -55,7 +55,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <PublicationListShimmer />;
+    return <PostListShimmer />;
   }
 
   if (error) {
