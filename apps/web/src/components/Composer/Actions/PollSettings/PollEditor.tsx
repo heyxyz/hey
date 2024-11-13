@@ -4,11 +4,11 @@ import { Button, Card, Input, Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
-import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
+import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
 
 const PollEditor: FC = () => {
   const { pollConfig, resetPollConfig, setPollConfig, setShowPollEditor } =
-    usePublicationPollStore();
+    usePostPollStore();
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (

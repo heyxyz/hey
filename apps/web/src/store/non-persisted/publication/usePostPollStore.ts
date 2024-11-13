@@ -21,4 +21,4 @@ const store = create<State>((set) => ({
   showPollEditor: false
 }));
 
-export const usePublicationPollStore = createTrackedSelector(store);
+export const usePostPollStore = createTrackedSelector(store);

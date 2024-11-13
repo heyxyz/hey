@@ -44,11 +44,11 @@ import {
 } from "src/store/non-persisted/publication/usePostAudioStore";
 import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
+import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
@@ -129,7 +129,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   // Poll store
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePublicationPollStore();
+    usePostPollStore();
 
   // License store
   const { setLicense } = usePostLicenseStore();
