@@ -48,7 +48,7 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
           <Mod isFullPublication={showCount} publication={targetPost} />
         ) : null}
       </span>
-      {canAct ? <Collect publication={targetPost} /> : null}
+      {canAct ? <Collect post={targetPost} /> : null}
     </span>
   );
 };
