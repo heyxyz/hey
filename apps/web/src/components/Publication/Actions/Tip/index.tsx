@@ -20,8 +20,8 @@ interface TipProps {
 }
 
 const Tip: FC<TipProps> = ({ post, showCount }) => {
-  const { publicationTips } = useTipsStore();
-  const tip = getPublicationTipById(publicationTips, post.id);
+  const { postTips } = useTipsStore();
+  const tip = getPublicationTipById(postTips, post.id);
   const confettiDom = useRef<HTMLDivElement>(null);
 
   const triggerConfetti = () => {
