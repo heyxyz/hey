@@ -20,7 +20,7 @@ const PostHeader: FC<PostHeaderProps> = ({
   post,
   quoted = false
 }) => {
-  const { setQuotedPublication } = usePublicationStore();
+  const { setQuotedPost } = usePublicationStore();
 
   const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
@@ -48,7 +48,7 @@ const PostHeader: FC<PostHeaderProps> = ({
         <button
           aria-label="Remove Quote"
           className="rounded-full border p-1.5 hover:bg-gray-300/20"
-          onClick={() => setQuotedPublication(null)}
+          onClick={() => setQuotedPost(null)}
           type="reset"
         >
           <XMarkIcon className="ld-text-gray-500 size-4" />

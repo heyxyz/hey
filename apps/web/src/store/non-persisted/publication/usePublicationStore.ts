@@ -4,20 +4,19 @@ import { create } from "zustand";
 
 interface State {
   publicationContent: string;
-  quotedPublication: AnyPublication | null;
+  quotedPost: AnyPublication | null;
   setPublicationContent: (publicationContent: string) => void;
-  setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
+  setQuotedPost: (quotedPost: AnyPublication | null) => void;
   setTags: (tags: null | string[]) => void;
   tags: null | string[];
 }
 
 const store = create<State>((set) => ({
   publicationContent: "",
-  quotedPublication: null,
+  quotedPost: null,
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),
-  setQuotedPublication: (quotedPublication) =>
-    set(() => ({ quotedPublication })),
+  setQuotedPost: (quotedPost) => set(() => ({ quotedPost })),
   setTags: (tags) => set(() => ({ tags })),
   tags: null
 }));

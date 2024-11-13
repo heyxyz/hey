@@ -10,7 +10,7 @@ import { usePublicationAttributesStore } from "src/store/non-persisted/publicati
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 
 const LinkPreviews: FC = () => {
-  const { publicationContent, quotedPublication } = usePublicationStore();
+  const { publicationContent, quotedPost } = usePublicationStore();
   const { attachments } = usePublicationAttachmentStore((state) => state);
   const { addAttribute, getAttribute, removeAttribute } =
     usePublicationAttributesStore();
@@ -27,7 +27,7 @@ const LinkPreviews: FC = () => {
   if (
     !urls.length ||
     attachments.length ||
-    quotedPublication ||
+    quotedPost ||
     getAttribute(KNOWN_ATTRIBUTES.HIDE_OEMBED)?.value === "true"
   ) {
     return null;

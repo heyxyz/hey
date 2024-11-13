@@ -10,10 +10,10 @@ import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 
 interface TranslateProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Translate: FC<TranslateProps> = ({ publication }) => {
+const Translate: FC<TranslateProps> = ({ post }) => {
   const enabled = useFlag("translation");
   const [translation, setTranslation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
   const fetchTranslation = async () => {
     const { data } = await axios.post(
       `${HEY_API_URL}/ai/translate`,
-      { id: publication.id },
+      { id: post.id },
       { headers: getAuthApiHeaders() }
     );
 
@@ -45,7 +45,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
     }
   };
 
-  const filteredContent = getPostData(publication.metadata)?.content || "";
+  const filteredContent = getPostData(post.metadata)?.content || "";
 
   if (filteredContent?.length < 5) {
     return null;
