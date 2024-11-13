@@ -11,13 +11,13 @@ import { type FC, useState } from "react";
 import CollectModule from "./CollectModule";
 
 interface OpenActionProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const OpenAction: FC<OpenActionProps> = ({ publication }) => {
+const OpenAction: FC<OpenActionProps> = ({ post }) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const { countOpenActions } = publication.stats;
-  const openActions = publication.openActionModules.filter((module) =>
+  const { countOpenActions } = post.stats;
+  const openActions = post.openActionModules.filter((module) =>
     allowedOpenActionModules.includes(module.type)
   );
 
@@ -29,7 +29,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
         onClick={() => {
           setShowCollectModal(true);
           Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
-            publication_id: publication.id,
+            publication_id: post.id,
             source: "icon"
           });
         }}
@@ -57,11 +57,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication }) => {
         title="Collect"
       >
         {openActions?.map((action) => (
-          <CollectModule
-            key={action.type}
-            openAction={action}
-            publication={publication}
-          />
+          <CollectModule key={action.type} openAction={action} post={post} />
         ))}
       </Modal>
     </div>

@@ -42,16 +42,14 @@ import Splits from "./Splits";
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
-  publication: AnyPublication;
+  post: AnyPublication;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
+const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const targetPost = isRepost(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
 
   const [countOpenActions, { increment }] = useCounter(
     targetPost.stats.countOpenActions

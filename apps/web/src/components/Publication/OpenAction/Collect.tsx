@@ -49,11 +49,7 @@ const Collect: FC<CollectProps> = ({ post }) => {
         title="Collect"
       >
         {openActions?.map((action) => (
-          <CollectModule
-            key={action.type}
-            openAction={action}
-            publication={post}
-          />
+          <CollectModule key={action.type} openAction={action} post={post} />
         ))}
       </Modal>
     </>
