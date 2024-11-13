@@ -39,13 +39,13 @@ import { useCollectModuleStore } from "src/store/non-persisted/publication/useCo
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
 import {
+  DEFAULT_AUDIO_PUBLICATION,
+  usePostAudioStore
+} from "src/store/non-persisted/publication/usePostAudioStore";
+import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import {
-  DEFAULT_AUDIO_PUBLICATION,
-  usePublicationAudioStore
-} from "src/store/non-persisted/publication/usePublicationAudioStore";
 import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
 import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
@@ -114,7 +114,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   } = usePublicationStore();
 
   // Audio store
-  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePostAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();

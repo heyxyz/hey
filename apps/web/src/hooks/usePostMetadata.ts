@@ -11,11 +11,11 @@ import { useCallback } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
 import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
 import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { v4 as uuid } from "uuid";
+import { usePostAudioStore } from "../store/non-persisted/publication/usePostAudioStore";
 
 interface UsePostMetadataProps {
   baseMetadata: any;
@@ -24,7 +24,7 @@ interface UsePostMetadataProps {
 const usePostMetadata = () => {
   const { tags } = usePublicationStore();
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
-  const { audioPublication } = usePublicationAudioStore();
+  const { audioPublication } = usePostAudioStore();
   const { license } = usePublicationLicenseStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();

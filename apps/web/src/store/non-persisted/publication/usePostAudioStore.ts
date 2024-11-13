@@ -25,4 +25,4 @@ const store = create<State>((set) => ({
   setAudioPublication: (audioPublication) => set(() => ({ audioPublication }))
 }));
 
-export const usePublicationAudioStore = createTrackedSelector(store);
+export const usePostAudioStore = createTrackedSelector(store);
