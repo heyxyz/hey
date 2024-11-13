@@ -48,7 +48,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
     }
   });
 
-  const reportPublication = async ({
+  const reportPost = async ({
     additionalComments
   }: z.infer<typeof newReportPostSchema>) => {
     if (isSuspended) {
@@ -85,7 +85,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
         />
       ) : postId ? (
         <div className="p-5">
-          <Form className="space-y-4" form={form} onSubmit={reportPublication}>
+          <Form className="space-y-4" form={form} onSubmit={reportPost}>
             {submitError ? (
               <ErrorMessage error={submitError} title="Failed to report" />
             ) : null}
