@@ -193,7 +193,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
                 {humanize(countOpenActions)}{" "}
                 {plur("collector", countOpenActions)}
               </button>
-              <DownloadCollectors publication={targetPost} />
+              <DownloadCollectors post={targetPost} />
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">
@@ -279,7 +279,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
         title="Collectors"
         size="md"
       >
-        <Collectors publicationId={targetPost.id} />
+        <Collectors postId={targetPost.id} />
       </Modal>
     </>
   );

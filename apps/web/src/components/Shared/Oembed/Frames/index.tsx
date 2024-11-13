@@ -55,10 +55,10 @@ export const useFramesStore = createTrackedSelector(
 
 interface FrameProps {
   frame: IFrame;
-  publicationId?: string;
+  postId?: string;
 }
 
-const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
+const Frame: FC<FrameProps> = ({ frame, postId }) => {
   const { currentProfile } = useProfileStore();
   const {
     frameData,
@@ -101,7 +101,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           buttonIndex: index + 1,
           inputText: action === "post" ? inputText : undefined,
           postUrl: buttons[index].target || buttons[index].postUrl || postUrl,
-          pubId: publicationId,
+          pubId: postId,
           state
         },
         { headers: getAuthApiHeadersWithAccessToken() }
@@ -177,7 +177,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
         {buttons.map(({ action, button, target }, index) => (
           <Button
             className="flex items-center justify-center space-x-2"
-            disabled={isLoading || !publicationId || !currentProfile}
+            disabled={isLoading || !postId || !currentProfile}
             icon={
               action === "link" ||
               action === "post_redirect" ||
@@ -191,7 +191,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
             onClick={() => {
               Leafwatch.track(PUBLICATION.CLICK_FRAME_BUTTON, {
                 action,
-                publication_id: publicationId
+                publication_id: postId
               });
 
               if (action === "link" || action === "mint") {
@@ -230,7 +230,7 @@ const Frame: FC<FrameProps> = ({ frame, publicationId }) => {
           show={showTransaction.show}
           title="Transaction"
         >
-          <Transaction publicationId={publicationId} />
+          <Transaction postId={postId} />
         </Modal>
       )}
     </Card>

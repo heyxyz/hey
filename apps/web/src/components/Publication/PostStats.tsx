@@ -16,25 +16,25 @@ import type { FC } from "react";
 import { memo, useState } from "react";
 
 interface PostStatsProps {
-  publicationId: string;
-  publicationStats: IPublicationStats;
+  postId: string;
+  postStats: IPublicationStats;
 }
 
-const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
+const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   const { data } = useQuery({
-    enabled: Boolean(publicationId),
-    queryFn: () => getPostsViews([publicationId]),
-    queryKey: [GET_POSTS_VIEWS_QUERY_KEY, publicationId],
+    enabled: Boolean(postId),
+    queryFn: () => getPostsViews([postId]),
+    queryKey: [GET_POSTS_VIEWS_QUERY_KEY, postId],
     refetchInterval: 5000
   });
 
   const views = data?.[0]?.views || 0;
   const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
-    publicationStats;
+    postStats;
 
   const showStats =
     comments > 0 ||
@@ -70,10 +70,7 @@ const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
           </button>
         ) : null}
         {quotes > 0 ? (
-          <Link
-            className="outline-offset-2"
-            href={`/posts/${publicationId}/quotes`}
-          >
+          <Link className="outline-offset-2" href={`/posts/${postId}/quotes`}>
             <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{" "}
             {plur("Quote", quotes)}
           </Link>
@@ -126,7 +123,7 @@ const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
         title="Likes"
         size="md"
       >
-        <Likes publicationId={publicationId} />
+        <Likes postId={postId} />
       </Modal>
       <Modal
         onClose={() => {
@@ -137,7 +134,7 @@ const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
         title="Mirrors"
         size="md"
       >
-        <Mirrors publicationId={publicationId} />
+        <Mirrors postId={postId} />
       </Modal>
       <Modal
         onClose={() => {
@@ -148,7 +145,7 @@ const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
         title="Collectors"
         size="md"
       >
-        <Collectors publicationId={publicationId} />
+        <Collectors postId={postId} />
       </Modal>
     </>
   );

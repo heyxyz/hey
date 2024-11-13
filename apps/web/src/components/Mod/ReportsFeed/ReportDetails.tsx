@@ -60,7 +60,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           size="md"
           title="Reports"
         >
-          <Reports publicationId={report.reportedPublication?.id} />
+          <Reports postId={report.reportedPublication?.id} />
         </Modal>
         <Button
           icon={<HandRaisedIcon className="size-4 text-red-500" />}

@@ -145,10 +145,10 @@ const PostBody: FC<PostBodyProps> = ({
           <Video src={getSrc(metadata.liveURL || metadata.playbackURL)} />
         </div>
       ) : null}
-      {showCheckin ? <Checkin publication={targetPost} /> : null}
-      {showOembed ? <Oembed publication={targetPost} url={urls[0]} /> : null}
+      {showCheckin ? <Checkin post={targetPost} /> : null}
+      {showOembed ? <Oembed post={targetPost} url={urls[0]} /> : null}
       {showSharingLink ? (
-        <Oembed publication={targetPost} url={metadata.sharingLink} />
+        <Oembed post={targetPost} url={metadata.sharingLink} />
       ) : null}
       {showQuote && <Quote post={targetPost.quoteOn} />}
       <Metadata metadata={targetPost.metadata} />

@@ -6,13 +6,13 @@ import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNa
 interface PostWrapperProps {
   children: ReactNode | ReactNode[];
   className?: string;
-  publication: AnyPublication;
+  post: AnyPublication;
 }
 
 const PostWrapper: FC<PostWrapperProps> = ({
   children,
   className = "",
-  publication
+  post
 }) => {
   const { preLoadedPublications, setPreLoadedPublications } =
     useOptimisticNavigation();
@@ -25,8 +25,8 @@ const PostWrapper: FC<PostWrapperProps> = ({
 
     const selection = window.getSelection();
     if (!selection || selection.toString().length === 0) {
-      setPreLoadedPublications([...preLoadedPublications, publication]);
-      push(`/posts/${publication.id}`);
+      setPreLoadedPublications([...preLoadedPublications, post]);
+      push(`/posts/${post.id}`);
     }
   };
 

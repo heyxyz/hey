@@ -3,15 +3,15 @@ import { Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 
 interface CheckinProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Checkin: FC<CheckinProps> = ({ publication }) => {
-  if (publication.metadata.__typename !== "CheckingInMetadataV3") {
+const Checkin: FC<CheckinProps> = ({ post }) => {
+  if (post.metadata.__typename !== "CheckingInMetadataV3") {
     return null;
   }
 
-  const { metadata } = publication;
+  const { metadata } = post;
   const locality = metadata.address?.locality;
   const country = metadata.address?.country;
   const postalCode = metadata.address?.postalCode;

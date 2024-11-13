@@ -34,7 +34,7 @@ const PostHeader: FC<PostHeaderProps> = ({
     >
       <PublicationProfile
         profile={profile}
-        publicationId={targetPost.id}
+        postId={targetPost.id}
         source={targetPost.publishedOn?.id}
         tags={targetPost.metadata?.tags || []}
         timestamp={timestamp}

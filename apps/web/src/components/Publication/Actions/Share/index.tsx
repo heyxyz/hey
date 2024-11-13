@@ -71,17 +71,17 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
           >
             <Mirror
               isLoading={isLoading}
-              publication={targetPost}
+              post={targetPost}
               setIsLoading={setIsLoading}
             />
             {targetPost.operations.hasMirrored && targetPost.id !== post.id && (
               <UndoMirror
                 isLoading={isLoading}
-                publication={post}
+                post={post}
                 setIsLoading={setIsLoading}
               />
             )}
-            <Quote publication={targetPost} />
+            <Quote post={targetPost} />
           </MenuItems>
         </MenuTransition>
       </Menu>

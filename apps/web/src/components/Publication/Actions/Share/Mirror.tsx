@@ -40,11 +40,11 @@ import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface MirrorProps {
   isLoading: boolean;
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
+const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
   const {
@@ -54,11 +54,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
   } = useNonceStore();
   const { addTransaction } = useTransactionStore();
   const hasMirrored =
-    publication.operations.hasMirrored ||
-    hasOptimisticallyMirrored(publication.id);
+    post.operations.hasMirrored || hasOptimisticallyMirrored(post.id);
 
   const [shares, { increment }] = useCounter(
-    publication.stats.mirrors + publication.stats.quotes
+    post.stats.mirrors + post.stats.quotes
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -75,7 +74,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     txId?: string;
   }): OptimisticTransaction => {
     return {
-      mirrorOn: publication?.id,
+      mirrorOn: post?.id,
       txHash,
       txId,
       type: OptmisticPublicationType.Mirror
@@ -89,11 +88,11 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
           return { ...existingValue, hasMirrored: true };
         }
       },
-      id: cache.identify(publication)
+      id: cache.identify(post)
     });
     cache.modify({
       fields: { mirrors: () => shares + 1 },
-      id: cache.identify(publication.stats)
+      id: cache.identify(post.stats)
     });
   };
 
@@ -120,7 +119,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     increment();
     updateCache();
     toast.success("Post has been mirrored!");
-    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: publication.id });
+    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: post.id });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -227,7 +226,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     onError
   });
 
-  if (publication.operations.canMirror === TriStateValue.No) {
+  if (post.operations.canMirror === TriStateValue.No) {
     return null;
   }
 
@@ -271,10 +270,10 @@ const Mirror: FC<MirrorProps> = ({ isLoading, publication, setIsLoading }) => {
     try {
       setIsLoading(true);
       const request: MomokaMirrorRequest | OnchainMirrorRequest = {
-        mirrorOn: publication?.id
+        mirrorOn: post?.id
       };
 
-      if (publication.momoka?.proof) {
+      if (post.momoka?.proof) {
         if (canUseLensManager) {
           return await createOnMomka(request);
         }

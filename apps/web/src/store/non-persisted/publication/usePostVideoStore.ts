@@ -33,4 +33,4 @@ const store = create<State>((set) => ({
   videoThumbnail: DEFAULT_VIDEO_THUMBNAIL
 }));
 
-export const usePublicationVideoStore = createTrackedSelector(store);
+export const usePostVideoStore = createTrackedSelector(store);

@@ -16,7 +16,7 @@ import type { ChangeEvent, FC, MutableRefObject } from "react";
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
 import useUploadAttachments from "src/hooks/useUploadAttachments";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);
@@ -29,9 +29,7 @@ const VideoMimeType = [
 ];
 
 const Attachment: FC = () => {
-  const { attachments, isUploading } = usePublicationAttachmentStore(
-    (state) => state
-  );
+  const { attachments, isUploading } = usePostAttachmentStore((state) => state);
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();

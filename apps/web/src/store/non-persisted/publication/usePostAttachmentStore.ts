@@ -44,4 +44,4 @@ const store = create<State>((set) => ({
     })
 }));
 
-export const usePublicationAttachmentStore = store;
+export const usePostAttachmentStore = store;

@@ -38,8 +38,8 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const publication = result.data.publication as AnyPublication;
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const post = result.data.publication as AnyPublication;
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { by: profile, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAsset = getPostData(metadata)?.asset;
@@ -113,7 +113,7 @@ const Page = async ({ params }: Props) => {
 
   const postUrl = `https://hey.xyz/posts/${metadata.other?.["lens:id"]}`;
 
-  logger.info(`[OG] Fetched publication /posts/${metadata.other?.["lens:id"]}`);
+  logger.info(`[OG] Fetched post /posts/${metadata.other?.["lens:id"]}`);
 
   return (
     <>
