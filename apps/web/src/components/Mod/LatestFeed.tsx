@@ -102,7 +102,7 @@ const LatestFeed: FC = () => {
             showThread={false}
           />
           <div className="divider" />
-          <HigherActions publication={post as MirrorablePublication} />
+          <HigherActions post={post as MirrorablePublication} />
         </Card>
       )}
       useWindowScroll

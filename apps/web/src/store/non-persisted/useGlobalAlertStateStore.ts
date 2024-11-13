@@ -4,43 +4,40 @@ import { create } from "zustand";
 
 interface State {
   blockingorUnblockingProfile: null | Profile;
-  deletingPublication: AnyPublication | null;
-  modingPublication: MirrorablePublication | null;
+  deletingPost: AnyPublication | null;
+  modingPost: MirrorablePublication | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingProfile: null | Profile
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
-    modingPublication: MirrorablePublication | null
+    modingPost: MirrorablePublication | null
   ) => void;
-  setShowPublicationDeleteAlert: (
-    showPublicationDeleteAlert: boolean,
-    deletingPublication: AnyPublication | null
+  setShowPostDeleteAlert: (
+    showPostDeleteAlert: boolean,
+    deletingPost: AnyPublication | null
   ) => void;
   showBlockOrUnblockAlert: boolean;
   showGardenerActionsAlert: boolean;
-  showPublicationDeleteAlert: boolean;
+  showPostDeleteAlert: boolean;
 }
 
 const store = create<State>((set) => ({
   blockingorUnblockingProfile: null,
-  deletingPublication: null,
-  forceDeletePublication: false,
-  modingPublication: null,
+  deletingPost: null,
+  modingPost: null,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
     blockingorUnblockingProfile
   ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
-  setShowGardenerActionsAlert: (showGardenerActionsAlert, modingPublication) =>
-    set(() => ({ modingPublication, showGardenerActionsAlert })),
-  setShowPublicationDeleteAlert: (
-    showPublicationDeleteAlert,
-    deletingPublication
-  ) => set(() => ({ deletingPublication, showPublicationDeleteAlert })),
+  setShowGardenerActionsAlert: (showGardenerActionsAlert, modingPost) =>
+    set(() => ({ modingPost, showGardenerActionsAlert })),
+  setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>
+    set(() => ({ deletingPost, showPostDeleteAlert })),
   showBlockOrUnblockAlert: false,
   showGardenerActionsAlert: false,
-  showPublicationDeleteAlert: false
+  showPostDeleteAlert: false
 }));
 
 export const useGlobalAlertStateStore = createTrackedSelector(store);

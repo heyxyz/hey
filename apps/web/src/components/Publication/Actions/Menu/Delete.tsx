@@ -11,7 +11,7 @@ interface DeleteProps {
 }
 
 const Delete: FC<DeleteProps> = ({ publication }) => {
-  const { setShowPublicationDeleteAlert } = useGlobalAlertStateStore();
+  const { setShowPostDeleteAlert } = useGlobalAlertStateStore();
 
   return (
     <MenuItem
@@ -24,7 +24,7 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPublicationDeleteAlert(true, publication);
+        setShowPostDeleteAlert(true, publication);
       }}
     >
       <div className="flex items-center space-x-2">

@@ -110,7 +110,7 @@ const SearchFeed: FC = () => {
                   showThread={false}
                 />
                 <div className="divider" />
-                <HigherActions publication={targetPost} />
+                <HigherActions post={targetPost} />
               </Card>
             );
           }}

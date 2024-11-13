@@ -16,15 +16,15 @@ import { toast } from "react-hot-toast";
 
 interface StaffActionsProps {
   onClick?: () => void;
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
+const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const { data: profile } = useQuery({
-    queryFn: () => getInternalProfile(publication.by.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, publication.by.id || ""],
+    queryFn: () => getInternalProfile(post.by.id, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, post.by.id || ""],
     enabled: isStaff
   });
 
@@ -37,7 +37,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, publication }) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/permissions/assign`,
-        { enabled: true, id, profile_id: publication.by.id },
+        { enabled: true, id, profile_id: post.by.id },
         { headers: getAuthApiHeaders() }
       ),
       {

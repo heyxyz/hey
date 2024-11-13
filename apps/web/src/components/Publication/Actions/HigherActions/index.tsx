@@ -3,13 +3,13 @@ import type { FC } from "react";
 import GardenerActions from "./GardenerActions";
 
 interface HigherActionsProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const HigherActions: FC<HigherActionsProps> = ({ publication }) => {
+const HigherActions: FC<HigherActionsProps> = ({ post }) => {
   return (
     <div className="m-5">
-      <GardenerActions publication={publication} />
+      <GardenerActions post={post} />
     </div>
   );
 };
