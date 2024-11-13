@@ -14,10 +14,10 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {
-  publicationId: string;
+  postId: string;
 }
 
-const Quotes: FC<QuotesProps> = ({ publicationId }) => {
+const Quotes: FC<QuotesProps> = ({ postId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
@@ -25,7 +25,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
     limit: LimitType.TwentyFive,
     where: {
       customFilters: [CustomFiltersType.Gardeners],
-      quoteOn: publicationId
+      quoteOn: postId
     }
   };
 
@@ -35,7 +35,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
-    skip: !publicationId,
+    skip: !postId,
     variables: { request }
   });
 
@@ -74,7 +74,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   return (
     <Card>
       <div className="flex items-center space-x-3 p-5">
-        <Link href={`/posts/${publicationId}`}>
+        <Link href={`/posts/${postId}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <H5>Quotes</H5>

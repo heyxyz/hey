@@ -18,10 +18,10 @@ import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 interface NoneRelevantFeedProps {
-  publicationId: string;
+  postId: string;
 }
 
-const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
+const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const [showMore, setShowMore] = useState(false);
   const { fetchAndStoreViews } = useImpressionsStore();
@@ -34,7 +34,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
         hiddenComments: showHiddenComments
           ? HiddenCommentsType.HiddenOnly
           : HiddenCommentsType.Hide,
-        id: publicationId,
+        id: postId,
         ranking: { filter: CommentRankingFilterType.NoneRelevant }
       },
       customFilters: [CustomFiltersType.Gardeners]
@@ -47,7 +47,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
-    skip: !publicationId,
+    skip: !postId,
     variables: { request }
   });
 
@@ -93,7 +93,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
           <Virtuoso
             className="virtual-divider-list-window"
             computeItemKey={(index, comment) =>
-              `${publicationId}-${comment.id}-${index}`
+              `${postId}-${comment.id}-${index}`
             }
             data={comments}
             endReached={onEndReached}

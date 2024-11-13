@@ -14,20 +14,20 @@ import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface CollectorsProps {
-  publicationId: string;
+  postId: string;
 }
 
-const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
+const Collectors: FC<CollectorsProps> = ({ postId }) => {
   const { currentProfile } = useProfileStore();
 
   const request: WhoActedOnPublicationRequest = {
     limit: LimitType.TwentyFive,
-    on: publicationId,
+    on: postId,
     where: { anyOf: [{ category: OpenActionCategoryType.Collect }] }
   };
 
   const { data, error, fetchMore, loading } = useWhoActedOnPublicationQuery({
-    skip: !publicationId,
+    skip: !postId,
     variables: { request }
   });
 

@@ -56,7 +56,7 @@ const GlobalModals: FC = () => {
         show={showPublicationReportModal}
         title="Report Publication"
       >
-        <ReportPublication publicationId={reportingPublicationId} />
+        <ReportPublication postId={reportingPublicationId} />
       </Modal>
       <Modal
         onClose={() => setShowReportProfileModal(false, reportingProfile)}

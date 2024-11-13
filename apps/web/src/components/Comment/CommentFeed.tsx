@@ -20,10 +20,10 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface CommentFeedProps {
-  publicationId: string;
+  postId: string;
 }
 
-const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
+const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   const { txnQueue } = useTransactionStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
@@ -36,7 +36,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
         hiddenComments: showHiddenComments
           ? HiddenCommentsType.HiddenOnly
           : HiddenCommentsType.Hide,
-        id: publicationId,
+        id: postId,
         ranking: { filter: CommentRankingFilterType.Relevant }
       },
       customFilters: [CustomFiltersType.Gardeners]
@@ -49,7 +49,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
-    skip: !publicationId,
+    skip: !postId,
     variables: { request }
   });
 
@@ -58,9 +58,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
   const hasMore = pageInfo?.next;
 
   const queuedComments = txnQueue.filter(
-    (o) =>
-      o.type === OptmisticPublicationType.Comment &&
-      o.commentOn === publicationId
+    (o) => o.type === OptmisticPublicationType.Comment && o.commentOn === postId
   );
   const queuedCount = queuedComments.length;
   const hiddenCount = comments.filter(
@@ -106,7 +104,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
         <Virtuoso
           className="virtual-divider-list-window"
           computeItemKey={(index, comment) =>
-            `${publicationId}-${comment.id}-${index}`
+            `${postId}-${comment.id}-${index}`
           }
           data={comments}
           endReached={onEndReached}

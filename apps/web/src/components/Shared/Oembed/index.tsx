@@ -82,10 +82,10 @@ const Oembed: FC<OembedProps> = ({ onLoad, post, url }) => {
   }
 
   if (og.frame) {
-    return <Frame frame={og.frame} publicationId={currentPost?.id} />;
+    return <Frame frame={og.frame} postId={currentPost?.id} />;
   }
 
-  return <Embed og={og} publicationId={currentPost?.id} />;
+  return <Embed og={og} postId={currentPost?.id} />;
 };
 
 export default Oembed;

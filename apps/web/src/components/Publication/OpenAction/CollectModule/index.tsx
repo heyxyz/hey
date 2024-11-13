@@ -279,7 +279,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
         title="Collectors"
         size="md"
       >
-        <Collectors publicationId={targetPost.id} />
+        <Collectors postId={targetPost.id} />
       </Modal>
     </>
   );

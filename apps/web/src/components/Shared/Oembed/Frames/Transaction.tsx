@@ -36,10 +36,10 @@ const SUPPORTED_CHAINS = [
 ];
 
 interface TransactionProps {
-  publicationId?: string;
+  postId?: string;
 }
 
-const Transaction: FC<TransactionProps> = ({ publicationId }) => {
+const Transaction: FC<TransactionProps> = ({ postId }) => {
   const { currentProfile } = useProfileStore();
   const { setFrameData, setShowTransaction, showTransaction } =
     useFramesStore();
@@ -95,7 +95,7 @@ const Transaction: FC<TransactionProps> = ({ publicationId }) => {
             postUrl:
               showTransaction.frame?.buttons[showTransaction.index].postUrl ||
               showTransaction.frame?.postUrl,
-            pubId: publicationId
+            pubId: postId
           },
           { headers: getAuthApiHeadersWithAccessToken() }
         );

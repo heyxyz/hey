@@ -27,10 +27,10 @@ const newReportPublicationSchema = object({
 });
 
 interface ReportProps {
-  publicationId: null | string;
+  postId: null | string;
 }
 
-const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
+const ReportPublication: FC<ReportProps> = ({ postId }) => {
   const { isSuspended } = useProfileStatus();
   const [type, setType] = useState("");
   const [subReason, setSubReason] = useState("");
@@ -44,7 +44,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.REPORT, { publication_id: publicationId });
+      Leafwatch.track(PUBLICATION.REPORT, { publication_id: postId });
     }
   });
 
@@ -60,7 +60,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
         variables: {
           request: {
             additionalComments,
-            for: publicationId,
+            for: postId,
             reason: {
               [type]: {
                 reason: type.replace("Reason", "").toUpperCase(),
@@ -83,7 +83,7 @@ const ReportPublication: FC<ReportProps> = ({ publicationId }) => {
           icon={<CheckCircleIcon className="size-14" />}
           message="Publication reported"
         />
-      ) : publicationId ? (
+      ) : postId ? (
         <div className="p-5">
           <Form className="space-y-4" form={form} onSubmit={reportPublication}>
             {submitError ? (
