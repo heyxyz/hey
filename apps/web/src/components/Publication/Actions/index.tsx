@@ -1,5 +1,5 @@
 import { FeatureFlag } from "@hey/data/feature-flags";
-import getPublicationViewCountById from "@hey/helpers/getPublicationViewCountById";
+import getPostViewCountById from "@hey/helpers/getPostViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -30,7 +30,7 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
 
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPost.openActionModules);
-  const views = getPublicationViewCountById(postViews, targetPost.id);
+  const views = getPostViewCountById(postViews, targetPost.id);
 
   return (
     <span
