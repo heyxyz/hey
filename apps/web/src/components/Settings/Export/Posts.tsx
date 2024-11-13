@@ -65,7 +65,7 @@ const Posts: FC = () => {
     <Card>
       <CardHeader
         body="Export all your posts, comments and mirrors to a JSON file."
-        title="Export publications"
+        title="Export posts"
       />
       <div className="m-5">
         {posts.length > 0 ? (
@@ -75,7 +75,7 @@ const Posts: FC = () => {
         ) : null}
         {fetchCompleted ? (
           <Button onClick={handleDownload} outline>
-            Download publications
+            Download posts
           </Button>
         ) : (
           <Button disabled={exporting} onClick={handleExportClick} outline>

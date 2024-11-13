@@ -66,9 +66,9 @@ const Translate: FC<TranslateProps> = ({ post }) => {
         disabled={isLoading}
         type="button"
       >
-        {isLoading ? "Translating..." : "Translate publication"}
+        {isLoading ? "Translating..." : "Translate post"}
       </button>
-      <Markup className="markup linkify full-page-publication-markup mt-3 break-words">
+      <Markup className="markup linkify full-page-post-markup mt-3 break-words">
         {translation}
       </Markup>
     </div>

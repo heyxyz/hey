@@ -6,7 +6,7 @@ import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { array, object, string } from "zod";
-import { reportPublication } from "../gardener/report";
+import { reportPost } from "../gardener/report";
 
 interface ExtensionRequest {
   id: string;
@@ -39,7 +39,7 @@ export const post = [
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-      const publication = await lensPg.query(
+      const post = await lensPg.query(
         `
           SELECT publication_id AS id
           FROM publication.record
@@ -50,19 +50,19 @@ export const post = [
         [id]
       );
 
-      const publicationId = publication[0]?.id;
+      const postId = post[0]?.id;
 
-      if (!publicationId) {
+      if (!postId) {
         return res.status(404).json({
           result: "Nothing to report",
           success: true
         });
       }
 
-      await reportPublication(publicationId, subreasons, accessToken);
+      await reportPost(postId, subreasons, accessToken);
       logger.info(`[Lens] Reported profile ${id}`);
 
-      return res.status(200).json({ result: publicationId, success: true });
+      return res.status(200).json({ result: postId, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
