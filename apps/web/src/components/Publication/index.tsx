@@ -5,7 +5,7 @@ import NewPublication from "@components/Composer/NewPublication";
 import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning";
 import Footer from "@components/Shared/Footer";
 import SingleProfile from "@components/Shared/SingleProfile";
-import PublicationStaffTool from "@components/StaffTools/Panels/Publication";
+import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
@@ -156,9 +156,7 @@ const ViewPublication: NextPage = () => {
         <RelevantPeople
           profilesMentioned={targetPublication.profilesMentioned}
         />
-        {isStaff ? (
-          <PublicationStaffTool publication={targetPublication} />
-        ) : null}
+        {isStaff ? <PostStaffTool publication={targetPublication} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

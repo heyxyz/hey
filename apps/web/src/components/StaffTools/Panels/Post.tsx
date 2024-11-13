@@ -6,13 +6,11 @@ import type { MirrorablePublication } from "@hey/lens";
 import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 
-interface PublicationStaffToolProps {
+interface PostStaffToolProps {
   publication: MirrorablePublication;
 }
 
-const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
-  publication
-}) => {
+const PostStaffTool: FC<PostStaffToolProps> = ({ publication }) => {
   const isComment = isCommentPost(publication);
 
   return (
@@ -58,4 +56,4 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   );
 };
 
-export default PublicationStaffTool;
+export default PostStaffTool;
