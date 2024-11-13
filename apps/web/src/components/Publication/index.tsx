@@ -104,23 +104,21 @@ const ViewPublication: NextPage = () => {
 
   const publication =
     preLoadedPublication || (data?.publication as AnyPublication);
-  const targetPublication = isRepost(publication)
-    ? publication.mirrorOn
-    : publication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
   const suspended = isSuspended || isCommentSuspended;
 
   return (
     <GridLayout>
       <MetaTags
-        creator={getProfile(targetPublication.by).displayName}
-        description={getPostData(targetPublication.metadata)?.content}
-        title={`${targetPublication.__typename} by ${
-          getProfile(targetPublication.by).slugWithPrefix
+        creator={getProfile(targetPost.by).displayName}
+        description={getPostData(targetPost.metadata)?.content}
+        title={`${targetPost.__typename} by ${
+          getProfile(targetPost.by).slugWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         {showQuotes ? (
-          <Quotes publicationId={targetPublication.id} />
+          <Quotes publicationId={targetPost.id} />
         ) : (
           <>
             <Card>
@@ -132,12 +130,12 @@ const ViewPublication: NextPage = () => {
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
             {currentProfile && !publication.isHidden && !suspended ? (
-              <NewPublication publication={targetPublication} />
+              <NewPublication publication={targetPost} />
             ) : null}
             {publication.isHidden ? null : (
               <>
-                <CommentFeed publicationId={targetPublication.id} />
-                <NoneRelevantFeed publicationId={targetPublication.id} />
+                <CommentFeed publicationId={targetPost.id} />
+                <NoneRelevantFeed publicationId={targetPost.id} />
               </>
             )}
           </>
@@ -146,17 +144,15 @@ const ViewPublication: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <SingleProfile
-            hideFollowButton={currentProfile?.id === targetPublication.by.id}
-            hideUnfollowButton={currentProfile?.id === targetPublication.by.id}
-            profile={targetPublication.by}
+            hideFollowButton={currentProfile?.id === targetPost.by.id}
+            hideUnfollowButton={currentProfile?.id === targetPost.by.id}
+            profile={targetPost.by}
             showBio
             source={ProfileLinkSource.Publication}
           />
         </Card>
-        <RelevantPeople
-          profilesMentioned={targetPublication.profilesMentioned}
-        />
-        {isStaff ? <PostStaffTool publication={targetPublication} /> : null}
+        <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />
+        {isStaff ? <PostStaffTool publication={targetPost} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

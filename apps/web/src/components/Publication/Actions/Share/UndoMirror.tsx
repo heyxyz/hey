@@ -27,14 +27,14 @@ const UndoMirror: FC<MirrorProps> = ({
   const { currentProfile } = useProfileStore();
   const { cache } = useApolloClient();
 
-  const targetPublication = isRepost(publication)
+  const targetPost = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
 
   const updateCache = () => {
     cache.modify({
-      fields: { mirrors: () => targetPublication.stats.mirrors - 1 },
-      id: cache.identify(targetPublication.stats)
+      fields: { mirrors: () => targetPost.stats.mirrors - 1 },
+      id: cache.identify(targetPost.stats)
     });
     cache.evict({
       id: `${publication?.__typename}:${publication?.id}`

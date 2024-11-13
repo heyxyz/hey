@@ -22,14 +22,12 @@ const PostHeader: FC<PostHeaderProps> = ({
 }) => {
   const { setQuotedPublication } = usePublicationStore();
 
-  const targetPublication = isRepost(publication)
+  const targetPost = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
-  const rootPublication = feedItem ? feedItem?.root : targetPublication;
-  const profile = feedItem ? rootPublication.by : targetPublication.by;
-  const timestamp = feedItem
-    ? rootPublication.createdAt
-    : targetPublication.createdAt;
+  const rootPublication = feedItem ? feedItem?.root : targetPost;
+  const profile = feedItem ? rootPublication.by : targetPost.by;
+  const timestamp = feedItem ? rootPublication.createdAt : targetPost.createdAt;
 
   return (
     <div
@@ -38,13 +36,13 @@ const PostHeader: FC<PostHeaderProps> = ({
     >
       <PublicationProfile
         profile={profile}
-        publicationId={targetPublication.id}
-        source={targetPublication.publishedOn?.id}
-        tags={targetPublication.metadata?.tags || []}
+        publicationId={targetPost.id}
+        source={targetPost.publishedOn?.id}
+        tags={targetPost.metadata?.tags || []}
         timestamp={timestamp}
       />
       {!publication.isHidden && !quoted ? (
-        <PublicationMenu publication={targetPublication} />
+        <PublicationMenu publication={targetPost} />
       ) : (
         <div className="size-[30px]" />
       )}

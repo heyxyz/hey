@@ -16,10 +16,8 @@ interface ActedNotificationProps {
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const publication = notification?.publication;
-  const targetPublication = isRepost(publication)
-    ? publication.mirrorOn
-    : publication;
-  const { metadata } = targetPublication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const { metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const actions = notification?.actions;
   const firstProfile = actions?.[0]?.by;
@@ -56,7 +54,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification?.publication?.id}`}
         >
-          <Markup mentions={targetPublication.profilesMentioned}>
+          <Markup mentions={targetPost.profilesMentioned}>
             {filteredContent}
           </Markup>
         </Link>

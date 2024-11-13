@@ -23,11 +23,11 @@ const PostAvatar: FC<PostAvatarProps> = ({
   quoted = false
 }) => {
   const { push } = useRouter();
-  const targetPublication = isRepost(publication)
+  const targetPost = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
-  const rootPublication = feedItem ? feedItem?.root : targetPublication;
-  const profile = feedItem ? rootPublication.by : targetPublication.by;
+  const rootPublication = feedItem ? feedItem?.root : targetPost;
+  const profile = feedItem ? rootPublication.by : targetPost.by;
 
   return (
     <Link

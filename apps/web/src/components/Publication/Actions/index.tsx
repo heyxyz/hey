@@ -26,19 +26,14 @@ const PostActions: FC<PostActionsProps> = ({
   publication,
   showCount = false
 }) => {
-  const targetPublication = isRepost(publication)
-    ? publication.mirrorOn
-    : publication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
   const { publicationViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
-  const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
+  const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;
 
   const canAct =
-    hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
-  const views = getPublicationViewCountById(
-    publicationViews,
-    targetPublication.id
-  );
+    hasOpenAction && isOpenActionAllowed(targetPost.openActionModules);
+  const views = getPublicationViewCountById(publicationViews, targetPost.id);
 
   return (
     <span
@@ -46,19 +41,17 @@ const PostActions: FC<PostActionsProps> = ({
       onClick={stopEventPropagation}
     >
       <span className="flex items-center gap-x-6">
-        <Comment publication={targetPublication} showCount={showCount} />
+        <Comment publication={targetPost} showCount={showCount} />
         <ShareMenu publication={publication} showCount={showCount} />
-        <Like publication={targetPublication} showCount={showCount} />
-        {canAct && !showCount ? (
-          <OpenAction publication={targetPublication} />
-        ) : null}
-        <Tip publication={targetPublication} showCount={showCount} />
+        <Like publication={targetPost} showCount={showCount} />
+        {canAct && !showCount ? <OpenAction publication={targetPost} /> : null}
+        <Tip publication={targetPost} showCount={showCount} />
         {views > 0 ? <Views showCount={showCount} views={views} /> : null}
         {isGardener ? (
-          <Mod isFullPublication={showCount} publication={targetPublication} />
+          <Mod isFullPublication={showCount} publication={targetPost} />
         ) : null}
       </span>
-      {canAct ? <Collect publication={targetPublication} /> : null}
+      {canAct ? <Collect publication={targetPost} /> : null}
     </span>
   );
 };

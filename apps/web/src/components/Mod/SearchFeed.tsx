@@ -98,7 +98,7 @@ const SearchFeed: FC = () => {
           data={publications}
           endReached={onEndReached}
           itemContent={(_, publication) => {
-            const targetPublication = isRepost(publication)
+            const targetPost = isRepost(publication)
               ? publication.mirrorOn
               : publication;
 
@@ -112,7 +112,7 @@ const SearchFeed: FC = () => {
                   showThread={false}
                 />
                 <div className="divider" />
-                <HigherActions publication={targetPublication} />
+                <HigherActions publication={targetPost} />
               </Card>
             );
           }}

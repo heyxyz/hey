@@ -19,11 +19,9 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   latestActed,
   publication
 }) => {
-  const targetPublication = isRepost(publication)
-    ? publication.mirrorOn
-    : publication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
 
-  const openActions = targetPublication.openActionModules
+  const openActions = targetPost.openActionModules
     .filter(
       (module) =>
         module.__typename === "MultirecipientFeeCollectOpenActionSettings" ||

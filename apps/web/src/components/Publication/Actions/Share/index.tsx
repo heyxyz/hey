@@ -22,15 +22,14 @@ interface ShareMenuProps {
 
 const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const targetPublication = isRepost(publication)
+  const targetPost = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
   const hasShared =
-    targetPublication.operations.hasMirrored ||
-    targetPublication.operations.hasQuoted ||
+    targetPost.operations.hasMirrored ||
+    targetPost.operations.hasQuoted ||
     hasOptimisticallyMirrored(publication.id);
-  const shares =
-    targetPublication.stats.mirrors + targetPublication.stats.quotes;
+  const shares = targetPost.stats.mirrors + targetPost.stats.quotes;
 
   const iconClassName = "w-[15px] sm:w-[18px]";
 
@@ -74,18 +73,18 @@ const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
           >
             <Mirror
               isLoading={isLoading}
-              publication={targetPublication}
+              publication={targetPost}
               setIsLoading={setIsLoading}
             />
-            {targetPublication.operations.hasMirrored &&
-              targetPublication.id !== publication.id && (
+            {targetPost.operations.hasMirrored &&
+              targetPost.id !== publication.id && (
                 <UndoMirror
                   isLoading={isLoading}
                   publication={publication}
                   setIsLoading={setIsLoading}
                 />
               )}
-            <Quote publication={targetPublication} />
+            <Quote publication={targetPost} />
           </MenuItems>
         </MenuTransition>
       </Menu>
