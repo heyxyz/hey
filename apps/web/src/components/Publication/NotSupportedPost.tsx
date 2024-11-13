@@ -3,11 +3,11 @@ import { APP_NAME } from "@hey/data/constants";
 import { Card } from "@hey/ui";
 import type { FC } from "react";
 
-interface NotSupportedPublicationProps {
+interface NotSupportedPostProps {
   type?: string;
 }
 
-const NotSupportedPublication: FC<NotSupportedPublicationProps> = ({
+const NotSupportedPost: FC<NotSupportedPostProps> = ({
   type = "Publication"
 }) => {
   return (
@@ -22,4 +22,4 @@ const NotSupportedPublication: FC<NotSupportedPublicationProps> = ({
   );
 };
 
-export default NotSupportedPublication;
+export default NotSupportedPost;

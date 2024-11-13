@@ -23,7 +23,7 @@ import Checkin from "./Checkin";
 import EncryptedPost from "./EncryptedPost";
 import Metadata from "./Metadata";
 import MutedPost from "./MutedPost";
-import NotSupportedPublication from "./NotSupportedPublication";
+import NotSupportedPost from "./NotSupportedPost";
 import Poll from "./Poll";
 
 interface PostBodyProps {
@@ -69,7 +69,7 @@ const PostBody: FC<PostBodyProps> = ({
   }
 
   if (!isPostMetadataTypeAllowed(metadata.__typename)) {
-    return <NotSupportedPublication type={metadata.__typename} />;
+    return <NotSupportedPost type={metadata.__typename} />;
   }
 
   // Show live if it's there
