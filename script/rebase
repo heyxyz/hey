@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage: script/rebase
-# Rebase the current branch with the main branch
+# Rebase the current branch with the main branch and automatically force-push the changes
 
 # Check for uncommitted changes
 if [[ $(git status --porcelain) ]]; then
@@ -21,18 +21,26 @@ git fetch origin
 
 # Check out the main branch and pull the latest changes
 git checkout main
-git pull origin main
+if ! git pull origin main; then
+  echo "Failed to pull the latest changes from main. Please check your network or remote repository."
+  exit 1
+fi
 
 # Switch back to the original branch
 git checkout "$current_branch"
 
 # Rebase the current branch onto the updated main branch
-git rebase main
-
-# Check for conflicts
-if [ $? -ne 0 ]; then
+if ! git rebase main; then
   echo "Rebase encountered conflicts. Please resolve them before proceeding."
   exit 1
 fi
 
 echo "Rebase with main branch completed successfully."
+
+# Force-push the rebased branch to the remote repository
+if git push --force-with-lease; then
+  echo "Changes force-pushed to remote branch $current_branch successfully."
+else
+  echo "Failed to force-push changes. Please check your remote branch status."
+  exit 1
+fi
