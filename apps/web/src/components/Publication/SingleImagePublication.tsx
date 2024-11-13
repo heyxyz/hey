@@ -1,5 +1,5 @@
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
 import Link from "next/link";
@@ -18,8 +18,8 @@ const SingleImagePublication: FC<SingleImagePublicationProps> = ({
     ? publication.mirrorOn
     : publication;
   const filteredAttachments =
-    getPublicationData(targetPublication.metadata)?.attachments || [];
-  const filteredAsset = getPublicationData(targetPublication.metadata)?.asset;
+    getPostData(targetPublication.metadata)?.attachments || [];
+  const filteredAsset = getPostData(targetPublication.metadata)?.asset;
   const backgroundImage = filteredAsset?.uri || filteredAttachments[0]?.uri;
 
   usePushToImpressions(targetPublication.id);

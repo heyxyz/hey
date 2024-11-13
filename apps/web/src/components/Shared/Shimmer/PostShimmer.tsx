@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-const PublicationShimmer: FC = () => {
+const PostShimmer: FC = () => {
   return (
     <div className="flex items-start space-x-3 px-5 py-4">
       <div>
@@ -32,4 +32,4 @@ const PublicationShimmer: FC = () => {
   );
 };
 
-export default PublicationShimmer;
+export default PostShimmer;

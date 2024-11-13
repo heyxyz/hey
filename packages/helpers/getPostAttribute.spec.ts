@@ -1,7 +1,7 @@
 import type { MetadataAttribute } from "@hey/lens";
 import { MetadataAttributeType } from "@hey/lens";
 import { describe, expect, test } from "vitest";
-import getPublicationAttribute from "./getPublicationAttribute";
+import getPublicationAttribute from "./getPostAttribute";
 
 describe("getPublicationAttribute", () => {
   const attributes: MetadataAttribute[] = [

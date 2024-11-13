@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
 
-interface PublicationWrapperProps {
+interface PostWrapperProps {
   children: ReactNode | ReactNode[];
   className?: string;
   publication: AnyPublication;
 }
 
-const PublicationWrapper: FC<PublicationWrapperProps> = ({
+const PostWrapper: FC<PostWrapperProps> = ({
   children,
   className = "",
   publication
@@ -37,4 +37,4 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   );
 };
 
-export default PublicationWrapper;
+export default PostWrapper;

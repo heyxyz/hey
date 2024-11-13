@@ -14,24 +14,21 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { useHiddenCommentFeedStore } from ".";
-import PublicationActions from "./Actions";
-import HiddenPublication from "./HiddenPublication";
-import PublicationAvatar from "./PublicationAvatar";
-import PublicationBody from "./PublicationBody";
-import PublicationHeader from "./PublicationHeader";
-import PublicationStats from "./PublicationStats";
+import PostActions from "./Actions";
+import HiddenPost from "./HiddenPost";
+import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
+import PostHeader from "./PostHeader";
+import PostStats from "./PostStats";
 import Translate from "./Translate";
 import PublicationType from "./Type";
 
-interface FullPublicationProps {
+interface FullPostProps {
   hasHiddenComments: boolean;
   publication: AnyPublication;
 }
 
-const FullPublication: FC<FullPublicationProps> = ({
-  hasHiddenComments,
-  publication
-}) => {
+const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -66,14 +63,14 @@ const FullPublication: FC<FullPublicationProps> = ({
     <article className="p-5">
       <PublicationType publication={publication} showType />
       <div className="flex items-start space-x-3">
-        <PublicationAvatar publication={publication} />
+        <PostAvatar publication={publication} />
         <div className="w-[calc(100%-55px)]">
-          <PublicationHeader publication={targetPublication} />
+          <PostHeader publication={targetPublication} />
           {targetPublication.isHidden ? (
-            <HiddenPublication type={targetPublication.__typename} />
+            <HiddenPost type={targetPublication.__typename} />
           ) : (
             <>
-              <PublicationBody
+              <PostBody
                 contentClassName="full-page-publication-markup"
                 publication={targetPublication}
               />
@@ -84,13 +81,13 @@ const FullPublication: FC<FullPublicationProps> = ({
                   <span> · Posted via {getAppName(publishedOn.id)}</span>
                 ) : null}
               </div>
-              <PublicationStats
+              <PostStats
                 publicationId={targetPublication.id}
                 publicationStats={targetPublication.stats}
               />
               <div className="divider" />
               <div className="flex items-center justify-between">
-                <PublicationActions publication={targetPublication} showCount />
+                <PostActions publication={targetPublication} showCount />
                 {hasHiddenComments ? (
                   <div className="mt-2">
                     <button
@@ -127,4 +124,4 @@ const FullPublication: FC<FullPublicationProps> = ({
   );
 };
 
-export default FullPublication;
+export default FullPost;

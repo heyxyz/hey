@@ -2,7 +2,7 @@ import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { PUBLICATION } from "@hey/data/tracking";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MirrorablePublication } from "@hey/lens";
 import cn from "@hey/ui/cn";
@@ -15,8 +15,7 @@ interface CopyPostTextProps {
 
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
   const publicationType = publication.__typename;
-  const filteredContent =
-    getPublicationData(publication.metadata)?.content || "";
+  const filteredContent = getPostData(publication.metadata)?.content || "";
 
   return (
     <MenuItem

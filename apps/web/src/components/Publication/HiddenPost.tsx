@@ -1,13 +1,11 @@
 import { Card } from "@hey/ui";
 import type { FC } from "react";
 
-interface HiddenPublicationProps {
+interface HiddenPostProps {
   type?: string;
 }
 
-const HiddenPublication: FC<HiddenPublicationProps> = ({
-  type = "Publication"
-}) => {
+const HiddenPost: FC<HiddenPostProps> = ({ type = "Publication" }) => {
   return (
     <Card className="!bg-gray-100 dark:!bg-gray-800 mt-2" forceRounded>
       <div className="px-4 py-3 text-sm">{type} was hidden by the author</div>
@@ -15,4 +13,4 @@ const HiddenPublication: FC<HiddenPublicationProps> = ({
   );
 };
 
-export default HiddenPublication;
+export default HiddenPost;

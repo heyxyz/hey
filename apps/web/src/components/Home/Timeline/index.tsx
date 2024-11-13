@@ -1,6 +1,6 @@
-import QueuedPublication from "@components/Publication/QueuedPublication";
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import QueuedPost from "@components/Publication/QueuedPost";
+import SinglePost from "@components/Publication/SinglePost";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { HEY_CURATED_ID } from "@hey/data/constants";
 import type { AnyPublication, FeedItem, FeedRequest } from "@hey/lens";
@@ -78,7 +78,7 @@ const Timeline: FC = () => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (feed?.length === 0) {
@@ -98,7 +98,7 @@ const Timeline: FC = () => {
     <>
       {txnQueue.map((txn) =>
         txn?.type !== OptmisticPublicationType.Comment ? (
-          <QueuedPublication key={txn.txId} txn={txn} />
+          <QueuedPost key={txn.txId} txn={txn} />
         ) : null
       )}
       <Card>
@@ -109,7 +109,7 @@ const Timeline: FC = () => {
           endReached={onEndReached}
           isScrolling={onScrolling}
           itemContent={(index, feedItem) => (
-            <SinglePublication
+            <SinglePost
               feedItem={feedItem as FeedItem}
               isFirst={index === 0}
               isLast={index === (feed?.length || 0) - 1}

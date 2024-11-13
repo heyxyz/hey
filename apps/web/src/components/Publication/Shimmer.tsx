@@ -1,7 +1,7 @@
 import Footer from "@components/Shared/Footer";
-import PublicationListShimmer from "@components/Shared/Shimmer/PublicationListShimmer";
-import PublicationShimmer from "@components/Shared/Shimmer/PublicationShimmer";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostListShimmer from "@components/Shared/Shimmer/PostListShimmer";
+import PostShimmer from "@components/Shared/Shimmer/PostShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
@@ -17,13 +17,13 @@ const PublicationPageShimmer: FC<PublicationPageShimmerProps> = ({
     <GridLayout>
       <GridItemEight className="space-y-5">
         {publicationList ? (
-          <PublicationListShimmer />
+          <PostListShimmer />
         ) : (
           <>
             <Card>
-              <PublicationShimmer />
+              <PostShimmer />
             </Card>
-            <PublicationsShimmer />
+            <PostsShimmer />
           </>
         )}
       </GridItemEight>

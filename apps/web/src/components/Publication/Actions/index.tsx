@@ -17,12 +17,12 @@ import ShareMenu from "./Share";
 import Tip from "./Tip";
 import Views from "./Views";
 
-interface PublicationActionsProps {
+interface PostActionsProps {
   publication: AnyPublication;
   showCount?: boolean;
 }
 
-const PublicationActions: FC<PublicationActionsProps> = ({
+const PostActions: FC<PostActionsProps> = ({
   publication,
   showCount = false
 }) => {
@@ -63,4 +63,4 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   );
 };
 
-export default memo(PublicationActions);
+export default memo(PostActions);

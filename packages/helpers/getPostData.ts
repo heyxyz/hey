@@ -3,7 +3,7 @@ import type { PublicationMetadata } from "@hey/lens";
 import type { MetadataAsset } from "@hey/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 
-const getPublicationData = (
+const getPostData = (
   metadata: PublicationMetadata
 ): {
   asset?: MetadataAsset;
@@ -79,4 +79,4 @@ const getPublicationData = (
   }
 };
 
-export default getPublicationData;
+export default getPostData;

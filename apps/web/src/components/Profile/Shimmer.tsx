@@ -1,4 +1,4 @@
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
@@ -52,7 +52,7 @@ const ProfilePageShimmer: FC = () => {
               />
             ))}
           </div>
-          <PublicationsShimmer />
+          <PostsShimmer />
         </GridItemEight>
       </GridLayout>
     </>

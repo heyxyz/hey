@@ -1,4 +1,4 @@
-import QuotedPublication from "@components/Publication/QuotedPublication";
+import QuotedPost from "@components/Publication/QuotedPost";
 import type { PrimaryPublication } from "@hey/lens";
 import type { FC } from "react";
 import Wrapper from "./Wrapper";
@@ -14,7 +14,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
 
   return (
     <Wrapper zeroPadding>
-      <QuotedPublication publication={publication} />
+      <QuotedPost publication={publication} />
     </Wrapper>
   );
 };

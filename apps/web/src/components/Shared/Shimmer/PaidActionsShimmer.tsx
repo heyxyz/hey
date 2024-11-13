@@ -1,6 +1,6 @@
 import { Card } from "@hey/ui";
 import type { FC } from "react";
-import PublicationShimmer from "./PublicationShimmer";
+import PostShimmer from "./PostShimmer";
 import SingleProfileShimmer from "./SingleProfileShimmer";
 import SmallSingleProfileShimmer from "./SmallSingleProfileShimmer";
 
@@ -13,7 +13,7 @@ const PaidActionsShimmer: FC = () => {
           <SmallSingleProfileShimmer smallAvatar />
         </div>
         <div className="divider" />
-        <PublicationShimmer />
+        <PostShimmer />
       </Card>
       <Card>
         <div className="flex items-center space-x-2 p-5">
@@ -30,7 +30,7 @@ const PaidActionsShimmer: FC = () => {
           <div className="shimmer h-3 w-3/12 rounded-full" />
           <SmallSingleProfileShimmer smallAvatar />
         </div>
-        <PublicationShimmer />
+        <PostShimmer />
       </Card>
     </div>
   );

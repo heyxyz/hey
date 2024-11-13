@@ -5,12 +5,12 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { Button, Card } from "@hey/ui";
 import type { FC } from "react";
 
-interface MutedPublicationProps {
+interface MutedPostProps {
   type?: string;
   setShowMutedPublication: (show: boolean) => void;
 }
 
-const MutedPublication: FC<MutedPublicationProps> = ({
+const MutedPost: FC<MutedPostProps> = ({
   type = "Publication",
   setShowMutedPublication
 }) => {
@@ -35,4 +35,4 @@ const MutedPublication: FC<MutedPublicationProps> = ({
   );
 };
 
-export default MutedPublication;
+export default MutedPost;

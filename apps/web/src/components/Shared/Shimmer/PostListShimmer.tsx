@@ -1,9 +1,9 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Card } from "@hey/ui";
 import type { FC } from "react";
-import PublicationShimmer from "./PublicationShimmer";
+import PostShimmer from "./PostShimmer";
 
-const PublicationListShimmer: FC = () => {
+const PostListShimmer: FC = () => {
   return (
     <Card className="divide-y dark:divide-gray-700">
       <div className="flex items-center space-x-3 px-5 py-6">
@@ -11,10 +11,10 @@ const PublicationListShimmer: FC = () => {
         <div className="shimmer h-4 w-1/5 rounded-full" />
       </div>
       {Array.from({ length: 3 }).map((_, index) => (
-        <PublicationShimmer key={index} />
+        <PostShimmer key={index} />
       ))}
     </Card>
   );
 };
 
-export default PublicationListShimmer;
+export default PostListShimmer;

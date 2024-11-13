@@ -1,5 +1,5 @@
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import SinglePost from "@components/Publication/SinglePost";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { FlagIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
 import { LimitType, useModLatestReportsQuery } from "@hey/lens";
@@ -28,7 +28,7 @@ const ReportsFeed: FC = () => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (reports?.length === 0) {
@@ -61,7 +61,7 @@ const ReportsFeed: FC = () => {
 
         return (
           <Card>
-            <SinglePublication
+            <SinglePost
               isFirst
               publication={report.reportedPublication as AnyPublication}
               showActions={false}

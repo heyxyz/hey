@@ -7,14 +7,14 @@ import type { FC } from "react";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import PublicationMenu from "./Actions/Menu";
 
-interface PublicationHeaderProps {
+interface PostHeaderProps {
   feedItem?: FeedItem;
   isNew?: boolean;
   publication: AnyPublication;
   quoted?: boolean;
 }
 
-const PublicationHeader: FC<PublicationHeaderProps> = ({
+const PostHeader: FC<PostHeaderProps> = ({
   feedItem,
   isNew = false,
   publication,
@@ -62,4 +62,4 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   );
 };
 
-export default PublicationHeader;
+export default PostHeader;

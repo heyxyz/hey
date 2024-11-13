@@ -1,9 +1,9 @@
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { PublicationMetadata } from "@hey/lens";
 
 const getPublicationOGImages = (metadata: PublicationMetadata) => {
-  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
-  const filteredAsset = getPublicationData(metadata)?.asset;
+  const filteredAttachments = getPostData(metadata)?.attachments || [];
+  const filteredAsset = getPostData(metadata)?.asset;
 
   const assetIsImage = filteredAsset?.type === "Image";
   const assetIsVideo = filteredAsset?.type === "Video";

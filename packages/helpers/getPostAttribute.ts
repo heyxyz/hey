@@ -7,7 +7,7 @@ import type { Maybe, MetadataAttribute } from "@hey/lens";
  * @param key The key of the attribute to find.
  * @returns The attribute value.
  */
-const getPublicationAttribute = (
+const getPostAttribute = (
   attributes: Maybe<MetadataAttribute[]> | undefined,
   key: string
 ): string => {
@@ -15,4 +15,4 @@ const getPublicationAttribute = (
   return attribute?.value || "";
 };
 
-export default getPublicationAttribute;
+export default getPostAttribute;
