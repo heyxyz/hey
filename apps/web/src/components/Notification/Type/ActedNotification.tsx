@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { ActedNotification as TActedNotification } from "@hey/lens";
 import Link from "next/link";
 import plur from "plur";
@@ -16,7 +16,7 @@ interface ActedNotificationProps {
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const publication = notification?.publication;
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
   const { metadata } = targetPublication;

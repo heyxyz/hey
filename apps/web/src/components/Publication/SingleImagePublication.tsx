@@ -1,6 +1,6 @@
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getPostData from "@hey/helpers/getPostData";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
@@ -14,7 +14,7 @@ interface SingleImagePublicationProps {
 const SingleImagePublication: FC<SingleImagePublicationProps> = ({
   publication
 }) => {
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
   const filteredAttachments =

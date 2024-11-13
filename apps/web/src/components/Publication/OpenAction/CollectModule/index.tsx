@@ -23,7 +23,7 @@ import getProfile from "@hey/helpers/getProfile";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type {
   AnyPublication,
   MultirecipientFeeCollectOpenActionSettings,
@@ -49,7 +49,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, publication }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
 

@@ -12,7 +12,7 @@ import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW, ProfileLinkSource } from "@hey/data/tracking";
 import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import {
   HiddenCommentsType,
@@ -104,7 +104,7 @@ const ViewPublication: NextPage = () => {
 
   const publication =
     preLoadedPublication || (data?.publication as AnyPublication);
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
   const suspended = isSuspended || isCommentSuspended;

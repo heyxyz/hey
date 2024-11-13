@@ -4,7 +4,7 @@ import { APP_NAME } from "@hey/data/constants";
 import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
 import logger from "@hey/helpers/logger";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { PublicationDocument } from "@hey/lens";
 import { addTypenameToDocument } from "apollo-utilities";
@@ -39,7 +39,7 @@ export const generateMetadata = async ({
   }
 
   const publication = result.data.publication as AnyPublication;
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
   const { by: profile, metadata } = targetPublication;

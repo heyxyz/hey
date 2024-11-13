@@ -1,7 +1,7 @@
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type {
   AnyPublication,
   LatestActed,
@@ -19,7 +19,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   latestActed,
   publication
 }) => {
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
 

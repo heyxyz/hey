@@ -9,7 +9,7 @@ import getPostAttribute from "@hey/helpers/getPostAttribute";
 import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -42,7 +42,7 @@ const PostBody: FC<PostBodyProps> = ({
   const { mutedWords } = usePreferencesStore();
   const [showMutedPublication, setShowMutedPublication] = useState(false);
 
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
   const { id, metadata } = targetPublication;

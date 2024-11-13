@@ -5,7 +5,7 @@ import getProfileDetails, {
 } from "@hey/helpers/api/getProfileDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -33,7 +33,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
     useHiddenCommentFeedStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
 

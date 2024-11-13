@@ -1,6 +1,6 @@
 import PublicationProfile from "@components/Publication/PublicationProfile";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import type { FC } from "react";
@@ -22,7 +22,7 @@ const PostHeader: FC<PostHeaderProps> = ({
 }) => {
   const { setQuotedPublication } = usePublicationStore();
 
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
   const rootPublication = feedItem ? feedItem?.root : targetPublication;

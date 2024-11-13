@@ -4,7 +4,7 @@ import hasOptimisticallyMirrored from "@helpers/optimistic/hasOptimisticallyMirr
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication } from "@hey/lens";
 import { Spinner, Tooltip } from "@hey/ui";
@@ -22,7 +22,7 @@ interface ShareMenuProps {
 
 const ShareMenu: FC<ShareMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
   const hasShared =

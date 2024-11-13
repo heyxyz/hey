@@ -5,7 +5,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { PUBLICATION } from "@hey/data/tracking";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { useHidePublicationMutation } from "@hey/lens";
 import cn from "@hey/ui/cn";
@@ -27,7 +27,7 @@ const UndoMirror: FC<MirrorProps> = ({
   const { currentProfile } = useProfileStore();
   const { cache } = useApolloClient();
 
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
 

@@ -4,7 +4,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
 import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
@@ -98,7 +98,7 @@ const SearchFeed: FC = () => {
           data={publications}
           endReached={onEndReached}
           itemContent={(_, publication) => {
-            const targetPublication = isMirrorPublication(publication)
+            const targetPublication = isRepost(publication)
               ? publication.mirrorOn
               : publication;
 

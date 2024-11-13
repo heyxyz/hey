@@ -1,7 +1,7 @@
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import { Image } from "@hey/ui";
@@ -23,7 +23,7 @@ const PostAvatar: FC<PostAvatarProps> = ({
   quoted = false
 }) => {
   const { push } = useRouter();
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication?.mirrorOn
     : publication;
   const rootPublication = feedItem ? feedItem?.root : targetPublication;

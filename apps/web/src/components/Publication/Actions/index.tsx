@@ -1,7 +1,7 @@
 import { FeatureFlag } from "@hey/data/feature-flags";
 import getPublicationViewCountById from "@hey/helpers/getPublicationViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication } from "@hey/lens";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -26,7 +26,7 @@ const PostActions: FC<PostActionsProps> = ({
   publication,
   showCount = false
 }) => {
-  const targetPublication = isMirrorPublication(publication)
+  const targetPublication = isRepost(publication)
     ? publication.mirrorOn
     : publication;
   const { publicationViews } = useImpressionsStore();
