@@ -12,4 +12,4 @@ const store = create<State>((set) => ({
   setLicense: (license) => set(() => ({ license }))
 }));
 
-export const usePublicationLicenseStore = createTrackedSelector(store);
+export const usePostLicenseStore = createTrackedSelector(store);

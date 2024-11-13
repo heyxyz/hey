@@ -42,11 +42,11 @@ import {
   DEFAULT_AUDIO_PUBLICATION,
   usePostAudioStore
 } from "src/store/non-persisted/publication/usePostAudioStore";
+import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
 import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
@@ -132,7 +132,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     usePublicationPollStore();
 
   // License store
-  const { setLicense } = usePublicationLicenseStore();
+  const { setLicense } = usePostLicenseStore();
 
   // Collect module store
   const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
