@@ -1,4 +1,4 @@
-import getPublicationsViews from "@hey/helpers/getPublicationsViews";
+import getPostsViews from "@hey/helpers/getPostsViews";
 import type { PostViewCount } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
@@ -14,7 +14,7 @@ const store = create<State>((set) => ({
       return;
     }
 
-    const viewsResponse = await getPublicationsViews(ids);
+    const viewsResponse = await getPostsViews(ids);
     set((state) => ({
       postViews: [...state.postViews, ...viewsResponse]
     }));
