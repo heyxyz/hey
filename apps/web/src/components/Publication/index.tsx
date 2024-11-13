@@ -151,7 +151,7 @@ const ViewPublication: NextPage = () => {
           />
         </Card>
         <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />
-        {isStaff ? <PostStaffTool publication={targetPost} /> : null}
+        {isStaff ? <PostStaffTool post={targetPost} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

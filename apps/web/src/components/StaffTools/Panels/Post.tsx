@@ -7,11 +7,11 @@ import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 
 interface PostStaffToolProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const PostStaffTool: FC<PostStaffToolProps> = ({ publication }) => {
-  const isComment = isCommentPost(publication);
+const PostStaffTool: FC<PostStaffToolProps> = ({ post }) => {
+  const isComment = isCommentPost(post);
 
   return (
     <Card
@@ -27,26 +27,26 @@ const PostStaffTool: FC<PostStaffToolProps> = ({ publication }) => {
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
           title="Publication ID"
-          value={publication?.id}
+          value={post?.id}
         >
-          {publication?.id}
+          {post?.id}
         </MetaDetails>
         {isComment ? (
           <MetaDetails
             icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
             title="Comment on"
-            value={publication?.commentOn?.id}
+            value={post?.commentOn?.id}
           >
-            {publication?.commentOn?.id}
+            {post?.commentOn?.id}
           </MetaDetails>
         ) : null}
-        {publication?.openActionModules?.length ? (
+        {post?.openActionModules?.length ? (
           <MetaDetails
             icon={<ShoppingBagIcon className="ld-text-gray-500 size-4" />}
             noFlex
             title="Open action modules"
           >
-            {(publication?.openActionModules || []).map((module) => (
+            {(post?.openActionModules || []).map((module) => (
               <div key={module.__typename}>{module.__typename}</div>
             ))}
           </MetaDetails>
