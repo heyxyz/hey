@@ -21,16 +21,16 @@ import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface BookmarkProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Bookmark: FC<BookmarkProps> = ({ publication }) => {
+const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const { pathname } = useRouter();
   const [hasBookmarked, toggleHasBookmarked] = useToggle(
-    publication.operations.hasBookmarked
+    post.operations.hasBookmarked
   );
   const [bookmarks, { decrement, increment }] = useCounter(
-    publication.stats.bookmarks
+    post.stats.bookmarks
   );
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -40,18 +40,18 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           return { ...existingValue, hasBookmarked: !hasBookmarked };
         }
       },
-      id: cache.identify(publication)
+      id: cache.identify(post)
     });
     cache.modify({
       fields: {
         bookmarks: () => (hasBookmarked ? bookmarks - 1 : bookmarks + 1)
       },
-      id: cache.identify(publication.stats)
+      id: cache.identify(post.stats)
     });
 
-    // Remove bookmarked publication from bookmarks feed
+    // Remove bookmarked post from bookmarks feed
     if (pathname === "/bookmarks") {
-      cache.evict({ id: cache.identify(publication) });
+      cache.evict({ id: cache.identify(post) });
     }
   };
 
@@ -59,13 +59,13 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  const request: PublicationBookmarkRequest = { on: publication.id };
+  const request: PublicationBookmarkRequest = { on: post.id };
 
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success("Publication bookmarked!");
       Leafwatch.track(PUBLICATION.BOOKMARK, {
-        publication_id: publication.id
+        publication_id: post.id
       });
     },
     onError: (error) => {
@@ -81,7 +81,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     onCompleted: () => {
       toast.success("Removed publication bookmark!");
       Leafwatch.track(PUBLICATION.REMOVE_BOOKMARK, {
-        publication_id: publication.id
+        publication_id: post.id
       });
     },
     onError: (error) => {

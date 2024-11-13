@@ -18,7 +18,7 @@ interface QuoteProps {
 const Quote: FC<QuoteProps> = ({ publication }) => {
   const { currentProfile } = useProfileStore();
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
-  const { setQuotedPublication } = usePublicationStore();
+  const { setQuotedPost } = usePublicationStore();
   const { isSuspended } = useProfileStatus();
   const publicationType = publication.__typename;
 
@@ -45,7 +45,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
           return toast.error(Errors.Suspended);
         }
 
-        setQuotedPublication(publication);
+        setQuotedPost(publication);
         setShowNewPostModal(true);
       }}
     >

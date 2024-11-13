@@ -102,9 +102,8 @@ const ViewPublication: NextPage = () => {
     return <Custom500 />;
   }
 
-  const publication =
-    preLoadedPublication || (data?.publication as AnyPublication);
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const post = preLoadedPublication || (data?.publication as AnyPublication);
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const suspended = isSuspended || isCommentSuspended;
 
   return (
@@ -124,15 +123,15 @@ const ViewPublication: NextPage = () => {
             <Card>
               <FullPost
                 hasHiddenComments={hasHiddenComments}
-                key={publication?.id}
-                publication={publication}
+                key={post?.id}
+                post={post}
               />
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
-            {currentProfile && !publication.isHidden && !suspended ? (
-              <NewPublication publication={targetPost} />
+            {currentProfile && !post.isHidden && !suspended ? (
+              <NewPublication post={targetPost} />
             ) : null}
-            {publication.isHidden ? null : (
+            {post.isHidden ? null : (
               <>
                 <CommentFeed publicationId={targetPost.id} />
                 <NoneRelevantFeed publicationId={targetPost.id} />
@@ -152,7 +151,7 @@ const ViewPublication: NextPage = () => {
           />
         </Card>
         <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />
-        {isStaff ? <PostStaffTool publication={targetPost} /> : null}
+        {isStaff ? <PostStaffTool post={targetPost} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

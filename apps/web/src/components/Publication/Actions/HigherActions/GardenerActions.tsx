@@ -16,10 +16,10 @@ import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlert
 import StaffActions from "./StaffActions";
 
 interface GardenerActionsProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
+const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
   const { pathname } = useRouter();
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
   const [loading, setLoading] = useState(false);
@@ -29,14 +29,14 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     subreasons: PublicationReportingSpamSubreason[]
   ) => {
     if (pathname === "/mod") {
-      cache.evict({ id: cache.identify(publication) });
+      cache.evict({ id: cache.identify(post) });
     }
 
     setLoading(true);
     try {
       await axios.post(
         `${HEY_API_URL}/internal/gardener/report`,
-        { id: publication.id, subreasons },
+        { id: post.id, subreasons },
         { headers: getAuthApiHeadersWithAccessToken() }
       );
     } finally {
@@ -53,7 +53,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
     type: string;
   }) => {
     Leafwatch.track(GARDENER.REPORT, {
-      publication_id: publication.id,
+      publication_id: post.id,
       type
     });
     toast.promise(reportPublicationOnLens(subreasons), {
@@ -125,7 +125,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ publication }) => {
               type: "suspend"
             });
           }}
-          publication={publication}
+          post={post}
         />
       </div>
     </span>

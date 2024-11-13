@@ -5,26 +5,24 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import type { FC } from "react";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
-import PublicationMenu from "./Actions/Menu";
+import PostMenu from "./Actions/Menu";
 
 interface PostHeaderProps {
   feedItem?: FeedItem;
   isNew?: boolean;
-  publication: AnyPublication;
+  post: AnyPublication;
   quoted?: boolean;
 }
 
 const PostHeader: FC<PostHeaderProps> = ({
   feedItem,
   isNew = false,
-  publication,
+  post,
   quoted = false
 }) => {
-  const { setQuotedPublication } = usePublicationStore();
+  const { setQuotedPost } = usePublicationStore();
 
-  const targetPost = isRepost(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
   const profile = feedItem ? rootPublication.by : targetPost.by;
   const timestamp = feedItem ? rootPublication.createdAt : targetPost.createdAt;
@@ -41,8 +39,8 @@ const PostHeader: FC<PostHeaderProps> = ({
         tags={targetPost.metadata?.tags || []}
         timestamp={timestamp}
       />
-      {!publication.isHidden && !quoted ? (
-        <PublicationMenu publication={targetPost} />
+      {!post.isHidden && !quoted ? (
+        <PostMenu post={targetPost} />
       ) : (
         <div className="size-[30px]" />
       )}
@@ -50,7 +48,7 @@ const PostHeader: FC<PostHeaderProps> = ({
         <button
           aria-label="Remove Quote"
           className="rounded-full border p-1.5 hover:bg-gray-300/20"
-          onClick={() => setQuotedPublication(null)}
+          onClick={() => setQuotedPost(null)}
           type="reset"
         >
           <XMarkIcon className="ld-text-gray-500 size-4" />

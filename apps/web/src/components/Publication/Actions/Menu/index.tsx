@@ -16,11 +16,11 @@ import NotInterested from "./NotInterested";
 import Report from "./Report";
 import Share from "./Share";
 
-interface PublicationMenuProps {
-  publication: MirrorablePublication;
+interface PostMenuProps {
+  post: MirrorablePublication;
 }
 
-const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
+const PostMenu: FC<PostMenuProps> = ({ post }) => {
   const { currentProfile } = useProfileStore();
   const iconClassName = "w-[15px] sm:w-[18px]";
 
@@ -45,20 +45,20 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
         >
           {currentProfile ? (
             <>
-              <NotInterested publication={publication} />
-              <HideComment publication={publication} />
-              <Bookmark publication={publication} />
+              <NotInterested post={post} />
+              <HideComment post={post} />
+              <Bookmark post={post} />
             </>
           ) : null}
           <div className="divider" />
-          <Share publication={publication} />
-          <CopyPostText publication={publication} />
-          <CopyID id={publication.id} />
+          <Share post={post} />
+          <CopyPostText post={post} />
+          <CopyID id={post.id} />
           <div className="divider" />
-          {currentProfile?.id === publication?.by?.id ? (
-            <Delete publication={publication} />
+          {currentProfile?.id === post?.by?.id ? (
+            <Delete post={post} />
           ) : (
-            <Report publication={publication} />
+            <Report post={post} />
           )}
         </MenuItems>
       </MenuTransition>
@@ -66,4 +66,4 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   );
 };
 
-export default PublicationMenu;
+export default PostMenu;

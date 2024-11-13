@@ -5,19 +5,19 @@ import type { FC } from "react";
 import Commented from "./Commented";
 import Mirrored from "./Mirrored";
 
-interface PublicationTypeProps {
-  publication: AnyPublication;
+interface PostTypeProps {
+  post: AnyPublication;
   showThread?: boolean;
   showType: boolean;
 }
 
-const PublicationType: FC<PublicationTypeProps> = ({
-  publication,
+const PostType: FC<PostTypeProps> = ({
+  post,
   showThread = false,
   showType
 }) => {
   const { pathname } = useRouter();
-  const type = publication.__typename;
+  const type = post.__typename;
 
   if (!showType) {
     return null;
@@ -25,12 +25,12 @@ const PublicationType: FC<PublicationTypeProps> = ({
 
   return (
     <span onClick={stopEventPropagation}>
-      {type === "Mirror" ? <Mirrored profile={publication.by} /> : null}
+      {type === "Mirror" ? <Mirrored profile={post.by} /> : null}
       {type === "Comment" && (showThread || pathname === "/posts/[id]") ? (
-        <Commented publication={publication} />
+        <Commented publication={post} />
       ) : null}
     </span>
   );
 };
 
-export default PublicationType;
+export default PostType;

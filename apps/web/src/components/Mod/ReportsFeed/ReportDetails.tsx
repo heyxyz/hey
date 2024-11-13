@@ -79,7 +79,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           <Dispute report={report} setShowDisputeModal={setShowDisputeModal} />
         </Modal>
         <StaffActions
-          publication={report.reportedPublication as MirrorablePublication}
+          post={report.reportedPublication as MirrorablePublication}
         />
       </div>
     </div>

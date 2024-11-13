@@ -91,13 +91,10 @@ const LivestreamSettings = dynamic(
 
 interface NewPublicationProps {
   className?: string;
-  publication?: MirrorablePublication;
+  post?: MirrorablePublication;
 }
 
-const NewPublication: FC<NewPublicationProps> = ({
-  className,
-  publication
-}) => {
+const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
 
@@ -110,9 +107,9 @@ const NewPublication: FC<NewPublicationProps> = ({
   // Publication store
   const {
     publicationContent,
-    quotedPublication,
+    quotedPost,
     setPublicationContent,
-    setQuotedPublication,
+    setQuotedPost,
     setTags
   } = usePublicationStore();
 
@@ -161,17 +158,17 @@ const NewPublication: FC<NewPublicationProps> = ({
 
   const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
 
-  const isComment = Boolean(publication);
-  const isQuote = Boolean(quotedPublication);
+  const isComment = Boolean(post);
+  const isQuote = Boolean(quotedPost);
   const hasAudio = attachments[0]?.type === "Audio";
   const hasVideo = attachments[0]?.type === "Video";
 
   const noCollect = !collectModule.type;
   // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
   const useMomoka = isComment
-    ? publication?.momoka?.proof
+    ? post?.momoka?.proof
     : isQuote
-      ? quotedPublication?.momoka?.proof
+      ? quotedPost?.momoka?.proof
       : noCollect;
 
   const reset = () => {
@@ -184,7 +181,7 @@ const NewPublication: FC<NewPublicationProps> = ({
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
-    setQuotedPublication(null);
+    setQuotedPost(null);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
@@ -217,7 +214,7 @@ const NewPublication: FC<NewPublicationProps> = ({
 
     // Track in leafwatch
     const eventProperties = {
-      comment_on: isComment ? publication?.id : null,
+      comment_on: isComment ? post?.id : null,
       publication_collect_module: collectModule.type,
       publication_has_attachments: attachments.length > 0,
       publication_has_poll: showPollEditor,
@@ -228,7 +225,7 @@ const NewPublication: FC<NewPublicationProps> = ({
         ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
-      quote_on: isQuote ? quotedPublication?.id : null
+      quote_on: isQuote ? quotedPost?.id : null
     };
     Leafwatch.track(
       isComment
@@ -255,10 +252,10 @@ const NewPublication: FC<NewPublicationProps> = ({
     createQuoteOnMomka,
     error
   } = useCreatePublication({
-    commentOn: publication,
+    commentOn: post,
     onCompleted,
     onError,
-    quoteOn: quotedPublication as Quote
+    quoteOn: quotedPost as Quote
   });
 
   useEffect(() => {
@@ -379,8 +376,8 @@ const NewPublication: FC<NewPublicationProps> = ({
         | MomokaCommentRequest
         | MomokaPostRequest
         | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: publication?.id }),
-        ...(isQuote && { quoteOn: quotedPublication?.id }),
+        ...(isComment && { commentOn: post?.id }),
+        ...(isQuote && { quoteOn: quotedPost?.id }),
         contentURI: `${METADATA_ENDPOINT}/${metadataId}`
       };
 
@@ -424,8 +421,8 @@ const NewPublication: FC<NewPublicationProps> = ({
         | OnchainPostRequest
         | OnchainQuoteRequest = {
         contentURI: `${METADATA_ENDPOINT}/${metadataId}`,
-        ...(isComment && { commentOn: publication?.id }),
-        ...(isQuote && { quoteOn: quotedPublication?.id }),
+        ...(isComment && { commentOn: post?.id }),
+        ...(isQuote && { quoteOn: quotedPost?.id }),
         openActionModules,
         ...(onlyFollowers && {
           referenceModule:
@@ -522,9 +519,9 @@ const NewPublication: FC<NewPublicationProps> = ({
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       <LinkPreviews />
       <NewAttachments attachments={attachments} />
-      {quotedPublication ? (
+      {quotedPost ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPost isNew post={removeQuoteOn(quotedPublication as Quote)} />
+          <QuotedPost isNew post={removeQuoteOn(quotedPost as Quote)} />
         </Wrapper>
       ) : null}
       <div className="divider mx-5" />
@@ -540,7 +537,7 @@ const NewPublication: FC<NewPublicationProps> = ({
             showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {publication?.momoka?.proof ? null : (
+          {post?.momoka?.proof ? null : (
             <>
               <CollectSettings />
               <ReferenceSettings />

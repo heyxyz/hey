@@ -8,7 +8,7 @@ import DeletePublication from "./Alert/DeletePublication";
 const GlobalAlerts: FC = () => {
   const {
     blockingorUnblockingProfile,
-    modingPublication,
+    modingPost,
     setShowGardenerActionsAlert,
     showGardenerActionsAlert
   } = useGlobalAlertStateStore();
@@ -20,14 +20,14 @@ const GlobalAlerts: FC = () => {
   return (
     <>
       <DeletePublication />
-      {modingPublication && (
+      {modingPost && (
         <Alert
           description="Perform mod actions on this publication."
           onClose={handleCloseGardenerActionsAlert}
           show={showGardenerActionsAlert}
           title="Mod actions"
         >
-          <GardenerActions publication={modingPublication} />
+          <GardenerActions post={modingPost} />
         </Alert>
       )}
       {blockingorUnblockingProfile && <BlockOrUnBlockProfile />}
