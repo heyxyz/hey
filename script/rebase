@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Usage: script/rebase
+# Rebase the current branch with the main branch and automatically force-push the changes
+
+# Check for uncommitted changes
+if [[ $(git status --porcelain) ]]; then
+  echo "Uncommitted changes detected. Please commit or stash them before running this script."
+  exit 1
+fi
+
+# Capture the current branch before switching
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$current_branch" == "main" ]; then
+  echo "You are already on the main branch. Please switch to a feature branch to rebase."
+  exit 1
+fi
+
+# Fetch the latest changes from the remote repository
+git fetch origin
+
+# Check out the main branch and pull the latest changes
+git checkout main
+if ! git pull origin main; then
+  echo "Failed to pull the latest changes from main. Please check your network or remote repository."
+  exit 1
+fi
+
+# Switch back to the original branch
+git checkout "$current_branch"
+
+# Rebase the current branch onto the updated main branch
+if ! git rebase main; then
+  echo "Rebase encountered conflicts. Please resolve them before proceeding."
+  exit 1
+fi
+
+echo "Rebase with main branch completed successfully."
+
+# Force-push the rebased branch to the remote repository
+if git push --force-with-lease; then
+  echo "Changes force-pushed to remote branch $current_branch successfully."
+else
+  echo "Failed to force-push changes. Please check your remote branch status."
+  exit 1
+fi
