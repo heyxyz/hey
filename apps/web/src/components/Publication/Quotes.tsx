@@ -89,7 +89,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
           <SinglePost
             isFirst={false}
             isLast={index === quotes.length - 1}
-            publication={quote as Quote}
+            post={quote as Quote}
             showType={false}
           />
         )}

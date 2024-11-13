@@ -43,7 +43,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
     variables: { request }
   });
 
-  const publications = data?.publicationBookmarks?.items;
+  const posts = data?.publicationBookmarks?.items;
   const pageInfo = data?.publicationBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -73,7 +73,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
     return <PostsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (posts?.length === 0) {
     return (
       <EmptyState
         icon={<BookmarkIcon className="size-8" />}
@@ -90,15 +90,15 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, publication) => `${publication.id}-${index}`}
-        data={publications}
+        computeItemKey={(index, post) => `${post.id}-${index}`}
+        data={posts}
         endReached={onEndReached}
         isScrolling={onScrolling}
-        itemContent={(index, publication) => (
+        itemContent={(index, post) => (
           <SinglePost
             isFirst={index === 0}
-            isLast={index === (publications?.length || 0) - 1}
-            publication={publication as AnyPublication}
+            isLast={index === (posts?.length || 0) - 1}
+            post={post as AnyPublication}
           />
         )}
         ref={virtuoso}

@@ -82,7 +82,7 @@ const ForYou: FC = () => {
             <SinglePost
               isFirst={index === 0}
               isLast={index === (publications?.length || 0) - 1}
-              publication={item.publication as AnyPublication}
+              post={item.publication as AnyPublication}
             />
           )}
           useWindowScroll

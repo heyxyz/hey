@@ -63,7 +63,7 @@ const ReportsFeed: FC = () => {
           <Card>
             <SinglePost
               isFirst
-              publication={report.reportedPublication as AnyPublication}
+              post={report.reportedPublication as AnyPublication}
               showActions={false}
               showThread={false}
             />

@@ -46,7 +46,7 @@ const SearchFeed: FC = () => {
     });
 
   const search = data?.searchPublications;
-  const publications = search?.items as AnyPublication[];
+  const posts = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -83,7 +83,7 @@ const SearchFeed: FC = () => {
       </form>
       {loading ? (
         <PostsShimmer />
-      ) : !query || publications?.length === 0 ? (
+      ) : !query || posts?.length === 0 ? (
         <EmptyState
           icon={<ChatBubbleBottomCenterIcon className="size-8" />}
           message="No posts yet!"
@@ -94,20 +94,18 @@ const SearchFeed: FC = () => {
         <Virtuoso
           className="[&>div>div]:space-y-5"
           components={{ Footer: () => <div className="pb-5" /> }}
-          computeItemKey={(index, publication) => `${publication.id}-${index}`}
-          data={publications}
+          computeItemKey={(index, post) => `${post.id}-${index}`}
+          data={posts}
           endReached={onEndReached}
-          itemContent={(_, publication) => {
-            const targetPost = isRepost(publication)
-              ? publication.mirrorOn
-              : publication;
+          itemContent={(_, post) => {
+            const targetPost = isRepost(post) ? post.mirrorOn : post;
 
             return (
               <Card>
                 <SinglePost
                   isFirst
                   isLast={false}
-                  publication={publication as AnyPublication}
+                  post={post as AnyPublication}
                   showActions={false}
                   showThread={false}
                 />

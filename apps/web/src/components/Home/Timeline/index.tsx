@@ -113,7 +113,7 @@ const Timeline: FC = () => {
               feedItem={feedItem as FeedItem}
               isFirst={index === 0}
               isLast={index === (feed?.length || 0) - 1}
-              publication={feedItem.root as AnyPublication}
+              post={feedItem.root as AnyPublication}
             />
           )}
           ref={virtuoso}
