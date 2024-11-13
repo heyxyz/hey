@@ -14,11 +14,11 @@ import { Card, Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-interface QueuedPublicationProps {
+interface QueuedPostProps {
   txn: OptimisticTransaction;
 }
 
-const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
+const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
   const { currentProfile } = useProfileStore();
 
   const { cache } = useApolloClient();
@@ -84,4 +84,4 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   );
 };
 
-export default QueuedPublication;
+export default QueuedPost;

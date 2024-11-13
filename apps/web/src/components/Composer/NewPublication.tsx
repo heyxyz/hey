@@ -1,5 +1,5 @@
 import NewAttachments from "@components/Composer/NewAttachments";
-import QuotedPublication from "@components/Publication/QuotedPublication";
+import QuotedPost from "@components/Publication/QuotedPost";
 import { AudioPublicationSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
@@ -524,7 +524,7 @@ const NewPublication: FC<NewPublicationProps> = ({
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPublication
+          <QuotedPost
             isNew
             publication={removeQuoteOn(quotedPublication as Quote)}
           />

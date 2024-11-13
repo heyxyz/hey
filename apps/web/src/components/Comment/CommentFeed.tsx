@@ -1,5 +1,5 @@
 import { useHiddenCommentFeedStore } from "@components/Publication";
-import QueuedPublication from "@components/Publication/QueuedPublication";
+import QueuedPost from "@components/Publication/QueuedPost";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
@@ -100,7 +100,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
   return (
     <>
       {queuedComments.map((txn) => (
-        <QueuedPublication key={txn.txId} txn={txn} />
+        <QueuedPost key={txn.txId} txn={txn} />
       ))}
       <Card>
         <Virtuoso

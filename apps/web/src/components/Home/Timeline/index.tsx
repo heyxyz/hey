@@ -1,4 +1,4 @@
-import QueuedPublication from "@components/Publication/QueuedPublication";
+import QueuedPost from "@components/Publication/QueuedPost";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
@@ -98,7 +98,7 @@ const Timeline: FC = () => {
     <>
       {txnQueue.map((txn) =>
         txn?.type !== OptmisticPublicationType.Comment ? (
-          <QueuedPublication key={txn.txId} txn={txn} />
+          <QueuedPost key={txn.txId} txn={txn} />
         ) : null
       )}
       <Card>

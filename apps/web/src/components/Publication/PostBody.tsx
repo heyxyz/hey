@@ -22,7 +22,7 @@ import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Checkin from "./Checkin";
 import EncryptedPublication from "./EncryptedPublication";
 import Metadata from "./Metadata";
-import MutedPublication from "./MutedPublication";
+import MutedPost from "./MutedPost";
 import NotSupportedPublication from "./NotSupportedPublication";
 import Poll from "./Poll";
 
@@ -113,7 +113,7 @@ const PostBody: FC<PostBodyProps> = ({
     !showMutedPublication
   ) {
     return (
-      <MutedPublication
+      <MutedPost
         type={targetPublication.__typename}
         setShowMutedPublication={setShowMutedPublication}
       />

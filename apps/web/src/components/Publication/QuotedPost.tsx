@@ -7,15 +7,12 @@ import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
 
-interface QuotedPublicationProps {
+interface QuotedPostProps {
   isNew?: boolean;
   publication: PrimaryPublication;
 }
 
-const QuotedPublication: FC<QuotedPublicationProps> = ({
-  isNew = false,
-  publication
-}) => {
+const QuotedPost: FC<QuotedPostProps> = ({ isNew = false, publication }) => {
   usePushToImpressions(publication.id);
 
   return (
@@ -36,4 +33,4 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
   );
 };
 
-export default QuotedPublication;
+export default QuotedPost;

@@ -1,4 +1,4 @@
-import QueuedPublication from "@components/Publication/QueuedPublication";
+import QueuedPost from "@components/Publication/QueuedPost";
 import SinglePublication from "@components/Publication/SinglePublication";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
@@ -69,7 +69,7 @@ const ForYou: FC = () => {
     <>
       {txnQueue.map((txn) =>
         txn?.type === OptmisticPublicationType.Post ? (
-          <QueuedPublication key={txn.txId} txn={txn} />
+          <QueuedPost key={txn.txId} txn={txn} />
         ) : null
       )}
       <Card>
