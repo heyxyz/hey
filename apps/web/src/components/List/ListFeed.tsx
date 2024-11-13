@@ -1,4 +1,4 @@
-import SinglePost from "@components/Publication/SinglePost";
+import SinglePost from "@components/Post/SinglePost";
 import PinUnpinButton from "@components/Shared/List/PinUnpinButton";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import SingleList from "@components/Shared/SingleList";

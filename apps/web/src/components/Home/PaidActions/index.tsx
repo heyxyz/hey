@@ -1,4 +1,4 @@
-import SinglePost from "@components/Publication/SinglePost";
+import SinglePost from "@components/Post/SinglePost";
 import PaidActionsShimmer from "@components/Shared/Shimmer/PaidActionsShimmer";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, LatestActed, PaginatedRequest } from "@hey/lens";

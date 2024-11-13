@@ -1,4 +1,4 @@
-import GardenerActions from "@components/Publication/Actions/HigherActions/GardenerActions";
+import GardenerActions from "@components/Post/Actions/HigherActions/GardenerActions";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";

@@ -1,4 +1,4 @@
-import Source from "@components/Publication/Source";
+import Source from "@components/Post/Source";
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";

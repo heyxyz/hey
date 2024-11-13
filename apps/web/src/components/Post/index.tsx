@@ -49,7 +49,7 @@ const store = create<HiddenCommentFeedState>((set) => ({
 
 export const useHiddenCommentFeedStore = createTrackedSelector(store);
 
-const ViewPublication: NextPage = () => {
+const ViewPost: NextPage = () => {
   const {
     isReady,
     pathname,
@@ -158,4 +158,4 @@ const ViewPublication: NextPage = () => {
   );
 };
 
-export default ViewPublication;
+export default ViewPost;

@@ -1,6 +1,6 @@
-import { useHiddenCommentFeedStore } from "@components/Publication";
-import QueuedPost from "@components/Publication/QueuedPost";
-import SinglePost from "@components/Publication/SinglePost";
+import { useHiddenCommentFeedStore } from "@components/Post";
+import QueuedPost from "@components/Post/QueuedPost";
+import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { Comment, PublicationsRequest } from "@hey/lens";

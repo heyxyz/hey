@@ -1,5 +1,5 @@
-import QueuedPost from "@components/Publication/QueuedPost";
-import SinglePost from "@components/Publication/SinglePost";
+import QueuedPost from "@components/Post/QueuedPost";
+import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { HEY_CURATED_ID } from "@hey/data/constants";

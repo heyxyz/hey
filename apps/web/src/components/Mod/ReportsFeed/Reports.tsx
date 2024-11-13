@@ -1,4 +1,4 @@
-import SinglePost from "@components/Publication/SinglePost";
+import SinglePost from "@components/Post/SinglePost";
 import Loader from "@components/Shared/Loader";
 import { FlagIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";

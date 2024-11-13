@@ -1,5 +1,5 @@
 import NewAttachments from "@components/Composer/NewAttachments";
-import QuotedPost from "@components/Publication/QuotedPost";
+import QuotedPost from "@components/Post/QuotedPost";
 import { AudioPublicationSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
