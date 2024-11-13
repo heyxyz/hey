@@ -8,9 +8,9 @@ import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-const Publications: FC = () => {
+const Posts: FC = () => {
   const { currentProfile } = useProfileStore();
-  const [publications, setPublications] = useState<any[]>([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
@@ -26,19 +26,15 @@ const Publications: FC = () => {
   const handleExportClick = async () => {
     Leafwatch.track(SETTINGS.EXPORT.PUBLICATIONS);
     setExporting(true);
-    const fetchPublications = async (cursor?: string) => {
+    const fetchPosts = async (cursor?: string) => {
       const { data } = await exportPublications({
         onCompleted: (data) => {
-          setPublications((prev) => {
-            const newPublications = data.publications.items.filter(
-              (newPublication) => {
-                return !prev.some(
-                  (publication) => publication.id === newPublication.id
-                );
-              }
-            );
+          setPosts((prev) => {
+            const newPosts = data.publications.items.filter((newPost) => {
+              return !prev.some((post) => post.id === newPost.id);
+            });
 
-            return [...prev, ...newPublications];
+            return [...prev, ...newPosts];
           });
         },
         variables: { request: { ...request, cursor } }
@@ -51,16 +47,16 @@ const Publications: FC = () => {
         setFetchCompleted(true);
         setExporting(false);
       } else {
-        await fetchPublications(data?.publications.pageInfo.next);
+        await fetchPosts(data?.publications.pageInfo.next);
       }
     };
 
-    await fetchPublications();
+    await fetchPosts();
   };
 
   const handleDownload = () => {
-    downloadJson(publications, "publications", () => {
-      setPublications([]);
+    downloadJson(posts, "posts", () => {
+      setPosts([]);
       setFetchCompleted(false);
     });
   };
@@ -69,17 +65,17 @@ const Publications: FC = () => {
     <Card>
       <CardHeader
         body="Export all your posts, comments and mirrors to a JSON file."
-        title="Export publications"
+        title="Export posts"
       />
       <div className="m-5">
-        {publications.length > 0 ? (
+        {posts.length > 0 ? (
           <div className="pb-2">
-            Exported <b>{publications.length}</b> publications
+            Exported <b>{posts.length}</b> posts
           </div>
         ) : null}
         {fetchCompleted ? (
           <Button onClick={handleDownload} outline>
-            Download publications
+            Download posts
           </Button>
         ) : (
           <Button disabled={exporting} onClick={handleExportClick} outline>
@@ -91,4 +87,4 @@ const Publications: FC = () => {
   );
 };
 
-export default Publications;
+export default Posts;

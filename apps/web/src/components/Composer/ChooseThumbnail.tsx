@@ -7,8 +7,8 @@ import { Spinner } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;

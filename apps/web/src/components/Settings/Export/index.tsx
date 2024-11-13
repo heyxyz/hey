@@ -11,8 +11,8 @@ import SettingsSidebar from "../Sidebar";
 import Followers from "./Followers";
 import Following from "./Following";
 import Notifications from "./Notifications";
+import Posts from "./Posts";
 import Profile from "./Profile";
-import Publications from "./Publications";
 import Tokens from "./Tokens";
 
 const ExportSettings: NextPage = () => {
@@ -34,7 +34,7 @@ const ExportSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Profile />
-        <Publications />
+        <Posts />
         <Notifications />
         <Following />
         <Followers />

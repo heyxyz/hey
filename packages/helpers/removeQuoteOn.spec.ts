@@ -3,26 +3,26 @@ import removeQuoteOn from "./removeQuoteOn";
 
 describe("removeQuoteOn", () => {
   test('should remove "quoteOn" property from a Quote object', () => {
-    const publication: any = {
+    const post: any = {
       author: "John Doe",
       content: "Lorem ipsum dolor sit amet",
       quoteOn: "Some quote"
     };
 
-    const expectedPublication = {
+    const expectedPost = {
       author: "John Doe",
       content: "Lorem ipsum dolor sit amet"
     };
 
-    expect(removeQuoteOn(publication)).toEqual(expectedPublication);
+    expect(removeQuoteOn(post)).toEqual(expectedPost);
   });
 
   test('should return the same object if "quoteOn" property is not present', () => {
-    const publication: any = {
+    const post: any = {
       author: "John Doe",
       content: "Lorem ipsum dolor sit amet"
     };
 
-    expect(removeQuoteOn(publication)).toStrictEqual(publication);
+    expect(removeQuoteOn(post)).toStrictEqual(post);
   });
 });

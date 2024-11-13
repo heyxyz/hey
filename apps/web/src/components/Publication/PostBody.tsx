@@ -86,7 +86,7 @@ const PostBody: FC<PostBodyProps> = ({
   const showCheckin = metadata.__typename === "CheckingInMetadataV3";
   // Show quote
   const showQuote = targetPost.__typename === "Quote";
-  // Show oembed if no NFT, no attachments, no quoted publication
+  // Show oembed if no NFT, no attachments, no quoted post
   const hideOembed =
     getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
     "true";
