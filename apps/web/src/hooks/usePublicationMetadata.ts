@@ -9,8 +9,8 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
 import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
 import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
@@ -28,7 +28,7 @@ const usePublicationMetadata = () => {
   const { license } = usePublicationLicenseStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
-  const { attributes } = usePublicationAttributesStore();
+  const { attributes } = usePostAttributesStore();
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {

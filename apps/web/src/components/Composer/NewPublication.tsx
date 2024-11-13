@@ -37,11 +37,11 @@ import useCreatePublication from "src/hooks/useCreatePublication";
 import usePublicationMetadata from "src/hooks/usePublicationMetadata";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import {
   DEFAULT_AUDIO_PUBLICATION,
   usePublicationAudioStore
@@ -144,7 +144,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     useReferenceModuleStore();
 
   // Attributes store
-  const { reset: resetAttributes } = usePublicationAttributesStore();
+  const { reset: resetAttributes } = usePostAttributesStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);
