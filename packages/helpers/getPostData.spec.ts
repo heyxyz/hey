@@ -18,22 +18,22 @@ describe("getPostData", () => {
   test("should return correct data for TextOnlyMetadataV3", () => {
     const metadata: any = {
       __typename: "TextOnlyMetadataV3",
-      content: "This is a text-only publication"
+      content: "This is a text-only post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
-      content: "This is a text-only publication"
+      content: "This is a text-only post"
     });
   });
 
   test("should return correct data for LinkMetadataV3", () => {
     const metadata: any = {
       __typename: "LinkMetadataV3",
-      content: "This is a link publication"
+      content: "This is a link post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
-      content: "This is a link publication"
+      content: "This is a link post"
     });
   });
 
@@ -42,13 +42,13 @@ describe("getPostData", () => {
       __typename: "ImageMetadataV3",
       asset: { image: { optimized: { uri: "image-uri" } } },
       attachments: ["attachment1", "attachment2"],
-      content: "This is an image publication"
+      content: "This is an image post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
       asset: { type: "Image", uri: "image-uri" },
       attachments: expect.any(Array),
-      content: "This is an image publication"
+      content: "This is an image post"
     });
   });
 
@@ -61,7 +61,7 @@ describe("getPostData", () => {
         cover: { optimized: { uri: "cover-uri" } }
       },
       attachments: ["attachment1", "attachment2"],
-      content: "This is an audio publication",
+      content: "This is an audio post",
       title: "Audio Title"
     };
     const result = getPostData(metadata);
@@ -73,7 +73,7 @@ describe("getPostData", () => {
         type: "Audio",
         uri: "audio-uri"
       },
-      content: "This is an audio publication"
+      content: "This is an audio post"
     });
   });
 
@@ -85,12 +85,12 @@ describe("getPostData", () => {
         video: { optimized: { uri: "video-uri" } }
       },
       attachments: ["attachment1", "attachment2"],
-      content: "This is a video publication"
+      content: "This is a video post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
       asset: { cover: "cover-uri", type: "Video", uri: "video-uri" },
-      content: "This is a video publication"
+      content: "This is a video post"
     });
   });
 
@@ -98,12 +98,12 @@ describe("getPostData", () => {
     const metadata: any = {
       __typename: "MintMetadataV3",
       attachments: ["attachment1", "attachment2"],
-      content: "This is a mint publication"
+      content: "This is a mint post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
-      content: "This is a mint publication"
+      content: "This is a mint post"
     });
   });
 
@@ -111,12 +111,12 @@ describe("getPostData", () => {
     const metadata: any = {
       __typename: "LiveStreamMetadataV3",
       attachments: ["attachment1", "attachment2"],
-      content: "This is a live stream publication"
+      content: "This is a live stream post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
-      content: "This is a live stream publication"
+      content: "This is a live stream post"
     });
   });
 
@@ -124,19 +124,19 @@ describe("getPostData", () => {
     const metadata: any = {
       __typename: "CheckingInMetadataV3",
       attachments: ["attachment1", "attachment2"],
-      content: "This is a checking in publication"
+      content: "This is a checking in post"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
-      content: "This is a checking in publication"
+      content: "This is a checking in post"
     });
   });
 
   test("should return null for unknown metadata __typename", () => {
     const metadata: any = {
       __typename: "UnknownMetadataType",
-      content: "This is an unknown publication"
+      content: "This is an unknown post"
     };
     const result = getPostData(metadata);
     expect(result).toBeNull();
@@ -147,13 +147,13 @@ describe("getPostData", () => {
       __typename: "ImageMetadataV3",
       asset: { image: { optimized: { uri: "image-uri" } } },
       attachments: null,
-      content: "This is an image publication with missing attachments"
+      content: "This is an image post with missing attachments"
     };
     const result = getPostData(metadata);
     expect(result).toEqual({
       asset: { type: "Image", uri: "image-uri" },
       attachments: expect.any(Array),
-      content: "This is an image publication with missing attachments"
+      content: "This is an image post with missing attachments"
     });
   });
 

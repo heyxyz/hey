@@ -18,10 +18,9 @@ describe("getPostsViews", () => {
     const ids = ["0x0d-0x01", "0x0d-0x02"];
     const result = await getPostsViews(ids);
 
-    expect(axios.post).toHaveBeenCalledWith(
-      `${HEY_API_URL}/stats/publication/views`,
-      { ids }
-    );
+    expect(axios.post).toHaveBeenCalledWith(`${HEY_API_URL}/stats/post/views`, {
+      ids
+    });
     expect(result).toEqual({ "0x0d-0x01": 100, "0x0d-0x02": 200 });
   });
 
@@ -31,10 +30,9 @@ describe("getPostsViews", () => {
     const ids = ["0x0d-0x01"];
     const result = await getPostsViews(ids);
 
-    expect(axios.post).toHaveBeenCalledWith(
-      `${HEY_API_URL}/stats/publication/views`,
-      { ids }
-    );
+    expect(axios.post).toHaveBeenCalledWith(`${HEY_API_URL}/stats/post/views`, {
+      ids
+    });
     expect(result).toEqual([]);
   });
 
@@ -42,10 +40,9 @@ describe("getPostsViews", () => {
     const ids: string[] = [];
     const result = await getPostsViews(ids);
 
-    expect(axios.post).toHaveBeenCalledWith(
-      `${HEY_API_URL}/stats/publication/views`,
-      { ids }
-    );
+    expect(axios.post).toHaveBeenCalledWith(`${HEY_API_URL}/stats/post/views`, {
+      ids
+    });
     expect(result).toEqual([]);
   });
 });
