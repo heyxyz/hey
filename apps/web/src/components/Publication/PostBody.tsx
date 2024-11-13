@@ -5,8 +5,8 @@ import Oembed from "@components/Shared/Oembed";
 import Video from "@components/Shared/Video";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import getPostAttribute from "@hey/helpers/getPostAttribute";
 import getPostData from "@hey/helpers/getPostData";
-import getPublicationAttribute from "@hey/helpers/getPublicationAttribute";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
@@ -77,7 +77,7 @@ const PostBody: FC<PostBodyProps> = ({
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
-  const pollId = getPublicationAttribute(
+  const pollId = getPostAttribute(
     metadata.attributes,
     KNOWN_ATTRIBUTES.POLL_ID
   );
@@ -90,10 +90,8 @@ const PostBody: FC<PostBodyProps> = ({
   const showQuote = targetPublication.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted publication
   const hideOembed =
-    getPublicationAttribute(
-      metadata.attributes,
-      KNOWN_ATTRIBUTES.HIDE_OEMBED
-    ) === "true";
+    getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
+    "true";
   const showOembed =
     !hideOembed &&
     !showSharingLink &&
