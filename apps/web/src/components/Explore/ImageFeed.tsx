@@ -1,5 +1,5 @@
-import SingleImagePost from "@components/Publication/SingleImagePost";
-import ImagePublicationsShimmer from "@components/Shared/Shimmer/ImagePublicationsShimmer";
+import SingleImagePost from "@components/Post/SingleImagePost";
+import ImagePostsShimmer from "@components/Shared/Shimmer/ImagePostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   type AnyPublication,
@@ -48,7 +48,7 @@ const ImageFeed: FC<ImageFeedProps> = ({
   const posts = data?.explorePublications?.items;
 
   if (loading) {
-    return <ImagePublicationsShimmer />;
+    return <ImagePostsShimmer />;
   }
 
   if (posts?.length === 0) {

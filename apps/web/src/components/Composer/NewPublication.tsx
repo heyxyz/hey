@@ -1,5 +1,5 @@
 import NewAttachments from "@components/Composer/NewAttachments";
-import QuotedPost from "@components/Publication/QuotedPost";
+import QuotedPost from "@components/Post/QuotedPost";
 import { AudioPublicationSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
@@ -33,7 +33,7 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
-import useCreatePublication from "src/hooks/useCreatePublication";
+import useCreatePost from "src/hooks/useCreatePost";
 import usePostMetadata from "src/hooks/usePostMetadata";
 import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
@@ -246,7 +246,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     createQuoteOnChain,
     createQuoteOnMomka,
     error
-  } = useCreatePublication({
+  } = useCreatePost({
     commentOn: post,
     onCompleted,
     onError,

@@ -1,4 +1,4 @@
-import CollectAction from "@components/Publication/OpenAction/CollectModule/CollectAction";
+import CollectAction from "@components/Post/OpenAction/CollectModule/CollectAction";
 import Loader from "@components/Shared/Loader";
 import { signatureFont } from "@helpers/fonts";
 import {

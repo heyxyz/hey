@@ -1,4 +1,3 @@
-import PublicationProfile from "@components/Publication/PublicationProfile";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -6,6 +5,7 @@ import type { AnyPublication, FeedItem } from "@hey/lens";
 import type { FC } from "react";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import PostMenu from "./Actions/Menu";
+import PostProfile from "./PostProfile";
 
 interface PostHeaderProps {
   feedItem?: FeedItem;
@@ -32,7 +32,7 @@ const PostHeader: FC<PostHeaderProps> = ({
       className="flex w-full items-start justify-between"
       onClick={stopEventPropagation}
     >
-      <PublicationProfile
+      <PostProfile
         profile={profile}
         postId={targetPost.id}
         source={targetPost.publishedOn?.id}

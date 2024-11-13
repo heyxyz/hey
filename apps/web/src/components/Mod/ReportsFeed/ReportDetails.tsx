@@ -1,5 +1,5 @@
 import Reports from "@components/Mod/ReportsFeed/Reports";
-import StaffActions from "@components/Publication/Actions/HigherActions/StaffActions";
+import StaffActions from "@components/Post/Actions/HigherActions/StaffActions";
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";

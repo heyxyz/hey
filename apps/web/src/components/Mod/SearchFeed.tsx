@@ -1,5 +1,5 @@
-import HigherActions from "@components/Publication/Actions/HigherActions";
-import SinglePost from "@components/Publication/SinglePost";
+import HigherActions from "@components/Post/Actions/HigherActions";
+import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
