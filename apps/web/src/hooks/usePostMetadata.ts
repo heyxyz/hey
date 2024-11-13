@@ -9,29 +9,29 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
+import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
-import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
-import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
-import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { v4 as uuid } from "uuid";
+import { usePostAudioStore } from "../store/non-persisted/publication/usePostAudioStore";
 
-interface UsePublicationMetadataProps {
+interface UsePostMetadataProps {
   baseMetadata: any;
 }
 
-const usePublicationMetadata = () => {
-  const { tags } = usePublicationStore();
+const usePostMetadata = () => {
+  const { tags } = usePostStore();
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
-  const { audioPublication } = usePublicationAudioStore();
-  const { license } = usePublicationLicenseStore();
+  const { audioPublication } = usePostAudioStore();
+  const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore((state) => state);
-  const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
-  const { attributes } = usePublicationAttributesStore();
+  const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
+  const { attributes } = usePostAttributesStore();
 
   const getMetadata = useCallback(
-    ({ baseMetadata }: UsePublicationMetadataProps) => {
+    ({ baseMetadata }: UsePostMetadataProps) => {
       const hasAttachments = attachments.length;
       const isImage = attachments[0]?.type === "Image";
       const isAudio = attachments[0]?.type === "Audio";
@@ -136,4 +136,4 @@ const usePublicationMetadata = () => {
   return getMetadata;
 };
 
-export default usePublicationMetadata;
+export default usePostMetadata;

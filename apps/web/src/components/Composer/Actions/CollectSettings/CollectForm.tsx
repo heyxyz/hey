@@ -5,7 +5,7 @@ import type { CollectModuleType } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
-import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
+import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 import { isAddress } from "viem";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
@@ -22,7 +22,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const { collectModule, reset, setCollectModule } = useCollectModuleStore(
     (state) => state
   );
-  const { setLicense } = usePublicationLicenseStore();
+  const { setLicense } = usePostLicenseStore();
 
   const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients || [];

@@ -14,7 +14,7 @@ import axios from "axios";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
+import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
 
 interface WrapperProps {
   children: ReactNode;
@@ -34,7 +34,7 @@ const LivestreamEditor: FC = () => {
     resetLiveVideoConfig,
     setLiveVideoConfig,
     setShowLiveVideoEditor
-  } = usePublicationLiveStore();
+  } = usePostLiveStore();
 
   const [screen, setScreen] = useState<"create" | "record">("create");
   const [creating, setCreating] = useState(false);

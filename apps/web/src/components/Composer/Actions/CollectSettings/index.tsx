@@ -3,12 +3,12 @@ import { Modal, Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
-import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
+import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 import CollectForm from "./CollectForm";
 
 const CollectSettings: FC = () => {
   const { reset } = useCollectModuleStore((state) => state);
-  const { setLicense } = usePublicationLicenseStore();
+  const { setLicense } = usePostLicenseStore();
   const [showModal, setShowModal] = useState(false);
 
   return (

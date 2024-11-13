@@ -34,7 +34,7 @@ import {
 import { OptmisticPublicationType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { useRouter } from "next/router";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -62,7 +62,7 @@ const useCreatePublication = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
-  const { publicationContent } = usePublicationStore();
+  const { publicationContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);

@@ -3,10 +3,10 @@ import { Select, Tooltip } from "@hey/ui";
 import { MetadataLicenseType } from "@lens-protocol/metadata";
 import Link from "next/link";
 import type { FC } from "react";
-import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
+import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 
 const LicensePicker: FC = () => {
-  const { license, setLicense } = usePublicationLicenseStore();
+  const { license, setLicense } = usePostLicenseStore();
 
   const otherOptions = Object.values(MetadataLicenseType)
     .filter((type) => getAssetLicense(type))

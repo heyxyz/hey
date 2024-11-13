@@ -6,14 +6,14 @@ import { MetadataAttributeType } from "@lens-protocol/metadata";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 
 const LinkPreviews: FC = () => {
-  const { publicationContent, quotedPost } = usePublicationStore();
+  const { publicationContent, quotedPost } = usePostStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { addAttribute, getAttribute, removeAttribute } =
-    usePublicationAttributesStore();
+    usePostAttributesStore();
   const [showRemove, setShowRemove] = useState(false);
 
   const urls = getURLs(publicationContent);

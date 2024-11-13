@@ -1,12 +1,12 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import axios from "axios";
-import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
+import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
 
 type CreatePollResponse = string;
 
 const useCreatePoll = () => {
-  const { pollConfig } = usePublicationPollStore();
+  const { pollConfig } = usePostPollStore();
 
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {

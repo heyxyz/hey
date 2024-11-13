@@ -6,7 +6,7 @@ import { TriStateValue } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
@@ -18,7 +18,7 @@ interface QuoteProps {
 const Quote: FC<QuoteProps> = ({ post }) => {
   const { currentProfile } = useProfileStore();
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
-  const { setQuotedPost } = usePublicationStore();
+  const { setQuotedPost } = usePostStore();
   const { isSuspended } = useProfileStatus();
   const publicationType = post.__typename;
 

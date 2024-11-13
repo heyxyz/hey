@@ -34,22 +34,22 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePublication from "src/hooks/useCreatePublication";
-import usePublicationMetadata from "src/hooks/usePublicationMetadata";
+import usePostMetadata from "src/hooks/usePostMetadata";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
+import {
+  DEFAULT_AUDIO_PUBLICATION,
+  usePostAudioStore
+} from "src/store/non-persisted/publication/usePostAudioStore";
+import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
+import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
-import {
-  DEFAULT_AUDIO_PUBLICATION,
-  usePublicationAudioStore
-} from "src/store/non-persisted/publication/usePublicationAudioStore";
-import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
-import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
-import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
@@ -111,17 +111,17 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     setPublicationContent,
     setQuotedPost,
     setTags
-  } = usePublicationStore();
+  } = usePostStore();
 
   // Audio store
-  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePostAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
 
   // Live video store
   const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
-    usePublicationLiveStore();
+    usePostLiveStore();
 
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
@@ -129,10 +129,10 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   // Poll store
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePublicationPollStore();
+    usePostPollStore();
 
   // License store
-  const { setLicense } = usePublicationLicenseStore();
+  const { setLicense } = usePostLicenseStore();
 
   // Collect module store
   const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
@@ -144,7 +144,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     useReferenceModuleStore();
 
   // Attributes store
-  const { reset: resetAttributes } = usePublicationAttributesStore();
+  const { reset: resetAttributes } = usePostAttributesStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -154,7 +154,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   const editor = useEditorContext();
   const createPoll = useCreatePoll();
-  const getMetadata = usePublicationMetadata();
+  const getMetadata = usePostMetadata();
 
   const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
 

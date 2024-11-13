@@ -21,4 +21,4 @@ const store = create<State>((set) => ({
   tags: null
 }));
 
-export const usePublicationStore = createTrackedSelector(store);
+export const usePostStore = createTrackedSelector(store);

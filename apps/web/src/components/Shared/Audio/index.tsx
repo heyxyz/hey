@@ -7,7 +7,7 @@ import type { AnyPublication, Profile } from "@hey/lens";
 import type { APITypes } from "plyr-react";
 import type { ChangeEvent, FC } from "react";
 import { useRef, useState } from "react";
-import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
+import { usePostAudioStore } from "src/store/non-persisted/publication/usePostAudioStore";
 import { object, string } from "zod";
 import CoverImage from "./CoverImage";
 import Player from "./Player";
@@ -37,7 +37,7 @@ const Audio: FC<AudioProps> = ({
   src,
   title
 }) => {
-  const { audioPublication, setAudioPublication } = usePublicationAudioStore();
+  const { audioPublication, setAudioPublication } = usePostAudioStore();
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
   const playerRef = useRef<APITypes>(null);

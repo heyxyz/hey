@@ -34,4 +34,4 @@ const store = create<State>((set, get) => ({
     }))
 }));
 
-export const usePublicationAttributesStore = createTrackedSelector(store);
+export const usePostAttributesStore = createTrackedSelector(store);
