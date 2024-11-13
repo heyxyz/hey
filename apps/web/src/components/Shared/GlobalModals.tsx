@@ -1,5 +1,5 @@
 import NewPublication from "@components/Composer/NewPublication";
-import ReportPublication from "@components/Shared/Modal/ReportPublication";
+import ReportPost from "@components/Shared/Modal/ReportPost";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
@@ -56,7 +56,7 @@ const GlobalModals: FC = () => {
         show={showPublicationReportModal}
         title="Report Publication"
       >
-        <ReportPublication postId={reportingPublicationId} />
+        <ReportPost postId={reportingPublicationId} />
       </Modal>
       <Modal
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
