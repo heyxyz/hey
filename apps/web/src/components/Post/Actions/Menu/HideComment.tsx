@@ -1,5 +1,5 @@
 import type { ApolloCache } from "@apollo/client";
-import { useHiddenCommentFeedStore } from "@components/Publication";
+import { useHiddenCommentFeedStore } from "@components/Post";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";

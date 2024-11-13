@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-const ImagePublicationsShimmer: FC = () => {
+const ImagePostsShimmer: FC = () => {
   return (
     <div className="grid grid-cols-3 gap-4">
       {Array.from({ length: 6 }).map((_, index) => (
@@ -10,4 +10,4 @@ const ImagePublicationsShimmer: FC = () => {
   );
 };
 
-export default ImagePublicationsShimmer;
+export default ImagePostsShimmer;

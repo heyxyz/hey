@@ -1,4 +1,4 @@
-import Source from "@components/Publication/Source";
+import Source from "@components/Post/Source";
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
@@ -11,7 +11,7 @@ import ProfilePreview from "../Shared/ProfilePreview";
 import Slug from "../Shared/Slug";
 import ClubHandle from "./ClubHandle";
 
-interface FeedUserProfileProps {
+interface PostProfileProps {
   profile: Profile;
   postId: string;
   source?: string;
@@ -19,7 +19,7 @@ interface FeedUserProfileProps {
   timestamp: Date;
 }
 
-const PublicationProfile: FC<FeedUserProfileProps> = ({
+const PostProfile: FC<PostProfileProps> = ({
   profile,
   postId,
   source,
@@ -65,4 +65,4 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
   );
 };
 
-export default memo(PublicationProfile);
+export default memo(PostProfile);
