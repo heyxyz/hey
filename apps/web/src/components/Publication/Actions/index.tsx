@@ -41,12 +41,10 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
         <Comment publication={targetPost} showCount={showCount} />
         <ShareMenu publication={post} showCount={showCount} />
         <Like publication={targetPost} showCount={showCount} />
-        {canAct && !showCount ? <OpenAction publication={targetPost} /> : null}
+        {canAct && !showCount ? <OpenAction post={targetPost} /> : null}
         <Tip publication={targetPost} showCount={showCount} />
         {views > 0 ? <Views showCount={showCount} views={views} /> : null}
-        {isGardener ? (
-          <Mod isFullPublication={showCount} publication={targetPost} />
-        ) : null}
+        {isGardener ? <Mod isFullPost={showCount} post={targetPost} /> : null}
       </span>
       {canAct ? <Collect post={targetPost} /> : null}
     </span>
