@@ -66,9 +66,7 @@ const SinglePost: FC<SinglePostProps> = ({
           ) : (
             <>
               <PostBody post={rootPublication} showMore={showMore} />
-              {showActions ? (
-                <PostActions publication={rootPublication} />
-              ) : null}
+              {showActions ? <PostActions post={rootPublication} /> : null}
             </>
           )}
         </div>

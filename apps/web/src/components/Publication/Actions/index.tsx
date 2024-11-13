@@ -18,15 +18,12 @@ import Tip from "./Tip";
 import Views from "./Views";
 
 interface PostActionsProps {
-  publication: AnyPublication;
+  post: AnyPublication;
   showCount?: boolean;
 }
 
-const PostActions: FC<PostActionsProps> = ({
-  publication,
-  showCount = false
-}) => {
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { publicationViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
   const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;
@@ -42,7 +39,7 @@ const PostActions: FC<PostActionsProps> = ({
     >
       <span className="flex items-center gap-x-6">
         <Comment publication={targetPost} showCount={showCount} />
-        <ShareMenu publication={publication} showCount={showCount} />
+        <ShareMenu publication={post} showCount={showCount} />
         <Like publication={targetPost} showCount={showCount} />
         {canAct && !showCount ? <OpenAction publication={targetPost} /> : null}
         <Tip publication={targetPost} showCount={showCount} />

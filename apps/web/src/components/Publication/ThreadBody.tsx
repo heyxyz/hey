@@ -27,7 +27,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
           ) : (
             <>
               <PostBody post={publication} />
-              <PostActions publication={publication} />
+              <PostActions post={publication} />
             </>
           )}
         </div>

@@ -87,7 +87,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
               />
               <div className="divider" />
               <div className="flex items-center justify-between">
-                <PostActions publication={targetPost} showCount />
+                <PostActions post={targetPost} showCount />
                 {hasHiddenComments ? (
                   <div className="mt-2">
                     <button
