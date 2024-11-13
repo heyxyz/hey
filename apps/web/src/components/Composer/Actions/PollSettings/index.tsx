@@ -1,11 +1,11 @@
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
-import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
+import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
 
 const PollSettings: FC = () => {
   const { resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePublicationPollStore();
+    usePostPollStore();
 
   return (
     <Tooltip content="Poll" placement="top">

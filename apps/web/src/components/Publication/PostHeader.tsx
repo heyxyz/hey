@@ -4,7 +4,7 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import type { FC } from "react";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import PostMenu from "./Actions/Menu";
 
 interface PostHeaderProps {
@@ -20,7 +20,7 @@ const PostHeader: FC<PostHeaderProps> = ({
   post,
   quoted = false
 }) => {
-  const { setQuotedPost } = usePublicationStore();
+  const { setQuotedPost } = usePostStore();
 
   const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
