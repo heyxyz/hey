@@ -524,10 +524,7 @@ const NewPublication: FC<NewPublicationProps> = ({
       <NewAttachments attachments={attachments} />
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPost
-            isNew
-            publication={removeQuoteOn(quotedPublication as Quote)}
-          />
+          <QuotedPost isNew post={removeQuoteOn(quotedPublication as Quote)} />
         </Wrapper>
       ) : null}
       <div className="divider mx-5" />

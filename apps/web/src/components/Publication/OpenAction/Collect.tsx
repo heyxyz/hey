@@ -11,19 +11,18 @@ import { useState } from "react";
 import CollectModule from "./CollectModule";
 
 interface CollectProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Collect: FC<CollectProps> = ({ publication }) => {
+const Collect: FC<CollectProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const openActions = publication.openActionModules.filter((module) =>
+  const openActions = post.openActionModules.filter((module) =>
     allowedOpenActionModules.includes(module.type)
   );
 
   const hasActed =
-    publication.operations.hasActed.value ||
-    hasOptimisticallyCollected(publication.id);
+    post.operations.hasActed.value || hasOptimisticallyCollected(post.id);
 
   if (!enabled) {
     return null;
@@ -35,7 +34,7 @@ const Collect: FC<CollectProps> = ({ publication }) => {
         onClick={() => {
           setShowCollectModal(true);
           Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
-            publication_id: publication.id,
+            publication_id: post.id,
             source: "button"
           });
         }}
@@ -50,11 +49,7 @@ const Collect: FC<CollectProps> = ({ publication }) => {
         title="Collect"
       >
         {openActions?.map((action) => (
-          <CollectModule
-            key={action.type}
-            openAction={action}
-            publication={publication}
-          />
+          <CollectModule key={action.type} openAction={action} post={post} />
         ))}
       </Modal>
     </>

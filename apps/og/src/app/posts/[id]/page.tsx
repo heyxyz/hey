@@ -4,7 +4,7 @@ import { APP_NAME } from "@hey/data/constants";
 import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
 import logger from "@hey/helpers/logger";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { PublicationDocument } from "@hey/lens";
 import { addTypenameToDocument } from "apollo-utilities";
@@ -39,20 +39,18 @@ export const generateMetadata = async ({
   }
 
   const publication = result.data.publication as AnyPublication;
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
-  const { by: profile, metadata } = targetPublication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const { by: profile, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
   const { displayName, link, slugWithPrefix } = getProfile(profile);
-  const title = `${targetPublication.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
+  const title = `${targetPost.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz/posts/${targetPublication.id}` },
+    alternates: { canonical: `https://hey.xyz/posts/${targetPost.id}` },
     applicationName: APP_NAME,
     authors: {
       name: displayName,
@@ -79,22 +77,22 @@ export const generateMetadata = async ({
       displayName,
       slugWithPrefix
     ],
-    metadataBase: new URL(`https://hey.xyz/posts/${targetPublication.id}`),
+    metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
     openGraph: {
       description: description,
       images: getPublicationOGImages(metadata) as any,
       siteName: "Hey",
       type: "article",
-      url: `https://hey.xyz/posts/${targetPublication.id}`
+      url: `https://hey.xyz/posts/${targetPost.id}`
     },
     other: {
-      "count:actions": targetPublication.stats.countOpenActions,
-      "count:comments": targetPublication.stats.comments,
-      "count:likes": targetPublication.stats.reactions,
-      "count:mirrors": targetPublication.stats.mirrors,
-      "count:quotes": targetPublication.stats.quotes,
-      "lens:id": targetPublication.id,
-      ...getCollectModuleMetadata(targetPublication)
+      "count:actions": targetPost.stats.countOpenActions,
+      "count:comments": targetPost.stats.comments,
+      "count:likes": targetPost.stats.reactions,
+      "count:mirrors": targetPost.stats.mirrors,
+      "count:quotes": targetPost.stats.quotes,
+      "lens:id": targetPost.id,
+      ...getCollectModuleMetadata(targetPost)
     },
     publisher: displayName,
     title: title,

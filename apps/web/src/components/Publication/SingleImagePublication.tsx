@@ -1,6 +1,6 @@
 import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
 import getPostData from "@hey/helpers/getPostData";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
@@ -14,15 +14,13 @@ interface SingleImagePublicationProps {
 const SingleImagePublication: FC<SingleImagePublicationProps> = ({
   publication
 }) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
   const filteredAttachments =
-    getPostData(targetPublication.metadata)?.attachments || [];
-  const filteredAsset = getPostData(targetPublication.metadata)?.asset;
+    getPostData(targetPost.metadata)?.attachments || [];
+  const filteredAsset = getPostData(targetPost.metadata)?.asset;
   const backgroundImage = filteredAsset?.uri || filteredAttachments[0]?.uri;
 
-  usePushToImpressions(targetPublication.id);
+  usePushToImpressions(targetPost.id);
 
   return (
     <Link
@@ -35,7 +33,7 @@ const SingleImagePublication: FC<SingleImagePublicationProps> = ({
     >
       <div className="absolute inset-0 rounded-lg bg-black opacity-30" />
       <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-bold text-sm text-white">
-        <SmallSingleProfile profile={targetPublication.by} hideSlug />
+        <SmallSingleProfile profile={targetPost.by} hideSlug />
       </div>
     </Link>
   );

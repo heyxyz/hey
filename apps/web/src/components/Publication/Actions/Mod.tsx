@@ -5,14 +5,14 @@ import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
 interface ModProps {
-  isFullPublication?: boolean;
-  publication: MirrorablePublication;
+  isFullPost?: boolean;
+  post: MirrorablePublication;
 }
 
-const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
+const Mod: FC<ModProps> = ({ isFullPost = false, post }) => {
   const { setShowGardenerActionsAlert } = useGlobalAlertStateStore();
 
-  const iconClassName = isFullPublication
+  const iconClassName = isFullPost
     ? "w-[17px] sm:w-[20px]"
     : "w-[15px] sm:w-[18px]";
 
@@ -20,7 +20,7 @@ const Mod: FC<ModProps> = ({ isFullPublication = false, publication }) => {
     <button
       aria-label="Mod"
       className="rounded-full p-1.5 text-yellow-600 outline-offset-2 hover:bg-yellow-400/20"
-      onClick={() => setShowGardenerActionsAlert(true, publication)}
+      onClick={() => setShowGardenerActionsAlert(true, post)}
       type="button"
     >
       <Tooltip content="Mod actions" placement="top" withDelay>

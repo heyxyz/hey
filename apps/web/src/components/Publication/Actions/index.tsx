@@ -1,7 +1,7 @@
 import { FeatureFlag } from "@hey/data/feature-flags";
 import getPublicationViewCountById from "@hey/helpers/getPublicationViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication } from "@hey/lens";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -18,27 +18,19 @@ import Tip from "./Tip";
 import Views from "./Views";
 
 interface PostActionsProps {
-  publication: AnyPublication;
+  post: AnyPublication;
   showCount?: boolean;
 }
 
-const PostActions: FC<PostActionsProps> = ({
-  publication,
-  showCount = false
-}) => {
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
+const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { publicationViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
-  const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
+  const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;
 
   const canAct =
-    hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
-  const views = getPublicationViewCountById(
-    publicationViews,
-    targetPublication.id
-  );
+    hasOpenAction && isOpenActionAllowed(targetPost.openActionModules);
+  const views = getPublicationViewCountById(publicationViews, targetPost.id);
 
   return (
     <span
@@ -46,19 +38,15 @@ const PostActions: FC<PostActionsProps> = ({
       onClick={stopEventPropagation}
     >
       <span className="flex items-center gap-x-6">
-        <Comment publication={targetPublication} showCount={showCount} />
-        <ShareMenu publication={publication} showCount={showCount} />
-        <Like publication={targetPublication} showCount={showCount} />
-        {canAct && !showCount ? (
-          <OpenAction publication={targetPublication} />
-        ) : null}
-        <Tip publication={targetPublication} showCount={showCount} />
+        <Comment post={targetPost} showCount={showCount} />
+        <ShareMenu post={post} showCount={showCount} />
+        <Like post={targetPost} showCount={showCount} />
+        {canAct && !showCount ? <OpenAction post={targetPost} /> : null}
+        <Tip post={targetPost} showCount={showCount} />
         {views > 0 ? <Views showCount={showCount} views={views} /> : null}
-        {isGardener ? (
-          <Mod isFullPublication={showCount} publication={targetPublication} />
-        ) : null}
+        {isGardener ? <Mod isFullPost={showCount} post={targetPost} /> : null}
       </span>
-      {canAct ? <Collect publication={targetPublication} /> : null}
+      {canAct ? <Collect post={targetPost} /> : null}
     </span>
   );
 };

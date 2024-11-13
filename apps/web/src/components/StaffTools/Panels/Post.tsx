@@ -1,19 +1,17 @@
 import MetaDetails from "@components/Shared/MetaDetails";
 import { HashtagIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { isCommentPublication } from "@hey/helpers/publicationHelpers";
+import { isCommentPost } from "@hey/helpers/postHelpers";
 import type { MirrorablePublication } from "@hey/lens";
 import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 
-interface PublicationStaffToolProps {
+interface PostStaffToolProps {
   publication: MirrorablePublication;
 }
 
-const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
-  publication
-}) => {
-  const isComment = isCommentPublication(publication);
+const PostStaffTool: FC<PostStaffToolProps> = ({ publication }) => {
+  const isComment = isCommentPost(publication);
 
   return (
     <Card
@@ -58,4 +56,4 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   );
 };
 
-export default PublicationStaffTool;
+export default PostStaffTool;

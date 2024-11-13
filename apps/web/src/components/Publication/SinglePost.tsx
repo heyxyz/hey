@@ -17,7 +17,7 @@ interface SinglePostProps {
   header?: ReactNode;
   isFirst?: boolean;
   isLast?: boolean;
-  publication: AnyPublication;
+  post: AnyPublication;
   showActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;
@@ -29,13 +29,13 @@ const SinglePost: FC<SinglePostProps> = ({
   header,
   isFirst = false,
   isLast = false,
-  publication,
+  post,
   showActions = true,
   showMore = true,
   showThread = true,
   showType = true
 }) => {
-  const rootPublication = feedItem ? feedItem?.root : publication;
+  const rootPublication = feedItem ? feedItem?.root : post;
   usePushToImpressions(rootPublication.id);
 
   return (
@@ -52,7 +52,7 @@ const SinglePost: FC<SinglePostProps> = ({
         <ActionType feedItem={feedItem} />
       ) : (
         <PublicationType
-          publication={publication}
+          publication={post}
           showThread={showThread}
           showType={showType}
         />
@@ -61,14 +61,12 @@ const SinglePost: FC<SinglePostProps> = ({
         <PostAvatar feedItem={feedItem} publication={rootPublication} />
         <div className="w-[calc(100%-55px)]">
           <PostHeader feedItem={feedItem} publication={rootPublication} />
-          {publication.isHidden ? (
-            <HiddenPost type={publication.__typename} />
+          {post.isHidden ? (
+            <HiddenPost type={post.__typename} />
           ) : (
             <>
-              <PostBody publication={rootPublication} showMore={showMore} />
-              {showActions ? (
-                <PostActions publication={rootPublication} />
-              ) : null}
+              <PostBody post={rootPublication} showMore={showMore} />
+              {showActions ? <PostActions post={rootPublication} /> : null}
             </>
           )}
         </div>

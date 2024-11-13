@@ -5,14 +5,14 @@ import NewPublication from "@components/Composer/NewPublication";
 import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning";
 import Footer from "@components/Shared/Footer";
 import SingleProfile from "@components/Shared/SingleProfile";
-import PublicationStaffTool from "@components/StaffTools/Panels/Publication";
+import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW, ProfileLinkSource } from "@hey/data/tracking";
 import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
-import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
+import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import {
   HiddenCommentsType,
@@ -104,23 +104,21 @@ const ViewPublication: NextPage = () => {
 
   const publication =
     preLoadedPublication || (data?.publication as AnyPublication);
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication;
+  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
   const suspended = isSuspended || isCommentSuspended;
 
   return (
     <GridLayout>
       <MetaTags
-        creator={getProfile(targetPublication.by).displayName}
-        description={getPostData(targetPublication.metadata)?.content}
-        title={`${targetPublication.__typename} by ${
-          getProfile(targetPublication.by).slugWithPrefix
+        creator={getProfile(targetPost.by).displayName}
+        description={getPostData(targetPost.metadata)?.content}
+        title={`${targetPost.__typename} by ${
+          getProfile(targetPost.by).slugWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         {showQuotes ? (
-          <Quotes publicationId={targetPublication.id} />
+          <Quotes publicationId={targetPost.id} />
         ) : (
           <>
             <Card>
@@ -132,12 +130,12 @@ const ViewPublication: NextPage = () => {
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
             {currentProfile && !publication.isHidden && !suspended ? (
-              <NewPublication publication={targetPublication} />
+              <NewPublication publication={targetPost} />
             ) : null}
             {publication.isHidden ? null : (
               <>
-                <CommentFeed publicationId={targetPublication.id} />
-                <NoneRelevantFeed publicationId={targetPublication.id} />
+                <CommentFeed publicationId={targetPost.id} />
+                <NoneRelevantFeed publicationId={targetPost.id} />
               </>
             )}
           </>
@@ -146,19 +144,15 @@ const ViewPublication: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <SingleProfile
-            hideFollowButton={currentProfile?.id === targetPublication.by.id}
-            hideUnfollowButton={currentProfile?.id === targetPublication.by.id}
-            profile={targetPublication.by}
+            hideFollowButton={currentProfile?.id === targetPost.by.id}
+            hideUnfollowButton={currentProfile?.id === targetPost.by.id}
+            profile={targetPost.by}
             showBio
             source={ProfileLinkSource.Publication}
           />
         </Card>
-        <RelevantPeople
-          profilesMentioned={targetPublication.profilesMentioned}
-        />
-        {isStaff ? (
-          <PublicationStaffTool publication={targetPublication} />
-        ) : null}
+        <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />
+        {isStaff ? <PostStaffTool publication={targetPost} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>
