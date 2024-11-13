@@ -10,8 +10,8 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW, ProfileLinkSource } from "@hey/data/tracking";
+import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
-import getPublicationData from "@hey/helpers/getPublicationData";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
 import {
@@ -113,7 +113,7 @@ const ViewPublication: NextPage = () => {
     <GridLayout>
       <MetaTags
         creator={getProfile(targetPublication.by).displayName}
-        description={getPublicationData(targetPublication.metadata)?.content}
+        description={getPostData(targetPublication.metadata)?.content}
         title={`${targetPublication.__typename} by ${
           getProfile(targetPublication.by).slugWithPrefix
         } • ${APP_NAME}`}

@@ -1,6 +1,6 @@
 import getAssetLicense from "@helpers/getAssetLicense";
 import { ScaleIcon } from "@heroicons/react/24/outline";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { PublicationMetadata } from "@hey/lens";
 import { Card } from "@hey/ui";
 import type { FC } from "react";
@@ -11,7 +11,7 @@ interface MetadataProps {
 }
 
 const Metadata: FC<MetadataProps> = ({ metadata }) => {
-  const filteredAsset = getPublicationData(metadata)?.asset;
+  const filteredAsset = getPostData(metadata)?.asset;
   const license = getAssetLicense(filteredAsset?.license);
 
   if (!license) {

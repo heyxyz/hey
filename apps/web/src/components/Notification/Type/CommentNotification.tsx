@@ -1,6 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { CommentNotification as TCommentNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
@@ -16,7 +16,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
   notification
 }) => {
   const metadata = notification?.comment.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || "";
+  const filteredContent = getPostData(metadata)?.content || "";
   const firstProfile = notification.comment.by;
 
   const text = "commented on your";

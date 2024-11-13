@@ -5,8 +5,8 @@ import Oembed from "@components/Shared/Oembed";
 import Video from "@components/Shared/Video";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import getPostData from "@hey/helpers/getPostData";
 import getPublicationAttribute from "@hey/helpers/getPublicationAttribute";
-import getPublicationData from "@hey/helpers/getPublicationData";
 import getURLs from "@hey/helpers/getURLs";
 import isPublicationMetadataTypeAllowed from "@hey/helpers/isPublicationMetadataTypeAllowed";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
@@ -47,9 +47,9 @@ const PostBody: FC<PostBodyProps> = ({
     : publication;
   const { id, metadata } = targetPublication;
 
-  const filteredContent = getPublicationData(metadata)?.content || "";
-  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
-  const filteredAsset = getPublicationData(metadata)?.asset;
+  const filteredContent = getPostData(metadata)?.content || "";
+  const filteredAttachments = getPostData(metadata)?.attachments || [];
+  const filteredAsset = getPostData(metadata)?.asset;
 
   const canShowMore = filteredContent?.length > 450 && showMore;
   const urls = getURLs(filteredContent);

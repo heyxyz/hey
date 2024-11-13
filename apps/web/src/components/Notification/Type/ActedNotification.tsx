@@ -1,6 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { ActedNotification as TActedNotification } from "@hey/lens";
 import Link from "next/link";
@@ -20,7 +20,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
     ? publication.mirrorOn
     : publication;
   const { metadata } = targetPublication;
-  const filteredContent = getPublicationData(metadata)?.content || "";
+  const filteredContent = getPostData(metadata)?.content || "";
   const actions = notification?.actions;
   const firstProfile = actions?.[0]?.by;
   const length = actions.length - 1;

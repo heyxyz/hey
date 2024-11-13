@@ -1,14 +1,14 @@
 import { describe, expect, test } from "vitest";
-import getPublicationData from "./getPublicationData";
+import getPostData from "./getPostData";
 
-describe("getPublicationData", () => {
+describe("getPostData", () => {
   test("should return correct data for ArticleMetadataV3", () => {
     const metadata: any = {
       __typename: "ArticleMetadataV3",
       attachments: ["attachment1", "attachment2"],
       content: "This is an article"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
       content: "This is an article"
@@ -20,7 +20,7 @@ describe("getPublicationData", () => {
       __typename: "TextOnlyMetadataV3",
       content: "This is a text-only publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       content: "This is a text-only publication"
     });
@@ -31,7 +31,7 @@ describe("getPublicationData", () => {
       __typename: "LinkMetadataV3",
       content: "This is a link publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       content: "This is a link publication"
     });
@@ -44,7 +44,7 @@ describe("getPublicationData", () => {
       attachments: ["attachment1", "attachment2"],
       content: "This is an image publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       asset: { type: "Image", uri: "image-uri" },
       attachments: expect.any(Array),
@@ -64,7 +64,7 @@ describe("getPublicationData", () => {
       content: "This is an audio publication",
       title: "Audio Title"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       asset: {
         artist: "Artist Name",
@@ -87,7 +87,7 @@ describe("getPublicationData", () => {
       attachments: ["attachment1", "attachment2"],
       content: "This is a video publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       asset: { cover: "cover-uri", type: "Video", uri: "video-uri" },
       content: "This is a video publication"
@@ -100,7 +100,7 @@ describe("getPublicationData", () => {
       attachments: ["attachment1", "attachment2"],
       content: "This is a mint publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
       content: "This is a mint publication"
@@ -113,7 +113,7 @@ describe("getPublicationData", () => {
       attachments: ["attachment1", "attachment2"],
       content: "This is a live stream publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
       content: "This is a live stream publication"
@@ -126,7 +126,7 @@ describe("getPublicationData", () => {
       attachments: ["attachment1", "attachment2"],
       content: "This is a checking in publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
       content: "This is a checking in publication"
@@ -138,7 +138,7 @@ describe("getPublicationData", () => {
       __typename: "UnknownMetadataType",
       content: "This is an unknown publication"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toBeNull();
   });
 
@@ -149,7 +149,7 @@ describe("getPublicationData", () => {
       attachments: null,
       content: "This is an image publication with missing attachments"
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       asset: { type: "Image", uri: "image-uri" },
       attachments: expect.any(Array),
@@ -163,7 +163,7 @@ describe("getPublicationData", () => {
       attachments: undefined,
       content: undefined
     };
-    const result = getPublicationData(metadata);
+    const result = getPostData(metadata);
     expect(result).toEqual({
       attachments: expect.any(Array),
       content: undefined

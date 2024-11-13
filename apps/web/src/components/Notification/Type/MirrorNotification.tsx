@@ -1,6 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { MirrorNotification as TMirrorNotification } from "@hey/lens";
 import Link from "next/link";
 import plur from "plur";
@@ -15,7 +15,7 @@ interface MirrorNotificationProps {
 
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const metadata = notification?.publication.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || "";
+  const filteredContent = getPostData(metadata)?.content || "";
   const mirrors = notification?.mirrors;
   const firstProfile = mirrors?.[0]?.profile;
   const length = mirrors.length - 1;

@@ -1,8 +1,8 @@
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import getPublicationOGImages from "./getPublicationOGImages";
 
-vi.mock("@hey/helpers/getPublicationData", () => ({
+vi.mock("@hey/helpers/getPostData", () => ({
   default: vi.fn()
 }));
 
@@ -21,7 +21,7 @@ describe("getPublicationOGImages", () => {
       asset: { type: "Image", uri: "https://example.com/asset-image.jpg" }
     };
 
-    (getPublicationData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPublicationData);
 
     const result = getPublicationOGImages(mockMetadata);
     expect(result).toEqual([
@@ -37,7 +37,7 @@ describe("getPublicationOGImages", () => {
       asset: { type: "Image", uri: "https://example.com/asset-image.jpg" }
     };
 
-    (getPublicationData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPublicationData);
 
     const result = getPublicationOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/asset-image.jpg"]);
@@ -50,7 +50,7 @@ describe("getPublicationOGImages", () => {
       asset: { type: "Video", cover: "https://example.com/video-cover.jpg" }
     };
 
-    (getPublicationData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPublicationData);
 
     const result = getPublicationOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/video-cover.jpg"]);
@@ -63,7 +63,7 @@ describe("getPublicationOGImages", () => {
       asset: { type: "Audio", cover: "https://example.com/audio-cover.jpg" }
     };
 
-    (getPublicationData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPublicationData);
 
     const result = getPublicationOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/audio-cover.jpg"]);
@@ -79,7 +79,7 @@ describe("getPublicationOGImages", () => {
       asset: { type: "Video", cover: "https://example.com/video-cover.jpg" }
     };
 
-    (getPublicationData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPublicationData);
 
     const result = getPublicationOGImages(mockMetadata);
     expect(result).toEqual([
@@ -91,7 +91,7 @@ describe("getPublicationOGImages", () => {
   test("should return empty array if no valid data is present", () => {
     const mockMetadata = { __typename: "TextOnlyMetadata" } as any;
 
-    (getPublicationData as any).mockReturnValue({ attachments: [], asset: {} });
+    (getPostData as any).mockReturnValue({ attachments: [], asset: {} });
 
     const result = getPublicationOGImages(mockMetadata);
     expect(result).toEqual([]);

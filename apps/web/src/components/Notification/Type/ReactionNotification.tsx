@@ -1,6 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { ReactionNotification as TReactionNotification } from "@hey/lens";
 import Link from "next/link";
 import plur from "plur";
@@ -17,7 +17,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
   notification
 }) => {
   const metadata = notification?.publication.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || "";
+  const filteredContent = getPostData(metadata)?.content || "";
   const reactions = notification?.reactions;
   const firstProfile = reactions?.[0]?.profile;
   const length = reactions.length - 1;
