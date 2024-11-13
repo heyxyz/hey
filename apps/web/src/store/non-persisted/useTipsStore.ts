@@ -1,13 +1,13 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import getPostsTips from "@hey/helpers/api/getPostsTips";
-import type { PublicationTip } from "@hey/types/hey";
+import type { PostTip } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   addTip: (id: string) => void;
   fetchAndStoreTips: (ids: string[]) => void;
-  publicationTips: PublicationTip[];
+  publicationTips: PostTip[];
 }
 
 const store = create<State>((set, get) => ({

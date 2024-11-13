@@ -1,4 +1,4 @@
-import type { PublicationTip } from "@hey/types/hey";
+import type { PostTip } from "@hey/types/hey";
 
 /**
  * Get the tip object of a publication
@@ -6,7 +6,7 @@ import type { PublicationTip } from "@hey/types/hey";
  * @param id The publication id
  * @returns The tip object of the publication
  */
-const getPublicationTipById = (tips: PublicationTip[], id: string) => {
+const getPublicationTipById = (tips: PostTip[], id: string) => {
   return tips.find((v) => v.id === id);
 };
 

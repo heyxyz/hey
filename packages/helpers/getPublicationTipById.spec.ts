@@ -1,10 +1,10 @@
-import type { PublicationTip } from "@hey/types/hey";
+import type { PostTip } from "@hey/types/hey";
 import { describe, expect, test } from "vitest";
 import getPublicationTipById from "./getPublicationTipById";
 
 describe("getPublicationTipById", () => {
   test("should return the correct tip when the id matches", () => {
-    const tips: PublicationTip[] = [
+    const tips: PostTip[] = [
       { id: "0x01", count: 10, tipped: true },
       { id: "0x02", count: 20, tipped: false }
     ];
@@ -13,7 +13,7 @@ describe("getPublicationTipById", () => {
   });
 
   test("should return undefined when the id does not match any tip", () => {
-    const tips: PublicationTip[] = [
+    const tips: PostTip[] = [
       { id: "0x01", count: 10, tipped: true },
       { id: "0x02", count: 20, tipped: false }
     ];
@@ -22,13 +22,13 @@ describe("getPublicationTipById", () => {
   });
 
   test("should return undefined when the tips array is empty", () => {
-    const tips: PublicationTip[] = [];
+    const tips: PostTip[] = [];
     const result = getPublicationTipById(tips, "0x01");
     expect(result).toBeUndefined();
   });
 
   test("should return the first matching tip when there are multiple tips with the same id", () => {
-    const tips: PublicationTip[] = [
+    const tips: PostTip[] = [
       { id: "0x01", count: 10, tipped: true },
       { id: "0x01", count: 15, tipped: false }
     ];
@@ -37,7 +37,7 @@ describe("getPublicationTipById", () => {
   });
 
   test("should return undefined when id is an empty string", () => {
-    const tips: PublicationTip[] = [
+    const tips: PostTip[] = [
       { id: "0x01", count: 10, tipped: true },
       { id: "0x02", count: 20, tipped: false }
     ];

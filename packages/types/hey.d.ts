@@ -44,7 +44,7 @@ export type PostViewCount = {
   views: number;
 };
 
-export type PublicationTip = {
+export type PostTip = {
   count: number;
   id: string;
   tipped: boolean;
