@@ -19,7 +19,7 @@ import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
-import PublicationStats from "./PublicationStats";
+import PostStats from "./PostStats";
 import Translate from "./Translate";
 import PublicationType from "./Type";
 
@@ -81,7 +81,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
                   <span> · Posted via {getAppName(publishedOn.id)}</span>
                 ) : null}
               </div>
-              <PublicationStats
+              <PostStats
                 publicationId={targetPublication.id}
                 publicationStats={targetPublication.stats}
               />
