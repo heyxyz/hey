@@ -20,23 +20,23 @@ import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { object, string, type z } from "zod";
 import Reason from "./Reason";
 
-const newReportPublicationSchema = object({
+const newReportPostSchema = object({
   additionalComments: string().max(260, {
     message: "Additional comments should not exceed 260 characters"
   })
 });
 
-interface ReportProps {
+interface ReportPostProps {
   postId: null | string;
 }
 
-const ReportPublication: FC<ReportProps> = ({ postId }) => {
+const ReportPost: FC<ReportPostProps> = ({ postId }) => {
   const { isSuspended } = useProfileStatus();
   const [type, setType] = useState("");
   const [subReason, setSubReason] = useState("");
 
   const form = useZodForm({
-    schema: newReportPublicationSchema
+    schema: newReportPostSchema
   });
 
   const [
@@ -50,7 +50,7 @@ const ReportPublication: FC<ReportProps> = ({ postId }) => {
 
   const reportPublication = async ({
     additionalComments
-  }: z.infer<typeof newReportPublicationSchema>) => {
+  }: z.infer<typeof newReportPostSchema>) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
@@ -118,4 +118,4 @@ const ReportPublication: FC<ReportProps> = ({ postId }) => {
   );
 };
 
-export default ReportPublication;
+export default ReportPost;
