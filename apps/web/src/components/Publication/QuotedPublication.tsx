@@ -4,8 +4,8 @@ import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import HiddenPublication from "./HiddenPublication";
 import PostAvatar from "./PostAvatar";
+import PostHeader from "./PostHeader";
 import PublicationBody from "./PublicationBody";
-import PostHeader from "./PublicationHeader";
 
 interface QuotedPublicationProps {
   isNew?: boolean;

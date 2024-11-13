@@ -8,8 +8,8 @@ import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
 import PostAvatar from "./PostAvatar";
+import PostHeader from "./PostHeader";
 import PublicationBody from "./PublicationBody";
-import PostHeader from "./PublicationHeader";
 import PublicationType from "./Type";
 
 interface SinglePublicationProps {
