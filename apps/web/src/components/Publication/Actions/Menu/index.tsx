@@ -16,11 +16,11 @@ import NotInterested from "./NotInterested";
 import Report from "./Report";
 import Share from "./Share";
 
-interface PublicationMenuProps {
+interface PostMenuProps {
   post: MirrorablePublication;
 }
 
-const PublicationMenu: FC<PublicationMenuProps> = ({ post }) => {
+const PostMenu: FC<PostMenuProps> = ({ post }) => {
   const { currentProfile } = useProfileStore();
   const iconClassName = "w-[15px] sm:w-[18px]";
 
@@ -66,4 +66,4 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ post }) => {
   );
 };
 
-export default PublicationMenu;
+export default PostMenu;

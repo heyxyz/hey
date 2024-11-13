@@ -5,7 +5,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import type { FC } from "react";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
-import PublicationMenu from "./Actions/Menu";
+import PostMenu from "./Actions/Menu";
 
 interface PostHeaderProps {
   feedItem?: FeedItem;
@@ -40,7 +40,7 @@ const PostHeader: FC<PostHeaderProps> = ({
         timestamp={timestamp}
       />
       {!post.isHidden && !quoted ? (
-        <PublicationMenu post={targetPost} />
+        <PostMenu post={targetPost} />
       ) : (
         <div className="size-[30px]" />
       )}
