@@ -39,7 +39,7 @@ export type CollectModuleType = {
     | null;
 };
 
-export type PublicationViewCount = {
+export type PostViewCount = {
   id: string;
   views: number;
 };

@@ -1,4 +1,4 @@
-import type { PublicationViewCount } from "@hey/types/hey";
+import type { PostViewCount } from "@hey/types/hey";
 
 /**
  * Get the number of views of a publication
@@ -6,10 +6,7 @@ import type { PublicationViewCount } from "@hey/types/hey";
  * @param id The publication id
  * @returns The number of views of the publication
  */
-const getPublicationViewCountById = (
-  views: PublicationViewCount[],
-  id: string
-) => {
+const getPublicationViewCountById = (views: PostViewCount[], id: string) => {
   return views.find((v) => v.id === id)?.views || 0;
 };
 

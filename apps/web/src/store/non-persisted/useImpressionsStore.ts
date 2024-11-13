@@ -1,11 +1,11 @@
 import getPublicationsViews from "@hey/helpers/getPublicationsViews";
-import type { PublicationViewCount } from "@hey/types/hey";
+import type { PostViewCount } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   fetchAndStoreViews: (ids: string[]) => void;
-  publicationViews: PublicationViewCount[];
+  postViews: PostViewCount[];
 }
 
 const store = create<State>((set) => ({
@@ -16,10 +16,10 @@ const store = create<State>((set) => ({
 
     const viewsResponse = await getPublicationsViews(ids);
     set((state) => ({
-      publicationViews: [...state.publicationViews, ...viewsResponse]
+      postViews: [...state.postViews, ...viewsResponse]
     }));
   },
-  publicationViews: []
+  postViews: []
 }));
 
 export const useImpressionsStore = createTrackedSelector(store);

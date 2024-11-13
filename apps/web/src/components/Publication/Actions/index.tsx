@@ -24,13 +24,13 @@ interface PostActionsProps {
 
 const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
   const targetPost = isRepost(post) ? post.mirrorOn : post;
-  const { publicationViews } = useImpressionsStore();
+  const { postViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
   const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;
 
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPost.openActionModules);
-  const views = getPublicationViewCountById(publicationViews, targetPost.id);
+  const views = getPublicationViewCountById(postViews, targetPost.id);
 
   return (
     <span
