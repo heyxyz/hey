@@ -11,7 +11,6 @@ const DEBOUNCE_DELAY = 500;
 
 const useContentChange = (editor: Editor<EditorExtension>) => {
   const { setPublicationContent } = usePostStore();
-
   const [largeDocument, setLargeDocument] = useState(false);
 
   const setContent = useCallback(() => {
