@@ -6,8 +6,8 @@ import { Image, ProgressBar, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
+import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
-import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
 import Audio from "../Shared/Audio";
 
 const getClass = (attachments: number) => {
@@ -43,8 +43,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   hideDelete = false
 }) => {
   const { setAttachments } = usePublicationAttachmentStore((state) => state);
-  const { uploadedPercentage, setVideoDurationInSeconds } =
-    usePublicationVideoStore();
+  const { uploadedPercentage, setVideoDurationInSeconds } = usePostVideoStore();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const onDataLoaded = () => {

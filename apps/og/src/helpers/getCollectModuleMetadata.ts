@@ -4,8 +4,8 @@ import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import getProfile from "@hey/helpers/getProfile";
 import type { MirrorablePublication } from "@hey/lens";
 
-const getCollectModuleMetadata = (publication: MirrorablePublication) => {
-  const { openActionModules } = publication;
+const getCollectModuleMetadata = (post: MirrorablePublication) => {
+  const { openActionModules } = post;
 
   if (!openActionModules) {
     return;
@@ -22,16 +22,16 @@ const getCollectModuleMetadata = (publication: MirrorablePublication) => {
     return;
   }
 
-  const { slugWithPrefix } = getProfile(publication.by);
+  const { slugWithPrefix } = getProfile(post.by);
 
   return {
     "eth:nft:chain": "polygon",
-    "eth:nft:collection": `${publication.__typename} by ${slugWithPrefix} • ${APP_NAME}`,
+    "eth:nft:collection": `${post.__typename} by ${slugWithPrefix} • ${APP_NAME}`,
     "eth:nft:contract_address": collectModule.contract.address,
-    "eth:nft:creator_address": publication.by.ownedBy.address,
-    "eth:nft:media_url": getPostOGImages(publication.metadata)[0],
-    "eth:nft:mint_count": publication.stats.countOpenActions,
-    "eth:nft:mint_url": `https://hey.xyz/posts/${publication.id}`,
+    "eth:nft:creator_address": post.by.ownedBy.address,
+    "eth:nft:media_url": getPostOGImages(post.metadata)[0],
+    "eth:nft:mint_count": post.stats.countOpenActions,
+    "eth:nft:mint_url": `https://hey.xyz/posts/${post.id}`,
     "eth:nft:schema": "ERC721"
   };
 };

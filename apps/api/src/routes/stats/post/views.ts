@@ -50,7 +50,7 @@ export const post = [
         id: row.publication,
         views: Number(row.count)
       }));
-      logger.info(`Fetched publication views for ${ids.length} publications`);
+      logger.info(`Fetched post views for ${ids.length} publications`);
 
       return res.status(200).json({ success: true, views: viewCounts });
     } catch (error) {

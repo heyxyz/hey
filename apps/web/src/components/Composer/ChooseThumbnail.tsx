@@ -7,8 +7,8 @@ import { Spinner } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
 import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
-import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -23,7 +23,7 @@ const ChooseThumbnail: FC = () => {
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
   const { attachments } = usePublicationAttachmentStore((state) => state);
-  const { setVideoThumbnail, videoThumbnail } = usePublicationVideoStore();
+  const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
   const { file } = attachments[0];
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
