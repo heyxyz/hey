@@ -21,10 +21,9 @@ const getPostsViews = async (
   }
 
   try {
-    const { data } = await axios.post(
-      `${HEY_API_URL}/stats/publication/views`,
-      { ids }
-    );
+    const { data } = await axios.post(`${HEY_API_URL}/stats/post/views`, {
+      ids
+    });
 
     return data?.views;
   } catch {

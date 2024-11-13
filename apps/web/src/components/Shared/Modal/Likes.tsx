@@ -14,19 +14,19 @@ import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface LikesProps {
-  publicationId: string;
+  postId: string;
 }
 
-const Likes: FC<LikesProps> = ({ publicationId }) => {
+const Likes: FC<LikesProps> = ({ postId }) => {
   const { currentProfile } = useProfileStore();
 
   const request: WhoReactedPublicationRequest = {
-    for: publicationId,
+    for: postId,
     limit: LimitType.TwentyFive
   };
 
   const { data, error, fetchMore, loading } = useWhoReactedPublicationQuery({
-    skip: !publicationId,
+    skip: !postId,
     variables: { request }
   });
 

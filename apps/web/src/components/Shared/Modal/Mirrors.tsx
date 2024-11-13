@@ -10,19 +10,19 @@ import { Virtuoso } from "react-virtuoso";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface MirrorsProps {
-  publicationId: string;
+  postId: string;
 }
 
-const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
+const Mirrors: FC<MirrorsProps> = ({ postId }) => {
   const { currentProfile } = useProfileStore();
 
   const request: ProfilesRequest = {
     limit: LimitType.TwentyFive,
-    where: { whoMirroredPublication: publicationId }
+    where: { whoMirroredPublication: postId }
   };
 
   const { data, error, fetchMore, loading } = useProfilesQuery({
-    skip: !publicationId,
+    skip: !postId,
     variables: { request }
   });
 

@@ -27,7 +27,7 @@ const PostType: FC<PostTypeProps> = ({
     <span onClick={stopEventPropagation}>
       {type === "Mirror" ? <Mirrored profile={post.by} /> : null}
       {type === "Comment" && (showThread || pathname === "/posts/[id]") ? (
-        <Commented publication={post} />
+        <Commented post={post} />
       ) : null}
     </span>
   );

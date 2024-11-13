@@ -8,13 +8,13 @@ import {
   video
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
 import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
 import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
 import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
-import { usePublicationVideoStore } from "src/store/non-persisted/publication/usePublicationVideoStore";
 import { v4 as uuid } from "uuid";
 
 interface UsePublicationMetadataProps {
@@ -23,10 +23,10 @@ interface UsePublicationMetadataProps {
 
 const usePublicationMetadata = () => {
   const { tags } = usePublicationStore();
-  const { videoDurationInSeconds, videoThumbnail } = usePublicationVideoStore();
+  const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPublication } = usePublicationAudioStore();
   const { license } = usePublicationLicenseStore();
-  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
   const { attributes } = usePublicationAttributesStore();
 

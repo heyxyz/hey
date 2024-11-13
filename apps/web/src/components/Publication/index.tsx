@@ -117,7 +117,7 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         {showQuotes ? (
-          <Quotes publicationId={targetPost.id} />
+          <Quotes postId={targetPost.id} />
         ) : (
           <>
             <Card>
@@ -133,8 +133,8 @@ const ViewPublication: NextPage = () => {
             ) : null}
             {post.isHidden ? null : (
               <>
-                <CommentFeed publicationId={targetPost.id} />
-                <NoneRelevantFeed publicationId={targetPost.id} />
+                <CommentFeed postId={targetPost.id} />
+                <NoneRelevantFeed postId={targetPost.id} />
               </>
             )}
           </>

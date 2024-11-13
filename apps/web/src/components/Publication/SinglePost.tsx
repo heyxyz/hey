@@ -45,7 +45,7 @@ const SinglePost: FC<SinglePostProps> = ({
         isLast && "rounded-b-xl",
         "cursor-pointer px-5 pt-4 pb-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900"
       )}
-      publication={rootPublication}
+      post={rootPublication}
     >
       {header}
       {feedItem ? (

@@ -10,13 +10,13 @@ import ReportDetails from "./ReportDetails";
 
 interface ReportsProps {
   profileId?: string;
-  publicationId?: string;
+  postId?: string;
 }
 
-const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
+const Reports: FC<ReportsProps> = ({ profileId, postId }) => {
   const request: ModReportsRequest = {
     ...(profileId && { forProfile: profileId }),
-    ...(publicationId && { forPublication: publicationId }),
+    ...(postId && { forPublication: postId }),
     limit: LimitType.Fifty
   };
 

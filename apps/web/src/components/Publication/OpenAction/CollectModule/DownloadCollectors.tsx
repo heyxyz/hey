@@ -14,10 +14,10 @@ import toast from "react-hot-toast";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface DownloadCollectorsProps {
-  publication: AnyPublication;
+  post: AnyPublication;
 }
 
-const DownloadCollectors: FC<DownloadCollectorsProps> = ({ publication }) => {
+const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
   const { currentProfile } = useProfileStore();
   const [disabled, setDisabled] = useState(false);
   const enabled = useFlag(FeatureFlag.ExportCollects);
@@ -26,7 +26,7 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ publication }) => {
     return null;
   }
 
-  if (currentProfile?.id !== publication.by.id) {
+  if (currentProfile?.id !== post.by.id) {
     return null;
   }
 
@@ -36,17 +36,14 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ publication }) => {
       axios
         .get(`${HEY_API_URL}/export/collects`, {
           headers: getAuthApiHeaders(),
-          params: { id: publication.id },
+          params: { id: post.id },
           responseType: "blob"
         })
         .then((response: AxiosResponse<Blob>) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
           link.href = url;
-          link.setAttribute(
-            "download",
-            `collect_addresses_${publication.id}.csv`
-          );
+          link.setAttribute("download", `collect_addresses_${post.id}.csv`);
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);

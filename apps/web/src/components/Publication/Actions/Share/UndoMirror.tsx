@@ -15,21 +15,15 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface MirrorProps {
   isLoading: boolean;
-  publication: AnyPublication;
+  post: AnyPublication;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const UndoMirror: FC<MirrorProps> = ({
-  isLoading,
-  publication,
-  setIsLoading
-}) => {
+const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentProfile } = useProfileStore();
   const { cache } = useApolloClient();
 
-  const targetPost = isRepost(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
 
   const updateCache = () => {
     cache.modify({
@@ -37,7 +31,7 @@ const UndoMirror: FC<MirrorProps> = ({
       id: cache.identify(targetPost.stats)
     });
     cache.evict({
-      id: `${publication?.__typename}:${publication?.id}`
+      id: `${post?.__typename}:${post?.id}`
     });
   };
 
@@ -63,7 +57,7 @@ const UndoMirror: FC<MirrorProps> = ({
       setIsLoading(true);
 
       return await hidePost({
-        variables: { request: { for: publication.id } }
+        variables: { request: { for: post.id } }
       });
     } catch (error) {
       onError(error);

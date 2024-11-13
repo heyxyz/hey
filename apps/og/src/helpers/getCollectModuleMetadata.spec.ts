@@ -26,7 +26,7 @@ describe("getCollectModuleMetadata", () => {
     (getProfile as any).mockReturnValue(mockProfile);
     (getPostOGImages as any).mockReturnValue(mockOGImages);
 
-    const publication = {
+    const post = {
       __typename: "MirrorablePublication",
       by: {
         ownedBy: { address: "0x1234567890abcdef" }
@@ -41,10 +41,10 @@ describe("getCollectModuleMetadata", () => {
         }
       ],
       stats: { countOpenActions: 10 },
-      id: "publication-id-123"
+      id: "post-id-123"
     } as any;
 
-    const result = getCollectModuleMetadata(publication);
+    const result = getCollectModuleMetadata(post);
 
     expect(result).toEqual({
       "eth:nft:chain": "polygon",
@@ -53,13 +53,13 @@ describe("getCollectModuleMetadata", () => {
       "eth:nft:creator_address": "0x1234567890abcdef",
       "eth:nft:media_url": "https://example.com/media.jpg",
       "eth:nft:mint_count": 10,
-      "eth:nft:mint_url": "https://hey.xyz/posts/publication-id-123",
+      "eth:nft:mint_url": "https://hey.xyz/posts/post-id-123",
       "eth:nft:schema": "ERC721"
     });
   });
 
   test("should return undefined when no open action module is present", () => {
-    const publication = {
+    const post = {
       __typename: "MirrorablePublication",
       by: {
         ownedBy: { address: "0x1234567890abcdef" }
@@ -69,15 +69,15 @@ describe("getCollectModuleMetadata", () => {
       },
       openActionModules: [],
       stats: { countOpenActions: 0 },
-      id: "publication-id-123"
+      id: "post-id-123"
     } as any;
 
-    const result = getCollectModuleMetadata(publication);
+    const result = getCollectModuleMetadata(post);
     expect(result).toBeUndefined();
   });
 
   test("should return undefined when collect module is not found", () => {
-    const publication = {
+    const post = {
       __typename: "MirrorablePublication",
       by: {
         ownedBy: { address: "0x1234567890abcdef" }
@@ -89,15 +89,15 @@ describe("getCollectModuleMetadata", () => {
         { type: "NonAllowedModuleType", contract: { address: "0xabcdef" } }
       ],
       stats: { countOpenActions: 0 },
-      id: "publication-id-123"
+      id: "post-id-123"
     } as any;
 
-    const result = getCollectModuleMetadata(publication);
+    const result = getCollectModuleMetadata(post);
     expect(result).toBeUndefined();
   });
 
   test("should return undefined when openActionModules is missing", () => {
-    const publication = {
+    const post = {
       __typename: "MirrorablePublication",
       by: {
         ownedBy: { address: "0x1234567890abcdef" }
@@ -106,15 +106,15 @@ describe("getCollectModuleMetadata", () => {
         title: "Test Publication"
       },
       stats: { countOpenActions: 0 },
-      id: "publication-id-123"
+      id: "post-id-123"
     } as any;
 
-    const result = getCollectModuleMetadata(publication);
+    const result = getCollectModuleMetadata(post);
     expect(result).toBeUndefined();
   });
 
   test("should return undefined when no valid collect module is found", () => {
-    const publication = {
+    const post = {
       __typename: "MirrorablePublication",
       by: {
         ownedBy: { address: "0x1234567890abcdef" }
@@ -126,10 +126,10 @@ describe("getCollectModuleMetadata", () => {
         { type: "UnknownModuleType", contract: { address: "0xabcdef" } }
       ],
       stats: { countOpenActions: 0 },
-      id: "publication-id-123"
+      id: "post-id-123"
     } as any;
 
-    const result = getCollectModuleMetadata(publication);
+    const result = getCollectModuleMetadata(post);
     expect(result).toBeUndefined();
   });
 });

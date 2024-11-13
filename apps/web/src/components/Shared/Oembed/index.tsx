@@ -16,11 +16,11 @@ const GET_OEMBED_QUERY_KEY = "getOembed";
 
 interface OembedProps {
   onLoad?: (og: OG) => void;
-  publication?: AnyPublication;
+  post?: AnyPublication;
   url: string;
 }
 
-const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
+const Oembed: FC<OembedProps> = ({ onLoad, post, url }) => {
   const { data, error, isLoading } = useQuery({
     enabled: Boolean(url),
     queryFn: async () => {
@@ -33,14 +33,13 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
     refetchOnMount: false
   });
 
-  const [currentPublication, setCurrentPublication] =
-    useState<AnyPublication>();
+  const [currentPost, setCurrentPost] = useState<AnyPublication>();
 
   useEffect(() => {
-    if (publication) {
-      setCurrentPublication(publication);
+    if (post) {
+      setCurrentPost(post);
     }
-  }, [publication]);
+  }, [post]);
 
   useEffect(() => {
     if (onLoad) {
@@ -83,10 +82,10 @@ const Oembed: FC<OembedProps> = ({ onLoad, publication, url }) => {
   }
 
   if (og.frame) {
-    return <Frame frame={og.frame} publicationId={currentPublication?.id} />;
+    return <Frame frame={og.frame} postId={currentPost?.id} />;
   }
 
-  return <Embed og={og} publicationId={currentPublication?.id} />;
+  return <Embed og={og} postId={currentPost?.id} />;
 };
 
 export default Oembed;

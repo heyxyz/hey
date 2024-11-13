@@ -78,10 +78,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
                   <span> · Posted via {getAppName(publishedOn.id)}</span>
                 ) : null}
               </div>
-              <PostStats
-                publicationId={targetPost.id}
-                publicationStats={targetPost.stats}
-              />
+              <PostStats postId={targetPost.id} postStats={targetPost.stats} />
               <div className="divider" />
               <div className="flex items-center justify-between">
                 <PostActions post={targetPost} showCount />

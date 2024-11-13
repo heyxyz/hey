@@ -13,7 +13,7 @@ import ClubHandle from "./ClubHandle";
 
 interface FeedUserProfileProps {
   profile: Profile;
-  publicationId: string;
+  postId: string;
   source?: string;
   tags: string[];
   timestamp: Date;
@@ -21,7 +21,7 @@ interface FeedUserProfileProps {
 
 const PublicationProfile: FC<FeedUserProfileProps> = ({
   profile,
-  publicationId,
+  postId,
   source,
   tags,
   timestamp
@@ -54,10 +54,7 @@ const PublicationProfile: FC<FeedUserProfileProps> = ({
       {timestamp ? (
         <span className="ld-text-gray-500">
           <span className="mr-1">·</span>
-          <Link
-            className="text-xs hover:underline"
-            href={`/posts/${publicationId}`}
-          >
+          <Link className="text-xs hover:underline" href={`/posts/${postId}`}>
             {formatRelativeOrAbsolute(timestamp)}
           </Link>
         </span>
