@@ -32,7 +32,7 @@ import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNa
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { create } from "zustand";
-import FullPublication from "./FullPublication";
+import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
 import PublicationPageShimmer from "./Shimmer";
@@ -124,7 +124,7 @@ const ViewPublication: NextPage = () => {
         ) : (
           <>
             <Card>
-              <FullPublication
+              <FullPost
                 hasHiddenComments={hasHiddenComments}
                 key={publication?.id}
                 publication={publication}

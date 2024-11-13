@@ -23,15 +23,12 @@ import PublicationStats from "./PublicationStats";
 import Translate from "./Translate";
 import PublicationType from "./Type";
 
-interface FullPublicationProps {
+interface FullPostProps {
   hasHiddenComments: boolean;
   publication: AnyPublication;
 }
 
-const FullPublication: FC<FullPublicationProps> = ({
-  hasHiddenComments,
-  publication
-}) => {
+const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -127,4 +124,4 @@ const FullPublication: FC<FullPublicationProps> = ({
   );
 };
 
-export default FullPublication;
+export default FullPost;
