@@ -33,14 +33,14 @@
     "fast-xml-parser": "^4.4.1",
     "graphql": "^16.9.0",
     "linkedom": "^0.18.5",
-    "openai": "^4.71.1",
+    "openai": "^4.72.0",
     "rate-limit-redis": "^4.2.0",
     "request-ip": "^3.3.0",
     "tsx": "^4.19.2",
     "ua-parser-js": "2.0.0-rc.1",
     "urlcat": "^3.1.0",
     "uuid": "^11.0.2",
-    "viem": "^2.21.44",
+    "viem": "^2.21.45",
     "zod": "^3.23.8"
   },
   "devDependencies": {
