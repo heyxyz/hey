@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 
-const DeletePublication: FC = () => {
+const DeletePost: FC = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
     useGlobalAlertStateStore();
   const { isSuspended } = useProfileStatus();
@@ -55,4 +55,4 @@ const DeletePublication: FC = () => {
   );
 };
 
-export default DeletePublication;
+export default DeletePost;

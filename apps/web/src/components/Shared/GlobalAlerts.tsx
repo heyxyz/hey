@@ -3,7 +3,7 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import BlockOrUnBlockProfile from "./Alert/BlockOrUnBlockProfile";
-import DeletePublication from "./Alert/DeletePublication";
+import DeletePost from "./Alert/DeletePost";
 
 const GlobalAlerts: FC = () => {
   const {
@@ -19,7 +19,7 @@ const GlobalAlerts: FC = () => {
 
   return (
     <>
-      <DeletePublication />
+      <DeletePost />
       {modingPost && (
         <Alert
           description="Perform mod actions on this publication."
