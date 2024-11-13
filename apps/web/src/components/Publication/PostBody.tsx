@@ -8,7 +8,7 @@ import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
 import getPostData from "@hey/helpers/getPostData";
 import getPublicationAttribute from "@hey/helpers/getPublicationAttribute";
 import getURLs from "@hey/helpers/getURLs";
-import isPublicationMetadataTypeAllowed from "@hey/helpers/isPublicationMetadataTypeAllowed";
+import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { H6 } from "@hey/ui";
@@ -68,7 +68,7 @@ const PostBody: FC<PostBodyProps> = ({
     return <EncryptedPublication />;
   }
 
-  if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {
+  if (!isPostMetadataTypeAllowed(metadata.__typename)) {
     return <NotSupportedPublication type={metadata.__typename} />;
   }
 
