@@ -1,4 +1,4 @@
-import SingleImagePublication from "@components/Publication/SingleImagePublication";
+import SingleImagePost from "@components/Publication/SingleImagePost";
 import ImagePublicationsShimmer from "@components/Shared/Shimmer/ImagePublicationsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
@@ -45,13 +45,13 @@ const ImageFeed: FC<ImageFeedProps> = ({
     variables: { request }
   });
 
-  const publications = data?.explorePublications?.items;
+  const posts = data?.explorePublications?.items;
 
   if (loading) {
     return <ImagePublicationsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (posts?.length === 0) {
     return (
       <EmptyState
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
@@ -66,11 +66,8 @@ const ImageFeed: FC<ImageFeedProps> = ({
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      {publications?.map((publication) => (
-        <SingleImagePublication
-          key={publication.id}
-          publication={publication as AnyPublication}
-        />
+      {posts?.map((post) => (
+        <SingleImagePost key={post.id} post={post as AnyPublication} />
       ))}
     </div>
   );
