@@ -72,7 +72,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
             <>
               <PostBody
                 contentClassName="full-page-publication-markup"
-                publication={targetPost}
+                post={targetPost}
               />
               <Translate publication={targetPost} />
               <div className="ld-text-gray-500 my-3 text-sm">

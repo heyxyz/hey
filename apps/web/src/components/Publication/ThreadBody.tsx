@@ -26,7 +26,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
             <HiddenPost type={publication.__typename} />
           ) : (
             <>
-              <PostBody publication={publication} />
+              <PostBody post={publication} />
               <PostActions publication={publication} />
             </>
           )}

@@ -4,17 +4,17 @@ import type { FC } from "react";
 import Wrapper from "./Wrapper";
 
 interface QuoteProps {
-  publication: PrimaryPublication;
+  post: PrimaryPublication;
 }
 
-const Quote: FC<QuoteProps> = ({ publication }) => {
-  if (!publication) {
+const Quote: FC<QuoteProps> = ({ post }) => {
+  if (!post) {
     return null;
   }
 
   return (
     <Wrapper zeroPadding>
-      <QuotedPost publication={publication} />
+      <QuotedPost post={post} />
     </Wrapper>
   );
 };

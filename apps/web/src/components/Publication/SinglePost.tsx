@@ -65,7 +65,7 @@ const SinglePost: FC<SinglePostProps> = ({
             <HiddenPost type={post.__typename} />
           ) : (
             <>
-              <PostBody publication={rootPublication} showMore={showMore} />
+              <PostBody post={rootPublication} showMore={showMore} />
               {showActions ? (
                 <PostActions publication={rootPublication} />
               ) : null}

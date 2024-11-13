@@ -28,21 +28,21 @@ import Poll from "./Poll";
 
 interface PostBodyProps {
   contentClassName?: string;
-  publication: AnyPublication;
+  post: AnyPublication;
   quoted?: boolean;
   showMore?: boolean;
 }
 
 const PostBody: FC<PostBodyProps> = ({
   contentClassName = "",
-  publication,
+  post,
   quoted = false,
   showMore = false
 }) => {
   const { mutedWords } = usePreferencesStore();
   const [showMutedPublication, setShowMutedPublication] = useState(false);
 
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { id, metadata } = targetPost;
 
   const filteredContent = getPostData(metadata)?.content || "";
@@ -150,7 +150,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showSharingLink ? (
         <Oembed publication={targetPost} url={metadata.sharingLink} />
       ) : null}
-      {showQuote && <Quote publication={targetPost.quoteOn} />}
+      {showQuote && <Quote post={targetPost.quoteOn} />}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );
