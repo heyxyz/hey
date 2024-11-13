@@ -16,7 +16,7 @@ import type { ChangeEvent, FC, MutableRefObject } from "react";
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
 import useUploadAttachments from "src/hooks/useUploadAttachments";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);

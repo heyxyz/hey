@@ -34,7 +34,7 @@ import {
 import { OptmisticPublicationType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { useRouter } from "next/router";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";

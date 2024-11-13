@@ -5,9 +5,9 @@ import getURLs from "@hey/helpers/getURLs";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 
 const LinkPreviews: FC = () => {
   const { postContent, quotedPost } = usePostStore();

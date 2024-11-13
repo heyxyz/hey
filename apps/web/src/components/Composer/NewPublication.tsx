@@ -35,21 +35,21 @@ import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePublication from "src/hooks/useCreatePublication";
 import usePostMetadata from "src/hooks/usePostMetadata";
-import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
+import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import {
   DEFAULT_AUDIO_PUBLICATION,
   usePostAudioStore
-} from "src/store/non-persisted/publication/usePostAudioStore";
-import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
-import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
-import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+} from "src/store/non-persisted/post/usePostAudioStore";
+import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
+import { usePostPollStore } from "src/store/non-persisted/post/usePostPollStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
-} from "src/store/non-persisted/publication/usePostVideoStore";
+} from "src/store/non-persisted/post/usePostVideoStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";

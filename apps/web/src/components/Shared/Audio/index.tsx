@@ -7,7 +7,7 @@ import type { AnyPublication, Profile } from "@hey/lens";
 import type { APITypes } from "plyr-react";
 import type { ChangeEvent, FC } from "react";
 import { useRef, useState } from "react";
-import { usePostAudioStore } from "src/store/non-persisted/publication/usePostAudioStore";
+import { usePostAudioStore } from "src/store/non-persisted/post/usePostAudioStore";
 import { object, string } from "zod";
 import CoverImage from "./CoverImage";
 import Player from "./Player";

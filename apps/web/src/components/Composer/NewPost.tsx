@@ -4,7 +4,7 @@ import { Card, Image } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import NewPublication from "./NewPublication";
 

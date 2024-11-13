@@ -12,7 +12,7 @@ import type { CollectModuleType } from "@hey/types/hey";
 import { Button, H6, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { isAddress } from "viem";
 

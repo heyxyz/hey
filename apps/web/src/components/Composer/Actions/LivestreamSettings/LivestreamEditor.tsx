@@ -14,7 +14,7 @@ import axios from "axios";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
+import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
 
 interface WrapperProps {
   children: ReactNode;

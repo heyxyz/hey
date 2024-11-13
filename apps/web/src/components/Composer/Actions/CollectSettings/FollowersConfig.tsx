@@ -2,7 +2,7 @@ import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import type { CollectModuleType } from "@hey/types/hey";
 import type { FC } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
 
 interface FollowersConfigProps {
   setCollectType: (data: CollectModuleType) => void;

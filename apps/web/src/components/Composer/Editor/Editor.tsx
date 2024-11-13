@@ -11,7 +11,7 @@ import { useMemo, useRef } from "react";
 import useContentChange from "src/hooks/prosekit/useContentChange";
 import useFocus from "src/hooks/prosekit/useFocus";
 import { usePaste } from "src/hooks/prosekit/usePaste";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useEditorHandle } from "./EditorHandle";
 

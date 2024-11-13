@@ -8,14 +8,14 @@ import {
   video
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
-import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
-import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
-import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
+import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
+import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
 import { v4 as uuid } from "uuid";
-import { usePostAudioStore } from "../store/non-persisted/publication/usePostAudioStore";
+import { usePostAudioStore } from "../store/non-persisted/post/usePostAudioStore";
 
 interface UsePostMetadataProps {
   baseMetadata: any;

@@ -6,7 +6,7 @@ import { TriStateValue } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
+import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";

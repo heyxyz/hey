@@ -6,8 +6,8 @@ import { Image, ProgressBar, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
 import Audio from "../Shared/Audio";
 
 const getClass = (attachments: number) => {

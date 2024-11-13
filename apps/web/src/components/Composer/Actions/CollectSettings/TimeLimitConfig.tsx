@@ -6,7 +6,7 @@ import getTimeAddedNDay from "@hey/helpers/datetime/getTimeAddedNDay";
 import type { CollectModuleType } from "@hey/types/hey";
 import { RangeSlider } from "@hey/ui";
 import type { FC } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectModuleType) => void;

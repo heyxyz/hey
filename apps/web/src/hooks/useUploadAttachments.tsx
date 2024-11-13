@@ -3,8 +3,8 @@ import type { NewAttachment } from "@hey/types/misc";
 import imageCompression from "browser-image-compression";
 import { useCallback } from "react";
 import { toast } from "react-hot-toast";
-import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
 import { v4 as uuid } from "uuid";
 
 const useUploadAttachments = () => {
