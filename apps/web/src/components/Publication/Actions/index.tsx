@@ -1,5 +1,5 @@
 import { FeatureFlag } from "@hey/data/feature-flags";
-import getPublicationViewCountById from "@hey/helpers/getPublicationViewCountById";
+import getPostViewCountById from "@hey/helpers/getPostViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -24,13 +24,13 @@ interface PostActionsProps {
 
 const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
   const targetPost = isRepost(post) ? post.mirrorOn : post;
-  const { publicationViews } = useImpressionsStore();
+  const { postViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
   const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;
 
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPost.openActionModules);
-  const views = getPublicationViewCountById(publicationViews, targetPost.id);
+  const views = getPostViewCountById(postViews, targetPost.id);
 
   return (
     <span

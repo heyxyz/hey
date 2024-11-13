@@ -3,9 +3,9 @@ import Likes from "@components/Shared/Modal/Likes";
 import Mirrors from "@components/Shared/Modal/Mirrors";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PUBLICATION } from "@hey/data/tracking";
-import getPublicationsViews, {
-  GET_PUBLICATIONS_VIEWS_QUERY_KEY
-} from "@hey/helpers/getPublicationsViews";
+import getPostsViews, {
+  GET_POSTS_VIEWS_QUERY_KEY
+} from "@hey/helpers/getPostsViews";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { PublicationStats as IPublicationStats } from "@hey/lens";
 import { Modal } from "@hey/ui";
@@ -27,8 +27,8 @@ const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
 
   const { data } = useQuery({
     enabled: Boolean(publicationId),
-    queryFn: () => getPublicationsViews([publicationId]),
-    queryKey: [GET_PUBLICATIONS_VIEWS_QUERY_KEY, publicationId],
+    queryFn: () => getPostsViews([publicationId]),
+    queryKey: [GET_POSTS_VIEWS_QUERY_KEY, publicationId],
     refetchInterval: 5000
   });
 

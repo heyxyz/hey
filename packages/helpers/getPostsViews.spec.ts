@@ -1,11 +1,11 @@
 import { HEY_API_URL } from "@hey/data/constants";
 import axios from "axios";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import getPublicationsViews from "./getPublicationsViews";
+import getPostsViews from "./getPostsViews";
 
 vi.mock("axios");
 
-describe("getPublicationsViews", () => {
+describe("getPostsViews", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
@@ -16,7 +16,7 @@ describe("getPublicationsViews", () => {
     });
 
     const ids = ["0x0d-0x01", "0x0d-0x02"];
-    const result = await getPublicationsViews(ids);
+    const result = await getPostsViews(ids);
 
     expect(axios.post).toHaveBeenCalledWith(
       `${HEY_API_URL}/stats/publication/views`,
@@ -29,7 +29,7 @@ describe("getPublicationsViews", () => {
     (axios.post as any).mockRejectedValue(new Error("API Error"));
 
     const ids = ["0x0d-0x01"];
-    const result = await getPublicationsViews(ids);
+    const result = await getPostsViews(ids);
 
     expect(axios.post).toHaveBeenCalledWith(
       `${HEY_API_URL}/stats/publication/views`,
@@ -40,7 +40,7 @@ describe("getPublicationsViews", () => {
 
   test("should return an empty array when no ids are provided", async () => {
     const ids: string[] = [];
-    const result = await getPublicationsViews(ids);
+    const result = await getPostsViews(ids);
 
     expect(axios.post).toHaveBeenCalledWith(
       `${HEY_API_URL}/stats/publication/views`,

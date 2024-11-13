@@ -1,12 +1,12 @@
 import getPostData from "@hey/helpers/getPostData";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import getPublicationOGImages from "./getPublicationOGImages";
+import getPostOGImages from "./getPostOGImages";
 
 vi.mock("@hey/helpers/getPostData", () => ({
   default: vi.fn()
 }));
 
-describe("getPublicationOGImages", () => {
+describe("getPostOGImages", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -23,7 +23,7 @@ describe("getPublicationOGImages", () => {
 
     (getPostData as any).mockReturnValue(mockPublicationData);
 
-    const result = getPublicationOGImages(mockMetadata);
+    const result = getPostOGImages(mockMetadata);
     expect(result).toEqual([
       "https://example.com/image1.jpg",
       "https://example.com/image2.jpg"
@@ -39,7 +39,7 @@ describe("getPublicationOGImages", () => {
 
     (getPostData as any).mockReturnValue(mockPublicationData);
 
-    const result = getPublicationOGImages(mockMetadata);
+    const result = getPostOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/asset-image.jpg"]);
   });
 
@@ -52,7 +52,7 @@ describe("getPublicationOGImages", () => {
 
     (getPostData as any).mockReturnValue(mockPublicationData);
 
-    const result = getPublicationOGImages(mockMetadata);
+    const result = getPostOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/video-cover.jpg"]);
   });
 
@@ -65,7 +65,7 @@ describe("getPublicationOGImages", () => {
 
     (getPostData as any).mockReturnValue(mockPublicationData);
 
-    const result = getPublicationOGImages(mockMetadata);
+    const result = getPostOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/audio-cover.jpg"]);
   });
 
@@ -81,7 +81,7 @@ describe("getPublicationOGImages", () => {
 
     (getPostData as any).mockReturnValue(mockPublicationData);
 
-    const result = getPublicationOGImages(mockMetadata);
+    const result = getPostOGImages(mockMetadata);
     expect(result).toEqual([
       "https://example.com/video1.jpg",
       "https://example.com/video2.jpg"
@@ -93,7 +93,7 @@ describe("getPublicationOGImages", () => {
 
     (getPostData as any).mockReturnValue({ attachments: [], asset: {} });
 
-    const result = getPublicationOGImages(mockMetadata);
+    const result = getPostOGImages(mockMetadata);
     expect(result).toEqual([]);
   });
 });
