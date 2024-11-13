@@ -12,7 +12,7 @@ import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
 import PublicationType from "./Type";
 
-interface SinglePublicationProps {
+interface SinglePostProps {
   feedItem?: FeedItem;
   header?: ReactNode;
   isFirst?: boolean;
@@ -24,7 +24,7 @@ interface SinglePublicationProps {
   showType?: boolean;
 }
 
-const SinglePublication: FC<SinglePublicationProps> = ({
+const SinglePost: FC<SinglePostProps> = ({
   feedItem,
   header,
   isFirst = false,
@@ -77,4 +77,4 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   );
 };
 
-export default memo(SinglePublication);
+export default memo(SinglePost);

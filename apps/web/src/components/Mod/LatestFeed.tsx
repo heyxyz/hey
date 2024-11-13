@@ -1,5 +1,5 @@
 import HigherActions from "@components/Publication/Actions/HigherActions";
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { IS_MAINNET } from "@hey/data/constants";
@@ -95,7 +95,7 @@ const LatestFeed: FC = () => {
       endReached={onEndReached}
       itemContent={(_, publication) => (
         <Card>
-          <SinglePublication
+          <SinglePost
             isFirst
             isLast={false}
             publication={publication as AnyPublication}

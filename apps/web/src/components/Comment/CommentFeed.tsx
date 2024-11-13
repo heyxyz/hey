@@ -1,6 +1,6 @@
 import { useHiddenCommentFeedStore } from "@components/Publication";
 import QueuedPost from "@components/Publication/QueuedPost";
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { Comment, PublicationsRequest } from "@hey/lens";
@@ -119,7 +119,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
             const isLast = index === comments.length - 1;
 
             return (
-              <SinglePublication
+              <SinglePost
                 isFirst={isFirst}
                 isLast={isLast}
                 publication={comment as Comment}

@@ -1,5 +1,5 @@
 import HigherActions from "@components/Publication/Actions/HigherActions";
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
@@ -104,7 +104,7 @@ const SearchFeed: FC = () => {
 
             return (
               <Card>
-                <SinglePublication
+                <SinglePost
                   isFirst
                   isLast={false}
                   publication={publication as AnyPublication}

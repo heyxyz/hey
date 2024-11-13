@@ -1,5 +1,5 @@
 import { useHiddenCommentFeedStore } from "@components/Publication";
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Comment, PublicationsRequest } from "@hey/lens";
@@ -106,7 +106,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publicationId }) => {
               const isLast = index === comments.length - 1;
 
               return (
-                <SinglePublication
+                <SinglePost
                   isFirst={isFirst}
                   isLast={isLast}
                   publication={comment as Comment}

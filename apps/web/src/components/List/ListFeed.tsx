@@ -1,4 +1,4 @@
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PinUnpinButton from "@components/Shared/List/PinUnpinButton";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import SingleList from "@components/Shared/SingleList";
@@ -141,7 +141,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
         data={publications}
         isScrolling={onScrolling}
         itemContent={(index, publication) => (
-          <SinglePublication
+          <SinglePost
             isFirst={index === 0}
             isLast={index === (publications?.length || 0) - 1}
             publication={publication as AnyPublication}

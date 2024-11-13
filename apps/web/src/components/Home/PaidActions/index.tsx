@@ -1,4 +1,4 @@
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PaidActionsShimmer from "@components/Shared/Shimmer/PaidActionsShimmer";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, LatestActed, PaginatedRequest } from "@hey/lens";
@@ -63,7 +63,7 @@ const PaidActions: FC = () => {
               publication={action.actedOn as AnyPublication}
             />
             <div className="divider" />
-            <SinglePublication
+            <SinglePost
               isFirst={false}
               isLast
               publication={action.actedOn as AnyPublication}

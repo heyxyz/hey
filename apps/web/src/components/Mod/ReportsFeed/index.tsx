@@ -1,4 +1,4 @@
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { FlagIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
@@ -61,7 +61,7 @@ const ReportsFeed: FC = () => {
 
         return (
           <Card>
-            <SinglePublication
+            <SinglePost
               isFirst
               publication={report.reportedPublication as AnyPublication}
               showActions={false}

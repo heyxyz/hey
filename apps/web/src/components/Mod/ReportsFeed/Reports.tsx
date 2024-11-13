@@ -1,4 +1,4 @@
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import Loader from "@components/Shared/Loader";
 import { FlagIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, ModReport, ModReportsRequest } from "@hey/lens";
@@ -73,7 +73,7 @@ const Reports: FC<ReportsProps> = ({ profileId, publicationId }) => {
         endReached={onEndReached}
         itemContent={(_, report) => (
           <Card>
-            <SinglePublication
+            <SinglePost
               isFirst
               publication={report.reportedPublication as AnyPublication}
               showActions={false}

@@ -1,5 +1,5 @@
 import QueuedPost from "@components/Publication/QueuedPost";
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, PublicationForYouRequest } from "@hey/lens";
@@ -79,7 +79,7 @@ const ForYou: FC = () => {
           data={publications}
           endReached={onEndReached}
           itemContent={(index, item) => (
-            <SinglePublication
+            <SinglePost
               isFirst={index === 0}
               isLast={index === (publications?.length || 0) - 1}
               publication={item.publication as AnyPublication}

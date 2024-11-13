@@ -1,5 +1,5 @@
 import QueuedPost from "@components/Publication/QueuedPost";
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { HEY_CURATED_ID } from "@hey/data/constants";
@@ -109,7 +109,7 @@ const Timeline: FC = () => {
           endReached={onEndReached}
           isScrolling={onScrolling}
           itemContent={(index, feedItem) => (
-            <SinglePublication
+            <SinglePost
               feedItem={feedItem as FeedItem}
               isFirst={index === 0}
               isLast={index === (feed?.length || 0) - 1}
