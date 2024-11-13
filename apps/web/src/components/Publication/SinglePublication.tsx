@@ -1,5 +1,5 @@
 import ActionType from "@components/Home/Timeline/EventType";
-import PublicationWrapper from "@components/Shared/PublicationWrapper";
+import PostWrapper from "@components/Shared/PostWrapper";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
@@ -39,7 +39,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   usePushToImpressions(rootPublication.id);
 
   return (
-    <PublicationWrapper
+    <PostWrapper
       className={cn(
         isFirst && "rounded-t-xl",
         isLast && "rounded-b-xl",
@@ -73,7 +73,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
           )}
         </div>
       </div>
-    </PublicationWrapper>
+    </PostWrapper>
   );
 };
 

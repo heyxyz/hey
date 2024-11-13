@@ -1,4 +1,4 @@
-import PublicationWrapper from "@components/Shared/PublicationWrapper";
+import PostWrapper from "@components/Shared/PostWrapper";
 import type { PrimaryPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
@@ -19,7 +19,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
   usePushToImpressions(publication.id);
 
   return (
-    <PublicationWrapper
+    <PostWrapper
       className="cursor-pointer p-4 transition-colors first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
       publication={publication}
     >
@@ -32,7 +32,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       ) : (
         <PostBody publication={publication} quoted showMore />
       )}
-    </PublicationWrapper>
+    </PostWrapper>
   );
 };
 

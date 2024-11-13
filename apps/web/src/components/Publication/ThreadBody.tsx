@@ -1,4 +1,4 @@
-import PublicationWrapper from "@components/Shared/PublicationWrapper";
+import PostWrapper from "@components/Shared/PostWrapper";
 import type { AnyPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
@@ -16,7 +16,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   usePushToImpressions(publication.id);
 
   return (
-    <PublicationWrapper publication={publication}>
+    <PostWrapper publication={publication}>
       <div className="relative flex items-start space-x-3 pb-3">
         <PostAvatar publication={publication} />
         <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-gray-300 border-solid dark:border-gray-700" />
@@ -32,7 +32,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
           )}
         </div>
       </div>
-    </PublicationWrapper>
+    </PostWrapper>
   );
 };
 
