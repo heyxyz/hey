@@ -55,7 +55,7 @@ interface CollectActionProps {
   noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
   openAction: OpenActionModule;
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
@@ -66,7 +66,7 @@ const CollectAction: FC<CollectActionProps> = ({
   noBalanceErrorMessages,
   onCollectSuccess = () => {},
   openAction,
-  publication
+  post
 }) => {
   const collectModule = getCollectModuleData(openAction as any);
 
@@ -86,8 +86,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const [hasActed, setHasActed] = useState(
     collectModule?.amount
       ? false
-      : publication.operations.hasActed.value ||
-          hasOptimisticallyCollected(publication.id)
+      : post.operations.hasActed.value || hasOptimisticallyCollected(post.id)
   );
 
   const { address } = useAccount();
@@ -114,10 +113,10 @@ const CollectAction: FC<CollectActionProps> = ({
     openAction.__typename === "SimpleCollectOpenActionSettings";
   const isFollowersOnly = collectModule?.followerOnly;
   const isFollowedByMe = isFollowersOnly
-    ? publication?.by.operations.isFollowedByMe.value
+    ? post?.by.operations.isFollowedByMe.value
     : true;
   const isFollowFinalizedOnchain = isFollowersOnly
-    ? !isFollowPending(publication.by.id)
+    ? !isFollowPending(post.by.id)
     : true;
 
   const canUseManager =
@@ -134,7 +133,7 @@ const CollectAction: FC<CollectActionProps> = ({
     txId?: string;
   }): OptimisticTransaction => {
     return {
-      collectOn: publication?.id,
+      collectOn: post?.id,
       txHash,
       txId,
       type: OptmisticPublicationType.Collect
@@ -148,11 +147,11 @@ const CollectAction: FC<CollectActionProps> = ({
           return { ...existingValue, hasActed: { value: true } };
         }
       },
-      id: cache.identify(publication)
+      id: cache.identify(post)
     });
     cache.modify({
       fields: { countOpenActions: () => countOpenActions + 1 },
-      id: cache.identify(publication.stats)
+      id: cache.identify(post.stats)
     });
   };
 
@@ -180,7 +179,7 @@ const CollectAction: FC<CollectActionProps> = ({
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       amount,
       collect_module: openAction?.type,
-      publication_id: publication?.id
+      publication_id: post?.id
     });
   };
 
@@ -320,7 +319,7 @@ const CollectAction: FC<CollectActionProps> = ({
       setIsLoading(true);
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
-        for: publication?.id
+        for: post?.id
       };
 
       if (canUseManager) {
@@ -401,7 +400,7 @@ const CollectAction: FC<CollectActionProps> = ({
       <FollowUnfollowButton
         buttonClassName="w-full mt-5"
         followTitle="Follow to collect"
-        profile={publication.by}
+        profile={post.by}
       />
     );
   }

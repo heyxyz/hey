@@ -21,22 +21,19 @@ import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
 import PostStats from "./PostStats";
 import Translate from "./Translate";
-import PublicationType from "./Type";
+import PostType from "./Type";
 
 interface FullPostProps {
   hasHiddenComments: boolean;
-  publication: AnyPublication;
+  post: AnyPublication;
 }
 
-const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
+const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const targetPost = isRepost(publication)
-    ? publication?.mirrorOn
-    : publication;
-
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const { by, createdAt, publishedOn } = targetPost;
 
   usePushToImpressions(targetPost.id);
@@ -61,11 +58,11 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
 
   return (
     <article className="p-5">
-      <PublicationType publication={publication} showType />
+      <PostType post={post} showType />
       <div className="flex items-start space-x-3">
-        <PostAvatar publication={publication} />
+        <PostAvatar post={post} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader publication={targetPost} />
+          <PostHeader post={targetPost} />
           {targetPost.isHidden ? (
             <HiddenPost type={targetPost.__typename} />
           ) : (
@@ -74,7 +71,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
                 contentClassName="full-page-publication-markup"
                 post={targetPost}
               />
-              <Translate publication={targetPost} />
+              <Translate post={targetPost} />
               <div className="ld-text-gray-500 my-3 text-sm">
                 <span>{formatDate(createdAt, "hh:mm A · MMM D, YYYY")}</span>
                 {publishedOn?.id ? (

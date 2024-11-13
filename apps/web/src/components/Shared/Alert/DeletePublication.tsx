@@ -10,22 +10,19 @@ import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlert
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 
 const DeletePublication: FC = () => {
-  const {
-    deletingPublication,
-    setShowPublicationDeleteAlert,
-    showPublicationDeleteAlert
-  } = useGlobalAlertStateStore();
+  const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
+    useGlobalAlertStateStore();
   const { isSuspended } = useProfileStatus();
 
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
-      setShowPublicationDeleteAlert(false, null);
+      setShowPostDeleteAlert(false, null);
       toast.success("Publication deleted");
       Leafwatch.track(PUBLICATION.DELETE);
     },
     update: (cache) => {
       cache.evict({
-        id: `${deletingPublication?.__typename}:${deletingPublication?.id}`
+        id: `${deletingPost?.__typename}:${deletingPost?.id}`
       });
     }
   });
@@ -37,7 +34,7 @@ const DeletePublication: FC = () => {
 
     try {
       return await hidePost({
-        variables: { request: { for: deletingPublication?.id } }
+        variables: { request: { for: deletingPost?.id } }
       });
     } catch (error) {
       errorToast(error);
@@ -50,9 +47,9 @@ const DeletePublication: FC = () => {
       description="This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
       isDestructive
       isPerformingAction={loading}
-      onClose={() => setShowPublicationDeleteAlert(false, null)}
+      onClose={() => setShowPostDeleteAlert(false, null)}
       onConfirm={deletePublication}
-      show={showPublicationDeleteAlert}
+      show={showPostDeleteAlert}
       title="Delete Publication?"
     />
   );

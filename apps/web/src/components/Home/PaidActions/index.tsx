@@ -60,7 +60,7 @@ const PaidActions: FC = () => {
           <Card>
             <OpenActionPaidAction
               latestActed={action.latestActed as LatestActed[]}
-              publication={action.actedOn as AnyPublication}
+              post={action.actedOn as AnyPublication}
             />
             <div className="divider" />
             <SinglePost

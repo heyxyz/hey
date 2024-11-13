@@ -10,7 +10,7 @@ import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
-import PublicationType from "./Type";
+import PostType from "./Type";
 
 interface SinglePostProps {
   feedItem?: FeedItem;
@@ -51,16 +51,12 @@ const SinglePost: FC<SinglePostProps> = ({
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (
-        <PublicationType
-          publication={post}
-          showThread={showThread}
-          showType={showType}
-        />
+        <PostType post={post} showThread={showThread} showType={showType} />
       )}
       <div className="flex items-start space-x-3">
-        <PostAvatar feedItem={feedItem} publication={rootPublication} />
+        <PostAvatar feedItem={feedItem} post={rootPublication} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader feedItem={feedItem} publication={rootPublication} />
+          <PostHeader feedItem={feedItem} post={rootPublication} />
           {post.isHidden ? (
             <HiddenPost type={post.__typename} />
           ) : (

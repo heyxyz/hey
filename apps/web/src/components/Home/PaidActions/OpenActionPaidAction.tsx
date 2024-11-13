@@ -12,14 +12,14 @@ import type { FC } from "react";
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];
-  publication: AnyPublication;
+  post: AnyPublication;
 }
 
 const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   latestActed,
-  publication
+  post
 }) => {
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
 
   const openActions = targetPost.openActionModules
     .filter(

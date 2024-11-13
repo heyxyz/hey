@@ -7,10 +7,10 @@ import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
 interface ReportProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Report: FC<ReportProps> = ({ publication }) => {
+const Report: FC<ReportProps> = ({ post }) => {
   const { setShowPublicationReportModal } = useGlobalModalStateStore();
 
   return (
@@ -24,7 +24,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPublicationReportModal(true, publication.id);
+        setShowPublicationReportModal(true, post.id);
       }}
     >
       <div className="flex items-center space-x-2">

@@ -7,11 +7,11 @@ import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
 interface DeleteProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Delete: FC<DeleteProps> = ({ publication }) => {
-  const { setShowPublicationDeleteAlert } = useGlobalAlertStateStore();
+const Delete: FC<DeleteProps> = ({ post }) => {
+  const { setShowPostDeleteAlert } = useGlobalAlertStateStore();
 
   return (
     <MenuItem
@@ -24,7 +24,7 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPublicationDeleteAlert(true, publication);
+        setShowPostDeleteAlert(true, post);
       }}
     >
       <div className="flex items-center space-x-2">

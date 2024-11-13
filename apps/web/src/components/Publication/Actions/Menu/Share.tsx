@@ -9,10 +9,10 @@ import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface ShareProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Share: FC<ShareProps> = ({ publication }) => {
+const Share: FC<ShareProps> = ({ post }) => {
   return (
     <MenuItem
       as="div"
@@ -25,10 +25,10 @@ const Share: FC<ShareProps> = ({ publication }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(
-          `${location.origin}/posts/${publication?.id}`
+          `${location.origin}/posts/${post?.id}`
         );
         toast.success("Copied to clipboard!");
-        Leafwatch.track(PUBLICATION.SHARE, { publication_id: publication.id });
+        Leafwatch.track(PUBLICATION.SHARE, { publication_id: post.id });
       }}
     >
       <div className="flex items-center space-x-2">

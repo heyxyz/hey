@@ -12,8 +12,8 @@ const Commented: FC<CommentedProps> = ({ publication }) => {
 
   return (
     <>
-      {root ? <ThreadBody publication={root} /> : null}
-      <ThreadBody publication={commentOn} />
+      {root ? <ThreadBody post={root} /> : null}
+      <ThreadBody post={commentOn} />
     </>
   );
 };
