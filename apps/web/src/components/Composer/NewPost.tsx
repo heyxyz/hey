@@ -4,7 +4,7 @@ import { Card, Image } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import NewPublication from "./NewPublication";
 
@@ -15,7 +15,7 @@ interface NewPostProps {
 const NewPost: FC<NewPostProps> = ({ tags }) => {
   const { isReady, query } = useRouter();
   const { currentProfile } = useProfileStore();
-  const { setPublicationContent, setTags } = usePublicationStore();
+  const { setPublicationContent, setTags } = usePostStore();
   const [showComposer, setShowComposer] = useState(false);
 
   const handleOpenModal = () => {

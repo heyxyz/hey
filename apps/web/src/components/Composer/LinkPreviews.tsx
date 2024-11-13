@@ -7,10 +7,10 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 
 const LinkPreviews: FC = () => {
-  const { publicationContent, quotedPost } = usePublicationStore();
+  const { publicationContent, quotedPost } = usePostStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { addAttribute, getAttribute, removeAttribute } =
     usePostAttributesStore();

@@ -12,8 +12,8 @@ import { usePostAttachmentStore } from "src/store/non-persisted/publication/useP
 import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
 import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { v4 as uuid } from "uuid";
 import { usePostAudioStore } from "../store/non-persisted/publication/usePostAudioStore";
 
@@ -22,7 +22,7 @@ interface UsePostMetadataProps {
 }
 
 const usePostMetadata = () => {
-  const { tags } = usePublicationStore();
+  const { tags } = usePostStore();
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPublication } = usePostAudioStore();
   const { license } = usePostLicenseStore();

@@ -45,11 +45,11 @@ import {
 import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
 import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
 import { usePostPollStore } from "src/store/non-persisted/publication/usePostPollStore";
+import { usePostStore } from "src/store/non-persisted/publication/usePostStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
@@ -111,7 +111,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     setPublicationContent,
     setQuotedPost,
     setTags
-  } = usePublicationStore();
+  } = usePostStore();
 
   // Audio store
   const { audioPublication, setAudioPublication } = usePostAudioStore();
