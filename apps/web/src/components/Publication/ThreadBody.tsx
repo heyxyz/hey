@@ -5,8 +5,8 @@ import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PublicationActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
-import PublicationBody from "./PublicationBody";
 
 interface ThreadBodyProps {
   publication: AnyPublication;
@@ -26,7 +26,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
             <HiddenPost type={publication.__typename} />
           ) : (
             <>
-              <PublicationBody publication={publication} />
+              <PostBody publication={publication} />
               <PublicationActions publication={publication} />
             </>
           )}

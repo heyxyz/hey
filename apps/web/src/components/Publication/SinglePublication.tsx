@@ -8,8 +8,8 @@ import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PublicationActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
-import PublicationBody from "./PublicationBody";
 import PublicationType from "./Type";
 
 interface SinglePublicationProps {
@@ -65,10 +65,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             <HiddenPost type={publication.__typename} />
           ) : (
             <>
-              <PublicationBody
-                publication={rootPublication}
-                showMore={showMore}
-              />
+              <PostBody publication={rootPublication} showMore={showMore} />
               {showActions ? (
                 <PublicationActions publication={rootPublication} />
               ) : null}

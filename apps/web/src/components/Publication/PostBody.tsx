@@ -26,14 +26,14 @@ import MutedPublication from "./MutedPublication";
 import NotSupportedPublication from "./NotSupportedPublication";
 import Poll from "./Poll";
 
-interface PublicationBodyProps {
+interface PostBodyProps {
   contentClassName?: string;
   publication: AnyPublication;
   quoted?: boolean;
   showMore?: boolean;
 }
 
-const PublicationBody: FC<PublicationBodyProps> = ({
+const PostBody: FC<PostBodyProps> = ({
   contentClassName = "",
   publication,
   quoted = false,
@@ -162,4 +162,4 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   );
 };
 
-export default memo(PublicationBody);
+export default memo(PostBody);

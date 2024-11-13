@@ -4,8 +4,8 @@ import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
-import PublicationBody from "./PublicationBody";
 
 interface QuotedPublicationProps {
   isNew?: boolean;
@@ -30,7 +30,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       {publication.isHidden ? (
         <HiddenPost type={publication.__typename} />
       ) : (
-        <PublicationBody publication={publication} quoted showMore />
+        <PostBody publication={publication} quoted showMore />
       )}
     </PublicationWrapper>
   );

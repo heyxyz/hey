@@ -17,8 +17,8 @@ import { useHiddenCommentFeedStore } from ".";
 import PublicationActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
-import PublicationBody from "./PublicationBody";
 import PublicationStats from "./PublicationStats";
 import Translate from "./Translate";
 import PublicationType from "./Type";
@@ -73,7 +73,7 @@ const FullPublication: FC<FullPublicationProps> = ({
             <HiddenPost type={targetPublication.__typename} />
           ) : (
             <>
-              <PublicationBody
+              <PostBody
                 contentClassName="full-page-publication-markup"
                 publication={targetPublication}
               />
