@@ -43,8 +43,8 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
     );
   }
 
-  const publication = data?.publication as Post;
-  const openAction = publication.openActionModules[0];
+  const post = data?.publication as Post;
+  const openAction = post.openActionModules[0];
 
   return (
     <div className="p-5">
@@ -92,7 +92,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
           }
           onCollectSuccess={onCollectSuccess}
           openAction={openAction}
-          publication={publication}
+          post={post}
         />
       </div>
     </div>
