@@ -15,13 +15,13 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import Action from "./Action";
 
 interface TipProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
   showCount: boolean;
 }
 
-const Tip: FC<TipProps> = ({ publication, showCount }) => {
+const Tip: FC<TipProps> = ({ post, showCount }) => {
   const { publicationTips } = useTipsStore();
-  const tip = getPublicationTipById(publicationTips, publication.id);
+  const tip = getPublicationTipById(publicationTips, post.id);
   const confettiDom = useRef<HTMLDivElement>(null);
 
   const triggerConfetti = () => {
@@ -71,7 +71,7 @@ const Tip: FC<TipProps> = ({ publication, showCount }) => {
               {({ close }) => (
                 <Action
                   closePopover={close}
-                  publication={publication}
+                  post={post}
                   triggerConfetti={triggerConfetti}
                 />
               )}

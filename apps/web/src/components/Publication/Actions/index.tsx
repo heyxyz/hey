@@ -38,11 +38,11 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
       onClick={stopEventPropagation}
     >
       <span className="flex items-center gap-x-6">
-        <Comment publication={targetPost} showCount={showCount} />
-        <ShareMenu publication={post} showCount={showCount} />
-        <Like publication={targetPost} showCount={showCount} />
+        <Comment post={targetPost} showCount={showCount} />
+        <ShareMenu post={post} showCount={showCount} />
+        <Like post={targetPost} showCount={showCount} />
         {canAct && !showCount ? <OpenAction post={targetPost} /> : null}
-        <Tip publication={targetPost} showCount={showCount} />
+        <Tip post={targetPost} showCount={showCount} />
         {views > 0 ? <Views showCount={showCount} views={views} /> : null}
         {isGardener ? <Mod isFullPost={showCount} post={targetPost} /> : null}
       </span>

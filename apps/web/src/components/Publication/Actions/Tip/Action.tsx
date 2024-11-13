@@ -43,15 +43,11 @@ const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
 interface ActionProps {
   closePopover: () => void;
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
   triggerConfetti: () => void;
 }
 
-const Action: FC<ActionProps> = ({
-  closePopover,
-  publication,
-  triggerConfetti
-}) => {
+const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
   const { currentProfile } = useProfileStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { addTip } = useTipsStore();
@@ -172,11 +168,11 @@ const Action: FC<ActionProps> = ({
         address: HEY_TIPPING,
         args: [
           selectedCurrency?.contractAddress,
-          publication.by.ownedBy.address,
+          post.by.ownedBy.address,
           finalRate,
           currentProfile?.id,
-          publication.by.id,
-          publication.id.split("-")[1]
+          post.by.id,
+          post.id.split("-")[1]
         ],
         functionName: "tip"
       });
@@ -186,8 +182,8 @@ const Action: FC<ActionProps> = ({
         {
           amount: cryptoRate - cryptoRate * 0.05,
           fromAddress: address,
-          id: publication.id,
-          toAddress: publication.by.ownedBy.address,
+          id: post.id,
+          toAddress: post.by.ownedBy.address,
           tokenAddress: selectedCurrency?.contractAddress,
           txHash: hash
         },
@@ -199,7 +195,7 @@ const Action: FC<ActionProps> = ({
         amount,
         currency: selectedCurrency?.symbol
       });
-      addTip(publication.id);
+      addTip(post.id);
       closePopover();
       triggerConfetti();
       return;
