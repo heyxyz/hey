@@ -1,7 +1,7 @@
 import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import getPublicationTipById from "@hey/helpers/getPublicationTipById";
+import getPostTipById from "@hey/helpers/getPostTipById";
 import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { TipIcon } from "@hey/icons";
@@ -21,7 +21,7 @@ interface TipProps {
 
 const Tip: FC<TipProps> = ({ post, showCount }) => {
   const { postTips } = useTipsStore();
-  const tip = getPublicationTipById(postTips, post.id);
+  const tip = getPostTipById(postTips, post.id);
   const confettiDom = useRef<HTMLDivElement>(null);
 
   const triggerConfetti = () => {
