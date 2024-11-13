@@ -16,13 +16,13 @@ export const DEFAULT_AUDIO_PUBLICATION: AudioPublication = {
 };
 
 interface State {
-  audioPublication: AudioPublication;
-  setAudioPublication: (audioPublication: AudioPublication) => void;
+  audioPost: AudioPublication;
+  setAudioPost: (audioPost: AudioPublication) => void;
 }
 
 const store = create<State>((set) => ({
-  audioPublication: DEFAULT_AUDIO_PUBLICATION,
-  setAudioPublication: (audioPublication) => set(() => ({ audioPublication }))
+  audioPost: DEFAULT_AUDIO_PUBLICATION,
+  setAudioPost: (audioPost) => set(() => ({ audioPost }))
 }));
 
 export const usePostAudioStore = createTrackedSelector(store);

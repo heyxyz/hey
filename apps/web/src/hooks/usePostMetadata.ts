@@ -24,7 +24,7 @@ interface UsePostMetadataProps {
 const usePostMetadata = () => {
   const { tags } = usePostStore();
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
-  const { audioPublication } = usePostAudioStore();
+  const { audioPost } = usePostAudioStore();
   const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
@@ -92,10 +92,10 @@ const usePostMetadata = () => {
               attachments: attachmentsToBeUploaded
             }),
             audio: {
-              ...(audioPublication.artist && {
-                artist: audioPublication.artist
+              ...(audioPost.artist && {
+                artist: audioPost.artist
               }),
-              cover: audioPublication.cover,
+              cover: audioPost.cover,
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
               ...(license && { license })
@@ -124,7 +124,7 @@ const usePostMetadata = () => {
       attributes,
       attachments,
       videoDurationInSeconds,
-      audioPublication,
+      audioPost,
       videoThumbnail,
       showLiveVideoEditor,
       liveVideoConfig,

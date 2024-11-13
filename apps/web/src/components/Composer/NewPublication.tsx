@@ -109,7 +109,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     usePostStore();
 
   // Audio store
-  const { audioPublication, setAudioPublication } = usePostAudioStore();
+  const { audioPost, setAudioPost } = usePostAudioStore();
 
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
@@ -178,7 +178,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     setAttachments([]);
     setQuotedPost(null);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
-    setAudioPublication(DEFAULT_AUDIO_PUBLICATION);
+    setAudioPost(DEFAULT_AUDIO_PUBLICATION);
     setLicense(null);
     resetAttributes();
     resetCollectSettings();
@@ -255,7 +255,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   useEffect(() => {
     setPostContentError("");
-  }, [audioPublication]);
+  }, [audioPost]);
 
   useEffect(() => {
     if (getMentions(postContent).length > 50) {
@@ -299,7 +299,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       setIsLoading(true);
       if (hasAudio) {
         setPostContentError("");
-        const parsedData = AudioPublicationSchema.safeParse(audioPublication);
+        const parsedData = AudioPublicationSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
           setIsLoading(false);
@@ -326,7 +326,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       const processedPostContent =
         postContent.length > 0 ? postContent : undefined;
       const title = hasAudio
-        ? audioPublication.title
+        ? audioPost.title
         : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
       const hasAttributes = Boolean(pollId);
 
