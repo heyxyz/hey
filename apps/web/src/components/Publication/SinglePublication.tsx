@@ -7,7 +7,7 @@ import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
-import PublicationAvatar from "./PublicationAvatar";
+import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
 import PublicationHeader from "./PublicationHeader";
 import PublicationType from "./Type";
@@ -58,7 +58,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         />
       )}
       <div className="flex items-start space-x-3">
-        <PublicationAvatar feedItem={feedItem} publication={rootPublication} />
+        <PostAvatar feedItem={feedItem} publication={rootPublication} />
         <div className="w-[calc(100%-55px)]">
           <PublicationHeader
             feedItem={feedItem}

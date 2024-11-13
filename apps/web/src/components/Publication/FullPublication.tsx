@@ -16,7 +16,7 @@ import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { useHiddenCommentFeedStore } from ".";
 import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
-import PublicationAvatar from "./PublicationAvatar";
+import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
 import PublicationHeader from "./PublicationHeader";
 import PublicationStats from "./PublicationStats";
@@ -66,7 +66,7 @@ const FullPublication: FC<FullPublicationProps> = ({
     <article className="p-5">
       <PublicationType publication={publication} showType />
       <div className="flex items-start space-x-3">
-        <PublicationAvatar publication={publication} />
+        <PostAvatar publication={publication} />
         <div className="w-[calc(100%-55px)]">
           <PublicationHeader publication={targetPublication} />
           {targetPublication.isHidden ? (

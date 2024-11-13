@@ -3,7 +3,7 @@ import type { PrimaryPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import HiddenPublication from "./HiddenPublication";
-import PublicationAvatar from "./PublicationAvatar";
+import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
 import PublicationHeader from "./PublicationHeader";
 
@@ -24,7 +24,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       publication={publication}
     >
       <div className="flex items-center space-x-2">
-        <PublicationAvatar publication={publication} quoted />
+        <PostAvatar publication={publication} quoted />
         <PublicationHeader isNew={isNew} publication={publication} quoted />
       </div>
       {publication.isHidden ? (

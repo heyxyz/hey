@@ -11,13 +11,13 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { memo } from "react";
 
-interface PublicationAvatarProps {
+interface PostAvatarProps {
   feedItem?: FeedItem;
   publication: AnyPublication;
   quoted?: boolean;
 }
 
-const PublicationAvatar: FC<PublicationAvatarProps> = ({
+const PostAvatar: FC<PostAvatarProps> = ({
   feedItem,
   publication,
   quoted = false
@@ -54,4 +54,4 @@ const PublicationAvatar: FC<PublicationAvatarProps> = ({
   );
 };
 
-export default memo(PublicationAvatar);
+export default memo(PostAvatar);
