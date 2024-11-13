@@ -10,12 +10,12 @@ import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface CopyPostTextProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
-  const publicationType = publication.__typename;
-  const filteredContent = getPostData(publication.metadata)?.content || "";
+const CopyPostText: FC<CopyPostTextProps> = ({ post }) => {
+  const postType = post.__typename;
+  const filteredContent = getPostData(post.metadata)?.content || "";
 
   return (
     <MenuItem
@@ -31,16 +31,14 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
         await navigator.clipboard.writeText(filteredContent || "");
         toast.success("Content copied to clipboard!");
         Leafwatch.track(PUBLICATION.COPY_TEXT, {
-          publication_id: publication.id
+          publication_id: post.id
         });
       }}
     >
       <div className="flex items-center space-x-2">
         <ClipboardDocumentIcon className="size-4" />
         <div>
-          {publicationType === "Comment"
-            ? "Copy comment text"
-            : "Copy post text"}
+          {postType === "Comment" ? "Copy comment text" : "Copy post text"}
         </div>
       </div>
     </MenuItem>

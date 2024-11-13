@@ -58,9 +58,9 @@ const SinglePost: FC<SinglePostProps> = ({
         />
       )}
       <div className="flex items-start space-x-3">
-        <PostAvatar feedItem={feedItem} publication={rootPublication} />
+        <PostAvatar feedItem={feedItem} post={rootPublication} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader feedItem={feedItem} publication={rootPublication} />
+          <PostHeader feedItem={feedItem} post={rootPublication} />
           {post.isHidden ? (
             <HiddenPost type={post.__typename} />
           ) : (

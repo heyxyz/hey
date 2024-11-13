@@ -21,8 +21,8 @@ const QuotedPost: FC<QuotedPostProps> = ({ isNew = false, post }) => {
       publication={post}
     >
       <div className="flex items-center space-x-2">
-        <PostAvatar publication={post} quoted />
-        <PostHeader isNew={isNew} publication={post} quoted />
+        <PostAvatar post={post} quoted />
+        <PostHeader isNew={isNew} post={post} quoted />
       </div>
       {post.isHidden ? (
         <HiddenPost type={post.__typename} />

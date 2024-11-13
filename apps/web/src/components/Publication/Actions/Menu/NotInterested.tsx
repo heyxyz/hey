@@ -18,14 +18,14 @@ import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface NotInterestedProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
-  const notInterested = publication.operations.isNotInterested;
+const NotInterested: FC<NotInterestedProps> = ({ post }) => {
+  const notInterested = post.operations.isNotInterested;
 
   const request: PublicationNotInterestedRequest = {
-    on: publication.id
+    on: post.id
   };
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
@@ -35,7 +35,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
           return { ...existingValue, isNotInterested: notInterested };
         }
       },
-      id: cache.identify(publication)
+      id: cache.identify(post)
     });
   };
 
@@ -47,7 +47,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     onCompleted: () => {
       toast.success("Marked as not Interested");
       Leafwatch.track(PUBLICATION.NOT_INTERESTED, {
-        publication_id: publication.id
+        publication_id: post.id
       });
     },
     onError,
@@ -60,7 +60,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       onCompleted: () => {
         toast.success("Undo Not interested");
         Leafwatch.track(PUBLICATION.UNDO_NOT_INTERESTED, {
-          publication_id: publication.id
+          publication_id: post.id
         });
       },
       onError,

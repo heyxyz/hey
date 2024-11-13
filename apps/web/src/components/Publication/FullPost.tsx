@@ -63,9 +63,9 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, publication }) => {
     <article className="p-5">
       <PublicationType publication={publication} showType />
       <div className="flex items-start space-x-3">
-        <PostAvatar publication={publication} />
+        <PostAvatar post={publication} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader publication={targetPost} />
+          <PostHeader post={targetPost} />
           {targetPost.isHidden ? (
             <HiddenPost type={targetPost.__typename} />
           ) : (

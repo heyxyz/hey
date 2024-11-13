@@ -18,19 +18,19 @@ import { toast } from "react-hot-toast";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface HideCommentProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const HideComment: FC<HideCommentProps> = ({ publication }) => {
+const HideComment: FC<HideCommentProps> = ({ post }) => {
   const { currentProfile } = useProfileStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
   const request: HideCommentRequest | UnhideCommentRequest = {
-    for: publication.id
+    for: post.id
   };
 
   const updateCache = (cache: ApolloCache<any>) => {
-    cache.evict({ id: cache.identify(publication) });
+    cache.evict({ id: cache.identify(post) });
   };
 
   const onError = (error: any) => {
@@ -42,7 +42,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       toast.success("Comment hidden");
       Leafwatch.track(PUBLICATION.TOGGLE_HIDE_COMMENT, {
         hidden: true,
-        publication_id: publication.id
+        publication_id: post.id
       });
     },
     onError,
@@ -55,7 +55,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
       toast.success("Comment unhidden");
       Leafwatch.track(PUBLICATION.TOGGLE_HIDE_COMMENT, {
         hidden: false,
-        publication_id: publication.id
+        publication_id: post.id
       });
     },
     onError,
@@ -63,7 +63,7 @@ const HideComment: FC<HideCommentProps> = ({ publication }) => {
     variables: { request }
   });
 
-  const canHideComment = currentProfile?.id !== publication?.by?.id;
+  const canHideComment = currentProfile?.id !== post?.by?.id;
 
   if (!canHideComment) {
     return null;

@@ -10,21 +10,19 @@ import PublicationMenu from "./Actions/Menu";
 interface PostHeaderProps {
   feedItem?: FeedItem;
   isNew?: boolean;
-  publication: AnyPublication;
+  post: AnyPublication;
   quoted?: boolean;
 }
 
 const PostHeader: FC<PostHeaderProps> = ({
   feedItem,
   isNew = false,
-  publication,
+  post,
   quoted = false
 }) => {
   const { setQuotedPublication } = usePublicationStore();
 
-  const targetPost = isRepost(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
   const profile = feedItem ? rootPublication.by : targetPost.by;
   const timestamp = feedItem ? rootPublication.createdAt : targetPost.createdAt;
@@ -41,8 +39,8 @@ const PostHeader: FC<PostHeaderProps> = ({
         tags={targetPost.metadata?.tags || []}
         timestamp={timestamp}
       />
-      {!publication.isHidden && !quoted ? (
-        <PublicationMenu publication={targetPost} />
+      {!post.isHidden && !quoted ? (
+        <PublicationMenu post={targetPost} />
       ) : (
         <div className="size-[30px]" />
       )}

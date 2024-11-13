@@ -13,19 +13,17 @@ import { memo } from "react";
 
 interface PostAvatarProps {
   feedItem?: FeedItem;
-  publication: AnyPublication;
+  post: AnyPublication;
   quoted?: boolean;
 }
 
 const PostAvatar: FC<PostAvatarProps> = ({
   feedItem,
-  publication,
+  post,
   quoted = false
 }) => {
   const { push } = useRouter();
-  const targetPost = isRepost(publication)
-    ? publication?.mirrorOn
-    : publication;
+  const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
   const profile = feedItem ? rootPublication.by : targetPost.by;
 
