@@ -5,7 +5,7 @@ import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-import PublicationActions from "./Actions";
+import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
@@ -67,7 +67,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             <>
               <PostBody publication={rootPublication} showMore={showMore} />
               {showActions ? (
-                <PublicationActions publication={rootPublication} />
+                <PostActions publication={rootPublication} />
               ) : null}
             </>
           )}

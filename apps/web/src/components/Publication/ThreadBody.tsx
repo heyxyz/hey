@@ -2,7 +2,7 @@ import PublicationWrapper from "@components/Shared/PublicationWrapper";
 import type { AnyPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-import PublicationActions from "./Actions";
+import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
@@ -27,7 +27,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
           ) : (
             <>
               <PostBody publication={publication} />
-              <PublicationActions publication={publication} />
+              <PostActions publication={publication} />
             </>
           )}
         </div>

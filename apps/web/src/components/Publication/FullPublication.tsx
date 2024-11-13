@@ -14,7 +14,7 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { useHiddenCommentFeedStore } from ".";
-import PublicationActions from "./Actions";
+import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
@@ -90,7 +90,7 @@ const FullPublication: FC<FullPublicationProps> = ({
               />
               <div className="divider" />
               <div className="flex items-center justify-between">
-                <PublicationActions publication={targetPublication} showCount />
+                <PostActions publication={targetPublication} showCount />
                 {hasHiddenComments ? (
                   <div className="mt-2">
                     <button
