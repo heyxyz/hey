@@ -41,19 +41,19 @@ import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
-interface CreatePublicationProps {
+interface CreatePostProps {
   commentOn?: AnyPublication;
   onCompleted: (status?: any) => void;
   onError: (error: any) => void;
   quoteOn?: AnyPublication;
 }
 
-const useCreatePublication = ({
+const useCreatePost = ({
   commentOn,
   onCompleted,
   onError,
   quoteOn
-}: CreatePublicationProps) => {
+}: CreatePostProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const { currentProfile } = useProfileStore();
@@ -374,4 +374,4 @@ const useCreatePublication = ({
   };
 };
 
-export default useCreatePublication;
+export default useCreatePost;
