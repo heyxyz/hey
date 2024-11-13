@@ -9,6 +9,13 @@ if [[ $(git status --porcelain) ]]; then
   exit 1
 fi
 
+# Capture the current branch before switching
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$current_branch" == "main" ]; then
+  echo "You are already on the main branch. Please switch to a feature branch to rebase."
+  exit 1
+fi
+
 # Fetch the latest changes from the remote repository
 git fetch origin
 
@@ -16,15 +23,10 @@ git fetch origin
 git checkout main
 git pull origin main
 
-# Switch back to the previous branch
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-if [ "$current_branch" == "main" ]; then
-  echo "You are already on the main branch. Please switch to a feature branch to rebase."
-  exit 1
-fi
+# Switch back to the original branch
+git checkout "$current_branch"
 
 # Rebase the current branch onto the updated main branch
-git checkout "$current_branch"
 git rebase main
 
 # Check for conflicts
