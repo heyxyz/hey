@@ -3,11 +3,11 @@ import type { FC } from "react";
 import ThreadBody from "../ThreadBody";
 
 interface CommentedProps {
-  publication: Comment;
+  post: Comment;
 }
 
-const Commented: FC<CommentedProps> = ({ publication }) => {
-  const commentOn: any | Comment = publication?.commentOn;
+const Commented: FC<CommentedProps> = ({ post }) => {
+  const commentOn: any | Comment = post?.commentOn;
   const root = commentOn?.root;
 
   return (

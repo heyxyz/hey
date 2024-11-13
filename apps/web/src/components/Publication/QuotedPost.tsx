@@ -18,7 +18,7 @@ const QuotedPost: FC<QuotedPostProps> = ({ isNew = false, post }) => {
   return (
     <PostWrapper
       className="cursor-pointer p-4 transition-colors first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
-      publication={post}
+      post={post}
     >
       <div className="flex items-center space-x-2">
         <PostAvatar post={post} quoted />

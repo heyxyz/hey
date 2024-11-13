@@ -12,17 +12,17 @@ import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface QuoteProps {
-  publication: MirrorablePublication;
+  post: MirrorablePublication;
 }
 
-const Quote: FC<QuoteProps> = ({ publication }) => {
+const Quote: FC<QuoteProps> = ({ post }) => {
   const { currentProfile } = useProfileStore();
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPost } = usePublicationStore();
   const { isSuspended } = useProfileStatus();
-  const publicationType = publication.__typename;
+  const publicationType = post.__typename;
 
-  if (publication.operations.canQuote === TriStateValue.No) {
+  if (post.operations.canQuote === TriStateValue.No) {
     return null;
   }
 
@@ -45,7 +45,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
           return toast.error(Errors.Suspended);
         }
 
-        setQuotedPost(publication);
+        setQuotedPost(post);
         setShowNewPostModal(true);
       }}
     >
