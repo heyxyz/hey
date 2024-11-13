@@ -5,13 +5,13 @@ import getURLs from "@hey/helpers/getURLs";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 
 const LinkPreviews: FC = () => {
   const { publicationContent, quotedPost } = usePublicationStore();
-  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore((state) => state);
   const { addAttribute, getAttribute, removeAttribute } =
     usePublicationAttributesStore();
   const [showRemove, setShowRemove] = useState(false);

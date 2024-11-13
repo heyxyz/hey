@@ -8,8 +8,8 @@ import {
   video
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import { usePublicationAudioStore } from "src/store/non-persisted/publication/usePublicationAudioStore";
 import { usePublicationLicenseStore } from "src/store/non-persisted/publication/usePublicationLicenseStore";
@@ -26,7 +26,7 @@ const usePublicationMetadata = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPublication } = usePublicationAudioStore();
   const { license } = usePublicationLicenseStore();
-  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
   const { attributes } = usePublicationAttributesStore();
 

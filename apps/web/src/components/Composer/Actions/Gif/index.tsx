@@ -6,7 +6,7 @@ import { Modal, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import GifSelector from "./GifSelector";
 
 interface GifProps {
@@ -14,7 +14,7 @@ interface GifProps {
 }
 
 const Gif: FC<GifProps> = ({ setGifAttachment }) => {
-  const { attachments } = usePublicationAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore((state) => state);
   const [showModal, setShowModal] = useState(false);
   const disable =
     attachments.length > 0 &&

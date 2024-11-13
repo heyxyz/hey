@@ -36,11 +36,11 @@ import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePublication from "src/hooks/useCreatePublication";
 import usePublicationMetadata from "src/hooks/usePublicationMetadata";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import { usePublicationAttributesStore } from "src/store/non-persisted/publication/usePublicationAttributesStore";
 import {
   DEFAULT_AUDIO_PUBLICATION,
@@ -125,7 +125,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
-    usePublicationAttachmentStore((state) => state);
+    usePostAttachmentStore((state) => state);
 
   // Poll store
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =

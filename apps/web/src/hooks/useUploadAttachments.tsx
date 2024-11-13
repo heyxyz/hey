@@ -3,8 +3,8 @@ import type { NewAttachment } from "@hey/types/misc";
 import imageCompression from "browser-image-compression";
 import { useCallback } from "react";
 import { toast } from "react-hot-toast";
+import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationAttachmentStore } from "src/store/non-persisted/publication/usePublicationAttachmentStore";
 import { v4 as uuid } from "uuid";
 
 const useUploadAttachments = () => {
@@ -14,7 +14,7 @@ const useUploadAttachments = () => {
     removeAttachments,
     setIsUploading,
     updateAttachments
-  } = usePublicationAttachmentStore((state) => state);
+  } = usePostAttachmentStore((state) => state);
 
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewAttachment[]> => {
