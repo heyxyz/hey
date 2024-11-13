@@ -7,14 +7,12 @@ import type { FC } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 
-interface SingleImagePublicationProps {
-  publication: AnyPublication;
+interface SingleImagePostProps {
+  post: AnyPublication;
 }
 
-const SingleImagePublication: FC<SingleImagePublicationProps> = ({
-  publication
-}) => {
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const filteredAttachments =
     getPostData(targetPost.metadata)?.attachments || [];
   const filteredAsset = getPostData(targetPost.metadata)?.asset;
@@ -24,8 +22,8 @@ const SingleImagePublication: FC<SingleImagePublicationProps> = ({
 
   return (
     <Link
-      href={`/posts/${publication.id}`}
-      key={publication.id}
+      href={`/posts/${post.id}`}
+      key={post.id}
       className="relative h-80 overflow-hidden rounded-xl bg-center bg-cover"
       style={{
         backgroundImage: `url(${backgroundImage})`
@@ -39,4 +37,4 @@ const SingleImagePublication: FC<SingleImagePublicationProps> = ({
   );
 };
 
-export default memo(SingleImagePublication);
+export default memo(SingleImagePost);

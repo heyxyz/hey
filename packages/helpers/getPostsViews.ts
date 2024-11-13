@@ -1,14 +1,14 @@
 import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
 import axios from "axios";
 
-export const GET_PUBLICATIONS_VIEWS_QUERY_KEY = "getPublicationsViews";
+export const GET_POSTS_VIEWS_QUERY_KEY = "getPostsViews";
 
 /**
- * Get the number of views of a publication
- * @param ids The ids of the publications
- * @returns The number of views of the publication
+ * Get the number of views of a post
+ * @param ids The ids of the posts
+ * @returns The number of views of the post
  */
-const getPublicationsViews = async (
+const getPostsViews = async (
   ids: string[]
 ): Promise<
   {
@@ -32,4 +32,4 @@ const getPublicationsViews = async (
   }
 };
 
-export default getPublicationsViews;
+export default getPostsViews;

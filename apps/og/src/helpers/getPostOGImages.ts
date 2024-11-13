@@ -1,7 +1,7 @@
 import getPostData from "@hey/helpers/getPostData";
 import type { PublicationMetadata } from "@hey/lens";
 
-const getPublicationOGImages = (metadata: PublicationMetadata) => {
+const getPostOGImages = (metadata: PublicationMetadata) => {
   const filteredAttachments = getPostData(metadata)?.attachments || [];
   const filteredAsset = getPostData(metadata)?.asset;
 
@@ -36,4 +36,4 @@ const getPublicationOGImages = (metadata: PublicationMetadata) => {
   return [];
 };
 
-export default getPublicationOGImages;
+export default getPostOGImages;
