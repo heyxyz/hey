@@ -37,7 +37,4 @@ git commit -m "$commit_message"
 # Push the branch
 git push -u origin "$branch_name"
 
-# Create a pull request
-gh pr create --fill
-
 echo "Dependencies updated and pushed to branch $branch_name."
