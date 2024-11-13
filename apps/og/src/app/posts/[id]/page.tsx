@@ -1,5 +1,5 @@
 import getCollectModuleMetadata from "@helpers/getCollectModuleMetadata";
-import getPublicationOGImages from "@helpers/getPublicationOGImages";
+import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
@@ -80,7 +80,7 @@ export const generateMetadata = async ({
     metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
     openGraph: {
       description: description,
-      images: getPublicationOGImages(metadata) as any,
+      images: getPostOGImages(metadata) as any,
       siteName: "Hey",
       type: "article",
       url: `https://hey.xyz/posts/${targetPost.id}`

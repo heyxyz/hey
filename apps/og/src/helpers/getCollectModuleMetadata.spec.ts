@@ -1,4 +1,4 @@
-import getPublicationOGImages from "@helpers/getPublicationOGImages";
+import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import getProfile from "@hey/helpers/getProfile";
@@ -10,7 +10,7 @@ vi.mock("@hey/helpers/getProfile", () => ({
   default: vi.fn()
 }));
 
-vi.mock("@helpers/getPublicationOGImages", () => ({
+vi.mock("@helpers/getPostOGImages", () => ({
   default: vi.fn()
 }));
 
@@ -24,7 +24,7 @@ describe("getCollectModuleMetadata", () => {
 
   test("should return correct metadata when open action module is present", () => {
     (getProfile as any).mockReturnValue(mockProfile);
-    (getPublicationOGImages as any).mockReturnValue(mockOGImages);
+    (getPostOGImages as any).mockReturnValue(mockOGImages);
 
     const publication = {
       __typename: "MirrorablePublication",
