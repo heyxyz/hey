@@ -11,8 +11,8 @@ import { useCallback } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
 import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
 import { usePostVideoStore } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { v4 as uuid } from "uuid";
 import { usePostAudioStore } from "../store/non-persisted/publication/usePostAudioStore";
@@ -27,7 +27,7 @@ const usePostMetadata = () => {
   const { audioPublication } = usePostAudioStore();
   const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore((state) => state);
-  const { liveVideoConfig, showLiveVideoEditor } = usePublicationLiveStore();
+  const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
   const { attributes } = usePostAttributesStore();
 
   const getMetadata = useCallback(

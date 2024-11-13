@@ -27,4 +27,4 @@ const store = create<State>((set) => ({
   showLiveVideoEditor: false
 }));
 
-export const usePublicationLiveStore = createTrackedSelector(store);
+export const usePostLiveStore = createTrackedSelector(store);

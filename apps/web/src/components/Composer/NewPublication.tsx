@@ -43,11 +43,11 @@ import {
   usePostAudioStore
 } from "src/store/non-persisted/publication/usePostAudioStore";
 import { usePostLicenseStore } from "src/store/non-persisted/publication/usePostLicenseStore";
+import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/publication/usePostVideoStore";
-import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
 import { usePublicationPollStore } from "src/store/non-persisted/publication/usePublicationPollStore";
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
@@ -121,7 +121,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   // Live video store
   const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
-    usePublicationLiveStore();
+    usePostLiveStore();
 
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =

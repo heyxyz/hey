@@ -3,11 +3,11 @@ import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
-import { usePublicationLiveStore } from "src/store/non-persisted/publication/usePublicationLiveStore";
+import { usePostLiveStore } from "src/store/non-persisted/publication/usePostLiveStore";
 
 const LivestreamSettings: FC = () => {
   const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
-    usePublicationLiveStore();
+    usePostLiveStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const disable = attachments.length > 0;
 
