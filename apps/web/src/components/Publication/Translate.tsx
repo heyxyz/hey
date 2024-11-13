@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { MirrorablePublication } from "@hey/lens";
 import { useFlag } from "@unleash/proxy-client-react";
 import axios from "axios";
@@ -45,8 +45,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
     }
   };
 
-  const filteredContent =
-    getPublicationData(publication.metadata)?.content || "";
+  const filteredContent = getPostData(publication.metadata)?.content || "";
 
   if (filteredContent?.length < 5) {
     return null;

@@ -1,5 +1,4 @@
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationListShimmer from "@components/Shared/Shimmer/PublicationListShimmer";
+import PostListShimmer from "@components/Shared/Shimmer/PostListShimmer";
 import {
   ArrowLeftIcon,
   ChatBubbleBottomCenterTextIcon
@@ -12,6 +11,7 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
+import SinglePost from "./SinglePost";
 
 interface QuotesProps {
   publicationId: string;
@@ -55,7 +55,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <PublicationListShimmer />;
+    return <PostListShimmer />;
   }
 
   if (error) {
@@ -86,7 +86,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
         data={quotes}
         endReached={onEndReached}
         itemContent={(index, quote) => (
-          <SinglePublication
+          <SinglePost
             isFirst={false}
             isLast={index === quotes.length - 1}
             publication={quote as Quote}

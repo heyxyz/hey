@@ -3,7 +3,7 @@ import { APP_NAME } from "@hey/data/constants";
 import { Card } from "@hey/ui";
 import type { FC } from "react";
 
-const EncryptedPublication: FC = () => {
+const EncryptedPost: FC = () => {
   return (
     <Card className="!bg-gray-100 dark:!bg-gray-800 mt-2 px-4 py-3">
       <div className="flex items-center space-x-1 text-sm">
@@ -14,4 +14,4 @@ const EncryptedPublication: FC = () => {
   );
 };
 
-export default EncryptedPublication;
+export default EncryptedPost;

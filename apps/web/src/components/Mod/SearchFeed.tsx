@@ -1,6 +1,6 @@
 import HigherActions from "@components/Publication/Actions/HigherActions";
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import SinglePost from "@components/Publication/SinglePost";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
@@ -82,7 +82,7 @@ const SearchFeed: FC = () => {
         <Button size="lg">Search</Button>
       </form>
       {loading ? (
-        <PublicationsShimmer />
+        <PostsShimmer />
       ) : !query || publications?.length === 0 ? (
         <EmptyState
           icon={<ChatBubbleBottomCenterIcon className="size-8" />}
@@ -104,7 +104,7 @@ const SearchFeed: FC = () => {
 
             return (
               <Card>
-                <SinglePublication
+                <SinglePost
                   isFirst
                   isLast={false}
                   publication={publication as AnyPublication}

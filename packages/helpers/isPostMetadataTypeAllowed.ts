@@ -10,7 +10,7 @@ const allowedTypes = [
   "CheckingInMetadataV3"
 ];
 
-const isPublicationMetadataTypeAllowed = (type?: string): boolean => {
+const isPostMetadataTypeAllowed = (type?: string): boolean => {
   if (!type) {
     return false;
   }
@@ -18,4 +18,4 @@ const isPublicationMetadataTypeAllowed = (type?: string): boolean => {
   return allowedTypes.includes(type);
 };
 
-export default isPublicationMetadataTypeAllowed;
+export default isPostMetadataTypeAllowed;

@@ -1,18 +1,18 @@
 import ActionType from "@components/Home/Timeline/EventType";
-import PublicationWrapper from "@components/Shared/PublicationWrapper";
+import PostWrapper from "@components/Shared/PostWrapper";
 import type { AnyPublication, FeedItem } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
-import PublicationActions from "./Actions";
-import HiddenPublication from "./HiddenPublication";
-import PublicationAvatar from "./PublicationAvatar";
-import PublicationBody from "./PublicationBody";
-import PublicationHeader from "./PublicationHeader";
+import PostActions from "./Actions";
+import HiddenPost from "./HiddenPost";
+import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
+import PostHeader from "./PostHeader";
 import PublicationType from "./Type";
 
-interface SinglePublicationProps {
+interface SinglePostProps {
   feedItem?: FeedItem;
   header?: ReactNode;
   isFirst?: boolean;
@@ -24,7 +24,7 @@ interface SinglePublicationProps {
   showType?: boolean;
 }
 
-const SinglePublication: FC<SinglePublicationProps> = ({
+const SinglePost: FC<SinglePostProps> = ({
   feedItem,
   header,
   isFirst = false,
@@ -39,7 +39,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   usePushToImpressions(rootPublication.id);
 
   return (
-    <PublicationWrapper
+    <PostWrapper
       className={cn(
         isFirst && "rounded-t-xl",
         isLast && "rounded-b-xl",
@@ -58,29 +58,23 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         />
       )}
       <div className="flex items-start space-x-3">
-        <PublicationAvatar feedItem={feedItem} publication={rootPublication} />
+        <PostAvatar feedItem={feedItem} publication={rootPublication} />
         <div className="w-[calc(100%-55px)]">
-          <PublicationHeader
-            feedItem={feedItem}
-            publication={rootPublication}
-          />
+          <PostHeader feedItem={feedItem} publication={rootPublication} />
           {publication.isHidden ? (
-            <HiddenPublication type={publication.__typename} />
+            <HiddenPost type={publication.__typename} />
           ) : (
             <>
-              <PublicationBody
-                publication={rootPublication}
-                showMore={showMore}
-              />
+              <PostBody publication={rootPublication} showMore={showMore} />
               {showActions ? (
-                <PublicationActions publication={rootPublication} />
+                <PostActions publication={rootPublication} />
               ) : null}
             </>
           )}
         </div>
       </div>
-    </PublicationWrapper>
+    </PostWrapper>
   );
 };
 
-export default memo(SinglePublication);
+export default memo(SinglePost);

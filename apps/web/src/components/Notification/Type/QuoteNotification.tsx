@@ -1,6 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostData from "@hey/helpers/getPostData";
 import type { QuoteNotification as TQuoteNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
@@ -14,7 +14,7 @@ interface QuoteNotificationProps {
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const metadata = notification?.quote.metadata;
-  const filteredContent = getPublicationData(metadata)?.content || "";
+  const filteredContent = getPostData(metadata)?.content || "";
   const firstProfile = notification.quote.by;
 
   const text = "quoted your";

@@ -1,15 +1,15 @@
 import { Card } from "@hey/ui";
 import type { FC } from "react";
-import PublicationShimmer from "./PublicationShimmer";
+import PostShimmer from "./PostShimmer";
 
-const PublicationsShimmer: FC = () => {
+const PostsShimmer: FC = () => {
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {Array.from({ length: 3 }).map((_, index) => (
-        <PublicationShimmer key={index} />
+        <PostShimmer key={index} />
       ))}
     </Card>
   );
 };
 
-export default PublicationsShimmer;
+export default PostsShimmer;

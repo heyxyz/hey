@@ -1,5 +1,5 @@
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import SinglePost from "@components/Publication/SinglePost";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import type {
   AnyPublication,
@@ -70,7 +70,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (publications?.length === 0) {
@@ -95,7 +95,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
         endReached={onEndReached}
         isScrolling={onScrolling}
         itemContent={(index, publication) => (
-          <SinglePublication
+          <SinglePost
             isFirst={index === 0}
             isLast={index === (publications?.length || 0) - 1}
             publication={publication as AnyPublication}

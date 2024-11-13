@@ -1,8 +1,8 @@
 import getCollectModuleMetadata from "@helpers/getCollectModuleMetadata";
 import getPublicationOGImages from "@helpers/getPublicationOGImages";
 import { APP_NAME } from "@hey/data/constants";
+import getPostData from "@hey/helpers/getPostData";
 import getProfile from "@hey/helpers/getProfile";
-import getPublicationData from "@hey/helpers/getPublicationData";
 import logger from "@hey/helpers/logger";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
@@ -43,8 +43,8 @@ export const generateMetadata = async ({
     ? publication.mirrorOn
     : publication;
   const { by: profile, metadata } = targetPublication;
-  const filteredContent = getPublicationData(metadata)?.content || "";
-  const filteredAsset = getPublicationData(metadata)?.asset;
+  const filteredContent = getPostData(metadata)?.content || "";
+  const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
   const { displayName, link, slugWithPrefix } = getProfile(profile);

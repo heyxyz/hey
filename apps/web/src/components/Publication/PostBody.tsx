@@ -5,10 +5,10 @@ import Oembed from "@components/Shared/Oembed";
 import Video from "@components/Shared/Video";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
-import getPublicationAttribute from "@hey/helpers/getPublicationAttribute";
-import getPublicationData from "@hey/helpers/getPublicationData";
+import getPostAttribute from "@hey/helpers/getPostAttribute";
+import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
-import isPublicationMetadataTypeAllowed from "@hey/helpers/isPublicationMetadataTypeAllowed";
+import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isMirrorPublication } from "@hey/helpers/publicationHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { H6 } from "@hey/ui";
@@ -20,20 +20,20 @@ import { memo, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Checkin from "./Checkin";
-import EncryptedPublication from "./EncryptedPublication";
+import EncryptedPost from "./EncryptedPost";
 import Metadata from "./Metadata";
-import MutedPublication from "./MutedPublication";
-import NotSupportedPublication from "./NotSupportedPublication";
+import MutedPost from "./MutedPost";
+import NotSupportedPost from "./NotSupportedPost";
 import Poll from "./Poll";
 
-interface PublicationBodyProps {
+interface PostBodyProps {
   contentClassName?: string;
   publication: AnyPublication;
   quoted?: boolean;
   showMore?: boolean;
 }
 
-const PublicationBody: FC<PublicationBodyProps> = ({
+const PostBody: FC<PostBodyProps> = ({
   contentClassName = "",
   publication,
   quoted = false,
@@ -47,9 +47,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     : publication;
   const { id, metadata } = targetPublication;
 
-  const filteredContent = getPublicationData(metadata)?.content || "";
-  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
-  const filteredAsset = getPublicationData(metadata)?.asset;
+  const filteredContent = getPostData(metadata)?.content || "";
+  const filteredAttachments = getPostData(metadata)?.attachments || [];
+  const filteredAsset = getPostData(metadata)?.asset;
 
   const canShowMore = filteredContent?.length > 450 && showMore;
   const urls = getURLs(filteredContent);
@@ -65,11 +65,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   if (targetPublication.isEncrypted) {
-    return <EncryptedPublication />;
+    return <EncryptedPost />;
   }
 
-  if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {
-    return <NotSupportedPublication type={metadata.__typename} />;
+  if (!isPostMetadataTypeAllowed(metadata.__typename)) {
+    return <NotSupportedPost type={metadata.__typename} />;
   }
 
   // Show live if it's there
@@ -77,7 +77,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
-  const pollId = getPublicationAttribute(
+  const pollId = getPostAttribute(
     metadata.attributes,
     KNOWN_ATTRIBUTES.POLL_ID
   );
@@ -90,10 +90,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showQuote = targetPublication.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted publication
   const hideOembed =
-    getPublicationAttribute(
-      metadata.attributes,
-      KNOWN_ATTRIBUTES.HIDE_OEMBED
-    ) === "true";
+    getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
+    "true";
   const showOembed =
     !hideOembed &&
     !showSharingLink &&
@@ -113,7 +111,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showMutedPublication
   ) {
     return (
-      <MutedPublication
+      <MutedPost
         type={targetPublication.__typename}
         setShowMutedPublication={setShowMutedPublication}
       />
@@ -162,4 +160,4 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   );
 };
 
-export default memo(PublicationBody);
+export default memo(PostBody);

@@ -1,6 +1,6 @@
-import SinglePublication from "@components/Publication/SinglePublication";
+import SinglePost from "@components/Publication/SinglePost";
 import PinUnpinButton from "@components/Shared/List/PinUnpinButton";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import SingleList from "@components/Shared/SingleList";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -88,7 +88,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
   };
 
   if (loadingPublicationIds || publicationsLoading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   const Header = () => {
@@ -141,7 +141,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
         data={publications}
         isScrolling={onScrolling}
         itemContent={(index, publication) => (
-          <SinglePublication
+          <SinglePost
             isFirst={index === 0}
             isLast={index === (publications?.length || 0) - 1}
             publication={publication as AnyPublication}

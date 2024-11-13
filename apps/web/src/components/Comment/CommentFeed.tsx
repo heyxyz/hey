@@ -1,7 +1,7 @@
 import { useHiddenCommentFeedStore } from "@components/Publication";
-import QueuedPublication from "@components/Publication/QueuedPublication";
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import QueuedPost from "@components/Publication/QueuedPost";
+import SinglePost from "@components/Publication/SinglePost";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { Comment, PublicationsRequest } from "@hey/lens";
 import {
@@ -81,7 +81,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (error) {
@@ -100,7 +100,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
   return (
     <>
       {queuedComments.map((txn) => (
-        <QueuedPublication key={txn.txId} txn={txn} />
+        <QueuedPost key={txn.txId} txn={txn} />
       ))}
       <Card>
         <Virtuoso
@@ -119,7 +119,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ publicationId }) => {
             const isLast = index === comments.length - 1;
 
             return (
-              <SinglePublication
+              <SinglePost
                 isFirst={isFirst}
                 isLast={isLast}
                 publication={comment as Comment}

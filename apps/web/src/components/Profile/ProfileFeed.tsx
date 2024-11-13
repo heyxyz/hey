@@ -1,5 +1,5 @@
-import SinglePublication from "@components/Publication/SinglePublication";
-import PublicationsShimmer from "@components/Shared/Shimmer/PublicationsShimmer";
+import SinglePost from "@components/Publication/SinglePost";
+import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { ProfileFeedType } from "@hey/data/enums";
 import type { AnyPublication, PublicationsRequest } from "@hey/lens";
@@ -141,7 +141,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
   };
 
   if (loading || profileDetailsLoading) {
-    return <PublicationsShimmer />;
+    return <PostsShimmer />;
   }
 
   if (publications?.length === 0) {
@@ -182,7 +182,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
         endReached={onEndReached}
         isScrolling={onScrolling}
         itemContent={(index, publication) => (
-          <SinglePublication
+          <SinglePost
             isFirst={index === 0}
             isLast={index === (publications?.length || 0) - 1}
             publication={publication as AnyPublication}

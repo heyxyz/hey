@@ -15,15 +15,12 @@ import plur from "plur";
 import type { FC } from "react";
 import { memo, useState } from "react";
 
-interface PublicationStatsProps {
+interface PostStatsProps {
   publicationId: string;
   publicationStats: IPublicationStats;
 }
 
-const PublicationStats: FC<PublicationStatsProps> = ({
-  publicationId,
-  publicationStats
-}) => {
+const PostStats: FC<PostStatsProps> = ({ publicationId, publicationStats }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
@@ -157,4 +154,4 @@ const PublicationStats: FC<PublicationStatsProps> = ({
   );
 };
 
-export default memo(PublicationStats);
+export default memo(PostStats);
