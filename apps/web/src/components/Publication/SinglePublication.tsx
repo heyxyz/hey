@@ -9,7 +9,7 @@ import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
 import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
-import PublicationHeader from "./PublicationHeader";
+import PostHeader from "./PublicationHeader";
 import PublicationType from "./Type";
 
 interface SinglePublicationProps {
@@ -60,10 +60,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       <div className="flex items-start space-x-3">
         <PostAvatar feedItem={feedItem} publication={rootPublication} />
         <div className="w-[calc(100%-55px)]">
-          <PublicationHeader
-            feedItem={feedItem}
-            publication={rootPublication}
-          />
+          <PostHeader feedItem={feedItem} publication={rootPublication} />
           {publication.isHidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

@@ -18,7 +18,7 @@ import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
 import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
-import PublicationHeader from "./PublicationHeader";
+import PostHeader from "./PublicationHeader";
 import PublicationStats from "./PublicationStats";
 import Translate from "./Translate";
 import PublicationType from "./Type";
@@ -68,7 +68,7 @@ const FullPublication: FC<FullPublicationProps> = ({
       <div className="flex items-start space-x-3">
         <PostAvatar publication={publication} />
         <div className="w-[calc(100%-55px)]">
-          <PublicationHeader publication={targetPublication} />
+          <PostHeader publication={targetPublication} />
           {targetPublication.isHidden ? (
             <HiddenPublication type={targetPublication.__typename} />
           ) : (

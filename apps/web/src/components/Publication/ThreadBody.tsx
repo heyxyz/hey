@@ -6,7 +6,7 @@ import PublicationActions from "./Actions";
 import HiddenPublication from "./HiddenPublication";
 import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
-import PublicationHeader from "./PublicationHeader";
+import PostHeader from "./PublicationHeader";
 
 interface ThreadBodyProps {
   publication: AnyPublication;
@@ -21,7 +21,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
         <PostAvatar publication={publication} />
         <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-gray-300 border-solid dark:border-gray-700" />
         <div className="w-[calc(100%-55px)]">
-          <PublicationHeader publication={publication} />
+          <PostHeader publication={publication} />
           {publication.isHidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

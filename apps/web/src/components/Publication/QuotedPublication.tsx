@@ -5,7 +5,7 @@ import usePushToImpressions from "src/hooks/usePushToImpressions";
 import HiddenPublication from "./HiddenPublication";
 import PostAvatar from "./PostAvatar";
 import PublicationBody from "./PublicationBody";
-import PublicationHeader from "./PublicationHeader";
+import PostHeader from "./PublicationHeader";
 
 interface QuotedPublicationProps {
   isNew?: boolean;
@@ -25,7 +25,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
     >
       <div className="flex items-center space-x-2">
         <PostAvatar publication={publication} quoted />
-        <PublicationHeader isNew={isNew} publication={publication} quoted />
+        <PostHeader isNew={isNew} publication={publication} quoted />
       </div>
       {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />
