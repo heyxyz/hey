@@ -34,7 +34,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePublication from "src/hooks/useCreatePublication";
-import usePublicationMetadata from "src/hooks/usePublicationMetadata";
+import usePostMetadata from "src/hooks/usePostMetadata";
 import { useCollectModuleStore } from "src/store/non-persisted/publication/useCollectModuleStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/publication/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/publication/usePostAttributesStore";
@@ -154,7 +154,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   const editor = useEditorContext();
   const createPoll = useCreatePoll();
-  const getMetadata = usePublicationMetadata();
+  const getMetadata = usePostMetadata();
 
   const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
 

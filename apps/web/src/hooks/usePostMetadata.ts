@@ -17,11 +17,11 @@ import { usePublicationLiveStore } from "src/store/non-persisted/publication/use
 import { usePublicationStore } from "src/store/non-persisted/publication/usePublicationStore";
 import { v4 as uuid } from "uuid";
 
-interface UsePublicationMetadataProps {
+interface UsePostMetadataProps {
   baseMetadata: any;
 }
 
-const usePublicationMetadata = () => {
+const usePostMetadata = () => {
   const { tags } = usePublicationStore();
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPublication } = usePublicationAudioStore();
@@ -31,7 +31,7 @@ const usePublicationMetadata = () => {
   const { attributes } = usePostAttributesStore();
 
   const getMetadata = useCallback(
-    ({ baseMetadata }: UsePublicationMetadataProps) => {
+    ({ baseMetadata }: UsePostMetadataProps) => {
       const hasAttachments = attachments.length;
       const isImage = attachments[0]?.type === "Image";
       const isAudio = attachments[0]?.type === "Audio";
@@ -136,4 +136,4 @@ const usePublicationMetadata = () => {
   return getMetadata;
 };
 
-export default usePublicationMetadata;
+export default usePostMetadata;
