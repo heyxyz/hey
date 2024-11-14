@@ -13,7 +13,7 @@ describe("getPostOGImages", () => {
 
   test("should return image URIs from attachments when asset is an image", () => {
     const mockMetadata = { __typename: "ImageMetadata" } as any;
-    const mockPublicationData = {
+    const mockPostData = {
       attachments: [
         { uri: "https://example.com/image1.jpg" },
         { uri: "https://example.com/image2.jpg" }
@@ -21,7 +21,7 @@ describe("getPostOGImages", () => {
       asset: { type: "Image", uri: "https://example.com/asset-image.jpg" }
     };
 
-    (getPostData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPostData);
 
     const result = getPostOGImages(mockMetadata);
     expect(result).toEqual([
@@ -32,12 +32,12 @@ describe("getPostOGImages", () => {
 
   test("should return asset image URI when no attachments are present", () => {
     const mockMetadata = { __typename: "ImageMetadata" } as any;
-    const mockPublicationData = {
+    const mockPostData = {
       attachments: [],
       asset: { type: "Image", uri: "https://example.com/asset-image.jpg" }
     };
 
-    (getPostData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPostData);
 
     const result = getPostOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/asset-image.jpg"]);
@@ -45,12 +45,12 @@ describe("getPostOGImages", () => {
 
   test("should return video cover URI when no attachments are present", () => {
     const mockMetadata = { __typename: "VideoMetadata" } as any;
-    const mockPublicationData = {
+    const mockPostData = {
       attachments: [],
       asset: { type: "Video", cover: "https://example.com/video-cover.jpg" }
     };
 
-    (getPostData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPostData);
 
     const result = getPostOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/video-cover.jpg"]);
@@ -58,12 +58,12 @@ describe("getPostOGImages", () => {
 
   test("should return audio cover URI when no attachments are present", () => {
     const mockMetadata = { __typename: "AudioMetadata" } as any;
-    const mockPublicationData = {
+    const mockPostData = {
       attachments: [],
       asset: { type: "Audio", cover: "https://example.com/audio-cover.jpg" }
     };
 
-    (getPostData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPostData);
 
     const result = getPostOGImages(mockMetadata);
     expect(result).toEqual(["https://example.com/audio-cover.jpg"]);
@@ -71,7 +71,7 @@ describe("getPostOGImages", () => {
 
   test("should return attachment URIs for video if present", () => {
     const mockMetadata = { __typename: "VideoMetadata" } as any;
-    const mockPublicationData = {
+    const mockPostData = {
       attachments: [
         { uri: "https://example.com/video1.jpg" },
         { uri: "https://example.com/video2.jpg" }
@@ -79,7 +79,7 @@ describe("getPostOGImages", () => {
       asset: { type: "Video", cover: "https://example.com/video-cover.jpg" }
     };
 
-    (getPostData as any).mockReturnValue(mockPublicationData);
+    (getPostData as any).mockReturnValue(mockPostData);
 
     const result = getPostOGImages(mockMetadata);
     expect(result).toEqual([

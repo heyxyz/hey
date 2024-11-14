@@ -32,7 +32,7 @@ describe("getCollectModuleMetadata", () => {
         ownedBy: { address: "0x1234567890abcdef" }
       },
       metadata: {
-        title: "Test Publication"
+        title: "Test Post"
       },
       openActionModules: [
         {
@@ -65,7 +65,7 @@ describe("getCollectModuleMetadata", () => {
         ownedBy: { address: "0x1234567890abcdef" }
       },
       metadata: {
-        title: "Test Publication"
+        title: "Test Post"
       },
       openActionModules: [],
       stats: { countOpenActions: 0 },
@@ -83,7 +83,7 @@ describe("getCollectModuleMetadata", () => {
         ownedBy: { address: "0x1234567890abcdef" }
       },
       metadata: {
-        title: "Test Publication"
+        title: "Test Post"
       },
       openActionModules: [
         { type: "NonAllowedModuleType", contract: { address: "0xabcdef" } }
@@ -103,7 +103,7 @@ describe("getCollectModuleMetadata", () => {
         ownedBy: { address: "0x1234567890abcdef" }
       },
       metadata: {
-        title: "Test Publication"
+        title: "Test Post"
       },
       stats: { countOpenActions: 0 },
       id: "post-id-123"
@@ -120,7 +120,7 @@ describe("getCollectModuleMetadata", () => {
         ownedBy: { address: "0x1234567890abcdef" }
       },
       metadata: {
-        title: "Test Publication"
+        title: "Test Post"
       },
       openActionModules: [
         { type: "UnknownModuleType", contract: { address: "0xabcdef" } }
