@@ -61,9 +61,9 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
   };
 
   const {
-    data: publicationsData,
-    loading: publicationsLoading,
-    error: publicationsError
+    data: postsData,
+    loading: postsLoading,
+    error: postsError
   } = usePublicationsQuery({
     onCompleted: async ({ publications }) => {
       const ids =
@@ -77,7 +77,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     variables: { request }
   });
 
-  const posts = publicationsData?.publications?.items || [];
+  const posts = postsData?.publications?.items || [];
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {
@@ -87,7 +87,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     }
   };
 
-  if (loadingPostIds || publicationsLoading) {
+  if (loadingPostIds || postsLoading) {
     return <PostsShimmer />;
   }
 
@@ -113,19 +113,19 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
         <Header />
         <EmptyState
           icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-          message="No publications found"
+          message="No posts found"
           hideCard
         />
       </Card>
     );
   }
 
-  if (errorPostIds || publicationsError) {
+  if (errorPostIds || postsError) {
     return (
       <Card>
         <Header />
         <ErrorMessage
-          error={errorPostIds || publicationsError}
+          error={errorPostIds || postsError}
           title="Failed to load list feed"
         />
       </Card>
