@@ -10,7 +10,7 @@ import { object, string } from "zod";
 import CoverImage from "./CoverImage";
 import Player from "./Player";
 
-export const AudioPublicationSchema = object({
+export const AudioPostSchema = object({
   artist: string().trim().min(1, { message: "Invalid artist name" }),
   cover: string().trim().min(1, { message: "Invalid cover image" }),
   title: string().trim().min(1, { message: "Invalid audio title" })

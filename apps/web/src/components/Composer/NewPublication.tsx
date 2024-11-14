@@ -1,6 +1,6 @@
 import NewAttachments from "@components/Composer/NewAttachments";
 import QuotedPost from "@components/Post/QuotedPost";
-import { AudioPublicationSchema } from "@components/Shared/Audio";
+import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -104,7 +104,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   // Nonce store
   const { lensHubOnchainSigNonce } = useNonceStore();
 
-  // Publication store
+  // Post store
   const { postContent, quotedPost, setPostContent, setQuotedPost, setTags } =
     usePostStore();
 
@@ -210,12 +210,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     // Track in leafwatch
     const eventProperties = {
       comment_on: isComment ? post?.id : null,
-      publication_collect_module: collectModule.type,
-      publication_has_attachments: attachments.length > 0,
-      publication_has_poll: showPollEditor,
-      publication_is_live: showLiveVideoEditor,
-      publication_reference_module: selectedReferenceModule,
-      publication_reference_module_degrees_of_separation:
+      post_collect_module: collectModule.type,
+      post_has_attachments: attachments.length > 0,
+      post_has_poll: showPollEditor,
+      post_is_live: showLiveVideoEditor,
+      post_reference_module: selectedReferenceModule,
+      post_reference_module_degrees_of_separation:
         selectedReferenceModule ===
         ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
@@ -282,7 +282,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     return isComment ? "Comment" : isQuote ? "Quote" : "Post";
   };
 
-  const handleCreatePublication = async () => {
+  const handleCreatePost = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -295,7 +295,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       setIsLoading(true);
       if (hasAudio) {
         setPostContentError("");
-        const parsedData = AudioPublicationSchema.safeParse(audioPost);
+        const parsedData = AudioPostSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
           setIsLoading(false);
@@ -544,7 +544,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
               videoThumbnail.uploading ||
               exceededMentionsLimit
             }
-            onClick={handleCreatePublication}
+            onClick={handleCreatePost}
           >
             {isComment ? "Comment" : "Post"}
           </Button>

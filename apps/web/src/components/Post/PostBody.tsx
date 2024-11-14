@@ -40,7 +40,7 @@ const PostBody: FC<PostBodyProps> = ({
   showMore = false
 }) => {
   const { mutedWords } = usePreferencesStore();
-  const [showMutedPublication, setShowMutedPublication] = useState(false);
+  const [showMutedPost, setShowMutedPost] = useState(false);
 
   const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { id, metadata } = targetPost;
@@ -106,12 +106,12 @@ const PostBody: FC<PostBodyProps> = ({
       .some((word) =>
         filteredContent.toLowerCase().includes(word.toLowerCase())
       ) &&
-    !showMutedPublication
+    !showMutedPost
   ) {
     return (
       <MutedPost
         type={targetPost.__typename}
-        setShowMutedPublication={setShowMutedPublication}
+        setShowMutedPost={setShowMutedPost}
       />
     );
   }

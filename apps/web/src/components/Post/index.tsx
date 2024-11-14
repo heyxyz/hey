@@ -147,7 +147,7 @@ const ViewPost: NextPage = () => {
             hideUnfollowButton={currentProfile?.id === targetPost.by.id}
             profile={targetPost.by}
             showBio
-            source={ProfileLinkSource.Publication}
+            source={ProfileLinkSource.Post}
           />
         </Card>
         <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />
