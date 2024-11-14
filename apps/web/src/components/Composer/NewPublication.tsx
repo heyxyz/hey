@@ -39,7 +39,7 @@ import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectMo
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import {
-  DEFAULT_AUDIO_PUBLICATION,
+  DEFAULT_AUDIO_POST,
   usePostAudioStore
 } from "src/store/non-persisted/post/usePostAudioStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
@@ -178,7 +178,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     setAttachments([]);
     setQuotedPost(null);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
-    setAudioPost(DEFAULT_AUDIO_PUBLICATION);
+    setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);
     resetAttributes();
     resetCollectSettings();
