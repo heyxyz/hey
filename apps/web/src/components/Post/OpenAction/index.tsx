@@ -29,7 +29,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
         onClick={() => {
           setShowCollectModal(true);
           Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
-            publication_id: post.id,
+            post_id: post.id,
             source: "icon"
           });
         }}

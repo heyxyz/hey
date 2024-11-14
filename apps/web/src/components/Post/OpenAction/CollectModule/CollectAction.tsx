@@ -179,7 +179,7 @@ const CollectAction: FC<CollectActionProps> = ({
     Leafwatch.track(POST.COLLECT_MODULE.COLLECT, {
       amount,
       collect_module: openAction?.type,
-      publication_id: post?.id
+      post_id: post?.id
     });
   };
 

@@ -32,9 +32,7 @@ const CopyID: FC<CopyIDProps> = ({ id }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(id);
         toast.success("ID copied to clipboard!");
-        Leafwatch.track(POST.COPY_ID, {
-          publication_id: id
-        });
+        Leafwatch.track(POST.COPY_ID, { post_id: id });
       }}
     >
       <div className="flex items-center space-x-2">
