@@ -20,16 +20,16 @@ const Search: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: "search" });
   }, []);
 
-  if (!query.q || !["profiles", "pubs"].includes(query.type as string)) {
+  if (!query.q || !["profiles", "posts"].includes(query.type as string)) {
     return <Custom404 />;
   }
 
   const settingsSidebarItems = [
     {
-      active: query.type === "pubs",
+      active: query.type === "posts",
       icon: <PencilSquareIcon className="size-4" />,
       title: "Publications",
-      url: `/search?q=${searchText}&type=pubs`
+      url: `/search?q=${searchText}&type=posts`
     },
     {
       active: query.type === "profiles",
@@ -48,7 +48,7 @@ const Search: NextPage = () => {
         {query.type === "profiles" ? (
           <Profiles query={query.q as string} />
         ) : null}
-        {query.type === "pubs" ? <Posts query={query.q as string} /> : null}
+        {query.type === "posts" ? <Posts query={query.q as string} /> : null}
       </GridItemEight>
     </GridLayout>
   );
