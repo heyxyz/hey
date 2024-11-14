@@ -1,9 +1,7 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
 import { PUBLICATION } from "@hey/data/tracking";
-import getProfile from "@hey/helpers/getProfile";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPublication, Profile } from "@hey/lens";
 import type { APITypes } from "plyr-react";
 import type { ChangeEvent, FC } from "react";
 import { useRef, useState } from "react";
@@ -23,7 +21,6 @@ interface AudioProps {
   expandCover: (url: string) => void;
   isNew?: boolean;
   poster: string;
-  publication?: AnyPublication;
   src: string;
   title?: string;
 }
@@ -33,7 +30,6 @@ const Audio: FC<AudioProps> = ({
   expandCover,
   isNew = false,
   poster,
-  publication,
   src,
   title
 }) => {
@@ -51,16 +47,12 @@ const Audio: FC<AudioProps> = ({
     const player = playerRef.current.plyr;
     if (player.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
-        publication_id: publication?.id
-      });
+      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY);
       player.play();
     } else {
       setPlaying(false);
       player.pause();
-      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
-        publication_id: publication?.id
-      });
+      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE);
     }
   };
 
@@ -121,10 +113,7 @@ const Audio: FC<AudioProps> = ({
                 ) : (
                   <>
                     <h5 className="truncate text-lg text-white">{title}</h5>
-                    <h6 className="truncate text-white/70">
-                      {artist ||
-                        getProfile(publication?.by as Profile).displayName}
-                    </h6>
+                    <h6 className="truncate text-white/70">{artist}</h6>
                   </>
                 )}
               </div>
