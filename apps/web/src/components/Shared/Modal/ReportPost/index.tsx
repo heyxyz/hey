@@ -2,7 +2,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { useReportPublicationMutation } from "@hey/lens";
 import {
@@ -44,7 +44,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.REPORT, { publication_id: postId });
+      Leafwatch.track(POST.REPORT, { post_id: postId });
     }
   });
 

@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
@@ -28,8 +28,8 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => {
           setShowCollectModal(true);
-          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
-            publication_id: post.id,
+          Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
+            post_id: post.id,
             source: "icon"
           });
         }}

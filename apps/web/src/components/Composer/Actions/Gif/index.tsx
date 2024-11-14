@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { GifIcon } from "@heroicons/react/24/outline";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import type { IGif } from "@hey/types/giphy";
 import { Modal, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -33,7 +33,7 @@ const Gif: FC<GifProps> = ({ setGifAttachment }) => {
           disabled={disable}
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.OPEN_GIFS);
+            Leafwatch.track(POST.OPEN_GIFS);
           }}
           type="button"
         >

@@ -8,7 +8,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
 import type {
@@ -119,7 +119,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     increment();
     updateCache();
     toast.success("Post has been mirrored!");
-    Leafwatch.track(PUBLICATION.MIRROR, { publication_id: post.id });
+    Leafwatch.track(POST.MIRROR, { post_id: post.id });
   };
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });

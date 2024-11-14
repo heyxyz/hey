@@ -1,5 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MarkupLinkProps } from "@hey/types/misc";
 import Link from "next/link";
@@ -23,7 +23,7 @@ const Cashtag: FC<MarkupLinkProps> = ({ title }) => {
       })}
       onClick={(event) => {
         stopEventPropagation(event);
-        Leafwatch.track(PUBLICATION.CLICK_CASHTAG, { cashtag: tag });
+        Leafwatch.track(POST.CLICK_CASHTAG, { cashtag: tag });
       }}
     >
       {title}

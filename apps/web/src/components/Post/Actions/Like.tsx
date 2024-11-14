@@ -4,7 +4,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { MirrorablePublication, ReactionRequest } from "@hey/lens";
 import {
@@ -59,10 +59,10 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
     errorToast(error);
   };
 
-  const eventProperties = { publication_id: post?.id };
+  const eventProperties = { post_id: post?.id };
 
   const [addReaction] = useAddReactionMutation({
-    onCompleted: () => Leafwatch.track(PUBLICATION.LIKE, eventProperties),
+    onCompleted: () => Leafwatch.track(POST.LIKE, eventProperties),
     onError: (error) => {
       toggleReact();
       decrement();
@@ -72,7 +72,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   });
 
   const [removeReaction] = useRemoveReactionMutation({
-    onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
+    onCompleted: () => Leafwatch.track(POST.UNLIKE, eventProperties),
     onError: (error) => {
       toggleReact();
       increment();

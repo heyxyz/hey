@@ -35,7 +35,7 @@ export const PROFILE = {
   OPEN_MUTUAL_FOLLOWERS: "Open mutual followers modal"
 };
 
-export const PUBLICATION = {
+export const POST = {
   ATTACHMENT: {
     AUDIO: {
       PAUSE: "Pause audio",
@@ -233,7 +233,7 @@ export const ALL_EVENTS = {
   ...AUTH,
   ...PROFILE,
   ...LIST,
-  ...PUBLICATION,
+  ...POST,
   ...NOTIFICATION,
   ...HOME,
   ...EXPLORE,

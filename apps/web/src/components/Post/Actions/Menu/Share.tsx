@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MirrorablePublication } from "@hey/lens";
 import cn from "@hey/ui/cn";
@@ -28,7 +28,7 @@ const Share: FC<ShareProps> = ({ post }) => {
           `${location.origin}/posts/${post?.id}`
         );
         toast.success("Copied to clipboard!");
-        Leafwatch.track(PUBLICATION.SHARE, { publication_id: post.id });
+        Leafwatch.track(POST.SHARE, { post_id: post.id });
       }}
     >
       <div className="flex items-center space-x-2">

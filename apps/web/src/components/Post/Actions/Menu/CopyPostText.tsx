@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import getPostData from "@hey/helpers/getPostData";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MirrorablePublication } from "@hey/lens";
@@ -30,9 +30,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ post }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(filteredContent || "");
         toast.success("Content copied to clipboard!");
-        Leafwatch.track(PUBLICATION.COPY_TEXT, {
-          publication_id: post.id
-        });
+        Leafwatch.track(POST.COPY_TEXT, { post_id: post.id });
       }}
     >
       <div className="flex items-center space-x-2">
