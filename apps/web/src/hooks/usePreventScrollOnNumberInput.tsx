@@ -12,9 +12,7 @@ const usePreventScrollOnNumberInput = (ref: RefObject<HTMLInputElement>) => {
 
       input.addEventListener("wheel", preventScroll, { passive: false });
 
-      return () => {
-        input.removeEventListener("wheel", preventScroll);
-      };
+      return () => input.removeEventListener("wheel", preventScroll);
     }
   }, [ref]);
 };
