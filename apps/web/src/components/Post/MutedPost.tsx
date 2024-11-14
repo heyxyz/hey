@@ -25,7 +25,7 @@ const MutedPost: FC<MutedPostProps> = ({
         onClick={(event) => {
           stopEventPropagation(event);
           setShowMutedPublication(true);
-          Leafwatch.track(POST.TOGGLE_MUTED_PUBLICATION);
+          Leafwatch.track(POST.TOGGLE_MUTED_POST);
         }}
         outline
       >
