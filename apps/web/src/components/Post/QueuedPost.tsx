@@ -25,7 +25,7 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
   const txHash = txn?.txHash;
   const txId = txn?.txId;
 
-  const [getPublication] = usePublicationLazyQuery({
+  const [getPost] = usePublicationLazyQuery({
     onCompleted: ({ publication }) => {
       if (publication) {
         cache.modify({
@@ -49,7 +49,7 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
         lensTransactionStatus?.status === LensTransactionStatusType.Complete &&
         txn.commentOn
       ) {
-        await getPublication({
+        await getPost({
           variables: { request: { forTxHash: lensTransactionStatus.txHash } }
         });
       }

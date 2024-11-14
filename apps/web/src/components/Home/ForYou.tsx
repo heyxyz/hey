@@ -4,7 +4,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, PublicationForYouRequest } from "@hey/lens";
 import { LimitType, useForYouQuery } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -33,7 +33,7 @@ const ForYou: FC = () => {
     variables: { request }
   });
 
-  const publications = data?.forYou?.items;
+  const posts = data?.forYou?.items;
   const pageInfo = data?.forYou?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -52,7 +52,7 @@ const ForYou: FC = () => {
     return <PostsShimmer />;
   }
 
-  if (publications?.length === 0) {
+  if (posts?.length === 0) {
     return (
       <EmptyState
         icon={<LightBulbIcon className="size-8" />}
@@ -68,7 +68,7 @@ const ForYou: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type === OptmisticPublicationType.Post ? (
+        txn?.type === OptmisticPostType.Post ? (
           <QueuedPost key={txn.txId} txn={txn} />
         ) : null
       )}
@@ -76,12 +76,12 @@ const ForYou: FC = () => {
         <Virtuoso
           className="virtual-divider-list-window"
           computeItemKey={(index, item) => `${item.publication.id}-${index}`}
-          data={publications}
+          data={posts}
           endReached={onEndReached}
           itemContent={(index, item) => (
             <SinglePost
               isFirst={index === 0}
-              isLast={index === (publications?.length || 0) - 1}
+              isLast={index === (posts?.length || 0) - 1}
               post={item.publication as AnyPublication}
             />
           )}

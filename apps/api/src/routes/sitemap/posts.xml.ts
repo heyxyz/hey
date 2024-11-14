@@ -18,13 +18,13 @@ export const get = async (req: Request, res: Response) => {
       totalPosts = Number(cachedData);
       logger.info(`[Lens] Fetched totalPosts from Redis: ${totalPosts}`);
     } else {
-      const publications = await lensPg.query(`
+      const posts = await lensPg.query(`
         SELECT COUNT(*) AS count
         FROM publication.record pr
         WHERE pr.publication_type = 'POST' AND pr.is_hidden = false
       `);
 
-      totalPosts = Number(publications[0]?.count) || 0;
+      totalPosts = Number(posts[0]?.count) || 0;
       await setRedis(redisKey, totalPosts);
       logger.info(`[Lens] Fetched totalPosts from DB: ${totalPosts}`);
     }

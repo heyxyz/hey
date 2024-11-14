@@ -15,7 +15,7 @@ describe("GET /lens/internal/stats/overview", () => {
     expect(typeof data.result).toBe("object");
     expect(data.result).toHaveProperty("authentications_count");
     expect(data.result).toHaveProperty("relay_usage_count");
-    expect(data.result).toHaveProperty("publications_count");
+    expect(data.result).toHaveProperty("posts_count");
     expect(data.result).toHaveProperty("profiles_count");
   });
 

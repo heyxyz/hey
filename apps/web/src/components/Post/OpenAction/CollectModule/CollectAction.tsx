@@ -27,7 +27,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -136,7 +136,7 @@ const CollectAction: FC<CollectActionProps> = ({
       collectOn: post?.id,
       txHash,
       txId,
-      type: OptmisticPublicationType.Collect
+      type: OptmisticPostType.Collect
     };
   };
 

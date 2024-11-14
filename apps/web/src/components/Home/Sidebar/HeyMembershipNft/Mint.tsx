@@ -1,10 +1,7 @@
 import CollectAction from "@components/Post/OpenAction/CollectModule/CollectAction";
 import Loader from "@components/Shared/Loader";
 import { signatureFont } from "@helpers/fonts";
-import {
-  APP_NAME,
-  HEY_MEMBERSHIP_NFT_PUBLICATION_ID
-} from "@hey/data/constants";
+import { APP_NAME, HEY_MEMBERSHIP_NFT_POST_ID } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import type { Post } from "@hey/lens";
 import { usePublicationQuery } from "@hey/lens";
@@ -20,7 +17,7 @@ interface MintProps {
 const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { forId: HEY_MEMBERSHIP_NFT_PUBLICATION_ID }
+      request: { forId: HEY_MEMBERSHIP_NFT_POST_ID }
     }
   });
 

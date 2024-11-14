@@ -13,7 +13,7 @@ import {
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
 import { useRouter } from "next/router";
@@ -67,7 +67,7 @@ const Follow: FC<FollowProps> = ({
       followOn: profile.id,
       txHash,
       txId,
-      type: OptmisticPublicationType.Follow
+      type: OptmisticPostType.Follow
     };
   };
 

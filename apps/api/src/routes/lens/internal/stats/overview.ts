@@ -20,7 +20,7 @@ export const get = [
           FROM pg_class
           WHERE relname = 'usage' AND relnamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'relay');
 
-          SELECT reltuples::BIGINT AS publications_count
+          SELECT reltuples::BIGINT AS posts_count
           FROM pg_class
           WHERE relname = 'record' AND relnamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'publication');
 
@@ -28,11 +28,11 @@ export const get = [
           FROM pg_class
           WHERE relname = 'record' AND relnamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'profile');
 
-          SELECT reltuples::BIGINT AS bookmarked_publications_count
+          SELECT reltuples::BIGINT AS bookmarked_posts_count
           FROM pg_class
           WHERE relname = 'bookmarked_publication' AND relnamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'personalisation');
 
-          SELECT reltuples::BIGINT AS not_interested_publications_count
+          SELECT reltuples::BIGINT AS not_interested_posts_count
           FROM pg_class
           WHERE relname = 'not_interested_publication' AND relnamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'personalisation');
 
