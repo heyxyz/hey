@@ -11,10 +11,10 @@ const GET_LENS_STATS_QUERY_KEY = "getLensStats";
 interface LensStatsType {
   authentications_count: string;
   relay_usage_count: string;
-  publications_count: string;
+  posts_count: string;
   profiles_count: string;
-  bookmarked_publications_count: string;
-  not_interested_publications_count: string;
+  bookmarked_posts_count: string;
+  not_interested_posts_count: string;
   wtf_recommendation_dismissed_count: string;
   notifications_count: string;
   momoka_count: string;
@@ -69,18 +69,15 @@ const LensStats: FC = () => {
           name="Authentications"
         />
         <NumberedStat count={data.relay_usage_count} name="Relay Usage" />
-        <NumberedStat count={data.publications_count} name="Publications" />
+        <NumberedStat count={data.posts_count} name="Publications" />
         <NumberedStat count={data.profiles_count} name="Profiles" />
         <NumberedStat
           count={data.quality_profiles_count}
           name="Quality Profiles"
         />
+        <NumberedStat count={data.bookmarked_posts_count} name="Bookmarkes" />
         <NumberedStat
-          count={data.bookmarked_publications_count}
-          name="Bookmarkes"
-        />
-        <NumberedStat
-          count={data.not_interested_publications_count}
+          count={data.not_interested_posts_count}
           name="Not Interested"
         />
         <NumberedStat

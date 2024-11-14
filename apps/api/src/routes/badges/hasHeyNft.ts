@@ -1,4 +1,4 @@
-import { HEY_MEMBERSHIP_NFT_PUBLICATION_ID } from "@hey/data/constants";
+import { HEY_MEMBERSHIP_NFT_POST_ID } from "@hey/data/constants";
 import lensPg from "@hey/db/lensPg";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
@@ -49,7 +49,7 @@ export const get = [
               AND o.publication_id = $3
           ) AS exists;
         `,
-        [id, formattedAddress, HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
+        [id, formattedAddress, HEY_MEMBERSHIP_NFT_POST_ID]
       );
 
       const hasHeyNft = openActionModuleActed[0]?.exists;

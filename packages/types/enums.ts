@@ -1,4 +1,4 @@
-export enum OptmisticPublicationType {
+export enum OptmisticPostType {
   Collect = "Collect",
   Comment = "Comment",
   Follow = "Follow",

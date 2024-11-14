@@ -17,7 +17,7 @@ import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
-const GET_LIST_PUBLICATIONS_QUERY_KEY = "getListPublications";
+const GET_LIST_POSTS_QUERY_KEY = "getListPosts";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface ListFeedProps {
@@ -34,7 +34,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     virtuosoState = { ranges: [], screenTop: 0 };
   }, [list.id]);
 
-  const getListPublications = async (id: string): Promise<string[]> => {
+  const getListPosts = async (id: string): Promise<string[]> => {
     try {
       const { data } = await axios.get(`${HEY_API_URL}/lists/publications`, {
         params: { id }
@@ -47,17 +47,17 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
   };
 
   const {
-    data: publicationIds,
-    isLoading: loadingPublicationIds,
-    error: errorPublicationIds
+    data: postIds,
+    isLoading: loadingPostIds,
+    error: errorPostIds
   } = useQuery({
-    queryFn: () => getListPublications(list.id),
-    queryKey: [GET_LIST_PUBLICATIONS_QUERY_KEY, list.id]
+    queryFn: () => getListPosts(list.id),
+    queryKey: [GET_LIST_POSTS_QUERY_KEY, list.id]
   });
 
   const request: PublicationsRequest = {
     limit: LimitType.TwentyFive,
-    where: { publicationIds }
+    where: { publicationIds: postIds }
   };
 
   const {
@@ -73,7 +73,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
-    skip: !publicationIds?.length,
+    skip: !postIds?.length,
     variables: { request }
   });
 
@@ -87,7 +87,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     }
   };
 
-  if (loadingPublicationIds || publicationsLoading) {
+  if (loadingPostIds || publicationsLoading) {
     return <PostsShimmer />;
   }
 
@@ -120,12 +120,12 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
     );
   }
 
-  if (errorPublicationIds || publicationsError) {
+  if (errorPostIds || publicationsError) {
     return (
       <Card>
         <Header />
         <ErrorMessage
-          error={errorPublicationIds || publicationsError}
+          error={errorPostIds || publicationsError}
           title="Failed to load list feed"
         />
       </Card>

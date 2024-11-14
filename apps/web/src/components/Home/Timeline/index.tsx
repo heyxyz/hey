@@ -5,7 +5,7 @@ import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { HEY_CURATED_ID } from "@hey/data/constants";
 import type { AnyPublication, FeedItem, FeedRequest } from "@hey/lens";
 import { FeedEventItemType, useFeedQuery } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { memo, useRef } from "react";
@@ -97,7 +97,7 @@ const Timeline: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type !== OptmisticPublicationType.Comment ? (
+        txn?.type !== OptmisticPostType.Comment ? (
           <QueuedPost key={txn.txId} txn={txn} />
         ) : null
       )}

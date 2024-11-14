@@ -4,7 +4,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import type { AnyPublication, PublicationForYouRequest } from "@hey/lens";
 import { LimitType, useForYouQuery } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -68,7 +68,7 @@ const ForYou: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type === OptmisticPublicationType.Post ? (
+        txn?.type === OptmisticPostType.Post ? (
           <QueuedPost key={txn.txId} txn={txn} />
         ) : null
       )}

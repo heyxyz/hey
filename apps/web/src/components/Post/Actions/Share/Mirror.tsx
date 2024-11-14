@@ -25,7 +25,7 @@ import {
   useMirrorOnMomokaMutation,
   useMirrorOnchainMutation
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
@@ -77,7 +77,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
       mirrorOn: post?.id,
       txHash,
       txId,
-      type: OptmisticPublicationType.Mirror
+      type: OptmisticPostType.Mirror
     };
   };
 
