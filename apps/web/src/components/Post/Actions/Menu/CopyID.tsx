@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HashtagIcon } from "@heroicons/react/24/outline";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -32,9 +32,7 @@ const CopyID: FC<CopyIDProps> = ({ id }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(id);
         toast.success("ID copied to clipboard!");
-        Leafwatch.track(PUBLICATION.COPY_ID, {
-          publication_id: id
-        });
+        Leafwatch.track(POST.COPY_ID, { post_id: id });
       }}
     >
       <div className="flex items-center space-x-2">

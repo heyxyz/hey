@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { ATTACHMENT } from "@hey/data/constants";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import imageKit from "@hey/helpers/imageKit";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { OG } from "@hey/types/misc";
@@ -20,8 +20,8 @@ const Embed: FC<EmbedProps> = ({ og, postId }) => {
         href={og.url}
         onClick={(event) => {
           stopEventPropagation(event);
-          Leafwatch.track(PUBLICATION.CLICK_OEMBED, {
-            ...(postId && { publication_id: postId }),
+          Leafwatch.track(POST.CLICK_OEMBED, {
+            ...(postId && { post_id: postId }),
             url: og.url
           });
         }}

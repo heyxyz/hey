@@ -2,7 +2,7 @@ import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Mirrors from "@components/Shared/Modal/Mirrors";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import getPostsViews, {
   GET_POSTS_VIEWS_QUERY_KEY
 } from "@hey/helpers/getPostsViews";
@@ -116,7 +116,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
       </div>
       <Modal
         onClose={() => {
-          Leafwatch.track(PUBLICATION.OPEN_LIKES);
+          Leafwatch.track(POST.OPEN_LIKES);
           setShowLikesModal(false);
         }}
         show={showLikesModal}
@@ -127,7 +127,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
       </Modal>
       <Modal
         onClose={() => {
-          Leafwatch.track(PUBLICATION.OPEN_MIRRORS);
+          Leafwatch.track(POST.OPEN_MIRRORS);
           setShowMirrorsModal(false);
         }}
         show={showMirrorsModal}
@@ -138,7 +138,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
       </Modal>
       <Modal
         onClose={() => {
-          Leafwatch.track(PUBLICATION.OPEN_COLLECTORS);
+          Leafwatch.track(POST.OPEN_COLLECTORS);
           setShowCollectorsModal(false);
         }}
         show={showCollectorsModal}

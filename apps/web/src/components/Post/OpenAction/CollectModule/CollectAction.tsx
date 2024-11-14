@@ -10,7 +10,7 @@ import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCol
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
@@ -176,10 +176,10 @@ const CollectAction: FC<CollectActionProps> = ({
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected");
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+    Leafwatch.track(POST.COLLECT_MODULE.COLLECT, {
       amount,
       collect_module: openAction?.type,
-      publication_id: post?.id
+      post_id: post?.id
     });
   };
 

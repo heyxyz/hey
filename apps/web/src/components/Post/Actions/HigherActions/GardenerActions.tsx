@@ -25,7 +25,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
   const [loading, setLoading] = useState(false);
   const { cache } = useApolloClient();
 
-  const reportPublicationOnLens = async (
+  const reportPostOnLens = async (
     subreasons: PublicationReportingSpamSubreason[]
   ) => {
     if (pathname === "/mod") {
@@ -45,7 +45,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
     }
   };
 
-  const handleReportPublication = ({
+  const handleReportPost = ({
     subreasons,
     type
   }: {
@@ -53,13 +53,13 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
     type: string;
   }) => {
     Leafwatch.track(GARDENER.REPORT, {
-      publication_id: post.id,
+      post_id: post.id,
       type
     });
-    toast.promise(reportPublicationOnLens(subreasons), {
-      error: "Error reporting publication",
-      loading: "Reporting publication...",
-      success: "Publication reported"
+    toast.promise(reportPostOnLens(subreasons), {
+      error: "Error reporting post",
+      loading: "Reporting post...",
+      success: "Post reported"
     });
   };
 
@@ -79,7 +79,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
     <Button
       disabled={loading}
       icon={icon}
-      onClick={() => handleReportPublication({ subreasons, type })}
+      onClick={() => handleReportPost({ subreasons, type })}
       outline
       size="sm"
     >
@@ -116,7 +116,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <StaffActions
           onClick={() => {
-            handleReportPublication({
+            handleReportPost({
               subreasons: [
                 PublicationReportingSpamSubreason.FakeEngagement,
                 PublicationReportingSpamSubreason.LowSignal,
