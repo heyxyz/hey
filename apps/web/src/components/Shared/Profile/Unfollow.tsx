@@ -13,7 +13,7 @@ import {
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
 import { useRouter } from "next/router";
@@ -66,7 +66,7 @@ const Unfollow: FC<UnfollowProps> = ({
     return {
       txHash,
       txId,
-      type: OptmisticPublicationType.Unfollow,
+      type: OptmisticPostType.Unfollow,
       unfollowOn: profile.id
     };
   };

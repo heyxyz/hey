@@ -31,7 +31,7 @@ import {
   useQuoteOnMomokaMutation,
   useQuoteOnchainMutation
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { useRouter } from "next/router";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
@@ -83,14 +83,14 @@ const useCreatePost = ({
       txHash,
       txId,
       type: isComment
-        ? OptmisticPublicationType.Comment
+        ? OptmisticPostType.Comment
         : isQuote
-          ? OptmisticPublicationType.Quote
-          : OptmisticPublicationType.Post
+          ? OptmisticPostType.Quote
+          : OptmisticPostType.Post
     };
   };
 
-  const [getPublication] = usePublicationLazyQuery({
+  const [getPost] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
@@ -273,7 +273,7 @@ const useCreatePost = ({
       onCompleted(commentOnMomoka.__typename);
 
       if (commentOnMomoka.__typename === "CreateMomokaPublicationResult") {
-        getPublication({
+        getPost({
           variables: { request: { forId: commentOnMomoka.id } }
         });
       }

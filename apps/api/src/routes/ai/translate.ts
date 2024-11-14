@@ -58,7 +58,7 @@ export const post = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const publicationMetadata = await lensPg.query(
+      const postMetadata = await lensPg.query(
         "SELECT content FROM publication.metadata WHERE publication_id = $1",
         [id]
       );
@@ -72,7 +72,7 @@ export const post = [
         messages: [
           {
             role: "user",
-            content: TEMPLATE.replace("{text}", publicationMetadata[0].content)
+            content: TEMPLATE.replace("{text}", postMetadata[0].content)
           }
         ],
         tools: [
@@ -88,7 +88,7 @@ export const post = [
         .parsed_arguments as responseSchema;
 
       const finalResult = {
-        original: publicationMetadata[0].content,
+        original: postMetadata[0].content,
         ...translated
       };
 

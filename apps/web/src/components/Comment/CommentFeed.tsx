@@ -11,7 +11,7 @@ import {
   LimitType,
   usePublicationsQuery
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -58,7 +58,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   const hasMore = pageInfo?.next;
 
   const queuedComments = txnQueue.filter(
-    (o) => o.type === OptmisticPublicationType.Comment && o.commentOn === postId
+    (o) => o.type === OptmisticPostType.Comment && o.commentOn === postId
   );
   const queuedCount = queuedComments.length;
   const hiddenCount = comments.filter(

@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
@@ -15,26 +15,26 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
   return (
     <div className="flex items-center justify-between">
       <Tooltip content={transaction.txId || transaction.txHash} placement="top">
-        {transaction.type === OptmisticPublicationType.Collect ? (
+        {transaction.type === OptmisticPostType.Collect ? (
           <div className="text-sm">
             {transaction.type} on {transaction.collectOn}
           </div>
-        ) : transaction.type === OptmisticPublicationType.Comment ? (
+        ) : transaction.type === OptmisticPostType.Comment ? (
           <div className="text-sm">
             {transaction.type} on {transaction.commentOn}
           </div>
-        ) : transaction.type === OptmisticPublicationType.Mirror ? (
+        ) : transaction.type === OptmisticPostType.Mirror ? (
           <div className="text-sm">
             {transaction.type} on {transaction.mirrorOn}
           </div>
-        ) : transaction.type === OptmisticPublicationType.Post ||
-          transaction.type === OptmisticPublicationType.Quote ? (
+        ) : transaction.type === OptmisticPostType.Post ||
+          transaction.type === OptmisticPostType.Quote ? (
           <div className="text-sm">{transaction.type}</div>
-        ) : transaction.type === OptmisticPublicationType.Follow ? (
+        ) : transaction.type === OptmisticPostType.Follow ? (
           <div className="text-sm">
             {transaction.type} on {transaction.followOn}
           </div>
-        ) : transaction.type === OptmisticPublicationType.Unfollow ? (
+        ) : transaction.type === OptmisticPostType.Unfollow ? (
           <div className="text-sm">
             {transaction.type} on {transaction.unfollowOn}
           </div>

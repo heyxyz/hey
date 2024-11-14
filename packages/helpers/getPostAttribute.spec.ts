@@ -1,9 +1,9 @@
 import type { MetadataAttribute } from "@hey/lens";
 import { MetadataAttributeType } from "@hey/lens";
 import { describe, expect, test } from "vitest";
-import getPublicationAttribute from "./getPostAttribute";
+import getPostAttribute from "./getPostAttribute";
 
-describe("getPublicationAttribute", () => {
+describe("getPostAttribute", () => {
   const attributes: MetadataAttribute[] = [
     { key: "type", type: MetadataAttributeType.String, value: "book" },
     { key: "author", type: MetadataAttributeType.String, value: "John Doe" },
@@ -11,16 +11,16 @@ describe("getPublicationAttribute", () => {
   ];
 
   test("should return empty string if attributes is undefined", () => {
-    expect(getPublicationAttribute(undefined, "type")).toBe("");
+    expect(getPostAttribute(undefined, "type")).toBe("");
   });
 
   test("should return empty string if key is not found in attributes", () => {
-    expect(getPublicationAttribute(attributes, "title")).toBe("");
+    expect(getPostAttribute(attributes, "title")).toBe("");
   });
 
   test("should return the value of the matching key", () => {
-    expect(getPublicationAttribute(attributes, "author")).toBe("John Doe");
-    expect(getPublicationAttribute(attributes, "year")).toBe("2021");
+    expect(getPostAttribute(attributes, "author")).toBe("John Doe");
+    expect(getPostAttribute(attributes, "year")).toBe("2021");
   });
 
   test("should return the first matching key if there are multiple matches", () => {
@@ -32,8 +32,6 @@ describe("getPublicationAttribute", () => {
         value: "Jane Smith"
       }
     ];
-    expect(getPublicationAttribute(updatedAttributes, "author")).toBe(
-      "John Doe"
-    );
+    expect(getPostAttribute(updatedAttributes, "author")).toBe("John Doe");
   });
 });

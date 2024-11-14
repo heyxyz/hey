@@ -2,7 +2,7 @@ import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from "@hey/lens";
-import { OptmisticPublicationType } from "@hey/types/enums";
+import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import type { FC } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -22,7 +22,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
       ) {
         // Trigger Profile feed refetch
         if (
-          transaction.type === OptmisticPublicationType.Post &&
+          transaction.type === OptmisticPostType.Post &&
           lensTransactionStatus.txHash
         ) {
           setIndexedPostHash(lensTransactionStatus.txHash);

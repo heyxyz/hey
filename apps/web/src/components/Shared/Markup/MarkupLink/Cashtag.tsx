@@ -19,7 +19,7 @@ const Cashtag: FC<MarkupLinkProps> = ({ title }) => {
       href={urlcat("/search", {
         q: title,
         src: "link_click",
-        type: "pubs"
+        type: "posts"
       })}
       onClick={(event) => {
         stopEventPropagation(event);

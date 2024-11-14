@@ -1,4 +1,4 @@
-import { HEY_MEMBERSHIP_NFT_PUBLICATION_ID } from "@hey/data/constants";
+import { HEY_MEMBERSHIP_NFT_POST_ID } from "@hey/data/constants";
 import lensPg from "@hey/db/lensPg";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
@@ -23,7 +23,7 @@ export const get = [
           GROUP BY date
           ORDER BY date;
         `,
-        [HEY_MEMBERSHIP_NFT_PUBLICATION_ID]
+        [HEY_MEMBERSHIP_NFT_POST_ID]
       );
 
       const result = openActionModuleActed.map((row) => ({

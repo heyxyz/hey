@@ -290,15 +290,13 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can comment on {getProfile(profile).slugWithPrefix}'s
-              publications
+              You can comment on {getProfile(profile).slugWithPrefix}'s posts
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can collect {getProfile(profile).slugWithPrefix}'s
-              publications
+              You can collect {getProfile(profile).slugWithPrefix}'s posts
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">

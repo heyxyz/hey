@@ -3,16 +3,13 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  preLoadedPublications: AnyPublication[];
-  setPreLoadedPublications: (publications: AnyPublication[]) => void;
+  preLoadedPosts: AnyPublication[];
+  setPreLoadedPosts: (posts: AnyPublication[]) => void;
 }
 
 export const store = create<State>((set) => ({
-  preLoadedPublications: [],
-  setPreLoadedPublications: (publications) =>
-    set(() => ({
-      preLoadedPublications: publications
-    }))
+  preLoadedPosts: [],
+  setPreLoadedPosts: (posts) => set(() => ({ preLoadedPosts: posts }))
 }));
 
 export const useOptimisticNavigation = createTrackedSelector(store);

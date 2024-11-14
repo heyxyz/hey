@@ -59,7 +59,7 @@ export const post = [
         tipped: hasTippedMap.has(publicationId)
       }));
 
-      logger.info(`Fetched tips for ${ids.length} publications`);
+      logger.info(`Fetched tips for ${ids.length} posts`);
 
       return res.status(200).json({ result, success: true });
     } catch (error) {
