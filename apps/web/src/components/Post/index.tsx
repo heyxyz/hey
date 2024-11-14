@@ -58,11 +58,11 @@ const ViewPost: NextPage = () => {
 
   const { currentProfile } = useProfileStore();
   const { isCommentSuspended, isSuspended } = useProfileStatus();
-  const { preLoadedPublications } = useOptimisticNavigation();
+  const { preLoadedPosts } = useOptimisticNavigation();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const showQuotes = pathname === "/posts/[id]/quotes";
-  const preLoadedPublication = preLoadedPublications.find((p) => p.id === id);
+  const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, {
@@ -72,7 +72,7 @@ const ViewPost: NextPage = () => {
   }, []);
 
   const { data, error, loading } = usePublicationQuery({
-    skip: !id || preLoadedPublication?.id,
+    skip: !id || preLoadedPost?.id,
     variables: { request: { forId: id } }
   });
 
@@ -94,7 +94,7 @@ const ViewPost: NextPage = () => {
     return <PublicationPageShimmer publicationList={showQuotes} />;
   }
 
-  if (!preLoadedPublication && !data?.publication) {
+  if (!preLoadedPost && !data?.publication) {
     return <Custom404 />;
   }
 
@@ -102,7 +102,7 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPublication || (data?.publication as AnyPublication);
+  const post = preLoadedPost || (data?.publication as AnyPublication);
   const targetPost = isRepost(post) ? post.mirrorOn : post;
   const suspended = isSuspended || isCommentSuspended;
 

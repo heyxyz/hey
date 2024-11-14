@@ -15,8 +15,8 @@ interface ActedNotificationProps {
 }
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
-  const publication = notification?.publication;
-  const targetPost = isRepost(publication) ? publication.mirrorOn : publication;
+  const post = notification?.publication;
+  const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const actions = notification?.actions;

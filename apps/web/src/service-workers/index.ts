@@ -4,29 +4,29 @@ const IMPRESSIONS_ENDPOINT = "https://api.hey.xyz/leafwatch/impressions";
 const EVENTS_ENDPOINT = "https://api.hey.xyz/leafwatch/events";
 const SYNC_INTERVAL = 5000;
 
-// Track visible publications and events
-const visiblePublications = new Set<string>();
+// Track visible posts and events
+const visiblePosts = new Set<string>();
 let identityToken: string | undefined;
 let recordedEvents: Record<string, unknown>[] = [];
 
-// Send visible publications to the server
-const sendVisiblePublicationsToServer = async () => {
-  if (visiblePublications.size === 0) {
+// Send visible posts to the server
+const sendVisiblePostsToServer = async () => {
+  if (visiblePosts.size === 0) {
     return;
   }
 
-  const publicationsToSend = Array.from(visiblePublications);
-  visiblePublications.clear();
+  const postsToSend = Array.from(visiblePosts);
+  visiblePosts.clear();
 
   try {
     await fetch(IMPRESSIONS_ENDPOINT, {
-      body: JSON.stringify({ ids: publicationsToSend }),
+      body: JSON.stringify({ ids: postsToSend }),
       headers: { "Content-Type": "application/json" },
       keepalive: true,
       method: "POST"
     });
   } catch (error) {
-    console.error("Failed to send visible publications to Leafwatch", error);
+    console.error("Failed to send visible posts to Leafwatch", error);
   }
 };
 
@@ -55,7 +55,7 @@ const sendEventsToServer = async () => {
 };
 
 // Set up intervals for syncing data
-setInterval(sendVisiblePublicationsToServer, SYNC_INTERVAL);
+setInterval(sendVisiblePostsToServer, SYNC_INTERVAL);
 setInterval(sendEventsToServer, SYNC_INTERVAL);
 
 // Activate and claim control over clients immediately
@@ -64,8 +64,8 @@ const handleActivate = async (): Promise<void> => {
 };
 
 self.addEventListener("message", (event) => {
-  if (event.data?.type === "PUBLICATION_IMPRESSION") {
-    visiblePublications.add(event.data.id);
+  if (event.data?.type === "POST_IMPRESSION") {
+    visiblePosts.add(event.data.id);
   }
   if (event.data?.type === "EVENT") {
     identityToken = event.data.identityToken;

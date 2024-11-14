@@ -14,8 +14,7 @@ const PostWrapper: FC<PostWrapperProps> = ({
   className = "",
   post
 }) => {
-  const { preLoadedPublications, setPreLoadedPublications } =
-    useOptimisticNavigation();
+  const { preLoadedPosts, setPreLoadedPosts } = useOptimisticNavigation();
   const { pathname, push } = useRouter();
 
   const handleClick = () => {
@@ -25,7 +24,7 @@ const PostWrapper: FC<PostWrapperProps> = ({
 
     const selection = window.getSelection();
     if (!selection || selection.toString().length === 0) {
-      setPreLoadedPublications([...preLoadedPublications, post]);
+      setPreLoadedPosts([...preLoadedPosts, post]);
       push(`/posts/${post.id}`);
     }
   };
