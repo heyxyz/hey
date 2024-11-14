@@ -90,7 +90,7 @@ const useCreatePost = ({
     };
   };
 
-  const [getPublication] = usePublicationLazyQuery({
+  const [getPost] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data?.publication) {
         cache.modify({
@@ -273,7 +273,7 @@ const useCreatePost = ({
       onCompleted(commentOnMomoka.__typename);
 
       if (commentOnMomoka.__typename === "CreateMomokaPublicationResult") {
-        getPublication({
+        getPost({
           variables: { request: { forId: commentOnMomoka.id } }
         });
       }
