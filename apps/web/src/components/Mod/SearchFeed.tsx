@@ -70,12 +70,12 @@ const SearchFeed: FC = () => {
         onSubmit={(event) => {
           event.preventDefault();
           setQuery(searchInput);
-          Leafwatch.track(GARDENER.SEARCH_PUBLICATION, { query: searchInput });
+          Leafwatch.track(GARDENER.SEARCH_POST, { query: searchInput });
         }}
       >
         <Input
           onChange={(event) => setSearchInput(event.target.value)}
-          placeholder="Search Publications"
+          placeholder="Search Posts"
           type="text"
           value={searchInput}
         />

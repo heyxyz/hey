@@ -172,7 +172,7 @@ export const SETTINGS = {
 
 export const GARDENER = {
   REPORT: "Gardener report",
-  SEARCH_PUBLICATION: "Gardener search publication"
+  SEARCH_POST: "Gardener search post"
 };
 
 export const STAFFTOOLS = {
@@ -254,7 +254,7 @@ export enum ProfileLinkSource {
   Following = "following",
   Likes = "likes",
   Mirrors = "mirrors",
-  Publication = "publication",
+  Post = "post",
   Quotes = "quotes",
   RecentSearch = "recent-search",
   RelevantPeople = "relevant-people",
