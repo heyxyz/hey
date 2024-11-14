@@ -11,7 +11,7 @@ interface ReportProps {
 }
 
 const Report: FC<ReportProps> = ({ post }) => {
-  const { setShowPublicationReportModal } = useGlobalModalStateStore();
+  const { setShowPostReportModal } = useGlobalModalStateStore();
 
   return (
     <MenuItem
@@ -24,7 +24,7 @@ const Report: FC<ReportProps> = ({ post }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPublicationReportModal(true, post.id);
+        setShowPostReportModal(true, post.id);
       }}
     >
       <div className="flex items-center space-x-2">

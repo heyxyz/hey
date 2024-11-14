@@ -7,7 +7,7 @@ type AuthModalType = "login" | "signup";
 interface State {
   authModalType: AuthModalType;
   reportingProfile: null | Profile;
-  reportingPublicationId: null | string;
+  reportingPostId: null | string;
   setShowAuthModal: (
     showAuthModal: boolean,
     authModalType?: AuthModalType
@@ -18,9 +18,9 @@ interface State {
     showOptimisticTransactionsModal: boolean
   ) => void;
   setShowProfileSwitchModal: (showProfileSwitchModal: boolean) => void;
-  setShowPublicationReportModal: (
-    showPublicationReportModal: boolean,
-    reportingPublicationId: null | string
+  setShowPostReportModal: (
+    showPostReportModal: boolean,
+    reportingPostId: null | string
   ) => void;
   setShowReportProfileModal: (
     reportProfileModal: boolean,
@@ -31,7 +31,7 @@ interface State {
   showNewPostModal: boolean;
   showOptimisticTransactionsModal: boolean;
   showProfileSwitchModal: boolean;
-  showPublicationReportModal: boolean;
+  showPostReportModal: boolean;
   showReportProfileModal: boolean;
   showEditStatusModal: boolean;
   setShowEditStatusModal: (showEditStatusModal: boolean) => void;
@@ -46,7 +46,7 @@ interface State {
 const store = create<State>((set) => ({
   authModalType: "login",
   reportingProfile: null,
-  reportingPublicationId: null,
+  reportingPostId: null,
   setShowAuthModal: (showAuthModal, authModalType) => {
     set(() => ({ authModalType, showAuthModal }));
   },
@@ -56,14 +56,8 @@ const store = create<State>((set) => ({
     set(() => ({ showOptimisticTransactionsModal })),
   setShowProfileSwitchModal: (showProfileSwitchModal) =>
     set(() => ({ showProfileSwitchModal })),
-  setShowPublicationReportModal: (
-    showPublicationReportModal,
-    reportingPublicationId
-  ) =>
-    set(() => ({
-      reportingPublicationId,
-      showPublicationReportModal
-    })),
+  setShowPostReportModal: (showPostReportModal, reportingPostId) =>
+    set(() => ({ reportingPostId, showPostReportModal })),
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
     set(() => ({ reportingProfile, showReportProfileModal })),
   showAuthModal: false,
@@ -71,7 +65,7 @@ const store = create<State>((set) => ({
   showNewPostModal: false,
   showOptimisticTransactionsModal: false,
   showProfileSwitchModal: false,
-  showPublicationReportModal: false,
+  showPostReportModal: false,
   showReportProfileModal: false,
   showEditStatusModal: false,
   setShowEditStatusModal: (showEditStatusModal) =>

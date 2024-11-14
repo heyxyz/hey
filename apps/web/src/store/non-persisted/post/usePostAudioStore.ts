@@ -8,7 +8,7 @@ interface AudioPublication {
   title: string;
 }
 
-export const DEFAULT_AUDIO_PUBLICATION: AudioPublication = {
+export const DEFAULT_AUDIO_POST: AudioPublication = {
   artist: "",
   cover: "",
   mimeType: "",
@@ -21,7 +21,7 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  audioPost: DEFAULT_AUDIO_PUBLICATION,
+  audioPost: DEFAULT_AUDIO_POST,
   setAudioPost: (audioPost) => set(() => ({ audioPost }))
 }));
 

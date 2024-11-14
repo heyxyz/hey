@@ -17,18 +17,18 @@ const GlobalModals: FC = () => {
   const {
     authModalType,
     reportingProfile,
-    reportingPublicationId,
+    reportingPostId,
     setShowAuthModal,
     setShowNewPostModal,
     setShowOptimisticTransactionsModal,
     setShowProfileSwitchModal,
-    setShowPublicationReportModal,
+    setShowPostReportModal,
     setShowReportProfileModal,
     showAuthModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showProfileSwitchModal,
-    showPublicationReportModal,
+    showPostReportModal,
     showReportProfileModal,
     showEditStatusModal,
     setShowEditStatusModal,
@@ -50,13 +50,11 @@ const GlobalModals: FC = () => {
     <>
       <GlobalModalsFromUrl />
       <Modal
-        onClose={() =>
-          setShowPublicationReportModal(false, reportingPublicationId)
-        }
-        show={showPublicationReportModal}
-        title="Report Publication"
+        onClose={() => setShowPostReportModal(false, reportingPostId)}
+        show={showPostReportModal}
+        title="Report Post"
       >
-        <ReportPost postId={reportingPublicationId} />
+        <ReportPost postId={reportingPostId} />
       </Modal>
       <Modal
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
