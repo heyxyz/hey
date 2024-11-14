@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
-    "@aws-sdk/client-s3": "^3.689.0",
-    "@aws-sdk/lib-storage": "^3.689.0",
+    "@aws-sdk/client-s3": "^3.691.0",
+    "@aws-sdk/lib-storage": "^3.691.0",
     "@headlessui/react": "2.2.0",
     "@heroicons/react": "^2.1.5",
     "@hey/abis": "workspace:*",
@@ -70,7 +70,7 @@
     "use-resize-observer": "^9.1.0",
     "uuid": "^11.0.2",
     "viem": "^2.21.45",
-    "wagmi": "^2.12.31",
+    "wagmi": "^2.12.32",
     "zod": "^3.23.8",
     "zustand": "5.0.1"
   },
@@ -87,6 +87,6 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.5"
   }
 }
