@@ -7,8 +7,8 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
+import Posts from "./Posts";
 import Profiles from "./Profiles";
-import Publications from "./Publications";
 
 const Search: NextPage = () => {
   const { query } = useRouter();
@@ -48,9 +48,7 @@ const Search: NextPage = () => {
         {query.type === "profiles" ? (
           <Profiles query={query.q as string} />
         ) : null}
-        {query.type === "pubs" ? (
-          <Publications query={query.q as string} />
-        ) : null}
+        {query.type === "pubs" ? <Posts query={query.q as string} /> : null}
       </GridItemEight>
     </GridLayout>
   );

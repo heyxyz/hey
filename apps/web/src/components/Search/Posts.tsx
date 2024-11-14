@@ -17,11 +17,11 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface PublicationsProps {
+interface PostsProps {
   query: string;
 }
 
-const Publications: FC<PublicationsProps> = ({ query }) => {
+const Posts: FC<PostsProps> = ({ query }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
@@ -113,4 +113,4 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   );
 };
 
-export default Publications;
+export default Posts;
