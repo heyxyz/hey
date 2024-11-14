@@ -16,7 +16,7 @@ import {
   COLLECT_FEES_ADDRESS,
   POLYGONSCAN_URL
 } from "@hey/data/constants";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getProfile from "@hey/helpers/getProfile";
@@ -272,7 +272,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
       </div>
       <Modal
         onClose={() => {
-          Leafwatch.track(PUBLICATION.OPEN_COLLECTORS);
+          Leafwatch.track(POST.OPEN_COLLECTORS);
           setShowCollectorsModal(false);
         }}
         show={showCollectorsModal}

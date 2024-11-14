@@ -1,7 +1,7 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
-import { MISCELLANEOUS, PUBLICATION } from "@hey/data/tracking";
+import { MISCELLANEOUS, POST } from "@hey/data/tracking";
 import { Button, Card, H5, Modal } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
@@ -56,7 +56,7 @@ const HeyMembershipNft: FC = () => {
             className="w-full"
             onClick={() => {
               setShowMintModal(true);
-              Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT, {
+              Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
                 from: "mint_membership_nft"
               });
             }}

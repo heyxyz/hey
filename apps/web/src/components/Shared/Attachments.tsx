@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { ATTACHMENT } from "@hey/data/constants";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import imageKit from "@hey/helpers/imageKit";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MetadataAsset } from "@hey/types/misc";
@@ -64,7 +64,7 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       loading="lazy"
       onClick={() => {
         setExpandedImage(uri);
-        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
+        Leafwatch.track(POST.ATTACHMENT.IMAGE.OPEN);
       }}
       onError={({ currentTarget }) => {
         currentTarget.src = uri;

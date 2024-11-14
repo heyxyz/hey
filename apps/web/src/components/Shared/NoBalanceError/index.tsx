@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import getUniswapURL from "@hey/helpers/getUniswapURL";
 import type { Amount } from "@hey/lens";
 import Link from "next/link";
@@ -40,7 +40,7 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({
       <Link
         className="flex items-center space-x-1.5 font-bold text-pink-500 text-xs"
         href={getUniswapURL(Number.parseFloat(amount), assetAddress)}
-        onClick={() => Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
+        onClick={() => Leafwatch.track(POST.COLLECT_MODULE.OPEN_UNISWAP)}
         rel="noreferrer noopener"
         target="_blank"
       >

@@ -7,7 +7,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { KNOWN_ATTRIBUTES, METADATA_ENDPOINT } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getMentions from "@hey/helpers/getMentions";
@@ -223,11 +223,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       quote_on: isQuote ? quotedPost?.id : null
     };
     Leafwatch.track(
-      isComment
-        ? PUBLICATION.NEW_COMMENT
-        : isQuote
-          ? PUBLICATION.NEW_QUOTE
-          : PUBLICATION.NEW_POST,
+      isComment ? POST.NEW_COMMENT : isQuote ? POST.NEW_QUOTE : POST.NEW_POST,
       eventProperties
     );
   };

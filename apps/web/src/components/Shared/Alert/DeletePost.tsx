@@ -1,7 +1,7 @@
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import { useHidePublicationMutation } from "@hey/lens";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
@@ -17,8 +17,8 @@ const DeletePost: FC = () => {
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
       setShowPostDeleteAlert(false, null);
-      toast.success("Publication deleted");
-      Leafwatch.track(PUBLICATION.DELETE);
+      toast.success("Post deleted");
+      Leafwatch.track(POST.DELETE);
     },
     update: (cache) => {
       cache.evict({

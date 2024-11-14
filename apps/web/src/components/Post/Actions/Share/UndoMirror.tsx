@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import { useHidePublicationMutation } from "@hey/lens";
@@ -42,7 +42,7 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
 
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.UNDO_MIRROR);
+      Leafwatch.track(POST.UNDO_MIRROR);
       toast.success("Undone mirror");
     },
     update: updateCache

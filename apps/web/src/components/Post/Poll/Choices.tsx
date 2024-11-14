@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import getTimetoNow from "@hey/helpers/datetime/getTimetoNow";
 import humanize from "@hey/helpers/humanize";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -60,7 +60,7 @@ const Choices: FC<ChoicesProps> = ({ poll }) => {
       );
 
       queryClient.refetchQueries({ queryKey: [GET_POLL_QUERY_KEY, poll.id] });
-      Leafwatch.track(PUBLICATION.WIDGET.POLL.VOTE, { poll_id: id });
+      Leafwatch.track(POST.WIDGET.POLL.VOTE, { poll_id: id });
       toast.success("Your poll has been casted!");
     } catch {
       toast.error(Errors.SomethingWentWrong);

@@ -11,7 +11,7 @@ import {
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
 import type { MirrorablePublication } from "@hey/lens";
 import type { AllowedToken } from "@hey/types/hey";
@@ -143,7 +143,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
         args: [HEY_TIPPING, MAX_UINT256],
         functionName: "approve"
       });
-      Leafwatch.track(PUBLICATION.TIP.ENABLE, {
+      Leafwatch.track(POST.TIP.ENABLE, {
         address,
         currency: selectedCurrency?.symbol
       });
@@ -190,7 +190,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      Leafwatch.track(PUBLICATION.TIP.TIP, {
+      Leafwatch.track(POST.TIP.TIP, {
         address,
         amount,
         currency: selectedCurrency?.symbol

@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
-import { PUBLICATION } from "@hey/data/tracking";
+import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type {
   MirrorablePublication,
@@ -64,7 +64,7 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success("Publication bookmarked!");
-      Leafwatch.track(PUBLICATION.BOOKMARK, {
+      Leafwatch.track(POST.BOOKMARK, {
         publication_id: post.id
       });
     },
@@ -80,7 +80,7 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
     onCompleted: () => {
       toast.success("Removed publication bookmark!");
-      Leafwatch.track(PUBLICATION.REMOVE_BOOKMARK, {
+      Leafwatch.track(POST.REMOVE_BOOKMARK, {
         publication_id: post.id
       });
     },
