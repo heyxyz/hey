@@ -137,7 +137,7 @@ export const SETTINGS = {
     FOLLOWING: "Export following",
     NOTIFICATIONS: "Export notifications",
     PROFILE: "Export profile",
-    PUBLICATIONS: "Export publications"
+    POSTS: "Export posts"
   },
   HANDLE: {
     LINK: "Link handle",

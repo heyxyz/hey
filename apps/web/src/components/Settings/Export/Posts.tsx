@@ -24,7 +24,7 @@ const Posts: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.PUBLICATIONS);
+    Leafwatch.track(SETTINGS.EXPORT.POSTS);
     setExporting(true);
     const fetchPosts = async (cursor?: string) => {
       const { data } = await exportPublications({
