@@ -12,9 +12,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.689.0",
-    "@aws-sdk/client-ses": "^3.686.0",
-    "@aws-sdk/client-sts": "^3.686.0",
+    "@aws-sdk/client-s3": "^3.691.0",
+    "@aws-sdk/client-ses": "^3.691.0",
+    "@aws-sdk/client-sts": "^3.691.0",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
@@ -58,6 +58,6 @@
     "start-server-and-test": "^2.0.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.5"
   }
 }
