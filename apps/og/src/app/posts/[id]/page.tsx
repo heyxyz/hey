@@ -69,7 +69,6 @@ export const generateMetadata = async ({
       "like",
       "share",
       "post",
-      "publication",
       "lens",
       "lens protocol",
       "decentralized",

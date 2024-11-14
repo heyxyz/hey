@@ -7,13 +7,10 @@ import type { FC } from "react";
 
 interface MutedPostProps {
   type?: string;
-  setShowMutedPublication: (show: boolean) => void;
+  setShowMutedPost: (show: boolean) => void;
 }
 
-const MutedPost: FC<MutedPostProps> = ({
-  type = "Publication",
-  setShowMutedPublication
-}) => {
+const MutedPost: FC<MutedPostProps> = ({ type = "Post", setShowMutedPost }) => {
   return (
     <Card className="!bg-gray-100 dark:!bg-gray-800 mt-2 flex items-center justify-between px-4 py-3">
       <div className="flex items-center space-x-1 text-sm">
@@ -24,7 +21,7 @@ const MutedPost: FC<MutedPostProps> = ({
         size="sm"
         onClick={(event) => {
           stopEventPropagation(event);
-          setShowMutedPublication(true);
+          setShowMutedPost(true);
           Leafwatch.track(POST.TOGGLE_MUTED_POST);
         }}
         outline
