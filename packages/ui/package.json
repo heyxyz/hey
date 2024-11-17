@@ -27,7 +27,7 @@
     "@hey/config": "workspace:*",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3"
   }
 }
