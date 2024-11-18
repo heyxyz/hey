@@ -1,6 +1,6 @@
 import { run } from "pierre";
 
-export const label = "Save to Software Heritage";
+export const label = "Save to SWH";
 
 export default async ({ branch }) => {
   if (branch.name !== "main") {
