@@ -20,7 +20,7 @@ const validationSchema = object({
 });
 
 export const post = [
-  rateLimiter({ requests: 30, within: 1 }),
+  rateLimiter({ requests: 100, within: 1 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;
@@ -41,11 +41,13 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
 
-      const pollCount = await prisma.poll.count({
+      // Begin: Check if the poll expired
+      const expired = await prisma.poll.findUnique({
+        select: { endsAt: true },
         where: { endsAt: { lt: new Date() }, id: poll as string }
       });
 
-      if (pollCount === 0) {
+      if (expired) {
         return res.status(400).json({ error: "Poll expired.", success: false });
       }
       // End: Check if the poll expired

@@ -75,6 +75,8 @@ describe("POST /polls/act", () => {
       { headers: getTestAuthHeaders() }
     );
 
+    console.log(data);
+
     expect(status).toBe(200);
     expect(data.id).toBeDefined();
     expect(data.success).toBe(true);
