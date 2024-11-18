@@ -8,9 +8,9 @@ export default async ({ branch }) => {
       label: "Skipping SWH"
     });
   } else {
-    await fetch(
-      "https://archive.softwareheritage.org/api/1/origin/save/git/url/https://github.com/heyxyz/hey",
-      { method: "POST" }
+    await run(
+      "curl -X POST https://archive.softwareheritage.org/api/1/origin/save/git/url/https://github.com/heyxyz/hey",
+      { label: "Saving to SWH" }
     );
   }
 };
