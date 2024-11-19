@@ -6,11 +6,11 @@ import SingleAccountShimmer from "./Shimmer/SingleAccountShimmer";
 import SingleAccount from "./SingleAccount";
 import WalletProfile from "./WalletProfile";
 
-interface LazyDefaultProfileProps {
+interface LazyDefaultAccountProps {
   address: Address;
 }
 
-const LazyDefaultProfile: FC<LazyDefaultProfileProps> = ({ address }) => {
+const LazyDefaultAccount: FC<LazyDefaultAccountProps> = ({ address }) => {
   const { data, loading } = useDefaultProfileQuery({
     skip: !address,
     variables: { request: { for: address } }
@@ -33,4 +33,4 @@ const LazyDefaultProfile: FC<LazyDefaultProfileProps> = ({ address }) => {
   );
 };
 
-export default LazyDefaultProfile;
+export default LazyDefaultAccount;

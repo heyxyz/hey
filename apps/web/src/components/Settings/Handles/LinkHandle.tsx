@@ -1,5 +1,5 @@
 import IndexStatus from "@components/Shared/IndexStatus";
-import LazySmallSingleProfile from "@components/Shared/LazySmallSingleProfile";
+import LazySmallSingleAccount from "@components/Shared/LazySmallSingleAccount";
 import Loader from "@components/Shared/Loader";
 import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
@@ -200,7 +200,7 @@ const LinkHandle: FC = () => {
               <div className="flex items-center space-x-2">
                 <span>·</span>
                 <div>Linked to</div>
-                <LazySmallSingleProfile id={handle.linkedTo?.nftTokenId} />
+                <LazySmallSingleAccount id={handle.linkedTo?.nftTokenId} />
               </div>
             ) : null}
           </div>
