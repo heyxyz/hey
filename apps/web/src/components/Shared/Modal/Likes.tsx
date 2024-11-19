@@ -1,5 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import {
@@ -76,7 +76,7 @@ const Likes: FC<LikesProps> = ({ postId }) => {
       endReached={onEndReached}
       itemContent={(_, like) => (
         <div className="p-5">
-          <SingleProfile
+          <SingleAccount
             hideFollowButton={currentProfile?.id === like.profile.id}
             hideUnfollowButton={currentProfile?.id === like.profile.id}
             profile={like.profile as Profile}

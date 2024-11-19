@@ -1,7 +1,7 @@
 import { Card } from "@hey/ui";
 import type { FC } from "react";
 import PostShimmer from "./PostShimmer";
-import SingleProfileShimmer from "./SingleProfileShimmer";
+import SingleAccountShimmer from "./SingleAccountShimmer";
 import SmallSingleProfileShimmer from "./SmallSingleProfileShimmer";
 
 const PaidActionsShimmer: FC = () => {
@@ -22,7 +22,7 @@ const PaidActionsShimmer: FC = () => {
         </div>
         <div className="divider" />
         <div className="p-5">
-          <SingleProfileShimmer isBig showFollowUnfollowButton />
+          <SingleAccountShimmer isBig showFollowUnfollowButton />
         </div>
       </Card>
       <Card>

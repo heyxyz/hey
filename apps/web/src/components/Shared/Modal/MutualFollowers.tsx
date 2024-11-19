@@ -1,5 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { MutualFollowersRequest, Profile } from "@hey/lens";
 import { LimitType, useMutualFollowersQuery } from "@hey/lens";
@@ -81,7 +81,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
       endReached={onEndReached}
       itemContent={(_, mutualFollower) => (
         <div className="p-5">
-          <SingleProfile
+          <SingleAccount
             hideFollowButton={currentProfile?.id === mutualFollower.id}
             hideUnfollowButton={currentProfile?.id === mutualFollower.id}
             profile={mutualFollower as Profile}

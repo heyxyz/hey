@@ -1,5 +1,5 @@
-import SingleProfilesShimmer from "@components/Shared/Shimmer/SingleProfilesShimmer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccountsShimmer from "@components/Shared/Shimmer/SingleAccountsShimmer";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
@@ -42,7 +42,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   };
 
   if (loading) {
-    return <SingleProfilesShimmer isBig />;
+    return <SingleAccountsShimmer isBig />;
   }
 
   if (profiles?.length === 0) {
@@ -70,7 +70,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => (
         <Card className="p-5">
-          <SingleProfile
+          <SingleAccount
             hideFollowButton
             hideUnfollowButton
             isBig

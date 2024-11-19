@@ -1,32 +1,32 @@
 import { Card } from "@hey/ui";
 import type { FC } from "react";
-import SingleProfileShimmer from "./SingleProfileShimmer";
+import SingleAccountShimmer from "./SingleAccountShimmer";
 
-interface SingleProfilesShimmerProps {
+interface SingleAccountsShimmerProps {
   isBig?: boolean;
   showFollowUnfollowButton?: boolean;
 }
 
-const SingleProfilesShimmer: FC<SingleProfilesShimmerProps> = ({
+const SingleAccountsShimmer: FC<SingleAccountsShimmerProps> = ({
   isBig = false,
   showFollowUnfollowButton = false
 }) => {
   return (
     <div className="space-y-3">
       <Card className="p-5">
-        <SingleProfileShimmer
+        <SingleAccountShimmer
           isBig={isBig}
           showFollowUnfollowButton={showFollowUnfollowButton}
         />
       </Card>
       <Card className="p-5">
-        <SingleProfileShimmer
+        <SingleAccountShimmer
           isBig={isBig}
           showFollowUnfollowButton={showFollowUnfollowButton}
         />
       </Card>
       <Card className="p-5">
-        <SingleProfileShimmer
+        <SingleAccountShimmer
           isBig={isBig}
           showFollowUnfollowButton={showFollowUnfollowButton}
         />
@@ -35,4 +35,4 @@ const SingleProfilesShimmer: FC<SingleProfilesShimmerProps> = ({
   );
 };
 
-export default SingleProfilesShimmer;
+export default SingleAccountsShimmer;
