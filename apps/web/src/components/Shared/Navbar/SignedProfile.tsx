@@ -12,10 +12,10 @@ import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
 import { NextLink } from "./MenuItems";
 import MobileDrawerMenu from "./MobileDrawerMenu";
+import AccountStatus from "./NavItems/AccountStatus";
 import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import OptimisticTransactions from "./NavItems/OptimisticTransactions";
-import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
@@ -96,7 +96,7 @@ const SignedProfile: FC = () => {
                 )
               }
             >
-              <ProfileStatus id={currentProfile?.id} />
+              <AccountStatus id={currentProfile?.id} />
             </MenuItem>
             <div className="divider" />
             <MenuItem
