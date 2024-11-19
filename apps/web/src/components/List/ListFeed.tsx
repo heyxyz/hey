@@ -36,7 +36,7 @@ const ListFeed: FC<ListFeedProps> = ({ list, showHeader = false }) => {
 
   const getListPosts = async (id: string): Promise<string[]> => {
     try {
-      const { data } = await axios.get(`${HEY_API_URL}/lists/publications`, {
+      const { data } = await axios.get(`${HEY_API_URL}/lists/posts`, {
         params: { id }
       });
 
