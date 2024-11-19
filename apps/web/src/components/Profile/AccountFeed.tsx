@@ -1,7 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { ProfileFeedType } from "@hey/data/enums";
+import { AccountFeedType } from "@hey/data/enums";
 import type { AnyPublication, PublicationsRequest } from "@hey/lens";
 import {
   LimitType,
@@ -22,18 +22,18 @@ import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface ProfileFeedProps {
+interface AccountFeedProps {
   handle: string;
   profileDetailsLoading: boolean;
   profileId: string;
   type:
-    | ProfileFeedType.Collects
-    | ProfileFeedType.Feed
-    | ProfileFeedType.Media
-    | ProfileFeedType.Replies;
+    | AccountFeedType.Collects
+    | AccountFeedType.Feed
+    | AccountFeedType.Media
+    | AccountFeedType.Replies;
 }
 
-const ProfileFeed: FC<ProfileFeedProps> = ({
+const AccountFeed: FC<AccountFeedProps> = ({
   handle,
   profileDetailsLoading,
   profileId,
@@ -65,11 +65,11 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
   };
 
   const publicationTypes: PublicationType[] =
-    type === ProfileFeedType.Feed
+    type === AccountFeedType.Feed
       ? [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote]
-      : type === ProfileFeedType.Replies
+      : type === AccountFeedType.Replies
         ? [PublicationType.Comment]
-        : type === ProfileFeedType.Media
+        : type === AccountFeedType.Media
           ? [
               PublicationType.Post,
               PublicationType.Comment,
@@ -81,7 +81,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
               PublicationType.Mirror
             ];
   const metadata =
-    type === ProfileFeedType.Media
+    type === AccountFeedType.Media
       ? { mainContentFocus: getMediaFilters() }
       : null;
   const request: PublicationsRequest = {
@@ -89,7 +89,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
     where: {
       metadata,
       publicationTypes,
-      ...(type !== ProfileFeedType.Collects
+      ...(type !== AccountFeedType.Collects
         ? { from: [profileId] }
         : { actedBy: profileId })
     }
@@ -146,13 +146,13 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
 
   if (posts?.length === 0) {
     const emptyMessage =
-      type === ProfileFeedType.Feed
+      type === AccountFeedType.Feed
         ? "has nothing in their feed yet!"
-        : type === ProfileFeedType.Media
+        : type === AccountFeedType.Media
           ? "has no media yet!"
-          : type === ProfileFeedType.Replies
+          : type === AccountFeedType.Replies
             ? "hasn't replied yet!"
-            : type === ProfileFeedType.Collects
+            : type === AccountFeedType.Collects
               ? "hasn't collected anything yet!"
               : "";
 
@@ -187,8 +187,8 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
             isLast={index === (posts?.length || 0) - 1}
             post={post as AnyPublication}
             showThread={
-              type !== ProfileFeedType.Media &&
-              type !== ProfileFeedType.Collects
+              type !== AccountFeedType.Media &&
+              type !== AccountFeedType.Collects
             }
           />
         )}
@@ -204,4 +204,4 @@ const ProfileFeed: FC<ProfileFeedProps> = ({
   );
 };
 
-export default ProfileFeed;
+export default AccountFeed;

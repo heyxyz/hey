@@ -8,7 +8,7 @@ import {
   HANDLE_PREFIX,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
-import { ProfileFeedType } from "@hey/data/enums";
+import { AccountFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
 import getProfileDetails, {
@@ -26,10 +26,10 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import AccountFeed from "./AccountFeed";
 import Details from "./Details";
 import FeedType from "./FeedType";
 import Lists from "./Lists";
-import ProfileFeed from "./ProfileFeed";
 import AccountPageShimmer from "./Shimmer";
 import SuspendedDetails from "./SuspendedDetails";
 
@@ -54,19 +54,19 @@ const ViewProfile: NextPage = () => {
     }
   }, [handle, id]);
 
-  const lowerCaseProfileFeedType = [
-    ProfileFeedType.Feed.toLowerCase(),
-    ProfileFeedType.Replies.toLowerCase(),
-    ProfileFeedType.Media.toLowerCase(),
-    ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Lists.toLowerCase()
+  const lowerCaseAccountFeedType = [
+    AccountFeedType.Feed.toLowerCase(),
+    AccountFeedType.Replies.toLowerCase(),
+    AccountFeedType.Media.toLowerCase(),
+    AccountFeedType.Collects.toLowerCase(),
+    AccountFeedType.Lists.toLowerCase()
   ];
 
   const feedType = type
-    ? lowerCaseProfileFeedType.includes(type as string)
+    ? lowerCaseAccountFeedType.includes(type as string)
       ? type.toString().toUpperCase()
-      : ProfileFeedType.Feed
-    : ProfileFeedType.Feed;
+      : AccountFeedType.Feed
+    : AccountFeedType.Feed;
 
   const {
     data,
@@ -141,22 +141,22 @@ const ViewProfile: NextPage = () => {
             />
           ) : (
             <>
-              <FeedType feedType={feedType as ProfileFeedType} />
+              <FeedType feedType={feedType as AccountFeedType} />
               {currentProfile?.id === profile?.id &&
-              feedType !== ProfileFeedType.Lists ? (
+              feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}
-              {feedType === ProfileFeedType.Feed ||
-              feedType === ProfileFeedType.Replies ||
-              feedType === ProfileFeedType.Media ||
-              feedType === ProfileFeedType.Collects ? (
-                <ProfileFeed
+              {feedType === AccountFeedType.Feed ||
+              feedType === AccountFeedType.Replies ||
+              feedType === AccountFeedType.Media ||
+              feedType === AccountFeedType.Collects ? (
+                <AccountFeed
                   handle={getProfile(profile).slugWithPrefix}
                   profileDetailsLoading={profileDetailsLoading}
                   profileId={profile.id}
                   type={feedType}
                 />
-              ) : feedType === ProfileFeedType.Lists ? (
+              ) : feedType === AccountFeedType.Lists ? (
                 <Lists profile={profile} />
               ) : null}
             </>

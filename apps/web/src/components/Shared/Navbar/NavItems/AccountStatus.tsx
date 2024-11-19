@@ -7,12 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
-interface ProfileStatusProps {
+interface AccountStatusProps {
   id: string;
   className?: string;
 }
 
-const ProfileStatus: FC<ProfileStatusProps> = ({ id, className = "" }) => {
+const AccountStatus: FC<AccountStatusProps> = ({ id, className = "" }) => {
   const { setShowEditStatusModal } = useGlobalModalStateStore();
 
   const { data, isLoading } = useQuery({
@@ -53,4 +53,4 @@ const ProfileStatus: FC<ProfileStatusProps> = ({ id, className = "" }) => {
   );
 };
 
-export default ProfileStatus;
+export default AccountStatus;

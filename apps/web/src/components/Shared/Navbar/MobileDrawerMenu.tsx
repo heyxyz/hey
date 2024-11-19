@@ -10,11 +10,11 @@ import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Slug from "../Slug";
+import AccountStatus from "./NavItems/AccountStatus";
 import Analytics from "./NavItems/Analytics";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
-import ProfileStatus from "./NavItems/ProfileStatus";
 import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
 import SwitchProfile from "./NavItems/SwitchProfile";
@@ -66,7 +66,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <SwitchProfile className={cn(itemClass, "px-4")} />
           <div className="divider" />
-          <ProfileStatus
+          <AccountStatus
             className={cn(itemClass, "px-4")}
             id={currentProfile?.id}
           />
