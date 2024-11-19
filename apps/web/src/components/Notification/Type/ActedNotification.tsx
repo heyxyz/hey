@@ -7,8 +7,8 @@ import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface ActedNotificationProps {
   notification: TActedNotification;
@@ -38,7 +38,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action) => (
             <div key={action.by.id}>
-              <NotificationProfileAvatar profile={action.by} />
+              <NotificationAccountAvatar profile={action.by} />
             </div>
           ))}
         </div>

@@ -5,8 +5,8 @@ import type { QuoteNotification as TQuoteNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface QuoteNotificationProps {
   notification: TQuoteNotification;
@@ -27,7 +27,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
       <div className="flex items-center space-x-3">
         <ChatBubbleBottomCenterTextIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationProfileAvatar profile={firstProfile} />
+          <NotificationAccountAvatar profile={firstProfile} />
         </div>
       </div>
       <div className="ml-9">

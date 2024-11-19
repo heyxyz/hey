@@ -14,7 +14,7 @@ interface NotificationProfileProps {
   profile: Profile;
 }
 
-export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
+export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
@@ -42,7 +42,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   );
 };
 
-export const NotificationProfileName: FC<NotificationProfileProps> = ({
+export const NotificationAccountName: FC<NotificationProfileProps> = ({
   profile
 }) => {
   const profileLink = getProfile(profile).link;

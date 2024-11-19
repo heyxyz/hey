@@ -2,7 +2,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
-import { NotificationProfileName } from "./Profile";
+import { NotificationAccountName } from "./Account";
 
 interface AggregatedNotificationTitleProps {
   firstProfile: Profile;
@@ -19,7 +19,7 @@ const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
 }) => {
   return (
     <div>
-      <NotificationProfileName profile={firstProfile} />
+      <NotificationAccountName profile={firstProfile} />
       <span> {text} </span>
       {type && (
         <Link
