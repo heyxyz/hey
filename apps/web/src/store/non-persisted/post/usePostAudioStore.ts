@@ -1,14 +1,14 @@
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
-interface AudioPublication {
+interface AudioPost {
   artist: string;
   cover: string;
   mimeType: string;
   title: string;
 }
 
-export const DEFAULT_AUDIO_POST: AudioPublication = {
+export const DEFAULT_AUDIO_POST: AudioPost = {
   artist: "",
   cover: "",
   mimeType: "",
@@ -16,8 +16,8 @@ export const DEFAULT_AUDIO_POST: AudioPublication = {
 };
 
 interface State {
-  audioPost: AudioPublication;
-  setAudioPost: (audioPost: AudioPublication) => void;
+  audioPost: AudioPost;
+  setAudioPost: (audioPost: AudioPost) => void;
 }
 
 const store = create<State>((set) => ({

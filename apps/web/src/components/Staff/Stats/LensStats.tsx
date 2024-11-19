@@ -69,7 +69,7 @@ const LensStats: FC = () => {
           name="Authentications"
         />
         <NumberedStat count={data.relay_usage_count} name="Relay Usage" />
-        <NumberedStat count={data.posts_count} name="Publications" />
+        <NumberedStat count={data.posts_count} name="Posts" />
         <NumberedStat count={data.profiles_count} name="Profiles" />
         <NumberedStat
           count={data.quality_profiles_count}
@@ -85,7 +85,7 @@ const LensStats: FC = () => {
           name="WTF Dismissed"
         />
         <NumberedStat count={data.notifications_count} name="Notifications" />
-        <NumberedStat count={data.momoka_count} name="Momoka Publications" />
+        <NumberedStat count={data.momoka_count} name="Momoka Posts" />
         <NumberedStat
           count={data.media_snapshots_count}
           name="Media Snapshots"
