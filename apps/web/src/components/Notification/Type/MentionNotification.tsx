@@ -5,8 +5,8 @@ import type { MentionNotification as TMirrorNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface MentionNotificationProps {
   notification: TMirrorNotification;
@@ -29,7 +29,7 @@ const MentionNotification: FC<MentionNotificationProps> = ({
       <div className="flex items-center space-x-3">
         <AtSymbolIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationProfileAvatar profile={firstProfile} />
+          <NotificationAccountAvatar profile={firstProfile} />
         </div>
       </div>
       <div className="ml-9">

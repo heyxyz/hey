@@ -4,8 +4,8 @@ import type { FollowNotification as TFollowNotification } from "@hey/lens";
 import plur from "plur";
 import type { FC } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface FollowNotificationProps {
   notification: TFollowNotification;
@@ -30,7 +30,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {followers.slice(0, 10).map((follower) => (
             <div key={follower.id}>
-              <NotificationProfileAvatar profile={follower} />
+              <NotificationAccountAvatar profile={follower} />
             </div>
           ))}
         </div>

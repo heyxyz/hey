@@ -6,8 +6,8 @@ import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface MirrorNotificationProps {
   notification: TMirrorNotification;
@@ -35,7 +35,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {mirrors.slice(0, 10).map((mirror) => (
             <div key={mirror.profile.id}>
-              <NotificationProfileAvatar profile={mirror.profile} />
+              <NotificationAccountAvatar profile={mirror.profile} />
             </div>
           ))}
         </div>
