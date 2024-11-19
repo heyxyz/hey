@@ -1,5 +1,6 @@
 import { GridItemTwelve, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
+import AccountsDesign from "./AccountsDesign";
 import AlertDesign from "./AlertDesign";
 import BadgeDesign from "./BadgeDesign";
 import ButtonsDesign from "./ButtonsDesign";
@@ -12,7 +13,6 @@ import ImageDesign from "./ImageDesign";
 import InputDesign from "./InputDesign";
 import ModalDesign from "./ModalDesign";
 import NumberedStatDesign from "./NumberedStatDesign";
-import ProfilesDesign from "./ProfilesDesign";
 import RangeSliderDesign from "./RangeSliderDesign";
 import SelectDesign from "./SelectDesign";
 import SpinnerDesign from "./SpinnerDesign";
@@ -50,7 +50,7 @@ const Design: NextPage = () => {
         <WarningMessageDesign />
         <ErrorMessageDesign />
         <NumberedStatDesign />
-        <ProfilesDesign />
+        <AccountsDesign />
       </GridItemTwelve>
     </GridLayout>
   );

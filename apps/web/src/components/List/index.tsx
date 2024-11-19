@@ -12,9 +12,9 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
+import Accounts from "./Accounts";
 import Details from "./Details";
 import ListFeed from "./ListFeed";
-import Profiles from "./Profiles";
 import ListPageShimmer from "./Shimmer";
 
 const ViewList: NextPage = () => {
@@ -66,7 +66,7 @@ const ViewList: NextPage = () => {
       <GridLayout>
         <GridItemEight className="space-y-5">
           {showProfiles ? (
-            <Profiles listId={list.id} name={list.name} />
+            <Accounts listId={list.id} name={list.name} />
           ) : (
             <ListFeed list={list} />
           )}
