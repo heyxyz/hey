@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import type { ChangeEvent, FC, MutableRefObject } from "react";
 import { useEffect, useState } from "react";
 import { useSearchStore } from "src/store/persisted/useSearchStore";
-import RecentProfiles from "./RecentProfiles";
+import RecentAccounts from "./RecentAccounts";
 
 interface SearchProps {
   placeholder?: string;
@@ -104,7 +104,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
         >
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {!debouncedSearchText && (
-              <RecentProfiles onProfileClick={handleReset} />
+              <RecentAccounts onAccountClick={handleReset} />
             )}
             {searchUsersLoading ? (
               <Loader className="my-3" message="Searching users" small />
