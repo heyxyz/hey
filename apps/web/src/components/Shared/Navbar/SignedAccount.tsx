@@ -21,7 +21,7 @@ import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourProfile from "./NavItems/YourProfile";
 
-const SignedProfile: FC = () => {
+const SignedAccount: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
 
@@ -151,4 +151,4 @@ const SignedProfile: FC = () => {
   );
 };
 
-export default SignedProfile;
+export default SignedAccount;

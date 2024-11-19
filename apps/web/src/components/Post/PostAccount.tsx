@@ -11,7 +11,7 @@ import AccountPreview from "../Shared/AccountPreview";
 import Slug from "../Shared/Slug";
 import ClubHandle from "./ClubHandle";
 
-interface PostProfileProps {
+interface PostAccountProps {
   profile: Profile;
   postId: string;
   source?: string;
@@ -19,7 +19,7 @@ interface PostProfileProps {
   timestamp: Date;
 }
 
-const PostProfile: FC<PostProfileProps> = ({
+const PostAccount: FC<PostAccountProps> = ({
   profile,
   postId,
   source,
@@ -65,4 +65,4 @@ const PostProfile: FC<PostProfileProps> = ({
   );
 };
 
-export default memo(PostProfile);
+export default memo(PostAccount);
