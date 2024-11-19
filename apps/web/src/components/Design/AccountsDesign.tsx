@@ -4,7 +4,7 @@ import type { Profile } from "@hey/lens";
 import { Card, CardHeader, H5 } from "@hey/ui";
 import type { FC } from "react";
 
-const ProfilesDesign: FC = () => {
+const AccountsDesign: FC = () => {
   const profile = {
     handle: { localName: "yoginth" },
     id: "0x0d",
@@ -91,4 +91,4 @@ const ProfilesDesign: FC = () => {
   );
 };
 
-export default ProfilesDesign;
+export default AccountsDesign;

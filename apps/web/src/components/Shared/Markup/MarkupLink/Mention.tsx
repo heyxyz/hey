@@ -1,4 +1,4 @@
-import ProfilePreview from "@components/Shared/ProfilePreview";
+import AccountPreview from "@components/Shared/AccountPreview";
 import Slug from "@components/Shared/Slug";
 import { Leafwatch } from "@helpers/leafwatch";
 import { POST } from "@hey/data/tracking";
@@ -48,13 +48,13 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
         });
       }}
     >
-      <ProfilePreview handle={handle}>
+      <AccountPreview handle={handle}>
         <Slug
           prefix="@"
           slug={getLocalNameFromFullHandle(handle)}
           useBrandColor
         />
-      </ProfilePreview>
+      </AccountPreview>
     </Link>
   ) : (
     <Slug prefix="@" slug={getLocalNameFromFullHandle(handle)} useBrandColor />

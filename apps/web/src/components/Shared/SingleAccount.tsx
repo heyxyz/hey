@@ -10,11 +10,11 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
+import AccountPreview from "./AccountPreview";
 import Markup from "./Markup";
 import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
 import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
-import ProfilePreview from "./ProfilePreview";
 import Slug from "./Slug";
 
 interface SingleAccountProps {
@@ -93,7 +93,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
   );
 
   const ProfileInfo: FC = () => (
-    <ProfilePreview
+    <AccountPreview
       handle={profile.handle?.fullHandle}
       id={profile.id}
       showUserPreview={showUserPreview}
@@ -118,7 +118,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
           )}
         </div>
       </div>
-    </ProfilePreview>
+    </AccountPreview>
   );
 
   return (

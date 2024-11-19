@@ -30,7 +30,7 @@ import Details from "./Details";
 import FeedType from "./FeedType";
 import Lists from "./Lists";
 import ProfileFeed from "./ProfileFeed";
-import ProfilePageShimmer from "./Shimmer";
+import AccountPageShimmer from "./Shimmer";
 import SuspendedDetails from "./SuspendedDetails";
 
 const ViewProfile: NextPage = () => {
@@ -92,7 +92,7 @@ const ViewProfile: NextPage = () => {
   });
 
   if (!isReady || profileLoading) {
-    return <ProfilePageShimmer />;
+    return <AccountPageShimmer />;
   }
 
   if (!data?.profile) {
