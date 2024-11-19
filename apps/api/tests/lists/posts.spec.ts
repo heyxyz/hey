@@ -3,10 +3,10 @@ import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
-describe("GET /lists/publications", () => {
+describe("GET /lists/posts", () => {
   test("should return 400 if no id is provided", async () => {
     try {
-      await axios.get(`${TEST_URL}/lists/publications`, {
+      await axios.get(`${TEST_URL}/lists/posts`, {
         headers: getTestAuthHeaders()
       });
     } catch (error: any) {
@@ -15,7 +15,7 @@ describe("GET /lists/publications", () => {
   });
 
   test("should return 200 with a list's profile's publications", async () => {
-    const { data, status } = await axios.get(`${TEST_URL}/lists/publications`, {
+    const { data, status } = await axios.get(`${TEST_URL}/lists/posts`, {
       params: { id: "0c34a529-8db6-40b8-9b35-7f474f7d509a" }
     });
 
@@ -23,8 +23,8 @@ describe("GET /lists/publications", () => {
     expect(data.result).toHaveLength(50);
   });
 
-  test("should return 200 with a list's profile's publications with pagination", async () => {
-    const { data, status } = await axios.get(`${TEST_URL}/lists/publications`, {
+  test("should return 200 with a list's profile's posts with pagination", async () => {
+    const { data, status } = await axios.get(`${TEST_URL}/lists/posts`, {
       params: { id: "0c34a529-8db6-40b8-9b35-7f474f7d509a", page: 2 }
     });
 
