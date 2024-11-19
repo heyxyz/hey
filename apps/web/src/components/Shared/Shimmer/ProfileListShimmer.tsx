@@ -1,11 +1,11 @@
-import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
 import type { FC } from "react";
+import SingleAccountShimmer from "./SingleAccountShimmer";
 
 const ProfileListShimmer: FC = () => {
   return (
     <div className="divide-y dark:divide-gray-700">
       {Array.from({ length: 5 }).map((_, index) => (
-        <SingleProfileShimmer
+        <SingleAccountShimmer
           key={index}
           className="p-5"
           showFollowUnfollowButton

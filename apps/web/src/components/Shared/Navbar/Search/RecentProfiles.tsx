@@ -1,5 +1,5 @@
 import Loader from "@components/Shared/Loader";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
@@ -65,7 +65,7 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
               }}
             >
               <div className="w-full">
-                <SingleProfile
+                <SingleAccount
                   hideFollowButton
                   hideUnfollowButton
                   linkToProfile={false}

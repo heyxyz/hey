@@ -1,4 +1,4 @@
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -89,7 +89,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
       ) : profile ? (
         <div className="p-5">
           <Card className="p-3">
-            <SingleProfile
+            <SingleAccount
               hideFollowButton
               hideUnfollowButton
               profile={profile as Profile}

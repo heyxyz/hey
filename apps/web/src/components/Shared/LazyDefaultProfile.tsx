@@ -2,8 +2,8 @@ import type { Profile } from "@hey/lens";
 import { useDefaultProfileQuery } from "@hey/lens";
 import type { FC } from "react";
 import type { Address } from "viem";
-import SingleProfileShimmer from "./Shimmer/SingleProfileShimmer";
-import SingleProfile from "./SingleProfile";
+import SingleAccountShimmer from "./Shimmer/SingleAccountShimmer";
+import SingleAccount from "./SingleAccount";
 import WalletProfile from "./WalletProfile";
 
 interface LazyDefaultProfileProps {
@@ -17,7 +17,7 @@ const LazyDefaultProfile: FC<LazyDefaultProfileProps> = ({ address }) => {
   });
 
   if (loading) {
-    return <SingleProfileShimmer />;
+    return <SingleAccountShimmer />;
   }
 
   if (!data?.defaultProfile) {
@@ -25,7 +25,7 @@ const LazyDefaultProfile: FC<LazyDefaultProfileProps> = ({ address }) => {
   }
 
   return (
-    <SingleProfile
+    <SingleAccount
       hideFollowButton
       hideUnfollowButton
       profile={data.defaultProfile as Profile}

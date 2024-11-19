@@ -1,5 +1,5 @@
 import Loader from "@components/Shared/Loader";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getProfile from "@hey/helpers/getProfile";
 import type {
@@ -132,7 +132,7 @@ const List: FC = () => {
                       : getProfile(profile as Profile).staffLink
                   }
                 >
-                  <SingleProfile
+                  <SingleAccount
                     hideFollowButton
                     hideUnfollowButton
                     isBig

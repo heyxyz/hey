@@ -17,7 +17,7 @@ import Verified from "./Profile/Icons/Verified";
 import ProfilePreview from "./ProfilePreview";
 import Slug from "./Slug";
 
-interface SingleProfileProps {
+interface SingleAccountProps {
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
   isBig?: boolean;
@@ -30,7 +30,7 @@ interface SingleProfileProps {
   timestamp?: Date;
 }
 
-const SingleProfile: FC<SingleProfileProps> = ({
+const SingleAccount: FC<SingleAccountProps> = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
   isBig = false,
@@ -143,4 +143,4 @@ const SingleProfile: FC<SingleProfileProps> = ({
   );
 };
 
-export default memo(SingleProfile);
+export default memo(SingleAccount);

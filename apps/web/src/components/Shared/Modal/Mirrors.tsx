@@ -1,5 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfilesRequest } from "@hey/lens";
@@ -72,7 +72,7 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => (
         <div className="p-5">
-          <SingleProfile
+          <SingleAccount
             hideFollowButton={currentProfile?.id === profile.id}
             hideUnfollowButton={currentProfile?.id === profile.id}
             profile={profile as Profile}

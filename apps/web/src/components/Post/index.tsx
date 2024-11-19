@@ -4,7 +4,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPublication from "@components/Composer/NewPublication";
 import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning";
 import Footer from "@components/Shared/Footer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
@@ -142,7 +142,7 @@ const ViewPost: NextPage = () => {
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
-          <SingleProfile
+          <SingleAccount
             hideFollowButton={currentProfile?.id === targetPost.by.id}
             hideUnfollowButton={currentProfile?.id === targetPost.by.id}
             profile={targetPost.by}

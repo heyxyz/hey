@@ -1,5 +1,5 @@
 import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { ProfileLinkSource } from "@hey/data/tracking";
@@ -102,7 +102,7 @@ const Profiles: FC<ProfilesProps> = ({ listId, name }) => {
         data={members}
         itemContent={(_, member) => (
           <div className="p-5">
-            <SingleProfile
+            <SingleAccount
               hideFollowButton={currentProfile?.id === member.id}
               hideUnfollowButton={currentProfile?.id === member.id}
               profile={member as Profile}
