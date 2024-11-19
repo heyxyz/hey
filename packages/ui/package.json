@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hookform/resolvers": "^3.9.1",
