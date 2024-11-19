@@ -5,7 +5,7 @@ import type { AnyPublication, FeedItem } from "@hey/lens";
 import type { FC } from "react";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import PostMenu from "./Actions/Menu";
-import PostProfile from "./PostProfile";
+import PostAccount from "./PostAccount";
 
 interface PostHeaderProps {
   feedItem?: FeedItem;
@@ -32,7 +32,7 @@ const PostHeader: FC<PostHeaderProps> = ({
       className="flex w-full items-start justify-between"
       onClick={stopEventPropagation}
     >
-      <PostProfile
+      <PostAccount
         profile={profile}
         postId={targetPost.id}
         source={targetPost.publishedOn?.id}
