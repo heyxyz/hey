@@ -1,4 +1,4 @@
-import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource } from "@hey/data/tracking";
@@ -43,7 +43,7 @@ const Likes: FC<LikesProps> = ({ postId }) => {
   };
 
   if (loading) {
-    return <ProfileListShimmer />;
+    return <AccountListShimmer />;
   }
 
   if (profiles?.length === 0) {
