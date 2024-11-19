@@ -5,11 +5,11 @@ import { Tooltip } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 
-interface ProfileStatusProps {
+interface AccountStatusProps {
   id: string;
 }
 
-const ProfileStatus: FC<ProfileStatusProps> = ({ id }) => {
+const AccountStatus: FC<AccountStatusProps> = ({ id }) => {
   const { data } = useQuery({
     enabled: Boolean(id),
     queryFn: () => getProfileDetails(id),
@@ -31,4 +31,4 @@ const ProfileStatus: FC<ProfileStatusProps> = ({ id }) => {
   );
 };
 
-export default ProfileStatus;
+export default AccountStatus;

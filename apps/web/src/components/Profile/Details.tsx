@@ -32,12 +32,12 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import urlcat from "urlcat";
+import AccountStatus from "./AccountStatus";
 import Badges from "./Badges";
 import Followerings from "./Followerings";
 import InternalTools from "./InternalTools";
 import ProfileMenu from "./Menu";
 import MutualFollowersOverview from "./MutualFollowersOverview";
-import ProfileStatus from "./ProfileStatus";
 import ScamWarning from "./ScamWarning";
 import UpdateTheme from "./UpdateTheme";
 
@@ -95,7 +95,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               <EyeSlashIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
-          <ProfileStatus id={profile.id} />
+          <AccountStatus id={profile.id} />
         </div>
         <div className="flex items-center space-x-3">
           <Slug

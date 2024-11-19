@@ -86,7 +86,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
       );
     }
 
-    const ProfileStatus: FC = () => {
+    const AccountStatus: FC = () => {
       const { data: profileDetails } = useQuery({
         enabled: Boolean(id),
         queryFn: () => getProfileDetails(id as string),
@@ -142,7 +142,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     return (
       <>
-        <ProfileStatus />
+        <AccountStatus />
         <div className="space-y-3 p-4">
           <div className="flex items-center justify-between">
             <UserAvatar />

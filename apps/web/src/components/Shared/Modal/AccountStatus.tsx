@@ -15,7 +15,7 @@ import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModal
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import EmojiPicker from "../EmojiPicker";
 
-const ProfileStatus: FC = () => {
+const AccountStatus: FC = () => {
   const { currentProfile } = useProfileStore();
   const { setShowEditStatusModal } = useGlobalModalStateStore();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -126,4 +126,4 @@ const ProfileStatus: FC = () => {
   );
 };
 
-export default ProfileStatus;
+export default AccountStatus;

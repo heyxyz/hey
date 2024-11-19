@@ -7,9 +7,9 @@ import { useAccount } from "wagmi";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
+import AccountStatus from "./Modal/AccountStatus";
 import AddToList from "./Modal/AddToList";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
-import ProfileStatus from "./Modal/ProfileStatus";
 import ReportProfile from "./Modal/ReportProfile";
 import SwitchProfiles from "./SwitchProfiles";
 
@@ -98,7 +98,7 @@ const GlobalModals: FC = () => {
         show={showEditStatusModal}
         title="Edit Status"
       >
-        <ProfileStatus />
+        <AccountStatus />
       </Modal>
       <Modal
         onClose={() => setShowAddToListModal(false, null)}
