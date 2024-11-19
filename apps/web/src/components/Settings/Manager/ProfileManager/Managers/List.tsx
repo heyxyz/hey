@@ -1,5 +1,5 @@
 import { useApolloClient } from "@apollo/client";
-import LazyDefaultProfile from "@components/Shared/LazyDefaultProfile";
+import LazyDefaultAccount from "@components/Shared/LazyDefaultAccount";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -184,7 +184,7 @@ const List: FC = () => {
       endReached={onEndReached}
       itemContent={(_, manager) => (
         <div className="flex items-center justify-between py-2">
-          <LazyDefaultProfile address={manager.address} />
+          <LazyDefaultAccount address={manager.address} />
           <Button
             disabled={removingAddress === manager.address}
             onClick={() => handleRemoveManager(manager.address)}

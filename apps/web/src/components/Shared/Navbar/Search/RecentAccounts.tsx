@@ -12,11 +12,11 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useSearchStore } from "src/store/persisted/useSearchStore";
 
-interface RecentProfilesProps {
-  onProfileClick: () => void;
+interface RecentAccountsProps {
+  onAccountClick: () => void;
 }
 
-const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
+const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
   const { push } = useRouter();
   const {
     addProfile: addToRecentProfiles,
@@ -61,7 +61,7 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
               onClick={() => {
                 addToRecentProfiles(profile.id);
                 push(getProfile(profile as Profile).link);
-                onProfileClick();
+                onAccountClick();
               }}
             >
               <div className="w-full">
@@ -92,4 +92,4 @@ const RecentProfiles: FC<RecentProfilesProps> = ({ onProfileClick }) => {
   );
 };
 
-export default RecentProfiles;
+export default RecentAccounts;

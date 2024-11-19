@@ -4,13 +4,13 @@ import type { FC } from "react";
 import SmallSingleProfileShimmer from "./Shimmer/SmallSingleProfileShimmer";
 import SmallSingleProfile from "./SmallSingleProfile";
 
-interface LazySmallSingleProfileProps {
+interface LazySmallSingleAccountProps {
   hideSlug?: boolean;
   id: string;
   linkToProfile?: boolean;
 }
 
-const LazySmallSingleProfile: FC<LazySmallSingleProfileProps> = ({
+const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
   hideSlug = false,
   id,
   linkToProfile = false
@@ -37,4 +37,4 @@ const LazySmallSingleProfile: FC<LazySmallSingleProfileProps> = ({
   );
 };
 
-export default LazySmallSingleProfile;
+export default LazySmallSingleAccount;
