@@ -12,7 +12,7 @@ export enum ModFeedType {
   SEARCH = "SEARCH"
 }
 
-export enum ProfileFeedType {
+export enum AccountFeedType {
   Collects = "COLLECTS",
   Feed = "FEED",
   Media = "MEDIA",

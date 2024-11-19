@@ -6,19 +6,19 @@ import {
   PencilSquareIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
-import { ProfileFeedType } from "@hey/data/enums";
+import { AccountFeedType } from "@hey/data/enums";
 import { PROFILE } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import MediaFilter from "./Filters/MediaFilter";
 
 interface FeedTypeProps {
-  feedType: ProfileFeedType;
-  setFeedType?: Dispatch<SetStateAction<ProfileFeedType>>;
+  feedType: AccountFeedType;
+  setFeedType?: Dispatch<SetStateAction<AccountFeedType>>;
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
-  const handleSwitchTab = (type: ProfileFeedType) => {
+  const handleSwitchTab = (type: AccountFeedType) => {
     if (setFeedType) {
       setFeedType(type);
     }
@@ -31,30 +31,30 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
     {
       icon: <PencilSquareIcon className="size-4" />,
       name: "Feed",
-      type: ProfileFeedType.Feed
+      type: AccountFeedType.Feed
     },
     {
       icon: <ChatBubbleLeftIcon className="size-4" />,
       name: "Replies",
-      type: ProfileFeedType.Replies
+      type: AccountFeedType.Replies
     },
     {
       icon: <FilmIcon className="size-4" />,
       name: "Media",
-      type: ProfileFeedType.Media
+      type: AccountFeedType.Media
     },
     {
       icon: <ShoppingBagIcon className="size-4" />,
       name: "Collected",
-      type: ProfileFeedType.Collects
+      type: AccountFeedType.Collects
     },
     {
       icon: <ListBulletIcon className="size-4" />,
       name: "Lists",
-      type: ProfileFeedType.Lists
+      type: AccountFeedType.Lists
     }
   ].filter(
-    (tab): tab is { icon: JSX.Element; name: string; type: ProfileFeedType } =>
+    (tab): tab is { icon: JSX.Element; name: string; type: AccountFeedType } =>
       Boolean(tab)
   );
 
@@ -72,7 +72,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
           />
         ))}
       </div>
-      {feedType === ProfileFeedType.Media && <MediaFilter />}
+      {feedType === AccountFeedType.Media && <MediaFilter />}
     </div>
   );
 };
