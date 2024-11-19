@@ -7,7 +7,7 @@ import type { Profile } from "@hey/lens";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
-import ProfilePreview from "../Shared/ProfilePreview";
+import AccountPreview from "../Shared/AccountPreview";
 import Slug from "../Shared/Slug";
 import ClubHandle from "./ClubHandle";
 
@@ -31,13 +31,13 @@ const PostProfile: FC<PostProfileProps> = ({
       className="outline-none hover:underline focus:underline"
       href={getProfile(profile).link}
     >
-      <ProfilePreview
+      <AccountPreview
         handle={profile.handle?.fullHandle}
         id={profile.id}
         showUserPreview
       >
         {children}
-      </ProfilePreview>
+      </AccountPreview>
     </Link>
   );
 

@@ -1,6 +1,6 @@
+import AccountPreview from "@components/Shared/AccountPreview";
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
-import ProfilePreview from "@components/Shared/ProfilePreview";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getProfile from "@hey/helpers/getProfile";
@@ -23,7 +23,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   };
 
   return (
-    <ProfilePreview handle={profile.handle?.fullHandle} id={profile.id}>
+    <AccountPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
         className="rounded-full outline-offset-2"
         href={getProfile(profile).link}
@@ -38,7 +38,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
           width={32}
         />
       </Link>
-    </ProfilePreview>
+    </AccountPreview>
   );
 };
 
@@ -48,7 +48,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
   const profileLink = getProfile(profile).link;
 
   return (
-    <ProfilePreview handle={profile.handle?.fullHandle} id={profile.id}>
+    <AccountPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
         className="inline-flex items-center space-x-1 font-bold outline-none hover:underline focus:underline"
         href={profileLink}
@@ -58,6 +58,6 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
         <Verified id={profile.id} iconClassName="size-4" />
         <Misuse id={profile.id} iconClassName="size-4" />
       </Link>
-    </ProfilePreview>
+    </AccountPreview>
   );
 };

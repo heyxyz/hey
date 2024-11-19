@@ -2,7 +2,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
-const ProfilePageShimmer: FC = () => {
+const AccountPageShimmer: FC = () => {
   return (
     <>
       <div className="container mx-auto max-w-[1350px]">
@@ -59,4 +59,4 @@ const ProfilePageShimmer: FC = () => {
   );
 };
 
-export default ProfilePageShimmer;
+export default AccountPageShimmer;
