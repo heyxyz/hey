@@ -1,5 +1,5 @@
 import Loader from "@components/Shared/Loader";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import type { Profile, WhoHaveBlockedRequest } from "@hey/lens";
 import { LimitType, useWhoHaveBlockedQuery } from "@hey/lens";
@@ -60,7 +60,7 @@ const List: FC = () => {
         endReached={onEndReached}
         itemContent={(_, profile) => (
           <div className="flex items-center justify-between p-5">
-            <SingleProfile
+            <SingleAccount
               hideFollowButton
               hideUnfollowButton
               profile={profile as Profile}

@@ -1,5 +1,5 @@
-import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
-import SingleProfile from "@components/Shared/SingleProfile";
+import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
+import SingleAccount from "@components/Shared/SingleAccount";
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { ProfileLinkSource } from "@hey/data/tracking";
@@ -77,11 +77,11 @@ const StaffPicks: FC = () => {
     return (
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
-        <SingleProfileShimmer showFollowUnfollowButton />
-        <SingleProfileShimmer showFollowUnfollowButton />
-        <SingleProfileShimmer showFollowUnfollowButton />
-        <SingleProfileShimmer showFollowUnfollowButton />
-        <SingleProfileShimmer showFollowUnfollowButton />
+        <SingleAccountShimmer showFollowUnfollowButton />
+        <SingleAccountShimmer showFollowUnfollowButton />
+        <SingleAccountShimmer showFollowUnfollowButton />
+        <SingleAccountShimmer showFollowUnfollowButton />
+        <SingleAccountShimmer showFollowUnfollowButton />
       </Card>
     );
   }
@@ -127,7 +127,7 @@ const StaffPicks: FC = () => {
       />
       {filteredProfiles.map((profile) => (
         <div className="w-full truncate pr-1" key={profile.id}>
-          <SingleProfile
+          <SingleAccount
             hideFollowButton={currentProfile?.id === profile.id}
             hideUnfollowButton
             profile={profile as Profile}

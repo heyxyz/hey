@@ -2,7 +2,7 @@ import Footer from "@components/Shared/Footer";
 import PostListShimmer from "@components/Shared/Shimmer/PostListShimmer";
 import PostShimmer from "@components/Shared/Shimmer/PostShimmer";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
-import SingleProfileShimmer from "@components/Shared/Shimmer/SingleProfileShimmer";
+import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
@@ -29,14 +29,14 @@ const PublicationPageShimmer: FC<PublicationPageShimmerProps> = ({
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card className="p-5">
-          <SingleProfileShimmer />
+          <SingleAccountShimmer />
         </Card>
         <Card className="space-y-4 p-5">
-          <SingleProfileShimmer showFollowUnfollowButton />
-          <SingleProfileShimmer showFollowUnfollowButton />
-          <SingleProfileShimmer showFollowUnfollowButton />
-          <SingleProfileShimmer showFollowUnfollowButton />
-          <SingleProfileShimmer showFollowUnfollowButton />
+          <SingleAccountShimmer showFollowUnfollowButton />
+          <SingleAccountShimmer showFollowUnfollowButton />
+          <SingleAccountShimmer showFollowUnfollowButton />
+          <SingleAccountShimmer showFollowUnfollowButton />
+          <SingleAccountShimmer showFollowUnfollowButton />
         </Card>
         <Card className="flex justify-between p-5">
           <div className="shimmer h-3 w-1/2 rounded-lg" />
