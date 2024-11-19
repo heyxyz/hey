@@ -14,12 +14,12 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const GET_LIST_PROFILES_QUERY_KEY = "getListProfiles";
 
-interface ProfilesProps {
+interface AccountsProps {
   listId: string;
   name: string;
 }
 
-const Profiles: FC<ProfilesProps> = ({ listId, name }) => {
+const Accounts: FC<AccountsProps> = ({ listId, name }) => {
   const { currentProfile } = useProfileStore();
 
   const getListProfiles = async (): Promise<string[]> => {
@@ -118,4 +118,4 @@ const Profiles: FC<ProfilesProps> = ({ listId, name }) => {
   );
 };
 
-export default Profiles;
+export default Accounts;

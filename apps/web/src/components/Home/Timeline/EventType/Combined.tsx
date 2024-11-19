@@ -1,4 +1,4 @@
-import Profiles from "@components/Shared/Profiles";
+import Accounts from "@components/Shared/Accounts";
 import { SparklesIcon } from "@heroicons/react/24/outline";
 import type { FeedItem } from "@hey/lens";
 import type { FC } from "react";
@@ -30,7 +30,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   return (
     <div className="ld-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 text-[13px] leading-6">
       <SparklesIcon className="size-4" />
-      <Profiles profiles={getAllProfiles()} />
+      <Accounts profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {actionArray.map((action, index) => (
           <Fragment key={action}>

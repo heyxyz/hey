@@ -2,12 +2,12 @@ import FallbackProfileName from "@components/Shared/FallbackProfileName";
 import type { Profile } from "@hey/lens";
 import type { FC, ReactNode } from "react";
 
-interface ProfileCirclesProps {
+interface AccountsProps {
   context?: string;
   profiles: Profile[];
 }
 
-const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
+const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
   const Wrapper: FC<{ children: ReactNode }> = ({ children }) => (
     <>
       {children}
@@ -66,4 +66,4 @@ const Profiles: FC<ProfileCirclesProps> = ({ context, profiles }) => {
   return null;
 };
 
-export default Profiles;
+export default Accounts;
