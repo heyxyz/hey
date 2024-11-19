@@ -1,5 +1,5 @@
+import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
-import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
@@ -39,7 +39,7 @@ const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
         <GridItemEight>
           {profileList ? (
             <Card>
-              <ProfileListShimmer />
+              <AccountListShimmer />
             </Card>
           ) : (
             <PostsShimmer />

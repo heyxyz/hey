@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import SingleAccountShimmer from "./SingleAccountShimmer";
 
-const ProfileListShimmer: FC = () => {
+const AccountListShimmer: FC = () => {
   return (
     <div className="divide-y dark:divide-gray-700">
       {Array.from({ length: 5 }).map((_, index) => (
@@ -15,4 +15,4 @@ const ProfileListShimmer: FC = () => {
   );
 };
 
-export default ProfileListShimmer;
+export default AccountListShimmer;

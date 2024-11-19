@@ -1,4 +1,4 @@
-import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { MutualFollowersRequest, Profile } from "@hey/lens";
@@ -43,7 +43,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
   };
 
   if (loading) {
-    return <ProfileListShimmer />;
+    return <AccountListShimmer />;
   }
 
   if (mutualFollowers?.length === 0) {
