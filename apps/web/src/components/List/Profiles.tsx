@@ -1,4 +1,4 @@
-import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
@@ -58,7 +58,7 @@ const Profiles: FC<ProfilesProps> = ({ listId, name }) => {
   if (listProfilesLoading || lensProfilesLoading) {
     return (
       <Card>
-        <ProfileListShimmer />
+        <AccountListShimmer />
       </Card>
     );
   }

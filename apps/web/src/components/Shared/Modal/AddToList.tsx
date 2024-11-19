@@ -1,4 +1,4 @@
-import ProfileListShimmer from "@components/Shared/Shimmer/ProfileListShimmer";
+import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { UsersIcon } from "@heroicons/react/24/outline";
@@ -32,7 +32,7 @@ const AddToList: FC = () => {
   });
 
   if (isLoading) {
-    return <ProfileListShimmer />;
+    return <AccountListShimmer />;
   }
 
   if (data?.length === 0) {
