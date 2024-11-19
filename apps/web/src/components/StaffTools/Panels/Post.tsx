@@ -26,7 +26,7 @@ const PostStaffTool: FC<PostStaffToolProps> = ({ post }) => {
       <div className="mt-3 space-y-2">
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
-          title="Publication ID"
+          title="Post ID"
           value={post?.id}
         >
           {post?.id}
