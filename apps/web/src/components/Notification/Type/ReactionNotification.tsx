@@ -6,8 +6,8 @@ import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface ReactionNotificationProps {
   notification: TReactionNotification;
@@ -37,7 +37,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
         <div className="flex items-center space-x-1">
           {reactions.slice(0, 10).map((reaction) => (
             <div key={reaction.profile.id}>
-              <NotificationProfileAvatar profile={reaction.profile} />
+              <NotificationAccountAvatar profile={reaction.profile} />
             </div>
           ))}
         </div>

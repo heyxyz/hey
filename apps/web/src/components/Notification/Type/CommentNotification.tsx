@@ -5,8 +5,8 @@ import type { CommentNotification as TCommentNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
+import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
-import { NotificationProfileAvatar } from "../Profile";
 
 interface CommentNotificationProps {
   notification: TCommentNotification;
@@ -30,7 +30,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="flex items-center space-x-3">
         <ChatBubbleLeftIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationProfileAvatar profile={firstProfile} />
+          <NotificationAccountAvatar profile={firstProfile} />
         </div>
       </div>
       <div className="ml-9">
