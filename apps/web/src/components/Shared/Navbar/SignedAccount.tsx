@@ -7,7 +7,7 @@ import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
 import { NextLink } from "./MenuItems";
@@ -22,7 +22,7 @@ import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
 
   const Avatar = () => (

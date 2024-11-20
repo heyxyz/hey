@@ -10,11 +10,11 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const Resend: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { email, emailVerified } = usePreferencesStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);

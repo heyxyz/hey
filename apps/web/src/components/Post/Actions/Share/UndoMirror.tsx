@@ -11,7 +11,7 @@ import { useHidePublicationMutation } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MirrorProps {
   isLoading: boolean;
@@ -20,7 +20,7 @@ interface MirrorProps {
 }
 
 const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { cache } = useApolloClient();
 
   const targetPost = isRepost(post) ? post?.mirrorOn : post;

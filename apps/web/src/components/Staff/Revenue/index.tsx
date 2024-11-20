@@ -8,13 +8,13 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
 import NftRevenue from "./NftRevenue";
 import SignupRevenue from "./SignupRevenue";
 
 const Revenue: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {

@@ -26,7 +26,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import CreateOrEdit from "../../Shared/List/CreateOrEdit";
 
 interface ListsProps {
@@ -34,7 +34,7 @@ interface ListsProps {
 }
 
 const Lists: FC<ListsProps> = ({ profile }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deletingList, setDeletingList] = useState<string | null>(null);

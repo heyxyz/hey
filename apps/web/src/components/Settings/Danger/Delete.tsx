@@ -20,12 +20,12 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { signOut } from "src/store/persisted/useAuthStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useDisconnect, useWriteContract } from "wagmi";
 
 const DeleteSettings: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { disconnect } = useDisconnect();

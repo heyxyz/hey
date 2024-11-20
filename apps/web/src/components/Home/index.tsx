@@ -7,8 +7,8 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
 import Hero from "./Hero";
@@ -17,7 +17,7 @@ import Sidebar from "./Sidebar";
 import Timeline from "./Timeline";
 
 const Home: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { feedType, pinnedList } = useHomeTabStore();
 
   useEffect(() => {

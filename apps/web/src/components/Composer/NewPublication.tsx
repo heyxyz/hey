@@ -54,7 +54,7 @@ import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModal
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import PollEditor from "./Actions/PollSettings/PollEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
@@ -95,7 +95,7 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { isSuspended } = useProfileStatus();
 
   // Global modal store

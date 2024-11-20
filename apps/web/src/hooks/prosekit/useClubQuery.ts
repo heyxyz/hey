@@ -1,7 +1,7 @@
 import getClubs from "@hey/helpers/api/clubs/getClubs";
 import type { Club } from "@hey/types/club";
 import { useEffect, useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
@@ -14,7 +14,7 @@ export type ClubProfile = {
 };
 
 const useClubQuery = (query: string): ClubProfile[] => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [results, setResults] = useState<ClubProfile[]>([]);
 
   useEffect(() => {

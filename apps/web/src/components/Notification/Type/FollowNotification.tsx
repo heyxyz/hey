@@ -3,7 +3,7 @@ import getAccount from "@hey/helpers/getAccount";
 import type { FollowNotification as TFollowNotification } from "@hey/lens";
 import plur from "plur";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -12,7 +12,7 @@ interface FollowNotificationProps {
 }
 
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const followers = notification?.followers;
   const firstProfile = followers?.[0];
   const length = followers.length - 1;

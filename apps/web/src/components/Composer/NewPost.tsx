@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import NewPublication from "./NewPublication";
 
 interface NewPostProps {
@@ -14,7 +14,7 @@ interface NewPostProps {
 
 const NewPost: FC<NewPostProps> = ({ tags }) => {
   const { isReady, query } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { setPostContent, setTags } = usePostStore();
   const [showComposer, setShowComposer] = useState(false);
 

@@ -6,14 +6,14 @@ import type { Profile } from "@hey/lens";
 import { EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface SuggestedProps {
   profiles: Profile[];
 }
 
 const Suggested: FC<SuggestedProps> = ({ profiles }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   if (profiles.length === 0) {
     return (

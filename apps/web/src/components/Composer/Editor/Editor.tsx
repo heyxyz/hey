@@ -12,14 +12,14 @@ import useContentChange from "src/hooks/prosekit/useContentChange";
 import useFocus from "src/hooks/prosekit/useFocus";
 import { usePaste } from "src/hooks/prosekit/usePaste";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useEditorHandle } from "./EditorHandle";
 
 // Lazy load EditorMenus to reduce bundle size
 const EditorMenus = dynamic(() => import("./EditorMenus"), { ssr: false });
 
 const Editor: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { postContent } = usePostStore();
   const defaultMarkdownRef = useRef(postContent);
 

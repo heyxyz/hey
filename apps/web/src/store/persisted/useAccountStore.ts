@@ -24,4 +24,4 @@ const store = create(
   )
 );
 
-export const useProfileStore = createTrackedSelector(store);
+export const useAccountStore = createTrackedSelector(store);

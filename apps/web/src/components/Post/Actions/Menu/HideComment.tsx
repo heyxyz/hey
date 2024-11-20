@@ -15,14 +15,14 @@ import { useHideCommentMutation, useUnhideCommentMutation } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface HideCommentProps {
   post: MirrorablePublication;
 }
 
 const HideComment: FC<HideCommentProps> = ({ post }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
   const request: HideCommentRequest | UnhideCommentRequest = {

@@ -12,7 +12,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   arbitrum,
   base,
@@ -40,7 +40,7 @@ interface TransactionProps {
 }
 
 const Transaction: FC<TransactionProps> = ({ postId }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { setFrameData, setShowTransaction, showTransaction } =
     useFramesStore();
   const [isLoading, setIsLoading] = useState(false);

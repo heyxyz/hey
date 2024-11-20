@@ -10,7 +10,7 @@ import axios from "axios";
 import Link from "next/link";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const GET_LIST_PROFILES_QUERY_KEY = "getListProfiles";
 
@@ -20,7 +20,7 @@ interface AccountsProps {
 }
 
 const Accounts: FC<AccountsProps> = ({ listId, name }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   const getListProfiles = async (): Promise<string[]> => {
     try {

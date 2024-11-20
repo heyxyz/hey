@@ -6,11 +6,11 @@ import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDa
 import { Button, Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { hydrateVerifiedMembers } from "src/store/persisted/useVerifiedMembersStore";
 
 const Verification: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { verifiedMembers } = hydrateVerifiedMembers();
 
   if (!currentProfile) {

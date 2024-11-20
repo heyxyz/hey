@@ -6,8 +6,8 @@ import { ONBOARDING } from "@hey/data/tracking";
 import { Card, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface StatusProps {
   finished: boolean;
@@ -26,7 +26,7 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 );
 
 const SetAccount: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { email, loading } = usePreferencesStore();
 
   const doneSetup =

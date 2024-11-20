@@ -6,10 +6,10 @@ import { LimitType, usePublicationsLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Posts: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [posts, setPosts] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);

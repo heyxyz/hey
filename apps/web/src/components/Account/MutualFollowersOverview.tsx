@@ -8,7 +8,7 @@ import { LimitType, useMutualFollowersQuery } from "@hey/lens";
 import { Modal, StackedAvatars } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { type FC, type ReactNode, useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MutualFollowersOverviewProps {
   handle: string;
@@ -21,7 +21,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   profileId,
   viaPopover = false
 }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
 

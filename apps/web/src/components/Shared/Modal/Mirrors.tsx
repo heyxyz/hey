@@ -7,14 +7,14 @@ import { LimitType, useProfilesQuery } from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MirrorsProps {
   postId: string;
 }
 
 const Mirrors: FC<MirrorsProps> = ({ postId }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   const request: ProfilesRequest = {
     limit: LimitType.TwentyFive,

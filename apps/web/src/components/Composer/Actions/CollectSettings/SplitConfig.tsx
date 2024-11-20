@@ -13,7 +13,7 @@ import { Button, H6, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { isAddress } from "viem";
 
 interface SplitConfigProps {
@@ -25,7 +25,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
   setCollectType
 }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { collectModule } = useCollectModuleStore((state) => state);
 
   const currentAddress = currentProfile?.ownedBy.address || "";

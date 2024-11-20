@@ -25,12 +25,12 @@ import { Virtuoso } from "react-virtuoso";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const List: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();

@@ -30,7 +30,7 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { create } from "zustand";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
@@ -56,7 +56,7 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { isCommentSuspended, isSuspended } = useProfileStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
   const isStaff = useFlag(FeatureFlag.Staff);

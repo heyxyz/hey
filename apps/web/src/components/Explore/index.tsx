@@ -13,13 +13,13 @@ import cn from "@hey/ui/cn";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import ExploreFeed from "./ExploreFeed";
 import ImageFeed from "./ImageFeed";
 
 const Explore: NextPage = () => {
   const router = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import { useProfilesQuery } from "@hey/lens";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
@@ -14,7 +14,7 @@ interface RelevantPeopleProps {
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
   const profileIds = profilesMentioned.map(

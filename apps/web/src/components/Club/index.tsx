@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import ClubFeed from "./ClubFeed";
 import Details from "./Details";
 import Members from "./Members";
@@ -24,7 +24,7 @@ const ViewClub: NextPage = () => {
     pathname,
     query: { handle }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   const showMembers = pathname === "/c/[handle]/members";
 

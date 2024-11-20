@@ -12,7 +12,7 @@ import {
 } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
 import DeveloperMode from "./DeveloperMode";
@@ -20,7 +20,7 @@ import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
 import MutedWords from "./MutedWords";
 
 const PreferencesSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "preferences" });

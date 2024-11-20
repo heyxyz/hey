@@ -9,10 +9,10 @@ import { EmptyState, ErrorMessage } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useProfileActionHistoryQuery({

@@ -7,10 +7,10 @@ import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };

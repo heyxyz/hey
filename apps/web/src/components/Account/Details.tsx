@@ -30,7 +30,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import urlcat from "urlcat";
 import AccountStatus from "./AccountStatus";
 import Badges from "./Badges";
@@ -61,7 +61,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);

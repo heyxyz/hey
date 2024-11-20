@@ -16,14 +16,14 @@ import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DetailsProps {
   list: List;
 }
 
 const Details: FC<DetailsProps> = ({ list }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showEditModal, setShowEditModal] = useState(false);
 

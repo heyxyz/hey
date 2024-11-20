@@ -6,7 +6,7 @@ import type { MirrorablePublication } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { Fragment } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Bookmark from "./Bookmark";
 import CopyID from "./CopyID";
 import CopyPostText from "./CopyPostText";
@@ -21,7 +21,7 @@ interface PostMenuProps {
 }
 
 const PostMenu: FC<PostMenuProps> = ({ post }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const iconClassName = "w-[15px] sm:w-[18px]";
 
   return (

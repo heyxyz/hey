@@ -8,7 +8,7 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../Slug";
 import AccountStatus from "./NavItems/AccountStatus";
 import Analytics from "./NavItems/Analytics";
@@ -22,7 +22,7 @@ import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
 
   const handleCloseDrawer = () => {

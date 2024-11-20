@@ -16,9 +16,9 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { isAddress } from "viem";
 import { useDisconnect } from "wagmi";
@@ -34,7 +34,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const { theme } = useProfileThemeStore();
   const { currentProfile, setCurrentProfile, setFallbackToCuratedFeed } =
-    useProfileStore();
+    useAccountStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetStatus } = useProfileStatus();
   const { setLensHubOnchainSigNonce } = useNonceStore();

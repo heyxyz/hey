@@ -8,8 +8,8 @@ import {
 import { CardHeader, ErrorMessage, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import Allowance from "./Allowance";
 
 const getAllowancePayload = (currency: string) => {
@@ -21,7 +21,7 @@ const getAllowancePayload = (currency: string) => {
 };
 
 const CollectModules: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN

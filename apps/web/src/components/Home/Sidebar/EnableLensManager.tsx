@@ -3,11 +3,11 @@ import { APP_NAME } from "@hey/data/constants";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 
 const EnableLensManager: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { address } = useAccount();
   const { canUseSignless } = checkDispatcherPermissions(currentProfile);
 

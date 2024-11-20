@@ -8,13 +8,13 @@ import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Suggested from "../Suggested";
 
 const Title: FC = () => <H5>Who to Follow</H5>;
 
 const WhoToFollow: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
   const { data, error, loading } = useProfileRecommendationsQuery({

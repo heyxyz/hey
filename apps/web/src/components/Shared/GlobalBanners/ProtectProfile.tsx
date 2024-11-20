@@ -10,13 +10,13 @@ import Link from "next/link";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
 import CountdownTimer from "../CountdownTimer";
 import IndexStatus from "../IndexStatus";
 
 const ProtectProfile: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {

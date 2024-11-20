@@ -16,10 +16,10 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SettingsSidebar: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   const sidebarItems = [
     {

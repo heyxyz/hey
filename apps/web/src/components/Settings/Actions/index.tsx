@@ -12,12 +12,12 @@ import {
 } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import List from "./List";
 
 const ActionsSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "actions" });

@@ -7,8 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import MenuItems from "./MenuItems";
 import ModIcon from "./ModIcon";
 import MoreNavItems from "./MoreNavItems";
@@ -16,7 +16,7 @@ import Search from "./Search";
 import StaffBar from "./StaffBar";
 
 const Navbar: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { appIcon } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
 

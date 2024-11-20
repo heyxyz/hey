@@ -5,7 +5,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
 import { Fragment } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import AddToList from "./AddToList";
 import Block from "./Block";
 import CopyAddress from "./CopyAddress";
@@ -18,7 +18,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ profile }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   return (
     <Menu as="div" className="relative">

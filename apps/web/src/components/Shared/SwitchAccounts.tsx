@@ -23,15 +23,15 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { signIn, signOut } from "src/store/persisted/useAuthStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useAccount, useSignMessage } from "wagmi";
 import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
 const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null

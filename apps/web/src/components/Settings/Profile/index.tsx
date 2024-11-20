@@ -6,12 +6,12 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import AccountSettingsForm from "./Account";
 
 const ProfileSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "profile" });

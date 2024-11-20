@@ -3,14 +3,14 @@ import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MoreRelevantPeopleProps {
   profiles: Profile[];
 }
 
 const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ profiles }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">

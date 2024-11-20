@@ -26,8 +26,8 @@ import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInp
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import type { Address } from "viem";
 import { formatUnits } from "viem";
@@ -48,7 +48,7 @@ interface ActionProps {
 }
 
 const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { addTip } = useTipsStore();
   const { fiatRates } = useRatesStore();

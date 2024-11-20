@@ -12,14 +12,14 @@ import {
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Card, Tooltip } from "@hey/ui";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface QueuedPostProps {
   txn: OptimisticTransaction;
 }
 
 const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;

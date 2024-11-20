@@ -33,8 +33,8 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 import { object, string } from "zod";
 
@@ -46,7 +46,7 @@ const newSuperFollowSchema = object({
 });
 
 const SuperFollow: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { isSuspended } = useProfileStatus();
   const {

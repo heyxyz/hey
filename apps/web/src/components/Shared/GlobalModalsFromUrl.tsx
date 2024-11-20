@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignupStore } from "./Auth/Signup";
 
 const GlobalModalsFromUrl: FC = () => {
   const { isReady, push, query } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentProfile } = useAccountStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { setScreen } = useSignupStore();
 
