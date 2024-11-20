@@ -146,7 +146,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
         <div className="space-y-3 p-4">
           <div className="flex items-center justify-between">
             <UserAvatar />
-            <FollowUnfollowButton profile={profile} small />
+            <FollowUnfollowButton account={profile} small />
           </div>
           <UserName />
           {profile.metadata?.bio && (

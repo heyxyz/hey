@@ -136,7 +136,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
       <FollowUnfollowButton
         hideFollowButton={hideFollowButton}
         hideUnfollowButton={hideUnfollowButton}
-        profile={profile}
+        account={profile}
         small
       />
     </div>

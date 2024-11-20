@@ -12,14 +12,14 @@ import FollowModule from "./FollowModule";
 
 interface SuperFollowProps {
   buttonClassName: string;
-  profile: Profile;
+  account: Profile;
   small: boolean;
   title: string;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
   buttonClassName,
-  profile,
+  account,
   small,
   title
 }) => {
@@ -50,12 +50,12 @@ const SuperFollow: FC<SuperFollowProps> = ({
         show={showFollowModal}
         title={
           <span>
-            Super follow <Slug slug={getAccount(profile).slugWithPrefix} />
+            Super follow <Slug slug={getAccount(account).slugWithPrefix} />
           </span>
         }
       >
         <FollowModule
-          profile={profile}
+          account={account}
           setShowFollowModal={setShowFollowModal}
         />
       </Modal>
