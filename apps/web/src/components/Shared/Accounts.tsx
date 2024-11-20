@@ -1,6 +1,6 @@
-import FallbackProfileName from "@components/Shared/FallbackProfileName";
 import type { Profile } from "@hey/lens";
 import type { FC, ReactNode } from "react";
+import FallbackAccountName from "./FallbackAccountName";
 
 interface AccountsProps {
   context?: string;
@@ -15,14 +15,14 @@ const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
     </>
   );
 
-  const profileOne = profiles[0];
-  const profileTwo = profiles[1];
-  const profileThree = profiles[2];
+  const accountOne = profiles[0];
+  const accountTwo = profiles[1];
+  const accountThree = profiles[2];
 
   if (profiles.length === 1) {
     return (
       <Wrapper>
-        <FallbackProfileName profile={profileOne} />
+        <FallbackAccountName account={accountOne} />
       </Wrapper>
     );
   }
@@ -32,8 +32,8 @@ const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
   if (profiles.length === 2) {
     return (
       <Wrapper>
-        <FallbackProfileName profile={profileOne} separator={andSep} />
-        <FallbackProfileName profile={profileTwo} />
+        <FallbackAccountName account={accountOne} separator={andSep} />
+        <FallbackAccountName account={accountTwo} />
       </Wrapper>
     );
   }
@@ -43,13 +43,13 @@ const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
 
     return (
       <Wrapper>
-        <FallbackProfileName profile={profileOne} separator=", " />
-        <FallbackProfileName
-          profile={profileTwo}
+        <FallbackAccountName account={accountOne} separator=", " />
+        <FallbackAccountName
+          account={accountTwo}
           separator={additionalCount === 0 ? andSep : ", "}
         />
-        <FallbackProfileName
-          profile={profileThree}
+        <FallbackAccountName
+          account={accountThree}
           separator={
             additionalCount > 0 && (
               <span className="whitespace-nowrap">

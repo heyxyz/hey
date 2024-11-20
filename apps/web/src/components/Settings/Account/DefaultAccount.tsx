@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-const DefaultProfile: FC = () => {
+const DefaultAccount: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
   const [selectedProfileId, setSelectedProfileId] = useState<null | string>(
@@ -116,4 +116,4 @@ const DefaultProfile: FC = () => {
   );
 };
 
-export default DefaultProfile;
+export default DefaultAccount;
