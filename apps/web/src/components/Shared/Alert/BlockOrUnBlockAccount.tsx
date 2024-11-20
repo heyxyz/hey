@@ -27,7 +27,7 @@ import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
-const BlockOrUnBlockProfile: FC = () => {
+const BlockOrUnBlockAccount: FC = () => {
   const { currentProfile } = useProfileStore();
   const {
     blockingorUnblockingProfile,
@@ -226,4 +226,4 @@ const BlockOrUnBlockProfile: FC = () => {
   );
 };
 
-export default BlockOrUnBlockProfile;
+export default BlockOrUnBlockAccount;
