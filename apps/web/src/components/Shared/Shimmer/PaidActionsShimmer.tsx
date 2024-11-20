@@ -2,7 +2,7 @@ import { Card } from "@hey/ui";
 import type { FC } from "react";
 import PostShimmer from "./PostShimmer";
 import SingleAccountShimmer from "./SingleAccountShimmer";
-import SmallSingleProfileShimmer from "./SmallSingleProfileShimmer";
+import SmallSingleAccountShimmer from "./SmallSingleAccountShimmer";
 
 const PaidActionsShimmer: FC = () => {
   return (
@@ -10,7 +10,7 @@ const PaidActionsShimmer: FC = () => {
       <Card>
         <div className="flex items-center space-x-2 px-5 py-3">
           <div className="shimmer h-3 w-3/12 rounded-full" />
-          <SmallSingleProfileShimmer smallAvatar />
+          <SmallSingleAccountShimmer smallAvatar />
         </div>
         <div className="divider" />
         <PostShimmer />
@@ -18,7 +18,7 @@ const PaidActionsShimmer: FC = () => {
       <Card>
         <div className="flex items-center space-x-2 p-5">
           <div className="shimmer h-3 w-3/12 rounded-full" />
-          <SmallSingleProfileShimmer smallAvatar />
+          <SmallSingleAccountShimmer smallAvatar />
         </div>
         <div className="divider" />
         <div className="p-5">
@@ -28,7 +28,7 @@ const PaidActionsShimmer: FC = () => {
       <Card>
         <div className="flex items-center space-x-2 p-5">
           <div className="shimmer h-3 w-3/12 rounded-full" />
-          <SmallSingleProfileShimmer smallAvatar />
+          <SmallSingleAccountShimmer smallAvatar />
         </div>
         <PostShimmer />
       </Card>
