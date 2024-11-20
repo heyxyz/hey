@@ -1,8 +1,8 @@
 import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
+import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import uploadCroppedImage, { readFile } from "@helpers/profilePictureUtils";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";

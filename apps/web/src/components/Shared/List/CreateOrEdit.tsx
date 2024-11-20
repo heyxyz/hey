@@ -1,8 +1,8 @@
 import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
+import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import uploadCroppedImage, { readFile } from "@helpers/profilePictureUtils";
 import { AVATAR, HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { GET_LIST_QUERY_KEY } from "@hey/helpers/api/lists/getList";
