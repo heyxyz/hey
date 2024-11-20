@@ -34,10 +34,10 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const profile = result.data.profile as Profile;
-  const { displayName, link, slugWithPrefix } = getAccount(profile);
+  const account = result.data.profile as Profile;
+  const { displayName, link, slugWithPrefix } = getAccount(account);
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
-  const description = (profile?.metadata?.bio || title).slice(0, 155);
+  const description = (account?.metadata?.bio || title).slice(0, 155);
 
   return {
     alternates: { canonical: `https://hey.xyz${link}` },
@@ -62,16 +62,16 @@ export const generateMetadata = async ({
     metadataBase: new URL(`https://hey.xyz${link}`),
     openGraph: {
       description: description,
-      images: [getAvatar(profile)],
+      images: [getAvatar(account)],
       siteName: "Hey",
       type: "profile",
       url: `https://hey.xyz${link}`
     },
     other: {
-      "count:followers": profile.stats.followers,
-      "count:following": profile.stats.following,
+      "count:followers": account.stats.followers,
+      "count:following": account.stats.following,
       "lens:handle": handle,
-      "lens:id": profile.id
+      "lens:id": account.id
     },
     publisher: displayName,
     title: title,
