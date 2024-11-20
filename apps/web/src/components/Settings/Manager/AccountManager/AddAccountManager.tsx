@@ -23,11 +23,11 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { isAddress } from "viem";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
-interface AddProfileManagerProps {
+interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddProfileManager: FC<AddProfileManagerProps> = ({
+const AddAccountManager: FC<AddAccountManagerProps> = ({
   setShowAddManagerModal
 }) => {
   const { currentProfile } = useProfileStore();
@@ -181,4 +181,4 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   );
 };
 
-export default AddProfileManager;
+export default AddAccountManager;

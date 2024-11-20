@@ -10,8 +10,8 @@ import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
+import AccountManager from "./AccountManager";
 import LensManager from "./LensManager";
-import AccountManager from "./ProfileManager";
 
 const ManagerSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
