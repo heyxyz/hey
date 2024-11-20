@@ -12,7 +12,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   arbitrum,
   base,
@@ -40,7 +40,7 @@ interface TransactionProps {
 }
 
 const Transaction: FC<TransactionProps> = ({ postId }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setFrameData, setShowTransaction, showTransaction } =
     useFramesStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +68,7 @@ const Transaction: FC<TransactionProps> = ({ postId }) => {
   }
 
   const handleTransaction = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
@@ -151,7 +151,7 @@ const Transaction: FC<TransactionProps> = ({ postId }) => {
         <div className="flex items-center justify-between gap-x-10">
           <b>Account</b>
           <span className="ld-text-gray-500 truncate">
-            {formatAddress(currentProfile?.ownedBy.address)}
+            {formatAddress(currentAccount?.ownedBy.address)}
           </span>
         </div>
       </div>

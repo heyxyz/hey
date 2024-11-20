@@ -11,7 +11,7 @@ import axios from "axios";
 import Link from "next/link";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const GET_CLUB_MEMBERS_QUERY_KEY = "getClubMembers";
 
@@ -21,7 +21,7 @@ interface MembersProps {
 }
 
 const Members: FC<MembersProps> = ({ clubId, handle }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const getClubMembers = async (): Promise<{
     items: ClubProfile[];
@@ -113,8 +113,8 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         itemContent={(_, member) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={currentProfile?.id === member.id}
-              hideUnfollowButton={currentProfile?.id === member.id}
+              hideFollowButton={currentAccount?.id === member.id}
+              hideUnfollowButton={currentAccount?.id === member.id}
               profile={member as Profile}
               showBio
               showUserPreview={false}

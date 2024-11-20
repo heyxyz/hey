@@ -7,7 +7,7 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
 import AccountGuardianSettings from "./AccountGuardian";
@@ -15,15 +15,15 @@ import DeleteSettings from "./Delete";
 import HandleGuardianSettings from "./HandleGuardian";
 
 const DangerSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const disabled = currentProfile?.ownedBy.address !== address;
+  const disabled = currentAccount?.ownedBy.address !== address;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "danger" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

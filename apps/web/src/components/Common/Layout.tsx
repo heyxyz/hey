@@ -16,9 +16,9 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { isAddress } from "viem";
 import { useDisconnect } from "wagmi";
@@ -33,8 +33,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { reload } = useRouter();
   const { resolvedTheme } = useTheme();
   const { theme } = useProfileThemeStore();
-  const { currentProfile, setCurrentProfile, setFallbackToCuratedFeed } =
-    useProfileStore();
+  const { currentAccount, setCurrentAccount, setFallbackToCuratedFeed } =
+    useAccountStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetStatus } = useProfileStatus();
   const { setLensHubOnchainSigNonce } = useNonceStore();
@@ -55,7 +55,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { loading } = useCurrentProfileQuery({
     onCompleted: ({ profile, userSigNonces }) => {
-      setCurrentProfile(profile as Profile);
+      setCurrentAccount(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
 
       // If the profile has no following, we should fallback to the curated feed
@@ -80,7 +80,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   }, []);
 
-  const profileLoading = !currentProfile && loading;
+  const profileLoading = !currentAccount && loading;
 
   if (profileLoading || !isMounted) {
     return <FullPageLoader />;

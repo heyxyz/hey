@@ -3,14 +3,14 @@ import { ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MoreRelevantPeopleProps {
   profiles: Profile[];
 }
 
 const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ profiles }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
@@ -22,8 +22,8 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ profiles }) => {
         itemContent={(_, profile) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={currentProfile?.id === profile.id}
-              hideUnfollowButton={currentProfile?.id === profile.id}
+              hideFollowButton={currentAccount?.id === profile.id}
+              hideUnfollowButton={currentAccount?.id === profile.id}
               profile={profile as Profile}
               showBio
               showUserPreview={false}

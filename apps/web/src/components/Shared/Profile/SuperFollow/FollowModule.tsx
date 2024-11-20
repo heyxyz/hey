@@ -36,7 +36,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { formatUnits } from "viem";
 import { useBalance, useSignTypedData, useWriteContract } from "wagmi";
 
@@ -55,7 +55,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     incrementLensHubOnchainSigNonce,
     lensHubOnchainSigNonce
   } = useNonceStore();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
@@ -63,7 +63,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const updateCache = () => {
     cache.modify({
@@ -139,7 +139,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         );
         setAllowed(allowedAmount > amount);
       },
-      skip: !followModule?.amount?.asset?.contract.address || !currentProfile,
+      skip: !followModule?.amount?.asset?.contract.address || !currentAccount,
       variables: {
         request: {
           currencies: followModule?.amount?.asset?.contract.address,
@@ -151,7 +151,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     });
 
   const { data: balanceData } = useBalance({
-    address: currentProfile?.ownedBy.address,
+    address: currentAccount?.ownedBy.address,
     query: { refetchInterval: 2000 },
     token: followModule?.amount?.asset?.contract.address
   });
@@ -207,7 +207,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   });
 
   const handleCreateFollow = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
@@ -312,7 +312,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           </li>
         </ul>
       </div>
-      {currentProfile ? (
+      {currentAccount ? (
         allowanceLoading ? (
           <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
         ) : allowed ? (

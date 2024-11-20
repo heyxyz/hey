@@ -8,7 +8,7 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../Slug";
 import AccountStatus from "./NavItems/AccountStatus";
 import Analytics from "./NavItems/Analytics";
@@ -22,7 +22,7 @@ import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setShowMobileDrawer } = useGlobalModalStateStore();
 
   const handleCloseDrawer = () => {
@@ -39,24 +39,24 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
-          href={getAccount(currentProfile).link}
+          href={getAccount(currentAccount).link}
           onClick={handleCloseDrawer}
         >
           <div className="flex w-full space-x-1.5">
             <Image
-              alt={currentProfile?.id}
+              alt={currentAccount?.id}
               className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(currentProfile?.id);
+                currentTarget.src = getLennyURL(currentAccount?.id);
               }}
-              src={getAvatar(currentProfile as Profile)}
+              src={getAvatar(currentAccount as Profile)}
             />
             <div>
               Logged in as
               <div className="truncate">
                 <Slug
                   className="font-bold"
-                  slug={getAccount(currentProfile).slugWithPrefix}
+                  slug={getAccount(currentAccount).slugWithPrefix}
                 />
               </div>
             </div>
@@ -68,7 +68,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <AccountStatus
             className={cn(itemClass, "px-4")}
-            id={currentProfile?.id}
+            id={currentAccount?.id}
           />
           <div className="divider" />
         </div>
@@ -76,7 +76,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <div>
             <Link
-              href={getAccount(currentProfile).link}
+              href={getAccount(currentAccount).link}
               onClick={handleCloseDrawer}
             >
               <YourAccount className={cn(itemClass, "px-4")} />
@@ -113,7 +113,7 @@ const MobileDrawerMenu: FC = () => {
           </div>
           <div className="divider" />
         </div>
-        {currentProfile ? <AppVersion /> : null}
+        {currentAccount ? <AppVersion /> : null}
       </div>
     </div>
   );

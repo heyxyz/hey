@@ -8,7 +8,7 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import { useMutation } from "@tanstack/react-query";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import JoinLeaveButton from "./Club/JoinLeaveButton";
 import Markup from "./Markup";
 import Slug from "./Slug";
@@ -21,7 +21,7 @@ interface ClubPreviewProps {
 }
 
 const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const {
     data,
@@ -29,7 +29,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
     mutateAsync
   } = useMutation({
     mutationFn: () =>
-      getClub({ club_handle: handle, profile_id: currentProfile?.id }),
+      getClub({ club_handle: handle, profile_id: currentAccount?.id }),
     mutationKey: [GET_CLUB_QUERY_KEY, handle]
   });
 

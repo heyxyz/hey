@@ -6,16 +6,16 @@ import { LimitType, useFollowingLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Following: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [following, setFollowing] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowingRequest = {
-    for: currentProfile?.id,
+    for: currentAccount?.id,
     limit: LimitType.Fifty
   };
 

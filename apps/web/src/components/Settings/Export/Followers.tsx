@@ -6,17 +6,17 @@ import { LimitType, useFollowersLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Followers: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [followers, setFollowers] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowersRequest = {
     limit: LimitType.Fifty,
-    of: currentProfile?.id
+    of: currentAccount?.id
   };
 
   const [exportFollowers] = useFollowersLazyQuery({

@@ -15,10 +15,10 @@ import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const BottomNavigation = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const router = useRouter();
 
   const isActivePath = (path: string) => router.pathname === path;
@@ -26,7 +26,7 @@ const BottomNavigation = () => {
   return (
     <div className="fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-white pb-safe md:hidden dark:border-gray-800 dark:bg-black">
       <div
-        className={cn("grid", currentProfile ? "grid-cols-4" : "grid-cols-3")}
+        className={cn("grid", currentAccount ? "grid-cols-4" : "grid-cols-3")}
       >
         <Link aria-label="Home" className="mx-auto my-3" href="/">
           {isActivePath("/") ? (
@@ -53,19 +53,19 @@ const BottomNavigation = () => {
             <BellIcon className="size-6" />
           )}
         </Link>
-        {currentProfile && (
+        {currentAccount && (
           <Link
             aria-label="Your profile"
             className="mx-auto my-3"
-            href={getAccount(currentProfile).link}
+            href={getAccount(currentAccount).link}
           >
             <Image
-              alt={currentProfile.id}
+              alt={currentAccount.id}
               className="size-6 rounded-full border dark:border-gray-700"
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(currentProfile.id);
+                currentTarget.src = getLennyURL(currentAccount.id);
               }}
-              src={getAvatar(currentProfile)}
+              src={getAvatar(currentAccount)}
             />
           </Link>
         )}

@@ -37,7 +37,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
 import {
@@ -70,7 +70,7 @@ const CollectAction: FC<CollectActionProps> = ({
 }) => {
   const collectModule = getCollectModuleData(openAction as any);
 
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -95,7 +95,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Lens manager
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = collectModule?.collectLimit;

@@ -17,19 +17,19 @@ import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const MAX_TOPICS_ALLOWED = 12;
 
 const Interests: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { cache } = useApolloClient();
 
   const updateCache = (interests: string[]) => {
     cache.modify({
       fields: { interests: () => interests },
-      id: `Profile:${currentProfile?.id}`
+      id: `Profile:${currentAccount?.id}`
     });
   };
 
@@ -38,7 +38,7 @@ const Interests: FC = () => {
   };
 
   const { data, loading } = useProfileInterestsOptionsQuery({
-    variables: { request: { forProfileId: currentProfile?.id } }
+    variables: { request: { forProfileId: currentAccount?.id } }
   });
   const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),

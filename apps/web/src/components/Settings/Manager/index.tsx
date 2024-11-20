@@ -7,22 +7,22 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
 import AccountManager from "./AccountManager";
 import LensManager from "./LensManager";
 
 const ManagerSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const disabled = currentProfile?.ownedBy.address !== address;
+  const disabled = currentAccount?.ownedBy.address !== address;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "manager" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

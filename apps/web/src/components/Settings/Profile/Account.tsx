@@ -55,7 +55,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
@@ -78,14 +78,14 @@ const editAccountSchema = object({
 });
 
 const AccountSettingsForm: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
   const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState(
-    currentProfile?.metadata?.coverPicture?.__typename === "ImageSet"
-      ? currentProfile?.metadata?.coverPicture?.raw.uri
+    currentAccount?.metadata?.coverPicture?.__typename === "ImageSet"
+      ? currentAccount?.metadata?.coverPicture?.raw.uri
       : ""
   );
   const [coverPictureSrc, setCoverPictureSrc] = useState("");
@@ -98,8 +98,8 @@ const AccountSettingsForm: FC = () => {
 
   // Picture
   const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState(
-    currentProfile?.metadata?.picture?.__typename === "ImageSet"
-      ? currentProfile?.metadata?.picture?.raw.uri
+    currentAccount?.metadata?.picture?.__typename === "ImageSet"
+      ? currentAccount?.metadata?.picture?.raw.uri
       : ""
   );
   const [profilePictureSrc, setProfilePictureSrc] = useState("");
@@ -115,7 +115,7 @@ const AccountSettingsForm: FC = () => {
 
   // Lens manager
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -201,26 +201,26 @@ const AccountSettingsForm: FC = () => {
 
   const form = useZodForm({
     defaultValues: {
-      bio: currentProfile?.metadata?.bio || "",
+      bio: currentAccount?.metadata?.bio || "",
       location: getProfileAttribute(
         "location",
-        currentProfile?.metadata?.attributes
+        currentAccount?.metadata?.attributes
       ),
-      name: currentProfile?.metadata?.displayName || "",
+      name: currentAccount?.metadata?.displayName || "",
       website: getProfileAttribute(
         "website",
-        currentProfile?.metadata?.attributes
+        currentAccount?.metadata?.attributes
       ),
       x: getProfileAttribute(
         "x",
-        currentProfile?.metadata?.attributes
+        currentAccount?.metadata?.attributes
       )?.replace(/(https:\/\/)?x\.com\//, "")
     },
     schema: editAccountSchema
   });
 
   const editProfile = async (data: z.infer<typeof editAccountSchema>) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
@@ -231,7 +231,7 @@ const AccountSettingsForm: FC = () => {
     try {
       setIsLoading(true);
       const otherAttributes =
-        currentProfile.metadata?.attributes
+        currentAccount.metadata?.attributes
           ?.filter(
             (attr) =>
               !["app", "location", "timestamp", "website", "x"].includes(
@@ -350,13 +350,13 @@ const AccountSettingsForm: FC = () => {
   };
 
   const coverPictureUrl =
-    currentProfile?.metadata?.coverPicture?.optimized?.uri ||
+    currentAccount?.metadata?.coverPicture?.optimized?.uri ||
     `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const renderCoverPictureUrl = coverPictureUrl
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : "";
 
-  const profilePictureUrl = getAvatar(currentProfile);
+  const profilePictureUrl = getAvatar(currentAccount);
   const renderProfilePictureUrl = profilePictureUrl
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : "";
@@ -376,7 +376,7 @@ const AccountSettingsForm: FC = () => {
             disabled
             label="Profile Id"
             type="text"
-            value={currentProfile?.id}
+            value={currentAccount?.id}
           />
           <Input
             label="Name"

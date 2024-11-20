@@ -18,7 +18,7 @@ import { useCounter, useToggle } from "@uidotdev/usehooks";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface LikeProps {
   post: MirrorablePublication;
@@ -26,7 +26,7 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ post, showCount }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
 
   const [hasReacted, toggleReact] = useToggle(post.operations.hasReacted);
@@ -82,7 +82,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   });
 
   const handleCreateLike = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

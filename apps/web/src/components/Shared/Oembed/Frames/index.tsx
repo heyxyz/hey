@@ -13,7 +13,7 @@ import type { FC } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { createTrackedSelector } from "react-tracked";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { create } from "zustand";
 import Transaction from "./Transaction";
 
@@ -59,7 +59,7 @@ interface FrameProps {
 }
 
 const Frame: FC<FrameProps> = ({ frame, postId }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const {
     frameData,
     inputText,
@@ -177,7 +177,7 @@ const Frame: FC<FrameProps> = ({ frame, postId }) => {
         {buttons.map(({ action, button, target }, index) => (
           <Button
             className="flex items-center justify-center space-x-2"
-            disabled={isLoading || !postId || !currentProfile}
+            disabled={isLoading || !postId || !currentAccount}
             icon={
               action === "link" ||
               action === "post_redirect" ||

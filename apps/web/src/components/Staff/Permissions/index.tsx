@@ -8,12 +8,12 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
 import List from "./List";
 
 const Permissions: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Permissions: NextPage = () => {
     });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

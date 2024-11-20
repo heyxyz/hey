@@ -16,10 +16,10 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Profile } from "@hey/lens";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SettingsSidebar: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const sidebarItems = [
     {
@@ -90,7 +90,7 @@ const SettingsSidebar: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          profile={currentProfile as Profile}
+          profile={currentAccount as Profile}
           showUserPreview={false}
         />
       </div>

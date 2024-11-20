@@ -13,19 +13,19 @@ import {
 } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import LinkHandle from "./LinkHandle";
 import UnlinkHandle from "./UnlinkHandle";
 
 const HandlesSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "handles" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 
@@ -36,14 +36,14 @@ const HandlesSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        {currentProfile.handle ? (
+        {currentAccount.handle ? (
           <Card>
             <CardHeader
               body="Unlinking your handle removes it from your profile, ensuring it
               is no longer publicly displayed or associated with your profile."
               title={
                 <span>
-                  Unlink <Slug slug={currentProfile.handle?.fullHandle} /> from
+                  Unlink <Slug slug={currentAccount.handle?.fullHandle} /> from
                   your profile
                 </span>
               }

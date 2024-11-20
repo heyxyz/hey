@@ -26,7 +26,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import CreateOrEdit from "../../Shared/List/CreateOrEdit";
 
 interface ListsProps {
@@ -34,7 +34,7 @@ interface ListsProps {
 }
 
 const Lists: FC<ListsProps> = ({ profile }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deletingList, setDeletingList] = useState<string | null>(null);
@@ -67,7 +67,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        [GET_LISTS_QUERY_KEY, currentProfile?.id],
+        [GET_LISTS_QUERY_KEY, currentAccount?.id],
         (oldData) => oldData?.filter((list) => list.id !== id)
       );
       toast.success("List deleted");
@@ -90,7 +90,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        [GET_LISTS_QUERY_KEY, currentProfile?.id],
+        [GET_LISTS_QUERY_KEY, currentAccount?.id],
         (oldData) =>
           oldData?.map((list) =>
             list.id === id ? { ...list, pinned: !pinned } : list
@@ -109,7 +109,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <H5>{getAccount(profile).slugWithPrefix}'s Lists</H5>
-        {profile.id === currentProfile?.id && (
+        {profile.id === currentAccount?.id && (
           <Button onClick={() => setShowCreateModal(!showCreateModal)}>
             Create
           </Button>
@@ -126,7 +126,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
             {data?.map((list) => (
               <div key={list.id} className="flex items-center justify-between">
                 <SingleList list={list} />
-                {profile.id === currentProfile?.id && (
+                {profile.id === currentAccount?.id && (
                   <div className="flex items-center gap-3">
                     <Tooltip
                       content={list.pinned ? "Unpin from Home" : "Pin to Home"}

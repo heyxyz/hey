@@ -34,7 +34,7 @@ import { toast } from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
@@ -45,7 +45,7 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -64,7 +64,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticMirror = ({
     txHash,
@@ -259,7 +259,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   const handleCreateMirror = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

@@ -10,13 +10,13 @@ import Link from "next/link";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
 import CountdownTimer from "../CountdownTimer";
 import IndexStatus from "../IndexStatus";
 
 const ProtectProfile: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
@@ -42,18 +42,18 @@ const ProtectProfile: FC = () => {
     });
   };
 
-  if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
+  if (!currentAccount?.guardian || currentAccount?.guardian?.protected) {
     return null;
   }
 
-  const coolOffDate = new Date(currentProfile?.guardian?.cooldownEndsOn);
+  const coolOffDate = new Date(currentAccount?.guardian?.cooldownEndsOn);
   const coolOffTime = new Date(
     coolOffDate.getTime() + 5 * 60 * 100
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
   const handleProtect = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

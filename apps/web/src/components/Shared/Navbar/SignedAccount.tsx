@@ -7,7 +7,7 @@ import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
 import { NextLink } from "./MenuItems";
@@ -22,17 +22,17 @@ import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
 
   const Avatar = () => (
     <Image
-      alt={currentProfile?.id}
+      alt={currentAccount?.id}
       className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
       onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(currentProfile?.id);
+        currentTarget.src = getLennyURL(currentAccount?.id);
       }}
-      src={getAvatar(currentProfile as Profile)}
+      src={getAvatar(currentAccount as Profile)}
     />
   );
 
@@ -62,14 +62,14 @@ const SignedAccount: FC = () => {
             <MenuItem
               as={NextLink}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-              href={getAccount(currentProfile).link}
+              href={getAccount(currentAccount).link}
             >
               <div className="flex w-full flex-col">
                 <div>Logged in as</div>
                 <div className="truncate">
                   <Slug
                     className="font-bold"
-                    slug={getAccount(currentProfile).slugWithPrefix}
+                    slug={getAccount(currentAccount).slugWithPrefix}
                   />
                 </div>
               </div>
@@ -96,7 +96,7 @@ const SignedAccount: FC = () => {
                 )
               }
             >
-              <AccountStatus id={currentProfile?.id} />
+              <AccountStatus id={currentAccount?.id} />
             </MenuItem>
             <div className="divider" />
             <MenuItem
@@ -104,7 +104,7 @@ const SignedAccount: FC = () => {
               className={({ focus }: { focus: boolean }) =>
                 cn({ "dropdown-active": focus }, "menu-item")
               }
-              href={getAccount(currentProfile).link}
+              href={getAccount(currentAccount).link}
             >
               <YourAccount />
             </MenuItem>

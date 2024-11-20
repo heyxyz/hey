@@ -8,7 +8,7 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import FeedType from "./FeedType";
 import List from "./List";
 import Settings from "./Settings";
@@ -17,7 +17,7 @@ const Notification: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "notifications" });
@@ -37,7 +37,7 @@ const Notification: NextPage = () => {
       : NotificationFeedType.All
     : NotificationFeedType.All;
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

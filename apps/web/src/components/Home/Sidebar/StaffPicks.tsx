@@ -10,7 +10,7 @@ import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const GET_STAFF_PICKS_QUERY_KEY = "getStaffPicks";
 
@@ -22,7 +22,7 @@ interface BatchRange {
 const Title: FC = () => <H5>Staff Picks</H5>;
 
 const StaffPicks: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const getStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
@@ -110,7 +110,7 @@ const StaffPicks: FC = () => {
       (profile) =>
         !profile.operations.isBlockedByMe.value &&
         !profile.operations.isFollowedByMe.value &&
-        currentProfile?.id !== profile.id
+        currentAccount?.id !== profile.id
     )
     .slice(0, 5);
 
@@ -128,7 +128,7 @@ const StaffPicks: FC = () => {
       {filteredProfiles.map((profile) => (
         <div className="w-full truncate pr-1" key={profile.id}>
           <SingleAccount
-            hideFollowButton={currentProfile?.id === profile.id}
+            hideFollowButton={currentAccount?.id === profile.id}
             hideUnfollowButton
             profile={profile as Profile}
             source={ProfileLinkSource.StaffPicks}

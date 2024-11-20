@@ -24,7 +24,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
@@ -42,7 +42,7 @@ const Follow: FC<FollowProps> = ({
   title
 }) => {
   const { pathname } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
@@ -54,7 +54,7 @@ const Follow: FC<FollowProps> = ({
   const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticFollow = ({
     txHash,
@@ -187,7 +187,7 @@ const Follow: FC<FollowProps> = ({
   };
 
   const handleCreateFollow = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       setShowAuthModal(true);
       return;
     }

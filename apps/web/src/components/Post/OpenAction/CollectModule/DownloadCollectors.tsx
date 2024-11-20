@@ -11,14 +11,14 @@ import type { AxiosResponse } from "axios";
 import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DownloadCollectorsProps {
   post: AnyPublication;
 }
 
 const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [disabled, setDisabled] = useState(false);
   const enabled = useFlag(FeatureFlag.ExportCollects);
 
@@ -26,7 +26,7 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
     return null;
   }
 
-  if (currentProfile?.id !== post.by.id) {
+  if (currentAccount?.id !== post.by.id) {
     return null;
   }
 
