@@ -19,7 +19,7 @@ import OptimisticTransactions from "./NavItems/OptimisticTransactions";
 import Settings from "./NavItems/Settings";
 import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
-import YourProfile from "./NavItems/YourProfile";
+import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -106,7 +106,7 @@ const SignedAccount: FC = () => {
               }
               href={getAccount(currentProfile).link}
             >
-              <YourProfile />
+              <YourAccount />
             </MenuItem>
             <MenuItem
               as={NextLink}

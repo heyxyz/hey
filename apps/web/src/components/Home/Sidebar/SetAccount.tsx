@@ -25,7 +25,7 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
   </div>
 );
 
-const SetProfile: FC = () => {
+const SetAccount: FC = () => {
   const { currentProfile } = useProfileStore();
   const { email, loading } = usePreferencesStore();
 
@@ -90,4 +90,4 @@ const SetProfile: FC = () => {
   );
 };
 
-export default SetProfile;
+export default SetAccount;

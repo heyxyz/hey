@@ -2,11 +2,11 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 
-interface YourProfileProps {
+interface YourAccountProps {
   className?: string;
 }
 
-const YourProfile: FC<YourProfileProps> = ({ className = "" }) => {
+const YourAccount: FC<YourAccountProps> = ({ className = "" }) => {
   return (
     <div
       className={cn(
@@ -20,4 +20,4 @@ const YourProfile: FC<YourProfileProps> = ({ className = "" }) => {
   );
 };
 
-export default YourProfile;
+export default YourAccount;

@@ -19,7 +19,7 @@ import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
 import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
-import YourProfile from "./NavItems/YourProfile";
+import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -79,7 +79,7 @@ const MobileDrawerMenu: FC = () => {
               href={getAccount(currentProfile).link}
               onClick={handleCloseDrawer}
             >
-              <YourProfile className={cn(itemClass, "px-4")} />
+              <YourAccount className={cn(itemClass, "px-4")} />
             </Link>
             <Link href="/settings" onClick={handleCloseDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
