@@ -22,7 +22,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useWriteContract } from "wagmi";
 
-const ProfileGuardianSettings: FC = () => {
+const AccountGuardianSettings: FC = () => {
   const { currentProfile } = useProfileStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -136,4 +136,4 @@ const ProfileGuardianSettings: FC = () => {
   );
 };
 
-export default ProfileGuardianSettings;
+export default AccountGuardianSettings;

@@ -21,11 +21,11 @@ import type { FC } from "react";
 
 const GET_HAVE_USED_HEY_QUERY_KEY = "getHaveUsedHey";
 
-interface ProfileOverviewProps {
+interface AccountOverviewProps {
   profile: Profile;
 }
 
-const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
+const AccountOverview: FC<AccountOverviewProps> = ({ profile }) => {
   const getHaveUsedHey = async () => {
     try {
       const { data } = await axios.get(
@@ -115,4 +115,4 @@ const ProfileOverview: FC<ProfileOverviewProps> = ({ profile }) => {
   );
 };
 
-export default ProfileOverview;
+export default AccountOverview;
