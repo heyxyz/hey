@@ -15,13 +15,13 @@ import Permissions from "./Permissions";
 import Rank from "./Rank";
 
 interface AccountStaffToolProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
+const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
   const { data: preferences } = useQuery({
-    queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, profile.id || ""]
+    queryFn: () => getInternalProfile(account.id, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, account.id || ""]
   });
 
   return (
@@ -30,21 +30,21 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
         hideFollowButton
         hideUnfollowButton
         isBig
-        linkToProfile
-        profile={profile}
+        linkToAccount
+        account={account}
         showBio
         showUserPreview={false}
       />
-      <AccountOverview profile={profile} />
+      <AccountOverview account={account} />
       {preferences ? <AccountPreferences preferences={preferences} /> : null}
       {IS_MAINNET ? (
         <>
-          <LeafwatchDetails profileId={profile.id} />
+          <LeafwatchDetails accountId={account.id} />
           <div className="divider my-5 border-yellow-600 border-dashed" />
           <Rank
-            handle={profile.handle?.localName}
-            lensClassifierScore={profile.stats.lensClassifierScore || 0}
-            profileId={profile.id}
+            handle={account.handle?.localName}
+            lensClassifierScore={account.stats.lensClassifierScore || 0}
+            accountId={account.id}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
@@ -53,12 +53,12 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
         <>
           <Permissions
             permissions={preferences.permissions || []}
-            profileId={profile.id}
+            accountId={account.id}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
       ) : null}
-      <ManagedAccounts address={profile.ownedBy.address} />
+      <ManagedAccounts address={account.ownedBy.address} />
     </div>
   );
 };

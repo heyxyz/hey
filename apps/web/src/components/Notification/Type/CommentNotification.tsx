@@ -17,7 +17,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
 }) => {
   const metadata = notification?.comment.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
-  const firstProfile = notification.comment.by;
+  const firstAccount = notification.comment.by;
 
   const text = "commented on your";
   // TODO: remove ? when we have commentOn field in the comment
@@ -30,12 +30,12 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="flex items-center space-x-3">
         <ChatBubbleLeftIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationAccountAvatar profile={firstProfile} />
+          <NotificationAccountAvatar account={firstAccount} />
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstProfile={firstProfile}
+          firstAccount={firstAccount}
           linkToType={`/posts/${notification?.comment?.id}`}
           text={text}
           type={type}

@@ -1,6 +1,6 @@
 import MutualFollowers from "@components/Shared/Modal/MutualFollowers";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Profile } from "@hey/lens";
@@ -12,13 +12,13 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MutualFollowersOverviewProps {
   handle: string;
-  profileId: string;
+  accountId: string;
   viaPopover?: boolean;
 }
 
 const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   handle,
-  profileId,
+  accountId,
   viaPopover = false
 }) => {
   const { currentAccount } = useAccountStore();
@@ -26,12 +26,12 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
     useState(false);
 
   const { data, error, loading } = useMutualFollowersQuery({
-    skip: !profileId || !currentAccount?.id,
+    skip: !accountId || !currentAccount?.id,
     variables: {
       request: {
         limit: LimitType.Ten,
         observer: currentAccount?.id,
-        viewing: profileId
+        viewing: accountId
       }
     }
   });
@@ -58,14 +58,14 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
       </div>
       <Modal
         onClose={() => {
-          Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+          Leafwatch.track(ACCOUNT.OPEN_MUTUAL_FOLLOWERS);
           setShowMutualFollowersModal(false);
         }}
         show={showMutualFollowersModal}
         title="Mutual Followers"
         size="md"
       >
-        <MutualFollowers handle={handle} profileId={profileId} />
+        <MutualFollowers handle={handle} accountId={accountId} />
       </Modal>
     </button>
   );

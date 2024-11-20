@@ -17,11 +17,11 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const metadata = notification?.publication.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
   const mirrors = notification?.mirrors;
-  const firstProfile = mirrors?.[0]?.profile;
+  const firstAccount = mirrors?.[0]?.profile;
   const length = mirrors.length - 1;
-  const moreThanOneProfile = length > 1;
+  const moreThanOneAccount = length > 1;
 
-  const text = moreThanOneProfile
+  const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} mirrored your`
     : "mirrored your";
   const type = notification?.publication.__typename;
@@ -35,14 +35,14 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {mirrors.slice(0, 10).map((mirror) => (
             <div key={mirror.profile.id}>
-              <NotificationAccountAvatar profile={mirror.profile} />
+              <NotificationAccountAvatar account={mirror.profile} />
             </div>
           ))}
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstProfile={firstProfile}
+          firstAccount={firstAccount}
           linkToType={`/posts/${notification?.publication?.id}`}
           text={text}
           type={type}

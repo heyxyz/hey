@@ -14,10 +14,10 @@ import CopyLink from "./CopyLink";
 import Report from "./Report";
 
 interface AccountMenuProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const AccountMenu: FC<AccountMenuProps> = ({ profile }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
   const { currentAccount } = useAccountStore();
 
   return (
@@ -37,14 +37,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ profile }) => {
           className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          <CopyLink profile={profile} />
-          <CopyAddress address={profile.ownedBy.address} />
-          <CopyID id={profile.id} />
-          {currentAccount && currentAccount?.id !== profile.id ? (
+          <CopyLink account={account} />
+          <CopyAddress address={account.ownedBy.address} />
+          <CopyID id={account.id} />
+          {currentAccount && currentAccount?.id !== account.id ? (
             <>
-              <AddToList profile={profile} />
-              <Block profile={profile} />
-              <Report profile={profile} />
+              <AddToList account={account} />
+              <Block account={account} />
+              <Report account={account} />
             </>
           ) : null}
         </MenuItems>

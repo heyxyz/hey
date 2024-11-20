@@ -4,7 +4,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
 import type { FollowRequest, Profile } from "@hey/lens";
@@ -30,14 +30,14 @@ import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
-  profile: Profile;
+  account: Profile;
   small: boolean;
   title: string;
 }
 
 const Follow: FC<FollowProps> = ({
   buttonClassName,
-  profile,
+  account,
   small,
   title
 }) => {
@@ -64,7 +64,7 @@ const Follow: FC<FollowProps> = ({
     txId?: string;
   }): OptimisticTransaction => {
     return {
-      followOn: profile.id,
+      followOn: account.id,
       txHash,
       txId,
       type: OptmisticPostType.Follow
@@ -78,7 +78,7 @@ const Follow: FC<FollowProps> = ({
           return { ...existingValue, value: true };
         }
       },
-      id: cache.identify(profile.operations)
+      id: cache.identify(account.operations)
     });
   };
 
@@ -95,7 +95,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success("Followed");
-    Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: profile?.id });
+    Leafwatch.track(ACCOUNT.FOLLOW, { path: pathname, target: account?.id });
   };
 
   const onError = (error: any) => {
@@ -198,7 +198,7 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-      const request: FollowRequest = { follow: [{ profileId: profile?.id }] };
+      const request: FollowRequest = { follow: [{ profileId: account?.id }] };
 
       if (canUseLensManager) {
         return await followViaLensManager(request);
@@ -219,7 +219,7 @@ const Follow: FC<FollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading || isUnfollowPending(profile.id)}
+      disabled={isLoading || isUnfollowPending(account.id)}
       onClick={handleCreateFollow}
       outline
       size={small ? "sm" : "md"}

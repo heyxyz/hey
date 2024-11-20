@@ -25,27 +25,27 @@ const PostAvatar: FC<PostAvatarProps> = ({
   const { push } = useRouter();
   const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
-  const profile = feedItem ? rootPublication.by : targetPost.by;
+  const account = feedItem ? rootPublication.by : targetPost.by;
 
   return (
     <Link
       className="contents"
-      href={getAccount(profile).link}
+      href={getAccount(account).link}
       onClick={stopEventPropagation}
     >
       <Image
-        alt={profile.id}
+        alt={account.id}
         className={cn(
           quoted ? "size-6" : "size-11",
           "z-[1] cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
         )}
         height={quoted ? 25 : 44}
         loading="lazy"
-        onClick={() => push(getAccount(profile).link)}
+        onClick={() => push(getAccount(account).link)}
         onError={({ currentTarget }) => {
-          currentTarget.src = getLennyURL(profile.id);
+          currentTarget.src = getLennyURL(account.id);
         }}
-        src={getAvatar(profile)}
+        src={getAvatar(account)}
         width={quoted ? 25 : 44}
       />
     </Link>

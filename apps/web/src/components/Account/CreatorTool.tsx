@@ -17,10 +17,10 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface CreatorToolProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
+const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
   const [updating, setUpdating] = useState(false);
   const [permissions, setPermissions] = useState<string[]>([]);
 
@@ -30,8 +30,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, profile.id]
+    queryFn: () => getInternalProfile(account.id, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, account.id]
   });
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
       setUpdating(true);
       await axios.post(
         `${HEY_API_URL}/internal/creator-tools/assign`,
-        { enabled, id, profile_id: profile.id },
+        { enabled, id, account_id: account.id },
         { headers: getAuthApiHeaders() }
       );
 
@@ -58,7 +58,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
       );
       Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
         permission: key,
-        profile_id: profile.id
+        account_id: account.id
       });
     } catch (error) {
       errorToast(error);

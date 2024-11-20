@@ -8,12 +8,12 @@ import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
 interface BlockProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const Block: FC<BlockProps> = ({ profile }) => {
+const Block: FC<BlockProps> = ({ account }) => {
   const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
-  const isBlockedByMe = profile.operations.isBlockedByMe.value;
+  const isBlockedByMe = account.operations.isBlockedByMe.value;
 
   return (
     <MenuItem
@@ -26,13 +26,13 @@ const Block: FC<BlockProps> = ({ profile }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowBlockOrUnblockAlert(true, profile);
+        setShowBlockOrUnblockAlert(true, account);
       }}
     >
       <NoSymbolIcon className="size-4" />
       <div>
         {isBlockedByMe ? "Unblock" : "Block"}{" "}
-        {getAccount(profile).slugWithPrefix}
+        {getAccount(account).slugWithPrefix}
       </div>
     </MenuItem>
   );

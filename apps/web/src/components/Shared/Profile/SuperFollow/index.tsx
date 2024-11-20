@@ -1,5 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
@@ -12,14 +12,14 @@ import FollowModule from "./FollowModule";
 
 interface SuperFollowProps {
   buttonClassName: string;
-  profile: Profile;
+  account: Profile;
   small: boolean;
   title: string;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
   buttonClassName,
-  profile,
+  account,
   small,
   title
 }) => {
@@ -38,7 +38,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
+          Leafwatch.track(ACCOUNT.OPEN_SUPER_FOLLOW);
         }}
         outline
         size={small ? "sm" : "md"}
@@ -50,12 +50,12 @@ const SuperFollow: FC<SuperFollowProps> = ({
         show={showFollowModal}
         title={
           <span>
-            Super follow <Slug slug={getAccount(profile).slugWithPrefix} />
+            Super follow <Slug slug={getAccount(account).slugWithPrefix} />
           </span>
         }
       >
         <FollowModule
-          profile={profile}
+          account={account}
           setShowFollowModal={setShowFollowModal}
         />
       </Modal>

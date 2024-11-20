@@ -6,10 +6,10 @@ import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
 interface AddToListProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const AddToList: FC<AddToListProps> = ({ profile }) => {
+const AddToList: FC<AddToListProps> = ({ account }) => {
   const { setShowAddToListModal } = useGlobalModalStateStore();
 
   return (
@@ -21,7 +21,7 @@ const AddToList: FC<AddToListProps> = ({ profile }) => {
           "m-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm"
         )
       }
-      onClick={() => setShowAddToListModal(true, profile)}
+      onClick={() => setShowAddToListModal(true, account)}
     >
       <ListBulletIcon className="size-4" />
       <div>Add to list</div>

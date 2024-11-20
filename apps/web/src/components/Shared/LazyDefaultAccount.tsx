@@ -28,7 +28,7 @@ const LazyDefaultAccount: FC<LazyDefaultAccountProps> = ({ address }) => {
     <SingleAccount
       hideFollowButton
       hideUnfollowButton
-      profile={data.defaultProfile as Profile}
+      account={data.defaultProfile as Profile}
     />
   );
 };

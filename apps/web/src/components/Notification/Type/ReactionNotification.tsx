@@ -19,11 +19,11 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
   const metadata = notification?.publication.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
   const reactions = notification?.reactions;
-  const firstProfile = reactions?.[0]?.profile;
+  const firstAccount = reactions?.[0]?.profile;
   const length = reactions.length - 1;
-  const moreThanOneProfile = length > 1;
+  const moreThanOneAccount = length > 1;
 
-  const text = moreThanOneProfile
+  const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} liked your`
     : "liked your";
   const type = notification?.publication.__typename;
@@ -37,14 +37,14 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
         <div className="flex items-center space-x-1">
           {reactions.slice(0, 10).map((reaction) => (
             <div key={reaction.profile.id}>
-              <NotificationAccountAvatar profile={reaction.profile} />
+              <NotificationAccountAvatar account={reaction.profile} />
             </div>
           ))}
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstProfile={firstProfile}
+          firstAccount={firstAccount}
           linkToType={`/posts/${notification?.publication?.id}`}
           text={text}
           type={type}

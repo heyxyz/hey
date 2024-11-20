@@ -56,10 +56,10 @@ const MetaDetails = ({
 
 interface DetailsProps {
   isSuspended: boolean;
-  profile: Profile;
+  account: Profile;
 }
 
-const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
+const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
   const { push } = useRouter();
   const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -67,60 +67,60 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
   const { resolvedTheme } = useTheme();
 
-  const followType = profile?.followModule?.type;
+  const followType = account?.followModule?.type;
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
         <Image
-          alt={profile.id}
+          alt={account.id}
           className="size-32 cursor-pointer rounded-full bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
-          onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
+          onClick={() => setExpandedImage(getAvatar(account, EXPANDED_AVATAR))}
           onError={({ currentTarget }) => {
-            currentTarget.src = getLennyURL(profile.id);
+            currentTarget.src = getLennyURL(account.id);
           }}
-          src={getAvatar(profile)}
+          src={getAvatar(account)}
           width={128}
         />
         <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
-          <H3 className="truncate">{getAccount(profile).displayName}</H3>
-          <Verified id={profile.id} showTooltip />
-          <Misuse id={profile.id} showTooltip />
+          <H3 className="truncate">{getAccount(account).displayName}</H3>
+          <Verified id={account.id} showTooltip />
+          <Misuse id={account.id} showTooltip />
           {isSuspended ? (
             <Tooltip content="Suspended">
               <EyeSlashIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
-          <AccountStatus id={profile.id} />
+          <AccountStatus id={account.id} />
         </div>
         <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"
-            slug={getAccount(profile).slugWithPrefix}
+            slug={getAccount(account).slugWithPrefix}
           />
-          {profile.operations.isFollowingMe.value ? (
+          {account.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </div>
           ) : null}
         </div>
       </div>
-      {profile?.metadata?.bio ? (
+      {account?.metadata?.bio ? (
         <div className="markup linkify mr-0 break-words text-md sm:mr-10">
-          <Markup mentions={getMentions(profile?.metadata.bio)}>
-            {profile?.metadata.bio}
+          <Markup mentions={getMentions(account?.metadata.bio)}>
+            {account?.metadata.bio}
           </Markup>
         </div>
       ) : null}
       <div className="space-y-5">
-        <ScamWarning profileId={profile.id} />
-        <Followerings profile={profile} />
+        <ScamWarning accountId={account.id} />
+        <Followerings account={account} />
         <div className="flex items-center space-x-2">
-          {currentAccount?.id === profile.id ? (
+          {currentAccount?.id === account.id ? (
             <>
               <Button
                 icon={<Cog6ToothIcon className="size-5" />}
@@ -138,14 +138,14 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               </Button>
             </>
           ) : followType !== FollowModuleType.RevertFollowModule ? (
-            <FollowUnfollowButton profile={profile} />
+            <FollowUnfollowButton account={account} />
           ) : null}
-          <AccountMenu profile={profile} />
+          <AccountMenu account={account} />
         </div>
-        {currentAccount?.id !== profile.id ? (
+        {currentAccount?.id !== account.id ? (
           <MutualFollowersOverview
-            handle={getAccount(profile).slug}
-            profileId={profile.id}
+            handle={getAccount(account).slug}
+            accountId={account.id}
           />
         ) : null}
         <div className="divider w-full" />
@@ -156,21 +156,21 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
             >
               <Link
                 className="text-yellow-600"
-                href={getAccount(profile).staffLink}
+                href={getAccount(account).staffLink}
               >
                 Open in Staff Tools
               </Link>
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            {Number.parseInt(profile.id)}
+            {Number.parseInt(account.id)}
           </MetaDetails>
-          {getProfileAttribute("location", profile?.metadata?.attributes) ? (
+          {getProfileAttribute("location", account?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
-              {getProfileAttribute("location", profile?.metadata?.attributes)}
+              {getProfileAttribute("location", account?.metadata?.attributes)}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute("website", profile?.metadata?.attributes) ? (
+          {getProfileAttribute("website", account?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -180,7 +180,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
                   src={getFavicon(
                     getProfileAttribute(
                       "website",
-                      profile?.metadata?.attributes
+                      account?.metadata?.attributes
                     )
                   )}
                   width={16}
@@ -190,20 +190,20 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               <Link
                 href={`https://${getProfileAttribute(
                   "website",
-                  profile?.metadata?.attributes
+                  account?.metadata?.attributes
                 )
                   ?.replace("https://", "")
                   .replace("http://", "")}`}
                 rel="noreferrer noopener me"
                 target="_blank"
               >
-                {getProfileAttribute("website", profile?.metadata?.attributes)
+                {getProfileAttribute("website", account?.metadata?.attributes)
                   ?.replace("https://", "")
                   .replace("http://", "")}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute("x", profile?.metadata?.attributes) ? (
+          {getProfileAttribute("x", account?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -221,7 +221,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
                 href={urlcat("https://x.com/:username", {
                   username: getProfileAttribute(
                     "x",
-                    profile?.metadata?.attributes
+                    account?.metadata?.attributes
                   )?.replace("https://x.com/", "")
                 })}
                 rel="noreferrer noopener"
@@ -229,18 +229,18 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
               >
                 {getProfileAttribute(
                   "x",
-                  profile?.metadata?.attributes
+                  account?.metadata?.attributes
                 )?.replace("https://x.com/", "")}
               </Link>
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<ClockIcon className="size-4" />}>
-            Joined {formatDate(profile.createdAt)}
+            Joined {formatDate(account.createdAt)}
           </MetaDetails>
         </div>
       </div>
-      <Badges id={profile.id} />
-      <InternalTools profile={profile} />
+      <Badges id={account.id} />
+      <InternalTools account={account} />
       <Drawer
         title="Personalize"
         onClose={() => setShowPersonalizeModal(false)}

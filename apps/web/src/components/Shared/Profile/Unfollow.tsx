@@ -4,7 +4,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
 import type { Profile, UnfollowRequest } from "@hey/lens";
@@ -30,14 +30,14 @@ import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface UnfollowProps {
   buttonClassName: string;
-  profile: Profile;
+  account: Profile;
   small: boolean;
   title: string;
 }
 
 const Unfollow: FC<UnfollowProps> = ({
   buttonClassName,
-  profile,
+  account,
   small,
   title
 }) => {
@@ -67,7 +67,7 @@ const Unfollow: FC<UnfollowProps> = ({
       txHash,
       txId,
       type: OptmisticPostType.Unfollow,
-      unfollowOn: profile.id
+      unfollowOn: account.id
     };
   };
 
@@ -78,7 +78,7 @@ const Unfollow: FC<UnfollowProps> = ({
           return { ...existingValue, value: false };
         }
       },
-      id: cache.identify(profile.operations)
+      id: cache.identify(account.operations)
     });
   };
 
@@ -95,7 +95,7 @@ const Unfollow: FC<UnfollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success("Unfollowed");
-    Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: profile?.id });
+    Leafwatch.track(ACCOUNT.UNFOLLOW, { path: pathname, target: account?.id });
   };
 
   const onError = (error: any) => {
@@ -187,7 +187,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
     try {
       setIsLoading(true);
-      const request: UnfollowRequest = { unfollow: [profile?.id] };
+      const request: UnfollowRequest = { unfollow: [account?.id] };
 
       if (canUseLensManager) {
         return await unfollowViaLensManager(request);
@@ -208,7 +208,7 @@ const Unfollow: FC<UnfollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading || isFollowPending(profile.id)}
+      disabled={isLoading || isFollowPending(account.id)}
       onClick={handleCreateUnfollow}
       size={small ? "sm" : "md"}
     >

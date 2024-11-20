@@ -20,11 +20,11 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const { metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const actions = notification?.actions;
-  const firstProfile = actions?.[0]?.by;
+  const firstAccount = actions?.[0]?.by;
   const length = actions.length - 1;
-  const moreThanOneProfile = length > 1;
+  const moreThanOneAccount = length > 1;
 
-  const text = moreThanOneProfile
+  const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} acted on your`
     : "acted on your";
   const type = notification?.publication.__typename;
@@ -38,14 +38,14 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action) => (
             <div key={action.by.id}>
-              <NotificationAccountAvatar profile={action.by} />
+              <NotificationAccountAvatar account={action.by} />
             </div>
           ))}
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstProfile={firstProfile}
+          firstAccount={firstAccount}
           linkToType={`/posts/${notification?.publication?.id}`}
           text={text}
           type={type}

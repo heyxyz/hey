@@ -38,13 +38,13 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
               <SingleAccount
                 hideFollowButton={currentAccount?.id === profile.id}
                 hideUnfollowButton={currentAccount?.id === profile.id}
-                profile={profile as Profile}
+                account={profile as Profile}
                 showBio
                 showUserPreview={false}
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedProfile profile={profile as Profile} />
+            <DismissRecommendedProfile account={profile as Profile} />
           </div>
         )}
       />

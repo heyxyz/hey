@@ -17,10 +17,10 @@ import type { FC } from "react";
 const GET_PROFILE_IMPRESSIONS_QUERY_KEY = "getProfileImpressions";
 
 interface LeafwatchDetailsProps {
-  profileId: string;
+  accountId: string;
 }
 
-const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
+const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
   const getProfileDetails = async (): Promise<{
     browser: string;
     city: string;
@@ -30,7 +30,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/details`,
-        { headers: getAuthApiHeaders(), params: { id: profileId } }
+        { headers: getAuthApiHeaders(), params: { id: accountId } }
       );
 
       return data.result;
@@ -40,9 +40,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   };
 
   const { data: leafwatchDetails } = useQuery({
-    enabled: Boolean(profileId),
+    enabled: Boolean(accountId),
     queryFn: getProfileDetails,
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, profileId]
+    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, accountId]
   });
 
   const getProfileImpressions = async (): Promise<{
@@ -51,7 +51,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
     try {
       const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
-        { headers: getAuthApiHeaders(), params: { id: profileId } }
+        { headers: getAuthApiHeaders(), params: { id: accountId } }
       );
 
       return data;
@@ -61,9 +61,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ profileId }) => {
   };
 
   const { data: impressionDetails } = useQuery({
-    enabled: Boolean(profileId),
+    enabled: Boolean(accountId),
     queryFn: getProfileImpressions,
-    queryKey: [GET_PROFILE_IMPRESSIONS_QUERY_KEY, profileId]
+    queryKey: [GET_PROFILE_IMPRESSIONS_QUERY_KEY, accountId]
   });
 
   if (!leafwatchDetails || !impressionDetails) {

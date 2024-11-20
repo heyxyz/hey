@@ -74,7 +74,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
             hideFollowButton
             hideUnfollowButton
             isBig
-            profile={profile as Profile}
+            account={profile as Profile}
             showBio
             source={ProfileLinkSource.Search}
           />

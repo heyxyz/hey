@@ -75,13 +75,13 @@ export const postUpdateTasks = async (
 interface ExtensionRequest {
   enabled: boolean;
   id: string;
-  profile_id: string;
+  account_id: string;
 }
 
 const validationSchema = object({
   enabled: boolean(),
   id: string(),
-  profile_id: string()
+  account_id: string()
 });
 
 export const post = [
@@ -100,26 +100,26 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { enabled, id, profile_id } = body as ExtensionRequest;
+    const { enabled, id, account_id } = body as ExtensionRequest;
 
     try {
       if (enabled) {
         await prisma.profilePermission.create({
-          data: { permissionId: id, profileId: profile_id }
+          data: { permissionId: id, profileId: account_id }
         });
 
-        await postUpdateTasks(profile_id, id, true);
-        logger.info(`Enabled permissions for ${profile_id}`);
+        await postUpdateTasks(account_id, id, true);
+        logger.info(`Enabled permissions for ${account_id}`);
 
         return res.status(200).json({ enabled, success: true });
       }
 
       await prisma.profilePermission.deleteMany({
-        where: { permissionId: id as string, profileId: profile_id as string }
+        where: { permissionId: id as string, profileId: account_id as string }
       });
 
-      await postUpdateTasks(profile_id, id, false);
-      logger.info(`Disabled permissions for ${profile_id}`);
+      await postUpdateTasks(account_id, id, false);
+      logger.info(`Disabled permissions for ${account_id}`);
 
       return res.status(200).json({ enabled, success: true });
     } catch (error) {

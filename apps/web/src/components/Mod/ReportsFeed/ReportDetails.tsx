@@ -40,7 +40,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           {formatDate(report.createdAt, "MMM D, YYYY - hh:mm:ss A")}
         </div>
         <div className="mt-2">
-          <SmallSingleAccount profile={report.reporter as Profile} />
+          <SmallSingleAccount account={report.reporter as Profile} />
         </div>
       </div>
       <div className="flex flex-col space-y-3">

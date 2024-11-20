@@ -99,7 +99,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       const identityToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, identityToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { profile_id: id, source: "login" });
+      Leafwatch.track(AUTH.LOGIN, { account_id: id, source: "login" });
       reload();
     } catch {}
   };
@@ -140,8 +140,8 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
                   <SingleAccount
                     hideFollowButton
                     hideUnfollowButton
-                    linkToProfile={false}
-                    profile={profile as Profile}
+                    linkToAccount={false}
+                    account={profile as Profile}
                     showUserPreview={false}
                   />
                   <Button

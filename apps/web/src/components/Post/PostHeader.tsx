@@ -24,7 +24,7 @@ const PostHeader: FC<PostHeaderProps> = ({
 
   const targetPost = isRepost(post) ? post?.mirrorOn : post;
   const rootPublication = feedItem ? feedItem?.root : targetPost;
-  const profile = feedItem ? rootPublication.by : targetPost.by;
+  const account = feedItem ? rootPublication.by : targetPost.by;
   const timestamp = feedItem ? rootPublication.createdAt : targetPost.createdAt;
 
   return (
@@ -33,7 +33,7 @@ const PostHeader: FC<PostHeaderProps> = ({
       onClick={stopEventPropagation}
     >
       <PostAccount
-        profile={profile}
+        account={account}
         postId={targetPost.id}
         source={targetPost.publishedOn?.id}
         tags={targetPost.metadata?.tags || []}

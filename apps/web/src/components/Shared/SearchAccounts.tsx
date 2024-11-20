@@ -68,7 +68,7 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
                   key={profile.id}
                   onClick={() => onProfileSelected(profile)}
                 >
-                  <SmallSingleAccount profile={profile} />
+                  <SmallSingleAccount account={profile} />
                 </div>
               ))
             ) : (

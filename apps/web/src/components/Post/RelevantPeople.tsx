@@ -49,18 +49,18 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
     return null;
   }
 
-  const firstProfiles = data?.profiles?.items?.slice(0, 5);
+  const firstAccounts = data?.profiles?.items?.slice(0, 5);
 
   return (
     <>
       <Card as="aside" className="space-y-4 p-5">
         <ErrorMessage error={error} title="Failed to load relevant people" />
-        {firstProfiles?.map((profile) => (
-          <div className="truncate" key={profile?.id}>
+        {firstAccounts?.map((account) => (
+          <div className="truncate" key={account?.id}>
             <SingleAccount
-              hideFollowButton={currentAccount?.id === profile.id}
-              hideUnfollowButton={currentAccount?.id === profile.id}
-              profile={profile as Profile}
+              hideFollowButton={currentAccount?.id === account.id}
+              hideUnfollowButton={currentAccount?.id === account.id}
+              account={account as Profile}
               showUserPreview={false}
               source={ProfileLinkSource.RelevantPeople}
             />

@@ -14,22 +14,22 @@ import Slug from "./Slug";
 
 interface SmallSingleAccountProps {
   hideSlug?: boolean;
-  linkToProfile?: boolean;
-  profile: Profile;
+  linkToAccount?: boolean;
+  account: Profile;
   smallAvatar?: boolean;
   timestamp?: Date;
 }
 
 const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
   hideSlug = false,
-  linkToProfile = false,
-  profile,
+  linkToAccount = false,
+  account,
   smallAvatar = false,
   timestamp = ""
 }) => {
   const UserAvatar: FC = () => (
     <Image
-      alt={profile.id}
+      alt={account.id}
       className={cn(
         smallAvatar ? "size-4" : "size-6",
         "rounded-full border bg-gray-200 dark:border-gray-700"
@@ -37,9 +37,9 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
       height={smallAvatar ? 16 : 24}
       loading="lazy"
       onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(profile.id);
+        currentTarget.src = getLennyURL(account.id);
       }}
-      src={getAvatar(profile)}
+      src={getAvatar(account)}
       width={smallAvatar ? 16 : 24}
     />
   );
@@ -47,12 +47,12 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
   const UserName: FC = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className={cn(!hideSlug && "max-w-[75%]", "mr-1 truncate")}>
-        {getAccount(profile).displayName}
+        {getAccount(account).displayName}
       </div>
-      <Verified id={profile.id} iconClassName="mr-1 size-4" />
-      <Misuse id={profile.id} iconClassName="mr-2 size-4" />
+      <Verified id={account.id} iconClassName="mr-1 size-4" />
+      <Misuse id={account.id} iconClassName="mr-2 size-4" />
       {!hideSlug && (
-        <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
       )}
       {timestamp && (
         <span className="ld-text-gray-500">
@@ -70,8 +70,8 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
     </div>
   );
 
-  return linkToProfile ? (
-    <Link href={getAccount(profile).link}>
+  return linkToAccount ? (
+    <Link href={getAccount(account).link}>
       <AccountInfo />
     </Link>
   ) : (

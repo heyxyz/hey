@@ -17,7 +17,7 @@ const MentionNotification: FC<MentionNotificationProps> = ({
 }) => {
   const metadata = notification?.publication.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
-  const firstProfile = notification.publication.by;
+  const firstAccount = notification.publication.by;
 
   const text = "mentioned you in a";
   const type = notification.publication.__typename;
@@ -29,12 +29,12 @@ const MentionNotification: FC<MentionNotificationProps> = ({
       <div className="flex items-center space-x-3">
         <AtSymbolIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationAccountAvatar profile={firstProfile} />
+          <NotificationAccountAvatar account={firstAccount} />
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstProfile={firstProfile}
+          firstAccount={firstAccount}
           linkToType={`/posts/${notification?.publication?.id}`}
           text={text}
           type={type}

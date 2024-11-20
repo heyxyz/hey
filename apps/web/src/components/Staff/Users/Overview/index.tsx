@@ -43,7 +43,7 @@ const Overview: NextPage = () => {
     skip: !id || !isReady,
     variables: { request: { forProfileId: id } }
   });
-  const profile = data?.profile as Profile;
+  const account = data?.profile as Profile;
 
   if (!currentAccount || !isStaff) {
     return <Custom404 />;
@@ -59,11 +59,11 @@ const Overview: NextPage = () => {
         <Card className="!bg-yellow-300/20 border-yellow-600 border-dashed p-5">
           {loading ? (
             <Loader className="my-5" message="Loading profile" />
-          ) : profile ? (
+          ) : account ? (
             error ? (
               <ErrorMessage error={error} />
             ) : (
-              <AccountStaffTool profile={profile} />
+              <AccountStaffTool account={account} />
             )
           ) : (
             <EmptyState

@@ -105,7 +105,7 @@ const Accounts: FC<AccountsProps> = ({ listId, name }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.id === member.id}
               hideUnfollowButton={currentAccount?.id === member.id}
-              profile={member as Profile}
+              account={member as Profile}
               showBio
               showUserPreview={false}
               source={ProfileLinkSource.ListProfiles}

@@ -1,7 +1,7 @@
 import Followers from "@components/Shared/Modal/Followers";
 import Following from "@components/Shared/Modal/Following";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
 import type { Profile } from "@hey/lens";
@@ -10,13 +10,13 @@ import plur from "plur";
 import { type FC, useState } from "react";
 
 interface FolloweringsProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const Followerings: FC<FolloweringsProps> = ({ profile }) => {
+const Followerings: FC<FolloweringsProps> = ({ account }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const { followers, following } = profile.stats;
+  const { followers, following } = account.stats;
 
   return (
     <div className="flex gap-8">
@@ -38,25 +38,25 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
       </button>
       <Modal
         onClose={() => {
-          Leafwatch.track(PROFILE.OPEN_FOLLOWING);
+          Leafwatch.track(ACCOUNT.OPEN_FOLLOWING);
           setShowFollowingModal(false);
         }}
         show={showFollowingModal}
         title="Following"
         size="md"
       >
-        <Following handle={getAccount(profile).slug} profileId={profile.id} />
+        <Following handle={getAccount(account).slug} accountId={account.id} />
       </Modal>
       <Modal
         onClose={() => {
-          Leafwatch.track(PROFILE.OPEN_FOLLOWERS);
+          Leafwatch.track(ACCOUNT.OPEN_FOLLOWERS);
           setShowFollowersModal(false);
         }}
         show={showFollowersModal}
         title="Followers"
         size="md"
       >
-        <Followers handle={getAccount(profile).slug} profileId={profile.id} />
+        <Followers handle={getAccount(account).slug} accountId={account.id} />
       </Modal>
     </div>
   );

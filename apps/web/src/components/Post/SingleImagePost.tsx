@@ -31,7 +31,7 @@ const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
     >
       <div className="absolute inset-0 rounded-lg bg-black opacity-30" />
       <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-bold text-sm text-white">
-        <SmallSingleAccount profile={targetPost.by} hideSlug />
+        <SmallSingleAccount account={targetPost.by} hideSlug />
       </div>
     </Link>
   );

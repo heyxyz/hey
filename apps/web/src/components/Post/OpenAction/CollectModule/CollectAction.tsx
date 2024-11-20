@@ -400,7 +400,7 @@ const CollectAction: FC<CollectActionProps> = ({
       <FollowUnfollowButton
         buttonClassName="w-full mt-5"
         followTitle="Follow to collect"
-        profile={post.by}
+        account={post.by}
       />
     );
   }

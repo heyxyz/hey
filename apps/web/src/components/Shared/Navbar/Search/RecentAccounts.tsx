@@ -68,8 +68,8 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
                 <SingleAccount
                   hideFollowButton
                   hideUnfollowButton
-                  linkToProfile={false}
-                  profile={profile as Profile}
+                  linkToAccount={false}
+                  account={profile as Profile}
                   showUserPreview={false}
                   source={ProfileLinkSource.RecentSearch}
                 />

@@ -15,7 +15,7 @@ interface QuoteNotificationProps {
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const metadata = notification?.quote.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
-  const firstProfile = notification.quote.by;
+  const firstAccount = notification.quote.by;
 
   const text = "quoted your";
   const type = notification.quote.quoteOn.__typename;
@@ -27,12 +27,12 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
       <div className="flex items-center space-x-3">
         <ChatBubbleBottomCenterTextIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationAccountAvatar profile={firstProfile} />
+          <NotificationAccountAvatar account={firstAccount} />
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstProfile={firstProfile}
+          firstAccount={firstAccount}
           linkToType={`/posts/${notification?.quote?.id}`}
           text={text}
           type={type}

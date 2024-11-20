@@ -12,7 +12,7 @@ interface FollowUnfollowButtonProps {
   followTitle?: string;
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
-  profile: Profile;
+  account: Profile;
   small?: boolean;
   superFollowTitle?: string;
   unfollowTitle?: string;
@@ -23,41 +23,41 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   followTitle = "Follow",
   hideFollowButton = false,
   hideUnfollowButton = false,
-  profile,
+  account,
   small = false,
   superFollowTitle = "Super Follow",
   unfollowTitle = "Following"
 }) => {
   const { currentAccount } = useAccountStore();
 
-  if (currentAccount?.id === profile.id) {
+  if (currentAccount?.id === account.id) {
     return null;
   }
 
   return (
     <div className="contents" onClick={stopEventPropagation}>
       {!hideFollowButton &&
-        (profile.operations.isFollowedByMe.value ? null : profile?.followModule
+        (account.operations.isFollowedByMe.value ? null : account?.followModule
             ?.type === FollowModuleType.FeeFollowModule ? (
           <SuperFollow
             buttonClassName={buttonClassName}
-            profile={profile}
+            account={account}
             small={small}
             title={superFollowTitle}
           />
         ) : (
           <Follow
             buttonClassName={buttonClassName}
-            profile={profile}
+            account={account}
             small={small}
             title={followTitle}
           />
         ))}
       {!hideUnfollowButton &&
-        (profile.operations.isFollowedByMe.value ? (
+        (account.operations.isFollowedByMe.value ? (
           <Unfollow
             buttonClassName={buttonClassName}
-            profile={profile}
+            account={account}
             small={small}
             title={unfollowTitle}
           />

@@ -33,7 +33,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
               <div>
                 <Link href={`/staff/users/${data?.lastLoggedInProfile?.id}`}>
                   <SmallSingleAccount
-                    profile={data?.lastLoggedInProfile as Profile}
+                    account={data?.lastLoggedInProfile as Profile}
                   />
                 </Link>
                 <div className="divider my-5 border-yellow-600 border-dashed" />
@@ -42,7 +42,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
             {data?.profilesManaged.items.map((profile) => (
               <div key={profile.id}>
                 <Link href={`/staff/users/${profile.id}`}>
-                  <SmallSingleAccount profile={profile as Profile} />
+                  <SmallSingleAccount account={profile as Profile} />
                 </Link>
               </div>
             ))}

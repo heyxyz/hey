@@ -11,18 +11,18 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface FollowingProps {
   handle: string;
-  profileId: string;
+  accountId: string;
 }
 
-const Following: FC<FollowingProps> = ({ handle, profileId }) => {
+const Following: FC<FollowingProps> = ({ handle, accountId }) => {
   const request: FollowingRequest = {
-    for: profileId,
+    for: accountId,
     limit: LimitType.TwentyFive
   };
   const { currentAccount } = useAccountStore();
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
-    skip: !profileId,
+    skip: !accountId,
     variables: { request }
   });
 
@@ -78,7 +78,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === following.id}
             hideUnfollowButton={currentAccount?.id === following.id}
-            profile={following as Profile}
+            account={following as Profile}
             showBio
             showUserPreview={false}
             source={ProfileLinkSource.Following}
