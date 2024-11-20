@@ -140,7 +140,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             <FollowUnfollowButton account={profile} />
           ) : null}
-          <AccountMenu profile={profile} />
+          <AccountMenu account={profile} />
         </div>
         {currentAccount?.id !== profile.id ? (
           <MutualFollowersOverview
