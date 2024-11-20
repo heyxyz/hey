@@ -16,10 +16,10 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import StaffSidebar from "../Sidebar";
+import AccountsCreated from "./AccountsCreated";
 import LensCredits from "./LensCredits";
 import Mint from "./Mint";
 import NftsMinted from "./NftsMinted";
-import ProfilesCreated from "./ProfilesCreated";
 import SignupPrice from "./SignupPrice";
 
 const Signup: NextPage = () => {
@@ -50,7 +50,7 @@ const Signup: NextPage = () => {
             <LensCredits />
             <SignupPrice />
             <NftsMinted />
-            <ProfilesCreated />
+            <AccountsCreated />
           </div>
         </Card>
         <Mint />

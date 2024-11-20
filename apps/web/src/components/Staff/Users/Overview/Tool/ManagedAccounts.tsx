@@ -6,11 +6,11 @@ import { H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 
-interface ManagedProfilesProps {
+interface ManagedAccountsProps {
   address: string;
 }
 
-const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
+const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
   const { data, loading } = useProfilesManagedQuery({
     variables: {
       lastLoggedInProfileRequest: { for: address },
@@ -53,4 +53,4 @@ const ManagedProfiles: FC<ManagedProfilesProps> = ({ address }) => {
   );
 };
 
-export default ManagedProfiles;
+export default ManagedAccounts;

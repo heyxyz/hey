@@ -10,9 +10,9 @@ import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
+import AccountGuardianSettings from "./AccountGuardian";
 import DeleteSettings from "./Delete";
 import HandleGuardianSettings from "./HandleGuardian";
-import ProfileGuardianSettings from "./ProfileGuardian";
 
 const DangerSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -38,7 +38,7 @@ const DangerSettings: NextPage = () => {
           <WrongWallet />
         ) : (
           <>
-            <ProfileGuardianSettings />
+            <AccountGuardianSettings />
             <HandleGuardianSettings />
             <DeleteSettings />
           </>

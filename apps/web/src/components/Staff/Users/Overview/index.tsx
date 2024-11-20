@@ -1,7 +1,7 @@
 import MetaTags from "@components/Common/MetaTags";
 import Loader from "@components/Shared/Loader";
 import StaffSidebar from "@components/Staff/Sidebar";
-import ProfileStaffTool from "@components/Staff/Users/Overview/Tool";
+import AccountStaffTool from "@components/Staff/Users/Overview/Tool";
 import { Leafwatch } from "@helpers/leafwatch";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
@@ -63,7 +63,7 @@ const Overview: NextPage = () => {
             error ? (
               <ErrorMessage error={error} />
             ) : (
-              <ProfileStaffTool profile={profile} />
+              <AccountStaffTool profile={profile} />
             )
           ) : (
             <EmptyState

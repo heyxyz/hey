@@ -15,11 +15,11 @@ import type { InternalProfile } from "@hey/types/hey";
 import { H5 } from "@hey/ui";
 import type { FC } from "react";
 
-interface ProfilePreferencesProps {
+interface AccountPreferencesProps {
   preferences: InternalProfile;
 }
 
-const ProfilePreferences: FC<ProfilePreferencesProps> = ({ preferences }) => {
+const AccountPreferences: FC<AccountPreferencesProps> = ({ preferences }) => {
   if (!preferences) {
     return null;
   }
@@ -81,4 +81,4 @@ const ProfilePreferences: FC<ProfilePreferencesProps> = ({ preferences }) => {
   );
 };
 
-export default ProfilePreferences;
+export default AccountPreferences;
