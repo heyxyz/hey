@@ -8,11 +8,11 @@ import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import SettingsSidebar from "../Sidebar";
+import Account from "./Account";
 import Followers from "./Followers";
 import Following from "./Following";
 import Notifications from "./Notifications";
 import Posts from "./Posts";
-import Profile from "./Profile";
 import Tokens from "./Tokens";
 
 const ExportSettings: NextPage = () => {
@@ -33,7 +33,7 @@ const ExportSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Profile />
+        <Account />
         <Posts />
         <Notifications />
         <Following />

@@ -60,7 +60,7 @@ import { useSignTypedData, useWriteContract } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
-const editProfileSchema = object({
+const editAccountSchema = object({
   bio: string().max(260, { message: "Bio should not exceed 260 characters" }),
   location: string().max(100, {
     message: "Location should not exceed 100 characters"
@@ -68,7 +68,7 @@ const editProfileSchema = object({
   name: string()
     .max(100, { message: "Name should not exceed 100 characters" })
     .regex(Regex.profileNameValidator, {
-      message: "Profile name must not contain restricted symbols"
+      message: "Account name must not contain restricted symbols"
     }),
   website: union([
     string().regex(Regex.url, { message: "Invalid website" }),
@@ -77,7 +77,7 @@ const editProfileSchema = object({
   x: string().max(100, { message: "X handle must not exceed 100 characters" })
 });
 
-const ProfileSettingsForm: FC = () => {
+const AccountSettingsForm: FC = () => {
   const { currentProfile } = useProfileStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
@@ -216,10 +216,10 @@ const ProfileSettingsForm: FC = () => {
         currentProfile?.metadata?.attributes
       )?.replace(/(https:\/\/)?x\.com\//, "")
     },
-    schema: editProfileSchema
+    schema: editAccountSchema
   });
 
-  const editProfile = async (data: z.infer<typeof editProfileSchema>) => {
+  const editProfile = async (data: z.infer<typeof editAccountSchema>) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -524,4 +524,4 @@ const ProfileSettingsForm: FC = () => {
   );
 };
 
-export default ProfileSettingsForm;
+export default AccountSettingsForm;
