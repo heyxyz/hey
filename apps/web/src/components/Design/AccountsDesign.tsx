@@ -5,7 +5,7 @@ import { Card, CardHeader, H5 } from "@hey/ui";
 import type { FC } from "react";
 
 const AccountsDesign: FC = () => {
-  const profile = {
+  const account = {
     handle: { localName: "yoginth" },
     id: "0x0d",
     metadata: {
@@ -28,7 +28,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={account as Profile}
           />
         </div>
         <div className="space-y-3">
@@ -36,7 +36,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={account as Profile}
             showId
           />
         </div>
@@ -45,7 +45,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={account as Profile}
             showBio
           />
         </div>
@@ -54,7 +54,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={account as Profile}
             timestamp={new Date("2024-06-29T19:16:26.062Z")}
           />
         </div>
@@ -64,27 +64,27 @@ const AccountsDesign: FC = () => {
             hideFollowButton
             hideUnfollowButton
             isBig
-            profile={profile as Profile}
+            account={account as Profile}
           />
         </div>
         <div className="space-y-3">
           <H5>Small Profile</H5>
-          <SmallSingleAccount profile={profile as Profile} />
+          <SmallSingleAccount account={account as Profile} />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with Slug</H5>
-          <SmallSingleAccount hideSlug profile={profile as Profile} />
+          <SmallSingleAccount hideSlug account={account as Profile} />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with timestamp</H5>
           <SmallSingleAccount
-            profile={profile as Profile}
+            account={account as Profile}
             timestamp={new Date("2024-06-29T19:16:26.062Z")}
           />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with small avatar</H5>
-          <SmallSingleAccount profile={profile as Profile} smallAvatar />
+          <SmallSingleAccount account={account as Profile} smallAvatar />
         </div>
       </div>
     </Card>

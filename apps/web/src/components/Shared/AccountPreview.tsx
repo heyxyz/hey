@@ -42,10 +42,10 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
-  const profile = data?.profile as Profile;
+  const account = data?.profile as Profile;
 
   const onPreviewStart = async () => {
-    if (profile || networkLoading) {
+    if (account || networkLoading) {
       return;
     }
 
@@ -80,7 +80,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
       );
     }
 
-    if (!profile) {
+    if (!account) {
       return (
         <div className="flex h-12 items-center px-3">No profile found</div>
       );
@@ -110,14 +110,14 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     const UserAvatar: FC = () => (
       <Image
-        alt={profile.id}
+        alt={account.id}
         className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
         height={48}
         loading="lazy"
         onError={({ currentTarget }) => {
-          currentTarget.src = getLennyURL(profile.id);
+          currentTarget.src = getLennyURL(account.id);
         }}
-        src={getAvatar(profile)}
+        src={getAvatar(account)}
         width={48}
       />
     );
@@ -125,13 +125,13 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     const UserName: FC = () => (
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
-          <div className="text-md">{getAccount(profile).displayName}</div>
-          <Verified id={profile.id} iconClassName="size-4" />
-          <Misuse id={profile.id} iconClassName="size-4" />
+          <div className="text-md">{getAccount(account).displayName}</div>
+          <Verified id={account.id} iconClassName="size-4" />
+          <Misuse id={account.id} iconClassName="size-4" />
         </div>
         <span>
-          <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
-          {profile.operations.isFollowingMe.value && (
+          <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
+          {account.operations.isFollowingMe.value && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </span>
@@ -146,36 +146,36 @@ const AccountPreview: FC<AccountPreviewProps> = ({
         <div className="space-y-3 p-4">
           <div className="flex items-center justify-between">
             <UserAvatar />
-            <FollowUnfollowButton profile={profile} small />
+            <FollowUnfollowButton account={account} small />
           </div>
           <UserName />
-          {profile.metadata?.bio && (
+          {account.metadata?.bio && (
             <div className="linkify mt-2 break-words text-sm leading-6">
-              <Markup mentions={getMentions(profile.metadata.bio)}>
-                {truncateByWords(profile.metadata.bio, 20)}
+              <Markup mentions={getMentions(account.metadata.bio)}>
+                {truncateByWords(account.metadata.bio, 20)}
               </Markup>
             </div>
           )}
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(profile.stats.following)}
+                {nFormatter(account.stats.following)}
               </div>
               <div className="ld-text-gray-500 text-sm">Following</div>
             </div>
             <div className="flex items-center space-x-1 text-md">
               <div className="text-base">
-                {nFormatter(profile.stats.followers)}
+                {nFormatter(account.stats.followers)}
               </div>
               <div className="ld-text-gray-500 text-sm">
-                {plur("Follower", profile.stats.followers)}
+                {plur("Follower", account.stats.followers)}
               </div>
             </div>
           </div>
           <div className="!text-xs">
             <MutualFollowersOverview
-              handle={getAccount(profile).slug}
-              profileId={profile.id}
+              handle={getAccount(account).slug}
+              accountId={account.id}
               viaPopover
             />
           </div>

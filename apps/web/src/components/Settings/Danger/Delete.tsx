@@ -99,7 +99,7 @@ const DeleteSettings: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          profile={currentAccount as Profile}
+          account={currentAccount as Profile}
         />
         <div className="space-y-3">
           <H5 className="text-red-500">Delete Lens profile</H5>

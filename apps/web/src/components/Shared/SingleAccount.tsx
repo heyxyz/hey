@@ -21,8 +21,8 @@ interface SingleAccountProps {
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
   isBig?: boolean;
-  linkToProfile?: boolean;
-  profile: Profile;
+  linkToAccount?: boolean;
+  account: Profile;
   showBio?: boolean;
   showId?: boolean;
   showUserPreview?: boolean;
@@ -34,8 +34,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
   isBig = false,
-  linkToProfile = true,
-  profile,
+  linkToAccount = true,
+  account,
   showBio = false,
   showId = false,
   showUserPreview = true,
@@ -44,7 +44,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
 }) => {
   const UserAvatar: FC = () => (
     <Image
-      alt={profile.id}
+      alt={account.id}
       className={cn(
         isBig ? "size-14" : "size-11",
         "rounded-full border bg-gray-200 dark:border-gray-700"
@@ -52,9 +52,9 @@ const SingleAccount: FC<SingleAccountProps> = ({
       height={isBig ? 56 : 44}
       loading="lazy"
       onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(profile.id);
+        currentTarget.src = getLennyURL(account.id);
       }}
-      src={getAvatar(profile)}
+      src={getAvatar(account)}
       width={isBig ? 56 : 44}
     />
   );
@@ -64,14 +64,14 @@ const SingleAccount: FC<SingleAccountProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? "font-bold" : "text-md", "grid")}>
           <div className="truncate font-semibold">
-            {getAccount(profile).displayName}
+            {getAccount(account).displayName}
           </div>
         </div>
-        <Verified id={profile.id} iconClassName="ml-1 size-4" />
-        <Misuse id={profile.id} iconClassName="ml-1 size-4" />
+        <Verified id={account.id} iconClassName="ml-1 size-4" />
+        <Misuse id={account.id} iconClassName="ml-1 size-4" />
       </div>
       <div>
-        <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
         {timestamp && (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
@@ -84,7 +84,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs">
-              {humanize(Number.parseInt(profile.id))}
+              {humanize(Number.parseInt(account.id))}
             </span>
           </span>
         )}
@@ -94,15 +94,15 @@ const SingleAccount: FC<SingleAccountProps> = ({
 
   const AccountInfo: FC = () => (
     <AccountPreview
-      handle={profile.handle?.fullHandle}
-      id={profile.id}
+      handle={account.handle?.fullHandle}
+      id={account.id}
       showUserPreview={showUserPreview}
     >
       <div className="mr-8 flex items-center space-x-3">
         <UserAvatar />
         <div>
           <UserName />
-          {showBio && profile?.metadata?.bio && (
+          {showBio && account?.metadata?.bio && (
             <div
               className={cn(
                 isBig ? "text-base" : "text-sm",
@@ -111,8 +111,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
               )}
               style={{ wordBreak: "break-word" }}
             >
-              <Markup mentions={getMentions(profile.metadata.bio)}>
-                {profile?.metadata.bio}
+              <Markup mentions={getMentions(account.metadata.bio)}>
+                {account?.metadata.bio}
               </Markup>
             </div>
           )}
@@ -123,10 +123,10 @@ const SingleAccount: FC<SingleAccountProps> = ({
 
   return (
     <div className="flex items-center justify-between">
-      {linkToProfile && profile.id ? (
+      {linkToAccount && account.id ? (
         <Link
-          as={getAccount(profile).link}
-          href={getAccount(profile, source).sourceLink}
+          as={getAccount(account).link}
+          href={getAccount(account, source).sourceLink}
         >
           <AccountInfo />
         </Link>
@@ -136,7 +136,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
       <FollowUnfollowButton
         hideFollowButton={hideFollowButton}
         hideUnfollowButton={hideUnfollowButton}
-        profile={profile}
+        account={account}
         small
       />
     </div>

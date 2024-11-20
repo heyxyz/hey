@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LinkIcon } from "@heroicons/react/24/outline";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
@@ -10,10 +10,10 @@ import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface CopyLinkProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const CopyLink: FC<CopyLinkProps> = ({ profile }) => {
+const CopyLink: FC<CopyLinkProps> = ({ account }) => {
   return (
     <MenuItem
       as="div"
@@ -26,10 +26,10 @@ const CopyLink: FC<CopyLinkProps> = ({ profile }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(
-          `${location.origin}${getAccount(profile).link}`
+          `${location.origin}${getAccount(account).link}`
         );
         toast.success("Link copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_LINK, { profile_id: profile.id });
+        Leafwatch.track(ACCOUNT.COPY_PROFILE_LINK, { account_id: account.id });
       }}
     >
       <LinkIcon className="size-4" />

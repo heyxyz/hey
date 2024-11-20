@@ -128,8 +128,8 @@ const AccountSettingsForm: FC = () => {
     }
 
     setIsLoading(false);
-    toast.success("Profile updated");
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    toast.success("Account updated");
+    Leafwatch.track(SETTINGS.ACCOUNT.UPDATE);
   };
 
   const onError = (error: any) => {

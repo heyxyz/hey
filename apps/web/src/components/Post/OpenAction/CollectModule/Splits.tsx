@@ -42,7 +42,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
       <div className="mb-2 font-bold">Fee recipients</div>
       {recipients.map((recipient) => {
         const { recipient: address, split } = recipient;
-        const profile = getProfileByAddress(address) as Profile;
+        const account = getProfileByAddress(address) as Profile;
 
         if (address === COLLECT_FEES_ADDRESS) {
           return (
@@ -75,11 +75,11 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   <Image
                     alt="Avatar"
                     className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
-                    src={profile ? getAvatar(profile) : getStampFyiURL(address)}
+                    src={account ? getAvatar(account) : getStampFyiURL(address)}
                   />
-                  {profile ? (
-                    <Link href={getAccount(profile).link}>
-                      <Slug slug={getAccount(profile).slugWithPrefix} />
+                  {account ? (
+                    <Link href={getAccount(account).link}>
+                      <Slug slug={getAccount(account).slugWithPrefix} />
                     </Link>
                   ) : (
                     <Link

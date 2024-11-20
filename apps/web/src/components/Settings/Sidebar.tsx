@@ -90,7 +90,7 @@ const SettingsSidebar: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          profile={currentAccount as Profile}
+          account={currentAccount as Profile}
           showUserPreview={false}
         />
       </div>

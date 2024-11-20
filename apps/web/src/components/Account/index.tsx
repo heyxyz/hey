@@ -83,19 +83,19 @@ const ViewProfile: NextPage = () => {
     }
   });
 
-  const profile = data?.profile as Profile;
+  const account = data?.profile as Profile;
 
   const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
-    enabled: Boolean(profile?.id),
-    queryFn: () => getProfileDetails(profile?.id),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, profile?.id]
+    enabled: Boolean(account?.id),
+    queryFn: () => getProfileDetails(account?.id),
+    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, account?.id]
   });
 
   if (!isReady || profileLoading) {
     return <AccountPageShimmer />;
   }
 
-  if (!data?.profile) {
+  if (!account) {
     return <Custom404 />;
   }
 
@@ -108,28 +108,28 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       <MetaTags
-        creator={getAccount(profile).displayName}
-        description={profile.metadata?.bio}
-        title={`${getAccount(profile).displayName} (${
-          getAccount(profile).slugWithPrefix
+        creator={getAccount(account).displayName}
+        description={account.metadata?.bio}
+        title={`${getAccount(account).displayName} (${
+          getAccount(account).slugWithPrefix
         }) • ${APP_NAME}`}
       />
       <Cover
         cover={
           isSuspended
             ? `${STATIC_IMAGES_URL}/patterns/2.svg`
-            : profile?.metadata?.coverPicture?.optimized?.uri ||
+            : account?.metadata?.coverPicture?.optimized?.uri ||
               `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout>
         <GridItemFour>
           {isSuspended ? (
-            <SuspendedDetails profile={profile as Profile} />
+            <SuspendedDetails account={account as Profile} />
           ) : (
             <Details
               isSuspended={profileDetails?.isSuspended || false}
-              profile={profile as Profile}
+              account={account as Profile}
             />
           )}
         </GridItemFour>
@@ -142,7 +142,7 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.id === profile?.id &&
+              {currentAccount?.id === account?.id &&
               feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}
@@ -151,13 +151,13 @@ const ViewProfile: NextPage = () => {
               feedType === AccountFeedType.Media ||
               feedType === AccountFeedType.Collects ? (
                 <AccountFeed
-                  handle={getAccount(profile).slugWithPrefix}
+                  handle={getAccount(account).slugWithPrefix}
                   profileDetailsLoading={profileDetailsLoading}
-                  profileId={profile.id}
+                  accountId={account.id}
                   type={feedType}
                 />
               ) : feedType === AccountFeedType.Lists ? (
-                <Lists profile={profile} />
+                <Lists account={account} />
               ) : null}
             </>
           )}

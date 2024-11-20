@@ -4,7 +4,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccount from "@hey/helpers/getAccount";
 import getSignature from "@hey/helpers/getSignature";
@@ -72,8 +72,8 @@ const BlockOrUnBlockAccount: FC = () => {
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);
     toast.success(hasBlocked ? "Unblocked" : "Blocked");
-    Leafwatch.track(hasBlocked ? PROFILE.BLOCK : PROFILE.UNBLOCK, {
-      profile_id: blockingorUnblockingProfile?.id
+    Leafwatch.track(hasBlocked ? ACCOUNT.BLOCK : ACCOUNT.UNBLOCK, {
+      account_id: blockingorUnblockingProfile?.id
     });
   };
 

@@ -5,21 +5,21 @@ import type { FC } from "react";
 import { NotificationAccountName } from "./Account";
 
 interface AggregatedNotificationTitleProps {
-  firstProfile: Profile;
+  firstAccount: Profile;
   linkToType: string;
   text: string;
   type?: string;
 }
 
 const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
-  firstProfile,
+  firstAccount,
   linkToType,
   text,
   type
 }) => {
   return (
     <div>
-      <NotificationAccountName profile={firstProfile} />
+      <NotificationAccountName account={firstAccount} />
       <span> {text} </span>
       {type && (
         <Link

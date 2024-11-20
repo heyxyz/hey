@@ -145,7 +145,7 @@ const ViewPost: NextPage = () => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === targetPost.by.id}
             hideUnfollowButton={currentAccount?.id === targetPost.by.id}
-            profile={targetPost.by}
+            account={targetPost.by}
             showBio
             source={ProfileLinkSource.Post}
           />

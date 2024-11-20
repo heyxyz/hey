@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { WalletIcon } from "@heroicons/react/24/outline";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -32,7 +32,7 @@ const CopyAddress: FC<CopyAddressProps> = ({ address }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(address);
         toast.success("Address copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_ADDRESS, { address });
+        Leafwatch.track(ACCOUNT.COPY_PROFILE_ADDRESS, { address });
       }}
     >
       <WalletIcon className="size-4" />

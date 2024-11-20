@@ -22,15 +22,15 @@ import type { FC } from "react";
 const GET_HAVE_USED_HEY_QUERY_KEY = "getHaveUsedHey";
 
 interface AccountOverviewProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const AccountOverview: FC<AccountOverviewProps> = ({ profile }) => {
+const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
   const getHaveUsedHey = async () => {
     try {
       const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
-        { headers: getAuthApiHeaders(), params: { id: profile.id } }
+        { headers: getAuthApiHeaders(), params: { id: account.id } }
       );
 
       return data.haveUsedHey;
@@ -41,7 +41,7 @@ const AccountOverview: FC<AccountOverviewProps> = ({ profile }) => {
 
   const { data: haveUsedHey } = useQuery({
     queryFn: getHaveUsedHey,
-    queryKey: [GET_HAVE_USED_HEY_QUERY_KEY, profile.id]
+    queryKey: [GET_HAVE_USED_HEY_QUERY_KEY, account.id]
   });
 
   return (
@@ -70,31 +70,31 @@ const AccountOverview: FC<AccountOverviewProps> = ({ profile }) => {
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
           title="Profile ID"
-          value={profile.id}
+          value={account.id}
         >
-          {profile.id}
+          {account.id}
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="ld-text-gray-500 size-4" />}
           title="Address"
-          value={profile.ownedBy.address}
+          value={account.ownedBy.address}
         >
-          {formatAddress(profile.ownedBy.address)}
+          {formatAddress(account.ownedBy.address)}
         </MetaDetails>
-        {profile?.followNftAddress ? (
+        {account?.followNftAddress ? (
           <MetaDetails
             icon={<PhotoIcon className="ld-text-gray-500 size-4" />}
             title="NFT address"
-            value={profile.followNftAddress.address}
+            value={account.followNftAddress.address}
           >
-            {formatAddress(profile.followNftAddress.address)}
+            {formatAddress(account.followNftAddress.address)}
           </MetaDetails>
         ) : null}
         <MetaDetails
           icon={<HandRaisedIcon className="ld-text-gray-500 size-4" />}
           title="Has Lens Manager"
         >
-          {profile.signless ? (
+          {account.signless ? (
             <CheckCircleIcon className="size-4 text-green-500" />
           ) : (
             <XCircleIcon className="size-4 text-red-500" />
@@ -104,7 +104,7 @@ const AccountOverview: FC<AccountOverviewProps> = ({ profile }) => {
           icon={<HandRaisedIcon className="ld-text-gray-500 size-4" />}
           title="Gas sponsored"
         >
-          {profile.sponsor ? (
+          {account.sponsor ? (
             <CheckCircleIcon className="size-4 text-green-500" />
           ) : (
             <XCircleIcon className="size-4 text-red-500" />

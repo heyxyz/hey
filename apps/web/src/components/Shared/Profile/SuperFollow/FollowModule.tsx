@@ -9,7 +9,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB, POLYGONSCAN_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -41,12 +41,12 @@ import { formatUnits } from "viem";
 import { useBalance, useSignTypedData, useWriteContract } from "wagmi";
 
 interface FollowModuleProps {
-  profile: Profile;
+  account: Profile;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
-  profile,
+  account,
   setShowFollowModal
 }) => {
   const { pathname } = useRouter();
@@ -72,7 +72,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           return { ...existingValue, value: true };
         }
       },
-      id: cache.identify(profile.operations)
+      id: cache.identify(account.operations)
     });
   };
 
@@ -85,9 +85,9 @@ const FollowModule: FC<FollowModuleProps> = ({
     setIsLoading(false);
     setShowFollowModal(false);
     toast.success("Followed");
-    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
+    Leafwatch.track(ACCOUNT.SUPER_FOLLOW, {
       path: pathname,
-      target: profile?.id
+      target: account?.id
     });
   };
 
@@ -120,8 +120,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   const { data, loading } = useProfileQuery({
-    skip: !profile?.id,
-    variables: { request: { forProfileId: profile?.id } }
+    skip: !account?.id,
+    variables: { request: { forProfileId: account?.id } }
   });
 
   const followModule = data?.profile?.followModule as FeeFollowModuleSettings;
@@ -231,7 +231,7 @@ const FollowModule: FC<FollowModuleProps> = ({
                     }
                   }
                 },
-                profileId: profile?.id
+                profileId: account?.id
               }
             ]
           }
@@ -250,7 +250,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <H5>
-          Super follow <Slug slug={getAccount(profile).slugWithPrefix} />
+          Super follow <Slug slug={getAccount(account).slugWithPrefix} />
         </H5>
         <div className="ld-text-gray-500">
           Follow and get some awesome perks!
@@ -290,20 +290,20 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can comment on {getAccount(profile).slugWithPrefix}'s posts
+              You can comment on {getAccount(account).slugWithPrefix}'s posts
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can collect {getAccount(profile).slugWithPrefix}'s posts
+              You can collect {getAccount(account).slugWithPrefix}'s posts
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               You will get Super follow badge in{" "}
-              {getAccount(profile).slugWithPrefix}'s profile
+              {getAccount(account).slugWithPrefix}'s profile
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">

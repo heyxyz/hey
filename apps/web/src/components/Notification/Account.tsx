@@ -11,30 +11,30 @@ import Link from "next/link";
 import type { FC, SyntheticEvent } from "react";
 
 interface NotificationProfileProps {
-  profile: Profile;
+  account: Profile;
 }
 
 export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
-  profile
+  account
 }) => {
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     const target = event.currentTarget;
-    target.src = getLennyURL(profile.id);
+    target.src = getLennyURL(account.id);
   };
 
   return (
-    <AccountPreview handle={profile.handle?.fullHandle} id={profile.id}>
+    <AccountPreview handle={account.handle?.fullHandle} id={account.id}>
       <Link
         className="rounded-full outline-offset-2"
-        href={getAccount(profile).link}
+        href={getAccount(account).link}
         onClick={stopEventPropagation}
       >
         <Image
-          alt={profile.id}
+          alt={account.id}
           className="size-7 rounded-full border bg-gray-200 sm:size-8 dark:border-gray-700"
           height={32}
           onError={handleImageError}
-          src={getAvatar(profile)}
+          src={getAvatar(account)}
           width={32}
         />
       </Link>
@@ -43,20 +43,20 @@ export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
 };
 
 export const NotificationAccountName: FC<NotificationProfileProps> = ({
-  profile
+  account
 }) => {
-  const profileLink = getAccount(profile).link;
+  const profileLink = getAccount(account).link;
 
   return (
-    <AccountPreview handle={profile.handle?.fullHandle} id={profile.id}>
+    <AccountPreview handle={account.handle?.fullHandle} id={account.id}>
       <Link
         className="inline-flex items-center space-x-1 font-bold outline-none hover:underline focus:underline"
         href={profileLink}
         onClick={stopEventPropagation}
       >
-        <span>{getAccount(profile).displayName}</span>
-        <Verified id={profile.id} iconClassName="size-4" />
-        <Misuse id={profile.id} iconClassName="size-4" />
+        <span>{getAccount(account).displayName}</span>
+        <Verified id={account.id} iconClassName="size-4" />
+        <Misuse id={account.id} iconClassName="size-4" />
       </Link>
     </AccountPreview>
   );

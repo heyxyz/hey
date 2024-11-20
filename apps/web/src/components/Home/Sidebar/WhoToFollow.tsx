@@ -2,7 +2,7 @@ import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProf
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PROFILE, ProfileLinkSource } from "@hey/data/tracking";
+import { ACCOUNT, ProfileLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
@@ -71,18 +71,18 @@ const WhoToFollow: FC = () => {
               <SingleAccount
                 hideFollowButton={currentAccount?.id === profile.id}
                 hideUnfollowButton={currentAccount?.id === profile.id}
-                profile={profile as Profile}
+                account={profile as Profile}
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedProfile profile={profile as Profile} />
+            <DismissRecommendedProfile account={profile as Profile} />
           </div>
         ))}
         <button
           className="ld-text-gray-500 font-bold"
           onClick={() => {
             setShowMore(true);
-            Leafwatch.track(PROFILE.OPEN_RECOMMENDED_PROFILES);
+            Leafwatch.track(ACCOUNT.OPEN_RECOMMENDED_PROFILES);
           }}
           type="button"
         >
