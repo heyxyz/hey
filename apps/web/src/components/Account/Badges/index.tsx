@@ -2,10 +2,10 @@ import { HEY_API_URL, IS_MAINNET } from "@hey/data/constants";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
+import HeyAccount from "./HeyAccount";
 import HeyNft from "./HeyNft";
-import HeyProfile from "./HeyProfile";
 
-const GET_IS_HEY_PROFILE_QUERY_KEY = "getIsHeyProfile";
+const GET_IS_HEY_ACCOUNT_QUERY_KEY = "getIsHeyAccount";
 const GET_HAS_HEY_NFT_QUERY_KEY = "getHasHeyNft";
 
 interface BadgesProps {
@@ -13,20 +13,20 @@ interface BadgesProps {
 }
 
 const Badges: FC<BadgesProps> = ({ id }) => {
-  // Begin: Get isHeyProfile
-  const getIsHeyProfile = async (): Promise<boolean> => {
-    const { data } = await axios.get(`${HEY_API_URL}/badges/isHeyProfile`, {
+  // Begin: Get isHeyAccount
+  const getIsHeyAccount = async (): Promise<boolean> => {
+    const { data } = await axios.get(`${HEY_API_URL}/badges/isHeyAccount`, {
       params: { id }
     });
 
-    return data?.isHeyProfile || false;
+    return data?.isHeyAccount || false;
   };
 
-  const { data: isHeyProfile } = useQuery({
-    queryFn: getIsHeyProfile,
-    queryKey: [GET_IS_HEY_PROFILE_QUERY_KEY, id]
+  const { data: isHeyAccount } = useQuery({
+    queryFn: getIsHeyAccount,
+    queryKey: [GET_IS_HEY_ACCOUNT_QUERY_KEY, id]
   });
-  // End: Get isHeyProfile
+  // End: Get isHeyAccount
 
   // Begin: Check has Hey NFT
   const getHasHeyNft = async (): Promise<boolean> => {
@@ -44,7 +44,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
   });
   // End: Check has Hey NFT
 
-  const hasBadges = isHeyProfile || hasHeyNft;
+  const hasBadges = isHeyAccount || hasHeyNft;
 
   if (!hasBadges) {
     return null;
@@ -54,7 +54,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
     <>
       <div className="divider w-full" />
       <div className="flex flex-wrap gap-3">
-        {isHeyProfile && <HeyProfile />}
+        {isHeyAccount && <HeyAccount />}
         {hasHeyNft && <HeyNft />}
       </div>
     </>
