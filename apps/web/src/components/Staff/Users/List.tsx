@@ -137,7 +137,7 @@ const List: FC = () => {
                     hideUnfollowButton
                     isBig
                     linkToProfile={false}
-                    profile={profile as Profile}
+                    account={profile as Profile}
                     showBio={false}
                     showId
                     showUserPreview={false}

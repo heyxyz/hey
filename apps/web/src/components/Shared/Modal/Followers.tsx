@@ -79,7 +79,7 @@ const Followers: FC<FollowersProps> = ({ handle, accountId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === follower.id}
             hideUnfollowButton={currentAccount?.id === follower.id}
-            profile={follower as Profile}
+            account={follower as Profile}
             showBio
             showUserPreview={false}
             source={ProfileLinkSource.Followers}

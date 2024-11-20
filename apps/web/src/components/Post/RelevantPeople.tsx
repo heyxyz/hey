@@ -60,7 +60,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.id === profile.id}
               hideUnfollowButton={currentAccount?.id === profile.id}
-              profile={profile as Profile}
+              account={profile as Profile}
               showUserPreview={false}
               source={ProfileLinkSource.RelevantPeople}
             />

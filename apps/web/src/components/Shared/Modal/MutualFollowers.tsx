@@ -84,7 +84,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
           <SingleAccount
             hideFollowButton={currentAccount?.id === mutualFollower.id}
             hideUnfollowButton={currentAccount?.id === mutualFollower.id}
-            profile={mutualFollower as Profile}
+            account={mutualFollower as Profile}
             showBio
             showUserPreview={false}
           />

@@ -63,7 +63,7 @@ const List: FC = () => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              profile={profile as Profile}
+              account={profile as Profile}
             />
             <Button
               onClick={() =>

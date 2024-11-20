@@ -28,7 +28,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={profile as Profile}
           />
         </div>
         <div className="space-y-3">
@@ -36,7 +36,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={profile as Profile}
             showId
           />
         </div>
@@ -45,7 +45,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={profile as Profile}
             showBio
           />
         </div>
@@ -54,7 +54,7 @@ const AccountsDesign: FC = () => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={profile as Profile}
             timestamp={new Date("2024-06-29T19:16:26.062Z")}
           />
         </div>
@@ -64,7 +64,7 @@ const AccountsDesign: FC = () => {
             hideFollowButton
             hideUnfollowButton
             isBig
-            profile={profile as Profile}
+            account={profile as Profile}
           />
         </div>
         <div className="space-y-3">

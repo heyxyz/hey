@@ -128,7 +128,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            profile={profile as Profile}
+            account={profile as Profile}
           />
           {address !== profile.ownedBy.address && (
             <Button

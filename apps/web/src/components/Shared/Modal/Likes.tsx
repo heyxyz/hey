@@ -79,7 +79,7 @@ const Likes: FC<LikesProps> = ({ postId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === like.profile.id}
             hideUnfollowButton={currentAccount?.id === like.profile.id}
-            profile={like.profile as Profile}
+            account={like.profile as Profile}
             showBio
             showUserPreview={false}
             source={ProfileLinkSource.Likes}

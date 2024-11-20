@@ -92,7 +92,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              profile={profile as Profile}
+              account={profile as Profile}
               showUserPreview={false}
             />
           </Card>

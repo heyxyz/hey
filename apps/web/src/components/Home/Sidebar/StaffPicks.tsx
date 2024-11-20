@@ -130,7 +130,7 @@ const StaffPicks: FC = () => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === profile.id}
             hideUnfollowButton
-            profile={profile as Profile}
+            account={profile as Profile}
             source={ProfileLinkSource.StaffPicks}
           />
         </div>

@@ -71,7 +71,7 @@ const WhoToFollow: FC = () => {
               <SingleAccount
                 hideFollowButton={currentAccount?.id === profile.id}
                 hideUnfollowButton={currentAccount?.id === profile.id}
-                profile={profile as Profile}
+                account={profile as Profile}
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>

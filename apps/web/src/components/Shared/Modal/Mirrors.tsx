@@ -75,7 +75,7 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === profile.id}
             hideUnfollowButton={currentAccount?.id === profile.id}
-            profile={profile as Profile}
+            account={profile as Profile}
             showBio
             showUserPreview={false}
             source={ProfileLinkSource.Mirrors}
