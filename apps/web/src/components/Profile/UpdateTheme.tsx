@@ -1,6 +1,6 @@
+import accountThemeFonts, { Font } from "@helpers/accountThemeFonts";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import profileThemeFonts, { Font } from "@helpers/profileThemeFonts";
 import { HEY_API_URL } from "@hey/data/constants";
 import { GET_PREFERENCES_QUERY_KEY } from "@hey/helpers/api/getPreferences";
 import camelCaseToReadable from "@hey/helpers/camelCaseToReadable";
@@ -57,7 +57,7 @@ const UpdateTheme: FC = () => {
           options={Object.values(Font).map((font) => ({
             label: camelCaseToReadable(font),
             htmlLabel: (
-              <div className={profileThemeFonts(font)}>
+              <div className={accountThemeFonts(font)}>
                 {camelCaseToReadable(font)}
               </div>
             ),

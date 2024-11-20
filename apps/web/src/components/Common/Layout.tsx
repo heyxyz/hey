@@ -3,9 +3,9 @@ import GlobalAlerts from "@components/Shared/GlobalAlerts";
 import GlobalBanners from "@components/Shared/GlobalBanners";
 import BottomNavigation from "@components/Shared/Navbar/BottomNavigation";
 import PageMetatags from "@components/Shared/PageMetatags";
+import accountThemeFonts from "@helpers/accountThemeFonts";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
-import profileThemeFonts from "@helpers/profileThemeFonts";
 import type { Profile } from "@hey/lens";
 import { useCurrentProfileQuery } from "@hey/lens";
 import { useIsClient } from "@uidotdev/usehooks";
@@ -87,7 +87,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <main className={profileThemeFonts(theme?.fontStyle)}>
+    <main className={accountThemeFonts(theme?.fontStyle)}>
       <PageMetatags />
       <Toaster
         containerStyle={{ wordBreak: "break-word" }}

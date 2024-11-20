@@ -110,7 +110,7 @@ const josefinSans = Josefin_Sans({
   weight: ["400", "700"]
 });
 
-const profileThemeFonts = (id: string | undefined): string => {
+const accountThemeFonts = (id: string | undefined): string => {
   if (!id) {
     return "";
   }
@@ -175,4 +175,4 @@ const profileThemeFonts = (id: string | undefined): string => {
   }
 };
 
-export default profileThemeFonts;
+export default accountThemeFonts;
