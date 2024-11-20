@@ -240,7 +240,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         </div>
       </div>
       <Badges id={profile.id} />
-      <InternalTools profile={profile} />
+      <InternalTools account={profile} />
       <Drawer
         title="Personalize"
         onClose={() => setShowPersonalizeModal(false)}
