@@ -8,9 +8,9 @@ import {
   HomeIcon as HomeIconSolid,
   Squares2X2Icon as Squares2X2IconSolid
 } from "@heroicons/react/24/solid";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -57,7 +57,7 @@ const BottomNavigation = () => {
           <Link
             aria-label="Your profile"
             className="mx-auto my-3"
-            href={getProfile(currentProfile).link}
+            href={getAccount(currentProfile).link}
           >
             <Image
               alt={currentProfile.id}

@@ -1,9 +1,9 @@
 import AccountPreview from "@components/Shared/AccountPreview";
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
@@ -26,7 +26,7 @@ export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
     <AccountPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
         className="rounded-full outline-offset-2"
-        href={getProfile(profile).link}
+        href={getAccount(profile).link}
         onClick={stopEventPropagation}
       >
         <Image
@@ -45,7 +45,7 @@ export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
 export const NotificationAccountName: FC<NotificationProfileProps> = ({
   profile
 }) => {
-  const profileLink = getProfile(profile).link;
+  const profileLink = getAccount(profile).link;
 
   return (
     <AccountPreview handle={profile.handle?.fullHandle} id={profile.id}>
@@ -54,7 +54,7 @@ export const NotificationAccountName: FC<NotificationProfileProps> = ({
         href={profileLink}
         onClick={stopEventPropagation}
       >
-        <span>{getProfile(profile).displayName}</span>
+        <span>{getAccount(profile).displayName}</span>
         <Verified id={profile.id} iconClassName="size-4" />
         <Misuse id={profile.id} iconClassName="size-4" />
       </Link>

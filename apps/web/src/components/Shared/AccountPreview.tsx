@@ -1,11 +1,11 @@
-import MutualFollowersOverview from "@components/Profile/MutualFollowersOverview";
+import MutualFollowersOverview from "@components/Account/MutualFollowersOverview";
 import getProfileDetails, {
   GET_PROFILE_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getProfileDetails";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import getProfile from "@hey/helpers/getProfile";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
 import type { Profile } from "@hey/lens";
@@ -125,12 +125,12 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     const UserName: FC = () => (
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
-          <div className="text-md">{getProfile(profile).displayName}</div>
+          <div className="text-md">{getAccount(profile).displayName}</div>
           <Verified id={profile.id} iconClassName="size-4" />
           <Misuse id={profile.id} iconClassName="size-4" />
         </div>
         <span>
-          <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+          <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
           {profile.operations.isFollowingMe.value && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
@@ -174,7 +174,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           </div>
           <div className="!text-xs">
             <MutualFollowersOverview
-              handle={getProfile(profile).slug}
+              handle={getAccount(profile).slug}
               profileId={profile.id}
               viaPopover
             />

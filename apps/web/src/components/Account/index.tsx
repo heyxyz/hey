@@ -14,7 +14,7 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import getProfileDetails, {
   GET_PROFILE_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getProfileDetails";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
@@ -108,10 +108,10 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       <MetaTags
-        creator={getProfile(profile).displayName}
+        creator={getAccount(profile).displayName}
         description={profile.metadata?.bio}
-        title={`${getProfile(profile).displayName} (${
-          getProfile(profile).slugWithPrefix
+        title={`${getAccount(profile).displayName} (${
+          getAccount(profile).slugWithPrefix
         }) • ${APP_NAME}`}
       />
       <Cover
@@ -151,7 +151,7 @@ const ViewProfile: NextPage = () => {
               feedType === AccountFeedType.Media ||
               feedType === AccountFeedType.Collects ? (
                 <AccountFeed
-                  handle={getProfile(profile).slugWithPrefix}
+                  handle={getAccount(profile).slugWithPrefix}
                   profileDetailsLoading={profileDetailsLoading}
                   profileId={profile.id}
                   type={feedType}

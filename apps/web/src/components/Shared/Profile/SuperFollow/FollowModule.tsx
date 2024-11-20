@@ -12,7 +12,7 @@ import { Errors } from "@hey/data/errors";
 import { PROFILE } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import formatAddress from "@hey/helpers/formatAddress";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import getSignature from "@hey/helpers/getSignature";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import type {
@@ -250,7 +250,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <H5>
-          Super follow <Slug slug={getProfile(profile).slugWithPrefix} />
+          Super follow <Slug slug={getAccount(profile).slugWithPrefix} />
         </H5>
         <div className="ld-text-gray-500">
           Follow and get some awesome perks!
@@ -290,20 +290,20 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can comment on {getProfile(profile).slugWithPrefix}'s posts
+              You can comment on {getAccount(profile).slugWithPrefix}'s posts
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can collect {getProfile(profile).slugWithPrefix}'s posts
+              You can collect {getAccount(profile).slugWithPrefix}'s posts
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               You will get Super follow badge in{" "}
-              {getProfile(profile).slugWithPrefix}'s profile
+              {getAccount(profile).slugWithPrefix}'s profile
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">

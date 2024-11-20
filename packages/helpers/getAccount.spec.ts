@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
-import getProfile from "./getProfile";
+import getAccount from "./getAccount";
 
-describe("getProfile", () => {
-  test("should return the correct data when profile is null", () => {
-    const profile = null;
-    const result = getProfile(profile);
+describe("getAccount", () => {
+  test("should return the correct data when account is null", () => {
+    const account = null;
+    const result = getAccount(account);
     expect(result).toEqual({
       displayName: "...",
       link: "",
@@ -15,13 +15,13 @@ describe("getProfile", () => {
     });
   });
 
-  test("should return the correct data when profile has handle", () => {
-    const profile: any = {
+  test("should return the correct data when account has handle", () => {
+    const account: any = {
       handle: { localName: "john" },
       id: "123",
       metadata: { displayName: "John Doe" }
     };
-    const result = getProfile(profile);
+    const result = getAccount(account);
     expect(result).toEqual({
       displayName: "John Doe",
       link: "/u/john",
@@ -32,13 +32,13 @@ describe("getProfile", () => {
     });
   });
 
-  test("should return the correct data when profile has handle with source", () => {
-    const profile: any = {
+  test("should return the correct data when account has handle with source", () => {
+    const account: any = {
       handle: { localName: "john" },
       id: "123",
       metadata: { displayName: "John Doe" }
     };
-    const result = getProfile(profile, "staff-picks");
+    const result = getAccount(account, "staff-picks");
     expect(result).toEqual({
       displayName: "John Doe",
       link: "/u/john",
@@ -49,13 +49,13 @@ describe("getProfile", () => {
     });
   });
 
-  test("should return slug as displayName if profile metadata displayName is empty", () => {
-    const profile: any = {
+  test("should return slug as displayName if account metadata displayName is empty", () => {
+    const account: any = {
       handle: { localName: "john" },
       id: "123",
       metadata: { displayName: "" }
     };
-    const result = getProfile(profile);
+    const result = getAccount(account);
     expect(result).toEqual({
       displayName: "john",
       link: "/u/john",
@@ -66,13 +66,13 @@ describe("getProfile", () => {
     });
   });
 
-  test("should return slug as displayName if profile metadata displayName is null", () => {
-    const profile: any = {
+  test("should return slug as displayName if account metadata displayName is null", () => {
+    const account: any = {
       handle: { localName: "john" },
       id: "123",
       metadata: { displayName: null }
     };
-    const result = getProfile(profile);
+    const result = getAccount(account);
     expect(result).toEqual({
       displayName: "john",
       link: "/u/john",
@@ -84,12 +84,12 @@ describe("getProfile", () => {
   });
 
   test("should return id as slug if handle is null", () => {
-    const profile: any = {
+    const account: any = {
       handle: null,
       id: "789",
       metadata: { displayName: "User without handle" }
     };
-    const result = getProfile(profile);
+    const result = getAccount(account);
     expect(result).toEqual({
       displayName: "User without handle",
       link: "/profile/789",
@@ -100,13 +100,13 @@ describe("getProfile", () => {
     });
   });
 
-  test("should return correct sourceLink when source is provided but profile has no handle", () => {
-    const profile: any = {
+  test("should return correct sourceLink when source is provided but account has no handle", () => {
+    const account: any = {
       handle: null,
       id: "456",
       metadata: { displayName: "Jane Smith" }
     };
-    const result = getProfile(profile, "featured");
+    const result = getAccount(account, "featured");
     expect(result).toEqual({
       displayName: "Jane Smith",
       link: "/profile/456",
@@ -117,12 +117,12 @@ describe("getProfile", () => {
     });
   });
 
-  test("should handle profile without metadata field", () => {
-    const profile: any = {
+  test("should handle account without metadata field", () => {
+    const account: any = {
       handle: { localName: "john" },
       id: "123"
     };
-    const result = getProfile(profile);
+    const result = getAccount(account);
     expect(result).toEqual({
       displayName: "john",
       link: "/u/john",

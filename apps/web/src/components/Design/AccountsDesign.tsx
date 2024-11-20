@@ -1,5 +1,5 @@
 import SingleAccount from "@components/Shared/SingleAccount";
-import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
+import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import type { Profile } from "@hey/lens";
 import { Card, CardHeader, H5 } from "@hey/ui";
 import type { FC } from "react";
@@ -69,22 +69,22 @@ const AccountsDesign: FC = () => {
         </div>
         <div className="space-y-3">
           <H5>Small Profile</H5>
-          <SmallSingleProfile profile={profile as Profile} />
+          <SmallSingleAccount profile={profile as Profile} />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with Slug</H5>
-          <SmallSingleProfile hideSlug profile={profile as Profile} />
+          <SmallSingleAccount hideSlug profile={profile as Profile} />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with timestamp</H5>
-          <SmallSingleProfile
+          <SmallSingleAccount
             profile={profile as Profile}
             timestamp={new Date("2024-06-29T19:16:26.062Z")}
           />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with small avatar</H5>
-          <SmallSingleProfile profile={profile as Profile} smallAvatar />
+          <SmallSingleAccount profile={profile as Profile} smallAvatar />
         </div>
       </div>
     </Card>

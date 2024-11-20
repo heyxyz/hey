@@ -24,7 +24,7 @@ const Accounts: FC<AccountsProps> = ({ listId, name }) => {
 
   const getListProfiles = async (): Promise<string[]> => {
     try {
-      const { data } = await axios.get(`${HEY_API_URL}/lists/profiles`, {
+      const { data } = await axios.get(`${HEY_API_URL}/lists/accounts`, {
         params: { id: listId }
       });
 

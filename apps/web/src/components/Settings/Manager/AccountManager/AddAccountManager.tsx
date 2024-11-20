@@ -1,4 +1,4 @@
-import SearchProfiles from "@components/Shared/SearchProfiles";
+import SearchAccounts from "@components/Shared/SearchAccounts";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
@@ -23,11 +23,11 @@ import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { isAddress } from "viem";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
-interface AddProfileManagerProps {
+interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddProfileManager: FC<AddProfileManagerProps> = ({
+const AddAccountManager: FC<AddAccountManagerProps> = ({
   setShowAddManagerModal
 }) => {
   const { currentProfile } = useProfileStore();
@@ -159,7 +159,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
 
   return (
     <div className="space-y-4 p-5">
-      <SearchProfiles
+      <SearchAccounts
         error={manager.length > 0 && !isAddress(manager)}
         hideDropdown={isAddress(manager)}
         onChange={(event) => setManager(event.target.value)}
@@ -181,4 +181,4 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   );
 };
 
-export default AddProfileManager;
+export default AddAccountManager;

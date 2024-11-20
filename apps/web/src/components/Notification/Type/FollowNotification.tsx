@@ -1,5 +1,5 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { FollowNotification as TFollowNotification } from "@hey/lens";
 import plur from "plur";
 import type { FC } from "react";
@@ -38,7 +38,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstProfile={firstProfile}
-          linkToType={getProfile(currentProfile).link}
+          linkToType={getAccount(currentProfile).link}
           text={text}
           type={type}
         />

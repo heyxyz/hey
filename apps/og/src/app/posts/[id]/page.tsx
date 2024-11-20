@@ -1,8 +1,8 @@
 import getCollectModuleMetadata from "@helpers/getCollectModuleMetadata";
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
+import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
-import getProfile from "@hey/helpers/getProfile";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
@@ -40,12 +40,12 @@ export const generateMetadata = async ({
 
   const post = result.data.publication as AnyPublication;
   const targetPost = isRepost(post) ? post.mirrorOn : post;
-  const { by: profile, metadata } = targetPost;
+  const { by: account, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
-  const { displayName, link, slugWithPrefix } = getProfile(profile);
+  const { displayName, link, slugWithPrefix } = getAccount(account);
   const title = `${targetPost.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 

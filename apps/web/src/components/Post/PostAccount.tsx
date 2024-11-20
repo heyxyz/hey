@@ -2,7 +2,7 @@ import Source from "@components/Post/Source";
 import Misuse from "@components/Shared/Profile/Icons/Misuse";
 import Verified from "@components/Shared/Profile/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
@@ -29,7 +29,7 @@ const PostAccount: FC<PostAccountProps> = ({
   const WrappedLink = ({ children }: { children: ReactNode }) => (
     <Link
       className="outline-none hover:underline focus:underline"
-      href={getProfile(profile).link}
+      href={getAccount(profile).link}
     >
       <AccountPreview
         handle={profile.handle?.fullHandle}
@@ -44,10 +44,10 @@ const PostAccount: FC<PostAccountProps> = ({
   return (
     <div className="flex flex-wrap items-center gap-x-1">
       <WrappedLink>
-        <span className="font-semibold">{getProfile(profile).displayName}</span>
+        <span className="font-semibold">{getAccount(profile).displayName}</span>
       </WrappedLink>
       <WrappedLink>
-        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
       </WrappedLink>
       <Verified id={profile.id} iconClassName="size-4" />
       <Misuse id={profile.id} iconClassName="size-4" />
