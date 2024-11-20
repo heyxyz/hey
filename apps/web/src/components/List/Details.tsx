@@ -61,7 +61,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
       <div className="mt-5 flex gap-8">
         <Link
           className="text-left outline-offset-4"
-          href={`/lists/${list.id}/profiles`}
+          href={`/lists/${list.id}/accounts`}
         >
           <H4>{humanize(list.totalProfiles)}</H4>
           <div className="ld-text-gray-500">

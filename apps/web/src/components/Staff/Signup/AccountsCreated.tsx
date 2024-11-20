@@ -4,7 +4,7 @@ import { NumberedStat } from "@hey/ui";
 import type { FC } from "react";
 import { useReadContract } from "wagmi";
 
-const ProfilesCreated: FC = () => {
+const AccountsCreated: FC = () => {
   const { data: totalProfilesCreated } = useReadContract({
     abi: HeyLensSignup,
     address: HEY_LENS_SIGNUP,
@@ -21,4 +21,4 @@ const ProfilesCreated: FC = () => {
   );
 };
 
-export default ProfilesCreated;
+export default AccountsCreated;

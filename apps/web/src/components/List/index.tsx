@@ -24,7 +24,7 @@ const ViewList: NextPage = () => {
     query: { id }
   } = useRouter();
   const { currentProfile } = useProfileStore();
-  const showProfiles = pathname === "/lists/[id]/profiles";
+  const showProfiles = pathname === "/lists/[id]/accounts";
 
   useEffect(() => {
     if (isReady) {
