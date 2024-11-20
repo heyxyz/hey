@@ -58,7 +58,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ profile }) => {
       );
       Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
         permission: key,
-        profile_id: profile.id
+        account_id: profile.id
       });
     } catch (error) {
       errorToast(error);

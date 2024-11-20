@@ -21,7 +21,7 @@ const ViewReports: FC<ViewReportsProps> = ({ id }) => {
         size="md"
         title="Reports"
       >
-        <Reports profileId={id} />
+        <Reports accountId={id} />
       </Modal>
     </>
   );

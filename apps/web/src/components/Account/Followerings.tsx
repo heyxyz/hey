@@ -10,13 +10,13 @@ import plur from "plur";
 import { type FC, useState } from "react";
 
 interface FolloweringsProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const Followerings: FC<FolloweringsProps> = ({ profile }) => {
+const Followerings: FC<FolloweringsProps> = ({ account }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const { followers, following } = profile.stats;
+  const { followers, following } = account.stats;
 
   return (
     <div className="flex gap-8">
@@ -45,7 +45,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         title="Following"
         size="md"
       >
-        <Following handle={getAccount(profile).slug} profileId={profile.id} />
+        <Following handle={getAccount(account).slug} accountId={account.id} />
       </Modal>
       <Modal
         onClose={() => {
@@ -56,7 +56,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         title="Followers"
         size="md"
       >
-        <Followers handle={getAccount(profile).slug} profileId={profile.id} />
+        <Followers handle={getAccount(account).slug} accountId={account.id} />
       </Modal>
     </div>
   );

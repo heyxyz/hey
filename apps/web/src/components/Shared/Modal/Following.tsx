@@ -11,18 +11,18 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface FollowingProps {
   handle: string;
-  profileId: string;
+  accountId: string;
 }
 
-const Following: FC<FollowingProps> = ({ handle, profileId }) => {
+const Following: FC<FollowingProps> = ({ handle, accountId }) => {
   const request: FollowingRequest = {
-    for: profileId,
+    for: accountId,
     limit: LimitType.TwentyFive
   };
   const { currentAccount } = useAccountStore();
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
-    skip: !profileId,
+    skip: !accountId,
     variables: { request }
   });
 

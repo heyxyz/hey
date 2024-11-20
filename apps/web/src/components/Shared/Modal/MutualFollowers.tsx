@@ -10,23 +10,23 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MutualFollowersListProps {
   handle: string;
-  profileId: string;
+  accountId: string;
 }
 
 const MutualFollowers: FC<MutualFollowersListProps> = ({
   handle,
-  profileId
+  accountId
 }) => {
   const { currentAccount } = useAccountStore();
 
   const request: MutualFollowersRequest = {
     limit: LimitType.TwentyFive,
     observer: currentAccount?.id,
-    viewing: profileId
+    viewing: accountId
   };
 
   const { data, error, fetchMore, loading } = useMutualFollowersQuery({
-    skip: !profileId,
+    skip: !accountId,
     variables: { request }
   });
 

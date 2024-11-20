@@ -6,10 +6,10 @@ import UpdatePermissions from "./UpdatePermissions";
 
 interface PermissionsProps {
   permissions: string[];
-  profileId: string;
+  accountId: string;
 }
 
-const Permissions: FC<PermissionsProps> = ({ permissions, profileId }) => {
+const Permissions: FC<PermissionsProps> = ({ permissions, accountId }) => {
   const [keys, setKeys] = useState<string[]>([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Permissions: FC<PermissionsProps> = ({ permissions, profileId }) => {
       <div className="mt-3">
         <UpdatePermissions
           permissions={keys}
-          profileId={profileId}
+          accountId={accountId}
           setPermissions={setKeys}
         />
       </div>

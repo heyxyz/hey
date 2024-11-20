@@ -18,10 +18,10 @@ const GET_RANK_QUERY_KEY = "getRank";
 interface RankProps {
   handle?: string;
   lensClassifierScore: number;
-  profileId: string;
+  accountId: string;
 }
 
-const Rank: FC<RankProps> = ({ handle, lensClassifierScore, profileId }) => {
+const Rank: FC<RankProps> = ({ handle, lensClassifierScore, accountId }) => {
   const getRank = async (strategy: string) => {
     try {
       const { data } = await axios.get(
@@ -36,22 +36,22 @@ const Rank: FC<RankProps> = ({ handle, lensClassifierScore, profileId }) => {
 
   const { data: followship, isLoading: followshipLoading } = useQuery({
     queryFn: async () => await getRank("followship"),
-    queryKey: [GET_RANK_QUERY_KEY, profileId, "followship"]
+    queryKey: [GET_RANK_QUERY_KEY, accountId, "followship"]
   });
 
   const { data: engagement, isLoading: engagementLoading } = useQuery({
     queryFn: async () => await getRank("engagement"),
-    queryKey: [GET_RANK_QUERY_KEY, profileId, "engagement"]
+    queryKey: [GET_RANK_QUERY_KEY, accountId, "engagement"]
   });
 
   const { data: influencer, isLoading: influencerLoading } = useQuery({
     queryFn: async () => await getRank("influencer"),
-    queryKey: [GET_RANK_QUERY_KEY, profileId, "influencer"]
+    queryKey: [GET_RANK_QUERY_KEY, accountId, "influencer"]
   });
 
   const { data: creator, isLoading: creatorLoading } = useQuery({
     queryFn: async () => await getRank("creator"),
-    queryKey: [GET_RANK_QUERY_KEY, profileId, "creator"]
+    queryKey: [GET_RANK_QUERY_KEY, accountId, "creator"]
   });
 
   return (

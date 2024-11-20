@@ -25,7 +25,7 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 interface AccountFeedProps {
   handle: string;
   profileDetailsLoading: boolean;
-  profileId: string;
+  accountId: string;
   type:
     | AccountFeedType.Collects
     | AccountFeedType.Feed
@@ -36,7 +36,7 @@ interface AccountFeedProps {
 const AccountFeed: FC<AccountFeedProps> = ({
   handle,
   profileDetailsLoading,
-  profileId,
+  accountId,
   type
 }) => {
   const { currentAccount } = useAccountStore();
@@ -48,7 +48,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
 
   useEffect(() => {
     virtuosoState = { ranges: [], screenTop: 0 };
-  }, [profileId, handle]);
+  }, [accountId, handle]);
 
   const getMediaFilters = () => {
     const filters: PublicationMetadataMainFocusType[] = [];
@@ -90,8 +90,8 @@ const AccountFeed: FC<AccountFeedProps> = ({
       metadata,
       publicationTypes,
       ...(type !== AccountFeedType.Collects
-        ? { from: [profileId] }
-        : { actedBy: profileId })
+        ? { from: [accountId] }
+        : { actedBy: accountId })
     }
   };
 
@@ -104,7 +104,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
-    skip: !profileId,
+    skip: !accountId,
     variables: { request }
   });
 
@@ -113,7 +113,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const hasMore = pageInfo?.next;
 
   useEffect(() => {
-    if (indexedPostHash && currentAccount?.id === profileId) {
+    if (indexedPostHash && currentAccount?.id === accountId) {
       refetch();
     }
   }, [indexedPostHash]);

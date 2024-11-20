@@ -32,9 +32,7 @@ const CopyID: FC<CopyIDProps> = ({ id }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(id);
         toast.success("ID copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_ID, {
-          profile_id: id
-        });
+        Leafwatch.track(PROFILE.COPY_PROFILE_ID, { account_id: id });
       }}
     >
       <HashtagIcon className="size-4" />

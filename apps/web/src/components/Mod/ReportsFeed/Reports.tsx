@@ -9,13 +9,13 @@ import { Virtuoso } from "react-virtuoso";
 import ReportDetails from "./ReportDetails";
 
 interface ReportsProps {
-  profileId?: string;
+  accountId?: string;
   postId?: string;
 }
 
-const Reports: FC<ReportsProps> = ({ profileId, postId }) => {
+const Reports: FC<ReportsProps> = ({ accountId, postId }) => {
   const request: ModReportsRequest = {
-    ...(profileId && { forProfile: profileId }),
+    ...(accountId && { forProfile: accountId }),
     ...(postId && { forPublication: postId }),
     limit: LimitType.Fifty
   };

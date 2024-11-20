@@ -39,12 +39,12 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
       {preferences ? <AccountPreferences preferences={preferences} /> : null}
       {IS_MAINNET ? (
         <>
-          <LeafwatchDetails profileId={profile.id} />
+          <LeafwatchDetails accountId={profile.id} />
           <div className="divider my-5 border-yellow-600 border-dashed" />
           <Rank
             handle={profile.handle?.localName}
             lensClassifierScore={profile.stats.lensClassifierScore || 0}
-            profileId={profile.id}
+            accountId={profile.id}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
@@ -53,7 +53,7 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
         <>
           <Permissions
             permissions={preferences.permissions || []}
-            profileId={profile.id}
+            accountId={profile.id}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>

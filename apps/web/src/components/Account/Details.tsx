@@ -117,8 +117,8 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <ScamWarning profileId={profile.id} />
-        <Followerings profile={profile} />
+        <ScamWarning accountId={profile.id} />
+        <Followerings account={profile} />
         <div className="flex items-center space-x-2">
           {currentAccount?.id === profile.id ? (
             <>
@@ -145,7 +145,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         {currentAccount?.id !== profile.id ? (
           <MutualFollowersOverview
             handle={getAccount(profile).slug}
-            profileId={profile.id}
+            accountId={profile.id}
           />
         ) : null}
         <div className="divider w-full" />

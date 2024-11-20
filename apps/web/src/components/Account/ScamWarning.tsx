@@ -5,11 +5,11 @@ import { Card } from "@hey/ui";
 import type { FC } from "react";
 
 interface ScamWarningProps {
-  profileId: string;
+  accountId: string;
 }
 
-const ScamWarning: FC<ScamWarningProps> = ({ profileId }) => {
-  const misuseDetails = getMisuseDetails(profileId);
+const ScamWarning: FC<ScamWarningProps> = ({ accountId }) => {
+  const misuseDetails = getMisuseDetails(accountId);
 
   if (!misuseDetails) {
     return null;

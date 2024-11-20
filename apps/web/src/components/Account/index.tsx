@@ -153,7 +153,7 @@ const ViewProfile: NextPage = () => {
                 <AccountFeed
                   handle={getAccount(profile).slugWithPrefix}
                   profileDetailsLoading={profileDetailsLoading}
-                  profileId={profile.id}
+                  accountId={profile.id}
                   type={feedType}
                 />
               ) : feedType === AccountFeedType.Lists ? (

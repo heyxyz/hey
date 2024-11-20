@@ -12,13 +12,13 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MutualFollowersOverviewProps {
   handle: string;
-  profileId: string;
+  accountId: string;
   viaPopover?: boolean;
 }
 
 const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   handle,
-  profileId,
+  accountId,
   viaPopover = false
 }) => {
   const { currentAccount } = useAccountStore();
@@ -26,12 +26,12 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
     useState(false);
 
   const { data, error, loading } = useMutualFollowersQuery({
-    skip: !profileId || !currentAccount?.id,
+    skip: !accountId || !currentAccount?.id,
     variables: {
       request: {
         limit: LimitType.Ten,
         observer: currentAccount?.id,
-        viewing: profileId
+        viewing: accountId
       }
     }
   });
@@ -65,7 +65,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
         title="Mutual Followers"
         size="md"
       >
-        <MutualFollowers handle={handle} profileId={profileId} />
+        <MutualFollowers handle={handle} accountId={accountId} />
       </Modal>
     </button>
   );
