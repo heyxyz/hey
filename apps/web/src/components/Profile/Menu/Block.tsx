@@ -1,6 +1,6 @@
 import { MenuItem } from "@headlessui/react";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
@@ -32,7 +32,7 @@ const Block: FC<BlockProps> = ({ profile }) => {
       <NoSymbolIcon className="size-4" />
       <div>
         {isBlockedByMe ? "Unblock" : "Block"}{" "}
-        {getProfile(profile).slugWithPrefix}
+        {getAccount(profile).slugWithPrefix}
       </div>
     </MenuItem>
   );

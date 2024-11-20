@@ -1,6 +1,6 @@
 import Slug from "@components/Shared/Slug";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import { H3, Image } from "@hey/ui";
 import type { FC } from "react";
@@ -10,7 +10,7 @@ interface SuspendedDetailsProps {
 }
 
 const SuspendedDetails: FC<SuspendedDetailsProps> = ({ profile }) => {
-  const profileData = getProfile(profile);
+  const profileData = getAccount(profile);
 
   return (
     <div className="space-y-5 px-5 sm:px-0">

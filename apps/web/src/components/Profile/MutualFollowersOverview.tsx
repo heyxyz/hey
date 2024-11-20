@@ -1,8 +1,8 @@
 import MutualFollowers from "@components/Shared/Modal/MutualFollowers";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PROFILE } from "@hey/data/tracking";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { LimitType, useMutualFollowersQuery } from "@hey/lens";
 import { Modal, StackedAvatars } from "@hey/ui";
@@ -81,7 +81,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   if (profiles?.length === 1) {
     return (
       <Wrapper>
-        <span>{getProfile(profileOne).displayName}</span>
+        <span>{getAccount(profileOne).displayName}</span>
       </Wrapper>
     );
   }
@@ -89,8 +89,8 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <span>{getProfile(profileOne).displayName} and </span>
-        <span>{getProfile(profileTwo).displayName}</span>
+        <span>{getAccount(profileOne).displayName} and </span>
+        <span>{getAccount(profileTwo).displayName}</span>
       </Wrapper>
     );
   }
@@ -101,12 +101,12 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
 
     return (
       <Wrapper>
-        <span>{getProfile(profileOne).displayName}, </span>
+        <span>{getAccount(profileOne).displayName}, </span>
         <span>
-          {getProfile(profileTwo).displayName}
+          {getAccount(profileTwo).displayName}
           {isZero ? " and " : ", "}
         </span>
-        <span>{getProfile(profileThree).displayName} </span>
+        <span>{getAccount(profileThree).displayName} </span>
         {isZero ? null : (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? "other" : "others"}
@@ -118,9 +118,9 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
 
   return (
     <Wrapper>
-      <span>{getProfile(profileOne).displayName}, </span>
-      <span>{getProfile(profileTwo).displayName}, </span>
-      <span>{getProfile(profileThree).displayName} </span>
+      <span>{getAccount(profileOne).displayName}, </span>
+      <span>{getAccount(profileTwo).displayName}, </span>
+      <span>{getAccount(profileThree).displayName} </span>
       <span>and others</span>
     </Wrapper>
   );

@@ -10,8 +10,8 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW, ProfileLinkSource } from "@hey/data/tracking";
+import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
-import getProfile from "@hey/helpers/getProfile";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
 import {
@@ -109,10 +109,10 @@ const ViewPost: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        creator={getProfile(targetPost.by).displayName}
+        creator={getAccount(targetPost.by).displayName}
         description={getPostData(targetPost.metadata)?.content}
         title={`${targetPost.__typename} by ${
-          getProfile(targetPost.by).slugWithPrefix
+          getAccount(targetPost.by).slugWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">

@@ -10,8 +10,8 @@ import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
+import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
-import getProfile from "@hey/helpers/getProfile";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
 import type {
   MirrorablePublication,
@@ -323,7 +323,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         postContent.length > 0 ? postContent : undefined;
       const title = hasAudio
         ? audioPost.title
-        : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
+        : `${getTitlePrefix()} by ${getAccount(currentProfile).slugWithPrefix}`;
       const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
@@ -345,7 +345,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         marketplace: {
           animation_url: getAnimationUrl(),
           description: processedPostContent,
-          external_url: `https://hey.xyz${getProfile(currentProfile).link}`,
+          external_url: `https://hey.xyz${getAccount(currentProfile).link}`,
           name: title
         }
       };

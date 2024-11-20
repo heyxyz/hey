@@ -5,7 +5,7 @@ import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
-import sendEmailToProfile from "src/helpers/email/sendEmailToProfile";
+import sendEmailToAccount from "src/helpers/email/sendEmailToAccount";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
@@ -28,7 +28,7 @@ export const postUpdateTasks = async (
 
   if (permissionId === PermissionId.StaffPick) {
     if (enabled) {
-      sendEmailToProfile({
+      sendEmailToAccount({
         id: profileId,
         subject: `Your account on ${APP_NAME} has been Staff Picked!`,
         body: `
@@ -50,7 +50,7 @@ export const postUpdateTasks = async (
 
   if (permissionId === PermissionId.Verified) {
     if (enabled) {
-      sendEmailToProfile({
+      sendEmailToAccount({
         id: profileId,
         subject: `Your account on ${APP_NAME} has been verified!`,
         body: `

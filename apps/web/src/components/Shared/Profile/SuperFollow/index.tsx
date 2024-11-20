@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { PROFILE } from "@hey/data/tracking";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
 import type { FC } from "react";
@@ -50,7 +50,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         show={showFollowModal}
         title={
           <span>
-            Super follow <Slug slug={getProfile(profile).slugWithPrefix} />
+            Super follow <Slug slug={getAccount(profile).slugWithPrefix} />
           </span>
         }
       >

@@ -6,7 +6,7 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { PROFILE } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import getSignature from "@hey/helpers/getSignature";
 import type { BlockRequest, UnblockRequest } from "@hey/lens";
 import {
@@ -215,7 +215,7 @@ const BlockOrUnBlockProfile: FC = () => {
       confirmText={hasBlocked ? "Unblock" : "Block"}
       description={`Are you sure you want to ${
         hasBlocked ? "un-block" : "block"
-      } ${getProfile(blockingorUnblockingProfile).slugWithPrefix}?`}
+      } ${getAccount(blockingorUnblockingProfile).slugWithPrefix}?`}
       isDestructive
       isPerformingAction={isLoading}
       onClose={() => setShowBlockOrUnblockAlert(false, null)}

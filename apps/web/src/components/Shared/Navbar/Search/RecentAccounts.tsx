@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
@@ -60,7 +60,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               key={profile.id}
               onClick={() => {
                 addToRecentProfiles(profile.id);
-                push(getProfile(profile as Profile).link);
+                push(getAccount(profile as Profile).link);
                 onAccountClick();
               }}
             >

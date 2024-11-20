@@ -1,7 +1,7 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type {
   ExploreProfilesRequest,
   Profile,
@@ -128,8 +128,8 @@ const List: FC = () => {
                 <Link
                   href={
                     pathname === "/mod"
-                      ? getProfile(profile as Profile).link
-                      : getProfile(profile as Profile).staffLink
+                      ? getAccount(profile as Profile).link
+                      : getAccount(profile as Profile).staffLink
                   }
                 >
                   <SingleAccount

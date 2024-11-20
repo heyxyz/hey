@@ -1,6 +1,6 @@
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPublication, FeedItem } from "@hey/lens";
@@ -30,7 +30,7 @@ const PostAvatar: FC<PostAvatarProps> = ({
   return (
     <Link
       className="contents"
-      href={getProfile(profile).link}
+      href={getAccount(profile).link}
       onClick={stopEventPropagation}
     >
       <Image
@@ -41,7 +41,7 @@ const PostAvatar: FC<PostAvatarProps> = ({
         )}
         height={quoted ? 25 : 44}
         loading="lazy"
-        onClick={() => push(getProfile(profile).link)}
+        onClick={() => push(getAccount(profile).link)}
         onError={({ currentTarget }) => {
           currentTarget.src = getLennyURL(profile.id);
         }}

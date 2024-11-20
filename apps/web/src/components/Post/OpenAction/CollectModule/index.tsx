@@ -19,7 +19,7 @@ import {
 import { POST } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
@@ -129,7 +129,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
         <div className="mb-4">
           <H4>
             {targetPost.__typename} by{" "}
-            <Slug slug={getProfile(targetPost.by).slugWithPrefix} />
+            <Slug slug={getAccount(targetPost.by).slugWithPrefix} />
           </H4>
         </div>
         {amount ? (

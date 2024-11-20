@@ -9,7 +9,7 @@ import {
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
 import getLists, { GET_LISTS_QUERY_KEY } from "@hey/helpers/api/lists/getLists";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import type { List } from "@hey/types/hey";
 import {
@@ -108,7 +108,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
-        <H5>{getProfile(profile).slugWithPrefix}'s Lists</H5>
+        <H5>{getAccount(profile).slugWithPrefix}'s Lists</H5>
         {profile.id === currentProfile?.id && (
           <Button onClick={() => setShowCreateModal(!showCreateModal)}>
             Create

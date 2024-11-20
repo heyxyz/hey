@@ -1,4 +1,4 @@
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -20,7 +20,7 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
     return null;
   }
 
-  const { displayName, link, slugWithPrefix } = getProfile(profile);
+  const { displayName, link, slugWithPrefix } = getAccount(profile);
   const profileName = profile?.metadata?.displayName || (
     <Slug slug={slugWithPrefix} />
   );

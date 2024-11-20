@@ -1,8 +1,8 @@
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import getProfile from "@hey/helpers/getProfile";
 import humanize from "@hey/helpers/humanize";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
@@ -64,14 +64,14 @@ const SingleAccount: FC<SingleAccountProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? "font-bold" : "text-md", "grid")}>
           <div className="truncate font-semibold">
-            {getProfile(profile).displayName}
+            {getAccount(profile).displayName}
           </div>
         </div>
         <Verified id={profile.id} iconClassName="ml-1 size-4" />
         <Misuse id={profile.id} iconClassName="ml-1 size-4" />
       </div>
       <div>
-        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
         {timestamp && (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>
@@ -125,8 +125,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
     <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link
-          as={getProfile(profile).link}
-          href={getProfile(profile, source).sourceLink}
+          as={getAccount(profile).link}
+          href={getAccount(profile, source).sourceLink}
         >
           <AccountInfo />
         </Link>

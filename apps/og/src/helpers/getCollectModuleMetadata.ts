@@ -1,7 +1,7 @@
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { MirrorablePublication } from "@hey/lens";
 
 const getCollectModuleMetadata = (post: MirrorablePublication) => {
@@ -22,7 +22,7 @@ const getCollectModuleMetadata = (post: MirrorablePublication) => {
     return;
   }
 
-  const { slugWithPrefix } = getProfile(post.by);
+  const { slugWithPrefix } = getAccount(post.by);
 
   return {
     "eth:nft:chain": "polygon",
