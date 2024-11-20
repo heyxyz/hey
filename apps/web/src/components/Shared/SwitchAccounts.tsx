@@ -29,7 +29,7 @@ import { useAccount, useSignMessage } from "wagmi";
 import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
-const SwitchProfiles: FC = () => {
+const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
   const { currentProfile } = useProfileStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -165,4 +165,4 @@ const SwitchProfiles: FC = () => {
   );
 };
 
-export default SwitchProfiles;
+export default SwitchAccounts;
