@@ -123,7 +123,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                     <SingleAccount
                       hideFollowButton
                       hideUnfollowButton
-                      linkToProfile={false}
+                      linkToAccount={false}
                       account={account}
                       showUserPreview={false}
                       source={ProfileLinkSource.Search}

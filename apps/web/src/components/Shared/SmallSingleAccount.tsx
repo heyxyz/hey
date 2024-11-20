@@ -14,7 +14,7 @@ import Slug from "./Slug";
 
 interface SmallSingleAccountProps {
   hideSlug?: boolean;
-  linkToProfile?: boolean;
+  linkToAccount?: boolean;
   account: Profile;
   smallAvatar?: boolean;
   timestamp?: Date;
@@ -22,7 +22,7 @@ interface SmallSingleAccountProps {
 
 const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
   hideSlug = false,
-  linkToProfile = false,
+  linkToAccount = false,
   account,
   smallAvatar = false,
   timestamp = ""
@@ -70,7 +70,7 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
     </div>
   );
 
-  return linkToProfile ? (
+  return linkToAccount ? (
     <Link href={getAccount(account).link}>
       <AccountInfo />
     </Link>

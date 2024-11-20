@@ -140,7 +140,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
                   <SingleAccount
                     hideFollowButton
                     hideUnfollowButton
-                    linkToProfile={false}
+                    linkToAccount={false}
                     account={profile as Profile}
                     showUserPreview={false}
                   />

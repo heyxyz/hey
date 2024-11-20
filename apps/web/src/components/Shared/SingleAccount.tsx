@@ -21,7 +21,7 @@ interface SingleAccountProps {
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
   isBig?: boolean;
-  linkToProfile?: boolean;
+  linkToAccount?: boolean;
   account: Profile;
   showBio?: boolean;
   showId?: boolean;
@@ -34,7 +34,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
   isBig = false,
-  linkToProfile = true,
+  linkToAccount = true,
   account,
   showBio = false,
   showId = false,
@@ -123,7 +123,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
 
   return (
     <div className="flex items-center justify-between">
-      {linkToProfile && account.id ? (
+      {linkToAccount && account.id ? (
         <Link
           as={getAccount(account).link}
           href={getAccount(account, source).sourceLink}

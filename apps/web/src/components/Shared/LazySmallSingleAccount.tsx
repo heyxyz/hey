@@ -7,13 +7,13 @@ import SmallSingleAccount from "./SmallSingleAccount";
 interface LazySmallSingleAccountProps {
   hideSlug?: boolean;
   id: string;
-  linkToProfile?: boolean;
+  linkToAccount?: boolean;
 }
 
 const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
   hideSlug = false,
   id,
-  linkToProfile = false
+  linkToAccount = false
 }) => {
   const { data, loading } = useProfileQuery({
     variables: { request: { forProfileId: id } }
@@ -30,7 +30,7 @@ const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
   return (
     <SmallSingleAccount
       hideSlug={hideSlug}
-      linkToProfile={linkToProfile}
+      linkToAccount={linkToAccount}
       account={data.profile as Profile}
       smallAvatar
     />

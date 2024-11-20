@@ -30,7 +30,7 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
         hideFollowButton
         hideUnfollowButton
         isBig
-        linkToProfile
+        linkToAccount
         account={account}
         showBio
         showUserPreview={false}
