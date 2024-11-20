@@ -61,7 +61,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -120,7 +120,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         <ScamWarning profileId={profile.id} />
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
-          {currentProfile?.id === profile.id ? (
+          {currentAccount?.id === profile.id ? (
             <>
               <Button
                 icon={<Cog6ToothIcon className="size-5" />}
@@ -142,7 +142,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           ) : null}
           <AccountMenu profile={profile} />
         </div>
-        {currentProfile?.id !== profile.id ? (
+        {currentAccount?.id !== profile.id ? (
           <MutualFollowersOverview
             handle={getAccount(profile).slug}
             profileId={profile.id}

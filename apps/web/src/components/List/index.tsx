@@ -23,7 +23,7 @@ const ViewList: NextPage = () => {
     pathname,
     query: { id }
   } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const showProfiles = pathname === "/lists/[id]/accounts";
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ViewList: NextPage = () => {
     isLoading: listLoading
   } = useQuery({
     enabled: Boolean(id),
-    queryFn: () => getList({ id: id as string, viewingId: currentProfile?.id }),
+    queryFn: () => getList({ id: id as string, viewingId: currentAccount?.id }),
     queryKey: [GET_LIST_QUERY_KEY, id]
   });
 

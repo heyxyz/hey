@@ -18,7 +18,7 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ profile }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   return (
     <Menu as="div" className="relative">
@@ -40,7 +40,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ profile }) => {
           <CopyLink profile={profile} />
           <CopyAddress address={profile.ownedBy.address} />
           <CopyID id={profile.id} />
-          {currentProfile && currentProfile?.id !== profile.id ? (
+          {currentAccount && currentAccount?.id !== profile.id ? (
             <>
               <AddToList profile={profile} />
               <Block profile={profile} />

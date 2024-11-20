@@ -23,11 +23,11 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
 
 const HandleGuardianSettings: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
-  const isProtected = currentProfile?.handle?.guardian?.protected;
+  const isProtected = currentAccount?.handle?.guardian?.protected;
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -52,7 +52,7 @@ const HandleGuardianSettings: FC = () => {
   };
 
   const handleDisable = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

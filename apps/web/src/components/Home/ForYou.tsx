@@ -14,13 +14,13 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const ForYou: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
   const request: PublicationForYouRequest = {
-    for: currentProfile?.id,
+    for: currentAccount?.id,
     limit: LimitType.TwentyFive
   };
 

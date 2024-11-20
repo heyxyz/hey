@@ -9,14 +9,14 @@ import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Posts: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [posts, setPosts] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
-    where: { from: currentProfile?.id }
+    where: { from: currentAccount?.id }
   };
 
   const [exportPublications] = usePublicationsLazyQuery({

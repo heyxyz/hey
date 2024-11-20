@@ -5,18 +5,18 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  currentProfile: null | Profile;
+  currentAccount: null | Profile;
   fallbackToCuratedFeed: boolean;
-  setCurrentProfile: (currentProfile: null | Profile) => void;
+  setCurrentAccount: (currentAccount: null | Profile) => void;
   setFallbackToCuratedFeed: (fallbackToCuratedFeed: boolean) => void;
 }
 
 const store = create(
   persist<State>(
     (set) => ({
-      currentProfile: null,
+      currentAccount: null,
       fallbackToCuratedFeed: false,
-      setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
+      setCurrentAccount: (currentAccount) => set(() => ({ currentAccount })),
       setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
         set(() => ({ fallbackToCuratedFeed }))
     }),

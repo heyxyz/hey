@@ -14,14 +14,14 @@ import NftRevenue from "./NftRevenue";
 import SignupRevenue from "./SignupRevenue";
 
 const Revenue: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "staff-tools", subpage: "revenue" });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

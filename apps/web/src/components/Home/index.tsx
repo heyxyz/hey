@@ -17,14 +17,14 @@ import Sidebar from "./Sidebar";
 import Timeline from "./Timeline";
 
 const Home: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { feedType, pinnedList } = useHomeTabStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "home" });
   }, []);
 
-  const loggedInWithProfile = Boolean(currentProfile);
+  const loggedInWithProfile = Boolean(currentAccount);
 
   return (
     <>

@@ -16,7 +16,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SingleList from "../SingleList";
 
 const AddToList: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { profileToAddToList } = useGlobalModalStateStore();
   const [isAdding, setIsAdding] = useState(false);
   const [addingListId, setAddingListId] = useState<string | null>(null);
@@ -25,7 +25,7 @@ const AddToList: FC = () => {
   const { data, isLoading, error } = useQuery({
     queryFn: () =>
       getLists({
-        ownerId: currentProfile?.id,
+        ownerId: currentAccount?.id,
         viewingId: profileToAddToList?.id
       }),
     queryKey: [GET_LISTS_QUERY_KEY, profileToAddToList?.id]
@@ -42,7 +42,7 @@ const AddToList: FC = () => {
         message={
           <div>
             <span className="mr-1 font-bold">
-              {getAccount(currentProfile).slugWithPrefix}
+              {getAccount(currentAccount).slugWithPrefix}
             </span>
             <span>doesn't have any lists yet.</span>
           </div>

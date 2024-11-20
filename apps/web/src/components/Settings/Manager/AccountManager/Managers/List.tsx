@@ -30,7 +30,7 @@ import type { Address } from "viem";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const List: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
@@ -38,7 +38,7 @@ const List: FC = () => {
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -60,7 +60,7 @@ const List: FC = () => {
     setRemovingAddress(null);
   };
 
-  const request: ProfileManagersRequest = { for: currentProfile?.id };
+  const request: ProfileManagersRequest = { for: currentAccount?.id };
   const { data, error, fetchMore, loading } = useProfileManagersQuery({
     variables: { request }
   });

@@ -31,7 +31,7 @@ import Loader from "./Loader";
 
 const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -147,7 +147,7 @@ const SwitchAccounts: FC = () => {
             />
             <div
               className={cn(
-                currentProfile?.id === profile?.id && "font-bold",
+                currentAccount?.id === profile?.id && "font-bold",
                 "truncate"
               )}
             >
@@ -156,7 +156,7 @@ const SwitchAccounts: FC = () => {
           </span>
           {isLoading && profile.id === loggingInProfileId ? (
             <Spinner size="xs" />
-          ) : currentProfile?.id === profile?.id ? (
+          ) : currentAccount?.id === profile?.id ? (
             <CheckCircleIcon className="size-5 text-green-500" />
           ) : null}
         </button>

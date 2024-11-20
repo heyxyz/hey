@@ -15,15 +15,15 @@ import DeleteSettings from "./Delete";
 import HandleGuardianSettings from "./HandleGuardian";
 
 const DangerSettings: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const disabled = currentProfile?.ownedBy.address !== address;
+  const disabled = currentAccount?.ownedBy.address !== address;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "danger" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

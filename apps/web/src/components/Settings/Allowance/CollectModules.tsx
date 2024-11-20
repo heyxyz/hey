@@ -21,7 +21,7 @@ const getAllowancePayload = (currency: string) => {
 };
 
 const CollectModules: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
@@ -31,7 +31,7 @@ const CollectModules: FC = () => {
   const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       fetchPolicy: "no-cache",
-      skip: !currentProfile?.id,
+      skip: !currentAccount?.id,
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
     });
 

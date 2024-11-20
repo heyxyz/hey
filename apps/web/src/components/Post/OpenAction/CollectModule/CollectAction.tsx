@@ -70,7 +70,7 @@ const CollectAction: FC<CollectActionProps> = ({
 }) => {
   const collectModule = getCollectModuleData(openAction as any);
 
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -95,7 +95,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Lens manager
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = collectModule?.collectLimit;

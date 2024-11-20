@@ -22,14 +22,14 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 const MAX_TOPICS_ALLOWED = 12;
 
 const Interests: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { cache } = useApolloClient();
 
   const updateCache = (interests: string[]) => {
     cache.modify({
       fields: { interests: () => interests },
-      id: `Profile:${currentProfile?.id}`
+      id: `Profile:${currentAccount?.id}`
     });
   };
 
@@ -38,7 +38,7 @@ const Interests: FC = () => {
   };
 
   const { data, loading } = useProfileInterestsOptionsQuery({
-    variables: { request: { forProfileId: currentProfile?.id } }
+    variables: { request: { forProfileId: currentAccount?.id } }
   });
   const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),

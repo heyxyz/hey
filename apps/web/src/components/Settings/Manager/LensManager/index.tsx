@@ -6,8 +6,8 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import ToggleLensManager from "./ToggleLensManager";
 
 const LensManager: FC = () => {
-  const { currentProfile } = useAccountStore();
-  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
+  const { currentAccount } = useAccountStore();
+  const { canUseSignless } = checkDispatcherPermissions(currentAccount);
 
   return (
     <Card>

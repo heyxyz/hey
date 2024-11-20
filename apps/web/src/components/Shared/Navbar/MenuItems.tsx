@@ -12,9 +12,9 @@ export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
 );
 
 const MenuItems: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
-  if (currentProfile) {
+  if (currentAccount) {
     return <SignedAccount />;
   }
 

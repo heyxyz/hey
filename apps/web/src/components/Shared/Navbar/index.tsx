@@ -16,7 +16,7 @@ import Search from "./Search";
 import StaffBar from "./StaffBar";
 
 const Navbar: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { appIcon } = usePreferencesStore();
   const [showSearch, setShowSearch] = useState(false);
 
@@ -100,7 +100,7 @@ const Navbar: FC = () => {
             </div>
           </div>
           <Link
-            className={cn("md:hidden", !currentProfile?.id && "ml-[60px]")}
+            className={cn("md:hidden", !currentAccount?.id && "ml-[60px]")}
             href="/"
           >
             <img
@@ -112,7 +112,7 @@ const Navbar: FC = () => {
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentProfile ? (
+            {currentAccount ? (
               <>
                 <ModIcon />
                 <NotificationIcon />

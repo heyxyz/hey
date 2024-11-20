@@ -14,14 +14,14 @@ import HeyStats from "./HeyStats";
 import LensStats from "./LensStats";
 
 const Stats: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "staff-tools", subpage: "stats" });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

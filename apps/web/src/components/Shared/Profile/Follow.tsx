@@ -42,7 +42,7 @@ const Follow: FC<FollowProps> = ({
   title
 }) => {
   const { pathname } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
@@ -54,7 +54,7 @@ const Follow: FC<FollowProps> = ({
   const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticFollow = ({
     txHash,
@@ -187,7 +187,7 @@ const Follow: FC<FollowProps> = ({
   };
 
   const handleCreateFollow = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       setShowAuthModal(true);
       return;
     }

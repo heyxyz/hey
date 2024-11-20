@@ -39,7 +39,7 @@ const ViewProfile: NextPage = () => {
     pathname,
     query: { handle, id, source, type }
   } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -142,7 +142,7 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentProfile?.id === profile?.id &&
+              {currentAccount?.id === profile?.id &&
               feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}

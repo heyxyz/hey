@@ -95,7 +95,7 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
 
   // Global modal store
@@ -151,7 +151,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const createPoll = useCreatePoll();
   const getMetadata = usePostMetadata();
 
-  const { canUseLensManager } = checkDispatcherPermissions(currentProfile);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const isComment = Boolean(post);
   const isQuote = Boolean(quotedPost);
@@ -283,7 +283,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   };
 
   const handleCreatePost = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
@@ -323,7 +323,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         postContent.length > 0 ? postContent : undefined;
       const title = hasAudio
         ? audioPost.title
-        : `${getTitlePrefix()} by ${getAccount(currentProfile).slugWithPrefix}`;
+        : `${getTitlePrefix()} by ${getAccount(currentAccount).slugWithPrefix}`;
       const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
@@ -345,7 +345,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         marketplace: {
           animation_url: getAnimationUrl(),
           description: processedPostContent,
-          external_url: `https://hey.xyz${getAccount(currentProfile).link}`,
+          external_url: `https://hey.xyz${getAccount(currentAccount).link}`,
           name: title
         }
       };

@@ -15,7 +15,7 @@ interface FollowersProps {
 }
 
 const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const request: FollowersRequest = {
     limit: LimitType.TwentyFive,
@@ -77,8 +77,8 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
       itemContent={(_, follower) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentProfile?.id === follower.id}
-            hideUnfollowButton={currentProfile?.id === follower.id}
+            hideFollowButton={currentAccount?.id === follower.id}
+            hideUnfollowButton={currentAccount?.id === follower.id}
             profile={follower as Profile}
             showBio
             showUserPreview={false}

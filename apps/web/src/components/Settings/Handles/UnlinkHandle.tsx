@@ -24,7 +24,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const UnlinkHandle: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
@@ -32,7 +32,7 @@ const UnlinkHandle: FC = () => {
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -121,7 +121,7 @@ const UnlinkHandle: FC = () => {
   };
 
   const handleUnlink = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return;
     }
 
@@ -132,7 +132,7 @@ const UnlinkHandle: FC = () => {
     try {
       setUnlinking(true);
       const request: UnlinkHandleFromProfileRequest = {
-        handle: currentProfile.handle?.fullHandle
+        handle: currentAccount.handle?.fullHandle
       };
 
       if (canUseLensManager) {

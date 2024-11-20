@@ -7,11 +7,11 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 
 const EnableLensManager: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
+  const { canUseSignless } = checkDispatcherPermissions(currentAccount);
 
-  if (canUseSignless || currentProfile?.ownedBy.address !== address) {
+  if (canUseSignless || currentAccount?.ownedBy.address !== address) {
     return null;
   }
 

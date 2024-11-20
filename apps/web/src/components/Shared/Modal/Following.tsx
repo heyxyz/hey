@@ -19,7 +19,7 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
     for: profileId,
     limit: LimitType.TwentyFive
   };
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
     skip: !profileId,
@@ -76,8 +76,8 @@ const Following: FC<FollowingProps> = ({ handle, profileId }) => {
       itemContent={(_, following) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentProfile?.id === following.id}
-            hideUnfollowButton={currentProfile?.id === following.id}
+            hideFollowButton={currentAccount?.id === following.id}
+            hideUnfollowButton={currentAccount?.id === following.id}
             profile={following as Profile}
             showBio
             showUserPreview={false}

@@ -8,7 +8,7 @@ import Analytics from "./NavItems/Analytics";
 import Bookmarks from "./NavItems/Bookmarks";
 import Support from "./NavItems/Support";
 const MoreNavItems: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   return (
     <Menu as="div">
@@ -31,7 +31,7 @@ const MoreNavItems: FC = () => {
               className="absolute mt-2 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
               static
             >
-              {currentProfile ? (
+              {currentAccount ? (
                 <>
                   <MenuItem
                     as="div"

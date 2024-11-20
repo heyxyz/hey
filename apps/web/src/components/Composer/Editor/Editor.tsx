@@ -19,7 +19,7 @@ import { useEditorHandle } from "./EditorHandle";
 const EditorMenus = dynamic(() => import("./EditorMenus"), { ssr: false });
 
 const Editor: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
   const defaultMarkdownRef = useRef(postContent);
 
@@ -42,9 +42,9 @@ const Editor: FC = () => {
     <ProseKit editor={editor}>
       <div className="box-border flex h-full w-full justify-stretch overflow-y-auto overflow-x-hidden px-5 py-4">
         <Image
-          alt={currentProfile?.id}
+          alt={currentAccount?.id}
           className="mr-3 size-11 rounded-full border bg-gray-200 dark:border-gray-700"
-          src={getAvatar(currentProfile)}
+          src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
           <EditorMenus />

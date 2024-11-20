@@ -11,8 +11,8 @@ import StaffPicks from "./StaffPicks";
 import WhoToFollow from "./WhoToFollow";
 
 const Sidebar: FC = () => {
-  const { currentProfile } = useAccountStore();
-  const loggedInWithProfile = Boolean(currentProfile);
+  const { currentAccount } = useAccountStore();
+  const loggedInWithProfile = Boolean(currentAccount);
   const loggedOut = !loggedInWithProfile;
 
   return (

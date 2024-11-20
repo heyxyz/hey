@@ -14,15 +14,15 @@ import AccountManager from "./AccountManager";
 import LensManager from "./LensManager";
 
 const ManagerSettings: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const disabled = currentProfile?.ownedBy.address !== address;
+  const disabled = currentAccount?.ownedBy.address !== address;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "manager" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

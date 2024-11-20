@@ -21,7 +21,7 @@ const updateEmailSchema = object({
 });
 
 const EmailForm: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { email, setEmail: setEmailState } = usePreferencesStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ const EmailForm: FC = () => {
   };
 
   const setEmail = async ({ email }: z.infer<typeof updateEmailSchema>) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

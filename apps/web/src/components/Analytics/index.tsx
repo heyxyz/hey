@@ -17,7 +17,7 @@ const Analytics: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "analytics" });
@@ -34,7 +34,7 @@ const Analytics: NextPage = () => {
       : AnalyticsTabType.Overview
     : AnalyticsTabType.Overview;
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

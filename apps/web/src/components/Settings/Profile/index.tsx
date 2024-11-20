@@ -11,13 +11,13 @@ import SettingsSidebar from "../Sidebar";
 import AccountSettingsForm from "./Account";
 
 const ProfileSettings: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "profile" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

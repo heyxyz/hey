@@ -23,7 +23,7 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ list }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -75,7 +75,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
       </div>
       <div className="flex items-center space-x-2">
         <PinUnpinButton list={list} />
-        {currentProfile?.id === list.createdBy && (
+        {currentAccount?.id === list.createdBy && (
           <Button onClick={() => setShowEditModal(true)}>Edit</Button>
         )}
       </div>

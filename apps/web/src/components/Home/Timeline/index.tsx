@@ -19,7 +19,7 @@ import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
-  const { currentProfile, fallbackToCuratedFeed } = useAccountStore();
+  const { currentAccount, fallbackToCuratedFeed } = useAccountStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
@@ -32,7 +32,7 @@ const Timeline: FC = () => {
         FeedEventItemType.Mirror,
         FeedEventItemType.Quote
       ],
-      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id
+      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentAccount?.id
     }
   };
 

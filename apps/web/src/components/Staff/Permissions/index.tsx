@@ -13,7 +13,7 @@ import StaffSidebar from "../Sidebar";
 import List from "./List";
 
 const Permissions: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Permissions: NextPage = () => {
     });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

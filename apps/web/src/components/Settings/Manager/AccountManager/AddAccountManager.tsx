@@ -30,7 +30,7 @@ interface AddAccountManagerProps {
 const AddAccountManager: FC<AddAccountManagerProps> = ({
   setShowAddManagerModal
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -41,7 +41,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {
@@ -132,7 +132,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
     });
 
   const handleAddManager = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

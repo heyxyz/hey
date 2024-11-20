@@ -22,7 +22,7 @@ interface BatchRange {
 const Title: FC = () => <H5>Staff Picks</H5>;
 
 const StaffPicks: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const getStaffPicks = async (): Promise<StaffPick[]> => {
     const response: {
@@ -110,7 +110,7 @@ const StaffPicks: FC = () => {
       (profile) =>
         !profile.operations.isBlockedByMe.value &&
         !profile.operations.isFollowedByMe.value &&
-        currentProfile?.id !== profile.id
+        currentAccount?.id !== profile.id
     )
     .slice(0, 5);
 
@@ -128,7 +128,7 @@ const StaffPicks: FC = () => {
       {filteredProfiles.map((profile) => (
         <div className="w-full truncate pr-1" key={profile.id}>
           <SingleAccount
-            hideFollowButton={currentProfile?.id === profile.id}
+            hideFollowButton={currentAccount?.id === profile.id}
             hideUnfollowButton
             profile={profile as Profile}
             source={ProfileLinkSource.StaffPicks}

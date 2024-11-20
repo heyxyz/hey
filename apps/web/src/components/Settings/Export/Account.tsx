@@ -9,13 +9,13 @@ import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Account: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [profile, setProfile] = useState<null | TProfile>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: ProfileRequest = {
-    forProfileId: currentProfile?.id
+    forProfileId: currentAccount?.id
   };
 
   const [exportProfile] = useProfileLazyQuery({

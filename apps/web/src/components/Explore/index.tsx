@@ -19,7 +19,7 @@ import ImageFeed from "./ImageFeed";
 
 const Explore: NextPage = () => {
   const router = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Explore: NextPage = () => {
       </GridItemEight>
       <GridItemFour>
         {/* <Gitcoin /> */}
-        {currentProfile ? <WhoToFollow /> : null}
+        {currentAccount ? <WhoToFollow /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

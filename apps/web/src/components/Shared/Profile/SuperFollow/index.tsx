@@ -24,7 +24,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
   title
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (
@@ -33,7 +33,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         aria-label={title}
         className={buttonClassName}
         onClick={() => {
-          if (!currentProfile) {
+          if (!currentAccount) {
             setShowAuthModal(true);
             return;
           }

@@ -22,7 +22,7 @@ interface HideCommentProps {
 }
 
 const HideComment: FC<HideCommentProps> = ({ post }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
   const request: HideCommentRequest | UnhideCommentRequest = {
@@ -63,7 +63,7 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
     variables: { request }
   });
 
-  const canHideComment = currentProfile?.id !== post?.by?.id;
+  const canHideComment = currentAccount?.id !== post?.by?.id;
 
   if (!canHideComment) {
     return null;

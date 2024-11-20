@@ -39,7 +39,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   profileId,
   type
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
@@ -113,7 +113,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const hasMore = pageInfo?.next;
 
   useEffect(() => {
-    if (indexedPostHash && currentProfile?.id === profileId) {
+    if (indexedPostHash && currentAccount?.id === profileId) {
       refetch();
     }
   }, [indexedPostHash]);

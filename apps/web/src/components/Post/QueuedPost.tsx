@@ -19,7 +19,7 @@ interface QueuedPostProps {
 }
 
 const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
@@ -70,7 +70,7 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <SmallSingleAccount linkToProfile profile={currentProfile as Profile} />
+        <SmallSingleAccount linkToProfile profile={currentAccount as Profile} />
         <Tooltip content="Indexing" placement="top">
           <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
             <div className="size-2 animate-shimmer rounded-full bg-gray-500" />

@@ -25,10 +25,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
   isRecipientsDuplicated,
   setCollectType
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { collectModule } = useCollectModuleStore((state) => state);
 
-  const currentAddress = currentProfile?.ownedBy.address || "";
+  const currentAddress = currentAccount?.ownedBy.address || "";
   const recipients = collectModule.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||

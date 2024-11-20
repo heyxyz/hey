@@ -11,13 +11,13 @@ import SettingsSidebar from "../Sidebar";
 import CollectModules from "./CollectModules";
 
 const AllowanceSettings: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "allowance" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

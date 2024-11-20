@@ -56,7 +56,7 @@ const ViewPost: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isCommentSuspended, isSuspended } = useProfileStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -128,7 +128,7 @@ const ViewPost: NextPage = () => {
               />
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
-            {currentProfile && !post.isHidden && !suspended ? (
+            {currentAccount && !post.isHidden && !suspended ? (
               <NewPublication post={targetPost} />
             ) : null}
             {post.isHidden ? null : (
@@ -143,8 +143,8 @@ const ViewPost: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <SingleAccount
-            hideFollowButton={currentProfile?.id === targetPost.by.id}
-            hideUnfollowButton={currentProfile?.id === targetPost.by.id}
+            hideFollowButton={currentAccount?.id === targetPost.by.id}
+            hideUnfollowButton={currentAccount?.id === targetPost.by.id}
             profile={targetPost.by}
             showBio
             source={ProfileLinkSource.Post}

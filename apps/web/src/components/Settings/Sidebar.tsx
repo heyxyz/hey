@@ -19,7 +19,7 @@ import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SettingsSidebar: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const sidebarItems = [
     {
@@ -90,7 +90,7 @@ const SettingsSidebar: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          profile={currentProfile as Profile}
+          profile={currentAccount as Profile}
           showUserPreview={false}
         />
       </div>

@@ -19,7 +19,7 @@ import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const DefaultAccount: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const [selectedProfileId, setSelectedProfileId] = useState<null | string>(
     null
@@ -36,13 +36,13 @@ const DefaultAccount: FC = () => {
 
   const { data: profilesData, loading: profilesLoading } = useProfilesQuery({
     variables: {
-      request: { where: { ownedBy: currentProfile?.ownedBy.address } }
+      request: { where: { ownedBy: currentAccount?.ownedBy.address } }
     }
   });
 
   const { data: defaultProfileData, loading: defaultProfileLoading } =
     useDefaultProfileQuery({
-      variables: { request: { for: currentProfile?.ownedBy.address } }
+      variables: { request: { for: currentAccount?.ownedBy.address } }
     });
 
   const [setProfile, { loading }] = useSetDefaultProfileMutation({
@@ -51,7 +51,7 @@ const DefaultAccount: FC = () => {
   });
 
   const handleSetDefaultProfile = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

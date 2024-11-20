@@ -24,7 +24,7 @@ const ViewClub: NextPage = () => {
     pathname,
     query: { handle }
   } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const showMembers = pathname === "/c/[handle]/members";
 
@@ -46,7 +46,7 @@ const ViewClub: NextPage = () => {
     queryFn: () =>
       getClub({
         club_handle: handle as string,
-        profile_id: currentProfile?.id
+        profile_id: currentAccount?.id
       }),
     queryKey: [GET_CLUB_QUERY_KEY, handle]
   });
@@ -79,7 +79,7 @@ const ViewClub: NextPage = () => {
             <Members clubId={club.id} handle={club.handle} />
           ) : (
             <>
-              {currentProfile && club.isMember && (
+              {currentAccount && club.isMember && (
                 <NewPost
                   tags={[
                     `orbcommunities${club.handle}`,

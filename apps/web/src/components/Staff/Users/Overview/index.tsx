@@ -29,7 +29,7 @@ const Overview: NextPage = () => {
     isReady,
     query: { id }
   } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Overview: NextPage = () => {
   });
   const profile = data?.profile as Profile;
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

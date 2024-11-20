@@ -21,16 +21,16 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   profileId,
   viaPopover = false
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
 
   const { data, error, loading } = useMutualFollowersQuery({
-    skip: !profileId || !currentProfile?.id,
+    skip: !profileId || !currentAccount?.id,
     variables: {
       request: {
         limit: LimitType.Ten,
-        observer: currentProfile?.id,
+        observer: currentAccount?.id,
         viewing: profileId
       }
     }

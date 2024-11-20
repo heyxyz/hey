@@ -29,7 +29,7 @@ interface ToggleLensManagerProps {
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = "md"
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -40,7 +40,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseSignless } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {

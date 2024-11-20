@@ -45,7 +45,7 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -64,7 +64,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { cache } = useApolloClient();
 
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticMirror = ({
     txHash,
@@ -259,7 +259,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   const handleCreateMirror = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

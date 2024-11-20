@@ -20,7 +20,7 @@ import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const [revoking, setRevoking] = useState(false);
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
@@ -69,7 +69,7 @@ const List: FC = () => {
     limit: LimitType.TwentyFive
   };
   const { data, error, fetchMore, loading } = useApprovedAuthenticationsQuery({
-    skip: !currentProfile?.id,
+    skip: !currentAccount?.id,
     variables: { request }
   });
 

@@ -26,7 +26,7 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ post, showCount }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
 
   const [hasReacted, toggleReact] = useToggle(post.operations.hasReacted);
@@ -82,7 +82,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   });
 
   const handleCreateLike = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

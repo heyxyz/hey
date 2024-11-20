@@ -14,7 +14,7 @@ export type ClubProfile = {
 };
 
 const useClubQuery = (query: string): ClubProfile[] => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [results, setResults] = useState<ClubProfile[]>([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
       return;
     }
 
-    getClubs({ limit: 10, profile_id: currentProfile?.id, query }).then(
+    getClubs({ limit: 10, profile_id: currentAccount?.id, query }).then(
       (data) => {
         const clubs = data as Club[];
         const clubsResults = (clubs ?? []).map(

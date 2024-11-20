@@ -13,14 +13,14 @@ import StaffSidebar from "../Sidebar";
 import List from "./List";
 
 const Users: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "staff-tools", subpage: "users" });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

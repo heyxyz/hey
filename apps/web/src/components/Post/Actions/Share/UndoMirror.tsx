@@ -20,7 +20,7 @@ interface MirrorProps {
 }
 
 const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
 
   const targetPost = isRepost(post) ? post?.mirrorOn : post;
@@ -49,7 +49,7 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   });
 
   const handleUndoMirror = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

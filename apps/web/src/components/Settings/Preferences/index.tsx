@@ -20,13 +20,13 @@ import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
 import MutedWords from "./MutedWords";
 
 const PreferencesSettings: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "preferences" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

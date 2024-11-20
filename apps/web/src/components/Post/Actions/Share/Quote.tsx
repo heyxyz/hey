@@ -16,7 +16,7 @@ interface QuoteProps {
 }
 
 const Quote: FC<QuoteProps> = ({ post }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPost } = usePostStore();
   const { isSuspended } = useProfileStatus();
@@ -36,7 +36,7 @@ const Quote: FC<QuoteProps> = ({ post }) => {
         )
       }
       onClick={() => {
-        if (!currentProfile) {
+        if (!currentAccount) {
           setShowAuthModal(true);
           return;
         }

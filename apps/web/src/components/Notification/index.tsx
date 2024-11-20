@@ -17,7 +17,7 @@ const Notification: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "notifications" });
@@ -37,7 +37,7 @@ const Notification: NextPage = () => {
       : NotificationFeedType.All
     : NotificationFeedType.All;
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

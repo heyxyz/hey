@@ -21,7 +21,7 @@ interface PostMenuProps {
 }
 
 const PostMenu: FC<PostMenuProps> = ({ post }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const iconClassName = "w-[15px] sm:w-[18px]";
 
   return (
@@ -43,7 +43,7 @@ const PostMenu: FC<PostMenuProps> = ({ post }) => {
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          {currentProfile ? (
+          {currentAccount ? (
             <>
               <NotInterested post={post} />
               <HideComment post={post} />
@@ -55,7 +55,7 @@ const PostMenu: FC<PostMenuProps> = ({ post }) => {
           <CopyPostText post={post} />
           <CopyID id={post.id} />
           <div className="divider" />
-          {currentProfile?.id === post?.by?.id ? (
+          {currentAccount?.id === post?.by?.id ? (
             <Delete post={post} />
           ) : (
             <Report post={post} />

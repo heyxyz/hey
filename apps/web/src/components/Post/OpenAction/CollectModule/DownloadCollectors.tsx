@@ -18,7 +18,7 @@ interface DownloadCollectorsProps {
 }
 
 const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [disabled, setDisabled] = useState(false);
   const enabled = useFlag(FeatureFlag.ExportCollects);
 
@@ -26,7 +26,7 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
     return null;
   }
 
-  if (currentProfile?.id !== post.by.id) {
+  if (currentAccount?.id !== post.by.id) {
     return null;
   }
 

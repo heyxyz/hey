@@ -14,7 +14,7 @@ interface AmountConfigProps {
 }
 
 const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { collectModule } = useCollectModuleStore((state) => state);
   const { allowedTokens } = useAllowedTokensStore();
 
@@ -34,7 +34,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
               : { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
             recipients: enabled
               ? []
-              : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
+              : [{ recipient: currentAccount?.ownedBy.address, split: 100 }],
             type: enabled
               ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
               : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule

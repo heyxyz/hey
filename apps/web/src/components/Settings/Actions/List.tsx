@@ -12,11 +12,11 @@ import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useProfileActionHistoryQuery({
-    skip: !currentProfile?.id,
+    skip: !currentAccount?.id,
     variables: { request }
   });
 

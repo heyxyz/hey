@@ -9,12 +9,12 @@ import { useSignupStore } from "./Auth/Signup";
 
 const GlobalModalsFromUrl: FC = () => {
   const { isReady, push, query } = useRouter();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { setScreen } = useSignupStore();
 
   useEffect(() => {
-    if (isReady && query.signup && !currentProfile?.id) {
+    if (isReady && query.signup && !currentAccount?.id) {
       setScreen("choose");
       setShowAuthModal(true, "signup");
       Leafwatch.track(AUTH.OPEN_SIGNUP);
@@ -22,7 +22,7 @@ const GlobalModalsFromUrl: FC = () => {
       // Remove query param
       push({ pathname: "/" }, undefined, { shallow: true });
     }
-  }, [isReady, query, currentProfile, setScreen, setShowAuthModal, push]);
+  }, [isReady, query, currentAccount, setScreen, setShowAuthModal, push]);
 
   return null;
 };

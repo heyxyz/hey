@@ -28,9 +28,9 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   superFollowTitle = "Super Follow",
   unfollowTitle = "Following"
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
-  if (currentProfile?.id === profile.id) {
+  if (currentAccount?.id === profile.id) {
     return null;
   }
 

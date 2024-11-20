@@ -17,11 +17,11 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
   handle,
   profileId
 }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const request: MutualFollowersRequest = {
     limit: LimitType.TwentyFive,
-    observer: currentProfile?.id,
+    observer: currentAccount?.id,
     viewing: profileId
   };
 
@@ -82,8 +82,8 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
       itemContent={(_, mutualFollower) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentProfile?.id === mutualFollower.id}
-            hideUnfollowButton={currentProfile?.id === mutualFollower.id}
+            hideFollowButton={currentAccount?.id === mutualFollower.id}
+            hideUnfollowButton={currentAccount?.id === mutualFollower.id}
             profile={mutualFollower as Profile}
             showBio
             showUserPreview={false}

@@ -23,7 +23,7 @@ import NftsMinted from "./NftsMinted";
 import SignupPrice from "./SignupPrice";
 
 const Signup: NextPage = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Signup: NextPage = () => {
     });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

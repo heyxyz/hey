@@ -14,7 +14,7 @@ interface RelevantPeopleProps {
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
   const profileIds = profilesMentioned.map(
@@ -58,8 +58,8 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         {firstProfiles?.map((profile) => (
           <div className="truncate" key={profile?.id}>
             <SingleAccount
-              hideFollowButton={currentProfile?.id === profile.id}
-              hideUnfollowButton={currentProfile?.id === profile.id}
+              hideFollowButton={currentAccount?.id === profile.id}
+              hideUnfollowButton={currentAccount?.id === profile.id}
               profile={profile as Profile}
               showUserPreview={false}
               source={ProfileLinkSource.RelevantPeople}

@@ -12,7 +12,7 @@ interface FollowNotificationProps {
 }
 
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const followers = notification?.followers;
   const firstProfile = followers?.[0];
   const length = followers.length - 1;
@@ -38,7 +38,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstProfile={firstProfile}
-          linkToType={getAccount(currentProfile).link}
+          linkToType={getAccount(currentAccount).link}
           text={text}
           type={type}
         />

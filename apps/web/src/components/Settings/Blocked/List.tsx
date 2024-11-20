@@ -10,12 +10,12 @@ import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlert
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
-    skip: !currentProfile?.id,
+    skip: !currentAccount?.id,
     variables: { request }
   });
 

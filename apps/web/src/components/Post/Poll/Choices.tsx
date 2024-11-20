@@ -29,7 +29,7 @@ interface ChoicesProps {
 }
 
 const Choices: FC<ChoicesProps> = ({ poll }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
@@ -41,7 +41,7 @@ const Choices: FC<ChoicesProps> = ({ poll }) => {
   }, 0);
 
   const handleVotePoll = async (id: string) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

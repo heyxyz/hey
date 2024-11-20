@@ -5,14 +5,14 @@ import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const RateLimits: FC = () => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const { data, error, loading } = useUserRateLimitQuery({
     fetchPolicy: "no-cache",
     variables: {
       request: {
-        profileId: currentProfile?.id,
-        userAddress: currentProfile?.ownedBy.address
+        profileId: currentAccount?.id,
+        userAddress: currentAccount?.ownedBy.address
       }
     }
   });

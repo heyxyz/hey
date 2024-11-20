@@ -18,7 +18,7 @@ interface LikesProps {
 }
 
 const Likes: FC<LikesProps> = ({ postId }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const request: WhoReactedPublicationRequest = {
     for: postId,
@@ -77,8 +77,8 @@ const Likes: FC<LikesProps> = ({ postId }) => {
       itemContent={(_, like) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentProfile?.id === like.profile.id}
-            hideUnfollowButton={currentProfile?.id === like.profile.id}
+            hideFollowButton={currentAccount?.id === like.profile.id}
+            hideUnfollowButton={currentAccount?.id === like.profile.id}
             profile={like.profile as Profile}
             showBio
             showUserPreview={false}

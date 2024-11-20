@@ -56,7 +56,7 @@ const useCreatePost = ({
 }: CreatePostProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const {
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
@@ -65,7 +65,7 @@ const useCreatePost = ({
   const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOn);

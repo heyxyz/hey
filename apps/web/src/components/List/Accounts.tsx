@@ -20,7 +20,7 @@ interface AccountsProps {
 }
 
 const Accounts: FC<AccountsProps> = ({ listId, name }) => {
-  const { currentProfile } = useAccountStore();
+  const { currentAccount } = useAccountStore();
 
   const getListProfiles = async (): Promise<string[]> => {
     try {
@@ -103,8 +103,8 @@ const Accounts: FC<AccountsProps> = ({ listId, name }) => {
         itemContent={(_, member) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={currentProfile?.id === member.id}
-              hideUnfollowButton={currentProfile?.id === member.id}
+              hideFollowButton={currentAccount?.id === member.id}
+              hideUnfollowButton={currentAccount?.id === member.id}
               profile={member as Profile}
               showBio
               showUserPreview={false}
