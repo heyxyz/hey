@@ -33,7 +33,7 @@ const PostHeader: FC<PostHeaderProps> = ({
       onClick={stopEventPropagation}
     >
       <PostAccount
-        profile={profile}
+        account={profile}
         postId={targetPost.id}
         source={targetPost.publishedOn?.id}
         tags={targetPost.metadata?.tags || []}

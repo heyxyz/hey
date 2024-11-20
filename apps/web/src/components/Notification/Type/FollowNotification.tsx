@@ -30,7 +30,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {followers.slice(0, 10).map((follower) => (
             <div key={follower.id}>
-              <NotificationAccountAvatar profile={follower} />
+              <NotificationAccountAvatar account={follower} />
             </div>
           ))}
         </div>

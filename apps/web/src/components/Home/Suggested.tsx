@@ -44,7 +44,7 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedProfile profile={profile as Profile} />
+            <DismissRecommendedProfile account={profile as Profile} />
           </div>
         )}
       />

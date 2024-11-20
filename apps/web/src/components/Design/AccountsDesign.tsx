@@ -69,22 +69,22 @@ const AccountsDesign: FC = () => {
         </div>
         <div className="space-y-3">
           <H5>Small Profile</H5>
-          <SmallSingleAccount profile={profile as Profile} />
+          <SmallSingleAccount account={profile as Profile} />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with Slug</H5>
-          <SmallSingleAccount hideSlug profile={profile as Profile} />
+          <SmallSingleAccount hideSlug account={profile as Profile} />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with timestamp</H5>
           <SmallSingleAccount
-            profile={profile as Profile}
+            account={profile as Profile}
             timestamp={new Date("2024-06-29T19:16:26.062Z")}
           />
         </div>
         <div className="space-y-3">
           <H5>Small Profile with small avatar</H5>
-          <SmallSingleAccount profile={profile as Profile} smallAvatar />
+          <SmallSingleAccount account={profile as Profile} smallAvatar />
         </div>
       </div>
     </Card>

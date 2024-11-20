@@ -19,7 +19,7 @@ const AggregatedNotificationTitle: FC<AggregatedNotificationTitleProps> = ({
 }) => {
   return (
     <div>
-      <NotificationAccountName profile={firstProfile} />
+      <NotificationAccountName account={firstProfile} />
       <span> {text} </span>
       {type && (
         <Link

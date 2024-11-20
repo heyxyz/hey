@@ -17,10 +17,10 @@ import useMentionQuery from "src/hooks/prosekit/useMentionQuery";
 
 interface MentionItemProps {
   onSelect: VoidFunction;
-  profile: MentionProfile;
+  account: MentionProfile;
 }
 
-const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
+const MentionItem: FC<MentionItemProps> = ({ onSelect, account }) => {
   return (
     <div className="m-0 p-0">
       <AutocompleteItem
@@ -28,19 +28,19 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, profile }) => {
         onSelect={onSelect}
       >
         <Image
-          alt={profile.handle}
+          alt={account.handle}
           className="size-7 rounded-full border bg-gray-200 dark:border-gray-700"
           height="28"
-          src={profile.picture}
+          src={account.picture}
           width="28"
         />
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
-            <span>{profile.name}</span>
-            <Verified id={profile.id} iconClassName="size-4" />
-            <Misuse id={profile.id} iconClassName="size-4" />
+            <span>{account.name}</span>
+            <Verified id={account.id} iconClassName="size-4" />
+            <Misuse id={account.id} iconClassName="size-4" />
           </div>
-          <span className="text-xs">{profile.displayHandle}</span>
+          <span className="text-xs">{account.displayHandle}</span>
         </div>
       </AutocompleteItem>
     </div>
@@ -76,7 +76,7 @@ const MentionPicker: FC = () => {
           <MentionItem
             key={profile.id}
             onSelect={() => handleProfileInsert(profile)}
-            profile={profile}
+            account={profile}
           />
         ))}
       </AutocompleteList>

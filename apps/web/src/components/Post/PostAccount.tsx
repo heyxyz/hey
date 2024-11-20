@@ -12,7 +12,7 @@ import Slug from "../Shared/Slug";
 import ClubHandle from "./ClubHandle";
 
 interface PostAccountProps {
-  profile: Profile;
+  account: Profile;
   postId: string;
   source?: string;
   tags: string[];
@@ -20,7 +20,7 @@ interface PostAccountProps {
 }
 
 const PostAccount: FC<PostAccountProps> = ({
-  profile,
+  account,
   postId,
   source,
   tags,
@@ -29,11 +29,11 @@ const PostAccount: FC<PostAccountProps> = ({
   const WrappedLink = ({ children }: { children: ReactNode }) => (
     <Link
       className="outline-none hover:underline focus:underline"
-      href={getAccount(profile).link}
+      href={getAccount(account).link}
     >
       <AccountPreview
-        handle={profile.handle?.fullHandle}
-        id={profile.id}
+        handle={account.handle?.fullHandle}
+        id={account.id}
         showUserPreview
       >
         {children}
@@ -44,13 +44,13 @@ const PostAccount: FC<PostAccountProps> = ({
   return (
     <div className="flex flex-wrap items-center gap-x-1">
       <WrappedLink>
-        <span className="font-semibold">{getAccount(profile).displayName}</span>
+        <span className="font-semibold">{getAccount(account).displayName}</span>
       </WrappedLink>
       <WrappedLink>
-        <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
       </WrappedLink>
-      <Verified id={profile.id} iconClassName="size-4" />
-      <Misuse id={profile.id} iconClassName="size-4" />
+      <Verified id={account.id} iconClassName="size-4" />
+      <Misuse id={account.id} iconClassName="size-4" />
       {timestamp ? (
         <span className="ld-text-gray-500">
           <span className="mr-1">·</span>

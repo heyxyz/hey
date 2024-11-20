@@ -63,7 +63,7 @@ const Overview: NextPage = () => {
             error ? (
               <ErrorMessage error={error} />
             ) : (
-              <AccountStaffTool profile={profile} />
+              <AccountStaffTool account={profile} />
             )
           ) : (
             <EmptyState

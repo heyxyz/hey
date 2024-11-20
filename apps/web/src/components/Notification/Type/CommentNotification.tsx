@@ -30,7 +30,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="flex items-center space-x-3">
         <ChatBubbleLeftIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationAccountAvatar profile={firstProfile} />
+          <NotificationAccountAvatar account={firstProfile} />
         </div>
       </div>
       <div className="ml-9">

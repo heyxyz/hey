@@ -6,23 +6,23 @@ import { useDismissRecommendedProfilesMutation } from "@hey/lens";
 import type { FC } from "react";
 
 interface DismissRecommendedProfileProps {
-  profile: Profile;
+  account: Profile;
 }
 
 const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
-  profile
+  account
 }) => {
   const [dismissRecommendedProfile] = useDismissRecommendedProfilesMutation({
     update: (cache) => {
-      cache.evict({ id: cache.identify(profile) });
+      cache.evict({ id: cache.identify(account) });
     },
-    variables: { request: { dismiss: [profile.id] } }
+    variables: { request: { dismiss: [account.id] } }
   });
 
   const handleDismiss = async () => {
     await dismissRecommendedProfile();
     Leafwatch.track(PROFILE.DISMISS_RECOMMENDED_PROFILE, {
-      target: profile.id
+      target: account.id
     });
   };
 

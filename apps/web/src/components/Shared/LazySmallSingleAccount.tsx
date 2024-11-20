@@ -31,7 +31,7 @@ const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
     <SmallSingleAccount
       hideSlug={hideSlug}
       linkToProfile={linkToProfile}
-      profile={data.profile as Profile}
+      account={data.profile as Profile}
       smallAvatar
     />
   );

@@ -56,7 +56,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
             <SmallSingleAccount
               hideSlug
               linkToProfile
-              profile={latestActed[0].profile}
+              account={latestActed[0].profile}
               smallAvatar
               timestamp={latestActed[0].actedAt}
             />

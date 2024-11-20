@@ -75,7 +75,7 @@ const WhoToFollow: FC = () => {
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedProfile profile={profile as Profile} />
+            <DismissRecommendedProfile account={profile as Profile} />
           </div>
         ))}
         <button

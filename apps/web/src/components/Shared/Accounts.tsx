@@ -4,10 +4,10 @@ import FallbackAccountName from "./FallbackAccountName";
 
 interface AccountsProps {
   context?: string;
-  profiles: Profile[];
+  accounts: Profile[];
 }
 
-const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
+const Accounts: FC<AccountsProps> = ({ context, accounts }) => {
   const Wrapper: FC<{ children: ReactNode }> = ({ children }) => (
     <>
       {children}
@@ -15,11 +15,11 @@ const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
     </>
   );
 
-  const accountOne = profiles[0];
-  const accountTwo = profiles[1];
-  const accountThree = profiles[2];
+  const accountOne = accounts[0];
+  const accountTwo = accounts[1];
+  const accountThree = accounts[2];
 
-  if (profiles.length === 1) {
+  if (accounts.length === 1) {
     return (
       <Wrapper>
         <FallbackAccountName account={accountOne} />
@@ -29,7 +29,7 @@ const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
 
   const andSep = " and ";
 
-  if (profiles.length === 2) {
+  if (accounts.length === 2) {
     return (
       <Wrapper>
         <FallbackAccountName account={accountOne} separator={andSep} />
@@ -38,8 +38,8 @@ const Accounts: FC<AccountsProps> = ({ context, profiles }) => {
     );
   }
 
-  if (profiles.length >= 3) {
-    const additionalCount = profiles.length - 3;
+  if (accounts.length >= 3) {
+    const additionalCount = accounts.length - 3;
 
     return (
       <Wrapper>

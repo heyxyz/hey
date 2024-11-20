@@ -37,7 +37,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
         <div className="flex items-center space-x-1">
           {reactions.slice(0, 10).map((reaction) => (
             <div key={reaction.profile.id}>
-              <NotificationAccountAvatar profile={reaction.profile} />
+              <NotificationAccountAvatar account={reaction.profile} />
             </div>
           ))}
         </div>

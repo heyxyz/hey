@@ -29,7 +29,7 @@ const MentionNotification: FC<MentionNotificationProps> = ({
       <div className="flex items-center space-x-3">
         <AtSymbolIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          <NotificationAccountAvatar profile={firstProfile} />
+          <NotificationAccountAvatar account={firstProfile} />
         </div>
       </div>
       <div className="ml-9">

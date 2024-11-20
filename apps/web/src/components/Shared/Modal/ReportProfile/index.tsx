@@ -30,10 +30,10 @@ const reportReportProfileSchema = object({
 });
 
 interface ReportProfileProps {
-  profile: null | Profile;
+  account: null | Profile;
 }
 
-const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
+const ReportProfile: FC<ReportProfileProps> = ({ account }) => {
   const { isSuspended } = useProfileStatus();
   const [type, setType] = useState("");
   const [subReason, setSubReason] = useState("");
@@ -47,7 +47,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportProfileMutation({
     onCompleted: () => {
-      Leafwatch.track(PROFILE.REPORT, { account_id: profile?.id });
+      Leafwatch.track(PROFILE.REPORT, { account_id: account?.id });
     }
   });
 
@@ -63,7 +63,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         variables: {
           request: {
             additionalComments,
-            for: profile?.id,
+            for: account?.id,
             reason: {
               [type]: {
                 reason: type.replace("Reason", "").toUpperCase(),
@@ -86,13 +86,13 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           icon={<CheckCircleIcon className="size-14" />}
           message="Profile reported"
         />
-      ) : profile ? (
+      ) : account ? (
         <div className="p-5">
           <Card className="p-3">
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={profile as Profile}
+              account={account as Profile}
               showUserPreview={false}
             />
           </Card>

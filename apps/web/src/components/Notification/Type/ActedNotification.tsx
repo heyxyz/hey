@@ -38,7 +38,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action) => (
             <div key={action.by.id}>
-              <NotificationAccountAvatar profile={action.by} />
+              <NotificationAccountAvatar account={action.by} />
             </div>
           ))}
         </div>
