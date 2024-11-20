@@ -12,7 +12,7 @@ export const AUTH = {
   SWITCH_TO_SIGNUP: "Switch to signup"
 };
 
-export const PROFILE = {
+export const ACCOUNT = {
   BLOCK: "Block profile",
   COPY_PROFILE_ADDRESS: "Copy profile address",
   COPY_PROFILE_ID: "Copy profile ID",
@@ -121,7 +121,8 @@ export const SETTINGS = {
     RESEND_EMAIL_VERIFICATION: "Resend email verification",
     SET_DEFAULT_PROFILE: "Set default profile",
     SET_EMAIL: "Set email",
-    SET_SUPER_FOLLOW: "Set super follow"
+    SET_SUPER_FOLLOW: "Set super follow",
+    UPDATE: "Update account"
   },
   ALLOWANCE: {
     TOGGLE: "Toggle allowance"
@@ -160,10 +161,6 @@ export const SETTINGS = {
     APP_ICON: "Update app icon",
     MUTE_WORD: "Mute word",
     UNMUTE_WORD: "Unmute word"
-  },
-  PROFILE: {
-    SET_PICTURE: "Set profile picture",
-    UPDATE: "Update profile"
   },
   SESSIONS: {
     REVOKE: "Revoke session"
@@ -231,7 +228,7 @@ export const ONBOARDING = {
 export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
-  ...PROFILE,
+  ...ACCOUNT,
   ...LIST,
   ...POST,
   ...NOTIFICATION,

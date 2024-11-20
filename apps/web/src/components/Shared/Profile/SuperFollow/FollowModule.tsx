@@ -9,7 +9,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB, POLYGONSCAN_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -85,7 +85,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setIsLoading(false);
     setShowFollowModal(false);
     toast.success("Followed");
-    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
+    Leafwatch.track(ACCOUNT.SUPER_FOLLOW, {
       path: pathname,
       target: account?.id
     });

@@ -3,7 +3,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import { useReportProfileMutation } from "@hey/lens";
@@ -47,7 +47,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ account }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportProfileMutation({
     onCompleted: () => {
-      Leafwatch.track(PROFILE.REPORT, { account_id: account?.id });
+      Leafwatch.track(ACCOUNT.REPORT, { account_id: account?.id });
     }
   });
 

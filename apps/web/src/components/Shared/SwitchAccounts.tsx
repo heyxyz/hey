@@ -2,7 +2,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
@@ -95,7 +95,7 @@ const SwitchAccounts: FC = () => {
       const identityToken = auth.data?.authenticate.identityToken;
       signOut();
       signIn({ accessToken, identityToken, refreshToken });
-      Leafwatch.track(PROFILE.SWITCH_PROFILE, { switch_profile_to: id });
+      Leafwatch.track(ACCOUNT.SWITCH_PROFILE, { switch_profile_to: id });
       reload();
     } catch (error) {
       onError(error);

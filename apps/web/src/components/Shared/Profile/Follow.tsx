@@ -4,7 +4,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
 import type { FollowRequest, Profile } from "@hey/lens";
@@ -95,7 +95,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success("Followed");
-    Leafwatch.track(PROFILE.FOLLOW, { path: pathname, target: account?.id });
+    Leafwatch.track(ACCOUNT.FOLLOW, { path: pathname, target: account?.id });
   };
 
   const onError = (error: any) => {

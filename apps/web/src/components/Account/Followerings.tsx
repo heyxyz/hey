@@ -1,7 +1,7 @@
 import Followers from "@components/Shared/Modal/Followers";
 import Following from "@components/Shared/Modal/Following";
 import { Leafwatch } from "@helpers/leafwatch";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
 import type { Profile } from "@hey/lens";
@@ -38,7 +38,7 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
       </button>
       <Modal
         onClose={() => {
-          Leafwatch.track(PROFILE.OPEN_FOLLOWING);
+          Leafwatch.track(ACCOUNT.OPEN_FOLLOWING);
           setShowFollowingModal(false);
         }}
         show={showFollowingModal}
@@ -49,7 +49,7 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
       </Modal>
       <Modal
         onClose={() => {
-          Leafwatch.track(PROFILE.OPEN_FOLLOWERS);
+          Leafwatch.track(ACCOUNT.OPEN_FOLLOWERS);
           setShowFollowersModal(false);
         }}
         show={showFollowersModal}

@@ -7,7 +7,7 @@ import {
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import MediaFilter from "./Filters/MediaFilter";
@@ -22,7 +22,7 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
     if (setFeedType) {
       setFeedType(type);
     }
-    Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
+    Leafwatch.track(ACCOUNT.SWITCH_PROFILE_FEED_TAB, {
       profile_feed_type: type.toLowerCase()
     });
   };

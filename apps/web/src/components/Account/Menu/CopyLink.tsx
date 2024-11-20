@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LinkIcon } from "@heroicons/react/24/outline";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
@@ -29,7 +29,7 @@ const CopyLink: FC<CopyLinkProps> = ({ account }) => {
           `${location.origin}${getAccount(account).link}`
         );
         toast.success("Link copied to clipboard!");
-        Leafwatch.track(PROFILE.COPY_PROFILE_LINK, { account_id: account.id });
+        Leafwatch.track(ACCOUNT.COPY_PROFILE_LINK, { account_id: account.id });
       }}
     >
       <LinkIcon className="size-4" />

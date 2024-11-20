@@ -1,6 +1,6 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import { useDismissRecommendedProfilesMutation } from "@hey/lens";
 import type { FC } from "react";
@@ -21,7 +21,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
 
   const handleDismiss = async () => {
     await dismissRecommendedProfile();
-    Leafwatch.track(PROFILE.DISMISS_RECOMMENDED_PROFILE, {
+    Leafwatch.track(ACCOUNT.DISMISS_RECOMMENDED_PROFILE, {
       target: account.id
     });
   };

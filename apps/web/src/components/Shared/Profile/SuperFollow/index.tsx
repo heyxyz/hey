@@ -1,5 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
@@ -38,7 +38,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
+          Leafwatch.track(ACCOUNT.OPEN_SUPER_FOLLOW);
         }}
         outline
         size={small ? "sm" : "md"}

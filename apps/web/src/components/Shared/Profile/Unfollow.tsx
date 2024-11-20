@@ -4,7 +4,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { PROFILE } from "@hey/data/tracking";
+import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getSignature from "@hey/helpers/getSignature";
 import type { Profile, UnfollowRequest } from "@hey/lens";
@@ -95,7 +95,7 @@ const Unfollow: FC<UnfollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success("Unfollowed");
-    Leafwatch.track(PROFILE.UNFOLLOW, { path: pathname, target: account?.id });
+    Leafwatch.track(ACCOUNT.UNFOLLOW, { path: pathname, target: account?.id });
   };
 
   const onError = (error: any) => {
