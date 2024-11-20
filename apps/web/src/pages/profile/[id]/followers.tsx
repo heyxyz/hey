@@ -1,3 +1,3 @@
-import ViewProfile from "@components/Profile";
+import ViewProfile from "@components/Account";
 
 export default ViewProfile;

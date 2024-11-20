@@ -1,4 +1,4 @@
-import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
+import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPublication } from "@hey/lens";
@@ -31,7 +31,7 @@ const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
     >
       <div className="absolute inset-0 rounded-lg bg-black opacity-30" />
       <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-bold text-sm text-white">
-        <SmallSingleProfile profile={targetPost.by} hideSlug />
+        <SmallSingleAccount profile={targetPost.by} hideSlug />
       </div>
     </Link>
   );

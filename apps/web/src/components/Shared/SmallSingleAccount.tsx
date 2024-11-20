@@ -1,7 +1,7 @@
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -12,7 +12,7 @@ import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
-interface SmallSingleProfileProps {
+interface SmallSingleAccountProps {
   hideSlug?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
@@ -20,7 +20,7 @@ interface SmallSingleProfileProps {
   timestamp?: Date;
 }
 
-const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
+const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
   hideSlug = false,
   linkToProfile = false,
   profile,
@@ -47,12 +47,12 @@ const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
   const UserName: FC = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className={cn(!hideSlug && "max-w-[75%]", "mr-1 truncate")}>
-        {getProfile(profile).displayName}
+        {getAccount(profile).displayName}
       </div>
       <Verified id={profile.id} iconClassName="mr-1 size-4" />
       <Misuse id={profile.id} iconClassName="mr-2 size-4" />
       {!hideSlug && (
-        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(profile).slugWithPrefix} />
       )}
       {timestamp && (
         <span className="ld-text-gray-500">
@@ -71,7 +71,7 @@ const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
   );
 
   return linkToProfile ? (
-    <Link href={getProfile(profile).link}>
+    <Link href={getAccount(profile).link}>
       <AccountInfo />
     </Link>
   ) : (
@@ -79,4 +79,4 @@ const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
   );
 };
 
-export default memo(SmallSingleProfile);
+export default memo(SmallSingleAccount);

@@ -2,7 +2,7 @@ import { MenuItem } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import { PROFILE } from "@hey/data/tracking";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
@@ -26,7 +26,7 @@ const CopyLink: FC<CopyLinkProps> = ({ profile }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(
-          `${location.origin}${getProfile(profile).link}`
+          `${location.origin}${getAccount(profile).link}`
         );
         toast.success("Link copied to clipboard!");
         Leafwatch.track(PROFILE.COPY_PROFILE_LINK, { profile_id: profile.id });

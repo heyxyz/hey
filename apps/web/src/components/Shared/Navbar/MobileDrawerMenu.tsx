@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -19,7 +19,7 @@ import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
 import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
-import YourProfile from "./NavItems/YourProfile";
+import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -39,7 +39,7 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
-          href={getProfile(currentProfile).link}
+          href={getAccount(currentProfile).link}
           onClick={handleCloseDrawer}
         >
           <div className="flex w-full space-x-1.5">
@@ -56,7 +56,7 @@ const MobileDrawerMenu: FC = () => {
               <div className="truncate">
                 <Slug
                   className="font-bold"
-                  slug={getProfile(currentProfile).slugWithPrefix}
+                  slug={getAccount(currentProfile).slugWithPrefix}
                 />
               </div>
             </div>
@@ -76,10 +76,10 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <div>
             <Link
-              href={getProfile(currentProfile).link}
+              href={getAccount(currentProfile).link}
               onClick={handleCloseDrawer}
             >
-              <YourProfile className={cn(itemClass, "px-4")} />
+              <YourAccount className={cn(itemClass, "px-4")} />
             </Link>
             <Link href="/settings" onClick={handleCloseDrawer}>
               <Settings className={cn(itemClass, "px-4")} />

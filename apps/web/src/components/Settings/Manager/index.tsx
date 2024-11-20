@@ -10,8 +10,8 @@ import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
+import AccountManager from "./AccountManager";
 import LensManager from "./LensManager";
-import ProfileManager from "./ProfileManager";
 
 const ManagerSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -38,7 +38,7 @@ const ManagerSettings: NextPage = () => {
         ) : (
           <>
             <LensManager />
-            <ProfileManager />
+            <AccountManager />
           </>
         )}
       </GridItemEight>

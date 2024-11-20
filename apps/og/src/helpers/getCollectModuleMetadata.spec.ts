@@ -1,12 +1,12 @@
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import getCollectModuleMetadata from "./getCollectModuleMetadata";
 
 // Mock the imported functions
-vi.mock("@hey/helpers/getProfile", () => ({
+vi.mock("@hey/helpers/getAccount", () => ({
   default: vi.fn()
 }));
 
@@ -23,7 +23,7 @@ describe("getCollectModuleMetadata", () => {
   });
 
   test("should return correct metadata when open action module is present", () => {
-    (getProfile as any).mockReturnValue(mockProfile);
+    (getAccount as any).mockReturnValue(mockProfile);
     (getPostOGImages as any).mockReturnValue(mockOGImages);
 
     const post = {

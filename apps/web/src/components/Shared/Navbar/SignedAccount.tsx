@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import type { Profile } from "@hey/lens";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -19,7 +19,7 @@ import OptimisticTransactions from "./NavItems/OptimisticTransactions";
 import Settings from "./NavItems/Settings";
 import SwitchProfile from "./NavItems/SwitchProfile";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
-import YourProfile from "./NavItems/YourProfile";
+import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount: FC = () => {
   const { currentProfile } = useProfileStore();
@@ -62,14 +62,14 @@ const SignedAccount: FC = () => {
             <MenuItem
               as={NextLink}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-              href={getProfile(currentProfile).link}
+              href={getAccount(currentProfile).link}
             >
               <div className="flex w-full flex-col">
                 <div>Logged in as</div>
                 <div className="truncate">
                   <Slug
                     className="font-bold"
-                    slug={getProfile(currentProfile).slugWithPrefix}
+                    slug={getAccount(currentProfile).slugWithPrefix}
                   />
                 </div>
               </div>
@@ -104,9 +104,9 @@ const SignedAccount: FC = () => {
               className={({ focus }: { focus: boolean }) =>
                 cn({ "dropdown-active": focus }, "menu-item")
               }
-              href={getProfile(currentProfile).link}
+              href={getAccount(currentProfile).link}
             >
-              <YourProfile />
+              <YourAccount />
             </MenuItem>
             <MenuItem
               as={NextLink}

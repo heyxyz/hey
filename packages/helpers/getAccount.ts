@@ -1,8 +1,8 @@
 import type { Profile } from "@hey/lens";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
-const getProfile = (
-  profile: null | Profile,
+const getAccount = (
+  account: null | Profile,
   source?: string
 ): {
   displayName: string;
@@ -12,7 +12,7 @@ const getProfile = (
   sourceLink: string;
   staffLink: string;
 } => {
-  if (!profile) {
+  if (!account) {
     return {
       displayName: "...",
       link: "",
@@ -23,20 +23,20 @@ const getProfile = (
     };
   }
 
-  const prefix = profile.handle ? "@" : "#";
-  const slug = profile.handle?.localName || profile.id;
-  const link = profile.handle
-    ? `/u/${profile.handle.localName}`
-    : `/profile/${profile.id}`;
+  const prefix = account.handle ? "@" : "#";
+  const slug = account.handle?.localName || account.id;
+  const link = account.handle
+    ? `/u/${account.handle.localName}`
+    : `/profile/${account.id}`;
 
   return {
-    displayName: sanitizeDisplayName(profile.metadata?.displayName) || slug,
+    displayName: sanitizeDisplayName(account.metadata?.displayName) || slug,
     link: link,
     slug,
     slugWithPrefix: `${prefix}${slug}`,
     sourceLink: source ? `${link}?source=${source}` : link,
-    staffLink: `/staff/users/${profile.id}`
+    staffLink: `/staff/users/${account.id}`
   };
 };
 
-export default getProfile;
+export default getAccount;

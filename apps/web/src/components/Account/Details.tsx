@@ -15,11 +15,11 @@ import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import formatDate from "@hey/helpers/datetime/formatDate";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import getProfile from "@hey/helpers/getProfile";
 import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
@@ -87,7 +87,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
-          <H3 className="truncate">{getProfile(profile).displayName}</H3>
+          <H3 className="truncate">{getAccount(profile).displayName}</H3>
           <Verified id={profile.id} showTooltip />
           <Misuse id={profile.id} showTooltip />
           {isSuspended ? (
@@ -100,7 +100,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"
-            slug={getProfile(profile).slugWithPrefix}
+            slug={getAccount(profile).slugWithPrefix}
           />
           {profile.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
@@ -144,7 +144,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         </div>
         {currentProfile?.id !== profile.id ? (
           <MutualFollowersOverview
-            handle={getProfile(profile).slug}
+            handle={getAccount(profile).slug}
             profileId={profile.id}
           />
         ) : null}
@@ -156,7 +156,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
             >
               <Link
                 className="text-yellow-600"
-                href={getProfile(profile).staffLink}
+                href={getAccount(profile).staffLink}
               >
                 Open in Staff Tools
               </Link>

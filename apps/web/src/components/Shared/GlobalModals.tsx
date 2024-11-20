@@ -11,7 +11,7 @@ import AccountStatus from "./Modal/AccountStatus";
 import AddToList from "./Modal/AddToList";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportProfile from "./Modal/ReportProfile";
-import SwitchProfiles from "./SwitchProfiles";
+import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
   const {
@@ -67,9 +67,9 @@ const GlobalModals: FC = () => {
         onClose={() => setShowProfileSwitchModal(false)}
         show={showProfileSwitchModal}
         size={address ? "xs" : "sm"}
-        title="Switch Profile"
+        title="Switch Account"
       >
-        <SwitchProfiles />
+        <SwitchAccounts />
       </Modal>
       <Modal
         onClose={() => setShowAuthModal(false, authModalType)}

@@ -1,4 +1,4 @@
-import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
+import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import errorToast from "@helpers/errorToast";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import {
@@ -74,7 +74,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
         <div>
           <H5>Reported by</H5>
           <div className="mt-1">
-            <SmallSingleProfile profile={report.reporter as Profile} />
+            <SmallSingleAccount profile={report.reporter as Profile} />
           </div>
         </div>
       </div>

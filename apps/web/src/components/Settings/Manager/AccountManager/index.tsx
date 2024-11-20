@@ -2,7 +2,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { Button, Card, Modal, TabButton } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import AddProfileManager from "./AddProfileManager";
+import AddAccountManager from "./AddAccountManager";
 import Managed from "./Management/Managed";
 import Unmanaged from "./Management/Unmanaged";
 import Managers from "./Managers";
@@ -13,7 +13,7 @@ enum Type {
   UNMANAGED = "UNMANAGED"
 }
 
-const ProfileManager: FC = () => {
+const AccountManager: FC = () => {
   const [type, setType] = useState<Type>(Type.MANAGERS);
   const [showAddManagerModal, setShowAddManagerModal] = useState(false);
 
@@ -53,7 +53,7 @@ const ProfileManager: FC = () => {
               show={showAddManagerModal}
               title="Add Profile Manager"
             >
-              <AddProfileManager
+              <AddAccountManager
                 setShowAddManagerModal={setShowAddManagerModal}
               />
             </Modal>
@@ -67,4 +67,4 @@ const ProfileManager: FC = () => {
   );
 };
 
-export default ProfileManager;
+export default AccountManager;

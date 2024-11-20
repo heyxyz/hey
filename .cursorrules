@@ -75,7 +75,7 @@ Follow these rules when you write code:
 ### TypeScript and Zod Usage
 
 - Use TypeScript for all code; prefer interfaces over types for object shapes.
-- Use component name as interface name. Example: `Profile` component should have `ProfileProps` interface.
+- Use component name as interface name. Example: `Account` component should have `AccountProps` interface.
 - Utilize Zod for schema validation and type inference.
 - Avoid enums; use literal types or maps instead.
 - Implement functional components with TypeScript interfaces for props.

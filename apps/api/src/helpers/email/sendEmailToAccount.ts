@@ -2,7 +2,7 @@ import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
 import sendEmail from "./sendEmail";
 
-const sendEmailToProfile = async ({
+const sendEmailToAccount = async ({
   id,
   body,
   subject
@@ -15,7 +15,7 @@ const sendEmailToProfile = async ({
     const foundEmail = await prisma.email.findUnique({ where: { id } });
 
     if (!foundEmail?.email) {
-      return logger.error(`sendEmailToProfile: Email not found for ${id}`);
+      return logger.error(`sendEmailToAccount: Email not found for ${id}`);
     }
 
     await sendEmail({
@@ -25,11 +25,11 @@ const sendEmailToProfile = async ({
     });
 
     return logger.info(
-      `sendEmailToProfile: Email sent to ${foundEmail?.email} - ${id}`
+      `sendEmailToAccount: Email sent to ${foundEmail?.email} - ${id}`
     );
   } catch (error) {
     return logger.error(error as any);
   }
 };
 
-export default sendEmailToProfile;
+export default sendEmailToAccount;

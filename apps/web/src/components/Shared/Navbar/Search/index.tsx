@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
@@ -28,12 +28,12 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const { addProfile: addToRecentProfiles } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [accounts, setAccounts] = useState<Profile[]>([]);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   const handleReset = () => {
     setShowDropdown(false);
-    setProfiles([]);
+    setAccounts([]);
   };
 
   const dropdownRef = useClickAway(() => {
@@ -69,7 +69,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
 
       searchUsers({ variables: { request } }).then((res) => {
         if (res.data?.searchProfiles?.items) {
-          setProfiles(res.data.searchProfiles.items as Profile[]);
+          setAccounts(res.data.searchProfiles.items as Profile[]);
         }
       });
     }
@@ -110,13 +110,13 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
               <Loader className="my-3" message="Searching users" small />
             ) : (
               <>
-                {profiles.map((profile) => (
+                {accounts.map((account) => (
                   <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    key={profile.id}
+                    key={account.id}
                     onClick={() => {
-                      addToRecentProfiles(profile.id);
-                      push(getProfile(profile).link);
+                      addToRecentProfiles(account.id);
+                      push(getAccount(account).link);
                       handleReset();
                     }}
                   >
@@ -124,13 +124,13 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                       hideFollowButton
                       hideUnfollowButton
                       linkToProfile={false}
-                      profile={profile}
+                      profile={account}
                       showUserPreview={false}
                       source={ProfileLinkSource.Search}
                     />
                   </div>
                 ))}
-                {profiles.length === 0 ? (
+                {accounts.length === 0 ? (
                   <div className="px-4 py-2">
                     Try searching for people or keywords
                   </div>

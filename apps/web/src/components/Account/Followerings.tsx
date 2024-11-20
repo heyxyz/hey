@@ -2,7 +2,7 @@ import Followers from "@components/Shared/Modal/Followers";
 import Following from "@components/Shared/Modal/Following";
 import { Leafwatch } from "@helpers/leafwatch";
 import { PROFILE } from "@hey/data/tracking";
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
 import type { Profile } from "@hey/lens";
 import { H4, Modal } from "@hey/ui";
@@ -45,7 +45,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         title="Following"
         size="md"
       >
-        <Following handle={getProfile(profile).slug} profileId={profile.id} />
+        <Following handle={getAccount(profile).slug} profileId={profile.id} />
       </Modal>
       <Modal
         onClose={() => {
@@ -56,7 +56,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         title="Followers"
         size="md"
       >
-        <Followers handle={getProfile(profile).slug} profileId={profile.id} />
+        <Followers handle={getAccount(profile).slug} profileId={profile.id} />
       </Modal>
     </div>
   );

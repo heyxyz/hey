@@ -1,27 +1,27 @@
-import getProfile from "@hey/helpers/getProfile";
+import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import Slug from "./Slug";
 
-interface FallbackProfileNameProps {
+interface FallbackAccountNameProps {
   className?: string;
-  profile?: Profile;
+  account?: Profile;
   separator?: ReactNode;
 }
 
-const FallbackProfileName: FC<FallbackProfileNameProps> = ({
+const FallbackAccountName: FC<FallbackAccountNameProps> = ({
   className = "",
-  profile,
+  account,
   separator = ""
 }) => {
-  if (!profile) {
+  if (!account) {
     return null;
   }
 
-  const { displayName, link, slugWithPrefix } = getProfile(profile);
-  const profileName = profile?.metadata?.displayName || (
+  const { displayName, link, slugWithPrefix } = getAccount(account);
+  const accountName = account?.metadata?.displayName || (
     <Slug slug={slugWithPrefix} />
   );
 
@@ -35,11 +35,11 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
         )}
         href={link}
       >
-        <b className="whitespace-nowrap">{profileName}</b>
+        <b className="whitespace-nowrap">{accountName}</b>
       </Link>
       {separator && <span>{separator}</span>}
     </>
   );
 };
 
-export default FallbackProfileName;
+export default FallbackAccountName;

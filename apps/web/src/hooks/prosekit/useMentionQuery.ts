@@ -1,6 +1,6 @@
 import isVerified from "@helpers/isVerified";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getProfile from "@hey/helpers/getProfile";
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import { LimitType, useSearchProfilesLazyQuery } from "@hey/lens";
 import { useEffect, useState } from "react";
@@ -37,10 +37,10 @@ const useMentionQuery = (query: string): MentionProfile[] => {
       const profiles = profileSearchResult?.items as Profile[];
       const profilesResults = (profiles ?? []).map(
         (profile): MentionProfile => ({
-          displayHandle: getProfile(profile).slugWithPrefix,
-          handle: getProfile(profile).slug,
+          displayHandle: getAccount(profile).slugWithPrefix,
+          handle: getAccount(profile).slug,
           id: profile?.id,
-          name: getProfile(profile).displayName,
+          name: getAccount(profile).displayName,
           picture: getAvatar(profile),
           pqScore: profile.stats.lensClassifierScore || 0
         })

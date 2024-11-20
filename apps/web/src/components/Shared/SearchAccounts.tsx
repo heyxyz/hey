@@ -7,9 +7,9 @@ import {
 import { Card, Input } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import Loader from "./Loader";
-import SmallSingleProfile from "./SmallSingleProfile";
+import SmallSingleAccount from "./SmallSingleAccount";
 
-interface SearchProfilesProps {
+interface SearchAccountsProps {
   error?: boolean;
   hideDropdown?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +19,7 @@ interface SearchProfilesProps {
   value: string;
 }
 
-const SearchProfiles: FC<SearchProfilesProps> = ({
+const SearchAccounts: FC<SearchAccountsProps> = ({
   error = false,
   hideDropdown = false,
   onChange,
@@ -68,7 +68,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
                   key={profile.id}
                   onClick={() => onProfileSelected(profile)}
                 >
-                  <SmallSingleProfile profile={profile} />
+                  <SmallSingleAccount profile={profile} />
                 </div>
               ))
             ) : (
@@ -81,4 +81,4 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
   );
 };
 
-export default SearchProfiles;
+export default SearchAccounts;

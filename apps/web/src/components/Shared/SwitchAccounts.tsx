@@ -3,9 +3,9 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { PROFILE } from "@hey/data/tracking";
+import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import getProfile from "@hey/helpers/getProfile";
 import type {
   LastLoggedInProfileRequest,
   Profile,
@@ -29,7 +29,7 @@ import { useAccount, useSignMessage } from "wagmi";
 import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
-const SwitchProfiles: FC = () => {
+const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
   const { currentProfile } = useProfileStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -151,7 +151,7 @@ const SwitchProfiles: FC = () => {
                 "truncate"
               )}
             >
-              {getProfile(profile as Profile).slugWithPrefix}
+              {getAccount(profile as Profile).slugWithPrefix}
             </div>
           </span>
           {isLoading && profile.id === loggingInProfileId ? (
@@ -165,4 +165,4 @@ const SwitchProfiles: FC = () => {
   );
 };
 
-export default SwitchProfiles;
+export default SwitchAccounts;
