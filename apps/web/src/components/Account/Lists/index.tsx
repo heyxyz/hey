@@ -30,10 +30,10 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import CreateOrEdit from "../../Shared/List/CreateOrEdit";
 
 interface ListsProps {
-  profile: Profile;
+  account: Profile;
 }
 
-const Lists: FC<ListsProps> = ({ profile }) => {
+const Lists: FC<ListsProps> = ({ account }) => {
   const { currentAccount } = useAccountStore();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -43,8 +43,8 @@ const Lists: FC<ListsProps> = ({ profile }) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryFn: () => getLists({ ownerId: profile.id }),
-    queryKey: [GET_LISTS_QUERY_KEY, profile.id]
+    queryFn: () => getLists({ ownerId: account.id }),
+    queryKey: [GET_LISTS_QUERY_KEY, account.id]
   });
 
   const handleDeleteList = async (id: string) => {
@@ -108,8 +108,8 @@ const Lists: FC<ListsProps> = ({ profile }) => {
   return (
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
-        <H5>{getAccount(profile).slugWithPrefix}'s Lists</H5>
-        {profile.id === currentAccount?.id && (
+        <H5>{getAccount(account).slugWithPrefix}'s Lists</H5>
+        {account.id === currentAccount?.id && (
           <Button onClick={() => setShowCreateModal(!showCreateModal)}>
             Create
           </Button>
@@ -126,7 +126,7 @@ const Lists: FC<ListsProps> = ({ profile }) => {
             {data?.map((list) => (
               <div key={list.id} className="flex items-center justify-between">
                 <SingleList list={list} />
-                {profile.id === currentAccount?.id && (
+                {account.id === currentAccount?.id && (
                   <div className="flex items-center gap-3">
                     <Tooltip
                       content={list.pinned ? "Unpin from Home" : "Pin to Home"}
