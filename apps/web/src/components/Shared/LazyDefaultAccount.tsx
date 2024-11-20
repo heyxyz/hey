@@ -4,7 +4,7 @@ import type { FC } from "react";
 import type { Address } from "viem";
 import SingleAccountShimmer from "./Shimmer/SingleAccountShimmer";
 import SingleAccount from "./SingleAccount";
-import WalletProfile from "./WalletProfile";
+import WalletAccount from "./WalletAccount";
 
 interface LazyDefaultAccountProps {
   address: Address;
@@ -21,7 +21,7 @@ const LazyDefaultAccount: FC<LazyDefaultAccountProps> = ({ address }) => {
   }
 
   if (!data?.defaultProfile) {
-    return <WalletProfile address={address} />;
+    return <WalletAccount address={address} />;
   }
 
   return (

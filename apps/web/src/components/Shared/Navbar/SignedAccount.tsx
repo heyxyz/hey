@@ -17,7 +17,7 @@ import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import OptimisticTransactions from "./NavItems/OptimisticTransactions";
 import Settings from "./NavItems/Settings";
-import SwitchProfile from "./NavItems/SwitchProfile";
+import SwitchAccount from "./NavItems/SwitchAccount";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
 
@@ -84,7 +84,7 @@ const SignedAccount: FC = () => {
                 )
               }
             >
-              <SwitchProfile />
+              <SwitchAccount />
             </MenuItem>
             <div className="divider" />
             <MenuItem

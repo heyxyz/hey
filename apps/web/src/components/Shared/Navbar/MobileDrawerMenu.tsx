@@ -17,7 +17,7 @@ import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
 import Settings from "./NavItems/Settings";
 import Support from "./NavItems/Support";
-import SwitchProfile from "./NavItems/SwitchProfile";
+import SwitchAccount from "./NavItems/SwitchAccount";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
 
@@ -64,7 +64,7 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <SwitchProfile className={cn(itemClass, "px-4")} />
+          <SwitchAccount className={cn(itemClass, "px-4")} />
           <div className="divider" />
           <AccountStatus
             className={cn(itemClass, "px-4")}
