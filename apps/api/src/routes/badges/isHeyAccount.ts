@@ -24,18 +24,18 @@ export const get = [
         ? getAddress(address as Address)
         : undefined;
 
-      const cacheKey = `badge:hey-profile:${id || address}`;
+      const cacheKey = `badge:hey-account:${id || address}`;
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData === "true") {
         logger.info(
-          `(cached) Hey profile badge fetched for ${id || formattedAddress}`
+          `(cached) Hey account badge fetched for ${id || formattedAddress}`
         );
 
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
-          .json({ isHeyProfile: true, success: true });
+          .json({ isHeyAccount: true, success: true });
       }
 
       const onboardingProfile = await lensPg.query(
@@ -52,20 +52,20 @@ export const get = [
         [id, formattedAddress, HEY_LENS_SIGNUP]
       );
 
-      const isHeyProfile = onboardingProfile[0]?.exists;
+      const isHeyAccount = onboardingProfile[0]?.exists;
 
-      if (isHeyProfile) {
-        await setRedis(cacheKey, isHeyProfile);
+      if (isHeyAccount) {
+        await setRedis(cacheKey, isHeyAccount);
       }
-      logger.info(`Hey profile badge fetched for ${id || formattedAddress}`);
+      logger.info(`Hey account badge fetched for ${id || formattedAddress}`);
 
       return res
         .status(200)
         .setHeader(
           "Cache-Control",
-          isHeyProfile ? CACHE_AGE_INDEFINITE : "no-cache"
+          isHeyAccount ? CACHE_AGE_INDEFINITE : "no-cache"
         )
-        .json({ isHeyProfile, success: true });
+        .json({ isHeyAccount, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
