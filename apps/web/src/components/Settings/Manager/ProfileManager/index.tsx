@@ -13,7 +13,7 @@ enum Type {
   UNMANAGED = "UNMANAGED"
 }
 
-const ProfileManager: FC = () => {
+const AccountManager: FC = () => {
   const [type, setType] = useState<Type>(Type.MANAGERS);
   const [showAddManagerModal, setShowAddManagerModal] = useState(false);
 
@@ -67,4 +67,4 @@ const ProfileManager: FC = () => {
   );
 };
 
-export default ProfileManager;
+export default AccountManager;

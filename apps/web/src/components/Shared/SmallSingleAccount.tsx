@@ -12,7 +12,7 @@ import Misuse from "./Profile/Icons/Misuse";
 import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
-interface SmallSingleProfileProps {
+interface SmallSingleAccountProps {
   hideSlug?: boolean;
   linkToProfile?: boolean;
   profile: Profile;
@@ -20,7 +20,7 @@ interface SmallSingleProfileProps {
   timestamp?: Date;
 }
 
-const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
+const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
   hideSlug = false,
   linkToProfile = false,
   profile,
@@ -79,4 +79,4 @@ const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
   );
 };
 
-export default memo(SmallSingleProfile);
+export default memo(SmallSingleAccount);

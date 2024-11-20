@@ -1,4 +1,4 @@
-import SmallSingleProfile from "@components/Shared/SmallSingleProfile";
+import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -53,7 +53,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
           </span>
           <span>by</span>
           <span>
-            <SmallSingleProfile
+            <SmallSingleAccount
               hideSlug
               linkToProfile
               profile={latestActed[0].profile}

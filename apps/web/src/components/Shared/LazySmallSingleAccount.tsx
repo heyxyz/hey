@@ -2,7 +2,7 @@ import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import type { FC } from "react";
 import SmallSingleAccountShimmer from "./Shimmer/SmallSingleAccountShimmer";
-import SmallSingleProfile from "./SmallSingleProfile";
+import SmallSingleAccount from "./SmallSingleAccount";
 
 interface LazySmallSingleAccountProps {
   hideSlug?: boolean;
@@ -28,7 +28,7 @@ const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
   }
 
   return (
-    <SmallSingleProfile
+    <SmallSingleAccount
       hideSlug={hideSlug}
       linkToProfile={linkToProfile}
       profile={data.profile as Profile}

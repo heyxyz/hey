@@ -7,7 +7,7 @@ import {
 import { Card, Input } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import Loader from "./Loader";
-import SmallSingleProfile from "./SmallSingleProfile";
+import SmallSingleAccount from "./SmallSingleAccount";
 
 interface SearchProfilesProps {
   error?: boolean;
@@ -68,7 +68,7 @@ const SearchProfiles: FC<SearchProfilesProps> = ({
                   key={profile.id}
                   onClick={() => onProfileSelected(profile)}
                 >
-                  <SmallSingleProfile profile={profile} />
+                  <SmallSingleAccount profile={profile} />
                 </div>
               ))
             ) : (
