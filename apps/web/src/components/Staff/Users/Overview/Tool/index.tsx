@@ -7,18 +7,18 @@ import getInternalProfile, {
 import type { Profile } from "@hey/lens";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
+import AccountOverview from "./AccountOverview";
+import AccountPreferences from "./AccountPreferences";
 import LeafwatchDetails from "./LeafwatchDetails";
-import ManagedProfiles from "./ManagedProfiles";
+import ManagedAccounts from "./ManagedAccounts";
 import Permissions from "./Permissions";
-import ProfileOverview from "./ProfileOverview";
-import ProfilePreferences from "./ProfilePreferences";
 import Rank from "./Rank";
 
-interface ProfileStaffToolProps {
+interface AccountStaffToolProps {
   profile: Profile;
 }
 
-const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
+const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
   const { data: preferences } = useQuery({
     queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
     queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, profile.id || ""]
@@ -35,8 +35,8 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         showBio
         showUserPreview={false}
       />
-      <ProfileOverview profile={profile} />
-      {preferences ? <ProfilePreferences preferences={preferences} /> : null}
+      <AccountOverview profile={profile} />
+      {preferences ? <AccountPreferences preferences={preferences} /> : null}
       {IS_MAINNET ? (
         <>
           <LeafwatchDetails profileId={profile.id} />
@@ -58,9 +58,9 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
       ) : null}
-      <ManagedProfiles address={profile.ownedBy.address} />
+      <ManagedAccounts address={profile.ownedBy.address} />
     </div>
   );
 };
 
-export default ProfileStaffTool;
+export default AccountStaffTool;

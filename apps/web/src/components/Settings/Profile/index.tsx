@@ -8,7 +8,7 @@ import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 import SettingsSidebar from "../Sidebar";
-import ProfileSettingsForm from "./Profile";
+import AccountSettingsForm from "./Account";
 
 const ProfileSettings: NextPage = () => {
   const { currentProfile } = useProfileStore();
@@ -28,7 +28,7 @@ const ProfileSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <ProfileSettingsForm />
+        <AccountSettingsForm />
       </GridItemEight>
     </GridLayout>
   );

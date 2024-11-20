@@ -12,11 +12,11 @@ import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 
-interface ProfilesProps {
+interface AccountsProps {
   query: string;
 }
 
-const Profiles: FC<ProfilesProps> = ({ query }) => {
+const Accounts: FC<AccountsProps> = ({ query }) => {
   const request: ProfileSearchRequest = {
     limit: LimitType.TwentyFive,
     query,
@@ -85,4 +85,4 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   );
 };
 
-export default Profiles;
+export default Accounts;

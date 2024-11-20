@@ -1,7 +1,7 @@
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
 import type { FC } from "react";
-import SmallSingleProfileShimmer from "./Shimmer/SmallSingleProfileShimmer";
+import SmallSingleAccountShimmer from "./Shimmer/SmallSingleAccountShimmer";
 import SmallSingleProfile from "./SmallSingleProfile";
 
 interface LazySmallSingleAccountProps {
@@ -20,7 +20,7 @@ const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
   });
 
   if (loading) {
-    return <SmallSingleProfileShimmer smallAvatar />;
+    return <SmallSingleAccountShimmer smallAvatar />;
   }
 
   if (!data?.profile) {

@@ -36,7 +36,7 @@ import AccountStatus from "./AccountStatus";
 import Badges from "./Badges";
 import Followerings from "./Followerings";
 import InternalTools from "./InternalTools";
-import ProfileMenu from "./Menu";
+import AccountMenu from "./Menu";
 import MutualFollowersOverview from "./MutualFollowersOverview";
 import ScamWarning from "./ScamWarning";
 import UpdateTheme from "./UpdateTheme";
@@ -140,7 +140,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           ) : followType !== FollowModuleType.RevertFollowModule ? (
             <FollowUnfollowButton profile={profile} />
           ) : null}
-          <ProfileMenu profile={profile} />
+          <AccountMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
           <MutualFollowersOverview

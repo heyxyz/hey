@@ -13,11 +13,11 @@ import CopyID from "./CopyID";
 import CopyLink from "./CopyLink";
 import Report from "./Report";
 
-interface ProfileMenuProps {
+interface AccountMenuProps {
   profile: Profile;
 }
 
-const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ profile }) => {
   const { currentProfile } = useProfileStore();
 
   return (
@@ -53,4 +53,4 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
   );
 };
 
-export default ProfileMenu;
+export default AccountMenu;

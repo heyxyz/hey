@@ -8,7 +8,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import { useProfileStore } from "src/store/persisted/useProfileStore";
 
-const Profile: FC = () => {
+const Account: FC = () => {
   const { currentProfile } = useProfileStore();
   const [profile, setProfile] = useState<null | TProfile>(null);
   const [exporting, setExporting] = useState(false);
@@ -63,4 +63,4 @@ const Profile: FC = () => {
   );
 };
 
-export default Profile;
+export default Account;

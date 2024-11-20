@@ -63,7 +63,7 @@ const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
     </div>
   );
 
-  const ProfileInfo: FC = () => (
+  const AccountInfo: FC = () => (
     <div className="flex items-center space-x-2">
       <UserAvatar />
       <UserName />
@@ -72,10 +72,10 @@ const SmallSingleProfile: FC<SmallSingleProfileProps> = ({
 
   return linkToProfile ? (
     <Link href={getProfile(profile).link}>
-      <ProfileInfo />
+      <AccountInfo />
     </Link>
   ) : (
-    <ProfileInfo />
+    <AccountInfo />
   );
 };
 
