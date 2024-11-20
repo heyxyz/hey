@@ -1,4 +1,4 @@
-import SearchProfiles from "@components/Shared/SearchProfiles";
+import SearchAccounts from "@components/Shared/SearchAccounts";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import {
   ArrowsRightLeftIcon,
@@ -109,7 +109,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 className="flex items-center space-x-2 font-normal"
                 key={index}
               >
-                <SearchProfiles
+                <SearchAccounts
                   error={
                     recipient.recipient.length > 0 &&
                     !isAddress(recipient.recipient)
