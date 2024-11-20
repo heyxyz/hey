@@ -14,11 +14,11 @@ import ManagedAccounts from "./ManagedAccounts";
 import Permissions from "./Permissions";
 import Rank from "./Rank";
 
-interface ProfileStaffToolProps {
+interface AccountStaffToolProps {
   profile: Profile;
 }
 
-const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
+const AccountStaffTool: FC<AccountStaffToolProps> = ({ profile }) => {
   const { data: preferences } = useQuery({
     queryFn: () => getInternalProfile(profile.id, getAuthApiHeaders()),
     queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, profile.id || ""]
@@ -63,4 +63,4 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   );
 };
 
-export default ProfileStaffTool;
+export default AccountStaffTool;
