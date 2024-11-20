@@ -37,14 +37,14 @@ const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
           className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
         >
-          <CopyLink profile={account} />
+          <CopyLink account={account} />
           <CopyAddress address={account.ownedBy.address} />
           <CopyID id={account.id} />
           {currentAccount && currentAccount?.id !== account.id ? (
             <>
-              <AddToList profile={account} />
-              <Block profile={account} />
-              <Report profile={account} />
+              <AddToList account={account} />
+              <Block account={account} />
+              <Report account={account} />
             </>
           ) : null}
         </MenuItems>
