@@ -10,11 +10,11 @@ import useEnsName from "src/hooks/useEnsName";
 import type { Address } from "viem";
 import Slug from "./Slug";
 
-interface WalletProfileProps {
+interface WalletAccountProps {
   address: Address;
 }
 
-const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
+const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
   const { ens, loading } = useEnsName({
     address,
     enabled: Boolean(address)
@@ -57,4 +57,4 @@ const WalletProfile: FC<WalletProfileProps> = ({ address }) => {
   );
 };
 
-export default WalletProfile;
+export default WalletAccount;

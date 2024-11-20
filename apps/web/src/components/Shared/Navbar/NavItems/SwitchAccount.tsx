@@ -3,11 +3,11 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
-interface SwitchProfileProps {
+interface SwitchAccountProps {
   className?: string;
 }
 
-const SwitchProfile: FC<SwitchProfileProps> = ({ className = "" }) => {
+const SwitchAccount: FC<SwitchAccountProps> = ({ className = "" }) => {
   const { setShowProfileSwitchModal } = useGlobalModalStateStore();
 
   return (
@@ -25,4 +25,4 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = "" }) => {
   );
 };
 
-export default SwitchProfile;
+export default SwitchAccount;
