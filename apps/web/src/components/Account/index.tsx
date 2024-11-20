@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import AccountFeed from "./AccountFeed";
 import Details from "./Details";
 import FeedType from "./FeedType";
@@ -39,7 +39,7 @@ const ViewProfile: NextPage = () => {
     pathname,
     query: { handle, id, source, type }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -142,7 +142,7 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentProfile?.id === profile?.id &&
+              {currentAccount?.id === profile?.id &&
               feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}

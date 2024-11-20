@@ -7,7 +7,7 @@ import { LimitType, useFollowersQuery } from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface FollowersProps {
   handle: string;
@@ -15,7 +15,7 @@ interface FollowersProps {
 }
 
 const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const request: FollowersRequest = {
     limit: LimitType.TwentyFive,
@@ -77,8 +77,8 @@ const Followers: FC<FollowersProps> = ({ handle, profileId }) => {
       itemContent={(_, follower) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentProfile?.id === follower.id}
-            hideUnfollowButton={currentProfile?.id === follower.id}
+            hideFollowButton={currentAccount?.id === follower.id}
+            hideUnfollowButton={currentAccount?.id === follower.id}
             profile={follower as Profile}
             showBio
             showUserPreview={false}

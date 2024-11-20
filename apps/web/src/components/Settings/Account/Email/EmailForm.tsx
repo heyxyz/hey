@@ -12,8 +12,8 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { object, string, type z } from "zod";
 
 const updateEmailSchema = object({
@@ -21,7 +21,7 @@ const updateEmailSchema = object({
 });
 
 const EmailForm: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { email, setEmail: setEmailState } = usePreferencesStore();
   const { isSuspended } = useProfileStatus();
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ const EmailForm: FC = () => {
   };
 
   const setEmail = async ({ email }: z.infer<typeof updateEmailSchema>) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

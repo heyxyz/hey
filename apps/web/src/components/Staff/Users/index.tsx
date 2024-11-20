@@ -8,19 +8,19 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
 import List from "./List";
 
 const Users: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "staff-tools", subpage: "users" });
   }, []);
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

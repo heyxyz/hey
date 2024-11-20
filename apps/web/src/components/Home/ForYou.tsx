@@ -10,17 +10,17 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const ForYou: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
   const request: PublicationForYouRequest = {
-    for: currentProfile?.id,
+    for: currentAccount?.id,
     limit: LimitType.TwentyFive
   };
 

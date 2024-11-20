@@ -30,7 +30,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import urlcat from "urlcat";
 import AccountStatus from "./AccountStatus";
 import Badges from "./Badges";
@@ -61,7 +61,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
   const { push } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -120,7 +120,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
         <ScamWarning profileId={profile.id} />
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
-          {currentProfile?.id === profile.id ? (
+          {currentAccount?.id === profile.id ? (
             <>
               <Button
                 icon={<Cog6ToothIcon className="size-5" />}
@@ -142,7 +142,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, profile }) => {
           ) : null}
           <AccountMenu profile={profile} />
         </div>
-        {currentProfile?.id !== profile.id ? (
+        {currentAccount?.id !== profile.id ? (
           <MutualFollowersOverview
             handle={getAccount(profile).slug}
             profileId={profile.id}

@@ -6,7 +6,7 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import Account from "./Account";
 import Followers from "./Followers";
@@ -16,13 +16,13 @@ import Posts from "./Posts";
 import Tokens from "./Tokens";
 
 const ExportSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "export" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

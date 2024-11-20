@@ -36,7 +36,7 @@ import type { OptimisticTransaction } from "@hey/types/misc";
 import { useRouter } from "next/router";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
@@ -56,7 +56,7 @@ const useCreatePost = ({
 }: CreatePostProps) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const {
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,
@@ -65,7 +65,7 @@ const useCreatePost = ({
   const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOn);

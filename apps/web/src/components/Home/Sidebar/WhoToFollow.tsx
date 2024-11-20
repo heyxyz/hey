@@ -8,19 +8,19 @@ import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Suggested from "../Suggested";
 
 const Title: FC = () => <H5>Who to Follow</H5>;
 
 const WhoToFollow: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
   const { data, error, loading } = useProfileRecommendationsQuery({
     variables: {
       request: {
-        for: currentProfile?.id,
+        for: currentAccount?.id,
         limit: LimitType.Fifty,
         shuffle: true
       }
@@ -69,8 +69,8 @@ const WhoToFollow: FC = () => {
           >
             <div className="w-full">
               <SingleAccount
-                hideFollowButton={currentProfile?.id === profile.id}
-                hideUnfollowButton={currentProfile?.id === profile.id}
+                hideFollowButton={currentAccount?.id === profile.id}
+                hideUnfollowButton={currentAccount?.id === profile.id}
                 profile={profile as Profile}
                 source={ProfileLinkSource.WhoToFollow}
               />

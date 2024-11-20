@@ -6,14 +6,14 @@ import type { Profile } from "@hey/lens";
 import { EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface SuggestedProps {
   profiles: Profile[];
 }
 
 const Suggested: FC<SuggestedProps> = ({ profiles }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   if (profiles.length === 0) {
     return (
@@ -36,8 +36,8 @@ const Suggested: FC<SuggestedProps> = ({ profiles }) => {
           <div className="flex items-center space-x-3 p-5">
             <div className="w-full">
               <SingleAccount
-                hideFollowButton={currentProfile?.id === profile.id}
-                hideUnfollowButton={currentProfile?.id === profile.id}
+                hideFollowButton={currentAccount?.id === profile.id}
+                hideUnfollowButton={currentAccount?.id === profile.id}
                 profile={profile as Profile}
                 showBio
                 showUserPreview={false}

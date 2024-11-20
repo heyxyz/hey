@@ -6,15 +6,15 @@ import type { CollectModuleType } from "@hey/types/hey";
 import { Input, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface AmountConfigProps {
   setCollectType: (data: CollectModuleType) => void;
 }
 
 const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { collectModule } = useCollectModuleStore((state) => state);
   const { allowedTokens } = useAllowedTokensStore();
 
@@ -34,7 +34,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
               : { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
             recipients: enabled
               ? []
-              : [{ recipient: currentProfile?.ownedBy.address, split: 100 }],
+              : [{ recipient: currentAccount?.ownedBy.address, split: 100 }],
             type: enabled
               ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
               : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule

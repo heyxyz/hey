@@ -7,15 +7,15 @@ import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
-    skip: !currentProfile?.id,
+    skip: !currentAccount?.id,
     variables: { request }
   });
 

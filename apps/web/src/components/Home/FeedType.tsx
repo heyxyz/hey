@@ -11,14 +11,14 @@ import { Image, TabButton } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 import { usePinnedListStore } from "src/store/persisted/usePinnedListStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 const GET_PINNED_LISTS_QUERY_KEY = "getPinnedLists";
 
 const FeedType: FC = () => {
-  const { fallbackToCuratedFeed } = useProfileStore();
+  const { fallbackToCuratedFeed } = useAccountStore();
   const { pinnedLists, setPinnedLists } = usePinnedListStore();
   const { feedType, setFeedType, pinnedList, setPinnedList } =
     useHomeTabStore();

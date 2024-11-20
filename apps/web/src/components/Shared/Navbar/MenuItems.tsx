@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import LoginButton from "../LoginButton";
 import SignedAccount from "./SignedAccount";
 import SignupButton from "./SignupButton";
@@ -12,9 +12,9 @@ export const NextLink = ({ children, href, ...rest }: Record<string, any>) => (
 );
 
 const MenuItems: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
-  if (currentProfile) {
+  if (currentAccount) {
     return <SignedAccount />;
   }
 

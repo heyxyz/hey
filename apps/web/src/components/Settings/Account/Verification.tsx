@@ -6,23 +6,23 @@ import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDa
 import { Button, Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { hydrateVerifiedMembers } from "src/store/persisted/useVerifiedMembersStore";
 
 const Verification: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { verifiedMembers } = hydrateVerifiedMembers();
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return null;
   }
 
   const hasMetFollowersRequirement =
-    (currentProfile.stats.followers || 0) >= 3000;
+    (currentAccount.stats.followers || 0) >= 3000;
   const hasMetPublicationsRequirement =
-    (currentProfile.stats.publications || 0) >= 50;
+    (currentAccount.stats.publications || 0) >= 50;
   const hasMetTimeRequirement =
-    30 < -getNumberOfDaysFromDate(currentProfile?.createdAt);
+    30 < -getNumberOfDaysFromDate(currentAccount?.createdAt);
 
   const hasAllRequirements =
     hasMetFollowersRequirement &&
@@ -32,7 +32,7 @@ const Verification: FC = () => {
   return (
     <Card className="space-y-2 p-5">
       <H5>Verified</H5>
-      {verifiedMembers.includes(currentProfile?.id) ? (
+      {verifiedMembers.includes(currentAccount?.id) ? (
         <div className="flex items-center space-x-1.5">
           <span>Believe it. Yes, you're really verified.</span>
           <CheckBadgeIcon className="size-5 text-brand-500" />

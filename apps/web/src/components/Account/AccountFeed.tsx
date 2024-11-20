@@ -17,7 +17,7 @@ import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useProfileFeedStore } from "src/store/non-persisted/useProfileFeedStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
@@ -39,7 +39,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   profileId,
   type
 }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { mediaFeedFilters } = useProfileFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
@@ -113,7 +113,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const hasMore = pageInfo?.next;
 
   useEffect(() => {
-    if (indexedPostHash && currentProfile?.id === profileId) {
+    if (indexedPostHash && currentAccount?.id === profileId) {
       refetch();
     }
   }, [indexedPostHash]);

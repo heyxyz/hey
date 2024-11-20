@@ -1,7 +1,7 @@
 import getClubs from "@hey/helpers/api/clubs/getClubs";
 import type { Club } from "@hey/types/club";
 import { useEffect, useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
@@ -14,7 +14,7 @@ export type ClubProfile = {
 };
 
 const useClubQuery = (query: string): ClubProfile[] => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [results, setResults] = useState<ClubProfile[]>([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
       return;
     }
 
-    getClubs({ limit: 10, profile_id: currentProfile?.id, query }).then(
+    getClubs({ limit: 10, profile_id: currentAccount?.id, query }).then(
       (data) => {
         const clubs = data as Club[];
         const clubsResults = (clubs ?? []).map(

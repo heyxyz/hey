@@ -12,11 +12,11 @@ import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import EmojiPicker from "../EmojiPicker";
 
 const AccountStatus: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setShowEditStatusModal } = useGlobalModalStateStore();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -24,14 +24,14 @@ const AccountStatus: FC = () => {
   const queryClient = useQueryClient();
 
   const { isLoading, error } = useQuery({
-    enabled: Boolean(currentProfile?.id),
+    enabled: Boolean(currentAccount?.id),
     queryFn: () =>
-      getProfileDetails(currentProfile?.id).then((data) => {
+      getProfileDetails(currentAccount?.id).then((data) => {
         setMessage(data?.status?.message || null);
         setEmoji(data?.status?.emoji || null);
         return data;
       }),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, currentProfile?.id]
+    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, currentAccount?.id]
   });
 
   if (isLoading) {

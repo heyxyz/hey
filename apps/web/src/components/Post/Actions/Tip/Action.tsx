@@ -26,8 +26,8 @@ import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInp
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import type { Address } from "viem";
 import { formatUnits } from "viem";
@@ -48,7 +48,7 @@ interface ActionProps {
 }
 
 const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { addTip } = useTipsStore();
   const { fiatRates } = useRatesStore();
@@ -170,7 +170,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
           selectedCurrency?.contractAddress,
           post.by.ownedBy.address,
           finalRate,
-          currentProfile?.id,
+          currentAccount?.id,
           post.by.id,
           post.id.split("-")[1]
         ],
@@ -209,18 +209,18 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
   const hasAllowance = allowance >= finalRate;
   const amountDisabled =
     isLoading ||
-    !currentProfile ||
+    !currentAccount ||
     !hasAllowance ||
     isWaitingForTransaction ||
     isGettingAllowance;
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return (
       <div className="m-5">
         <Button
           className={submitButtonClassName}
           onClick={() => {
-            if (!currentProfile) {
+            if (!currentAccount) {
               closePopover();
               setShowAuthModal(true);
               return;
@@ -238,7 +238,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
       <div className="m-5 space-y-3">
         <H6>Connect to correct wallet to tip!</H6>
         <H6 className="ld-text-gray-500">
-          Switch to: {formatAddress(currentProfile?.ownedBy.address)}
+          Switch to: {formatAddress(currentAccount?.ownedBy.address)}
         </H6>
       </div>
     );

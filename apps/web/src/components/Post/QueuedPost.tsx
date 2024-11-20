@@ -12,14 +12,14 @@ import {
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Card, Tooltip } from "@hey/ui";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface QueuedPostProps {
   txn: OptimisticTransaction;
 }
 
 const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
@@ -70,7 +70,7 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <SmallSingleAccount linkToProfile profile={currentProfile as Profile} />
+        <SmallSingleAccount linkToProfile profile={currentAccount as Profile} />
         <Tooltip content="Indexing" placement="top">
           <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
             <div className="size-2 animate-shimmer rounded-full bg-gray-500" />

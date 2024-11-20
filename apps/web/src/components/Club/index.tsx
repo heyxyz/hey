@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import ClubFeed from "./ClubFeed";
 import Details from "./Details";
 import Members from "./Members";
@@ -24,7 +24,7 @@ const ViewClub: NextPage = () => {
     pathname,
     query: { handle }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const showMembers = pathname === "/c/[handle]/members";
 
@@ -46,7 +46,7 @@ const ViewClub: NextPage = () => {
     queryFn: () =>
       getClub({
         club_handle: handle as string,
-        profile_id: currentProfile?.id
+        profile_id: currentAccount?.id
       }),
     queryKey: [GET_CLUB_QUERY_KEY, handle]
   });
@@ -79,7 +79,7 @@ const ViewClub: NextPage = () => {
             <Members clubId={club.id} handle={club.handle} />
           ) : (
             <>
-              {currentProfile && club.isMember && (
+              {currentAccount && club.isMember && (
                 <NewPost
                   tags={[
                     `orbcommunities${club.handle}`,

@@ -6,18 +6,18 @@ import { PAGEVIEW } from "@hey/data/tracking";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import CollectModules from "./CollectModules";
 
 const AllowanceSettings: NextPage = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "allowance" });
   }, []);
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

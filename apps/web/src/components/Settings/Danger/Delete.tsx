@@ -20,12 +20,12 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { signOut } from "src/store/persisted/useAuthStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useDisconnect, useWriteContract } from "wagmi";
 
 const DeleteSettings: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { disconnect } = useDisconnect();
@@ -57,25 +57,25 @@ const DeleteSettings: FC = () => {
   };
 
   const handleDelete = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
     try {
       setIsLoading(true);
       await handleWrongNetwork();
-      return await write({ args: [currentProfile?.id] });
+      return await write({ args: [currentAccount?.id] });
     } catch (error) {
       onError(error);
     }
   };
 
   const cooldownEnded = () => {
-    const cooldownDate = currentProfile?.guardian?.cooldownEndsOn as any;
+    const cooldownDate = currentAccount?.guardian?.cooldownEndsOn as any;
     return new Date(cooldownDate).getTime() < Date.now();
   };
 
-  const canDelete = !currentProfile?.guardian?.protected && cooldownEnded();
+  const canDelete = !currentAccount?.guardian?.protected && cooldownEnded();
 
   if (!canDelete) {
     return (
@@ -99,7 +99,7 @@ const DeleteSettings: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          profile={currentProfile as Profile}
+          profile={currentAccount as Profile}
         />
         <div className="space-y-3">
           <H5 className="text-red-500">Delete Lens profile</H5>

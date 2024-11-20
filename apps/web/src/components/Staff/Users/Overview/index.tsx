@@ -22,14 +22,14 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Overview: NextPage = () => {
   const {
     isReady,
     query: { id }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Overview: NextPage = () => {
   });
   const profile = data?.profile as Profile;
 
-  if (!currentProfile || !isStaff) {
+  if (!currentAccount || !isStaff) {
     return <Custom404 />;
   }
 

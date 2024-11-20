@@ -6,8 +6,8 @@ import { ONBOARDING } from "@hey/data/tracking";
 import { Card, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 
 interface StatusProps {
   finished: boolean;
@@ -26,14 +26,14 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 );
 
 const SetAccount: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { email, loading } = usePreferencesStore();
 
   const doneSetup =
-    Boolean(currentProfile?.metadata?.displayName) &&
-    Boolean(currentProfile?.metadata?.bio) &&
-    Boolean(currentProfile?.metadata?.picture) &&
-    Boolean(currentProfile?.interests?.length) &&
+    Boolean(currentAccount?.metadata?.displayName) &&
+    Boolean(currentAccount?.metadata?.bio) &&
+    Boolean(currentAccount?.metadata?.picture) &&
+    Boolean(currentAccount?.interests?.length) &&
     Boolean(loading || email);
 
   if (doneSetup) {
@@ -45,15 +45,15 @@ const SetAccount: FC = () => {
       <H5>Setup your {APP_NAME} profile</H5>
       <div className="space-y-1 text-sm leading-5">
         <Status
-          finished={Boolean(currentProfile?.metadata?.displayName)}
+          finished={Boolean(currentAccount?.metadata?.displayName)}
           title="Set profile name"
         />
         <Status
-          finished={Boolean(currentProfile?.metadata?.bio)}
+          finished={Boolean(currentAccount?.metadata?.bio)}
           title="Set profile bio"
         />
         <Status
-          finished={Boolean(currentProfile?.metadata?.picture)}
+          finished={Boolean(currentAccount?.metadata?.picture)}
           title="Set your avatar"
         />
         <div>
@@ -72,7 +72,7 @@ const SetAccount: FC = () => {
             }
           >
             <Status
-              finished={Boolean(currentProfile?.interests?.length)}
+              finished={Boolean(currentAccount?.interests?.length)}
               title="Select profile interests"
             />
           </Link>

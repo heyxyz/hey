@@ -25,11 +25,11 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const LinkHandle: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
     useNonceStore();
@@ -37,7 +37,7 @@ const LinkHandle: FC = () => {
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -60,7 +60,7 @@ const LinkHandle: FC = () => {
   };
 
   const { data, loading } = useOwnedHandlesQuery({
-    variables: { request: { for: currentProfile?.ownedBy.address } }
+    variables: { request: { for: currentAccount?.ownedBy.address } }
   });
 
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
@@ -129,7 +129,7 @@ const LinkHandle: FC = () => {
   };
 
   const handleLink = async (handle: string) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return;
     }
 
@@ -167,7 +167,7 @@ const LinkHandle: FC = () => {
   }
 
   const ownedHandles = data?.ownedHandles.items.filter(
-    (handle) => handle.linkedTo?.nftTokenId !== currentProfile?.id
+    (handle) => handle.linkedTo?.nftTokenId !== currentAccount?.id
   );
 
   if (!ownedHandles?.length) {

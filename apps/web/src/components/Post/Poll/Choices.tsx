@@ -21,7 +21,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { GET_POLL_QUERY_KEY } from ".";
 
 interface ChoicesProps {
@@ -29,7 +29,7 @@ interface ChoicesProps {
 }
 
 const Choices: FC<ChoicesProps> = ({ poll }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
@@ -41,7 +41,7 @@ const Choices: FC<ChoicesProps> = ({ poll }) => {
   }, 0);
 
   const handleVotePoll = async (id: string) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

@@ -6,7 +6,7 @@ import { Button, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../../Slug";
 import FollowModule from "./FollowModule";
 
@@ -24,7 +24,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
   title
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
 
   return (
@@ -33,7 +33,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         aria-label={title}
         className={buttonClassName}
         onClick={() => {
-          if (!currentProfile) {
+          if (!currentAccount) {
             setShowAuthModal(true);
             return;
           }

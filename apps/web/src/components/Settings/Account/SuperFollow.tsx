@@ -33,8 +33,8 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 import { object, string } from "zod";
 
@@ -46,7 +46,7 @@ const newSuperFollowSchema = object({
 });
 
 const SuperFollow: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { isSuspended } = useProfileStatus();
   const {
@@ -59,15 +59,15 @@ const SuperFollow: FC = () => {
     DEFAULT_COLLECT_TOKEN
   );
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const form = useZodForm({
     defaultValues: {
       amount:
-        currentProfile?.followModule?.__typename === "FeeFollowModuleSettings"
-          ? currentProfile?.followModule?.amount.value
+        currentAccount?.followModule?.__typename === "FeeFollowModuleSettings"
+          ? currentAccount?.followModule?.amount.value
           : "",
-      recipient: currentProfile?.ownedBy.address
+      recipient: currentAccount?.ownedBy.address
     },
     schema: newSuperFollowSchema
   });
@@ -145,7 +145,7 @@ const SuperFollow: FC = () => {
     amount: null | string,
     recipient: null | string
   ) => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
@@ -175,7 +175,7 @@ const SuperFollow: FC = () => {
     }
   };
 
-  const followType = currentProfile?.followModule?.type;
+  const followType = currentAccount?.followModule?.type;
 
   return (
     <Card>
@@ -196,9 +196,9 @@ const SuperFollow: FC = () => {
           <div className="label">Select currency</div>
           <Select
             defaultValue={
-              currentProfile?.followModule?.__typename ===
+              currentAccount?.followModule?.__typename ===
               "FeeFollowModuleSettings"
-                ? currentProfile?.followModule?.amount.asset.contract.address
+                ? currentAccount?.followModule?.amount.asset.contract.address
                 : undefined
             }
             iconClassName="size-4"

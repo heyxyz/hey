@@ -2,17 +2,17 @@ import Loader from "@components/Shared/Loader";
 import { useUserRateLimitQuery } from "@hey/lens";
 import { Card, CardHeader, ErrorMessage, ProgressBar } from "@hey/ui";
 import type { FC } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const RateLimits: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   const { data, error, loading } = useUserRateLimitQuery({
     fetchPolicy: "no-cache",
     variables: {
       request: {
-        profileId: currentProfile?.id,
-        userAddress: currentProfile?.ownedBy.address
+        profileId: currentAccount?.id,
+        userAddress: currentAccount?.ownedBy.address
       }
     }
   });

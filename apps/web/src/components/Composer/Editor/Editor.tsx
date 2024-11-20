@@ -12,14 +12,14 @@ import useContentChange from "src/hooks/prosekit/useContentChange";
 import useFocus from "src/hooks/prosekit/useFocus";
 import { usePaste } from "src/hooks/prosekit/usePaste";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useEditorHandle } from "./EditorHandle";
 
 // Lazy load EditorMenus to reduce bundle size
 const EditorMenus = dynamic(() => import("./EditorMenus"), { ssr: false });
 
 const Editor: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
   const defaultMarkdownRef = useRef(postContent);
 
@@ -42,9 +42,9 @@ const Editor: FC = () => {
     <ProseKit editor={editor}>
       <div className="box-border flex h-full w-full justify-stretch overflow-y-auto overflow-x-hidden px-5 py-4">
         <Image
-          alt={currentProfile?.id}
+          alt={currentAccount?.id}
           className="mr-3 size-11 rounded-full border bg-gray-200 dark:border-gray-700"
-          src={getAvatar(currentProfile)}
+          src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
           <EditorMenus />

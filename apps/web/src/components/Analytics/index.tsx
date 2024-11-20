@@ -8,7 +8,7 @@ import { GridItemTwelve, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import AnalyticsType from "./AnalyticsType";
 import Impressions from "./Impressions";
 import Overview from "./Overview";
@@ -17,7 +17,7 @@ const Analytics: NextPage = () => {
   const {
     query: { type }
   } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "analytics" });
@@ -34,7 +34,7 @@ const Analytics: NextPage = () => {
       : AnalyticsTabType.Overview
     : AnalyticsTabType.Overview;
 
-  if (!currentProfile) {
+  if (!currentAccount) {
     return <NotLoggedIn />;
   }
 

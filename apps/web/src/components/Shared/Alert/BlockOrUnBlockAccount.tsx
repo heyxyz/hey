@@ -24,11 +24,11 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const BlockOrUnBlockAccount: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const {
     blockingorUnblockingProfile,
     setShowBlockOrUnblockAlert,
@@ -44,7 +44,7 @@ const BlockOrUnBlockAccount: FC = () => {
   const { isSuspended } = useProfileStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
   const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -166,7 +166,7 @@ const BlockOrUnBlockAccount: FC = () => {
   };
 
   const blockOrUnblock = async () => {
-    if (!currentProfile) {
+    if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 

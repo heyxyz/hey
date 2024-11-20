@@ -9,14 +9,14 @@ import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface QuoteProps {
   post: MirrorablePublication;
 }
 
 const Quote: FC<QuoteProps> = ({ post }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPost } = usePostStore();
   const { isSuspended } = useProfileStatus();
@@ -36,7 +36,7 @@ const Quote: FC<QuoteProps> = ({ post }) => {
         )
       }
       onClick={() => {
-        if (!currentProfile) {
+        if (!currentAccount) {
           setShowAuthModal(true);
           return;
         }

@@ -6,16 +6,16 @@ import { useProfileLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Account: FC = () => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [profile, setProfile] = useState<null | TProfile>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: ProfileRequest = {
-    forProfileId: currentProfile?.id
+    forProfileId: currentAccount?.id
   };
 
   const [exportProfile] = useProfileLazyQuery({

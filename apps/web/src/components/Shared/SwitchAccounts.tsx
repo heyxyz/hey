@@ -23,15 +23,15 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { signIn, signOut } from "src/store/persisted/useAuthStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
 import { useAccount, useSignMessage } from "wagmi";
 import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
 const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
     null
@@ -147,7 +147,7 @@ const SwitchAccounts: FC = () => {
             />
             <div
               className={cn(
-                currentProfile?.id === profile?.id && "font-bold",
+                currentAccount?.id === profile?.id && "font-bold",
                 "truncate"
               )}
             >
@@ -156,7 +156,7 @@ const SwitchAccounts: FC = () => {
           </span>
           {isLoading && profile.id === loggingInProfileId ? (
             <Spinner size="xs" />
-          ) : currentProfile?.id === profile?.id ? (
+          ) : currentAccount?.id === profile?.id ? (
             <CheckCircleIcon className="size-5 text-green-500" />
           ) : null}
         </button>

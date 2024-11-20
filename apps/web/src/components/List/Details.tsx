@@ -16,14 +16,14 @@ import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DetailsProps {
   list: List;
 }
 
 const Details: FC<DetailsProps> = ({ list }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -75,7 +75,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
       </div>
       <div className="flex items-center space-x-2">
         <PinUnpinButton list={list} />
-        {currentProfile?.id === list.createdBy && (
+        {currentAccount?.id === list.createdBy && (
           <Button onClick={() => setShowEditModal(true)}>Edit</Button>
         )}
       </div>

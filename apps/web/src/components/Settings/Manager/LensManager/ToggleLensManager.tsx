@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 interface ToggleLensManagerProps {
@@ -29,7 +29,7 @@ interface ToggleLensManagerProps {
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = "md"
 }) => {
-  const { currentProfile } = useProfileStore();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useProfileStatus();
   const {
     decrementLensHubOnchainSigNonce,
@@ -40,7 +40,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { canBroadcast, canUseSignless } =
-    checkDispatcherPermissions(currentProfile);
+    checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {

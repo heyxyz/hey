@@ -13,13 +13,13 @@ import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
-import { useProfileStore } from "src/store/persisted/useProfileStore";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
-  const { currentProfile, fallbackToCuratedFeed } = useProfileStore();
+  const { currentAccount, fallbackToCuratedFeed } = useAccountStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
@@ -32,7 +32,7 @@ const Timeline: FC = () => {
         FeedEventItemType.Mirror,
         FeedEventItemType.Quote
       ],
-      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentProfile?.id
+      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentAccount?.id
     }
   };
 
