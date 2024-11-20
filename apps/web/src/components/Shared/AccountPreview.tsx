@@ -1,4 +1,4 @@
-import MutualFollowersOverview from "@components/Profile/MutualFollowersOverview";
+import MutualFollowersOverview from "@components/Account/MutualFollowersOverview";
 import getProfileDetails, {
   GET_PROFILE_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getProfileDetails";
