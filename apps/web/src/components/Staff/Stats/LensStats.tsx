@@ -9,22 +9,22 @@ import type { FC } from "react";
 const GET_LENS_STATS_QUERY_KEY = "getLensStats";
 
 interface LensStatsType {
-  authentications_count: string;
-  relay_usage_count: string;
-  posts_count: string;
-  profiles_count: string;
-  bookmarked_posts_count: string;
-  not_interested_posts_count: string;
-  wtf_recommendation_dismissed_count: string;
-  notifications_count: string;
-  momoka_count: string;
-  media_snapshots_count: string;
-  quality_profiles_count: string;
-  indexed_transactions_count: string;
-  hashtags_count: string;
-  mentions_count: string;
-  ens_count: string;
-  gardener_reports_count: string;
+  authenticationsCount: string;
+  relayUsageCount: string;
+  postsCount: string;
+  profilesCount: string;
+  bookmarkedPostsCount: string;
+  notInterestedPostsCount: string;
+  wtfRecommendationDismissedCount: string;
+  notificationsCount: string;
+  momokaCount: string;
+  mediaSnapshotsCount: string;
+  qualityProfilesCount: string;
+  indexedTransactionsCount: string;
+  hashtagsCount: string;
+  mentionsCount: string;
+  ensCount: string;
+  gardenerReportsCount: string;
 }
 
 const LensStats: FC = () => {
@@ -65,40 +65,37 @@ const LensStats: FC = () => {
       <CardHeader title="Lens Stats" />
       <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
         <NumberedStat
-          count={data.authentications_count}
+          count={data.authenticationsCount}
           name="Authentications"
         />
-        <NumberedStat count={data.relay_usage_count} name="Relay Usage" />
-        <NumberedStat count={data.posts_count} name="Posts" />
-        <NumberedStat count={data.profiles_count} name="Profiles" />
+        <NumberedStat count={data.relayUsageCount} name="Relay Usage" />
+        <NumberedStat count={data.postsCount} name="Posts" />
+        <NumberedStat count={data.profilesCount} name="Profiles" />
         <NumberedStat
-          count={data.quality_profiles_count}
+          count={data.qualityProfilesCount}
           name="Quality Profiles"
         />
-        <NumberedStat count={data.bookmarked_posts_count} name="Bookmarkes" />
+        <NumberedStat count={data.bookmarkedPostsCount} name="Bookmarkes" />
         <NumberedStat
-          count={data.not_interested_posts_count}
+          count={data.notInterestedPostsCount}
           name="Not Interested"
         />
         <NumberedStat
-          count={data.wtf_recommendation_dismissed_count}
+          count={data.wtfRecommendationDismissedCount}
           name="WTF Dismissed"
         />
-        <NumberedStat count={data.notifications_count} name="Notifications" />
-        <NumberedStat count={data.momoka_count} name="Momoka Posts" />
+        <NumberedStat count={data.notificationsCount} name="Notifications" />
+        <NumberedStat count={data.momokaCount} name="Momoka Posts" />
+        <NumberedStat count={data.mediaSnapshotsCount} name="Media Snapshots" />
         <NumberedStat
-          count={data.media_snapshots_count}
-          name="Media Snapshots"
-        />
-        <NumberedStat
-          count={data.indexed_transactions_count}
+          count={data.indexedTransactionsCount}
           name="Indexed Transactions"
         />
-        <NumberedStat count={data.hashtags_count} name="Hashtags" />
-        <NumberedStat count={data.mentions_count} name="Mentions" />
-        <NumberedStat count={data.ens_count} name="ENS" />
+        <NumberedStat count={data.hashtagsCount} name="Hashtags" />
+        <NumberedStat count={data.mentionsCount} name="Mentions" />
+        <NumberedStat count={data.ensCount} name="ENS" />
         <NumberedStat
-          count={data.gardener_reports_count}
+          count={data.gardenerReportsCount}
           name="Gardener Reports"
         />
       </div>
