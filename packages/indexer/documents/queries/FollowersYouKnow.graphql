@@ -1,0 +1,10 @@
+query FollowersYouKnow($request: FollowersYouKnowRequest!) {
+  followersYouKnow(request: $request) {
+    items {
+      ...AccountFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

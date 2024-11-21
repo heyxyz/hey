@@ -1,0 +1,15 @@
+query AccountUsernames($request: AccountUsernameRequest!) {
+  accountUsernames(request: $request) {
+    items {
+      id
+      value
+      prefix
+      localName
+      linkedTo
+      ownedBy
+    }
+    pageInfo {
+      next
+    }
+  }
+}

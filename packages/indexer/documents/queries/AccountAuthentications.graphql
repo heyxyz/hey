@@ -1,0 +1,18 @@
+query AccountAuthentications($request: AccountAuthenticationsRequest!) {
+  accountAuthentications(request: $request) {
+    items {
+      authenticationId
+      app
+      browser
+      device
+      os
+      origin
+      signer
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      next
+    }
+  }
+}

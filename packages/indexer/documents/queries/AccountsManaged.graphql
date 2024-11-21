@@ -1,0 +1,13 @@
+query AccountsManaged($request: AccountsManagedRequest!) {
+  accountsManaged(request: $request) {
+    items {
+      account {
+        ...AccountFields
+      }
+      addedAt
+    }
+    pageInfo {
+      next
+    }
+  }
+}

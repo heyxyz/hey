@@ -1,0 +1,20 @@
+query Me {
+  me {
+    account {
+      ...AccountFields
+    }
+    isSignless
+    isSponsored
+    loggedInTo
+    canExecuteTransactions
+    canTransferTokens
+    canTransferNative
+    canSetMetadataUri
+    limit {
+      window
+      allowanceLeft
+      allowanceUsed
+      allowance
+    }
+  }
+}

@@ -1,0 +1,31 @@
+fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    appId
+    attributes {
+      type
+      key
+      value
+    }
+    bio
+    coverPicture
+    id
+    name
+    picture
+  }
+  username
+  operations {
+    id
+    isFollowedByMe
+    isFollowingMe
+    canFollow
+    canUnfollow
+    isMutedByMe
+    isBlockedByMe
+    hasBlockedMe
+    canBlock
+    canUnblock
+    hasReported
+  }
+}
