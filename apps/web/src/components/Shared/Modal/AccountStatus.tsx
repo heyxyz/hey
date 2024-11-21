@@ -2,9 +2,9 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
-import getProfileDetails, {
-  GET_PROFILE_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getProfileDetails";
+import getAccountDetails, {
+  GET_ACCOUNT_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getAccountDetails";
 import { Button, ErrorMessage, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -26,12 +26,12 @@ const AccountStatus: FC = () => {
   const { isLoading, error } = useQuery({
     enabled: Boolean(currentAccount?.id),
     queryFn: () =>
-      getProfileDetails(currentAccount?.id).then((data) => {
+      getAccountDetails(currentAccount?.id).then((data) => {
         setMessage(data?.status?.message || null);
         setEmoji(data?.status?.emoji || null);
         return data;
       }),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, currentAccount?.id]
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, currentAccount?.id]
   });
 
   if (isLoading) {
@@ -58,7 +58,7 @@ const AccountStatus: FC = () => {
       setEmoji(null);
       setShowEditStatusModal(false);
       queryClient.invalidateQueries({
-        queryKey: [GET_PROFILE_DETAILS_QUERY_KEY]
+        queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY]
       });
       toast.success("Profile status cleared");
     } catch (error) {
@@ -78,7 +78,7 @@ const AccountStatus: FC = () => {
       setEmoji(null);
       setShowEditStatusModal(false);
       queryClient.invalidateQueries({
-        queryKey: [GET_PROFILE_DETAILS_QUERY_KEY]
+        queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY]
       });
       toast.success("Profile status updated");
     } catch (error) {

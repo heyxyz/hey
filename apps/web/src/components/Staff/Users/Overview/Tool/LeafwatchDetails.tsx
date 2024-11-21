@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AdjustmentsVerticalIcon } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
-import { GET_PROFILE_DETAILS_QUERY_KEY } from "@hey/helpers/api/getProfileDetails";
+import { GET_ACCOUNT_DETAILS_QUERY_KEY } from "@hey/helpers/api/getAccountDetails";
 import humanize from "@hey/helpers/humanize";
 import { H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -21,7 +21,7 @@ interface LeafwatchDetailsProps {
 }
 
 const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
-  const getProfileDetails = async (): Promise<{
+  const getAccountDetails = async (): Promise<{
     browser: string;
     city: string;
     country: string;
@@ -41,8 +41,8 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
 
   const { data: leafwatchDetails } = useQuery({
     enabled: Boolean(accountId),
-    queryFn: getProfileDetails,
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, accountId]
+    queryFn: getAccountDetails,
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, accountId]
   });
 
   const getProfileImpressions = async (): Promise<{

@@ -1,7 +1,7 @@
 import { FaceSmileIcon } from "@heroicons/react/24/outline";
-import getProfileDetails, {
-  GET_PROFILE_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getProfileDetails";
+import getAccountDetails, {
+  GET_ACCOUNT_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getAccountDetails";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
@@ -17,8 +17,8 @@ const AccountStatus: FC<AccountStatusProps> = ({ id, className = "" }) => {
 
   const { data, isLoading } = useQuery({
     enabled: Boolean(id),
-    queryFn: () => getProfileDetails(id),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, id]
+    queryFn: () => getAccountDetails(id),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, id]
   });
 
   return (

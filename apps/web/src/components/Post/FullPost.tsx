@@ -1,8 +1,8 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import getProfileDetails, {
-  GET_PROFILE_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getProfileDetails";
+import getAccountDetails, {
+  GET_ACCOUNT_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getAccountDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -40,8 +40,8 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
 
   const { data: profileDetails } = useQuery({
     enabled: Boolean(by.id),
-    queryFn: () => getProfileDetails(by.id || ""),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, by.id]
+    queryFn: () => getAccountDetails(by.id || ""),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, by.id]
   });
 
   const isSuspended = isStaff ? false : profileDetails?.isSuspended;
