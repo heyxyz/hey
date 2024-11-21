@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import sanitizeProfileInterests from "@helpers/sanitizeProfileInterests";
+import sanitizeAccountInterests from "@helpers/sanitizeAccountInterests";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
@@ -82,7 +82,7 @@ const Interests: FC = () => {
 
   return (
     <div className="m-5 space-y-4">
-      {sanitizeProfileInterests(interestsData)?.map(
+      {sanitizeAccountInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="space-y-2" key={category.id}>
             <h2 className="font-medium text-sm capitalize">{category.label}</h2>

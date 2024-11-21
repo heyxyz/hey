@@ -17,8 +17,8 @@ import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
-import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import getSignature from "@hey/helpers/getSignature";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
@@ -202,16 +202,16 @@ const AccountSettingsForm: FC = () => {
   const form = useZodForm({
     defaultValues: {
       bio: currentAccount?.metadata?.bio || "",
-      location: getProfileAttribute(
+      location: getAccountAttribute(
         "location",
         currentAccount?.metadata?.attributes
       ),
       name: currentAccount?.metadata?.displayName || "",
-      website: getProfileAttribute(
+      website: getAccountAttribute(
         "website",
         currentAccount?.metadata?.attributes
       ),
-      x: getProfileAttribute(
+      x: getAccountAttribute(
         "x",
         currentAccount?.metadata?.attributes
       )?.replace(/(https:\/\/)?x\.com\//, "")

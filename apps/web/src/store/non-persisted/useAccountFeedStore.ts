@@ -11,4 +11,4 @@ const store = create<State>((set) => ({
   setMediaFeedFilters: (mediaFeedFilters) => set(() => ({ mediaFeedFilters }))
 }));
 
-export const useProfileFeedStore = createTrackedSelector(store);
+export const useAccountFeedStore = createTrackedSelector(store);

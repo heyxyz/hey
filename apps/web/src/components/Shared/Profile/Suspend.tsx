@@ -6,9 +6,9 @@ import {
 } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission, PermissionId } from "@hey/data/permissions";
-import getInternalProfile, {
-  GET_INTERNAL_PROFILE_QUERY_KEY
-} from "@hey/helpers/api/getInternalProfile";
+import getInternalAccount, {
+  GET_INTERNAL_ACCOUNT_QUERY_KEY
+} from "@hey/helpers/api/getInternalAccount";
 import { PublicationReportingSpamSubreason } from "@hey/lens";
 import { Toggle } from "@hey/ui";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,8 +24,8 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
   const queryClient = useQueryClient();
 
   const { data: profile, isLoading } = useQuery({
-    queryFn: () => getInternalProfile(id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, id || ""]
+    queryFn: () => getInternalAccount(id, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, id || ""]
   });
 
   const suspendProfile = async () => {
@@ -51,7 +51,7 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
       ]);
 
       queryClient.invalidateQueries({
-        queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, id]
+        queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, id]
       });
       toast.success("Profile suspended");
     } catch (error) {

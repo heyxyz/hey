@@ -2,7 +2,7 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { InternalProfile } from "@hey/types/hey";
 import axios from "axios";
 
-export const GET_INTERNAL_PROFILE_QUERY_KEY = "getInternalProfile";
+export const GET_INTERNAL_ACCOUNT_QUERY_KEY = "getInternalAccount";
 
 /**
  * Get internal profile
@@ -10,7 +10,7 @@ export const GET_INTERNAL_PROFILE_QUERY_KEY = "getInternalProfile";
  * @param headers auth headers
  * @returns internal profile
  */
-const getInternalProfile = async (
+const getInternalAccount = async (
   id: string,
   headers: any
 ): Promise<InternalProfile> => {
@@ -36,4 +36,4 @@ const getInternalProfile = async (
   }
 };
 
-export default getInternalProfile;
+export default getInternalAccount;
