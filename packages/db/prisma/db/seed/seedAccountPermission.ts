@@ -7,7 +7,7 @@ const seedAccountPermission = async (): Promise<number> => {
   await prisma.profilePermission.deleteMany();
 
   // Seed profile permissions
-  const profilePermissions = await prisma.profilePermission.createMany({
+  const accountPermissions = await prisma.profilePermission.createMany({
     data: [
       { permissionId: PermissionId.Verified, profileId: TEST_LENS_ID },
       { permissionId: PermissionId.StaffPick, profileId: TEST_LENS_ID },
@@ -18,7 +18,7 @@ const seedAccountPermission = async (): Promise<number> => {
     ]
   });
 
-  return profilePermissions.count;
+  return accountPermissions.count;
 };
 
 export default seedAccountPermission;
