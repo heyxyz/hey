@@ -48,7 +48,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
       setUpdating(true);
       await axios.post(
         `${HEY_API_URL}/internal/creator-tools/assign`,
-        { enabled, id, account_id: account.id },
+        { enabled, id, accountId: account.id },
         { headers: getAuthApiHeaders() }
       );
 
