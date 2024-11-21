@@ -1,7 +1,7 @@
 import MutualFollowersOverview from "@components/Account/MutualFollowersOverview";
-import getProfileDetails, {
-  GET_PROFILE_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getProfileDetails";
+import getAccountDetails, {
+  GET_ACCOUNT_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
@@ -89,8 +89,8 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     const AccountStatus: FC = () => {
       const { data: profileDetails } = useQuery({
         enabled: Boolean(id),
-        queryFn: () => getProfileDetails(id as string),
-        queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, id]
+        queryFn: () => getAccountDetails(id as string),
+        queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, id]
       });
 
       if (!profileDetails?.status) {

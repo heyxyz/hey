@@ -1,6 +1,6 @@
-import getProfileDetails, {
-  GET_PROFILE_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getProfileDetails";
+import getAccountDetails, {
+  GET_ACCOUNT_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getAccountDetails";
 import { Tooltip } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
@@ -12,8 +12,8 @@ interface AccountStatusProps {
 const AccountStatus: FC<AccountStatusProps> = ({ id }) => {
   const { data } = useQuery({
     enabled: Boolean(id),
-    queryFn: () => getProfileDetails(id),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, id]
+    queryFn: () => getAccountDetails(id),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, id]
   });
 
   if (!data?.status) {

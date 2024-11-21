@@ -11,9 +11,9 @@ import {
 import { AccountFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
-import getProfileDetails, {
-  GET_PROFILE_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getProfileDetails";
+import getAccountDetails, {
+  GET_ACCOUNT_DETAILS_QUERY_KEY
+} from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";
 import { useProfileQuery } from "@hey/lens";
@@ -87,8 +87,8 @@ const ViewProfile: NextPage = () => {
 
   const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
     enabled: Boolean(account?.id),
-    queryFn: () => getProfileDetails(account?.id),
-    queryKey: [GET_PROFILE_DETAILS_QUERY_KEY, account?.id]
+    queryFn: () => getAccountDetails(account?.id),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.id]
   });
 
   if (!isReady || profileLoading) {
