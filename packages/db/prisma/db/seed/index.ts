@@ -1,13 +1,13 @@
 import prisma from "../client";
+import seedAccountPermission from "./seedAccountPermission";
+import seedAccountStatus from "./seedAccountStatus";
+import seedAccountTheme from "./seedAccountTheme";
 import seedEmails from "./seedEmails";
 import seedLists from "./seedLists";
-import seedListsProfiles from "./seedListsProfiles";
+import seedListsAccounts from "./seedListsAccounts";
 import seedPermissions from "./seedPermissions";
 import seedPinnedList from "./seedPinnedList";
 import seedPreferences from "./seedPreferences";
-import seedProfilePermission from "./seedProfilePermission";
-import seedProfileStatus from "./seedProfileStatus";
-import seedProfileTheme from "./seedProfileTheme";
 import seedTokens from "./seedTokens";
 
 async function main() {
@@ -17,17 +17,17 @@ async function main() {
   const permissions = await seedPermissions();
   console.log(`Seeded ${permissions} permissions`);
 
-  const profilePermissions = await seedProfilePermission();
-  console.log(`Seeded ${profilePermissions} profile permissions`);
+  const accountPermission = await seedAccountPermission();
+  console.log(`Seeded ${accountPermission} account permissions`);
 
   const tokens = await seedTokens();
   console.log(`Seeded ${tokens} tokens`);
 
-  const profileStatus = await seedProfileStatus();
-  console.log(`Seeded ${profileStatus} profile status`);
+  const accountStatus = await seedAccountStatus();
+  console.log(`Seeded ${accountStatus} account status`);
 
-  const profileTheme = await seedProfileTheme();
-  console.log(`Seeded ${profileTheme} profile theme`);
+  const accountTheme = await seedAccountTheme();
+  console.log(`Seeded ${accountTheme} account theme`);
 
   const emails = await seedEmails();
   console.log(`Seeded ${emails} emails`);
@@ -35,8 +35,8 @@ async function main() {
   const lists = await seedLists();
   console.log(`Seeded ${lists} lists`);
 
-  const listsProfiles = await seedListsProfiles();
-  console.log(`Seeded ${listsProfiles} list profiles`);
+  const listsAccounts = await seedListsAccounts();
+  console.log(`Seeded ${listsAccounts} list accounts`);
 
   const pinnedList = await seedPinnedList();
   console.log(`Seeded ${pinnedList} pinned list`);
