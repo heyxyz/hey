@@ -15,7 +15,7 @@ import { useWriteContract } from "wagmi";
 import CountdownTimer from "../CountdownTimer";
 import IndexStatus from "../IndexStatus";
 
-const ProtectProfile: FC = () => {
+const ProtectAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -112,4 +112,4 @@ const ProtectProfile: FC = () => {
   );
 };
 
-export default ProtectProfile;
+export default ProtectAccount;

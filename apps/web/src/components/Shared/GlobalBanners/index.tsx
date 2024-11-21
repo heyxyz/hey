@@ -1,12 +1,12 @@
 import type { FC } from "react";
-import ProtectProfile from "./ProtectProfile";
+import ProtectAccount from "./ProtectAccount";
 import Suspended from "./Suspended";
 
 const GlobalBanners: FC = () => {
   return (
     <>
       <Suspended />
-      <ProtectProfile />
+      <ProtectAccount />
     </>
   );
 };
