@@ -47,7 +47,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ account }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportProfileMutation({
     onCompleted: () => {
-      Leafwatch.track(ACCOUNT.REPORT, { account_id: account?.id });
+      Leafwatch.track(ACCOUNT.REPORT, { accountId: account?.id });
     }
   });
 
