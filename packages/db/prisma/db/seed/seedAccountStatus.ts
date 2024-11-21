@@ -1,7 +1,7 @@
 import { TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "../client";
 
-const seedProfileStatus = async (): Promise<number> => {
+const seedAccountStatus = async (): Promise<number> => {
   // Delete all profileStatus
   await prisma.profileStatus.deleteMany();
 
@@ -13,4 +13,4 @@ const seedProfileStatus = async (): Promise<number> => {
   return 1;
 };
 
-export default seedProfileStatus;
+export default seedAccountStatus;
