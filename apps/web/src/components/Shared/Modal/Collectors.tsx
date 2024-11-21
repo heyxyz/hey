@@ -31,7 +31,7 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
     variables: { request }
   });
 
-  const profiles = data?.whoActedOnPublication?.items;
+  const accounts = data?.whoActedOnPublication?.items;
   const pageInfo = data?.whoActedOnPublication?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -47,7 +47,7 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
     return <AccountListShimmer />;
   }
 
-  if (profiles?.length === 0) {
+  if (accounts?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -71,16 +71,16 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
 
   return (
     <Virtuoso
-      className="virtual-profile-list"
-      computeItemKey={(index, profile) => `${profile.id}-${index}`}
-      data={profiles}
+      className="virtual-account-list"
+      computeItemKey={(index, account) => `${account.id}-${index}`}
+      data={accounts}
       endReached={onEndReached}
-      itemContent={(_, profile) => (
+      itemContent={(_, account) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === profile.id}
-            hideUnfollowButton={currentAccount?.id === profile.id}
-            account={profile as Profile}
+            hideFollowButton={currentAccount?.id === account.id}
+            hideUnfollowButton={currentAccount?.id === account.id}
+            account={account as Profile}
             showBio
             showUserPreview={false}
             source={ProfileLinkSource.Collects}

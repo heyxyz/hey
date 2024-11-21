@@ -73,7 +73,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
 
   return (
     <Virtuoso
-      className="virtual-profile-list"
+      className="virtual-account-list"
       computeItemKey={(index, mutualFollower) =>
         `${mutualFollower.id}-${index}`
       }

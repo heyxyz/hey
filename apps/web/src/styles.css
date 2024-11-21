@@ -177,7 +177,7 @@ ul {
 }
 
 /* react-virtuoso - Virtual profile list */
-.virtual-profile-list {
+.virtual-account-list {
   @apply !h-[80vh];
   @apply [&>div>div]:divide-y;
   @apply [&>div>div]:dark:divide-gray-700;
