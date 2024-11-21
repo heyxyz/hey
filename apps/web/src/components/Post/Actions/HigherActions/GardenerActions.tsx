@@ -52,10 +52,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
     subreasons: PublicationReportingSpamSubreason[];
     type: string;
   }) => {
-    Leafwatch.track(GARDENER.REPORT, {
-      post_id: post.id,
-      type
-    });
+    Leafwatch.track(GARDENER.REPORT, { postId: post.id, type });
     toast.promise(reportPostOnLens(subreasons), {
       error: "Error reporting post",
       loading: "Reporting post...",

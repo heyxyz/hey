@@ -178,8 +178,8 @@ const CollectAction: FC<CollectActionProps> = ({
     toast.success("Collected");
     Leafwatch.track(POST.COLLECT_MODULE.COLLECT, {
       amount,
-      collect_module: openAction?.type,
-      post_id: post?.id
+      collectModule: openAction?.type,
+      postId: post?.id
     });
   };
 

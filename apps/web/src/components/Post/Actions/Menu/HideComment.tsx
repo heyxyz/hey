@@ -42,7 +42,7 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
       toast.success("Comment hidden");
       Leafwatch.track(POST.TOGGLE_HIDE_COMMENT, {
         hidden: true,
-        post_id: post.id
+        postId: post.id
       });
     },
     onError,
@@ -55,7 +55,7 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
       toast.success("Comment unhidden");
       Leafwatch.track(POST.TOGGLE_HIDE_COMMENT, {
         hidden: false,
-        post_id: post.id
+        postId: post.id
       });
     },
     onError,

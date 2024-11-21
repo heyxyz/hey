@@ -191,7 +191,7 @@ const Frame: FC<FrameProps> = ({ frame, postId }) => {
             onClick={() => {
               Leafwatch.track(POST.CLICK_FRAME_BUTTON, {
                 action,
-                post_id: postId
+                postId: postId
               });
 
               if (action === "link" || action === "mint") {

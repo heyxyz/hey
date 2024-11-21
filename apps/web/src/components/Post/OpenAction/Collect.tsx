@@ -34,7 +34,7 @@ const Collect: FC<CollectProps> = ({ post }) => {
         onClick={() => {
           setShowCollectModal(true);
           Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
-            post_id: post.id,
+            postId: post.id,
             source: "button"
           });
         }}
