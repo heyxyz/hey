@@ -1,7 +1,7 @@
 import { TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "../client";
 
-const seedProfileTheme = async (): Promise<number> => {
+const seedAccountTheme = async (): Promise<number> => {
   // Delete all profileTheme
   await prisma.profileTheme.deleteMany();
 
@@ -16,4 +16,4 @@ const seedProfileTheme = async (): Promise<number> => {
   return 1;
 };
 
-export default seedProfileTheme;
+export default seedAccountTheme;
