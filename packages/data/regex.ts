@@ -22,8 +22,8 @@ export const Regex = {
     "g"
   ),
   // Match string like @someone.
-  profileNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, "gu"),
-  profileNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
+  accountNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, "gu"),
+  accountNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   txHash: /^0x[\dA-Fa-f]{64}$/,
   // modified version of https://stackoverflow.com/a/6041965/961254 to support unicode international characters
   url: /\b(http|https):\/\/([\p{L}\p{N}_-]+(?:(?:\.[\p{L}\p{N}_-]+)+))([\p{L}\p{N}_.,@?^=%&:\/~+#-]*[\p{L}\p{N}_@?^=%&\/~+#-])/gu

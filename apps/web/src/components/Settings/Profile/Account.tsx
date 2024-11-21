@@ -67,7 +67,7 @@ const editAccountSchema = object({
   }),
   name: string()
     .max(100, { message: "Name should not exceed 100 characters" })
-    .regex(Regex.profileNameValidator, {
+    .regex(Regex.accountNameValidator, {
       message: "Account name must not contain restricted symbols"
     }),
   website: union([

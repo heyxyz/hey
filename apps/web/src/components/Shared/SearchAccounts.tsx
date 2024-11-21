@@ -13,7 +13,7 @@ interface SearchAccountsProps {
   error?: boolean;
   hideDropdown?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onProfileSelected: (profile: Profile) => void;
+  onAccountSelected: (account: Profile) => void;
   placeholder?: string;
   skipGardeners?: boolean;
   value: string;
@@ -23,7 +23,7 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
   error = false,
   hideDropdown = false,
   onChange,
-  onProfileSelected,
+  onAccountSelected,
   placeholder = "Search…",
   skipGardeners = false,
   value
@@ -45,7 +45,7 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
     searchUsers({ variables: { request } });
   };
 
-  const profiles = data?.searchProfiles.items as Profile[];
+  const accounts = data?.searchProfiles.items as Profile[];
 
   return (
     <div className="relative w-full">
@@ -61,14 +61,14 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
               <Loader className="my-3" message="Searching users" small />
-            ) : profiles.length > 0 ? (
-              profiles.slice(0, 7).map((profile) => (
+            ) : accounts.length > 0 ? (
+              accounts.slice(0, 7).map((account) => (
                 <div
                   className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  key={profile.id}
-                  onClick={() => onProfileSelected(profile)}
+                  key={account.id}
+                  onClick={() => onAccountSelected(account)}
                 >
-                  <SmallSingleAccount account={profile} />
+                  <SmallSingleAccount account={account} />
                 </div>
               ))
             ) : (
