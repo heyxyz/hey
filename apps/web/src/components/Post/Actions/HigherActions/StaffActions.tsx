@@ -3,9 +3,9 @@ import { ChatBubbleLeftIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { Permission, PermissionId } from "@hey/data/permissions";
-import getInternalProfile, {
-  GET_INTERNAL_PROFILE_QUERY_KEY
-} from "@hey/helpers/api/getInternalProfile";
+import getInternalAccount, {
+  GET_INTERNAL_ACCOUNT_QUERY_KEY
+} from "@hey/helpers/api/getInternalAccount";
 import type { MirrorablePublication } from "@hey/lens";
 import { Button } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -23,8 +23,8 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const { data: profile } = useQuery({
-    queryFn: () => getInternalProfile(post.by.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, post.by.id || ""],
+    queryFn: () => getInternalAccount(post.by.id, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, post.by.id || ""],
     enabled: isStaff
   });
 

@@ -9,7 +9,7 @@ type Key = "location" | "website" | "x";
  * @param key The key to search for.
  * @returns The attribute value.
  */
-const getProfileAttribute = (
+const getAccountAttribute = (
   key: Key,
   attributes: Maybe<MetadataAttribute[]> = []
 ): string => {
@@ -17,4 +17,4 @@ const getProfileAttribute = (
   return attribute?.value || "";
 };
 
-export default getProfileAttribute;
+export default getAccountAttribute;

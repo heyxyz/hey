@@ -16,11 +16,11 @@ import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAccount from "@hey/helpers/getAccount";
+import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import getProfileAttribute from "@hey/helpers/getProfileAttribute";
 import type { Profile } from "@hey/lens";
 import { FollowModuleType } from "@hey/lens";
 import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
@@ -165,12 +165,12 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           <MetaDetails icon={<HashtagIcon className="size-4" />}>
             {Number.parseInt(account.id)}
           </MetaDetails>
-          {getProfileAttribute("location", account?.metadata?.attributes) ? (
+          {getAccountAttribute("location", account?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
-              {getProfileAttribute("location", account?.metadata?.attributes)}
+              {getAccountAttribute("location", account?.metadata?.attributes)}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute("website", account?.metadata?.attributes) ? (
+          {getAccountAttribute("website", account?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -178,7 +178,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
                   className="size-4 rounded-full"
                   height={16}
                   src={getFavicon(
-                    getProfileAttribute(
+                    getAccountAttribute(
                       "website",
                       account?.metadata?.attributes
                     )
@@ -188,7 +188,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
               }
             >
               <Link
-                href={`https://${getProfileAttribute(
+                href={`https://${getAccountAttribute(
                   "website",
                   account?.metadata?.attributes
                 )
@@ -197,13 +197,13 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
                 rel="noreferrer noopener me"
                 target="_blank"
               >
-                {getProfileAttribute("website", account?.metadata?.attributes)
+                {getAccountAttribute("website", account?.metadata?.attributes)
                   ?.replace("https://", "")
                   .replace("http://", "")}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute("x", account?.metadata?.attributes) ? (
+          {getAccountAttribute("x", account?.metadata?.attributes) ? (
             <MetaDetails
               icon={
                 <img
@@ -219,7 +219,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
             >
               <Link
                 href={urlcat("https://x.com/:username", {
-                  username: getProfileAttribute(
+                  username: getAccountAttribute(
                     "x",
                     account?.metadata?.attributes
                   )?.replace("https://x.com/", "")
@@ -227,7 +227,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
                 rel="noreferrer noopener"
                 target="_blank"
               >
-                {getProfileAttribute(
+                {getAccountAttribute(
                   "x",
                   account?.metadata?.attributes
                 )?.replace("https://x.com/", "")}
