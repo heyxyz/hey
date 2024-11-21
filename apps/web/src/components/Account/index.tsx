@@ -85,7 +85,7 @@ const ViewProfile: NextPage = () => {
 
   const account = data?.profile as Profile;
 
-  const { data: profileDetails, isLoading: profileDetailsLoading } = useQuery({
+  const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
     enabled: Boolean(account?.id),
     queryFn: () => getAccountDetails(account?.id),
     queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.id]
@@ -103,7 +103,7 @@ const ViewProfile: NextPage = () => {
     return <Custom500 />;
   }
 
-  const isSuspended = isStaff ? false : profileDetails?.isSuspended;
+  const isSuspended = isStaff ? false : accountDetails?.isSuspended;
 
   return (
     <>
@@ -128,7 +128,7 @@ const ViewProfile: NextPage = () => {
             <SuspendedDetails account={account as Profile} />
           ) : (
             <Details
-              isSuspended={profileDetails?.isSuspended || false}
+              isSuspended={accountDetails?.isSuspended || false}
               account={account as Profile}
             />
           )}
@@ -152,7 +152,7 @@ const ViewProfile: NextPage = () => {
               feedType === AccountFeedType.Collects ? (
                 <AccountFeed
                   handle={getAccount(account).slugWithPrefix}
-                  profileDetailsLoading={profileDetailsLoading}
+                  accountDetailsLoading={accountDetailsLoading}
                   accountId={account.id}
                   type={feedType}
                 />

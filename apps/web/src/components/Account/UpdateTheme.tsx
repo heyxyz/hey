@@ -9,10 +9,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
+import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 
 const UpdateTheme: FC = () => {
-  const { theme, setTheme } = useProfileThemeStore();
+  const { theme, setTheme } = useAccountThemeStore();
   const [updating, setUpdating] = useState(false);
   const queryClient = useQueryClient();
 

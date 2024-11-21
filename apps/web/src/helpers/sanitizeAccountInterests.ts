@@ -2,21 +2,21 @@ import type { ProfileInterestTypes } from "@hey/lens";
 import type { ProfileInterest } from "@hey/types/misc";
 
 /**
- * Sanitizes an array of profile interests by grouping them into categories and subcategories.
+ * Sanitizes an array of account interests by grouping them into categories and subcategories.
  *
- * @param profileInterests Array of profile interests to sanitize
- * @returns Array of sanitized profile interests
+ * @param accountInterests Array of account interests to sanitize
+ * @returns Array of sanitized account interests
  */
-const sanitizeProfileInterests = (profileInterests: ProfileInterestTypes[]) => {
-  if (!profileInterests) {
+const sanitizeAccountInterests = (accountInterests: ProfileInterestTypes[]) => {
+  if (!accountInterests) {
     return [];
   }
   const interests: ProfileInterest[] = [];
-  const categories = profileInterests.filter(
+  const categories = accountInterests.filter(
     (interest) => !interest.includes("__")
   );
   for (const category of categories) {
-    const subCategories = profileInterests
+    const subCategories = accountInterests
       .filter(
         (interest) => interest.includes(category) && interest.includes("__")
       )
@@ -37,4 +37,4 @@ const sanitizeProfileInterests = (profileInterests: ProfileInterestTypes[]) => {
   return interests;
 };
 
-export default sanitizeProfileInterests;
+export default sanitizeAccountInterests;

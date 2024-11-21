@@ -5,9 +5,9 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import { CREATORTOOLS } from "@hey/data/tracking";
-import getInternalProfile, {
-  GET_INTERNAL_PROFILE_QUERY_KEY
-} from "@hey/helpers/api/getInternalProfile";
+import getInternalAccount, {
+  GET_INTERNAL_ACCOUNT_QUERY_KEY
+} from "@hey/helpers/api/getInternalAccount";
 import type { Profile } from "@hey/lens";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -30,8 +30,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getInternalProfile(account.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_PROFILE_QUERY_KEY, account.id]
+    queryFn: () => getInternalAccount(account.id, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, account.id]
   });
 
   useEffect(() => {

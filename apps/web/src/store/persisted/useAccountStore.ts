@@ -20,7 +20,7 @@ const store = create(
       setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
         set(() => ({ fallbackToCuratedFeed }))
     }),
-    { name: Localstorage.ProfileStore }
+    { name: Localstorage.AccountStore }
   )
 );
 

@@ -17,9 +17,9 @@ import { Toaster } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { isAddress } from "viem";
 import { useDisconnect } from "wagmi";
 import GlobalModals from "../Shared/GlobalModals";
@@ -32,7 +32,7 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { reload } = useRouter();
   const { resolvedTheme } = useTheme();
-  const { theme } = useProfileThemeStore();
+  const { theme } = useAccountThemeStore();
   const { currentAccount, setCurrentAccount, setFallbackToCuratedFeed } =
     useAccountStore();
   const { resetPreferences } = usePreferencesStore();

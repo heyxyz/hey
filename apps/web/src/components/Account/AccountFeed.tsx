@@ -14,8 +14,8 @@ import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
+import { useAccountFeedStore } from "src/store/non-persisted/useAccountFeedStore";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useProfileFeedStore } from "src/store/non-persisted/useProfileFeedStore";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -24,7 +24,7 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface AccountFeedProps {
   handle: string;
-  profileDetailsLoading: boolean;
+  accountDetailsLoading: boolean;
   accountId: string;
   type:
     | AccountFeedType.Collects
@@ -35,12 +35,12 @@ interface AccountFeedProps {
 
 const AccountFeed: FC<AccountFeedProps> = ({
   handle,
-  profileDetailsLoading,
+  accountDetailsLoading,
   accountId,
   type
 }) => {
   const { currentAccount } = useAccountStore();
-  const { mediaFeedFilters } = useProfileFeedStore();
+  const { mediaFeedFilters } = useAccountFeedStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const { indexedPostHash } = useTransactionStore();
@@ -140,7 +140,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
     }
   };
 
-  if (loading || profileDetailsLoading) {
+  if (loading || accountDetailsLoading) {
     return <PostsShimmer />;
   }
 
