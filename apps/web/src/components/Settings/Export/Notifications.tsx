@@ -7,13 +7,13 @@ import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 const Notifications: FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
 
   const [exportNotificiations] = useNotificationsLazyQuery({
     fetchPolicy: "network-only"

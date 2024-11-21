@@ -29,4 +29,4 @@ const store = create<State>((set) => ({
     }))
 }));
 
-export const useProfileStatus = createTrackedSelector(store);
+export const useAccountStatus = createTrackedSelector(store);

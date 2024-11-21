@@ -31,14 +31,14 @@ export const get = [
         where: { listId: id as string }
       });
 
-      const profileIds = listProfile.map((item) => item.profileId);
-      const profilesList = profileIds.map((p) => `'${p}'`).join(",");
+      const accountIds = listProfile.map((item) => item.profileId);
+      const accountsList = accountIds.map((p) => `'${p}'`).join(",");
 
       const profiles = await lensPg.query(
         `
           SELECT profile_id
           FROM profile.record
-          WHERE profile_id IN (${profilesList})
+          WHERE profile_id IN (${accountsList})
           AND is_burnt = false
           LIMIT 50
         `

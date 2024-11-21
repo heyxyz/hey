@@ -16,7 +16,7 @@ import {
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { object, string, type z } from "zod";
 import Reason from "./Reason";
 
@@ -31,7 +31,7 @@ interface ReportPostProps {
 }
 
 const ReportPost: FC<ReportPostProps> = ({ postId }) => {
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [type, setType] = useState("");
   const [subReason, setSubReason] = useState("");
 

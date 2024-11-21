@@ -4,14 +4,14 @@ import type { FC } from "react";
 import { useSignupStore } from ".";
 
 const Minting: FC = () => {
-  const { choosedHandle, setProfileId, setScreen, transactionHash } =
+  const { choosedHandle, setAccountId, setScreen, transactionHash } =
     useSignupStore();
 
   useProfileQuery({
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
       if (data.profile) {
-        setProfileId(data.profile.id);
+        setAccountId(data.profile.id);
         setScreen("success");
       }
     },

@@ -36,7 +36,7 @@ interface LoginProps {
 const Login: FC<LoginProps> = ({ setHasProfiles }) => {
   const { reload } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
+  const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
 
@@ -75,7 +75,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
 
   const handleSign = async (id?: string) => {
     try {
-      setLoggingInProfileId(id || null);
+      setLoggingInAccountId(id || null);
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
@@ -145,7 +145,7 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
                     showUserPreview={false}
                   />
                   <Button
-                    disabled={isLoading && loggingInProfileId === profile.id}
+                    disabled={isLoading && loggingInAccountId === profile.id}
                     onClick={() => handleSign(profile.id)}
                     outline
                   >

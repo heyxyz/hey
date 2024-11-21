@@ -23,8 +23,8 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
@@ -64,7 +64,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef);
 
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const { address } = useAccount();

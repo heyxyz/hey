@@ -11,7 +11,7 @@ import axios from "axios";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { object, string, type z } from "zod";
@@ -23,7 +23,7 @@ const updateEmailSchema = object({
 const EmailForm: FC = () => {
   const { currentAccount } = useAccountStore();
   const { email, setEmail: setEmailState } = usePreferencesStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useZodForm({ schema: updateEmailSchema });

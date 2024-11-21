@@ -31,8 +31,8 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -48,7 +48,7 @@ const newSuperFollowSchema = object({
 const SuperFollow: FC = () => {
   const { currentAccount } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const {
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,

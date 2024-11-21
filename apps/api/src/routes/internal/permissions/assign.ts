@@ -13,23 +13,23 @@ import sendSlackMessage from "src/helpers/slack";
 import { boolean, object, string } from "zod";
 
 export const postUpdateTasks = async (
-  profileId: string,
+  accountId: string,
   permissionId: string,
   enabled: boolean
 ) => {
-  await delRedis(`preference:${profileId}`);
-  await delRedis(`profile:${profileId}`);
+  await delRedis(`preference:${accountId}`);
+  await delRedis(`profile:${accountId}`);
 
   await sendSlackMessage({
     channel: "#permissions",
     color: enabled ? "#16a34a" : "#dc2626",
-    text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${profileId}`
+    text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${accountId}`
   });
 
   if (permissionId === PermissionId.StaffPick) {
     if (enabled) {
       sendEmailToAccount({
-        id: profileId,
+        id: accountId,
         subject: `Your account on ${APP_NAME} has been Staff Picked!`,
         body: `
           <html>
@@ -51,7 +51,7 @@ export const postUpdateTasks = async (
   if (permissionId === PermissionId.Verified) {
     if (enabled) {
       sendEmailToAccount({
-        id: profileId,
+        id: accountId,
         subject: `Your account on ${APP_NAME} has been verified!`,
         body: `
           <html>
@@ -59,7 +59,7 @@ export const postUpdateTasks = async (
               <p>Hey Hey!</p>
               <br />
               <p>Yay! Your account on ${APP_NAME} has been verified! ✅</p>
-              <a href="https://hey.xyz/profile/${profileId}">Visit your profile →</a>
+              <a href="https://hey.xyz/profile/${accountId}">Visit your profile →</a>
               <br />
               <p>Thanks,</p>
               <p>${APP_NAME} team</p>
