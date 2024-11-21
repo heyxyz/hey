@@ -30,10 +30,10 @@ import SignupCard from "./SignupCard";
 import WalletSelector from "./WalletSelector";
 
 interface LoginProps {
-  setHasProfiles: Dispatch<SetStateAction<boolean>>;
+  setHasAccounts: Dispatch<SetStateAction<boolean>>;
 }
 
-const Login: FC<LoginProps> = ({ setHasProfiles }) => {
+const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const { reload } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
@@ -66,9 +66,8 @@ const Login: FC<LoginProps> = ({ setHasProfiles }) => {
 
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
-      onCompleted: (data) => {
-        setHasProfiles(data?.profilesManaged.items.length > 0);
-      },
+      onCompleted: (data) =>
+        setHasAccounts(data?.profilesManaged.items.length > 0),
       skip: !address,
       variables: { lastLoggedInProfileRequest, profilesManagedRequest }
     });

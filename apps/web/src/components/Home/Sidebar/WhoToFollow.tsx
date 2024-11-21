@@ -1,4 +1,4 @@
-import DismissRecommendedProfile from "@components/Shared/DismissRecommendedProfile";
+import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAccount";
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -47,13 +47,13 @@ const WhoToFollow: FC = () => {
     return null;
   }
 
-  const recommendedProfiles = data?.profileRecommendations.items.filter(
+  const recommendedAccounts = data?.profileRecommendations.items.filter(
     (profile) =>
       !profile.operations.isBlockedByMe.value &&
       !profile.operations.isFollowedByMe.value
   );
 
-  if (recommendedProfiles?.length === 0) {
+  if (recommendedAccounts?.length === 0) {
     return null;
   }
 
@@ -62,20 +62,20 @@ const WhoToFollow: FC = () => {
       <Card as="aside" className="space-y-4 p-5">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
-        {recommendedProfiles?.slice(0, 5).map((profile) => (
+        {recommendedAccounts?.slice(0, 5).map((account) => (
           <div
             className="flex items-center space-x-3 truncate"
-            key={profile?.id}
+            key={account?.id}
           >
             <div className="w-full">
               <SingleAccount
-                hideFollowButton={currentAccount?.id === profile.id}
-                hideUnfollowButton={currentAccount?.id === profile.id}
-                account={profile as Profile}
+                hideFollowButton={currentAccount?.id === account.id}
+                hideUnfollowButton={currentAccount?.id === account.id}
+                account={account as Profile}
                 source={ProfileLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedProfile account={profile as Profile} />
+            <DismissRecommendedAccount account={account as Profile} />
           </div>
         ))}
         <button
@@ -94,7 +94,7 @@ const WhoToFollow: FC = () => {
         show={showMore}
         title="Suggested for you"
       >
-        <Suggested profiles={recommendedProfiles as Profile[]} />
+        <Suggested accounts={recommendedAccounts as Profile[]} />
       </Modal>
     </>
   );

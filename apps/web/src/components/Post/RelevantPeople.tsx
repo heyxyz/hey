@@ -81,7 +81,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         show={showMore}
         title="Relevant people"
       >
-        <MoreRelevantPeople profiles={data?.profiles?.items as Profile[]} />
+        <MoreRelevantPeople accounts={data?.profiles?.items as Profile[]} />
       </Modal>
     </>
   );

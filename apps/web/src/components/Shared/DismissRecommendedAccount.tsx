@@ -5,11 +5,11 @@ import type { Profile } from "@hey/lens";
 import { useDismissRecommendedProfilesMutation } from "@hey/lens";
 import type { FC } from "react";
 
-interface DismissRecommendedProfileProps {
+interface DismissRecommendedAccountProps {
   account: Profile;
 }
 
-const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
+const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({
   account
 }) => {
   const [dismissRecommendedProfile] = useDismissRecommendedProfilesMutation({
@@ -33,4 +33,4 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
   );
 };
 
-export default DismissRecommendedProfile;
+export default DismissRecommendedAccount;

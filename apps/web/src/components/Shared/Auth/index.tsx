@@ -17,7 +17,7 @@ const NotConnected = () => (
 
 const Auth: FC = () => {
   const { authModalType } = useGlobalModalStateStore();
-  const [hasProfiles, setHasProfiles] = useState(true);
+  const [hasAccounts, setHasAccounts] = useState(true);
   const { isConnected } = useAccount();
 
   return (
@@ -30,7 +30,7 @@ const Auth: FC = () => {
       ) : (
         <div className="space-y-5">
           {isConnected ? (
-            hasProfiles ? (
+            hasAccounts ? (
               <AuthMessage
                 description={`${APP_NAME} uses this signature to verify that you're the owner of this address.`}
                 title="Please sign the message."
@@ -41,7 +41,7 @@ const Auth: FC = () => {
           ) : (
             <NotConnected />
           )}
-          <Login setHasProfiles={setHasProfiles} />
+          <Login setHasAccounts={setHasAccounts} />
         </div>
       )}
     </div>
