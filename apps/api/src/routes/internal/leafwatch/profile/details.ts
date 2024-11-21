@@ -36,7 +36,7 @@ export const get = [
             argMax(country, cnt) AS most_common_country,
             argMax(city, cnt) AS most_common_city,
             SUM(cnt) AS number_of_events,
-            argMax(browser, cnt) AS most_common_browser
+            argMax(browser, cnt) AS mostCommonBrowser
           FROM events_counts
           WHERE actor = '${id}'
           GROUP BY actor;
@@ -45,13 +45,10 @@ export const get = [
 
       const result = await details.json<{
         actor: string;
-        most_common_browser: string;
-        most_common_browser_version: string;
-        most_common_city: string;
-        most_common_country: string;
-        most_common_os: string;
-        most_common_region: string;
-        number_of_events: string;
+        mostCommonBrowser: string;
+        mostCommonCity: string;
+        mostCommonCountry: string;
+        numberOfEvents: string;
       }>();
       logger.info(`Profile details fetched for ${id}`);
 
@@ -59,10 +56,10 @@ export const get = [
         result: result[0]
           ? {
               actor: result[0].actor,
-              browser: result[0].most_common_browser,
-              city: result[0].most_common_city,
-              country: result[0].most_common_country,
-              events: Number.parseInt(result[0].number_of_events)
+              browser: result[0].mostCommonBrowser,
+              city: result[0].mostCommonCity,
+              country: result[0].mostCommonCountry,
+              events: Number.parseInt(result[0].numberOfEvents)
             }
           : null,
         success: true

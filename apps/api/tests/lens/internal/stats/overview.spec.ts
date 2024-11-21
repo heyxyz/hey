@@ -13,10 +13,10 @@ describe("GET /lens/internal/stats/overview", () => {
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
     expect(typeof data.result).toBe("object");
-    expect(data.result).toHaveProperty("authentications_count");
-    expect(data.result).toHaveProperty("relay_usage_count");
-    expect(data.result).toHaveProperty("posts_count");
-    expect(data.result).toHaveProperty("profiles_count");
+    expect(data.result).toHaveProperty("authenticationsCount");
+    expect(data.result).toHaveProperty("relayUsageCount");
+    expect(data.result).toHaveProperty("postsCount");
+    expect(data.result).toHaveProperty("profilesCount");
   });
 
   test("should return 401 if the user is not staff", async () => {
