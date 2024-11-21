@@ -54,7 +54,7 @@ import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 import type { z } from "zod";
@@ -79,7 +79,7 @@ const editAccountSchema = object({
 
 const AccountSettingsForm: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture

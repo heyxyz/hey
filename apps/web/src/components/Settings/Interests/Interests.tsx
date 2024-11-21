@@ -16,14 +16,14 @@ import {
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const MAX_TOPICS_ALLOWED = 12;
 
 const Interests: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
 
   const updateCache = (interests: string[]) => {

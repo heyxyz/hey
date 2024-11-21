@@ -35,8 +35,8 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
@@ -71,7 +71,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const collectModule = getCollectModuleData(openAction as any);
 
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const {
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,

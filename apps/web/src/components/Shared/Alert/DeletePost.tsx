@@ -6,13 +6,13 @@ import { useHidePublicationMutation } from "@hey/lens";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 
 const DeletePost: FC = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
     useGlobalAlertStateStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
 
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {

@@ -11,7 +11,7 @@ import getPreferences, {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
@@ -37,7 +37,7 @@ const PreferencesProvider: FC = () => {
     setMutedWords,
     setLoading: setPreferencesLoading
   } = usePreferencesStore();
-  const { setStatus } = useProfileStatus();
+  const { setStatus } = useAccountStatus();
 
   const getPreferencesData = async () => {
     setPreferencesLoading(true);

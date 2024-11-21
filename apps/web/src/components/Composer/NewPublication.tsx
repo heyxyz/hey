@@ -50,9 +50,9 @@ import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/post/usePostVideoStore";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
@@ -96,7 +96,7 @@ interface NewPublicationProps {
 
 const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
 
   // Global modal store
   const { setShowNewPostModal } = useGlobalModalStateStore();

@@ -17,7 +17,7 @@ import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface LikeProps {
@@ -27,7 +27,7 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ post, showCount }) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
 
   const [hasReacted, toggleReact] = useToggle(post.operations.hasReacted);
   const [reactions, { decrement, increment }] = useCounter(

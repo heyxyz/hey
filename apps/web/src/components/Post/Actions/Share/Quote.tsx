@@ -7,8 +7,8 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface QuoteProps {
@@ -19,7 +19,7 @@ const Quote: FC<QuoteProps> = ({ post }) => {
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPost } = usePostStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const publicationType = post.__typename;
 
   if (post.operations.canQuote === TriStateValue.No) {

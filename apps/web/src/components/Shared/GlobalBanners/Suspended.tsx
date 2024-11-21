@@ -3,10 +3,10 @@ import { APP_NAME } from "@hey/data/constants";
 import { GridItemEight, GridLayout } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 const Suspended: FC = () => {
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
 
   if (!isSuspended) {
     return null;

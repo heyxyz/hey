@@ -17,8 +17,8 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
@@ -30,7 +30,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = "md"
 }) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const {
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,

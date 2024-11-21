@@ -14,8 +14,8 @@ import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
@@ -36,7 +36,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { currentAccount, setCurrentAccount, setFallbackToCuratedFeed } =
     useAccountStore();
   const { resetPreferences } = usePreferencesStore();
-  const { resetStatus } = useProfileStatus();
+  const { resetStatus } = useAccountStatus();
   const { setLensHubOnchainSigNonce } = useNonceStore();
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();

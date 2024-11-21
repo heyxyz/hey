@@ -34,8 +34,8 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { formatUnits } from "viem";
 import { useBalance, useSignTypedData, useWriteContract } from "wagmi";
@@ -56,7 +56,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     lensHubOnchainSigNonce
   } = useNonceStore();
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
 

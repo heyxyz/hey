@@ -28,8 +28,8 @@ import { useEffect } from "react";
 import { createTrackedSelector } from "react-tracked";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { create } from "zustand";
 import FullPost from "./FullPost";
@@ -57,7 +57,7 @@ const ViewPost: NextPage = () => {
   } = useRouter();
 
   const { currentAccount } = useAccountStore();
-  const { isCommentSuspended, isSuspended } = useProfileStatus();
+  const { isCommentSuspended, isSuspended } = useAccountStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
   const isStaff = useFlag(FeatureFlag.Staff);
 

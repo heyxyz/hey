@@ -20,7 +20,7 @@ import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { GET_POLL_QUERY_KEY } from ".";
 
@@ -30,7 +30,7 @@ interface ChoicesProps {
 
 const Choices: FC<ChoicesProps> = ({ poll }) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [pollSubmitting, setPollSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
   const queryClient = useQueryClient();
