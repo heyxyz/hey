@@ -12,9 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
+import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useProfileThemeStore } from "src/store/persisted/useProfileThemeStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
@@ -23,7 +23,7 @@ const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
 
 const PreferencesProvider: FC = () => {
   const { id: sessionProfileId } = getCurrentSession();
-  const { setTheme } = useProfileThemeStore();
+  const { setTheme } = useAccountThemeStore();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();

@@ -15,8 +15,8 @@ const store = create(
       theme: null,
       setTheme: (theme) => set(() => ({ theme }))
     }),
-    { name: Localstorage.ProfileThemeStore }
+    { name: Localstorage.AccountThemeStore }
   )
 );
 
-export const useProfileThemeStore = createTrackedSelector(store);
+export const useAccountThemeStore = createTrackedSelector(store);
