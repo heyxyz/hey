@@ -18,9 +18,9 @@ describe("GET /staff-picks", () => {
     expect(status).toBe(200);
     expect(data.result).toBeInstanceOf(Array);
 
-    const hasProfileId = data.result.some(
+    const hasAccountId = data.result.some(
       (item: any) => item.profileId === TEST_LENS_ID
     );
-    expect(hasProfileId).toBe(true);
+    expect(hasAccountId).toBe(true);
   });
 });

@@ -7,17 +7,17 @@ import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { beforeAll, describe, expect, test } from "vitest";
 
 describe("POST /internal/creator-tools/assign", () => {
-  let profileId: string;
+  let accountId: string;
   const permissionId = PermissionId.Beta;
 
   beforeAll(async () => {
-    profileId = faker.string.uuid();
+    accountId = faker.string.uuid();
   });
 
   test("should enable permission for a profile", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/creator-tools/assign`,
-      { enabled: true, id: permissionId, account_id: profileId },
+      { enabled: true, id: permissionId, account_id: accountId },
       { headers: getTestAuthHeaders() }
     );
 
@@ -26,7 +26,7 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.enabled).toBe(true);
 
     const profilePermission = await prisma.profilePermission.findFirst({
-      where: { profileId, permissionId }
+      where: { profileId: accountId, permissionId }
     });
     expect(profilePermission).toBeDefined();
   });
@@ -34,7 +34,7 @@ describe("POST /internal/creator-tools/assign", () => {
   test("should disable permission for a profile", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/creator-tools/assign`,
-      { enabled: false, id: permissionId, account_id: profileId },
+      { enabled: false, id: permissionId, account_id: accountId },
       { headers: getTestAuthHeaders() }
     );
 
@@ -43,7 +43,7 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.enabled).toBe(false);
 
     const profilePermission = await prisma.profilePermission.findFirst({
-      where: { profileId, permissionId }
+      where: { profileId: accountId, permissionId }
     });
     expect(profilePermission).toBeNull();
   });

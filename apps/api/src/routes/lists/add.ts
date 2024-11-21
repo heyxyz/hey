@@ -12,13 +12,13 @@ import { boolean, object, string } from "zod";
 
 interface ExtensionRequest {
   listId: string;
-  profileId: string;
+  accountId: string;
   add: boolean;
 }
 
 const validationSchema = object({
   listId: string().min(1),
-  profileId: string().min(1),
+  accountId: string().min(1),
   add: boolean()
 });
 
@@ -37,7 +37,7 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { listId, profileId, add } = body as ExtensionRequest;
+    const { listId, accountId, add } = body as ExtensionRequest;
 
     try {
       const identityToken = req.headers["x-identity-token"] as string;
@@ -61,7 +61,7 @@ export const post = [
             LIMIT 1
           ) AS result;
         `,
-        [profileId]
+        [accountId]
       );
 
       const hasProfile = profile[0]?.result;
@@ -94,19 +94,19 @@ export const post = [
 
       if (add) {
         const listProfile = await prisma.listProfile.create({
-          data: { listId, profileId }
+          data: { listId, profileId: accountId }
         });
         await clearCache();
-        logger.info(`Added profile ${profileId} to list ${listId}`);
+        logger.info(`Added profile ${accountId} to list ${listId}`);
 
         return res.status(200).json({ result: listProfile, success: true });
       }
 
       await prisma.listProfile.delete({
-        where: { profileId_listId: { profileId, listId } }
+        where: { profileId_listId: { profileId: accountId, listId } }
       });
       await clearCache();
-      logger.info(`Removed profile ${profileId} from list ${listId}`);
+      logger.info(`Removed profile ${accountId} from list ${listId}`);
 
       return res.status(200).json({ success: true });
     } catch (error) {

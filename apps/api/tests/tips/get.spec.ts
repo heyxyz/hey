@@ -11,9 +11,9 @@ describe("POST /tips/get", () => {
     await prisma.tip.createMany({
       data: fakePostIds.map((id, index) => ({
         amount: 100 + index * 10,
-        fromProfileId: "0xTestProfile",
+        fromProfileId: "0xTestAccount",
         publicationId: id,
-        toProfileId: "0xTestProfileTo",
+        toProfileId: "0xTestAccountTo",
         fromAddress: "0xFromAddress",
         toAddress: "0xToAddress",
         tokenAddress: "0xTokenAddress",
