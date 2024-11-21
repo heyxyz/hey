@@ -4,10 +4,10 @@ import { AdjustmentsVerticalIcon } from "@heroicons/react/24/outline";
 import { Checkbox, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { ChangeEvent } from "react";
-import { useProfileFeedStore } from "src/store/non-persisted/useProfileFeedStore";
+import { useAccountFeedStore } from "src/store/non-persisted/useAccountFeedStore";
 
 const MediaFilter = () => {
-  const { mediaFeedFilters, setMediaFeedFilters } = useProfileFeedStore();
+  const { mediaFeedFilters, setMediaFeedFilters } = useAccountFeedStore();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setMediaFeedFilters({

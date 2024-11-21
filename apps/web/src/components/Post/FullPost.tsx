@@ -38,13 +38,13 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
 
   usePushToImpressions(targetPost.id);
 
-  const { data: profileDetails } = useQuery({
+  const { data: accountDetails } = useQuery({
     enabled: Boolean(by.id),
     queryFn: () => getAccountDetails(by.id || ""),
     queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, by.id]
   });
 
-  const isSuspended = isStaff ? false : profileDetails?.isSuspended;
+  const isSuspended = isStaff ? false : accountDetails?.isSuspended;
 
   if (isSuspended) {
     return (

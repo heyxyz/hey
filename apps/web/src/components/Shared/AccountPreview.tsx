@@ -87,21 +87,21 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     }
 
     const AccountStatus: FC = () => {
-      const { data: profileDetails } = useQuery({
+      const { data: accountDetails } = useQuery({
         enabled: Boolean(id),
         queryFn: () => getAccountDetails(id as string),
         queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, id]
       });
 
-      if (!profileDetails?.status) {
+      if (!accountDetails?.status) {
         return null;
       }
 
       return (
         <div>
           <div className="rounded-t-xl bg-yellow-50 px-4 py-2">
-            <span>{profileDetails.status.emoji}</span>
-            <b className="ml-2 text-sm">{profileDetails.status.message}</b>
+            <span>{accountDetails.status.emoji}</span>
+            <b className="ml-2 text-sm">{accountDetails.status.message}</b>
           </div>
           <div className="divider" />
         </div>
