@@ -118,8 +118,8 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   onChange={(event) =>
                     updateRecipient(index, event.target.value)
                   }
-                  onProfileSelected={(profile) =>
-                    updateRecipient(index, profile.ownedBy.address)
+                  onAccountSelected={(account) =>
+                    updateRecipient(index, account.ownedBy.address)
                   }
                   placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.recipient}

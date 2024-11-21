@@ -55,7 +55,7 @@ const List: FC = () => {
     }
   }, [debouncedSearchText]);
 
-  const profiles = searchText
+  const accounts = searchText
     ? searchData?.searchProfiles.items
     : data?.exploreProfiles.items;
   const pageInfo = data?.exploreProfiles?.pageInfo;
@@ -118,18 +118,18 @@ const List: FC = () => {
           <Loader className="my-10" message="Loading profiles..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load profiles" />
-        ) : profiles?.length ? (
+        ) : accounts?.length ? (
           <Virtuoso
-            computeItemKey={(index, profile) => `${profile.id}-${index}`}
-            data={profiles}
+            computeItemKey={(index, account) => `${account.id}-${index}`}
+            data={accounts}
             endReached={onEndReached}
-            itemContent={(_, profile) => (
+            itemContent={(_, account) => (
               <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
                 <Link
                   href={
                     pathname === "/mod"
-                      ? getAccount(profile as Profile).link
-                      : getAccount(profile as Profile).staffLink
+                      ? getAccount(account as Profile).link
+                      : getAccount(account as Profile).staffLink
                   }
                 >
                   <SingleAccount
@@ -137,15 +137,15 @@ const List: FC = () => {
                     hideUnfollowButton
                     isBig
                     linkToAccount={false}
-                    account={profile as Profile}
+                    account={account as Profile}
                     showBio={false}
                     showId
                     showUserPreview={false}
-                    timestamp={profile.createdAt}
+                    timestamp={account.createdAt}
                   />
                 </Link>
                 <div>
-                  <ViewReports id={profile.id} />
+                  <ViewReports id={account.id} />
                 </div>
               </div>
             )}

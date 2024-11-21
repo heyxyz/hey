@@ -29,7 +29,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
   });
 
   const search = data?.searchProfiles;
-  const profiles = search?.items;
+  const accounts = search?.items;
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -45,7 +45,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
     return <SingleAccountsShimmer isBig />;
   }
 
-  if (profiles?.length === 0) {
+  if (accounts?.length === 0) {
     return (
       <EmptyState
         icon={<UsersIcon className="size-8" />}
@@ -65,16 +65,16 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
   return (
     <Virtuoso
       className="[&>div>div]:space-y-3"
-      computeItemKey={(index, profile) => `${profile.id}-${index}`}
-      data={profiles}
+      computeItemKey={(index, account) => `${account.id}-${index}`}
+      data={accounts}
       endReached={onEndReached}
-      itemContent={(_, profile) => (
+      itemContent={(_, account) => (
         <Card className="p-5">
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
             isBig
-            account={profile as Profile}
+            account={account as Profile}
             showBio
             source={ProfileLinkSource.Search}
           />

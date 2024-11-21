@@ -163,7 +163,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
         error={manager.length > 0 && !isAddress(manager)}
         hideDropdown={isAddress(manager)}
         onChange={(event) => setManager(event.target.value)}
-        onProfileSelected={(profile) => setManager(profile.ownedBy.address)}
+        onAccountSelected={(account) => setManager(account.ownedBy.address)}
         placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
         value={manager}
       />

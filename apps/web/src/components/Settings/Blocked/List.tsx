@@ -55,19 +55,19 @@ const List: FC = () => {
     <div className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, profile) => `${profile.id}-${index}`}
+        computeItemKey={(index, account) => `${account.id}-${index}`}
         data={whoHaveBlocked}
         endReached={onEndReached}
-        itemContent={(_, profile) => (
+        itemContent={(_, account) => (
           <div className="flex items-center justify-between p-5">
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={profile as Profile}
+              account={account as Profile}
             />
             <Button
               onClick={() =>
-                setShowBlockOrUnblockAlert(true, profile as Profile)
+                setShowBlockOrUnblockAlert(true, account as Profile)
               }
             >
               Unblock

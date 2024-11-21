@@ -5,9 +5,9 @@ import axios from "axios";
 export const GET_ACCOUNT_DETAILS_QUERY_KEY = "getAccountDetails";
 
 /**
- * Get profile details
- * @param id profile id
- * @returns profile details
+ * Get account details
+ * @param id account id
+ * @returns account details
  */
 const getAccountDetails = async (
   id: string

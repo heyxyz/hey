@@ -26,7 +26,7 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
     variables: { request }
   });
 
-  const profiles = data?.profiles?.items;
+  const accounts = data?.profiles?.items;
   const pageInfo = data?.profiles?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -42,7 +42,7 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
     return <AccountListShimmer />;
   }
 
-  if (profiles?.length === 0) {
+  if (accounts?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -66,16 +66,16 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
 
   return (
     <Virtuoso
-      className="virtual-profile-list"
-      computeItemKey={(index, profile) => `${profile.id}-${index}`}
-      data={profiles}
+      className="virtual-account-list"
+      computeItemKey={(index, account) => `${account.id}-${index}`}
+      data={accounts}
       endReached={onEndReached}
-      itemContent={(_, profile) => (
+      itemContent={(_, account) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === profile.id}
-            hideUnfollowButton={currentAccount?.id === profile.id}
-            account={profile as Profile}
+            hideFollowButton={currentAccount?.id === account.id}
+            hideUnfollowButton={currentAccount?.id === account.id}
+            account={account as Profile}
             showBio
             showUserPreview={false}
             source={ProfileLinkSource.Mirrors}

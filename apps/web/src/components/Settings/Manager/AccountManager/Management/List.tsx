@@ -51,7 +51,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
     refetch();
   }, [managed, refetch]);
 
-  const profilesManaged = data?.profilesManaged.items;
+  const accountsManaged = data?.profilesManaged.items;
   const pageInfo = data?.profilesManaged?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -86,7 +86,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
     );
   }
 
-  if (profilesManaged?.length === 0) {
+  if (accountsManaged?.length === 0) {
     return (
       <EmptyState
         hideCard
@@ -104,13 +104,13 @@ const List: FC<ListProps> = ({ managed = false }) => {
     try {
       if (managed) {
         await hideManagedProfile({ variables: { request: { profileId } } });
-        toast.success("Profile is now un-managed");
+        toast.success("Account is now un-managed");
 
         return refetch();
       }
 
       await unhideManagedProfile({ variables: { request: { profileId } } });
-      toast.success("Profile is now managed");
+      toast.success("Account is now managed");
 
       return refetch();
     } catch (error) {
@@ -120,20 +120,20 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
-      computeItemKey={(index, profile) => `${profile.id}-${index}`}
-      data={profilesManaged}
+      computeItemKey={(index, account) => `${account.id}-${index}`}
+      data={accountsManaged}
       endReached={onEndReached}
-      itemContent={(_, profile) => (
+      itemContent={(_, account) => (
         <div className="flex items-center justify-between py-2">
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            account={profile as Profile}
+            account={account as Profile}
           />
-          {address !== profile.ownedBy.address && (
+          {address !== account.ownedBy.address && (
             <Button
               disabled={hiding || unhiding}
-              onClick={() => handleToggleManagement(profile.id)}
+              onClick={() => handleToggleManagement(account.id)}
               outline
               size="sm"
               variant="danger"
