@@ -28,7 +28,7 @@ const Share: FC<ShareProps> = ({ post }) => {
           `${location.origin}/posts/${post?.id}`
         );
         toast.success("Copied to clipboard!");
-        Leafwatch.track(POST.SHARE, { post_id: post.id });
+        Leafwatch.track(POST.SHARE, { postId: post.id });
       }}
     >
       <div className="flex items-center space-x-2">

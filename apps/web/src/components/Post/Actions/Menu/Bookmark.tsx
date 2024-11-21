@@ -64,7 +64,7 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     onCompleted: () => {
       toast.success("Publication bookmarked!");
-      Leafwatch.track(POST.BOOKMARK, { post_id: post.id });
+      Leafwatch.track(POST.BOOKMARK, { postId: post.id });
     },
     onError: (error) => {
       toggleHasBookmarked();
@@ -78,7 +78,7 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
     onCompleted: () => {
       toast.success("Removed publication bookmark!");
-      Leafwatch.track(POST.REMOVE_BOOKMARK, { post_id: post.id });
+      Leafwatch.track(POST.REMOVE_BOOKMARK, { postId: post.id });
     },
     onError: (error) => {
       toggleHasBookmarked();

@@ -59,7 +59,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
     errorToast(error);
   };
 
-  const eventProperties = { post_id: post?.id };
+  const eventProperties = { postId: post?.id };
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => Leafwatch.track(POST.LIKE, eventProperties),
