@@ -189,11 +189,7 @@ const Frame: FC<FrameProps> = ({ frame, postId }) => {
             }
             key={index}
             onClick={() => {
-              Leafwatch.track(POST.CLICK_FRAME_BUTTON, {
-                action,
-                post_id: postId
-              });
-
+              Leafwatch.track(POST.CLICK_FRAME_BUTTON, { action, postId });
               if (action === "link" || action === "mint") {
                 const url = action === "mint" ? frameUrl : target || frameUrl;
                 window.open(url, "_blank");

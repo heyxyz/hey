@@ -44,7 +44,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(POST.REPORT, { post_id: postId });
+      Leafwatch.track(POST.REPORT, { postId: postId });
     }
   });
 

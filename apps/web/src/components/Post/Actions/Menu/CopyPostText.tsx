@@ -30,7 +30,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ post }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(filteredContent || "");
         toast.success("Content copied to clipboard!");
-        Leafwatch.track(POST.COPY_TEXT, { post_id: post.id });
+        Leafwatch.track(POST.COPY_TEXT, { postId: post.id });
       }}
     >
       <div className="flex items-center space-x-2">

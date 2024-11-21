@@ -21,7 +21,7 @@ const Embed: FC<EmbedProps> = ({ og, postId }) => {
         onClick={(event) => {
           stopEventPropagation(event);
           Leafwatch.track(POST.CLICK_OEMBED, {
-            ...(postId && { post_id: postId }),
+            ...(postId && { postId: postId }),
             url: og.url
           });
         }}

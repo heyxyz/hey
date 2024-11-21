@@ -59,7 +59,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
       toast.success("Permission updated");
       Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
         permission: key,
-        account_id: accountId
+        accountId
       });
     } catch (error) {
       errorToast(error);
