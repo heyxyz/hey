@@ -17,7 +17,7 @@ describe("POST /internal/creator-tools/assign", () => {
   test("should enable permission for a profile", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/creator-tools/assign`,
-      { enabled: true, id: permissionId, account_id: accountId },
+      { enabled: true, id: permissionId, accountId },
       { headers: getTestAuthHeaders() }
     );
 
@@ -34,7 +34,7 @@ describe("POST /internal/creator-tools/assign", () => {
   test("should disable permission for a profile", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/creator-tools/assign`,
-      { enabled: false, id: permissionId, account_id: accountId },
+      { enabled: false, id: permissionId, accountId },
       { headers: getTestAuthHeaders() }
     );
 
@@ -67,7 +67,7 @@ describe("POST /internal/creator-tools/assign", () => {
         {
           enabled: true,
           id: faker.string.uuid(),
-          account_id: faker.string.uuid()
+          accountId: faker.string.uuid()
         },
         { headers: getTestAuthHeaders("suspended") }
       );
@@ -81,7 +81,7 @@ describe("POST /internal/creator-tools/assign", () => {
       await axios.post(`${TEST_URL}/internal/creator-tools/assign`, {
         enabled: true,
         id: faker.string.uuid(),
-        account_id: faker.string.uuid()
+        accountId: faker.string.uuid()
       });
     } catch (error: any) {
       expect(error.response.status).toBe(401);

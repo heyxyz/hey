@@ -49,7 +49,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
     try {
       await axios.post(
         `${HEY_API_URL}/internal/permissions/assign`,
-        { enabled, id, account_id: accountId },
+        { enabled, id, accountId },
         { headers: getAuthApiHeaders() }
       );
 
