@@ -2,7 +2,7 @@ import { TEST_LENS_ID, TEST_SUSPENDED_LENS_ID } from "@hey/data/constants";
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "../client";
 
-const seedProfilePermission = async (): Promise<number> => {
+const seedAccountPermission = async (): Promise<number> => {
   // Delete all profile permissions
   await prisma.profilePermission.deleteMany();
 
@@ -21,4 +21,4 @@ const seedProfilePermission = async (): Promise<number> => {
   return profilePermissions.count;
 };
 
-export default seedProfilePermission;
+export default seedAccountPermission;
