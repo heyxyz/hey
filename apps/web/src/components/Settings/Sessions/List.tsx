@@ -16,12 +16,12 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [revoking, setRevoking] = useState(false);
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null

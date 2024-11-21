@@ -32,8 +32,8 @@ import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useNonceStore } from "src/store/non-persisted/useNonceStore";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -46,7 +46,7 @@ interface MirrorProps {
 
 const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const {
     decrementLensHubOnchainSigNonce,
     incrementLensHubOnchainSigNonce,

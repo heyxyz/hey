@@ -15,7 +15,7 @@ import { useSignupStore } from ".";
 
 const Success: FC = () => {
   const { reload } = useRouter();
-  const { profileId } = useSignupStore();
+  const { accountId } = useSignupStore();
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
 
@@ -36,7 +36,7 @@ const Success: FC = () => {
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { for: profileId, signedBy: address } }
+        variables: { request: { for: accountId, signedBy: address } }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -56,7 +56,7 @@ const Success: FC = () => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       const identityToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, identityToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { account_id: profileId, source: "signup" });
+      Leafwatch.track(AUTH.LOGIN, { account_id: accountId, source: "signup" });
       reload();
     } catch {}
   };

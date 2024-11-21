@@ -23,9 +23,9 @@ export const get = [
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const targetProfileId = (id as string).split("-")[0];
+      const targetAccountId = (id as string).split("-")[0];
 
-      if (payload.id !== targetProfileId) {
+      if (payload.id !== targetAccountId) {
         return catchedError(res, new Error(Errors.Unauthorized), 401);
       }
 

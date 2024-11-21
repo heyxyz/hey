@@ -15,12 +15,12 @@ import { Button, Card, CardHeader, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useProfileStatus } from "src/store/non-persisted/useProfileStatus";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const DefaultAccount: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useProfileStatus();
+  const { isSuspended } = useAccountStatus();
   const [selectedProfileId, setSelectedProfileId] = useState<null | string>(
     null
   );

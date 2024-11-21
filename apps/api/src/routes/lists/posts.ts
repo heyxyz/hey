@@ -25,8 +25,8 @@ export const get = [
         return res.status(200).json({ result: [], success: true });
       }
 
-      const profiles = list.profiles.map((profile) => profile.profileId);
-      const profilesList = profiles.map((p) => `'${p}'`).join(",");
+      const accounts = list.profiles.map((account) => account.profileId);
+      const accountsList = accounts.map((p) => `'${p}'`).join(",");
 
       // Calculate the offset for pagination
       const offset =
@@ -36,7 +36,7 @@ export const get = [
         `
           SELECT publication_id AS id
           FROM publication_view
-          WHERE profile_id IN (${profilesList})
+          WHERE profile_id IN (${accountsList})
           AND publication_type IN ('POST', 'MIRROR')
           AND is_hidden = false
           ORDER BY timestamp DESC

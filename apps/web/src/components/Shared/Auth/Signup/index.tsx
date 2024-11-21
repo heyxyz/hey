@@ -13,11 +13,11 @@ import Success from "./Success";
 interface SignupState {
   choosedHandle: string;
   delegatedExecutor: string;
-  profileId: string;
+  accountId: string;
   screen: "choose" | "minting" | "success";
   setChoosedHandle: (handle: string) => void;
   setDelegatedExecutor: (executor: string) => void;
-  setProfileId: (id: string) => void;
+  setAccountId: (id: string) => void;
   setScreen: (screen: "choose" | "minting" | "success") => void;
   setTransactionHash: (hash: string) => void;
   transactionHash: string;
@@ -26,11 +26,11 @@ interface SignupState {
 const store = create<SignupState>((set) => ({
   choosedHandle: "",
   delegatedExecutor: "",
-  profileId: "",
+  accountId: "",
   screen: "choose",
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
   setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
-  setProfileId: (id) => set({ profileId: id }),
+  setAccountId: (accountId) => set({ accountId }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
   transactionHash: ""

@@ -43,7 +43,7 @@ export const get = [
 
       const result = {
         ...rest,
-        profiles: profiles.map((profile) => profile.profileId),
+        profiles: profiles.map((account) => account.profileId),
         totalProfiles: _count.profiles,
         totalPins: _count.pinnedList,
         pinned: pinnedList.length > 0
