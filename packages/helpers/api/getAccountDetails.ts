@@ -2,14 +2,14 @@ import { HEY_API_URL } from "@hey/data/constants";
 import type { ProfileDetails } from "@hey/types/hey";
 import axios from "axios";
 
-export const GET_PROFILE_DETAILS_QUERY_KEY = "getProfileDetails";
+export const GET_ACCOUNT_DETAILS_QUERY_KEY = "getAccountDetails";
 
 /**
  * Get profile details
  * @param id profile id
  * @returns profile details
  */
-const getProfileDetails = async (
+const getAccountDetails = async (
   id: string
 ): Promise<null | ProfileDetails> => {
   try {
@@ -23,4 +23,4 @@ const getProfileDetails = async (
   }
 };
 
-export default getProfileDetails;
+export default getAccountDetails;
