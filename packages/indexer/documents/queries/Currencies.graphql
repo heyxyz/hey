@@ -1,0 +1,10 @@
+query Currencies($request: CurrencyRequest!) {
+  currencies(request: $request) {
+    items {
+      ...CurrencyFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

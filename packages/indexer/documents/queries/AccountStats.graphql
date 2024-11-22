@@ -1,0 +1,17 @@
+query AccountStats($request: AccountStatsRequest!) {
+  accountStats(request: $request) {
+    feedStats {
+      posts
+      comments
+      reposts
+      quotes
+      reacted
+      reactions
+      collects
+    }
+    graphFollowStats {
+      followers
+      following
+    }
+  }
+}

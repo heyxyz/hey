@@ -364,7 +364,7 @@ importers:
         version: 9.0.1(@types/react@18.3.12)(react@18.3.1)
       react-tracked:
         specifier: ^2.0.1
-        version: 2.0.1(react@18.3.1)(scheduler@0.23.2)
+        version: 2.0.1(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
       react-virtuoso:
         specifier: ^4.12.0
         version: 4.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -654,6 +654,52 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
+
+  packages/indexer:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.11.10
+        version: 3.11.10(@types/react@18.3.12)(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../data
+      axios:
+        specifier: ^1.7.7
+        version: 1.7.7(debug@4.3.7)
+      graphql:
+        specifier: ^16.9.0
+        version: 16.9.0
+      graphql-ws:
+        specifier: ^5.16.0
+        version: 5.16.0(graphql@16.9.0)
+    devDependencies:
+      '@graphql-codegen/cli':
+        specifier: ^5.0.3
+        version: 5.0.3(@parcel/watcher@2.5.0)(@types/node@22.9.0)(bufferutil@4.0.8)(enquirer@2.4.1)(graphql@16.9.0)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      '@graphql-codegen/fragment-matcher':
+        specifier: ^5.0.2
+        version: 5.0.2(graphql@16.9.0)
+      '@graphql-codegen/typescript':
+        specifier: ^4.1.1
+        version: 4.1.1(graphql@16.9.0)
+      '@graphql-codegen/typescript-operations':
+        specifier: ^4.3.1
+        version: 4.3.1(graphql@16.9.0)
+      '@graphql-codegen/typescript-react-apollo':
+        specifier: ^4.3.2
+        version: 4.3.2(graphql@16.9.0)
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../config
+      '@parcel/watcher':
+        specifier: ^2.5.0
+        version: 2.5.0
+      '@types/node':
+        specifier: ^22.9.0
+        version: 22.9.0
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -21793,12 +21839,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.12
 
-  react-tracked@2.0.1(react@18.3.1)(scheduler@0.23.2):
+  react-tracked@2.0.1(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       proxy-compare: 3.0.0
       react: 18.3.1
-      scheduler: 0.23.2
-      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.23.2)
+      scheduler: 0.24.0-canary-efb381bbf-20230505
+      use-context-selector: 2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505)
 
   react-virtuoso@4.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -23125,10 +23171,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.12
 
-  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.23.2):
+  use-context-selector@2.0.0(react@18.3.1)(scheduler@0.24.0-canary-efb381bbf-20230505):
     dependencies:
       react: 18.3.1
-      scheduler: 0.23.2
+      scheduler: 0.24.0-canary-efb381bbf-20230505
 
   use-deep-compare@1.3.0(react@18.3.1):
     dependencies:
