@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Usage: script/truncate
+# Truncate all folders in the bucket
+
+# Install s3cmd
+# brew install s3cmd
+# Config
+# nano ~/.s3cfg
+#
+# [default]
+# access_key = value
+# secret_key = value
+# host_base = endpoint.4everland.co
+# host_bucket = %(bucket)s.endpoint.4everland.co
+# use_https = True
+# signature_v2 = False
+
+BUCKET_NAME="hey-media"
+folders=$(s3cmd ls s3://$BUCKET_NAME | awk '/DIR/ {print $NF}')
+
+for folder in $folders; do
+  echo "Deleting folder: $folder"
+  s3cmd del --recursive "$folder"
+done
+
+echo "All folders deleted in bucket: $BUCKET_NAME"
