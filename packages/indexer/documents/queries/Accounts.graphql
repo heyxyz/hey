@@ -1,0 +1,5 @@
+query Accounts($request: AccountsRequest!) {
+  accounts(request: $request) {
+    ...AccountFields
+  }
+}
