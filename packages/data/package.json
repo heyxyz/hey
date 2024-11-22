@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.9.1",
     "typescript": "^5.6.3",
     "vitest": "^2.1.5"
   }
