@@ -2,7 +2,7 @@ import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
-import type { Preferences, ProfileTheme } from "@hey/types/hey";
+import type { AccountTheme, Preferences } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
@@ -56,7 +56,7 @@ export const get = [
           preference?.highSignalNotificationFilter
         ),
         developerMode: Boolean(preference?.developerMode),
-        theme: (theme as ProfileTheme) || null,
+        theme: (theme as AccountTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
         mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
           id,
