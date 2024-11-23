@@ -90,10 +90,6 @@ export const POST = {
   }
 };
 
-export const LIST = {
-  FOLLOW_ALL: "Follow all profiles in list"
-};
-
 export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: "Switch notifications tab"
 };
@@ -218,10 +214,10 @@ export const MISCELLANEOUS = {
 };
 
 export const ONBOARDING = {
-  NAVIGATE_UPDATE_PROFILE: "Navigate to update profile from onboarding",
+  NAVIGATE_UPDATE_ACCOUNT: "Navigate to update account from onboarding",
   NAVIGATE_UPDATE_EMAIL: "Navigate to update email from onboarding",
-  NAVIGATE_UPDATE_PROFILE_INTERESTS:
-    "Navigate to update profile interests from onboarding"
+  NAVIGATE_UPDATE_ACCOUNT_INTERESTS:
+    "Navigate to update account interests from onboarding"
 };
 
 // enums
@@ -229,7 +225,6 @@ export const ALL_EVENTS = {
   PAGEVIEW,
   ...AUTH,
   ...ACCOUNT,
-  ...LIST,
   ...POST,
   ...NOTIFICATION,
   ...HOME,
