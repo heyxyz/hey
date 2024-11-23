@@ -2,7 +2,7 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
+import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import {
@@ -126,7 +126,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                       linkToAccount={false}
                       account={account}
                       showUserPreview={false}
-                      source={ProfileLinkSource.Search}
+                      source={AccountLinkSource.Search}
                     />
                   </div>
                 ))}

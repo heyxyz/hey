@@ -9,7 +9,7 @@ import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { PAGEVIEW, ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource, PAGEVIEW } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -147,7 +147,7 @@ const ViewPost: NextPage = () => {
             hideUnfollowButton={currentAccount?.id === targetPost.by.id}
             account={targetPost.by}
             showBio
-            source={ProfileLinkSource.Post}
+            source={AccountLinkSource.Post}
           />
         </Card>
         <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />

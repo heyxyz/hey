@@ -1,7 +1,7 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfilesRequest } from "@hey/lens";
 import { LimitType, useProfilesQuery } from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
@@ -78,7 +78,7 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
             account={account as Profile}
             showBio
             showUserPreview={false}
-            source={ProfileLinkSource.Mirrors}
+            source={AccountLinkSource.Mirrors}
           />
         </div>
       )}

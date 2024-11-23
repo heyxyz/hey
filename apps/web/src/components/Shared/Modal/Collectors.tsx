@@ -1,7 +1,7 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import type { Profile, WhoActedOnPublicationRequest } from "@hey/lens";
 import {
   LimitType,
@@ -83,7 +83,7 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
             account={account as Profile}
             showBio
             showUserPreview={false}
-            source={ProfileLinkSource.Collects}
+            source={AccountLinkSource.Collects}
           />
         </div>
       )}

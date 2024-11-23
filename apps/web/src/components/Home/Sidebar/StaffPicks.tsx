@@ -2,7 +2,7 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import type { Profile } from "@hey/lens";
 import { useStaffPicksQuery } from "@hey/lens";
 import type { StaffPick } from "@hey/types/hey";
@@ -131,7 +131,7 @@ const StaffPicks: FC = () => {
             hideFollowButton={currentAccount?.id === account.id}
             hideUnfollowButton
             account={account as Profile}
-            source={ProfileLinkSource.StaffPicks}
+            source={AccountLinkSource.StaffPicks}
           />
         </div>
       ))}

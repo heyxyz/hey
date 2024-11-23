@@ -2,7 +2,7 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import { type Profile, useProfilesQuery } from "@hey/lens";
 import type { ClubProfile } from "@hey/types/club";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
@@ -118,7 +118,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
               account={member as Profile}
               showBio
               showUserPreview={false}
-              source={ProfileLinkSource.ClubMembers}
+              source={AccountLinkSource.ClubMembers}
             />
           </div>
         )}

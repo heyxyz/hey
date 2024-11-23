@@ -2,7 +2,7 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ProfileLinkSource, SEARCH } from "@hey/data/tracking";
+import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Profile } from "@hey/lens";
@@ -71,7 +71,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
                   linkToAccount={false}
                   account={profile as Profile}
                   showUserPreview={false}
-                  source={ProfileLinkSource.RecentSearch}
+                  source={AccountLinkSource.RecentSearch}
                 />
               </div>
               <button
