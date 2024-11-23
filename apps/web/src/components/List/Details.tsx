@@ -63,9 +63,9 @@ const Details: FC<DetailsProps> = ({ list }) => {
           className="text-left outline-offset-4"
           href={`/lists/${list.id}/accounts`}
         >
-          <H4>{humanize(list.totalProfiles)}</H4>
+          <H4>{humanize(list.totalAccounts)}</H4>
           <div className="ld-text-gray-500">
-            {plur("Profile", list.totalProfiles)}
+            {plur("Profile", list.totalAccounts)}
           </div>
         </Link>
         <div className="text-left outline-offset-4">

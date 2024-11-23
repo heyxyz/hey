@@ -51,7 +51,7 @@ export const get = [
         }))
       };
 
-      logger.info(`Internal profile fetched for ${id}`);
+      logger.info(`Internal account fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

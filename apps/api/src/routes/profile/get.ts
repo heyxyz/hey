@@ -18,7 +18,7 @@ export const get = [
     }
 
     try {
-      const cacheKey = `profile:${id}`;
+      const cacheKey = `account:${id}`;
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {

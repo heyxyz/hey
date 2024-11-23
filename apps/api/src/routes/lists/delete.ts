@@ -39,12 +39,12 @@ export const post = [
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
       const listCacheKey = `list:${id}`;
-      const listProfilesCacheKey = `list:profiles:${id}`;
+      const listAccountsCacheKey = `list:accounts:${id}`;
 
       const clearCache = async () => {
         await Promise.all([
           delRedis(listCacheKey),
-          delRedis(listProfilesCacheKey)
+          delRedis(listAccountsCacheKey)
         ]);
       };
 

@@ -47,8 +47,8 @@ export const post = [
         where: { id: payload.id }
       });
 
-      await delRedis(`profile:${payload.id}`);
-      logger.info(`Updated profile status for ${payload.id}`);
+      await delRedis(`account:${payload.id}`);
+      logger.info(`Updated account status for ${payload.id}`);
 
       return res.status(200).json({ result: profileStatus, success: true });
     } catch (error) {

@@ -42,17 +42,17 @@ export const post = [
     try {
       const identityToken = req.headers["x-identity-token"] as string;
       const payload = parseJwt(identityToken);
-      const listProfilesCacheKey = `list:profiles:${listId}`;
+      const listAccountsCacheKey = `list:accounts:${listId}`;
       const listCacheKey = `list:${listId}`;
 
       const clearCache = async () => {
         await Promise.all([
-          delRedis(listProfilesCacheKey),
+          delRedis(listAccountsCacheKey),
           delRedis(listCacheKey)
         ]);
       };
 
-      const profile = await lensPg.query(
+      const account = await lensPg.query(
         `
           SELECT EXISTS (
             SELECT 1 FROM profile.record
@@ -64,13 +64,13 @@ export const post = [
         [accountId]
       );
 
-      const hasProfile = profile[0]?.result;
+      const hasAccount = account[0]?.result;
 
-      if (!hasProfile) {
+      if (!hasAccount) {
         return notFound(res);
       }
 
-      // Check if the list exists and belongs to the authenticated user and the number of profiles in the list
+      // Check if the list exists and belongs to the authenticated user and the number of accounts in the list
       const [list, count] = await prisma.$transaction([
         prisma.list.findUnique({
           where: { id: listId, createdBy: payload.id }
@@ -93,20 +93,20 @@ export const post = [
       }
 
       if (add) {
-        const listProfile = await prisma.listProfile.create({
+        const listAccount = await prisma.listProfile.create({
           data: { listId, profileId: accountId }
         });
         await clearCache();
-        logger.info(`Added profile ${accountId} to list ${listId}`);
+        logger.info(`Added account ${accountId} to list ${listId}`);
 
-        return res.status(200).json({ result: listProfile, success: true });
+        return res.status(200).json({ result: listAccount, success: true });
       }
 
       await prisma.listProfile.delete({
         where: { profileId_listId: { profileId: accountId, listId } }
       });
       await clearCache();
-      logger.info(`Removed profile ${accountId} from list ${listId}`);
+      logger.info(`Removed account ${accountId} from list ${listId}`);
 
       return res.status(200).json({ success: true });
     } catch (error) {

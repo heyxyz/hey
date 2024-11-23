@@ -39,7 +39,7 @@ const getFrame = (document: Document, url?: string): Frame | null => {
     buttons.push({ action, button, postUrl: buttonPostUrl, target });
   }
 
-  // Frames must be OpenFrame with accepted protocol of Lens (profile authentication) or anonymous (no authentication)
+  // Frames must be OpenFrame with accepted protocol of Lens (account authentication) or anonymous (no authentication)
   if (!lensFramesVersion && !acceptsAnonymous) {
     return null;
   }
