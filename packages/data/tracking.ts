@@ -115,7 +115,7 @@ export const SETTINGS = {
   ACCOUNT: {
     REQUEST_VERIFICATION: "Request verification",
     RESEND_EMAIL_VERIFICATION: "Resend email verification",
-    SET_DEFAULT_PROFILE: "Set default profile",
+    SET_DEFAULT_ACCOUNT: "Set default account",
     SET_EMAIL: "Set email",
     SET_SUPER_FOLLOW: "Set super follow",
     UPDATE: "Update account"
