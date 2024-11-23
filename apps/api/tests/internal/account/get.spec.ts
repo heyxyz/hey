@@ -7,8 +7,8 @@ import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
-describe("GET /internal/profile/get", () => {
-  test("should return 200 and the internal profile data", async () => {
+describe("GET /internal/account/get", () => {
+  test("should return 200 and the internal account data", async () => {
     const preference = await prisma.preference.create({
       data: {
         id: faker.string.uuid(),
@@ -35,7 +35,7 @@ describe("GET /internal/profile/get", () => {
     ]);
 
     const { data, status } = await axios.get(
-      `${TEST_URL}/internal/profile/get`,
+      `${TEST_URL}/internal/account/get`,
       { params: { id: preference.id }, headers: getTestAuthHeaders() }
     );
 
@@ -54,7 +54,7 @@ describe("GET /internal/profile/get", () => {
 
   test("should return 400 if id is missing", async () => {
     try {
-      await axios.get(`${TEST_URL}/internal/profile/get`, {
+      await axios.get(`${TEST_URL}/internal/account/get`, {
         headers: getTestAuthHeaders()
       });
     } catch (error: any) {
@@ -64,7 +64,7 @@ describe("GET /internal/profile/get", () => {
 
   test("should return 401 if the identity token is missing", async () => {
     try {
-      await axios.get(`${TEST_URL}/internal/profile/get`, {
+      await axios.get(`${TEST_URL}/internal/account/get`, {
         params: { id: TEST_LENS_ID }
       });
     } catch (error: any) {
