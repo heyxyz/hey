@@ -21,36 +21,36 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 const DefaultAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [selectedProfileId, setSelectedProfileId] = useState<null | string>(
+  const [selectedAccountId, setSelectedAccountId] = useState<null | string>(
     null
   );
 
   const onCompleted = () => {
-    toast.success("Default profile set");
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    toast.success("Default account set");
+    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_ACCOUNT);
   };
 
   const onError = (error: any) => {
     errorToast(error);
   };
 
-  const { data: profilesData, loading: profilesLoading } = useProfilesQuery({
+  const { data: accountsData, loading: accountsLoading } = useProfilesQuery({
     variables: {
       request: { where: { ownedBy: currentAccount?.ownedBy.address } }
     }
   });
 
-  const { data: defaultProfileData, loading: defaultProfileLoading } =
+  const { data: defaultAccountData, loading: defaultAccountLoading } =
     useDefaultProfileQuery({
       variables: { request: { for: currentAccount?.ownedBy.address } }
     });
 
-  const [setProfile, { loading }] = useSetDefaultProfileMutation({
+  const [setAccount, { loading }] = useSetDefaultProfileMutation({
     onCompleted,
     onError
   });
 
-  const handleSetDefaultProfile = async () => {
+  const handleSetDefaultAccount = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
@@ -60,44 +60,44 @@ const DefaultAccount: FC = () => {
     }
 
     try {
-      return await setProfile({
-        variables: { request: { profileId: selectedProfileId } }
+      return await setAccount({
+        variables: { request: { profileId: selectedAccountId } }
       });
     } catch (error) {
       onError(error);
     }
   };
 
-  if (profilesLoading || defaultProfileLoading) {
+  if (accountsLoading || defaultAccountLoading) {
     return (
       <Card>
-        <Loader className="my-10" message="Loading default profile settings" />
+        <Loader className="my-10" message="Loading default account settings" />
       </Card>
     );
   }
 
-  const profiles = profilesData?.profiles.items as Profile[];
+  const accounts = accountsData?.profiles.items as Profile[];
 
   return (
     <Card>
       <CardHeader
-        body="Set a default profile that will be visible on places like DMs, Split Collects, and more."
-        title="Set Default Profile"
+        body="Set a default account that will be visible on places like DMs, Split Collects, and more."
+        title="Set Default Account"
       />
       <div className="m-5 space-y-4">
         <div>
-          <div className="label">Select Profile</div>
+          <div className="label">Select Account</div>
           <Select
-            defaultValue={defaultProfileData?.defaultProfile?.id}
+            defaultValue={defaultAccountData?.defaultProfile?.id}
             iconClassName="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
-            onChange={(value) => setSelectedProfileId(value)}
-            options={profiles?.map((profile) => ({
-              icon: getAvatar(profile),
-              label: getAccount(profile).slugWithPrefix,
+            onChange={(value) => setSelectedAccountId(value)}
+            options={accounts?.map((account) => ({
+              icon: getAvatar(account),
+              label: getAccount(account).slugWithPrefix,
               selected:
-                profile.id ===
-                (selectedProfileId || defaultProfileData?.defaultProfile?.id),
-              value: profile.id
+                account.id ===
+                (selectedAccountId || defaultAccountData?.defaultProfile?.id),
+              value: account.id
             }))}
           />
         </div>
@@ -105,10 +105,10 @@ const DefaultAccount: FC = () => {
           <Button
             className="ml-auto"
             disabled={loading}
-            onClick={handleSetDefaultProfile}
+            onClick={handleSetDefaultAccount}
             type="submit"
           >
-            Set Default Profile
+            Set Default Account
           </Button>
         </div>
       </div>
