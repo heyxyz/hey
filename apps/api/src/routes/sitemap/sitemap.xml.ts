@@ -9,7 +9,7 @@ export const get = async (req: Request, res: Response) => {
   try {
     const sitemaps = [
       "https://api.hey.xyz/sitemap/posts.xml",
-      "https://api.hey.xyz/sitemap/profiles.xml",
+      "https://api.hey.xyz/sitemap/accounts.xml",
       "https://api.hey.xyz/sitemap/others.xml"
     ];
 

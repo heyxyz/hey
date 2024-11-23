@@ -8,7 +8,7 @@ import { buildSitemapXml } from "src/helpers/sitemap/buildSitemap";
 
 export const get = async (req: Request, res: Response) => {
   const userAgent = req.headers["user-agent"];
-  const redisKey = "sitemap:profiles:total";
+  const redisKey = "sitemap:accounts:total";
 
   try {
     const cachedData = await getRedis(redisKey);
@@ -33,12 +33,12 @@ export const get = async (req: Request, res: Response) => {
 
     const totalBatches = Math.ceil(totalHandles / SITEMAP_BATCH_SIZE);
     const entries = Array.from({ length: totalBatches }, (_, index) => ({
-      loc: `https://api.hey.xyz/sitemap/profiles/${index + 1}.xml`
+      loc: `https://api.hey.xyz/sitemap/accounts/${index + 1}.xml`
     }));
     const xml = buildSitemapXml(entries);
 
     logger.info(
-      `[Lens] Fetched all profiles sitemap index having ${totalBatches} batches from user-agent: ${userAgent}`
+      `[Lens] Fetched all accounts sitemap index having ${totalBatches} batches from user-agent: ${userAgent}`
     );
 
     return res

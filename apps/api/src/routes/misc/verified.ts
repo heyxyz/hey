@@ -15,21 +15,21 @@ export const get = [
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info("(cached) Verified profiles fetched");
+        logger.info("(cached) Verified accounts fetched");
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_30_MINS)
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const profilePermission = await prisma.profilePermission.findMany({
+      const accountPermission = await prisma.profilePermission.findMany({
         select: { profileId: true },
         where: { enabled: true, permissionId: PermissionId.Verified }
       });
 
-      const result = profilePermission.map(({ profileId }) => profileId);
+      const result = accountPermission.map(({ profileId }) => profileId);
       await setRedis(cacheKey, result);
-      logger.info("Verified profiles fetched");
+      logger.info("Verified accounts fetched");
 
       return res
         .status(200)
