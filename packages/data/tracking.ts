@@ -13,23 +13,23 @@ export const AUTH = {
 };
 
 export const ACCOUNT = {
-  BLOCK: "Block profile",
-  COPY_PROFILE_ADDRESS: "Copy profile address",
-  COPY_PROFILE_ID: "Copy profile ID",
-  COPY_PROFILE_LINK: "Copy profile link",
-  DISMISS_RECOMMENDED_PROFILE: "Dismiss recommended profile",
-  FOLLOW: "Follow profile",
-  OPEN_RECOMMENDED_PROFILES: "Open recommended profiles modal",
+  BLOCK: "Block account",
+  COPY_ACCOUNT_ADDRESS: "Copy account address",
+  COPY_ACCOUNT_ID: "Copy account ID",
+  COPY_ACCOUNT_LINK: "Copy account link",
+  DISMISS_RECOMMENDED_ACCOUNT: "Dismiss recommended account",
+  FOLLOW: "Follow account",
+  OPEN_RECOMMENDED_ACCOUNTS: "Open recommended accounts modal",
   OPEN_SUPER_FOLLOW: "Open super follow modal",
-  RECOMMENDED: "Recommended the profile",
-  REPORT: "Report profile",
-  SUPER_FOLLOW: "Super follow profile",
-  SWITCH_PROFILE: "Switch profile",
-  SWITCH_PROFILE_FEED_TAB: "Switch profile feed tab",
-  SWITCH_PROFILE_STATS_TAB: "Switch profile stats tab",
-  UNBLOCK: "Unblock profile",
-  UNFOLLOW: "Unfollow profile",
-  UNRECOMENDED: "Unrecommended the profile",
+  RECOMMENDED: "Recommended the account",
+  REPORT: "Report account",
+  SUPER_FOLLOW: "Super follow account",
+  SWITCH_ACCOUNT: "Switch account",
+  SWITCH_ACCOUNT_FEED_TAB: "Switch account feed tab",
+  SWITCH_ACCOUNT_STATS_TAB: "Switch account stats tab",
+  UNBLOCK: "Unblock account",
+  UNFOLLOW: "Unfollow account",
+  UNRECOMENDED: "Unrecommended the account",
   OPEN_FOLLOWERS: "Open followers modal",
   OPEN_FOLLOWING: "Open following modal",
   OPEN_MUTUAL_FOLLOWERS: "Open mutual followers modal"
@@ -258,5 +258,5 @@ export enum AccountLinkSource {
   Search = "search",
   StaffPicks = "staff-picks",
   WhoToFollow = "who-to-follow",
-  ListProfiles = "list-profiles"
+  ListAccounts = "list-accounts"
 }

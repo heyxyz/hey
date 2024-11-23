@@ -82,7 +82,7 @@ const WhoToFollow: FC = () => {
           className="ld-text-gray-500 font-bold"
           onClick={() => {
             setShowMore(true);
-            Leafwatch.track(ACCOUNT.OPEN_RECOMMENDED_PROFILES);
+            Leafwatch.track(ACCOUNT.OPEN_RECOMMENDED_ACCOUNTS);
           }}
           type="button"
         >

@@ -12,7 +12,7 @@ interface DismissRecommendedAccountProps {
 const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({
   account
 }) => {
-  const [dismissRecommendedProfile] = useDismissRecommendedProfilesMutation({
+  const [dismissRecommendedAccount] = useDismissRecommendedProfilesMutation({
     update: (cache) => {
       cache.evict({ id: cache.identify(account) });
     },
@@ -20,9 +20,9 @@ const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({
   });
 
   const handleDismiss = async () => {
-    await dismissRecommendedProfile();
-    Leafwatch.track(ACCOUNT.DISMISS_RECOMMENDED_PROFILE, {
-      target: account.id
+    await dismissRecommendedAccount();
+    Leafwatch.track(ACCOUNT.DISMISS_RECOMMENDED_ACCOUNT, {
+      accountId: account.id
     });
   };
 

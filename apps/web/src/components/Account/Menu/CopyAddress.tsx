@@ -32,7 +32,7 @@ const CopyAddress: FC<CopyAddressProps> = ({ address }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(address);
         toast.success("Address copied to clipboard!");
-        Leafwatch.track(ACCOUNT.COPY_PROFILE_ADDRESS, { address });
+        Leafwatch.track(ACCOUNT.COPY_ACCOUNT_ADDRESS, { address });
       }}
     >
       <WalletIcon className="size-4" />
