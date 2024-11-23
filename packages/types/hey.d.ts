@@ -84,7 +84,7 @@ export type Preferences = {
   theme: ProfileTheme | null;
 };
 
-export type InternalProfile = Preferences;
+export type InternalAccount = Preferences;
 
 export type ProfileDetails = {
   isSuspended: boolean;

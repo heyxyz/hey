@@ -23,12 +23,12 @@ interface SuspendProps {
 const Suspend: FC<SuspendProps> = ({ id }) => {
   const queryClient = useQueryClient();
 
-  const { data: profile, isLoading } = useQuery({
+  const { data: account, isLoading } = useQuery({
     queryFn: () => getInternalAccount(id, getAuthApiHeaders()),
     queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, id || ""]
   });
 
-  const suspendProfile = async () => {
+  const suspendAccount = async () => {
     try {
       await Promise.all([
         axios.post(
@@ -37,7 +37,7 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
           { headers: getAuthApiHeaders() }
         ),
         axios.post(
-          `${HEY_API_URL}/internal/profile/report`,
+          `${HEY_API_URL}/internal/account/report`,
           {
             id,
             subreasons: [
@@ -53,19 +53,19 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
       queryClient.invalidateQueries({
         queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, id]
       });
-      toast.success("Profile suspended");
+      toast.success("Account suspended");
     } catch (error) {
       errorToast(error);
     }
   };
 
   const isSuspended =
-    profile?.permissions.includes(Permission.Suspended) || false;
+    account?.permissions.includes(Permission.Suspended) || false;
 
   return (
     <div className="text-red-500">
-      <ToggleWrapper title="Suspend and Report Profile">
-        <Toggle disabled={isLoading} on={isSuspended} setOn={suspendProfile} />
+      <ToggleWrapper title="Suspend and Report Account">
+        <Toggle disabled={isLoading} on={isSuspended} setOn={suspendAccount} />
       </ToggleWrapper>
     </div>
   );

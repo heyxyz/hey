@@ -1,21 +1,21 @@
 import { HEY_API_URL } from "@hey/data/constants";
-import type { InternalProfile } from "@hey/types/hey";
+import type { InternalAccount } from "@hey/types/hey";
 import axios from "axios";
 
 export const GET_INTERNAL_ACCOUNT_QUERY_KEY = "getInternalAccount";
 
 /**
- * Get internal profile
- * @param id profile id
+ * Get internal account
+ * @param id account id
  * @param headers auth headers
- * @returns internal profile
+ * @returns internal account
  */
 const getInternalAccount = async (
   id: string,
   headers: any
-): Promise<InternalProfile> => {
+): Promise<InternalAccount> => {
   try {
-    const { data } = await axios.get(`${HEY_API_URL}/internal/profile/get`, {
+    const { data } = await axios.get(`${HEY_API_URL}/internal/account/get`, {
       headers,
       params: { id }
     });

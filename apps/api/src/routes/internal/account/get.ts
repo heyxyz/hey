@@ -1,6 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
-import type { InternalProfile, ProfileTheme } from "@hey/types/hey";
+import type { InternalAccount, ProfileTheme } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -31,7 +31,7 @@ export const get = [
           prisma.mutedWord.findMany({ where: { profileId: id as string } })
         ]);
 
-      const response: InternalProfile = {
+      const response: InternalAccount = {
         appIcon: preference?.appIcon || 0,
         email: email?.email || null,
         emailVerified: Boolean(email?.verified),
