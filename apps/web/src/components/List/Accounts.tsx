@@ -108,7 +108,7 @@ const Accounts: FC<AccountsProps> = ({ listId, name }) => {
               account={member as Profile}
               showBio
               showUserPreview={false}
-              source={AccountLinkSource.ListProfiles}
+              source={AccountLinkSource.ListAccounts}
             />
           </div>
         )}
