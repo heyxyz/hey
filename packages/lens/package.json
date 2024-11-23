@@ -18,12 +18,12 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/fragment-matcher": "^5.0.2",
-    "@graphql-codegen/typescript": "^4.1.1",
-    "@graphql-codegen/typescript-operations": "^4.3.1",
+    "@graphql-codegen/typescript": "^4.1.2",
+    "@graphql-codegen/typescript-operations": "^4.4.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.5.0",
-    "@types/node": "^22.9.1",
-    "typescript": "^5.6.3"
+    "@types/node": "^22.9.3",
+    "typescript": "^5.7.2"
   }
 }
