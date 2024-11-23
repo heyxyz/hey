@@ -244,7 +244,7 @@ export const ALL_EVENTS = {
   ...ONBOARDING
 };
 
-export enum ProfileLinkSource {
+export enum AccountLinkSource {
   ClubMembers = "club-members",
   Collects = "collects",
   Followers = "followers",

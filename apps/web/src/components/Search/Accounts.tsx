@@ -1,7 +1,7 @@
 import SingleAccountsShimmer from "@components/Shared/Shimmer/SingleAccountsShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
@@ -76,7 +76,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
             isBig
             account={account as Profile}
             showBio
-            source={ProfileLinkSource.Search}
+            source={AccountLinkSource.Search}
           />
         </Card>
       )}

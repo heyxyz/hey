@@ -1,6 +1,6 @@
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import type { Profile, ProfileMentioned } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
@@ -62,7 +62,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
               hideUnfollowButton={currentAccount?.id === account.id}
               account={account as Profile}
               showUserPreview={false}
-              source={ProfileLinkSource.RelevantPeople}
+              source={AccountLinkSource.RelevantPeople}
             />
           </div>
         ))}

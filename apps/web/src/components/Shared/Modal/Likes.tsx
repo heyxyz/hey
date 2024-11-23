@@ -1,7 +1,7 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { ProfileLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import {
   LimitType,
   type Profile,
@@ -82,7 +82,7 @@ const Likes: FC<LikesProps> = ({ postId }) => {
             account={like.profile as Profile}
             showBio
             showUserPreview={false}
-            source={ProfileLinkSource.Likes}
+            source={AccountLinkSource.Likes}
           />
         </div>
       )}
