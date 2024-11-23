@@ -86,7 +86,7 @@ export type Preferences = {
 
 export type InternalAccount = Preferences;
 
-export type ProfileDetails = {
+export type AccountDetails = {
   isSuspended: boolean;
   status: { emoji: string; message: string } | null;
 };

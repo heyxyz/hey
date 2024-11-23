@@ -2,7 +2,7 @@ import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
-import type { ProfileDetails } from "@hey/types/hey";
+import type { AccountDetails } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
@@ -38,7 +38,7 @@ export const get = [
         prisma.profileStatus.findUnique({ where: { id: id as string } })
       ]);
 
-      const response: ProfileDetails = {
+      const response: AccountDetails = {
         isSuspended: profilePermission?.permissionId === PermissionId.Suspended,
         status: profileStatus || null
       };
