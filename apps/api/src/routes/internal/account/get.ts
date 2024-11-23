@@ -1,6 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
-import type { InternalAccount, ProfileTheme } from "@hey/types/hey";
+import type { AccountTheme, InternalAccount } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -42,7 +42,7 @@ export const get = [
           preference?.highSignalNotificationFilter
         ),
         developerMode: Boolean(preference?.developerMode),
-        theme: (theme as ProfileTheme) || null,
+        theme: (theme as AccountTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
         mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
           id,

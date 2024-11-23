@@ -62,7 +62,7 @@ export type Poll = {
   options: PollOption[];
 };
 
-export type ProfileTheme = {
+export type AccountTheme = {
   fontStyle?: string;
 };
 
@@ -81,7 +81,7 @@ export type Preferences = {
   developerMode: boolean;
   permissions: string[];
   mutedWords: MutedWord[];
-  theme: ProfileTheme | null;
+  theme: AccountTheme | null;
 };
 
 export type InternalAccount = Preferences;

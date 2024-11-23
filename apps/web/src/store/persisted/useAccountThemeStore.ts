@@ -1,12 +1,12 @@
 import { Localstorage } from "@hey/data/storage";
-import type { ProfileTheme } from "@hey/types/hey";
+import type { AccountTheme } from "@hey/types/hey";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  theme: ProfileTheme | null;
-  setTheme: (theme: ProfileTheme | null) => void;
+  theme: AccountTheme | null;
+  setTheme: (theme: AccountTheme | null) => void;
 }
 
 const store = create(
