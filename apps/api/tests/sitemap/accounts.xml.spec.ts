@@ -3,14 +3,14 @@ import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
 import { describe, expect, test, vi } from "vitest";
 
-describe("GET /sitemap/profiles.xml", () => {
-  test("should return 200 and generate a sitemap with profile links", async () => {
+describe("GET /sitemap/accounts.xml", () => {
+  test("should return 200 and generate a sitemap with account links", async () => {
     const mockCount = 1000;
     const SITEMAP_BATCH_SIZE = 100;
     vi.spyOn(lensPg, "query").mockResolvedValueOnce([{ count: mockCount }]);
 
     const { data, status, headers } = await axios.get(
-      `${TEST_URL}/sitemap/profiles.xml`
+      `${TEST_URL}/sitemap/accounts.xml`
     );
 
     expect(status).toBe(200);
@@ -20,7 +20,7 @@ describe("GET /sitemap/profiles.xml", () => {
 
     for (let i = 1; i <= totalBatches; i++) {
       expect(data).toContain(
-        `<loc>https://api.hey.xyz/sitemap/profiles/${i}.xml</loc>`
+        `<loc>https://api.hey.xyz/sitemap/accounts/${i}.xml</loc>`
       );
     }
   });
@@ -29,7 +29,7 @@ describe("GET /sitemap/profiles.xml", () => {
     vi.spyOn(lensPg, "query").mockRejectedValueOnce(new Error("DB Error"));
 
     try {
-      await axios.get(`${TEST_URL}/sitemap/profiles.xml`);
+      await axios.get(`${TEST_URL}/sitemap/accounts.xml`);
     } catch (error: any) {
       expect(error.response.status).toBe(500);
     }
