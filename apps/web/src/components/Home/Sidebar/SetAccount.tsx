@@ -68,12 +68,12 @@ const SetAccount: FC = () => {
           <Link
             href="/settings/interests"
             onClick={() =>
-              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
+              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_ACCOUNT_INTERESTS)
             }
           >
             <Status
               finished={Boolean(currentAccount?.interests?.length)}
-              title="Select profile interests"
+              title="Select account interests"
             />
           </Link>
         </div>
@@ -81,7 +81,7 @@ const SetAccount: FC = () => {
       <div className="font-bold">
         <Link
           href="/settings"
-          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
+          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_ACCOUNT)}
         >
           Update profile now
         </Link>
