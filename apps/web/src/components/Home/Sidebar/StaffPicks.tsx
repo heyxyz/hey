@@ -99,22 +99,22 @@ const StaffPicks: FC = () => {
     );
   }
 
-  const profiles = [
+  const accounts = [
     ...(staffPicks?.batch1?.items || []),
     ...(staffPicks?.batch2?.items || []),
     ...(staffPicks?.batch3?.items || [])
   ];
-  const randomProfiles = profiles.sort(() => Math.random() - Math.random());
-  const filteredProfiles = randomProfiles
+  const randomAccounts = accounts.sort(() => Math.random() - Math.random());
+  const filteredAccounts = randomAccounts
     .filter(
-      (profile) =>
-        !profile.operations.isBlockedByMe.value &&
-        !profile.operations.isFollowedByMe.value &&
-        currentAccount?.id !== profile.id
+      (account) =>
+        !account.operations.isBlockedByMe.value &&
+        !account.operations.isFollowedByMe.value &&
+        currentAccount?.id !== account.id
     )
     .slice(0, 5);
 
-  if (filteredProfiles.length === 0) {
+  if (filteredAccounts.length === 0) {
     return null;
   }
 
@@ -125,12 +125,12 @@ const StaffPicks: FC = () => {
         error={picksError || profilesError}
         title="Failed to load recommendations"
       />
-      {filteredProfiles.map((profile) => (
-        <div className="w-full truncate pr-1" key={profile.id}>
+      {filteredAccounts.map((account) => (
+        <div className="w-full truncate pr-1" key={account.id}>
           <SingleAccount
-            hideFollowButton={currentAccount?.id === profile.id}
+            hideFollowButton={currentAccount?.id === account.id}
             hideUnfollowButton
-            account={profile as Profile}
+            account={account as Profile}
             source={ProfileLinkSource.StaffPicks}
           />
         </div>
