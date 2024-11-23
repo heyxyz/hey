@@ -8,7 +8,7 @@ import catchedError from "../catchedError";
 import { HEY_USER_AGENT, UNLEASH_API_URL } from "../constants";
 
 /**
- * Middleware to validate if the profile is gardener
+ * Middleware to validate if the account is gardener
  * @param req Incoming request
  * @param res Response
  * @param next Next function

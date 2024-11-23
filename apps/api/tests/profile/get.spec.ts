@@ -14,7 +14,7 @@ describe("GET /profile/get", () => {
   });
 
   test("should return 200 with status and theme", async () => {
-    await delRedis(`profile:${TEST_LENS_ID}`);
+    await delRedis(`account:${TEST_LENS_ID}`);
     const { data, status } = await axios.get(`${TEST_URL}/profile/get`, {
       params: { id: TEST_LENS_ID }
     });

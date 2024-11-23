@@ -83,11 +83,11 @@ const sendSignupNotificationToSlack = async (hash: Address) => {
         },
         {
           short: false,
-          title: "Profile",
+          title: "Account",
           value: `https://hey.xyz/u/${handle}`
         }
       ],
-      text: ":tada: A new profile has been signed up to :hey:"
+      text: ":tada: A new account has been signed up to :hey:"
     });
 
     logger.info(

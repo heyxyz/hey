@@ -18,7 +18,7 @@ export const postUpdateTasks = async (
   enabled: boolean
 ) => {
   await delRedis(`preference:${accountId}`);
-  await delRedis(`profile:${accountId}`);
+  await delRedis(`account:${accountId}`);
 
   await sendSlackMessage({
     channel: "#permissions",

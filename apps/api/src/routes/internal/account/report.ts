@@ -60,7 +60,7 @@ export const post = [
       }
 
       await reportPost(postId, subreasons, accessToken);
-      logger.info(`[Lens] Reported profile ${id}`);
+      logger.info(`[Lens] Reported account ${id}`);
 
       return res.status(200).json({ result: postId, success: true });
     } catch (error) {

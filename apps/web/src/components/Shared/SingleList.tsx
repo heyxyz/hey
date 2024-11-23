@@ -31,7 +31,7 @@ const SingleList: FC<SingleListProps> = ({ list, linkToList = true }) => {
       <div className="flex flex-col">
         <div className="font-bold">{list.name}</div>
         <div className="text-gray-500 text-xs">
-          {list.totalProfiles} {plur("Profile", list.totalProfiles)}
+          {list.totalAccounts} {plur("Profile", list.totalAccounts)}
         </div>
       </div>
     </div>

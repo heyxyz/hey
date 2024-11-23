@@ -19,7 +19,7 @@ export const post = [
         where: { id: payload.id }
       });
 
-      await delRedis(`profile:${payload.id}`);
+      await delRedis(`account:${payload.id}`);
       logger.info(`Cleared profile status for ${payload.id}`);
 
       return res.status(200).json({ result: profileStatus, success: true });

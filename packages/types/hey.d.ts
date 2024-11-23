@@ -96,7 +96,7 @@ export type List = {
   name: string;
   description: string | null;
   avatar: string | null;
-  totalProfiles: number;
+  totalAccounts: number;
   totalPins: number;
   createdBy: string;
   isAdded?: boolean;

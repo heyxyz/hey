@@ -37,6 +37,6 @@ describe("GET /lists/get", () => {
     expect(data.result.description).toBe(newList.description);
     expect(data.result.avatar).toBe(newList.avatar);
     expect(data.result.totalPins).toStrictEqual(expect.any(Number));
-    expect(data.result.totalProfiles).toStrictEqual(expect.any(Number));
+    expect(data.result.totalAccounts).toStrictEqual(expect.any(Number));
   });
 });
