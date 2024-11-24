@@ -30,7 +30,7 @@ const ProtectAccount: FC = () => {
   } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: () => Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE)
+      onSuccess: () => Leafwatch.track(SETTINGS.DANGER.PROTECT_ACCOUNT)
     }
   });
 
