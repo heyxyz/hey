@@ -124,10 +124,10 @@ export const SETTINGS = {
     TOGGLE: "Toggle allowance"
   },
   DANGER: {
-    DELETE_PROFILE: "Delete profile",
-    PROTECT_PROFILE: "Protect profile",
+    DELETE_ACCOUNT: "Delete account",
+    PROTECT_ACCOUNT: "Protect account",
     UNPROTECT_HANDLE: "Unprotect handle",
-    UNPROTECT_PROFILE: "Unprotect profile"
+    UNPROTECT_ACCOUNT: "Unprotect account"
   },
   EXPORT: {
     FOLLOWERS: "Export followers",

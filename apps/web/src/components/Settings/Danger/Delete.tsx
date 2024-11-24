@@ -32,7 +32,7 @@ const DeleteSettings: FC = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = () => {
-    Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
+    Leafwatch.track(SETTINGS.DANGER.DELETE_ACCOUNT);
     signOut();
     disconnect?.();
     location.href = "/";
