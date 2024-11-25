@@ -55,7 +55,7 @@
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.0",
     "react-tracked": "^2.0.1",
-    "react-virtuoso": "^4.12.1",
+    "react-virtuoso": "^4.12.2",
     "rehype-parse": "^9.0.1",
     "rehype-remark": "^10.0.0",
     "remark-breaks": "^4.0.0",
@@ -69,7 +69,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^11.0.2",
-    "viem": "^2.21.49",
+    "viem": "^2.21.50",
     "wagmi": "^2.13.0",
     "zod": "^3.23.8",
     "zustand": "5.0.1"
