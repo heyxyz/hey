@@ -5029,6 +5029,20 @@ export type RefreshMutationVariables = Exact<{
 
 export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ForbiddenError', reason: string } };
 
+export type MuteMutationVariables = Exact<{
+  request: MuteRequest;
+}>;
+
+
+export type MuteMutation = { __typename?: 'Mutation', mute: any };
+
+export type UnmuteMutationVariables = Exact<{
+  request: MuteRequest;
+}>;
+
+
+export type UnmuteMutation = { __typename?: 'Mutation', unmute: any };
+
 export type AddReactionMutationVariables = Exact<{
   request: AddReactionRequest;
 }>;
@@ -5349,6 +5363,60 @@ export function useRefreshMutation(baseOptions?: Apollo.MutationHookOptions<Refr
 export type RefreshMutationHookResult = ReturnType<typeof useRefreshMutation>;
 export type RefreshMutationResult = Apollo.MutationResult<RefreshMutation>;
 export type RefreshMutationOptions = Apollo.BaseMutationOptions<RefreshMutation, RefreshMutationVariables>;
+export const MuteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Mute"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MuteRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mute"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type MuteMutationFn = Apollo.MutationFunction<MuteMutation, MuteMutationVariables>;
+
+/**
+ * __useMuteMutation__
+ *
+ * To run a mutation, you first call `useMuteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMuteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [muteMutation, { data, loading, error }] = useMuteMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useMuteMutation(baseOptions?: Apollo.MutationHookOptions<MuteMutation, MuteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MuteMutation, MuteMutationVariables>(MuteDocument, options);
+      }
+export type MuteMutationHookResult = ReturnType<typeof useMuteMutation>;
+export type MuteMutationResult = Apollo.MutationResult<MuteMutation>;
+export type MuteMutationOptions = Apollo.BaseMutationOptions<MuteMutation, MuteMutationVariables>;
+export const UnmuteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Unmute"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MuteRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"unmute"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type UnmuteMutationFn = Apollo.MutationFunction<UnmuteMutation, UnmuteMutationVariables>;
+
+/**
+ * __useUnmuteMutation__
+ *
+ * To run a mutation, you first call `useUnmuteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnmuteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unmuteMutation, { data, loading, error }] = useUnmuteMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUnmuteMutation(baseOptions?: Apollo.MutationHookOptions<UnmuteMutation, UnmuteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnmuteMutation, UnmuteMutationVariables>(UnmuteDocument, options);
+      }
+export type UnmuteMutationHookResult = ReturnType<typeof useUnmuteMutation>;
+export type UnmuteMutationResult = Apollo.MutationResult<UnmuteMutation>;
+export type UnmuteMutationOptions = Apollo.BaseMutationOptions<UnmuteMutation, UnmuteMutationVariables>;
 export const AddReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type AddReactionMutationFn = Apollo.MutationFunction<AddReactionMutation, AddReactionMutationVariables>;
 

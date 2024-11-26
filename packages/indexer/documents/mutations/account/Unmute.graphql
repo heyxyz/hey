@@ -1,0 +1,3 @@
+mutation Unmute($request: MuteRequest!) {
+  unmute(request: $request)
+}
