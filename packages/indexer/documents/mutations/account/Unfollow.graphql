@@ -1,0 +1,16 @@
+# mutation Unfollow($request: CreateUnfollowRequest!) {
+#   unfollow(request: $request) {
+#     ... on UnfollowResponse {
+#       hash
+#     }
+#     ... on SelfFundedTransactionRequest {
+#       reason
+#     }
+#     ... on SponsoredTransactionRequest {
+#       reason
+#     }
+#     ... on TransactionWillFail {
+#       reason
+#     }
+#   }
+# }
