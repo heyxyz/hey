@@ -1,16 +1,16 @@
-# mutation Follow($request: CreateFollowRequest!) {
-#   follow(request: $request) {
-#     ... on FollowResponse {
-#       hash
-#     }
-#     ... on SelfFundedTransactionRequest {
-#       reason
-#     }
-#     ... on SponsoredTransactionRequest {
-#       reason
-#     }
-#     ... on TransactionWillFail {
-#       reason
-#     }
-#   }
-# }
+mutation Follow($request: CreateFollowRequest!) {
+  follow(request: $request) {
+    ... on FollowResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      selfFundedReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredReason: reason
+    }
+    ... on TransactionWillFail {
+      transactionFailReason: reason
+    }
+  }
+}
