@@ -1,0 +1,23 @@
+query FullAccount(
+  $accountRequest: AccountRequest!
+  $accountStatsRequest: AccountStatsRequest!
+) {
+  account(request: $accountRequest) {
+    ...AccountFields
+  }
+  accountStats(request: $accountStatsRequest) {
+    feedStats {
+      collects
+      comments
+      posts
+      quotes
+      reacted
+      reactions
+      reposts
+    }
+    graphFollowStats {
+      followers
+      following
+    }
+  }
+}
