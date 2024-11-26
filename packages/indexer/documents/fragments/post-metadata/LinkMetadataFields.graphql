@@ -1,0 +1,12 @@
+fragment LinkMetadataFields on LinkMetadata {
+  id
+  content
+  sharingLink
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+}

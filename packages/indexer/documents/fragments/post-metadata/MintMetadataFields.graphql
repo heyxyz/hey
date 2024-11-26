@@ -1,0 +1,11 @@
+fragment MintMetadataFields on MintMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+}

@@ -1,0 +1,14 @@
+fragment VideoMetadataFields on VideoMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...MediaVideoFields
+  }
+  attachments {
+    ...MediaFields
+  }
+}
