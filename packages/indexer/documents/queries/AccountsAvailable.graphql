@@ -1,0 +1,16 @@
+query AccountsAvailable($request: AccountsAvailableRequest!) {
+  accountsAvailable(request: $request) {
+    items {
+      ... on AccountManaged {
+        account {
+          ...AccountFields
+        }
+      }
+      ... on AccountOwned {
+        account {
+          ...AccountFields
+        }
+      }
+    }
+  }
+}
