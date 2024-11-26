@@ -1,7 +1,7 @@
-fragment LiveStreamMetadataFields on LiveStreamMetadata {
+fragment LivestreamMetadataFields on LivestreamMetadata {
   id
-  playbackURL
-  liveURL
+  playbackUrl
+  liveUrl
   content
   tags
   attributes {

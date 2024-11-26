@@ -1,15 +1,20 @@
 query Me {
   me {
     account {
-      ...AccountFields
+      ... on AccountManaged {
+        account {
+          ...AccountFields
+        }
+      }
+      ... on AccountOwned {
+        account {
+          ...AccountFields
+        }
+      }
     }
     isSignless
     isSponsored
-    loggedInTo
-    canExecuteTransactions
-    canTransferTokens
-    canTransferNative
-    canSetMetadataUri
+    appLoggedIn
     limit {
       window
       allowanceLeft

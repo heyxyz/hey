@@ -14,8 +14,8 @@ fragment PostMetadataFields on PostMetadata {
   ... on LinkMetadata {
     ...LinkMetadataFields
   }
-  ... on LiveStreamMetadata {
-    ...LiveStreamMetadataFields
+  ... on LivestreamMetadata {
+    ...LivestreamMetadataFields
   }
   ... on MintMetadata {
     ...MintMetadataFields

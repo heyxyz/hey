@@ -1,7 +1,9 @@
 query Following($request: FollowingRequest!) {
   following(request: $request) {
     items {
-      ...AccountFields
+      following {
+        ...AccountFields
+      }
     }
     pageInfo {
       next

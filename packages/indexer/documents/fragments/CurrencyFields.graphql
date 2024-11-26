@@ -1,9 +1,0 @@
-fragment CurrencyFields on Currency {
-  name
-  symbol
-  decimals
-  contract {
-    address
-    chainId
-  }
-}

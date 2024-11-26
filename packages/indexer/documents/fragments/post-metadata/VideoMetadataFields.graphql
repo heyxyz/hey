@@ -5,7 +5,7 @@ fragment VideoMetadataFields on VideoMetadata {
   attributes {
     ...MetadataAttributeFields
   }
-  asset {
+  video {
     ...MediaVideoFields
   }
   attachments {

@@ -1,5 +1,5 @@
-query AccountAuthentications($request: AccountAuthenticationsRequest!) {
-  accountAuthentications(request: $request) {
+query AuthenticatedSessions($request: AuthenticatedSessionsRequest!) {
+  authenticatedSessions(request: $request) {
     items {
       authenticationId
       app
