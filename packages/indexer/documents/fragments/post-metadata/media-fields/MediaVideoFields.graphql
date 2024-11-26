@@ -1,11 +1,5 @@
 fragment MediaVideoFields on MediaVideo {
-  video {
-    optimized {
-      uri
-    }
-  }
-  cover {
-    ...EncryptableImageSetFields
-  }
+  item
+  cover
   license
 }
