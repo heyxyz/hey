@@ -1,0 +1,9 @@
+mutation Aauthenticate($request: SignedAuthChallenge!) {
+  authenticate(request: $request) {
+    ... on AuthenticationTokens {
+      accessToken
+      refreshToken
+      idToken
+    }
+  }
+}

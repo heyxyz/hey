@@ -1,0 +1,8 @@
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}

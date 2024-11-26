@@ -1,0 +1,12 @@
+fragment MediaAudioFields on MediaAudio {
+  artist
+  audio {
+    optimized {
+      uri
+    }
+  }
+  cover {
+    ...EncryptableImageSetFields
+  }
+  license
+}
