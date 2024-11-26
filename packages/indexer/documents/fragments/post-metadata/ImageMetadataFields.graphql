@@ -1,0 +1,14 @@
+fragment ImageMetadataFields on ImageMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  image {
+    ...MediaImageFields
+  }
+}

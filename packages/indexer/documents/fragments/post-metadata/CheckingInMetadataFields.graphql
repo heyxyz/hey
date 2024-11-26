@@ -1,0 +1,18 @@
+fragment CheckingInMetadataFields on CheckingInMetadata {
+  id
+  content
+  tags
+  location
+  position
+  address {
+    country
+    locality
+    postalCode
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+}

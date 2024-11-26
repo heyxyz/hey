@@ -1,0 +1,15 @@
+fragment AudioMetadataFields on AudioMetadata {
+  id
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...MediaAudioFields
+  }
+  attachments {
+    ...MediaFields
+  }
+}
