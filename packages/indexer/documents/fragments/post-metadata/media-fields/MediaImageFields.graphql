@@ -1,0 +1,5 @@
+fragment MediaImageFields on MediaImage {
+  image {
+    ...EncryptableImageSetFields
+  }
+}

@@ -1,0 +1,11 @@
+fragment MediaVideoFields on MediaVideo {
+  video {
+    optimized {
+      uri
+    }
+  }
+  cover {
+    ...EncryptableImageSetFields
+  }
+  license
+}

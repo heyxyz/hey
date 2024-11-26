@@ -1,0 +1,12 @@
+fragment PostFields on Post {
+  id
+  isDeleted
+  isEdited
+  stats {
+    ...PostStatsFields
+  }
+  author {
+    ...AccountFields
+  }
+  timestamp
+}
