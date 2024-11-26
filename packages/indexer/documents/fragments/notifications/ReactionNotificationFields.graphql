@@ -1,0 +1,11 @@
+fragment ReactionNotificationFields on ReactionNotification {
+  id
+  post {
+    ...PostFields
+  }
+  reactions {
+    account {
+      ...AccountFields
+    }
+  }
+}
