@@ -8,7 +8,7 @@ export const getAuthApiHeadersWithAccessToken = () => {
   const tokens = hydrateAuthTokens();
   return {
     "X-Access-Token": tokens.accessToken,
-    "X-Identity-Token": tokens.identityToken
+    "X-Id-Token": tokens.idToken
   };
 };
 
@@ -18,6 +18,6 @@ export const getAuthApiHeadersWithAccessToken = () => {
  */
 export const getAuthApiHeaders = () => {
   return {
-    "X-Identity-Token": hydrateAuthTokens()?.identityToken
+    "X-Id-Token": hydrateAuthTokens()?.idToken
   };
 };

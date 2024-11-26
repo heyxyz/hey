@@ -17,7 +17,7 @@ describe("GET /lists/pinned", () => {
     expect(data.result[0].pinned).toBe(true);
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/lists/pinned`);
     } catch (error: any) {

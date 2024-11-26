@@ -67,7 +67,7 @@ describe("GET /polls/get", () => {
     expect(data.result.options[0]).toHaveProperty("voted");
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/polls/get`, {
         params: { id: testPollId },

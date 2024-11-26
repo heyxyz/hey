@@ -85,7 +85,7 @@ describe("POST /polls/act", () => {
     expect(pollResponse).not.toBeNull();
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.post(`${TEST_URL}/polls/act`, {
         poll: testPollId,

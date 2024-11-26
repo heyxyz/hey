@@ -54,8 +54,8 @@ const Success: FC = () => {
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
-      const identityToken = auth.data?.authenticate.identityToken;
-      signIn({ accessToken, identityToken, refreshToken });
+      const idToken = auth.data?.authenticate.identityToken;
+      signIn({ accessToken, idToken, refreshToken });
       Leafwatch.track(AUTH.LOGIN, { accountId: accountId, source: "signup" });
       reload();
     } catch {}

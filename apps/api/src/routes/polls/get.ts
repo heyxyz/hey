@@ -27,8 +27,8 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       const poll = await prisma.poll.findUnique({
         select: {

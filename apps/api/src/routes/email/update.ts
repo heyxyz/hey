@@ -49,8 +49,8 @@ export const post = [
           .json({ error: "Email not allowed", success: false });
       }
 
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       if (!resend) {
         const foundEmail = await prisma.email.findUnique({

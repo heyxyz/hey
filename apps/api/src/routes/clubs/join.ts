@@ -27,14 +27,14 @@ export const post = [
     }
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
+      const idToken = req.headers["x-id-token"] as string;
       const response = await fetch(`${CLUBS_API_URL}/join-club`, {
         body: JSON.stringify(body),
         headers: {
           "App-Access-Token": CLUBS_APP_TOKEN,
           "Content-Type": "application/json",
           "User-Agent": HEY_USER_AGENT,
-          "X-Identity-Token": identityToken
+          "X-Identity-Token": idToken
         },
         method: "POST"
       });

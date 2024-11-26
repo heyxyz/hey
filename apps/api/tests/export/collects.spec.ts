@@ -15,7 +15,7 @@ describe("GET /export/collects", () => {
     }
   });
 
-  test("should return 401 if the identity token doesn't match the target profile", async () => {
+  test("should return 401 if the id token doesn't match the target profile", async () => {
     try {
       await axios.get(`${TEST_URL}/export/collects`, {
         params: { id: "0x0d-0x04b9" },
