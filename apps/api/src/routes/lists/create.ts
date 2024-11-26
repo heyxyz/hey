@@ -37,8 +37,8 @@ export const post = [
     const { name, description, avatar } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       const count = await prisma.list.count({
         where: { createdBy: payload.id }

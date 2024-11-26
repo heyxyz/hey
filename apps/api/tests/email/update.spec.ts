@@ -60,7 +60,7 @@ describe("POST /email/update", () => {
     expect(data.success).toBe(true);
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.post(`${TEST_URL}/email/update`, {
         email: faker.internet.email()

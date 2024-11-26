@@ -59,8 +59,8 @@ export const post = [
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
       const { id } = payload;
 
       let request = {
@@ -91,7 +91,7 @@ export const post = [
 
       const trustedData = { messageBytes: signature };
       const untrustedData = {
-        identityToken,
+        idToken,
         unixTimestamp: Math.floor(Date.now() / 1000),
         ...request
       };

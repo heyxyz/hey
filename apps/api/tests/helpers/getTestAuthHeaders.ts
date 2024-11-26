@@ -6,12 +6,12 @@ const getTestAuthHeaders = (type: "default" | "suspended" = "default") => {
     case "suspended":
       return {
         "X-Access-Token": TEST_SUSPENDED_AUTH_TOKEN,
-        "X-Identity-Token": TEST_SUSPENDED_AUTH_TOKEN
+        "X-Id-Token": TEST_SUSPENDED_AUTH_TOKEN
       };
     default:
       return {
         "X-Access-Token": TEST_AUTH_TOKEN,
-        "X-Identity-Token": TEST_AUTH_TOKEN
+        "X-Id-Token": TEST_AUTH_TOKEN
       };
   }
 };

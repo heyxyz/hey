@@ -50,9 +50,9 @@ const authLink = new ApolloLink((operation, forward) => {
       .then(({ data }) => {
         const accessToken = data?.data?.refresh?.accessToken;
         const refreshToken = data?.data?.refresh?.refreshToken;
-        const identityToken = data?.data?.refresh?.identityToken;
+        const idToken = data?.data?.refresh?.identityToken;
         operation.setContext({ headers: { "X-Access-Token": accessToken } });
-        signIn({ accessToken, identityToken, refreshToken });
+        signIn({ accessToken, idToken, refreshToken });
 
         return toPromise(forward(operation));
       })

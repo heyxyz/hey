@@ -16,13 +16,13 @@ const validateLensAccount = async (
   res: Response,
   next: NextFunction
 ) => {
-  const identityToken = req.headers["x-identity-token"] as string;
-  if (!identityToken) {
+  const idToken = req.headers["x-id-token"] as string;
+  if (!idToken) {
     return catchedError(res, new Error(Errors.Unauthorized), 401);
   }
 
   try {
-    const payload = parseJwt(identityToken);
+    const payload = parseJwt(idToken);
     const cacheKey = `auth:${payload.id}`;
     const cachedData = await getRedis(cacheKey);
 

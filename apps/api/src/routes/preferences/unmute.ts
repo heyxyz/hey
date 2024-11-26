@@ -37,8 +37,8 @@ export const post = [
     const { id } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       const mutedWord = await prisma.mutedWord.delete({
         where: { id, profileId: payload.id }

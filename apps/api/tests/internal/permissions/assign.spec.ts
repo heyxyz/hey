@@ -63,7 +63,7 @@ describe("POST /internal/permissions/assign", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.post(`${TEST_URL}/internal/permissions/assign`);
     } catch (error: any) {

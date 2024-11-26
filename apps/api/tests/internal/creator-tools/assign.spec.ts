@@ -76,7 +76,7 @@ describe("POST /internal/creator-tools/assign", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.post(`${TEST_URL}/internal/creator-tools/assign`, {
         enabled: true,
