@@ -1,15 +1,18 @@
 fragment PostFields on Post {
-  id
-  isDeleted
-  isEdited
-  stats {
-    ...PostStatsFields
+  ...PostBaseFields
+  root {
+    ... on Post {
+      ...PostBaseFields
+    }
   }
-  author {
-    ...AccountFields
+  commentOn {
+    ... on Post {
+      ...PostBaseFields
+    }
   }
-  metadata {
-    ...PostMetadataFields
+  quoteOf {
+    ... on Post {
+      ...PostBaseFields
+    }
   }
-  timestamp
 }

@@ -1,0 +1,24 @@
+fragment PostBaseFields on Post {
+  id
+  isDeleted
+  isEdited
+  stats {
+    ...PostStatsFields
+  }
+  author {
+    ...AccountFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  app {
+    ...AppFields
+  }
+  mentions {
+    replace {
+      from
+      to
+    }
+  }
+  timestamp
+}
