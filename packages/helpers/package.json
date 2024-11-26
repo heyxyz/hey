@@ -13,13 +13,13 @@
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.7.7",
+    "axios": "^1.7.8",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
-    "mailchecker": "^6.0.11",
+    "mailchecker": "^6.0.12",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.21.50",
+    "viem": "^2.21.51",
     "winston": "^3.16.0"
   },
   "devDependencies": {
