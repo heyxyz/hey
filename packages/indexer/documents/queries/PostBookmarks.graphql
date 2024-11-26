@@ -1,0 +1,12 @@
+query PostBookmarks($request: PostBookmarksRequest!) {
+  postBookmarks(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Repost {
+        ...RepostFields
+      }
+    }
+  }
+}
