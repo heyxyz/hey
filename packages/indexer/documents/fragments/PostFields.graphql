@@ -8,5 +8,8 @@ fragment PostFields on Post {
   author {
     ...AccountFields
   }
+  metadata {
+    ...PostMetadataFields
+  }
   timestamp
 }
