@@ -5015,6 +5015,20 @@ export type AauthenticateMutationVariables = Exact<{
 
 export type AauthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ExpiredChallengeError' } | { __typename?: 'ForbiddenError' } | { __typename?: 'WrongSignerError' } };
 
+export type AddReactionMutationVariables = Exact<{
+  request: AddReactionRequest;
+}>;
+
+
+export type AddReactionMutation = { __typename?: 'Mutation', addReaction: { __typename?: 'AddReactionFailure', reason: string } | { __typename?: 'AddReactionResponse', success: boolean } };
+
+export type UndoReactionMutationVariables = Exact<{
+  request: UndoReactionRequest;
+}>;
+
+
+export type UndoReactionMutation = { __typename?: 'Mutation', undoReaction: { __typename?: 'UndoReactionFailure', reason: string } | { __typename?: 'UndoReactionResponse', success: boolean } };
+
 export type AccountQueryVariables = Exact<{
   request: AccountRequest;
 }>;
@@ -5253,6 +5267,60 @@ export function useAauthenticateMutation(baseOptions?: Apollo.MutationHookOption
 export type AauthenticateMutationHookResult = ReturnType<typeof useAauthenticateMutation>;
 export type AauthenticateMutationResult = Apollo.MutationResult<AauthenticateMutation>;
 export type AauthenticateMutationOptions = Apollo.BaseMutationOptions<AauthenticateMutation, AauthenticateMutationVariables>;
+export const AddReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type AddReactionMutationFn = Apollo.MutationFunction<AddReactionMutation, AddReactionMutationVariables>;
+
+/**
+ * __useAddReactionMutation__
+ *
+ * To run a mutation, you first call `useAddReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addReactionMutation, { data, loading, error }] = useAddReactionMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddReactionMutation(baseOptions?: Apollo.MutationHookOptions<AddReactionMutation, AddReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddReactionMutation, AddReactionMutationVariables>(AddReactionDocument, options);
+      }
+export type AddReactionMutationHookResult = ReturnType<typeof useAddReactionMutation>;
+export type AddReactionMutationResult = Apollo.MutationResult<AddReactionMutation>;
+export type AddReactionMutationOptions = Apollo.BaseMutationOptions<AddReactionMutation, AddReactionMutationVariables>;
+export const UndoReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UndoReactionMutationFn = Apollo.MutationFunction<UndoReactionMutation, UndoReactionMutationVariables>;
+
+/**
+ * __useUndoReactionMutation__
+ *
+ * To run a mutation, you first call `useUndoReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUndoReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [undoReactionMutation, { data, loading, error }] = useUndoReactionMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUndoReactionMutation(baseOptions?: Apollo.MutationHookOptions<UndoReactionMutation, UndoReactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UndoReactionMutation, UndoReactionMutationVariables>(UndoReactionDocument, options);
+      }
+export type UndoReactionMutationHookResult = ReturnType<typeof useUndoReactionMutation>;
+export type UndoReactionMutationResult = Apollo.MutationResult<UndoReactionMutation>;
+export type UndoReactionMutationOptions = Apollo.BaseMutationOptions<UndoReactionMutation, UndoReactionMutationVariables>;
 export const AccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Account"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MetadataAttributeFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UsernameFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowingMe"}},{"kind":"Field","name":{"kind":"Name","value":"canFollow"}},{"kind":"Field","name":{"kind":"Name","value":"canUnfollow"}},{"kind":"Field","name":{"kind":"Name","value":"isMutedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isBlockedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"hasBlockedMe"}},{"kind":"Field","name":{"kind":"Name","value":"canBlock"}},{"kind":"Field","name":{"kind":"Name","value":"canUnblock"}},{"kind":"Field","name":{"kind":"Name","value":"hasReported"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UsernameFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Username"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"linkedTo"}},{"kind":"Field","name":{"kind":"Name","value":"ownedBy"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataAttributeFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataAttribute"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
 
 /**

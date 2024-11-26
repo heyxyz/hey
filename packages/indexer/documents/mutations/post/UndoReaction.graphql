@@ -1,0 +1,10 @@
+mutation UndoReaction($request: UndoReactionRequest!) {
+  undoReaction(request: $request) {
+    ... on UndoReactionResponse {
+      success
+    }
+    ... on UndoReactionFailure {
+      reason
+    }
+  }
+}
