@@ -5071,6 +5071,13 @@ export type RemoveAccountManagerMutationVariables = Exact<{
 
 export type RemoveAccountManagerMutation = { __typename?: 'Mutation', removeAccountManager: { __typename?: 'SelfFundedTransactionRequest', selfFundedReason?: SelfFundedFallbackReason | null } | { __typename?: 'SponsoredTransactionRequest', sponsoredReason?: SponsoredFallbackReason | null } | { __typename?: 'TransactionWillFail', transactionFailReason: string } };
 
+export type SetAccountMetadataMutationVariables = Exact<{
+  request: SetAccountMetadataRequest;
+}>;
+
+
+export type SetAccountMetadataMutation = { __typename?: 'Mutation', setAccountMetadata: { __typename?: 'SelfFundedTransactionRequest', selfFundedReason?: SelfFundedFallbackReason | null } | { __typename?: 'SetAccountMetadataResponse', hash: any } | { __typename?: 'SponsoredTransactionRequest', sponsoredReason?: SponsoredFallbackReason | null } | { __typename?: 'TransactionWillFail', transactionFailReason: string } };
+
 export type UnblockMutationVariables = Exact<{
   request: UnblockRequest;
 }>;
@@ -5581,6 +5588,33 @@ export function useRemoveAccountManagerMutation(baseOptions?: Apollo.MutationHoo
 export type RemoveAccountManagerMutationHookResult = ReturnType<typeof useRemoveAccountManagerMutation>;
 export type RemoveAccountManagerMutationResult = Apollo.MutationResult<RemoveAccountManagerMutation>;
 export type RemoveAccountManagerMutationOptions = Apollo.BaseMutationOptions<RemoveAccountManagerMutation, RemoveAccountManagerMutationVariables>;
+export const SetAccountMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAccountMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAccountMetadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"sponsoredReason"},"name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"selfFundedReason"},"name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"transactionFailReason"},"name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type SetAccountMetadataMutationFn = Apollo.MutationFunction<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>;
+
+/**
+ * __useSetAccountMetadataMutation__
+ *
+ * To run a mutation, you first call `useSetAccountMetadataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetAccountMetadataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setAccountMetadataMutation, { data, loading, error }] = useSetAccountMetadataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSetAccountMetadataMutation(baseOptions?: Apollo.MutationHookOptions<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>(SetAccountMetadataDocument, options);
+      }
+export type SetAccountMetadataMutationHookResult = ReturnType<typeof useSetAccountMetadataMutation>;
+export type SetAccountMetadataMutationResult = Apollo.MutationResult<SetAccountMetadataMutation>;
+export type SetAccountMetadataMutationOptions = Apollo.BaseMutationOptions<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>;
 export const UnblockDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Unblock"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UnblockRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"unblock"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnblockResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnblockError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"error"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"selfFundedReason"},"name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"sponsoredReason"},"name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UnblockMutationFn = Apollo.MutationFunction<UnblockMutation, UnblockMutationVariables>;
 
