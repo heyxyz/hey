@@ -19,9 +19,23 @@
 BUCKET_NAME="hey-media"
 folders=$(s3cmd ls s3://$BUCKET_NAME | awk '/DIR/ {print $NF}')
 
+total_files_deleted=0
+
 for folder in $folders; do
   echo "Deleting folder: $folder"
+  
+  # Count files in the folder
+  file_count=$(s3cmd ls --recursive "$folder" | wc -l)
+  echo "Files in folder: $file_count"
+  
+  # Delete files recursively
   s3cmd del --recursive "$folder"
+  
+  echo "Deleted $file_count files from $folder"
+  
+  # Update total files deleted
+  total_files_deleted=$((total_files_deleted + file_count))
 done
 
+echo "Total files deleted across all folders: $total_files_deleted"
 echo "All folders deleted in bucket: $BUCKET_NAME"
