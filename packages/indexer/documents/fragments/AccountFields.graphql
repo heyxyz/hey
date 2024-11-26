@@ -2,7 +2,6 @@ fragment AccountFields on Account {
   address
   score
   metadata {
-    appId
     attributes {
       type
       key
@@ -14,7 +13,9 @@ fragment AccountFields on Account {
     name
     picture
   }
-  username
+  username {
+    ...UsernameFields
+  }
   operations {
     id
     isFollowedByMe

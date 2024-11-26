@@ -1,0 +1,5 @@
+fragment UsernameFields on Username {
+  localName
+  linkedTo
+  ownedBy
+}

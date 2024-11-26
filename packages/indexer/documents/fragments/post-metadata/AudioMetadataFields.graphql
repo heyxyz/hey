@@ -6,7 +6,7 @@ fragment AudioMetadataFields on AudioMetadata {
   attributes {
     ...MetadataAttributeFields
   }
-  asset {
+  audio {
     ...MediaAudioFields
   }
   attachments {

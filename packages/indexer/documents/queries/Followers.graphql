@@ -1,7 +1,9 @@
 query Followers($request: FollowersRequest!) {
   followers(request: $request) {
     items {
-      ...AccountFields
+      follower {
+        ...AccountFields
+      }
     }
     pageInfo {
       next
