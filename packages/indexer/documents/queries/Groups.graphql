@@ -1,0 +1,7 @@
+query Groups($request: GroupsRequest!) {
+  groups(request: $request) {
+    items {
+      ...GroupFields
+    }
+  }
+}

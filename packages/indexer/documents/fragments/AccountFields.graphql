@@ -2,16 +2,13 @@ fragment AccountFields on Account {
   address
   score
   metadata {
-    attributes {
-      type
-      key
-      value
-    }
-    bio
-    coverPicture
-    id
     name
+    bio
     picture
+    coverPicture
+    attributes {
+      ...MetadataAttributeFields
+    }
   }
   username {
     ...UsernameFields
