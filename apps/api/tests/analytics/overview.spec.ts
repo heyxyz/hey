@@ -24,11 +24,11 @@ describe("GET /analytics/overview", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/analytics/overview`);
     } catch (error: any) {
-      expect(error.response.status).toBe(401); // Expect 401 Unauthorized if no identity token is provided
+      expect(error.response.status).toBe(401); // Expect 401 Unauthorized if no id token is provided
     }
   });
 });

@@ -18,7 +18,7 @@ const validateHasCreatorToolsAccess = async (
   res: Response,
   next: NextFunction
 ) => {
-  const idToken = req.headers["x-identity-token"] as string;
+  const idToken = req.headers["x-id-token"] as string;
   if (!idToken) {
     return catchedError(res, new Error(Errors.Unauthorized), 401);
   }

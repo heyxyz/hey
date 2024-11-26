@@ -38,8 +38,8 @@ export const post = [
     const { message, emoji } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       const profileStatus = await prisma.profileStatus.upsert({
         create: { message, emoji, id: payload.id },

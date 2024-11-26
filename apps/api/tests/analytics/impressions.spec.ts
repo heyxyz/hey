@@ -18,7 +18,7 @@ describe("GET /analytics/impressions", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/analytics/impressions`);
     } catch (error: any) {

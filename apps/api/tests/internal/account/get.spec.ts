@@ -62,7 +62,7 @@ describe("GET /internal/account/get", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/internal/account/get`, {
         params: { id: TEST_LENS_ID }

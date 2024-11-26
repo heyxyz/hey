@@ -39,8 +39,8 @@ export const post = [
     const { word, expiresAt } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       const mutedWord = await prisma.mutedWord.create({
         data: { word, expiresAt, profileId: payload.id }

@@ -37,8 +37,8 @@ export const post = [
     const { id, pin } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
       const listCacheKey = `list:${id}`;
 
       // Check if the list exists

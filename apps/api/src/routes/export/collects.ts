@@ -21,7 +21,7 @@ export const get = [
     }
 
     try {
-      const idToken = req.headers["x-identity-token"] as string;
+      const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
       const targetAccountId = (id as string).split("-")[0];
 

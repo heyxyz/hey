@@ -6,7 +6,7 @@ const SYNC_INTERVAL = 5000;
 
 // Track visible posts and events
 const visiblePosts = new Set<string>();
-let identityToken: string | undefined;
+let idToken: string | undefined;
 let recordedEvents: Record<string, unknown>[] = [];
 
 // Send visible posts to the server
@@ -44,7 +44,7 @@ const sendEventsToServer = async () => {
       body: JSON.stringify({ events: eventsToSend }),
       headers: {
         "Content-Type": "application/json",
-        "X-Identity-Token": identityToken as string
+        "X-Id-Token": idToken as string
       },
       keepalive: true,
       method: "POST"
@@ -68,7 +68,7 @@ self.addEventListener("message", (event) => {
     visiblePosts.add(event.data.id);
   }
   if (event.data?.type === "EVENT") {
-    identityToken = event.data.identityToken;
+    idToken = event.data.idToken;
     recordedEvents.push(event.data.event);
   }
 });

@@ -4,18 +4,18 @@ import { persist } from "zustand/middleware";
 
 interface Tokens {
   accessToken: null | string;
-  identityToken: null | string;
+  idToken: null | string;
   refreshToken: null | string;
 }
 
 interface State {
   accessToken: Tokens["accessToken"];
   hydrateAuthTokens: () => Tokens;
-  identityToken: Tokens["identityToken"];
+  idToken: Tokens["idToken"];
   refreshToken: Tokens["refreshToken"];
   signIn: (tokens: {
     accessToken: string;
-    identityToken: string;
+    idToken: string;
     refreshToken: string;
   }) => void;
   signOut: () => void;
@@ -28,14 +28,14 @@ const store = create(
       hydrateAuthTokens: () => {
         return {
           accessToken: get().accessToken,
-          identityToken: get().identityToken,
+          idToken: get().idToken,
           refreshToken: get().refreshToken
         };
       },
-      identityToken: null,
+      idToken: null,
       refreshToken: null,
-      signIn: ({ accessToken, identityToken, refreshToken }) =>
-        set({ accessToken, identityToken, refreshToken }),
+      signIn: ({ accessToken, idToken, refreshToken }) =>
+        set({ accessToken, idToken, refreshToken }),
       signOut: async () => {
         // Clear Localstorage
         const allLocalstorageStores = Object.values(Localstorage).filter(
@@ -55,7 +55,7 @@ const store = create(
 
 export const signIn = (tokens: {
   accessToken: string;
-  identityToken: string;
+  idToken: string;
   refreshToken: string;
 }) => store.getState().signIn(tokens);
 export const signOut = () => store.getState().signOut();

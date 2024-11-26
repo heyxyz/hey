@@ -30,7 +30,7 @@ describe("GET /internal/leafwatch/profile/details", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/internal/leafwatch/profile/details`, {
         params: { id: TEST_LENS_ID }

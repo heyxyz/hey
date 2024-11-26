@@ -38,8 +38,8 @@ export const post = [
     const { option, poll } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       // Begin: Check if the poll expired
       const expired = await prisma.poll.findUnique({

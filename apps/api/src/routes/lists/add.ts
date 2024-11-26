@@ -40,8 +40,8 @@ export const post = [
     const { listId, accountId, add } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
       const listAccountsCacheKey = `list:accounts:${listId}`;
       const listCacheKey = `list:${listId}`;
 

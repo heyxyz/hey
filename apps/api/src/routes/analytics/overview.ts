@@ -80,7 +80,7 @@ export const get = [
   validateLensAccount,
   async (req: Request, res: Response) => {
     try {
-      const idToken = req.headers["x-identity-token"] as string;
+      const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
 
       const cacheKey = `analytics:overview:${payload.id}`;

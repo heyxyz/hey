@@ -62,13 +62,13 @@ export const post = [
     const ip = getIp(req);
     const cfIpCity = req.headers["cf-ipcity"];
     const cfIpCountry = req.headers["cf-ipcountry"];
-    const identityToken = req.headers["x-identity-token"] as string;
+    const idToken = req.headers["x-id-token"] as string;
 
     try {
       const parser = new UAParser(userAgent || "");
       const ua = parser.getResult();
 
-      const payload = parseJwt(identityToken);
+      const payload = parseJwt(idToken);
 
       const values = events.map((event) => ({
         actor: payload.id || null,

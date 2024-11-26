@@ -92,9 +92,9 @@ const SwitchAccounts: FC = () => {
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
-      const identityToken = auth.data?.authenticate.identityToken;
+      const idToken = auth.data?.authenticate.identityToken;
       signOut();
-      signIn({ accessToken, identityToken, refreshToken });
+      signIn({ accessToken, idToken, refreshToken });
       Leafwatch.track(ACCOUNT.SWITCH_ACCOUNT, { accountId: id });
       reload();
     } catch (error) {

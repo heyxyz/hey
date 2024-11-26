@@ -20,8 +20,7 @@ export const Leafwatch = {
           referrer: referrerDomain,
           url: window.location.href
         },
-        identityToken:
-          getAuthApiHeadersWithAccessToken()["X-Identity-Token"] || undefined,
+        idToken: getAuthApiHeadersWithAccessToken()["X-Id-Token"] || undefined,
         type: "EVENT"
       });
     }

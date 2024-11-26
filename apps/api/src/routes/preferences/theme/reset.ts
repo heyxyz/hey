@@ -12,8 +12,8 @@ export const post = [
   validateLensAccount,
   async (req: Request, res: Response) => {
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
 
       const profileTheme = await prisma.profileTheme.deleteMany({
         where: { id: payload.id }

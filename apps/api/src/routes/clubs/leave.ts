@@ -27,7 +27,7 @@ export const post = [
     }
 
     try {
-      const idToken = req.headers["x-identity-token"] as string;
+      const idToken = req.headers["x-id-token"] as string;
       const response = await fetch(`${CLUBS_API_URL}/leave-club`, {
         body: JSON.stringify(body),
         headers: {

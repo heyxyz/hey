@@ -18,22 +18,22 @@ describe("getAuthApiHeaders", () => {
   test("should return correct headers with access token", () => {
     const mockTokens = {
       accessToken: "mock-access-token",
-      identityToken: "mock-identity-token"
+      idToken: "mock-id-token"
     };
     (hydrateAuthTokens as any).mockReturnValue(mockTokens);
 
     const result = getAuthApiHeadersWithAccessToken();
     expect(result).toEqual({
       "X-Access-Token": "mock-access-token",
-      "X-Identity-Token": "mock-identity-token"
+      "X-Id-Token": "mock-id-token"
     });
   });
 
   test("should return correct common headers without access token", () => {
-    const mockTokens = { identityToken: "mock-identity-token" };
+    const mockTokens = { idToken: "mock-id-token" };
     (hydrateAuthTokens as any).mockReturnValue(mockTokens);
 
     const result = getAuthApiHeaders();
-    expect(result).toEqual({ "X-Identity-Token": "mock-identity-token" });
+    expect(result).toEqual({ "X-Id-Token": "mock-id-token" });
   });
 });

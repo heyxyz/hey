@@ -36,8 +36,8 @@ export const post = [
     const { record } = body as ExtensionRequest;
 
     try {
-      const identityToken = req.headers["x-identity-token"] as string;
-      const payload = parseJwt(identityToken);
+      const idToken = req.headers["x-id-token"] as string;
+      const payload = parseJwt(idToken);
       const response = await fetch("https://livepeer.studio/api/stream", {
         body: JSON.stringify({
           name: `${payload.id}-${uuid()}`,

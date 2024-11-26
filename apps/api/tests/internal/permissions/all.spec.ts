@@ -46,7 +46,7 @@ describe("GET /internal/permissions/all", () => {
     }
   });
 
-  test("should return 401 if the identity token is missing", async () => {
+  test("should return 401 if the id token is missing", async () => {
     try {
       await axios.get(`${TEST_URL}/internal/permissions/all`);
     } catch (error: any) {
