@@ -1,0 +1,16 @@
+mutation Block($request: BlockRequest!) {
+  block(request: $request) {
+    ... on BlockResponse {
+      hash
+    }
+    ... on BlockError {
+      error
+    }
+    ... on SelfFundedTransactionRequest {
+      selfFundedReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredReason: reason
+    }
+  }
+}

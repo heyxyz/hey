@@ -1,0 +1,16 @@
+mutation Unblock($request: UnblockRequest!) {
+  unblock(request: $request) {
+    ... on UnblockResponse {
+      hash
+    }
+    ... on UnblockError {
+      error
+    }
+    ... on SelfFundedTransactionRequest {
+      selfFundedReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredReason: reason
+    }
+  }
+}
