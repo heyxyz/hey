@@ -1,7 +1,12 @@
-mutation Unfollow($request: CreateUnfollowRequest!) {
-  unfollow(request: $request) {
-    ... on UnfollowResponse {
+mutation CreateAccountWithUsername(
+  $request: CreateAccountWithUsernameRequest!
+) {
+  createAccountWithUsername(request: $request) {
+    ... on CreateAccountResponse {
       hash
+    }
+    ... on InvalidUsername {
+      invalidUsernameReason: reason
     }
     ... on SelfFundedTransactionRequest {
       selfFundedReason: reason
