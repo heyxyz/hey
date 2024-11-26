@@ -1,0 +1,13 @@
+mutation AddAccountManager($request: AddAccountManagerRequest!) {
+  addAccountManager(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      selfFundedReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredReason: reason
+    }
+    ... on TransactionWillFail {
+      transactionFailReason: reason
+    }
+  }
+}

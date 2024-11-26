@@ -1,0 +1,13 @@
+mutation RemoveAccountManager($request: RemoveAccountManagerRequest!) {
+  removeAccountManager(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      selfFundedReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredReason: reason
+    }
+    ... on TransactionWillFail {
+      transactionFailReason: reason
+    }
+  }
+}
