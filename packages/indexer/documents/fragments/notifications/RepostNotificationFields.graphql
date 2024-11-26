@@ -1,0 +1,12 @@
+fragment RepostNotificationFields on RepostNotification {
+  id
+  post {
+    ...PostFields
+  }
+  reposts {
+    account {
+      ...AccountFields
+    }
+    repostedAt
+  }
+}

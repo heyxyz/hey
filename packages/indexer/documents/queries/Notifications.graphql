@@ -1,0 +1,24 @@
+query Notifications($request: NotificationRequest!) {
+  notifications(request: $request) {
+    items {
+      ... on CommentNotification {
+        ...CommentNotificationFields
+      }
+      ... on FollowNotification {
+        ...FollowNotificationFields
+      }
+      ... on MentionNotification {
+        ...MentionNotificationFields
+      }
+      ... on QuoteNotification {
+        ...QuoteNotificationFields
+      }
+      ... on ReactionNotification {
+        ...ReactionNotificationFields
+      }
+      ... on RepostNotification {
+        ...RepostNotificationFields
+      }
+    }
+  }
+}
