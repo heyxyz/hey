@@ -8,7 +8,6 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { MirrorablePublication, OnchainMirrorRequest } from "@hey/lens";
 import { TriStateValue, useMirrorOnchainMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
@@ -17,7 +16,6 @@ import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -40,10 +38,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     post.stats.mirrors + post.stats.quotes
   );
 
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticMirror = ({
     txHash,
@@ -155,9 +150,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
         mirrorOn: post?.id
       };
 
-      if (canUseLensManager) {
-        return await createOnChain(request);
-      }
+      return await createOnChain(request);
     } catch (error) {
       onError(error);
     }

@@ -16,7 +16,6 @@ import {
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
 import imageKit from "@hey/helpers/imageKit";
@@ -48,7 +47,6 @@ import {
 import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
@@ -105,11 +103,6 @@ const AccountSettingsForm: FC = () => {
   const [uploadedProfilePictureUrl, setUploadedProfilePictureUrl] =
     useState("");
   const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
-
-  const handleWrongNetwork = useHandleWrongNetwork();
-
-  // Lens manager
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -244,10 +237,6 @@ const AccountSettingsForm: FC = () => {
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: `${METADATA_ENDPOINT}/${metadataId}`
       };
-
-      if (canUseLensManager) {
-        return await updateProfile(request);
-      }
 
       return await createOnchainSetProfileMetadataTypedData({
         variables: { request }

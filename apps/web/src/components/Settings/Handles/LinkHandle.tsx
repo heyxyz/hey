@@ -9,7 +9,6 @@ import { TokenHandleRegistry } from "@hey/abis";
 import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { LinkHandleToProfileRequest } from "@hey/lens";
 import {
   useLinkHandleToProfileMutation,
@@ -19,7 +18,6 @@ import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
@@ -28,9 +26,6 @@ const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
-
-  const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -108,10 +103,6 @@ const LinkHandle: FC = () => {
     try {
       setLinkingHandle(handle);
       const request: LinkHandleToProfileRequest = { handle };
-
-      if (canUseLensManager) {
-        return await linkHandleToProfileViaLensManager(request);
-      }
 
       return await createLinkHandleToProfileTypedData({
         variables: { request }

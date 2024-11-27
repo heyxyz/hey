@@ -11,7 +11,6 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
 import type {
@@ -31,7 +30,6 @@ import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -76,11 +74,7 @@ const CollectAction: FC<CollectActionProps> = ({
   );
 
   const { address } = useAccount();
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  // Lens manager
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = collectModule?.collectLimit;
@@ -265,10 +259,6 @@ const CollectAction: FC<CollectActionProps> = ({
         actOn: { [getOpenActionActOnKey(openAction.type)]: true },
         for: post?.id
       };
-
-      if (canUseManager) {
-        return await actViaLensManager(actOnRequest);
-      }
 
       return await createActOnOpenActionTypedData({
         variables: { request: actOnRequest }

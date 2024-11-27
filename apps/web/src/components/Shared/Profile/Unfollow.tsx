@@ -5,7 +5,6 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { Profile, UnfollowRequest } from "@hey/lens";
 import { useUnfollowMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
@@ -15,7 +14,6 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -42,10 +40,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const { addTransaction, isFollowPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticUnfollow = ({
     txHash,
@@ -143,10 +138,6 @@ const Unfollow: FC<UnfollowProps> = ({
     try {
       setIsLoading(true);
       const request: UnfollowRequest = { unfollow: [account?.id] };
-
-      if (canUseLensManager) {
-        return await unfollowViaLensManager(request);
-      }
 
       return await createUnfollowTypedData({ variables: { request } });
     } catch (error) {

@@ -5,13 +5,11 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
@@ -26,8 +24,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
-  const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseSignless } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {
@@ -77,22 +73,18 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     }
   };
 
-  const broadcastTxId =
-    broadcastData?.broadcastOnchain.__typename === "RelaySuccess" &&
-    broadcastData.broadcastOnchain.txId;
-
-  return writeHash || broadcastTxId ? (
+  return writeHash ? (
     <div className="mt-2">
-      <IndexStatus shouldReload txHash={writeHash} txId={broadcastTxId} />
+      <IndexStatus shouldReload txHash={writeHash} />
     </div>
   ) : (
     <Button
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
       disabled={isLoading}
       onClick={handleToggleDispatcher}
-      variant={canUseSignless ? "danger" : "primary"}
+      variant={currentAccount?.isSignless ? "danger" : "primary"}
     >
-      {canUseSignless ? "Disable" : "Enable"}
+      {currentAccount?.isSignless ? "Disable" : "Enable"}
     </Button>
   );
 };

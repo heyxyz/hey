@@ -8,7 +8,6 @@ import uploadMetadata from "@helpers/uploadMetadata";
 import { KNOWN_ATTRIBUTES, METADATA_ENDPOINT } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
@@ -143,8 +142,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const editor = useEditorContext();
   const createPoll = useCreatePoll();
   const getMetadata = usePostMetadata();
-
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const isComment = Boolean(post);
   const isQuote = Boolean(quotedPost);
@@ -359,21 +356,17 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         })
       };
 
-      if (canUseLensManager) {
-        if (isComment) {
-          return await createCommentOnChain(
-            onChainRequest as OnchainCommentRequest
-          );
-        }
-
-        if (isQuote) {
-          return await createQuoteOnChain(
-            onChainRequest as OnchainQuoteRequest
-          );
-        }
-
-        return await createPostOnChain(onChainRequest);
+      if (isComment) {
+        return await createCommentOnChain(
+          onChainRequest as OnchainCommentRequest
+        );
       }
+
+      if (isQuote) {
+        return await createQuoteOnChain(onChainRequest as OnchainQuoteRequest);
+      }
+
+      return await createPostOnChain(onChainRequest);
     } catch (error) {
       onError(error);
     }

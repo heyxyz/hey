@@ -5,7 +5,6 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccount from "@hey/helpers/getAccount";
 import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
 import type { BlockRequest, UnblockRequest } from "@hey/lens";
@@ -13,7 +12,6 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -30,10 +28,7 @@ const BlockOrUnBlockAccount: FC = () => {
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
   );
-
   const { isSuspended } = useAccountStatus();
-  const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -129,20 +124,12 @@ const BlockOrUnBlockAccount: FC = () => {
 
       // Block
       if (hasBlocked) {
-        if (canUseLensManager) {
-          return await unBlockViaLensManager(request);
-        }
-
         return await createUnblockProfilesTypedData({
           variables: { request }
         });
       }
 
       // Unblock
-      if (canUseLensManager) {
-        return await blockViaLensManager(request);
-      }
-
       return await createBlockProfilesTypedData({
         variables: { request }
       });

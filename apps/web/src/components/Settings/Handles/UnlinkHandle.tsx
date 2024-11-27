@@ -5,14 +5,12 @@ import { TokenHandleRegistry } from "@hey/abis";
 import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { UnlinkHandleFromProfileRequest } from "@hey/lens";
 import { useUnlinkHandleFromProfileMutation } from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useWriteContract } from "wagmi";
@@ -21,9 +19,6 @@ const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [unlinking, setUnlinking] = useState<boolean>(false);
-
-  const handleWrongNetwork = useHandleWrongNetwork();
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -94,10 +89,6 @@ const UnlinkHandle: FC = () => {
       const request: UnlinkHandleFromProfileRequest = {
         handle: currentAccount.handle?.fullHandle
       };
-
-      if (canUseLensManager) {
-        return await unlinkHandleToProfileViaLensManager(request);
-      }
 
       return await createUnlinkHandleFromProfileTypedData({
         variables: { request }
