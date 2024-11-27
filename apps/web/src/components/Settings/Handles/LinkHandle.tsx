@@ -193,7 +193,7 @@ const LinkHandle: FC = () => {
               <div className="flex items-center space-x-2">
                 <span>·</span>
                 <div>Linked to</div>
-                <LazySmallSingleAccount id={handle.linkedTo?.nftTokenId} />
+                <LazySmallSingleAccount address={handle.linkedTo?.nftTokenId} />
               </div>
             ) : null}
           </div>

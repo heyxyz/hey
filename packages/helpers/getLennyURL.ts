@@ -7,7 +7,8 @@ import urlcat from "urlcat";
  * @returns The lenny avatar URL.
  */
 const getLennyURL = (id: string): string => {
-  return urlcat(`${HEY_API_URL}/avatar`, { id });
+  // TODO: Migrate this to Lens v3
+  return urlcat(`${HEY_API_URL}/avatar`, { id: "0x0d" || id });
 };
 
 export default getLennyURL;

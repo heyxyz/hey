@@ -4,13 +4,13 @@ mutation SetAccountMetadata($request: SetAccountMetadataRequest!) {
       hash
     }
     ... on SponsoredTransactionRequest {
-      sponsoredReason: reason
+      reason
     }
     ... on SelfFundedTransactionRequest {
-      selfFundedReason: reason
+      reason
     }
     ... on TransactionWillFail {
-      transactionFailReason: reason
+      reason
     }
   }
 }

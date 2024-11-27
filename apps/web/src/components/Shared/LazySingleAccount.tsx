@@ -1,26 +1,25 @@
-import type { Profile } from "@hey/lens";
-import { useDefaultProfileQuery } from "@hey/lens";
+import { type Account, useAccountQuery } from "@hey/indexer";
 import type { FC } from "react";
 import type { Address } from "viem";
 import SingleAccountShimmer from "./Shimmer/SingleAccountShimmer";
 import SingleAccount from "./SingleAccount";
 import WalletAccount from "./WalletAccount";
 
-interface LazyDefaultAccountProps {
+interface LazySingleAccountProps {
   address: Address;
 }
 
-const LazyDefaultAccount: FC<LazyDefaultAccountProps> = ({ address }) => {
-  const { data, loading } = useDefaultProfileQuery({
+const LazySingleAccount: FC<LazySingleAccountProps> = ({ address }) => {
+  const { data, loading } = useAccountQuery({
     skip: !address,
-    variables: { request: { for: address } }
+    variables: { request: { address } }
   });
 
   if (loading) {
     return <SingleAccountShimmer />;
   }
 
-  if (!data?.defaultProfile) {
+  if (!data?.account) {
     return <WalletAccount address={address} />;
   }
 
@@ -28,9 +27,9 @@ const LazyDefaultAccount: FC<LazyDefaultAccountProps> = ({ address }) => {
     <SingleAccount
       hideFollowButton
       hideUnfollowButton
-      account={data.defaultProfile as Profile}
+      account={data.account as Account}
     />
   );
 };
 
-export default LazyDefaultAccount;
+export default LazySingleAccount;

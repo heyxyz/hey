@@ -6,16 +6,16 @@ mutation CreateAccountWithUsername(
       hash
     }
     ... on InvalidUsername {
-      invalidUsernameReason: reason
+      reason
     }
     ... on SelfFundedTransactionRequest {
-      selfFundedReason: reason
+      reason
     }
     ... on SponsoredTransactionRequest {
-      sponsoredReason: reason
+      reason
     }
     ... on TransactionWillFail {
-      transactionFailReason: reason
+      reason
     }
   }
 }

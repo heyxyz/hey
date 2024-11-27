@@ -7,10 +7,10 @@ mutation Block($request: BlockRequest!) {
       error
     }
     ... on SelfFundedTransactionRequest {
-      selfFundedReason: reason
+      reason
     }
     ... on SponsoredTransactionRequest {
-      sponsoredReason: reason
+      reason
     }
   }
 }

@@ -7,10 +7,10 @@ mutation Unblock($request: UnblockRequest!) {
       error
     }
     ... on SelfFundedTransactionRequest {
-      selfFundedReason: reason
+      reason
     }
     ... on SponsoredTransactionRequest {
-      sponsoredReason: reason
+      reason
     }
   }
 }
