@@ -6,7 +6,7 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import { useFollowMutation } from "@hey/indexer";
-import type { FollowRequest, Profile } from "@hey/lens";
+import type { Profile } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -109,22 +109,16 @@ const Follow: FC<FollowProps> = ({
   };
 
   const [follow] = useFollowMutation({
-    onCompleted: ({ follow }) => {
-      if (follow.__typename === "RelaySuccess") {
-        addTransaction(generateOptimisticFollow({ txId: follow.txId }));
+    onCompleted: async ({ follow }) => {
+      if (follow.__typename === "FollowResponse") {
+        addTransaction(generateOptimisticFollow({ txId: follow.hash }));
+        onCompleted(follow.__typename);
+      } else {
+        await write({ args: [account.id] });
       }
-      onCompleted(follow.__typename);
     },
     onError
   });
-
-  const followViaLensManager = async (request: FollowRequest) => {
-    const { data } = await follow({ variables: { request } });
-    if (data?.follow?.__typename === "LensProfileManagerRelayError") {
-      await createFollowTypedData({ variables: { request } });
-    }
-    return;
-  };
 
   const handleCreateFollow = async () => {
     if (!currentAccount) {
@@ -138,9 +132,10 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-      const request: FollowRequest = { follow: [{ profileId: account?.id }] };
 
-      return await followViaLensManager({ variables: { request } });
+      return await follow({
+        variables: { request: { account: account.id } }
+      });
     } catch (error) {
       onError(error);
     }
