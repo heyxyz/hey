@@ -32,7 +32,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -49,11 +48,6 @@ const SuperFollow: FC = () => {
   const { currentAccount } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
@@ -91,14 +85,8 @@ const SuperFollow: FC = () => {
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
-      onSuccess: () => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
-      }
+      onError,
+      onSuccess: () => onCompleted()
     }
   });
 
@@ -157,7 +145,6 @@ const SuperFollow: FC = () => {
       setIsLoading(true);
       return await createSetFollowModuleTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             followModule: amount
               ? {

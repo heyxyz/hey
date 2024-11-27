@@ -1,10 +1,8 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
-import { FollowModuleType } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Follow from "./Follow";
-import SuperFollow from "./SuperFollow";
 import Unfollow from "./Unfollow";
 
 interface FollowUnfollowButtonProps {
@@ -12,7 +10,7 @@ interface FollowUnfollowButtonProps {
   followTitle?: string;
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
-  account: Profile;
+  account: Account;
   small?: boolean;
   superFollowTitle?: string;
   unfollowTitle?: string;
@@ -37,15 +35,7 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   return (
     <div className="contents" onClick={stopEventPropagation}>
       {!hideFollowButton &&
-        (account.operations.isFollowedByMe.value ? null : account?.followModule
-            ?.type === FollowModuleType.FeeFollowModule ? (
-          <SuperFollow
-            buttonClassName={buttonClassName}
-            account={account}
-            small={small}
-            title={superFollowTitle}
-          />
-        ) : (
+        (account.operations?.isFollowedByMe ? null : (
           <Follow
             buttonClassName={buttonClassName}
             account={account}

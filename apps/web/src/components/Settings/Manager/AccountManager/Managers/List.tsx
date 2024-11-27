@@ -24,7 +24,6 @@ import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -32,8 +31,6 @@ import { useSignTypedData, useWriteContract } from "wagmi";
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -102,7 +99,6 @@ const List: FC = () => {
           switchToGivenConfig
         ];
         await handleWrongNetwork();
-        incrementLensHubOnchainSigNonce();
 
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
@@ -130,7 +126,6 @@ const List: FC = () => {
       setRemovingAddress(address);
       return await createChangeProfileManagersTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             changeManagers: [
               { action: ChangeProfileManagerActionType.Remove, address }

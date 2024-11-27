@@ -23,7 +23,6 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -44,8 +43,6 @@ const Unfollow: FC<UnfollowProps> = ({
   const { pathname } = useRouter();
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { addTransaction, isFollowPending } = useTransactionStore();
 
@@ -148,7 +145,6 @@ const Unfollow: FC<UnfollowProps> = ({
         if (data?.broadcastOnchain.__typename === "RelayError") {
           return await write({ args });
         }
-        incrementLensHubOnchainSigNonce();
 
         return;
       }
@@ -193,12 +189,7 @@ const Unfollow: FC<UnfollowProps> = ({
         return await unfollowViaLensManager(request);
       }
 
-      return await createUnfollowTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
-      });
+      return await createUnfollowTypedData({ variables: { request } });
     } catch (error) {
       onError(error);
     }

@@ -5,17 +5,8 @@ import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { AUTH } from "@hey/data/tracking";
-import type {
-  LastLoggedInProfileRequest,
-  Profile,
-  ProfilesManagedRequest
-} from "@hey/lens";
-import {
-  ManagedProfileVisibility,
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useProfilesManagedQuery
-} from "@hey/lens";
+import { type Account, useAccountsAvailableQuery } from "@hey/indexer";
+import { useAuthenticateMutation, useChallengeLazyQuery } from "@hey/lens";
 import { Button, Card } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -55,21 +46,15 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
 
-  const lastLoggedInProfileRequest: LastLoggedInProfileRequest = {
-    for: address
-  };
-
-  const profilesManagedRequest: ProfilesManagedRequest = {
-    for: address,
-    hiddenFilter: ManagedProfileVisibility.NoneHidden
-  };
-
-  const { data: profilesManaged, loading: profilesManagedLoading } =
-    useProfilesManagedQuery({
+  const { data: accountsAvailable, loading: accountsAvailableLoading } =
+    useAccountsAvailableQuery({
       onCompleted: (data) =>
-        setHasAccounts(data?.profilesManaged.items.length > 0),
+        setHasAccounts(data?.accountsAvailable.items.length > 0),
       skip: !address,
-      variables: { lastLoggedInProfileRequest, profilesManagedRequest }
+      variables: {
+        accountsAvailableRequest: { managedBy: address },
+        lastLoggedInAccountRequest: { address }
+      }
     });
 
   const handleSign = async (id?: string) => {
@@ -103,22 +88,22 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
     } catch {}
   };
 
-  const allProfiles = profilesManaged?.profilesManaged.items || [];
-  const lastLogin = profilesManaged?.lastLoggedInProfile;
+  const allProfiles = accountsAvailable?.accountsAvailable.items || [];
+  const lastLogin = accountsAvailable?.lastLoggedInAccount;
 
   const remainingProfiles = lastLogin
-    ? allProfiles.filter((profile) => profile.id !== lastLogin.id)
+    ? allProfiles.filter(({ account }) => account.address !== lastLogin.address)
     : allProfiles;
 
-  const profiles = lastLogin
-    ? [lastLogin, ...remainingProfiles]
-    : remainingProfiles;
+  const accounts = (
+    lastLogin ? [lastLogin, ...remainingProfiles] : remainingProfiles
+  ) as Account[];
 
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN.id ? (
-          profilesManagedLoading ? (
+          accountsAvailableLoading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
               <Loader
                 className="my-4"
@@ -126,26 +111,26 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
                 small
               />
             </Card>
-          ) : profiles.length > 0 ? (
+          ) : accounts.length > 0 ? (
             <Card
               className="max-h-[50vh] w-full overflow-y-auto dark:divide-gray-700"
               forceRounded
             >
-              {profiles.map((profile) => (
+              {accounts.map((account) => (
                 <div
                   className="flex items-center justify-between p-3"
-                  key={profile.id}
+                  key={account.address}
                 >
                   <SingleAccount
                     hideFollowButton
                     hideUnfollowButton
                     linkToAccount={false}
-                    account={profile as Profile}
+                    account={account as Account}
                     showUserPreview={false}
                   />
                   <Button
-                    disabled={isLoading && loggingInAccountId === profile.id}
-                    onClick={() => handleSign(profile.id)}
+                    disabled={isLoading && loggingInAccountId === account.address}
+                    onClick={() => handleSign(account.address)}
                     outline
                   >
                     Login

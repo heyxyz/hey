@@ -35,7 +35,6 @@ import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { useRouter } from "next/router";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -57,11 +56,6 @@ const useCreatePost = ({
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const { currentAccount } = useAccountStore();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -110,13 +104,9 @@ const useCreatePost = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { error, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
+      onError,
       onSuccess: (hash: string) => {
         addTransaction(generateOptimisticPublication({ txHash: hash }));
-        incrementLensHubOnchainSigNonce();
         onCompleted();
       }
     }
@@ -174,7 +164,6 @@ const useCreatePost = ({
       if (data?.broadcastOnchain.__typename === "RelayError") {
         return await write({ args: [typedData.value] });
       }
-      incrementLensHubOnchainSigNonce();
 
       return;
     }
@@ -322,10 +311,7 @@ const useCreatePost = ({
   };
 
   const createPostOnChain = async (request: OnchainPostRequest) => {
-    const variables = {
-      options: { overrideSigNonce: lensHubOnchainSigNonce },
-      request
-    };
+    const variables = { request };
 
     const { data } = await postOnchain({ variables: { request } });
     if (data?.postOnchain?.__typename === "LensProfileManagerRelayError") {
@@ -334,10 +320,7 @@ const useCreatePost = ({
   };
 
   const createCommentOnChain = async (request: OnchainCommentRequest) => {
-    const variables = {
-      options: { overrideSigNonce: lensHubOnchainSigNonce },
-      request
-    };
+    const variables = { request };
 
     const { data } = await commentOnchain({ variables: { request } });
     if (data?.commentOnchain?.__typename === "LensProfileManagerRelayError") {
@@ -346,10 +329,7 @@ const useCreatePost = ({
   };
 
   const createQuoteOnChain = async (request: OnchainQuoteRequest) => {
-    const variables = {
-      options: { overrideSigNonce: lensHubOnchainSigNonce },
-      request
-    };
+    const variables = { request };
 
     const { data } = await quoteOnchain({ variables: { request } });
     if (data?.quoteOnchain?.__typename === "LensProfileManagerRelayError") {

@@ -23,7 +23,6 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -44,8 +43,6 @@ const Follow: FC<FollowProps> = ({
   const { pathname } = useRouter();
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { addTransaction, isUnfollowPending } = useTransactionStore();
 
@@ -158,7 +155,6 @@ const Follow: FC<FollowProps> = ({
         if (data?.broadcastOnchain.__typename === "RelayError") {
           return await write({ args });
         }
-        incrementLensHubOnchainSigNonce();
 
         return;
       }
@@ -204,12 +200,7 @@ const Follow: FC<FollowProps> = ({
         return await followViaLensManager(request);
       }
 
-      return await createFollowTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
-      });
+      return await createFollowTypedData({ variables: { request } });
     } catch (error) {
       onError(error);
     }

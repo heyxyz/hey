@@ -11,6 +11,7 @@
     "@apollo/client": "^3.11.10",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
+    "@hey/indexer": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
     "axios": "^1.7.8",

@@ -33,7 +33,6 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -47,11 +46,6 @@ interface MirrorProps {
 const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const { addTransaction } = useTransactionStore();
   const hasMirrored =
     post.operations.hasMirrored || hasOptimisticallyMirrored(post.id);
@@ -126,13 +120,9 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
+      onError,
       onSuccess: (hash: string) => {
         addTransaction(generateOptimisticMirror({ txHash: hash }));
-        incrementLensHubOnchainSigNonce();
         onCompleted();
       }
     }
@@ -186,7 +176,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
       if (data?.broadcastOnchain.__typename === "RelayError") {
         return await write({ args: [typedData.value] });
       }
-      incrementLensHubOnchainSigNonce();
 
       return;
     }
@@ -250,10 +239,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     const { data } = await mirrorOnchain({ variables: { request } });
     if (data?.mirrorOnchain.__typename === "LensProfileManagerRelayError") {
       return await createOnchainMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
@@ -286,10 +272,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
       }
 
       return await createOnchainMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     } catch (error) {
       onError(error);

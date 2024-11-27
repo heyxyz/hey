@@ -35,7 +35,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { formatUnits } from "viem";
 import { useBalance, useSignTypedData, useWriteContract } from "wagmi";
@@ -50,11 +49,6 @@ const FollowModule: FC<FollowModuleProps> = ({
   setShowFollowModal
 }) => {
   const { pathname } = useRouter();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
@@ -99,14 +93,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
-      onSuccess: () => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
-      }
+      onError,
+      onSuccess: () => onCompleted()
     }
   });
 
@@ -219,7 +207,6 @@ const FollowModule: FC<FollowModuleProps> = ({
       setIsLoading(true);
       return await createFollowTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             follow: [
               {

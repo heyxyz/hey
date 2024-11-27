@@ -36,7 +36,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
@@ -72,11 +71,6 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const { addTransaction, isFollowPending } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
@@ -186,13 +180,9 @@ const CollectAction: FC<CollectActionProps> = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
+      onError,
       onSuccess: (hash: string) => {
         addTransaction(generateOptimisticCollect({ txHash: hash }));
-        incrementLensHubOnchainSigNonce();
         onCompleted();
       }
     }
@@ -269,7 +259,6 @@ const CollectAction: FC<CollectActionProps> = ({
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args: [typedData.value] });
           }
-          incrementLensHubOnchainSigNonce();
 
           return;
         }
@@ -327,10 +316,7 @@ const CollectAction: FC<CollectActionProps> = ({
       }
 
       return await createActOnOpenActionTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: actOnRequest
-        }
+        variables: { request: actOnRequest }
       });
     } catch (error) {
       onError(error);

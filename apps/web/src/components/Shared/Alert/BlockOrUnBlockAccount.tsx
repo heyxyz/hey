@@ -23,7 +23,6 @@ import { toast } from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
@@ -34,8 +33,6 @@ const BlockOrUnBlockAccount: FC = () => {
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
@@ -104,7 +101,6 @@ const BlockOrUnBlockAccount: FC = () => {
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
     await handleWrongNetwork();
-    incrementLensHubOnchainSigNonce();
 
     if (canBroadcast) {
       const signature = await signTypedDataAsync(getSignature(typedData));
@@ -187,10 +183,7 @@ const BlockOrUnBlockAccount: FC = () => {
         }
 
         return await createUnblockProfilesTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request
-          }
+          variables: { request }
         });
       }
 
@@ -200,10 +193,7 @@ const BlockOrUnBlockAccount: FC = () => {
       }
 
       return await createBlockProfilesTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     } catch (error) {
       onError(error);

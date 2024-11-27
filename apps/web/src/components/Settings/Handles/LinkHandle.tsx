@@ -24,15 +24,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -89,7 +86,6 @@ const LinkHandle: FC = () => {
         const { id, typedData } = createLinkHandleToProfileTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         await handleWrongNetwork();
-        incrementLensHubOnchainSigNonce();
 
         if (canBroadcast) {
           const { data } = await broadcastOnchain({
@@ -152,10 +148,7 @@ const LinkHandle: FC = () => {
       }
 
       return await createLinkHandleToProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     } catch (error) {
       onError(error);

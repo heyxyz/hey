@@ -18,7 +18,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
@@ -31,11 +30,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -60,14 +54,8 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
-      onSuccess: () => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
-      }
+      onError,
+      onSuccess: () => onCompleted()
     }
   });
 
@@ -131,7 +119,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       setIsLoading(true);
       return await createChangeProfileManagersTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: { approveSignless: !canUseSignless }
         }
       });

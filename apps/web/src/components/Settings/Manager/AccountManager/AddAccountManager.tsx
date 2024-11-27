@@ -18,7 +18,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { isAddress } from "viem";
 import { useSignTypedData, useWriteContract } from "wagmi";
@@ -32,11 +31,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const [manager, setManager] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,14 +57,8 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
-      onSuccess: () => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
-      }
+      onError,
+      onSuccess: () => onCompleted()
     }
   });
 
@@ -116,7 +104,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
             if (data?.broadcastOnchain.__typename === "RelayError") {
               return await write({ args });
             }
-            incrementLensHubOnchainSigNonce();
 
             return;
           }
@@ -144,7 +131,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       setIsLoading(true);
       return await createChangeProfileManagersTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             changeManagers: [
               { action: ChangeProfileManagerActionType.Add, address: manager }

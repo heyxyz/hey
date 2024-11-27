@@ -52,7 +52,6 @@ import {
 } from "src/store/non-persisted/post/usePostVideoStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
@@ -100,9 +99,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   // Global modal store
   const { setShowNewPostModal } = useGlobalModalStateStore();
-
-  // Nonce store
-  const { lensHubOnchainSigNonce } = useNonceStore();
 
   // Post store
   const { postContent, quotedPost, setPostContent, setQuotedPost, setTags } =
@@ -449,27 +445,18 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
       if (isComment) {
         return await createOnchainCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: onChainRequest as OnchainCommentRequest
-          }
+          variables: { request: onChainRequest as OnchainCommentRequest }
         });
       }
 
       if (isQuote) {
         return await createOnchainQuoteTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: onChainRequest as OnchainQuoteRequest
-          }
+          variables: { request: onChainRequest as OnchainQuoteRequest }
         });
       }
 
       return await createOnchainPostTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: onChainRequest
-        }
+        variables: { request: onChainRequest }
       });
     } catch (error) {
       onError(error);

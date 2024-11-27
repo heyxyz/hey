@@ -139,7 +139,6 @@ const List: FC = () => {
                     linkToAccount={false}
                     account={account as Profile}
                     showBio={false}
-                    showId
                     showUserPreview={false}
                     timestamp={account.createdAt}
                   />

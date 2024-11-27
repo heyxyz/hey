@@ -19,15 +19,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useSignTypedData, useWriteContract } from "wagmi";
 
 const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [unlinking, setUnlinking] = useState<boolean>(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -88,7 +85,6 @@ const UnlinkHandle: FC = () => {
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args: [typedData.value] });
           }
-          incrementLensHubOnchainSigNonce();
 
           return;
         }
@@ -140,10 +136,7 @@ const UnlinkHandle: FC = () => {
       }
 
       return await createUnlinkHandleFromProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     } catch (error) {
       onError(error);

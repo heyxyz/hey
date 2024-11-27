@@ -32,15 +32,6 @@ const AccountsDesign: FC = () => {
           />
         </div>
         <div className="space-y-3">
-          <H5>Profile with ID</H5>
-          <SingleAccount
-            hideFollowButton
-            hideUnfollowButton
-            account={account as Profile}
-            showId
-          />
-        </div>
-        <div className="space-y-3">
           <H5>Profile with Bio</H5>
           <SingleAccount
             hideFollowButton
