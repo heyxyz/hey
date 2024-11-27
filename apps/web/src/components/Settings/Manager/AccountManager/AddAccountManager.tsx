@@ -5,10 +5,7 @@ import { LensHub } from "@hey/abis";
 import { ADDRESS_PLACEHOLDER, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import {
-  ChangeProfileManagerActionType,
-  useCreateChangeProfileManagersTypedDataMutation
-} from "@hey/lens";
+import { ChangeProfileManagerActionType } from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
@@ -65,37 +62,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       functionName: "changeDelegatedExecutorsConfig"
     });
   };
-
-  const [createChangeProfileManagersTypedData] =
-    useCreateChangeProfileManagersTypedDataMutation({
-      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { id, typedData } = createChangeProfileManagersTypedData;
-        const {
-          approvals,
-          configNumber,
-          delegatedExecutors,
-          delegatorProfileId,
-          switchToGivenConfig
-        } = typedData.value;
-        const args = [
-          delegatorProfileId,
-          delegatedExecutors,
-          approvals,
-          configNumber,
-          switchToGivenConfig
-        ];
-        await handleWrongNetwork();
-
-        try {
-          return await write({ args });
-        } catch {
-          // Fix for Safe wallets
-          // TODO: Remove this once Lens supports Safe wallets
-          return await write({ args });
-        }
-      },
-      onError
-    });
 
   const handleAddManager = async () => {
     if (!currentAccount) {

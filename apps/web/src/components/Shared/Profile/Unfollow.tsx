@@ -7,10 +7,7 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { Profile, UnfollowRequest } from "@hey/lens";
-import {
-  useCreateUnfollowTypedDataMutation,
-  useUnfollowMutation
-} from "@hey/lens";
+import { useUnfollowMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -115,17 +112,6 @@ const Unfollow: FC<UnfollowProps> = ({
       functionName: "unfollow"
     });
   };
-
-  const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
-    onCompleted: async ({ createUnfollowTypedData }) => {
-      const { typedData } = createUnfollowTypedData;
-      const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value;
-      const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
-      await handleWrongNetwork();
-      return await write({ args });
-    },
-    onError
-  });
 
   const [unfollow] = useUnfollowMutation({
     onCompleted: ({ unfollow }) => {

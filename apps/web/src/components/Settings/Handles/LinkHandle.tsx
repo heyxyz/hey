@@ -12,7 +12,6 @@ import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { LinkHandleToProfileRequest } from "@hey/lens";
 import {
-  useCreateLinkHandleToProfileTypedDataMutation,
   useLinkHandleToProfileMutation,
   useOwnedHandlesQuery
 } from "@hey/lens";
@@ -69,17 +68,6 @@ const LinkHandle: FC = () => {
       functionName: "link"
     });
   };
-
-  const [createLinkHandleToProfileTypedData] =
-    useCreateLinkHandleToProfileTypedDataMutation({
-      onCompleted: async ({ createLinkHandleToProfileTypedData }) => {
-        const { typedData } = createLinkHandleToProfileTypedData;
-        await handleWrongNetwork();
-
-        return await write({ args: [typedData.value] });
-      },
-      onError
-    });
 
   const [linkHandleToProfile, { data: linkHandleToProfileData }] =
     useLinkHandleToProfileMutation({

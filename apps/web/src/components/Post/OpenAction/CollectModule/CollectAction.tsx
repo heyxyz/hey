@@ -22,8 +22,7 @@ import type {
 } from "@hey/lens";
 import {
   useActOnOpenActionMutation,
-  useApprovedModuleAllowanceAmountQuery,
-  useCreateActOnOpenActionTypedDataMutation
+  useApprovedModuleAllowanceAmountQuery
 } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
@@ -223,18 +222,6 @@ const CollectAction: FC<CollectActionProps> = ({
   } else {
     hasAmount = true;
   }
-
-  // Act Typed Data
-  const [createActOnOpenActionTypedData] =
-    useCreateActOnOpenActionTypedDataMutation({
-      onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        const { typedData } = createActOnOpenActionTypedData;
-        await handleWrongNetwork();
-
-        return await write({ args: [typedData.value] });
-      },
-      onError
-    });
 
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({

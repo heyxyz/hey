@@ -15,9 +15,6 @@ import getMentions from "@hey/helpers/getMentions";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
 import type {
   MirrorablePublication,
-  MomokaCommentRequest,
-  MomokaPostRequest,
-  MomokaQuoteRequest,
   OnchainCommentRequest,
   OnchainPostRequest,
   OnchainQuoteRequest,
@@ -154,14 +151,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const hasAudio = attachments[0]?.type === "Audio";
   const hasVideo = attachments[0]?.type === "Video";
 
-  const noCollect = !collectModule.type;
-  // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
-  const useMomoka = isComment
-    ? post?.momoka?.proof
-    : isQuote
-      ? quotedPost?.momoka?.proof
-      : noCollect;
-
   const reset = () => {
     editor?.setMarkdown("");
     setIsLoading(false);
@@ -224,26 +213,13 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     );
   };
 
-  const {
-    createCommentOnChain,
-    createCommentOnMomka,
-    createMomokaCommentTypedData,
-    createMomokaPostTypedData,
-    createMomokaQuoteTypedData,
-    createOnchainCommentTypedData,
-    createOnchainPostTypedData,
-    createOnchainQuoteTypedData,
-    createPostOnChain,
-    createPostOnMomka,
-    createQuoteOnChain,
-    createQuoteOnMomka,
-    error
-  } = useCreatePost({
-    commentOn: post,
-    onCompleted,
-    onError,
-    quoteOn: quotedPost as Quote
-  });
+  const { createCommentOnChain, createPostOnChain, createQuoteOnChain, error } =
+    useCreatePost({
+      commentOn: post,
+      onCompleted,
+      onError,
+      quoteOn: quotedPost as Quote
+    });
 
   useEffect(() => {
     setPostContentError("");
@@ -358,50 +334,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         });
       }
 
-      // Payload for the Momoka post/comment/quote
-      const momokaRequest:
-        | MomokaCommentRequest
-        | MomokaPostRequest
-        | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: post?.id }),
-        ...(isQuote && { quoteOn: quotedPost?.id }),
-        contentURI: `${METADATA_ENDPOINT}/${metadataId}`
-      };
-
-      if (useMomoka) {
-        if (canUseLensManager) {
-          if (isComment) {
-            return await createCommentOnMomka(
-              momokaRequest as MomokaCommentRequest
-            );
-          }
-
-          if (isQuote) {
-            return await createQuoteOnMomka(
-              momokaRequest as MomokaQuoteRequest
-            );
-          }
-
-          return await createPostOnMomka(momokaRequest);
-        }
-
-        if (isComment) {
-          return await createMomokaCommentTypedData({
-            variables: { request: momokaRequest as MomokaCommentRequest }
-          });
-        }
-
-        if (isQuote) {
-          return await createMomokaQuoteTypedData({
-            variables: { request: momokaRequest as MomokaQuoteRequest }
-          });
-        }
-
-        return await createMomokaPostTypedData({
-          variables: { request: momokaRequest }
-        });
-      }
-
       // Payload for the post/comment/quote
       const onChainRequest:
         | OnchainCommentRequest
@@ -442,22 +374,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
         return await createPostOnChain(onChainRequest);
       }
-
-      if (isComment) {
-        return await createOnchainCommentTypedData({
-          variables: { request: onChainRequest as OnchainCommentRequest }
-        });
-      }
-
-      if (isQuote) {
-        return await createOnchainQuoteTypedData({
-          variables: { request: onChainRequest as OnchainQuoteRequest }
-        });
-      }
-
-      return await createOnchainPostTypedData({
-        variables: { request: onChainRequest }
-      });
     } catch (error) {
       onError(error);
     }

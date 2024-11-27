@@ -7,10 +7,7 @@ import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { UnlinkHandleFromProfileRequest } from "@hey/lens";
-import {
-  useCreateUnlinkHandleFromProfileTypedDataMutation,
-  useUnlinkHandleFromProfileMutation
-} from "@hey/lens";
+import { useUnlinkHandleFromProfileMutation } from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -60,17 +57,6 @@ const UnlinkHandle: FC = () => {
       functionName: "unlink"
     });
   };
-
-  const [createUnlinkHandleFromProfileTypedData] =
-    useCreateUnlinkHandleFromProfileTypedDataMutation({
-      onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) => {
-        const { typedData } = createUnlinkHandleFromProfileTypedData;
-        await handleWrongNetwork();
-
-        return await write({ args: [typedData.value] });
-      },
-      onError
-    });
 
   const [unlinkHandleFromProfile, { data: linkHandleToProfileData }] =
     useUnlinkHandleFromProfileMutation({

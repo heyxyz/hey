@@ -5,9 +5,8 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
+import { useFollowMutation } from "@hey/indexer";
 import type { FollowRequest, Profile } from "@hey/lens";
-import { useCreateFollowTypedDataMutation, useFollowMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -15,7 +14,6 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -42,10 +40,7 @@ const Follow: FC<FollowProps> = ({
   const { addTransaction, isUnfollowPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticFollow = ({
     txHash,
@@ -113,27 +108,6 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const [createFollowTypedData] = useCreateFollowTypedDataMutation({
-    onCompleted: async ({ createFollowTypedData }) => {
-      const { typedData } = createFollowTypedData;
-      const {
-        datas,
-        followerProfileId,
-        followTokenIds,
-        idsOfProfilesToFollow
-      } = typedData.value;
-      const args = [
-        followerProfileId,
-        idsOfProfilesToFollow,
-        followTokenIds,
-        datas
-      ];
-      await handleWrongNetwork();
-      return await write({ args });
-    },
-    onError
-  });
-
   const [follow] = useFollowMutation({
     onCompleted: ({ follow }) => {
       if (follow.__typename === "RelaySuccess") {
@@ -166,11 +140,7 @@ const Follow: FC<FollowProps> = ({
       setIsLoading(true);
       const request: FollowRequest = { follow: [{ profileId: account?.id }] };
 
-      if (canUseLensManager) {
-        return await followViaLensManager(request);
-      }
-
-      return await createFollowTypedData({ variables: { request } });
+      return await followViaLensManager({ variables: { request } });
     } catch (error) {
       onError(error);
     }

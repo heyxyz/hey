@@ -7,13 +7,8 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccount from "@hey/helpers/getAccount";
+import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
 import type { BlockRequest, UnblockRequest } from "@hey/lens";
-import {
-  useBlockMutation,
-  useCreateBlockProfilesTypedDataMutation,
-  useCreateUnblockProfilesTypedDataMutation,
-  useUnblockMutation
-} from "@hey/lens";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -88,28 +83,6 @@ const BlockOrUnBlockAccount: FC = () => {
       functionName: "setBlockStatus"
     });
   };
-
-  const typedDataGenerator = async (generatedData: any) => {
-    const { typedData } = generatedData;
-    await handleWrongNetwork();
-    return await write({ args: [typedData.value] });
-  };
-
-  const [createBlockProfilesTypedData] =
-    useCreateBlockProfilesTypedDataMutation({
-      onCompleted: async ({ createBlockProfilesTypedData }) =>
-        await typedDataGenerator(createBlockProfilesTypedData),
-      onError,
-      update: updateCache
-    });
-
-  const [createUnblockProfilesTypedData] =
-    useCreateUnblockProfilesTypedDataMutation({
-      onCompleted: async ({ createUnblockProfilesTypedData }) =>
-        await typedDataGenerator(createUnblockProfilesTypedData),
-      onError,
-      update: updateCache
-    });
 
   const [blockProfile] = useBlockMutation({
     onCompleted: ({ block }) => onCompleted(block.__typename),

@@ -25,10 +25,7 @@ import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import type { OnchainSetProfileMetadataRequest } from "@hey/lens";
-import {
-  useCreateOnchainSetProfileMetadataTypedDataMutation,
-  useSetProfileMetadataMutation
-} from "@hey/lens";
+import { useSetProfileMetadataMutation } from "@hey/lens";
 import {
   Button,
   Card,
@@ -146,18 +143,6 @@ const AccountSettingsForm: FC = () => {
       functionName: "setProfileMetadataURI"
     });
   };
-
-  const [createOnchainSetProfileMetadataTypedData] =
-    useCreateOnchainSetProfileMetadataTypedDataMutation({
-      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createOnchainSetProfileMetadataTypedData;
-        const { metadataURI, profileId } = typedData.value;
-        await handleWrongNetwork();
-
-        return await write({ args: [profileId, metadataURI] });
-      },
-      onError
-    });
 
   const [setProfileMetadata] = useSetProfileMetadataMutation({
     onCompleted: ({ setProfileMetadata }) =>

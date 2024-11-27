@@ -6,7 +6,6 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import { useCreateChangeProfileManagersTypedDataMutation } from "@hey/lens";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -60,30 +59,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       functionName: "changeDelegatedExecutorsConfig"
     });
   };
-
-  const [createChangeProfileManagersTypedData] =
-    useCreateChangeProfileManagersTypedDataMutation({
-      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { typedData } = createChangeProfileManagersTypedData;
-        const {
-          approvals,
-          configNumber,
-          delegatedExecutors,
-          delegatorProfileId,
-          switchToGivenConfig
-        } = typedData.value;
-        const args = [
-          delegatorProfileId,
-          delegatedExecutors,
-          approvals,
-          configNumber,
-          switchToGivenConfig
-        ];
-        await handleWrongNetwork();
-        return await write({ args });
-      },
-      onError
-    });
 
   const handleToggleDispatcher = async () => {
     if (isSuspended) {

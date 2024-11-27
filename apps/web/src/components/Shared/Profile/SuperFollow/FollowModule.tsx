@@ -21,7 +21,6 @@ import type {
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useCreateFollowTypedDataMutation,
   useProfileQuery
 } from "@hey/lens";
 import { Button, H3, H5, WarningMessage } from "@hey/ui";
@@ -149,27 +148,6 @@ const FollowModule: FC<FollowModuleProps> = ({
   } else {
     hasAmount = true;
   }
-
-  const [createFollowTypedData] = useCreateFollowTypedDataMutation({
-    onCompleted: async ({ createFollowTypedData }) => {
-      const { id, typedData } = createFollowTypedData;
-      const {
-        datas,
-        followerProfileId,
-        followTokenIds,
-        idsOfProfilesToFollow
-      } = typedData.value;
-      const args = [
-        followerProfileId,
-        idsOfProfilesToFollow,
-        followTokenIds,
-        datas
-      ];
-      await handleWrongNetwork();
-      return await write({ args });
-    },
-    onError
-  });
 
   const handleCreateFollow = async () => {
     if (!currentAccount) {

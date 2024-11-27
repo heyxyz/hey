@@ -10,9 +10,6 @@ import type {
 import {
   PublicationDocument,
   useCommentOnchainMutation,
-  useCreateOnchainCommentTypedDataMutation,
-  useCreateOnchainPostTypedDataMutation,
-  useCreateOnchainQuoteTypedDataMutation,
   usePostOnchainMutation,
   usePublicationLazyQuery,
   useQuoteOnchainMutation
@@ -102,32 +99,6 @@ const useCreatePost = ({
     });
   };
 
-  const typedDataGenerator = async (generatedData: any) => {
-    const { typedData } = generatedData;
-    await handleWrongNetwork();
-    return await write({ args: [typedData.value] });
-  };
-
-  // On-chain typed data generation
-  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
-    onCompleted: async ({ createOnchainPostTypedData }) =>
-      await typedDataGenerator(createOnchainPostTypedData),
-    onError
-  });
-
-  const [createOnchainCommentTypedData] =
-    useCreateOnchainCommentTypedDataMutation({
-      onCompleted: async ({ createOnchainCommentTypedData }) =>
-        await typedDataGenerator(createOnchainCommentTypedData),
-      onError
-    });
-
-  const [createOnchainQuoteTypedData] = useCreateOnchainQuoteTypedDataMutation({
-    onCompleted: async ({ createOnchainQuoteTypedData }) =>
-      await typedDataGenerator(createOnchainQuoteTypedData),
-    onError
-  });
-
   // Onchain mutations
   const [postOnchain] = usePostOnchainMutation({
     onCompleted: ({ postOnchain }) => {
@@ -194,9 +165,6 @@ const useCreatePost = ({
 
   return {
     createCommentOnChain,
-    createOnchainCommentTypedData,
-    createOnchainPostTypedData,
-    createOnchainQuoteTypedData,
     createPostOnChain,
     createQuoteOnChain,
     error

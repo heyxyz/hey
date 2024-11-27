@@ -11,7 +11,6 @@ import { SETTINGS } from "@hey/data/tracking";
 import type { ProfileManagersRequest } from "@hey/lens";
 import {
   ChangeProfileManagerActionType,
-  useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
 } from "@hey/lens";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
@@ -70,30 +69,6 @@ const List: FC = () => {
       functionName: "changeDelegatedExecutorsConfig"
     });
   };
-
-  const [createChangeProfileManagersTypedData] =
-    useCreateChangeProfileManagersTypedDataMutation({
-      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { typedData } = createChangeProfileManagersTypedData;
-        const {
-          approvals,
-          configNumber,
-          delegatedExecutors,
-          delegatorProfileId,
-          switchToGivenConfig
-        } = typedData.value;
-        const args = [
-          delegatorProfileId,
-          delegatedExecutors,
-          approvals,
-          configNumber,
-          switchToGivenConfig
-        ];
-        await handleWrongNetwork();
-        return await write({ args });
-      },
-      onError
-    });
 
   const handleRemoveManager = async (address: Address) => {
     if (isSuspended) {

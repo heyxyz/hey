@@ -10,11 +10,7 @@ import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import type { MirrorablePublication, OnchainMirrorRequest } from "@hey/lens";
-import {
-  TriStateValue,
-  useCreateOnchainMirrorTypedDataMutation,
-  useMirrorOnchainMutation
-} from "@hey/lens";
+import { TriStateValue, useMirrorOnchainMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
@@ -25,7 +21,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface MirrorProps {
   isLoading: boolean;
@@ -101,8 +97,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     Leafwatch.track(POST.MIRROR, { postId: post.id });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -121,21 +115,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
       functionName: "mirror"
     });
   };
-
-  const typedDataGenerator = async (generatedData: any) => {
-    const { typedData } = generatedData;
-    await handleWrongNetwork();
-
-    return await write({ args: [typedData.value] });
-  };
-
-  // On-chain typed data generation
-  const [createOnchainMirrorTypedData] =
-    useCreateOnchainMirrorTypedDataMutation({
-      onCompleted: async ({ createOnchainMirrorTypedData }) =>
-        await typedDataGenerator(createOnchainMirrorTypedData),
-      onError
-    });
 
   // Onchain mutations
   const [mirrorOnchain] = useMirrorOnchainMutation({
@@ -179,10 +158,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
       if (canUseLensManager) {
         return await createOnChain(request);
       }
-
-      return await createOnchainMirrorTypedData({
-        variables: { request }
-      });
     } catch (error) {
       onError(error);
     }

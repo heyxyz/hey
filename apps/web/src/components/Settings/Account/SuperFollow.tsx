@@ -11,10 +11,7 @@ import {
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { SETTINGS } from "@hey/data/tracking";
-import {
-  FollowModuleType,
-  useCreateSetFollowModuleTypedDataMutation
-} from "@hey/lens";
+import { FollowModuleType } from "@hey/lens";
 import {
   Button,
   Card,
@@ -92,20 +89,6 @@ const SuperFollow: FC = () => {
       functionName: "setFollowModule"
     });
   };
-
-  const [createSetFollowModuleTypedData] =
-    useCreateSetFollowModuleTypedDataMutation({
-      onCompleted: async ({ createSetFollowModuleTypedData }) => {
-        const { id, typedData } = createSetFollowModuleTypedData;
-        const { followModule, followModuleInitData, profileId } =
-          typedData.value;
-        const args = [profileId, followModule, followModuleInitData];
-        await handleWrongNetwork();
-
-        return await write({ args });
-      },
-      onError
-    });
 
   const handleSetSuperFollow = async (
     amount: null | string,
