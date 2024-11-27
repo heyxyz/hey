@@ -14,7 +14,6 @@ import { POST } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
-import getSignature from "@hey/helpers/getSignature";
 import type {
   ActOnOpenActionLensManagerRequest,
   ApprovedAllowanceAmountResult,
@@ -24,7 +23,6 @@ import type {
 import {
   useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
 } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
@@ -39,12 +37,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
-import {
-  useAccount,
-  useBalance,
-  useSignTypedData,
-  useWriteContract
-} from "wagmi";
+import { useAccount, useBalance, useWriteContract } from "wagmi";
 
 interface CollectActionProps {
   buttonTitle?: string;
@@ -88,8 +81,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const { cache } = useApolloClient();
 
   // Lens manager
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = collectModule?.collectLimit;
@@ -177,7 +169,6 @@ const CollectAction: FC<CollectActionProps> = ({
     });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -233,35 +224,12 @@ const CollectAction: FC<CollectActionProps> = ({
     hasAmount = true;
   }
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticCollect({ txId: broadcastOnchain.txId })
-        );
-      }
-      onCompleted(broadcastOnchain.__typename);
-    }
-  });
-
   // Act Typed Data
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        const { id, typedData } = createActOnOpenActionTypedData;
+        const { typedData } = createActOnOpenActionTypedData;
         await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args: [typedData.value] });
-          }
-
-          return;
-        }
 
         return await write({ args: [typedData.value] });
       },

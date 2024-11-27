@@ -10,10 +10,8 @@ import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type { LinkHandleToProfileRequest } from "@hey/lens";
 import {
-  useBroadcastOnchainMutation,
   useCreateLinkHandleToProfileTypedDataMutation,
   useLinkHandleToProfileMutation,
   useOwnedHandlesQuery
@@ -25,7 +23,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -33,8 +31,7 @@ const LinkHandle: FC = () => {
   const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -60,7 +57,6 @@ const LinkHandle: FC = () => {
     variables: { request: { for: currentAccount?.ownedBy.address } }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -74,29 +70,11 @@ const LinkHandle: FC = () => {
     });
   };
 
-  const [broadcastOnchain, { data: broadcastData }] =
-    useBroadcastOnchainMutation({
-      onCompleted: ({ broadcastOnchain }) =>
-        onCompleted(broadcastOnchain.__typename)
-    });
-
   const [createLinkHandleToProfileTypedData] =
     useCreateLinkHandleToProfileTypedDataMutation({
       onCompleted: async ({ createLinkHandleToProfileTypedData }) => {
-        const { id, typedData } = createLinkHandleToProfileTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { typedData } = createLinkHandleToProfileTypedData;
         await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args: [typedData.value] });
-          }
-
-          return;
-        }
 
         return await write({ args: [typedData.value] });
       },
@@ -176,9 +154,6 @@ const LinkHandle: FC = () => {
   const lensManegaerTxId =
     linkHandleToProfileData?.linkHandleToProfile.__typename ===
       "RelaySuccess" && linkHandleToProfileData.linkHandleToProfile.txId;
-  const broadcastTxId =
-    broadcastData?.broadcastOnchain.__typename === "RelaySuccess" &&
-    broadcastData.broadcastOnchain.txId;
 
   return (
     <div className="m-5 space-y-6">
@@ -197,12 +172,12 @@ const LinkHandle: FC = () => {
               </div>
             ) : null}
           </div>
-          {lensManegaerTxId || broadcastTxId || writeHash ? (
+          {lensManegaerTxId || writeHash ? (
             <div className="mt-2">
               <IndexStatus
                 shouldReload
                 txHash={writeHash}
-                txId={lensManegaerTxId || broadcastTxId}
+                txId={lensManegaerTxId}
               />
             </div>
           ) : (

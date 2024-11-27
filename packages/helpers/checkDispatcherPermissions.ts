@@ -1,31 +1,29 @@
-import type { Profile } from "@hey/lens";
+import type { MeResult } from "@hey/indexer";
 
 interface Permissions {
-  canBroadcast: boolean;
   canUseLensManager: boolean;
   canUseSignless: boolean;
 }
 
 /**
- * Check if the profile can use the lens manager or broadcast
- * @param profile The profile
- * @returns An object with the permissions
+ * Determines the permissions for social operations based on the account.
+ * @param account The user account
+ * @returns An object containing the permissions
  */
-const checkDispatcherPermissions = (profile: null | Profile): Permissions => {
-  if (!profile) {
+const checkDispatcherPermissions = (account: MeResult | null): Permissions => {
+  if (!account) {
     return {
-      canBroadcast: false,
       canUseLensManager: false,
       canUseSignless: false
     };
   }
 
-  const canUseSignless = profile.signless;
-  const isSponsored = profile.sponsor;
-  const canUseLensManager = canUseSignless && isSponsored;
-  const canBroadcast = isSponsored;
+  const { isSignless, isSponsored } = account;
 
-  return { canBroadcast, canUseLensManager, canUseSignless };
+  return {
+    canUseLensManager: isSignless && isSponsored,
+    canUseSignless: isSignless
+  };
 };
 
 export default checkDispatcherPermissions;
