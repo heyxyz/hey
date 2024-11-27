@@ -6,10 +6,8 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type { Profile, UnfollowRequest } from "@hey/lens";
 import {
-  useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
 } from "@hey/lens";
@@ -25,7 +23,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -50,8 +48,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticUnfollow = ({
     txHash,
@@ -100,7 +97,6 @@ const Unfollow: FC<UnfollowProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -120,35 +116,12 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticUnfollow({ txId: broadcastOnchain.txId })
-        );
-      }
-      onCompleted(broadcastOnchain.__typename);
-    }
-  });
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
-      const { id, typedData } = createUnfollowTypedData;
+      const { typedData } = createUnfollowTypedData;
       const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value;
       const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
       await handleWrongNetwork();
-
-      if (canBroadcast) {
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === "RelayError") {
-          return await write({ args });
-        }
-
-        return;
-      }
-
       return await write({ args });
     },
     onError

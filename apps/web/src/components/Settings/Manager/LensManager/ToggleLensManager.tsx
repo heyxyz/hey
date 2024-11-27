@@ -6,11 +6,7 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
-import {
-  useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation
-} from "@hey/lens";
+import { useCreateChangeProfileManagersTypedDataMutation } from "@hey/lens";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -19,7 +15,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface ToggleLensManagerProps {
   buttonSize?: "sm";
@@ -32,9 +28,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
-
-  const { canBroadcast, canUseSignless } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseSignless } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {
@@ -51,7 +45,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -68,15 +61,10 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     });
   };
 
-  const [broadcastOnchain, { data: broadcastData }] =
-    useBroadcastOnchainMutation({
-      onCompleted: ({ broadcastOnchain }) =>
-        onCompleted(broadcastOnchain.__typename)
-    });
   const [createChangeProfileManagersTypedData] =
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { id, typedData } = createChangeProfileManagersTypedData;
+        const { typedData } = createChangeProfileManagersTypedData;
         const {
           approvals,
           configNumber,
@@ -92,19 +80,6 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           switchToGivenConfig
         ];
         await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args });
-          }
-
-          return;
-        }
-
         return await write({ args });
       },
       onError

@@ -6,13 +6,8 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type { FollowRequest, Profile } from "@hey/lens";
-import {
-  useBroadcastOnchainMutation,
-  useCreateFollowTypedDataMutation,
-  useFollowMutation
-} from "@hey/lens";
+import { useCreateFollowTypedDataMutation, useFollowMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -25,7 +20,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
@@ -50,8 +45,7 @@ const Follow: FC<FollowProps> = ({
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticFollow = ({
     txHash,
@@ -100,7 +94,6 @@ const Follow: FC<FollowProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -120,19 +113,9 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticFollow({ txId: broadcastOnchain.txId })
-        );
-      }
-      onCompleted(broadcastOnchain.__typename);
-    }
-  });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
-      const { id, typedData } = createFollowTypedData;
+      const { typedData } = createFollowTypedData;
       const {
         datas,
         followerProfileId,
@@ -146,19 +129,6 @@ const Follow: FC<FollowProps> = ({
         datas
       ];
       await handleWrongNetwork();
-
-      if (canBroadcast) {
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === "RelayError") {
-          return await write({ args });
-        }
-
-        return;
-      }
-
       return await write({ args });
     },
     onError

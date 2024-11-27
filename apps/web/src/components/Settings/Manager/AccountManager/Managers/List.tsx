@@ -8,12 +8,9 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type { ProfileManagersRequest } from "@hey/lens";
 import {
   ChangeProfileManagerActionType,
-  useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
 } from "@hey/lens";
@@ -26,7 +23,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -35,7 +32,6 @@ const List: FC = () => {
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -62,7 +58,6 @@ const List: FC = () => {
     variables: { request }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -76,14 +71,10 @@ const List: FC = () => {
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
   const [createChangeProfileManagersTypedData] =
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { id, typedData } = createChangeProfileManagersTypedData;
+        const { typedData } = createChangeProfileManagersTypedData;
         const {
           approvals,
           configNumber,
@@ -99,19 +90,6 @@ const List: FC = () => {
           switchToGivenConfig
         ];
         await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args });
-          }
-
-          return;
-        }
-
         return await write({ args });
       },
       onError

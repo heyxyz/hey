@@ -10,10 +10,8 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB, POLYGONSCAN_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
-import getSignature from "@hey/helpers/getSignature";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import type {
   ApprovedAllowanceAmountResult,
@@ -23,7 +21,6 @@ import type {
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useProfileQuery
 } from "@hey/lens";
@@ -37,7 +34,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { formatUnits } from "viem";
-import { useBalance, useSignTypedData, useWriteContract } from "wagmi";
+import { useBalance, useWriteContract } from "wagmi";
 
 interface FollowModuleProps {
   account: Profile;
@@ -56,8 +53,6 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const updateCache = () => {
     cache.modify({
@@ -90,7 +85,6 @@ const FollowModule: FC<FollowModuleProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -156,10 +150,6 @@ const FollowModule: FC<FollowModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
@@ -176,19 +166,6 @@ const FollowModule: FC<FollowModuleProps> = ({
         datas
       ];
       await handleWrongNetwork();
-
-      if (canBroadcast) {
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === "RelayError") {
-          return await write({ args });
-        }
-
-        return;
-      }
-
       return await write({ args });
     },
     onError

@@ -5,11 +5,8 @@ import { LensHub } from "@hey/abis";
 import { ADDRESS_PLACEHOLDER, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import {
   ChangeProfileManagerActionType,
-  useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from "@hey/lens";
 import { Button } from "@hey/ui";
@@ -20,7 +17,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { isAddress } from "viem";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
@@ -35,7 +32,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {
@@ -54,7 +50,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -71,10 +66,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
   const [createChangeProfileManagersTypedData] =
     useCreateChangeProfileManagersTypedDataMutation({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
@@ -96,18 +87,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
         await handleWrongNetwork();
 
         try {
-          if (canBroadcast) {
-            const signature = await signTypedDataAsync(getSignature(typedData));
-            const { data } = await broadcastOnchain({
-              variables: { request: { id, signature } }
-            });
-            if (data?.broadcastOnchain.__typename === "RelayError") {
-              return await write({ args });
-            }
-
-            return;
-          }
-
           return await write({ args });
         } catch {
           // Fix for Safe wallets

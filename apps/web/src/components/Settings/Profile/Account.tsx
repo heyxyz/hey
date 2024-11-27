@@ -19,7 +19,6 @@ import { SETTINGS } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
-import getSignature from "@hey/helpers/getSignature";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import trimify from "@hey/helpers/trimify";
@@ -27,7 +26,6 @@ import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import type { OnchainSetProfileMetadataRequest } from "@hey/lens";
 import {
-  useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from "@hey/lens";
@@ -56,7 +54,7 @@ import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
@@ -114,8 +112,7 @@ const AccountSettingsForm: FC = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Lens manager
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -137,7 +134,6 @@ const AccountSettingsForm: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { error, writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -151,28 +147,12 @@ const AccountSettingsForm: FC = () => {
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
   const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const { metadataURI, profileId } = typedData.value;
         await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args: [profileId, metadataURI] });
-          }
-
-          return;
-        }
 
         return await write({ args: [profileId, metadataURI] });
       },

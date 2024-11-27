@@ -1,43 +1,27 @@
 import { useApolloClient } from "@apollo/client";
-import checkAndToastDispatcherError from "@helpers/checkAndToastDispatcherError";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type {
   AnyPublication,
-  MomokaCommentRequest,
-  MomokaPostRequest,
-  MomokaQuoteRequest,
   OnchainCommentRequest,
   OnchainPostRequest,
   OnchainQuoteRequest
 } from "@hey/lens";
 import {
   PublicationDocument,
-  useBroadcastOnMomokaMutation,
-  useBroadcastOnchainMutation,
-  useCommentOnMomokaMutation,
   useCommentOnchainMutation,
-  useCreateMomokaCommentTypedDataMutation,
-  useCreateMomokaPostTypedDataMutation,
-  useCreateMomokaQuoteTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
   useCreateOnchainQuoteTypedDataMutation,
-  usePostOnMomokaMutation,
   usePostOnchainMutation,
   usePublicationLazyQuery,
-  useQuoteOnMomokaMutation,
   useQuoteOnchainMutation
 } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
-import { useRouter } from "next/router";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 interface CreatePostProps {
@@ -53,13 +37,10 @@ const useCreatePost = ({
   onError,
   quoteOn
 }: CreatePostProps) => {
-  const { push } = useRouter();
   const { cache } = useApolloClient();
-  const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOn);
@@ -101,7 +82,6 @@ const useCreatePost = ({
     }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { error, writeContractAsync } = useWriteContract({
     mutation: {
       onError,
@@ -122,52 +102,9 @@ const useCreatePost = ({
     });
   };
 
-  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) => {
-      onCompleted(broadcastOnMomoka.__typename);
-      if (broadcastOnMomoka.__typename === "CreateMomokaPublicationResult") {
-        onCompleted();
-        push(`/posts/${broadcastOnMomoka.id}`);
-      }
-    },
-    onError
-  });
-
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      onCompleted(broadcastOnchain.__typename);
-      if (broadcastOnchain.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticPublication({ txId: broadcastOnchain.txId })
-        );
-      }
-    }
-  });
-
-  const typedDataGenerator = async (
-    generatedData: any,
-    isMomokaPublication = false
-  ) => {
-    const { id, typedData } = generatedData;
+  const typedDataGenerator = async (generatedData: any) => {
+    const { typedData } = generatedData;
     await handleWrongNetwork();
-
-    if (!canBroadcast) {
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      if (isMomokaPublication) {
-        return await broadcastOnMomoka({
-          variables: { request: { id, signature } }
-        });
-      }
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === "RelayError") {
-        return await write({ args: [typedData.value] });
-      }
-
-      return;
-    }
-
     return await write({ args: [typedData.value] });
   };
 
@@ -189,23 +126,6 @@ const useCreatePost = ({
     onCompleted: async ({ createOnchainQuoteTypedData }) =>
       await typedDataGenerator(createOnchainQuoteTypedData),
     onError
-  });
-
-  // Momoka typed data generation
-  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
-    onCompleted: async ({ createMomokaPostTypedData }) =>
-      await typedDataGenerator(createMomokaPostTypedData, true)
-  });
-
-  const [createMomokaCommentTypedData] =
-    useCreateMomokaCommentTypedDataMutation({
-      onCompleted: async ({ createMomokaCommentTypedData }) =>
-        await typedDataGenerator(createMomokaCommentTypedData, true)
-    });
-
-  const [createMomokaQuoteTypedData] = useCreateMomokaQuoteTypedDataMutation({
-    onCompleted: async ({ createMomokaQuoteTypedData }) =>
-      await typedDataGenerator(createMomokaQuoteTypedData, true)
   });
 
   // Onchain mutations
@@ -245,71 +165,6 @@ const useCreatePost = ({
     onError
   });
 
-  // Momoka mutations
-  const [postOnMomoka] = usePostOnMomokaMutation({
-    onCompleted: ({ postOnMomoka }) => {
-      onCompleted(postOnMomoka.__typename);
-
-      if (postOnMomoka.__typename === "CreateMomokaPublicationResult") {
-        push(`/posts/${postOnMomoka.id}`);
-      }
-    },
-    onError
-  });
-
-  const [commentOnMomoka] = useCommentOnMomokaMutation({
-    onCompleted: ({ commentOnMomoka }) => {
-      onCompleted(commentOnMomoka.__typename);
-
-      if (commentOnMomoka.__typename === "CreateMomokaPublicationResult") {
-        getPost({
-          variables: { request: { forId: commentOnMomoka.id } }
-        });
-      }
-    },
-    onError
-  });
-
-  const [quoteOnMomoka] = useQuoteOnMomokaMutation({
-    onCompleted: ({ quoteOnMomoka }) => {
-      onCompleted(quoteOnMomoka.__typename);
-
-      if (quoteOnMomoka.__typename === "CreateMomokaPublicationResult") {
-        push(`/posts/${quoteOnMomoka.id}`);
-      }
-    },
-    onError
-  });
-
-  const createPostOnMomka = async (request: MomokaPostRequest) => {
-    const { data } = await postOnMomoka({ variables: { request } });
-    if (data?.postOnMomoka?.__typename === "LensProfileManagerRelayError") {
-      const shouldProceed = checkAndToastDispatcherError(
-        data.postOnMomoka.reason
-      );
-
-      if (!shouldProceed) {
-        return;
-      }
-
-      return await createMomokaPostTypedData({ variables: { request } });
-    }
-  };
-
-  const createCommentOnMomka = async (request: MomokaCommentRequest) => {
-    const { data } = await commentOnMomoka({ variables: { request } });
-    if (data?.commentOnMomoka?.__typename === "LensProfileManagerRelayError") {
-      return await createMomokaCommentTypedData({ variables: { request } });
-    }
-  };
-
-  const createQuoteOnMomka = async (request: MomokaQuoteRequest) => {
-    const { data } = await quoteOnMomoka({ variables: { request } });
-    if (data?.quoteOnMomoka?.__typename === "LensProfileManagerRelayError") {
-      return await createMomokaQuoteTypedData({ variables: { request } });
-    }
-  };
-
   const createPostOnChain = async (request: OnchainPostRequest) => {
     const variables = { request };
 
@@ -339,17 +194,11 @@ const useCreatePost = ({
 
   return {
     createCommentOnChain,
-    createCommentOnMomka,
-    createMomokaCommentTypedData,
-    createMomokaPostTypedData,
-    createMomokaQuoteTypedData,
     createOnchainCommentTypedData,
     createOnchainPostTypedData,
     createOnchainQuoteTypedData,
     createPostOnChain,
-    createPostOnMomka,
     createQuoteOnChain,
-    createQuoteOnMomka,
     error
   };
 };

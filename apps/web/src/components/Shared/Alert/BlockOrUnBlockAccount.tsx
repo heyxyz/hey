@@ -7,11 +7,9 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccount from "@hey/helpers/getAccount";
-import getSignature from "@hey/helpers/getSignature";
 import type { BlockRequest, UnblockRequest } from "@hey/lens";
 import {
   useBlockMutation,
-  useBroadcastOnchainMutation,
   useCreateBlockProfilesTypedDataMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
@@ -24,7 +22,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 const BlockOrUnBlockAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -40,8 +38,7 @@ const BlockOrUnBlockAccount: FC = () => {
 
   const { isSuspended } = useAccountStatus();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
+  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -79,7 +76,6 @@ const BlockOrUnBlockAccount: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -93,27 +89,9 @@ const BlockOrUnBlockAccount: FC = () => {
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-
   const typedDataGenerator = async (generatedData: any) => {
-    const { id, typedData } = generatedData;
+    const { typedData } = generatedData;
     await handleWrongNetwork();
-
-    if (canBroadcast) {
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === "RelayError") {
-        return await write({ args: [typedData.value] });
-      }
-
-      return;
-    }
-
     return await write({ args: [typedData.value] });
   };
 
