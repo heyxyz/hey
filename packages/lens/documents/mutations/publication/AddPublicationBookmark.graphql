@@ -1,3 +1,0 @@
-mutation AddPublicationBookmark($request: PublicationBookmarkRequest!) {
-  addPublicationBookmark(request: $request)
-}

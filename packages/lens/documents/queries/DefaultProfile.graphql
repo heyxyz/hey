@@ -1,5 +1,0 @@
-query DefaultProfile($request: DefaultProfileRequest!) {
-  defaultProfile(request: $request) {
-    ...ProfileFields
-  }
-}

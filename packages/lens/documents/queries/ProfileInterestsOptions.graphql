@@ -1,7 +1,0 @@
-query ProfileInterestsOptions($request: ProfileRequest!) {
-  profileInterestsOptions
-  profile(request: $request) {
-    id
-    interests
-  }
-}

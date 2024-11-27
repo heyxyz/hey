@@ -1,8 +1,0 @@
-fragment ImageSetFields on ImageSet {
-  optimized {
-    uri
-  }
-  raw {
-    uri
-  }
-}

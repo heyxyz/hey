@@ -1,5 +1,0 @@
-fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
-  image {
-    ...EncryptableImageSetFields
-  }
-}

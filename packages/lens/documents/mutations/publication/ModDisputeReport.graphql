@@ -1,3 +1,0 @@
-mutation ModDisputeReport($request: ModDisputeReportRequest!) {
-  modDisputeReport(request: $request)
-}

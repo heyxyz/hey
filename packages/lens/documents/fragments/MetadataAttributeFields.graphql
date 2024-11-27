@@ -1,5 +1,0 @@
-fragment MetadataAttributeFields on MetadataAttribute {
-  type
-  key
-  value
-}

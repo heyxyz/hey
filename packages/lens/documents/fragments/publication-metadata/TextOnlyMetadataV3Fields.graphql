@@ -1,8 +1,0 @@
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  id
-  content
-  tags
-  attributes {
-    ...MetadataAttributeFields
-  }
-}
