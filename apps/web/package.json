@@ -24,7 +24,6 @@
     "@hey/icons": "workspace:*",
     "@hey/image-cropper": "workspace:*",
     "@hey/indexer": "workspace:*",
-    "@hey/lens": "workspace:*",
     "@hey/ui": "workspace:*",
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "^4.2.8",
