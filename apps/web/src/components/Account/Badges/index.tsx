@@ -9,14 +9,14 @@ const GET_IS_HEY_ACCOUNT_QUERY_KEY = "getIsHeyAccount";
 const GET_HAS_HEY_NFT_QUERY_KEY = "getHasHeyNft";
 
 interface BadgesProps {
-  id: string;
+  address: string;
 }
 
-const Badges: FC<BadgesProps> = ({ id }) => {
+const Badges: FC<BadgesProps> = ({ address }) => {
   // Begin: Get isHeyAccount
   const getIsHeyAccount = async (): Promise<boolean> => {
     const { data } = await axios.get(`${HEY_API_URL}/badges/isHeyAccount`, {
-      params: { id }
+      params: { address }
     });
 
     return data?.isHeyAccount || false;
@@ -24,14 +24,14 @@ const Badges: FC<BadgesProps> = ({ id }) => {
 
   const { data: isHeyAccount } = useQuery({
     queryFn: getIsHeyAccount,
-    queryKey: [GET_IS_HEY_ACCOUNT_QUERY_KEY, id]
+    queryKey: [GET_IS_HEY_ACCOUNT_QUERY_KEY, address]
   });
   // End: Get isHeyAccount
 
   // Begin: Check has Hey NFT
   const getHasHeyNft = async (): Promise<boolean> => {
     const { data } = await axios.get(`${HEY_API_URL}/badges/hasHeyNft`, {
-      params: { id }
+      params: { address }
     });
 
     return data?.hasHeyNft || false;
@@ -40,7 +40,7 @@ const Badges: FC<BadgesProps> = ({ id }) => {
   const { data: hasHeyNft } = useQuery({
     enabled: IS_MAINNET,
     queryFn: getHasHeyNft,
-    queryKey: [GET_HAS_HEY_NFT_QUERY_KEY, id]
+    queryKey: [GET_HAS_HEY_NFT_QUERY_KEY, address]
   });
   // End: Check has Hey NFT
 

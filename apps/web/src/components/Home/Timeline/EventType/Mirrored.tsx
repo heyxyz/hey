@@ -12,7 +12,7 @@ const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
     let accounts = mirrors.map((mirror) => mirror.by);
     accounts = accounts.filter(
       (account, index, self) =>
-        index === self.findIndex((t) => t.id === account.id)
+        index === self.findIndex((t) => t.id === account.address)
     );
     return accounts;
   };

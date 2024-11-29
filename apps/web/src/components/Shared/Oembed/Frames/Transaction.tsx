@@ -151,7 +151,7 @@ const Transaction: FC<TransactionProps> = ({ postId }) => {
         <div className="flex items-center justify-between gap-x-10">
           <b>Account</b>
           <span className="ld-text-gray-500 truncate">
-            {formatAddress(currentAccount?.ownedBy.address)}
+            {formatAddress(currentAccount?.owner)}
           </span>
         </div>
       </div>

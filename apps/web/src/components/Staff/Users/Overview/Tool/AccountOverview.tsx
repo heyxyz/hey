@@ -41,7 +41,7 @@ const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
 
   const { data: haveUsedHey } = useQuery({
     queryFn: getHaveUsedHey,
-    queryKey: [GET_HAVE_USED_HEY_QUERY_KEY, account.id]
+    queryKey: [GET_HAVE_USED_HEY_QUERY_KEY, account.address]
   });
 
   return (
@@ -70,16 +70,16 @@ const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
           title="Account ID"
-          value={account.id}
+          value={account.address}
         >
-          {account.id}
+          {account.address}
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="ld-text-gray-500 size-4" />}
           title="Address"
-          value={account.ownedBy.address}
+          value={account.owner}
         >
-          {formatAddress(account.ownedBy.address)}
+          {formatAddress(account.owner)}
         </MetaDetails>
         {account?.followNftAddress ? (
           <MetaDetails

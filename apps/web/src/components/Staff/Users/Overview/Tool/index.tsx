@@ -20,8 +20,8 @@ interface AccountStaffToolProps {
 
 const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
   const { data: preferences } = useQuery({
-    queryFn: () => getInternalAccount(account.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, account.id || ""]
+    queryFn: () => getInternalAccount(account.address, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, account.address || ""]
   });
 
   return (
@@ -39,12 +39,12 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
       {preferences ? <AccountPreferences preferences={preferences} /> : null}
       {IS_MAINNET ? (
         <>
-          <LeafwatchDetails accountId={account.id} />
+          <LeafwatchDetails address={account.address} />
           <div className="divider my-5 border-yellow-600 border-dashed" />
           <Rank
             handle={account.handle?.localName}
             lensClassifierScore={account.stats.lensClassifierScore || 0}
-            accountId={account.id}
+            accountId={account.address}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
@@ -53,12 +53,12 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
         <>
           <Permissions
             permissions={preferences.permissions || []}
-            accountId={account.id}
+            accountId={account.address}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
       ) : null}
-      <ManagedAccounts address={account.ownedBy.address} />
+      <ManagedAccounts address={account.owner} />
     </div>
   );
 };

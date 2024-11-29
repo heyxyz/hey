@@ -4,10 +4,10 @@ import type { FC } from "react";
 import { useState } from "react";
 
 interface ViewReportsProps {
-  id: string;
+  address: string;
 }
 
-const ViewReports: FC<ViewReportsProps> = ({ id }) => {
+const ViewReports: FC<ViewReportsProps> = ({ address }) => {
   const [showReportsModal, setShowReportsModal] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const ViewReports: FC<ViewReportsProps> = ({ id }) => {
         size="md"
         title="Reports"
       >
-        <Reports accountId={id} />
+        <Reports address={address} />
       </Modal>
     </>
   );

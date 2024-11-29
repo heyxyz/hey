@@ -15,7 +15,7 @@ import DeleteSettings from "./Delete";
 const DangerSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const disabled = currentAccount?.ownedBy.address !== address;
+  const disabled = currentAccount?.owner !== address;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "danger" });

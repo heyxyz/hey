@@ -6,7 +6,6 @@ import Slug from "@components/Shared/Slug";
 import {
   ClockIcon,
   Cog6ToothIcon,
-  HashtagIcon,
   MapPinIcon,
   PaintBrushIcon,
   ShieldCheckIcon
@@ -162,9 +161,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
               </Link>
             </MetaDetails>
           ) : null}
-          <MetaDetails icon={<HashtagIcon className="size-4" />}>
-            {Number.parseInt(account.id)}
-          </MetaDetails>
           {getAccountAttribute("location", account?.metadata?.attributes) ? (
             <MetaDetails icon={<MapPinIcon className="size-4" />}>
               {getAccountAttribute("location", account?.metadata?.attributes)}
@@ -239,7 +235,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           </MetaDetails>
         </div>
       </div>
-      <Badges id={account.id} />
+      <Badges address={account.address} />
       <InternalTools account={account} />
       <Drawer
         title="Personalize"

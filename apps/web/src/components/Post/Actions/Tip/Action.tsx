@@ -168,7 +168,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
         address: HEY_TIPPING,
         args: [
           selectedCurrency?.contractAddress,
-          post.by.ownedBy.address,
+          post.by.owner,
           finalRate,
           currentAccount?.address,
           post.by.id,
@@ -183,7 +183,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
           amount: cryptoRate - cryptoRate * 0.05,
           fromAddress: address,
           id: post.id,
-          toAddress: post.by.ownedBy.address,
+          toAddress: post.by.owner,
           tokenAddress: selectedCurrency?.contractAddress,
           txHash: hash
         },
@@ -238,7 +238,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
       <div className="m-5 space-y-3">
         <H6>Connect to correct wallet to tip!</H6>
         <H6 className="ld-text-gray-500">
-          Switch to: {formatAddress(currentAccount?.ownedBy.address)}
+          Switch to: {formatAddress(currentAccount?.owner)}
         </H6>
       </div>
     );

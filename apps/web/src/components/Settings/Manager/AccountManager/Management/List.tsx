@@ -120,7 +120,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
-      computeItemKey={(index, account) => `${account.id}-${index}`}
+      computeItemKey={(index, account) => `${account.address}-${index}`}
       data={accountsManaged}
       endReached={onEndReached}
       itemContent={(_, account) => (
@@ -130,10 +130,10 @@ const List: FC<ListProps> = ({ managed = false }) => {
             hideUnfollowButton
             account={account as Account}
           />
-          {address !== account.ownedBy.address && (
+          {address !== account.owner && (
             <Button
               disabled={hiding || unhiding}
-              onClick={() => handleToggleManagement(account.id)}
+              onClick={() => handleToggleManagement(account.address)}
               outline
               size="sm"
               variant="danger"

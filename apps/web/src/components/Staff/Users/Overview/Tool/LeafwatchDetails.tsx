@@ -17,10 +17,10 @@ import type { FC } from "react";
 const GET_ACCOUNT_IMPRESSIONS_QUERY_KEY = "getAccountImpressions";
 
 interface LeafwatchDetailsProps {
-  accountId: string;
+  address: string;
 }
 
-const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
+const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ address }) => {
   const getAccountDetails = async (): Promise<{
     browser: string;
     city: string;
@@ -30,7 +30,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
     try {
       const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/account/details`,
-        { headers: getAuthApiHeaders(), params: { id: accountId } }
+        { headers: getAuthApiHeaders(), params: { address } }
       );
 
       return data.result;
@@ -40,9 +40,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
   };
 
   const { data: leafwatchDetails } = useQuery({
-    enabled: Boolean(accountId),
+    enabled: Boolean(address),
     queryFn: getAccountDetails,
-    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, accountId]
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, address]
   });
 
   const getAccountImpressions = async (): Promise<{
@@ -51,7 +51,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
     try {
       const { data } = await axios.get(
         `${HEY_API_URL}/internal/leafwatch/account/impressions`,
-        { headers: getAuthApiHeaders(), params: { id: accountId } }
+        { headers: getAuthApiHeaders(), params: { address } }
       );
 
       return data;
@@ -61,9 +61,9 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
   };
 
   const { data: impressionDetails } = useQuery({
-    enabled: Boolean(accountId),
+    enabled: Boolean(address),
     queryFn: getAccountImpressions,
-    queryKey: [GET_ACCOUNT_IMPRESSIONS_QUERY_KEY, accountId]
+    queryKey: [GET_ACCOUNT_IMPRESSIONS_QUERY_KEY, address]
   });
 
   if (!leafwatchDetails || !impressionDetails) {

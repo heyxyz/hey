@@ -16,13 +16,13 @@ const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({
     update: (cache) => {
       cache.evict({ id: cache.identify(account) });
     },
-    variables: { request: { dismiss: [account.id] } }
+    variables: { request: { dismiss: [account.address] } }
   });
 
   const handleDismiss = async () => {
     await dismissRecommendedAccount();
     Leafwatch.track(ACCOUNT.DISMISS_RECOMMENDED_ACCOUNT, {
-      accountId: account.id
+      address: account.address
     });
   };
 

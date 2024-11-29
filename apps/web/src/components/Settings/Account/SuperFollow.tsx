@@ -54,7 +54,7 @@ const SuperFollow: FC = () => {
         currentAccount?.followModule?.__typename === "FeeFollowModuleSettings"
           ? currentAccount?.followModule?.amount.value
           : "",
-      recipient: currentAccount?.ownedBy.address
+      recipient: currentAccount?.owner
     },
     schema: newSuperFollowSchema
   });

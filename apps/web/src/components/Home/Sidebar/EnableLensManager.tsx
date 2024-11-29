@@ -9,7 +9,7 @@ const EnableLensManager: FC = () => {
   const { currentAccount } = useAccountStore();
   const { address } = useAccount();
 
-  if (currentAccount?.ownedBy.address !== address) {
+  if (currentAccount?.owner !== address) {
     return null;
   }
 

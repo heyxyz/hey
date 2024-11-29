@@ -48,7 +48,7 @@ const LinkHandle: FC = () => {
   };
 
   const { data, loading } = useOwnedHandlesQuery({
-    variables: { request: { for: currentAccount?.ownedBy.address } }
+    variables: { request: { for: currentAccount?.owner } }
   });
 
   const { data: writeHash, writeContractAsync } = useWriteContract({

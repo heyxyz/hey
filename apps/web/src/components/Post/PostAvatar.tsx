@@ -34,7 +34,7 @@ const PostAvatar: FC<PostAvatarProps> = ({
       onClick={stopEventPropagation}
     >
       <Image
-        alt={account.id}
+        alt={account.address}
         className={cn(
           quoted ? "size-6" : "size-11",
           "z-[1] cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
@@ -43,7 +43,7 @@ const PostAvatar: FC<PostAvatarProps> = ({
         loading="lazy"
         onClick={() => push(getAccount(account).link)}
         onError={({ currentTarget }) => {
-          currentTarget.src = getLennyURL(account.id);
+          currentTarget.src = getLennyURL(account.address);
         }}
         src={getAvatar(account)}
         width={quoted ? 25 : 44}
