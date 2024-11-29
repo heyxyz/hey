@@ -27,4 +27,16 @@ fragment AccountFields on Account {
     canUnblock
     hasReported
   }
+  rules {
+    anyOf {
+      ... on SimplePaymentFollowRule {
+        ...SimplePaymentFollowRuleFields
+      }
+    }
+    required {
+      ... on SimplePaymentFollowRule {
+        ...SimplePaymentFollowRuleFields
+      }
+    }
+  }
 }
