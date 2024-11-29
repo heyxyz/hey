@@ -1,0 +1,16 @@
+mutation AssignUsernameToAccount($request: AssignUsernameToAccountRequest!) {
+  assignUsernameToAccount(request: $request) {
+    ... on AssignUsernameResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      reason
+    }
+    ... on SponsoredTransactionRequest {
+      reason
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

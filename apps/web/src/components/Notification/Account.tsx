@@ -19,18 +19,18 @@ export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
 }) => {
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     const target = event.currentTarget;
-    target.src = getLennyURL(account.id);
+    target.src = getLennyURL(account.address);
   };
 
   return (
-    <AccountPreview handle={account.handle?.fullHandle} id={account.id}>
+    <AccountPreview handle={account.username?.value} address={account.address}>
       <Link
         className="rounded-full outline-offset-2"
         href={getAccount(account).link}
         onClick={stopEventPropagation}
       >
         <Image
-          alt={account.id}
+          alt={account.address}
           className="size-7 rounded-full border bg-gray-200 sm:size-8 dark:border-gray-700"
           height={32}
           onError={handleImageError}

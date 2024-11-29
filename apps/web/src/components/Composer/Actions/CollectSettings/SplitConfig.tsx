@@ -28,7 +28,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const { currentAccount } = useAccountStore();
   const { collectModule } = useCollectModuleStore((state) => state);
 
-  const currentAddress = currentAccount?.ownedBy.address || "";
+  const currentAddress = currentAccount?.owner || "";
   const recipients = collectModule.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||
@@ -119,7 +119,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                     updateRecipient(index, event.target.value)
                   }
                   onAccountSelected={(account) =>
-                    updateRecipient(index, account.ownedBy.address)
+                    updateRecipient(index, account.owner)
                   }
                   placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.recipient}

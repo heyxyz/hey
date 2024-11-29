@@ -16,7 +16,7 @@ import LensManager from "./LensManager";
 const ManagerSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const { address } = useAccount();
-  const disabled = currentAccount?.ownedBy.address !== address;
+  const disabled = currentAccount?.owner !== address;
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "manager" });

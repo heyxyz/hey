@@ -1,0 +1,3 @@
+mutation ReportAccount($request: ReportAccountRequest!) {
+  reportAccount(request: $request)
+}

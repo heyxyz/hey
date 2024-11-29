@@ -34,7 +34,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
               : { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
             recipients: enabled
               ? []
-              : [{ recipient: currentAccount?.ownedBy.address, split: 100 }],
+              : [{ recipient: currentAccount?.owner, split: 100 }],
             type: enabled
               ? CollectOpenActionModuleType.SimpleCollectOpenActionModule
               : CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
