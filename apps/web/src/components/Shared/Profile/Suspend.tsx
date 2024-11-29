@@ -17,15 +17,15 @@ import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface SuspendProps {
-  id: string;
+  address: string;
 }
 
-const Suspend: FC<SuspendProps> = ({ id }) => {
+const Suspend: FC<SuspendProps> = ({ address }) => {
   const queryClient = useQueryClient();
 
   const { data: account, isLoading } = useQuery({
-    queryFn: () => getInternalAccount(id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, id || ""]
+    queryFn: () => getInternalAccount(address, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, address || ""]
   });
 
   const suspendAccount = async () => {
@@ -33,13 +33,13 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
       await Promise.all([
         axios.post(
           `${HEY_API_URL}/internal/permissions/assign`,
-          { enabled: true, id: PermissionId.Suspended, accountId: id },
+          { enabled: true, id: PermissionId.Suspended, address },
           { headers: getAuthApiHeaders() }
         ),
         axios.post(
           `${HEY_API_URL}/internal/account/report`,
           {
-            id,
+            address,
             subreasons: [
               PublicationReportingSpamSubreason.FakeEngagement,
               PublicationReportingSpamSubreason.LowSignal,
@@ -51,7 +51,7 @@ const Suspend: FC<SuspendProps> = ({ id }) => {
       ]);
 
       queryClient.invalidateQueries({
-        queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, id]
+        queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, address]
       });
       toast.success("Account suspended");
     } catch (error) {

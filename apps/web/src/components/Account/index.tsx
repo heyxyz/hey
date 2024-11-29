@@ -3,11 +3,7 @@ import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { Leafwatch } from "@helpers/leafwatch";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import {
-  APP_NAME,
-  HANDLE_PREFIX,
-  STATIC_IMAGES_URL
-} from "@hey/data/constants";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { AccountFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
@@ -15,8 +11,8 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
+import { type Account, useFullAccountQuery } from "@hey/indexer";
 import type { Profile } from "@hey/lens";
-import { useProfileQuery } from "@hey/lens";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -37,7 +33,7 @@ const ViewProfile: NextPage = () => {
   const {
     isReady,
     pathname,
-    query: { handle, id, source, type }
+    query: { username, address, source, type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -47,12 +43,12 @@ const ViewProfile: NextPage = () => {
       Leafwatch.track(PAGEVIEW, {
         page: "profile",
         subpage: pathname
-          .replace("/u/[handle]", "")
-          .replace("/profile/[id]", ""),
+          .replace("/u/[username]", "")
+          .replace("/profile/[address]", ""),
         ...(source ? { source } : {})
       });
     }
-  }, [handle, id]);
+  }, [username, address]);
 
   const lowerCaseAccountFeedType = [
     AccountFeedType.Feed.toLowerCase(),
@@ -72,18 +68,19 @@ const ViewProfile: NextPage = () => {
     data,
     error,
     loading: profileLoading
-  } = useProfileQuery({
-    skip: id ? !id : !handle,
+  } = useFullAccountQuery({
+    skip: address ? !address : !username,
     variables: {
-      request: {
-        ...(id
-          ? { forProfileId: id }
-          : { forHandle: `${HANDLE_PREFIX}${handle}` })
-      }
+      accountRequest: {
+        ...(address
+          ? { address }
+          : { username: { localName: username as string } })
+      },
+      accountStatsRequest: { account: address }
     }
   });
 
-  const account = data?.profile as Profile;
+  const account = data?.profile as Account;
 
   const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
     enabled: Boolean(account?.id),

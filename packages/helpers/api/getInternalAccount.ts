@@ -11,13 +11,13 @@ export const GET_INTERNAL_ACCOUNT_QUERY_KEY = "getInternalAccount";
  * @returns internal account
  */
 const getInternalAccount = async (
-  id: string,
+  address: string,
   headers: any
 ): Promise<InternalAccount> => {
   try {
     const { data } = await axios.get(`${HEY_API_URL}/internal/account/get`, {
       headers,
-      params: { id }
+      params: { address }
     });
 
     return data.result;
