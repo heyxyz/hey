@@ -10,26 +10,26 @@ import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
 import AccountStatus from "./Modal/AccountStatus";
 import AddToList from "./Modal/AddToList";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
-import ReportProfile from "./Modal/ReportProfile";
+import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
   const {
     authModalType,
-    reportingProfile,
+    reportingAccount,
     reportingPostId,
     setShowAuthModal,
     setShowNewPostModal,
     setShowOptimisticTransactionsModal,
-    setShowProfileSwitchModal,
+    setShowAccountSwitchModal,
     setShowPostReportModal,
-    setShowReportProfileModal,
+    setShowReportAccountModal,
     showAuthModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
-    showProfileSwitchModal,
+    showAccountSwitchModal,
     showPostReportModal,
-    showReportProfileModal,
+    showReportAccountModal,
     showEditStatusModal,
     setShowEditStatusModal,
     showAddToListModal,
@@ -57,15 +57,15 @@ const GlobalModals: FC = () => {
         <ReportPost postId={reportingPostId} />
       </Modal>
       <Modal
-        onClose={() => setShowReportProfileModal(false, reportingProfile)}
-        show={showReportProfileModal}
-        title="Report profile"
+        onClose={() => setShowReportAccountModal(false, reportingAccount)}
+        show={showReportAccountModal}
+        title="Report account"
       >
-        <ReportProfile account={reportingProfile} />
+        <ReportAccount account={reportingAccount} />
       </Modal>
       <Modal
-        onClose={() => setShowProfileSwitchModal(false)}
-        show={showProfileSwitchModal}
+        onClose={() => setShowAccountSwitchModal(false)}
+        show={showAccountSwitchModal}
         size={address ? "xs" : "sm"}
         title="Switch Account"
       >

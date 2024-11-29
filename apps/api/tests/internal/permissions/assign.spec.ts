@@ -17,10 +17,10 @@ describe("POST /internal/permissions/assign", () => {
     expect(status).toBe(200);
     expect(data.enabled).toBe(true);
 
-    const profilePermission = await prisma.profilePermission.findFirst({
+    const accountPermission = await prisma.profilePermission.findFirst({
       where: { profileId: TEST_LENS_ID, permissionId: PermissionId.Beta }
     });
-    expect(profilePermission?.permissionId).toBe(PermissionId.Beta);
+    expect(accountPermission?.permissionId).toBe(PermissionId.Beta);
   });
 
   test("should return 200 and disable the permission", async () => {
@@ -33,10 +33,10 @@ describe("POST /internal/permissions/assign", () => {
     expect(status).toBe(200);
     expect(data.enabled).toBe(false);
 
-    const profilePermission = await prisma.profilePermission.findFirst({
+    const accountPermission = await prisma.profilePermission.findFirst({
       where: { profileId: TEST_LENS_ID, permissionId: PermissionId.Beta }
     });
-    expect(profilePermission).toBeNull();
+    expect(accountPermission).toBeNull();
   });
 
   test("should return 400 if body is missing", async () => {

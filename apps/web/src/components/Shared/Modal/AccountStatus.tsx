@@ -43,14 +43,14 @@ const AccountStatus: FC = () => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load profile status"
+        title="Failed to load account status"
       />
     );
   }
 
   const handleClear = async () => {
     try {
-      await axios.post(`${HEY_API_URL}/profile/status/clear`, undefined, {
+      await axios.post(`${HEY_API_URL}/account/status/clear`, undefined, {
         headers: getAuthApiHeaders()
       });
 
@@ -69,7 +69,7 @@ const AccountStatus: FC = () => {
   const handleUpdate = async () => {
     try {
       await axios.post(
-        `${HEY_API_URL}/profile/status/update`,
+        `${HEY_API_URL}/account/status/update`,
         { emoji, message },
         { headers: getAuthApiHeaders() }
       );

@@ -25,10 +25,10 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.success).toBe(true);
     expect(data.enabled).toBe(true);
 
-    const profilePermission = await prisma.profilePermission.findFirst({
+    const accountPermission = await prisma.profilePermission.findFirst({
       where: { profileId: accountId, permissionId }
     });
-    expect(profilePermission).toBeDefined();
+    expect(accountPermission).toBeDefined();
   });
 
   test("should disable permission for a profile", async () => {
@@ -42,10 +42,10 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.success).toBe(true);
     expect(data.enabled).toBe(false);
 
-    const profilePermission = await prisma.profilePermission.findFirst({
+    const accountPermission = await prisma.profilePermission.findFirst({
       where: { profileId: accountId, permissionId }
     });
-    expect(profilePermission).toBeNull();
+    expect(accountPermission).toBeNull();
   });
 
   test("should return 400 for invalid body", async () => {
