@@ -69,10 +69,17 @@ export type Account = {
    * address of the account itself.
    */
   owner: Scalars['EvmAddress']['output'];
+  /** Get the rules for the account. */
+  rules: FollowRulesConfig;
   /** The score of the account. */
   score: Scalars['Int']['output'];
   /** The username linked to the account. */
   username?: Maybe<Username>;
+};
+
+
+export type AccountRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 
@@ -486,6 +493,7 @@ export type App = {
   graphAddress?: Maybe<Scalars['EvmAddress']['output']>;
   metadata?: Maybe<AppMetadata>;
   namespaceAddress?: Maybe<Scalars['EvmAddress']['output']>;
+  sourceStampVerificationEnabled: Scalars['Boolean']['output'];
   sponsorshipAddress?: Maybe<Scalars['EvmAddress']['output']>;
   treasuryAddress?: Maybe<Scalars['EvmAddress']['output']>;
 };
@@ -521,6 +529,11 @@ export type AppRequest = {
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The transaction hash you created the app with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type ApprovalGroupRule = {
+  __typename?: 'ApprovalGroupRule';
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export enum AppsOrderBy {
@@ -707,6 +720,17 @@ export type ChallengeRequest = {
   builder?: InputMaybe<BuilderChallengeRequest>;
   /** Use this to authenticate as an Onboarding User. */
   onboardingUser?: InputMaybe<OnboardingUserChallengeRequest>;
+};
+
+export type CharsetUsernameNamespaceRule = {
+  __typename?: 'CharsetUsernameNamespaceRule';
+  allowLatinLowercase: Scalars['Boolean']['output'];
+  allowLatinUppercase: Scalars['Boolean']['output'];
+  allowNumeric: Scalars['Boolean']['output'];
+  cannotStartWith?: Maybe<Scalars['String']['output']>;
+  customAllowedCharset?: Maybe<Array<Scalars['String']['output']>>;
+  customDisallowedCharset?: Maybe<Array<Scalars['String']['output']>>;
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type CheckingInMetadata = {
@@ -1606,6 +1630,12 @@ export type Feed = {
   __typename?: 'Feed';
   address: Scalars['EvmAddress']['output'];
   metadata?: Maybe<FeedMetadata>;
+  rules: FeedRulesConfig;
+};
+
+
+export type FeedRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type FeedMetadata = {
@@ -1628,6 +1658,14 @@ export type FeedRequest = {
   feed?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The transaction hash you created the feed with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type FeedRule = GroupGatedFeedRule | RestrictedSignersFeedRule | SimplePaymentFeedRule | TokenGatedFeedRule | UnknownFeedRule | UserBlockingRule;
+
+export type FeedRulesConfig = {
+  __typename?: 'FeedRulesConfig';
+  anyOf: Array<FeedRule>;
+  required: Array<FeedRule>;
 };
 
 export type FeedRulesInput = {
@@ -1673,6 +1711,14 @@ export type FollowResponse = {
 
 export type FollowResult = FollowResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type FollowRule = SimplePaymentFollowRule | TokenGatedFollowRule | UnknownFollowRule;
+
+export type FollowRulesConfig = {
+  __typename?: 'FollowRulesConfig';
+  anyOf: Array<FollowRule>;
+  required: Array<FollowRule>;
+};
+
 export type FollowRulesInput = {
   feeFollowRule?: InputMaybe<FeeFollowRuleInput>;
   unknownFollowRule?: InputMaybe<UnknownFollowRuleInput>;
@@ -1696,6 +1742,15 @@ export type Follower = {
   followedOn: Scalars['DateTime']['output'];
   /** The account which is following */
   follower: Account;
+};
+
+export type FollowerOnlyPostRule = {
+  __typename?: 'FollowerOnlyPostRule';
+  graph: Scalars['EvmAddress']['output'];
+  quotesRestricted: Scalars['Boolean']['output'];
+  repliesRestricted: Scalars['Boolean']['output'];
+  repostsRestricted: Scalars['Boolean']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export enum FollowersOrderBy {
@@ -1782,6 +1837,12 @@ export type Graph = {
   __typename?: 'Graph';
   address: Scalars['EvmAddress']['output'];
   metadata?: Maybe<GraphMetadata>;
+  rules: GraphRulesConfig;
+};
+
+
+export type GraphRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type GraphMetadata = {
@@ -1806,6 +1867,14 @@ export type GraphRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
+export type GraphRule = RestrictedSignerGraphRule | TokenGatedGraphRule | UnknownGraphRule | UserBlockingRule;
+
+export type GraphRulesConfig = {
+  __typename?: 'GraphRulesConfig';
+  anyOf: Array<GraphRule>;
+  required: Array<GraphRule>;
+};
+
 export type GraphRulesInput = {
   unknownGraphRule?: InputMaybe<UnknownGraphRuleInput>;
 };
@@ -1814,7 +1883,19 @@ export type Group = {
   __typename?: 'Group';
   address: Scalars['EvmAddress']['output'];
   metadata?: Maybe<GroupMetadata>;
+  rules: GroupRulesConfig;
   timestamp: Scalars['DateTime']['output'];
+};
+
+
+export type GroupRulesArgs = {
+  request?: InputMaybe<RuleInput>;
+};
+
+export type GroupGatedFeedRule = {
+  __typename?: 'GroupGatedFeedRule';
+  group: Group;
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export enum GroupMembersOrderBy {
@@ -1856,6 +1937,14 @@ export type GroupRequest = {
   group?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The transaction hash you created the group with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type GroupRule = ApprovalGroupRule | SimplePaymentGroupRule | TokenGatedGroupRule | UnknownGroupRule;
+
+export type GroupRulesConfig = {
+  __typename?: 'GroupRulesConfig';
+  anyOf: Array<GroupRule>;
+  required: Array<GroupRule>;
 };
 
 export type GroupsFilter = {
@@ -1971,6 +2060,13 @@ export type LeaveGroupResponse = {
 };
 
 export type LeaveGroupResult = LeaveGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type LengthUsernameNamespaceRule = {
+  __typename?: 'LengthUsernameNamespaceRule';
+  maxLength: Scalars['Int']['output'];
+  minLength: Scalars['Int']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
 
 export type LinkMetadata = {
   __typename?: 'LinkMetadata';
@@ -2156,8 +2252,6 @@ export enum ManagedAccountsVisibility {
 
 export type MeResult = {
   __typename?: 'MeResult';
-  /** The logged in account. */
-  account: AccountAvailable;
   /** The app the account is logged in to. */
   appLoggedIn: Scalars['EvmAddress']['output'];
   /** Whether the account is signless. */
@@ -2166,6 +2260,8 @@ export type MeResult = {
   isSponsored: Scalars['Boolean']['output'];
   /** The sponsorship allowance for the account. */
   limit: SponsorshipAllowance;
+  /** The logged in account. */
+  loggedInAs: AccountAvailable;
 };
 
 /**
@@ -3435,8 +3531,14 @@ export type Post = {
   operations?: Maybe<LoggedInPostOperations>;
   quoteOf?: Maybe<NestedPost>;
   root?: Maybe<NestedPost>;
+  rules: PostRulesConfig;
   stats: PostStats;
   timestamp: Scalars['DateTime']['output'];
+};
+
+
+export type PostRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type PostAccountPair = {
@@ -3603,6 +3705,14 @@ export type PostResponse = {
 };
 
 export type PostResult = PostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type PostRule = FollowerOnlyPostRule | UnknownPostRule;
+
+export type PostRulesConfig = {
+  __typename?: 'PostRulesConfig';
+  anyOf: Array<PostRule>;
+  required: Array<PostRule>;
+};
 
 export type PostStats = {
   __typename?: 'PostStats';
@@ -4075,6 +4185,24 @@ export type RepostNotification = {
   reposts: Array<NotificationAccountRepost>;
 };
 
+export type RestrictedSigner = {
+  __typename?: 'RestrictedSigner';
+  label: Scalars['String']['output'];
+  signer: Scalars['EvmAddress']['output'];
+};
+
+export type RestrictedSignerGraphRule = {
+  __typename?: 'RestrictedSignerGraphRule';
+  rule: Scalars['EvmAddress']['output'];
+  signers: Array<RestrictedSigner>;
+};
+
+export type RestrictedSignersFeedRule = {
+  __typename?: 'RestrictedSignersFeedRule';
+  rule: Scalars['EvmAddress']['output'];
+  signers: Array<RestrictedSigner>;
+};
+
 export type RevokeAuthenticationRequest = {
   authenticationId: Scalars['UUID']['input'];
 };
@@ -4084,6 +4212,10 @@ export type RolloverRefreshRequest = {
   app: Scalars['EvmAddress']['input'];
   /** A valid Lens API v2 refresh token for a Profile session. */
   refreshToken: Scalars['LegacyRefreshToken']['input'];
+};
+
+export type RuleInput = {
+  rules: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type SearchGroupsRequest = {
@@ -4175,6 +4307,34 @@ export type SimpleCollectActionSettings = {
   recipient: Scalars['EvmAddress']['output'];
   recipients: Array<RecipientDataOutput>;
   referralFee: Scalars['Float']['output'];
+};
+
+export type SimplePaymentFeedRule = {
+  __typename?: 'SimplePaymentFeedRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type SimplePaymentFollowRule = {
+  __typename?: 'SimplePaymentFollowRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type SimplePaymentGroupRule = {
+  __typename?: 'SimplePaymentGroupRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type SimplePaymentUsernameNamespaceRule = {
+  __typename?: 'SimplePaymentUsernameNamespaceRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type SpaceMetadata = {
@@ -4386,6 +4546,57 @@ export type TimelineRequest = {
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type TokenGatedFeedRule = {
+  __typename?: 'TokenGatedFeedRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedFollowRule = {
+  __typename?: 'TokenGatedFollowRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedGraphRule = {
+  __typename?: 'TokenGatedGraphRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedGroupRule = {
+  __typename?: 'TokenGatedGroupRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedUsernameNamespaceRule = {
+  __typename?: 'TokenGatedUsernameNamespaceRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export enum TokenStandard {
+  Erc_20 = 'ERC_20',
+  Erc_721 = 'ERC_721',
+  Erc_1155 = 'ERC_1155'
+}
+
 /** AccessCondition */
 export type TopLevelAccessCondition = {
   __typename?: 'TopLevelAccessCondition';
@@ -4538,11 +4749,23 @@ export type UnknownActionSettings = {
   verified: Scalars['Boolean']['output'];
 };
 
+export type UnknownFeedRule = {
+  __typename?: 'UnknownFeedRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
 export type UnknownFeedRuleInput = {
   /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   /** The encoded rule execution data. */
   data: Scalars['BlockchainData']['input'];
+};
+
+export type UnknownFollowRule = {
+  __typename?: 'UnknownFollowRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type UnknownFollowRuleInput = {
@@ -4552,11 +4775,35 @@ export type UnknownFollowRuleInput = {
   data: Scalars['BlockchainData']['input'];
 };
 
+export type UnknownGraphRule = {
+  __typename?: 'UnknownGraphRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
 export type UnknownGraphRuleInput = {
   /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   /** The encoded rule execution data. */
   data: Scalars['BlockchainData']['input'];
+};
+
+export type UnknownGroupRule = {
+  __typename?: 'UnknownGroupRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type UnknownPostRule = {
+  __typename?: 'UnknownPostRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type UnknownUsernameNamespaceRule = {
+  __typename?: 'UnknownUsernameNamespaceRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type UpdateAccountManagerRequest = {
@@ -4567,6 +4814,12 @@ export type UpdateAccountManagerRequest = {
 };
 
 export type UpdateAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type UserBlockingRule = {
+  __typename?: 'UserBlockingRule';
+  blockedUsers: Array<Scalars['EvmAddress']['output']>;
+  rule: Scalars['EvmAddress']['output'];
+};
 
 export type Username = {
   __typename?: 'Username';
@@ -4600,6 +4853,12 @@ export type UsernameNamespace = {
   metadata?: Maybe<UsernameNamespaceMetadata>;
   /** The namespace for example `lens` */
   namespace: Scalars['String']['output'];
+  rules: UsernameNamespaceRulesConfig;
+};
+
+
+export type UsernameNamespaceRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type UsernameNamespaceMetadata = {
@@ -4618,6 +4877,14 @@ export type UsernameNamespaceRequest = {
   namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The transaction hash you created the namespace with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type UsernameNamespaceRule = CharsetUsernameNamespaceRule | LengthUsernameNamespaceRule | SimplePaymentUsernameNamespaceRule | TokenGatedUsernameNamespaceRule | UnknownUsernameNamespaceRule;
+
+export type UsernameNamespaceRulesConfig = {
+  __typename?: 'UsernameNamespaceRulesConfig';
+  anyOf: Array<UsernameNamespaceRule>;
+  required: Array<UsernameNamespaceRule>;
 };
 
 /** You must provide either an id or a username, not both. */
@@ -5056,6 +5323,13 @@ export type AddAccountManagerMutationVariables = Exact<{
 
 export type AddAccountManagerMutation = { __typename?: 'Mutation', addAccountManager: { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
 
+export type AssignUsernameToAccountMutationVariables = Exact<{
+  request: AssignUsernameToAccountRequest;
+}>;
+
+
+export type AssignUsernameToAccountMutation = { __typename?: 'Mutation', assignUsernameToAccount: { __typename?: 'AssignUsernameResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
+
 export type BlockMutationVariables = Exact<{
   request: BlockRequest;
 }>;
@@ -5069,6 +5343,11 @@ export type CreateAccountWithUsernameMutationVariables = Exact<{
 
 
 export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'InvalidUsername', reason: string } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type EnableSignlessMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EnableSignlessMutation = { __typename?: 'Mutation', enableSignless: { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
 
 export type FollowMutationVariables = Exact<{
   request: CreateFollowRequest;
@@ -5090,6 +5369,13 @@ export type RemoveAccountManagerMutationVariables = Exact<{
 
 
 export type RemoveAccountManagerMutation = { __typename?: 'Mutation', removeAccountManager: { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type ReportAccountMutationVariables = Exact<{
+  request: ReportAccountRequest;
+}>;
+
+
+export type ReportAccountMutation = { __typename?: 'Mutation', reportAccount: any };
 
 export type SetAccountMetadataMutationVariables = Exact<{
   request: SetAccountMetadataRequest;
@@ -5140,6 +5426,13 @@ export type RefreshMutationVariables = Exact<{
 
 export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ForbiddenError', reason: string } };
 
+export type CreateGroupMutationVariables = Exact<{
+  request: CreateGroupRequest;
+}>;
+
+
+export type CreateGroupMutation = { __typename?: 'Mutation', createGroup: { __typename?: 'CreateGroupResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
+
 export type AddReactionMutationVariables = Exact<{
   request: AddReactionRequest;
 }>;
@@ -5160,6 +5453,13 @@ export type HideReplyMutationVariables = Exact<{
 
 
 export type HideReplyMutation = { __typename?: 'Mutation', hideReply: any };
+
+export type ReportPostMutationVariables = Exact<{
+  request: ReportPostRequest;
+}>;
+
+
+export type ReportPostMutation = { __typename?: 'Mutation', reportPost: any };
 
 export type UndoReactionMutationVariables = Exact<{
   request: UndoReactionRequest;
@@ -5290,7 +5590,7 @@ export type FullAccountQuery = { __typename?: 'Query', account?: (
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isSignless: boolean, isSponsored: boolean, appLoggedIn: any, account: { __typename?: 'AccountManaged', account: (
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isSignless: boolean, isSponsored: boolean, appLoggedIn: any, loggedInAs: { __typename?: 'AccountManaged', account: (
         { __typename?: 'Account' }
         & AccountFieldsFragment
       ) } | { __typename?: 'AccountOwned', account: (
@@ -5485,6 +5785,33 @@ export function useAddAccountManagerMutation(baseOptions?: Apollo.MutationHookOp
 export type AddAccountManagerMutationHookResult = ReturnType<typeof useAddAccountManagerMutation>;
 export type AddAccountManagerMutationResult = Apollo.MutationResult<AddAccountManagerMutation>;
 export type AddAccountManagerMutationOptions = Apollo.BaseMutationOptions<AddAccountManagerMutation, AddAccountManagerMutationVariables>;
+export const AssignUsernameToAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AssignUsernameToAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AssignUsernameToAccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"assignUsernameToAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AssignUsernameResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type AssignUsernameToAccountMutationFn = Apollo.MutationFunction<AssignUsernameToAccountMutation, AssignUsernameToAccountMutationVariables>;
+
+/**
+ * __useAssignUsernameToAccountMutation__
+ *
+ * To run a mutation, you first call `useAssignUsernameToAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAssignUsernameToAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [assignUsernameToAccountMutation, { data, loading, error }] = useAssignUsernameToAccountMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAssignUsernameToAccountMutation(baseOptions?: Apollo.MutationHookOptions<AssignUsernameToAccountMutation, AssignUsernameToAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AssignUsernameToAccountMutation, AssignUsernameToAccountMutationVariables>(AssignUsernameToAccountDocument, options);
+      }
+export type AssignUsernameToAccountMutationHookResult = ReturnType<typeof useAssignUsernameToAccountMutation>;
+export type AssignUsernameToAccountMutationResult = Apollo.MutationResult<AssignUsernameToAccountMutation>;
+export type AssignUsernameToAccountMutationOptions = Apollo.BaseMutationOptions<AssignUsernameToAccountMutation, AssignUsernameToAccountMutationVariables>;
 export const BlockDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Block"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BlockRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"block"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BlockError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"error"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type BlockMutationFn = Apollo.MutationFunction<BlockMutation, BlockMutationVariables>;
 
@@ -5539,6 +5866,32 @@ export function useCreateAccountWithUsernameMutation(baseOptions?: Apollo.Mutati
 export type CreateAccountWithUsernameMutationHookResult = ReturnType<typeof useCreateAccountWithUsernameMutation>;
 export type CreateAccountWithUsernameMutationResult = Apollo.MutationResult<CreateAccountWithUsernameMutation>;
 export type CreateAccountWithUsernameMutationOptions = Apollo.BaseMutationOptions<CreateAccountWithUsernameMutation, CreateAccountWithUsernameMutationVariables>;
+export const EnableSignlessDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"EnableSignless"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"enableSignless"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type EnableSignlessMutationFn = Apollo.MutationFunction<EnableSignlessMutation, EnableSignlessMutationVariables>;
+
+/**
+ * __useEnableSignlessMutation__
+ *
+ * To run a mutation, you first call `useEnableSignlessMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEnableSignlessMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [enableSignlessMutation, { data, loading, error }] = useEnableSignlessMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEnableSignlessMutation(baseOptions?: Apollo.MutationHookOptions<EnableSignlessMutation, EnableSignlessMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EnableSignlessMutation, EnableSignlessMutationVariables>(EnableSignlessDocument, options);
+      }
+export type EnableSignlessMutationHookResult = ReturnType<typeof useEnableSignlessMutation>;
+export type EnableSignlessMutationResult = Apollo.MutationResult<EnableSignlessMutation>;
+export type EnableSignlessMutationOptions = Apollo.BaseMutationOptions<EnableSignlessMutation, EnableSignlessMutationVariables>;
 export const FollowDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Follow"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateFollowRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"follow"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FollowResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMutationVariables>;
 
@@ -5620,6 +5973,33 @@ export function useRemoveAccountManagerMutation(baseOptions?: Apollo.MutationHoo
 export type RemoveAccountManagerMutationHookResult = ReturnType<typeof useRemoveAccountManagerMutation>;
 export type RemoveAccountManagerMutationResult = Apollo.MutationResult<RemoveAccountManagerMutation>;
 export type RemoveAccountManagerMutationOptions = Apollo.BaseMutationOptions<RemoveAccountManagerMutation, RemoveAccountManagerMutationVariables>;
+export const ReportAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ReportAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ReportAccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reportAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type ReportAccountMutationFn = Apollo.MutationFunction<ReportAccountMutation, ReportAccountMutationVariables>;
+
+/**
+ * __useReportAccountMutation__
+ *
+ * To run a mutation, you first call `useReportAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReportAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reportAccountMutation, { data, loading, error }] = useReportAccountMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useReportAccountMutation(baseOptions?: Apollo.MutationHookOptions<ReportAccountMutation, ReportAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReportAccountMutation, ReportAccountMutationVariables>(ReportAccountDocument, options);
+      }
+export type ReportAccountMutationHookResult = ReturnType<typeof useReportAccountMutation>;
+export type ReportAccountMutationResult = Apollo.MutationResult<ReportAccountMutation>;
+export type ReportAccountMutationOptions = Apollo.BaseMutationOptions<ReportAccountMutation, ReportAccountMutationVariables>;
 export const SetAccountMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAccountMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAccountMetadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type SetAccountMetadataMutationFn = Apollo.MutationFunction<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>;
 
@@ -5809,6 +6189,33 @@ export function useRefreshMutation(baseOptions?: Apollo.MutationHookOptions<Refr
 export type RefreshMutationHookResult = ReturnType<typeof useRefreshMutation>;
 export type RefreshMutationResult = Apollo.MutationResult<RefreshMutation>;
 export type RefreshMutationOptions = Apollo.BaseMutationOptions<RefreshMutation, RefreshMutationVariables>;
+export const CreateGroupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateGroup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateGroupRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createGroup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateGroupResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type CreateGroupMutationFn = Apollo.MutationFunction<CreateGroupMutation, CreateGroupMutationVariables>;
+
+/**
+ * __useCreateGroupMutation__
+ *
+ * To run a mutation, you first call `useCreateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGroupMutation, { data, loading, error }] = useCreateGroupMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateGroupMutation(baseOptions?: Apollo.MutationHookOptions<CreateGroupMutation, CreateGroupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateGroupMutation, CreateGroupMutationVariables>(CreateGroupDocument, options);
+      }
+export type CreateGroupMutationHookResult = ReturnType<typeof useCreateGroupMutation>;
+export type CreateGroupMutationResult = Apollo.MutationResult<CreateGroupMutation>;
+export type CreateGroupMutationOptions = Apollo.BaseMutationOptions<CreateGroupMutation, CreateGroupMutationVariables>;
 export const AddReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type AddReactionMutationFn = Apollo.MutationFunction<AddReactionMutation, AddReactionMutationVariables>;
 
@@ -5890,6 +6297,33 @@ export function useHideReplyMutation(baseOptions?: Apollo.MutationHookOptions<Hi
 export type HideReplyMutationHookResult = ReturnType<typeof useHideReplyMutation>;
 export type HideReplyMutationResult = Apollo.MutationResult<HideReplyMutation>;
 export type HideReplyMutationOptions = Apollo.BaseMutationOptions<HideReplyMutation, HideReplyMutationVariables>;
+export const ReportPostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ReportPost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ReportPostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reportPost"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type ReportPostMutationFn = Apollo.MutationFunction<ReportPostMutation, ReportPostMutationVariables>;
+
+/**
+ * __useReportPostMutation__
+ *
+ * To run a mutation, you first call `useReportPostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReportPostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reportPostMutation, { data, loading, error }] = useReportPostMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useReportPostMutation(baseOptions?: Apollo.MutationHookOptions<ReportPostMutation, ReportPostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReportPostMutation, ReportPostMutationVariables>(ReportPostDocument, options);
+      }
+export type ReportPostMutationHookResult = ReturnType<typeof useReportPostMutation>;
+export type ReportPostMutationResult = Apollo.MutationResult<ReportPostMutation>;
+export type ReportPostMutationOptions = Apollo.BaseMutationOptions<ReportPostMutation, ReportPostMutationVariables>;
 export const UndoReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UndoReactionMutationFn = Apollo.MutationFunction<UndoReactionMutation, UndoReactionMutationVariables>;
 
@@ -6327,7 +6761,7 @@ export type FullAccountQueryHookResult = ReturnType<typeof useFullAccountQuery>;
 export type FullAccountLazyQueryHookResult = ReturnType<typeof useFullAccountLazyQuery>;
 export type FullAccountSuspenseQueryHookResult = ReturnType<typeof useFullAccountSuspenseQuery>;
 export type FullAccountQueryResult = Apollo.QueryResult<FullAccountQuery, FullAccountQueryVariables>;
-export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountManaged"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFields"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountOwned"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFields"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isSignless"}},{"kind":"Field","name":{"kind":"Name","value":"isSponsored"}},{"kind":"Field","name":{"kind":"Name","value":"appLoggedIn"}},{"kind":"Field","name":{"kind":"Name","value":"limit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"window"}},{"kind":"Field","name":{"kind":"Name","value":"allowanceLeft"}},{"kind":"Field","name":{"kind":"Name","value":"allowanceUsed"}},{"kind":"Field","name":{"kind":"Name","value":"allowance"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"owner"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MetadataAttributeFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UsernameFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowingMe"}},{"kind":"Field","name":{"kind":"Name","value":"canFollow"}},{"kind":"Field","name":{"kind":"Name","value":"canUnfollow"}},{"kind":"Field","name":{"kind":"Name","value":"isMutedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isBlockedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"hasBlockedMe"}},{"kind":"Field","name":{"kind":"Name","value":"canBlock"}},{"kind":"Field","name":{"kind":"Name","value":"canUnblock"}},{"kind":"Field","name":{"kind":"Name","value":"hasReported"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UsernameFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Username"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"linkedTo"}},{"kind":"Field","name":{"kind":"Name","value":"ownedBy"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataAttributeFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataAttribute"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
+export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loggedInAs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountManaged"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFields"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountOwned"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFields"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isSignless"}},{"kind":"Field","name":{"kind":"Name","value":"isSponsored"}},{"kind":"Field","name":{"kind":"Name","value":"appLoggedIn"}},{"kind":"Field","name":{"kind":"Name","value":"limit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"window"}},{"kind":"Field","name":{"kind":"Name","value":"allowanceLeft"}},{"kind":"Field","name":{"kind":"Name","value":"allowanceUsed"}},{"kind":"Field","name":{"kind":"Name","value":"allowance"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"owner"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MetadataAttributeFields"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UsernameFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowingMe"}},{"kind":"Field","name":{"kind":"Name","value":"canFollow"}},{"kind":"Field","name":{"kind":"Name","value":"canUnfollow"}},{"kind":"Field","name":{"kind":"Name","value":"isMutedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isBlockedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"hasBlockedMe"}},{"kind":"Field","name":{"kind":"Name","value":"canBlock"}},{"kind":"Field","name":{"kind":"Name","value":"canUnblock"}},{"kind":"Field","name":{"kind":"Name","value":"hasReported"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UsernameFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Username"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"linkedTo"}},{"kind":"Field","name":{"kind":"Name","value":"ownedBy"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataAttributeFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataAttribute"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
 
 /**
  * __useMeQuery__
@@ -6861,11 +7295,36 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
     "EncryptionStrategy": [
       "LitProtocolEncryptionStrategy"
     ],
+    "FeedRule": [
+      "GroupGatedFeedRule",
+      "RestrictedSignersFeedRule",
+      "SimplePaymentFeedRule",
+      "TokenGatedFeedRule",
+      "UnknownFeedRule",
+      "UserBlockingRule"
+    ],
     "FollowResult": [
       "FollowResponse",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
+    ],
+    "FollowRule": [
+      "SimplePaymentFollowRule",
+      "TokenGatedFollowRule",
+      "UnknownFollowRule"
+    ],
+    "GraphRule": [
+      "RestrictedSignerGraphRule",
+      "TokenGatedGraphRule",
+      "UnknownGraphRule",
+      "UserBlockingRule"
+    ],
+    "GroupRule": [
+      "ApprovalGroupRule",
+      "SimplePaymentGroupRule",
+      "TokenGatedGroupRule",
+      "UnknownGroupRule"
     ],
     "JoinGroupResult": [
       "JoinGroupResponse",
@@ -6917,6 +7376,10 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
+    ],
+    "PostRule": [
+      "FollowerOnlyPostRule",
+      "UnknownPostRule"
     ],
     "RefreshResult": [
       "AuthenticationTokens",
@@ -6974,6 +7437,13 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
+    ],
+    "UsernameNamespaceRule": [
+      "CharsetUsernameNamespaceRule",
+      "LengthUsernameNamespaceRule",
+      "SimplePaymentUsernameNamespaceRule",
+      "TokenGatedUsernameNamespaceRule",
+      "UnknownUsernameNamespaceRule"
     ]
   }
 };

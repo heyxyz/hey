@@ -28,7 +28,7 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
 
-  if (currentAccount?.address === account.id) {
+  if (currentAccount?.address === account.address) {
     return null;
   }
 

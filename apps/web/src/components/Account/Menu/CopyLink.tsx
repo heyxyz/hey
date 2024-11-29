@@ -29,7 +29,9 @@ const CopyLink: FC<CopyLinkProps> = ({ account }) => {
           `${location.origin}${getAccount(account).link}`
         );
         toast.success("Link copied to clipboard!");
-        Leafwatch.track(ACCOUNT.COPY_ACCOUNT_LINK, { accountId: account.id });
+        Leafwatch.track(ACCOUNT.COPY_ACCOUNT_LINK, {
+          address: account.address
+        });
       }}
     >
       <LinkIcon className="size-4" />

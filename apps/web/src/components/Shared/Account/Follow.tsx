@@ -49,7 +49,7 @@ const Follow: FC<FollowProps> = ({
     txId?: string;
   }): OptimisticTransaction => {
     return {
-      followOn: account.id,
+      followOn: account.address,
       txHash,
       txId,
       type: OptmisticPostType.Follow
@@ -113,7 +113,7 @@ const Follow: FC<FollowProps> = ({
         addTransaction(generateOptimisticFollow({ txId: follow.hash }));
         onCompleted(follow.__typename);
       } else {
-        await write({ args: [account.id] });
+        await write({ args: [account.address] });
       }
     },
     onError
@@ -133,7 +133,7 @@ const Follow: FC<FollowProps> = ({
       setIsLoading(true);
 
       return await follow({
-        variables: { request: { account: account.id } }
+        variables: { request: { account: account.address } }
       });
     } catch (error) {
       onError(error);
@@ -144,7 +144,7 @@ const Follow: FC<FollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading || isUnfollowPending(account.id)}
+      disabled={isLoading || isUnfollowPending(account.address)}
       onClick={handleCreateFollow}
       outline
       size={small ? "sm" : "md"}

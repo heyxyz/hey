@@ -36,13 +36,13 @@ const DefaultAccount: FC = () => {
 
   const { data: accountsData, loading: accountsLoading } = useProfilesQuery({
     variables: {
-      request: { where: { ownedBy: currentAccount?.ownedBy.address } }
+      request: { where: { ownedBy: currentAccount?.owner } }
     }
   });
 
   const { data: defaultAccountData, loading: defaultAccountLoading } =
     useDefaultProfileQuery({
-      variables: { request: { for: currentAccount?.ownedBy.address } }
+      variables: { request: { for: currentAccount?.owner } }
     });
 
   const [setAccount, { loading }] = useSetDefaultProfileMutation({
@@ -95,9 +95,9 @@ const DefaultAccount: FC = () => {
               icon: getAvatar(account),
               label: getAccount(account).slugWithPrefix,
               selected:
-                account.id ===
+                account.address ===
                 (selectedAccountId || defaultAccountData?.defaultProfile?.id),
-              value: account.id
+              value: account.address
             }))}
           />
         </div>

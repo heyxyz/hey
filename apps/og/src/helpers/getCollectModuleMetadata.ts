@@ -28,7 +28,7 @@ const getCollectModuleMetadata = (post: MirrorablePublication) => {
     "eth:nft:chain": "polygon",
     "eth:nft:collection": `${post.__typename} by ${slugWithPrefix} • ${APP_NAME}`,
     "eth:nft:contract_address": collectModule.contract.address,
-    "eth:nft:creator_address": post.by.ownedBy.address,
+    "eth:nft:creator_address": post.by.owner,
     "eth:nft:media_url": getPostOGImages(post.metadata)[0],
     "eth:nft:mint_count": post.stats.countOpenActions,
     "eth:nft:mint_url": `https://hey.xyz/posts/${post.id}`,

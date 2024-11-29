@@ -34,7 +34,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
   const getProfileByAddress = (address: string) => {
     const profiles = recipientProfilesData?.profiles?.items;
     if (profiles) {
-      return profiles.find((p) => p.ownedBy.address === address);
+      return profiles.find((p) => p.owner === address);
     }
   };
 

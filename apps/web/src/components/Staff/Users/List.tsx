@@ -117,7 +117,7 @@ const List: FC = () => {
           <ErrorMessage error={error} title="Failed to load profiles" />
         ) : accounts?.length ? (
           <Virtuoso
-            computeItemKey={(index, account) => `${account.id}-${index}`}
+            computeItemKey={(index, account) => `${account.address}-${index}`}
             data={accounts}
             endReached={onEndReached}
             itemContent={(_, account) => (
@@ -141,7 +141,7 @@ const List: FC = () => {
                   />
                 </Link>
                 <div>
-                  <ViewReports id={account.id} />
+                  <ViewReports address={account.address} />
                 </div>
               </div>
             )}

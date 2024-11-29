@@ -16,7 +16,7 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtuoso
         className="virtual-account-list"
-        computeItemKey={(index, account) => `${account.id}-${index}`}
+        computeItemKey={(index, account) => `${account.address}-${index}`}
         // remove the first 5 accounts from the list because they are already shown in the sidebar
         data={accounts.slice(5)}
         itemContent={(_, account) => (

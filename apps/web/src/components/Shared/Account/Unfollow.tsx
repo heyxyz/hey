@@ -54,7 +54,7 @@ const Unfollow: FC<UnfollowProps> = ({
       txHash,
       txId,
       type: OptmisticPostType.Unfollow,
-      unfollowOn: account.id
+      unfollowOn: account.address
     };
   };
 
@@ -150,7 +150,7 @@ const Unfollow: FC<UnfollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading || isFollowPending(account.id)}
+      disabled={isLoading || isFollowPending(account.address)}
       onClick={handleCreateUnfollow}
       size={small ? "sm" : "md"}
     >
