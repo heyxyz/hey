@@ -3,8 +3,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { HEY_CURATED_ID } from "@hey/data/constants";
-import type { AnyPublication, FeedItem, FeedRequest } from "@hey/lens";
-import { FeedEventItemType, useFeedQuery } from "@hey/lens";
+import type { TimelineRequest } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -25,7 +24,7 @@ const Timeline: FC = () => {
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  const request: FeedRequest = {
+  const request: TimelineRequest = {
     where: {
       feedEventItemTypes: [
         FeedEventItemType.Post,

@@ -1,12 +1,6 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
-import type {
-  AnyPublication,
-  PublicationBookmarksRequest,
-  PublicationMetadataMainFocusType
-} from "@hey/lens";
-import { LimitType, usePublicationBookmarksQuery } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useRef } from "react";

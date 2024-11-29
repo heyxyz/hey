@@ -1,6 +1,5 @@
 import LicensePicker from "@components/Composer/LicensePicker";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
-import { CollectOpenActionModuleType } from "@hey/lens";
 import type { CollectModuleType } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";

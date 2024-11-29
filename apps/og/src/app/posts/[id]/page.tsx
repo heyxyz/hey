@@ -5,8 +5,6 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPublication } from "@hey/lens";
-import { PublicationDocument } from "@hey/lens";
 import { addTypenameToDocument } from "apollo-utilities";
 import { print } from "graphql";
 import type { Metadata } from "next";

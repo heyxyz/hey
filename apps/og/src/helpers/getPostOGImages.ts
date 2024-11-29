@@ -1,5 +1,4 @@
 import getPostData from "@hey/helpers/getPostData";
-import type { PublicationMetadata } from "@hey/lens";
 
 const getPostOGImages = (metadata: PublicationMetadata) => {
   const filteredAttachments = getPostData(metadata)?.attachments || [];

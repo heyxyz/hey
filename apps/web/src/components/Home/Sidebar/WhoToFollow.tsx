@@ -4,7 +4,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT, AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
-import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

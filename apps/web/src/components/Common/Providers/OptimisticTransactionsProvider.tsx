@@ -1,7 +1,3 @@
-import {
-  LensTransactionStatusType,
-  useLensTransactionStatusQuery
-} from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import type { FC } from "react";

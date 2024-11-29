@@ -1,5 +1,4 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { FeedItem } from "@hey/lens";
 import type { FC } from "react";
 import Combined from "./Combined";
 import Mirrored from "./Mirrored";

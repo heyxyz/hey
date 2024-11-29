@@ -1,5 +1,4 @@
 import logger from "@hey/helpers/logger";
-import { ReportPublicationDocument } from "@hey/lens";
 import { addTypenameToDocument } from "apollo-utilities";
 import axios from "axios";
 import type { Request, Response } from "express";

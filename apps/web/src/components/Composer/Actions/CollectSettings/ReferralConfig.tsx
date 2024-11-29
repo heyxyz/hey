@@ -1,6 +1,5 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { CollectOpenActionModuleType } from "@hey/lens";
 import type { CollectModuleType } from "@hey/types/hey";
 import { RangeSlider } from "@hey/ui";
 import type { FC } from "react";
