@@ -1,4 +1,3 @@
-import type { MirrorablePublication } from "@hey/lens";
 import { Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 

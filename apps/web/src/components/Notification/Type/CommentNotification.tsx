@@ -1,7 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import type { CommentNotification as TCommentNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";

@@ -1,7 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import type { ReactionNotification as TReactionNotification } from "@hey/lens";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";

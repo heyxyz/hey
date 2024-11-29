@@ -7,7 +7,6 @@ import getPostsViews, {
   GET_POSTS_VIEWS_QUERY_KEY
 } from "@hey/helpers/getPostsViews";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { PublicationStats as IPublicationStats } from "@hey/lens";
 import { Modal } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";

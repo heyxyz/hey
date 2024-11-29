@@ -1,7 +1,6 @@
 import Markup from "@components/Shared/Markup";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import type { MentionNotification as TMirrorNotification } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";

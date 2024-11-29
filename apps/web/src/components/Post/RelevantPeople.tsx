@@ -2,8 +2,6 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
-import type { ProfileMentioned } from "@hey/lens";
-import { useProfilesQuery } from "@hey/lens";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

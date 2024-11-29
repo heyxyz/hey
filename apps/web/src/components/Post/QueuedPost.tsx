@@ -3,12 +3,6 @@ import Markup from "@components/Shared/Markup";
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getMentions from "@hey/helpers/getMentions";
 import type { Account } from "@hey/indexer";
-import {
-  LensTransactionStatusType,
-  PublicationDocument,
-  useLensTransactionStatusQuery,
-  usePublicationLazyQuery
-} from "@hey/lens";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Card, Tooltip } from "@hey/ui";
 import type { FC } from "react";
