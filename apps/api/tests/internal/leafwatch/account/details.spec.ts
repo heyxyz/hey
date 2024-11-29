@@ -4,10 +4,10 @@ import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
-describe("GET /internal/leafwatch/profile/details", () => {
+describe("GET /internal/leafwatch/account/details", () => {
   test("should return 200 and profile details", async () => {
     const { data, status } = await axios.get(
-      `${TEST_URL}/internal/leafwatch/profile/details`,
+      `${TEST_URL}/internal/leafwatch/account/details`,
       { params: { id: TEST_LENS_ID }, headers: getTestAuthHeaders() }
     );
 
@@ -32,7 +32,7 @@ describe("GET /internal/leafwatch/profile/details", () => {
 
   test("should return 401 if the id token is missing", async () => {
     try {
-      await axios.get(`${TEST_URL}/internal/leafwatch/profile/details`, {
+      await axios.get(`${TEST_URL}/internal/leafwatch/account/details`, {
         params: { id: TEST_LENS_ID }
       });
     } catch (error: any) {

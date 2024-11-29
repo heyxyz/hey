@@ -29,8 +29,8 @@ const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
   const getHaveUsedHey = async () => {
     try {
       const { data } = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/profile/haveUsedHey`,
-        { headers: getAuthApiHeaders(), params: { id: account.id } }
+        `${HEY_API_URL}/internal/leafwatch/account/haveUsedHey`,
+        { headers: getAuthApiHeaders(), params: { address: account.address } }
       );
 
       return data.haveUsedHey;

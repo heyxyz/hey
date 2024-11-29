@@ -3,11 +3,11 @@ import { TEST_URL } from "tests/helpers/constants";
 import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { describe, expect, test } from "vitest";
 
-describe("POST /profile/status/update", () => {
+describe("POST /account/status/update", () => {
   test("should return 400 if no body is provided", async () => {
     try {
       await axios.post(
-        `${TEST_URL}/profile/status/update`,
+        `${TEST_URL}/account/status/update`,
         {},
         { headers: getTestAuthHeaders() }
       );
@@ -19,7 +19,7 @@ describe("POST /profile/status/update", () => {
   test("should return 400 for invalid body (missing required fields)", async () => {
     try {
       await axios.post(
-        `${TEST_URL}/profile/status/update`,
+        `${TEST_URL}/account/status/update`,
         { randomField: "invalid" },
         { headers: getTestAuthHeaders() }
       );
@@ -28,9 +28,9 @@ describe("POST /profile/status/update", () => {
     }
   });
 
-  test("should return 200 and update the profile status", async () => {
+  test("should return 200 and update the account status", async () => {
     const { data, status } = await axios.post(
-      `${TEST_URL}/profile/status/update`,
+      `${TEST_URL}/account/status/update`,
       { emoji: "😀", message: "Status message" },
       { headers: getTestAuthHeaders() }
     );

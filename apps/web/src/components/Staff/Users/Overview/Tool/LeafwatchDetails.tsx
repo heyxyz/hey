@@ -14,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 
-const GET_PROFILE_IMPRESSIONS_QUERY_KEY = "getProfileImpressions";
+const GET_ACCOUNT_IMPRESSIONS_QUERY_KEY = "getAccountImpressions";
 
 interface LeafwatchDetailsProps {
   accountId: string;
@@ -29,7 +29,7 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
   } | null> => {
     try {
       const { data } = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/profile/details`,
+        `${HEY_API_URL}/internal/leafwatch/account/details`,
         { headers: getAuthApiHeaders(), params: { id: accountId } }
       );
 
@@ -45,12 +45,12 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
     queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, accountId]
   });
 
-  const getProfileImpressions = async (): Promise<{
+  const getAccountImpressions = async (): Promise<{
     totalImpressions: number;
   } | null> => {
     try {
       const { data } = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/profile/impressions`,
+        `${HEY_API_URL}/internal/leafwatch/account/impressions`,
         { headers: getAuthApiHeaders(), params: { id: accountId } }
       );
 
@@ -62,8 +62,8 @@ const LeafwatchDetails: FC<LeafwatchDetailsProps> = ({ accountId }) => {
 
   const { data: impressionDetails } = useQuery({
     enabled: Boolean(accountId),
-    queryFn: getProfileImpressions,
-    queryKey: [GET_PROFILE_IMPRESSIONS_QUERY_KEY, accountId]
+    queryFn: getAccountImpressions,
+    queryKey: [GET_ACCOUNT_IMPRESSIONS_QUERY_KEY, accountId]
   });
 
   if (!leafwatchDetails || !impressionDetails) {

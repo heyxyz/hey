@@ -40,10 +40,10 @@ const ViewProfile: NextPage = () => {
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
-        page: "profile",
+        page: "account",
         subpage: pathname
           .replace("/u/[username]", "")
-          .replace("/profile/[address]", ""),
+          .replace("/account/[address]", ""),
         ...(source ? { source } : {})
       });
     }

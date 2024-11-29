@@ -4,10 +4,10 @@ import axios from "axios";
 import { TEST_URL } from "tests/helpers/constants";
 import { describe, expect, test } from "vitest";
 
-describe("GET /profile/get", () => {
+describe("GET /account/get", () => {
   test("should return 400 if no id is provided", async () => {
     try {
-      await axios.get(`${TEST_URL}/profile/get`);
+      await axios.get(`${TEST_URL}/account/get`);
     } catch (error: any) {
       expect(error.response.status).toBe(400);
     }
@@ -15,7 +15,7 @@ describe("GET /profile/get", () => {
 
   test("should return 200 with status and theme", async () => {
     await delRedis(`account:${TEST_LENS_ID}`);
-    const { data, status } = await axios.get(`${TEST_URL}/profile/get`, {
+    const { data, status } = await axios.get(`${TEST_URL}/account/get`, {
       params: { id: TEST_LENS_ID }
     });
 
@@ -25,8 +25,8 @@ describe("GET /profile/get", () => {
     expect(data.result.isSuspended).toBe(false);
   });
 
-  test("should return 200 and suspended status for a suspended profile", async () => {
-    const { data, status } = await axios.get(`${TEST_URL}/profile/get`, {
+  test("should return 200 and suspended status for a suspended account", async () => {
+    const { data, status } = await axios.get(`${TEST_URL}/account/get`, {
       params: { id: TEST_SUSPENDED_LENS_ID }
     });
 
