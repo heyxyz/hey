@@ -4,7 +4,6 @@ import { POST } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { MirrorablePublication } from "@hey/lens";
 import { Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";

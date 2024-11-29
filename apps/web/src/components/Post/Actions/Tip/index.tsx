@@ -5,7 +5,6 @@ import getPostTipById from "@hey/helpers/getPostTipById";
 import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { TipIcon } from "@hey/icons";
-import type { MirrorablePublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import party from "party-js";

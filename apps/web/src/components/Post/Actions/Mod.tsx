@@ -1,5 +1,4 @@
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
-import type { MirrorablePublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";

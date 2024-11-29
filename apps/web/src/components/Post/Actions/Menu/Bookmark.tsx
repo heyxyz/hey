@@ -6,14 +6,6 @@ import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type {
-  MirrorablePublication,
-  PublicationBookmarkRequest
-} from "@hey/lens";
-import {
-  useAddPublicationBookmarkMutation,
-  useRemovePublicationBookmarkMutation
-} from "@hey/lens";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useRouter } from "next/router";

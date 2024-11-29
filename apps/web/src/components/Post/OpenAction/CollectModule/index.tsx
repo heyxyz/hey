@@ -24,12 +24,6 @@ import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type {
-  AnyPublication,
-  MultirecipientFeeCollectOpenActionSettings,
-  OpenActionModule,
-  SimpleCollectOpenActionSettings
-} from "@hey/lens";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";

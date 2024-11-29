@@ -6,7 +6,6 @@ import { Permission, PermissionId } from "@hey/data/permissions";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import type { MirrorablePublication } from "@hey/lens";
 import { Button } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";

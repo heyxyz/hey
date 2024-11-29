@@ -6,12 +6,6 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { MirrorablePublication, ReactionRequest } from "@hey/lens";
-import {
-  PublicationReactionType,
-  useAddReactionMutation,
-  useRemoveReactionMutation
-} from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
