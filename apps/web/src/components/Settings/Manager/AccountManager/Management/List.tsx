@@ -3,16 +3,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
-import type {
-  LastLoggedInProfileRequest,
-  ProfilesManagedRequest
-} from "@hey/lens";
-import {
-  ManagedProfileVisibility,
-  useHideManagedProfileMutation,
-  useProfilesManagedQuery,
-  useUnhideManagedProfileMutation
-} from "@hey/lens";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect } from "react";

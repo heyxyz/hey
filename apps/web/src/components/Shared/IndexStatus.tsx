@@ -1,8 +1,4 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import {
-  LensTransactionStatusType,
-  useLensTransactionStatusQuery
-} from "@hey/lens";
 import { Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";

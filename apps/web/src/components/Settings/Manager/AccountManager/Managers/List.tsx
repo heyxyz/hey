@@ -8,11 +8,6 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import type { ProfileManagersRequest } from "@hey/lens";
-import {
-  ChangeProfileManagerActionType,
-  useProfileManagersQuery
-} from "@hey/lens";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

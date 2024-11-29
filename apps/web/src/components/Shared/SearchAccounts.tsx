@@ -1,10 +1,4 @@
 import type { Account } from "@hey/indexer";
-import type { ProfileSearchRequest } from "@hey/lens";
-import {
-  CustomFiltersType,
-  LimitType,
-  useSearchProfilesLazyQuery
-} from "@hey/lens";
 import { Card, Input } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import Loader from "./Loader";

@@ -1,4 +1,3 @@
-import type { AnyPublication } from "@hey/lens";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
