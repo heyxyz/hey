@@ -6,19 +6,19 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 
 interface VerifiedProps {
-  id: string;
+  address: string;
   showTooltip?: boolean;
   iconClassName?: string;
 }
 
 const Misuse: FC<VerifiedProps> = ({
-  id,
+  address,
   showTooltip = false,
   iconClassName = ""
 }) => {
-  const misuseDetails = getMisuseDetails(id);
+  const misuseDetails = getMisuseDetails(address);
 
-  if (!hasMisused(id)) {
+  if (!hasMisused(address)) {
     return null;
   }
 

@@ -48,15 +48,15 @@ export const NotificationAccountName: FC<NotificationProfileProps> = ({
   const profileLink = getAccount(account).link;
 
   return (
-    <AccountPreview handle={account.handle?.fullHandle} id={account.id}>
+    <AccountPreview handle={account.username?.value} address={account.address}>
       <Link
         className="inline-flex items-center space-x-1 font-bold outline-none hover:underline focus:underline"
         href={profileLink}
         onClick={stopEventPropagation}
       >
         <span>{getAccount(account).displayName}</span>
-        <Verified id={account.id} iconClassName="size-4" />
-        <Misuse id={account.id} iconClassName="size-4" />
+        <Verified address={account.address} iconClassName="size-4" />
+        <Misuse address={account.address} iconClassName="size-4" />
       </Link>
     </AccountPreview>
   );

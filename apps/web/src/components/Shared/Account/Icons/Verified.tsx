@@ -5,17 +5,17 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 
 interface VerifiedProps {
-  id: string;
+  address: string;
   showTooltip?: boolean;
   iconClassName?: string;
 }
 
 const Verified: FC<VerifiedProps> = ({
-  id,
+  address,
   showTooltip = false,
   iconClassName = ""
 }) => {
-  if (!isVerified(id)) {
+  if (!isVerified(address)) {
     return null;
   }
 

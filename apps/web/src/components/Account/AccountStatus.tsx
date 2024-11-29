@@ -6,14 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 
 interface AccountStatusProps {
-  id: string;
+  address: string;
 }
 
-const AccountStatus: FC<AccountStatusProps> = ({ id }) => {
+const AccountStatus: FC<AccountStatusProps> = ({ address }) => {
   const { data } = useQuery({
-    enabled: Boolean(id),
-    queryFn: () => getAccountDetails(id),
-    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, id]
+    enabled: Boolean(address),
+    queryFn: () => getAccountDetails(address),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, address]
   });
 
   if (!data?.status) {

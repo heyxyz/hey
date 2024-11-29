@@ -64,8 +64,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
             {getAccount(account).displayName}
           </div>
         </div>
-        <Verified id={account.address} iconClassName="ml-1 size-4" />
-        <Misuse id={account.address} iconClassName="ml-1 size-4" />
+        <Verified address={account.address} iconClassName="ml-1 size-4" />
+        <Misuse address={account.address} iconClassName="ml-1 size-4" />
       </div>
       <div>
         <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
@@ -84,7 +84,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
   const AccountInfo: FC = () => (
     <AccountPreview
       handle={account.username?.value}
-      id={account.address}
+      address={account.address}
       showUserPreview={showUserPreview}
     >
       <div className="mr-8 flex items-center space-x-3">

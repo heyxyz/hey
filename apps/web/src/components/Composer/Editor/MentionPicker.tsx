@@ -37,8 +37,8 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, account }) => {
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
             <span>{account.name}</span>
-            <Verified id={account.id} iconClassName="size-4" />
-            <Misuse id={account.id} iconClassName="size-4" />
+            <Verified address={account.id} iconClassName="size-4" />
+            <Misuse address={account.id} iconClassName="size-4" />
           </div>
           <span className="text-xs">{account.displayHandle}</span>
         </div>
