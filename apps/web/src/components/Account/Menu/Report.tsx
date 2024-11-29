@@ -5,12 +5,12 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
-interface ReportProfileProps {
+interface ReportProps {
   account: Account;
 }
 
-const Report: FC<ReportProfileProps> = ({ account }) => {
-  const { setShowReportProfileModal } = useGlobalModalStateStore();
+const Report: FC<ReportProps> = ({ account }) => {
+  const { setShowReportAccountModal } = useGlobalModalStateStore();
 
   return (
     <MenuItem
@@ -21,7 +21,7 @@ const Report: FC<ReportProfileProps> = ({ account }) => {
           "m-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm"
         )
       }
-      onClick={() => setShowReportProfileModal(true, account)}
+      onClick={() => setShowReportAccountModal(true, account)}
     >
       <FlagIcon className="size-4" />
       <div>Report account</div>

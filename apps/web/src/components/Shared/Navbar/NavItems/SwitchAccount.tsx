@@ -8,7 +8,7 @@ interface SwitchAccountProps {
 }
 
 const SwitchAccount: FC<SwitchAccountProps> = ({ className = "" }) => {
-  const { setShowProfileSwitchModal } = useGlobalModalStateStore();
+  const { setShowAccountSwitchModal } = useGlobalModalStateStore();
 
   return (
     <button
@@ -16,11 +16,11 @@ const SwitchAccount: FC<SwitchAccountProps> = ({ className = "" }) => {
         "flex w-full items-center space-x-2 px-2 py-1.5 text-left text-gray-700 text-sm focus:outline-none dark:text-gray-200",
         className
       )}
-      onClick={() => setShowProfileSwitchModal(true)}
+      onClick={() => setShowAccountSwitchModal(true)}
       type="button"
     >
       <ArrowsRightLeftIcon className="size-4" />
-      <span>Switch profile</span>
+      <span>Switch account</span>
     </button>
   );
 };
