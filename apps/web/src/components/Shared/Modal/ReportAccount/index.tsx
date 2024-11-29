@@ -6,7 +6,7 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
-import { useReportProfileMutation } from "@hey/lens";
+import { useReportAccountMutation } from "@hey/indexer";
 import {
   Button,
   Card,
@@ -45,7 +45,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
   const [
     createReport,
     { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportProfileMutation({
+  ] = useReportAccountMutation({
     onCompleted: () => {
       Leafwatch.track(ACCOUNT.REPORT, { address: account?.address });
     }
@@ -63,13 +63,8 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
         variables: {
           request: {
             additionalComments,
-            for: account?.address,
-            reason: {
-              [type]: {
-                reason: type.replace("Reason", "").toUpperCase(),
-                subreason: subReason
-              }
-            }
+            account: account?.address,
+            reason: type
           }
         }
       });
