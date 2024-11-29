@@ -38,9 +38,9 @@ const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
           static
         >
           <CopyLink account={account} />
-          <CopyAddress address={account.ownedBy.address} />
-          <CopyID id={account.id} />
-          {currentAccount && currentAccount?.id !== account.id ? (
+          <CopyAddress address={account.owner} />
+          <CopyID id={account.address} />
+          {currentAccount && currentAccount?.address !== account.address ? (
             <>
               <AddToList account={account} />
               <Block account={account} />

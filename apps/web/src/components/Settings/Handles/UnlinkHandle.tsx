@@ -87,7 +87,7 @@ const UnlinkHandle: FC = () => {
     try {
       setUnlinking(true);
       const request: UnlinkHandleFromProfileRequest = {
-        handle: currentAccount.handle?.fullHandle
+        handle: currentAccount.username?.value
       };
 
       return await createUnlinkHandleFromProfileTypedData({

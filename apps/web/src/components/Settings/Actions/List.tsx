@@ -16,7 +16,7 @@ const List: FC = () => {
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useProfileActionHistoryQuery({
-    skip: !currentAccount?.id,
+    skip: !currentAccount?.address,
     variables: { request }
   });
 

@@ -41,7 +41,8 @@ const ViewList: NextPage = () => {
     isLoading: listLoading
   } = useQuery({
     enabled: Boolean(id),
-    queryFn: () => getList({ id: id as string, viewingId: currentAccount?.id }),
+    queryFn: () =>
+      getList({ id: id as string, viewingId: currentAccount?.address }),
     queryKey: [GET_LIST_QUERY_KEY, id]
   });
 

@@ -330,7 +330,7 @@ const AccountSettingsForm: FC = () => {
             disabled
             label="Account Id"
             type="text"
-            value={currentAccount?.id}
+            value={currentAccount?.address}
           />
           <Input
             label="Name"

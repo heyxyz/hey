@@ -22,8 +22,8 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
         itemContent={(_, account) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={currentAccount?.id === account.id}
-              hideUnfollowButton={currentAccount?.id === account.id}
+              hideFollowButton={currentAccount?.address === account.address}
+              hideUnfollowButton={currentAccount?.address === account.address}
               account={account as Account}
               showBio
               showUserPreview={false}

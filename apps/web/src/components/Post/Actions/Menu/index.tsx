@@ -55,7 +55,7 @@ const PostMenu: FC<PostMenuProps> = ({ post }) => {
           <CopyPostText post={post} />
           <CopyID id={post.id} />
           <div className="divider" />
-          {currentAccount?.id === post?.by?.id ? (
+          {currentAccount?.address === post?.by?.id ? (
             <Delete post={post} />
           ) : (
             <Report post={post} />

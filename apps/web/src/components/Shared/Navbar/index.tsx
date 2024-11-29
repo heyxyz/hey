@@ -100,7 +100,7 @@ const Navbar: FC = () => {
             </div>
           </div>
           <Link
-            className={cn("md:hidden", !currentAccount?.id && "ml-[60px]")}
+            className={cn("md:hidden", !currentAccount?.address && "ml-[60px]")}
             href="/"
           >
             <img

@@ -27,10 +27,10 @@ const SignedAccount: FC = () => {
 
   const Avatar = () => (
     <Image
-      alt={currentAccount?.id}
+      alt={currentAccount?.address}
       className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
       onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(currentAccount?.id);
+        currentTarget.src = getLennyURL(currentAccount?.address);
       }}
       src={getAvatar(currentAccount as Account)}
     />
@@ -96,7 +96,7 @@ const SignedAccount: FC = () => {
                 )
               }
             >
-              <AccountStatus id={currentAccount?.id} />
+              <AccountStatus id={currentAccount?.address} />
             </MenuItem>
             <div className="divider" />
             <MenuItem

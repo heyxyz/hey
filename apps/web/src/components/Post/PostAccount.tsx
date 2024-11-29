@@ -32,8 +32,8 @@ const PostAccount: FC<PostAccountProps> = ({
       href={getAccount(account).link}
     >
       <AccountPreview
-        handle={account.handle?.fullHandle}
-        id={account.id}
+        handle={account.username?.value}
+        address={account.address}
         showUserPreview
       >
         {children}
@@ -49,8 +49,8 @@ const PostAccount: FC<PostAccountProps> = ({
       <WrappedLink>
         <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
       </WrappedLink>
-      <Verified id={account.id} iconClassName="size-4" />
-      <Misuse id={account.id} iconClassName="size-4" />
+      <Verified address={account.address} iconClassName="size-4" />
+      <Misuse address={account.address} iconClassName="size-4" />
       {timestamp ? (
         <span className="ld-text-gray-500">
           <span className="mr-1">·</span>

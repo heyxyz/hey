@@ -113,10 +113,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const hasMore = pageInfo?.next;
 
   useEffect(() => {
-    if (
-      indexedPostHash &&
-      currentAccount?.account.account.address === address
-    ) {
+    if (indexedPostHash && currentAccount?.address === address) {
       refetch();
     }
   }, [indexedPostHash]);

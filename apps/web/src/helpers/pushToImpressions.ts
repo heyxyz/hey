@@ -7,11 +7,11 @@ import getCurrentSession from "./getCurrentSession";
  * @returns void
  */
 const pushToImpressions = (id: string): void => {
-  const { id: sessionProfileId } = getCurrentSession();
+  const { id: sessionAccountId } = getCurrentSession();
 
   // Don't push impressions for the current user
-  const postProfileId = id.split("-")[0];
-  if (postProfileId === sessionProfileId) {
+  const postAccountId = id.split("-")[0];
+  if (postAccountId === sessionAccountId) {
     return;
   }
 

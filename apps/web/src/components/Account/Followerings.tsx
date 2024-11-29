@@ -45,7 +45,10 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
         title="Following"
         size="md"
       >
-        <Following handle={getAccount(account).slug} accountId={account.id} />
+        <Following
+          handle={getAccount(account).slug}
+          address={account.address}
+        />
       </Modal>
       <Modal
         onClose={() => {
@@ -56,7 +59,10 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
         title="Followers"
         size="md"
       >
-        <Followers handle={getAccount(account).slug} accountId={account.id} />
+        <Followers
+          handle={getAccount(account).slug}
+          address={account.address}
+        />
       </Modal>
     </div>
   );

@@ -62,8 +62,8 @@ const StaffPicks: FC = () => {
 
   const {
     data: staffPicks,
-    error: profilesError,
-    loading: profilesLoading
+    error: accountsError,
+    loading: accountsLoading
   } = useStaffPicksQuery({
     skip: !canLoadStaffPicks,
     variables: {
@@ -73,7 +73,7 @@ const StaffPicks: FC = () => {
     }
   });
 
-  if (picksLoading || profilesLoading) {
+  if (picksLoading || accountsLoading) {
     return (
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <Title />
@@ -110,9 +110,9 @@ const StaffPicks: FC = () => {
       (account) =>
         !account.operations.isBlockedByMe.value &&
         !account.operations.isFollowedByMe.value &&
-        currentAccount?.id !== account.id
+        currentAccount?.address !== account.address
     )
-    .slice(0, 5);
+    .slice(0, 5) as Account[];
 
   if (filteredAccounts.length === 0) {
     return null;
@@ -122,13 +122,13 @@ const StaffPicks: FC = () => {
     <Card as="aside" className="mb-4 space-y-4 p-5">
       <Title />
       <ErrorMessage
-        error={picksError || profilesError}
+        error={picksError || accountsError}
         title="Failed to load recommendations"
       />
       {filteredAccounts.map((account) => (
-        <div className="w-full truncate pr-1" key={account.id}>
+        <div className="w-full truncate pr-1" key={account.address}>
           <SingleAccount
-            hideFollowButton={currentAccount?.id === account.id}
+            hideFollowButton={currentAccount?.address === account.address}
             hideUnfollowButton
             account={account as Account}
             source={AccountLinkSource.StaffPicks}

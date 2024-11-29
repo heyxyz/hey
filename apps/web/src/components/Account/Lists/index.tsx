@@ -67,7 +67,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        [GET_LISTS_QUERY_KEY, currentAccount?.account.account.address],
+        [GET_LISTS_QUERY_KEY, currentAccount?.address],
         (oldData) => oldData?.filter((list) => list.id !== id)
       );
       toast.success("List deleted");
@@ -90,7 +90,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        [GET_LISTS_QUERY_KEY, currentAccount?.account.account.address],
+        [GET_LISTS_QUERY_KEY, currentAccount?.address],
         (oldData) =>
           oldData?.map((list) =>
             list.id === id ? { ...list, pinned: !pinned } : list
@@ -109,7 +109,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <H5>{getAccount(account).slugWithPrefix}'s Lists</H5>
-        {account.address === currentAccount?.account.account.address && (
+        {account.address === currentAccount?.address && (
           <Button onClick={() => setShowCreateModal(!showCreateModal)}>
             Create
           </Button>
@@ -126,8 +126,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
             {data?.map((list) => (
               <div key={list.id} className="flex items-center justify-between">
                 <SingleList list={list} />
-                {account.address ===
-                  currentAccount?.account.account.address && (
+                {account.address === currentAccount?.address && (
                   <div className="flex items-center gap-3">
                     <Tooltip
                       content={list.pinned ? "Unpin from Home" : "Pin to Home"}

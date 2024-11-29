@@ -15,7 +15,7 @@ const Following: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowingRequest = {
-    for: currentAccount?.id,
+    for: currentAccount?.address,
     limit: LimitType.Fifty
   };
 

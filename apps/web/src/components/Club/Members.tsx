@@ -113,12 +113,8 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         itemContent={(_, member) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={
-                currentAccount?.account.account.address === member.address
-              }
-              hideUnfollowButton={
-                currentAccount?.account.account.address === member.address
-              }
+              hideFollowButton={currentAccount?.address === member.address}
+              hideUnfollowButton={currentAccount?.address === member.address}
               account={member as Account}
               showBio
               showUserPreview={false}

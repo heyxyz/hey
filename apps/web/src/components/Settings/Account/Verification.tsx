@@ -32,7 +32,7 @@ const Verification: FC = () => {
   return (
     <Card className="space-y-2 p-5">
       <H5>Verified</H5>
-      {verifiedMembers.includes(currentAccount?.id) ? (
+      {verifiedMembers.includes(currentAccount?.address) ? (
         <div className="flex items-center space-x-1.5">
           <span>Believe it. Yes, you're really verified.</span>
           <CheckBadgeIcon className="size-5 text-brand-500" />
