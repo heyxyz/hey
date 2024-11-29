@@ -175,7 +175,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           <div className="!text-xs">
             <MutualFollowersOverview
               handle={getAccount(account).slug}
-              accountId={account.id}
+              address={account.id}
               viaPopover
             />
           </div>

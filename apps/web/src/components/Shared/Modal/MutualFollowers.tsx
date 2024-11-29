@@ -1,8 +1,11 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { MutualFollowersRequest, Profile } from "@hey/lens";
-import { LimitType, useMutualFollowersQuery } from "@hey/lens";
+import {
+  type Account,
+  type FollowersYouKnowRequest,
+  useFollowersYouKnowQuery
+} from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -10,28 +13,24 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MutualFollowersListProps {
   handle: string;
-  accountId: string;
+  address: string;
 }
 
-const MutualFollowers: FC<MutualFollowersListProps> = ({
-  handle,
-  accountId
-}) => {
+const MutualFollowers: FC<MutualFollowersListProps> = ({ handle, address }) => {
   const { currentAccount } = useAccountStore();
 
-  const request: MutualFollowersRequest = {
-    limit: LimitType.TwentyFive,
-    observer: currentAccount?.id,
-    viewing: accountId
+  const request: FollowersYouKnowRequest = {
+    observer: currentAccount?.account.account.address,
+    target: address
   };
 
-  const { data, error, fetchMore, loading } = useMutualFollowersQuery({
-    skip: !accountId,
+  const { data, error, fetchMore, loading } = useFollowersYouKnowQuery({
+    skip: !address,
     variables: { request }
   });
 
-  const mutualFollowers = data?.mutualFollowers?.items;
-  const pageInfo = data?.mutualFollowers?.pageInfo;
+  const followersYouKnow = data?.followersYouKnow?.items;
+  const pageInfo = data?.followersYouKnow?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -46,7 +45,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
     return <AccountListShimmer />;
   }
 
-  if (mutualFollowers?.length === 0) {
+  if (followersYouKnow?.length === 0) {
     return (
       <EmptyState
         icon={<UsersIcon className="size-8" />}
@@ -74,17 +73,23 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, mutualFollower) =>
-        `${mutualFollower.id}-${index}`
+      computeItemKey={(index, follower) =>
+        `${follower.follower.address}-${index}`
       }
-      data={mutualFollowers}
+      data={followersYouKnow}
       endReached={onEndReached}
-      itemContent={(_, mutualFollower) => (
+      itemContent={(_, follower) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === mutualFollower.id}
-            hideUnfollowButton={currentAccount?.id === mutualFollower.id}
-            account={mutualFollower as Profile}
+            hideFollowButton={
+              currentAccount?.account.account.address ===
+              follower.follower.address
+            }
+            hideUnfollowButton={
+              currentAccount?.account.account.address ===
+              follower.follower.address
+            }
+            account={follower.follower as Account}
             showBio
             showUserPreview={false}
           />
