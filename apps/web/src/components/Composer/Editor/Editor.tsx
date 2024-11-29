@@ -42,7 +42,7 @@ const Editor: FC = () => {
     <ProseKit editor={editor}>
       <div className="box-border flex h-full w-full justify-stretch overflow-y-auto overflow-x-hidden px-5 py-4">
         <Image
-          alt={currentAccount?.id}
+          alt={currentAccount?.address}
           className="mr-3 size-11 rounded-full border bg-gray-200 dark:border-gray-700"
           src={getAvatar(currentAccount)}
         />

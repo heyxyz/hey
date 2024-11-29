@@ -75,7 +75,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
       </div>
       <div className="flex items-center space-x-2">
         <PinUnpinButton list={list} />
-        {currentAccount?.id === list.createdBy && (
+        {currentAccount?.address === list.createdBy && (
           <Button onClick={() => setShowEditModal(true)}>Edit</Button>
         )}
       </div>

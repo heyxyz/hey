@@ -59,8 +59,8 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         {firstAccounts?.map((account) => (
           <div className="truncate" key={account?.id}>
             <SingleAccount
-              hideFollowButton={currentAccount?.id === account.id}
-              hideUnfollowButton={currentAccount?.id === account.id}
+              hideFollowButton={currentAccount?.address === account.id}
+              hideUnfollowButton={currentAccount?.address === account.id}
               account={account as Account}
               showUserPreview={false}
               source={AccountLinkSource.RelevantPeople}

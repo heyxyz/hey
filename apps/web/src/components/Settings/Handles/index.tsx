@@ -36,14 +36,14 @@ const HandlesSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        {currentAccount.handle ? (
+        {currentAccount.username ? (
           <Card>
             <CardHeader
               body="Unlinking your handle removes it from your profile, ensuring it
               is no longer publicly displayed or associated with your profile."
               title={
                 <span>
-                  Unlink <Slug slug={currentAccount.handle?.fullHandle} /> from
+                  Unlink <Slug slug={currentAccount.username?.value} /> from
                   your profile
                 </span>
               }

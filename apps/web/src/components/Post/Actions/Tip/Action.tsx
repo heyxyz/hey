@@ -170,7 +170,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
           selectedCurrency?.contractAddress,
           post.by.ownedBy.address,
           finalRate,
-          currentAccount?.id,
+          currentAccount?.address,
           post.by.id,
           post.id.split("-")[1]
         ],

@@ -23,7 +23,7 @@ const useClubQuery = (query: string): ClubProfile[] => {
       return;
     }
 
-    getClubs({ limit: 10, profile_id: currentAccount?.id, query }).then(
+    getClubs({ limit: 10, profile_id: currentAccount?.address, query }).then(
       (data) => {
         const clubs = data as Club[];
         const clubsResults = (clubs ?? []).map(

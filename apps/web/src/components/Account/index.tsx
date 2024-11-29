@@ -138,7 +138,7 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.account.account.address === account?.address &&
+              {currentAccount?.address === account?.address &&
               feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}

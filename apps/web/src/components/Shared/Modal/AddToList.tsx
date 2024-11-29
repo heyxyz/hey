@@ -25,7 +25,7 @@ const AddToList: FC = () => {
   const { data, isLoading, error } = useQuery({
     queryFn: () =>
       getLists({
-        ownerId: currentAccount?.id,
+        ownerId: currentAccount?.address,
         viewingId: accountToAddToList?.id
       }),
     queryKey: [GET_LISTS_QUERY_KEY, accountToAddToList?.id]

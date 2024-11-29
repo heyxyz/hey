@@ -46,7 +46,7 @@ const ViewClub: NextPage = () => {
     queryFn: () =>
       getClub({
         club_handle: handle as string,
-        profile_id: currentAccount?.id
+        profile_id: currentAccount?.address
       }),
     queryKey: [GET_CLUB_QUERY_KEY, handle]
   });

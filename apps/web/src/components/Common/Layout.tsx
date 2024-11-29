@@ -6,8 +6,7 @@ import PageMetatags from "@components/Shared/PageMetatags";
 import accountThemeFonts from "@helpers/accountThemeFonts";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
-import type { Account } from "@hey/indexer";
-import { useCurrentProfileQuery } from "@hey/lens";
+import { type Account, useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
@@ -32,14 +31,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { reload } = useRouter();
   const { resolvedTheme } = useTheme();
   const { theme } = useAccountThemeStore();
-  const { currentAccount, setCurrentAccount, setFallbackToCuratedFeed } =
-    useAccountStore();
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetStatus } = useAccountStatus();
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
 
-  const { id: sessionProfileId } = getCurrentSession();
+  const { id: sessionAccountId } = getCurrentSession();
 
   const logout = (shouldReload = false) => {
     resetPreferences();
@@ -51,18 +49,18 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     }
   };
 
-  const { loading } = useCurrentProfileQuery({
-    onCompleted: ({ profile }) => {
-      setCurrentAccount(profile as Account);
+  const { loading } = useMeQuery({
+    onCompleted: ({ me }) => {
+      setCurrentAccount(me.account.account as Account);
 
       // If the profile has no following, we should fallback to the curated feed
-      if (profile?.stats.followers === 0) {
-        setFallbackToCuratedFeed(true);
-      }
+      // TODO: Lens v3
+      // if (profile?.stats.followers === 0) {
+      //   setFallbackToCuratedFeed(true);
+      // }
     },
     onError: () => logout(true),
-    skip: !sessionProfileId || isAddress(sessionProfileId),
-    variables: { request: { forProfileId: sessionProfileId } }
+    skip: !sessionAccountId || isAddress(sessionAccountId)
   });
 
   const validateAuthentication = () => {

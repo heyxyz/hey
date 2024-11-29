@@ -47,7 +47,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
     { data: submitData, error: submitError, loading: submitLoading }
   ] = useReportProfileMutation({
     onCompleted: () => {
-      Leafwatch.track(ACCOUNT.REPORT, { accountId: account?.id });
+      Leafwatch.track(ACCOUNT.REPORT, { address: account?.address });
     }
   });
 
@@ -63,7 +63,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
         variables: {
           request: {
             additionalComments,
-            for: account?.id,
+            for: account?.address,
             reason: {
               [type]: {
                 reason: type.replace("Reason", "").toUpperCase(),

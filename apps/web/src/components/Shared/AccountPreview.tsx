@@ -27,14 +27,14 @@ const MINIMUM_LOADING_ANIMATION_MS = 800;
 interface AccountPreviewProps {
   children: ReactNode;
   handle?: string;
-  id?: string;
+  address?: string;
   showUserPreview?: boolean;
 }
 
 const AccountPreview: FC<AccountPreviewProps> = ({
   children,
   handle,
-  id,
+  address,
   showUserPreview = true
 }) => {
   const [loadProfile, { data, loading: networkLoading }] = useProfileLazyQuery({
@@ -52,13 +52,15 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     setSyntheticLoading(true);
     await loadProfile({
       variables: {
-        request: { ...(id ? { forProfileId: id } : { forHandle: handle }) }
+        request: {
+          ...(address ? { forProfileId: address } : { forHandle: handle })
+        }
       }
     });
     setTimeout(() => setSyntheticLoading(false), MINIMUM_LOADING_ANIMATION_MS);
   };
 
-  if (!id && !handle) {
+  if (!address && !handle) {
     return null;
   }
 
@@ -74,7 +76,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
             <div />
           </div>
           <div className="flex p-3">
-            <div>{handle || `#${id}`}</div>
+            <div>{handle || `#${address}`}</div>
           </div>
         </div>
       );
@@ -88,9 +90,9 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     const AccountStatus: FC = () => {
       const { data: accountDetails } = useQuery({
-        enabled: Boolean(id),
-        queryFn: () => getAccountDetails(id as string),
-        queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, id]
+        enabled: Boolean(address),
+        queryFn: () => getAccountDetails(address as string),
+        queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, address]
       });
 
       if (!accountDetails?.status) {
@@ -110,12 +112,12 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     const UserAvatar: FC = () => (
       <Image
-        alt={account.id}
+        alt={account.address}
         className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
         height={48}
         loading="lazy"
         onError={({ currentTarget }) => {
-          currentTarget.src = getLennyURL(account.id);
+          currentTarget.src = getLennyURL(account.address);
         }}
         src={getAvatar(account)}
         width={48}
@@ -126,12 +128,12 @@ const AccountPreview: FC<AccountPreviewProps> = ({
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getAccount(account).displayName}</div>
-          <Verified id={account.id} iconClassName="size-4" />
-          <Misuse id={account.id} iconClassName="size-4" />
+          <Verified address={account.address} iconClassName="size-4" />
+          <Misuse address={account.address} iconClassName="size-4" />
         </div>
         <span>
           <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
-          {account.operations.isFollowingMe.value && (
+          {account.operations?.isFollowingMe && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </span>
@@ -175,7 +177,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           <div className="!text-xs">
             <MutualFollowersOverview
               handle={getAccount(account).slug}
-              address={account.id}
+              address={account.address}
               viaPopover
             />
           </div>
