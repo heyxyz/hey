@@ -1,6 +1,5 @@
 import getAllowanceModule from "@helpers/getAllowanceModule";
 import { POLYGONSCAN_URL } from "@hey/data/constants";
-import type { ApprovedAllowanceAmountResult } from "@hey/lens";
 import { Card } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";

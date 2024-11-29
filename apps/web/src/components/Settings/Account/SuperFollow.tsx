@@ -11,7 +11,6 @@ import {
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { SETTINGS } from "@hey/data/tracking";
-import { FollowModuleType } from "@hey/lens";
 import {
   Button,
   Card,

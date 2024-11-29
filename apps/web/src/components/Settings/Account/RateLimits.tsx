@@ -1,5 +1,4 @@
 import Loader from "@components/Shared/Loader";
-import { useUserRateLimitQuery } from "@hey/lens";
 import { Card, CardHeader, ErrorMessage, ProgressBar } from "@hey/ui";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";

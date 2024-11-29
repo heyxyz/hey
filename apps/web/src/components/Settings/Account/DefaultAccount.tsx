@@ -6,11 +6,6 @@ import { SETTINGS } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Account } from "@hey/indexer";
-import {
-  useDefaultProfileQuery,
-  useProfilesQuery,
-  useSetDefaultProfileMutation
-} from "@hey/lens";
 import { Button, Card, CardHeader, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

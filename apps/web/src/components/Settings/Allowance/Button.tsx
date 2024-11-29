@@ -2,11 +2,6 @@ import errorToast from "@helpers/errorToast";
 import getAllowanceModule from "@helpers/getAllowanceModule";
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
-import type { ApprovedAllowanceAmountResult } from "@hey/lens";
-import {
-  OpenActionModuleType,
-  useGenerateModuleCurrencyApprovalDataLazyQuery
-} from "@hey/lens";
 import { Button, Modal, WarningMessage } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useEffect, useState } from "react";
