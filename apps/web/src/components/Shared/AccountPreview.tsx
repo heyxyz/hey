@@ -16,10 +16,10 @@ import { useQuery } from "@tanstack/react-query";
 import plur from "plur";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
+import FollowUnfollowButton from "./Account/FollowUnfollowButton";
+import Misuse from "./Account/Icons/Misuse";
+import Verified from "./Account/Icons/Verified";
 import Markup from "./Markup";
-import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
-import Misuse from "./Profile/Icons/Misuse";
-import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;

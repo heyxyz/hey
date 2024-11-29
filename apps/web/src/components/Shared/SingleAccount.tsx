@@ -9,11 +9,11 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
+import FollowUnfollowButton from "./Account/FollowUnfollowButton";
+import Misuse from "./Account/Icons/Misuse";
+import Verified from "./Account/Icons/Verified";
 import AccountPreview from "./AccountPreview";
 import Markup from "./Markup";
-import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
-import Misuse from "./Profile/Icons/Misuse";
-import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
 interface SingleAccountProps {

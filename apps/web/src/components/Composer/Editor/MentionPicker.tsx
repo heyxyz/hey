@@ -1,5 +1,5 @@
-import Misuse from "@components/Shared/Profile/Icons/Misuse";
-import Verified from "@components/Shared/Profile/Icons/Verified";
+import Misuse from "@components/Shared/Account/Icons/Misuse";
+import Verified from "@components/Shared/Account/Icons/Verified";
 import type { EditorExtension } from "@helpers/prosekit/extension";
 import { EditorRegex } from "@hey/data/regex";
 import { Image } from "@hey/ui";

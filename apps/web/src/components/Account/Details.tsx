@@ -1,7 +1,7 @@
+import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
+import Misuse from "@components/Shared/Account/Icons/Misuse";
+import Verified from "@components/Shared/Account/Icons/Verified";
 import Markup from "@components/Shared/Markup";
-import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
-import Misuse from "@components/Shared/Profile/Icons/Misuse";
-import Verified from "@components/Shared/Profile/Icons/Verified";
 import Slug from "@components/Shared/Slug";
 import {
   ClockIcon,

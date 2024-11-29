@@ -1,8 +1,8 @@
 import { useApolloClient } from "@apollo/client";
 import AllowanceButton from "@components/Settings/Allowance/Button";
+import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
-import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";

@@ -1,6 +1,6 @@
 import Source from "@components/Post/Source";
-import Misuse from "@components/Shared/Profile/Icons/Misuse";
-import Verified from "@components/Shared/Profile/Icons/Verified";
+import Misuse from "@components/Shared/Account/Icons/Misuse";
+import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import type { Profile } from "@hey/lens";

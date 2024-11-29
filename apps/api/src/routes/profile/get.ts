@@ -22,13 +22,13 @@ export const get = [
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info(`(cached) Profile details fetched for ${id}`);
+        logger.info(`(cached) Account details fetched for ${id}`);
         return res
           .status(200)
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [profilePermission, profileStatus] = await prisma.$transaction([
+      const [accountPermission, accountStatus] = await prisma.$transaction([
         prisma.profilePermission.findFirst({
           where: {
             permissionId: PermissionId.Suspended,
@@ -39,12 +39,12 @@ export const get = [
       ]);
 
       const response: AccountDetails = {
-        isSuspended: profilePermission?.permissionId === PermissionId.Suspended,
-        status: profileStatus || null
+        isSuspended: accountPermission?.permissionId === PermissionId.Suspended,
+        status: accountStatus || null
       };
 
       await setRedis(cacheKey, response);
-      logger.info(`Profile details fetched for ${id}`);
+      logger.info(`Account details fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

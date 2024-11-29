@@ -49,7 +49,7 @@ export const get = [
         impressions: number;
         totalImpressions: number;
       }>();
-      logger.info(`Profile impressions fetched for ${id}`);
+      logger.info(`Account impressions fetched for ${id}`);
 
       return res.status(200).json({
         success: true,

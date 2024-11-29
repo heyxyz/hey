@@ -8,8 +8,8 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
-import Misuse from "./Profile/Icons/Misuse";
-import Verified from "./Profile/Icons/Verified";
+import Misuse from "./Account/Icons/Misuse";
+import Verified from "./Account/Icons/Verified";
 import Slug from "./Slug";
 
 interface SmallSingleAccountProps {

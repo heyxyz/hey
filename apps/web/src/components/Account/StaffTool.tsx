@@ -1,4 +1,4 @@
-import Suspend from "@components/Shared/Profile/Suspend";
+import Suspend from "@components/Shared/Account/Suspend";
 import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 

@@ -18,7 +18,7 @@ export const generateMetadata = async ({
 
   const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
-      operationName: "Profile",
+      operationName: "Account",
       query: print(AccountDocument),
       variables: {
         request: { username: { localName: username } }
