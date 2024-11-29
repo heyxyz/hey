@@ -6,7 +6,7 @@ type AuthModalType = "login" | "signup";
 
 interface State {
   authModalType: AuthModalType;
-  reportingProfile: null | Account;
+  reportingAccount: null | Account;
   reportingPostId: null | string;
   setShowAuthModal: (
     showAuthModal: boolean,
@@ -17,35 +17,35 @@ interface State {
   setShowOptimisticTransactionsModal: (
     showOptimisticTransactionsModal: boolean
   ) => void;
-  setShowProfileSwitchModal: (showProfileSwitchModal: boolean) => void;
+  setShowAccountSwitchModal: (showAccountSwitchModal: boolean) => void;
   setShowPostReportModal: (
     showPostReportModal: boolean,
     reportingPostId: null | string
   ) => void;
-  setShowReportProfileModal: (
-    reportProfileModal: boolean,
-    reportingProfile: null | Account
+  setShowReportAccountModal: (
+    reportAccountModal: boolean,
+    reportingAccount: null | Account
   ) => void;
   showAuthModal: boolean;
   showMobileDrawer: boolean;
   showNewPostModal: boolean;
   showOptimisticTransactionsModal: boolean;
-  showProfileSwitchModal: boolean;
+  showAccountSwitchModal: boolean;
   showPostReportModal: boolean;
-  showReportProfileModal: boolean;
+  showReportAccountModal: boolean;
   showEditStatusModal: boolean;
   setShowEditStatusModal: (showEditStatusModal: boolean) => void;
   showAddToListModal: boolean;
-  profileToAddToList: null | Account;
+  accountToAddToList: null | Account;
   setShowAddToListModal: (
     showAddToListModal: boolean,
-    profileToAddToList: null | Account
+    accountToAddToList: null | Account
   ) => void;
 }
 
 const store = create<State>((set) => ({
   authModalType: "login",
-  reportingProfile: null,
+  reportingAccount: null,
   reportingPostId: null,
   setShowAuthModal: (showAuthModal, authModalType) => {
     set(() => ({ authModalType, showAuthModal }));
@@ -54,26 +54,26 @@ const store = create<State>((set) => ({
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   setShowOptimisticTransactionsModal: (showOptimisticTransactionsModal) =>
     set(() => ({ showOptimisticTransactionsModal })),
-  setShowProfileSwitchModal: (showProfileSwitchModal) =>
-    set(() => ({ showProfileSwitchModal })),
+  setShowAccountSwitchModal: (showAccountSwitchModal) =>
+    set(() => ({ showAccountSwitchModal })),
   setShowPostReportModal: (showPostReportModal, reportingPostId) =>
     set(() => ({ reportingPostId, showPostReportModal })),
-  setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
-    set(() => ({ reportingProfile, showReportProfileModal })),
+  setShowReportAccountModal: (showReportAccountModal, reportingAccount) =>
+    set(() => ({ reportingAccount, showReportAccountModal })),
   showAuthModal: false,
   showMobileDrawer: false,
   showNewPostModal: false,
   showOptimisticTransactionsModal: false,
-  showProfileSwitchModal: false,
+  showAccountSwitchModal: false,
   showPostReportModal: false,
-  showReportProfileModal: false,
+  showReportAccountModal: false,
   showEditStatusModal: false,
   setShowEditStatusModal: (showEditStatusModal) =>
     set(() => ({ showEditStatusModal })),
   showAddToListModal: false,
-  profileToAddToList: null,
-  setShowAddToListModal: (showAddToListModal, profileToAddToList) =>
-    set(() => ({ profileToAddToList, showAddToListModal }))
+  accountToAddToList: null,
+  setShowAddToListModal: (showAddToListModal, accountToAddToList) =>
+    set(() => ({ accountToAddToList, showAddToListModal }))
 }));
 
 export const useGlobalModalStateStore = createTrackedSelector(store);

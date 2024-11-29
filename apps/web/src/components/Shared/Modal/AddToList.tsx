@@ -17,7 +17,7 @@ import SingleList from "../SingleList";
 
 const AddToList: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { profileToAddToList } = useGlobalModalStateStore();
+  const { accountToAddToList } = useGlobalModalStateStore();
   const [isAdding, setIsAdding] = useState(false);
   const [addingListId, setAddingListId] = useState<string | null>(null);
   const queryClient = useQueryClient();
@@ -26,9 +26,9 @@ const AddToList: FC = () => {
     queryFn: () =>
       getLists({
         ownerId: currentAccount?.id,
-        viewingId: profileToAddToList?.id
+        viewingId: accountToAddToList?.id
       }),
-    queryKey: [GET_LISTS_QUERY_KEY, profileToAddToList?.id]
+    queryKey: [GET_LISTS_QUERY_KEY, accountToAddToList?.id]
   });
 
   if (isLoading) {

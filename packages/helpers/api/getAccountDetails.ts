@@ -13,7 +13,7 @@ const getAccountDetails = async (
   id: string
 ): Promise<null | AccountDetails> => {
   try {
-    const { data } = await axios.get(`${HEY_API_URL}/profile/get`, {
+    const { data } = await axios.get(`${HEY_API_URL}/account/get`, {
       params: { id }
     });
 

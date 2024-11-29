@@ -38,18 +38,18 @@ export const post = [
     try {
       const parsedIds = JSON.parse(ids) as string[];
 
-      const profilePermissions = await prisma.profilePermission.findMany({
+      const accountPermissions = await prisma.profilePermission.findMany({
         where: { permissionId, profileId: { in: parsedIds } }
       });
 
       const idsToAssign = parsedIds.filter(
         (profileId) =>
-          !profilePermissions.some(
-            (profilePermission) => profilePermission.profileId === profileId
+          !accountPermissions.some(
+            (accountPermission) => accountPermission.profileId === profileId
           )
       );
 
-      const profilePermission = await prisma.profilePermission.createMany({
+      const accountPermission = await prisma.profilePermission.createMany({
         data: idsToAssign.map((profileId) => ({ permissionId, profileId })),
         skipDuplicates: true
       });
@@ -58,7 +58,7 @@ export const post = [
 
       return res
         .status(200)
-        .json({ assigned: profilePermission.count, success: true });
+        .json({ assigned: accountPermission.count, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

@@ -38,7 +38,7 @@ export const get = [
           .json({ isHeyAccount: true, success: true });
       }
 
-      const onboardingProfile = await lensPg.query(
+      const onboardingAccount = await lensPg.query(
         `
           SELECT EXISTS (
             SELECT 1
@@ -52,7 +52,7 @@ export const get = [
         [id, formattedAddress, HEY_LENS_SIGNUP]
       );
 
-      const isHeyAccount = onboardingProfile[0]?.exists;
+      const isHeyAccount = onboardingAccount[0]?.exists;
 
       if (isHeyAccount) {
         await setRedis(cacheKey, isHeyAccount);

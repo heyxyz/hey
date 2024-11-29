@@ -92,10 +92,10 @@ describe("getAccount", () => {
     const result = getAccount(account);
     expect(result).toEqual({
       displayName: "User without handle",
-      link: "/profile/789",
+      link: "/account/789",
       slug: "789",
       slugWithPrefix: "#789",
-      sourceLink: "/profile/789",
+      sourceLink: "/account/789",
       staffLink: "/staff/users/789"
     });
   });
@@ -109,10 +109,10 @@ describe("getAccount", () => {
     const result = getAccount(account, "featured");
     expect(result).toEqual({
       displayName: "Jane Smith",
-      link: "/profile/456",
+      link: "/account/456",
       slug: "456",
       slugWithPrefix: "#456",
-      sourceLink: "/profile/456?source=featured",
+      sourceLink: "/account/456?source=featured",
       staffLink: "/staff/users/456"
     });
   });
