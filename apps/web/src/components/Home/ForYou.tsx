@@ -20,7 +20,7 @@ const ForYou: FC = () => {
   const { fetchAndStoreTips } = useTipsStore();
 
   const request: PublicationForYouRequest = {
-    for: currentAccount?.id,
+    for: currentAccount?.address,
     limit: LimitType.TwentyFive
   };
 

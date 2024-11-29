@@ -25,10 +25,10 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
     useState(false);
 
   const { data, error, loading } = useFollowersYouKnowQuery({
-    skip: !address || !currentAccount?.account.account.address,
+    skip: !address || !currentAccount?.address,
     variables: {
       request: {
-        observer: currentAccount?.account.account.address,
+        observer: currentAccount?.address,
         target: address
       }
     }

@@ -20,7 +20,7 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({ handle, address }) => {
   const { currentAccount } = useAccountStore();
 
   const request: FollowersYouKnowRequest = {
-    observer: currentAccount?.account.account.address,
+    observer: currentAccount?.address,
     target: address
   };
 
@@ -82,12 +82,10 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({ handle, address }) => {
         <div className="p-5">
           <SingleAccount
             hideFollowButton={
-              currentAccount?.account.account.address ===
-              follower.follower.address
+              currentAccount?.address === follower.follower.address
             }
             hideUnfollowButton={
-              currentAccount?.account.account.address ===
-              follower.follower.address
+              currentAccount?.address === follower.follower.address
             }
             account={follower.follower as Account}
             showBio

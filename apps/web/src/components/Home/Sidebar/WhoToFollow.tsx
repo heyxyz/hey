@@ -20,7 +20,7 @@ const WhoToFollow: FC = () => {
   const { data, error, loading } = useProfileRecommendationsQuery({
     variables: {
       request: {
-        for: currentAccount?.id,
+        for: currentAccount?.address,
         limit: LimitType.Fifty,
         shuffle: true
       }
@@ -48,9 +48,9 @@ const WhoToFollow: FC = () => {
   }
 
   const recommendedAccounts = data?.profileRecommendations.items.filter(
-    (profile) =>
-      !profile.operations.isBlockedByMe.value &&
-      !profile.operations.isFollowedByMe.value
+    (account) =>
+      !account.operations.isBlockedByMe.value &&
+      !account.operations.isFollowedByMe.value
   );
 
   if (recommendedAccounts?.length === 0) {
@@ -69,8 +69,8 @@ const WhoToFollow: FC = () => {
           >
             <div className="w-full">
               <SingleAccount
-                hideFollowButton={currentAccount?.id === account.id}
-                hideUnfollowButton={currentAccount?.id === account.id}
+                hideFollowButton={currentAccount?.address === account.address}
+                hideUnfollowButton={currentAccount?.address === account.address}
                 account={account as Account}
                 source={AccountLinkSource.WhoToFollow}
               />

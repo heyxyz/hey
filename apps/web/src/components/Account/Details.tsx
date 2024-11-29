@@ -117,10 +117,10 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <ScamWarning accountId={account.id} />
+        <ScamWarning accountId={account.address} />
         <Followerings account={account} />
         <div className="flex items-center space-x-2">
-          {currentAccount?.id === account.id ? (
+          {currentAccount?.address === account.address ? (
             <>
               <Button
                 icon={<Cog6ToothIcon className="size-5" />}
@@ -142,7 +142,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           ) : null}
           <AccountMenu account={account} />
         </div>
-        {currentAccount?.id !== account.address ? (
+        {currentAccount?.address !== account.address ? (
           <MutualFollowersOverview
             handle={getAccount(account).slug}
             address={account.address}

@@ -60,10 +60,10 @@ const BottomNavigation = () => {
             href={getAccount(currentAccount).link}
           >
             <Image
-              alt={currentAccount.id}
+              alt={currentAccount.address}
               className="size-6 rounded-full border dark:border-gray-700"
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(currentAccount.id);
+                currentTarget.src = getLennyURL(currentAccount.address);
               }}
               src={getAvatar(currentAccount)}
             />

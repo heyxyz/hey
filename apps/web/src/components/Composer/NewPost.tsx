@@ -57,11 +57,11 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
     >
       <div className="flex items-center space-x-3">
         <Image
-          alt={currentAccount?.id}
+          alt={currentAccount?.address}
           className="size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           height={44}
           onError={({ currentTarget }) => {
-            currentTarget.src = getLennyURL(currentAccount?.id);
+            currentTarget.src = getLennyURL(currentAccount?.address);
           }}
           src={getAvatar(currentAccount)}
           width={44}
