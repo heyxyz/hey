@@ -13,10 +13,10 @@ import { ACCOUNT } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getTokenImage from "@hey/helpers/getTokenImage";
+import type { Account } from "@hey/indexer";
 import type {
   ApprovedAllowanceAmountResult,
-  FeeFollowModuleSettings,
-  Profile
+  FeeFollowModuleSettings
 } from "@hey/lens";
 import {
   FollowModuleType,
@@ -36,7 +36,7 @@ import { formatUnits } from "viem";
 import { useBalance, useWriteContract } from "wagmi";
 
 interface FollowModuleProps {
-  account: Profile;
+  account: Account;
   setShowFollowModal: Dispatch<SetStateAction<boolean>>;
 }
 

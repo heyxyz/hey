@@ -4,7 +4,7 @@ import { IS_MAINNET } from "@hey/data/constants";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import AccountOverview from "./AccountOverview";
@@ -15,7 +15,7 @@ import Permissions from "./Permissions";
 import Rank from "./Rank";
 
 interface AccountStaffToolProps {
-  account: Profile;
+  account: Account;
 }
 
 const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {

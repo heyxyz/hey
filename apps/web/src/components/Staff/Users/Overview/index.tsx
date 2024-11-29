@@ -7,7 +7,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useProfileQuery } from "@hey/lens";
 import {
   Card,
@@ -43,7 +43,7 @@ const Overview: NextPage = () => {
     skip: !id || !isReady,
     variables: { request: { forProfileId: id } }
   });
-  const account = data?.profile as Profile;
+  const account = data?.profile as Account;
 
   if (!currentAccount || !isStaff) {
     return <Custom404 />;
@@ -51,14 +51,14 @@ const Overview: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Staff Tools • Profile Overview • ${APP_NAME}`} />
+      <MetaTags title={`Staff Tools • Account Overview • ${APP_NAME}`} />
       <GridItemFour>
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="!bg-yellow-300/20 border-yellow-600 border-dashed p-5">
           {loading ? (
-            <Loader className="my-5" message="Loading profile" />
+            <Loader className="my-5" message="Loading account" />
           ) : account ? (
             error ? (
               <ErrorMessage error={error} />

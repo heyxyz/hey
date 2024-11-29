@@ -2,7 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -49,7 +49,7 @@ const MobileDrawerMenu: FC = () => {
               onError={({ currentTarget }) => {
                 currentTarget.src = getLennyURL(currentAccount?.id);
               }}
-              src={getAvatar(currentAccount as Profile)}
+              src={getAvatar(currentAccount as Account)}
             />
             <div>
               Logged in as

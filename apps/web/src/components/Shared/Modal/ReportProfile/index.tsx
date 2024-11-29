@@ -5,7 +5,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useReportProfileMutation } from "@hey/lens";
 import {
   Button,
@@ -30,7 +30,7 @@ const reportReportProfileSchema = object({
 });
 
 interface ReportProfileProps {
-  account: null | Profile;
+  account: Account | null;
 }
 
 const ReportProfile: FC<ReportProfileProps> = ({ account }) => {
@@ -84,7 +84,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ account }) => {
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
-          message="Profile reported"
+          message="Account reported"
         />
       ) : account ? (
         <div className="p-5">
@@ -92,7 +92,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ account }) => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={account as Profile}
+              account={account as Account}
               showUserPreview={false}
             />
           </Card>

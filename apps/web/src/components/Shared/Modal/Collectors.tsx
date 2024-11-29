@@ -2,7 +2,8 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Profile, WhoActedOnPublicationRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { WhoActedOnPublicationRequest } from "@hey/lens";
 import {
   LimitType,
   OpenActionCategoryType,
@@ -80,7 +81,7 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === account.id}
             hideUnfollowButton={currentAccount?.id === account.id}
-            account={account as Profile}
+            account={account as Account}
             showBio
             showUserPreview={false}
             source={AccountLinkSource.Collects}

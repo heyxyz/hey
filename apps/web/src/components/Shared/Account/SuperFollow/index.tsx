@@ -1,7 +1,7 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Button, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import FollowModule from "./FollowModule";
 
 interface SuperFollowProps {
   buttonClassName: string;
-  account: Profile;
+  account: Account;
   small: boolean;
   title: string;
 }

@@ -5,8 +5,7 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import { useFollowMutation } from "@hey/indexer";
-import type { Profile } from "@hey/lens";
+import { type Account, useFollowMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -22,7 +21,7 @@ import { useWriteContract } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
-  account: Profile;
+  account: Account;
   small: boolean;
   title: string;
 }

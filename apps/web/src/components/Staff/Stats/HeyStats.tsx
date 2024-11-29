@@ -69,15 +69,15 @@ const HeyStats: FC = () => {
         <NumberedStat count={data.pinnedLists.toString()} name="Pinned Lists" />
         <NumberedStat
           count={data.profilePermissions.toString()}
-          name="Profile Permissions"
+          name="Account Permissions"
         />
         <NumberedStat
           count={data.profileStatuses.toString()}
-          name="Profile Statuses"
+          name="Account Statuses"
         />
         <NumberedStat
           count={data.profileThemes.toString()}
-          name="Profile Themes"
+          name="Account Themes"
         />
         <NumberedStat count={data.polls.toString()} name="Polls" />
         <NumberedStat count={data.pollOptions.toString()} name="Poll Options" />

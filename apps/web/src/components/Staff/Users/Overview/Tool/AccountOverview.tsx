@@ -13,7 +13,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -22,7 +22,7 @@ import type { FC } from "react";
 const GET_HAVE_USED_HEY_QUERY_KEY = "getHaveUsedHey";
 
 interface AccountOverviewProps {
-  account: Profile;
+  account: Account;
 }
 
 const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
@@ -49,7 +49,7 @@ const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
       <div className="divider my-5 border-yellow-600 border-dashed" />
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="size-5" />
-        <H5>Profile Overview</H5>
+        <H5>Account Overview</H5>
       </div>
       <div className="mt-3 space-y-2">
         {haveUsedHey ? (
@@ -69,7 +69,7 @@ const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
         ) : null}
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
-          title="Profile ID"
+          title="Account ID"
           value={account.id}
         >
           {account.id}

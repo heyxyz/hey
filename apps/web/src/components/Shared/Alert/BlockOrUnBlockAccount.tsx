@@ -149,7 +149,7 @@ const BlockOrUnBlockAccount: FC = () => {
       onClose={() => setShowBlockOrUnblockAlert(false, null)}
       onConfirm={blockOrUnblock}
       show={showBlockOrUnblockAlert}
-      title="Block Profile"
+      title="Block Account"
     />
   );
 };

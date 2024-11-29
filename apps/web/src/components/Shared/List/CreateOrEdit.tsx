@@ -113,7 +113,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = ({ list }) => {
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL("image/png");
 
-      // Update Profile Picture
+      // Update Account Picture
       setAvatarIpfsUrl(ipfsUrl);
       setUploadedAvatarUrl(dataUrl);
     } catch (error) {
