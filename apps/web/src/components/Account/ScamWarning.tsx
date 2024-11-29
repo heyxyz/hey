@@ -24,7 +24,7 @@ const ScamWarning: FC<ScamWarningProps> = ({ accountId }) => {
       forceRounded
     >
       <div className="flex items-center space-x-2 font-bold">
-        <p>Profile is marked as {type.toLowerCase()}!</p>
+        <p>Account is marked as {type.toLowerCase()}!</p>
       </div>
       {description && (
         <Markup className="text-sm" mentions={getMentions(description)}>

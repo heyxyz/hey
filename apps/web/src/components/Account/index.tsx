@@ -3,11 +3,7 @@ import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { Leafwatch } from "@helpers/leafwatch";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import {
-  APP_NAME,
-  HANDLE_PREFIX,
-  STATIC_IMAGES_URL
-} from "@hey/data/constants";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { AccountFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
@@ -15,8 +11,7 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile } from "@hey/lens";
-import { useProfileQuery } from "@hey/lens";
+import { type Account, useFullAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -37,7 +32,7 @@ const ViewProfile: NextPage = () => {
   const {
     isReady,
     pathname,
-    query: { handle, id, source, type }
+    query: { username, address, source, type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -47,12 +42,12 @@ const ViewProfile: NextPage = () => {
       Leafwatch.track(PAGEVIEW, {
         page: "profile",
         subpage: pathname
-          .replace("/u/[handle]", "")
-          .replace("/profile/[id]", ""),
+          .replace("/u/[username]", "")
+          .replace("/profile/[address]", ""),
         ...(source ? { source } : {})
       });
     }
-  }, [handle, id]);
+  }, [username, address]);
 
   const lowerCaseAccountFeedType = [
     AccountFeedType.Feed.toLowerCase(),
@@ -72,23 +67,24 @@ const ViewProfile: NextPage = () => {
     data,
     error,
     loading: profileLoading
-  } = useProfileQuery({
-    skip: id ? !id : !handle,
+  } = useFullAccountQuery({
+    skip: address ? !address : !username,
     variables: {
-      request: {
-        ...(id
-          ? { forProfileId: id }
-          : { forHandle: `${HANDLE_PREFIX}${handle}` })
-      }
+      accountRequest: {
+        ...(address
+          ? { address }
+          : { username: { localName: username as string } })
+      },
+      accountStatsRequest: { account: address }
     }
   });
 
-  const account = data?.profile as Profile;
+  const account = data?.account as Account;
 
   const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
-    enabled: Boolean(account?.id),
-    queryFn: () => getAccountDetails(account?.id),
-    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.id]
+    enabled: Boolean(account?.address),
+    queryFn: () => getAccountDetails(account?.address),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.address]
   });
 
   if (!isReady || profileLoading) {
@@ -109,7 +105,7 @@ const ViewProfile: NextPage = () => {
     <>
       <MetaTags
         creator={getAccount(account).displayName}
-        description={account.metadata?.bio}
+        description={account.metadata?.bio || ""}
         title={`${getAccount(account).displayName} (${
           getAccount(account).slugWithPrefix
         }) • ${APP_NAME}`}
@@ -125,11 +121,11 @@ const ViewProfile: NextPage = () => {
       <GridLayout>
         <GridItemFour>
           {isSuspended ? (
-            <SuspendedDetails account={account as Profile} />
+            <SuspendedDetails account={account as Account} />
           ) : (
             <Details
               isSuspended={accountDetails?.isSuspended || false}
-              account={account as Profile}
+              account={account as Account}
             />
           )}
         </GridItemFour>
@@ -137,12 +133,12 @@ const ViewProfile: NextPage = () => {
           {isSuspended ? (
             <EmptyState
               icon={<NoSymbolIcon className="size-8" />}
-              message="Profile Suspended"
+              message="Account Suspended"
             />
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.id === account?.id &&
+              {currentAccount?.account.account.address === account?.address &&
               feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}
@@ -153,7 +149,7 @@ const ViewProfile: NextPage = () => {
                 <AccountFeed
                   handle={getAccount(account).slugWithPrefix}
                   accountDetailsLoading={accountDetailsLoading}
-                  accountId={account.id}
+                  address={account.address}
                   type={feedType}
                 />
               ) : feedType === AccountFeedType.Lists ? (

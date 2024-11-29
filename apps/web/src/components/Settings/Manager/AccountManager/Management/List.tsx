@@ -2,9 +2,9 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
 import { UsersIcon } from "@heroicons/react/24/outline";
+import type { Account } from "@hey/indexer";
 import type {
   LastLoggedInProfileRequest,
-  Profile,
   ProfilesManagedRequest
 } from "@hey/lens";
 import {
@@ -128,7 +128,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            account={account as Profile}
+            account={account as Account}
           />
           {address !== account.ownedBy.address && (
             <Button

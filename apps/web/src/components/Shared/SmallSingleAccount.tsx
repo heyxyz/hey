@@ -2,20 +2,20 @@ import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbso
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
-import Misuse from "./Profile/Icons/Misuse";
-import Verified from "./Profile/Icons/Verified";
+import Misuse from "./Account/Icons/Misuse";
+import Verified from "./Account/Icons/Verified";
 import Slug from "./Slug";
 
 interface SmallSingleAccountProps {
   hideSlug?: boolean;
   linkToAccount?: boolean;
-  account: Profile;
+  account: Account;
   smallAvatar?: boolean;
   timestamp?: Date;
 }
@@ -29,7 +29,7 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
 }) => {
   const UserAvatar: FC = () => (
     <Image
-      alt={account.id}
+      alt={account.address}
       className={cn(
         smallAvatar ? "size-4" : "size-6",
         "rounded-full border bg-gray-200 dark:border-gray-700"
@@ -37,7 +37,7 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
       height={smallAvatar ? 16 : 24}
       loading="lazy"
       onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(account.id);
+        currentTarget.src = getLennyURL(account.address);
       }}
       src={getAvatar(account)}
       width={smallAvatar ? 16 : 24}
@@ -49,8 +49,8 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
       <div className={cn(!hideSlug && "max-w-[75%]", "mr-1 truncate")}>
         {getAccount(account).displayName}
       </div>
-      <Verified id={account.id} iconClassName="mr-1 size-4" />
-      <Misuse id={account.id} iconClassName="mr-2 size-4" />
+      <Verified id={account.address} iconClassName="mr-1 size-4" />
+      <Misuse id={account.address} iconClassName="mr-2 size-4" />
       {!hideSlug && (
         <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
       )}

@@ -4,7 +4,8 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
   LimitType,
@@ -28,7 +29,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const { addProfile: addToRecentProfiles } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [accounts, setAccounts] = useState<Profile[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   const handleReset = () => {
@@ -69,7 +70,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
 
       searchUsers({ variables: { request } }).then((res) => {
         if (res.data?.searchProfiles?.items) {
-          setAccounts(res.data.searchProfiles.items as Profile[]);
+          setAccounts(res.data.searchProfiles.items as Account[]);
         }
       });
     }

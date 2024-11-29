@@ -1,13 +1,13 @@
 mutation AddAccountManager($request: AddAccountManagerRequest!) {
   addAccountManager(request: $request) {
     ... on SelfFundedTransactionRequest {
-      selfFundedReason: reason
+      reason
     }
     ... on SponsoredTransactionRequest {
-      sponsoredReason: reason
+      reason
     }
     ... on TransactionWillFail {
-      transactionFailReason: reason
+      reason
     }
   }
 }

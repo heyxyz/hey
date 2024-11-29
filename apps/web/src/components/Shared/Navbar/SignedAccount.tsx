@@ -2,7 +2,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -32,7 +32,7 @@ const SignedAccount: FC = () => {
       onError={({ currentTarget }) => {
         currentTarget.src = getLennyURL(currentAccount?.id);
       }}
-      src={getAvatar(currentAccount as Profile)}
+      src={getAvatar(currentAccount as Account)}
     />
   );
 

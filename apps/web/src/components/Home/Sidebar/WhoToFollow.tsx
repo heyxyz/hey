@@ -3,7 +3,7 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT, AccountLinkSource } from "@hey/data/tracking";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { LimitType, useProfileRecommendationsQuery } from "@hey/lens";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
 import type { FC } from "react";
@@ -71,11 +71,11 @@ const WhoToFollow: FC = () => {
               <SingleAccount
                 hideFollowButton={currentAccount?.id === account.id}
                 hideUnfollowButton={currentAccount?.id === account.id}
-                account={account as Profile}
+                account={account as Account}
                 source={AccountLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedAccount account={account as Profile} />
+            <DismissRecommendedAccount account={account as Account} />
           </div>
         ))}
         <button
@@ -94,7 +94,7 @@ const WhoToFollow: FC = () => {
         show={showMore}
         title="Suggested for you"
       >
-        <Suggested accounts={recommendedAccounts as Profile[]} />
+        <Suggested accounts={recommendedAccounts as Account[]} />
       </Modal>
     </>
   );

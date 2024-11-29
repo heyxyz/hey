@@ -1,3 +1,0 @@
-query HandleToAddress($request: HandleToAddressRequest!) {
-  handleToAddress(request: $request)
-}

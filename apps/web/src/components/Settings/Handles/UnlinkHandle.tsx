@@ -5,34 +5,20 @@ import { TokenHandleRegistry } from "@hey/abis";
 import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type { UnlinkHandleFromProfileRequest } from "@hey/lens";
-import {
-  useBroadcastOnchainMutation,
-  useCreateUnlinkHandleFromProfileTypedDataMutation,
-  useUnlinkHandleFromProfileMutation
-} from "@hey/lens";
+import { useUnlinkHandleFromProfileMutation } from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [unlinking, setUnlinking] = useState<boolean>(false);
-
-  const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -54,7 +40,6 @@ const UnlinkHandle: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { data: writeHash, writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -67,36 +52,6 @@ const UnlinkHandle: FC = () => {
       functionName: "unlink"
     });
   };
-
-  const [broadcastOnchain, { data: broadcastData }] =
-    useBroadcastOnchainMutation({
-      onCompleted: ({ broadcastOnchain }) =>
-        onCompleted(broadcastOnchain.__typename)
-    });
-
-  const [createUnlinkHandleFromProfileTypedData] =
-    useCreateUnlinkHandleFromProfileTypedDataMutation({
-      onCompleted: async ({ createUnlinkHandleFromProfileTypedData }) => {
-        const { id, typedData } = createUnlinkHandleFromProfileTypedData;
-        await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args: [typedData.value] });
-          }
-          incrementLensHubOnchainSigNonce();
-
-          return;
-        }
-
-        return await write({ args: [typedData.value] });
-      },
-      onError
-    });
 
   const [unlinkHandleFromProfile, { data: linkHandleToProfileData }] =
     useUnlinkHandleFromProfileMutation({
@@ -135,15 +90,8 @@ const UnlinkHandle: FC = () => {
         handle: currentAccount.handle?.fullHandle
       };
 
-      if (canUseLensManager) {
-        return await unlinkHandleToProfileViaLensManager(request);
-      }
-
       return await createUnlinkHandleFromProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     } catch (error) {
       onError(error);
@@ -153,18 +101,15 @@ const UnlinkHandle: FC = () => {
   const lensManegaerTxId =
     linkHandleToProfileData?.unlinkHandleFromProfile.__typename ===
       "RelaySuccess" && linkHandleToProfileData.unlinkHandleFromProfile.txId;
-  const broadcastTxId =
-    broadcastData?.broadcastOnchain.__typename === "RelaySuccess" &&
-    broadcastData.broadcastOnchain.txId;
 
   return (
     <div className="m-5">
-      {lensManegaerTxId || broadcastTxId || writeHash ? (
+      {lensManegaerTxId || writeHash ? (
         <div className="mt-2">
           <IndexStatus
             shouldReload
             txHash={writeHash}
-            txId={lensManegaerTxId || broadcastTxId}
+            txId={lensManegaerTxId}
           />
         </div>
       ) : (

@@ -1,4 +1,5 @@
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
   LimitType,
@@ -13,7 +14,7 @@ interface SearchAccountsProps {
   error?: boolean;
   hideDropdown?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onAccountSelected: (account: Profile) => void;
+  onAccountSelected: (account: Account) => void;
   placeholder?: string;
   skipGardeners?: boolean;
   value: string;
@@ -45,7 +46,7 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
     searchUsers({ variables: { request } });
   };
 
-  const accounts = data?.searchProfiles.items as Profile[];
+  const accounts = data?.searchProfiles.items as Account[];
 
   return (
     <div className="relative w-full">

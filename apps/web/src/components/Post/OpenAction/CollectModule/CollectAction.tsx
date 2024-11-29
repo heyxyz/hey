@@ -1,8 +1,8 @@
 import { useApolloClient } from "@apollo/client";
 import AllowanceButton from "@components/Settings/Allowance/Button";
+import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
-import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -11,10 +11,8 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
-import getSignature from "@hey/helpers/getSignature";
 import type {
   ActOnOpenActionLensManagerRequest,
   ApprovedAllowanceAmountResult,
@@ -23,9 +21,7 @@ import type {
 } from "@hey/lens";
 import {
   useActOnOpenActionMutation,
-  useApprovedModuleAllowanceAmountQuery,
-  useBroadcastOnchainMutation,
-  useCreateActOnOpenActionTypedDataMutation
+  useApprovedModuleAllowanceAmountQuery
 } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
@@ -34,18 +30,11 @@ import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
-import {
-  useAccount,
-  useBalance,
-  useSignTypedData,
-  useWriteContract
-} from "wagmi";
+import { useAccount, useBalance, useWriteContract } from "wagmi";
 
 interface CollectActionProps {
   buttonTitle?: string;
@@ -72,11 +61,6 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const { addTransaction, isFollowPending } = useTransactionStore();
 
   const { id: sessionProfileId } = getCurrentSession();
@@ -90,12 +74,7 @@ const CollectAction: FC<CollectActionProps> = ({
   );
 
   const { address } = useAccount();
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  // Lens manager
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = collectModule?.collectLimit;
@@ -183,16 +162,11 @@ const CollectAction: FC<CollectActionProps> = ({
     });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
+      onError,
       onSuccess: (hash: string) => {
         addTransaction(generateOptimisticCollect({ txHash: hash }));
-        incrementLensHubOnchainSigNonce();
         onCompleted();
       }
     }
@@ -243,42 +217,6 @@ const CollectAction: FC<CollectActionProps> = ({
     hasAmount = true;
   }
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticCollect({ txId: broadcastOnchain.txId })
-        );
-      }
-      onCompleted(broadcastOnchain.__typename);
-    }
-  });
-
-  // Act Typed Data
-  const [createActOnOpenActionTypedData] =
-    useCreateActOnOpenActionTypedDataMutation({
-      onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        const { id, typedData } = createActOnOpenActionTypedData;
-        await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args: [typedData.value] });
-          }
-          incrementLensHubOnchainSigNonce();
-
-          return;
-        }
-
-        return await write({ args: [typedData.value] });
-      },
-      onError
-    });
-
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({
     onCompleted: ({ actOnOpenAction }) => {
@@ -322,15 +260,8 @@ const CollectAction: FC<CollectActionProps> = ({
         for: post?.id
       };
 
-      if (canUseManager) {
-        return await actViaLensManager(actOnRequest);
-      }
-
       return await createActOnOpenActionTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: actOnRequest
-        }
+        variables: { request: actOnRequest }
       });
     } catch (error) {
       onError(error);

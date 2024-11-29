@@ -8,7 +8,6 @@ import ErrorBoundary from "../ErrorBoundary";
 import Layout from "../Layout";
 import FeatureFlagProvider from "./FeatureFlagProvider";
 import LeafwatchProvider from "./LeafwatchProvider";
-import LensSubscriptionsProvider from "./LensSubscriptionsProvider";
 import OptimisticTransactionsProvider from "./OptimisticTransactionsProvider";
 import PreferencesProvider from "./PreferencesProvider";
 import ServiceWorkerProvider from "./ServiceWorkerProvider";
@@ -32,7 +31,6 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <FeatureFlagProvider>
-            <LensSubscriptionsProvider />
             <OptimisticTransactionsProvider />
             <QueryClientProvider client={queryClient}>
               <PreferencesProvider />

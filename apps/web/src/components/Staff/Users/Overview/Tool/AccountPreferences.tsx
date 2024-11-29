@@ -29,7 +29,7 @@ const AccountPreferences: FC<AccountPreferencesProps> = ({ preferences }) => {
       <div className="divider my-5 border-yellow-600 border-dashed" />
       <div className="flex items-center space-x-2 text-yellow-600">
         <Cog6ToothIcon className="size-5" />
-        <H5>Profile Preferences</H5>
+        <H5>Account Preferences</H5>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails

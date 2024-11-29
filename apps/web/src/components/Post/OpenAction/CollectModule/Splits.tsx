@@ -8,7 +8,8 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
-import type { Profile, RecipientDataOutput } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { RecipientDataOutput } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
 import { Image } from "@hey/ui";
 import Link from "next/link";
@@ -42,7 +43,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
       <div className="mb-2 font-bold">Fee recipients</div>
       {recipients.map((recipient) => {
         const { recipient: address, split } = recipient;
-        const account = getProfileByAddress(address) as Profile;
+        const account = getProfileByAddress(address) as Account;
 
         if (address === COLLECT_FEES_ADDRESS) {
           return (

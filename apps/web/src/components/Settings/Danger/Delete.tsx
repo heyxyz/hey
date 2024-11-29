@@ -6,7 +6,7 @@ import { LensHub } from "@hey/abis";
 import { APP_NAME, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import {
   Button,
   Card,
@@ -70,41 +70,22 @@ const DeleteSettings: FC = () => {
     }
   };
 
-  const cooldownEnded = () => {
-    const cooldownDate = currentAccount?.guardian?.cooldownEndsOn as any;
-    return new Date(cooldownDate).getTime() < Date.now();
-  };
-
-  const canDelete = !currentAccount?.guardian?.protected && cooldownEnded();
-
-  if (!canDelete) {
-    return (
-      <Card>
-        <CardHeader
-          body="Your profile cannot be deleted while profile guardian is enabled."
-          hideDivider
-          title={<div className="text-red-500">Delete Lens profile</div>}
-        />
-      </Card>
-    );
-  }
-
   return (
     <Card>
       <CardHeader
-        body={`This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
+        body={`This will permanently delete your Account NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
         title={<div className="text-red-500">Delete Lens profile</div>}
       />
       <div className="m-5 space-y-5">
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          account={currentAccount as Profile}
+          account={currentAccount as Account}
         />
         <div className="space-y-3">
           <H5 className="text-red-500">Delete Lens profile</H5>
           <p>
-            This will permanently delete your Profile NFT on the Lens Protocol.
+            This will permanently delete your Account NFT on the Lens Protocol.
             You will not be able to use any apps built on Lens, including{" "}
             {APP_NAME}. All your data will be wiped out immediately and you
             won't be able to get it back.

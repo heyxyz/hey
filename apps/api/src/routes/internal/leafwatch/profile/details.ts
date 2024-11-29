@@ -50,7 +50,7 @@ export const get = [
         mostCommonCountry: string;
         numberOfEvents: string;
       }>();
-      logger.info(`Profile details fetched for ${id}`);
+      logger.info(`Account details fetched for ${id}`);
 
       return res.status(200).json({
         result: result[0]

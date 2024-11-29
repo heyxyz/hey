@@ -10,7 +10,7 @@ import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { HEY_API_URL } from "@hey/data/constants";
 import getLists, { GET_LISTS_QUERY_KEY } from "@hey/helpers/api/lists/getLists";
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import type { List } from "@hey/types/hey";
 import {
   Button,
@@ -30,7 +30,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import CreateOrEdit from "../../Shared/List/CreateOrEdit";
 
 interface ListsProps {
-  account: Profile;
+  account: Account;
 }
 
 const Lists: FC<ListsProps> = ({ account }) => {
@@ -43,8 +43,8 @@ const Lists: FC<ListsProps> = ({ account }) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryFn: () => getLists({ ownerId: account.id }),
-    queryKey: [GET_LISTS_QUERY_KEY, account.id]
+    queryFn: () => getLists({ ownerId: account.address }),
+    queryKey: [GET_LISTS_QUERY_KEY, account.address]
   });
 
   const handleDeleteList = async (id: string) => {
@@ -67,7 +67,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        [GET_LISTS_QUERY_KEY, currentAccount?.id],
+        [GET_LISTS_QUERY_KEY, currentAccount?.account.account.address],
         (oldData) => oldData?.filter((list) => list.id !== id)
       );
       toast.success("List deleted");
@@ -90,7 +90,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
       );
 
       queryClient.setQueryData<List[]>(
-        [GET_LISTS_QUERY_KEY, currentAccount?.id],
+        [GET_LISTS_QUERY_KEY, currentAccount?.account.account.address],
         (oldData) =>
           oldData?.map((list) =>
             list.id === id ? { ...list, pinned: !pinned } : list
@@ -109,7 +109,7 @@ const Lists: FC<ListsProps> = ({ account }) => {
     <Card>
       <div className="flex items-center justify-between space-x-5 p-5">
         <H5>{getAccount(account).slugWithPrefix}'s Lists</H5>
-        {account.id === currentAccount?.id && (
+        {account.address === currentAccount?.account.account.address && (
           <Button onClick={() => setShowCreateModal(!showCreateModal)}>
             Create
           </Button>
@@ -126,7 +126,8 @@ const Lists: FC<ListsProps> = ({ account }) => {
             {data?.map((list) => (
               <div key={list.id} className="flex items-center justify-between">
                 <SingleList list={list} />
-                {account.id === currentAccount?.id && (
+                {account.address ===
+                  currentAccount?.account.account.address && (
                   <div className="flex items-center gap-3">
                     <Tooltip
                       content={list.pinned ? "Unpin from Home" : "Pin to Home"}

@@ -2,7 +2,8 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Profile, ProfilesRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ProfilesRequest } from "@hey/lens";
 import { LimitType, useProfilesQuery } from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -75,7 +76,7 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === account.id}
             hideUnfollowButton={currentAccount?.id === account.id}
-            account={account as Profile}
+            account={account as Account}
             showBio
             showUserPreview={false}
             source={AccountLinkSource.Mirrors}

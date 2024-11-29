@@ -4,7 +4,4 @@ export const POLYGON_RPCS = [
   "https://polygon.drpc.org"
 ];
 
-export const POLYGON_AMOY_RPCS = [
-  "https://rpc-amoy.polygon.technology",
-  "https://polygon-amoy.drpc.org"
-];
+export const LENS_TESTNET_RPCS = ["https://rpc.testnet.lens.dev"];

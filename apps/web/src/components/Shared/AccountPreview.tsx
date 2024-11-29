@@ -8,7 +8,7 @@ import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useProfileLazyQuery } from "@hey/lens";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
@@ -16,10 +16,10 @@ import { useQuery } from "@tanstack/react-query";
 import plur from "plur";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
+import FollowUnfollowButton from "./Account/FollowUnfollowButton";
+import Misuse from "./Account/Icons/Misuse";
+import Verified from "./Account/Icons/Verified";
 import Markup from "./Markup";
-import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
-import Misuse from "./Profile/Icons/Misuse";
-import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
@@ -42,7 +42,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
-  const account = data?.profile as Profile;
+  const account = data?.profile as Account;
 
   const onPreviewStart = async () => {
     if (account || networkLoading) {
@@ -175,7 +175,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           <div className="!text-xs">
             <MutualFollowersOverview
               handle={getAccount(account).slug}
-              accountId={account.id}
+              address={account.id}
               viaPopover
             />
           </div>

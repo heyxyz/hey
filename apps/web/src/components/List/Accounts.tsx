@@ -3,7 +3,8 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { AccountLinkSource } from "@hey/data/tracking";
-import { type Profile, useProfilesQuery } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import { useProfilesQuery } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -105,7 +106,7 @@ const Accounts: FC<AccountsProps> = ({ listId, name }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.id === member.id}
               hideUnfollowButton={currentAccount?.id === member.id}
-              account={member as Profile}
+              account={member as Account}
               showBio
               showUserPreview={false}
               source={AccountLinkSource.ListAccounts}

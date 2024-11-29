@@ -1,6 +1,6 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useProfilesManagedQuery } from "@hey/lens";
 import { H5 } from "@hey/ui";
 import Link from "next/link";
@@ -33,7 +33,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
               <div>
                 <Link href={`/staff/users/${data?.lastLoggedInProfile?.id}`}>
                   <SmallSingleAccount
-                    account={data?.lastLoggedInProfile as Profile}
+                    account={data?.lastLoggedInProfile as Account}
                   />
                 </Link>
                 <div className="divider my-5 border-yellow-600 border-dashed" />
@@ -42,7 +42,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
             {data?.profilesManaged.items.map((profile) => (
               <div key={profile.id}>
                 <Link href={`/staff/users/${profile.id}`}>
-                  <SmallSingleAccount account={profile as Profile} />
+                  <SmallSingleAccount account={profile as Account} />
                 </Link>
               </div>
             ))}

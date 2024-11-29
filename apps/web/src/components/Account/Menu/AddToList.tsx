@@ -1,12 +1,12 @@
 import { MenuItem } from "@headlessui/react";
 import { ListBulletIcon } from "@heroicons/react/24/outline";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 
 interface AddToListProps {
-  account: Profile;
+  account: Account;
 }
 
 const AddToList: FC<AddToListProps> = ({ account }) => {

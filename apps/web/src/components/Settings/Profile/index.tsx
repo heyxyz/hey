@@ -23,7 +23,7 @@ const ProfileSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Profile settings • ${APP_NAME}`} />
+      <MetaTags title={`Account settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

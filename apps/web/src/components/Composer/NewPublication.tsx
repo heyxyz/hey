@@ -8,16 +8,12 @@ import uploadMetadata from "@helpers/uploadMetadata";
 import { KNOWN_ATTRIBUTES, METADATA_ENDPOINT } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
 import type {
   MirrorablePublication,
-  MomokaCommentRequest,
-  MomokaPostRequest,
-  MomokaQuoteRequest,
   OnchainCommentRequest,
   OnchainPostRequest,
   OnchainQuoteRequest,
@@ -52,7 +48,6 @@ import {
 } from "src/store/non-persisted/post/usePostVideoStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
@@ -101,9 +96,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   // Global modal store
   const { setShowNewPostModal } = useGlobalModalStateStore();
 
-  // Nonce store
-  const { lensHubOnchainSigNonce } = useNonceStore();
-
   // Post store
   const { postContent, quotedPost, setPostContent, setQuotedPost, setTags } =
     usePostStore();
@@ -151,20 +143,10 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const createPoll = useCreatePoll();
   const getMetadata = usePostMetadata();
 
-  const { canUseLensManager } = checkDispatcherPermissions(currentAccount);
-
   const isComment = Boolean(post);
   const isQuote = Boolean(quotedPost);
   const hasAudio = attachments[0]?.type === "Audio";
   const hasVideo = attachments[0]?.type === "Video";
-
-  const noCollect = !collectModule.type;
-  // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
-  const useMomoka = isComment
-    ? post?.momoka?.proof
-    : isQuote
-      ? quotedPost?.momoka?.proof
-      : noCollect;
 
   const reset = () => {
     editor?.setMarkdown("");
@@ -228,26 +210,13 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     );
   };
 
-  const {
-    createCommentOnChain,
-    createCommentOnMomka,
-    createMomokaCommentTypedData,
-    createMomokaPostTypedData,
-    createMomokaQuoteTypedData,
-    createOnchainCommentTypedData,
-    createOnchainPostTypedData,
-    createOnchainQuoteTypedData,
-    createPostOnChain,
-    createPostOnMomka,
-    createQuoteOnChain,
-    createQuoteOnMomka,
-    error
-  } = useCreatePost({
-    commentOn: post,
-    onCompleted,
-    onError,
-    quoteOn: quotedPost as Quote
-  });
+  const { createCommentOnChain, createPostOnChain, createQuoteOnChain, error } =
+    useCreatePost({
+      commentOn: post,
+      onCompleted,
+      onError,
+      quoteOn: quotedPost as Quote
+    });
 
   useEffect(() => {
     setPostContentError("");
@@ -362,50 +331,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         });
       }
 
-      // Payload for the Momoka post/comment/quote
-      const momokaRequest:
-        | MomokaCommentRequest
-        | MomokaPostRequest
-        | MomokaQuoteRequest = {
-        ...(isComment && { commentOn: post?.id }),
-        ...(isQuote && { quoteOn: quotedPost?.id }),
-        contentURI: `${METADATA_ENDPOINT}/${metadataId}`
-      };
-
-      if (useMomoka) {
-        if (canUseLensManager) {
-          if (isComment) {
-            return await createCommentOnMomka(
-              momokaRequest as MomokaCommentRequest
-            );
-          }
-
-          if (isQuote) {
-            return await createQuoteOnMomka(
-              momokaRequest as MomokaQuoteRequest
-            );
-          }
-
-          return await createPostOnMomka(momokaRequest);
-        }
-
-        if (isComment) {
-          return await createMomokaCommentTypedData({
-            variables: { request: momokaRequest as MomokaCommentRequest }
-          });
-        }
-
-        if (isQuote) {
-          return await createMomokaQuoteTypedData({
-            variables: { request: momokaRequest as MomokaQuoteRequest }
-          });
-        }
-
-        return await createMomokaPostTypedData({
-          variables: { request: momokaRequest }
-        });
-      }
-
       // Payload for the post/comment/quote
       const onChainRequest:
         | OnchainCommentRequest
@@ -431,46 +356,17 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         })
       };
 
-      if (canUseLensManager) {
-        if (isComment) {
-          return await createCommentOnChain(
-            onChainRequest as OnchainCommentRequest
-          );
-        }
-
-        if (isQuote) {
-          return await createQuoteOnChain(
-            onChainRequest as OnchainQuoteRequest
-          );
-        }
-
-        return await createPostOnChain(onChainRequest);
-      }
-
       if (isComment) {
-        return await createOnchainCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: onChainRequest as OnchainCommentRequest
-          }
-        });
+        return await createCommentOnChain(
+          onChainRequest as OnchainCommentRequest
+        );
       }
 
       if (isQuote) {
-        return await createOnchainQuoteTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: onChainRequest as OnchainQuoteRequest
-          }
-        });
+        return await createQuoteOnChain(onChainRequest as OnchainQuoteRequest);
       }
 
-      return await createOnchainPostTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: onChainRequest
-        }
-      });
+      return await createPostOnChain(onChainRequest);
     } catch (error) {
       onError(error);
     }

@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import Markup from "@components/Shared/Markup";
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getMentions from "@hey/helpers/getMentions";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import {
   LensTransactionStatusType,
   PublicationDocument,
@@ -70,7 +70,7 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <SmallSingleAccount linkToAccount account={currentAccount as Profile} />
+        <SmallSingleAccount linkToAccount account={currentAccount as Account} />
         <Tooltip content="Indexing" placement="top">
           <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
             <div className="size-2 animate-shimmer rounded-full bg-gray-500" />

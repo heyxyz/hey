@@ -1,27 +1,28 @@
-import { APP_NAME, HANDLE_PREFIX } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
-import type { Profile } from "@hey/lens";
-import { ProfileDocument } from "@hey/lens";
+import { type Account, AccountDocument } from "@hey/indexer";
 import { print } from "graphql";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
 interface Props {
-  params: Promise<{ handle: string }>;
+  params: Promise<{ username: string }>;
 }
 
 export const generateMetadata = async ({
   params
 }: Props): Promise<Metadata> => {
-  const { handle } = await params;
+  const { username } = await params;
 
   const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
-      operationName: "Profile",
-      query: print(ProfileDocument),
-      variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
+      operationName: "Account",
+      query: print(AccountDocument),
+      variables: {
+        request: { username: { localName: username } }
+      }
     }),
     cache: "no-store",
     headers: { "Content-Type": "application/json" },
@@ -34,7 +35,7 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const account = result.data.profile as Profile;
+  const account = result.data.profile as Account;
   const { displayName, link, slugWithPrefix } = getAccount(account);
   const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
   const description = (account?.metadata?.bio || title).slice(0, 155);
@@ -70,8 +71,8 @@ export const generateMetadata = async ({
     other: {
       "count:followers": account.stats.followers,
       "count:following": account.stats.following,
-      "lens:handle": handle,
-      "lens:id": account.id
+      "lens:username": username,
+      "lens:id": account.address
     },
     publisher: displayName,
     title: title,
@@ -80,16 +81,16 @@ export const generateMetadata = async ({
 };
 
 const Page = async ({ params }: Props) => {
-  const { handle } = await params;
+  const { username } = await params;
   const metadata = await generateMetadata({ params });
 
   if (!metadata) {
-    return <h1>{handle}</h1>;
+    return <h1>{username}</h1>;
   }
 
-  const profileUrl = `https://hey.xyz/u/${metadata.other?.["lens:handle"]}`;
+  const profileUrl = `https://hey.xyz/u/${metadata.other?.["lens:username"]}`;
 
-  logger.info(`[OG] Fetched profile /u/${handle}`);
+  logger.info(`[OG] Fetched profile /u/${username}`);
 
   return (
     <>

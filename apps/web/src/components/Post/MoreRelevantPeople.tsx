@@ -1,12 +1,12 @@
 import SingleAccount from "@components/Shared/SingleAccount";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MoreRelevantPeopleProps {
-  accounts: Profile[];
+  accounts: Account[];
 }
 
 const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
@@ -24,7 +24,7 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.id === account.id}
               hideUnfollowButton={currentAccount?.id === account.id}
-              account={account as Profile}
+              account={account as Account}
               showBio
               showUserPreview={false}
               source={AccountLinkSource.WhoToFollow}

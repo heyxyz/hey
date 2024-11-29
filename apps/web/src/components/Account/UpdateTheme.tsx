@@ -24,7 +24,7 @@ const UpdateTheme: FC = () => {
       });
       queryClient.invalidateQueries({ queryKey: [GET_PREFERENCES_QUERY_KEY] });
       setTheme(null);
-      toast.success("Profile theme reset");
+      toast.success("Account theme reset");
     } catch (error) {
       errorToast(error);
     } finally {
@@ -39,7 +39,7 @@ const UpdateTheme: FC = () => {
         headers: getAuthApiHeaders()
       });
       queryClient.invalidateQueries({ queryKey: [GET_PREFERENCES_QUERY_KEY] });
-      toast.success("Profile theme updated");
+      toast.success("Account theme updated");
     } catch (error) {
       errorToast(error);
     } finally {

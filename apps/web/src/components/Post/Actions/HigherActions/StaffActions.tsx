@@ -22,7 +22,7 @@ interface StaffActionsProps {
 const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const { data: profile } = useQuery({
+  const { data: account } = useQuery({
     queryFn: () => getInternalAccount(post.by.id, getAuthApiHeaders()),
     queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, post.by.id || ""],
     enabled: isStaff
@@ -32,7 +32,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
     return null;
   }
 
-  const handleSuspendProfile = (id: string) => {
+  const handleSuspendAccount = (id: string) => {
     onClick?.();
     toast.promise(
       axios.post(
@@ -41,15 +41,15 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
         { headers: getAuthApiHeaders() }
       ),
       {
-        error: "Error suspending profile",
-        loading: "Suspending profile...",
-        success: "Profile suspended"
+        error: "Error suspending account",
+        loading: "Suspending account...",
+        success: "Account suspended"
       }
     );
   };
 
-  const isSuspended = profile?.permissions.includes(Permission.Suspended);
-  const isCommentSuspended = profile?.permissions.includes(
+  const isSuspended = account?.permissions.includes(Permission.Suspended);
+  const isCommentSuspended = account?.permissions.includes(
     Permission.CommentSuspended
   );
 
@@ -58,7 +58,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
       <Button
         className="flex justify-center"
         icon={<ChatBubbleLeftIcon className="size-4" />}
-        onClick={() => handleSuspendProfile(PermissionId.CommentSuspended)}
+        onClick={() => handleSuspendAccount(PermissionId.CommentSuspended)}
         disabled={isSuspended || isCommentSuspended}
         size="sm"
         variant="danger"
@@ -68,12 +68,12 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
       <Button
         className="flex justify-center"
         icon={<NoSymbolIcon className="size-4" />}
-        onClick={() => handleSuspendProfile(PermissionId.Suspended)}
+        onClick={() => handleSuspendAccount(PermissionId.Suspended)}
         disabled={isSuspended}
         size="sm"
         variant="danger"
       >
-        Profile Suspend
+        Account Suspend
       </Button>
     </>
   );

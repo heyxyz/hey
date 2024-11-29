@@ -2,13 +2,13 @@ import { MenuItem } from "@headlessui/react";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
 interface BlockProps {
-  account: Profile;
+  account: Account;
 }
 
 const Block: FC<BlockProps> = ({ account }) => {

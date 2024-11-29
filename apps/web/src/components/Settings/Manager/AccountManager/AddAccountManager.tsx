@@ -5,23 +5,16 @@ import { LensHub } from "@hey/abis";
 import { ADDRESS_PLACEHOLDER, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
-import {
-  ChangeProfileManagerActionType,
-  useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation
-} from "@hey/lens";
+import { ChangeProfileManagerActionType } from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { isAddress } from "viem";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
@@ -32,16 +25,10 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const [manager, setManager] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
     if (__typename === "RelayError") {
@@ -60,17 +47,10 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
-      onSuccess: () => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
-      }
+      onError,
+      onSuccess: () => onCompleted()
     }
   });
 
@@ -82,54 +62,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       functionName: "changeDelegatedExecutorsConfig"
     });
   };
-
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-  const [createChangeProfileManagersTypedData] =
-    useCreateChangeProfileManagersTypedDataMutation({
-      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { id, typedData } = createChangeProfileManagersTypedData;
-        const {
-          approvals,
-          configNumber,
-          delegatedExecutors,
-          delegatorProfileId,
-          switchToGivenConfig
-        } = typedData.value;
-        const args = [
-          delegatorProfileId,
-          delegatedExecutors,
-          approvals,
-          configNumber,
-          switchToGivenConfig
-        ];
-        await handleWrongNetwork();
-
-        try {
-          if (canBroadcast) {
-            const signature = await signTypedDataAsync(getSignature(typedData));
-            const { data } = await broadcastOnchain({
-              variables: { request: { id, signature } }
-            });
-            if (data?.broadcastOnchain.__typename === "RelayError") {
-              return await write({ args });
-            }
-            incrementLensHubOnchainSigNonce();
-
-            return;
-          }
-
-          return await write({ args });
-        } catch {
-          // Fix for Safe wallets
-          // TODO: Remove this once Lens supports Safe wallets
-          return await write({ args });
-        }
-      },
-      onError
-    });
 
   const handleAddManager = async () => {
     if (!currentAccount) {
@@ -144,7 +76,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       setIsLoading(true);
       return await createChangeProfileManagersTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             changeManagers: [
               { action: ChangeProfileManagerActionType.Add, address: manager }

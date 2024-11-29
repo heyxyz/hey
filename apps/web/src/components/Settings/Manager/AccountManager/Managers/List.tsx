@@ -1,5 +1,5 @@
 import { useApolloClient } from "@apollo/client";
-import LazyDefaultAccount from "@components/Shared/LazyDefaultAccount";
+import LazySingleAccount from "@components/Shared/LazySingleAccount";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
@@ -8,13 +8,9 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
 import type { ProfileManagersRequest } from "@hey/lens";
 import {
   ChangeProfileManagerActionType,
-  useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
 } from "@hey/lens";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
@@ -24,21 +20,17 @@ import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const onCompleted = (
     __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
@@ -65,7 +57,6 @@ const List: FC = () => {
     variables: { request }
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -79,48 +70,6 @@ const List: FC = () => {
     });
   };
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-  const [createChangeProfileManagersTypedData] =
-    useCreateChangeProfileManagersTypedDataMutation({
-      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-        const { id, typedData } = createChangeProfileManagersTypedData;
-        const {
-          approvals,
-          configNumber,
-          delegatedExecutors,
-          delegatorProfileId,
-          switchToGivenConfig
-        } = typedData.value;
-        const args = [
-          delegatorProfileId,
-          delegatedExecutors,
-          approvals,
-          configNumber,
-          switchToGivenConfig
-        ];
-        await handleWrongNetwork();
-        incrementLensHubOnchainSigNonce();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args });
-          }
-
-          return;
-        }
-
-        return await write({ args });
-      },
-      onError
-    });
-
   const handleRemoveManager = async (address: Address) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
@@ -130,7 +79,6 @@ const List: FC = () => {
       setRemovingAddress(address);
       return await createChangeProfileManagersTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             changeManagers: [
               { action: ChangeProfileManagerActionType.Remove, address }
@@ -184,7 +132,7 @@ const List: FC = () => {
       endReached={onEndReached}
       itemContent={(_, manager) => (
         <div className="flex items-center justify-between py-2">
-          <LazyDefaultAccount address={manager.address} />
+          <LazySingleAccount address={manager.address} />
           <Button
             disabled={removingAddress === manager.address}
             onClick={() => handleRemoveManager(manager.address)}

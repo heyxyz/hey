@@ -1,7 +1,0 @@
-query OwnedHandles($request: OwnedHandlesRequest!) {
-  ownedHandles(request: $request) {
-    items {
-      ...HandleInfoFields
-    }
-  }
-}

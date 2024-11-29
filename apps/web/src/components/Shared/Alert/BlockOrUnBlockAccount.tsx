@@ -5,27 +5,17 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
 import getAccount from "@hey/helpers/getAccount";
-import getSignature from "@hey/helpers/getSignature";
+import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
 import type { BlockRequest, UnblockRequest } from "@hey/lens";
-import {
-  useBlockMutation,
-  useBroadcastOnchainMutation,
-  useCreateBlockProfilesTypedDataMutation,
-  useCreateUnblockProfilesTypedDataMutation,
-  useUnblockMutation
-} from "@hey/lens";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 const BlockOrUnBlockAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -34,17 +24,11 @@ const BlockOrUnBlockAccount: FC = () => {
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
-  const { incrementLensHubOnchainSigNonce, lensHubOnchainSigNonce } =
-    useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingProfile?.operations.isBlockedByMe.value
   );
-
   const { isSuspended } = useAccountStatus();
-  const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -82,7 +66,6 @@ const BlockOrUnBlockAccount: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
   const { writeContractAsync } = useWriteContract({
     mutation: { onError, onSuccess: () => onCompleted() }
   });
@@ -95,47 +78,6 @@ const BlockOrUnBlockAccount: FC = () => {
       functionName: "setBlockStatus"
     });
   };
-
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-
-  const typedDataGenerator = async (generatedData: any) => {
-    const { id, typedData } = generatedData;
-    await handleWrongNetwork();
-    incrementLensHubOnchainSigNonce();
-
-    if (canBroadcast) {
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === "RelayError") {
-        return await write({ args: [typedData.value] });
-      }
-
-      return;
-    }
-
-    return await write({ args: [typedData.value] });
-  };
-
-  const [createBlockProfilesTypedData] =
-    useCreateBlockProfilesTypedDataMutation({
-      onCompleted: async ({ createBlockProfilesTypedData }) =>
-        await typedDataGenerator(createBlockProfilesTypedData),
-      onError,
-      update: updateCache
-    });
-
-  const [createUnblockProfilesTypedData] =
-    useCreateUnblockProfilesTypedDataMutation({
-      onCompleted: async ({ createUnblockProfilesTypedData }) =>
-        await typedDataGenerator(createUnblockProfilesTypedData),
-      onError,
-      update: updateCache
-    });
 
   const [blockProfile] = useBlockMutation({
     onCompleted: ({ block }) => onCompleted(block.__typename),
@@ -182,28 +124,14 @@ const BlockOrUnBlockAccount: FC = () => {
 
       // Block
       if (hasBlocked) {
-        if (canUseLensManager) {
-          return await unBlockViaLensManager(request);
-        }
-
         return await createUnblockProfilesTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request
-          }
+          variables: { request }
         });
       }
 
       // Unblock
-      if (canUseLensManager) {
-        return await blockViaLensManager(request);
-      }
-
       return await createBlockProfilesTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     } catch (error) {
       onError(error);
@@ -221,7 +149,7 @@ const BlockOrUnBlockAccount: FC = () => {
       onClose={() => setShowBlockOrUnblockAlert(false, null)}
       onConfirm={blockOrUnblock}
       show={showBlockOrUnblockAlert}
-      title="Block Profile"
+      title="Block Account"
     />
   );
 };

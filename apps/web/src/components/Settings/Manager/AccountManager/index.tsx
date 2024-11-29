@@ -51,7 +51,7 @@ const AccountManager: FC = () => {
             <Modal
               onClose={() => setShowAddManagerModal(false)}
               show={showAddManagerModal}
-              title="Add Profile Manager"
+              title="Add Account Manager"
             >
               <AddAccountManager
                 setShowAddManagerModal={setShowAddManagerModal}

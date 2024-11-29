@@ -1,11 +1,8 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import errorToast from "@helpers/errorToast";
 import formatDate from "@hey/helpers/datetime/formatDate";
-import {
-  type ModReport,
-  type Profile,
-  useModDisputeReportMutation
-} from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import { type ModReport, useModDisputeReportMutation } from "@hey/lens";
 import { Button, Form, H5, TextArea, useZodForm } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import toast from "react-hot-toast";
@@ -74,7 +71,7 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
         <div>
           <H5>Reported by</H5>
           <div className="mt-1">
-            <SmallSingleAccount account={report.reporter as Profile} />
+            <SmallSingleAccount account={report.reporter as Account} />
           </div>
         </div>
       </div>

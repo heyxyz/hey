@@ -3,7 +3,8 @@ import StaffActions from "@components/Post/Actions/HigherActions/StaffActions";
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
-import type { MirrorablePublication, ModReport, Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { MirrorablePublication, ModReport } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -40,7 +41,7 @@ const ReportDetails: FC<ReportDetailsProps> = ({
           {formatDate(report.createdAt, "MMM D, YYYY - hh:mm:ss A")}
         </div>
         <div className="mt-2">
-          <SmallSingleAccount account={report.reporter as Profile} />
+          <SmallSingleAccount account={report.reporter as Account} />
         </div>
       </div>
       <div className="flex flex-col space-y-3">

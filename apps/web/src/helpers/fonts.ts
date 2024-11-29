@@ -35,4 +35,4 @@ export const rubikMonoOneFont = Rubik_Mono_One({
   weight: "400"
 });
 
-// Profile theme fonts
+// Account theme fonts

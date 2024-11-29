@@ -11,13 +11,7 @@ import {
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { SETTINGS } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
-import {
-  FollowModuleType,
-  useBroadcastOnchainMutation,
-  useCreateSetFollowModuleTypedDataMutation
-} from "@hey/lens";
+import { FollowModuleType } from "@hey/lens";
 import {
   Button,
   Card,
@@ -32,10 +26,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 import { object, string } from "zod";
 
 const newSuperFollowSchema = object({
@@ -49,17 +42,11 @@ const SuperFollow: FC = () => {
   const { currentAccount } = useAccountStore();
   const { allowedTokens } = useAllowedTokensStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { canBroadcast } = checkDispatcherPermissions(currentAccount);
 
   const form = useZodForm({
     defaultValues: {
@@ -87,18 +74,10 @@ const SuperFollow: FC = () => {
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
-      onSuccess: () => {
-        onCompleted();
-        incrementLensHubOnchainSigNonce();
-      }
+      onError,
+      onSuccess: () => onCompleted()
     }
   });
 
@@ -110,36 +89,6 @@ const SuperFollow: FC = () => {
       functionName: "setFollowModule"
     });
   };
-
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-  const [createSetFollowModuleTypedData] =
-    useCreateSetFollowModuleTypedDataMutation({
-      onCompleted: async ({ createSetFollowModuleTypedData }) => {
-        const { id, typedData } = createSetFollowModuleTypedData;
-        const { followModule, followModuleInitData, profileId } =
-          typedData.value;
-        const args = [profileId, followModule, followModuleInitData];
-        await handleWrongNetwork();
-
-        if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcastOnchain.__typename === "RelayError") {
-            return await write({ args });
-          }
-
-          return;
-        }
-
-        return await write({ args });
-      },
-      onError
-    });
 
   const handleSetSuperFollow = async (
     amount: null | string,
@@ -157,7 +106,6 @@ const SuperFollow: FC = () => {
       setIsLoading(true);
       return await createSetFollowModuleTypedData({
         variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             followModule: amount
               ? {

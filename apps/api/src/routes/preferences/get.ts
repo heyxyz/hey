@@ -26,7 +26,7 @@ export const get = [
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info(`(cached) Profile preferences fetched for ${id}`);
+        logger.info(`(cached) Account preferences fetched for ${id}`);
         return res
           .status(200)
           .json({ result: JSON.parse(cachedData), success: true });
@@ -66,7 +66,7 @@ export const get = [
       };
 
       await setRedis(cacheKey, response);
-      logger.info(`Profile preferences fetched for ${id}`);
+      logger.info(`Account preferences fetched for ${id}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {
