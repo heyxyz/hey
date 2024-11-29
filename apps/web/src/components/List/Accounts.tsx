@@ -99,13 +99,13 @@ const Accounts: FC<AccountsProps> = ({ listId, name }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, member) => `${member.id}-${index}`}
+        computeItemKey={(index, member) => `${member.address}-${index}`}
         data={members}
         itemContent={(_, member) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={currentAccount?.id === member.id}
-              hideUnfollowButton={currentAccount?.id === member.id}
+              hideFollowButton={currentAccount?.address === member.address}
+              hideUnfollowButton={currentAccount?.address === member.address}
               account={member as Account}
               showBio
               showUserPreview={false}

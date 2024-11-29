@@ -2,9 +2,8 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
-import type { FollowersRequest } from "@hey/lens";
-import { LimitType, useFollowersQuery } from "@hey/lens";
+import type { Account, FollowersRequest } from "@hey/indexer";
+import { PageSize, useFollowersQuery } from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -12,19 +11,19 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface FollowersProps {
   handle: string;
-  accountId: string;
+  address: string;
 }
 
-const Followers: FC<FollowersProps> = ({ handle, accountId }) => {
+const Followers: FC<FollowersProps> = ({ handle, address }) => {
   const { currentAccount } = useAccountStore();
 
   const request: FollowersRequest = {
-    limit: LimitType.TwentyFive,
-    of: accountId
+    pageSize: PageSize.Fifty,
+    account: address
   };
 
   const { data, error, fetchMore, loading } = useFollowersQuery({
-    skip: !accountId,
+    skip: !address,
     variables: { request }
   });
 
@@ -72,15 +71,21 @@ const Followers: FC<FollowersProps> = ({ handle, accountId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, follower) => `${follower.id}-${index}`}
+      computeItemKey={(index, follower) =>
+        `${follower.follower.address}-${index}`
+      }
       data={followers}
       endReached={onEndReached}
       itemContent={(_, follower) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === follower.id}
-            hideUnfollowButton={currentAccount?.id === follower.id}
-            account={follower as Account}
+            hideFollowButton={
+              currentAccount?.address === follower.follower.address
+            }
+            hideUnfollowButton={
+              currentAccount?.address === follower.follower.address
+            }
+            account={follower.follower as Account}
             showBio
             showUserPreview={false}
             source={AccountLinkSource.Followers}

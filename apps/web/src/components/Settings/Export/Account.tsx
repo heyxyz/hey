@@ -16,7 +16,7 @@ const Account: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: ProfileRequest = {
-    forProfileId: currentAccount?.id
+    forProfileId: currentAccount?.address
   };
 
   const [exportProfile] = useProfileLazyQuery({

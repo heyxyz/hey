@@ -24,14 +24,14 @@ const AccountStatus: FC = () => {
   const queryClient = useQueryClient();
 
   const { isLoading, error } = useQuery({
-    enabled: Boolean(currentAccount?.id),
+    enabled: Boolean(currentAccount?.address),
     queryFn: () =>
-      getAccountDetails(currentAccount?.id).then((data) => {
+      getAccountDetails(currentAccount?.address).then((data) => {
         setMessage(data?.status?.message || null);
         setEmoji(data?.status?.emoji || null);
         return data;
       }),
-    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, currentAccount?.id]
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, currentAccount?.address]
   });
 
   if (isLoading) {

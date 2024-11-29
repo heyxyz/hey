@@ -68,14 +68,14 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, account) => `${account.id}-${index}`}
+      computeItemKey={(index, account) => `${account.address}-${index}`}
       data={accounts}
       endReached={onEndReached}
       itemContent={(_, account) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === account.id}
-            hideUnfollowButton={currentAccount?.id === account.id}
+            hideFollowButton={currentAccount?.address === account.address}
+            hideUnfollowButton={currentAccount?.address === account.address}
             account={account as Account}
             showBio
             showUserPreview={false}

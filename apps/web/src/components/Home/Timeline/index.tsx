@@ -32,7 +32,7 @@ const Timeline: FC = () => {
         FeedEventItemType.Mirror,
         FeedEventItemType.Quote
       ],
-      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentAccount?.id
+      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentAccount?.address
     }
   };
 

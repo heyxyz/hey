@@ -29,7 +29,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
     mutateAsync
   } = useMutation({
     mutationFn: () =>
-      getClub({ club_handle: handle, profile_id: currentAccount?.id }),
+      getClub({ club_handle: handle, profile_id: currentAccount?.address }),
     mutationKey: [GET_CLUB_QUERY_KEY, handle]
   });
 

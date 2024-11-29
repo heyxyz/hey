@@ -16,7 +16,7 @@ const Posts: FC = () => {
 
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
-    where: { from: currentAccount?.id }
+    where: { from: currentAccount?.address }
   };
 
   const [exportPublications] = usePublicationsLazyQuery({

@@ -124,39 +124,39 @@ const SwitchAccounts: FC = () => {
         error={error}
         title="Failed to load profiles"
       />
-      {profiles.map((profile, index) => (
+      {profiles.map((account, index) => (
         <button
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-          key={profile?.id}
+          key={account?.address}
           onClick={async () => {
             const selectedProfile = profiles[index] as Account;
-            await handleSwitchProfile(selectedProfile.id);
+            await handleSwitchProfile(selectedProfile.address);
           }}
           type="button"
         >
           <span className="flex items-center space-x-2">
             <Image
-              alt={profile.id}
+              alt={account.address}
               className="size-6 rounded-full border dark:border-gray-700"
               height={20}
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(profile.id);
+                currentTarget.src = getLennyURL(account.address);
               }}
-              src={getAvatar(profile)}
+              src={getAvatar(account)}
               width={20}
             />
             <div
               className={cn(
-                currentAccount?.id === profile?.id && "font-bold",
+                currentAccount?.address === account?.address && "font-bold",
                 "truncate"
               )}
             >
-              {getAccount(profile as Account).slugWithPrefix}
+              {getAccount(account as Account).slugWithPrefix}
             </div>
           </span>
-          {isLoading && profile.id === loggingInProfileId ? (
+          {isLoading && account.address === loggingInProfileId ? (
             <Spinner size="xs" />
-          ) : currentAccount?.id === profile?.id ? (
+          ) : currentAccount?.address === account?.address ? (
             <CheckCircleIcon className="size-5 text-green-500" />
           ) : null}
         </button>

@@ -69,7 +69,7 @@ const List: FC = () => {
     limit: LimitType.TwentyFive
   };
   const { data, error, fetchMore, loading } = useApprovedAuthenticationsQuery({
-    skip: !currentAccount?.id,
+    skip: !currentAccount?.address,
     variables: { request }
   });
 

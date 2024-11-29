@@ -52,7 +52,7 @@ const List: FC = () => {
     setRemovingAddress(null);
   };
 
-  const request: ProfileManagersRequest = { for: currentAccount?.id };
+  const request: ProfileManagersRequest = { for: currentAccount?.address };
   const { data, error, fetchMore, loading } = useProfileManagersQuery({
     variables: { request }
   });

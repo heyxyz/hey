@@ -64,7 +64,7 @@ const DeleteSettings: FC = () => {
     try {
       setIsLoading(true);
       await handleWrongNetwork();
-      return await write({ args: [currentAccount?.id] });
+      return await write({ args: [currentAccount?.address] });
     } catch (error) {
       onError(error);
     }

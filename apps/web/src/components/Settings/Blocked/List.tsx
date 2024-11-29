@@ -16,7 +16,7 @@ const List: FC = () => {
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
-    skip: !currentAccount?.id,
+    skip: !currentAccount?.address,
     variables: { request }
   });
 
@@ -56,7 +56,7 @@ const List: FC = () => {
     <div className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, account) => `${account.id}-${index}`}
+        computeItemKey={(index, account) => `${account.address}-${index}`}
         data={whoHaveBlocked}
         endReached={onEndReached}
         itemContent={(_, account) => (

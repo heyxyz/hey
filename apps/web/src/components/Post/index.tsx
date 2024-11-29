@@ -143,8 +143,8 @@ const ViewPost: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === targetPost.by.id}
-            hideUnfollowButton={currentAccount?.id === targetPost.by.id}
+            hideFollowButton={currentAccount?.address === targetPost.by.id}
+            hideUnfollowButton={currentAccount?.address === targetPost.by.id}
             account={targetPost.by}
             showBio
             source={AccountLinkSource.Post}

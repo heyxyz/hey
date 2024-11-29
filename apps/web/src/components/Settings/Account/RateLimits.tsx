@@ -11,8 +11,8 @@ const RateLimits: FC = () => {
     fetchPolicy: "no-cache",
     variables: {
       request: {
-        profileId: currentAccount?.id,
-        userAddress: currentAccount?.ownedBy.address
+        profileId: currentAccount?.address,
+        userAddress: currentAccount?.owner
       }
     }
   });

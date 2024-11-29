@@ -29,7 +29,7 @@ const Interests: FC = () => {
   const updateCache = (interests: string[]) => {
     cache.modify({
       fields: { interests: () => interests },
-      id: `Account:${currentAccount?.id}`
+      id: `Account:${currentAccount?.address}`
     });
   };
 
@@ -38,7 +38,7 @@ const Interests: FC = () => {
   };
 
   const { data, loading } = useProfileInterestsOptionsQuery({
-    variables: { request: { forProfileId: currentAccount?.id } }
+    variables: { request: { forProfileId: currentAccount?.address } }
   });
   const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),

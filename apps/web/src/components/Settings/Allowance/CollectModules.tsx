@@ -31,7 +31,7 @@ const CollectModules: FC = () => {
   const { data, error, loading, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       fetchPolicy: "no-cache",
-      skip: !currentAccount?.id,
+      skip: !currentAccount?.address,
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) }
     });
 

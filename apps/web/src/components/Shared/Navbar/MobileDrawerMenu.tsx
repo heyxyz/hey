@@ -44,10 +44,10 @@ const MobileDrawerMenu: FC = () => {
         >
           <div className="flex w-full space-x-1.5">
             <Image
-              alt={currentAccount?.id}
+              alt={currentAccount?.address}
               className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(currentAccount?.id);
+                currentTarget.src = getLennyURL(currentAccount?.address);
               }}
               src={getAvatar(currentAccount as Account)}
             />
@@ -68,7 +68,7 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <AccountStatus
             className={cn(itemClass, "px-4")}
-            id={currentAccount?.id}
+            id={currentAccount?.address}
           />
           <div className="divider" />
         </div>

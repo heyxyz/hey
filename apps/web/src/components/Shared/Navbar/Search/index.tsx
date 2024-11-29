@@ -114,9 +114,9 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                 {accounts.map((account) => (
                   <div
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    key={account.id}
+                    key={account.address}
                     onClick={() => {
-                      addToRecentProfiles(account.id);
+                      addToRecentProfiles(account.address);
                       push(getAccount(account).link);
                       handleReset();
                     }}

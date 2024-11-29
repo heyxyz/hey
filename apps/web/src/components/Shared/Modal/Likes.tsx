@@ -71,14 +71,16 @@ const Likes: FC<LikesProps> = ({ postId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, like) => `${like.profile.id}-${index}`}
+      computeItemKey={(index, like) => `${like.profile.address}-${index}`}
       data={profiles}
       endReached={onEndReached}
       itemContent={(_, like) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.id === like.profile.id}
-            hideUnfollowButton={currentAccount?.id === like.profile.id}
+            hideFollowButton={currentAccount?.address === like.profile.address}
+            hideUnfollowButton={
+              currentAccount?.address === like.profile.address
+            }
             account={like.profile as Account}
             showBio
             showUserPreview={false}

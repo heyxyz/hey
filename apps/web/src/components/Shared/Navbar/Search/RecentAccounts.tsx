@@ -54,13 +54,13 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               <H6 className="ld-text-gray-500">Clear all</H6>
             </button>
           </div>
-          {profiles.map((profile) => (
+          {profiles.map((account) => (
             <div
               className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-              key={profile.id}
+              key={account.address}
               onClick={() => {
-                addToRecentProfiles(profile.id);
-                push(getAccount(profile as Account).link);
+                addToRecentProfiles(account.address);
+                push(getAccount(account as Account).link);
                 onAccountClick();
               }}
             >
@@ -69,7 +69,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
                   hideFollowButton
                   hideUnfollowButton
                   linkToAccount={false}
-                  account={profile as Account}
+                  account={account as Account}
                   showUserPreview={false}
                   source={AccountLinkSource.RecentSearch}
                 />
@@ -77,7 +77,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               <button
                 onClick={(event) => {
                   stopEventPropagation(event);
-                  clearProfile(profile.id);
+                  clearProfile(account.address);
                 }}
                 type="reset"
               >

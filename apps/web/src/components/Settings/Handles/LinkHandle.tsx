@@ -117,7 +117,7 @@ const LinkHandle: FC = () => {
   }
 
   const ownedHandles = data?.ownedHandles.items.filter(
-    (handle) => handle.linkedTo?.nftTokenId !== currentAccount?.id
+    (handle) => handle.linkedTo?.nftTokenId !== currentAccount?.address
   );
 
   if (!ownedHandles?.length) {

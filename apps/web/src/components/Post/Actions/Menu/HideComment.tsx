@@ -63,7 +63,7 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
     variables: { request }
   });
 
-  const canHideComment = currentAccount?.id !== post?.by?.id;
+  const canHideComment = currentAccount?.address !== post?.by?.id;
 
   if (!canHideComment) {
     return null;

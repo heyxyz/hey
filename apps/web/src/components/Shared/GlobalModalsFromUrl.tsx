@@ -14,7 +14,7 @@ const GlobalModalsFromUrl: FC = () => {
   const { setScreen } = useSignupStore();
 
   useEffect(() => {
-    if (isReady && query.signup && !currentAccount?.id) {
+    if (isReady && query.signup && !currentAccount?.address) {
       setScreen("choose");
       setShowAuthModal(true, "signup");
       Leafwatch.track(AUTH.OPEN_SIGNUP);
