@@ -80,12 +80,12 @@ const ViewProfile: NextPage = () => {
     }
   });
 
-  const account = data?.profile as Account;
+  const account = data?.account as Account;
 
   const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
-    enabled: Boolean(account?.id),
-    queryFn: () => getAccountDetails(account?.id),
-    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.id]
+    enabled: Boolean(account?.address),
+    queryFn: () => getAccountDetails(account?.address),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.address]
   });
 
   if (!isReady || profileLoading) {
@@ -106,7 +106,7 @@ const ViewProfile: NextPage = () => {
     <>
       <MetaTags
         creator={getAccount(account).displayName}
-        description={account.metadata?.bio}
+        description={account.metadata?.bio || ""}
         title={`${getAccount(account).displayName} (${
           getAccount(account).slugWithPrefix
         }) • ${APP_NAME}`}
@@ -139,7 +139,7 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.id === account?.id &&
+              {currentAccount?.account.account.address === account?.address &&
               feedType !== AccountFeedType.Lists ? (
                 <NewPost />
               ) : null}
@@ -150,7 +150,7 @@ const ViewProfile: NextPage = () => {
                 <AccountFeed
                   handle={getAccount(account).slugWithPrefix}
                   accountDetailsLoading={accountDetailsLoading}
-                  accountId={account.id}
+                  address={account.address}
                   type={feedType}
                 />
               ) : feedType === AccountFeedType.Lists ? (

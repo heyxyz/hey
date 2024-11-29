@@ -1,12 +1,12 @@
 import Slug from "@components/Shared/Slug";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { H3, Image } from "@hey/ui";
 import type { FC } from "react";
 
 interface SuspendedDetailsProps {
-  account: Profile;
+  account: Account;
 }
 
 const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
@@ -16,7 +16,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
     <div className="space-y-5 px-5 sm:px-0">
       <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
         <Image
-          alt={account.id}
+          alt={account.address}
           className="size-32 rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           src={`${STATIC_IMAGES_URL}/suspended.png`}
