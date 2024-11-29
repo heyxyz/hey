@@ -1,0 +1,3 @@
+mutation ReportPost($request: ReportPostRequest!) {
+  reportPost(request: $request)
+}
