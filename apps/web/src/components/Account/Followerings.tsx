@@ -4,13 +4,13 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { H4, Modal } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 
 interface FolloweringsProps {
-  account: Profile;
+  account: Account;
 }
 
 const Followerings: FC<FolloweringsProps> = ({ account }) => {

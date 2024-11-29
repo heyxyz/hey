@@ -1,4 +1,4 @@
-import type { Maybe } from "@hey/lens";
+import type { Maybe } from "@hey/indexer";
 import type { MetadataLicenseType } from "@lens-protocol/metadata";
 import type { OptmisticPostType } from "./enums";
 
