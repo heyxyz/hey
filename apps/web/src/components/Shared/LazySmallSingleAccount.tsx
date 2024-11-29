@@ -1,29 +1,28 @@
-import type { Profile } from "@hey/lens";
-import { useProfileQuery } from "@hey/lens";
+import { type Account, useAccountQuery } from "@hey/indexer";
 import type { FC } from "react";
 import SmallSingleAccountShimmer from "./Shimmer/SmallSingleAccountShimmer";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 interface LazySmallSingleAccountProps {
   hideSlug?: boolean;
-  id: string;
+  address: string;
   linkToAccount?: boolean;
 }
 
 const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
   hideSlug = false,
-  id,
+  address,
   linkToAccount = false
 }) => {
-  const { data, loading } = useProfileQuery({
-    variables: { request: { forProfileId: id } }
+  const { data, loading } = useAccountQuery({
+    variables: { request: { address } }
   });
 
   if (loading) {
     return <SmallSingleAccountShimmer smallAvatar />;
   }
 
-  if (!data?.profile) {
+  if (!data?.account) {
     return null;
   }
 
@@ -31,7 +30,7 @@ const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
     <SmallSingleAccount
       hideSlug={hideSlug}
       linkToAccount={linkToAccount}
-      account={data.profile as Profile}
+      account={data.account as Account}
       smallAvatar
     />
   );

@@ -1,7 +1,8 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
-import type { ProfileRequest, Profile as TProfile } from "@hey/lens";
+import type { Account as TAccount } from "@hey/indexer";
+import type { ProfileRequest } from "@hey/lens";
 import { useProfileLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
@@ -10,7 +11,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const Account: FC = () => {
   const { currentAccount } = useAccountStore();
-  const [profile, setProfile] = useState<null | TProfile>(null);
+  const [profile, setProfile] = useState<null | TAccount>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
@@ -28,7 +29,7 @@ const Account: FC = () => {
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {
-        setProfile(profile as TProfile);
+        setProfile(profile as TAccount);
         setFetchCompleted(true);
         setExporting(false);
       }

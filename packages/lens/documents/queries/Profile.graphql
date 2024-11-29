@@ -1,5 +1,0 @@
-query Profile($request: ProfileRequest!) {
-  profile(request: $request) {
-    ...ProfileFields
-  }
-}

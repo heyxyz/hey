@@ -2,7 +2,8 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { FollowersRequest, Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { FollowersRequest } from "@hey/lens";
 import { LimitType, useFollowersQuery } from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -79,7 +80,7 @@ const Followers: FC<FollowersProps> = ({ handle, accountId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === follower.id}
             hideUnfollowButton={currentAccount?.id === follower.id}
-            account={follower as Profile}
+            account={follower as Account}
             showBio
             showUserPreview={false}
             source={AccountLinkSource.Followers}

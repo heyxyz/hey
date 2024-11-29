@@ -4,13 +4,13 @@ mutation Follow($request: CreateFollowRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      selfFundedReason: reason
+      reason
     }
     ... on SponsoredTransactionRequest {
-      sponsoredReason: reason
+      reason
     }
     ... on TransactionWillFail {
-      transactionFailReason: reason
+      reason
     }
   }
 }

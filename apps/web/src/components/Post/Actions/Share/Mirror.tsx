@@ -1,6 +1,5 @@
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
-import checkAndToastDispatcherError from "@helpers/checkAndToastDispatcherError";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyMirrored from "@helpers/optimistic/hasOptimisticallyMirrored";
@@ -9,34 +8,18 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import checkDispatcherPermissions from "@hey/helpers/checkDispatcherPermissions";
-import getSignature from "@hey/helpers/getSignature";
-import type {
-  MirrorablePublication,
-  MomokaMirrorRequest,
-  OnchainMirrorRequest
-} from "@hey/lens";
-import {
-  TriStateValue,
-  useBroadcastOnMomokaMutation,
-  useBroadcastOnchainMutation,
-  useCreateMomokaMirrorTypedDataMutation,
-  useCreateOnchainMirrorTypedDataMutation,
-  useMirrorOnMomokaMutation,
-  useMirrorOnchainMutation
-} from "@hey/lens";
+import type { MirrorablePublication, OnchainMirrorRequest } from "@hey/lens";
+import { TriStateValue, useMirrorOnchainMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useSignTypedData, useWriteContract } from "wagmi";
+import { useWriteContract } from "wagmi";
 
 interface MirrorProps {
   isLoading: boolean;
@@ -47,11 +30,6 @@ interface MirrorProps {
 const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const {
-    decrementLensHubOnchainSigNonce,
-    incrementLensHubOnchainSigNonce,
-    lensHubOnchainSigNonce
-  } = useNonceStore();
   const { addTransaction } = useTransactionStore();
   const hasMirrored =
     post.operations.hasMirrored || hasOptimisticallyMirrored(post.id);
@@ -60,11 +38,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     post.stats.mirrors + post.stats.quotes
   );
 
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
-
-  const { canBroadcast, canUseLensManager } =
-    checkDispatcherPermissions(currentAccount);
 
   const generateOptimisticMirror = ({
     txHash,
@@ -102,11 +76,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   const onCompleted = (
-    __typename?:
-      | "CreateMomokaPublicationResult"
-      | "LensProfileManagerRelayError"
-      | "RelayError"
-      | "RelaySuccess"
+    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -122,17 +92,11 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     Leafwatch.track(POST.MIRROR, { postId: post.id });
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
-
   const { writeContractAsync } = useWriteContract({
     mutation: {
-      onError: (error: Error) => {
-        onError(error);
-        decrementLensHubOnchainSigNonce();
-      },
+      onError,
       onSuccess: (hash: string) => {
         addTransaction(generateOptimisticMirror({ txHash: hash }));
-        incrementLensHubOnchainSigNonce();
         onCompleted();
       }
     }
@@ -147,68 +111,6 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     });
   };
 
-  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) => {
-      onCompleted(broadcastOnMomoka.__typename);
-    },
-    onError
-  });
-
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      if (broadcastOnchain.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticMirror({ txId: broadcastOnchain.txId })
-        );
-      }
-      onCompleted(broadcastOnchain.__typename);
-    },
-    onError
-  });
-
-  const typedDataGenerator = async (
-    generatedData: any,
-    isMomokaPublication = false
-  ) => {
-    const { id, typedData } = generatedData;
-    await handleWrongNetwork();
-
-    if (canBroadcast) {
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      if (isMomokaPublication) {
-        return await broadcastOnMomoka({
-          variables: { request: { id, signature } }
-        });
-      }
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === "RelayError") {
-        return await write({ args: [typedData.value] });
-      }
-      incrementLensHubOnchainSigNonce();
-
-      return;
-    }
-
-    return await write({ args: [typedData.value] });
-  };
-
-  // On-chain typed data generation
-  const [createOnchainMirrorTypedData] =
-    useCreateOnchainMirrorTypedDataMutation({
-      onCompleted: async ({ createOnchainMirrorTypedData }) =>
-        await typedDataGenerator(createOnchainMirrorTypedData),
-      onError
-    });
-
-  // Momoka typed data generation
-  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
-    onCompleted: async ({ createMomokaMirrorTypedData }) =>
-      await typedDataGenerator(createMomokaMirrorTypedData, true),
-    onError
-  });
-
   // Onchain mutations
   const [mirrorOnchain] = useMirrorOnchainMutation({
     onCompleted: ({ mirrorOnchain }) => {
@@ -220,40 +122,15 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     onError
   });
 
-  // Momoka mutations
-  const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
-    onCompleted: ({ mirrorOnMomoka }) => onCompleted(mirrorOnMomoka.__typename),
-    onError
-  });
-
   if (post.operations.canMirror === TriStateValue.No) {
     return null;
   }
-
-  const createOnMomka = async (request: MomokaMirrorRequest) => {
-    const { data } = await mirrorOnMomoka({ variables: { request } });
-
-    if (data?.mirrorOnMomoka?.__typename === "LensProfileManagerRelayError") {
-      const shouldProceed = checkAndToastDispatcherError(
-        data.mirrorOnMomoka.reason
-      );
-
-      if (!shouldProceed) {
-        return;
-      }
-
-      return await createMomokaMirrorTypedData({ variables: { request } });
-    }
-  };
 
   const createOnChain = async (request: OnchainMirrorRequest) => {
     const { data } = await mirrorOnchain({ variables: { request } });
     if (data?.mirrorOnchain.__typename === "LensProfileManagerRelayError") {
       return await createOnchainMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
+        variables: { request }
       });
     }
   };
@@ -269,28 +146,11 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
 
     try {
       setIsLoading(true);
-      const request: MomokaMirrorRequest | OnchainMirrorRequest = {
+      const request: OnchainMirrorRequest = {
         mirrorOn: post?.id
       };
 
-      if (post.momoka?.proof) {
-        if (canUseLensManager) {
-          return await createOnMomka(request);
-        }
-
-        return await createMomokaMirrorTypedData({ variables: { request } });
-      }
-
-      if (canUseLensManager) {
-        return await createOnChain(request);
-      }
-
-      return await createOnchainMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
-        }
-      });
+      return await createOnChain(request);
     } catch (error) {
       onError(error);
     }

@@ -1,5 +1,0 @@
-mutation SignFrameAction($request: FrameLensManagerEIP712Request!) {
-  signFrameAction(request: $request) {
-    signature
-  }
-}

@@ -50,7 +50,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
     return (
       <Card className="!bg-gray-100 dark:!bg-gray-800 m-5" forceRounded>
         <div className="px-4 py-3 text-sm">
-          Author Profile has been suspended!
+          Author Account has been suspended!
         </div>
       </Card>
     );

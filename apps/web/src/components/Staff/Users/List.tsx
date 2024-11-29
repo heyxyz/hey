@@ -2,11 +2,8 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
-import type {
-  ExploreProfilesRequest,
-  Profile,
-  ProfileSearchRequest
-} from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ExploreProfilesRequest, ProfileSearchRequest } from "@hey/lens";
 import {
   ExploreProfilesOrderByType,
   LimitType,
@@ -128,8 +125,8 @@ const List: FC = () => {
                 <Link
                   href={
                     pathname === "/mod"
-                      ? getAccount(account as Profile).link
-                      : getAccount(account as Profile).staffLink
+                      ? getAccount(account as Account).link
+                      : getAccount(account as Account).staffLink
                   }
                 >
                   <SingleAccount
@@ -137,9 +134,8 @@ const List: FC = () => {
                     hideUnfollowButton
                     isBig
                     linkToAccount={false}
-                    account={account as Profile}
+                    account={account as Account}
                     showBio={false}
-                    showId
                     showUserPreview={false}
                     timestamp={account.createdAt}
                   />

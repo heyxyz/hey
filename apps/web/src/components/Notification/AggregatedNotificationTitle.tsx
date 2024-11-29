@@ -1,11 +1,11 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import { NotificationAccountName } from "./Account";
 
 interface AggregatedNotificationTitleProps {
-  firstAccount: Profile;
+  firstAccount: Account;
   linkToType: string;
   text: string;
   type?: string;

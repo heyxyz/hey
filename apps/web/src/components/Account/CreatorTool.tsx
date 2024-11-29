@@ -8,7 +8,7 @@ import { CREATORTOOLS } from "@hey/data/tracking";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface CreatorToolProps {
-  account: Profile;
+  account: Account;
 }
 
 const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
@@ -30,8 +30,8 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
   ];
 
   const { data: preferences, isLoading } = useQuery({
-    queryFn: () => getInternalAccount(account.id, getAuthApiHeaders()),
-    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, account.id]
+    queryFn: () => getInternalAccount(account.address, getAuthApiHeaders()),
+    queryKey: [GET_INTERNAL_ACCOUNT_QUERY_KEY, account.address]
   });
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
       setUpdating(true);
       await axios.post(
         `${HEY_API_URL}/internal/creator-tools/assign`,
-        { enabled, id, accountId: account.id },
+        { enabled, id, accountId: account.address },
         { headers: getAuthApiHeaders() }
       );
 
@@ -58,7 +58,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
       );
       Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
         permission: key,
-        accountId: account.id
+        accountId: account.address
       });
     } catch (error) {
       errorToast(error);

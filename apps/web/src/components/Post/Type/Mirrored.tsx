@@ -1,10 +1,10 @@
 import Accounts from "@components/Shared/Accounts";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 
 interface MirroredProps {
-  account: Profile;
+  account: Account;
 }
 
 const Mirrored: FC<MirroredProps> = ({ account }) => {

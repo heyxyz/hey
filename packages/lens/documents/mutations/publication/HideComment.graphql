@@ -1,3 +1,0 @@
-mutation HideComment($request: HideCommentRequest!) {
-  hideComment(request: $request)
-}

@@ -6,7 +6,7 @@ import PageMetatags from "@components/Shared/PageMetatags";
 import accountThemeFonts from "@helpers/accountThemeFonts";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useCurrentProfileQuery } from "@hey/lens";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useTheme } from "next-themes";
@@ -15,7 +15,6 @@ import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useNonceStore } from "src/store/non-persisted/useNonceStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
@@ -37,7 +36,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     useAccountStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetStatus } = useAccountStatus();
-  const { setLensHubOnchainSigNonce } = useNonceStore();
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
 
@@ -54,9 +52,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const { loading } = useCurrentProfileQuery({
-    onCompleted: ({ profile, userSigNonces }) => {
-      setCurrentAccount(profile as Profile);
-      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+    onCompleted: ({ profile }) => {
+      setCurrentAccount(profile as Account);
 
       // If the profile has no following, we should fallback to the curated feed
       if (profile?.stats.followers === 0) {

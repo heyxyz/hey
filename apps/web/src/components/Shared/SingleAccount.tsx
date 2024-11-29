@@ -3,18 +3,17 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import humanize from "@hey/helpers/humanize";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
+import FollowUnfollowButton from "./Account/FollowUnfollowButton";
+import Misuse from "./Account/Icons/Misuse";
+import Verified from "./Account/Icons/Verified";
 import AccountPreview from "./AccountPreview";
 import Markup from "./Markup";
-import FollowUnfollowButton from "./Profile/FollowUnfollowButton";
-import Misuse from "./Profile/Icons/Misuse";
-import Verified from "./Profile/Icons/Verified";
 import Slug from "./Slug";
 
 interface SingleAccountProps {
@@ -22,9 +21,8 @@ interface SingleAccountProps {
   hideUnfollowButton?: boolean;
   isBig?: boolean;
   linkToAccount?: boolean;
-  account: Profile;
+  account: Account;
   showBio?: boolean;
-  showId?: boolean;
   showUserPreview?: boolean;
   source?: string;
   timestamp?: Date;
@@ -37,14 +35,13 @@ const SingleAccount: FC<SingleAccountProps> = ({
   linkToAccount = true,
   account,
   showBio = false,
-  showId = false,
   showUserPreview = true,
   source,
   timestamp
 }) => {
   const UserAvatar: FC = () => (
     <Image
-      alt={account.id}
+      alt={account.address}
       className={cn(
         isBig ? "size-14" : "size-11",
         "rounded-full border bg-gray-200 dark:border-gray-700"
@@ -52,7 +49,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
       height={isBig ? 56 : 44}
       loading="lazy"
       onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(account.id);
+        currentTarget.src = getLennyURL(account.address);
       }}
       src={getAvatar(account)}
       width={isBig ? 56 : 44}
@@ -67,8 +64,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
             {getAccount(account).displayName}
           </div>
         </div>
-        <Verified id={account.id} iconClassName="ml-1 size-4" />
-        <Misuse id={account.id} iconClassName="ml-1 size-4" />
+        <Verified id={account.address} iconClassName="ml-1 size-4" />
+        <Misuse id={account.address} iconClassName="ml-1 size-4" />
       </div>
       <div>
         <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
@@ -80,22 +77,14 @@ const SingleAccount: FC<SingleAccountProps> = ({
             </span>
           </span>
         )}
-        {showId && (
-          <span className="ld-text-gray-500">
-            <span className="mx-1.5">·</span>
-            <span className="text-xs">
-              {humanize(Number.parseInt(account.id))}
-            </span>
-          </span>
-        )}
       </div>
     </>
   );
 
   const AccountInfo: FC = () => (
     <AccountPreview
-      handle={account.handle?.fullHandle}
-      id={account.id}
+      handle={account.username?.value}
+      id={account.address}
       showUserPreview={showUserPreview}
     >
       <div className="mr-8 flex items-center space-x-3">
@@ -123,7 +112,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
 
   return (
     <div className="flex items-center justify-between">
-      {linkToAccount && account.id ? (
+      {linkToAccount && account.address ? (
         <Link
           as={getAccount(account).link}
           href={getAccount(account, source).sourceLink}

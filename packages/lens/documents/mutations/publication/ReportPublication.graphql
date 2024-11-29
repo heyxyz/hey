@@ -1,3 +1,0 @@
-mutation ReportPublication($request: ReportPublicationRequest!) {
-  reportPublication(request: $request)
-}

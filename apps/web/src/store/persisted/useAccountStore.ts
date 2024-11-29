@@ -1,13 +1,13 @@
 import { Localstorage } from "@hey/data/storage";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  currentAccount: null | Profile;
+  currentAccount: null | Account;
   fallbackToCuratedFeed: boolean;
-  setCurrentAccount: (currentAccount: null | Profile) => void;
+  setCurrentAccount: (currentAccount: null | Account) => void;
   setFallbackToCuratedFeed: (fallbackToCuratedFeed: boolean) => void;
 }
 

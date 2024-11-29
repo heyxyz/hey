@@ -10,9 +10,7 @@ import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
-import AccountGuardianSettings from "./AccountGuardian";
 import DeleteSettings from "./Delete";
-import HandleGuardianSettings from "./HandleGuardian";
 
 const DangerSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -29,20 +27,12 @@ const DangerSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Delete Profile • ${APP_NAME}`} />
+      <MetaTags title={`Delete Account • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        {disabled ? (
-          <WrongWallet />
-        ) : (
-          <>
-            <AccountGuardianSettings />
-            <HandleGuardianSettings />
-            <DeleteSettings />
-          </>
-        )}
+        {disabled ? <WrongWallet /> : <DeleteSettings />}
       </GridItemEight>
     </GridLayout>
   );

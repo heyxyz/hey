@@ -1,7 +1,8 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import type { Profile, WhoHaveBlockedRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { WhoHaveBlockedRequest } from "@hey/lens";
 import { LimitType, useWhoHaveBlockedQuery } from "@hey/lens";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -63,11 +64,11 @@ const List: FC = () => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={account as Profile}
+              account={account as Account}
             />
             <Button
               onClick={() =>
-                setShowBlockOrUnblockAlert(true, account as Profile)
+                setShowBlockOrUnblockAlert(true, account as Account)
               }
             >
               Unblock

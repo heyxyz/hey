@@ -19,7 +19,7 @@
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@hey/lens": "workspace:*",
+    "@hey/indexer": "workspace:*",
     "@json2csv/plainjs": "^7.0.6",
     "@lens-protocol/metadata": "^1.2.0",
     "apollo-utilities": "^1.3.4",

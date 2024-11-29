@@ -1,5 +1,0 @@
-mutation UndoPublicationNotInterested(
-  $request: PublicationNotInterestedRequest!
-) {
-  undoPublicationNotInterested(request: $request)
-}

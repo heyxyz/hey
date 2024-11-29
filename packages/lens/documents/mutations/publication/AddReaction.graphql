@@ -1,3 +1,0 @@
-mutation AddReaction($request: ReactionRequest!) {
-  addReaction(request: $request)
-}

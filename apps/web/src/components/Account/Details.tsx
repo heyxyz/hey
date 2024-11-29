@@ -1,7 +1,7 @@
+import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
+import Misuse from "@components/Shared/Account/Icons/Misuse";
+import Verified from "@components/Shared/Account/Icons/Verified";
 import Markup from "@components/Shared/Markup";
-import FollowUnfollowButton from "@components/Shared/Profile/FollowUnfollowButton";
-import Misuse from "@components/Shared/Profile/Icons/Misuse";
-import Verified from "@components/Shared/Profile/Icons/Verified";
 import Slug from "@components/Shared/Slug";
 import {
   ClockIcon,
@@ -21,7 +21,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { FollowModuleType } from "@hey/lens";
 import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -56,7 +56,7 @@ const MetaDetails = ({
 
 interface DetailsProps {
   isSuspended: boolean;
-  account: Profile;
+  account: Account;
 }
 
 const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
@@ -73,12 +73,12 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
         <Image
-          alt={account.id}
+          alt={account.address}
           className="size-32 cursor-pointer rounded-full bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(account, EXPANDED_AVATAR))}
           onError={({ currentTarget }) => {
-            currentTarget.src = getLennyURL(account.id);
+            currentTarget.src = getLennyURL(account.address);
           }}
           src={getAvatar(account)}
           width={128}
@@ -102,7 +102,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
             className="text-sm sm:text-base"
             slug={getAccount(account).slugWithPrefix}
           />
-          {account.operations.isFollowingMe.value ? (
+          {account.operations?.isFollowedByMe ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </div>
@@ -127,7 +127,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
                 onClick={() => push("/settings")}
                 outline
               >
-                Edit Profile
+                Edit Acc
               </Button>
               <Button
                 icon={<PaintBrushIcon className="size-5" />}
@@ -142,10 +142,10 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           ) : null}
           <AccountMenu account={account} />
         </div>
-        {currentAccount?.id !== account.id ? (
+        {currentAccount?.id !== account.address ? (
           <MutualFollowersOverview
             handle={getAccount(account).slug}
-            accountId={account.id}
+            address={account.address}
           />
         ) : null}
         <div className="divider w-full" />

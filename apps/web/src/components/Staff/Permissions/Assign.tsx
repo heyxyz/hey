@@ -50,7 +50,7 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
   return (
     <Form className="m-5 space-y-4" form={form} onSubmit={assign}>
       <TextArea
-        placeholder='Profile IDs, Eg: ["0x0d", "0x05"]'
+        placeholder='Account IDs, Eg: ["0x0d", "0x05"]'
         rows={5}
         {...form.register("ids")}
       />

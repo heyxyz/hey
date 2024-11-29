@@ -6,9 +6,9 @@ import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
+import type { Account } from "@hey/indexer";
 import type {
   LastLoggedInProfileRequest,
-  Profile,
   ProfilesManagedRequest
 } from "@hey/lens";
 import {
@@ -129,7 +129,7 @@ const SwitchAccounts: FC = () => {
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           key={profile?.id}
           onClick={async () => {
-            const selectedProfile = profiles[index] as Profile;
+            const selectedProfile = profiles[index] as Account;
             await handleSwitchProfile(selectedProfile.id);
           }}
           type="button"
@@ -151,7 +151,7 @@ const SwitchAccounts: FC = () => {
                 "truncate"
               )}
             >
-              {getAccount(profile as Profile).slugWithPrefix}
+              {getAccount(profile as Account).slugWithPrefix}
             </div>
           </span>
           {isLoading && profile.id === loggingInProfileId ? (

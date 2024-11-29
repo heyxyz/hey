@@ -14,7 +14,7 @@
     "@hey/config": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@hey/lens": "workspace:*",
+    "@hey/indexer": "workspace:*",
     "apollo-utilities": "^1.3.4",
     "graphql": "^16.9.0",
     "next": "^15.0.2",

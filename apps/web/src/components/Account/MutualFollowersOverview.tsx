@@ -3,8 +3,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Profile } from "@hey/lens";
-import { LimitType, useMutualFollowersQuery } from "@hey/lens";
+import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
 import { Modal, StackedAvatars } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { type FC, type ReactNode, useState } from "react";
@@ -12,32 +11,31 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MutualFollowersOverviewProps {
   handle: string;
-  accountId: string;
+  address: string;
   viaPopover?: boolean;
 }
 
 const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   handle,
-  accountId,
+  address,
   viaPopover = false
 }) => {
   const { currentAccount } = useAccountStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
 
-  const { data, error, loading } = useMutualFollowersQuery({
-    skip: !accountId || !currentAccount?.id,
+  const { data, error, loading } = useFollowersYouKnowQuery({
+    skip: !address || !currentAccount?.account.account.address,
     variables: {
       request: {
-        limit: LimitType.Ten,
-        observer: currentAccount?.id,
-        viewing: accountId
+        observer: currentAccount?.account.account.address,
+        target: address
       }
     }
   });
 
   const accounts =
-    (data?.mutualFollowers?.items.slice(0, 4) as Profile[]) || [];
+    (data?.followersYouKnow?.items.slice(0, 4) as Follower[]) || [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <button
@@ -65,7 +63,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
         title="Mutual Followers"
         size="md"
       >
-        <MutualFollowers handle={handle} accountId={accountId} />
+        <MutualFollowers handle={handle} address={address} />
       </Modal>
     </button>
   );

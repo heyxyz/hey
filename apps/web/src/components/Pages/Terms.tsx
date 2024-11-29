@@ -82,7 +82,7 @@ const Terms: NextPage = () => {
               <H4 className="mt-8 mb-5">3. Services</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  User Lens profile is referred as the “Profile” in the “Site”.
+                  User Lens account is referred as the Account in the “Site”.
                 </p>
                 <p className="leading-7">
                   The Site allow you to interact with the Lens Protocol,

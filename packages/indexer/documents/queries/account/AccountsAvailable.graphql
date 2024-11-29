@@ -1,5 +1,11 @@
-query AccountsAvailable($request: AccountsAvailableRequest!) {
-  accountsAvailable(request: $request) {
+query AccountsAvailable(
+  $accountsAvailableRequest: AccountsAvailableRequest!
+  $lastLoggedInAccountRequest: LastLoggedInAccountRequest!
+) {
+  lastLoggedInAccount(request: $lastLoggedInAccountRequest) {
+    ...AccountFields
+  }
+  accountsAvailable(request: $accountsAvailableRequest) {
     items {
       ... on AccountManaged {
         account {

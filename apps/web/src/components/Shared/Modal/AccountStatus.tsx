@@ -60,7 +60,7 @@ const AccountStatus: FC = () => {
       queryClient.invalidateQueries({
         queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY]
       });
-      toast.success("Profile status cleared");
+      toast.success("Account status cleared");
     } catch (error) {
       errorToast(error);
     }
@@ -80,7 +80,7 @@ const AccountStatus: FC = () => {
       queryClient.invalidateQueries({
         queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY]
       });
-      toast.success("Profile status updated");
+      toast.success("Account status updated");
     } catch (error) {
       errorToast(error);
     }

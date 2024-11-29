@@ -1,6 +1,0 @@
-fragment FollowNotificationFields on FollowNotification {
-  id
-  followers {
-    ...PublicationProfileFields
-  }
-}

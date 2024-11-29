@@ -2,7 +2,8 @@ import SingleAccountsShimmer from "@components/Shared/Shimmer/SingleAccountsShim
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ProfileSearchRequest } from "@hey/lens";
 import {
   CustomFiltersType,
   LimitType,
@@ -74,7 +75,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
             hideFollowButton
             hideUnfollowButton
             isBig
-            account={account as Profile}
+            account={account as Account}
             showBio
             source={AccountLinkSource.Search}
           />

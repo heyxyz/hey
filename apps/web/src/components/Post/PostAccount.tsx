@@ -1,9 +1,9 @@
 import Source from "@components/Post/Source";
-import Misuse from "@components/Shared/Profile/Icons/Misuse";
-import Verified from "@components/Shared/Profile/Icons/Verified";
+import Misuse from "@components/Shared/Account/Icons/Misuse";
+import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
@@ -12,7 +12,7 @@ import Slug from "../Shared/Slug";
 import ClubHandle from "./ClubHandle";
 
 interface PostAccountProps {
-  account: Profile;
+  account: Account;
   postId: string;
   source?: string;
   tags: string[];

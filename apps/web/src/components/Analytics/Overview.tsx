@@ -104,7 +104,7 @@ const Overview: FC = () => {
 
   return (
     <Card>
-      <CardHeader title="Profile overview" />
+      <CardHeader title="Account overview" />
       <div className="m-5 grid grid-cols-2 gap-4">
         <Select
           defaultValue={primaryType}

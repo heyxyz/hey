@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useProfilesQuery } from "@hey/lens";
 import { H6 } from "@hey/ui";
 import { useRouter } from "next/router";
@@ -60,7 +60,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               key={profile.id}
               onClick={() => {
                 addToRecentProfiles(profile.id);
-                push(getAccount(profile as Profile).link);
+                push(getAccount(profile as Account).link);
                 onAccountClick();
               }}
             >
@@ -69,7 +69,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
                   hideFollowButton
                   hideUnfollowButton
                   linkToAccount={false}
-                  account={profile as Profile}
+                  account={profile as Account}
                   showUserPreview={false}
                   source={AccountLinkSource.RecentSearch}
                 />

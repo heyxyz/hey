@@ -2,9 +2,9 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
+import type { Account } from "@hey/indexer";
 import {
   LimitType,
-  type Profile,
   type WhoReactedPublicationRequest,
   useWhoReactedPublicationQuery
 } from "@hey/lens";
@@ -79,7 +79,7 @@ const Likes: FC<LikesProps> = ({ postId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.id === like.profile.id}
             hideUnfollowButton={currentAccount?.id === like.profile.id}
-            account={like.profile as Profile}
+            account={like.profile as Account}
             showBio
             showUserPreview={false}
             source={AccountLinkSource.Likes}

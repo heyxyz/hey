@@ -2,7 +2,7 @@ import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 import { Fragment } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -14,7 +14,7 @@ import CopyLink from "./CopyLink";
 import Report from "./Report";
 
 interface AccountMenuProps {
-  account: Profile;
+  account: Account;
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
