@@ -24,14 +24,14 @@ describe("POST /internal/permissions/bulkAssign", () => {
     expect(status).toBe(200);
     expect(data.assigned).toBe(testAccountIds.length);
 
-    const profilePermission = await prisma.profilePermission.findMany({
+    const accountPermissions = await prisma.profilePermission.findMany({
       where: {
         permissionId: PermissionId.Beta,
         profileId: { in: testAccountIds }
       }
     });
 
-    expect(profilePermission.length).toBe(testAccountIds.length);
+    expect(accountPermissions.length).toBe(testAccountIds.length);
   });
 
   test("should return 200 and skip already assigned permissions", async () => {

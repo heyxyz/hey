@@ -12,14 +12,14 @@ interface HeyStatsType {
   lists: number;
   listProfiles: number;
   pinnedLists: number;
-  profilePermissions: number;
+  accountPermissions: number;
   emails: number;
   membershipNfts: number;
   polls: number;
   pollOptions: number;
   pollResponses: number;
   preferences: number;
-  profileStatuses: number;
+  accountStatuses: number;
   profileThemes: number;
   tips: number;
 }
@@ -68,11 +68,11 @@ const HeyStats: FC = () => {
         />
         <NumberedStat count={data.pinnedLists.toString()} name="Pinned Lists" />
         <NumberedStat
-          count={data.profilePermissions.toString()}
+          count={data.accountPermissions.toString()}
           name="Account Permissions"
         />
         <NumberedStat
-          count={data.profileStatuses.toString()}
+          count={data.accountStatuses.toString()}
           name="Account Statuses"
         />
         <NumberedStat

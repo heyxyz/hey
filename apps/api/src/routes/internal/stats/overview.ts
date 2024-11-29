@@ -40,7 +40,7 @@ export const get = [
           pollOptions: result[7],
           pollResponses: result[8],
           preferences: result[9],
-          profileStatuses: result[10],
+          accountStatuses: result[10],
           profileThemes: result[11],
           tips: result[12]
         },
