@@ -1,5 +1,5 @@
 import getAccount from "@hey/helpers/getAccount";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
@@ -7,7 +7,7 @@ import Slug from "./Slug";
 
 interface FallbackAccountNameProps {
   className?: string;
-  account?: Profile;
+  account?: Account;
   separator?: ReactNode;
 }
 
@@ -28,7 +28,7 @@ const FallbackAccountName: FC<FallbackAccountNameProps> = ({
   return (
     <>
       <Link
-        aria-label={`Profile of ${displayName || slugWithPrefix}`}
+        aria-label={`Account of ${displayName || slugWithPrefix}`}
         className={cn(
           "max-w-sm truncate outline-none hover:underline focus:underline",
           className

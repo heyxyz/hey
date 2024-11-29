@@ -15,7 +15,7 @@ const getAvatar = (profile: any, namedTransform = AVATAR): string => {
     // Lens NFT Avatar fallbacks
     profile?.metadata?.picture?.image?.optimized?.uri ||
     profile?.metadata?.picture?.image?.raw?.uri ||
-    // Lens Profile Avatar fallbacks
+    // Lens Account Avatar fallbacks
     profile?.metadata?.picture?.optimized?.uri ||
     profile?.metadata?.picture?.raw?.uri ||
     // Stamp.fyi Avatar fallbacks

@@ -1,4 +1,4 @@
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
@@ -6,7 +6,7 @@ type AuthModalType = "login" | "signup";
 
 interface State {
   authModalType: AuthModalType;
-  reportingProfile: null | Profile;
+  reportingProfile: null | Account;
   reportingPostId: null | string;
   setShowAuthModal: (
     showAuthModal: boolean,
@@ -24,7 +24,7 @@ interface State {
   ) => void;
   setShowReportProfileModal: (
     reportProfileModal: boolean,
-    reportingProfile: null | Profile
+    reportingProfile: null | Account
   ) => void;
   showAuthModal: boolean;
   showMobileDrawer: boolean;
@@ -36,10 +36,10 @@ interface State {
   showEditStatusModal: boolean;
   setShowEditStatusModal: (showEditStatusModal: boolean) => void;
   showAddToListModal: boolean;
-  profileToAddToList: null | Profile;
+  profileToAddToList: null | Account;
   setShowAddToListModal: (
     showAddToListModal: boolean,
-    profileToAddToList: null | Profile
+    profileToAddToList: null | Account
   ) => void;
 }
 

@@ -1,7 +1,8 @@
 import isVerified from "@helpers/isVerified";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Profile, ProfileSearchRequest } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ProfileSearchRequest } from "@hey/lens";
 import { LimitType, useSearchProfilesLazyQuery } from "@hey/lens";
 import { useEffect, useState } from "react";
 
@@ -34,7 +35,7 @@ const useMentionQuery = (query: string): MentionProfile[] => {
     searchProfiles({ variables: { request } }).then(({ data }) => {
       const search = data?.searchProfiles;
       const profileSearchResult = search;
-      const profiles = profileSearchResult?.items as Profile[];
+      const profiles = profileSearchResult?.items as Account[];
       const profilesResults = (profiles ?? []).map(
         (profile): MentionProfile => ({
           displayHandle: getAccount(profile).slugWithPrefix,
