@@ -65,7 +65,7 @@ const Details: FC<DetailsProps> = ({ list }) => {
         >
           <H4>{humanize(list.totalAccounts)}</H4>
           <div className="ld-text-gray-500">
-            {plur("Profile", list.totalAccounts)}
+            {plur("Account", list.totalAccounts)}
           </div>
         </Link>
         <div className="text-left outline-offset-4">

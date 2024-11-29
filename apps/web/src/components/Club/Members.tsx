@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { AccountLinkSource } from "@hey/data/tracking";
-import { type Profile, useProfilesQuery } from "@hey/lens";
+import { type Account, useAccountsQuery } from "@hey/indexer";
 import type { ClubProfile } from "@hey/types/club";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -52,15 +52,15 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
     queryKey: [GET_CLUB_MEMBERS_QUERY_KEY, clubId]
   });
 
-  const profileIds = clubMembers?.items.map((item) => item.id) || [];
+  const addresses = clubMembers?.items.map((item) => item.id) || [];
 
   const {
     data: lensProfiles,
     error: lensProfilesError,
     loading: lensProfilesLoading
-  } = useProfilesQuery({
-    skip: !profileIds.length,
-    variables: { request: { where: { profileIds } } }
+  } = useAccountsQuery({
+    skip: !addresses.length,
+    variables: { request: { addresses } }
   });
 
   const members = lensProfiles?.profiles.items || [];
@@ -113,9 +113,13 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         itemContent={(_, member) => (
           <div className="p-5">
             <SingleAccount
-              hideFollowButton={currentAccount?.id === member.id}
-              hideUnfollowButton={currentAccount?.id === member.id}
-              account={member as Profile}
+              hideFollowButton={
+                currentAccount?.account.account.address === member.address
+              }
+              hideUnfollowButton={
+                currentAccount?.account.account.address === member.address
+              }
+              account={member as Account}
               showBio
               showUserPreview={false}
               source={AccountLinkSource.ClubMembers}

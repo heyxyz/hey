@@ -2,14 +2,14 @@ import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAcco
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface SuggestedProps {
-  accounts: Profile[];
+  accounts: Account[];
 }
 
 const Suggested: FC<SuggestedProps> = ({ accounts }) => {
@@ -38,13 +38,13 @@ const Suggested: FC<SuggestedProps> = ({ accounts }) => {
               <SingleAccount
                 hideFollowButton={currentAccount?.id === account.id}
                 hideUnfollowButton={currentAccount?.id === account.id}
-                account={account as Profile}
+                account={account as Account}
                 showBio
                 showUserPreview={false}
                 source={AccountLinkSource.WhoToFollow}
               />
             </div>
-            <DismissRecommendedAccount account={account as Profile} />
+            <DismissRecommendedAccount account={account as Account} />
           </div>
         )}
       />

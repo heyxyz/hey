@@ -4,13 +4,13 @@ import { LinkIcon } from "@heroicons/react/24/outline";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface CopyLinkProps {
-  account: Profile;
+  account: Account;
 }
 
 const CopyLink: FC<CopyLinkProps> = ({ account }) => {

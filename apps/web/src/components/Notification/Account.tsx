@@ -5,13 +5,13 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import Link from "next/link";
 import type { FC, SyntheticEvent } from "react";
 
 interface NotificationProfileProps {
-  account: Profile;
+  account: Account;
 }
 
 export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({

@@ -6,7 +6,7 @@ import PageMetatags from "@components/Shared/PageMetatags";
 import accountThemeFonts from "@helpers/accountThemeFonts";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useCurrentProfileQuery } from "@hey/lens";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useTheme } from "next-themes";
@@ -53,7 +53,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { loading } = useCurrentProfileQuery({
     onCompleted: ({ profile }) => {
-      setCurrentAccount(profile as Profile);
+      setCurrentAccount(profile as Account);
 
       // If the profile has no following, we should fallback to the curated feed
       if (profile?.stats.followers === 0) {

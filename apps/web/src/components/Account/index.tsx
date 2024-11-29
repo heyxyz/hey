@@ -12,7 +12,6 @@ import getAccountDetails, {
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
 import { type Account, useFullAccountQuery } from "@hey/indexer";
-import type { Profile } from "@hey/lens";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -122,11 +121,11 @@ const ViewProfile: NextPage = () => {
       <GridLayout>
         <GridItemFour>
           {isSuspended ? (
-            <SuspendedDetails account={account as Profile} />
+            <SuspendedDetails account={account as Account} />
           ) : (
             <Details
               isSuspended={accountDetails?.isSuspended || false}
-              account={account as Profile}
+              account={account as Account}
             />
           )}
         </GridItemFour>
@@ -134,7 +133,7 @@ const ViewProfile: NextPage = () => {
           {isSuspended ? (
             <EmptyState
               icon={<NoSymbolIcon className="size-8" />}
-              message="Profile Suspended"
+              message="Account Suspended"
             />
           ) : (
             <>

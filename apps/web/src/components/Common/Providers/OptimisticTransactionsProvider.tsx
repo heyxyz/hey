@@ -20,7 +20,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
         lensTransactionStatus?.status === LensTransactionStatusType.Failed ||
         lensTransactionStatus?.status === LensTransactionStatusType.Complete
       ) {
-        // Trigger Profile feed refetch
+        // Trigger Account feed refetch
         if (
           transaction.type === OptmisticPostType.Post &&
           lensTransactionStatus.txHash
