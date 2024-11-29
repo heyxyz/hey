@@ -1,7 +1,8 @@
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Profile, ProfileMentioned } from "@hey/lens";
+import type { Account } from "@hey/indexer";
+import type { ProfileMentioned } from "@hey/lens";
 import { useProfilesQuery } from "@hey/lens";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
 import type { FC } from "react";
@@ -60,7 +61,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.id === account.id}
               hideUnfollowButton={currentAccount?.id === account.id}
-              account={account as Profile}
+              account={account as Account}
               showUserPreview={false}
               source={AccountLinkSource.RelevantPeople}
             />
@@ -81,7 +82,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         show={showMore}
         title="Relevant people"
       >
-        <MoreRelevantPeople accounts={data?.profiles?.items as Profile[]} />
+        <MoreRelevantPeople accounts={data?.profiles?.items as Account[]} />
       </Modal>
     </>
   );

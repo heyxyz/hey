@@ -8,7 +8,7 @@ import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import { useProfileLazyQuery } from "@hey/lens";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
@@ -42,7 +42,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
-  const account = data?.profile as Profile;
+  const account = data?.profile as Account;
 
   const onPreviewStart = async () => {
     if (account || networkLoading) {

@@ -28,7 +28,7 @@ const Guidelines: NextPage = () => {
                   To protect all users on {APP_NAME} and to prevent spam, we put
                   some rules in place. Please read them carefully and remember
                   them whenever you are posting something on {APP_NAME} or you
-                  are changing your Profile.
+                  are changing your Account.
                 </p>
               </div>
               {/* Safety beings */}
@@ -93,9 +93,9 @@ const Guidelines: NextPage = () => {
                   You are not allowed to impersonate other people on {APP_NAME}.
                 </p>
                 <p className="leading-7">
-                  We understand that some of you like to create Profiles with
+                  We understand that some of you like to create Accounts with
                   the names of popular persons as a parody. If you do something
-                  like this, please use the "About me" section on your Profile
+                  like this, please use the "About me" section on your Account
                   to inform other users that your Account is a parody account.
                   You must do this in a way which can be easily seen and
                   understood by other users.

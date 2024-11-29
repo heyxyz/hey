@@ -269,7 +269,7 @@ const AccountSettingsForm: FC = () => {
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL("image/png");
 
-      // Update Profile Picture
+      // Update Account Picture
       if (type === "avatar") {
         setProfilePictureIpfsUrl(ipfsUrl);
         setUploadedProfilePictureUrl(dataUrl);
@@ -328,7 +328,7 @@ const AccountSettingsForm: FC = () => {
           ) : null}
           <Input
             disabled
-            label="Profile Id"
+            label="Account Id"
             type="text"
             value={currentAccount?.id}
           />
@@ -366,7 +366,7 @@ const AccountSettingsForm: FC = () => {
             <div className="label">Avatar</div>
             <div className="space-y-3">
               <Image
-                alt="Profile picture crop preview"
+                alt="Account picture crop preview"
                 className="max-w-xs rounded-lg"
                 onError={({ currentTarget }) => {
                   currentTarget.src = sanitizeDStorageUrl(

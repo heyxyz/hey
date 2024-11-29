@@ -29,7 +29,7 @@ const Interests: FC = () => {
   const updateCache = (interests: string[]) => {
     cache.modify({
       fields: { interests: () => interests },
-      id: `Profile:${currentAccount?.id}`
+      id: `Account:${currentAccount?.id}`
     });
   };
 

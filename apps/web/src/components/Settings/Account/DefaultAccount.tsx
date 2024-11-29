@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Profile } from "@hey/lens";
+import type { Account } from "@hey/indexer";
 import {
   useDefaultProfileQuery,
   useProfilesQuery,
@@ -76,7 +76,7 @@ const DefaultAccount: FC = () => {
     );
   }
 
-  const accounts = accountsData?.profiles.items as Profile[];
+  const accounts = accountsData?.profiles.items as Account[];
 
   return (
     <Card>

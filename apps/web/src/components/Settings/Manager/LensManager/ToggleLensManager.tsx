@@ -31,7 +31,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     }
 
     setIsLoading(false);
-    toast.success("Profile updated");
+    toast.success("Account updated");
     Leafwatch.track(SETTINGS.MANAGER.TOGGLE);
   };
 
