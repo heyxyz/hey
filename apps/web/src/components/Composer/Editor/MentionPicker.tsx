@@ -12,12 +12,12 @@ import {
 } from "prosekit/react/autocomplete";
 import type { FC } from "react";
 import { useState } from "react";
-import type { MentionProfile } from "src/hooks/prosekit/useMentionQuery";
+import type { MentionAccount } from "src/hooks/prosekit/useMentionQuery";
 import useMentionQuery from "src/hooks/prosekit/useMentionQuery";
 
 interface MentionItemProps {
   onSelect: VoidFunction;
-  account: MentionProfile;
+  account: MentionAccount;
 }
 
 const MentionItem: FC<MentionItemProps> = ({ onSelect, account }) => {
@@ -40,7 +40,7 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, account }) => {
             <Verified address={account.address} iconClassName="size-4" />
             <Misuse address={account.address} iconClassName="size-4" />
           </div>
-          <span className="text-xs">{account.displayHandle}</span>
+          <span className="text-xs">{account.displayUsername}</span>
         </div>
       </AutocompleteItem>
     </div>
@@ -52,11 +52,11 @@ const MentionPicker: FC = () => {
   const [queryString, setQueryString] = useState<string>("");
   const results = useMentionQuery(queryString);
 
-  const handleProfileInsert = (profile: MentionProfile) => {
+  const handleAccountInsert = (account: MentionAccount) => {
     editor.commands.insertMention({
-      id: profile.id.toString(),
-      kind: "profile",
-      value: profile.handle
+      id: account.address,
+      kind: "account",
+      value: account.displayUsername
     });
     editor.commands.insertText({ text: " " });
   };
@@ -72,11 +72,11 @@ const MentionPicker: FC = () => {
       regex={EditorRegex.mention}
     >
       <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
-        {results.map((profile) => (
+        {results.map((account) => (
           <MentionItem
-            key={profile.id}
-            onSelect={() => handleProfileInsert(profile)}
-            account={profile}
+            key={account.address}
+            onSelect={() => handleAccountInsert(account)}
+            account={account}
           />
         ))}
       </AutocompleteList>

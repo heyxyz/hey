@@ -1,6 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
+import type { CommentNotification as TCommentNotification } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
@@ -16,7 +17,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
 }) => {
   const metadata = notification?.comment.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
-  const firstAccount = notification.comment.by;
+  const firstAccount = notification.comment.author;
 
   const text = "commented on your";
   // TODO: remove ? when we have commentOn field in the comment
@@ -43,7 +44,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification?.comment?.id}`}
         >
-          <Markup mentions={notification.comment.profilesMentioned}>
+          <Markup mentions={notification.comment.mentions}>
             {filteredContent}
           </Markup>
         </Link>

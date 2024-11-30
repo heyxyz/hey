@@ -85,7 +85,7 @@ body {
   & a,
   span[data-hashtag],
   span[data-cashtag],
-  span[data-mention="profile"],
+  span[data-mention="account"],
   span[data-mention="club"] {
     @apply text-brand-500;
   }
@@ -176,7 +176,7 @@ ul {
   @apply [&>div>img]:object-contain;
 }
 
-/* react-virtuoso - Virtual profile list */
+/* react-virtuoso - Virtual account list */
 .virtual-account-list {
   @apply !h-[80vh];
   @apply [&>div>div]:divide-y;

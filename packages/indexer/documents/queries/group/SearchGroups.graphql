@@ -1,0 +1,7 @@
+query SearchGroups($request: SearchGroupsRequest!) {
+  searchGroups(request: $request) {
+    items {
+      ...GroupFields
+    }
+  }
+}

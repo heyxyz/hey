@@ -3,11 +3,11 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 
-interface MirroredProps {
+interface RepostedProps {
   account: Account;
 }
 
-const Mirrored: FC<MirroredProps> = ({ account }) => {
+const Reposted: FC<RepostedProps> = ({ account }) => {
   return (
     <div className="ld-text-gray-500 mb-3 flex items-center space-x-1 text-[13px]">
       <ArrowsRightLeftIcon className="size-4" />
@@ -16,4 +16,4 @@ const Mirrored: FC<MirroredProps> = ({ account }) => {
   );
 };
 
-export default Mirrored;
+export default Reposted;

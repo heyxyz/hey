@@ -13,8 +13,7 @@ query Timeline($request: TimelineRequest!) {
       }
     }
     pageInfo {
-      prev
-      next
+      ...PaginatedResultInfoFields
     }
   }
 }
