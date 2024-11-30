@@ -12,6 +12,7 @@ import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
+import type { CreatePostRequest, Post } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
@@ -78,7 +79,7 @@ const LivestreamSettings = dynamic(
 
 interface NewPublicationProps {
   className?: string;
-  post?: MirrorablePublication;
+  post?: Post;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
@@ -202,13 +203,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     );
   };
 
-  const { createCommentOnChain, createPostOnChain, createQuoteOnChain, error } =
-    useCreatePost({
-      commentOn: post,
-      onCompleted,
-      onError,
-      quoteOn: quotedPost as Quote
-    });
+  const { createPost, error } = useCreatePost({
+    commentOn: post,
+    onCompleted,
+    onError,
+    quoteOf: quotedPost as Post
+  });
 
   useEffect(() => {
     setPostContentError("");
@@ -315,50 +315,37 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       const metadataId = await uploadMetadata(metadata);
 
       // Payload for the open action module
-      const openActionModules = [];
+      const actions = [];
 
       if (collectModule.type) {
-        openActionModules.push({
-          collectOpenAction: collectModuleParams(collectModule)
+        actions.push({
+          collectAction: collectModuleParams(collectModule)
         });
       }
 
       // Payload for the post/comment/quote
-      const onChainRequest:
-        | OnchainCommentRequest
-        | OnchainPostRequest
-        | OnchainQuoteRequest = {
+      const request: CreatePostRequest = {
         contentURI: `${METADATA_ENDPOINT}/${metadataId}`,
         ...(isComment && { commentOn: post?.id }),
-        ...(isQuote && { quoteOn: quotedPost?.id }),
-        openActionModules,
-        ...(onlyFollowers && {
-          referenceModule:
-            selectedReferenceModule ===
-            ReferenceModuleType.FollowerOnlyReferenceModule
-              ? { followerOnlyReferenceModule: true }
-              : {
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: true,
-                    degreesOfSeparation,
-                    mirrorsRestricted: true,
-                    quotesRestricted: true
-                  }
-                }
-        })
+        ...(isQuote && { quoteOf: quotedPost?.id }),
+        actions
+        // ...(onlyFollowers && {
+        //   referenceModule:
+        //     selectedReferenceModule ===
+        //     ReferenceModuleType.FollowerOnlyReferenceModule
+        //       ? { followerOnlyReferenceModule: true }
+        //       : {
+        //           degreesOfSeparationReferenceModule: {
+        //             commentsRestricted: true,
+        //             degreesOfSeparation,
+        //             mirrorsRestricted: true,
+        //             quotesRestricted: true
+        //           }
+        //         }
+        // })
       };
 
-      if (isComment) {
-        return await createCommentOnChain(
-          onChainRequest as OnchainCommentRequest
-        );
-      }
-
-      if (isQuote) {
-        return await createQuoteOnChain(onChainRequest as OnchainQuoteRequest);
-      }
-
-      return await createPostOnChain(onChainRequest);
+      return await createPost(request);
     } catch (error) {
       onError(error);
     }
@@ -414,12 +401,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
             showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {post?.momoka?.proof ? null : (
-            <>
-              <CollectSettings />
-              <ReferenceSettings />
-            </>
-          )}
+          <CollectSettings />
+          <ReferenceSettings />
           <PollSettings />
           {!isComment && <LivestreamSettings />}
         </div>

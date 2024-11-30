@@ -1,17 +1,15 @@
 import MetaDetails from "@components/Shared/MetaDetails";
-import { HashtagIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { HashtagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
-import { isCommentPost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 
 interface PostStaffToolProps {
-  post: MirrorablePublication;
+  post: AnyPost;
 }
 
 const PostStaffTool: FC<PostStaffToolProps> = ({ post }) => {
-  const isComment = isCommentPost(post);
-
   return (
     <Card
       as="aside"
@@ -30,7 +28,7 @@ const PostStaffTool: FC<PostStaffToolProps> = ({ post }) => {
         >
           {post?.id}
         </MetaDetails>
-        {isComment ? (
+        {post.__typename === "Post" && post.commentOn ? (
           <MetaDetails
             icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
             title="Comment on"
@@ -39,7 +37,8 @@ const PostStaffTool: FC<PostStaffToolProps> = ({ post }) => {
             {post?.commentOn?.id}
           </MetaDetails>
         ) : null}
-        {post?.openActionModules?.length ? (
+        {/* TODO: Lens v3 */}
+        {/* {post?.openActionModules?.length ? (
           <MetaDetails
             icon={<ShoppingBagIcon className="ld-text-gray-500 size-4" />}
             noFlex
@@ -49,7 +48,7 @@ const PostStaffTool: FC<PostStaffToolProps> = ({ post }) => {
               <div key={module.__typename}>{module.__typename}</div>
             ))}
           </MetaDetails>
-        ) : null}
+        ) : null} */}
       </div>
     </Card>
   );
