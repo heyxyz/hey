@@ -1,5 +1,6 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
+import type { FollowNotification as TFollowNotification } from "@hey/indexer";
 import plur from "plur";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -28,15 +29,15 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
         <UserPlusIcon className="size-6" />
         <div className="flex items-center space-x-1">
           {followers.slice(0, 10).map((follower) => (
-            <div key={follower.id}>
-              <NotificationAccountAvatar account={follower} />
+            <div key={follower.account.address}>
+              <NotificationAccountAvatar account={follower.account} />
             </div>
           ))}
         </div>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
-          firstAccount={firstAccount}
+          firstAccount={firstAccount.account}
           linkToType={getAccount(currentAccount).link}
           text={text}
           type={type}

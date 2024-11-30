@@ -148,7 +148,7 @@ const ViewPost: NextPage = () => {
             source={AccountLinkSource.Post}
           />
         </Card>
-        <RelevantPeople profilesMentioned={targetPost.profilesMentioned} />
+        <RelevantPeople mentions={targetPost.mentions} />
         {isStaff ? <PostStaffTool post={targetPost} /> : null}
         <Footer />
       </GridItemFour>

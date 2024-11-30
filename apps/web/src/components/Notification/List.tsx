@@ -1,5 +1,16 @@
 import { BellIcon } from "@heroicons/react/24/outline";
 import { NotificationTabType } from "@hey/data/enums";
+import {
+  type NotificationRequest,
+  NotificationType,
+  type CommentNotification as TCommentNotification,
+  type FollowNotification as TFollowNotification,
+  type MentionNotification as TMentionNotification,
+  type QuoteNotification as TQuoteNotification,
+  type ReactionNotification as TReactionNotification,
+  type RepostNotification as TRepostNotification,
+  useNotificationsQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -10,9 +21,9 @@ import ActedNotification from "./Type/ActedNotification";
 import CommentNotification from "./Type/CommentNotification";
 import FollowNotification from "./Type/FollowNotification";
 import MentionNotification from "./Type/MentionNotification";
-import MirrorNotification from "./Type/MirrorNotification";
 import QuoteNotification from "./Type/QuoteNotification";
 import ReactionNotification from "./Type/ReactionNotification";
+import RepostNotification from "./Type/RepostNotification";
 
 interface ListProps {
   feedType: string;
@@ -39,9 +50,8 @@ const List: FC<ListProps> = ({ feedType }) => {
   };
 
   const request: NotificationRequest = {
-    where: {
-      customFilters: [CustomFiltersType.Gardeners],
-      highSignalFilter: highSignalNotificationFilter,
+    filter: {
+      includeLowScore: highSignalNotificationFilter,
       notificationTypes: getNotificationType()
     }
   };
@@ -101,32 +111,32 @@ const List: FC<ListProps> = ({ feedType }) => {
           >
             {notification.__typename === "FollowNotification" && (
               <FollowNotification
-                notification={notification as FollowNotificationType}
+                notification={notification as TFollowNotification}
               />
             )}
             {notification.__typename === "MentionNotification" && (
               <MentionNotification
-                notification={notification as MentionNotificationType}
+                notification={notification as TMentionNotification}
               />
             )}
             {notification.__typename === "ReactionNotification" && (
               <ReactionNotification
-                notification={notification as ReactionNotificationType}
+                notification={notification as TReactionNotification}
               />
             )}
             {notification.__typename === "CommentNotification" && (
               <CommentNotification
-                notification={notification as CommentNotificationType}
+                notification={notification as TCommentNotification}
               />
             )}
-            {notification.__typename === "MirrorNotification" && (
-              <MirrorNotification
-                notification={notification as MirrorNotificationType}
+            {notification.__typename === "RepostNotification" && (
+              <RepostNotification
+                notification={notification as TRepostNotification}
               />
             )}
             {notification.__typename === "QuoteNotification" && (
               <QuoteNotification
-                notification={notification as QuoteNotificationType}
+                notification={notification as TQuoteNotification}
               />
             )}
             {notification.__typename === "ActedNotification" && (

@@ -11,8 +11,8 @@ import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
-import Mirror from "./Mirror";
 import Quote from "./Quote";
+import Repost from "./Repost";
 import UndoMirror from "./UndoMirror";
 
 interface ShareMenuProps {
@@ -69,7 +69,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
             className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
-            <Mirror
+            <Repost
               isLoading={isLoading}
               post={targetPost}
               setIsLoading={setIsLoading}

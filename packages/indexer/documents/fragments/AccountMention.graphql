@@ -1,0 +1,8 @@
+fragment AccountMentionFields on AccountMention {
+  account
+  namespace
+  replace {
+    from
+    to
+  }
+}

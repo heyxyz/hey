@@ -53,9 +53,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification?.publication?.id}`}
         >
-          <Markup mentions={targetPost.profilesMentioned}>
-            {filteredContent}
-          </Markup>
+          <Markup mentions={targetPost.mentions}>{filteredContent}</Markup>
         </Link>
       </div>
     </div>

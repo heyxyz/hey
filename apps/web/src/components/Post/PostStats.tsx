@@ -1,6 +1,6 @@
 import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
-import Mirrors from "@components/Shared/Modal/Mirrors";
+import Reposts from "@components/Shared/Modal/Reposts";
 import { Leafwatch } from "@helpers/leafwatch";
 import { POST } from "@hey/data/tracking";
 import getPostsViews, {
@@ -130,10 +130,10 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
           setShowMirrorsModal(false);
         }}
         show={showMirrorsModal}
-        title="Mirrors"
+        title="Reposts"
         size="md"
       >
-        <Mirrors postId={postId} />
+        <Reposts postId={postId} />
       </Modal>
       <Modal
         onClose={() => {

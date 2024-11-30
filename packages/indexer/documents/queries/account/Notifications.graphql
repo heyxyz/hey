@@ -20,5 +20,8 @@ query Notifications($request: NotificationRequest!) {
         ...RepostNotificationFields
       }
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

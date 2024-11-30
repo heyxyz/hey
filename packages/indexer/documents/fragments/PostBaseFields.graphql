@@ -15,10 +15,7 @@ fragment PostBaseFields on Post {
     ...AppFields
   }
   mentions {
-    replace {
-      from
-      to
-    }
+    ...AccountMentionFields
   }
   timestamp
 }

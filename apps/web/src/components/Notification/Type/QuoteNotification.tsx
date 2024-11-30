@@ -1,6 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
+import type { QuoteNotification as TQuoteNotification } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
@@ -14,10 +15,10 @@ interface QuoteNotificationProps {
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const metadata = notification?.quote.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
-  const firstAccount = notification.quote.by;
+  const firstAccount = notification.quote.author;
 
   const text = "quoted your";
-  const type = notification.quote.quoteOn.__typename;
+  const type = notification.quote.quoteOf?.__typename;
 
   usePushToImpressions(notification.quote.id);
 
@@ -40,7 +41,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification?.quote?.id}`}
         >
-          <Markup mentions={notification.quote.profilesMentioned}>
+          <Markup mentions={notification.quote.mentions}>
             {filteredContent}
           </Markup>
         </Link>

@@ -8,11 +8,11 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-interface MirrorsProps {
+interface RepostsProps {
   postId: string;
 }
 
-const Mirrors: FC<MirrorsProps> = ({ postId }) => {
+const Reposts: FC<RepostsProps> = ({ postId }) => {
   const { currentAccount } = useAccountStore();
 
   const request: ProfilesRequest = {
@@ -85,4 +85,4 @@ const Mirrors: FC<MirrorsProps> = ({ postId }) => {
   );
 };
 
-export default Mirrors;
+export default Reposts;
