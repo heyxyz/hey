@@ -2,7 +2,13 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  PageSize,
+  PostReferenceType,
+  useWhoReferencedPostQuery,
+  type WhoReferencedPostRequest
+} from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -15,18 +21,19 @@ interface RepostsProps {
 const Reposts: FC<RepostsProps> = ({ postId }) => {
   const { currentAccount } = useAccountStore();
 
-  const request: ProfilesRequest = {
-    limit: LimitType.TwentyFive,
-    where: { whoMirroredPublication: postId }
+  const request: WhoReferencedPostRequest = {
+    pageSize: PageSize.Fifty,
+    post: postId,
+    referenceTypes: [PostReferenceType.RepostOf]
   };
 
-  const { data, error, fetchMore, loading } = useProfilesQuery({
+  const { data, error, fetchMore, loading } = useWhoReferencedPostQuery({
     skip: !postId,
     variables: { request }
   });
 
-  const accounts = data?.profiles?.items;
-  const pageInfo = data?.profiles?.pageInfo;
+  const accounts = data?.whoReferencedPost?.items;
+  const pageInfo = data?.whoReferencedPost?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {

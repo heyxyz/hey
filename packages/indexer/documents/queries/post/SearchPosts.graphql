@@ -3,5 +3,8 @@ query SearchPosts($request: SearchPostsRequest!) {
     items {
       ...PostFields
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

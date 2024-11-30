@@ -2,7 +2,12 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  PageSize,
+  type PostReactionsRequest,
+  usePostReactionsQuery
+} from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -15,18 +20,18 @@ interface LikesProps {
 const Likes: FC<LikesProps> = ({ postId }) => {
   const { currentAccount } = useAccountStore();
 
-  const request: WhoReactedPublicationRequest = {
-    for: postId,
-    limit: LimitType.TwentyFive
+  const request: PostReactionsRequest = {
+    post: postId,
+    pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = useWhoReactedPublicationQuery({
+  const { data, error, fetchMore, loading } = usePostReactionsQuery({
     skip: !postId,
     variables: { request }
   });
 
-  const profiles = data?.whoReactedPublication?.items;
-  const pageInfo = data?.whoReactedPublication?.pageInfo;
+  const accounts = data?.postReactions?.items;
+  const pageInfo = data?.postReactions?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -41,7 +46,7 @@ const Likes: FC<LikesProps> = ({ postId }) => {
     return <AccountListShimmer />;
   }
 
-  if (profiles?.length === 0) {
+  if (accounts?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
@@ -66,17 +71,17 @@ const Likes: FC<LikesProps> = ({ postId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, like) => `${like.profile.address}-${index}`}
-      data={profiles}
+      computeItemKey={(index, like) => `${like.account.address}-${index}`}
+      data={accounts}
       endReached={onEndReached}
       itemContent={(_, like) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.address === like.profile.address}
+            hideFollowButton={currentAccount?.address === like.account.address}
             hideUnfollowButton={
-              currentAccount?.address === like.profile.address
+              currentAccount?.address === like.account.address
             }
-            account={like.profile as Account}
+            account={like.account as Account}
             showBio
             showUserPreview={false}
             source={AccountLinkSource.Likes}
