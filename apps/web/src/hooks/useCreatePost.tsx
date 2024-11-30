@@ -7,7 +7,6 @@ import type { OptimisticTransaction } from "@hey/types/misc";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useWriteContract } from "wagmi";
-import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 interface CreatePostProps {
   commentOn?: AnyPost;
@@ -25,7 +24,6 @@ const useCreatePost = ({
   const { cache } = useApolloClient();
   const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
-  const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOf);
