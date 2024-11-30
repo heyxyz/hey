@@ -1,29 +1,30 @@
 import Accounts from "@components/Shared/Accounts";
 import { SparklesIcon } from "@heroicons/react/24/outline";
+import type { TimelineItem } from "@hey/indexer";
 import type { FC } from "react";
 import { Fragment } from "react";
 
 interface CombinedProps {
-  feedItem: FeedItem;
+  timelineItem: TimelineItem;
 }
 
-const Combined: FC<CombinedProps> = ({ feedItem }) => {
-  const { mirrors } = feedItem;
+const Combined: FC<CombinedProps> = ({ timelineItem }) => {
+  const { reposts } = timelineItem;
 
-  const mirrorsLength = mirrors.length;
+  const repostsLength = reposts.length;
 
   const getAllProfiles = () => {
-    let profiles = mirrors.map((event) => event.by);
+    let profiles = reposts.map((event) => event.author);
     profiles = profiles.filter(
       (profile, index, self) =>
-        index === self.findIndex((t) => t.id === profile.id)
+        index === self.findIndex((t) => t.address === profile.address)
     );
     return profiles;
   };
 
   const actionArray = [];
-  if (mirrorsLength) {
-    actionArray.push("mirrored");
+  if (repostsLength) {
+    actionArray.push("reposted");
   }
 
   return (

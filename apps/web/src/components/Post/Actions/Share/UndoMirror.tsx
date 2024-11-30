@@ -6,6 +6,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
@@ -13,7 +14,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MirrorProps {
   isLoading: boolean;
-  post: AnyPublication;
+  post: AnyPost;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 

@@ -1,11 +1,12 @@
+import type { AnyPost } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   postContent: string;
-  quotedPost: AnyPublication | null;
+  quotedPost: AnyPost | null;
   setPostContent: (postContent: string) => void;
-  setQuotedPost: (quotedPost: AnyPublication | null) => void;
+  setQuotedPost: (quotedPost: AnyPost | null) => void;
   setTags: (tags: null | string[]) => void;
   tags: null | string[];
 }

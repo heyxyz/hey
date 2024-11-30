@@ -3,6 +3,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPost, TimelineItem } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -11,20 +12,20 @@ import type { FC } from "react";
 import { memo } from "react";
 
 interface PostAvatarProps {
-  feedItem?: FeedItem;
-  post: AnyPublication;
+  timelineItem?: TimelineItem;
+  post: AnyPost;
   quoted?: boolean;
 }
 
 const PostAvatar: FC<PostAvatarProps> = ({
-  feedItem,
+  timelineItem,
   post,
   quoted = false
 }) => {
   const { push } = useRouter();
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
-  const rootPublication = feedItem ? feedItem?.root : targetPost;
-  const account = feedItem ? rootPublication.by : targetPost.by;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
+  const rootPost = timelineItem ? timelineItem?.primary : targetPost;
+  const account = timelineItem ? rootPost.author : targetPost.author;
 
   return (
     <Link

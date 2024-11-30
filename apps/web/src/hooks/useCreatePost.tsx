@@ -1,6 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
+import type { AnyPost } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
@@ -9,10 +10,10 @@ import { useWriteContract } from "wagmi";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 interface CreatePostProps {
-  commentOn?: AnyPublication;
+  commentOn?: AnyPost;
   onCompleted: (status?: any) => void;
   onError: (error: any) => void;
-  quoteOn?: AnyPublication;
+  quoteOn?: AnyPost;
 }
 
 const useCreatePost = ({

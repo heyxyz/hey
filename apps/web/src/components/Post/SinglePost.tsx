@@ -1,5 +1,6 @@
 import ActionType from "@components/Home/Timeline/EventType";
 import PostWrapper from "@components/Shared/PostWrapper";
+import type { AnyPost, TimelineItem } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
@@ -12,11 +13,11 @@ import PostHeader from "./PostHeader";
 import PostType from "./Type";
 
 interface SinglePostProps {
-  feedItem?: FeedItem;
+  timelineItem?: TimelineItem;
   header?: ReactNode;
   isFirst?: boolean;
   isLast?: boolean;
-  post: AnyPublication;
+  post: AnyPost;
   showActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;
@@ -24,7 +25,7 @@ interface SinglePostProps {
 }
 
 const SinglePost: FC<SinglePostProps> = ({
-  feedItem,
+  timelineItem,
   header,
   isFirst = false,
   isLast = false,
@@ -34,8 +35,8 @@ const SinglePost: FC<SinglePostProps> = ({
   showThread = true,
   showType = true
 }) => {
-  const rootPublication = feedItem ? feedItem?.root : post;
-  usePushToImpressions(rootPublication.id);
+  const rootPost = timelineItem ? timelineItem?.primary : post;
+  usePushToImpressions(rootPost.id);
 
   return (
     <PostWrapper
@@ -44,24 +45,24 @@ const SinglePost: FC<SinglePostProps> = ({
         isLast && "rounded-b-xl",
         "cursor-pointer px-5 pt-4 pb-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900"
       )}
-      post={rootPublication}
+      post={rootPost}
     >
       {header}
-      {feedItem ? (
-        <ActionType feedItem={feedItem} />
+      {timelineItem ? (
+        <ActionType timelineItem={timelineItem} />
       ) : (
         <PostType post={post} showThread={showThread} showType={showType} />
       )}
       <div className="flex items-start space-x-3">
-        <PostAvatar feedItem={feedItem} post={rootPublication} />
+        <PostAvatar timelineItem={timelineItem} post={rootPost} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader feedItem={feedItem} post={rootPublication} />
+          <PostHeader timelineItem={timelineItem} post={rootPost} />
           {post.isHidden ? (
             <HiddenPost type={post.__typename} />
           ) : (
             <>
-              <PostBody post={rootPublication} showMore={showMore} />
-              {showActions ? <PostActions post={rootPublication} /> : null}
+              <PostBody post={rootPost} showMore={showMore} />
+              {showActions ? <PostActions post={rootPost} /> : null}
             </>
           )}
         </div>

@@ -1,6 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PaidActionsShimmer from "@components/Shared/Shimmer/PaidActionsShimmer";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import type { AnyPost } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -58,13 +59,13 @@ const PaidActions: FC = () => {
           <Card>
             <OpenActionPaidAction
               latestActed={action.latestActed as LatestActed[]}
-              post={action.actedOn as AnyPublication}
+              post={action.actedOn as AnyPost}
             />
             <div className="divider" />
             <SinglePost
               isFirst={false}
               isLast
-              post={action.actedOn as AnyPublication}
+              post={action.actedOn as AnyPost}
               showThread={false}
             />
           </Card>

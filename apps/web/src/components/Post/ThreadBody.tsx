@@ -1,4 +1,5 @@
 import PostWrapper from "@components/Shared/PostWrapper";
+import type { AnyPost } from "@hey/indexer";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PostActions from "./Actions";
@@ -8,7 +9,7 @@ import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
 
 interface ThreadBodyProps {
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const ThreadBody: FC<ThreadBodyProps> = ({ post }) => {

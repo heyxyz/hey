@@ -10,6 +10,7 @@ import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
@@ -27,7 +28,7 @@ import Poll from "./Poll";
 
 interface PostBodyProps {
   contentClassName?: string;
-  post: AnyPublication;
+  post: AnyPost;
   quoted?: boolean;
   showMore?: boolean;
 }

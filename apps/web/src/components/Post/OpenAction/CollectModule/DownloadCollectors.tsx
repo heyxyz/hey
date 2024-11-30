@@ -4,6 +4,7 @@ import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { POST } from "@hey/data/tracking";
+import type { AnyPost } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { AxiosResponse } from "axios";
@@ -13,7 +14,7 @@ import toast from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DownloadCollectorsProps {
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {

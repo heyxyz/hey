@@ -5,6 +5,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { addTypenameToDocument } from "apollo-utilities";
 import { print } from "graphql";
 import type { Metadata } from "next";
@@ -36,7 +37,7 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const post = result.data.publication as AnyPublication;
+  const post = result.data.publication as AnyPost;
   const targetPost = isRepost(post) ? post.mirrorOn : post;
   const { by: account, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";

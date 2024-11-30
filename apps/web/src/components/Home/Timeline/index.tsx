@@ -2,8 +2,12 @@ import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
-import { HEY_CURATED_ID } from "@hey/data/constants";
-import type { TimelineRequest } from "@hey/indexer";
+import {
+  type Post,
+  type TimelineItem,
+  type TimelineRequest,
+  useTimelineQuery
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -18,29 +22,22 @@ import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
-  const { currentAccount, fallbackToCuratedFeed } = useAccountStore();
+  const { currentAccount } = useAccountStore();
   const { txnQueue } = useTransactionStore();
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: TimelineRequest = {
-    where: {
-      feedEventItemTypes: [
-        FeedEventItemType.Post,
-        FeedEventItemType.Mirror,
-        FeedEventItemType.Quote
-      ],
-      for: fallbackToCuratedFeed ? HEY_CURATED_ID : currentAccount?.address
-    }
+    account: currentAccount?.address
   };
 
-  const { data, error, fetchMore, loading } = useFeedQuery({
+  const { data, error, fetchMore, loading } = useTimelineQuery({
     fetchPolicy: "cache-and-network",
-    onCompleted: async ({ feed }) => {
+    onCompleted: async ({ timeline }) => {
       const ids =
-        feed?.items?.flatMap((p) => {
-          return [p.root.id].filter((id) => id);
+        timeline?.items?.flatMap((p) => {
+          return [p.primary.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
@@ -48,10 +45,8 @@ const Timeline: FC = () => {
     variables: { request }
   });
 
-  const feed = data?.feed?.items.filter(
-    (item) => item.root.__typename !== "Comment"
-  );
-  const pageInfo = data?.feed?.pageInfo;
+  const feed = data?.timeline?.items;
+  const pageInfo = data?.timeline?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onScrolling = (scrolling: boolean) => {
@@ -68,8 +63,8 @@ const Timeline: FC = () => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data.feed?.items?.flatMap((p) => {
-          return [p.root.id].filter((id) => id);
+        data.timeline?.items?.flatMap((p) => {
+          return [p.primary.id].filter((id) => id);
         }) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
@@ -103,16 +98,18 @@ const Timeline: FC = () => {
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"
-          computeItemKey={(index, feedItem) => `${feedItem.id}-${index}`}
+          computeItemKey={(index, timelineItem) =>
+            `${timelineItem.id}-${index}`
+          }
           data={feed}
           endReached={onEndReached}
           isScrolling={onScrolling}
-          itemContent={(index, feedItem) => (
+          itemContent={(index, timelineItem) => (
             <SinglePost
-              feedItem={feedItem as FeedItem}
+              timelineItem={timelineItem as TimelineItem}
               isFirst={index === 0}
               isLast={index === (feed?.length || 0) - 1}
-              post={feedItem.root as AnyPublication}
+              post={timelineItem.primary as Post}
             />
           )}
           ref={virtuoso}

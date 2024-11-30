@@ -6,6 +6,7 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPost } from "@hey/indexer";
 import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -15,7 +16,7 @@ import Quote from "./Quote";
 import UndoMirror from "./UndoMirror";
 
 interface ShareMenuProps {
-  post: AnyPublication;
+  post: AnyPost;
   showCount: boolean;
 }
 

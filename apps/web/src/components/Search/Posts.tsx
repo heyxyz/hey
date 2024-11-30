@@ -1,6 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
+import type { AnyPost } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -36,7 +37,7 @@ const Posts: FC<PostsProps> = ({ query }) => {
   });
 
   const search = data?.searchPublications;
-  const posts = search?.items as AnyPublication[];
+  const posts = search?.items as AnyPost[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 

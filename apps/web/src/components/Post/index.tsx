@@ -13,6 +13,7 @@ import { AccountLinkSource, PAGEVIEW } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
@@ -95,7 +96,7 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPost || (data?.publication as AnyPublication);
+  const post = preLoadedPost || (data?.publication as AnyPost);
   const targetPost = isRepost(post) ? post.mirrorOn : post;
   const suspended = isSuspended || isCommentSuspended;
 

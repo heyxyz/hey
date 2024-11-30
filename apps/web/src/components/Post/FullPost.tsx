@@ -6,6 +6,7 @@ import getAccountDetails, {
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
@@ -24,7 +25,7 @@ import PostType from "./Type";
 
 interface FullPostProps {
   hasHiddenComments: boolean;
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {

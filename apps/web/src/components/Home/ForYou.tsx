@@ -2,6 +2,7 @@ import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
+import type { AnyPost } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -80,7 +81,7 @@ const ForYou: FC = () => {
             <SinglePost
               isFirst={index === 0}
               isLast={index === (posts?.length || 0) - 1}
-              post={item.publication as AnyPublication}
+              post={item.publication as AnyPost}
             />
           )}
           useWindowScroll

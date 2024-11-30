@@ -2,6 +2,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
+import type { AnyPost } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
@@ -178,7 +179,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as AnyPublication}
+            post={post as AnyPost}
             showThread={
               type !== AccountFeedType.Media &&
               type !== AccountFeedType.Collects

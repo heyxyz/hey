@@ -1,13 +1,14 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 
 interface SingleImagePostProps {
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {

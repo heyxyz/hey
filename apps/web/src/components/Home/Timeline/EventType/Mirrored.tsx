@@ -1,17 +1,18 @@
 import Accounts from "@components/Shared/Accounts";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import type { Post } from "@hey/indexer";
 import type { FC } from "react";
 
 interface MirroredProps {
-  mirrors: Mirror[];
+  reposts: Post[];
 }
 
-const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
+const Mirrored: FC<MirroredProps> = ({ reposts }) => {
   const getMirroredAccounts = () => {
-    let accounts = mirrors.map((mirror) => mirror.by);
+    let accounts = reposts.map((repost) => repost.author);
     accounts = accounts.filter(
       (account, index, self) =>
-        index === self.findIndex((t) => t.id === account.address)
+        index === self.findIndex((t) => t.address === account.address)
     );
     return accounts;
   };

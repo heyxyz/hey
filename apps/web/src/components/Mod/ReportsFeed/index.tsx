@@ -1,6 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { FlagIcon } from "@heroicons/react/24/outline";
+import type { AnyPost } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -61,7 +62,7 @@ const ReportsFeed: FC = () => {
           <Card>
             <SinglePost
               isFirst
-              post={report.reportedPublication as AnyPublication}
+              post={report.reportedPublication as AnyPost}
               showActions={false}
               showThread={false}
             />

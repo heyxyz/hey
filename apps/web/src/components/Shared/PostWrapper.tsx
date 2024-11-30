@@ -1,3 +1,4 @@
+import type { AnyPost } from "@hey/indexer";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
 import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
@@ -5,7 +6,7 @@ import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNa
 interface PostWrapperProps {
   children: ReactNode | ReactNode[];
   className?: string;
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const PostWrapper: FC<PostWrapperProps> = ({

@@ -1,30 +1,31 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPost, TimelineItem } from "@hey/indexer";
 import type { FC } from "react";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import PostMenu from "./Actions/Menu";
 import PostAccount from "./PostAccount";
 
 interface PostHeaderProps {
-  feedItem?: FeedItem;
+  timelineItem?: TimelineItem;
   isNew?: boolean;
-  post: AnyPublication;
+  post: AnyPost;
   quoted?: boolean;
 }
 
 const PostHeader: FC<PostHeaderProps> = ({
-  feedItem,
+  timelineItem,
   isNew = false,
   post,
   quoted = false
 }) => {
   const { setQuotedPost } = usePostStore();
 
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
-  const rootPublication = feedItem ? feedItem?.root : targetPost;
-  const account = feedItem ? rootPublication.by : targetPost.by;
-  const timestamp = feedItem ? rootPublication.createdAt : targetPost.createdAt;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
+  const rootPost = timelineItem ? timelineItem?.primary : targetPost;
+  const account = timelineItem ? rootPost.author : targetPost.author;
+  const timestamp = timelineItem ? rootPost.timestamp : targetPost.timestamp;
 
   return (
     <div
