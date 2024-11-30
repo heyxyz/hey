@@ -6,7 +6,6 @@ import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 import { Fragment } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import AddToList from "./AddToList";
 import Block from "./Block";
 import CopyAddress from "./CopyAddress";
 import CopyID from "./CopyID";
@@ -42,7 +41,6 @@ const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
           <CopyID id={account.address} />
           {currentAccount && currentAccount?.address !== account.address ? (
             <>
-              <AddToList account={account} />
               <Block account={account} />
               <Report account={account} />
             </>

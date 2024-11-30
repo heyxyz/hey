@@ -8,7 +8,6 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
 import AccountStatus from "./Modal/AccountStatus";
-import AddToList from "./Modal/AddToList";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
@@ -31,9 +30,7 @@ const GlobalModals: FC = () => {
     showPostReportModal,
     showReportAccountModal,
     showEditStatusModal,
-    setShowEditStatusModal,
-    showAddToListModal,
-    setShowAddToListModal
+    setShowEditStatusModal
   } = useGlobalModalStateStore();
 
   const { screen: signupScreen } = useSignupStore();
@@ -99,13 +96,6 @@ const GlobalModals: FC = () => {
         title="Edit Status"
       >
         <AccountStatus />
-      </Modal>
-      <Modal
-        onClose={() => setShowAddToListModal(false, null)}
-        show={showAddToListModal}
-        title="Add to list"
-      >
-        <AddToList />
       </Modal>
     </>
   );
