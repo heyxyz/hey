@@ -1,0 +1,7 @@
+query SearchAccounts($request: AccountSearchRequest!) {
+  searchAccounts(request: $request) {
+    items {
+      ...AccountFields
+    }
+  }
+}
