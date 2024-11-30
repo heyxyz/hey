@@ -5,6 +5,7 @@ import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { GARDENER } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { type AnyPost, PostReportReason } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -14,7 +15,7 @@ import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlert
 import StaffActions from "./StaffActions";
 
 interface GardenerActionsProps {
-  post: MirrorablePublication;
+  post: AnyPost;
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
@@ -23,9 +24,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
   const [loading, setLoading] = useState(false);
   const { cache } = useApolloClient();
 
-  const reportPostOnLens = async (
-    subreasons: PublicationReportingSpamSubreason[]
-  ) => {
+  const reportPostOnLens = async (reasons: PostReportReason[]) => {
     if (pathname === "/mod") {
       cache.evict({ id: cache.identify(post) });
     }
@@ -34,7 +33,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
     try {
       await axios.post(
         `${HEY_API_URL}/internal/gardener/report`,
-        { id: post.id, subreasons },
+        { id: post.id, reasons },
         { headers: getAuthApiHeadersWithAccessToken() }
       );
     } finally {
@@ -44,14 +43,14 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
   };
 
   const handleReportPost = ({
-    subreasons,
+    reasons,
     type
   }: {
-    subreasons: PublicationReportingSpamSubreason[];
+    reasons: PostReportReason[];
     type: string;
   }) => {
     Leafwatch.track(GARDENER.REPORT, { postId: post.id, type });
-    toast.promise(reportPostOnLens(subreasons), {
+    toast.promise(reportPostOnLens(reasons), {
       error: "Error reporting post",
       loading: "Reporting post...",
       success: "Post reported"
@@ -61,20 +60,20 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
   interface ReportButtonProps {
     icon: ReactNode;
     label: string;
-    subreasons: PublicationReportingSpamSubreason[];
+    reasons: PostReportReason[];
     type: string;
   }
 
   const ReportButton: FC<ReportButtonProps> = ({
     icon,
     label,
-    subreasons,
+    reasons,
     type
   }) => (
     <Button
       disabled={loading}
       icon={icon}
-      onClick={() => handleReportPost({ subreasons, type })}
+      onClick={() => handleReportPost({ reasons, type })}
       outline
       size="sm"
     >
@@ -90,32 +89,29 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
       <ReportButton
         icon={<DocumentTextIcon className="size-4" />}
         label="Spam"
-        subreasons={[PublicationReportingSpamSubreason.LowSignal]}
+        reasons={[PostReportReason.Unrelated]}
         type="spam"
       />
       <ReportButton
         icon={<BanknotesIcon className="size-4" />}
         label="Un-sponsor"
-        subreasons={[PublicationReportingSpamSubreason.FakeEngagement]}
+        reasons={[PostReportReason.FakeEngagement]}
         type="un-sponsor"
       />
       <ReportButton
         icon={<BanknotesIcon className="size-4" />}
         label="Both"
-        subreasons={[
-          PublicationReportingSpamSubreason.FakeEngagement,
-          PublicationReportingSpamSubreason.LowSignal
-        ]}
+        reasons={[PostReportReason.FakeEngagement, PostReportReason.Unrelated]}
         type="both"
       />
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <StaffActions
           onClick={() => {
             handleReportPost({
-              subreasons: [
-                PublicationReportingSpamSubreason.FakeEngagement,
-                PublicationReportingSpamSubreason.LowSignal,
-                PublicationReportingSpamSubreason.Misleading
+              reasons: [
+                PostReportReason.FakeEngagement,
+                PostReportReason.Unrelated,
+                PostReportReason.Misleading
               ],
               type: "suspend"
             });

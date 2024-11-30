@@ -5,14 +5,14 @@ import { create } from "zustand";
 interface State {
   blockingorUnblockingProfile: null | Account;
   deletingPost: AnyPost | null;
-  modingPost: MirrorablePost | null;
+  modingPost: AnyPost | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingProfile: null | Account
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
-    modingPost: MirrorablePublication | null
+    modingPost: AnyPost | null
   ) => void;
   setShowPostDeleteAlert: (
     showPostDeleteAlert: boolean,
