@@ -12,7 +12,7 @@ interface SingleImagePostProps {
 }
 
 const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const filteredAttachments =
     getPostData(targetPost.metadata)?.attachments || [];
   const filteredAsset = getPostData(targetPost.metadata)?.asset;
@@ -31,7 +31,7 @@ const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
     >
       <div className="absolute inset-0 rounded-lg bg-black opacity-30" />
       <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-bold text-sm text-white">
-        <SmallSingleAccount account={targetPost.by} hideSlug />
+        <SmallSingleAccount account={targetPost.author} hideSlug />
       </div>
     </Link>
   );

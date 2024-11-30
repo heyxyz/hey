@@ -22,11 +22,11 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
 
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
 
   const updateCache = () => {
     cache.modify({
-      fields: { mirrors: () => targetPost.stats.mirrors - 1 },
+      fields: { reposts: () => targetPost.stats.reposts - 1 },
       id: cache.identify(targetPost.stats)
     });
     cache.evict({

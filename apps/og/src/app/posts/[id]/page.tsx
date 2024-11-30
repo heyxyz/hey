@@ -38,13 +38,13 @@ export const generateMetadata = async ({
   }
 
   const post = result.data.publication as AnyPost;
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
-  const { by: account, metadata } = targetPost;
+  const targetPost = isRepost(post) ? post.repostOf : post;
+  const { author, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
-  const { displayName, link, slugWithPrefix } = getAccount(account);
+  const { displayName, link, slugWithPrefix } = getAccount(author);
   const title = `${targetPost.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 

@@ -44,7 +44,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
 
   const [countOpenActions, { increment }] = useCounter(
     targetPost.stats.countOpenActions

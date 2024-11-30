@@ -14,7 +14,7 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   latestActed,
   post
 }) => {
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
 
   const openActions = targetPost.openActionModules
     .filter(

@@ -94,7 +94,7 @@ export interface OptimisticTransaction {
   commentOn?: string;
   content?: string;
   followOn?: string;
-  mirrorOn?: string;
+  repostOf?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPostType;

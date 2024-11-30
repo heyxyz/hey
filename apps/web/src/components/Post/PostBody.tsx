@@ -42,7 +42,7 @@ const PostBody: FC<PostBodyProps> = ({
   const { mutedWords } = usePreferencesStore();
   const [showMutedPost, setShowMutedPost] = useState(false);
 
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const { id, metadata } = targetPost;
 
   const filteredContent = getPostData(metadata)?.content || "";
@@ -142,7 +142,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showPoll ? <Poll id={pollId} /> : null}
       {showLive ? (
         <div className="mt-3">
-          <Video src={getSrc(metadata.liveURL || metadata.playbackURL)} />
+          <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />
         </div>
       ) : null}
       {showCheckin ? <Checkin post={targetPost} /> : null}
@@ -150,7 +150,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showSharingLink ? (
         <Oembed post={targetPost} url={metadata.sharingLink} />
       ) : null}
-      {showQuote && <Quote post={targetPost.quoteOn} />}
+      {showQuote && <Quote post={targetPost.quoteOf} />}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );

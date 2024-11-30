@@ -97,7 +97,7 @@ const SearchFeed: FC = () => {
           data={posts}
           endReached={onEndReached}
           itemContent={(_, post) => {
-            const targetPost = isRepost(post) ? post.mirrorOn : post;
+            const targetPost = isRepost(post) ? post.repostOf : post;
 
             return (
               <Card>

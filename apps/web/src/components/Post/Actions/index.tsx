@@ -23,7 +23,7 @@ interface PostActionsProps {
 }
 
 const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const { postViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
   const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;
