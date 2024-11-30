@@ -3,10 +3,7 @@ import seedAccountPermission from "./seedAccountPermission";
 import seedAccountStatus from "./seedAccountStatus";
 import seedAccountTheme from "./seedAccountTheme";
 import seedEmails from "./seedEmails";
-import seedLists from "./seedLists";
-import seedListsAccounts from "./seedListsAccounts";
 import seedPermissions from "./seedPermissions";
-import seedPinnedList from "./seedPinnedList";
 import seedPreferences from "./seedPreferences";
 import seedTokens from "./seedTokens";
 
@@ -31,15 +28,6 @@ async function main() {
 
   const emails = await seedEmails();
   console.log(`Seeded ${emails} emails`);
-
-  const lists = await seedLists();
-  console.log(`Seeded ${lists} lists`);
-
-  const listsAccounts = await seedListsAccounts();
-  console.log(`Seeded ${listsAccounts} list accounts`);
-
-  const pinnedList = await seedPinnedList();
-  console.log(`Seeded ${pinnedList} pinned list`);
 }
 
 main()

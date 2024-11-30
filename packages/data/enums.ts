@@ -1,8 +1,7 @@
 export enum HomeFeedType {
   FOLLOWING = "FOLLOWING",
   FORYOU = "FORYOU",
-  PREMIUM = "PREMIUM",
-  PINNED = "PINNED"
+  PREMIUM = "PREMIUM"
 }
 
 export enum ModFeedType {
@@ -16,8 +15,7 @@ export enum AccountFeedType {
   Collects = "COLLECTS",
   Feed = "FEED",
   Media = "MEDIA",
-  Replies = "REPLIES",
-  Lists = "LISTS"
+  Replies = "REPLIES"
 }
 
 export enum NotificationFeedType {
