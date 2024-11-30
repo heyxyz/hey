@@ -3,5 +3,8 @@ query WhoReferencedPost($request: WhoReferencedPostRequest!) {
     items {
       ...AccountFields
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

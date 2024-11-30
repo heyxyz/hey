@@ -3,5 +3,8 @@ query SearchGroups($request: SearchGroupsRequest!) {
     items {
       ...GroupFields
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }
