@@ -1,5 +1,4 @@
 import { Regex } from "@hey/data/regex";
-import type { ProfileMentioned } from "@hey/lens";
 
 const getMentions = (text: string): [] | ProfileMentioned[] => {
   if (!text) {

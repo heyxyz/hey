@@ -1,5 +1,4 @@
 import PostWrapper from "@components/Shared/PostWrapper";
-import type { AnyPublication } from "@hey/lens";
 import type { FC } from "react";
 import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PostActions from "./Actions";

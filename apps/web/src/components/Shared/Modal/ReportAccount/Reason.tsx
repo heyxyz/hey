@@ -1,7 +1,3 @@
-import {
-  ProfileReportingFraudSubreason,
-  ProfileReportingSpamSubreason
-} from "@hey/lens";
 import { Select } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 

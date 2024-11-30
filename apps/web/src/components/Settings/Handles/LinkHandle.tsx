@@ -9,11 +9,6 @@ import { TokenHandleRegistry } from "@hey/abis";
 import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import type { LinkHandleToProfileRequest } from "@hey/lens";
-import {
-  useLinkHandleToProfileMutation,
-  useOwnedHandlesQuery
-} from "@hey/lens";
 import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

@@ -12,5 +12,9 @@ query Timeline($request: TimelineRequest!) {
         ...PostFields
       }
     }
+    pageInfo {
+      prev
+      next
+    }
   }
 }

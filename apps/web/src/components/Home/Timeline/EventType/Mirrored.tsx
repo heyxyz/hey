@@ -1,6 +1,5 @@
 import Accounts from "@components/Shared/Accounts";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import type { Mirror } from "@hey/lens";
 import type { FC } from "react";
 
 interface MirroredProps {

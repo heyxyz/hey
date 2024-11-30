@@ -5,8 +5,6 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
-import { LimitType, useSearchPublicationsQuery } from "@hey/lens";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useState } from "react";

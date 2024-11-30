@@ -13,13 +13,6 @@ import { AccountLinkSource, PAGEVIEW } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPublication } from "@hey/lens";
-import {
-  HiddenCommentsType,
-  LimitType,
-  usePublicationQuery,
-  usePublicationsQuery
-} from "@hey/lens";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";

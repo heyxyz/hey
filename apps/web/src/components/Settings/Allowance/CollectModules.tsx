@@ -1,10 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
-import {
-  FollowModuleType,
-  useApprovedModuleAllowanceAmountQuery
-} from "@hey/lens";
 import { CardHeader, ErrorMessage, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

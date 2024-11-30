@@ -3,16 +3,6 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { IS_MAINNET } from "@hey/data/constants";
-import type {
-  AnyPublication,
-  MirrorablePublication,
-  ModExplorePublicationRequest
-} from "@hey/lens";
-import {
-  ExplorePublicationsOrderByType,
-  LimitType,
-  useModExplorePublicationsQuery
-} from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect } from "react";

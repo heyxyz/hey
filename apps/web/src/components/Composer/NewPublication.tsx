@@ -12,14 +12,6 @@ import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
-import type {
-  MirrorablePublication,
-  OnchainCommentRequest,
-  OnchainPostRequest,
-  OnchainQuoteRequest,
-  Quote
-} from "@hey/lens";
-import { ReferenceModuleType } from "@hey/lens";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, ErrorMessage, H6 } from "@hey/ui";

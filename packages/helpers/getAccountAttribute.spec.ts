@@ -1,5 +1,3 @@
-import type { MetadataAttribute } from "@hey/lens";
-import { MetadataAttributeType } from "@hey/lens";
 import { describe, expect, test } from "vitest";
 import getAccountAttribute from "./getAccountAttribute";
 

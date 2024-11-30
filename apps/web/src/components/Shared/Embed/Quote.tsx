@@ -1,5 +1,4 @@
 import QuotedPost from "@components/Post/QuotedPost";
-import type { PrimaryPublication } from "@hey/lens";
 import type { FC } from "react";
 import Wrapper from "./Wrapper";
 

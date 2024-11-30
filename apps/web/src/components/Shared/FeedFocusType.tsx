@@ -1,6 +1,5 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { EXPLORE } from "@hey/data/tracking";
-import { PublicationMetadataMainFocusType } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 

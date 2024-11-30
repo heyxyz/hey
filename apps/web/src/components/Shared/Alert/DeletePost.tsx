@@ -2,7 +2,6 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import { useHidePublicationMutation } from "@hey/lens";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";

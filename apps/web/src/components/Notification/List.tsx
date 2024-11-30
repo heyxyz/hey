@@ -1,20 +1,5 @@
 import { BellIcon } from "@heroicons/react/24/outline";
 import { NotificationTabType } from "@hey/data/enums";
-import type {
-  ActedNotification as ActedNotificationType,
-  CommentNotification as CommentNotificationType,
-  FollowNotification as FollowNotificationType,
-  MentionNotification as MentionNotificationType,
-  MirrorNotification as MirrorNotificationType,
-  NotificationRequest,
-  QuoteNotification as QuoteNotificationType,
-  ReactionNotification as ReactionNotificationType
-} from "@hey/lens";
-import {
-  CustomFiltersType,
-  NotificationType,
-  useNotificationsQuery
-} from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";

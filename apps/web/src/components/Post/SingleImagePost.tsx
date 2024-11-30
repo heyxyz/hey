@@ -1,7 +1,6 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPublication } from "@hey/lens";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";

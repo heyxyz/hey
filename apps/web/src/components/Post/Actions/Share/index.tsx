@@ -6,7 +6,6 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPublication } from "@hey/lens";
 import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";

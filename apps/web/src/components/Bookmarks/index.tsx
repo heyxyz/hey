@@ -6,7 +6,6 @@ import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
-import type { PublicationMetadataMainFocusType } from "@hey/lens";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";

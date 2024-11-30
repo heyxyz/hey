@@ -1,4 +1,3 @@
-import type { Comment } from "@hey/lens";
 import type { FC } from "react";
 import ThreadBody from "../ThreadBody";
 

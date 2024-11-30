@@ -13,7 +13,6 @@ import {
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
-import type { MirrorablePublication } from "@hey/lens";
 import type { AllowedToken } from "@hey/types/hey";
 import { Button, H6, HelpTooltip, Input, Select, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";

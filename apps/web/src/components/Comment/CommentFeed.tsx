@@ -3,14 +3,6 @@ import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
-import type { Comment, PublicationsRequest } from "@hey/lens";
-import {
-  CommentRankingFilterType,
-  CustomFiltersType,
-  HiddenCommentsType,
-  LimitType,
-  usePublicationsQuery
-} from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";

@@ -2,7 +2,6 @@ import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import errorToast from "@helpers/errorToast";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { Account } from "@hey/indexer";
-import { type ModReport, useModDisputeReportMutation } from "@hey/lens";
 import { Button, Form, H5, TextArea, useZodForm } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import toast from "react-hot-toast";

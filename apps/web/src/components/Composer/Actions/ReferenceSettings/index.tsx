@@ -7,7 +7,6 @@ import {
   UsersIcon
 } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { ReferenceModuleType } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";

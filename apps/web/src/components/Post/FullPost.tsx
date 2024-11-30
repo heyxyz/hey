@@ -6,7 +6,6 @@ import getAccountDetails, {
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPublication } from "@hey/lens";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";

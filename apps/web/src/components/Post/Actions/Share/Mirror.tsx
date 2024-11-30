@@ -8,8 +8,6 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import type { MirrorablePublication, OnchainMirrorRequest } from "@hey/lens";
-import { TriStateValue, useMirrorOnchainMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";

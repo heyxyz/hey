@@ -1,6 +1,5 @@
 import ActionType from "@components/Home/Timeline/EventType";
 import PostWrapper from "@components/Shared/PostWrapper";
-import type { AnyPublication, FeedItem } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";

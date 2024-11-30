@@ -2,12 +2,6 @@ import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type {
-  AnyPublication,
-  LatestActed,
-  MultirecipientFeeCollectOpenActionSettings,
-  SimpleCollectOpenActionSettings
-} from "@hey/lens";
 import type { FC } from "react";
 
 interface OpenActionPaidActionProps {

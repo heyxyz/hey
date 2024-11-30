@@ -2,8 +2,6 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import type { Account as TAccount } from "@hey/indexer";
-import type { ProfileRequest } from "@hey/lens";
-import { useProfileLazyQuery } from "@hey/lens";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

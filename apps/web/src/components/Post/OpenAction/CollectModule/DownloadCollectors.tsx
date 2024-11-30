@@ -4,7 +4,6 @@ import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { POST } from "@hey/data/tracking";
-import type { AnyPublication } from "@hey/lens";
 import { Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { AxiosResponse } from "axios";
