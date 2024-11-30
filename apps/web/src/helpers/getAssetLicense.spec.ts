@@ -1,10 +1,10 @@
-import { MetadataLicenseType } from "@lens-protocol/metadata";
+import { MetadataLicenseType } from "@hey/indexer";
 import { describe, expect, test } from "vitest";
 import getAssetLicense from "./getAssetLicense";
 
 describe("getAssetLicense", () => {
   test("should return correct info for CC0 license", () => {
-    const result = getAssetLicense(MetadataLicenseType.CCO);
+    const result = getAssetLicense(MetadataLicenseType.Cco);
     expect(result).toEqual({
       helper:
         "Anyone can use, modify and distribute the work without any restrictions or need for attribution. CC0",
@@ -13,7 +13,7 @@ describe("getAssetLicense", () => {
   });
 
   test("should return correct info for TBNL_C_D_NPL_Legal license", () => {
-    const result = getAssetLicense(MetadataLicenseType.TBNL_C_D_NPL_Legal);
+    const result = getAssetLicense(MetadataLicenseType.TbnlCdNplLegal);
     expect(result).toEqual({
       helper:
         "You allow the collector to use the content for any purpose, except creating or sharing any derivative works, such as remixes.",
@@ -22,7 +22,7 @@ describe("getAssetLicense", () => {
   });
 
   test("should return correct info for TBNL_NC_D_NPL_Legal license", () => {
-    const result = getAssetLicense(MetadataLicenseType.TBNL_NC_D_NPL_Legal);
+    const result = getAssetLicense(MetadataLicenseType.TbnlNcDNplLegal);
     expect(result).toEqual({
       helper:
         "You allow the collector to use the content for any personal, non-commercial purpose, except creating or sharing any derivative works, such as remixes.",
