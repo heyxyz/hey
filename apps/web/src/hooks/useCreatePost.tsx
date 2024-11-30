@@ -13,14 +13,14 @@ interface CreatePostProps {
   commentOn?: AnyPost;
   onCompleted: (status?: any) => void;
   onError: (error: any) => void;
-  quoteOn?: AnyPost;
+  quoteOf?: AnyPost;
 }
 
 const useCreatePost = ({
   commentOn,
   onCompleted,
   onError,
-  quoteOn
+  quoteOf
 }: CreatePostProps) => {
   const { cache } = useApolloClient();
   const { postContent } = usePostStore();
@@ -28,7 +28,7 @@ const useCreatePost = ({
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(commentOn);
-  const isQuote = Boolean(quoteOn);
+  const isQuote = Boolean(quoteOf);
 
   const generateOptimisticPublication = ({
     txHash,

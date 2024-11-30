@@ -23,7 +23,7 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
     limit: LimitType.TwentyFive,
     where: {
       customFilters: [CustomFiltersType.Gardeners],
-      quoteOn: postId
+      quoteOf: postId
     }
   };
 

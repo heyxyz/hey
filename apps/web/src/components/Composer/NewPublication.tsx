@@ -12,6 +12,7 @@ import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
+import type { AnyPost, CreatePostRequest } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
@@ -78,7 +79,7 @@ const LivestreamSettings = dynamic(
 
 interface NewPublicationProps {
   className?: string;
-  post?: MirrorablePublication;
+  post?: AnyPost;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
@@ -207,7 +208,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       commentOn: post,
       onCompleted,
       onError,
-      quoteOn: quotedPost as Quote
+      quoteOf: quotedPost as Quote
     });
 
   useEffect(() => {
@@ -315,50 +316,45 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       const metadataId = await uploadMetadata(metadata);
 
       // Payload for the open action module
-      const openActionModules = [];
+      const actions = [];
 
       if (collectModule.type) {
-        openActionModules.push({
-          collectOpenAction: collectModuleParams(collectModule)
+        actions.push({
+          collectAction: collectModuleParams(collectModule)
         });
       }
 
       // Payload for the post/comment/quote
-      const onChainRequest:
-        | OnchainCommentRequest
-        | OnchainPostRequest
-        | OnchainQuoteRequest = {
+      const request: CreatePostRequest = {
         contentURI: `${METADATA_ENDPOINT}/${metadataId}`,
         ...(isComment && { commentOn: post?.id }),
-        ...(isQuote && { quoteOn: quotedPost?.id }),
-        openActionModules,
-        ...(onlyFollowers && {
-          referenceModule:
-            selectedReferenceModule ===
-            ReferenceModuleType.FollowerOnlyReferenceModule
-              ? { followerOnlyReferenceModule: true }
-              : {
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: true,
-                    degreesOfSeparation,
-                    mirrorsRestricted: true,
-                    quotesRestricted: true
-                  }
-                }
-        })
+        ...(isQuote && { quoteOf: quotedPost?.id }),
+        actions
+        // ...(onlyFollowers && {
+        //   referenceModule:
+        //     selectedReferenceModule ===
+        //     ReferenceModuleType.FollowerOnlyReferenceModule
+        //       ? { followerOnlyReferenceModule: true }
+        //       : {
+        //           degreesOfSeparationReferenceModule: {
+        //             commentsRestricted: true,
+        //             degreesOfSeparation,
+        //             mirrorsRestricted: true,
+        //             quotesRestricted: true
+        //           }
+        //         }
+        // })
       };
 
       if (isComment) {
-        return await createCommentOnChain(
-          onChainRequest as OnchainCommentRequest
-        );
+        return await createCommentOnChain(request);
       }
 
       if (isQuote) {
-        return await createQuoteOnChain(onChainRequest as OnchainQuoteRequest);
+        return await createQuoteOnChain(request);
       }
 
-      return await createPostOnChain(onChainRequest);
+      return await createPostOnChain(request);
     } catch (error) {
       onError(error);
     }
@@ -414,12 +410,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
             showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {post?.momoka?.proof ? null : (
-            <>
-              <CollectSettings />
-              <ReferenceSettings />
-            </>
-          )}
+          <CollectSettings />
+          <ReferenceSettings />
           <PollSettings />
           {!isComment && <LivestreamSettings />}
         </div>
