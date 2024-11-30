@@ -3,7 +3,6 @@ import getPostViewCountById from "@hey/helpers/getPostViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPublication } from "@hey/lens";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { memo } from "react";

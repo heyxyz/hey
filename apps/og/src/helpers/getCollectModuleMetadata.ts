@@ -2,7 +2,6 @@ import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import getAccount from "@hey/helpers/getAccount";
-import type { MirrorablePublication } from "@hey/lens";
 
 const getCollectModuleMetadata = (post: MirrorablePublication) => {
   const { openActionModules } = post;

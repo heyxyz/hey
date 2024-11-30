@@ -1,15 +1,6 @@
 import SingleImagePost from "@components/Post/SingleImagePost";
 import ImagePostsShimmer from "@components/Shared/Shimmer/ImagePostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import {
-  type AnyPublication,
-  CustomFiltersType,
-  type ExplorePublicationRequest,
-  ExplorePublicationsOrderByType,
-  LimitType,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";

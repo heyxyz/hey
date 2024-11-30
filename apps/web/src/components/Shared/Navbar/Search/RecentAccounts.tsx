@@ -6,7 +6,6 @@ import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
-import { useProfilesQuery } from "@hey/lens";
 import { H6 } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";

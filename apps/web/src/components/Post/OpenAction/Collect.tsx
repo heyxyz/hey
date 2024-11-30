@@ -3,7 +3,6 @@ import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCol
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { POST } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
-import type { MirrorablePublication } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";

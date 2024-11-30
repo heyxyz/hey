@@ -1,4 +1,4 @@
-import type { Maybe, PublicationMetadataMedia } from "@hey/lens";
+import type { Maybe, PublicationMetadataMedia } from "@hey/indexer";
 
 const getAttachmentsData = (
   attachments?: Maybe<PublicationMetadataMedia[]>

@@ -7,16 +7,6 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import type { Account } from "@hey/indexer";
-import type {
-  LastLoggedInProfileRequest,
-  ProfilesManagedRequest
-} from "@hey/lens";
-import {
-  ManagedProfileVisibility,
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useProfilesManagedQuery
-} from "@hey/lens";
 import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";

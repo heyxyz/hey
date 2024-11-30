@@ -3,12 +3,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
-import type { WhoActedOnPublicationRequest } from "@hey/lens";
-import {
-  LimitType,
-  OpenActionCategoryType,
-  useWhoActedOnPublicationQuery
-} from "@hey/lens";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";

@@ -13,16 +13,6 @@ import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
-import type {
-  ActOnOpenActionLensManagerRequest,
-  ApprovedAllowanceAmountResult,
-  MirrorablePublication,
-  OpenActionModule
-} from "@hey/lens";
-import {
-  useActOnOpenActionMutation,
-  useApprovedModuleAllowanceAmountQuery
-} from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button, WarningMessage } from "@hey/ui";

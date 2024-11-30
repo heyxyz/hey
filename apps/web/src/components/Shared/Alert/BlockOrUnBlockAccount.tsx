@@ -7,7 +7,6 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
-import type { BlockRequest, UnblockRequest } from "@hey/lens";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

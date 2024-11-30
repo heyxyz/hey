@@ -1,6 +1,5 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
-import type { FollowNotification as TFollowNotification } from "@hey/lens";
 import plur from "plur";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";

@@ -2,8 +2,6 @@ import isVerified from "@helpers/isVerified";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Account } from "@hey/indexer";
-import type { ProfileSearchRequest } from "@hey/lens";
-import { LimitType, useSearchProfilesLazyQuery } from "@hey/lens";
 import { useEffect, useState } from "react";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;

@@ -2,7 +2,6 @@ import MetaDetails from "@components/Shared/MetaDetails";
 import { HashtagIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { isCommentPost } from "@hey/helpers/postHelpers";
-import type { MirrorablePublication } from "@hey/lens";
 import { Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 

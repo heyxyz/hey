@@ -1,5 +1,4 @@
 import { Errors } from "@hey/data/errors";
-import { LensProfileManagerRelayErrorReasonType } from "@hey/lens";
 import { toast } from "react-hot-toast";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import checkAndToastDispatcherError from "./checkAndToastDispatcherError";

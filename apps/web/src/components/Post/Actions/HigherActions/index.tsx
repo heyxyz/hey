@@ -1,4 +1,3 @@
-import type { MirrorablePublication } from "@hey/lens";
 import type { FC } from "react";
 import GardenerActions from "./GardenerActions";
 

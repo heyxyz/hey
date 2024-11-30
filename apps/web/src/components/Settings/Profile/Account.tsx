@@ -23,8 +23,6 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
-import type { OnchainSetProfileMetadataRequest } from "@hey/lens";
-import { useSetProfileMetadataMutation } from "@hey/lens";
 import {
   Button,
   Card,

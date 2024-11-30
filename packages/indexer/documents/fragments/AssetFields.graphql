@@ -1,0 +1,11 @@
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}

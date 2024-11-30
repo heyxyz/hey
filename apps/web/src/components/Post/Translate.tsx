@@ -2,7 +2,6 @@ import Markup from "@components/Shared/Markup";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import getPostData from "@hey/helpers/getPostData";
-import type { MirrorablePublication } from "@hey/lens";
 import { useFlag } from "@unleash/proxy-client-react";
 import axios from "axios";
 import { francAll } from "franc";

@@ -1,5 +1,5 @@
-import type { MetadataAttribute } from "@hey/lens";
-import { MetadataAttributeType } from "@hey/lens";
+import type { MetadataAttribute } from "@hey/indexer";
+import { MetadataAttributeType } from "@hey/indexer";
 import { describe, expect, test } from "vitest";
 import getPostAttribute from "./getPostAttribute";
 

@@ -1,12 +1,6 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import type { AnyPublication, PublicationSearchRequest } from "@hey/lens";
-import {
-  CustomFiltersType,
-  LimitType,
-  useSearchPublicationsQuery
-} from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useRef } from "react";

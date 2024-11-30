@@ -5,14 +5,6 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type {
-  MirrorablePublication,
-  PublicationNotInterestedRequest
-} from "@hey/lens";
-import {
-  useAddPublicationNotInterestedMutation,
-  useUndoPublicationNotInterestedMutation
-} from "@hey/lens";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";

@@ -1,19 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
-import type {
-  AnyPublication,
-  OnchainCommentRequest,
-  OnchainPostRequest,
-  OnchainQuoteRequest
-} from "@hey/lens";
-import {
-  PublicationDocument,
-  useCommentOnchainMutation,
-  usePostOnchainMutation,
-  usePublicationLazyQuery,
-  useQuoteOnchainMutation
-} from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";

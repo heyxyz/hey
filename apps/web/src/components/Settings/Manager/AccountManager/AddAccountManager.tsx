@@ -5,7 +5,6 @@ import { LensHub } from "@hey/abis";
 import { ADDRESS_PLACEHOLDER, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import { ChangeProfileManagerActionType } from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";

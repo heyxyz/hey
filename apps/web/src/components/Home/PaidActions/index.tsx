@@ -1,8 +1,6 @@
 import SinglePost from "@components/Post/SinglePost";
 import PaidActionsShimmer from "@components/Shared/Shimmer/PaidActionsShimmer";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import type { AnyPublication, LatestActed, PaginatedRequest } from "@hey/lens";
-import { LimitType, useLatestPaidActionsQuery } from "@hey/lens";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";

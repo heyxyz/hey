@@ -1,9 +1,3 @@
-import type {
-  MultirecipientFeeCollectOpenActionSettings,
-  RecipientDataOutput,
-  SimpleCollectOpenActionSettings
-} from "@hey/lens";
-
 const getCollectModuleData = (
   collectModule:
     | MultirecipientFeeCollectOpenActionSettings

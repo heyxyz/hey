@@ -4,7 +4,6 @@ import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicon
 import { HEY_API_URL } from "@hey/data/constants";
 import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
-import { useStaffPicksQuery } from "@hey/lens";
 import type { StaffPick } from "@hey/types/hey";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";

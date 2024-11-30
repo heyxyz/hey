@@ -8,7 +8,6 @@ import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { PAGEVIEW } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
-import { useProfileQuery } from "@hey/lens";
 import {
   Card,
   EmptyState,

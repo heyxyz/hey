@@ -7,12 +7,6 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
-import type { ProfileInterestTypes, ProfileInterestsRequest } from "@hey/lens";
-import {
-  useAddProfileInterestsMutation,
-  useProfileInterestsOptionsQuery,
-  useRemoveProfileInterestsMutation
-} from "@hey/lens";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";

@@ -4,10 +4,6 @@ import Footer from "@components/Shared/Footer";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { EXPLORE, PAGEVIEW } from "@hey/data/tracking";
-import {
-  ExplorePublicationsOrderByType,
-  PublicationMetadataMainFocusType
-} from "@hey/lens";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { NextPage } from "next";

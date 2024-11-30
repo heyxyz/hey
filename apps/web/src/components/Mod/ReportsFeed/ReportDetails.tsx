@@ -4,7 +4,6 @@ import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import { EyeIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { Account } from "@hey/indexer";
-import type { MirrorablePublication, ModReport } from "@hey/lens";
 import { Button, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";

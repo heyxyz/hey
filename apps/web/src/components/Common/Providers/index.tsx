@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import authLink from "@helpers/authLink";
-import apolloClient from "@hey/lens/apollo/client";
+import apolloClient from "@hey/indexer/apollo/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import type { FC, ReactNode } from "react";
