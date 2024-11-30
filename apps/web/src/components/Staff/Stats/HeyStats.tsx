@@ -9,9 +9,6 @@ import type { FC } from "react";
 const GET_HEY_STATS_QUERY_KEY = "getHeyStats";
 
 interface HeyStatsType {
-  lists: number;
-  listProfiles: number;
-  pinnedLists: number;
   accountPermissions: number;
   emails: number;
   membershipNfts: number;
@@ -61,12 +58,6 @@ const HeyStats: FC = () => {
     <Card>
       <CardHeader title={`${APP_NAME} Stats`} />
       <div className="m-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-        <NumberedStat count={data.lists.toString()} name="Lists" />
-        <NumberedStat
-          count={data.listProfiles.toString()}
-          name="List Profiles"
-        />
-        <NumberedStat count={data.pinnedLists.toString()} name="Pinned Lists" />
         <NumberedStat
           count={data.accountPermissions.toString()}
           name="Account Permissions"

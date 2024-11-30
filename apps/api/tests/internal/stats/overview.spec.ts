@@ -13,9 +13,6 @@ describe("GET /internal/stats/overview", () => {
     expect(status).toBe(200);
     expect(data.result).toBeDefined();
     expect(typeof data.result).toBe("object");
-    expect(data.result).toHaveProperty("lists");
-    expect(data.result).toHaveProperty("listProfiles");
-    expect(data.result).toHaveProperty("pinnedLists");
     expect(data.result).toHaveProperty("profilePermissions");
   });
 

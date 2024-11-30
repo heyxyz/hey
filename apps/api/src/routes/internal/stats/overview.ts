@@ -11,9 +11,6 @@ export const get = [
   async (_: Request, res: Response) => {
     try {
       const result = await prisma.$transaction([
-        prisma.list.count(),
-        prisma.listProfile.count(),
-        prisma.pinnedList.count(),
         prisma.profilePermission.count(),
         prisma.email.count(),
         prisma.membershipNft.count(),
@@ -30,19 +27,16 @@ export const get = [
 
       return res.status(200).json({
         result: {
-          lists: result[0],
-          listProfiles: result[1],
-          pinnedLists: result[2],
-          profilePermissions: result[3],
-          emails: result[4],
-          membershipNfts: result[5],
-          polls: result[6],
-          pollOptions: result[7],
-          pollResponses: result[8],
-          preferences: result[9],
-          accountStatuses: result[10],
-          profileThemes: result[11],
-          tips: result[12]
+          profilePermissions: result[0],
+          emails: result[1],
+          membershipNfts: result[2],
+          polls: result[3],
+          pollOptions: result[4],
+          pollResponses: result[5],
+          preferences: result[6],
+          accountStatuses: result[7],
+          profileThemes: result[8],
+          tips: result[9]
         },
         success: true
       });
