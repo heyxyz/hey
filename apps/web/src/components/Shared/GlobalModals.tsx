@@ -30,9 +30,7 @@ const GlobalModals: FC = () => {
     showPostReportModal,
     showReportAccountModal,
     showEditStatusModal,
-    setShowEditStatusModal,
-    showAddToListModal,
-    setShowAddToListModal
+    setShowEditStatusModal
   } = useGlobalModalStateStore();
 
   const { screen: signupScreen } = useSignupStore();
