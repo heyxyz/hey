@@ -70,7 +70,7 @@ const PostBody: FC<PostBodyProps> = ({
   }
 
   // Show live if it's there
-  const showLive = metadata.__typename === "LiveStreamMetadataV3";
+  const showLive = metadata.__typename === "LiveStreamMetadata";
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
@@ -80,9 +80,9 @@ const PostBody: FC<PostBodyProps> = ({
   );
   const showPoll = Boolean(pollId);
   // Show sharing link
-  const showSharingLink = metadata.__typename === "LinkMetadataV3";
+  const showSharingLink = metadata.__typename === "LinkMetadata";
   // Show checking in
-  const showCheckin = metadata.__typename === "CheckingInMetadataV3";
+  const showCheckin = metadata.__typename === "CheckingInMetadata";
   // Show quote
   const showQuote = targetPost.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted post

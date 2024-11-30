@@ -1,9 +1,10 @@
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import type { PostMetadata } from "@hey/indexer";
 import type { MetadataAsset } from "@hey/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 
 const getPostData = (
-  metadata: PublicationMetadata
+  metadata: PostMetadata
 ): {
   asset?: MetadataAsset;
   attachments?: {
@@ -15,15 +16,15 @@ const getPostData = (
   const { content } = metadata;
 
   switch (metadata.__typename) {
-    case "ArticleMetadataV3":
+    case "ArticleMetadata":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content
       };
-    case "TextOnlyMetadataV3":
-    case "LinkMetadataV3":
+    case "TextOnlyMetadata":
+    case "LinkMetadata":
       return { content };
-    case "ImageMetadataV3":
+    case "ImageMetadata":
       return {
         asset: {
           type: "Image",
@@ -32,7 +33,7 @@ const getPostData = (
         attachments: getAttachmentsData(metadata.attachments),
         content
       };
-    case "AudioMetadataV3": {
+    case "AudioMetadata": {
       const audioAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -51,7 +52,7 @@ const getPostData = (
         content
       };
     }
-    case "VideoMetadataV3": {
+    case "VideoMetadata": {
       const videoAttachments = getAttachmentsData(metadata.attachments)[0];
 
       return {
@@ -66,9 +67,9 @@ const getPostData = (
         content
       };
     }
-    case "MintMetadataV3":
-    case "LiveStreamMetadataV3":
-    case "CheckingInMetadataV3":
+    case "MintMetadata":
+    case "LiveStreamMetadata":
+    case "CheckingInMetadata":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content
