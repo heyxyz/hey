@@ -13,6 +13,7 @@ import { AccountLinkSource, PAGEVIEW } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
@@ -95,17 +96,17 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPost || (data?.publication as AnyPublication);
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const post = preLoadedPost || (data?.publication as AnyPost);
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const suspended = isSuspended || isCommentSuspended;
 
   return (
     <GridLayout>
       <MetaTags
-        creator={getAccount(targetPost.by).displayName}
+        creator={getAccount(targetPost.author).displayName}
         description={getPostData(targetPost.metadata)?.content}
         title={`${targetPost.__typename} by ${
-          getAccount(targetPost.by).slugWithPrefix
+          getAccount(targetPost.author).slugWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
@@ -121,10 +122,10 @@ const ViewPost: NextPage = () => {
               />
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
-            {currentAccount && !post.isHidden && !suspended ? (
+            {currentAccount && !post.isDeleted && !suspended ? (
               <NewPublication post={targetPost} />
             ) : null}
-            {post.isHidden ? null : (
+            {post.isDeleted ? null : (
               <>
                 <CommentFeed postId={targetPost.id} />
                 <NoneRelevantFeed postId={targetPost.id} />
@@ -136,9 +137,13 @@ const ViewPost: NextPage = () => {
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.address === targetPost.by.id}
-            hideUnfollowButton={currentAccount?.address === targetPost.by.id}
-            account={targetPost.by}
+            hideFollowButton={
+              currentAccount?.address === targetPost.author.address
+            }
+            hideUnfollowButton={
+              currentAccount?.address === targetPost.author.address
+            }
+            account={targetPost.author}
             showBio
             source={AccountLinkSource.Post}
           />

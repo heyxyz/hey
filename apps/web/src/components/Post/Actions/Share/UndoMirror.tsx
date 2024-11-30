@@ -6,6 +6,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
@@ -13,7 +14,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MirrorProps {
   isLoading: boolean;
-  post: AnyPublication;
+  post: AnyPost;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -21,11 +22,11 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
 
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
 
   const updateCache = () => {
     cache.modify({
-      fields: { mirrors: () => targetPost.stats.mirrors - 1 },
+      fields: { reposts: () => targetPost.stats.reposts - 1 },
       id: cache.identify(targetPost.stats)
     });
     cache.evict({

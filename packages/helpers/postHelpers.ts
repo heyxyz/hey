@@ -1,3 +1,5 @@
+import type { AnyPost } from "@hey/indexer";
+
 type Typename<T = string> = { [key in "__typename"]?: T };
 
 type PickByTypename<
@@ -9,14 +11,8 @@ type PickByTypename<
   ? T
   : never;
 
-export function isRepost<T extends AnyPublication>(
+export function isRepost<T extends AnyPost>(
   post: null | T
-): post is PickByTypename<T, "Mirror"> {
-  return post?.__typename === "Mirror";
-}
-
-export function isCommentPost<T extends AnyPublication>(
-  post: T
-): post is PickByTypename<T, "Comment"> {
-  return post?.__typename === "Comment";
+): post is PickByTypename<T, "Repost"> {
+  return post?.__typename === "Repost";
 }

@@ -24,6 +24,7 @@ import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
@@ -36,14 +37,14 @@ import Splits from "./Splits";
 
 interface CollectModuleProps {
   openAction: OpenActionModule;
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
 
   const [countOpenActions, { increment }] = useCounter(
     targetPost.stats.countOpenActions

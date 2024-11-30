@@ -2,33 +2,33 @@ import { describe, expect, test } from "vitest";
 import isPostMetadataTypeAllowed from "./isPostMetadataTypeAllowed";
 
 describe("isPostMetadataTypeAllowed", () => {
-  test("should return true for allowed type 'ArticleMetadataV3'", () => {
-    const result = isPostMetadataTypeAllowed("ArticleMetadataV3");
+  test("should return true for allowed type 'ArticleMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("ArticleMetadata");
     expect(result).toBe(true);
   });
 
-  test("should return true for allowed type 'AudioMetadataV3'", () => {
-    const result = isPostMetadataTypeAllowed("AudioMetadataV3");
+  test("should return true for allowed type 'AudioMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("AudioMetadata");
     expect(result).toBe(true);
   });
 
-  test("should return true for allowed type 'LinkMetadataV3'", () => {
-    const result = isPostMetadataTypeAllowed("LinkMetadataV3");
+  test("should return true for allowed type 'LinkMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("LinkMetadata");
     expect(result).toBe(true);
   });
 
-  test("should return true for allowed type 'LiveStreamMetadataV3'", () => {
-    const result = isPostMetadataTypeAllowed("LiveStreamMetadataV3");
+  test("should return true for allowed type 'LivestreamMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("LivestreamMetadata");
     expect(result).toBe(true);
   });
 
-  test("should return true for allowed type 'CheckingInMetadataV3'", () => {
-    const result = isPostMetadataTypeAllowed("CheckingInMetadataV3");
+  test("should return true for allowed type 'CheckingInMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("CheckingInMetadata");
     expect(result).toBe(true);
   });
 
-  test("should return true for allowed type 'MintMetadataV3'", () => {
-    const result = isPostMetadataTypeAllowed("MintMetadataV3");
+  test("should return true for allowed type 'MintMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("MintMetadata");
     expect(result).toBe(true);
   });
 
@@ -43,7 +43,7 @@ describe("isPostMetadataTypeAllowed", () => {
   });
 
   test("should return false for an unknown type", () => {
-    const result = isPostMetadataTypeAllowed("UnknownMetadataV3");
+    const result = isPostMetadataTypeAllowed("UnknownMetadata");
     expect(result).toBe(false);
   });
 });

@@ -5,6 +5,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { addTypenameToDocument } from "apollo-utilities";
 import { print } from "graphql";
 import type { Metadata } from "next";
@@ -36,14 +37,14 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const post = result.data.publication as AnyPublication;
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
-  const { by: account, metadata } = targetPost;
+  const post = result.data.publication as AnyPost;
+  const targetPost = isRepost(post) ? post.repostOf : post;
+  const { author, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
-  const { displayName, link, slugWithPrefix } = getAccount(account);
+  const { displayName, link, slugWithPrefix } = getAccount(author);
   const title = `${targetPost.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 
@@ -86,7 +87,7 @@ export const generateMetadata = async ({
       "count:actions": targetPost.stats.countOpenActions,
       "count:comments": targetPost.stats.comments,
       "count:likes": targetPost.stats.reactions,
-      "count:mirrors": targetPost.stats.mirrors,
+      "count:mirrors": targetPost.stats.reposts,
       "count:quotes": targetPost.stats.quotes,
       "lens:id": targetPost.id,
       ...getCollectModuleMetadata(targetPost)

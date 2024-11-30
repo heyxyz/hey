@@ -10,6 +10,7 @@ import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
@@ -27,7 +28,7 @@ import Poll from "./Poll";
 
 interface PostBodyProps {
   contentClassName?: string;
-  post: AnyPublication;
+  post: AnyPost;
   quoted?: boolean;
   showMore?: boolean;
 }
@@ -41,7 +42,7 @@ const PostBody: FC<PostBodyProps> = ({
   const { mutedWords } = usePreferencesStore();
   const [showMutedPost, setShowMutedPost] = useState(false);
 
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const { id, metadata } = targetPost;
 
   const filteredContent = getPostData(metadata)?.content || "";
@@ -70,7 +71,7 @@ const PostBody: FC<PostBodyProps> = ({
   }
 
   // Show live if it's there
-  const showLive = metadata.__typename === "LiveStreamMetadataV3";
+  const showLive = metadata.__typename === "LivestreamMetadata";
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll
@@ -80,9 +81,9 @@ const PostBody: FC<PostBodyProps> = ({
   );
   const showPoll = Boolean(pollId);
   // Show sharing link
-  const showSharingLink = metadata.__typename === "LinkMetadataV3";
+  const showSharingLink = metadata.__typename === "LinkMetadata";
   // Show checking in
-  const showCheckin = metadata.__typename === "CheckingInMetadataV3";
+  const showCheckin = metadata.__typename === "CheckingInMetadata";
   // Show quote
   const showQuote = targetPost.__typename === "Quote";
   // Show oembed if no NFT, no attachments, no quoted post
@@ -141,7 +142,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showPoll ? <Poll id={pollId} /> : null}
       {showLive ? (
         <div className="mt-3">
-          <Video src={getSrc(metadata.liveURL || metadata.playbackURL)} />
+          <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />
         </div>
       ) : null}
       {showCheckin ? <Checkin post={targetPost} /> : null}
@@ -149,7 +150,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showSharingLink ? (
         <Oembed post={targetPost} url={metadata.sharingLink} />
       ) : null}
-      {showQuote && <Quote post={targetPost.quoteOn} />}
+      {showQuote && <Quote post={targetPost.quoteOf} />}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );

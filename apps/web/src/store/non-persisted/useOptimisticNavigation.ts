@@ -1,9 +1,10 @@
+import type { AnyPost } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  preLoadedPosts: AnyPublication[];
-  setPreLoadedPosts: (posts: AnyPublication[]) => void;
+  preLoadedPosts: AnyPost[];
+  setPreLoadedPosts: (posts: AnyPost[]) => void;
 }
 
 export const store = create<State>((set) => ({

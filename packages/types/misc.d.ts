@@ -1,5 +1,4 @@
-import type { Maybe } from "@hey/indexer";
-import type { MetadataLicenseType } from "@lens-protocol/metadata";
+import type { Maybe, MetadataLicenseType } from "@hey/indexer";
 import type { OptmisticPostType } from "./enums";
 
 export interface IPFSResponse {
@@ -95,7 +94,7 @@ export interface OptimisticTransaction {
   commentOn?: string;
   content?: string;
   followOn?: string;
-  mirrorOn?: string;
+  repostOf?: string;
   txHash?: string;
   txId?: string;
   type: OptmisticPostType;

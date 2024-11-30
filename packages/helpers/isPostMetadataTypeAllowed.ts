@@ -1,13 +1,13 @@
 const allowedTypes = [
-  "ArticleMetadataV3",
-  "AudioMetadataV3",
-  "ImageMetadataV3",
-  "TextOnlyMetadataV3",
-  "LinkMetadataV3",
-  "VideoMetadataV3",
-  "MintMetadataV3",
-  "LiveStreamMetadataV3",
-  "CheckingInMetadataV3"
+  "ArticleMetadata",
+  "AudioMetadata",
+  "ImageMetadata",
+  "TextOnlyMetadata",
+  "LinkMetadata",
+  "VideoMetadata",
+  "MintMetadata",
+  "LivestreamMetadata",
+  "CheckingInMetadata"
 ];
 
 const isPostMetadataTypeAllowed = (type?: string): boolean => {

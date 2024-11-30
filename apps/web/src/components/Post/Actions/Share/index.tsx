@@ -6,6 +6,7 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPost } from "@hey/indexer";
 import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -15,18 +16,18 @@ import Quote from "./Quote";
 import UndoMirror from "./UndoMirror";
 
 interface ShareMenuProps {
-  post: AnyPublication;
+  post: AnyPost;
   showCount: boolean;
 }
 
 const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
   const hasShared =
-    targetPost.operations.hasMirrored ||
-    targetPost.operations.hasQuoted ||
+    targetPost.operations?.hasReposted ||
+    targetPost.operations?.hasQuoted ||
     hasOptimisticallyMirrored(post.id);
-  const shares = targetPost.stats.mirrors + targetPost.stats.quotes;
+  const shares = targetPost.stats.reposts + targetPost.stats.quotes;
 
   const iconClassName = "w-[15px] sm:w-[18px]";
 
@@ -73,13 +74,14 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
               post={targetPost}
               setIsLoading={setIsLoading}
             />
-            {targetPost.operations.hasMirrored && targetPost.id !== post.id && (
-              <UndoMirror
-                isLoading={isLoading}
-                post={post}
-                setIsLoading={setIsLoading}
-              />
-            )}
+            {targetPost.operations?.hasReposted &&
+              targetPost.id !== post.id && (
+                <UndoMirror
+                  isLoading={isLoading}
+                  post={post}
+                  setIsLoading={setIsLoading}
+                />
+              )}
             <Quote post={targetPost} />
           </MenuItems>
         </MenuTransition>
