@@ -2,7 +2,6 @@ import { Leafwatch } from "@helpers/leafwatch";
 import {
   ChatBubbleLeftIcon,
   FilmIcon,
-  ListBulletIcon,
   PencilSquareIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
@@ -47,11 +46,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
       icon: <ShoppingBagIcon className="size-4" />,
       name: "Collected",
       type: AccountFeedType.Collects
-    },
-    {
-      icon: <ListBulletIcon className="size-4" />,
-      name: "Lists",
-      type: AccountFeedType.Lists
     }
   ].filter(
     (tab): tab is { icon: JSX.Element; name: string; type: AccountFeedType } =>

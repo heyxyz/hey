@@ -24,7 +24,6 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import AccountFeed from "./AccountFeed";
 import Details from "./Details";
 import FeedType from "./FeedType";
-import Lists from "./Lists";
 import AccountPageShimmer from "./Shimmer";
 import SuspendedDetails from "./SuspendedDetails";
 
@@ -53,8 +52,7 @@ const ViewProfile: NextPage = () => {
     AccountFeedType.Feed.toLowerCase(),
     AccountFeedType.Replies.toLowerCase(),
     AccountFeedType.Media.toLowerCase(),
-    AccountFeedType.Collects.toLowerCase(),
-    AccountFeedType.Lists.toLowerCase()
+    AccountFeedType.Collects.toLowerCase()
   ];
 
   const feedType = type
@@ -138,8 +136,7 @@ const ViewProfile: NextPage = () => {
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.address === account?.address &&
-              feedType !== AccountFeedType.Lists ? (
+              {currentAccount?.address === account?.address ? (
                 <NewPost />
               ) : null}
               {feedType === AccountFeedType.Feed ||
@@ -152,8 +149,6 @@ const ViewProfile: NextPage = () => {
                   address={account.address}
                   type={feedType}
                 />
-              ) : feedType === AccountFeedType.Lists ? (
-                <Lists account={account} />
               ) : null}
             </>
           )}

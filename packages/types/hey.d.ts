@@ -84,16 +84,3 @@ export type AccountDetails = {
   isSuspended: boolean;
   status: { emoji: string; message: string } | null;
 };
-
-export type List = {
-  id: string;
-  name: string;
-  description: string | null;
-  avatar: string | null;
-  totalAccounts: number;
-  totalPins: number;
-  createdBy: string;
-  isAdded?: boolean;
-  pinned?: boolean;
-  profiles?: string[];
-};

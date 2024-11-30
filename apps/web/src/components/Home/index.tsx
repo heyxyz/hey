@@ -1,6 +1,5 @@
 import NewPost from "@components/Composer/NewPost";
 import ExploreFeed from "@components/Explore/ExploreFeed";
-import ListFeed from "@components/List/ListFeed";
 import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
@@ -18,7 +17,7 @@ import Timeline from "./Timeline";
 
 const Home: NextPage = () => {
   const { currentAccount } = useAccountStore();
-  const { feedType, pinnedList } = useHomeTabStore();
+  const { feedType } = useHomeTabStore();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "home" });
@@ -41,8 +40,6 @@ const Home: NextPage = () => {
                 <ForYou />
               ) : feedType === HomeFeedType.PREMIUM ? (
                 <PaidActions />
-              ) : feedType === HomeFeedType.PINNED && pinnedList ? (
-                <ListFeed list={pinnedList} showHeader />
               ) : null}
             </>
           ) : (
