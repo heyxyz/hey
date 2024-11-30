@@ -87,7 +87,7 @@ export const generateMetadata = async ({
       "count:actions": targetPost.stats.countOpenActions,
       "count:comments": targetPost.stats.comments,
       "count:likes": targetPost.stats.reactions,
-      "count:mirrors": targetPost.stats.mirrors,
+      "count:mirrors": targetPost.stats.reposts,
       "count:quotes": targetPost.stats.quotes,
       "lens:id": targetPost.id,
       ...getCollectModuleMetadata(targetPost)

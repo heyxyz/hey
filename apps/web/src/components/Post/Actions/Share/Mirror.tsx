@@ -33,7 +33,7 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     post.operations.hasMirrored || hasOptimisticallyMirrored(post.id);
 
   const [shares, { increment }] = useCounter(
-    post.stats.mirrors + post.stats.quotes
+    post.stats.reposts + post.stats.quotes
   );
 
   const { cache } = useApolloClient();
