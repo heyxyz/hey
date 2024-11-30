@@ -17,8 +17,8 @@ describe("isPostMetadataTypeAllowed", () => {
     expect(result).toBe(true);
   });
 
-  test("should return true for allowed type 'LiveStreamMetadata'", () => {
-    const result = isPostMetadataTypeAllowed("LiveStreamMetadata");
+  test("should return true for allowed type 'LivestreamMetadata'", () => {
+    const result = isPostMetadataTypeAllowed("LivestreamMetadata");
     expect(result).toBe(true);
   });
 

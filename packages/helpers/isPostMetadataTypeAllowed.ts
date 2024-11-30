@@ -6,7 +6,7 @@ const allowedTypes = [
   "LinkMetadata",
   "VideoMetadata",
   "MintMetadata",
-  "LiveStreamMetadata",
+  "LivestreamMetadata",
   "CheckingInMetadata"
 ];
 

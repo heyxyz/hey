@@ -107,9 +107,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for LiveStreamMetadata", () => {
+  test("should return correct data for LivestreamMetadata", () => {
     const metadata: any = {
-      __typename: "LiveStreamMetadata",
+      __typename: "LivestreamMetadata",
       attachments: ["attachment1", "attachment2"],
       content: "This is a live stream post"
     };

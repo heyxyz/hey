@@ -70,7 +70,7 @@ const PostBody: FC<PostBodyProps> = ({
   }
 
   // Show live if it's there
-  const showLive = metadata.__typename === "LiveStreamMetadata";
+  const showLive = metadata.__typename === "LivestreamMetadata";
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show poll

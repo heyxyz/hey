@@ -28,7 +28,7 @@ const getPostData = (
       return {
         asset: {
           type: "Image",
-          uri: metadata.asset.image.optimized?.uri
+          uri: metadata.image.item
         },
         attachments: getAttachmentsData(metadata.attachments),
         content
@@ -38,16 +38,15 @@ const getPostData = (
 
       return {
         asset: {
-          artist: metadata.asset.artist || audioAttachments?.artist,
+          artist: metadata.audio.artist || audioAttachments?.artist,
           cover:
-            metadata.asset.cover?.optimized?.uri ||
+            metadata.audio.cover ||
             audioAttachments?.coverUri ||
             PLACEHOLDER_IMAGE,
-          // TODO: Fix this type
-          license: metadata.asset.license as any,
-          title: metadata.title,
+          license: metadata.audio.license,
+          title: metadata.audio.name,
           type: "Audio",
-          uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri
+          uri: metadata.audio.item || audioAttachments?.uri
         },
         content
       };
@@ -57,18 +56,17 @@ const getPostData = (
 
       return {
         asset: {
-          cover:
-            metadata.asset.cover?.optimized?.uri || videoAttachments?.coverUri,
+          cover: metadata.video.cover || videoAttachments?.coverUri,
           // TODO: Fix this type
-          license: metadata.asset.license as any,
+          license: metadata.video.license as any,
           type: "Video",
-          uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri
+          uri: metadata.video.item || videoAttachments?.uri
         },
         content
       };
     }
     case "MintMetadata":
-    case "LiveStreamMetadata":
+    case "LivestreamMetadata":
     case "CheckingInMetadata":
       return {
         attachments: getAttachmentsData(metadata.attachments),
