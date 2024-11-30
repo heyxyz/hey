@@ -19,13 +19,13 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { useWriteContract } from "wagmi";
 
-interface MirrorProps {
+interface RepostProps {
   isLoading: boolean;
   post: MirrorablePublication;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
+const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { addTransaction } = useTransactionStore();
@@ -175,4 +175,4 @@ const Mirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   );
 };
 
-export default Mirror;
+export default Repost;

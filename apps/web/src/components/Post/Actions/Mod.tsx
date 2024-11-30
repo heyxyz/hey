@@ -1,11 +1,12 @@
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
+import type { AnyPost } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 
 interface ModProps {
   isFullPost?: boolean;
-  post: MirrorablePublication;
+  post: AnyPost;
 }
 
 const Mod: FC<ModProps> = ({ isFullPost = false, post }) => {

@@ -124,7 +124,7 @@ const PostBody: FC<PostBodyProps> = ({
           "markup linkify break-words text-md",
           contentClassName
         )}
-        mentions={targetPost.profilesMentioned}
+        mentions={targetPost.mentions}
       >
         {content}
       </Markup>

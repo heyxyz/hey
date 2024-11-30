@@ -1,7 +1,11 @@
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountMention,
+  useAccountsQuery
+} from "@hey/indexer";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -9,23 +13,23 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
-  profilesMentioned: ProfileMentioned[];
+  mentions: AccountMention[];
 }
 
-const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
+const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
   const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
-  const profileIds = profilesMentioned.map(
-    (profile) => profile.snapshotHandleMentioned.linkedTo?.nftTokenId
+  const accountAddresses = mentions.map(
+    (accountMention) => accountMention.account
   );
 
-  const { data, error, loading } = useProfilesQuery({
-    skip: profileIds.length <= 0,
-    variables: { request: { where: { profileIds } } }
+  const { data, error, loading } = useAccountsQuery({
+    skip: accountAddresses.length <= 0,
+    variables: { request: { addresses: accountAddresses } }
   });
 
-  if (profileIds.length <= 0) {
+  if (accountAddresses.length <= 0) {
     return null;
   }
 
@@ -44,11 +48,11 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
     );
   }
 
-  if (data?.profiles?.items?.length === 0) {
+  if (data?.accounts?.length === 0) {
     return null;
   }
 
-  const firstAccounts = data?.profiles?.items?.slice(0, 5);
+  const firstAccounts = data?.accounts?.slice(0, 5);
 
   return (
     <>
@@ -65,7 +69,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
             />
           </div>
         ))}
-        {(data?.profiles?.items?.length || 0) > 5 && (
+        {(data?.accounts?.length || 0) > 5 && (
           <button
             className="ld-text-gray-500 font-bold"
             onClick={() => setShowMore(true)}
@@ -80,7 +84,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ profilesMentioned }) => {
         show={showMore}
         title="Relevant people"
       >
-        <MoreRelevantPeople accounts={data?.profiles?.items as Account[]} />
+        <MoreRelevantPeople accounts={data?.accounts as Account[]} />
       </Modal>
     </>
   );

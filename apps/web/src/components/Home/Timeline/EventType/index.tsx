@@ -2,7 +2,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { TimelineItem } from "@hey/indexer";
 import type { FC } from "react";
 import Combined from "./Combined";
-import Mirrored from "./Mirrored";
+import Reposted from "./Reposted";
 
 const getCanCombined = (aggregations: number[]) => {
   // show combined reactions if more than 2 items in aggregations
@@ -22,7 +22,7 @@ const ActionType: FC<ActionTypeProps> = ({ timelineItem }) => {
       {canCombined ? (
         <Combined timelineItem={timelineItem} />
       ) : reposts?.length ? (
-        <Mirrored reposts={reposts} />
+        <Reposted reposts={reposts} />
       ) : null}
     </span>
   );

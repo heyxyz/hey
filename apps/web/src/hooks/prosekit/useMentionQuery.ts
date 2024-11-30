@@ -1,23 +1,28 @@
 import isVerified from "@helpers/isVerified";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountSearchRequest,
+  PageSize,
+  useSearchAccountsLazyQuery
+} from "@hey/indexer";
 import { useEffect, useState } from "react";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
-export type MentionProfile = {
-  displayHandle: string;
+export type MentionAccount = {
+  displayUsername: string;
   handle: string;
-  id: string;
+  address: string;
   name: string;
   picture: string;
-  pqScore: number;
+  score: number;
 };
 
-const useMentionQuery = (query: string): MentionProfile[] => {
-  const [results, setResults] = useState<MentionProfile[]>([]);
-  const [searchProfiles] = useSearchProfilesLazyQuery();
+const useMentionQuery = (query: string): MentionAccount[] => {
+  const [results, setResults] = useState<MentionAccount[]>([]);
+  const [searchAccounts] = useSearchAccountsLazyQuery();
 
   useEffect(() => {
     if (!query) {
@@ -25,43 +30,43 @@ const useMentionQuery = (query: string): MentionProfile[] => {
       return;
     }
 
-    const request: ProfileSearchRequest = {
-      limit: LimitType.Fifty,
-      query
+    const request: AccountSearchRequest = {
+      pageSize: PageSize.Ten,
+      localName: query
     };
 
-    searchProfiles({ variables: { request } }).then(({ data }) => {
-      const search = data?.searchProfiles;
-      const profileSearchResult = search;
-      const profiles = profileSearchResult?.items as Account[];
-      const profilesResults = (profiles ?? []).map(
-        (profile): MentionProfile => ({
-          displayHandle: getAccount(profile).slugWithPrefix,
+    searchAccounts({ variables: { request } }).then(({ data }) => {
+      const search = data?.searchAccounts;
+      const accountsSearchResult = search;
+      const accounts = accountsSearchResult?.items as Account[];
+      const accountsResults = (accounts ?? []).map(
+        (profile): MentionAccount => ({
+          displayUsername: getAccount(profile).slugWithPrefix,
           handle: getAccount(profile).slug,
-          id: profile?.id,
+          address: profile?.address,
           name: getAccount(profile).displayName,
           picture: getAvatar(profile),
-          pqScore: profile.stats.lensClassifierScore || 0
+          score: profile.score || 0
         })
       );
 
       setResults(
-        profilesResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT).sort((a, b) => {
+        accountsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT).sort((a, b) => {
           // Convert boolean to number: true -> 1, false -> 0
-          const verifiedA = isVerified(a.id) ? 1 : 0;
-          const verifiedB = isVerified(b.id) ? 1 : 0;
+          const verifiedA = isVerified(a.address) ? 1 : 0;
+          const verifiedB = isVerified(b.address) ? 1 : 0;
 
           // Primary sort by verification status (descending: verified first)
           if (verifiedA !== verifiedB) {
             return verifiedB - verifiedA;
           }
 
-          // Secondary sort by pqScore (descending)
-          return b.pqScore - a.pqScore;
+          // Secondary sort by score (descending)
+          return b.score - a.score;
         })
       );
     });
-  }, [query, searchProfiles]);
+  }, [query, searchAccounts]);
 
   return results;
 };
