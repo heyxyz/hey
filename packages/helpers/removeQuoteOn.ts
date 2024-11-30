@@ -1,5 +1,3 @@
-import type { Quote } from "@hey/lens";
-
 /**
  * Removes the `quoteOn` property from a Quote object.
  * @param post The Quote object to remove the `quoteOn` property from.

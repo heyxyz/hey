@@ -1,4 +1,4 @@
-import type { Maybe, MetadataAttribute } from "@hey/lens";
+import type { Maybe, MetadataAttribute } from "@hey/indexer";
 
 /**
  * Returns the attribute value for a given trait type from an array of post attributes.

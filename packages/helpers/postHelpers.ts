@@ -1,5 +1,3 @@
-import type { AnyPublication } from "@hey/lens";
-
 type Typename<T = string> = { [key in "__typename"]?: T };
 
 type PickByTypename<

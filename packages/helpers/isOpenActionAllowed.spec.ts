@@ -1,4 +1,3 @@
-import { OpenActionModuleType } from "@hey/lens";
 import { describe, expect, test } from "vitest";
 import isOpenActionAllowed from "./isOpenActionAllowed";
 

@@ -1,4 +1,4 @@
-import type { Maybe, MetadataAttribute } from "@hey/lens";
+import type { Maybe, MetadataAttribute } from "@hey/indexer";
 
 type Key = "location" | "website" | "x";
 

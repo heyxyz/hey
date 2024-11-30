@@ -1,10 +1,4 @@
 import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
-import type {
-  AmountInput,
-  CollectActionModuleInput,
-  RecipientDataInput
-} from "@hey/lens";
-import { CollectOpenActionModuleType } from "@hey/lens";
 import type { CollectModuleType } from "@hey/types/hey";
 
 const collectModuleParams = (

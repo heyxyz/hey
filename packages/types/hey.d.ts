@@ -1,9 +1,3 @@
-import type {
-  AmountInput,
-  CollectOpenActionModuleType,
-  RecipientDataInput
-} from "@hey/lens";
-
 export type StaffPick = {
   profileId: string;
 };

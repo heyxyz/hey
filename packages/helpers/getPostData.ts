@@ -1,5 +1,4 @@
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
-import type { PublicationMetadata } from "@hey/lens";
 import type { MetadataAsset } from "@hey/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 
