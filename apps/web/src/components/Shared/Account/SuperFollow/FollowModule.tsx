@@ -14,15 +14,6 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import type { Account } from "@hey/indexer";
-import type {
-  ApprovedAllowanceAmountResult,
-  FeeFollowModuleSettings
-} from "@hey/lens";
-import {
-  FollowModuleType,
-  useApprovedModuleAllowanceAmountQuery,
-  useProfileQuery
-} from "@hey/lens";
 import { Button, H3, H5, WarningMessage } from "@hey/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";

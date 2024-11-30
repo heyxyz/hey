@@ -1,4 +1,3 @@
-import { FollowModuleType, OpenActionModuleType } from "@hey/lens";
 import { describe, expect, test } from "vitest";
 import getAllowanceModule from "./getAllowanceModule";
 

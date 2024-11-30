@@ -3,7 +3,6 @@ import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { AUTH } from "@hey/data/tracking";
-import { useRevokeAuthenticationMutation } from "@hey/lens";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
 import type { FC } from "react";

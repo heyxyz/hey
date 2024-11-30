@@ -1,7 +1,6 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
-import { useProfilesManagedQuery } from "@hey/lens";
 import { H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";

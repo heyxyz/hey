@@ -9,7 +9,6 @@ import { Permission, PermissionId } from "@hey/data/permissions";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import { PublicationReportingSpamSubreason } from "@hey/lens";
 import { Toggle } from "@hey/ui";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";

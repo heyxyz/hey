@@ -6,8 +6,6 @@ import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
-import type { UnfollowRequest } from "@hey/lens";
-import { useUnfollowMutation } from "@hey/lens";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";

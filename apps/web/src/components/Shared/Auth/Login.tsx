@@ -6,7 +6,6 @@ import { XCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { AUTH } from "@hey/data/tracking";
 import { type Account, useAccountsAvailableQuery } from "@hey/indexer";
-import { useAuthenticateMutation, useChallengeLazyQuery } from "@hey/lens";
 import { Button, Card } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";

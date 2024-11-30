@@ -5,12 +5,6 @@ import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import type { Account } from "@hey/indexer";
-import type { ProfileSearchRequest } from "@hey/lens";
-import {
-  CustomFiltersType,
-  LimitType,
-  useSearchProfilesLazyQuery
-} from "@hey/lens";
 import { Card, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useClickAway, useDebounce } from "@uidotdev/usehooks";

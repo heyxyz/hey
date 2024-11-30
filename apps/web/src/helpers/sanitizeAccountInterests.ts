@@ -1,4 +1,3 @@
-import type { ProfileInterestTypes } from "@hey/lens";
 import type { ProfileInterest } from "@hey/types/misc";
 
 /**

@@ -3,13 +3,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import type { Account } from "@hey/indexer";
-import type { ExploreProfilesRequest, ProfileSearchRequest } from "@hey/lens";
-import {
-  ExploreProfilesOrderByType,
-  LimitType,
-  useExploreProfilesQuery,
-  useSearchProfilesLazyQuery
-} from "@hey/lens";
 import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useDebounce } from "@uidotdev/usehooks";

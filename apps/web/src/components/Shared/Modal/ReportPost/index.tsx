@@ -4,7 +4,6 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import { useReportPublicationMutation } from "@hey/lens";
 import {
   Button,
   EmptyState,

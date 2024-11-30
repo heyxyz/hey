@@ -1,5 +1,3 @@
-import { FollowModuleType, OpenActionModuleType } from "@hey/lens";
-
 /**
  * Returns the name and field of the specified module.
  *

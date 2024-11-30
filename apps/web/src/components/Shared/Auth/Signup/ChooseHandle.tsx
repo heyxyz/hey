@@ -16,7 +16,6 @@ import {
 } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import { AUTH } from "@hey/data/tracking";
-import { useHandleToAddressQuery } from "@hey/lens";
 import { Button, Form, Input, Spinner, useZodForm } from "@hey/ui";
 import Script from "next/script";
 import type { FC } from "react";

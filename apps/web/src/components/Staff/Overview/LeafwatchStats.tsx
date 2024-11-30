@@ -1,11 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
-import {
-  ExploreProfilesOrderByType,
-  LimitType,
-  useExploreProfilesQuery
-} from "@hey/lens";
 import { CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
