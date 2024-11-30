@@ -6,6 +6,7 @@ import getAccountDetails, {
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getAppName from "@hey/helpers/getAppName";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
@@ -24,7 +25,7 @@ import PostType from "./Type";
 
 interface FullPostProps {
   hasHiddenComments: boolean;
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
@@ -32,15 +33,15 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
     useHiddenCommentFeedStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const targetPost = isRepost(post) ? post?.mirrorOn : post;
-  const { by, createdAt, publishedOn } = targetPost;
+  const targetPost = isRepost(post) ? post?.repostOf : post;
+  const { author, timestamp, publishedOn } = targetPost;
 
   usePushToImpressions(targetPost.id);
 
   const { data: accountDetails } = useQuery({
-    enabled: Boolean(by.id),
-    queryFn: () => getAccountDetails(by.id || ""),
-    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, by.id]
+    enabled: Boolean(author.address),
+    queryFn: () => getAccountDetails(author.address),
+    queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, author.address]
   });
 
   const isSuspended = isStaff ? false : accountDetails?.isSuspended;
@@ -62,7 +63,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
         <PostAvatar post={post} />
         <div className="w-[calc(100%-55px)]">
           <PostHeader post={targetPost} />
-          {targetPost.isHidden ? (
+          {targetPost.isDeleted ? (
             <HiddenPost type={targetPost.__typename} />
           ) : (
             <>
@@ -72,7 +73,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
               />
               <Translate post={targetPost} />
               <div className="ld-text-gray-500 my-3 text-sm">
-                <span>{formatDate(createdAt, "hh:mm A · MMM D, YYYY")}</span>
+                <span>{formatDate(timestamp, "hh:mm A · MMM D, YYYY")}</span>
                 {publishedOn?.id ? (
                   <span> · Posted via {getAppName(publishedOn.id)}</span>
                 ) : null}

@@ -1,4 +1,5 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { TimelineItem } from "@hey/indexer";
 import type { FC } from "react";
 import Combined from "./Combined";
 import Mirrored from "./Mirrored";
@@ -9,19 +10,19 @@ const getCanCombined = (aggregations: number[]) => {
 };
 
 interface ActionTypeProps {
-  feedItem: FeedItem;
+  timelineItem: TimelineItem;
 }
 
-const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
-  const { mirrors } = feedItem;
-  const canCombined = getCanCombined([mirrors?.length || 0]);
+const ActionType: FC<ActionTypeProps> = ({ timelineItem }) => {
+  const { reposts } = timelineItem;
+  const canCombined = getCanCombined([reposts?.length || 0]);
 
   return (
     <span onClick={stopEventPropagation}>
       {canCombined ? (
-        <Combined feedItem={feedItem} />
-      ) : mirrors?.length ? (
-        <Mirrored mirrors={mirrors} />
+        <Combined timelineItem={timelineItem} />
+      ) : reposts?.length ? (
+        <Mirrored reposts={reposts} />
       ) : null}
     </span>
   );

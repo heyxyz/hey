@@ -1,13 +1,14 @@
+import type { Account, AnyPost } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  blockingorUnblockingProfile: null | Profile;
-  deletingPost: AnyPublication | null;
-  modingPost: MirrorablePublication | null;
+  blockingorUnblockingProfile: null | Account;
+  deletingPost: AnyPost | null;
+  modingPost: MirrorablePost | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
-    blockingorUnblockingProfile: null | Profile
+    blockingorUnblockingProfile: null | Account
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
@@ -15,7 +16,7 @@ interface State {
   ) => void;
   setShowPostDeleteAlert: (
     showPostDeleteAlert: boolean,
-    deletingPost: AnyPublication | null
+    deletingPost: AnyPost | null
   ) => void;
   showBlockOrUnblockAlert: boolean;
   showGardenerActionsAlert: boolean;

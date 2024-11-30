@@ -1,8 +1,8 @@
 import { hydrateTxnQueue } from "src/store/persisted/useTransactionStore";
 
-const hasOptimisticallyMirrored = (mirrorOn: string): boolean => {
+const hasOptimisticallyMirrored = (repostOf: string): boolean => {
   const txnQueue = hydrateTxnQueue();
-  return txnQueue?.some((txn) => txn.mirrorOn === mirrorOn) || false;
+  return txnQueue?.some((txn) => txn.repostOf === repostOf) || false;
 };
 
 export default hasOptimisticallyMirrored;

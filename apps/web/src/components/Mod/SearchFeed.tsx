@@ -5,6 +5,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
@@ -44,7 +45,7 @@ const SearchFeed: FC = () => {
     });
 
   const search = data?.searchPublications;
-  const posts = search?.items as AnyPublication[];
+  const posts = search?.items as AnyPost[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -96,14 +97,14 @@ const SearchFeed: FC = () => {
           data={posts}
           endReached={onEndReached}
           itemContent={(_, post) => {
-            const targetPost = isRepost(post) ? post.mirrorOn : post;
+            const targetPost = isRepost(post) ? post.repostOf : post;
 
             return (
               <Card>
                 <SinglePost
                   isFirst
                   isLast={false}
-                  post={post as AnyPublication}
+                  post={post as AnyPost}
                   showActions={false}
                   showThread={false}
                 />

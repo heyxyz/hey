@@ -3,6 +3,7 @@ import getPostViewCountById from "@hey/helpers/getPostViewCountById";
 import isOpenActionAllowed from "@hey/helpers/isOpenActionAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { AnyPost } from "@hey/indexer";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { memo } from "react";
@@ -17,12 +18,12 @@ import Tip from "./Tip";
 import Views from "./Views";
 
 interface PostActionsProps {
-  post: AnyPublication;
+  post: AnyPost;
   showCount?: boolean;
 }
 
 const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const { postViews } = useImpressionsStore();
   const isGardener = useFlag(FeatureFlag.Gardener);
   const hasOpenAction = (targetPost.openActionModules?.length || 0) > 0;

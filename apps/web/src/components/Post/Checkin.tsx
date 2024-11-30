@@ -6,7 +6,7 @@ interface CheckinProps {
 }
 
 const Checkin: FC<CheckinProps> = ({ post }) => {
-  if (post.metadata.__typename !== "CheckingInMetadataV3") {
+  if (post.metadata.__typename !== "CheckingInMetadata") {
     return null;
   }
 

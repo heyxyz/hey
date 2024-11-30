@@ -2,18 +2,19 @@ import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import type { FC } from "react";
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];
-  post: AnyPublication;
+  post: AnyPost;
 }
 
 const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
   latestActed,
   post
 }) => {
-  const targetPost = isRepost(post) ? post.mirrorOn : post;
+  const targetPost = isRepost(post) ? post.repostOf : post;
 
   const openActions = targetPost.openActionModules
     .filter(

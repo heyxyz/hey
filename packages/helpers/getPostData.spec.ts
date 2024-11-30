@@ -2,9 +2,9 @@ import { describe, expect, test } from "vitest";
 import getPostData from "./getPostData";
 
 describe("getPostData", () => {
-  test("should return correct data for ArticleMetadataV3", () => {
+  test("should return correct data for ArticleMetadata", () => {
     const metadata: any = {
-      __typename: "ArticleMetadataV3",
+      __typename: "ArticleMetadata",
       attachments: ["attachment1", "attachment2"],
       content: "This is an article"
     };
@@ -15,9 +15,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for TextOnlyMetadataV3", () => {
+  test("should return correct data for TextOnlyMetadata", () => {
     const metadata: any = {
-      __typename: "TextOnlyMetadataV3",
+      __typename: "TextOnlyMetadata",
       content: "This is a text-only post"
     };
     const result = getPostData(metadata);
@@ -26,9 +26,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for LinkMetadataV3", () => {
+  test("should return correct data for LinkMetadata", () => {
     const metadata: any = {
-      __typename: "LinkMetadataV3",
+      __typename: "LinkMetadata",
       content: "This is a link post"
     };
     const result = getPostData(metadata);
@@ -37,9 +37,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for ImageMetadataV3", () => {
+  test("should return correct data for ImageMetadata", () => {
     const metadata: any = {
-      __typename: "ImageMetadataV3",
+      __typename: "ImageMetadata",
       asset: { image: { optimized: { uri: "image-uri" } } },
       attachments: ["attachment1", "attachment2"],
       content: "This is an image post"
@@ -52,9 +52,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for AudioMetadataV3", () => {
+  test("should return correct data for AudioMetadata", () => {
     const metadata: any = {
-      __typename: "AudioMetadataV3",
+      __typename: "AudioMetadata",
       asset: {
         artist: "Artist Name",
         audio: { optimized: { uri: "audio-uri" } },
@@ -77,9 +77,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for VideoMetadataV3", () => {
+  test("should return correct data for VideoMetadata", () => {
     const metadata: any = {
-      __typename: "VideoMetadataV3",
+      __typename: "VideoMetadata",
       asset: {
         cover: { optimized: { uri: "cover-uri" } },
         video: { optimized: { uri: "video-uri" } }
@@ -94,9 +94,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for MintMetadataV3", () => {
+  test("should return correct data for MintMetadata", () => {
     const metadata: any = {
-      __typename: "MintMetadataV3",
+      __typename: "MintMetadata",
       attachments: ["attachment1", "attachment2"],
       content: "This is a mint post"
     };
@@ -107,9 +107,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for LiveStreamMetadataV3", () => {
+  test("should return correct data for LivestreamMetadata", () => {
     const metadata: any = {
-      __typename: "LiveStreamMetadataV3",
+      __typename: "LivestreamMetadata",
       attachments: ["attachment1", "attachment2"],
       content: "This is a live stream post"
     };
@@ -120,9 +120,9 @@ describe("getPostData", () => {
     });
   });
 
-  test("should return correct data for CheckingInMetadataV3", () => {
+  test("should return correct data for CheckingInMetadata", () => {
     const metadata: any = {
-      __typename: "CheckingInMetadataV3",
+      __typename: "CheckingInMetadata",
       attachments: ["attachment1", "attachment2"],
       content: "This is a checking in post"
     };
@@ -142,9 +142,9 @@ describe("getPostData", () => {
     expect(result).toBeNull();
   });
 
-  test("should return correct data with missing attachments in ImageMetadataV3", () => {
+  test("should return correct data with missing attachments in ImageMetadata", () => {
     const metadata: any = {
-      __typename: "ImageMetadataV3",
+      __typename: "ImageMetadata",
       asset: { image: { optimized: { uri: "image-uri" } } },
       attachments: null,
       content: "This is an image post with missing attachments"
@@ -159,7 +159,7 @@ describe("getPostData", () => {
 
   test("should return default attachments and content if they are undefined", () => {
     const metadata: any = {
-      __typename: "MintMetadataV3",
+      __typename: "MintMetadata",
       attachments: undefined,
       content: undefined
     };
