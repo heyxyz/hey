@@ -3,5 +3,8 @@ query SearchAccounts($request: AccountSearchRequest!) {
     items {
       ...AccountFields
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

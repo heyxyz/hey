@@ -8,5 +8,8 @@ query PostBookmarks($request: PostBookmarksRequest!) {
         ...RepostFields
       }
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

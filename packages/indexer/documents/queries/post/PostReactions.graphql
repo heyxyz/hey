@@ -5,5 +5,8 @@ query PostReactions($request: PostReactionsRequest!) {
         ...AccountFields
       }
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

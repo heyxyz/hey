@@ -3,5 +3,8 @@ query WhoActedOnPost($request: WhoActedOnPostRequest!) {
     items {
       ...AccountFields
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

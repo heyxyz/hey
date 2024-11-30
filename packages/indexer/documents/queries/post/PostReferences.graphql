@@ -8,5 +8,8 @@ query PostReferences($request: PostReferencesRequest!) {
         ...RepostFields
       }
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }
