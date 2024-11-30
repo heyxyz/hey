@@ -5474,6 +5474,13 @@ export type HideReplyMutationVariables = Exact<{
 
 export type HideReplyMutation = { __typename?: 'Mutation', hideReply: any };
 
+export type PostMutationVariables = Exact<{
+  request: CreatePostRequest;
+}>;
+
+
+export type PostMutation = { __typename?: 'Mutation', post: { __typename?: 'PostResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
+
 export type ReportPostMutationVariables = Exact<{
   request: ReportPostRequest;
 }>;
@@ -6381,6 +6388,33 @@ export function useHideReplyMutation(baseOptions?: Apollo.MutationHookOptions<Hi
 export type HideReplyMutationHookResult = ReturnType<typeof useHideReplyMutation>;
 export type HideReplyMutationResult = Apollo.MutationResult<HideReplyMutation>;
 export type HideReplyMutationOptions = Apollo.BaseMutationOptions<HideReplyMutation, HideReplyMutationVariables>;
+export const PostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Post"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreatePostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type PostMutationFn = Apollo.MutationFunction<PostMutation, PostMutationVariables>;
+
+/**
+ * __usePostMutation__
+ *
+ * To run a mutation, you first call `usePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [postMutation, { data, loading, error }] = usePostMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function usePostMutation(baseOptions?: Apollo.MutationHookOptions<PostMutation, PostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PostMutation, PostMutationVariables>(PostDocument, options);
+      }
+export type PostMutationHookResult = ReturnType<typeof usePostMutation>;
+export type PostMutationResult = Apollo.MutationResult<PostMutation>;
+export type PostMutationOptions = Apollo.BaseMutationOptions<PostMutation, PostMutationVariables>;
 export const ReportPostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ReportPost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ReportPostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reportPost"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
 export type ReportPostMutationFn = Apollo.MutationFunction<ReportPostMutation, ReportPostMutationVariables>;
 

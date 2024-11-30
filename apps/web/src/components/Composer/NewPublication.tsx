@@ -12,7 +12,7 @@ import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import removeQuoteOn from "@hey/helpers/removeQuoteOn";
-import type { AnyPost, CreatePostRequest } from "@hey/indexer";
+import type { CreatePostRequest, Post } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
@@ -79,7 +79,7 @@ const LivestreamSettings = dynamic(
 
 interface NewPublicationProps {
   className?: string;
-  post?: AnyPost;
+  post?: Post;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
@@ -203,13 +203,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     );
   };
 
-  const { createCommentOnChain, createPostOnChain, createQuoteOnChain, error } =
-    useCreatePost({
-      commentOn: post,
-      onCompleted,
-      onError,
-      quoteOf: quotedPost as Quote
-    });
+  const { createPost, error } = useCreatePost({
+    commentOn: post,
+    onCompleted,
+    onError,
+    quoteOf: quotedPost as Post
+  });
 
   useEffect(() => {
     setPostContentError("");
@@ -346,15 +345,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         // })
       };
 
-      if (isComment) {
-        return await createCommentOnChain(request);
-      }
-
-      if (isQuote) {
-        return await createQuoteOnChain(request);
-      }
-
-      return await createPostOnChain(request);
+      return await createPost(request);
     } catch (error) {
       onError(error);
     }
