@@ -2,7 +2,12 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountSearchRequest,
+  PageSize,
+  useSearchAccountsLazyQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useDebounce } from "@uidotdev/usehooks";
@@ -31,22 +36,22 @@ const List: FC = () => {
     variables: { request }
   });
 
-  const [searchUsers, { data: searchData, loading: searchLoading }] =
-    useSearchProfilesLazyQuery();
+  const [searchAccounts, { data: searchData, loading: searchLoading }] =
+    useSearchAccountsLazyQuery();
 
   useEffect(() => {
     if (debouncedSearchText) {
-      const request: ProfileSearchRequest = {
-        limit: LimitType.Ten,
-        query: debouncedSearchText
+      const request: AccountSearchRequest = {
+        pageSize: PageSize.Fifty,
+        localName: debouncedSearchText
       };
 
-      searchUsers({ variables: { request } });
+      searchAccounts({ variables: { request } });
     }
   }, [debouncedSearchText]);
 
   const accounts = searchText
-    ? searchData?.searchProfiles.items
+    ? searchData?.searchAccounts.items
     : data?.exploreProfiles.items;
   const pageInfo = data?.exploreProfiles?.pageInfo;
   const hasMore = pageInfo?.next;

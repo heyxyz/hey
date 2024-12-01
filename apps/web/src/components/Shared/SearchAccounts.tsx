@@ -1,4 +1,9 @@
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountSearchRequest,
+  PageSize,
+  useSearchAccountsLazyQuery
+} from "@hey/indexer";
 import { Card, Input } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import Loader from "./Loader";
@@ -10,7 +15,6 @@ interface SearchAccountsProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onAccountSelected: (account: Account) => void;
   placeholder?: string;
-  skipGardeners?: boolean;
   value: string;
 }
 
@@ -20,27 +24,23 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
   onChange,
   onAccountSelected,
   placeholder = "Search…",
-  skipGardeners = false,
   value
 }) => {
-  const [searchUsers, { data, loading }] = useSearchProfilesLazyQuery();
+  const [searchAccounts, { data, loading }] = useSearchAccountsLazyQuery();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event);
 
     const keyword = event.target.value;
-    const request: ProfileSearchRequest = {
-      limit: LimitType.Ten,
-      query: keyword,
-      ...(!skipGardeners && {
-        where: { customFilters: [CustomFiltersType.Gardeners] }
-      })
+    const request: AccountSearchRequest = {
+      pageSize: PageSize.Fifty,
+      localName: keyword
     };
 
-    searchUsers({ variables: { request } });
+    searchAccounts({ variables: { request } });
   };
 
-  const accounts = data?.searchProfiles.items as Account[];
+  const accounts = data?.searchAccounts.items as Account[];
 
   return (
     <div className="relative w-full">

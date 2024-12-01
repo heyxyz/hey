@@ -2,11 +2,11 @@ import { describe, expect, test } from "vitest";
 import { Regex } from "../regex";
 
 const validate = (text: string) => {
-  Regex.handle.lastIndex = 0;
-  return Regex.handle.test(text);
+  Regex.username.lastIndex = 0;
+  return Regex.username.test(text);
 };
 
-describe("Regex.handle", () => {
+describe("Regex.username", () => {
   test("should pass for valid handles", () => {
     expect(validate("example")).toBe(true);
     expect(validate("handle123")).toBe(true);

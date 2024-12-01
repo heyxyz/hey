@@ -1,0 +1,16 @@
+mutation Repost($request: CreateRepostRequest!) {
+  repost(request: $request) {
+    ... on PostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      reason
+    }
+    ... on SponsoredTransactionRequest {
+      reason
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

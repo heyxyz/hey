@@ -13,6 +13,7 @@ import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
+import type { AnyPost } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button, WarningMessage } from "@hey/ui";
@@ -21,7 +22,6 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
 import { useAccount, useBalance, useWriteContract } from "wagmi";
@@ -34,7 +34,7 @@ interface CollectActionProps {
   noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
   openAction: OpenActionModule;
-  post: MirrorablePublication;
+  post: AnyPost;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
@@ -50,7 +50,6 @@ const CollectAction: FC<CollectActionProps> = ({
   const collectModule = getCollectModuleData(openAction as any);
   const { id: sessionAccountId } = getCurrentSession();
 
-  const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { addTransaction, isFollowPending } = useTransactionStore();
 
@@ -81,14 +80,12 @@ const CollectAction: FC<CollectActionProps> = ({
     openAction.__typename === "SimpleCollectOpenActionSettings";
   const isFollowersOnly = collectModule?.followerOnly;
   const isFollowedByMe = isFollowersOnly
-    ? post?.by.operations.isFollowedByMe.value
+    ? post?.author.operations?.isFollowedByMe
     : true;
   const isFollowFinalizedOnchain = isFollowersOnly
-    ? !isFollowPending(post.by.id)
+    ? !isFollowPending(post.author.address)
     : true;
 
-  const canUseManager =
-    canUseLensManager && !isFollowersOnly && isFreeCollectModule;
   const canCollect = forceShowCollect
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
@@ -320,7 +317,7 @@ const CollectAction: FC<CollectActionProps> = ({
       <FollowUnfollowButton
         buttonClassName="w-full mt-5"
         followTitle="Follow to collect"
-        account={post.by}
+        account={post.author}
       />
     );
   }
