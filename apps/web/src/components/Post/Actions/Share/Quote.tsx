@@ -1,6 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
+import { type Post, TriStateValue } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
@@ -10,7 +11,7 @@ import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModal
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface QuoteProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const Quote: FC<QuoteProps> = ({ post }) => {
@@ -18,9 +19,8 @@ const Quote: FC<QuoteProps> = ({ post }) => {
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPost } = usePostStore();
   const { isSuspended } = useAccountStatus();
-  const publicationType = post.__typename;
 
-  if (post.operations.canQuote === TriStateValue.No) {
+  if (post.operations?.canQuote === TriStateValue.No) {
     return null;
   }
 
@@ -49,9 +49,7 @@ const Quote: FC<QuoteProps> = ({ post }) => {
     >
       <div className="flex items-center space-x-2">
         <ChatBubbleBottomCenterTextIcon className="size-4" />
-        <div>
-          {publicationType === "Comment" ? "Quote comment" : "Quote post"}
-        </div>
+        <div>{post.commentOn ? "Quote comment" : "Quote post"}</div>
       </div>
     </MenuItem>
   );

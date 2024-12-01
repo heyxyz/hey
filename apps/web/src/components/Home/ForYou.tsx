@@ -68,7 +68,7 @@ const ForYou: FC = () => {
     <>
       {txnQueue.map((txn) =>
         txn?.type === OptmisticPostType.Post ? (
-          <QueuedPost key={txn.txId} txn={txn} />
+          <QueuedPost key={txn.txHash} txn={txn} />
         ) : null
       )}
       <Card>

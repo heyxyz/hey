@@ -1,4 +1,5 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { useTransactionStatusQuery } from "@hey/indexer";
 import { Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
@@ -10,25 +11,21 @@ interface IndexStatusProps {
   message?: string;
   shouldReload?: boolean;
   txHash?: Address;
-  txId?: string;
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
   message = "Transaction Indexing",
   shouldReload = false,
-  txHash,
-  txId
+  txHash
 }) => {
   const { reload } = useRouter();
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
 
-  const { data, loading } = useLensTransactionStatusQuery({
+  const { data, loading } = useTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ lensTransactionStatus }) => {
-      if (
-        lensTransactionStatus?.status === LensTransactionStatusType.Complete
-      ) {
+    onCompleted: ({ transactionStatus }) => {
+      if (transactionStatus?.__typename === "FinishedTransactionStatus") {
         setPollInterval(0);
         if (shouldReload) {
           reload();
@@ -39,19 +36,14 @@ const IndexStatus: FC<IndexStatusProps> = ({
       }
     },
     pollInterval,
-    variables: {
-      request: {
-        ...(txHash && { forTxHash: txHash }),
-        ...(txId && { forTxId: txId })
-      }
-    }
+    variables: { request: { txHash } }
   });
 
   const getStatusContent = () => {
     if (
       loading ||
-      !data?.lensTransactionStatus ||
-      data.lensTransactionStatus.status === LensTransactionStatusType.Processing
+      !data?.transactionStatus ||
+      data.transactionStatus.__typename === "PendingTransactionStatus"
     ) {
       return (
         <div className="flex items-center space-x-1.5">
@@ -61,9 +53,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
       );
     }
 
-    if (
-      data.lensTransactionStatus.status === LensTransactionStatusType.Failed
-    ) {
+    if (data.transactionStatus.__typename === "FailedTransactionStatus") {
       return (
         <div className="flex items-center space-x-1.5">
           <XCircleIcon className="size-5 text-red-500" />

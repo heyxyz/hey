@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import Markup from "@components/Shared/Markup";
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getMentions from "@hey/helpers/getMentions";
-import type { Account } from "@hey/indexer";
+import { type Account, useTransactionStatusQuery } from "@hey/indexer";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Card, Tooltip } from "@hey/ui";
 import type { FC } from "react";
@@ -17,7 +17,6 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
 
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
-  const txId = txn?.txId;
 
   const [getPost] = usePublicationLazyQuery({
     onCompleted: ({ publication }) => {
@@ -36,11 +35,11 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
     }
   });
 
-  useLensTransactionStatusQuery({
+  useTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
-    onCompleted: async ({ lensTransactionStatus }) => {
+    onCompleted: async ({ transactionStatus }) => {
       if (
-        lensTransactionStatus?.status === LensTransactionStatusType.Complete &&
+        transactionStatus?.__typename === "FinishedTransactionStatus" &&
         txn.commentOn
       ) {
         await getPost({
@@ -49,12 +48,7 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
       }
     },
     pollInterval: 1000,
-    variables: {
-      request: {
-        ...(txHash && { forTxHash: txHash }),
-        ...(txId && { forTxId: txId })
-      }
-    }
+    variables: { request: { txHash } }
   });
 
   if (!txn.content) {

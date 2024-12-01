@@ -8,6 +8,12 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
+import {
+  type CreateRepostRequest,
+  type Post,
+  TriStateValue,
+  useRepostMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
@@ -21,7 +27,7 @@ import { useWriteContract } from "wagmi";
 
 interface RepostProps {
   isLoading: boolean;
-  post: MirrorablePublication;
+  post: Post;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -29,8 +35,8 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { addTransaction } = useTransactionStore();
-  const hasMirrored =
-    post.operations.hasMirrored || hasOptimisticallyMirrored(post.id);
+  const hasReposted =
+    post.operations?.hasReposted || hasOptimisticallyMirrored(post.id);
 
   const [shares, { increment }] = useCounter(
     post.stats.reposts + post.stats.quotes
@@ -39,16 +45,13 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { cache } = useApolloClient();
 
   const generateOptimisticMirror = ({
-    txHash,
-    txId
+    txHash
   }: {
     txHash?: string;
-    txId?: string;
   }): OptimisticTransaction => {
     return {
-      mirrorOn: post?.id,
+      repostOf: post?.id,
       txHash,
-      txId,
       type: OptmisticPostType.Mirror
     };
   };
@@ -110,30 +113,30 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   // Onchain mutations
-  const [mirrorOnchain] = useMirrorOnchainMutation({
-    onCompleted: ({ mirrorOnchain }) => {
-      if (mirrorOnchain.__typename === "RelaySuccess") {
-        addTransaction(generateOptimisticMirror({ txId: mirrorOnchain.txId }));
+  const [createRepost] = useRepostMutation({
+    onCompleted: ({ repost }) => {
+      if (repost.__typename === "PostResponse") {
+        addTransaction(generateOptimisticMirror({ txHash: repost.hash }));
       }
-      onCompleted(mirrorOnchain.__typename);
+      onCompleted(repost.__typename);
     },
     onError
   });
 
-  if (post.operations.canMirror === TriStateValue.No) {
+  if (post.operations?.canRepost === TriStateValue.No) {
     return null;
   }
 
-  const createOnChain = async (request: OnchainMirrorRequest) => {
-    const { data } = await mirrorOnchain({ variables: { request } });
-    if (data?.mirrorOnchain.__typename === "LensProfileManagerRelayError") {
+  const repost = async (request: CreateRepostRequest) => {
+    const { data } = await createRepost({ variables: { request } });
+    if (data?.repost.__typename === "TransactionWillFail") {
       return await createOnchainMirrorTypedData({
         variables: { request }
       });
     }
   };
 
-  const handleCreateMirror = async () => {
+  const handleCreateRepost = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
@@ -144,11 +147,9 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
 
     try {
       setIsLoading(true);
-      const request: OnchainMirrorRequest = {
-        mirrorOn: post?.id
-      };
+      const request: CreateRepostRequest = { post: post?.id };
 
-      return await createOnChain(request);
+      return await repost(request);
     } catch (error) {
       onError(error);
     }
@@ -160,16 +161,16 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
       className={({ focus }) =>
         cn(
           { "dropdown-active": focus },
-          hasMirrored ? "text-green-500" : "",
+          hasReposted ? "text-green-500" : "",
           "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm"
         )
       }
       disabled={isLoading}
-      onClick={handleCreateMirror}
+      onClick={handleCreateRepost}
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="size-4" />
-        <div>{hasMirrored ? "Mirror again" : "Mirror"}</div>
+        <div>{hasReposted ? "Repost again" : "Repost"}</div>
       </div>
     </MenuItem>
   );
