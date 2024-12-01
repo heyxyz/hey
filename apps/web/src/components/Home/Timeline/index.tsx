@@ -92,7 +92,7 @@ const Timeline: FC = () => {
     <>
       {txnQueue.map((txn) =>
         txn?.type !== OptmisticPostType.Comment ? (
-          <QueuedPost key={txn.txId} txn={txn} />
+          <QueuedPost key={txn.txHash} txn={txn} />
         ) : null
       )}
       <Card>

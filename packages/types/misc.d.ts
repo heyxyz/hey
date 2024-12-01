@@ -1,4 +1,4 @@
-import type { Maybe, MetadataLicenseType } from "@hey/indexer";
+import type { AccountMention, Maybe, MetadataLicenseType } from "@hey/indexer";
 import type { OptmisticPostType } from "./enums";
 
 export interface IPFSResponse {
@@ -102,7 +102,7 @@ export interface OptimisticTransaction {
 }
 
 export interface MarkupLinkProps {
-  mentions?: ProfileMentioned[];
+  mentions?: AccountMention[];
   title?: string;
 }
 

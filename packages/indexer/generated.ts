@@ -5488,6 +5488,13 @@ export type ReportPostMutationVariables = Exact<{
 
 export type ReportPostMutation = { __typename?: 'Mutation', reportPost: any };
 
+export type RepostMutationVariables = Exact<{
+  request: CreateRepostRequest;
+}>;
+
+
+export type RepostMutation = { __typename?: 'Mutation', repost: { __typename?: 'PostResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
+
 export type UndoReactionMutationVariables = Exact<{
   request: UndoReactionRequest;
 }>;
@@ -6442,6 +6449,33 @@ export function useReportPostMutation(baseOptions?: Apollo.MutationHookOptions<R
 export type ReportPostMutationHookResult = ReturnType<typeof useReportPostMutation>;
 export type ReportPostMutationResult = Apollo.MutationResult<ReportPostMutation>;
 export type ReportPostMutationOptions = Apollo.BaseMutationOptions<ReportPostMutation, ReportPostMutationVariables>;
+export const RepostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Repost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateRepostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"repost"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type RepostMutationFn = Apollo.MutationFunction<RepostMutation, RepostMutationVariables>;
+
+/**
+ * __useRepostMutation__
+ *
+ * To run a mutation, you first call `useRepostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRepostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [repostMutation, { data, loading, error }] = useRepostMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRepostMutation(baseOptions?: Apollo.MutationHookOptions<RepostMutation, RepostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RepostMutation, RepostMutationVariables>(RepostDocument, options);
+      }
+export type RepostMutationHookResult = ReturnType<typeof useRepostMutation>;
+export type RepostMutationResult = Apollo.MutationResult<RepostMutation>;
+export type RepostMutationOptions = Apollo.BaseMutationOptions<RepostMutation, RepostMutationVariables>;
 export const UndoReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UndoReactionMutationFn = Apollo.MutationFunction<UndoReactionMutation, UndoReactionMutationVariables>;
 

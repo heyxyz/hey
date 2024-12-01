@@ -88,7 +88,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   return (
     <>
       {queuedComments.map((txn) => (
-        <QueuedPost key={txn.txId} txn={txn} />
+        <QueuedPost key={txn.txHash} txn={txn} />
       ))}
       <Card>
         <Virtuoso

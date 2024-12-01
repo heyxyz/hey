@@ -1,3 +1,4 @@
+import { useTransactionStatusQuery } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import type { FC } from "react";
@@ -8,34 +9,27 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
 }) => {
   const { removeTransaction, setIndexedPostHash } = useTransactionStore();
 
-  useLensTransactionStatusQuery({
+  useTransactionStatusQuery({
     fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ lensTransactionStatus }) => {
+    onCompleted: ({ transactionStatus }) => {
       if (
-        lensTransactionStatus?.status === LensTransactionStatusType.Failed ||
-        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+        transactionStatus?.__typename === "FailedTransactionStatus" ||
+        transactionStatus?.__typename === "FinishedTransactionStatus"
       ) {
         // Trigger Account feed refetch
         if (
           transaction.type === OptmisticPostType.Post &&
-          lensTransactionStatus.txHash
+          transactionStatus.__typename === "FinishedTransactionStatus"
         ) {
-          setIndexedPostHash(lensTransactionStatus.txHash);
+          setIndexedPostHash(transactionStatus.hash);
         }
 
-        return removeTransaction(
-          (transaction.txId || transaction.txHash) as string
-        );
+        return removeTransaction(transaction.txHash as string);
       }
     },
     pollInterval: 3000,
-    variables: {
-      request: {
-        ...(transaction.txId && { forTxId: transaction.txId }),
-        ...(transaction.txHash && { forTxHash: transaction.txHash })
-      }
-    }
+    variables: { request: { txHash: transaction.txHash } }
   });
 
   return null;
@@ -47,7 +41,7 @@ const OptimisticTransactionsProvider: FC = () => {
   return (
     <>
       {txnQueue.map((txn) => (
-        <Transaction key={txn.txId || txn.txHash} transaction={txn} />
+        <Transaction key={txn.txHash} transaction={txn} />
       ))}
     </>
   );
