@@ -4,7 +4,12 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountSearchRequest,
+  PageSize,
+  useSearchAccountsLazyQuery
+} from "@hey/indexer";
 import { Card, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useClickAway, useDebounce } from "@uidotdev/usehooks";
@@ -35,8 +40,8 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
     handleReset();
   }) as MutableRefObject<HTMLDivElement>;
 
-  const [searchUsers, { loading: searchUsersLoading }] =
-    useSearchProfilesLazyQuery();
+  const [searchAccounts, { loading: searchAccountsLoading }] =
+    useSearchAccountsLazyQuery();
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -56,15 +61,14 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
 
   useEffect(() => {
     if (pathname !== "/search" && showDropdown && debouncedSearchText) {
-      const request: ProfileSearchRequest = {
-        limit: LimitType.Ten,
-        query: debouncedSearchText,
-        where: { customFilters: [CustomFiltersType.Gardeners] }
+      const request: AccountSearchRequest = {
+        pageSize: PageSize.Fifty,
+        localName: debouncedSearchText
       };
 
-      searchUsers({ variables: { request } }).then((res) => {
-        if (res.data?.searchProfiles?.items) {
-          setAccounts(res.data.searchProfiles.items as Account[]);
+      searchAccounts({ variables: { request } }).then((res) => {
+        if (res.data?.searchAccounts?.items) {
+          setAccounts(res.data.searchAccounts.items as Account[]);
         }
       });
     }
@@ -101,7 +105,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
             {!debouncedSearchText && (
               <RecentAccounts onAccountClick={handleReset} />
             )}
-            {searchUsersLoading ? (
+            {searchAccountsLoading ? (
               <Loader className="my-3" message="Searching users" small />
             ) : (
               <>
