@@ -7,8 +7,8 @@ interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
   hydrateTxnQueue: () => OptimisticTransaction[];
   indexedPostHash: null | string;
-  isFollowPending: (profileId: string) => boolean;
-  isUnfollowPending: (profileId: string) => boolean;
+  isFollowPending: (profileAddress: string) => boolean;
+  isUnfollowPending: (profileAddress: string) => boolean;
   removeTransaction: (hashOrId: string) => void;
   reset: () => void;
   setIndexedPostHash: (hash: string) => void;
@@ -24,10 +24,10 @@ const store = create(
         return get().txnQueue;
       },
       indexedPostHash: null,
-      isFollowPending: (profileId) =>
-        get().txnQueue.some((txn) => txn.followOn === profileId),
-      isUnfollowPending: (profileId) =>
-        get().txnQueue.some((txn) => txn.unfollowOn === profileId),
+      isFollowPending: (profileAddress) =>
+        get().txnQueue.some((txn) => txn.followOn === profileAddress),
+      isUnfollowPending: (profileAddress) =>
+        get().txnQueue.some((txn) => txn.unfollowOn === profileAddress),
       removeTransaction: (hashOrId) =>
         set((state) => ({
           txnQueue: state.txnQueue.filter(

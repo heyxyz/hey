@@ -167,10 +167,10 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
         address: HEY_TIPPING,
         args: [
           selectedCurrency?.contractAddress,
-          post.by.owner,
+          post.author.owner,
           finalRate,
           currentAccount?.address,
-          post.by.id,
+          post.author.id,
           post.id.split("-")[1]
         ],
         functionName: "tip"
@@ -182,7 +182,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
           amount: cryptoRate - cryptoRate * 0.05,
           fromAddress: address,
           id: post.id,
-          toAddress: post.by.owner,
+          toAddress: post.author.owner,
           tokenAddress: selectedCurrency?.contractAddress,
           txHash: hash
         },

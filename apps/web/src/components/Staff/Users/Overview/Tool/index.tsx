@@ -42,8 +42,8 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
           <LeafwatchDetails address={account.address} />
           <div className="divider my-5 border-yellow-600 border-dashed" />
           <Rank
-            handle={account.handle?.localName}
-            lensClassifierScore={account.stats.lensClassifierScore || 0}
+            handle={account.username?.value}
+            lensClassifierScore={account.score || 0}
             accountId={account.address}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
