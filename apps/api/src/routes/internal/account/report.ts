@@ -10,12 +10,12 @@ import { reportPost } from "../gardener/report";
 
 interface ExtensionRequest {
   id: string;
-  subreasons: string[];
+  reasons: string[];
 }
 
 const validationSchema = object({
   id: string(),
-  subreasons: array(string())
+  reasons: array(string())
 });
 
 // TODO: Add test cases
@@ -35,7 +35,7 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { id, subreasons } = body as ExtensionRequest;
+    const { id, reasons } = body as ExtensionRequest;
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
@@ -59,7 +59,7 @@ export const post = [
         });
       }
 
-      await reportPost(postId, subreasons, accessToken);
+      await reportPost(postId, reasons, accessToken);
       logger.info(`[Lens] Reported account ${id}`);
 
       return res.status(200).json({ result: postId, success: true });
