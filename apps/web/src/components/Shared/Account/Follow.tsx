@@ -42,16 +42,13 @@ const Follow: FC<FollowProps> = ({
   const { cache } = useApolloClient();
 
   const generateOptimisticFollow = ({
-    txHash,
-    txId
+    txHash
   }: {
-    txHash?: string;
-    txId?: string;
+    txHash: string;
   }): OptimisticTransaction => {
     return {
       followOn: account.address,
       txHash,
-      txId,
       type: OptmisticPostType.Follow
     };
   };
@@ -110,7 +107,7 @@ const Follow: FC<FollowProps> = ({
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
-        addTransaction(generateOptimisticFollow({ txId: follow.hash }));
+        addTransaction(generateOptimisticFollow({ txHash: follow.hash }));
         onCompleted(follow.__typename);
       } else {
         await write({ args: [account.address] });

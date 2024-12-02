@@ -96,19 +96,11 @@ const UnlinkHandle: FC = () => {
     }
   };
 
-  const lensManegaerTxId =
-    linkHandleToProfileData?.unlinkHandleFromProfile.__typename ===
-      "RelaySuccess" && linkHandleToProfileData.unlinkHandleFromProfile.txId;
-
   return (
     <div className="m-5">
-      {lensManegaerTxId || writeHash ? (
+      {writeHash ? (
         <div className="mt-2">
-          <IndexStatus
-            shouldReload
-            txHash={writeHash}
-            txId={lensManegaerTxId}
-          />
+          <IndexStatus shouldReload txHash={writeHash} />
         </div>
       ) : (
         <Button disabled={unlinking} onClick={handleUnlink} outline>

@@ -47,7 +47,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const generateOptimisticMirror = ({
     txHash
   }: {
-    txHash?: string;
+    txHash: string;
   }): OptimisticTransaction => {
     return {
       repostOf: post?.id,

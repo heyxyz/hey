@@ -14,7 +14,7 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
 
   return (
     <div className="flex items-center justify-between">
-      <Tooltip content={transaction.txId || transaction.txHash} placement="top">
+      <Tooltip content={transaction.txHash} placement="top">
         {transaction.type === OptmisticPostType.Collect ? (
           <div className="text-sm">
             {transaction.type} on {transaction.collectOn}
@@ -48,11 +48,7 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
         </Tooltip>
         <button
           type="button"
-          onClick={() =>
-            removeTransaction(
-              (transaction.txId || transaction.txHash) as string
-            )
-          }
+          onClick={() => removeTransaction(transaction.txHash)}
         >
           <XMarkIcon className="h-5 w-5 text-gray-500" />
         </button>

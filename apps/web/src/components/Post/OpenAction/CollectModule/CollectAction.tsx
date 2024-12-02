@@ -91,16 +91,13 @@ const CollectAction: FC<CollectActionProps> = ({
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
 
   const generateOptimisticCollect = ({
-    txHash,
-    txId
+    txHash
   }: {
-    txHash?: string;
-    txId?: string;
+    txHash: string;
   }): OptimisticTransaction => {
     return {
       collectOn: post?.id,
       txHash,
-      txId,
       type: OptmisticPostType.Collect
     };
   };
@@ -208,7 +205,7 @@ const CollectAction: FC<CollectActionProps> = ({
     onCompleted: ({ actOnOpenAction }) => {
       if (actOnOpenAction.__typename === "RelaySuccess") {
         addTransaction(
-          generateOptimisticCollect({ txId: actOnOpenAction.txId })
+          generateOptimisticCollect({ txHash: actOnOpenAction.txHash })
         );
       }
       onCompleted(actOnOpenAction.__typename);

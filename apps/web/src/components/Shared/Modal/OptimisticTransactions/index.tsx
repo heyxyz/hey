@@ -20,7 +20,7 @@ const OptimisticTransactions: FC = () => {
   return (
     <div className="max-h-[80vh] space-y-5 overflow-y-auto p-5">
       {txnQueue.map((transaction) => (
-        <Transaction key={transaction.txId} transaction={transaction} />
+        <Transaction key={transaction.txHash} transaction={transaction} />
       ))}
     </div>
   );

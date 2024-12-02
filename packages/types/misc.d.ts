@@ -95,8 +95,7 @@ export interface OptimisticTransaction {
   content?: string;
   followOn?: string;
   repostOf?: string;
-  txHash?: string;
-  txId?: string;
+  txHash: string;
   type: OptmisticPostType;
   unfollowOn?: string;
 }

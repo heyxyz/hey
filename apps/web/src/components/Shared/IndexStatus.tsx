@@ -10,7 +10,7 @@ import type { Address } from "viem";
 interface IndexStatusProps {
   message?: string;
   shouldReload?: boolean;
-  txHash?: Address;
+  txHash: Address;
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
