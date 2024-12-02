@@ -1,6 +1,11 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
+import {
+  type FollowersRequest,
+  PageSize,
+  useFollowersLazyQuery
+} from "@hey/indexer";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -13,8 +18,8 @@ const Followers: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowersRequest = {
-    limit: LimitType.Fifty,
-    of: currentAccount?.address
+    account: currentAccount?.address,
+    pageSize: PageSize.Fifty
   };
 
   const [exportFollowers] = useFollowersLazyQuery({
@@ -29,7 +34,10 @@ const Followers: FC = () => {
         onCompleted: (data) => {
           setFollowers((prev) => {
             const newFollowers = data.followers.items.filter((newFollower) => {
-              return !prev.some((follower) => follower.id === newFollower.id);
+              return !prev.some(
+                (follower) =>
+                  follower.follower.address === newFollower.follower.address
+              );
             });
 
             return [...prev, ...newFollowers];

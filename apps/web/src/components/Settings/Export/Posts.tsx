@@ -1,6 +1,7 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
+import { PageSize, type PostsRequest, usePostsLazyQuery } from "@hey/indexer";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -12,12 +13,12 @@ const Posts: FC = () => {
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: PublicationsRequest = {
-    limit: LimitType.Fifty,
-    where: { from: currentAccount?.address }
+  const request: PostsRequest = {
+    pageSize: PageSize.Fifty,
+    filter: { authors: [currentAccount?.address] }
   };
 
-  const [exportPublications] = usePublicationsLazyQuery({
+  const [exportPublications] = usePostsLazyQuery({
     fetchPolicy: "network-only"
   });
 
@@ -28,7 +29,7 @@ const Posts: FC = () => {
       const { data } = await exportPublications({
         onCompleted: (data) => {
           setPosts((prev) => {
-            const newPosts = data.publications.items.filter((newPost) => {
+            const newPosts = data.posts.items.filter((newPost) => {
               return !prev.some((post) => post.id === newPost.id);
             });
 
@@ -38,14 +39,11 @@ const Posts: FC = () => {
         variables: { request: { ...request, cursor } }
       });
 
-      if (
-        data?.publications.items.length === 0 ||
-        !data?.publications.pageInfo.next
-      ) {
+      if (data?.posts.items.length === 0 || !data?.posts.pageInfo.next) {
         setFetchCompleted(true);
         setExporting(false);
       } else {
-        await fetchPosts(data?.publications.pageInfo.next);
+        await fetchPosts(data?.posts.pageInfo.next);
       }
     };
 

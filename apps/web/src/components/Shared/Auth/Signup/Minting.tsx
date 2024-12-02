@@ -1,22 +1,23 @@
+import { useAccountQuery } from "@hey/indexer";
 import { H4, Spinner } from "@hey/ui";
 import type { FC } from "react";
 import { useSignupStore } from ".";
 
 const Minting: FC = () => {
-  const { choosedHandle, setAccountId, setScreen, transactionHash } =
+  const { choosedHandle, setAccountAddress, setScreen, transactionHash } =
     useSignupStore();
 
-  useProfileQuery({
+  useAccountQuery({
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
-      if (data.profile) {
-        setAccountId(data.profile.id);
+      if (data.account) {
+        setAccountAddress(data.account.address);
         setScreen("success");
       }
     },
     pollInterval: 3000,
     skip: !transactionHash,
-    variables: { request: { forHandle: choosedHandle } }
+    variables: { request: { username: { localName: choosedHandle } } }
   });
 
   return (

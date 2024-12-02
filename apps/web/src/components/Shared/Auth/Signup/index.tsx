@@ -11,12 +11,10 @@ import Success from "./Success";
 
 interface SignupState {
   choosedHandle: string;
-  delegatedExecutor: string;
   accountAddress: string;
   screen: "choose" | "minting" | "success";
   setChoosedHandle: (handle: string) => void;
-  setDelegatedExecutor: (executor: string) => void;
-  setAccountId: (id: string) => void;
+  setAccountAddress: (accountAddress: string) => void;
   setScreen: (screen: "choose" | "minting" | "success") => void;
   setTransactionHash: (hash: string) => void;
   transactionHash: string;
@@ -24,12 +22,10 @@ interface SignupState {
 
 const store = create<SignupState>((set) => ({
   choosedHandle: "",
-  delegatedExecutor: "",
   accountAddress: "",
   screen: "choose",
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
-  setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
-  setAccountId: (accountAddress) => set({ accountAddress }),
+  setAccountAddress: (accountAddress) => set({ accountAddress }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
   transactionHash: ""
@@ -38,15 +34,9 @@ const store = create<SignupState>((set) => ({
 export const useSignupStore = createTrackedSelector(store);
 
 const Signup: FC = () => {
-  const { screen, setDelegatedExecutor } = useSignupStore();
+  const { screen } = useSignupStore();
   const chain = useChainId();
   const { connector: activeConnector } = useAccount();
-
-  useGenerateLensApiRelayAddressQuery({
-    fetchPolicy: "no-cache",
-    onCompleted: (data) =>
-      setDelegatedExecutor(data.generateLensAPIRelayAddress)
-  });
 
   return activeConnector?.id ? (
     <div className="space-y-2.5">
