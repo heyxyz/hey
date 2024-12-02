@@ -1,4 +1,4 @@
-mutation Post($request: CreatePostRequest!) {
+mutation CreatePost($request: CreatePostRequest!) {
   post(request: $request) {
     ... on PostResponse {
       hash

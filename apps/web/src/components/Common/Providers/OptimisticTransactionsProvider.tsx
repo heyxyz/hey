@@ -22,7 +22,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
           transaction.type === OptmisticPostType.Post &&
           transactionStatus.__typename === "FinishedTransactionStatus"
         ) {
-          setIndexedPostHash(transactionStatus.hash);
+          setIndexedPostHash(transaction.txHash);
         }
 
         return removeTransaction(transaction.txHash as string);
