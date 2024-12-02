@@ -1,4 +1,5 @@
 import logger from "@hey/helpers/logger";
+import { ReportPostDocument } from "@hey/indexer";
 import { addTypenameToDocument } from "apollo-utilities";
 import axios from "axios";
 import type { Request, Response } from "express";
@@ -11,21 +12,18 @@ import { array, object, string } from "zod";
 
 export const reportPost = async (
   id: string,
-  subreasons: string[],
+  reasons: string[],
   accessToken: string
 ) => {
   return await Promise.all(
-    subreasons.map(async (subreason: string) => {
+    reasons.map(async (reason: string) => {
       await axios.post(
         "https://api-v2.lens.dev",
         {
           operationName: "ReportPublication",
-          query: print(addTypenameToDocument(ReportPublicationDocument)),
+          query: print(addTypenameToDocument(ReportPostDocument)),
           variables: {
-            request: {
-              for: id,
-              reason: { spamReason: { reason: "SPAM", subreason } }
-            }
+            request: { post: id, reason }
           }
         },
         {
@@ -41,12 +39,12 @@ export const reportPost = async (
 
 interface ExtensionRequest {
   id: string;
-  subreasons: string[];
+  reasons: string[];
 }
 
 const validationSchema = object({
   id: string(),
-  subreasons: array(string())
+  reasons: array(string())
 });
 
 // TODO: Add test cases
@@ -66,16 +64,16 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { id, subreasons } = body as ExtensionRequest;
+    const { id, reasons } = body as ExtensionRequest;
 
     try {
       const accessToken = req.headers["x-access-token"] as string;
-      await reportPost(id, subreasons, accessToken);
+      await reportPost(id, reasons, accessToken);
       logger.info(`[Lens] Reported post ${id}`);
 
       return res
         .status(200)
-        .json({ result: { reported: subreasons }, success: true });
+        .json({ result: { reported: reasons }, success: true });
     } catch (error) {
       return catchedError(res, error);
     }
