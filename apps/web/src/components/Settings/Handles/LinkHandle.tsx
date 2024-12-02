@@ -125,10 +125,6 @@ const LinkHandle: FC = () => {
     );
   }
 
-  const lensManegaerTxId =
-    linkHandleToProfileData?.linkHandleToProfile.__typename ===
-      "RelaySuccess" && linkHandleToProfileData.linkHandleToProfile.txId;
-
   return (
     <div className="m-5 space-y-6">
       {ownedHandles?.map((handle) => (
@@ -146,13 +142,9 @@ const LinkHandle: FC = () => {
               </div>
             ) : null}
           </div>
-          {lensManegaerTxId || writeHash ? (
+          {writeHash ? (
             <div className="mt-2">
-              <IndexStatus
-                shouldReload
-                txHash={writeHash}
-                txId={lensManegaerTxId}
-              />
+              <IndexStatus shouldReload txHash={writeHash} />
             </div>
           ) : (
             <Button

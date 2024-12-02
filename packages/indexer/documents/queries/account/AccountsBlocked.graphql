@@ -7,7 +7,7 @@ query AccountsBlocked($request: AccountsBlockedRequest!) {
       blockedAt
     }
     pageInfo {
-      next
+      ...PaginatedResultInfoFields
     }
   }
 }

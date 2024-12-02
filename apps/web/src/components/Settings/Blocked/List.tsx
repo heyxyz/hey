@@ -1,7 +1,12 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountsBlockedRequest,
+  PageSize,
+  useAccountsBlockedQuery
+} from "@hey/indexer";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -12,14 +17,14 @@ const List: FC = () => {
   const { currentAccount } = useAccountStore();
   const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
 
-  const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
-  const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
+  const request: AccountsBlockedRequest = { pageSize: PageSize.Fifty };
+  const { data, error, fetchMore, loading } = useAccountsBlockedQuery({
     skip: !currentAccount?.address,
     variables: { request }
   });
 
-  const whoHaveBlocked = data?.whoHaveBlocked?.items;
-  const pageInfo = data?.whoHaveBlocked?.pageInfo;
+  const accountsBlocked = data?.accountsBlocked?.items;
+  const pageInfo = data?.accountsBlocked?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -40,7 +45,7 @@ const List: FC = () => {
     );
   }
 
-  if (whoHaveBlocked?.length === 0) {
+  if (accountsBlocked?.length === 0) {
     return (
       <EmptyState
         hideCard
@@ -54,19 +59,24 @@ const List: FC = () => {
     <div className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, account) => `${account.address}-${index}`}
-        data={whoHaveBlocked}
+        computeItemKey={(index, accountBlocked) =>
+          `${accountBlocked.account.address}-${index}`
+        }
+        data={accountsBlocked}
         endReached={onEndReached}
-        itemContent={(_, account) => (
+        itemContent={(_, accountBlocked) => (
           <div className="flex items-center justify-between p-5">
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={account as Account}
+              account={accountBlocked.account as Account}
             />
             <Button
               onClick={() =>
-                setShowBlockOrUnblockAlert(true, account as Account)
+                setShowBlockOrUnblockAlert(
+                  true,
+                  accountBlocked.account as Account
+                )
               }
             >
               Unblock

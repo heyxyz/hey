@@ -9,7 +9,6 @@ import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
-import DefaultAccount from "./DefaultAccount";
 import Email from "./Email";
 import RateLimits from "./RateLimits";
 import Verification from "./Verification";
@@ -34,7 +33,6 @@ const AccountSettings: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Email />
         <SuperFollow />
-        <DefaultAccount />
         <RateLimits />
         <Verification />
       </GridItemEight>

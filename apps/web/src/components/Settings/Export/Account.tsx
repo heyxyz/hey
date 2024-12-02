@@ -1,7 +1,7 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
-import type { Account as TAccount } from "@hey/indexer";
+import { type Account as TAccount, useAccountLazyQuery } from "@hey/indexer";
 import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -13,21 +13,17 @@ const Account: FC = () => {
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: ProfileRequest = {
-    forProfileId: currentAccount?.address
-  };
-
-  const [exportProfile] = useProfileLazyQuery({
+  const [exportProfile] = useAccountLazyQuery({
     fetchPolicy: "network-only",
-    variables: { request }
+    variables: { request: { address: currentAccount?.address } }
   });
 
   const handleExportClick = () => {
     Leafwatch.track(SETTINGS.EXPORT.PROFILE);
     setExporting(true);
     exportProfile({
-      onCompleted: ({ profile }) => {
-        setProfile(profile as TAccount);
+      onCompleted: ({ account }) => {
+        setProfile(account as TAccount);
         setFetchCompleted(true);
         setExporting(false);
       }

@@ -1,0 +1,3 @@
+mutation HideManagedAccount($request: HideManagedAccountRequest!) {
+  hideManagedAccount(request: $request)
+}

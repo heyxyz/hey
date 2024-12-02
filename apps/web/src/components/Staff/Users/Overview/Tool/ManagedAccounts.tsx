@@ -1,6 +1,6 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { Account } from "@hey/indexer";
+import { type Account, useAccountsAvailableQuery } from "@hey/indexer";
 import { H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -10,10 +10,10 @@ interface ManagedAccountsProps {
 }
 
 const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
-  const { data, loading } = useProfilesManagedQuery({
+  const { data, loading } = useAccountsAvailableQuery({
     variables: {
-      lastLoggedInProfileRequest: { for: address },
-      profilesManagedRequest: { for: address }
+      lastLoggedInAccountRequest: { address },
+      accountsAvailableRequest: { managedBy: address }
     }
   });
 
@@ -28,20 +28,24 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
           <div>Loading managed profiles...</div>
         ) : (
           <div className="space-y-2">
-            {data?.lastLoggedInProfile ? (
+            {data?.lastLoggedInAccount ? (
               <div>
-                <Link href={`/staff/users/${data?.lastLoggedInProfile?.id}`}>
+                <Link
+                  href={`/staff/users/${data?.lastLoggedInAccount?.address}`}
+                >
                   <SmallSingleAccount
-                    account={data?.lastLoggedInProfile as Account}
+                    account={data?.lastLoggedInAccount as Account}
                   />
                 </Link>
                 <div className="divider my-5 border-yellow-600 border-dashed" />
               </div>
             ) : null}
-            {data?.profilesManaged.items.map((profile) => (
-              <div key={profile.id}>
-                <Link href={`/staff/users/${profile.id}`}>
-                  <SmallSingleAccount account={profile as Account} />
+            {data?.accountsAvailable.items.map((accountAvailable) => (
+              <div key={accountAvailable.account.address}>
+                <Link href={`/staff/users/${accountAvailable.account.address}`}>
+                  <SmallSingleAccount
+                    account={accountAvailable.account as Account}
+                  />
                 </Link>
               </div>
             ))}

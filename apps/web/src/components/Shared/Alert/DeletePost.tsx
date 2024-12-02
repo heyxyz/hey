@@ -2,6 +2,7 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
+import { useDeletePostMutation } from "@hey/indexer";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
@@ -13,7 +14,7 @@ const DeletePost: FC = () => {
     useGlobalAlertStateStore();
   const { isSuspended } = useAccountStatus();
 
-  const [hidePost, { loading }] = useHidePublicationMutation({
+  const [deletePost, { loading }] = useDeletePostMutation({
     onCompleted: () => {
       setShowPostDeleteAlert(false, null);
       toast.success("Post deleted");
@@ -32,8 +33,8 @@ const DeletePost: FC = () => {
     }
 
     try {
-      return await hidePost({
-        variables: { request: { for: deletingPost?.id } }
+      return await deletePost({
+        variables: { request: { post: deletingPost?.id } }
       });
     } catch (error) {
       errorToast(error);

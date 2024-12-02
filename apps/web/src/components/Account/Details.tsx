@@ -33,9 +33,9 @@ import urlcat from "urlcat";
 import AccountStatus from "./AccountStatus";
 import Badges from "./Badges";
 import Followerings from "./Followerings";
+import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import InternalTools from "./InternalTools";
 import AccountMenu from "./Menu";
-import MutualFollowersOverview from "./MutualFollowersOverview";
 import ScamWarning from "./ScamWarning";
 import UpdateTheme from "./UpdateTheme";
 
@@ -141,7 +141,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           <AccountMenu account={account} />
         </div>
         {currentAccount?.address !== account.address ? (
-          <MutualFollowersOverview
+          <FollowersYouKnowOverview
             handle={getAccount(account).slug}
             address={account.address}
           />

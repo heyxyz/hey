@@ -18,5 +18,8 @@ query AccountsAvailable(
         }
       }
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }

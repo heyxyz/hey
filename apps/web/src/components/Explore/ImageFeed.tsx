@@ -1,7 +1,7 @@
 import SingleImagePost from "@components/Post/SingleImagePost";
 import ImagePostsShimmer from "@components/Shared/Shimmer/ImagePostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import type { AnyPost } from "@hey/indexer";
+import { type AnyPost, MainContentFocus } from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
@@ -23,7 +23,7 @@ const ImageFeed: FC<ImageFeedProps> = ({
     where: {
       customFilters: [CustomFiltersType.Gardeners],
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Image]
+        mainContentFocus: [MainContentFocus.Image]
       }
     }
   };

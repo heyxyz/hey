@@ -1,15 +1,14 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { EXPLORE } from "@hey/data/tracking";
+import { MainContentFocus } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 
 interface FeedLinkProps {
-  focus?: PublicationMetadataMainFocusType;
+  focus?: MainContentFocus;
   name: string;
-  setFocus: Dispatch<
-    SetStateAction<PublicationMetadataMainFocusType | undefined>
-  >;
-  type?: PublicationMetadataMainFocusType;
+  setFocus: Dispatch<SetStateAction<MainContentFocus | undefined>>;
+  type?: MainContentFocus;
 }
 
 const FeedLink: FC<FeedLinkProps> = ({ focus, name, setFocus, type }) => (
@@ -33,10 +32,8 @@ const FeedLink: FC<FeedLinkProps> = ({ focus, name, setFocus, type }) => (
 );
 
 interface FeedFocusTypeProps {
-  focus?: PublicationMetadataMainFocusType;
-  setFocus: Dispatch<
-    SetStateAction<PublicationMetadataMainFocusType | undefined>
-  >;
+  focus?: MainContentFocus;
+  setFocus: Dispatch<SetStateAction<MainContentFocus | undefined>>;
 }
 
 const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => (
@@ -46,25 +43,25 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => (
       focus={focus}
       name="Text"
       setFocus={setFocus}
-      type={PublicationMetadataMainFocusType.TextOnly}
+      type={MainContentFocus.TextOnly}
     />
     <FeedLink
       focus={focus}
       name="Video"
       setFocus={setFocus}
-      type={PublicationMetadataMainFocusType.Video}
+      type={MainContentFocus.Video}
     />
     <FeedLink
       focus={focus}
       name="Audio"
       setFocus={setFocus}
-      type={PublicationMetadataMainFocusType.Audio}
+      type={MainContentFocus.Audio}
     />
     <FeedLink
       focus={focus}
       name="Images"
       setFocus={setFocus}
-      type={PublicationMetadataMainFocusType.Image}
+      type={MainContentFocus.Image}
     />
   </div>
 );

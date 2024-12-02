@@ -10,7 +10,6 @@ import {
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
-  QueueListIcon,
   ShareIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
@@ -61,11 +60,6 @@ const SettingsSidebar: FC = () => {
       icon: <GlobeAltIcon className="size-4" />,
       title: "Sessions",
       url: "/settings/sessions"
-    },
-    {
-      icon: <QueueListIcon className="size-4" />,
-      title: "Action History",
-      url: "/settings/actions"
     },
     {
       icon: <NoSymbolIcon className="size-4" />,

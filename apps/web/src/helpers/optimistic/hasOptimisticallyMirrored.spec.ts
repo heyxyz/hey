@@ -4,8 +4,8 @@ import hasOptimisticallyMirrored from "./hasOptimisticallyMirrored";
 
 // Mock transaction data
 const mockTxnQueue = [
-  { mirrorOn: "post123", txHash: "hash123", txId: "id123" },
-  { mirrorOn: "post456", txHash: "hash456", txId: "id456" }
+  { mirrorOn: "post123", txHash: "hash123" },
+  { mirrorOn: "post456", txHash: "hash456" }
 ];
 
 // Mock `hydrateTxnQueue` function with `vi.fn`
