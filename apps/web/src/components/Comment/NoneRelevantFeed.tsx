@@ -2,6 +2,13 @@ import { useHiddenCommentFeedStore } from "@components/Post";
 import SinglePost from "@components/Post/SinglePost";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
+import {
+  PageSize,
+  PostReferenceType,
+  type PostReferencesRequest,
+  PostVisibilityFilter,
+  usePostReferencesQuery
+} from "@hey/indexer";
 import { Card, StackedAvatars } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -19,23 +26,18 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
-  const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
-    where: {
-      commentOn: {
-        hiddenComments: showHiddenComments
-          ? HiddenCommentsType.HiddenOnly
-          : HiddenCommentsType.Hide,
-        id: postId,
-        ranking: { filter: CommentRankingFilterType.NoneRelevant }
-      },
-      customFilters: [CustomFiltersType.Gardeners]
-    }
+  const request: PostReferencesRequest = {
+    pageSize: PageSize.Fifty,
+    referencedPost: postId,
+    referenceTypes: [PostReferenceType.CommentOn],
+    visibilityFilter: showHiddenComments
+      ? PostVisibilityFilter.Visible
+      : PostVisibilityFilter.Hidden
   };
 
-  const { data, fetchMore } = usePublicationsQuery({
-    onCompleted: async ({ publications }) => {
-      const ids = publications?.items?.map((p) => p.id) || [];
+  const { data, fetchMore } = usePostReferencesQuery({
+    onCompleted: async ({ postReferences }) => {
+      const ids = postReferences?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -43,8 +45,8 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
     variables: { request }
   });
 
-  const comments = data?.publications?.items ?? [];
-  const pageInfo = data?.publications?.pageInfo;
+  const comments = data?.postReferences?.items ?? [];
+  const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
   const totalComments = comments?.length;
 
@@ -53,7 +55,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
+      const ids = data?.postReferences?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }

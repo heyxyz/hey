@@ -33,7 +33,6 @@ const SetAccount: FC = () => {
     Boolean(currentAccount?.metadata?.name) &&
     Boolean(currentAccount?.metadata?.bio) &&
     Boolean(currentAccount?.metadata?.picture) &&
-    Boolean(currentAccount?.interests?.length) &&
     Boolean(loading || email);
 
   if (doneSetup) {
@@ -62,19 +61,6 @@ const SetAccount: FC = () => {
             onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_EMAIL)}
           >
             <Status finished={Boolean(email)} title="Set your email address" />
-          </Link>
-        </div>
-        <div>
-          <Link
-            href="/settings/interests"
-            onClick={() =>
-              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_ACCOUNT_INTERESTS)
-            }
-          >
-            <Status
-              finished={Boolean(currentAccount?.interests?.length)}
-              title="Select account interests"
-            />
           </Link>
         </div>
       </div>

@@ -13,7 +13,7 @@ interface BlockProps {
 
 const Block: FC<BlockProps> = ({ account }) => {
   const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
-  const isBlockedByMe = account.operations.isBlockedByMe.value;
+  const isBlockedByMe = account.operations?.isBlockedByMe;
 
   return (
     <MenuItem
