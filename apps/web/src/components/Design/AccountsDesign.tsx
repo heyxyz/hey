@@ -6,7 +6,7 @@ import { Card, CardHeader, H5 } from "@hey/ui";
 import type { FC } from "react";
 
 const AccountsDesign: FC = () => {
-  const account: Account = {
+  const account: any = {
     address: ADDRESS_PLACEHOLDER,
     owner: ADDRESS_PLACEHOLDER,
     score: 1000,

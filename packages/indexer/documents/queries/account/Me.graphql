@@ -16,10 +16,10 @@ query Me {
     isSponsored
     appLoggedIn
     limit {
-      window
       allowanceLeft
       allowanceUsed
       allowance
+      window
     }
   }
 }

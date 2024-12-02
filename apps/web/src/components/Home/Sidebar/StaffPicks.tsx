@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import { type Account, useStaffPicksQuery } from "@hey/indexer";
 import type { StaffPick } from "@hey/types/hey";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -53,7 +53,7 @@ const StaffPicks: FC = () => {
 
   const batchRanges = dividePicks(picks || [], 3); // We want to divide into three batches
   const batchVariables = batchRanges.map((range) =>
-    picks?.slice(range.start, range.end).map((pick) => pick.profileId)
+    picks?.slice(range.start, range.end).map((pick) => pick.accountAddress)
   );
   const canLoadStaffPicks = batchVariables.every(
     (batch) => (batch || []).length > 0
@@ -99,16 +99,16 @@ const StaffPicks: FC = () => {
   }
 
   const accounts = [
-    ...(staffPicks?.batch1?.items || []),
-    ...(staffPicks?.batch2?.items || []),
-    ...(staffPicks?.batch3?.items || [])
+    ...(staffPicks?.batch1 || []),
+    ...(staffPicks?.batch2 || []),
+    ...(staffPicks?.batch3 || [])
   ];
   const randomAccounts = accounts.sort(() => Math.random() - Math.random());
   const filteredAccounts = randomAccounts
     .filter(
       (account) =>
-        !account.operations.isBlockedByMe.value &&
-        !account.operations.isFollowedByMe.value &&
+        !account.operations?.isBlockedByMe &&
+        !account.operations?.isFollowedByMe &&
         currentAccount?.address !== account.address
     )
     .slice(0, 5) as Account[];
