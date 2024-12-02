@@ -18,31 +18,16 @@ const RateLimits: FC = () => {
         <ErrorMessage className="m-5" error={error} />
       ) : data ? (
         <div className="m-5 space-y-5">
-          <div className="space-y-2">
-            <span className="space-x-2 text-gray-500 text-sm">
-              <span>Hourly Allowance</span>
-              <b>
-                {data.me.limit.allowanceUsed} / {data.me.limit.allowanceLeft}
-              </b>
-            </span>
-            <ProgressBar
-              max={data.userRateLimit.momoka.hourAllowance}
-              value={data.userRateLimit.momoka.hourAllowanceUsed}
-            />
-          </div>
-          <div className="space-y-2">
-            <span className="space-x-2 text-gray-500 text-sm">
-              <span>Daily Allowance</span>
-              <b>
-                {data.userRateLimit.momoka.dayAllowanceUsed} /{" "}
-                {data.userRateLimit.momoka.dayAllowance}
-              </b>
-            </span>
-            <ProgressBar
-              max={data.userRateLimit.momoka.dayAllowance}
-              value={data.userRateLimit.momoka.dayAllowanceUsed}
-            />
-          </div>
+          <span className="space-x-2 text-gray-500 text-sm">
+            <span>Hourly Allowance</span>
+            <b>
+              {data.me.limit.allowanceUsed} / {data.me.limit.allowanceLeft}
+            </b>
+          </span>
+          <ProgressBar
+            max={data.me.limit.allowance}
+            value={data.me.limit.allowanceUsed}
+          />
         </div>
       ) : null}
     </Card>
