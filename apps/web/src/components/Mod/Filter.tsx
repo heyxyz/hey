@@ -1,4 +1,5 @@
 import { apps as knownApps } from "@hey/data/apps";
+import { MainContentFocus } from "@hey/indexer";
 import { Button, Card, Checkbox } from "@hey/ui";
 import type { FC } from "react";
 import { createTrackedSelector } from "react-tracked";
@@ -9,15 +10,13 @@ const FILTER_APPS = knownApps;
 interface State {
   apps: null | string[];
   customFilters: CustomFiltersType[];
-  mainContentFocus: PublicationMetadataMainFocusType[];
+  mainContentFocus: MainContentFocus[];
   publicationTypes: ModExplorePublicationType[];
   refresh: boolean;
   refreshing: boolean;
   setApps: (apps: null | string[]) => void;
   setCustomFilters: (customFilters: CustomFiltersType[]) => void;
-  setMainContentFocus: (
-    mainContentFocus: PublicationMetadataMainFocusType[]
-  ) => void;
+  setMainContentFocus: (mainContentFocus: MainContentFocus[]) => void;
   setPublicationTypes: (publicationTypes: ModExplorePublicationType[]) => void;
   setRefresh: (refresh: boolean) => void;
   setRefreshing: (refreshing: boolean) => void;
@@ -26,11 +25,8 @@ interface State {
 const store = create<State>((set) => ({
   apps: null,
   customFilters: [CustomFiltersType.Gardeners],
-  mainContentFocus: Object.keys(PublicationMetadataMainFocusType).map(
-    (key) =>
-      PublicationMetadataMainFocusType[
-        key as keyof typeof PublicationMetadataMainFocusType
-      ]
+  mainContentFocus: Object.keys(MainContentFocus).map(
+    (key) => MainContentFocus[key as keyof typeof MainContentFocus]
   ),
   publicationTypes: [
     ModExplorePublicationType.Post,
@@ -64,7 +60,7 @@ const Filter: FC = () => {
     setRefresh
   } = useModFilterStore();
 
-  const toggleMainContentFocus = (focus: PublicationMetadataMainFocusType) => {
+  const toggleMainContentFocus = (focus: MainContentFocus) => {
     if (mainContentFocus.includes(focus)) {
       setMainContentFocus(mainContentFocus.filter((type) => type !== focus));
     } else {
@@ -137,42 +133,34 @@ const Filter: FC = () => {
             <button
               className="text-xs underline"
               onClick={() => {
-                mainContentFocus.length ===
-                Object.keys(PublicationMetadataMainFocusType).length
+                mainContentFocus.length === Object.keys(MainContentFocus).length
                   ? setMainContentFocus([])
                   : setMainContentFocus(
-                      Object.keys(PublicationMetadataMainFocusType).map(
+                      Object.keys(MainContentFocus).map(
                         (key) =>
-                          PublicationMetadataMainFocusType[
-                            key as keyof typeof PublicationMetadataMainFocusType
-                          ]
+                          MainContentFocus[key as keyof typeof MainContentFocus]
                       )
                     );
               }}
               type="button"
             >
-              {mainContentFocus.length ===
-              Object.keys(PublicationMetadataMainFocusType).length
+              {mainContentFocus.length === Object.keys(MainContentFocus).length
                 ? "Unselect all"
                 : "Select all"}
             </button>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-            {Object.keys(PublicationMetadataMainFocusType).map((key) => (
+            {Object.keys(MainContentFocus).map((key) => (
               <Checkbox
                 checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType[
-                    key as keyof typeof PublicationMetadataMainFocusType
-                  ]
+                  MainContentFocus[key as keyof typeof MainContentFocus]
                 )}
                 key={key}
                 label={key}
                 name={key}
                 onChange={() =>
                   toggleMainContentFocus(
-                    PublicationMetadataMainFocusType[
-                      key as keyof typeof PublicationMetadataMainFocusType
-                    ]
+                    MainContentFocus[key as keyof typeof MainContentFocus]
                   )
                 }
               />

@@ -4,6 +4,7 @@ import Footer from "@components/Shared/Footer";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Leafwatch } from "@helpers/leafwatch";
 import { EXPLORE, PAGEVIEW } from "@hey/data/tracking";
+import { MainContentFocus } from "@hey/indexer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { NextPage } from "next";
@@ -16,7 +17,7 @@ import ImageFeed from "./ImageFeed";
 const Explore: NextPage = () => {
   const router = useRouter();
   const { currentAccount } = useAccountStore();
-  const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
+  const [focus, setFocus] = useState<MainContentFocus>();
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: "explore" });
@@ -70,7 +71,7 @@ const Explore: NextPage = () => {
           <TabPanels>
             {tabs.map((tab) => (
               <TabPanel key={tab.type}>
-                {focus === PublicationMetadataMainFocusType.Image ? (
+                {focus === MainContentFocus.Image ? (
                   <ImageFeed feedType={tab.type} />
                 ) : (
                   <ExploreFeed feedType={tab.type} focus={focus} />
