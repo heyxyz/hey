@@ -2,7 +2,11 @@ import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
-import { type Account, AccountDocument } from "@hey/indexer";
+import {
+  type Account,
+  type AccountStats,
+  FullAccountDocument
+} from "@hey/indexer";
 import { print } from "graphql";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
@@ -18,11 +22,9 @@ export const generateMetadata = async ({
 
   const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
-      operationName: "Account",
-      query: print(AccountDocument),
-      variables: {
-        request: { username: { localName: username } }
-      }
+      operationName: "FullAccount",
+      query: print(FullAccountDocument),
+      variables: { request: { username: { localName: username } } }
     }),
     cache: "no-store",
     headers: { "Content-Type": "application/json" },
@@ -36,14 +38,15 @@ export const generateMetadata = async ({
   }
 
   const account = result.data.profile as Account;
-  const { displayName, link, slugWithPrefix } = getAccount(account);
-  const title = `${displayName} (${slugWithPrefix}) • ${APP_NAME}`;
+  const stats = result.data.accountStats as AccountStats;
+  const { name, link, slugWithPrefix } = getAccount(account);
+  const title = `${name} (${slugWithPrefix}) • ${APP_NAME}`;
   const description = (account?.metadata?.bio || title).slice(0, 155);
 
   return {
     alternates: { canonical: `https://hey.xyz${link}` },
     applicationName: APP_NAME,
-    creator: displayName,
+    creator: name,
     description: description,
     keywords: [
       "hey",
@@ -57,7 +60,7 @@ export const generateMetadata = async ({
       "lens protocol",
       "decentralized",
       "web3",
-      displayName,
+      name,
       slugWithPrefix
     ],
     metadataBase: new URL(`https://hey.xyz${link}`),
@@ -69,12 +72,12 @@ export const generateMetadata = async ({
       url: `https://hey.xyz${link}`
     },
     other: {
-      "count:followers": account.stats.followers,
-      "count:following": account.stats.following,
+      "count:followers": stats.graphFollowStats?.followers,
+      "count:following": stats.graphFollowStats?.following,
       "lens:username": username,
       "lens:id": account.address
     },
-    publisher: displayName,
+    publisher: name,
     title: title,
     twitter: { card: "summary", site: "@heydotxyz" }
   };

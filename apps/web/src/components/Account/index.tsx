@@ -11,7 +11,11 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
-import { type Account, useFullAccountQuery } from "@hey/indexer";
+import {
+  type Account,
+  type AccountStats,
+  useFullAccountQuery
+} from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -124,6 +128,7 @@ const ViewProfile: NextPage = () => {
             <Details
               isSuspended={accountDetails?.isSuspended || false}
               account={account as Account}
+              stats={data?.accountStats as AccountStats}
             />
           )}
         </GridItemFour>

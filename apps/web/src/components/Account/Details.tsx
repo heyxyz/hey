@@ -20,7 +20,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import type { Account } from "@hey/indexer";
+import type { Account, AccountStats } from "@hey/indexer";
 import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
@@ -55,9 +55,10 @@ const MetaDetails = ({
 interface DetailsProps {
   isSuspended: boolean;
   account: Account;
+  stats: AccountStats;
 }
 
-const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
+const Details: FC<DetailsProps> = ({ isSuspended = false, account, stats }) => {
   const { push } = useRouter();
   const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -116,7 +117,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
       ) : null}
       <div className="space-y-5">
         <ScamWarning accountAddress={account.address} />
-        <Followerings account={account} />
+        <Followerings account={account} stats={stats} />
         <div className="flex items-center space-x-2">
           {currentAccount?.address === account.address ? (
             <>

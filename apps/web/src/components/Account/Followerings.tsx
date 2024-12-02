@@ -4,19 +4,20 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
-import type { Account } from "@hey/indexer";
+import type { Account, AccountStats } from "@hey/indexer";
 import { H4, Modal } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 
 interface FolloweringsProps {
   account: Account;
+  stats: AccountStats;
 }
 
-const Followerings: FC<FolloweringsProps> = ({ account }) => {
+const Followerings: FC<FolloweringsProps> = ({ account, stats }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const { followers, following } = account.stats;
+  const { graphFollowStats } = stats;
 
   return (
     <div className="flex gap-8">
@@ -25,7 +26,7 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
         onClick={() => setShowFollowingModal(true)}
         type="button"
       >
-        <H4>{humanize(following)}</H4>
+        <H4>{humanize(graphFollowStats?.following)}</H4>
         <div className="ld-text-gray-500">Following</div>
       </button>
       <button
@@ -33,8 +34,10 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
         onClick={() => setShowFollowersModal(true)}
         type="button"
       >
-        <H4>{humanize(followers)}</H4>
-        <div className="ld-text-gray-500">{plur("Follower", followers)}</div>
+        <H4>{humanize(graphFollowStats?.followers)}</H4>
+        <div className="ld-text-gray-500">
+          {plur("Follower", graphFollowStats?.followers)}
+        </div>
       </button>
       <Modal
         onClose={() => {
