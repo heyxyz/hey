@@ -3,7 +3,7 @@ import { LENS_HUB } from "@hey/data/constants";
 import {
   type CreatePostRequest,
   type Post,
-  usePostMutation
+  useCreatePostMutation
 } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
@@ -68,7 +68,7 @@ const useCreatePost = ({
   };
 
   // Onchain mutations
-  const [post] = usePostMutation({
+  const [post] = useCreatePostMutation({
     onCompleted: ({ post }) => {
       onCompleted(post.__typename);
       if (post.__typename === "PostResponse") {
