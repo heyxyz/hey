@@ -9,6 +9,7 @@ import { Permission, PermissionId } from "@hey/data/permissions";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
+import { PostReportReason } from "@hey/indexer";
 import { Toggle } from "@hey/ui";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -39,10 +40,10 @@ const Suspend: FC<SuspendProps> = ({ address }) => {
           `${HEY_API_URL}/internal/account/report`,
           {
             address,
-            subreasons: [
-              PublicationReportingSpamSubreason.FakeEngagement,
-              PublicationReportingSpamSubreason.LowSignal,
-              PublicationReportingSpamSubreason.Misleading
+            reasons: [
+              PostReportReason.FakeEngagement,
+              PostReportReason.Impersonation,
+              PostReportReason.Misleading
             ]
           },
           { headers: getAuthApiHeadersWithAccessToken() }

@@ -16,6 +16,7 @@ import {
 } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import { AUTH } from "@hey/data/tracking";
+import { useAccountQuery } from "@hey/indexer";
 import { Button, Form, Input, Spinner, useZodForm } from "@hey/ui";
 import Script from "next/script";
 import type { FC } from "react";
@@ -59,8 +60,7 @@ const newProfileSchema = object({
 });
 
 const ChooseHandle: FC = () => {
-  const { delegatedExecutor, setChoosedHandle, setScreen, setTransactionHash } =
-    useSignupStore();
+  const { setChoosedHandle, setScreen, setTransactionHash } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
@@ -90,12 +90,10 @@ const ChooseHandle: FC = () => {
     }
   });
 
-  useHandleToAddressQuery({
+  useAccountQuery({
     fetchPolicy: "no-cache",
-    onCompleted: (data) => setIsAvailable(!data.handleToAddress),
-    variables: {
-      request: { handle: `${HANDLE_PREFIX}${handle?.toLowerCase()}` }
-    }
+    onCompleted: (data) => setIsAvailable(!data.account),
+    variables: { request: { username: { localName: handle?.toLowerCase() } } }
   });
 
   const handleMint = async ({ handle }: z.infer<typeof newProfileSchema>) => {
@@ -106,7 +104,7 @@ const ChooseHandle: FC = () => {
       return await writeContractAsync({
         abi: HeyLensSignup,
         address: HEY_LENS_SIGNUP,
-        args: [[address, ZERO_ADDRESS, "0x"], handle, [delegatedExecutor]],
+        args: [[address, ZERO_ADDRESS, "0x"], handle],
         functionName: "createProfileWithHandleUsingCredits",
         value: parseEther(SIGNUP_PRICE.toString())
       });
@@ -117,8 +115,7 @@ const ChooseHandle: FC = () => {
     }
   };
 
-  const disabled =
-    !canCheck || !isAvailable || isLoading || !delegatedExecutor || isInvalid;
+  const disabled = !canCheck || !isAvailable || isLoading || isInvalid;
 
   return (
     <div className="space-y-5">
