@@ -1,4 +1,4 @@
-import MutualFollowersOverview from "@components/Account/MutualFollowersOverview";
+import FollowersYouKnowOverview from "@components/Account/FollowersYouKnowOverview";
 import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
@@ -176,7 +176,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
             </div>
           </div>
           <div className="!text-xs">
-            <MutualFollowersOverview
+            <FollowersYouKnowOverview
               handle={getAccount(account).slug}
               address={account.address}
               viaPopover

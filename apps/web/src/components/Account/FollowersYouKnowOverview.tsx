@@ -1,4 +1,4 @@
-import MutualFollowers from "@components/Shared/Modal/MutualFollowers";
+import FollowersYouKnow from "@components/Shared/Modal/FollowersYouKnow";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
@@ -9,13 +9,13 @@ import cn from "@hey/ui/cn";
 import { type FC, type ReactNode, useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-interface MutualFollowersOverviewProps {
+interface FollowersYouKnowOverviewProps {
   handle: string;
   address: string;
   viaPopover?: boolean;
 }
 
-const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
+const FollowersYouKnowOverview: FC<FollowersYouKnowOverviewProps> = ({
   handle,
   address,
   viaPopover = false
@@ -63,7 +63,7 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
         title="Mutual Followers"
         size="md"
       >
-        <MutualFollowers handle={handle} address={address} />
+        <FollowersYouKnow handle={handle} address={address} />
       </Modal>
     </button>
   );
@@ -124,4 +124,4 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   );
 };
 
-export default MutualFollowersOverview;
+export default FollowersYouKnowOverview;
