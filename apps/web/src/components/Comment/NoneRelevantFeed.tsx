@@ -92,7 +92,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {
-              if (comment.__typename !== "Comment" || comment.isHidden) {
+              if (comment.__typename !== "Comment" || comment.isDeleted) {
                 return null;
               }
 

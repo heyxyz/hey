@@ -1,8 +1,9 @@
+import type { Post } from "@hey/indexer";
 import type { FC } from "react";
 import GardenerActions from "./GardenerActions";
 
 interface HigherActionsProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const HigherActions: FC<HigherActionsProps> = ({ post }) => {

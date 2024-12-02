@@ -6,6 +6,12 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import nFormatter from "@hey/helpers/nFormatter";
+import {
+  type Post,
+  PostReactionType,
+  useAddReactionMutation,
+  useUndoReactionMutation
+} from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
@@ -15,7 +21,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface LikeProps {
-  post: MirrorablePublication;
+  post: Post;
   showCount: boolean;
 }
 
@@ -23,7 +29,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
 
-  const [hasReacted, toggleReact] = useToggle(post.operations.hasReacted);
+  const [hasReacted, toggleReact] = useToggle(post.operations?.hasReacted);
   const [reactions, { decrement, increment }] = useCounter(
     post.stats.reactions
   );
@@ -65,7 +71,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
     update: updateCache
   });
 
-  const [removeReaction] = useRemoveReactionMutation({
+  const [undoReaction] = useUndoReactionMutation({
     onCompleted: () => Leafwatch.track(POST.UNLIKE, eventProperties),
     onError: (error) => {
       toggleReact();
@@ -84,20 +90,23 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
       return toast.error(Errors.Suspended);
     }
 
-    const request: ReactionRequest = {
-      for: post.id,
-      reaction: PublicationReactionType.Upvote
-    };
-
     toggleReact();
 
     if (hasReacted) {
       decrement();
-      return await removeReaction({ variables: { request } });
+      return await undoReaction({
+        variables: {
+          request: { post: post.id, reaction: PostReactionType.Upvote }
+        }
+      });
     }
 
     increment();
-    return await addReaction({ variables: { request } });
+    return await addReaction({
+      variables: {
+        request: { post: post.id, reaction: PostReactionType.Upvote }
+      }
+    });
   };
 
   const iconClassName = showCount

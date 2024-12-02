@@ -1,6 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
+import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
   type MainContentFocus,
@@ -35,8 +36,8 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
   const { data, error, fetchMore, loading } = usePostBookmarksQuery({
     onCompleted: async ({ postBookmarks }) => {
       const ids =
-        postBookmarks?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
+        postBookmarks?.items?.map((post) => {
+          return isRepost(post) ? post.repostOf?.id : post.id;
         }) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);

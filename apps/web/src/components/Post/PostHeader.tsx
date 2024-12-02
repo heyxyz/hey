@@ -35,11 +35,11 @@ const PostHeader: FC<PostHeaderProps> = ({
       <PostAccount
         account={account}
         postId={targetPost.id}
-        source={targetPost.publishedOn?.id}
+        source={targetPost.app?.address}
         tags={targetPost.metadata?.tags || []}
         timestamp={timestamp}
       />
-      {!post.isHidden && !quoted ? (
+      {!post.isDeleted && !quoted ? (
         <PostMenu post={targetPost} />
       ) : (
         <div className="size-[30px]" />
