@@ -1,3 +1,5 @@
+import convertToTitleCase from "@hey/helpers/convertToTitleCase";
+import { AccountReportReason } from "@hey/indexer";
 import { Select } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 
@@ -8,31 +10,17 @@ interface ReasonProps {
 
 const Reason: FC<ReasonProps> = ({ setReason, reason }) => {
   return (
-    <div>
+    <div className="space-y-3">
       <div className="label">Type</div>
       <Select
         onChange={(value) => setReason(value)}
         options={[
-          {
-            disabled: true,
-            label: "Select type",
-            value: "Select type"
-          },
-          {
-            label: "Impersonation",
-            selected: reason === "IMPERSONATION",
-            value: "IMPERSONATION"
-          },
-          {
-            label: "Repetitive Spam",
-            selected: reason === "REPETITIVE_SPAM",
-            value: "REPETITIVE_SPAM"
-          },
-          {
-            label: "Other",
-            selected: reason === "OTHER",
-            value: "OTHER"
-          }
+          ...Object.keys(AccountReportReason).map((reasonFromEnum) => ({
+            label: convertToTitleCase(reasonFromEnum),
+            selected: reason === reasonFromEnum,
+            value: reasonFromEnum
+          })),
+          { disabled: true, label: "Select type", value: "Select type" }
         ]}
       />
     </div>

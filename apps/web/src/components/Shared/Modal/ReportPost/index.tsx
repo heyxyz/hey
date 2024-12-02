@@ -32,8 +32,7 @@ interface ReportPostProps {
 
 const ReportPost: FC<ReportPostProps> = ({ postId }) => {
   const { isSuspended } = useAccountStatus();
-  const [type, setType] = useState("");
-  const [subReason, setSubReason] = useState("");
+  const [reason, setReason] = useState("");
 
   const form = useZodForm({
     schema: newReportPostSchema
@@ -84,13 +83,8 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
             {submitError ? (
               <ErrorMessage error={submitError} title="Failed to report" />
             ) : null}
-            <Reason
-              setSubReason={setSubReason}
-              setType={setType}
-              subReason={subReason}
-              type={type}
-            />
-            {subReason ? (
+            <Reason setReason={setReason} reason={reason} />
+            {reason ? (
               <>
                 <TextArea
                   label="Description"
