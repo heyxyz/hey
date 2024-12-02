@@ -115,7 +115,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <ScamWarning accountId={account.address} />
+        <ScamWarning accountAddress={account.address} />
         <Followerings account={account} />
         <div className="flex items-center space-x-2">
           {currentAccount?.address === account.address ? (

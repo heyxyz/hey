@@ -44,7 +44,7 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
           <Rank
             handle={account.username?.value}
             lensClassifierScore={account.score || 0}
-            accountId={account.address}
+            accountAddress={account.address}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>
@@ -53,7 +53,7 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
         <>
           <Permissions
             permissions={preferences.permissions || []}
-            accountId={account.address}
+            accountAddress={account.address}
           />
           <div className="divider my-5 border-yellow-600 border-dashed" />
         </>

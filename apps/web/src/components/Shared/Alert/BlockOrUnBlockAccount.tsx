@@ -56,7 +56,7 @@ const BlockOrUnBlockAccount: FC = () => {
     setShowBlockOrUnblockAlert(false, null);
     toast.success(hasBlocked ? "Unblocked" : "Blocked");
     Leafwatch.track(hasBlocked ? ACCOUNT.BLOCK : ACCOUNT.UNBLOCK, {
-      accountId: blockingorUnblockingProfile?.id
+      address: blockingorUnblockingProfile?.id
     });
   };
 

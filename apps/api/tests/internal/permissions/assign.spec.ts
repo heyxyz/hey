@@ -10,7 +10,7 @@ describe("POST /internal/permissions/assign", () => {
   test("should return 200 and enable the permission", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/permissions/assign`,
-      { accountId: TEST_LENS_ID, id: PermissionId.Beta, enabled: true },
+      { accountAddress: TEST_LENS_ID, id: PermissionId.Beta, enabled: true },
       { headers: getTestAuthHeaders() }
     );
 
@@ -26,7 +26,7 @@ describe("POST /internal/permissions/assign", () => {
   test("should return 200 and disable the permission", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/permissions/assign`,
-      { accountId: TEST_LENS_ID, id: PermissionId.Beta, enabled: false },
+      { accountAddress: TEST_LENS_ID, id: PermissionId.Beta, enabled: false },
       { headers: getTestAuthHeaders() }
     );
 
@@ -55,7 +55,7 @@ describe("POST /internal/permissions/assign", () => {
     try {
       await axios.post(
         `${TEST_URL}/internal/permissions/assign`,
-        { accountId: TEST_LENS_ID, id: PermissionId.Beta, enabled: true },
+        { accountAddress: TEST_LENS_ID, id: PermissionId.Beta, enabled: true },
         { headers: getTestAuthHeaders("suspended") }
       );
     } catch (error: any) {

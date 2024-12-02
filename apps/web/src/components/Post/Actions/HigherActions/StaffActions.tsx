@@ -36,7 +36,7 @@ const StaffActions: FC<StaffActionsProps> = ({ onClick, post }) => {
     toast.promise(
       axios.post(
         `${HEY_API_URL}/internal/permissions/assign`,
-        { enabled: true, id, accountId: post.by.id },
+        { enabled: true, id, address: post.by.id },
         { headers: getAuthApiHeaders() }
       ),
       {
