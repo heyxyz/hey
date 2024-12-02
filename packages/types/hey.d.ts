@@ -1,5 +1,5 @@
 export type StaffPick = {
-  profileId: string;
+  accountAddress: string;
 };
 
 export type Permission = {
