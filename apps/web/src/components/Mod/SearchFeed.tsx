@@ -5,7 +5,12 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import {
+  type AnyPost,
+  PageSize,
+  type SearchPostsRequest,
+  useSearchPostsQuery
+} from "@hey/indexer";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
@@ -14,7 +19,6 @@ import { useModFilterStore } from "./Filter";
 
 const SearchFeed: FC = () => {
   const {
-    apps,
     customFilters,
     mainContentFocus,
     publicationTypes,
@@ -25,26 +29,21 @@ const SearchFeed: FC = () => {
   const [searchInput, setSearchInput] = useState("");
   const [query, setQuery] = useState("");
 
-  const request: PublicationSearchRequest = {
-    limit: LimitType.Fifty,
+  const request: SearchPostsRequest = {
+    pageSize: PageSize.Fifty,
     query,
-    where: {
-      customFilters,
-      metadata: {
-        mainContentFocus,
-        ...(apps && { publishedOn: apps })
-      },
-      publicationTypes: publicationTypes as any
+    filter: {
+      metadata: { mainContentFocus },
+      postTypes: publicationTypes
     }
   };
 
-  const { data, error, fetchMore, loading, refetch } =
-    useSearchPublicationsQuery({
-      skip: !query,
-      variables: { request }
-    });
+  const { data, error, fetchMore, loading, refetch } = useSearchPostsQuery({
+    skip: !query,
+    variables: { request }
+  });
 
-  const search = data?.searchPublications;
+  const search = data?.searchPosts;
   const posts = search?.items as AnyPost[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;

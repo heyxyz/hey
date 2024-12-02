@@ -6,6 +6,11 @@ import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import {
+  type Post,
+  useBookmarkPostMutation,
+  useUndoBookmarkPostMutation
+} from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useRouter } from "next/router";
@@ -13,13 +18,13 @@ import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface BookmarkProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const { pathname } = useRouter();
   const [hasBookmarked, toggleHasBookmarked] = useToggle(
-    post.operations.hasBookmarked
+    post.operations?.hasBookmarked
   );
   const [bookmarks, { decrement, increment }] = useCounter(
     post.stats.bookmarks
@@ -51,9 +56,7 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
     errorToast(error);
   };
 
-  const request: PublicationBookmarkRequest = { on: post.id };
-
-  const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
+  const [bookmarkPost] = useBookmarkPostMutation({
     onCompleted: () => {
       toast.success("Publication bookmarked!");
       Leafwatch.track(POST.BOOKMARK, { postId: post.id });
@@ -64,10 +67,10 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
       onError(error);
     },
     update: updateCache,
-    variables: { request }
+    variables: { request: { post: post.id } }
   });
 
-  const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
+  const [undoBookmarkPost] = useUndoBookmarkPostMutation({
     onCompleted: () => {
       toast.success("Removed publication bookmark!");
       Leafwatch.track(POST.REMOVE_BOOKMARK, { postId: post.id });
@@ -78,7 +81,7 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
       onError(error);
     },
     update: updateCache,
-    variables: { request }
+    variables: { request: { post: post.id } }
   });
 
   const handleTogglePublicationProfileBookmark = async () => {
@@ -86,11 +89,11 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
 
     if (hasBookmarked) {
       decrement();
-      return await removePublicationBookmark();
+      return await undoBookmarkPost();
     }
 
     increment();
-    return await addPublicationBookmark();
+    return await bookmarkPost();
   };
 
   return (

@@ -3,6 +3,7 @@ import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckBadgeIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 import { SETTINGS } from "@hey/data/tracking";
 import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDate";
+import { useAccountStatsQuery } from "@hey/indexer";
 import { Button, Card, H5 } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
@@ -13,14 +14,22 @@ const Verification: FC = () => {
   const { currentAccount } = useAccountStore();
   const { verifiedMembers } = hydrateVerifiedMembers();
 
+  const { data, loading } = useAccountStatsQuery({
+    variables: { request: { account: currentAccount?.address } }
+  });
+
   if (!currentAccount) {
     return null;
   }
 
+  if (loading || !data) {
+    return null;
+  }
+
   const hasMetFollowersRequirement =
-    (currentAccount.stats.followers || 0) >= 3000;
+    (data?.accountStats?.graphFollowStats?.followers || 0) >= 3000;
   const hasMetPublicationsRequirement =
-    (currentAccount.stats.publications || 0) >= 50;
+    (data?.accountStats?.feedStats.posts || 0) >= 50;
   const hasMetTimeRequirement =
     30 < -getNumberOfDaysFromDate(currentAccount?.createdAt);
 

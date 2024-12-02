@@ -5,6 +5,7 @@ import getPostTipById from "@hey/helpers/getPostTipById";
 import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { TipIcon } from "@hey/icons";
+import type { Post } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import party from "party-js";
@@ -14,7 +15,7 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import Action from "./Action";
 
 interface TipProps {
-  post: MirrorablePublication;
+  post: Post;
   showCount: boolean;
 }
 

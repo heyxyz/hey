@@ -4,16 +4,16 @@ import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { POST } from "@hey/data/tracking";
 import getPostData from "@hey/helpers/getPostData";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface CopyPostTextProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const CopyPostText: FC<CopyPostTextProps> = ({ post }) => {
-  const postType = post.__typename;
   const filteredContent = getPostData(post.metadata)?.content || "";
 
   return (
@@ -34,9 +34,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ post }) => {
     >
       <div className="flex items-center space-x-2">
         <ClipboardDocumentIcon className="size-4" />
-        <div>
-          {postType === "Comment" ? "Copy comment text" : "Copy post text"}
-        </div>
+        <div>{post.commentOn ? "Copy comment text" : "Copy post text"}</div>
       </div>
     </MenuItem>
   );

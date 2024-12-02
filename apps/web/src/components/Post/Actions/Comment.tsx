@@ -1,12 +1,13 @@
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
+import type { Post } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 
 interface CommentProps {
-  post: MirrorablePublication;
+  post: Post;
   showCount: boolean;
 }
 

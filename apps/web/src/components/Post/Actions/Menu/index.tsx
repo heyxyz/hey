@@ -2,6 +2,7 @@ import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { Fragment } from "react";
@@ -16,7 +17,7 @@ import Report from "./Report";
 import Share from "./Share";
 
 interface PostMenuProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const PostMenu: FC<PostMenuProps> = ({ post }) => {
@@ -54,7 +55,7 @@ const PostMenu: FC<PostMenuProps> = ({ post }) => {
           <CopyPostText post={post} />
           <CopyID id={post.id} />
           <div className="divider" />
-          {currentAccount?.address === post?.by?.id ? (
+          {currentAccount?.address === post?.author?.address ? (
             <Delete post={post} />
           ) : (
             <Report post={post} />

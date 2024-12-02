@@ -3,12 +3,13 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface ShareProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const Share: FC<ShareProps> = ({ post }) => {
