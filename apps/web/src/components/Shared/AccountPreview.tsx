@@ -8,7 +8,11 @@ import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import { type Account, useAccountLazyQuery } from "@hey/indexer";
+import {
+  type Account,
+  type AccountStats,
+  useFullAccountLazyQuery
+} from "@hey/indexer";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { useQuery } from "@tanstack/react-query";
@@ -36,12 +40,14 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   address,
   showUserPreview = true
 }) => {
-  const [loadAccount, { data, loading: networkLoading }] = useAccountLazyQuery({
-    fetchPolicy: "cache-and-network"
-  });
+  const [loadAccount, { data, loading: networkLoading }] =
+    useFullAccountLazyQuery({
+      fetchPolicy: "cache-and-network"
+    });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
   const account = data?.account as Account;
+  const stats = data?.accountStats as AccountStats;
 
   const onPreviewStart = async () => {
     if (account || networkLoading) {
@@ -51,11 +57,12 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     setSyntheticLoading(true);
     await loadAccount({
       variables: {
-        request: {
+        accountRequest: {
           ...(address
             ? { address }
             : { username: { localName: handle as string } })
-        }
+        },
+        accountStatsRequest: { account: address }
       }
     });
     setTimeout(() => setSyntheticLoading(false), MINIMUM_LOADING_ANIMATION_MS);
@@ -162,16 +169,16 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(account.stats.following)}
+                {nFormatter(stats.graphFollowStats?.following)}
               </div>
               <div className="ld-text-gray-500 text-sm">Following</div>
             </div>
             <div className="flex items-center space-x-1 text-md">
               <div className="text-base">
-                {nFormatter(account.stats.followers)}
+                {nFormatter(stats.graphFollowStats?.followers)}
               </div>
               <div className="ld-text-gray-500 text-sm">
-                {plur("Follower", account.stats.followers)}
+                {plur("Follower", stats.graphFollowStats?.followers)}
               </div>
             </div>
           </div>
