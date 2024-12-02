@@ -51,12 +51,17 @@ const Success: FC = () => {
       const auth = await authenticate({
         variables: { request: { id: challenge.data.challenge.id, signature } }
       });
-      const accessToken = auth.data?.authenticate.accessToken;
-      const refreshToken = auth.data?.authenticate.refreshToken;
-      const idToken = auth.data?.authenticate.identityToken;
-      signIn({ accessToken, idToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { address, source: "signup" });
-      reload();
+
+      if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
+        const accessToken = auth.data?.authenticate.accessToken;
+        const refreshToken = auth.data?.authenticate.refreshToken;
+        const idToken = auth.data?.authenticate.idToken;
+        signIn({ accessToken, idToken, refreshToken });
+        Leafwatch.track(AUTH.LOGIN, { address, source: "signup" });
+        return reload();
+      }
+
+      return toast.error(Errors.SomethingWentWrong);
     } catch {}
   };
 
