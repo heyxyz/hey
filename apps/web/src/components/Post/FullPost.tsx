@@ -4,7 +4,6 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
-import getAppName from "@hey/helpers/getAppName";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPost } from "@hey/indexer";
 import { Card, Tooltip } from "@hey/ui";
@@ -34,7 +33,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
-  const { author, timestamp, publishedOn } = targetPost;
+  const { author, timestamp, app } = targetPost;
 
   usePushToImpressions(targetPost.id);
 
@@ -74,8 +73,8 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
               <Translate post={targetPost} />
               <div className="ld-text-gray-500 my-3 text-sm">
                 <span>{formatDate(timestamp, "hh:mm A · MMM D, YYYY")}</span>
-                {publishedOn?.id ? (
-                  <span> · Posted via {getAppName(publishedOn.id)}</span>
+                {app?.address ? (
+                  <span> · Posted via {app.metadata?.name}</span>
                 ) : null}
               </div>
               <PostStats postId={targetPost.id} postStats={targetPost.stats} />
