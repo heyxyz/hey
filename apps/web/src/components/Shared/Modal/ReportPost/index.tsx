@@ -60,7 +60,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
           request: {
             additionalComment,
             post: postId,
-            reason: type as PostReportReason
+            reason: reason as PostReportReason
           }
         }
       });
