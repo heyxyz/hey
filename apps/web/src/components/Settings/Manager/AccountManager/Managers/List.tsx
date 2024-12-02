@@ -8,23 +8,23 @@ import { LensHub } from "@hey/abis";
 import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
+import {
+  type AccountManagersRequest,
+  PageSize,
+  useAccountManagersQuery
+} from "@hey/indexer";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useWriteContract } from "wagmi";
 
 const List: FC = () => {
-  const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
-
-  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
   const onCompleted = (
@@ -47,8 +47,8 @@ const List: FC = () => {
     setRemovingAddress(null);
   };
 
-  const request: ProfileManagersRequest = { for: currentAccount?.address };
-  const { data, error, fetchMore, loading } = useProfileManagersQuery({
+  const request: AccountManagersRequest = { pageSize: PageSize.Fifty };
+  const { data, error, fetchMore, loading } = useAccountManagersQuery({
     variables: { request }
   });
 
@@ -86,10 +86,10 @@ const List: FC = () => {
     }
   };
 
-  const profileManagers = data?.profileManagers.items.filter(
+  const accountManagers = data?.accountManagers.items.filter(
     (item) => !item.isLensManager
   );
-  const pageInfo = data?.profileManagers?.pageInfo;
+  const pageInfo = data?.accountManagers?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -110,7 +110,7 @@ const List: FC = () => {
     );
   }
 
-  if (profileManagers?.length === 0) {
+  if (accountManagers?.length === 0) {
     return (
       <EmptyState
         hideCard
@@ -122,15 +122,17 @@ const List: FC = () => {
 
   return (
     <Virtuoso
-      computeItemKey={(index, manager) => `${manager.address}-${index}`}
-      data={profileManagers}
+      computeItemKey={(index, accountManager) =>
+        `${accountManager.manager}-${index}`
+      }
+      data={accountManagers}
       endReached={onEndReached}
-      itemContent={(_, manager) => (
+      itemContent={(_, accountManager) => (
         <div className="flex items-center justify-between py-2">
-          <LazySingleAccount address={manager.address} />
+          <LazySingleAccount address={accountManager.manager} />
           <Button
-            disabled={removingAddress === manager.address}
-            onClick={() => handleRemoveManager(manager.address)}
+            disabled={removingAddress === accountManager.manager}
+            onClick={() => handleRemoveManager(accountManager.manager)}
             outline
           >
             Remove
