@@ -25,8 +25,7 @@ const Success: FC = () => {
   };
 
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-
-  const [loadChallenge] = useChallengeMutation({ fetchPolicy: "no-cache" });
+  const [loadChallenge] = useChallengeMutation();
   const [authenticate] = useAuthenticateMutation();
 
   const handleSign = async () => {
