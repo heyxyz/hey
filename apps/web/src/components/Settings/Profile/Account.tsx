@@ -24,6 +24,10 @@ import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import {
+  type SetAccountMetadataRequest,
+  useSetAccountMetadataMutation
+} from "@hey/indexer";
+import {
   Button,
   Card,
   ErrorMessage,
@@ -135,20 +139,16 @@ const AccountSettingsForm: FC = () => {
     });
   };
 
-  const [setProfileMetadata] = useSetProfileMetadataMutation({
-    onCompleted: ({ setProfileMetadata }) =>
-      onCompleted(setProfileMetadata.__typename),
+  const [setAccountMetadata] = useSetAccountMetadataMutation({
+    onCompleted: ({ setAccountMetadata }) =>
+      onCompleted(setAccountMetadata.__typename),
     onError
   });
 
-  const updateProfile = async (request: OnchainSetProfileMetadataRequest) => {
-    const { data } = await setProfileMetadata({
-      variables: { request }
-    });
+  const updateAccount = async (request: SetAccountMetadataRequest) => {
+    const { data } = await setAccountMetadata({ variables: { request } });
 
-    if (
-      data?.setProfileMetadata?.__typename === "LensProfileManagerRelayError"
-    ) {
+    if (data?.setAccountMetadata?.__typename === "TransactionWillFail") {
       return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
@@ -232,13 +232,11 @@ const AccountSettingsForm: FC = () => {
       const metadata = profileMetadata(preparedProfileMetadata);
       const metadataId = await uploadMetadata(metadata);
 
-      const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: `${METADATA_ENDPOINT}/${metadataId}`
+      const request: SetAccountMetadataRequest = {
+        metadataUri: `${METADATA_ENDPOINT}/${metadataId}`
       };
 
-      return await createOnchainSetProfileMetadataTypedData({
-        variables: { request }
-      });
+      return await updateAccount(request);
     } catch (error) {
       onError(error);
     }

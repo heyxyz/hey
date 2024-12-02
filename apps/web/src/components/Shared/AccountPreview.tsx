@@ -1,4 +1,4 @@
-import MutualFollowersOverview from "@components/Account/MutualFollowersOverview";
+import FollowersYouKnowOverview from "@components/Account/FollowersYouKnowOverview";
 import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
@@ -8,7 +8,7 @@ import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import type { Account } from "@hey/indexer";
+import { type Account, useAccountLazyQuery } from "@hey/indexer";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { useQuery } from "@tanstack/react-query";
@@ -36,12 +36,12 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   address,
   showUserPreview = true
 }) => {
-  const [loadProfile, { data, loading: networkLoading }] = useProfileLazyQuery({
+  const [loadAccount, { data, loading: networkLoading }] = useAccountLazyQuery({
     fetchPolicy: "cache-and-network"
   });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
-  const account = data?.profile as Account;
+  const account = data?.account as Account;
 
   const onPreviewStart = async () => {
     if (account || networkLoading) {
@@ -49,10 +49,12 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     }
 
     setSyntheticLoading(true);
-    await loadProfile({
+    await loadAccount({
       variables: {
         request: {
-          ...(address ? { forProfileId: address } : { forHandle: handle })
+          ...(address
+            ? { address }
+            : { username: { localName: handle as string } })
         }
       }
     });
@@ -174,7 +176,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
             </div>
           </div>
           <div className="!text-xs">
-            <MutualFollowersOverview
+            <FollowersYouKnowOverview
               handle={getAccount(account).slug}
               address={account.address}
               viaPopover

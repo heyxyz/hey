@@ -1,0 +1,10 @@
+query Posts($request: PostsRequest!) {
+  posts(request: $request) {
+    items {
+      ...PostFields
+    }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
+  }
+}

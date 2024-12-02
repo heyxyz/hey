@@ -2,7 +2,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
-import type { AnyPost } from "@hey/indexer";
+import { type AnyPost, MainContentFocus } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
@@ -45,15 +45,15 @@ const AccountFeed: FC<AccountFeedProps> = ({
   }, [address, handle]);
 
   const getMediaFilters = () => {
-    const filters: PublicationMetadataMainFocusType[] = [];
+    const filters: MainContentFocus[] = [];
     if (mediaFeedFilters.images) {
-      filters.push(PublicationMetadataMainFocusType.Image);
+      filters.push(MainContentFocus.Image);
     }
     if (mediaFeedFilters.video) {
-      filters.push(PublicationMetadataMainFocusType.Video);
+      filters.push(MainContentFocus.Video);
     }
     if (mediaFeedFilters.audio) {
-      filters.push(PublicationMetadataMainFocusType.Audio);
+      filters.push(MainContentFocus.Audio);
     }
     return filters;
   };

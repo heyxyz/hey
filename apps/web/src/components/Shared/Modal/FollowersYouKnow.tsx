@@ -11,12 +11,12 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-interface MutualFollowersListProps {
+interface FollowersYouKnowProps {
   handle: string;
   address: string;
 }
 
-const MutualFollowers: FC<MutualFollowersListProps> = ({ handle, address }) => {
+const FollowersYouKnow: FC<FollowersYouKnowProps> = ({ handle, address }) => {
   const { currentAccount } = useAccountStore();
 
   const request: FollowersYouKnowRequest = {
@@ -97,4 +97,4 @@ const MutualFollowers: FC<MutualFollowersListProps> = ({ handle, address }) => {
   );
 };
 
-export default MutualFollowers;
+export default FollowersYouKnow;

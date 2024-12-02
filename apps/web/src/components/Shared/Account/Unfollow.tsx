@@ -42,15 +42,12 @@ const Unfollow: FC<UnfollowProps> = ({
   const { cache } = useApolloClient();
 
   const generateOptimisticUnfollow = ({
-    txHash,
-    txId
+    txHash
   }: {
-    txHash?: string;
-    txId?: string;
+    txHash: string;
   }): OptimisticTransaction => {
     return {
       txHash,
-      txId,
       type: OptmisticPostType.Unfollow,
       unfollowOn: account.address
     };
@@ -110,7 +107,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const [unfollow] = useUnfollowMutation({
     onCompleted: ({ unfollow }) => {
       if (unfollow.__typename === "RelaySuccess") {
-        addTransaction(generateOptimisticUnfollow({ txId: unfollow.txId }));
+        addTransaction(generateOptimisticUnfollow({ txHash: unfollow.txHash }));
       }
       onCompleted(unfollow.__typename);
     },

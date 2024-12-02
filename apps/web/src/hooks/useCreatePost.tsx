@@ -31,17 +31,14 @@ const useCreatePost = ({
   const isQuote = Boolean(quoteOf);
 
   const generateOptimisticPublication = ({
-    txHash,
-    txId
+    txHash
   }: {
-    txHash?: string;
-    txId?: string;
+    txHash: string;
   }): OptimisticTransaction => {
     return {
       ...(isComment && { commentOn: commentOn?.id }),
       content: postContent,
       txHash,
-      txId,
       type: isComment
         ? OptmisticPostType.Comment
         : isQuote
@@ -75,7 +72,7 @@ const useCreatePost = ({
     onCompleted: ({ post }) => {
       onCompleted(post.__typename);
       if (post.__typename === "PostResponse") {
-        addTransaction(generateOptimisticPublication({ txId: post.hash }));
+        addTransaction(generateOptimisticPublication({ txHash: post.hash }));
       }
     },
     onError

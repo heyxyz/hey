@@ -5,7 +5,12 @@ import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { AUTH } from "@hey/data/tracking";
-import { type Account, useAccountsAvailableQuery } from "@hey/indexer";
+import {
+  type Account,
+  useAccountsAvailableQuery,
+  useAuthenticateMutation,
+  useChallengeMutation
+} from "@hey/indexer";
 import { Button, Card } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -39,9 +44,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-  const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
-    fetchPolicy: "no-cache"
-  });
+  const [loadChallenge, { error: errorChallenge }] = useChallengeMutation();
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
 
@@ -56,13 +59,13 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
       }
     });
 
-  const handleSign = async (id?: string) => {
+  const handleSign = async (account: string) => {
     try {
-      setLoggingInAccountId(id || null);
+      setLoggingInAccountId(account || null);
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { ...(id && { for: id }), signedBy: address } }
+        variables: { request: { accountOwner: { account, owner: address } } }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -82,7 +85,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       const idToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, idToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { address: id, source: "login" });
+      Leafwatch.track(AUTH.LOGIN, { address: account, source: "login" });
       reload();
     } catch {}
   };
@@ -128,7 +131,9 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
                     showUserPreview={false}
                   />
                   <Button
-                    disabled={isLoading && loggingInAccountId === account.address}
+                    disabled={
+                      isLoading && loggingInAccountId === account.address
+                    }
                     onClick={() => handleSign(account.address)}
                     outline
                   >

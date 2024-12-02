@@ -2,7 +2,15 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountsAvailableRequest,
+  type LastLoggedInAccountRequest,
+  ManagedAccountsVisibility,
+  useAccountsAvailableQuery,
+  useHideManagedAccountMutation,
+  useUnhideManagedAccountMutation
+} from "@hey/indexer";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect } from "react";
@@ -17,41 +25,42 @@ interface ListProps {
 const List: FC<ListProps> = ({ managed = false }) => {
   const { address } = useAccount();
 
-  const lastLoggedInProfileRequest: LastLoggedInProfileRequest = {
-    for: address
-  };
-
-  const profilesManagedRequest: ProfilesManagedRequest = {
-    for: address,
+  const lastLoggedInAccountRequest: LastLoggedInAccountRequest = { address };
+  const accountsAvailableRequest: AccountsAvailableRequest = {
+    managedBy: address,
     hiddenFilter: managed
-      ? ManagedProfileVisibility.NoneHidden
-      : ManagedProfileVisibility.HiddenOnly
+      ? ManagedAccountsVisibility.NoneHidden
+      : ManagedAccountsVisibility.HiddenOnly
   };
 
-  const { data, error, fetchMore, loading, refetch } = useProfilesManagedQuery({
-    variables: { lastLoggedInProfileRequest, profilesManagedRequest }
-  });
+  const { data, error, fetchMore, loading, refetch } =
+    useAccountsAvailableQuery({
+      variables: {
+        lastLoggedInAccountRequest,
+        accountsAvailableRequest
+      }
+    });
 
-  const [hideManagedProfile, { loading: hiding }] =
-    useHideManagedProfileMutation();
-  const [unhideManagedProfile, { loading: unhiding }] =
-    useUnhideManagedProfileMutation();
+  const [hideManagedAccount, { loading: hiding }] =
+    useHideManagedAccountMutation();
+  const [unhideManagedAccount, { loading: unhiding }] =
+    useUnhideManagedAccountMutation();
 
   useEffect(() => {
     refetch();
   }, [managed, refetch]);
 
-  const accountsManaged = data?.profilesManaged.items;
-  const pageInfo = data?.profilesManaged?.pageInfo;
+  const accountsAvailable = data?.accountsAvailable.items;
+  const pageInfo = data?.accountsAvailable?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: {
-          lastLoggedInProfileRequest,
-          profilesManagedRequest: {
-            ...profilesManagedRequest,
+          lastLoggedInAccountRequest,
+          accountsAvailableRequest: {
+            ...accountsAvailableRequest,
             cursor: pageInfo.next
           }
         }
@@ -76,7 +85,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
     );
   }
 
-  if (accountsManaged?.length === 0) {
+  if (accountsAvailable?.length === 0) {
     return (
       <EmptyState
         hideCard
@@ -90,16 +99,16 @@ const List: FC<ListProps> = ({ managed = false }) => {
     );
   }
 
-  const handleToggleManagement = async (profileId: string) => {
+  const handleToggleManagement = async (account: string) => {
     try {
       if (managed) {
-        await hideManagedProfile({ variables: { request: { profileId } } });
+        await hideManagedAccount({ variables: { request: { account } } });
         toast.success("Account is now un-managed");
 
         return refetch();
       }
 
-      await unhideManagedProfile({ variables: { request: { profileId } } });
+      await unhideManagedAccount({ variables: { request: { account } } });
       toast.success("Account is now managed");
 
       return refetch();
@@ -110,20 +119,24 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
-      computeItemKey={(index, account) => `${account.address}-${index}`}
-      data={accountsManaged}
+      computeItemKey={(index, accountAvailable) =>
+        `${accountAvailable.account.address}-${index}`
+      }
+      data={accountsAvailable}
       endReached={onEndReached}
-      itemContent={(_, account) => (
+      itemContent={(_, accountAvailable) => (
         <div className="flex items-center justify-between py-2">
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            account={account as Account}
+            account={accountAvailable.account as Account}
           />
-          {address !== account.owner && (
+          {address !== accountAvailable.account.owner && (
             <Button
               disabled={hiding || unhiding}
-              onClick={() => handleToggleManagement(account.address)}
+              onClick={() =>
+                handleToggleManagement(accountAvailable.account.address)
+              }
               outline
               size="sm"
               variant="danger"

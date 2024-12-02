@@ -12,7 +12,7 @@ query AuthenticatedSessions($request: AuthenticatedSessionsRequest!) {
       updatedAt
     }
     pageInfo {
-      next
+      ...PaginatedResultInfoFields
     }
   }
 }

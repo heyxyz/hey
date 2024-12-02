@@ -4,8 +4,8 @@ import hasOptimisticallyCollected from "./hasOptimisticallyCollected";
 
 // Mock transaction data
 const mockTxnQueue = [
-  { collectOn: "post123", txHash: "hash123", txId: "id123" },
-  { collectOn: "post456", txHash: "hash456", txId: "id456" }
+  { collectOn: "post123", txHash: "hash123" },
+  { collectOn: "post456", txHash: "hash456" }
 ];
 
 // Mock `hydrateTxnQueue` function

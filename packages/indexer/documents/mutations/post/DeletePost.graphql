@@ -1,0 +1,16 @@
+mutation DeletePost($request: DeletePostRequest!) {
+  deletePost(request: $request) {
+    ... on DeletePostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      reason
+    }
+    ... on SponsoredTransactionRequest {
+      reason
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
