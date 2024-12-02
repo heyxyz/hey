@@ -26,11 +26,8 @@ const store = create(
     (set, get) => ({
       accessToken: null,
       hydrateAuthTokens: () => {
-        return {
-          accessToken: get().accessToken,
-          idToken: get().idToken,
-          refreshToken: get().refreshToken
-        };
+        const { accessToken, idToken, refreshToken } = get();
+        return { accessToken, idToken, refreshToken };
       },
       idToken: null,
       refreshToken: null,
