@@ -1,0 +1,3 @@
+mutation UndoRecommendedAccount($request: UndoRecommendedAccount!) {
+  undoRecommendedAccount(request: $request)
+}
