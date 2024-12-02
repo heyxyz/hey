@@ -1,7 +1,12 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import type { AnyPost } from "@hey/indexer";
+import {
+  type AnyPost,
+  PageSize,
+  type SearchPostsRequest,
+  useSearchPostsQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -21,22 +26,18 @@ const Posts: FC<PostsProps> = ({ query }) => {
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  const request: PublicationSearchRequest = {
-    limit: LimitType.TwentyFive,
-    query,
-    where: { customFilters: [CustomFiltersType.Gardeners] }
-  };
+  const request: SearchPostsRequest = { pageSize: PageSize.Fifty, query };
 
-  const { data, error, fetchMore, loading } = useSearchPublicationsQuery({
-    onCompleted: async ({ searchPublications }) => {
-      const ids = searchPublications?.items?.map((p) => p.id) || [];
+  const { data, error, fetchMore, loading } = useSearchPostsQuery({
+    onCompleted: async ({ searchPosts }) => {
+      const ids = searchPosts?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
     variables: { request }
   });
 
-  const search = data?.searchPublications;
+  const search = data?.searchPosts;
   const posts = search?.items as AnyPost[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
@@ -54,7 +55,7 @@ const Posts: FC<PostsProps> = ({ query }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.searchPublications?.items?.map((p) => p.id) || [];
+      const ids = data?.searchPosts?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
