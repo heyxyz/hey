@@ -3,6 +3,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { AUTH } from "@hey/data/tracking";
+import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import { Button, H4, Spinner } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -14,7 +15,7 @@ import { useSignupStore } from ".";
 
 const Success: FC = () => {
   const { reload } = useRouter();
-  const { accountId } = useSignupStore();
+  const { accountAddress } = useSignupStore();
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
 
@@ -24,10 +25,7 @@ const Success: FC = () => {
   };
 
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-
-  const [loadChallenge] = useChallengeLazyQuery({
-    fetchPolicy: "no-cache"
-  });
+  const [loadChallenge] = useChallengeMutation();
   const [authenticate] = useAuthenticateMutation();
 
   const handleSign = async () => {
@@ -35,7 +33,9 @@ const Success: FC = () => {
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { for: accountId, signedBy: address } }
+        variables: {
+          request: { accountOwner: { account: accountAddress, owner: address } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -55,7 +55,7 @@ const Success: FC = () => {
       const refreshToken = auth.data?.authenticate.refreshToken;
       const idToken = auth.data?.authenticate.identityToken;
       signIn({ accessToken, idToken, refreshToken });
-      Leafwatch.track(AUTH.LOGIN, { accountId: accountId, source: "signup" });
+      Leafwatch.track(AUTH.LOGIN, { address, source: "signup" });
       reload();
     } catch {}
   };

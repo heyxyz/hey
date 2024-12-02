@@ -3,6 +3,7 @@ import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { AUTH } from "@hey/data/tracking";
+import { useRevokeAuthenticationMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -22,7 +23,7 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
-  const { authorizationId } = getCurrentSession();
+  const { authenticationId } = getCurrentSession();
 
   const onError = (error: any) => {
     setRevoking(false);
@@ -34,9 +35,9 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
   const handleLogout = async () => {
     try {
       setRevoking(true);
-      if (authorizationId) {
+      if (authenticationId) {
         await revokeAuthentication({
-          variables: { request: { authorizationId } }
+          variables: { request: { authenticationId } }
         });
       }
       Leafwatch.track(AUTH.LOGOUT);

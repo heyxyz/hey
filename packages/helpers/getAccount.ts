@@ -1,11 +1,11 @@
-import type { Account, MeResult } from "@hey/indexer";
+import type { Account } from "@hey/indexer";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
-  account: null | Account | MeResult,
+  account: Account | null,
   source?: string
 ): {
-  displayName: string;
+  name: string;
   link: string;
   slug: string;
   slugWithPrefix: string;
@@ -14,7 +14,7 @@ const getAccount = (
 } => {
   if (!account) {
     return {
-      displayName: "...",
+      name: "...",
       link: "",
       slug: "...",
       slugWithPrefix: "...",
@@ -30,7 +30,7 @@ const getAccount = (
     : `/account/${account.address}`;
 
   return {
-    displayName: sanitizeDisplayName(account.metadata?.name) || slug,
+    name: sanitizeDisplayName(account.metadata?.name) || slug,
     link: link,
     slug,
     slugWithPrefix: `${prefix}${slug}`,

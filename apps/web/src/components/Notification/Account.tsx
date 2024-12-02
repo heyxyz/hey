@@ -54,7 +54,7 @@ export const NotificationAccountName: FC<NotificationProfileProps> = ({
         href={profileLink}
         onClick={stopEventPropagation}
       >
-        <span>{getAccount(account).displayName}</span>
+        <span>{getAccount(account).name}</span>
         <Verified address={account.address} iconClassName="size-4" />
         <Misuse address={account.address} iconClassName="size-4" />
       </Link>

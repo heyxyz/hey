@@ -13,23 +13,23 @@ import sendSlackMessage from "src/helpers/slack";
 import { boolean, object, string } from "zod";
 
 export const postUpdateTasks = async (
-  accountId: string,
+  accountAddress: string,
   permissionId: string,
   enabled: boolean
 ) => {
-  await delRedis(`preference:${accountId}`);
-  await delRedis(`account:${accountId}`);
+  await delRedis(`preference:${accountAddress}`);
+  await delRedis(`account:${accountAddress}`);
 
   await sendSlackMessage({
     channel: "#permissions",
     color: enabled ? "#16a34a" : "#dc2626",
-    text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${accountId}`
+    text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${accountAddress}`
   });
 
   if (permissionId === PermissionId.StaffPick) {
     if (enabled) {
       sendEmailToAccount({
-        id: accountId,
+        id: accountAddress,
         subject: `Your account on ${APP_NAME} has been Staff Picked!`,
         body: `
           <html>
@@ -51,7 +51,7 @@ export const postUpdateTasks = async (
   if (permissionId === PermissionId.Verified) {
     if (enabled) {
       sendEmailToAccount({
-        id: accountId,
+        id: accountAddress,
         subject: `Your account on ${APP_NAME} has been verified!`,
         body: `
           <html>
@@ -59,7 +59,7 @@ export const postUpdateTasks = async (
               <p>Hey Hey!</p>
               <br />
               <p>Yay! Your account on ${APP_NAME} has been verified! ✅</p>
-              <a href="https://hey.xyz/account/${accountId}">Visit your profile →</a>
+              <a href="https://hey.xyz/account/${accountAddress}">Visit your profile →</a>
               <br />
               <p>Thanks,</p>
               <p>${APP_NAME} team</p>
@@ -75,13 +75,13 @@ export const postUpdateTasks = async (
 interface ExtensionRequest {
   enabled: boolean;
   id: string;
-  accountId: string;
+  accountAddress: string;
 }
 
 const validationSchema = object({
   enabled: boolean(),
   id: string(),
-  accountId: string()
+  accountAddress: string()
 });
 
 export const post = [
@@ -100,26 +100,26 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { enabled, id, accountId } = body as ExtensionRequest;
+    const { enabled, id, accountAddress } = body as ExtensionRequest;
 
     try {
       if (enabled) {
         await prisma.profilePermission.create({
-          data: { permissionId: id, profileId: accountId }
+          data: { permissionId: id, profileId: accountAddress }
         });
 
-        await postUpdateTasks(accountId, id, true);
-        logger.info(`Enabled permissions for ${accountId}`);
+        await postUpdateTasks(accountAddress, id, true);
+        logger.info(`Enabled permissions for ${accountAddress}`);
 
         return res.status(200).json({ enabled, success: true });
       }
 
       await prisma.profilePermission.deleteMany({
-        where: { permissionId: id as string, profileId: accountId as string }
+        where: { permissionId: id as string, profileId: accountAddress as string }
       });
 
-      await postUpdateTasks(accountId, id, false);
-      logger.info(`Disabled permissions for ${accountId}`);
+      await postUpdateTasks(accountAddress, id, false);
+      logger.info(`Disabled permissions for ${accountAddress}`);
 
       return res.status(200).json({ enabled, success: true });
     } catch (error) {

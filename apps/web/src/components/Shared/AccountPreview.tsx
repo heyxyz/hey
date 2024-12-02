@@ -126,7 +126,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     const UserName: FC = () => (
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
-          <div className="text-md">{getAccount(account).displayName}</div>
+          <div className="text-md">{getAccount(account).name}</div>
           <Verified address={account.address} iconClassName="size-4" />
           <Misuse address={account.address} iconClassName="size-4" />
         </div>

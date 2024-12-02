@@ -72,14 +72,14 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
     return null;
   }
 
-  const accountOne = accounts[0];
-  const accountTwo = accounts[1];
-  const accountThree = accounts[2];
+  const accountOne = accounts[0].follower;
+  const accountTwo = accounts[1].follower;
+  const accountThree = accounts[2].follower;
 
   if (accounts?.length === 1) {
     return (
       <Wrapper>
-        <span>{getAccount(accountOne).displayName}</span>
+        <span>{getAccount(accountOne).name}</span>
       </Wrapper>
     );
   }
@@ -87,8 +87,8 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
   if (accounts?.length === 2) {
     return (
       <Wrapper>
-        <span>{getAccount(accountOne).displayName} and </span>
-        <span>{getAccount(accountTwo).displayName}</span>
+        <span>{getAccount(accountOne).name} and </span>
+        <span>{getAccount(accountTwo).name}</span>
       </Wrapper>
     );
   }
@@ -99,12 +99,12 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
 
     return (
       <Wrapper>
-        <span>{getAccount(accountOne).displayName}, </span>
+        <span>{getAccount(accountOne).name}, </span>
         <span>
-          {getAccount(accountTwo).displayName}
+          {getAccount(accountTwo).name}
           {isZero ? " and " : ", "}
         </span>
-        <span>{getAccount(accountThree).displayName} </span>
+        <span>{getAccount(accountThree).name} </span>
         {isZero ? null : (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? "other" : "others"}
@@ -116,9 +116,9 @@ const MutualFollowersOverview: FC<MutualFollowersOverviewProps> = ({
 
   return (
     <Wrapper>
-      <span>{getAccount(accountOne).displayName}, </span>
-      <span>{getAccount(accountTwo).displayName}, </span>
-      <span>{getAccount(accountThree).displayName} </span>
+      <span>{getAccount(accountOne).name}, </span>
+      <span>{getAccount(accountTwo).name}, </span>
+      <span>{getAccount(accountThree).name} </span>
       <span>and others</span>
     </Wrapper>
   );

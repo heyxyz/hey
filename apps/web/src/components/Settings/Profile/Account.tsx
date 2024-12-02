@@ -162,7 +162,7 @@ const AccountSettingsForm: FC = () => {
         "location",
         currentAccount?.metadata?.attributes
       ),
-      name: currentAccount?.metadata?.displayName || "",
+      name: currentAccount?.metadata?.name || "",
       website: getAccountAttribute(
         "website",
         currentAccount?.metadata?.attributes

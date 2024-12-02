@@ -61,7 +61,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? "font-bold" : "text-md", "grid")}>
           <div className="truncate font-semibold">
-            {getAccount(account).displayName}
+            {getAccount(account).name}
           </div>
         </div>
         <Verified address={account.address} iconClassName="ml-1 size-4" />

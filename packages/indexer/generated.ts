@@ -5397,6 +5397,13 @@ export type ReportAccountMutationVariables = Exact<{
 
 export type ReportAccountMutation = { __typename?: 'Mutation', reportAccount: any };
 
+export type RevokeAuthenticationMutationVariables = Exact<{
+  request: RevokeAuthenticationRequest;
+}>;
+
+
+export type RevokeAuthenticationMutation = { __typename?: 'Mutation', revokeAuthentication: any };
+
 export type SetAccountMetadataMutationVariables = Exact<{
   request: SetAccountMetadataRequest;
 }>;
@@ -5425,12 +5432,12 @@ export type UnmuteMutationVariables = Exact<{
 
 export type UnmuteMutation = { __typename?: 'Mutation', unmute: any };
 
-export type AauthenticateMutationVariables = Exact<{
+export type AuthenticateMutationVariables = Exact<{
   request: SignedAuthChallenge;
 }>;
 
 
-export type AauthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ExpiredChallengeError' } | { __typename?: 'ForbiddenError' } | { __typename?: 'WrongSignerError' } };
+export type AuthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ExpiredChallengeError' } | { __typename?: 'ForbiddenError' } | { __typename?: 'WrongSignerError' } };
 
 export type ChallengeMutationVariables = Exact<{
   request: ChallengeRequest;
@@ -6098,6 +6105,33 @@ export function useReportAccountMutation(baseOptions?: Apollo.MutationHookOption
 export type ReportAccountMutationHookResult = ReturnType<typeof useReportAccountMutation>;
 export type ReportAccountMutationResult = Apollo.MutationResult<ReportAccountMutation>;
 export type ReportAccountMutationOptions = Apollo.BaseMutationOptions<ReportAccountMutation, ReportAccountMutationVariables>;
+export const RevokeAuthenticationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RevokeAuthentication"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RevokeAuthenticationRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"revokeAuthentication"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type RevokeAuthenticationMutationFn = Apollo.MutationFunction<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>;
+
+/**
+ * __useRevokeAuthenticationMutation__
+ *
+ * To run a mutation, you first call `useRevokeAuthenticationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRevokeAuthenticationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [revokeAuthenticationMutation, { data, loading, error }] = useRevokeAuthenticationMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRevokeAuthenticationMutation(baseOptions?: Apollo.MutationHookOptions<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>(RevokeAuthenticationDocument, options);
+      }
+export type RevokeAuthenticationMutationHookResult = ReturnType<typeof useRevokeAuthenticationMutation>;
+export type RevokeAuthenticationMutationResult = Apollo.MutationResult<RevokeAuthenticationMutation>;
+export type RevokeAuthenticationMutationOptions = Apollo.BaseMutationOptions<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>;
 export const SetAccountMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAccountMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAccountMetadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type SetAccountMetadataMutationFn = Apollo.MutationFunction<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>;
 
@@ -6206,33 +6240,33 @@ export function useUnmuteMutation(baseOptions?: Apollo.MutationHookOptions<Unmut
 export type UnmuteMutationHookResult = ReturnType<typeof useUnmuteMutation>;
 export type UnmuteMutationResult = Apollo.MutationResult<UnmuteMutation>;
 export type UnmuteMutationOptions = Apollo.BaseMutationOptions<UnmuteMutation, UnmuteMutationVariables>;
-export const AauthenticateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Aauthenticate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignedAuthChallenge"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authenticate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AuthenticationTokens"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"idToken"}}]}}]}}]}}]} as unknown as DocumentNode;
-export type AauthenticateMutationFn = Apollo.MutationFunction<AauthenticateMutation, AauthenticateMutationVariables>;
+export const AuthenticateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Authenticate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignedAuthChallenge"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authenticate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AuthenticationTokens"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"idToken"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type AuthenticateMutationFn = Apollo.MutationFunction<AuthenticateMutation, AuthenticateMutationVariables>;
 
 /**
- * __useAauthenticateMutation__
+ * __useAuthenticateMutation__
  *
- * To run a mutation, you first call `useAauthenticateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAauthenticateMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAuthenticateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAuthenticateMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [aauthenticateMutation, { data, loading, error }] = useAauthenticateMutation({
+ * const [authenticateMutation, { data, loading, error }] = useAuthenticateMutation({
  *   variables: {
  *      request: // value for 'request'
  *   },
  * });
  */
-export function useAauthenticateMutation(baseOptions?: Apollo.MutationHookOptions<AauthenticateMutation, AauthenticateMutationVariables>) {
+export function useAuthenticateMutation(baseOptions?: Apollo.MutationHookOptions<AuthenticateMutation, AuthenticateMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AauthenticateMutation, AauthenticateMutationVariables>(AauthenticateDocument, options);
+        return Apollo.useMutation<AuthenticateMutation, AuthenticateMutationVariables>(AuthenticateDocument, options);
       }
-export type AauthenticateMutationHookResult = ReturnType<typeof useAauthenticateMutation>;
-export type AauthenticateMutationResult = Apollo.MutationResult<AauthenticateMutation>;
-export type AauthenticateMutationOptions = Apollo.BaseMutationOptions<AauthenticateMutation, AauthenticateMutationVariables>;
+export type AuthenticateMutationHookResult = ReturnType<typeof useAuthenticateMutation>;
+export type AuthenticateMutationResult = Apollo.MutationResult<AuthenticateMutation>;
+export type AuthenticateMutationOptions = Apollo.BaseMutationOptions<AuthenticateMutation, AuthenticateMutationVariables>;
 export const ChallengeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Challenge"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChallengeRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"challenge"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]}}]} as unknown as DocumentNode;
 export type ChallengeMutationFn = Apollo.MutationFunction<ChallengeMutation, ChallengeMutationVariables>;
 

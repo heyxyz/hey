@@ -7,17 +7,17 @@ import getTestAuthHeaders from "tests/helpers/getTestAuthHeaders";
 import { beforeAll, describe, expect, test } from "vitest";
 
 describe("POST /internal/creator-tools/assign", () => {
-  let accountId: string;
+  let accountAddress: string;
   const permissionId = PermissionId.Beta;
 
   beforeAll(async () => {
-    accountId = faker.string.uuid();
+    accountAddress = faker.string.uuid();
   });
 
   test("should enable permission for a profile", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/creator-tools/assign`,
-      { enabled: true, id: permissionId, accountId },
+      { enabled: true, id: permissionId, accountAddress },
       { headers: getTestAuthHeaders() }
     );
 
@@ -26,7 +26,7 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.enabled).toBe(true);
 
     const accountPermission = await prisma.profilePermission.findFirst({
-      where: { profileId: accountId, permissionId }
+      where: { profileId: accountAddress, permissionId }
     });
     expect(accountPermission).toBeDefined();
   });
@@ -34,7 +34,7 @@ describe("POST /internal/creator-tools/assign", () => {
   test("should disable permission for a profile", async () => {
     const { data, status } = await axios.post(
       `${TEST_URL}/internal/creator-tools/assign`,
-      { enabled: false, id: permissionId, accountId },
+      { enabled: false, id: permissionId, accountAddress },
       { headers: getTestAuthHeaders() }
     );
 
@@ -43,7 +43,7 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.enabled).toBe(false);
 
     const accountPermission = await prisma.profilePermission.findFirst({
-      where: { profileId: accountId, permissionId }
+      where: { profileId: accountAddress, permissionId }
     });
     expect(accountPermission).toBeNull();
   });
@@ -67,7 +67,7 @@ describe("POST /internal/creator-tools/assign", () => {
         {
           enabled: true,
           id: faker.string.uuid(),
-          accountId: faker.string.uuid()
+          accountAddress: faker.string.uuid()
         },
         { headers: getTestAuthHeaders("suspended") }
       );
@@ -81,7 +81,7 @@ describe("POST /internal/creator-tools/assign", () => {
       await axios.post(`${TEST_URL}/internal/creator-tools/assign`, {
         enabled: true,
         id: faker.string.uuid(),
-        accountId: faker.string.uuid()
+        accountAddress: faker.string.uuid()
       });
     } catch (error: any) {
       expect(error.response.status).toBe(401);

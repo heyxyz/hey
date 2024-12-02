@@ -47,7 +47,7 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
   const UserName: FC = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className={cn(!hideSlug && "max-w-[75%]", "mr-1 truncate")}>
-        {getAccount(account).displayName}
+        {getAccount(account).name}
       </div>
       <Verified address={account.address} iconClassName="mr-1 size-4" />
       <Misuse address={account.address} iconClassName="mr-2 size-4" />

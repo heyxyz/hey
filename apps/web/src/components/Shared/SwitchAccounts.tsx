@@ -6,7 +6,12 @@ import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  useAccountsAvailableQuery,
+  useAuthenticateMutation,
+  useChallengeMutation
+} from "@hey/indexer";
 import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
@@ -35,36 +40,30 @@ const SwitchAccounts: FC = () => {
 
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
 
-  const lastLoggedInProfileRequest: LastLoggedInProfileRequest = {
-    for: address
-  };
-
-  const profilesManagedRequest: ProfilesManagedRequest = {
-    for: address,
-    hiddenFilter: ManagedProfileVisibility.NoneHidden
-  };
-
-  const { data, error, loading } = useProfilesManagedQuery({
-    variables: { lastLoggedInProfileRequest, profilesManagedRequest }
+  const { data, error, loading } = useAccountsAvailableQuery({
+    variables: {
+      lastLoggedInAccountRequest: { address },
+      accountsAvailableRequest: { managedBy: address }
+    }
   });
-  const [loadChallenge] = useChallengeLazyQuery({
-    fetchPolicy: "no-cache"
-  });
+  const [loadChallenge] = useChallengeMutation();
   const [authenticate] = useAuthenticateMutation();
 
   if (loading) {
     return <Loader className="my-5" message="Loading Profiles" />;
   }
 
-  const profiles = data?.profilesManaged.items || [];
+  const accountsAvailable = data?.accountsAvailable.items || [];
 
-  const handleSwitchProfile = async (id: string) => {
+  const handleSwitchProfile = async (account: string) => {
     try {
-      setLoggingInProfileId(id);
+      setLoggingInProfileId(account);
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { for: id, signedBy: address } }
+        variables: {
+          request: { accountOwner: { account, owner: address } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -85,7 +84,7 @@ const SwitchAccounts: FC = () => {
       const idToken = auth.data?.authenticate.identityToken;
       signOut();
       signIn({ accessToken, idToken, refreshToken });
-      Leafwatch.track(ACCOUNT.SWITCH_ACCOUNT, { accountId: id });
+      Leafwatch.track(ACCOUNT.SWITCH_ACCOUNT, { address });
       reload();
     } catch (error) {
       onError(error);
@@ -114,39 +113,43 @@ const SwitchAccounts: FC = () => {
         error={error}
         title="Failed to load profiles"
       />
-      {profiles.map((account, index) => (
+      {accountsAvailable.map((accountAvailable, index) => (
         <button
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-          key={account?.address}
+          key={accountAvailable?.account.address}
           onClick={async () => {
-            const selectedProfile = profiles[index] as Account;
+            const selectedProfile = accountsAvailable[index].account as Account;
             await handleSwitchProfile(selectedProfile.address);
           }}
           type="button"
         >
           <span className="flex items-center space-x-2">
             <Image
-              alt={account.address}
+              alt={accountAvailable.account.address}
               className="size-6 rounded-full border dark:border-gray-700"
               height={20}
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(account.address);
+                currentTarget.src = getLennyURL(
+                  accountAvailable.account.address
+                );
               }}
-              src={getAvatar(account)}
+              src={getAvatar(accountAvailable.account)}
               width={20}
             />
             <div
               className={cn(
-                currentAccount?.address === account?.address && "font-bold",
+                currentAccount?.address === accountAvailable.account.address &&
+                  "font-bold",
                 "truncate"
               )}
             >
-              {getAccount(account as Account).slugWithPrefix}
+              {getAccount(accountAvailable.account as Account).slugWithPrefix}
             </div>
           </span>
-          {isLoading && account.address === loggingInProfileId ? (
+          {isLoading &&
+          accountAvailable.account.address === loggingInProfileId ? (
             <Spinner size="xs" />
-          ) : currentAccount?.address === account?.address ? (
+          ) : currentAccount?.address === accountAvailable.account.address ? (
             <CheckCircleIcon className="size-5 text-green-500" />
           ) : null}
         </button>

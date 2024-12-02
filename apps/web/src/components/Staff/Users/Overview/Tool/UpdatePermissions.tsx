@@ -18,13 +18,13 @@ import ToggleWrapper from "./ToggleWrapper";
 
 interface UpdatePermissionsProps {
   permissions: string[];
-  accountId: string;
+  accountAddress: string;
   setPermissions: Dispatch<SetStateAction<string[]>>;
 }
 
 const UpdatePermissions: FC<UpdatePermissionsProps> = ({
   permissions,
-  accountId,
+  accountAddress,
   setPermissions
 }) => {
   const [updating, setUpdating] = useState(false);
@@ -49,7 +49,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
     try {
       await axios.post(
         `${HEY_API_URL}/internal/permissions/assign`,
-        { enabled, id, accountId },
+        { enabled, id, accountAddress },
         { headers: getAuthApiHeaders() }
       );
 
@@ -59,7 +59,7 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
       toast.success("Permission updated");
       Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
         permission: key,
-        accountId
+        address: accountAddress
       });
     } catch (error) {
       errorToast(error);
