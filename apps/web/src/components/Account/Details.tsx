@@ -85,7 +85,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
-          <H3 className="truncate">{getAccount(account).displayName}</H3>
+          <H3 className="truncate">{getAccount(account).name}</H3>
           <Verified address={account.address} showTooltip />
           <Misuse address={account.address} showTooltip />
           {isSuspended ? (

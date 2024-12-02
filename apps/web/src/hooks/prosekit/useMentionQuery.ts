@@ -44,7 +44,7 @@ const useMentionQuery = (query: string): MentionAccount[] => {
           displayUsername: getAccount(profile).slugWithPrefix,
           handle: getAccount(profile).slug,
           address: profile?.address,
-          name: getAccount(profile).displayName,
+          name: getAccount(profile).name,
           picture: getAvatar(profile),
           score: profile.score || 0
         })
