@@ -1,0 +1,3 @@
+mutation UndoBookmarkPost($request: BookmarkPostRequest!) {
+  undoBookmarkPost(request: $request)
+}

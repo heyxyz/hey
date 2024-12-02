@@ -2,6 +2,7 @@ import Markup from "@components/Shared/Markup";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import getPostData from "@hey/helpers/getPostData";
+import type { Post } from "@hey/indexer";
 import { useFlag } from "@unleash/proxy-client-react";
 import axios from "axios";
 import { francAll } from "franc";
@@ -9,7 +10,7 @@ import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 
 interface TranslateProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const Translate: FC<TranslateProps> = ({ post }) => {

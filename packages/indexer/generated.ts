@@ -5537,6 +5537,13 @@ export type RepostMutationVariables = Exact<{
 
 export type RepostMutation = { __typename?: 'Mutation', repost: { __typename?: 'PostResponse', hash: any } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } };
 
+export type UndoBookmarkPostMutationVariables = Exact<{
+  request: BookmarkPostRequest;
+}>;
+
+
+export type UndoBookmarkPostMutation = { __typename?: 'Mutation', undoBookmarkPost: any };
+
 export type UndoReactionMutationVariables = Exact<{
   request: UndoReactionRequest;
 }>;
@@ -6749,6 +6756,33 @@ export function useRepostMutation(baseOptions?: Apollo.MutationHookOptions<Repos
 export type RepostMutationHookResult = ReturnType<typeof useRepostMutation>;
 export type RepostMutationResult = Apollo.MutationResult<RepostMutation>;
 export type RepostMutationOptions = Apollo.BaseMutationOptions<RepostMutation, RepostMutationVariables>;
+export const UndoBookmarkPostDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoBookmarkPost"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BookmarkPostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoBookmarkPost"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type UndoBookmarkPostMutationFn = Apollo.MutationFunction<UndoBookmarkPostMutation, UndoBookmarkPostMutationVariables>;
+
+/**
+ * __useUndoBookmarkPostMutation__
+ *
+ * To run a mutation, you first call `useUndoBookmarkPostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUndoBookmarkPostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [undoBookmarkPostMutation, { data, loading, error }] = useUndoBookmarkPostMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUndoBookmarkPostMutation(baseOptions?: Apollo.MutationHookOptions<UndoBookmarkPostMutation, UndoBookmarkPostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UndoBookmarkPostMutation, UndoBookmarkPostMutationVariables>(UndoBookmarkPostDocument, options);
+      }
+export type UndoBookmarkPostMutationHookResult = ReturnType<typeof useUndoBookmarkPostMutation>;
+export type UndoBookmarkPostMutationResult = Apollo.MutationResult<UndoBookmarkPostMutation>;
+export type UndoBookmarkPostMutationOptions = Apollo.BaseMutationOptions<UndoBookmarkPostMutation, UndoBookmarkPostMutationVariables>;
 export const UndoReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UndoReactionMutationFn = Apollo.MutationFunction<UndoReactionMutation, UndoReactionMutationVariables>;
 
