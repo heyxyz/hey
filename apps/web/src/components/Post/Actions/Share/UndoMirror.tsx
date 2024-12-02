@@ -6,7 +6,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import { type AnyPost, useDeletePostMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
@@ -39,7 +39,7 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     errorToast(error);
   };
 
-  const [hidePost] = useHidePublicationMutation({
+  const [deletePost] = useDeletePostMutation({
     onCompleted: () => {
       Leafwatch.track(POST.UNDO_MIRROR);
       toast.success("Undone mirror");
@@ -55,8 +55,8 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
     try {
       setIsLoading(true);
 
-      return await hidePost({
-        variables: { request: { for: post.id } }
+      return await deletePost({
+        variables: { request: { post: post.id } }
       });
     } catch (error) {
       onError(error);
