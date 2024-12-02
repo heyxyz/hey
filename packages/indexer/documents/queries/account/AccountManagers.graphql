@@ -12,7 +12,7 @@ query AccountManagers($request: AccountManagersRequest!) {
       addedAt
     }
     pageInfo {
-      next
+      ...PaginatedResultInfoFields
     }
   }
 }
