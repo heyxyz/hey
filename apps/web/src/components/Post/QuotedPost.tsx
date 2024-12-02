@@ -23,7 +23,7 @@ const QuotedPost: FC<QuotedPostProps> = ({ isNew = false, post }) => {
         <PostAvatar post={post} quoted />
         <PostHeader isNew={isNew} post={post} quoted />
       </div>
-      {post.isHidden ? (
+      {post.isDeleted ? (
         <HiddenPost type={post.__typename} />
       ) : (
         <PostBody post={post} quoted showMore />

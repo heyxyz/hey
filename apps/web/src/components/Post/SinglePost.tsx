@@ -57,7 +57,7 @@ const SinglePost: FC<SinglePostProps> = ({
         <PostAvatar timelineItem={timelineItem} post={rootPost} />
         <div className="w-[calc(100%-55px)]">
           <PostHeader timelineItem={timelineItem} post={rootPost} />
-          {post.isHidden ? (
+          {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (
             <>

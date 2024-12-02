@@ -22,7 +22,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ post }) => {
         <div className="absolute bottom-0 left-[9.1px] h-full border-[0.9px] border-gray-300 border-solid dark:border-gray-700" />
         <div className="w-[calc(100%-55px)]">
           <PostHeader post={post} />
-          {post.isHidden ? (
+          {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (
             <>
