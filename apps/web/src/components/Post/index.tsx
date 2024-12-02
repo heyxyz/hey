@@ -103,7 +103,7 @@ const ViewPost: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        creator={getAccount(targetPost.author).displayName}
+        creator={getAccount(targetPost.author).name}
         description={getPostData(targetPost.metadata)?.content}
         title={`${targetPost.__typename} by ${
           getAccount(targetPost.author).slugWithPrefix

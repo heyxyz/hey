@@ -12,7 +12,7 @@ import Success from "./Success";
 interface SignupState {
   choosedHandle: string;
   delegatedExecutor: string;
-  accountId: string;
+  accountAddress: string;
   screen: "choose" | "minting" | "success";
   setChoosedHandle: (handle: string) => void;
   setDelegatedExecutor: (executor: string) => void;
@@ -25,11 +25,11 @@ interface SignupState {
 const store = create<SignupState>((set) => ({
   choosedHandle: "",
   delegatedExecutor: "",
-  accountId: "",
+  accountAddress: "",
   screen: "choose",
   setChoosedHandle: (handle) => set({ choosedHandle: handle }),
   setDelegatedExecutor: (executor) => set({ delegatedExecutor: executor }),
-  setAccountId: (accountId) => set({ accountId }),
+  setAccountId: (accountAddress) => set({ accountAddress }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
   transactionHash: ""

@@ -44,7 +44,7 @@ const PostAccount: FC<PostAccountProps> = ({
   return (
     <div className="flex flex-wrap items-center gap-x-1">
       <WrappedLink>
-        <span className="font-semibold">{getAccount(account).displayName}</span>
+        <span className="font-semibold">{getAccount(account).name}</span>
       </WrappedLink>
       <WrappedLink>
         <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />

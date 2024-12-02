@@ -16,7 +16,7 @@ const decoded = (str: string): string =>
 const parseJwt = (
   token: string
 ): {
-  authorizationId: string;
+  authenticationId: string;
   evmAddress: string;
   exp: number;
   iat: number;
@@ -27,7 +27,7 @@ const parseJwt = (
     return JSON.parse(decoded(token.split(".")[1]));
   } catch {
     return {
-      authorizationId: "",
+      authenticationId: "",
       evmAddress: "",
       exp: 0,
       iat: 0,

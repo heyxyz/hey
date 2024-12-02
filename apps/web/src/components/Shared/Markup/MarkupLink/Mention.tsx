@@ -14,9 +14,7 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
     return null;
   }
 
-  const fullHandles = mentions?.map(
-    (mention) => mention.snapshotHandleMentioned.fullHandle
-  );
+  const fullHandles = mentions?.map((mention) => mention.replace.from);
 
   if (!fullHandles?.includes(handle)) {
     return title;
@@ -24,17 +22,17 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
 
   const canShowUserPreview = (handle: string) => {
     const foundMention = mentions?.find(
-      (mention) => mention.snapshotHandleMentioned.fullHandle === handle
+      (mention) => mention.replace.from === handle
     );
 
-    return Boolean(foundMention?.snapshotHandleMentioned.linkedTo?.nftTokenId);
+    return Boolean(foundMention?.account);
   };
 
   const getLocalNameFromFullHandle = (handle: string) => {
     const foundMention = mentions?.find(
-      (mention) => mention.snapshotHandleMentioned.fullHandle === handle
+      (mention) => mention.replace.from === handle
     );
-    return foundMention?.snapshotHandleMentioned.localName;
+    return foundMention?.replace.from;
   };
 
   return canShowUserPreview(handle) ? (

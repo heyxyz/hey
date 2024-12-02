@@ -102,9 +102,9 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       <MetaTags
-        creator={getAccount(account).displayName}
+        creator={getAccount(account).name}
         description={account.metadata?.bio || ""}
-        title={`${getAccount(account).displayName} (${
+        title={`${getAccount(account).name} (${
           getAccount(account).slugWithPrefix
         }) • ${APP_NAME}`}
       />

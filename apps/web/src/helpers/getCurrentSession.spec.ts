@@ -20,7 +20,7 @@ describe("getCurrentSession", () => {
   test("should return session details when accessToken is valid", () => {
     const mockTokens = { accessToken: "mock-access-token" };
     const mockParsedJwt = {
-      authorizationId: "auth-123",
+      authenticationId: "auth-123",
       evmAddress: "0x1234567890abcdef",
       id: "session-id-123"
     };
@@ -31,7 +31,7 @@ describe("getCurrentSession", () => {
     const result = getCurrentSession();
 
     expect(result).toEqual({
-      authorizationId: "auth-123",
+      authenticationId: "auth-123",
       evmAddress: "0x1234567890abcdef",
       id: "session-id-123"
     });
@@ -47,7 +47,7 @@ describe("getCurrentSession", () => {
     const result = getCurrentSession();
 
     expect(result).toEqual({
-      authorizationId: undefined,
+      authenticationId: undefined,
       evmAddress: undefined,
       id: undefined
     });

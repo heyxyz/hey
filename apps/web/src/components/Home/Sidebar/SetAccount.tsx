@@ -30,7 +30,7 @@ const SetAccount: FC = () => {
   const { email, loading } = usePreferencesStore();
 
   const doneSetup =
-    Boolean(currentAccount?.metadata?.displayName) &&
+    Boolean(currentAccount?.metadata?.name) &&
     Boolean(currentAccount?.metadata?.bio) &&
     Boolean(currentAccount?.metadata?.picture) &&
     Boolean(currentAccount?.interests?.length) &&
@@ -45,7 +45,7 @@ const SetAccount: FC = () => {
       <H5>Setup your {APP_NAME} profile</H5>
       <div className="space-y-1 text-sm leading-5">
         <Status
-          finished={Boolean(currentAccount?.metadata?.displayName)}
+          finished={Boolean(currentAccount?.metadata?.name)}
           title="Set profile name"
         />
         <Status

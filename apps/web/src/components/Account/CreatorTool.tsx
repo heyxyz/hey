@@ -48,7 +48,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
       setUpdating(true);
       await axios.post(
         `${HEY_API_URL}/internal/creator-tools/assign`,
-        { enabled, id, accountId: account.address },
+        { enabled, id, accountAddress: account.address },
         { headers: getAuthApiHeaders() }
       );
 
@@ -58,7 +58,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
       );
       Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
         permission: key,
-        accountId: account.address
+        accountAddress: account.address
       });
     } catch (error) {
       errorToast(error);

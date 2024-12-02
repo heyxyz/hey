@@ -21,9 +21,7 @@ const FallbackAccountName: FC<FallbackAccountNameProps> = ({
   }
 
   const { displayName, link, slugWithPrefix } = getAccount(account);
-  const accountName = account?.metadata?.displayName || (
-    <Slug slug={slugWithPrefix} />
-  );
+  const accountName = account?.metadata?.name || <Slug slug={slugWithPrefix} />;
 
   return (
     <>

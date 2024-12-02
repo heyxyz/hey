@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Account } from "@hey/indexer";
+import { type Account, useAccountsAvailableQuery } from "@hey/indexer";
 import { Button, Card, CardHeader, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -29,11 +29,13 @@ const DefaultAccount: FC = () => {
     errorToast(error);
   };
 
-  const { data: accountsData, loading: accountsLoading } = useProfilesQuery({
-    variables: {
-      request: { where: { ownedBy: currentAccount?.owner } }
-    }
-  });
+  const { data: accountsData, loading: accountsLoading } =
+    useAccountsAvailableQuery({
+      variables: {
+        accountsAvailableRequest: { managedBy: currentAccount?.owner },
+        lastLoggedInAccountRequest: { address: currentAccount?.owner }
+      }
+    });
 
   const { data: defaultAccountData, loading: defaultAccountLoading } =
     useDefaultProfileQuery({
@@ -71,7 +73,7 @@ const DefaultAccount: FC = () => {
     );
   }
 
-  const accounts = accountsData?.profiles.items as Account[];
+  const accounts = accountsData?.accountsAvailable.items as Account[];
 
   return (
     <Card>
