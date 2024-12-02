@@ -63,7 +63,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
     variables: { request: { addresses } }
   });
 
-  const members = lensProfiles?.profiles.items || [];
+  const members = lensProfiles?.accounts || [];
 
   if (clubMembersLoading || lensProfilesLoading) {
     return (
@@ -108,7 +108,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
       <div className="divider" />
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, member) => `${member.id}-${index}`}
+        computeItemKey={(index, member) => `${member.address}-${index}`}
         data={members}
         itemContent={(_, member) => (
           <div className="p-5">
