@@ -39,11 +39,11 @@ const validateLensAccount = async (
           LIMIT 1
         ) AS exists;
       `,
-      [payload.id, payload.authorizationId]
+      [payload.id, payload.authenticationId]
     );
 
     if (authentication[0]?.exists) {
-      await setRedis(cacheKey, payload.authorizationId);
+      await setRedis(cacheKey, payload.authenticationId);
       return next();
     }
 

@@ -18,7 +18,7 @@ describe("parseJwt", () => {
     const token = "invalid_token";
     const result = parseJwt(token);
     expect(result).toEqual({
-      authorizationId: "",
+      authenticationId: "",
       evmAddress: "",
       exp: 0,
       iat: 0,
@@ -42,7 +42,7 @@ describe("parseJwt", () => {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.invalid_payload.FEM9X7UJMvEHAJZN4flpqOeTm-K-p8QHjaEoYsN2Z-8";
     const result = parseJwt(token);
     expect(result).toEqual({
-      authorizationId: "",
+      authenticationId: "",
       evmAddress: "",
       exp: 0,
       iat: 0,

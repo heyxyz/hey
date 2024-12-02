@@ -1,8 +1,8 @@
-import type { Account, MeResult } from "@hey/indexer";
+import type { Account } from "@hey/indexer";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
-  account: null | Account | MeResult,
+  account: Account | null,
   source?: string
 ): {
   displayName: string;

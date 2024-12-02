@@ -8,7 +8,7 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
-import type { Account } from "@hey/indexer";
+import { useAccountsQuery, type Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -18,10 +18,10 @@ interface SplitsProps {
 }
 
 const Splits: FC<SplitsProps> = ({ recipients }) => {
-  const { data: recipientProfilesData, loading } = useProfilesQuery({
+  const { data: recipientProfilesData, loading } = useAccountsQuery({
     skip: !recipients?.length,
     variables: {
-      request: { where: { ownedBy: recipients?.map((r) => r.recipient) } }
+      request: { addresses: recipients?.map((r) => r.recipient) }
     }
   });
 
@@ -29,10 +29,10 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
     return null;
   }
 
-  const getProfileByAddress = (address: string) => {
-    const profiles = recipientProfilesData?.profiles?.items;
-    if (profiles) {
-      return profiles.find((p) => p.owner === address);
+  const getAccountByAddress = (address: string) => {
+    const accounts = recipientProfilesData?.accounts;
+    if (accounts) {
+      return accounts.find((a) => a.address === address);
     }
   };
 
@@ -41,7 +41,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
       <div className="mb-2 font-bold">Fee recipients</div>
       {recipients.map((recipient) => {
         const { recipient: address, split } = recipient;
-        const account = getProfileByAddress(address) as Account;
+        const account = getAccountByAddress(address);
 
         if (address === COLLECT_FEES_ADDRESS) {
           return (

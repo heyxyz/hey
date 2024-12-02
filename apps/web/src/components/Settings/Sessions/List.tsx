@@ -5,6 +5,12 @@ import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { SETTINGS } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
+import {
+  type AuthenticatedSessionsRequest,
+  PageSize,
+  useAuthenticatedSessionsQuery,
+  useRevokeAuthenticationMutation
+} from "@hey/indexer";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -42,33 +48,31 @@ const List: FC = () => {
     }
   });
 
-  const handleRevoke = async (authorizationId: string) => {
+  const handleRevoke = async (authenticationId: string) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
 
     try {
       setRevoking(true);
-      setRevokeingSessionId(authorizationId);
+      setRevokeingSessionId(authenticationId);
 
       return await revokeAuthentication({
-        variables: { request: { authorizationId } }
+        variables: { request: { authenticationId } }
       });
     } catch (error) {
       onError(error);
     }
   };
 
-  const request: ApprovedAuthenticationRequest = {
-    limit: LimitType.TwentyFive
-  };
-  const { data, error, fetchMore, loading } = useApprovedAuthenticationsQuery({
+  const request: AuthenticatedSessionsRequest = { pageSize: PageSize.Fifty };
+  const { data, error, fetchMore, loading } = useAuthenticatedSessionsQuery({
     skip: !currentAccount?.address,
     variables: { request }
   });
 
-  const approvedAuthentications = data?.approvedAuthentications?.items;
-  const pageInfo = data?.approvedAuthentications?.pageInfo;
+  const authenticatedSessions = data?.authenticatedSessions?.items;
+  const pageInfo = data?.authenticatedSessions?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -87,7 +91,7 @@ const List: FC = () => {
     return <ErrorMessage error={error} title="Failed to load sessions" />;
   }
 
-  if (approvedAuthentications?.length === 0) {
+  if (authenticatedSessions?.length === 0) {
     return (
       <EmptyState
         hideCard
@@ -100,8 +104,10 @@ const List: FC = () => {
   return (
     <Virtuoso
       className="virtual-divider-list-window"
-      computeItemKey={(index, session) => `${session.authorizationId}-${index}`}
-      data={approvedAuthentications}
+      computeItemKey={(index, session) =>
+        `${session.authenticationId}-${index}`
+      }
+      data={authenticatedSessions}
       endReached={onEndReached}
       itemContent={(_, session) => (
         <div className="flex flex-wrap items-start justify-between p-5">
@@ -135,9 +141,9 @@ const List: FC = () => {
           </div>
           <Button
             disabled={
-              revoking && revokeingSessionId === session.authorizationId
+              revoking && revokeingSessionId === session.authenticationId
             }
-            onClick={() => handleRevoke(session.authorizationId)}
+            onClick={() => handleRevoke(session.authenticationId)}
           >
             Revoke
           </Button>

@@ -5397,6 +5397,13 @@ export type ReportAccountMutationVariables = Exact<{
 
 export type ReportAccountMutation = { __typename?: 'Mutation', reportAccount: any };
 
+export type RevokeAuthenticationMutationVariables = Exact<{
+  request: RevokeAuthenticationRequest;
+}>;
+
+
+export type RevokeAuthenticationMutation = { __typename?: 'Mutation', revokeAuthentication: any };
+
 export type SetAccountMetadataMutationVariables = Exact<{
   request: SetAccountMetadataRequest;
 }>;
@@ -6098,6 +6105,33 @@ export function useReportAccountMutation(baseOptions?: Apollo.MutationHookOption
 export type ReportAccountMutationHookResult = ReturnType<typeof useReportAccountMutation>;
 export type ReportAccountMutationResult = Apollo.MutationResult<ReportAccountMutation>;
 export type ReportAccountMutationOptions = Apollo.BaseMutationOptions<ReportAccountMutation, ReportAccountMutationVariables>;
+export const RevokeAuthenticationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RevokeAuthentication"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RevokeAuthenticationRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"revokeAuthentication"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type RevokeAuthenticationMutationFn = Apollo.MutationFunction<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>;
+
+/**
+ * __useRevokeAuthenticationMutation__
+ *
+ * To run a mutation, you first call `useRevokeAuthenticationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRevokeAuthenticationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [revokeAuthenticationMutation, { data, loading, error }] = useRevokeAuthenticationMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRevokeAuthenticationMutation(baseOptions?: Apollo.MutationHookOptions<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>(RevokeAuthenticationDocument, options);
+      }
+export type RevokeAuthenticationMutationHookResult = ReturnType<typeof useRevokeAuthenticationMutation>;
+export type RevokeAuthenticationMutationResult = Apollo.MutationResult<RevokeAuthenticationMutation>;
+export type RevokeAuthenticationMutationOptions = Apollo.BaseMutationOptions<RevokeAuthenticationMutation, RevokeAuthenticationMutationVariables>;
 export const SetAccountMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetAccountMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setAccountMetadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SetAccountMetadataResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type SetAccountMetadataMutationFn = Apollo.MutationFunction<SetAccountMetadataMutation, SetAccountMetadataMutationVariables>;
 

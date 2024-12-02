@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Account } from "@hey/indexer";
+import { type Account, useAccountsQuery } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -24,16 +24,16 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
     profiles: recentProfiles
   } = useSearchStore();
 
-  const { data, loading } = useProfilesQuery({
+  const { data, loading } = useAccountsQuery({
     skip: recentProfiles.length === 0,
-    variables: { request: { where: { profileIds: recentProfiles } } }
+    variables: { request: { addresses: recentProfiles } }
   });
 
   if (recentProfiles.length === 0) {
     return null;
   }
 
-  const profiles = data?.profiles?.items || [];
+  const accounts = data?.accounts || [];
 
   return (
     <div>
@@ -53,7 +53,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               <H6 className="ld-text-gray-500">Clear all</H6>
             </button>
           </div>
-          {profiles.map((account) => (
+          {accounts.map((account) => (
             <div
               className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               key={account.address}

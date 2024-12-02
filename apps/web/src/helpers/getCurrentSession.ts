@@ -6,7 +6,7 @@ import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
  * @returns {Object} Current session
  */
 const getCurrentSession = (): {
-  authorizationId: string;
+  authenticationId: string;
   evmAddress: string;
   id: string;
 } => {
@@ -14,7 +14,7 @@ const getCurrentSession = (): {
   const currentSession = parseJwt(accessToken || "");
 
   return {
-    authorizationId: currentSession?.authorizationId,
+    authenticationId: currentSession?.authenticationId,
     evmAddress: currentSession?.evmAddress,
     id: currentSession?.id
   };
