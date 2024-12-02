@@ -5,16 +5,17 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface NotInterestedProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ post }) => {
-  const notInterested = post.operations.isNotInterested;
+  const notInterested = post.operations?.isNotInterested;
 
   const request: PublicationNotInterestedRequest = {
     on: post.id

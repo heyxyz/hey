@@ -6,22 +6,23 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import {
+  type Post,
+  useHideReplyMutation,
+  useUnhideReplyMutation
+} from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface HideCommentProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const HideComment: FC<HideCommentProps> = ({ post }) => {
   const { currentAccount } = useAccountStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
-
-  const request: HideCommentRequest | UnhideCommentRequest = {
-    for: post.id
-  };
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.evict({ id: cache.identify(post) });
@@ -31,7 +32,7 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
     errorToast(error);
   };
 
-  const [hideComment] = useHideCommentMutation({
+  const [hideComment] = useHideReplyMutation({
     onCompleted: () => {
       toast.success("Comment hidden");
       Leafwatch.track(POST.TOGGLE_HIDE_COMMENT, {
@@ -41,10 +42,10 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
     },
     onError,
     update: updateCache,
-    variables: { request }
+    variables: { request: { post: post.id } }
   });
 
-  const [unhideComment] = useUnhideCommentMutation({
+  const [unhideComment] = useUnhideReplyMutation({
     onCompleted: () => {
       toast.success("Comment unhidden");
       Leafwatch.track(POST.TOGGLE_HIDE_COMMENT, {
@@ -54,10 +55,10 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
     },
     onError,
     update: updateCache,
-    variables: { request }
+    variables: { request: { post: post.id } }
   });
 
-  const canHideComment = currentAccount?.address !== post?.by?.id;
+  const canHideComment = currentAccount?.address !== post?.author?.address;
 
   if (!canHideComment) {
     return null;

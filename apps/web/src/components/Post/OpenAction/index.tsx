@@ -4,13 +4,14 @@ import { POST } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
+import type { Post } from "@hey/indexer";
 import { Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 import CollectModule from "./CollectModule";
 
 interface OpenActionProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const OpenAction: FC<OpenActionProps> = ({ post }) => {

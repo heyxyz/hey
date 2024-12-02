@@ -3,6 +3,7 @@ import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCol
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { POST } from "@hey/data/tracking";
 import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import type { Post } from "@hey/indexer";
 import { Button, Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
@@ -10,7 +11,7 @@ import { useState } from "react";
 import CollectModule from "./CollectModule";
 
 interface CollectProps {
-  post: MirrorablePublication;
+  post: Post;
 }
 
 const Collect: FC<CollectProps> = ({ post }) => {
@@ -21,7 +22,7 @@ const Collect: FC<CollectProps> = ({ post }) => {
   );
 
   const hasActed =
-    post.operations.hasActed.value || hasOptimisticallyCollected(post.id);
+    post.operations?.hasActed.value || hasOptimisticallyCollected(post.id);
 
   if (!enabled) {
     return null;

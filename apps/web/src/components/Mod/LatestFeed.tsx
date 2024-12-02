@@ -3,7 +3,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { IS_MAINNET } from "@hey/data/constants";
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPost, Post } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect } from "react";
@@ -93,7 +93,7 @@ const LatestFeed: FC = () => {
             showThread={false}
           />
           <div className="divider" />
-          <HigherActions post={post as MirrorablePublication} />
+          <HigherActions post={post as Post} />
         </Card>
       )}
       useWindowScroll

@@ -13,6 +13,7 @@ import {
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
+import type { Post } from "@hey/indexer";
 import type { AllowedToken } from "@hey/types/hey";
 import { Button, H6, HelpTooltip, Input, Select, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -42,7 +43,7 @@ const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
 interface ActionProps {
   closePopover: () => void;
-  post: MirrorablePublication;
+  post: Post;
   triggerConfetti: () => void;
 }
 
@@ -170,7 +171,7 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
           post.author.owner,
           finalRate,
           currentAccount?.address,
-          post.author.id,
+          post.author.address,
           post.id.split("-")[1]
         ],
         functionName: "tip"
