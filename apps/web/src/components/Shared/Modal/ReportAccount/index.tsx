@@ -5,7 +5,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Account } from "@hey/indexer";
+import type { Account, AccountReportReason } from "@hey/indexer";
 import { useReportAccountMutation } from "@hey/indexer";
 import {
   Button,
@@ -24,7 +24,7 @@ import { object, string, type z } from "zod";
 import Reason from "./Reason";
 
 const reportReportAccountSchema = object({
-  additionalComments: string().max(260, {
+  additionalComment: string().max(260, {
     message: "Additional comments should not exceed 260 characters"
   })
 });
@@ -35,8 +35,7 @@ interface ReportAccountProps {
 
 const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
   const { isSuspended } = useAccountStatus();
-  const [type, setType] = useState("");
-  const [subReason, setSubReason] = useState("");
+  const [reason, setReason] = useState("");
 
   const form = useZodForm({
     schema: reportReportAccountSchema
@@ -52,7 +51,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
   });
 
   const reportProfile = async ({
-    additionalComments
+    additionalComment
   }: z.infer<typeof reportReportAccountSchema>) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
@@ -62,9 +61,9 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
       return await createReport({
         variables: {
           request: {
-            additionalComments,
+            additionalComment,
             account: account?.address,
-            reason: type
+            reason: reason as AccountReportReason
           }
         }
       });
@@ -75,7 +74,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
 
   return (
     <div onClick={stopEventPropagation}>
-      {submitData?.reportProfile === null ? (
+      {submitData?.reportAccount === null ? (
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
@@ -96,18 +95,13 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
             {submitError ? (
               <ErrorMessage error={submitError} title="Failed to report" />
             ) : null}
-            <Reason
-              setSubReason={setSubReason}
-              setType={setType}
-              subReason={subReason}
-              type={type}
-            />
-            {subReason ? (
+            <Reason setReason={setReason} reason={reason} />
+            {reason ? (
               <>
                 <TextArea
                   label="Description"
                   placeholder="Please provide additional details"
-                  {...form.register("additionalComments")}
+                  {...form.register("additionalComment")}
                 />
                 <Button
                   className="flex w-full justify-center"

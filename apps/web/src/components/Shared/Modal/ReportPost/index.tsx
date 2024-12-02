@@ -4,6 +4,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import { type PostReportReason, useReportPostMutation } from "@hey/indexer";
 import {
   Button,
   EmptyState,
@@ -20,7 +21,7 @@ import { object, string, type z } from "zod";
 import Reason from "./Reason";
 
 const newReportPostSchema = object({
-  additionalComments: string().max(260, {
+  additionalComment: string().max(260, {
     message: "Additional comments should not exceed 260 characters"
   })
 });
@@ -41,14 +42,14 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
   const [
     createReport,
     { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportPublicationMutation({
+  ] = useReportPostMutation({
     onCompleted: () => {
       Leafwatch.track(POST.REPORT, { postId: postId });
     }
   });
 
   const reportPost = async ({
-    additionalComments
+    additionalComment
   }: z.infer<typeof newReportPostSchema>) => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
@@ -58,14 +59,9 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
       return await createReport({
         variables: {
           request: {
-            additionalComments,
-            for: postId,
-            reason: {
-              [type]: {
-                reason: type.replace("Reason", "").toUpperCase(),
-                subreason: subReason
-              }
-            }
+            additionalComment,
+            post: postId,
+            reason: type as PostReportReason
           }
         }
       });
@@ -76,7 +72,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
 
   return (
     <div onClick={stopEventPropagation}>
-      {submitData?.reportPublication === null ? (
+      {submitData?.reportPost === null ? (
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
@@ -99,7 +95,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
                 <TextArea
                   label="Description"
                   placeholder="Please provide additional details"
-                  {...form.register("additionalComments")}
+                  {...form.register("additionalComment")}
                 />
                 <Button
                   className="flex w-full justify-center"
