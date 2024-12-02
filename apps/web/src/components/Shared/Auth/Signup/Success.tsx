@@ -3,7 +3,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { AUTH } from "@hey/data/tracking";
-import { useChallengeMutation } from "@hey/indexer";
+import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import { Button, H4, Spinner } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -34,7 +34,9 @@ const Success: FC = () => {
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { for: accountAddress, signedBy: address } }
+        variables: {
+          request: { accountOwner: { account: accountAddress, owner: address } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
