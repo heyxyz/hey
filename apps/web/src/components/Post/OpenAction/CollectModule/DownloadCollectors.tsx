@@ -26,7 +26,7 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
     return null;
   }
 
-  if (currentAccount?.address !== post.by.id) {
+  if (currentAccount?.address !== post.author.address) {
     return null;
   }
 

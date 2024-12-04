@@ -4,6 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
   PageSize,
+  type Post,
   PostReferenceType,
   type PostReferencesRequest,
   PostVisibilityFilter,
@@ -37,7 +38,10 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
 
   const { data, fetchMore } = usePostReferencesQuery({
     onCompleted: async ({ postReferences }) => {
-      const ids = postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -55,7 +59,10 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        data?.postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
@@ -72,7 +79,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
         onClick={() => setShowMore(!showMore)}
       >
         <StackedAvatars
-          avatars={comments.map((comment) => getAvatar(comment.by))}
+          avatars={comments.map((comment) => getAvatar(comment.author))}
           limit={5}
         />
         <div>{showMore ? "Hide more comments" : "Show more comments"}</div>
@@ -92,7 +99,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {
-              if (comment.__typename !== "Comment" || comment.isDeleted) {
+              if (comment.isDeleted) {
                 return null;
               }
 
@@ -103,7 +110,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
                 <SinglePost
                   isFirst={isFirst}
                   isLast={isLast}
-                  post={comment as Comment}
+                  post={comment as Post}
                   showType={false}
                 />
               );

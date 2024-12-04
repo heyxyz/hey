@@ -38,9 +38,9 @@ const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
   const { data, error, fetchMore, loading } = usePostsQuery({
     onCompleted: async ({ posts }) => {
       const ids =
-        posts?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        posts?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -66,9 +66,9 @@ const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.posts?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        data?.posts?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }

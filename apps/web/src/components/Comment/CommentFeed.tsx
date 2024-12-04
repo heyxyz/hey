@@ -40,7 +40,10 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
     onCompleted: async ({ postReferences }) => {
-      const ids = postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -64,8 +67,8 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.postReferences?.items?.map((p) =>
-          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        data?.postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
         ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);

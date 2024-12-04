@@ -20,7 +20,6 @@ import { memo, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Checkin from "./Checkin";
-import EncryptedPost from "./EncryptedPost";
 import Metadata from "./Metadata";
 import MutedPost from "./MutedPost";
 import NotSupportedPost from "./NotSupportedPost";
@@ -62,10 +61,6 @@ const PostBody: FC<PostBodyProps> = ({
     }
   }
 
-  if (targetPost.isEncrypted) {
-    return <EncryptedPost />;
-  }
-
   if (!isPostMetadataTypeAllowed(metadata.__typename)) {
     return <NotSupportedPost type={metadata.__typename} />;
   }
@@ -85,7 +80,7 @@ const PostBody: FC<PostBodyProps> = ({
   // Show checking in
   const showCheckin = metadata.__typename === "CheckingInMetadata";
   // Show quote
-  const showQuote = targetPost.__typename === "Quote";
+  const showQuote = targetPost.quoteOf;
   // Show oembed if no NFT, no attachments, no quoted post
   const hideOembed =
     getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
@@ -150,7 +145,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showSharingLink ? (
         <Oembed post={targetPost} url={metadata.sharingLink} />
       ) : null}
-      {showQuote && <Quote post={targetPost.quoteOf} />}
+      {showQuote ? <Quote post={targetPost.quoteOf} /> : null}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );
