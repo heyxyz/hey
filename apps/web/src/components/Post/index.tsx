@@ -13,7 +13,14 @@ import { AccountLinkSource, PAGEVIEW } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import {
+  type AnyPost,
+  PageSize,
+  PostReferenceType,
+  PostVisibilityFilter,
+  usePostQuery,
+  usePostReferencesQuery
+} from "@hey/indexer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
@@ -65,30 +72,30 @@ const ViewPost: NextPage = () => {
     });
   }, []);
 
-  const { data, error, loading } = usePublicationQuery({
+  const { data, error, loading } = usePostQuery({
     skip: !id || preLoadedPost?.id,
-    variables: { request: { forId: id } }
+    variables: { request: { post: id } }
   });
 
-  const { data: comments } = usePublicationsQuery({
+  const { data: comments } = usePostReferencesQuery({
     skip: !id,
     variables: {
       request: {
-        limit: LimitType.Ten,
-        where: {
-          commentOn: { hiddenComments: HiddenCommentsType.HiddenOnly, id }
-        }
+        pageSize: PageSize.Fifty,
+        referencedPost: id,
+        visibilityFilter: PostVisibilityFilter.Hidden,
+        referenceTypes: [PostReferenceType.CommentOn]
       }
     }
   });
 
-  const hasHiddenComments = (comments?.publications.items.length || 0) > 0;
+  const hasHiddenComments = (comments?.postReferences.items.length || 0) > 0;
 
   if (!isReady || loading) {
     return <PublicationPageShimmer publicationList={showQuotes} />;
   }
 
-  if (!preLoadedPost && !data?.publication) {
+  if (!preLoadedPost && !data?.post) {
     return <Custom404 />;
   }
 
@@ -96,7 +103,7 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPost || (data?.publication as AnyPost);
+  const post = preLoadedPost || (data?.post as AnyPost);
   const targetPost = isRepost(post) ? post.repostOf : post;
   const suspended = isSuspended || isCommentSuspended;
 

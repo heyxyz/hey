@@ -3,6 +3,7 @@ import Loader from "@components/Shared/Loader";
 import { signatureFont } from "@helpers/fonts";
 import { APP_NAME, HEY_MEMBERSHIP_NFT_POST_ID } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { type Post, usePostQuery } from "@hey/indexer";
 import { ErrorMessage, H3 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -13,9 +14,9 @@ interface MintProps {
 }
 
 const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
-  const { data, error, loading } = usePublicationQuery({
+  const { data, error, loading } = usePostQuery({
     variables: {
-      request: { forId: HEY_MEMBERSHIP_NFT_POST_ID }
+      request: { post: HEY_MEMBERSHIP_NFT_POST_ID }
     }
   });
 
@@ -38,7 +39,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
     );
   }
 
-  const post = data?.publication as Post;
+  const post = data?.post as Post;
   const openAction = post.openActionModules[0];
 
   return (

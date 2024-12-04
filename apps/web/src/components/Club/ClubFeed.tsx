@@ -1,7 +1,12 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import type { AnyPost } from "@hey/indexer";
+import {
+  type AnyPost,
+  PageSize,
+  type PostsRequest,
+  usePostsQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
@@ -25,15 +30,15 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
     virtuosoState = { ranges: [], screenTop: 0 };
   }, [handle]);
 
-  const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
-    where: { metadata: { tags: { oneOf: [`orbcommunities${handle}`] } } }
+  const request: PostsRequest = {
+    pageSize: PageSize.Fifty,
+    filter: { metadata: { tags: { oneOf: [`orbcommunities${handle}`] } } }
   };
 
-  const { data, error, fetchMore, loading } = usePublicationsQuery({
-    onCompleted: async ({ publications }) => {
+  const { data, error, fetchMore, loading } = usePostsQuery({
+    onCompleted: async ({ posts }) => {
       const ids =
-        publications?.items?.map((p) => {
+        posts?.items?.map((p) => {
           return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
@@ -43,8 +48,8 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
     variables: { request }
   });
 
-  const posts = data?.publications?.items;
-  const pageInfo = data?.publications?.pageInfo;
+  const posts = data?.posts?.items;
+  const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onScrolling = (scrolling: boolean) => {
@@ -61,7 +66,7 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.publications?.items?.map((p) => {
+        data?.posts?.items?.map((p) => {
           return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
