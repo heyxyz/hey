@@ -30,7 +30,10 @@ const Posts: FC<PostsProps> = ({ query }) => {
 
   const { data, error, fetchMore, loading } = useSearchPostsQuery({
     onCompleted: async ({ searchPosts }) => {
-      const ids = searchPosts?.items?.map((p) => p.id) || [];
+      const ids =
+        searchPosts?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -55,7 +58,10 @@ const Posts: FC<PostsProps> = ({ query }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.searchPosts?.items?.map((p) => p.id) || [];
+      const ids =
+        data?.searchPosts?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
