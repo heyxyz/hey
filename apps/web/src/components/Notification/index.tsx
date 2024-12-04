@@ -2,7 +2,6 @@ import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import type { NotificationTabType } from "@hey/data/enums";
 import { NotificationFeedType } from "@hey/data/enums";
 import { PAGEVIEW } from "@hey/data/tracking";
 import type { NextPage } from "next";
@@ -46,7 +45,7 @@ const Notification: NextPage = () => {
       <MetaTags title={`Notifications • ${APP_NAME}`} />
       <div className="w-full max-w-4xl space-y-3">
         <div className="flex flex-wrap justify-between gap-3 pb-2">
-          <FeedType feedType={feedType as NotificationTabType} />
+          <FeedType feedType={feedType as NotificationFeedType} />
           <Settings />
         </div>
         <List feedType={feedType} />

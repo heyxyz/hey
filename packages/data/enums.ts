@@ -20,15 +20,7 @@ export enum AccountFeedType {
 
 export enum NotificationFeedType {
   All = "ALL",
-  Collects = "COLLECTS",
-  Comments = "COMMENTS",
-  Likes = "LIKES",
-  Mentions = "MENTIONS"
-}
-
-export enum NotificationTabType {
-  All = "ALL",
-  Collects = "COLLECTS",
+  Actions = "ACTIONS",
   Comments = "COMMENTS",
   Likes = "LIKES",
   Mentions = "MENTIONS"
