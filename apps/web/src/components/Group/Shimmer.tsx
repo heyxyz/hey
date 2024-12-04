@@ -3,11 +3,13 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
-interface ClubPageShimmerProps {
+interface GroupPageShimmerProps {
   profileList?: boolean;
 }
 
-const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
+const GroupPageShimmer: FC<GroupPageShimmerProps> = ({
+  profileList = false
+}) => {
   return (
     <>
       <div className="container mx-auto max-w-[1350px]">
@@ -50,4 +52,4 @@ const ClubPageShimmer: FC<ClubPageShimmerProps> = ({ profileList = false }) => {
   );
 };
 
-export default ClubPageShimmer;
+export default GroupPageShimmer;

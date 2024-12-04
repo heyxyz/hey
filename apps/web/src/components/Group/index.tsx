@@ -4,58 +4,47 @@ import Cover from "@components/Shared/Cover";
 import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { PAGEVIEW } from "@hey/data/tracking";
-import getClub, { GET_CLUB_QUERY_KEY } from "@hey/helpers/api/clubs/getClub";
+import { type Group, useGroupQuery } from "@hey/indexer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
-import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import ClubFeed from "./ClubFeed";
 import Details from "./Details";
+import GroupFeed from "./GroupFeed";
 import Members from "./Members";
-import ClubPageShimmer from "./Shimmer";
+import GroupPageShimmer from "./Shimmer";
 
-const ViewClub: NextPage = () => {
+const ViewGroup: NextPage = () => {
   const {
     isReady,
     pathname,
-    query: { handle }
+    query: { slug }
   } = useRouter();
   const { currentAccount } = useAccountStore();
 
-  const showMembers = pathname === "/c/[handle]/members";
+  const showMembers = pathname === "/g/[slug]/members";
 
   useEffect(() => {
     if (isReady) {
       Leafwatch.track(PAGEVIEW, {
-        page: "club",
-        subpage: pathname.replace("/c/[handle]", "")
+        page: "group",
+        subpage: pathname.replace("/g/[handle]", "")
       });
     }
-  }, [handle]);
+  }, [slug]);
 
-  const {
-    data: club,
-    error,
-    isLoading: clubLoading
-  } = useQuery({
-    enabled: Boolean(handle),
-    queryFn: () =>
-      getClub({
-        club_handle: handle as string,
-        profile_id: currentAccount?.address
-      }),
-    queryKey: [GET_CLUB_QUERY_KEY, handle]
+  const { data, loading, error } = useGroupQuery({
+    variables: { request: { group: slug } }
   });
 
-  if (!isReady || clubLoading) {
-    return <ClubPageShimmer profileList={showMembers} />;
+  if (!isReady || loading) {
+    return <GroupPageShimmer profileList={showMembers} />;
   }
 
-  if (!club) {
+  if (!data?.group) {
     return <Custom404 />;
   }
 
@@ -63,20 +52,24 @@ const ViewClub: NextPage = () => {
     return <Custom500 />;
   }
 
+  const group = data.group as Group;
+
   return (
     <>
       <MetaTags
-        description={club.description}
-        title={`${club.name} (/${club.handle}) • ${APP_NAME}`}
+        description={group.metadata?.description || ""}
+        title={`${group.metadata?.name} (/${group.metadata?.slug}) • ${APP_NAME}`}
       />
-      <Cover cover={club.cover || `${STATIC_IMAGES_URL}/patterns/2.svg`} />
+      <Cover
+        cover={group.metadata?.icon || `${STATIC_IMAGES_URL}/patterns/2.svg`}
+      />
       <GridLayout>
         <GridItemFour>
-          <Details club={club} />
+          <Details group={group} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
           {showMembers ? (
-            <Members clubId={club.id} handle={club.handle} />
+            <Members address={group.address} slug={group.metadata?.slug} />
           ) : (
             <>
               {currentAccount && club.isMember && (
@@ -87,7 +80,7 @@ const ViewClub: NextPage = () => {
                   ]}
                 />
               )}
-              <ClubFeed handle={club.handle} />
+              <GroupFeed handle={club.handle} />
             </>
           )}
         </GridItemEight>
@@ -96,4 +89,4 @@ const ViewClub: NextPage = () => {
   );
 };
 
-export default ViewClub;
+export default ViewGroup;
