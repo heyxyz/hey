@@ -1,0 +1,4 @@
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}

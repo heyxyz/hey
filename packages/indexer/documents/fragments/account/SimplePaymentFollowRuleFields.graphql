@@ -1,8 +1,5 @@
 fragment SimplePaymentFollowRuleFields on SimplePaymentFollowRule {
   amount {
-    asset {
-      ...AssetFields
-    }
-    value
+    ...AmountFields
   }
 }
