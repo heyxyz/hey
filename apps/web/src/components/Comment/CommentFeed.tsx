@@ -3,7 +3,6 @@ import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
 import {
   PageSize,
   type Post,
@@ -41,7 +40,10 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
     onCompleted: async ({ postReferences }) => {
-      const ids = postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -65,8 +67,8 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.postReferences?.items?.map((p) =>
-          isRepost(p) ? p.repostOf?.id : p.id
+        data?.postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
         ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);

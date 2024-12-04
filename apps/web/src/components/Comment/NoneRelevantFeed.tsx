@@ -37,7 +37,10 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
 
   const { data, fetchMore } = usePostReferencesQuery({
     onCompleted: async ({ postReferences }) => {
-      const ids = postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -55,7 +58,10 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        data?.postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }

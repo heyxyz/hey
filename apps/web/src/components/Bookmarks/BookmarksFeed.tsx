@@ -1,7 +1,6 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
   type MainContentFocus,
@@ -37,7 +36,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
     onCompleted: async ({ postBookmarks }) => {
       const ids =
         postBookmarks?.items?.map((post) =>
-          isRepost(post) ? post.repostOf?.id : post.id
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
         ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
@@ -63,8 +62,8 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.postBookmarks?.items?.map((p) =>
-          isRepost(p) ? p.repostOf?.id : p.id
+        data?.postBookmarks?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
         ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);

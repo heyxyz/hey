@@ -34,7 +34,10 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
     onCompleted: async ({ postReferences }) => {
-      const ids = postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -51,7 +54,10 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        data?.postReferences?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }

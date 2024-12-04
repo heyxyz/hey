@@ -1,7 +1,6 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
   PageSize,
@@ -39,7 +38,9 @@ const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
   const { data, error, fetchMore, loading } = usePostsQuery({
     onCompleted: async ({ posts }) => {
       const ids =
-        posts?.items?.map((p) => (isRepost(p) ? p.repostOf?.id : p.id)) || [];
+        posts?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -65,8 +66,8 @@ const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.posts?.items?.map((p) =>
-          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        data?.posts?.items?.map((post) =>
+          post.__typename === "Repost" ? post.repostOf?.id : post.id
         ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
