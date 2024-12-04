@@ -5,6 +5,7 @@ const forYogi = true;
 const month = "1";
 const year = "2024";
 
+const lastInvoiceNumber = 1;
 const amountPerAccount = 33.87;
 const accounts = ["1", "2", "3"];
 
@@ -35,18 +36,21 @@ const data: InvoiceData = {
 };
 
 const generateInvoice = () => {
+  let invoiceNumber = lastInvoiceNumber;
   for (const account of accounts) {
     const dueDate = `${month}/${Math.floor(Math.random() * 30) + 1}/${year}`;
 
     const injectedData: InvoiceData = {
       ...data,
       client: { company: account },
-      information: { number: "1", dueDate }
+      information: { number: invoiceNumber.toString(), dueDate }
     };
 
     easyinvoice.createInvoice(injectedData, (result) => {
       fs.writeFileSync(`${account}.pdf`, result.pdf);
     });
+
+    invoiceNumber++;
   }
 };
 
