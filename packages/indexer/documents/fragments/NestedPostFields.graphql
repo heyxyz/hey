@@ -1,0 +1,8 @@
+fragment NestedPost on NestedPost {
+  ... on Post {
+    ...PostBaseFields
+  }
+  ... on PostReference {
+    id
+  }
+}

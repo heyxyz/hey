@@ -1,18 +1,12 @@
 fragment PostFields on Post {
   ...PostBaseFields
   root {
-    ... on Post {
-      ...PostBaseFields
-    }
+    ...NestedPost
   }
   commentOn {
-    ... on Post {
-      ...PostBaseFields
-    }
+    ...NestedPost
   }
   quoteOf {
-    ... on Post {
-      ...PostBaseFields
-    }
+    ...NestedPost
   }
 }

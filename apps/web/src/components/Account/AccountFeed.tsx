@@ -87,9 +87,9 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     onCompleted: async ({ posts }) => {
       const ids =
-        posts?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        posts?.items?.map((p) =>
+          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -121,9 +121,9 @@ const AccountFeed: FC<AccountFeedProps> = ({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.posts?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        data?.posts?.items?.map((p) =>
+          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
