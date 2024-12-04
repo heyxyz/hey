@@ -2,7 +2,14 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
-import { type AnyPost, MainContentFocus, usePostsQuery } from "@hey/indexer";
+import {
+  type AnyPost,
+  MainContentFocus,
+  PageSize,
+  PostType,
+  type PostsRequest,
+  usePostsQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
@@ -58,43 +65,31 @@ const AccountFeed: FC<AccountFeedProps> = ({
     return filters;
   };
 
-  const publicationTypes: PublicationType[] =
+  const postTypes: PostType[] =
     type === AccountFeedType.Feed
-      ? [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote]
+      ? [PostType.Root, PostType.Repost, PostType.Quote]
       : type === AccountFeedType.Replies
-        ? [PublicationType.Comment]
+        ? [PostType.Comment]
         : type === AccountFeedType.Media
-          ? [
-              PublicationType.Post,
-              PublicationType.Comment,
-              PublicationType.Quote
-            ]
-          : [
-              PublicationType.Post,
-              PublicationType.Comment,
-              PublicationType.Mirror
-            ];
+          ? [PostType.Root, PostType.Comment, PostType.Quote]
+          : [PostType.Root, PostType.Comment, PostType.Repost, PostType.Quote];
+
   const metadata =
     type === AccountFeedType.Media
       ? { mainContentFocus: getMediaFilters() }
       : null;
-  const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
-    where: {
-      metadata,
-      publicationTypes,
-      ...(type !== AccountFeedType.Collects
-        ? { from: [address] }
-        : { actedBy: address })
-    }
+
+  const request: PostsRequest = {
+    pageSize: PageSize.Fifty,
+    filter: { metadata, postTypes, authors: [address] }
   };
 
   const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     onCompleted: async ({ posts }) => {
       const ids =
-        posts?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        posts?.items?.map((p) =>
+          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -126,9 +121,9 @@ const AccountFeed: FC<AccountFeedProps> = ({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.posts?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        data?.posts?.items?.map((p) =>
+          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
