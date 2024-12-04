@@ -4,10 +4,10 @@ mutation Unfollow($request: CreateUnfollowRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      reason
+      ...SelfFundedTransactionRequestFields
     }
     ... on SponsoredTransactionRequest {
-      reason
+      ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
       reason

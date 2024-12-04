@@ -1,12 +1,7 @@
 query PostReferences($request: PostReferencesRequest!) {
   postReferences(request: $request) {
     items {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Repost {
-        ...RepostFields
-      }
+      ...AnyPostFields
     }
     pageInfo {
       ...PaginatedResultInfoFields

@@ -1,0 +1,18 @@
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}

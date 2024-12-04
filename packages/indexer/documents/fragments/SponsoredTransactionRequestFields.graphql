@@ -1,0 +1,23 @@
+fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    gasPrice
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}
