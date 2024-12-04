@@ -3,6 +3,7 @@ import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { isRepost } from "@hey/helpers/postHelpers";
 import {
   PageSize,
   type Post,
@@ -65,7 +66,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
       });
       const ids =
         data?.postReferences?.items?.map((p) =>
-          p.__typename === "Repost" ? p.repostOf?.id : p.id
+          isRepost(p) ? p.repostOf?.id : p.id
         ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);

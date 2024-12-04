@@ -26,7 +26,9 @@ const PostType: FC<PostTypeProps> = ({
   return (
     <span onClick={stopEventPropagation}>
       {type === "Repost" ? <Reposted account={post.author} /> : null}
-      {type === "Comment" && (showThread || pathname === "/posts/[id]") ? (
+      {type === "Post" &&
+      post.commentOn &&
+      (showThread || pathname === "/posts/[id]") ? (
         <Commented post={post} />
       ) : null}
     </span>

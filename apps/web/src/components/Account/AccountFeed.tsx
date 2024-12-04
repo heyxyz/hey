@@ -2,6 +2,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
+import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
   MainContentFocus,
@@ -87,9 +88,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     onCompleted: async ({ posts }) => {
       const ids =
-        posts?.items?.map((p) =>
-          p.__typename === "Repost" ? p.repostOf?.id : p.id
-        ) || [];
+        posts?.items?.map((p) => (isRepost(p) ? p.repostOf?.id : p.id)) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -121,9 +120,8 @@ const AccountFeed: FC<AccountFeedProps> = ({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.posts?.items?.map((p) =>
-          p.__typename === "Repost" ? p.repostOf?.id : p.id
-        ) || [];
+        data?.posts?.items?.map((p) => (isRepost(p) ? p.repostOf?.id : p.id)) ||
+        [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
