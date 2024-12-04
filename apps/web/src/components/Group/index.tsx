@@ -14,7 +14,7 @@ import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
-import Members from "./Members";
+import Members from "../Shared/Modal/Members";
 import GroupPageShimmer from "./Shimmer";
 
 const ViewGroup: NextPage = () => {
