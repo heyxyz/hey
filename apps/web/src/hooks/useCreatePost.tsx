@@ -1,5 +1,3 @@
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import {
   type CreatePostRequest,
   type Post,
@@ -9,7 +7,6 @@ import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useWriteContract } from "wagmi";
 
 interface CreatePostProps {
   commentOn?: Post;
@@ -45,26 +42,6 @@ const useCreatePost = ({
           ? OptmisticPostType.Quote
           : OptmisticPostType.Post
     };
-  };
-
-  const { error, writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: (hash: string) => {
-        addTransaction(generateOptimisticPublication({ txHash: hash }));
-        onCompleted();
-      }
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      __mode: "prepared",
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: isComment ? "comment" : isQuote ? "quote" : "post"
-    });
   };
 
   // Onchain mutations

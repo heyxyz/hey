@@ -1,11 +1,9 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import { type Account, useUnfollowMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -17,7 +15,6 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useWriteContract } from "wagmi";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -83,25 +80,6 @@ const Unfollow: FC<UnfollowProps> = ({
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: (hash: string) => {
-        addTransaction(generateOptimisticUnfollow({ txHash: hash }));
-        onCompleted();
-      }
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "unfollow"
-    });
   };
 
   const [unfollow] = useUnfollowMutation({

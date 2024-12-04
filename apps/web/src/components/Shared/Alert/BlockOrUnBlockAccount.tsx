@@ -1,8 +1,6 @@
 import type { ApolloCache } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
@@ -14,7 +12,6 @@ import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useWriteContract } from "wagmi";
 
 const BlockOrUnBlockAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -63,19 +60,6 @@ const BlockOrUnBlockAccount: FC = () => {
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "setBlockStatus"
-    });
   };
 
   const [blockProfile] = useBlockMutation({
