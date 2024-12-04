@@ -6,17 +6,17 @@ import {
   HeartIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
-import { NotificationTabType } from "@hey/data/enums";
+import { NotificationFeedType } from "@hey/data/enums";
 import { NOTIFICATION } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { FC } from "react";
 
 interface FeedTypeProps {
-  feedType: NotificationTabType;
+  feedType: NotificationFeedType;
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
-  const handleSwitchTab = (type: NotificationTabType) => {
+  const handleSwitchTab = (type: NotificationFeedType) => {
     Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
       notification_type: type.toLowerCase()
     });
@@ -26,27 +26,27 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
     {
       icon: <BellIcon className="size-4" />,
       name: "All notifications",
-      type: NotificationTabType.All
+      type: NotificationFeedType.All
     },
     {
       icon: <AtSymbolIcon className="size-4" />,
       name: "Mentions",
-      type: NotificationTabType.Mentions
+      type: NotificationFeedType.Mentions
     },
     {
       icon: <ChatBubbleLeftIcon className="size-4" />,
       name: "Comments",
-      type: NotificationTabType.Comments
+      type: NotificationFeedType.Comments
     },
     {
       icon: <HeartIcon className="size-4" />,
       name: "Likes",
-      type: NotificationTabType.Likes
+      type: NotificationFeedType.Likes
     },
     {
       icon: <ShoppingBagIcon className="size-4" />,
       name: "Collects",
-      type: NotificationTabType.Collects
+      type: NotificationFeedType.Actions
     }
   ];
 

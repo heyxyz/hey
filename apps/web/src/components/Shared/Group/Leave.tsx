@@ -1,10 +1,7 @@
 import errorToast from "@helpers/errorToast";
-import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { HEY_API_URL } from "@hey/data/constants";
+import { useLeaveGroupMutation } from "@hey/indexer";
 import { Button } from "@hey/ui";
-import axios from "axios";
 import type { FC } from "react";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface LeaveProps {
@@ -14,30 +11,22 @@ interface LeaveProps {
 }
 
 const Leave: FC<LeaveProps> = ({ address, setJoined, small }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [leaveGroup, { loading }] = useLeaveGroupMutation();
 
   const handleLeave = async () => {
     try {
-      setIsLoading(true);
-      await axios.post(
-        `${HEY_API_URL}/clubs/leave`,
-        { address },
-        { headers: getAuthApiHeaders() }
-      );
-
+      await leaveGroup({ variables: { request: { group: address } } });
       setJoined(false);
-      toast.success("Left club");
+      toast.success("Left group");
     } catch (error) {
       errorToast(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <Button
       aria-label="Joined"
-      disabled={isLoading}
+      disabled={loading}
       onClick={handleLeave}
       outline
       size={small ? "sm" : "md"}

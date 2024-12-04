@@ -1,5 +1,5 @@
 import { BellIcon } from "@heroicons/react/24/outline";
-import { NotificationTabType } from "@hey/data/enums";
+import { NotificationFeedType } from "@hey/data/enums";
 import {
   type NotificationRequest,
   NotificationType,
@@ -34,15 +34,15 @@ const List: FC<ListProps> = ({ feedType }) => {
 
   const getNotificationType = () => {
     switch (feedType) {
-      case NotificationTabType.All:
+      case NotificationFeedType.All:
         return;
-      case NotificationTabType.Mentions:
+      case NotificationFeedType.Mentions:
         return [NotificationType.Mentioned];
-      case NotificationTabType.Comments:
+      case NotificationFeedType.Comments:
         return [NotificationType.Commented];
-      case NotificationTabType.Likes:
+      case NotificationFeedType.Likes:
         return [NotificationType.Reacted];
-      case NotificationTabType.Collects:
+      case NotificationFeedType.Actions:
         return [NotificationType.Acted];
       default:
         return;
