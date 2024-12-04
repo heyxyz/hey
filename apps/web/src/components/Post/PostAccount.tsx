@@ -9,7 +9,7 @@ import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import AccountPreview from "../Shared/AccountPreview";
 import Slug from "../Shared/Slug";
-import ClubHandle from "./ClubHandle";
+import GroupHandle from "./GroupHandle";
 
 interface PostAccountProps {
   account: Account;
@@ -59,7 +59,7 @@ const PostAccount: FC<PostAccountProps> = ({
           </Link>
         </span>
       ) : null}
-      <ClubHandle tags={tags} />
+      <GroupHandle tags={tags} />
       <Source publishedOn={source} />
     </div>
   );
