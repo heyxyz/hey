@@ -1,16 +1,12 @@
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { StarIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { LensHub } from "@hey/abis";
 import {
   ADDRESS_PLACEHOLDER,
   DEFAULT_COLLECT_TOKEN,
-  LENS_HUB,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import { SETTINGS } from "@hey/data/tracking";
 import {
   Button,
   Card,
@@ -23,11 +19,9 @@ import {
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useWriteContract } from "wagmi";
 import { object, string } from "zod";
 
 const newSuperFollowSchema = object({
@@ -45,7 +39,6 @@ const SuperFollow: FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
-  const handleWrongNetwork = useHandleWrongNetwork();
 
   const form = useZodForm({
     defaultValues: {
@@ -58,35 +51,9 @@ const SuperFollow: FC = () => {
     schema: newSuperFollowSchema
   });
 
-  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
-    if (__typename === "RelayError") {
-      return;
-    }
-
-    setIsLoading(false);
-    toast.success("Super follow updated");
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
-  };
-
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: () => onCompleted()
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "setFollowModule"
-    });
   };
 
   const handleSetSuperFollow = async (

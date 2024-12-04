@@ -4,12 +4,9 @@ import Loader from "@components/Shared/Loader";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { UserIcon } from "@heroicons/react/24/outline";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB, POLYGONSCAN_URL } from "@hey/data/constants";
+import { POLYGONSCAN_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { ACCOUNT } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getTokenImage from "@hey/helpers/getTokenImage";
@@ -24,7 +21,7 @@ import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { formatUnits } from "viem";
-import { useBalance, useWriteContract } from "wagmi";
+import { useBalance } from "wagmi";
 
 interface FollowModuleProps {
   account: Account;
@@ -55,40 +52,9 @@ const FollowModule: FC<FollowModuleProps> = ({
     });
   };
 
-  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
-    if (__typename === "RelayError") {
-      return;
-    }
-
-    updateCache();
-    setIsLoading(false);
-    setShowFollowModal(false);
-    toast.success("Followed");
-    Leafwatch.track(ACCOUNT.SUPER_FOLLOW, {
-      path: pathname,
-      target: account?.id
-    });
-  };
-
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: () => onCompleted()
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "follow"
-    });
   };
 
   const { data, loading } = useProfileQuery({

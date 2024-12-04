@@ -27,7 +27,7 @@ const Notification: NextPage = () => {
     NotificationFeedType.Mentions.toLowerCase(),
     NotificationFeedType.Comments.toLowerCase(),
     NotificationFeedType.Likes.toLowerCase(),
-    NotificationFeedType.Collects.toLowerCase()
+    NotificationFeedType.Actions.toLowerCase()
   ];
 
   const feedType = type
