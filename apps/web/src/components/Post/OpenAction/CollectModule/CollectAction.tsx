@@ -7,8 +7,6 @@ import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
@@ -24,7 +22,7 @@ import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
-import { useAccount, useBalance, useWriteContract } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
 
 interface CollectActionProps {
   buttonTitle?: string;
@@ -142,25 +140,6 @@ const CollectAction: FC<CollectActionProps> = ({
       amount,
       collectModule: openAction?.type,
       postId: post?.id
-    });
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: (hash: string) => {
-        addTransaction(generateOptimisticCollect({ txHash: hash }));
-        onCompleted();
-      }
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "act"
     });
   };
 

@@ -1,13 +1,8 @@
-import { useApolloClient } from "@apollo/client";
 import LazySingleAccount from "@components/Shared/LazySingleAccount";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import {
   type AccountManagersRequest,
   PageSize,
@@ -20,27 +15,10 @@ import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import type { Address } from "viem";
-import { useWriteContract } from "wagmi";
 
 const List: FC = () => {
   const { isSuspended } = useAccountStatus();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
-  const { cache } = useApolloClient();
-
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
-      return;
-    }
-
-    cache.evict({ id: `ProfilesManagedResult:${removingAddress}` });
-    toast.success("Manager removed");
-    Leafwatch.track(SETTINGS.MANAGER.REMOVE_MANAGER);
-  };
 
   const onError = (error: any) => {
     errorToast(error);
@@ -51,19 +29,6 @@ const List: FC = () => {
   const { data, error, fetchMore, loading } = useAccountManagersQuery({
     variables: { request }
   });
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "changeDelegatedExecutorsConfig"
-    });
-  };
 
   const handleRemoveManager = async (address: Address) => {
     if (isSuspended) {

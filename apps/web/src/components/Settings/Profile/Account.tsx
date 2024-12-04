@@ -5,11 +5,9 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { LensHub } from "@hey/abis";
 import {
   AVATAR,
   COVER,
-  LENS_HUB,
   METADATA_ENDPOINT,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
@@ -51,7 +49,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useWriteContract } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
@@ -124,19 +121,6 @@ const AccountSettingsForm: FC = () => {
   const onError = (error: any) => {
     setIsLoading(false);
     errorToast(error);
-  };
-
-  const { error, writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "setProfileMetadataURI"
-    });
   };
 
   const [setAccountMetadata] = useSetAccountMetadataMutation({

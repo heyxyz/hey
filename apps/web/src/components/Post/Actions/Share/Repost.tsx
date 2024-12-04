@@ -4,8 +4,6 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyMirrored from "@helpers/optimistic/hasOptimisticallyMirrored";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import {
@@ -23,7 +21,6 @@ import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useWriteContract } from "wagmi";
 
 interface RepostProps {
   isLoading: boolean;
@@ -91,25 +88,6 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     updateCache();
     toast.success("Post has been mirrored!");
     Leafwatch.track(POST.MIRROR, { postId: post.id });
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: (hash: string) => {
-        addTransaction(generateOptimisticMirror({ txHash: hash }));
-        onCompleted();
-      }
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "mirror"
-    });
   };
 
   // Onchain mutations

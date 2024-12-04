@@ -3,39 +3,19 @@ import LazySmallSingleAccount from "@components/Shared/LazySmallSingleAccount";
 import Loader from "@components/Shared/Loader";
 import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
-import { TokenHandleRegistry } from "@hey/abis";
-import { TOKEN_HANDLE_REGISTRY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useWriteContract } from "wagmi";
 
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [linkingHandle, setLinkingHandle] = useState<null | string>(null);
-
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
-      return;
-    }
-
-    setLinkingHandle(null);
-    toast.success("Handle linked");
-    Leafwatch.track(SETTINGS.HANDLE.LINK);
-  };
 
   const onError = (error: any) => {
     setLinkingHandle(null);
@@ -45,40 +25,6 @@ const LinkHandle: FC = () => {
   const { data, loading } = useOwnedHandlesQuery({
     variables: { request: { for: currentAccount?.owner } }
   });
-
-  const { data: writeHash, writeContractAsync } = useWriteContract({
-    mutation: { onError, onSuccess: () => onCompleted() }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: TokenHandleRegistry,
-      address: TOKEN_HANDLE_REGISTRY,
-      args,
-      functionName: "link"
-    });
-  };
-
-  const [linkHandleToProfile, { data: linkHandleToProfileData }] =
-    useLinkHandleToProfileMutation({
-      onCompleted: ({ linkHandleToProfile }) =>
-        onCompleted(linkHandleToProfile.__typename),
-      onError
-    });
-
-  const linkHandleToProfileViaLensManager = async (
-    request: LinkHandleToProfileRequest
-  ) => {
-    const { data } = await linkHandleToProfile({ variables: { request } });
-
-    if (
-      data?.linkHandleToProfile.__typename === "LensProfileManagerRelayError"
-    ) {
-      return await createLinkHandleToProfileTypedData({
-        variables: { request }
-      });
-    }
-  };
 
   const handleLink = async (handle: string) => {
     if (!currentAccount) {
