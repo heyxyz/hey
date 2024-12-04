@@ -47,7 +47,7 @@ export const POST = {
   },
   BOOKMARK: "Bookmark post",
   CLICK_CASHTAG: "Click post cashtag",
-  CLICK_CLUB: "Click post club",
+  CLICK_GROUP: "Click post group",
   CLICK_FRAME_BUTTON: "Click post frame button",
   CLICK_HASHTAG: "Click post hashtag",
   CLICK_MENTION: "Click post mention",
@@ -240,7 +240,7 @@ export const ALL_EVENTS = {
 };
 
 export enum AccountLinkSource {
-  ClubMembers = "club-members",
+  GroupMembers = "group-members",
   Collects = "collects",
   Followers = "followers",
   Following = "following",

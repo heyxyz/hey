@@ -10,15 +10,15 @@ import {
 } from "prosekit/react/autocomplete";
 import type { FC } from "react";
 import { useState } from "react";
-import type { ClubProfile } from "src/hooks/prosekit/useClubQuery";
-import useClubQuery from "src/hooks/prosekit/useClubQuery";
+import type { GroupProfile } from "src/hooks/prosekit/useGroupQuery";
+import useGroupQuery from "src/hooks/prosekit/useGroupQuery";
 
-interface ClubItemProps {
-  club: ClubProfile;
+interface GroupItemProps {
+  group: GroupProfile;
   onSelect: VoidFunction;
 }
 
-const ClubItem: FC<ClubItemProps> = ({ club, onSelect }) => {
+const GroupItem: FC<GroupItemProps> = ({ group, onSelect }) => {
   return (
     <div className="m-0 p-0">
       <AutocompleteItem
@@ -26,31 +26,31 @@ const ClubItem: FC<ClubItemProps> = ({ club, onSelect }) => {
         onSelect={onSelect}
       >
         <Image
-          alt={club.handle}
+          alt={group.handle}
           className="size-7 rounded-full border bg-gray-200 dark:border-gray-700"
           height="28"
-          src={club.picture}
+          src={group.picture}
           width="28"
         />
         <div className="flex flex-col truncate">
-          <span>{club.name}</span>
-          <span className="text-xs">{club.displayHandle}</span>
+          <span>{group.name}</span>
+          <span className="text-xs">{group.handle}</span>
         </div>
       </AutocompleteItem>
     </div>
   );
 };
 
-const ClubPicker: FC = () => {
+const GroupPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
   const [queryString, setQueryString] = useState<string>("");
-  const results = useClubQuery(queryString);
+  const results = useGroupQuery(queryString);
 
-  const handleClubInsert = (club: ClubProfile) => {
+  const handleGroupInsert = (group: GroupProfile) => {
     editor.commands.insertMention({
-      id: club.id.toString(),
-      kind: "club",
-      value: club.displayHandle
+      id: group.address,
+      kind: "group",
+      value: group.handle
     });
     editor.commands.insertText({ text: " " });
   };
@@ -63,14 +63,14 @@ const ClubPicker: FC = () => {
       )}
       offset={10}
       onQueryChange={setQueryString}
-      regex={EditorRegex.club}
+      regex={EditorRegex.group}
     >
       <AutocompleteList className="divide-y dark:divide-gray-700" filter={null}>
-        {results.map((club) => (
-          <ClubItem
-            club={club}
-            key={club.id}
-            onSelect={() => handleClubInsert(club)}
+        {results.map((group) => (
+          <GroupItem
+            group={group}
+            key={group.address}
+            onSelect={() => handleGroupInsert(group)}
           />
         ))}
       </AutocompleteList>
@@ -78,4 +78,4 @@ const ClubPicker: FC = () => {
   );
 };
 
-export default ClubPicker;
+export default GroupPicker;
