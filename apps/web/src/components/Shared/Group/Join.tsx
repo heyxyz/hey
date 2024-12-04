@@ -1,10 +1,7 @@
 import errorToast from "@helpers/errorToast";
-import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { HEY_API_URL } from "@hey/data/constants";
+import { useJoinGroupMutation } from "@hey/indexer";
 import { Button } from "@hey/ui";
-import axios from "axios";
 import type { FC } from "react";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface JoinProps {
@@ -14,30 +11,22 @@ interface JoinProps {
 }
 
 const Join: FC<JoinProps> = ({ address, setJoined, small }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [joinGroup, { loading }] = useJoinGroupMutation();
 
   const handleJoin = async () => {
     try {
-      setIsLoading(true);
-      await axios.post(
-        `${HEY_API_URL}/clubs/join`,
-        { address },
-        { headers: getAuthApiHeaders() }
-      );
-
+      await joinGroup({ variables: { request: { group: address } } });
       setJoined(true);
       toast.success("Joined group");
     } catch (error) {
       errorToast(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <Button
       aria-label="Join"
-      disabled={isLoading}
+      disabled={loading}
       onClick={handleJoin}
       outline
       size={small ? "sm" : "md"}
