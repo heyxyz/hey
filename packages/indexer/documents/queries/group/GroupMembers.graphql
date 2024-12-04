@@ -3,5 +3,8 @@ query GroupMembers($request: GroupMembersRequest!) {
     items {
       ...AccountFields
     }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
   }
 }
