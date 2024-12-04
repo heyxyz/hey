@@ -1,7 +1,7 @@
 fragment ReactionNotificationFields on ReactionNotification {
   id
   post {
-    ...PostFields
+    ...AnyPostFields
   }
   reactions {
     account {

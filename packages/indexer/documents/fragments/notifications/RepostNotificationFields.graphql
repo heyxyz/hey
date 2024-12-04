@@ -1,7 +1,7 @@
 fragment RepostNotificationFields on RepostNotification {
   id
   post {
-    ...PostFields
+    ...AnyPostFields
   }
   reposts {
     account {
