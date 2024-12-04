@@ -4,6 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
   PageSize,
+  type Post,
   PostReferenceType,
   type PostReferencesRequest,
   PostVisibilityFilter,
@@ -78,7 +79,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
         onClick={() => setShowMore(!showMore)}
       >
         <StackedAvatars
-          avatars={comments.map((comment) => getAvatar(comment.by))}
+          avatars={comments.map((comment) => getAvatar(comment.author))}
           limit={5}
         />
         <div>{showMore ? "Hide more comments" : "Show more comments"}</div>
@@ -98,7 +99,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {
-              if (comment.__typename !== "Comment" || comment.isDeleted) {
+              if (comment.isDeleted) {
                 return null;
               }
 
@@ -109,7 +110,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
                 <SinglePost
                   isFirst={isFirst}
                   isLast={isLast}
-                  post={comment as Comment}
+                  post={comment as Post}
                   showType={false}
                 />
               );
