@@ -3,11 +3,11 @@ mutation SetAccountMetadata($request: SetAccountMetadataRequest!) {
     ... on SetAccountMetadataResponse {
       hash
     }
-    ... on SponsoredTransactionRequest {
-      reason
-    }
     ... on SelfFundedTransactionRequest {
-      reason
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
       reason

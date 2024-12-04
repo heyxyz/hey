@@ -4,10 +4,10 @@ mutation Repost($request: CreateRepostRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      reason
+      ...SelfFundedTransactionRequestFields
     }
     ... on SponsoredTransactionRequest {
-      reason
+      ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
       reason

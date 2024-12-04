@@ -4,10 +4,10 @@ mutation AssignUsernameToAccount($request: AssignUsernameToAccountRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      reason
+      ...SelfFundedTransactionRequestFields
     }
     ... on SponsoredTransactionRequest {
-      reason
+      ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
       reason

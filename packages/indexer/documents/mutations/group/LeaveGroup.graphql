@@ -4,10 +4,10 @@ mutation LeaveGroup($request: LeaveGroupRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      reason
+      ...SelfFundedTransactionRequestFields
     }
     ... on SponsoredTransactionRequest {
-      reason
+      ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
       reason
