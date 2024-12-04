@@ -3,6 +3,13 @@ import {
   ArrowLeftIcon,
   ChatBubbleBottomCenterTextIcon
 } from "@heroicons/react/24/outline";
+import {
+  PageSize,
+  type Post,
+  PostReferenceType,
+  type PostReferencesRequest,
+  usePostReferencesQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -19,17 +26,15 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
 
-  const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
-    where: {
-      customFilters: [CustomFiltersType.Gardeners],
-      quoteOf: postId
-    }
+  const request: PostReferencesRequest = {
+    pageSize: PageSize.Fifty,
+    referenceTypes: [PostReferenceType.QuoteOf],
+    referencedPost: postId
   };
 
-  const { data, error, fetchMore, loading } = usePublicationsQuery({
-    onCompleted: async ({ publications }) => {
-      const ids = publications?.items?.map((p) => p.id) || [];
+  const { data, error, fetchMore, loading } = usePostReferencesQuery({
+    onCompleted: async ({ postReferences }) => {
+      const ids = postReferences?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -37,8 +42,8 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
     variables: { request }
   });
 
-  const quotes = data?.publications?.items ?? [];
-  const pageInfo = data?.publications?.pageInfo;
+  const quotes = data?.postReferences?.items ?? [];
+  const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -46,7 +51,7 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.publications?.items?.map((p) => p.id) || [];
+      const ids = data?.postReferences?.items?.map((p) => p.id) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
@@ -87,7 +92,7 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
           <SinglePost
             isFirst={false}
             isLast={index === quotes.length - 1}
-            post={quote as Quote}
+            post={quote as Post}
             showType={false}
           />
         )}

@@ -2,7 +2,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
-import { type AnyPost, MainContentFocus } from "@hey/indexer";
+import { type AnyPost, MainContentFocus, usePostsQuery } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
@@ -89,10 +89,10 @@ const AccountFeed: FC<AccountFeedProps> = ({
     }
   };
 
-  const { data, error, fetchMore, loading, refetch } = usePublicationsQuery({
-    onCompleted: async ({ publications }) => {
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
+    onCompleted: async ({ posts }) => {
       const ids =
-        publications?.items?.map((p) => {
+        posts?.items?.map((p) => {
           return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
@@ -102,8 +102,8 @@ const AccountFeed: FC<AccountFeedProps> = ({
     variables: { request }
   });
 
-  const posts = data?.publications?.items;
-  const pageInfo = data?.publications?.pageInfo;
+  const posts = data?.posts?.items;
+  const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.publications?.items?.map((p) => {
+        data?.posts?.items?.map((p) => {
           return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
         }) || [];
       await fetchAndStoreViews(ids);
