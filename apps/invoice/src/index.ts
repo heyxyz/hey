@@ -1,0 +1,49 @@
+import easyinvoice, { type InvoiceData } from "easyinvoice";
+
+const forYogi = true;
+const month = "1";
+const year = "2024";
+
+const amountPerAccount = 33.87;
+
+const data: InvoiceData = {
+  apiKey: "PntktbOaJHXsR5272jJImlN5KW6RbXp0KL646ojBoM2SS5Set5Yh45pPPJ3DrON9",
+  mode: "production",
+  images: { logo: "https://hey-assets.b-cdn.net/images/app-icon/0.png" },
+  sender: {
+    company: forYogi ? "Yoginth" : "Sagar",
+    address: `HD-${forYogi ? "322" : "323"}, WeWork Latitude, 10th floor, RMZ Latitude Commercial, Bellary Road, Hebbal, Near Godrej Apt`,
+    zip: "560024",
+    city: "Bangalore, Karnataka",
+    country: "India"
+  },
+  translate: { number: "Invoice Number" },
+  products: [
+    { description: "Hey Account", price: amountPerAccount, quantity: "1" }
+  ],
+  bottomNotice: `GSTIN: ${forYogi ? "29AYKPY4219R1Z8" : "29JZXPS2474H1Z6"}`,
+  settings: {
+    currency: "INR",
+    taxNotation: "GST",
+    marginTop: 25,
+    marginRight: 25,
+    marginLeft: 25,
+    marginBottom: 25
+  }
+};
+
+const generateInvoice = () => {
+  const dueDate = `${month}/${Math.floor(Math.random() * 30) + 1}/${year}`;
+
+  const injectedData: InvoiceData = {
+    ...data,
+    client: { company: "Client Corp" },
+    information: { number: "1", dueDate }
+  };
+
+  easyinvoice.createInvoice(injectedData, (result) => {
+    console.log("PDF base64 string: ", result.pdf);
+  });
+};
+
+generateInvoice();

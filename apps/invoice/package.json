@@ -1,0 +1,20 @@
+{
+  "name": "@hey/invoice",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "generate": "NODE_ENV=production tsx src/index.ts",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "easyinvoice": "^3.0.47",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}
