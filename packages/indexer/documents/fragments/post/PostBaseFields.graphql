@@ -17,5 +17,8 @@ fragment PostBaseFields on Post {
   mentions {
     ...AccountMentionFields
   }
+  operations {
+    ...LoggedInPostOperationsFields
+  }
   timestamp
 }

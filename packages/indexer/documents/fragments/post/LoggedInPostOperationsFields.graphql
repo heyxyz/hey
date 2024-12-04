@@ -1,0 +1,18 @@
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  canComment
+  canQuote
+  canRepost
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
+}
