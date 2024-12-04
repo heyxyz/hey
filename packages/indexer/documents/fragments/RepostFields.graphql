@@ -1,4 +1,9 @@
 fragment RepostFields on Repost {
+  id
+  isDeleted
+  author {
+    ...AccountFields
+  }
   repostOf {
     ...PostFields
   }

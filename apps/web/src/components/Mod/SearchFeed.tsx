@@ -4,10 +4,10 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { GARDENER } from "@hey/data/tracking";
-import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
   PageSize,
+  type Post,
   type SearchPostsRequest,
   useSearchPostsQuery
 } from "@hey/indexer";
@@ -96,7 +96,8 @@ const SearchFeed: FC = () => {
           data={posts}
           endReached={onEndReached}
           itemContent={(_, post) => {
-            const targetPost = isRepost(post) ? post.repostOf : post;
+            const targetPost =
+              post.__typename === "Repost" ? post.repostOf : post;
 
             return (
               <Card>
@@ -108,7 +109,7 @@ const SearchFeed: FC = () => {
                   showThread={false}
                 />
                 <div className="divider" />
-                <HigherActions post={targetPost} />
+                <HigherActions post={targetPost as Post} />
               </Card>
             );
           }}

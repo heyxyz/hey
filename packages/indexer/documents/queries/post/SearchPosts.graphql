@@ -1,7 +1,12 @@
 query SearchPosts($request: SearchPostsRequest!) {
   searchPosts(request: $request) {
     items {
-      ...PostFields
+      ... on Post {
+        ...PostFields
+      }
+      ... on Repost {
+        ...RepostFields
+      }
     }
     pageInfo {
       ...PaginatedResultInfoFields

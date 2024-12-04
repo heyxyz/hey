@@ -5,6 +5,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
+  type Post,
   PostReferenceType,
   type PostReferencesRequest,
   PostVisibilityFilter,
@@ -62,7 +63,10 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
       const { data } = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.postReferences?.items?.map((p) => p.id) || [];
+      const ids =
+        data?.postReferences?.items?.map((p) =>
+          p.__typename === "Repost" ? p.repostOf?.id : p.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }
@@ -99,7 +103,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
           data={comments}
           endReached={onEndReached}
           itemContent={(index, comment) => {
-            if (comment?.__typename !== "Comment" || comment.isDeleted) {
+            if (comment.isDeleted) {
               return null;
             }
 
@@ -110,7 +114,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
               <SinglePost
                 isFirst={isFirst}
                 isLast={isLast}
-                post={comment as Comment}
+                post={comment as Post}
                 showType={false}
               />
             );
