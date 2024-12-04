@@ -36,9 +36,9 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
   const { data, error, fetchMore, loading } = usePostBookmarksQuery({
     onCompleted: async ({ postBookmarks }) => {
       const ids =
-        postBookmarks?.items?.map((post) => {
-          return isRepost(post) ? post.repostOf?.id : post.id;
-        }) || [];
+        postBookmarks?.items?.map((post) =>
+          isRepost(post) ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
@@ -63,9 +63,9 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
       const ids =
-        data?.postBookmarks?.items?.map((p) => {
-          return p.__typename === "Mirror" ? p.mirrorOn?.id : p.id;
-        }) || [];
+        data?.postBookmarks?.items?.map((p) =>
+          isRepost(p) ? p.repostOf?.id : p.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     }

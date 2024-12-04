@@ -88,7 +88,9 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     onCompleted: async ({ posts }) => {
       const ids =
-        posts?.items?.map((p) => (isRepost(p) ? p.repostOf?.id : p.id)) || [];
+        posts?.items?.map((post) =>
+          isRepost(post) ? post.repostOf?.id : post.id
+        ) || [];
       await fetchAndStoreViews(ids);
       await fetchAndStoreTips(ids);
     },
