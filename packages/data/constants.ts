@@ -38,7 +38,6 @@ export const TEST_LENS_ID = "0x01e0b1";
 export const TEST_SUSPENDED_LENS_ID = "0x02";
 export const HEY_CURATED_ID = "0x0214f6";
 export const HANDLE_PREFIX = "lens/";
-export const CLUB_HANDLE_PREFIX = "club/";
 export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
 export const MONTHLY_PRO_PRICE = 5;
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
@@ -65,14 +64,11 @@ export const MOONPAY_URL = IS_MAINNET
   ? "https://buy.moonpay.com"
   : "https://buy-sandbox.moonpay.com";
 export const HEY_IMAGEKIT_URL = "https://ik.imagekit.io/lensterimg";
-export const CLUBS_API_URL = "https://us-central1-orbapp.cloudfunctions.net";
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd";
 export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
-export const CLUBS_APP_TOKEN =
-  "Qun7aDFo4FS7Dt2b9Ea8ve5TqvuXiCJXjZZTsao5Y9viFJxSEi5gYZa7DybrSzDGXST5L2vWMjBXzjsppj5RERo3AdPnJ3TVYuY2cLxBFa592rkjzU";
 export const UNLEASH_API_TOKEN =
   "*:production.1cc40547dde90e0b342a3dffa825d52a9d9e13597c9dedea480aa9c0";
 

@@ -7,26 +7,26 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface LeaveProps {
-  id: string;
+interface JoinProps {
+  address: string;
   setJoined: (joined: boolean) => void;
   small: boolean;
 }
 
-const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
+const Join: FC<JoinProps> = ({ address, setJoined, small }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLeave = async () => {
+  const handleJoin = async () => {
     try {
       setIsLoading(true);
       await axios.post(
-        `${HEY_API_URL}/clubs/leave`,
-        { id },
+        `${HEY_API_URL}/clubs/join`,
+        { address },
         { headers: getAuthApiHeaders() }
       );
 
-      setJoined(false);
-      toast.success("Left club");
+      setJoined(true);
+      toast.success("Joined group");
     } catch (error) {
       errorToast(error);
     } finally {
@@ -36,15 +36,15 @@ const Leave: FC<LeaveProps> = ({ id, setJoined, small }) => {
 
   return (
     <Button
-      aria-label="Joined"
+      aria-label="Join"
       disabled={isLoading}
-      onClick={handleLeave}
+      onClick={handleJoin}
       outline
       size={small ? "sm" : "md"}
     >
-      Joined
+      Join
     </Button>
   );
 };
 
-export default Leave;
+export default Join;

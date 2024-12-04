@@ -1,0 +1,16 @@
+mutation JoinGroup($request: JoinGroupRequest!) {
+  joinGroup(request: $request) {
+    ... on JoinGroupResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      reason
+    }
+    ... on SponsoredTransactionRequest {
+      reason
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

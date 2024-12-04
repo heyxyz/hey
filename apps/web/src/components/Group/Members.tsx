@@ -4,7 +4,6 @@ import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { AccountLinkSource } from "@hey/data/tracking";
 import { type Account, useAccountsQuery } from "@hey/indexer";
-import type { ClubProfile } from "@hey/types/club";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -16,15 +15,15 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 const GET_CLUB_MEMBERS_QUERY_KEY = "getClubMembers";
 
 interface MembersProps {
-  clubId: string;
-  handle: string;
+  address: string;
+  slug: string;
 }
 
-const Members: FC<MembersProps> = ({ clubId, handle }) => {
+const Members: FC<MembersProps> = ({ address, slug }) => {
   const { currentAccount } = useAccountStore();
 
-  const getClubMembers = async (): Promise<{
-    items: ClubProfile[];
+  const getGroupMembers = async (): Promise<{
+    items: GroupProfile[];
     pageInfo: {
       next: null | string;
       prev: null | string;
@@ -79,7 +78,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
-            <b className="mr-1">/{handle}</b>
+            <b className="mr-1">/{slug}</b>
             <span>doesn't have any members.</span>
           </div>
         }
@@ -100,7 +99,7 @@ const Members: FC<MembersProps> = ({ clubId, handle }) => {
   return (
     <Card>
       <div className="flex items-center space-x-3 p-5">
-        <Link href={`/c/${handle}`}>
+        <Link href={`/g/${slug}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <H5>Members</H5>

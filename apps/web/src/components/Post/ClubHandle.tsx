@@ -1,29 +1,29 @@
-import ClubPreview from "@components/Shared/ClubPreview";
+import GroupPreview from "@components/Shared/GroupPreview";
 import Link from "next/link";
 import type { FC } from "react";
 
-interface ClubHandleProps {
+interface GroupHandleProps {
   tags: string[];
 }
 
-const ClubHandle: FC<ClubHandleProps> = ({ tags }) => {
+const GroupHandle: FC<GroupHandleProps> = ({ tags }) => {
   const orbcommunities = tags.find((word) => word.includes("orbcommunities"));
-  const club = orbcommunities?.replaceAll("orbcommunities", "");
+  const group = orbcommunities?.replaceAll("orbcommunities", "");
 
-  if (!club) {
+  if (!group) {
     return null;
   }
 
   return (
     <span className="ld-text-gray-500 linkify">
       <span className="mr-1">·</span>
-      <ClubPreview handle={club}>
-        <Link className="text-xs hover:underline" href={`/c/${club}`}>
-          /{club}
+      <GroupPreview handle={group}>
+        <Link className="text-xs hover:underline" href={`/g/${group}`}>
+          /{group}
         </Link>
-      </ClubPreview>
+      </GroupPreview>
     </span>
   );
 };
 
-export default ClubHandle;
+export default GroupHandle;

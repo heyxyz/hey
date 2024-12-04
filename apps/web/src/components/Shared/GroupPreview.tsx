@@ -1,49 +1,37 @@
-import getClub, { GET_CLUB_QUERY_KEY } from "@hey/helpers/api/clubs/getClub";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import type { Club } from "@hey/types/club";
+import { useGroupLazyQuery } from "@hey/indexer";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
-import { useMutation } from "@tanstack/react-query";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
-import JoinLeaveButton from "./Club/JoinLeaveButton";
+import JoinLeaveButton from "./Group/JoinLeaveButton";
 import Markup from "./Markup";
 import Slug from "./Slug";
 
 const MINIMUM_LOADING_ANIMATION_MS = 800;
 
-interface ClubPreviewProps {
+interface GroupPreviewProps {
   children: ReactNode;
   handle?: string;
 }
 
-const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
-  const { currentAccount } = useAccountStore();
-
-  const {
-    data,
-    isPending: clubLoading,
-    mutateAsync
-  } = useMutation({
-    mutationFn: () =>
-      getClub({ club_handle: handle, profile_id: currentAccount?.address }),
-    mutationKey: [GET_CLUB_QUERY_KEY, handle]
+const GroupPreview: FC<GroupPreviewProps> = ({ children, handle }) => {
+  const [loadGroup, { data, loading }] = useGroupLazyQuery({
+    variables: { request: { group: handle } }
   });
 
-  const [syntheticLoading, setSyntheticLoading] =
-    useState<boolean>(clubLoading);
-  const club = data as Club;
+  const [syntheticLoading, setSyntheticLoading] = useState<boolean>(loading);
+  const group = data?.group;
 
   const onPreviewStart = async () => {
-    if (club || clubLoading) {
+    if (group || loading) {
       return;
     }
 
     setSyntheticLoading(true);
-    await mutateAsync();
+    await loadGroup();
     setTimeout(() => setSyntheticLoading(false), MINIMUM_LOADING_ANIMATION_MS);
   };
 
@@ -52,7 +40,7 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   }
 
   const Preview = () => {
-    if (clubLoading || syntheticLoading) {
+    if (loading || syntheticLoading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
@@ -65,25 +53,25 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
       );
     }
 
-    if (!club) {
-      return <div className="flex h-12 items-center px-3">No club found</div>;
+    if (!group) {
+      return <div className="flex h-12 items-center px-3">No group found</div>;
     }
 
     const UserAvatar: FC = () => (
       <Image
-        alt={club.id}
+        alt={group.address}
         className="size-12 rounded-xl border bg-gray-200 dark:border-gray-700"
         height={48}
         loading="lazy"
-        src={club.logo}
+        src={group.metadata?.icon}
         width={48}
       />
     );
 
     const UserName: FC = () => (
       <>
-        <div className="text-md">{club.name}</div>
-        <Slug className="text-sm" slug={`/${club.handle}`} />
+        <div className="text-md">{group.metadata?.name}</div>
+        <Slug className="text-sm" slug={`/${group.metadata?.slug}`} />
       </>
     );
 
@@ -91,13 +79,13 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
       <div className="space-y-3 p-4">
         <div className="flex items-center justify-between">
           <UserAvatar />
-          <JoinLeaveButton club={club} small />
+          <JoinLeaveButton group={group} small />
         </div>
         <UserName />
-        {club.description && (
+        {group.metadata?.description && (
           <div className="linkify mt-2 break-words text-sm leading-6">
-            <Markup mentions={getMentions(club.description)}>
-              {truncateByWords(club.description, 20)}
+            <Markup mentions={getMentions(group.metadata?.description)}>
+              {truncateByWords(group.metadata?.description, 20)}
             </Markup>
           </div>
         )}
@@ -134,4 +122,4 @@ const ClubPreview: FC<ClubPreviewProps> = ({ children, handle }) => {
   );
 };
 
-export default ClubPreview;
+export default GroupPreview;

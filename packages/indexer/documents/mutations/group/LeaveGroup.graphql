@@ -1,0 +1,16 @@
+mutation LeaveGroup($request: LeaveGroupRequest!) {
+  leaveGroup(request: $request) {
+    ... on LeaveGroupResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      reason
+    }
+    ... on SponsoredTransactionRequest {
+      reason
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

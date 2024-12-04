@@ -17,11 +17,11 @@ import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
-interface ClubFeedProps {
+interface GroupFeedProps {
   handle: string;
 }
 
-const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
+const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
   const { fetchAndStoreViews } = useImpressionsStore();
   const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
@@ -93,7 +93,7 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load club feed" />;
+    return <ErrorMessage error={error} title="Failed to load group feed" />;
   }
 
   return (
@@ -123,4 +123,4 @@ const ClubFeed: FC<ClubFeedProps> = ({ handle }) => {
   );
 };
 
-export default ClubFeed;
+export default GroupFeed;
