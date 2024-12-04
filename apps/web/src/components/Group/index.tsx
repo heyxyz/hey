@@ -12,9 +12,9 @@ import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import Members from "../Shared/Modal/Members";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
-import Members from "./Members";
 import GroupPageShimmer from "./Shimmer";
 
 const ViewGroup: NextPage = () => {
@@ -72,15 +72,15 @@ const ViewGroup: NextPage = () => {
             <Members address={group.address} slug={group.metadata?.slug} />
           ) : (
             <>
-              {currentAccount && club.isMember && (
+              {currentAccount && group.isMember && (
                 <NewPost
                   tags={[
-                    `orbcommunities${club.handle}`,
-                    `heyclubs${club.handle}`
+                    `orbcommunities${group.handle}`,
+                    `heyclubs${group.handle}`
                   ]}
                 />
               )}
-              <GroupFeed handle={club.handle} />
+              <GroupFeed handle={group.handle} />
             </>
           )}
         </GridItemEight>
