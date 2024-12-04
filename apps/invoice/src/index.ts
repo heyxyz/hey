@@ -1,10 +1,12 @@
 import easyinvoice, { type InvoiceData } from "easyinvoice";
+import fs from "node:fs";
 
 const forYogi = true;
 const month = "1";
 const year = "2024";
 
 const amountPerAccount = 33.87;
+const accounts = ["1", "2", "3"];
 
 const data: InvoiceData = {
   apiKey: "PntktbOaJHXsR5272jJImlN5KW6RbXp0KL646ojBoM2SS5Set5Yh45pPPJ3DrON9",
@@ -33,17 +35,19 @@ const data: InvoiceData = {
 };
 
 const generateInvoice = () => {
-  const dueDate = `${month}/${Math.floor(Math.random() * 30) + 1}/${year}`;
+  for (const account of accounts) {
+    const dueDate = `${month}/${Math.floor(Math.random() * 30) + 1}/${year}`;
 
-  const injectedData: InvoiceData = {
-    ...data,
-    client: { company: "Client Corp" },
-    information: { number: "1", dueDate }
-  };
+    const injectedData: InvoiceData = {
+      ...data,
+      client: { company: account },
+      information: { number: "1", dueDate }
+    };
 
-  easyinvoice.createInvoice(injectedData, (result) => {
-    console.log("PDF base64 string: ", result.pdf);
-  });
+    easyinvoice.createInvoice(injectedData, (result) => {
+      fs.writeFileSync(`${account}.pdf`, result.pdf);
+    });
+  }
 };
 
 generateInvoice();
