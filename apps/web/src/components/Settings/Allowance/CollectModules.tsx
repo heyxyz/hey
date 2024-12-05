@@ -1,6 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
-import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import { CardHeader, ErrorMessage, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -12,7 +12,7 @@ const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
     followModules: [FollowModuleType.FeeFollowModule],
-    openActionModules: allowedOpenActionModules
+    openActionModules: allowedPostActionModules
   };
 };
 

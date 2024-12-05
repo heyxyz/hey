@@ -2,7 +2,7 @@ import { Leafwatch } from "@helpers/leafwatch";
 import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { POST } from "@hey/data/tracking";
-import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import type { Post } from "@hey/indexer";
 import { Button, Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -17,8 +17,8 @@ interface CollectProps {
 const Collect: FC<CollectProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const openActions = post.openActionModules.filter((module) =>
-    allowedOpenActionModules.includes(module.type)
+  const postActions = post.actions.filter((action) =>
+    allowedPostActionModules.includes(action.__typename)
   );
 
   const hasActed =
@@ -48,8 +48,12 @@ const Collect: FC<CollectProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        {openActions?.map((action) => (
-          <CollectModule key={action.type} openAction={action} post={post} />
+        {postActions?.map((action) => (
+          <CollectModule
+            key={action.__typename}
+            postAction={action}
+            post={post}
+          />
         ))}
       </Modal>
     </>

@@ -1,31 +1,29 @@
-import type { Maybe, PublicationMetadataMedia } from "@hey/indexer";
+import type { AnyMedia, Maybe } from "@hey/indexer";
 
-const getAttachmentsData = (
-  attachments?: Maybe<PublicationMetadataMedia[]>
-): any => {
+const getAttachmentsData = (attachments?: Maybe<AnyMedia[]>): any => {
   if (!attachments) {
     return [];
   }
 
   return attachments.map((attachment) => {
     switch (attachment.__typename) {
-      case "PublicationMetadataMediaImage":
+      case "MediaImage":
         return {
           type: "Image",
-          uri: attachment.image.optimized?.uri
+          uri: attachment.item
         };
-      case "PublicationMetadataMediaVideo":
+      case "MediaVideo":
         return {
-          coverUri: attachment.cover?.optimized?.uri,
+          coverUri: attachment.cover,
           type: "Video",
-          uri: attachment.video.optimized?.uri
+          uri: attachment.item
         };
-      case "PublicationMetadataMediaAudio":
+      case "MediaAudio":
         return {
           artist: attachment.artist,
-          coverUri: attachment.cover?.optimized?.uri,
+          coverUri: attachment.cover,
           type: "Audio",
-          uri: attachment.audio.optimized?.uri
+          uri: attachment.item
         };
       default:
         return [];
