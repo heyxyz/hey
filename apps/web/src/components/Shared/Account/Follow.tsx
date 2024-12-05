@@ -131,7 +131,6 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-
       return await follow({
         variables: { request: { account: account.address } }
       });

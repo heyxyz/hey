@@ -3,7 +3,13 @@ import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import { type Account, useUnfollowMutation } from "@hey/indexer";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
+import {
+  type Account,
+  type UnfollowResponse,
+  useUnfollowMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -15,6 +21,8 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -37,6 +45,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
+  const { data: walletClient } = useWalletClient();
 
   const generateOptimisticUnfollow = ({
     txHash
@@ -52,29 +61,24 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const updateCache = () => {
     cache.modify({
-      fields: {
-        isFollowedByMe: (existingValue) => {
-          return { ...existingValue, value: false };
-        }
-      },
+      fields: { isFollowedByMe: () => false },
       id: cache.identify(account.operations)
     });
   };
 
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
+  const onCompleted = (hash: string, unfollow?: UnfollowResponse) => {
+    if (unfollow?.__typename !== "UnfollowResponse") {
       return;
     }
 
     updateCache();
+    addTransaction(generateOptimisticUnfollow({ txHash: hash }));
     setIsLoading(false);
     toast.success("Unfollowed");
-    Leafwatch.track(ACCOUNT.UNFOLLOW, { path: pathname, target: account?.id });
+    Leafwatch.track(ACCOUNT.UNFOLLOW, {
+      path: pathname,
+      target: account.address
+    });
   };
 
   const onError = (error: any) => {
@@ -83,21 +87,37 @@ const Unfollow: FC<UnfollowProps> = ({
   };
 
   const [unfollow] = useUnfollowMutation({
-    onCompleted: ({ unfollow }) => {
-      if (unfollow.__typename === "RelaySuccess") {
-        addTransaction(generateOptimisticUnfollow({ txHash: unfollow.txHash }));
+    onCompleted: async ({ unfollow }) => {
+      if (unfollow.__typename === "UnfollowResponse") {
+        return onCompleted(unfollow.hash, unfollow);
       }
-      onCompleted(unfollow.__typename);
+
+      if (walletClient) {
+        if (unfollow.__typename === "SponsoredTransactionRequest") {
+          const hash = await sendEip712Transaction(walletClient, {
+            account: walletClient.account,
+            ...sponsoredTransactionData(unfollow.raw)
+          });
+
+          return onCompleted(hash);
+        }
+
+        if (unfollow.__typename === "SelfFundedTransactionRequest") {
+          const hash = await sendTransaction(walletClient, {
+            account: walletClient.account,
+            ...selfFundedTransactionData(unfollow.raw)
+          });
+
+          return onCompleted(hash);
+        }
+      }
+
+      if (unfollow.__typename === "TransactionWillFail") {
+        return toast.error(unfollow.reason);
+      }
     },
     onError
   });
-
-  const unfollowViaLensManager = async (request: UnfollowRequest) => {
-    const { data } = await unfollow({ variables: { request } });
-    if (data?.unfollow?.__typename === "LensProfileManagerRelayError") {
-      return await createUnfollowTypedData({ variables: { request } });
-    }
-  };
 
   const handleCreateUnfollow = async () => {
     if (!currentAccount) {
@@ -111,9 +131,9 @@ const Unfollow: FC<UnfollowProps> = ({
 
     try {
       setIsLoading(true);
-      const request: UnfollowRequest = { unfollow: [account?.id] };
-
-      return await createUnfollowTypedData({ variables: { request } });
+      return await unfollow({
+        variables: { request: { account: account.address } }
+      });
     } catch (error) {
       onError(error);
     }
