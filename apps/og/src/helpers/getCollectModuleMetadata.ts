@@ -2,21 +2,21 @@ import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import getAccount from "@hey/helpers/getAccount";
-import type { AnyPost } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 
-const getCollectModuleMetadata = (post: AnyPost) => {
-  const { openActionModules } = post;
+const getCollectModuleMetadata = (post: Post) => {
+  const { actions } = post;
 
-  if (!openActionModules) {
+  if (!actions) {
     return;
   }
 
-  const openAction = openActionModules.filter((module) =>
-    allowedPostActionModules.includes(module.type)
+  const postAction = actions.filter((action) =>
+    allowedPostActionModules.includes(action.__typename)
   );
 
   // 0 th index is the collect module
-  const collectModule = openAction.length ? openAction[0] : null;
+  const collectModule = postAction.length ? postAction[0] : null;
 
   if (!collectModule) {
     return;

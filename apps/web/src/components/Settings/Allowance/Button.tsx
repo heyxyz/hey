@@ -2,6 +2,7 @@ import errorToast from "@helpers/errorToast";
 import getAllowanceModule from "@helpers/getAllowanceModule";
 import { Leafwatch } from "@helpers/leafwatch";
 import { SETTINGS } from "@hey/data/tracking";
+import { PostActionType } from "@hey/indexer";
 import { Button, Modal, WarningMessage } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useEffect, useState } from "react";
@@ -71,7 +72,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   ) => {
     try {
       const isUnknownModule =
-        module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
+        module.moduleName === PostActionType.UnknownOpenActionModule;
 
       const { data } = await generateModuleCurrencyApprovalData({
         variables: {

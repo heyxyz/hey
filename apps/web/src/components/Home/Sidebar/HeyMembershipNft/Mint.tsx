@@ -24,7 +24,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
     return <Loader className="p-10" message="Loading NFT" />;
   }
 
-  if (!data?.publication || error) {
+  if (!data?.post || error) {
     return (
       <ErrorMessage
         className="m-5"
@@ -40,7 +40,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
   }
 
   const post = data?.post as Post;
-  const openAction = post.openActionModules[0];
+  const postAction = post.actions[0];
 
   return (
     <div className="p-5">
@@ -87,7 +87,7 @@ const Mint: FC<MintProps> = ({ onCollectSuccess }) => {
             </span>
           }
           onCollectSuccess={onCollectSuccess}
-          openAction={openAction}
+          postAction={postAction}
           post={post}
         />
       </div>

@@ -1,11 +1,10 @@
+import { PostActionType } from "@hey/indexer";
 import { describe, expect, test } from "vitest";
 import getAllowanceModule from "./getAllowanceModule";
 
 describe("getAllowanceModule", () => {
   test("should return Simple collect module info for SimpleCollectOpenActionModule", () => {
-    const result = getAllowanceModule(
-      OpenActionModuleType.SimpleCollectOpenActionModule
-    );
+    const result = getAllowanceModule(PostActionType.SimpleCollectAction);
     expect(result).toEqual({
       field: "openActionModule",
       name: "Simple collect"
@@ -14,7 +13,7 @@ describe("getAllowanceModule", () => {
 
   test("should return Multirecipient collect module info for MultirecipientFeeCollectOpenActionModule", () => {
     const result = getAllowanceModule(
-      OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+      PostActionType.MultirecipientFeeCollectOpenActionModule
     );
     expect(result).toEqual({
       field: "openActionModule",

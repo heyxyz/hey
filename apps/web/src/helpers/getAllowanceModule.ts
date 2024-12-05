@@ -1,3 +1,5 @@
+import { PostActionType } from "@hey/indexer";
+
 /**
  * Returns the name and field of the specified module.
  *
@@ -12,9 +14,9 @@ const getAllowanceModule = (
 } => {
   switch (name) {
     // Collect Modules
-    case OpenActionModuleType.SimpleCollectOpenActionModule:
+    case PostActionType.SimpleCollectAction:
       return { field: "openActionModule", name: "Simple collect" };
-    case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
+    case PostActionType.MultirecipientFeeCollectAction:
       return { field: "openActionModule", name: "Multirecipient paid collect" };
     // Follow modules
     case FollowModuleType.FeeFollowModule:

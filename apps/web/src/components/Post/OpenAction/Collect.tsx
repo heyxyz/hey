@@ -17,8 +17,8 @@ interface CollectProps {
 const Collect: FC<CollectProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const openActions = post.openActionModules.filter((module) =>
-    allowedPostActionModules.includes(module.type)
+  const postActions = post.actions.filter((action) =>
+    allowedPostActionModules.includes(action.__typename)
   );
 
   const hasActed =
@@ -48,8 +48,12 @@ const Collect: FC<CollectProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        {openActions?.map((action) => (
-          <CollectModule key={action.type} openAction={action} post={post} />
+        {postActions?.map((action) => (
+          <CollectModule
+            key={action.__typename}
+            postAction={action}
+            post={post}
+          />
         ))}
       </Modal>
     </>

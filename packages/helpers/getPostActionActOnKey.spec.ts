@@ -1,17 +1,18 @@
+import { PostActionType } from "@hey/indexer";
 import { describe, expect, test } from "vitest";
-import getOpenActionActOnKey from "./getOpenActionActOnKey";
+import getOpenActionActOnKey from "./getPostActionActOnKey";
 
 describe("getOpenActionActOnKey", () => {
   test('should return "simpleCollectOpenAction" for SimpleCollectOpenActionModule', () => {
-    expect(
-      getOpenActionActOnKey(OpenActionModuleType.SimpleCollectOpenActionModule)
-    ).toBe("simpleCollectOpenAction");
+    expect(getOpenActionActOnKey(PostActionType.SimpleCollectAction)).toBe(
+      "simpleCollectOpenAction"
+    );
   });
 
   test('should return "multirecipientCollectOpenAction" for MultirecipientFeeCollectOpenActionModule', () => {
     expect(
       getOpenActionActOnKey(
-        OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+        PostActionType.MultirecipientFeeCollectOpenActionModule
       )
     ).toBe("multirecipientCollectOpenAction");
   });

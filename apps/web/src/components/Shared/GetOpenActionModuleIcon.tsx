@@ -3,19 +3,20 @@ import {
   DocumentPlusIcon,
   UserGroupIcon
 } from "@heroicons/react/24/outline";
+import type { PostAction } from "@hey/indexer";
 import type { FC } from "react";
 
 interface GetOpenActionModuleIconProps {
-  module?: OpenActionModule;
+  module?: PostAction;
 }
 
 const GetOpenActionModuleIcon: FC<GetOpenActionModuleIconProps> = ({
   module
 }) => {
-  switch (module?.type) {
-    case OpenActionModuleType.SimpleCollectOpenActionModule:
+  switch (module?.__typename) {
+    case "SimpleCollectActionSettings":
       return <DocumentPlusIcon className="size-5" />;
-    case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
+    case "MultirecipientFeeCollectActionSettings":
       return <UserGroupIcon className="size-5" />;
     default:
       return <BriefcaseIcon className="size-5" />;
