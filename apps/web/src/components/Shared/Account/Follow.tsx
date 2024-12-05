@@ -1,11 +1,15 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import { type Account, useFollowMutation } from "@hey/indexer";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
+import {
+  type Account,
+  type FollowResponse,
+  useFollowMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -17,7 +21,8 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useWriteContract } from "wagmi";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
@@ -40,6 +45,7 @@ const Follow: FC<FollowProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
+  const { data: walletClient } = useWalletClient();
 
   const generateOptimisticFollow = ({
     txHash
@@ -55,29 +61,24 @@ const Follow: FC<FollowProps> = ({
 
   const updateCache = () => {
     cache.modify({
-      fields: {
-        isFollowedByMe: (existingValue) => {
-          return { ...existingValue, value: true };
-        }
-      },
+      fields: { isFollowedByMe: () => true },
       id: cache.identify(account.operations)
     });
   };
 
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
+  const onCompleted = (hash: string, follow?: FollowResponse) => {
+    if (follow?.__typename !== "FollowResponse") {
       return;
     }
 
     updateCache();
+    addTransaction(generateOptimisticFollow({ txHash: hash }));
     setIsLoading(false);
     toast.success("Followed");
-    Leafwatch.track(ACCOUNT.FOLLOW, { path: pathname, target: account?.id });
+    Leafwatch.track(ACCOUNT.FOLLOW, {
+      path: pathname,
+      target: account?.address
+    });
   };
 
   const onError = (error: any) => {
@@ -85,32 +86,34 @@ const Follow: FC<FollowProps> = ({
     errorToast(error);
   };
 
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: (hash: string) => {
-        addTransaction(generateOptimisticFollow({ txHash: hash }));
-        onCompleted();
-      }
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "follow"
-    });
-  };
-
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
-        addTransaction(generateOptimisticFollow({ txHash: follow.hash }));
-        onCompleted(follow.__typename);
-      } else {
-        await write({ args: [account.address] });
+        return onCompleted(follow.hash, follow);
+      }
+
+      if (walletClient) {
+        if (follow.__typename === "SponsoredTransactionRequest") {
+          const hash = await sendEip712Transaction(walletClient, {
+            account: walletClient.account,
+            ...sponsoredTransactionData(follow.raw)
+          });
+
+          return onCompleted(hash);
+        }
+
+        if (follow.__typename === "SelfFundedTransactionRequest") {
+          const hash = await sendTransaction(walletClient, {
+            account: walletClient.account,
+            ...selfFundedTransactionData(follow.raw)
+          });
+
+          return onCompleted(hash);
+        }
+      }
+
+      if (follow.__typename === "TransactionWillFail") {
+        return toast.error(follow.reason);
       }
     },
     onError
@@ -128,7 +131,6 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-
       return await follow({
         variables: { request: { account: account.address } }
       });
