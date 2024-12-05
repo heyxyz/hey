@@ -1,6 +1,6 @@
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
-import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import getAccount from "@hey/helpers/getAccount";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import getCollectModuleMetadata from "./getCollectModuleMetadata";
@@ -36,7 +36,7 @@ describe("getCollectModuleMetadata", () => {
       },
       openActionModules: [
         {
-          type: allowedOpenActionModules[0],
+          type: allowedPostActionModules[0],
           contract: { address: "0xabcdefabcdef" }
         }
       ],

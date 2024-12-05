@@ -24,7 +24,11 @@ import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import type {
+  AnyPost,
+  PostAction,
+  SimpleCollectActionSettings
+} from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
@@ -36,11 +40,11 @@ import DownloadCollectors from "./DownloadCollectors";
 import Splits from "./Splits";
 
 interface CollectModuleProps {
-  openAction: OpenActionModule;
+  postAction: PostAction;
   post: AnyPost;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
+const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
@@ -50,9 +54,9 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
     targetPost.stats.countOpenActions
   );
 
-  const collectModule = openAction as
-    | MultirecipientFeeCollectOpenActionSettings
-    | SimpleCollectOpenActionSettings;
+  const collectModule = postAction as
+    | MultirecipientFeeCollectActionSettings
+    | SimpleCollectActionSettings;
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = Number.parseInt(collectModule?.collectLimit || "0");
@@ -124,7 +128,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
         <div className="mb-4">
           <H4>
             {targetPost.__typename} by{" "}
-            <Slug slug={getAccount(targetPost.by).slugWithPrefix} />
+            <Slug slug={getAccount(targetPost.author).slugWithPrefix} />
           </H4>
         </div>
         {amount ? (
@@ -260,7 +264,7 @@ const CollectModule: FC<CollectModuleProps> = ({ openAction, post }) => {
           <CollectAction
             countOpenActions={countOpenActions}
             onCollectSuccess={() => increment()}
-            openAction={openAction}
+            postAction={postAction}
             post={targetPost}
           />
         </div>

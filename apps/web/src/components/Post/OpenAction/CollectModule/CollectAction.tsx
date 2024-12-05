@@ -10,8 +10,8 @@ import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCol
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
-import getOpenActionActOnKey from "@hey/helpers/getOpenActionActOnKey";
-import type { AnyPost } from "@hey/indexer";
+import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
+import type { AnyPost, PostAction } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button, WarningMessage } from "@hey/ui";
@@ -31,7 +31,7 @@ interface CollectActionProps {
   forceShowCollect?: boolean;
   noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
-  openAction: OpenActionModule;
+  postAction: PostAction;
   post: AnyPost;
 }
 
@@ -42,10 +42,10 @@ const CollectAction: FC<CollectActionProps> = ({
   forceShowCollect = false,
   noBalanceErrorMessages,
   onCollectSuccess = () => {},
-  openAction,
+  postAction,
   post
 }) => {
-  const collectModule = getCollectModuleData(openAction as any);
+  const collectModule = getCollectModuleData(postAction as any);
   const { id: sessionAccountId } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
@@ -75,7 +75,7 @@ const CollectAction: FC<CollectActionProps> = ({
     : false;
   const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
-    openAction.__typename === "SimpleCollectOpenActionSettings";
+    postAction.__typename === "SimpleCollectOpenActionSettings";
   const isFollowersOnly = collectModule?.followerOnly;
   const isFollowedByMe = isFollowersOnly
     ? post?.author.operations?.isFollowedByMe
@@ -138,7 +138,7 @@ const CollectAction: FC<CollectActionProps> = ({
     toast.success("Collected");
     Leafwatch.track(POST.COLLECT_MODULE.COLLECT, {
       amount,
-      collectModule: openAction?.type,
+      collectModule: postAction?.__typename,
       postId: post?.id
     });
   };
@@ -157,7 +157,7 @@ const CollectAction: FC<CollectActionProps> = ({
         request: {
           currencies: assetAddress,
           followModules: [],
-          openActionModules: [openAction.type],
+          openActionModules: [postAction.__typename],
           referenceModules: []
         }
       }
@@ -218,7 +218,7 @@ const CollectAction: FC<CollectActionProps> = ({
     try {
       setIsLoading(true);
       const actOnRequest: ActOnOpenActionLensManagerRequest = {
-        actOn: { [getOpenActionActOnKey(openAction.type)]: true },
+        actOn: { [getPostActionActOnKey(postAction.__typename)]: true },
         for: post?.id
       };
 
@@ -272,8 +272,8 @@ const CollectAction: FC<CollectActionProps> = ({
 
   if (
     !hasAmount &&
-    (openAction.__typename === "SimpleCollectOpenActionSettings" ||
-      openAction.__typename === "MultirecipientFeeCollectOpenActionSettings")
+    (postAction.__typename === "SimpleCollectActionSettings" ||
+      postAction.__typename === "MultirecipientFeeCollectOpenActionSettings")
   ) {
     return (
       <WarningMessage
@@ -281,7 +281,7 @@ const CollectAction: FC<CollectActionProps> = ({
         message={
           <NoBalanceError
             errorMessage={noBalanceErrorMessages}
-            moduleAmount={openAction.amount}
+            moduleAmount={postAction.amount}
           />
         }
       />

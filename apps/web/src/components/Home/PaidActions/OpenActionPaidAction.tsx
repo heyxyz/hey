@@ -2,7 +2,7 @@ import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPost, SimpleCollectActionSettings } from "@hey/indexer";
 import type { FC } from "react";
 
 interface OpenActionPaidActionProps {
@@ -16,35 +16,35 @@ const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({
 }) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
 
-  const openActions = targetPost.openActionModules
+  const postActions = targetPost.actions
     .filter(
       (module) =>
         module.__typename === "MultirecipientFeeCollectOpenActionSettings" ||
-        module.__typename === "SimpleCollectOpenActionSettings"
+        module.__typename === "SimpleCollectActionSettings"
     )
     .map((module) =>
       getCollectModuleData(
         module as
           | MultirecipientFeeCollectOpenActionSettings
-          | SimpleCollectOpenActionSettings
+          | SimpleCollectActionSettings
       )
     );
 
   return (
     <div className="px-5 py-3 text-sm">
-      {openActions.map((openAction, index) => (
+      {postActions.map((postAction, index) => (
         <div
           className="flex items-center space-x-2"
-          key={`${openAction?.assetAddress}_${index}}`}
+          key={`${postAction?.assetAddress}_${index}}`}
         >
           <b>Collected for</b>
           <img
-            alt={openAction?.assetSymbol}
+            alt={postAction?.assetSymbol}
             className="size-5"
-            src={getTokenImage(openAction?.assetSymbol as string)}
+            src={getTokenImage(postAction?.assetSymbol as string)}
           />
           <span>
-            {openAction?.amount} {openAction?.assetSymbol}
+            {postAction?.amount} {postAction?.assetSymbol}
           </span>
           <span>by</span>
           <span>
