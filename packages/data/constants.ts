@@ -12,7 +12,7 @@ export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const HEY_API_URL = IS_PRODUCTION
   ? "https://api.hey.xyz"
   : "http://localhost:4784";
-export const LENS_HUB = getEnvConfig().lensHub;
+export const GRAPH = getEnvConfig().graph;
 export const LENS_HANDLES = getEnvConfig().lensHandles;
 export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
 export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;

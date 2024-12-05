@@ -1,11 +1,15 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { LensHub } from "@hey/abis";
-import { LENS_HUB } from "@hey/data/constants";
+import { Graph } from "@hey/abis";
+import { GRAPH } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
-import { type Account, useFollowMutation } from "@hey/indexer";
+import {
+  type Account,
+  type FollowResponse,
+  useFollowMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -64,20 +68,18 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
+  const onCompleted = (follow?: FollowResponse) => {
+    if (follow?.__typename !== "FollowResponse") {
       return;
     }
 
     updateCache();
     setIsLoading(false);
     toast.success("Followed");
-    Leafwatch.track(ACCOUNT.FOLLOW, { path: pathname, target: account?.id });
+    Leafwatch.track(ACCOUNT.FOLLOW, {
+      path: pathname,
+      target: account?.address
+    });
   };
 
   const onError = (error: any) => {
@@ -97,8 +99,8 @@ const Follow: FC<FollowProps> = ({
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
+      abi: Graph,
+      address: GRAPH,
       args,
       functionName: "follow"
     });
@@ -108,10 +110,17 @@ const Follow: FC<FollowProps> = ({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
         addTransaction(generateOptimisticFollow({ txHash: follow.hash }));
-        onCompleted(follow.__typename);
-      } else {
-        await write({ args: [account.address] });
+        return onCompleted(follow);
       }
+
+      if (
+        follow.__typename === "SelfFundedTransactionRequest" ||
+        follow.__typename === "SponsoredTransactionRequest"
+      ) {
+        return await write({ args: follow.raw.data });
+      }
+
+      return toast.error(Errors.SomethingWentWrong);
     },
     onError
   });
