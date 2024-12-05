@@ -5,6 +5,7 @@ import { Graph } from "@hey/abis";
 import { GRAPH } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Account,
   type FollowResponse,
@@ -21,7 +22,8 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { useWriteContract } from "wagmi";
+import { sendEip712Transaction } from "viem/zksync";
+import { useWalletClient, useWriteContract } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
@@ -44,6 +46,7 @@ const Follow: FC<FollowProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
+  const { data: walletClient } = useWalletClient();
 
   const generateOptimisticFollow = ({
     txHash
@@ -113,10 +116,16 @@ const Follow: FC<FollowProps> = ({
         return onCompleted(follow);
       }
 
-      if (
-        follow.__typename === "SelfFundedTransactionRequest" ||
-        follow.__typename === "SponsoredTransactionRequest"
-      ) {
+      if (follow.__typename === "SponsoredTransactionRequest") {
+        if (walletClient) {
+          return await sendEip712Transaction(
+            walletClient,
+            sponsoredTransactionData(follow.raw)
+          );
+        }
+      }
+
+      if (follow.__typename === "SelfFundedTransactionRequest") {
         return await write({ args: follow.raw.data });
       }
 
