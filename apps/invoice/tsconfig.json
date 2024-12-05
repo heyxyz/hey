@@ -1,0 +1,10 @@
+{
+  "extends": "@hey/config/base.tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "noEmit": false,
+    "outDir": "dist",
+    "baseUrl": "."
+  },
+  "include": ["**/*.ts", "src"]
+}
