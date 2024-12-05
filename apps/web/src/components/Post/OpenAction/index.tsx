@@ -1,7 +1,7 @@
 import { Leafwatch } from "@helpers/leafwatch";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { POST } from "@hey/data/tracking";
-import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { Post } from "@hey/indexer";
@@ -18,7 +18,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
   const { countOpenActions } = post.stats;
   const openActions = post.openActionModules.filter((module) =>
-    allowedOpenActionModules.includes(module.type)
+    allowedPostActionModules.includes(module.type)
   );
 
   return (

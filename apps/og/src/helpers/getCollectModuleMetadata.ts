@@ -1,6 +1,6 @@
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
-import allowedOpenActionModules from "@hey/helpers/allowedOpenActionModules";
+import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import getAccount from "@hey/helpers/getAccount";
 import type { AnyPost } from "@hey/indexer";
 
@@ -12,7 +12,7 @@ const getCollectModuleMetadata = (post: AnyPost) => {
   }
 
   const openAction = openActionModules.filter((module) =>
-    allowedOpenActionModules.includes(module.type)
+    allowedPostActionModules.includes(module.type)
   );
 
   // 0 th index is the collect module

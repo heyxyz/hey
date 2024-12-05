@@ -1,5 +1,5 @@
 import type { Maybe, OpenActionModule } from "@hey/indexer";
-import allowedOpenActionModules from "./allowedOpenActionModules";
+import allowedPostActionModules from "./allowedPostActionModules";
 
 const isOpenActionAllowed = (
   openActions?: Maybe<OpenActionModule[]>
@@ -11,7 +11,7 @@ const isOpenActionAllowed = (
   return openActions.some((openAction) => {
     const { type } = openAction;
 
-    return allowedOpenActionModules.includes(type);
+    return allowedPostActionModules.includes(type);
   });
 };
 

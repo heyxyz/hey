@@ -10,16 +10,8 @@ import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
  * @param namedTransform The named transform to use.
  * @returns The avatar image URL.
  */
-const getAvatar = (profile: any, namedTransform = AVATAR): string => {
-  const avatarUrl =
-    // Lens NFT Avatar fallbacks
-    profile?.metadata?.picture?.image?.optimized?.uri ||
-    profile?.metadata?.picture?.image?.raw?.uri ||
-    // Lens Account Avatar fallbacks
-    profile?.metadata?.picture?.optimized?.uri ||
-    profile?.metadata?.picture?.raw?.uri ||
-    // Stamp.fyi Avatar fallbacks
-    getLennyURL(profile.id);
+const getAvatar = (account: any, namedTransform = AVATAR): string => {
+  const avatarUrl = account?.metadata?.picture || getLennyURL(account.address);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

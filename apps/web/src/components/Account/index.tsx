@@ -116,7 +116,7 @@ const ViewProfile: NextPage = () => {
         cover={
           isSuspended
             ? `${STATIC_IMAGES_URL}/patterns/2.svg`
-            : account?.metadata?.coverPicture?.optimized?.uri ||
+            : account?.metadata?.coverPicture ||
               `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
