@@ -8,7 +8,7 @@ const getEnvConfig = (): {
   heyTipping: `0x${string}`;
   lensApiEndpoint: string;
   lensHandles: `0x${string}`;
-  lensHub: `0x${string}`;
+  graph: `0x${string}`;
   permissionlessCreator?: `0x${string}`;
   tokenHandleRegistry: `0x${string}`;
 } => {
@@ -20,7 +20,7 @@ const getEnvConfig = (): {
         heyTipping: TestnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Testnet,
         lensHandles: TestnetContracts.LensHandles,
-        lensHub: TestnetContracts.LensHub,
+        graph: TestnetContracts.Graph,
         permissionlessCreator: TestnetContracts.PermissionlessCreator,
         tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
       };
@@ -31,7 +31,7 @@ const getEnvConfig = (): {
         heyTipping: MainnetContracts.HeyTipping,
         lensApiEndpoint: LensEndpoint.Mainnet,
         lensHandles: MainnetContracts.LensHandles,
-        lensHub: MainnetContracts.LensHub,
+        graph: MainnetContracts.Graph,
         permissionlessCreator: MainnetContracts.PermissionlessCreator,
         tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
       };
