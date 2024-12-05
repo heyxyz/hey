@@ -1,16 +1,22 @@
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type CreatePostRequest,
   type Post,
+  type PostResponse,
   useCreatePostMutation
 } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
+import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 
 interface CreatePostProps {
   commentOn?: Post;
-  onCompleted: (status?: any) => void;
+  onCompleted: (post?: PostResponse) => void;
   onError: (error: any) => void;
   quoteOf?: Post;
 }
@@ -23,6 +29,7 @@ const useCreatePost = ({
 }: CreatePostProps) => {
   const { postContent } = usePostStore();
   const { addTransaction } = useTransactionStore();
+  const { data: walletClient } = useWalletClient();
 
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOf);
@@ -46,10 +53,36 @@ const useCreatePost = ({
 
   // Onchain mutations
   const [post] = useCreatePostMutation({
-    onCompleted: ({ post }) => {
-      onCompleted(post.__typename);
+    onCompleted: async ({ post }) => {
       if (post.__typename === "PostResponse") {
         addTransaction(generateOptimisticPublication({ txHash: post.hash }));
+        return onCompleted(post);
+      }
+
+      if (walletClient) {
+        if (post.__typename === "SponsoredTransactionRequest") {
+          const hash = await sendEip712Transaction(walletClient, {
+            account: walletClient.account,
+            ...sponsoredTransactionData(post.raw)
+          });
+          addTransaction(generateOptimisticPublication({ txHash: hash }));
+
+          return onCompleted();
+        }
+
+        if (post.__typename === "SelfFundedTransactionRequest") {
+          const hash = await sendTransaction(walletClient, {
+            account: walletClient.account,
+            ...selfFundedTransactionData(post.raw)
+          });
+          addTransaction(generateOptimisticPublication({ txHash: hash }));
+
+          return onCompleted();
+        }
+      }
+
+      if (post.__typename === "TransactionWillFail") {
+        return toast.error(post.reason);
       }
     },
     onError
@@ -62,7 +95,7 @@ const useCreatePost = ({
     }
   };
 
-  return { createPost, error };
+  return { createPost };
 };
 
 export default useCreatePost;

@@ -11,11 +11,10 @@ import { POST } from "@hey/data/tracking";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
-import removeQuoteOn from "@hey/helpers/removeQuoteOn";
-import type { CreatePostRequest, Post } from "@hey/indexer";
+import type { CreatePostRequest, Post, PostResponse } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
-import { Button, Card, ErrorMessage, H6 } from "@hey/ui";
+import { Button, Card, H6 } from "@hey/ui";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
 import dynamic from "next/dynamic";
 import type { FC } from "react";
@@ -165,45 +164,20 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     errorToast(error);
   };
 
-  const onCompleted = (
-    __typename?:
-      | "CreateMomokaPublicationResult"
-      | "LensProfileManagerRelayError"
-      | "RelayError"
-      | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
+  const onCompleted = (post?: PostResponse) => {
+    if (post?.__typename !== "PostResponse") {
       return onError();
     }
 
     // Reset states
     reset();
 
-    // Track in leafwatch
-    const eventProperties = {
-      comment_on: isComment ? post?.id : null,
-      post_collect_module: collectModule.type,
-      post_has_attachments: attachments.length > 0,
-      post_has_poll: showPollEditor,
-      post_is_live: showLiveVideoEditor,
-      post_reference_module: selectedReferenceModule,
-      post_reference_module_degrees_of_separation:
-        selectedReferenceModule ===
-        ReferenceModuleType.DegreesOfSeparationReferenceModule
-          ? degreesOfSeparation
-          : null,
-      quote_on: isQuote ? quotedPost?.id : null
-    };
     Leafwatch.track(
-      isComment ? POST.NEW_COMMENT : isQuote ? POST.NEW_QUOTE : POST.NEW_POST,
-      eventProperties
+      isComment ? POST.NEW_COMMENT : isQuote ? POST.NEW_QUOTE : POST.NEW_POST
     );
   };
 
-  const { createPost, error } = useCreatePost({
+  const { createPost } = useCreatePost({
     commentOn: post,
     onCompleted,
     onError,
@@ -368,13 +342,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
-      {error ? (
-        <ErrorMessage
-          className="!rounded-none"
-          error={error}
-          title="Transaction failed!"
-        />
-      ) : null}
       <Editor />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
@@ -385,7 +352,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       <NewAttachments attachments={attachments} />
       {quotedPost ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPost isNew post={removeQuoteOn(quotedPost as Quote)} />
+          <QuotedPost isNew post={quotedPost as Post} />
         </Wrapper>
       ) : null}
       <div className="divider mx-5" />
