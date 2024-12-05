@@ -1,9 +1,6 @@
 import type { Eip712TransactionRequest } from "@hey/indexer";
-import type { SendEip712TransactionParameters } from "viem/zksync";
 
-const sponsoredTransactionData = (
-  raw: Eip712TransactionRequest
-): SendEip712TransactionParameters => {
+const sponsoredTransactionData = (raw: Eip712TransactionRequest) => {
   return {
     data: raw.data,
     gas: BigInt(raw.gasLimit),

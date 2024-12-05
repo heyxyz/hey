@@ -5,6 +5,8 @@ fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
     data
     from
     gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
     nonce
     to
     type

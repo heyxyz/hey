@@ -1,10 +1,9 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import { Graph } from "@hey/abis";
-import { GRAPH } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Account,
@@ -22,8 +21,8 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction } from "viem/zksync";
-import { useWalletClient, useWriteContract } from "wagmi";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
@@ -62,21 +61,18 @@ const Follow: FC<FollowProps> = ({
 
   const updateCache = () => {
     cache.modify({
-      fields: {
-        isFollowedByMe: (existingValue) => {
-          return { ...existingValue, value: true };
-        }
-      },
+      fields: { isFollowedByMe: () => true },
       id: cache.identify(account.operations)
     });
   };
 
-  const onCompleted = (follow?: FollowResponse) => {
+  const onCompleted = (hash: string, follow?: FollowResponse) => {
     if (follow?.__typename !== "FollowResponse") {
       return;
     }
 
     updateCache();
+    addTransaction(generateOptimisticFollow({ txHash: hash }));
     setIsLoading(false);
     toast.success("Followed");
     Leafwatch.track(ACCOUNT.FOLLOW, {
@@ -90,46 +86,35 @@ const Follow: FC<FollowProps> = ({
     errorToast(error);
   };
 
-  const { writeContractAsync } = useWriteContract({
-    mutation: {
-      onError,
-      onSuccess: (hash: string) => {
-        addTransaction(generateOptimisticFollow({ txHash: hash }));
-        onCompleted();
-      }
-    }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: Graph,
-      address: GRAPH,
-      args,
-      functionName: "follow"
-    });
-  };
-
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
-        addTransaction(generateOptimisticFollow({ txHash: follow.hash }));
-        return onCompleted(follow);
+        return onCompleted(follow.hash, follow);
       }
 
-      if (follow.__typename === "SponsoredTransactionRequest") {
-        if (walletClient) {
-          return await sendEip712Transaction(
-            walletClient,
-            sponsoredTransactionData(follow.raw)
-          );
+      if (walletClient) {
+        if (follow.__typename === "SponsoredTransactionRequest") {
+          const hash = await sendEip712Transaction(walletClient, {
+            account: walletClient.account,
+            ...sponsoredTransactionData(follow.raw)
+          });
+
+          return onCompleted(hash);
+        }
+
+        if (follow.__typename === "SelfFundedTransactionRequest") {
+          const hash = await sendTransaction(walletClient, {
+            account: walletClient.account,
+            ...selfFundedTransactionData(follow.raw)
+          });
+
+          return onCompleted(hash);
         }
       }
 
-      if (follow.__typename === "SelfFundedTransactionRequest") {
-        return await write({ args: follow.raw.data });
+      if (follow.__typename === "TransactionWillFail") {
+        return toast.error(follow.reason);
       }
-
-      return toast.error(Errors.SomethingWentWrong);
     },
     onError
   });
