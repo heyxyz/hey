@@ -13,7 +13,7 @@
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.7.8",
+    "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "mailchecker": "^6.0.12",

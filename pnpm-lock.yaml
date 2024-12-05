@@ -54,8 +54,8 @@ importers:
         specifier: ^1.3.4
         version: 1.3.4(graphql@16.9.0)
       axios:
-        specifier: ^1.7.8
-        version: 1.7.8(debug@4.3.7)
+        specifier: ^1.7.9
+        version: 1.7.9(debug@4.3.7)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -322,8 +322,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(unleash-proxy-client@3.6.1)
       axios:
-        specifier: ^1.7.8
-        version: 1.7.8(debug@4.3.7)
+        specifier: ^1.7.9
+        version: 1.7.9(debug@4.3.7)
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
@@ -599,8 +599,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       axios:
-        specifier: ^1.7.8
-        version: 1.7.8(debug@4.3.7)
+        specifier: ^1.7.9
+        version: 1.7.9(debug@4.3.7)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -689,8 +689,8 @@ importers:
         specifier: workspace:*
         version: link:../data
       axios:
-        specifier: ^1.7.8
-        version: 1.7.8(debug@4.3.7)
+        specifier: ^1.7.9
+        version: 1.7.9(debug@4.3.7)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -5409,8 +5409,8 @@ packages:
   axios@0.27.2:
     resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
 
-  axios@1.7.8:
-    resolution: {integrity: sha512-Uu0wb7KNqK2t5K+YQyVCLM76prD5sRFjKHbJYCP1J7JFGEQ6nN7HWn9+04LAeiJ3ji54lgS/gZCH1oxyrf1SPw==}
+  axios@1.7.9:
+    resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -14597,7 +14597,7 @@ snapshots:
     dependencies:
       amazon-cognito-identity-js: 6.3.12
       async-retry: 1.3.3
-      axios: 1.7.8(debug@4.3.7)
+      axios: 1.7.9(debug@4.3.7)
       lodash: 4.17.21
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -17304,7 +17304,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.7.8(debug@4.3.7):
+  axios@1.7.9(debug@4.3.7):
     dependencies:
       follow-redirects: 1.15.9(debug@4.3.7)
       form-data: 4.0.1
@@ -18550,7 +18550,7 @@ snapshots:
   eth-gas-reporter@0.2.27(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@solidity-parser/parser': 0.14.5
-      axios: 1.7.8(debug@4.3.7)
+      axios: 1.7.9(debug@4.3.7)
       cli-table3: 0.5.1
       colors: 1.4.0
       ethereum-cryptography: 1.2.0
@@ -23619,7 +23619,7 @@ snapshots:
 
   wait-on@8.0.1(debug@4.3.7):
     dependencies:
-      axios: 1.7.8(debug@4.3.7)
+      axios: 1.7.9(debug@4.3.7)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
