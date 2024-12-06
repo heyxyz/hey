@@ -19,12 +19,11 @@ import Script from "next/script";
 import type { FC } from "react";
 import { useState } from "react";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
-import { formatUnits, parseEther } from "viem";
-import { useAccount, useBalance, useWriteContract } from "wagmi";
+import { parseEther } from "viem";
+import { useAccount, useWriteContract } from "wagmi";
 import { object, string, type z } from "zod";
 import { useSignupStore } from ".";
 import AuthMessage from "../AuthMessage";
-import Moonpay from "./Moonpay";
 
 declare global {
   interface Window {
@@ -62,16 +61,9 @@ const ChooseHandle: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { data: balanceData } = useBalance({
-    address,
-    query: { refetchInterval: 2000 }
-  });
   const form = useZodForm({ mode: "onChange", schema: newProfileSchema });
   const handle = form.watch("handle");
 
-  const balance =
-    balanceData && Number.parseFloat(formatUnits(balanceData.value, 18));
-  const hasBalance = balance && balance >= SIGNUP_PRICE;
   const canCheck = Boolean(handle && handle.length > 4);
   const isInvalid = !form.formState.isValid;
 
@@ -160,30 +152,26 @@ const ChooseHandle: FC = () => {
           )}
         </div>
         <div className="flex items-center space-x-3">
-          {hasBalance ? (
-            <Button
-              className="w-full justify-center"
-              disabled={disabled}
-              icon={
-                isLoading ? (
-                  <Spinner className="mr-0.5" size="xs" />
-                ) : (
-                  <img
-                    alt="Lens Logo"
-                    className="h-3"
-                    height={12}
-                    src="/lens.svg"
-                    width={19}
-                  />
-                )
-              }
-              type="submit"
-            >
-              Mint for {SIGNUP_PRICE} POL
-            </Button>
-          ) : (
-            <Moonpay disabled={disabled} />
-          )}
+          <Button
+            className="w-full justify-center"
+            disabled={disabled}
+            icon={
+              isLoading ? (
+                <Spinner className="mr-0.5" size="xs" />
+              ) : (
+                <img
+                  alt="Lens Logo"
+                  className="h-3"
+                  height={12}
+                  src="/lens.svg"
+                  width={19}
+                />
+              )
+            }
+            type="submit"
+          >
+            Mint for {SIGNUP_PRICE} POL
+          </Button>
         </div>
       </Form>
     </div>

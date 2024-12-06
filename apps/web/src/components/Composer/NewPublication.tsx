@@ -9,7 +9,7 @@ import { Errors } from "@hey/data/errors";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
-import type { CreatePostRequest, Post, PostResponse } from "@hey/indexer";
+import type { Post, PostResponse } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, H6 } from "@hey/ui";
@@ -38,7 +38,6 @@ import {
 } from "src/store/non-persisted/post/usePostVideoStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
-import { useReferenceModuleStore } from "src/store/non-persisted/useReferenceModuleStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import PollEditor from "./Actions/PollSettings/PollEditor";
@@ -59,10 +58,6 @@ const Gif = dynamic(() => import("@components/Composer/Actions/Gif"), {
 });
 const CollectSettings = dynamic(
   () => import("@components/Composer/Actions/CollectSettings"),
-  { loading: () => Shimmer }
-);
-const ReferenceSettings = dynamic(
-  () => import("@components/Composer/Actions/ReferenceSettings"),
   { loading: () => Shimmer }
 );
 const PollSettings = dynamic(
@@ -115,10 +110,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
     (state) => state
   );
-
-  // Reference module store
-  const { degreesOfSeparation, onlyFollowers, selectedReferenceModule } =
-    useReferenceModuleStore();
 
   // Attributes store
   const { reset: resetAttributes } = usePostAttributesStore();
@@ -282,38 +273,18 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       const metadata = getMetadata({ baseMetadata });
       const metadataId = await uploadMetadata(metadata);
 
-      // Payload for the open action module
-      const actions = [];
-
-      if (collectModule.type) {
-        actions.push({
-          collectAction: collectModuleParams(collectModule)
-        });
-      }
-
-      // Payload for the post/comment/quote
-      const request: CreatePostRequest = {
-        contentURI: `${METADATA_ENDPOINT}/${metadataId}`,
-        ...(isComment && { commentOn: post?.id }),
-        ...(isQuote && { quoteOf: quotedPost?.id }),
-        actions
-        // ...(onlyFollowers && {
-        //   referenceModule:
-        //     selectedReferenceModule ===
-        //     ReferenceModuleType.FollowerOnlyReferenceModule
-        //       ? { followerOnlyReferenceModule: true }
-        //       : {
-        //           degreesOfSeparationReferenceModule: {
-        //             commentsRestricted: true,
-        //             degreesOfSeparation,
-        //             mirrorsRestricted: true,
-        //             quotesRestricted: true
-        //           }
-        //         }
-        // })
-      };
-
-      return await createPost(request);
+      return await createPost({
+        variables: {
+          request: {
+            contentUri: `${METADATA_ENDPOINT}/${metadataId}`,
+            ...(isComment && { commentOn: post?.id }),
+            ...(isQuote && { quoteOf: quotedPost?.id }),
+            ...(collectModule.type && {
+              actions: [{ collectAction: collectModuleParams(collectModule) }]
+            })
+          }
+        }
+      });
     } catch (error) {
       onError(error);
     }
@@ -363,7 +334,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
-          <ReferenceSettings />
           <PollSettings />
           {!isComment && <LivestreamSettings />}
         </div>
