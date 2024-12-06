@@ -1,7 +1,6 @@
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
-  type CreatePostRequest,
   type Post,
   type PostResponse,
   useCreatePostMutation
@@ -52,7 +51,7 @@ const useCreatePost = ({
   };
 
   // Onchain mutations
-  const [post] = useCreatePostMutation({
+  const [createPost] = useCreatePostMutation({
     onCompleted: async ({ post }) => {
       if (post.__typename === "PostResponse") {
         addTransaction(generateOptimisticPublication({ txHash: post.hash }));
@@ -87,13 +86,6 @@ const useCreatePost = ({
     },
     onError
   });
-
-  const createPost = async (request: CreatePostRequest) => {
-    const { data } = await post({ variables: { request } });
-    if (data?.post?.__typename === "SelfFundedTransactionRequest") {
-      // TODO: Lens v3 Handle self-funded transaction
-    }
-  };
 
   return { createPost };
 };

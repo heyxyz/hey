@@ -41,9 +41,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   showUserPreview = true
 }) => {
   const [loadAccount, { data, loading: networkLoading }] =
-    useFullAccountLazyQuery({
-      fetchPolicy: "cache-and-network"
-    });
+    useFullAccountLazyQuery({ fetchPolicy: "cache-and-network" });
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
   const account = data?.account as Account;

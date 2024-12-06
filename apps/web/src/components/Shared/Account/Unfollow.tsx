@@ -5,11 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import {
-  type Account,
-  type UnfollowResponse,
-  useUnfollowMutation
-} from "@hey/indexer";
+import { type Account, useUnfollowMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -66,11 +62,7 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const onCompleted = (hash: string, unfollow?: UnfollowResponse) => {
-    if (unfollow?.__typename !== "UnfollowResponse") {
-      return;
-    }
-
+  const onCompleted = (hash: string) => {
     updateCache();
     addTransaction(generateOptimisticUnfollow({ txHash: hash }));
     setIsLoading(false);
@@ -81,15 +73,10 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
   const [unfollow] = useUnfollowMutation({
     onCompleted: async ({ unfollow }) => {
       if (unfollow.__typename === "UnfollowResponse") {
-        return onCompleted(unfollow.hash, unfollow);
+        return onCompleted(unfollow.hash);
       }
 
       if (walletClient) {
@@ -116,7 +103,10 @@ const Unfollow: FC<UnfollowProps> = ({
         return toast.error(unfollow.reason);
       }
     },
-    onError
+    onError: (error) => {
+      setIsLoading(false);
+      errorToast(error);
+    }
   });
 
   const handleCreateUnfollow = async () => {
@@ -129,14 +119,10 @@ const Unfollow: FC<UnfollowProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      return await unfollow({
-        variables: { request: { account: account.address } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    setIsLoading(true);
+    return await unfollow({
+      variables: { request: { account: account.address } }
+    });
   };
 
   return (

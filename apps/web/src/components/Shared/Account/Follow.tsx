@@ -5,11 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import {
-  type Account,
-  type FollowResponse,
-  useFollowMutation
-} from "@hey/indexer";
+import { type Account, useFollowMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -66,11 +62,7 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const onCompleted = (hash: string, follow?: FollowResponse) => {
-    if (follow?.__typename !== "FollowResponse") {
-      return;
-    }
-
+  const onCompleted = (hash: string) => {
     updateCache();
     addTransaction(generateOptimisticFollow({ txHash: hash }));
     setIsLoading(false);
@@ -81,15 +73,10 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
-        return onCompleted(follow.hash, follow);
+        return onCompleted(follow.hash);
       }
 
       if (walletClient) {
@@ -116,7 +103,10 @@ const Follow: FC<FollowProps> = ({
         return toast.error(follow.reason);
       }
     },
-    onError
+    onError: (error) => {
+      setIsLoading(false);
+      errorToast(error);
+    }
   });
 
   const handleCreateFollow = async () => {
@@ -129,14 +119,10 @@ const Follow: FC<FollowProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      return await follow({
-        variables: { request: { account: account.address } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    setIsLoading(true);
+    return await follow({
+      variables: { request: { account: account.address } }
+    });
   };
 
   return (
