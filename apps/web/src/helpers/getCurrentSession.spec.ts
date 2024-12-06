@@ -21,8 +21,8 @@ describe("getCurrentSession", () => {
     const mockTokens = { accessToken: "mock-access-token" };
     const mockParsedJwt = {
       authenticationId: "auth-123",
-      evmAddress: "0x1234567890abcdef",
-      id: "session-id-123"
+      owner: "0x1234567890abcdef",
+      address: "0x1234567890abcdef"
     };
 
     (hydrateAuthTokens as any).mockReturnValue(mockTokens);
@@ -32,8 +32,8 @@ describe("getCurrentSession", () => {
 
     expect(result).toEqual({
       authenticationId: "auth-123",
-      evmAddress: "0x1234567890abcdef",
-      id: "session-id-123"
+      owner: "0x1234567890abcdef",
+      address: "0x1234567890abcdef"
     });
   });
 
@@ -48,8 +48,8 @@ describe("getCurrentSession", () => {
 
     expect(result).toEqual({
       authenticationId: undefined,
-      evmAddress: undefined,
-      id: undefined
+      owner: undefined,
+      address: undefined
     });
   });
 });
