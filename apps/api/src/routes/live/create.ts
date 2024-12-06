@@ -40,7 +40,7 @@ export const post = [
       const payload = parseJwt(idToken);
       const response = await fetch("https://livepeer.studio/api/stream", {
         body: JSON.stringify({
-          name: `${payload.id}-${uuid()}`,
+          name: `${payload.act.sub}-${uuid()}`,
           profiles: [
             {
               bitrate: 3000000,
@@ -67,7 +67,7 @@ export const post = [
       });
 
       const result = await response.json();
-      logger.info(`Created stream live stream by ${payload.id}`);
+      logger.info(`Created stream live stream by ${payload.act.sub}`);
 
       return res.status(200).json({ result, success: true });
     } catch (error) {

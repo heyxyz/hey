@@ -8,7 +8,7 @@ interface FeatureFlagProviderProps {
 }
 
 const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
-  const { authenticationId, id } = getCurrentSession();
+  const { authenticationId, address } = getCurrentSession();
 
   return (
     <FlagProvider
@@ -16,7 +16,7 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
         appName: "production",
         environment: "production",
         clientKey: UNLEASH_API_TOKEN,
-        context: { sessionId: authenticationId, userId: id },
+        context: { sessionId: authenticationId, userId: address },
         refreshInterval: 15,
         url: "https://unleash.hey.xyz/api/frontend"
       }}

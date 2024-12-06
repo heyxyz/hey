@@ -80,6 +80,9 @@ importers:
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
+      jose:
+        specifier: ^5.9.6
+        version: 5.9.6
       linkedom:
         specifier: ^0.18.5
         version: 0.18.5

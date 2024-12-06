@@ -41,13 +41,13 @@ export const post = [
       const dbPayload = { fontStyle };
 
       const profileTheme = await prisma.profileTheme.upsert({
-        create: { id: payload.id, ...dbPayload },
+        create: { id: payload.act.sub, ...dbPayload },
         update: dbPayload,
-        where: { id: payload.id }
+        where: { id: payload.act.sub }
       });
 
-      await delRedis(`preference:${payload.id}`);
-      logger.info(`Updated profile theme for ${payload.id}`);
+      await delRedis(`preference:${payload.act.sub}`);
+      logger.info(`Updated profile theme for ${payload.act.sub}`);
 
       return res.status(200).json({ result: profileTheme, success: true });
     } catch (error) {

@@ -10,7 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { object, string, type z } from "zod";
 
-const createTokenSchema = object({
+const validationSchema = object({
   contractAddress: string()
     .min(1)
     .max(42)
@@ -30,7 +30,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
   const [creating, setCreating] = useState(false);
 
   const form = useZodForm({
-    schema: createTokenSchema
+    schema: validationSchema
   });
 
   const create = async ({
@@ -38,7 +38,7 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
     decimals,
     name,
     symbol
-  }: z.infer<typeof createTokenSchema>) => {
+  }: z.infer<typeof validationSchema>) => {
     try {
       setCreating(true);
       const { data } = await axios.post(

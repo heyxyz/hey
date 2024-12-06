@@ -15,11 +15,11 @@ export const post = [
       const payload = parseJwt(idToken);
 
       const membershipNft = await prisma.membershipNft.upsert({
-        create: { dismissedOrMinted: true, id: payload.id },
+        create: { dismissedOrMinted: true, id: payload.act.sub },
         update: { dismissedOrMinted: true },
-        where: { id: payload.id }
+        where: { id: payload.act.sub }
       });
-      logger.info(`Updated membership nft status for ${payload.id}`);
+      logger.info(`Updated membership nft status for ${payload.act.sub}`);
 
       return res.status(200).json({ result: membershipNft, success: true });
     } catch (error) {

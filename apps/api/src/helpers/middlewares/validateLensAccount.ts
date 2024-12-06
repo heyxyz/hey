@@ -1,9 +1,10 @@
 import { Errors } from "@hey/data/errors";
-import lensPg from "@hey/db/lensPg";
-import { getRedis, setRedis } from "@hey/db/redisClient";
-import parseJwt from "@hey/helpers/parseJwt";
 import type { NextFunction, Request, Response } from "express";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 import catchedError from "../catchedError";
+
+const jwksUri = "https://api.testnet.lens.dev/.well-known/jwks.json";
+const JWKS = createRemoteJWKSet(new URL(jwksUri));
 
 /**
  * Middleware to validate Lens account
@@ -22,34 +23,10 @@ const validateLensAccount = async (
   }
 
   try {
-    const payload = parseJwt(idToken);
-    const cacheKey = `auth:${payload.id}`;
-    const cachedData = await getRedis(cacheKey);
-
-    if (cachedData) {
-      return next();
-    }
-
-    const authentication = await lensPg.query(
-      `
-        SELECT EXISTS (
-          SELECT 1 FROM authentication.record
-          WHERE profile_id = $1
-          AND authorization_id = $2
-          LIMIT 1
-        ) AS exists;
-      `,
-      [payload.id, payload.authenticationId]
-    );
-
-    if (authentication[0]?.exists) {
-      await setRedis(cacheKey, payload.authenticationId);
-      return next();
-    }
-
-    return catchedError(res, new Error(Errors.Unauthorized), 401);
+    await jwtVerify(idToken, JWKS);
+    return next();
   } catch {
-    return catchedError(res, new Error(Errors.SomethingWentWrong));
+    return catchedError(res, new Error(Errors.Unauthorized), 401);
   }
 };
 
