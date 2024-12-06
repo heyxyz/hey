@@ -16,23 +16,15 @@ const decoded = (str: string): string =>
 const parseJwt = (
   token: string
 ): {
-  authenticationId: string;
-  evmAddress: string;
-  exp: number;
-  iat: number;
-  id: string;
-  role: string;
+  sub: string;
+  act: { sub: string };
 } => {
   try {
     return JSON.parse(decoded(token.split(".")[1]));
   } catch {
     return {
-      authenticationId: "",
-      evmAddress: "",
-      exp: 0,
-      iat: 0,
-      id: "",
-      role: ""
+      sub: "",
+      act: { sub: "" }
     };
   }
 };

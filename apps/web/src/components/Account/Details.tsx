@@ -123,7 +123,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
                 onClick={() => push("/settings")}
                 outline
               >
-                Edit Acc
+                Edit Account
               </Button>
               <Button
                 icon={<PaintBrushIcon className="size-5" />}
