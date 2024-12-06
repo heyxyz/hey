@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import {
   type FollowersRequest,
@@ -27,7 +25,6 @@ const Followers: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.FOLLOWERS);
     setExporting(true);
     const fetchFollowers = async (cursor?: string) => {
       const { data } = await exportFollowers({

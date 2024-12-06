@@ -3,11 +3,9 @@ import QuotedPost from "@components/Post/QuotedPost";
 import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { KNOWN_ATTRIBUTES, METADATA_ENDPOINT } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
@@ -171,10 +169,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
     // Reset states
     reset();
-
-    Leafwatch.track(
-      isComment ? POST.NEW_COMMENT : isQuote ? POST.NEW_QUOTE : POST.NEW_POST
-    );
   };
 
   const { createPost } = useCreatePost({

@@ -1,10 +1,8 @@
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPost, useDeletePostMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
@@ -41,7 +39,6 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
 
   const [deletePost] = useDeletePostMutation({
     onCompleted: () => {
-      Leafwatch.track(POST.UNDO_REPOST);
       toast.success("Undone repost");
     },
     update: updateCache

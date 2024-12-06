@@ -6,10 +6,9 @@ import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning"
 import Footer from "@components/Shared/Footer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import PostStaffTool from "@components/StaffTools/Panels/Post";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { AccountLinkSource, PAGEVIEW } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -25,7 +24,6 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { createTrackedSelector } from "react-tracked";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
@@ -64,13 +62,6 @@ const ViewPost: NextPage = () => {
 
   const showQuotes = pathname === "/posts/[id]/quotes";
   const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, {
-      page: "publication",
-      subpage: pathname.replace("/posts/[id]", "")
-    });
-  }, []);
 
   const { data, error, loading } = usePostQuery({
     skip: !id || preLoadedPost?.id,

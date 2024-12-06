@@ -1,8 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { ACCOUNT } from "@hey/data/tracking";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Account, useUnfollowMutation } from "@hey/indexer";
@@ -67,10 +65,6 @@ const Unfollow: FC<UnfollowProps> = ({
     addTransaction(generateOptimisticUnfollow({ txHash: hash }));
     setIsLoading(false);
     toast.success("Unfollowed");
-    Leafwatch.track(ACCOUNT.UNFOLLOW, {
-      path: pathname,
-      target: account.address
-    });
   };
 
   const [unfollow] = useUnfollowMutation({

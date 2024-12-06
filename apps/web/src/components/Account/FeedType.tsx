@@ -1,4 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import {
   ChatBubbleLeftIcon,
   FilmIcon,
@@ -6,7 +5,6 @@ import {
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
-import { ACCOUNT } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import MediaFilter from "./Filters/MediaFilter";
@@ -21,9 +19,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType, setFeedType }) => {
     if (setFeedType) {
       setFeedType(type);
     }
-    Leafwatch.track(ACCOUNT.SWITCH_ACCOUNT_FEED_TAB, {
-      accountFeedType: type.toLowerCase()
-    });
   };
 
   const tabs = [

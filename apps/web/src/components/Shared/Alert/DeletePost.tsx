@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import { useDeletePostMutation } from "@hey/indexer";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
@@ -17,7 +15,6 @@ const DeletePost: FC = () => {
     onCompleted: () => {
       setShowPostDeleteAlert(false, null);
       toast.success("Post deleted");
-      Leafwatch.track(POST.DELETE);
     },
     update: (cache) => {
       cache.evict({

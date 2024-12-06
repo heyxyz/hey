@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { AUTH } from "@hey/data/tracking";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect } from "react";
@@ -17,7 +15,6 @@ const GlobalModalsFromUrl: FC = () => {
     if (isReady && query.signup && !currentAccount?.address) {
       setScreen("choose");
       setShowAuthModal(true, "signup");
-      Leafwatch.track(AUTH.OPEN_SIGNUP);
 
       // Remove query param
       push({ pathname: "/" }, undefined, { shallow: true });

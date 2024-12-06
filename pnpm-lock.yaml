@@ -159,9 +159,6 @@ importers:
 
   apps/cron:
     dependencies:
-      '@aws-sdk/client-s3':
-        specifier: ^3.700.0
-        version: 3.700.0
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
@@ -543,9 +540,6 @@ importers:
 
   packages/db:
     dependencies:
-      '@clickhouse/client':
-        specifier: ^1.7.0
-        version: 1.8.1
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -1833,13 +1827,6 @@ packages:
 
   '@bytecodealliance/preview2-shim@0.17.0':
     resolution: {integrity: sha512-JorcEwe4ud0x5BS/Ar2aQWOQoFzjq/7jcnxYXCvSMh0oRm0dQXzOA+hqLDBnOMks1LLBA7dmiLLsEBl09Yd6iQ==}
-
-  '@clickhouse/client-common@1.8.1':
-    resolution: {integrity: sha512-Z0R5zKaS3N35Op338WVRHIfoqDh9gotXZwekm0lbHQmwNaj3nY2iJ113dFYKjb1V+ESu+PvLEA//LJUGZyPQOg==}
-
-  '@clickhouse/client@1.8.1':
-    resolution: {integrity: sha512-Ec0pCdwftIPD7hCxhOukHS0Zxr2tDc5mNAHBqkT3c0c6GO2WQdZkME9+EcfGcoF7+foUp82F5a0bPfSDDjfWmg==}
-    engines: {node: '>=16'}
 
   '@coinbase/wallet-sdk@3.9.3':
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
@@ -12596,12 +12583,6 @@ snapshots:
     optional: true
 
   '@bytecodealliance/preview2-shim@0.17.0': {}
-
-  '@clickhouse/client-common@1.8.1': {}
-
-  '@clickhouse/client@1.8.1':
-    dependencies:
-      '@clickhouse/client-common': 1.8.1
 
   '@coinbase/wallet-sdk@3.9.3':
     dependencies:

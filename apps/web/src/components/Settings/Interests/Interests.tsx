@@ -1,12 +1,10 @@
 import { useApolloClient } from "@apollo/client";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import sanitizeAccountInterests from "@helpers/sanitizeAccountInterests";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
@@ -35,11 +33,9 @@ const Interests: FC = () => {
     variables: { request: { forProfileId: currentAccount?.address } }
   });
   const [addProfileInterests] = useAddProfileInterestsMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
   });
   const [removeProfileInterests] = useRemoveProfileInterestsMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 

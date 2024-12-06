@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { POST } from "@hey/data/tracking";
 import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
@@ -26,13 +24,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
       <button
         aria-label="Collect"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
-        onClick={() => {
-          setShowCollectModal(true);
-          Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
-            postId: post.id,
-            source: "icon"
-          });
-        }}
+        onClick={() => setShowCollectModal(true)}
         type="button"
       >
         <Tooltip

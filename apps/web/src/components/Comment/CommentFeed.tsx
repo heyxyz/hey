@@ -15,8 +15,6 @@ import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface CommentFeedProps {
@@ -26,8 +24,6 @@ interface CommentFeedProps {
 const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   const { txnQueue } = useTransactionStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
 
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
@@ -39,14 +35,6 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   };
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
-    onCompleted: async ({ postReferences }) => {
-      const ids =
-        postReferences?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     skip: !postId,
     variables: { request }
   });
@@ -63,15 +51,9 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data?.postReferences?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

@@ -1,9 +1,7 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { POST } from "@hey/data/tracking";
 import type { AnyPost } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -47,7 +45,6 @@ const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          Leafwatch.track(POST.COLLECT_MODULE.DOWNLOAD_COLLECTORS);
         })
         .finally(() => setDisabled(false)),
       {

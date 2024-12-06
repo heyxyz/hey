@@ -1,10 +1,8 @@
 import ToggleWrapper from "@components/Staff/Users/Overview/Tool/ToggleWrapper";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission, PermissionId } from "@hey/data/permissions";
-import { CREATORTOOLS } from "@hey/data/tracking";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
@@ -56,10 +54,6 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
       setPermissions((prev) =>
         enabled ? [...prev, key] : prev.filter((f) => f !== key)
       );
-      Leafwatch.track(CREATORTOOLS.ASSIGN_PERMISSION, {
-        permission: key,
-        accountAddress: account.address
-      });
     } catch (error) {
       errorToast(error);
     } finally {

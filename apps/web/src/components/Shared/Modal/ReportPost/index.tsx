@@ -1,8 +1,6 @@
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { type PostReportReason, useReportPostMutation } from "@hey/indexer";
 import {
@@ -41,11 +39,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
   const [
     createReport,
     { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportPostMutation({
-    onCompleted: () => {
-      Leafwatch.track(POST.REPORT, { postId: postId });
-    }
-  });
+  ] = useReportPostMutation();
 
   const reportPost = async ({
     additionalComment

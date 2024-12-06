@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
-import { SYSTEM } from "@hey/data/tracking";
 import cn from "@hey/ui/cn";
 import { useTheme } from "next-themes";
 import type { FC } from "react";
@@ -21,9 +19,6 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ className = "", onClick }) => {
       )}
       onClick={() => {
         setTheme(theme === "light" ? "dark" : "light");
-        Leafwatch.track(SYSTEM.SWITCH_THEME, {
-          mode: theme === "light" ? "dark" : "light"
-        });
         onClick?.();
       }}
       type="button"

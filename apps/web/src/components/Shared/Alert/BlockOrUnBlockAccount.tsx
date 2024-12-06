@@ -1,8 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
@@ -64,9 +62,6 @@ const BlockOrUnBlockAccount: FC = () => {
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);
     toast.success(hasBlocked ? "Unblocked" : "Blocked");
-    Leafwatch.track(hasBlocked ? ACCOUNT.BLOCK : ACCOUNT.UNBLOCK, {
-      address: blockingorUnblockingProfile?.address
-    });
   };
 
   const onError = (error: any) => {

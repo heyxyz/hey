@@ -1,18 +1,11 @@
 import Footer from "@components/Shared/Footer";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import { H2, H4 } from "@hey/ui";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useEffect } from "react";
 
 const Privacy: NextPage = () => {
   const updatedAt = "October 30, 2023";
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "privacy" });
-  }, []);
 
   return (
     <>
@@ -126,8 +119,9 @@ const Privacy: NextPage = () => {
               <H4 className="mt-8 mb-5">5. Analytics</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  We use <b>ClickHouse</b> to collect various events from user
-                  actions to analyse and make decisions for Site improvements.
+                  We use <b>Google Analytics</b> to collect various events from
+                  user actions to analyse and make decisions for Site
+                  improvements.
                 </p>
                 <p className="leading-7">
                   We collect profile id to identify the user. This makes sure to

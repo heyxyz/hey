@@ -1,12 +1,10 @@
 import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
-import { Leafwatch } from "@helpers/leafwatch";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { AccountFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { PAGEVIEW } from "@hey/data/tracking";
 import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
@@ -21,7 +19,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -34,23 +31,10 @@ import SuspendedDetails from "./SuspendedDetails";
 const ViewProfile: NextPage = () => {
   const {
     isReady,
-    pathname,
-    query: { username, address, source, type }
+    query: { username, address, type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
-
-  useEffect(() => {
-    if (isReady) {
-      Leafwatch.track(PAGEVIEW, {
-        page: "account",
-        subpage: pathname
-          .replace("/u/[username]", "")
-          .replace("/account/[address]", ""),
-        ...(source ? { source } : {})
-      });
-    }
-  }, [username, address]);
 
   const lowerCaseAccountFeedType = [
     AccountFeedType.Feed.toLowerCase(),

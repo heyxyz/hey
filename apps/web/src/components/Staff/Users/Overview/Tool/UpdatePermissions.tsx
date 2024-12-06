@@ -1,9 +1,7 @@
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
-import { STAFFTOOLS } from "@hey/data/tracking";
 import getAllPermissions, {
   GET_ALL_PERMISSIONS_QUERY_KEY
 } from "@hey/helpers/api/getAllPermissions";
@@ -57,10 +55,6 @@ const UpdatePermissions: FC<UpdatePermissionsProps> = ({
         enabled ? [...enabledFlags, key] : enabledFlags.filter((f) => f !== key)
       );
       toast.success("Permission updated");
-      Leafwatch.track(STAFFTOOLS.USERS.ASSIGN_PERMISSION, {
-        permission: key,
-        address: accountAddress
-      });
     } catch (error) {
       errorToast(error);
     } finally {

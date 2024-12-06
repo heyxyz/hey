@@ -5,7 +5,6 @@ import type { AnyPost } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 
 interface SingleImagePostProps {
   post: AnyPost;
@@ -17,8 +16,6 @@ const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
     getPostData(targetPost.metadata)?.attachments || [];
   const filteredAsset = getPostData(targetPost.metadata)?.asset;
   const backgroundImage = filteredAsset?.uri || filteredAttachments[0]?.uri;
-
-  usePushToImpressions(targetPost.id);
 
   return (
     <Link

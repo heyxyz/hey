@@ -2,9 +2,7 @@ import type { ApolloCache } from "@apollo/client";
 import { useHiddenCommentFeedStore } from "@components/Post";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   type Post,
@@ -35,10 +33,6 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
   const [hideComment] = useHideReplyMutation({
     onCompleted: () => {
       toast.success("Comment hidden");
-      Leafwatch.track(POST.TOGGLE_HIDE_COMMENT, {
-        hidden: true,
-        postId: post.id
-      });
     },
     onError,
     update: updateCache,
@@ -48,10 +42,6 @@ const HideComment: FC<HideCommentProps> = ({ post }) => {
   const [unhideComment] = useUnhideReplyMutation({
     onCompleted: () => {
       toast.success("Comment unhidden");
-      Leafwatch.track(POST.TOGGLE_HIDE_COMMENT, {
-        hidden: false,
-        postId: post.id
-      });
     },
     onError,
     update: updateCache,

@@ -1,8 +1,6 @@
 import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Reposts from "@components/Shared/Modal/Reposts";
-import { Leafwatch } from "@helpers/leafwatch";
-import { POST } from "@hey/data/tracking";
 import getPostsViews, {
   GET_POSTS_VIEWS_QUERY_KEY
 } from "@hey/helpers/getPostsViews";
@@ -115,10 +113,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         ) : null}
       </div>
       <Modal
-        onClose={() => {
-          Leafwatch.track(POST.OPEN_LIKES);
-          setShowLikesModal(false);
-        }}
+        onClose={() => setShowLikesModal(false)}
         show={showLikesModal}
         title="Likes"
         size="md"
@@ -126,10 +121,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         <Likes postId={postId} />
       </Modal>
       <Modal
-        onClose={() => {
-          Leafwatch.track(POST.OPEN_MIRRORS);
-          setShowMirrorsModal(false);
-        }}
+        onClose={() => setShowMirrorsModal(false)}
         show={showMirrorsModal}
         title="Reposts"
         size="md"
@@ -137,10 +129,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         <Reposts postId={postId} />
       </Modal>
       <Modal
-        onClose={() => {
-          Leafwatch.track(POST.OPEN_COLLECTORS);
-          setShowCollectorsModal(false);
-        }}
+        onClose={() => setShowCollectorsModal(false)}
         show={showCollectorsModal}
         title="Collectors"
         size="md"

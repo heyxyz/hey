@@ -1,10 +1,8 @@
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { STAFFTOOLS } from "@hey/data/tracking";
 import getAllTokens, {
   GET_ALL_TOKENS_QUERY_KEY
 } from "@hey/helpers/api/getAllTokens";
@@ -40,7 +38,6 @@ const List: FC = () => {
 
       setTokens(tokens.filter((token) => token.id !== id));
       toast.success("Token deleted");
-      Leafwatch.track(STAFFTOOLS.TOKENS.DELETE);
     } catch (error) {
       errorToast(error);
     }

@@ -1,9 +1,7 @@
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { BoltIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { FrameTransaction, Frame as IFrame } from "@hey/types/misc";
 import { Button, Card, Image, Input, Modal } from "@hey/ui";
@@ -189,7 +187,6 @@ const Frame: FC<FrameProps> = ({ frame, postId }) => {
             }
             key={index}
             onClick={() => {
-              Leafwatch.track(POST.CLICK_FRAME_BUTTON, { action, postId });
               if (action === "link" || action === "mint") {
                 const url = action === "mint" ? frameUrl : target || frameUrl;
                 window.open(url, "_blank");

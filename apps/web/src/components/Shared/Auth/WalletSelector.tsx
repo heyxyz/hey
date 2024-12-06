@@ -1,7 +1,5 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
-import { AUTH } from "@hey/data/tracking";
 import getWalletDetails from "@hey/helpers/getWalletDetails";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -16,9 +14,6 @@ const WalletSelector: FC = () => {
   const handleConnect = async (connector: Connector) => {
     try {
       await connectAsync({ connector });
-      Leafwatch.track(AUTH.CONNECT_WALLET, {
-        wallet: connector.name.toLowerCase()
-      });
     } catch {}
   };
 
@@ -26,10 +21,7 @@ const WalletSelector: FC = () => {
     <div className="space-y-2.5">
       <button
         className="flex items-center space-x-1 text-sm underline"
-        onClick={() => {
-          disconnect?.();
-          Leafwatch.track(AUTH.CHANGE_WALLET);
-        }}
+        onClick={() => disconnect?.()}
         type="reset"
       >
         <KeyIcon className="size-4" />

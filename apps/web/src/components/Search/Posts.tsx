@@ -12,8 +12,6 @@ import type { FC } from "react";
 import { useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -22,21 +20,11 @@ interface PostsProps {
 }
 
 const Posts: FC<PostsProps> = ({ query }) => {
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: SearchPostsRequest = { pageSize: PageSize.Fifty, query };
 
   const { data, error, fetchMore, loading } = useSearchPostsQuery({
-    onCompleted: async ({ searchPosts }) => {
-      const ids =
-        searchPosts?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     variables: { request }
   });
 
@@ -55,15 +43,9 @@ const Posts: FC<PostsProps> = ({ query }) => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data?.searchPosts?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

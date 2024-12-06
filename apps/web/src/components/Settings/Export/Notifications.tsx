@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import { useNotificationsLazyQuery } from "@hey/indexer";
 import { Button, Card, CardHeader } from "@hey/ui";
@@ -24,7 +22,6 @@ const Notifications: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    Leafwatch.track(SETTINGS.EXPORT.NOTIFICATIONS);
     setExporting(true);
     const fetchNotifications = async (cursor?: string) => {
       const { data } = await exportNotificiations({

@@ -1,7 +1,5 @@
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
-import { MISCELLANEOUS, POST } from "@hey/data/tracking";
 import { Button, Card, H5, Modal } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
@@ -54,12 +52,7 @@ const HeyMembershipNft: FC = () => {
         <div className="flex flex-col items-center space-y-1.5">
           <Button
             className="w-full"
-            onClick={() => {
-              setShowMintModal(true);
-              Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
-                from: "mint_membership_nft"
-              });
-            }}
+            onClick={() => setShowMintModal(true)}
             outline
           >
             Mint now
@@ -73,10 +66,7 @@ const HeyMembershipNft: FC = () => {
           </Modal>
           <button
             className="text-sm underline"
-            onClick={() => {
-              handleUpdateHeyMemberNftStatus();
-              Leafwatch.track(MISCELLANEOUS.DISMISSED_MEMBERSHIP_NFT_BANNER);
-            }}
+            onClick={handleUpdateHeyMemberNftStatus}
             type="button"
           >
             Dismiss

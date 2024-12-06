@@ -1,9 +1,7 @@
 import type { ApolloCache } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
@@ -39,7 +37,6 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
   const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
     onCompleted: () => {
       toast.success("Marked as not Interested");
-      Leafwatch.track(POST.NOT_INTERESTED, { postId: post.id });
     },
     onError,
     update: (cache) => updateCache(cache, true),
@@ -50,7 +47,6 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
     useUndoPublicationNotInterestedMutation({
       onCompleted: () => {
         toast.success("Undo Not interested");
-        Leafwatch.track(POST.UNDO_NOT_INTERESTED, { postId: post.id });
       },
       onError,
       update: (cache) => updateCache(cache, false),

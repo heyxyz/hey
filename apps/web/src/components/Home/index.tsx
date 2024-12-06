@@ -1,11 +1,8 @@
 import NewPost from "@components/Composer/NewPost";
 import ExploreFeed from "@components/Explore/ExploreFeed";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
-import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
-import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 import FeedType from "./FeedType";
@@ -18,10 +15,6 @@ import Timeline from "./Timeline";
 const Home: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const { feedType } = useHomeTabStore();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "home" });
-  }, []);
 
   const loggedInWithProfile = Boolean(currentAccount);
 

@@ -1,12 +1,9 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import WrongWallet from "@components/Shared/Settings/WrongWallet";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
-import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 import SettingsSidebar from "../Sidebar";
@@ -17,10 +14,6 @@ const ManagerSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const { address } = useAccount();
   const disabled = currentAccount?.owner !== address;
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "manager" });
-  }, []);
 
   if (!currentAccount) {
     return <NotLoggedIn />;

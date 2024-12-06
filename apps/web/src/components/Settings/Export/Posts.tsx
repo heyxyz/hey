@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import { PageSize, type PostsRequest, usePostsLazyQuery } from "@hey/indexer";
 import { Button, Card, CardHeader } from "@hey/ui";
@@ -23,7 +21,6 @@ const Posts: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.POSTS);
     setExporting(true);
     const fetchPosts = async (cursor?: string) => {
       const { data } = await exportPublications({

@@ -1,10 +1,8 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import isEmailAllowed from "@hey/helpers/isEmailAllowed";
 import { Button, Form, Input, useZodForm } from "@hey/ui";
 import axios from "axios";
@@ -56,7 +54,6 @@ const EmailForm: FC = () => {
         { headers: getAuthApiHeaders() }
       );
       setEmailState(email as string);
-      Leafwatch.track(SETTINGS.ACCOUNT.SET_EMAIL);
 
       return toast.success("Email verification sent to your email!");
     } catch (error) {

@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { SETTINGS } from "@hey/data/tracking";
 import downloadJson from "@hey/helpers/downloadJson";
 import { type Account as TAccount, useAccountLazyQuery } from "@hey/indexer";
 import { Button, Card, CardHeader } from "@hey/ui";
@@ -19,7 +17,6 @@ const Account: FC = () => {
   });
 
   const handleExportClick = () => {
-    Leafwatch.track(SETTINGS.EXPORT.PROFILE);
     setExporting(true);
     exportProfile({
       onCompleted: ({ account }) => {
