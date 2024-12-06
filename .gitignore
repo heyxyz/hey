@@ -45,8 +45,5 @@ yarn-error.log*
 # JetBrains IDE
 .idea
 
-# Service Workers
-sw.js
-
 # Node build artifacts
 dist

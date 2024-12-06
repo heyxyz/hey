@@ -1,7 +1,6 @@
 export const Localstorage = {
   AuthStore: "auth.store",
   FingerprintStore: "fingerprint.store",
-  LeafwatchStore: "leafwatch.store",
   NotificationStore: "notification.store",
   AllowedTokensStore: "allowed-tokens.store",
   PreferencesStore: "preferences.store",

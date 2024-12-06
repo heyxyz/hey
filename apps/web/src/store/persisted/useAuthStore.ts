@@ -37,7 +37,6 @@ const store = create(
         // Clear Localstorage
         const allLocalstorageStores = Object.values(Localstorage).filter(
           (value) =>
-            value !== Localstorage.LeafwatchStore &&
             value !== Localstorage.VerifiedMembersStore &&
             value !== Localstorage.SearchStore
         );

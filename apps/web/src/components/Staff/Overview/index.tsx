@@ -7,7 +7,6 @@ import type { NextPage } from "next";
 import Custom404 from "src/pages/404";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
-import LeafwatchStats from "./LeafwatchStats";
 import Links from "./Links";
 
 const Overview: NextPage = () => {
@@ -25,9 +24,6 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card>
-          <LeafwatchStats />
-        </Card>
         <Card className="p-5">
           <Links />
         </Card>

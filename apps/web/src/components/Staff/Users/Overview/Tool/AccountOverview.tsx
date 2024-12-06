@@ -1,5 +1,4 @@
 import MetaDetails from "@components/Shared/MetaDetails";
-import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import {
   BanknotesIcon,
   HandRaisedIcon,
@@ -11,39 +10,16 @@ import {
   ShieldCheckIcon,
   XCircleIcon
 } from "@heroicons/react/24/solid";
-import { APP_NAME, HEY_API_URL } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import type { Account } from "@hey/indexer";
 import { H5 } from "@hey/ui";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import type { FC } from "react";
-
-const GET_HAVE_USED_HEY_QUERY_KEY = "getHaveUsedHey";
 
 interface AccountOverviewProps {
   account: Account;
 }
 
 const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
-  const getHaveUsedHey = async () => {
-    try {
-      const { data } = await axios.get(
-        `${HEY_API_URL}/internal/leafwatch/account/haveUsedHey`,
-        { headers: getAuthApiHeaders(), params: { address: account.address } }
-      );
-
-      return data.haveUsedHey;
-    } catch {
-      return false;
-    }
-  };
-
-  const { data: haveUsedHey } = useQuery({
-    queryFn: getHaveUsedHey,
-    queryKey: [GET_HAVE_USED_HEY_QUERY_KEY, account.address]
-  });
-
   return (
     <>
       <div className="divider my-5 border-yellow-600 border-dashed" />
@@ -52,21 +28,6 @@ const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {
         <H5>Account Overview</H5>
       </div>
       <div className="mt-3 space-y-2">
-        {haveUsedHey ? (
-          <MetaDetails
-            icon={
-              <img
-                alt="Logo"
-                className="size-4"
-                height={16}
-                src="/logo.png"
-                width={16}
-              />
-            }
-          >
-            Have used {APP_NAME}
-          </MetaDetails>
-        ) : null}
         <MetaDetails
           icon={<HashtagIcon className="ld-text-gray-500 size-4" />}
           title="Account ID"

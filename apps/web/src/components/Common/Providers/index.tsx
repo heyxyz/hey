@@ -7,10 +7,8 @@ import type { FC, ReactNode } from "react";
 import ErrorBoundary from "../ErrorBoundary";
 import Layout from "../Layout";
 import FeatureFlagProvider from "./FeatureFlagProvider";
-import LeafwatchProvider from "./LeafwatchProvider";
 import OptimisticTransactionsProvider from "./OptimisticTransactionsProvider";
 import PreferencesProvider from "./PreferencesProvider";
-import ServiceWorkerProvider from "./ServiceWorkerProvider";
 import Web3Provider from "./Web3Provider";
 
 const lensApolloClient = apolloClient(authLink);
@@ -26,8 +24,6 @@ interface ProvidersProps {
 const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
-      <ServiceWorkerProvider />
-      <LeafwatchProvider />
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <FeatureFlagProvider>

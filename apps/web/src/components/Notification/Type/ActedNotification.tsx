@@ -5,7 +5,6 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -27,8 +26,6 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
     ? `and ${length} ${plur("other", length)} acted on your`
     : "acted on your";
   const type = notification?.publication.__typename;
-
-  usePushToImpressions(notification.publication.id);
 
   return (
     <div className="space-y-2">

@@ -4,7 +4,6 @@ import getPostData from "@hey/helpers/getPostData";
 import type { CommentNotification as TCommentNotification } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -22,8 +21,6 @@ const CommentNotification: FC<CommentNotificationProps> = ({
   const text = "commented on your";
   // TODO: remove ? when we have commentOn field in the comment
   const type = notification.comment.commentOn?.__typename;
-
-  usePushToImpressions(notification.comment.id);
 
   return (
     <div className="space-y-2">
