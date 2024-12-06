@@ -14,7 +14,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { object, string, type z } from "zod";
 
-const updateEmailSchema = object({
+const validationSchema = object({
   email: string().email()
 });
 
@@ -24,7 +24,7 @@ const EmailForm: FC = () => {
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useZodForm({ schema: updateEmailSchema });
+  const form = useZodForm({ schema: validationSchema });
 
   useEffect(() => {
     if (email) {
@@ -37,7 +37,7 @@ const EmailForm: FC = () => {
     errorToast(error);
   };
 
-  const setEmail = async ({ email }: z.infer<typeof updateEmailSchema>) => {
+  const setEmail = async ({ email }: z.infer<typeof validationSchema>) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }

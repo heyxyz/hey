@@ -34,7 +34,7 @@ export const SignupMessage = () => (
   />
 );
 
-const newAccountSchema = object({
+const validationSchema = object({
   username: string()
     .min(5, { message: "Username must be at least 5 characters long" })
     .max(26, { message: "Username must be at most 26 characters long" })
@@ -50,7 +50,7 @@ const ChooseUsername: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const form = useZodForm({ mode: "onChange", schema: newAccountSchema });
+  const form = useZodForm({ mode: "onChange", schema: validationSchema });
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -75,7 +75,7 @@ const ChooseUsername: FC = () => {
 
   const handleSignup = async ({
     username
-  }: z.infer<typeof newAccountSchema>) => {
+  }: z.infer<typeof validationSchema>) => {
     try {
       setIsLoading(true);
       await handleWrongNetwork();

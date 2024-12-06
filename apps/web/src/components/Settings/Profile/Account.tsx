@@ -50,7 +50,7 @@ import { useWalletClient } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
-const editAccountSchema = object({
+const validationSchema = object({
   bio: string().max(260, { message: "Bio should not exceed 260 characters" }),
   location: string().max(100, {
     message: "Location should not exceed 100 characters"
@@ -170,10 +170,10 @@ const AccountSettingsForm: FC = () => {
         currentAccount?.metadata?.attributes
       )?.replace(/(https:\/\/)?x\.com\//, "")
     },
-    schema: editAccountSchema
+    schema: validationSchema
   });
 
-  const editProfile = async (data: z.infer<typeof editAccountSchema>) => {
+  const editProfile = async (data: z.infer<typeof validationSchema>) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }

@@ -9,7 +9,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { object, string, type z } from "zod";
 
-const assignPermissionSchema = object({
+const validationSchema = object({
   ids: string().regex(/0x[\dA-Fa-f]+/g, {
     message: "Invalid profile IDs"
   })
@@ -24,10 +24,10 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
   const [assigning, setAssigning] = useState(false);
 
   const form = useZodForm({
-    schema: assignPermissionSchema
+    schema: validationSchema
   });
 
-  const assign = async ({ ids }: z.infer<typeof assignPermissionSchema>) => {
+  const assign = async ({ ids }: z.infer<typeof validationSchema>) => {
     try {
       setAssigning(true);
       const { data } = await axios.post(
