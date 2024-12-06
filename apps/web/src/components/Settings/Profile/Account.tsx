@@ -19,14 +19,10 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
-import {
-  type SetAccountMetadataRequest,
-  useSetAccountMetadataMutation
-} from "@hey/indexer";
+import { useSetAccountMetadataMutation } from "@hey/indexer";
 import {
   Button,
   Card,
-  ErrorMessage,
   Form,
   Image,
   Input,
@@ -35,12 +31,12 @@ import {
   useZodForm
 } from "@hey/ui";
 import type {
-  MetadataAttribute,
-  ProfileOptions
+  AccountOptions,
+  MetadataAttribute
 } from "@lens-protocol/metadata";
 import {
   MetadataAttributeType,
-  profile as profileMetadata
+  account as accountMetadata
 } from "@lens-protocol/metadata";
 import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
@@ -101,17 +97,9 @@ const AccountSettingsForm: FC = () => {
     useState("");
   const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
 
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
-      return;
-    }
-
+  const onCompleted = (hash: string) => {
     setIsLoading(false);
+    toast.success(hash);
     toast.success("Account updated");
   };
 
@@ -121,20 +109,13 @@ const AccountSettingsForm: FC = () => {
   };
 
   const [setAccountMetadata] = useSetAccountMetadataMutation({
-    onCompleted: ({ setAccountMetadata }) =>
-      onCompleted(setAccountMetadata.__typename),
+    onCompleted: ({ setAccountMetadata }) => {
+      if (setAccountMetadata.__typename === "SetAccountMetadataResponse") {
+        onCompleted(setAccountMetadata.hash);
+      }
+    },
     onError
   });
-
-  const updateAccount = async (request: SetAccountMetadataRequest) => {
-    const { data } = await setAccountMetadata({ variables: { request } });
-
-    if (data?.setAccountMetadata?.__typename === "TransactionWillFail") {
-      return await createOnchainSetProfileMetadataTypedData({
-        variables: { request }
-      });
-    }
-  };
 
   const form = useZodForm({
     defaultValues: {
@@ -181,7 +162,7 @@ const AccountSettingsForm: FC = () => {
             value
           })) || [];
 
-      const preparedProfileMetadata: ProfileOptions = {
+      const preparedAccountMetadata: AccountOptions = {
         ...(data.name && { name: data.name }),
         ...(data.bio && { bio: data.bio }),
         attributes: [
@@ -206,18 +187,18 @@ const AccountSettingsForm: FC = () => {
         coverPicture: coverPictureIpfsUrl ? coverPictureIpfsUrl : undefined,
         picture: profilePictureIpfsUrl ? profilePictureIpfsUrl : undefined
       };
-      preparedProfileMetadata.attributes =
-        preparedProfileMetadata.attributes?.filter((m) => {
+      preparedAccountMetadata.attributes =
+        preparedAccountMetadata.attributes?.filter((m) => {
           return m.key !== "" && Boolean(trimify(m.value));
         });
-      const metadata = profileMetadata(preparedProfileMetadata);
+      const metadata = accountMetadata(preparedAccountMetadata);
       const metadataId = await uploadMetadata(metadata);
 
-      const request: SetAccountMetadataRequest = {
-        metadataUri: `${METADATA_ENDPOINT}/${metadataId}`
-      };
-
-      return await updateAccount(request);
+      return await setAccountMetadata({
+        variables: {
+          request: { metadataUri: `${METADATA_ENDPOINT}/${metadataId}` }
+        }
+      });
     } catch (error) {
       onError(error);
     }
@@ -296,13 +277,6 @@ const AccountSettingsForm: FC = () => {
     <>
       <Card className="p-5">
         <Form className="space-y-4" form={form} onSubmit={editProfile}>
-          {error ? (
-            <ErrorMessage
-              className="mb-3"
-              error={error}
-              title="Transaction failed!"
-            />
-          ) : null}
           <Input
             disabled
             label="Account Id"
