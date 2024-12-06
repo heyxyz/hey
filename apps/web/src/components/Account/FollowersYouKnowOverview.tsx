@@ -1,6 +1,4 @@
 import FollowersYouKnow from "@components/Shared/Modal/FollowersYouKnow";
-import { Leafwatch } from "@helpers/leafwatch";
-import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
@@ -55,10 +53,7 @@ const FollowersYouKnowOverview: FC<FollowersYouKnowOverviewProps> = ({
         {children}
       </div>
       <Modal
-        onClose={() => {
-          Leafwatch.track(ACCOUNT.OPEN_MUTUAL_FOLLOWERS);
-          setShowMutualFollowersModal(false);
-        }}
+        onClose={() => setShowMutualFollowersModal(false)}
         show={showMutualFollowersModal}
         title="Mutual Followers"
         size="md"

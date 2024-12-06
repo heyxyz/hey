@@ -1,8 +1,7 @@
 import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAccount";
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { Leafwatch } from "@helpers/leafwatch";
-import { ACCOUNT, AccountLinkSource } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
 import type { FC } from "react";
@@ -79,10 +78,7 @@ const WhoToFollow: FC = () => {
         ))}
         <button
           className="ld-text-gray-500 font-bold"
-          onClick={() => {
-            setShowMore(true);
-            Leafwatch.track(ACCOUNT.OPEN_RECOMMENDED_ACCOUNTS);
-          }}
+          onClick={() => setShowMore(true)}
           type="button"
         >
           Show more

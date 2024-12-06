@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { Button, Card } from "@hey/ui";
 import type { FC } from "react";
@@ -22,7 +20,6 @@ const MutedPost: FC<MutedPostProps> = ({ type = "Post", setShowMutedPost }) => {
         onClick={(event) => {
           stopEventPropagation(event);
           setShowMutedPost(true);
-          Leafwatch.track(POST.TOGGLE_MUTED_POST);
         }}
         outline
       >

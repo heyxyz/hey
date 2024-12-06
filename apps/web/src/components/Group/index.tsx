@@ -1,9 +1,7 @@
 import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import {
   type Group,
   type GroupStatsResponse,
@@ -12,7 +10,6 @@ import {
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -30,15 +27,6 @@ const ViewGroup: NextPage = () => {
   const { currentAccount } = useAccountStore();
 
   const showMembers = pathname === "/g/[address]/members";
-
-  useEffect(() => {
-    if (isReady) {
-      Leafwatch.track(PAGEVIEW, {
-        page: "group",
-        subpage: pathname.replace("/g/[address]", "")
-      });
-    }
-  }, [address]);
 
   const { data, loading, error } = useGroupQuery({
     variables: {

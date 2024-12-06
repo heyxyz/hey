@@ -1,8 +1,6 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { APP_NAME } from "@hey/data/constants";
-import { ONBOARDING } from "@hey/data/tracking";
 import { Card, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -56,21 +54,13 @@ const SetAccount: FC = () => {
           title="Set your avatar"
         />
         <div>
-          <Link
-            href="/settings/account"
-            onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_EMAIL)}
-          >
+          <Link href="/settings/account">
             <Status finished={Boolean(email)} title="Set your email address" />
           </Link>
         </div>
       </div>
       <div className="font-bold">
-        <Link
-          href="/settings"
-          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_ACCOUNT)}
-        >
-          Update profile now
-        </Link>
+        <Link href="/settings">Update profile now</Link>
       </div>
     </Card>
   );

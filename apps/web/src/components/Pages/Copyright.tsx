@@ -1,18 +1,11 @@
 import Footer from "@components/Shared/Footer";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import { H2, H4 } from "@hey/ui";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useEffect } from "react";
 
 const Copyright: NextPage = () => {
   const updatedAt = "October 22, 2024";
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "copyright" });
-  }, []);
 
   return (
     <>

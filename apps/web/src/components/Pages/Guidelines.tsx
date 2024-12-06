@@ -1,17 +1,10 @@
 import Footer from "@components/Shared/Footer";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import { H2, H4 } from "@hey/ui";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useEffect } from "react";
 
 const Guidelines: NextPage = () => {
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "guidelines" });
-  }, []);
-
   return (
     <>
       <div className="flex h-48 w-full items-center justify-center bg-gray-400">

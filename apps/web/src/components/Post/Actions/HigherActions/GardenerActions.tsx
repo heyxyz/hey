@@ -1,9 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { GARDENER } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { type AnyPost, PostReportReason } from "@hey/indexer";
 import { Button } from "@hey/ui";
@@ -43,13 +41,10 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
   };
 
   const handleReportPost = ({
-    reasons,
-    type
+    reasons
   }: {
     reasons: PostReportReason[];
-    type: string;
   }) => {
-    Leafwatch.track(GARDENER.REPORT, { postId: post.id, type });
     toast.promise(reportPostOnLens(reasons), {
       error: "Error reporting post",
       loading: "Reporting post...",
@@ -64,16 +59,11 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
     type: string;
   }
 
-  const ReportButton: FC<ReportButtonProps> = ({
-    icon,
-    label,
-    reasons,
-    type
-  }) => (
+  const ReportButton: FC<ReportButtonProps> = ({ icon, label, reasons }) => (
     <Button
       disabled={loading}
       icon={icon}
-      onClick={() => handleReportPost({ reasons, type })}
+      onClick={() => handleReportPost({ reasons })}
       outline
       size="sm"
     >
@@ -112,8 +102,7 @@ const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
                 PostReportReason.FakeEngagement,
                 PostReportReason.Unrelated,
                 PostReportReason.Misleading
-              ],
-              type: "suspend"
+              ]
             });
           }}
           post={post}

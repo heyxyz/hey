@@ -1,5 +1,4 @@
 import New from "@components/Shared/Badges/New";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HomeFeedType } from "@hey/data/enums";
 import { HOME } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
@@ -47,10 +46,7 @@ const FeedType: FC = () => {
           badge={tab.badge}
           key={tab.type}
           name={tab.name}
-          onClick={() => {
-            setFeedType(tab.type);
-            Leafwatch.track(tab.track);
-          }}
+          onClick={() => setFeedType(tab.type)}
           showOnSm
         />
       ))}

@@ -1,8 +1,6 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
 import { rubikMonoOneFont } from "@helpers/fonts";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { MISCELLANEOUS } from "@hey/data/tracking";
 import { Button, Card } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -27,7 +25,6 @@ const Gitcoin: FC = () => {
           <Link
             className="font-bold underline"
             href="https://hey.xyz/gitcoin"
-            onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
             target="_blank"
           >
             <Button size="lg">Contribute now</Button>

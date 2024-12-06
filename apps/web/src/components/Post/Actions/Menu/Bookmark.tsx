@@ -1,10 +1,8 @@
 import type { ApolloCache } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   type Post,
@@ -59,7 +57,6 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const [bookmarkPost] = useBookmarkPostMutation({
     onCompleted: () => {
       toast.success("Publication bookmarked!");
-      Leafwatch.track(POST.BOOKMARK, { postId: post.id });
     },
     onError: (error) => {
       toggleHasBookmarked();
@@ -73,7 +70,6 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const [undoBookmarkPost] = useUndoBookmarkPostMutation({
     onCompleted: () => {
       toast.success("Removed publication bookmark!");
-      Leafwatch.track(POST.REMOVE_BOOKMARK, { postId: post.id });
     },
     onError: (error) => {
       toggleHasBookmarked();

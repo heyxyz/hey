@@ -1,10 +1,8 @@
 import type { ApolloCache } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import nFormatter from "@hey/helpers/nFormatter";
 import {
   type Post,
@@ -59,10 +57,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
     errorToast(error);
   };
 
-  const eventProperties = { postId: post?.id };
-
   const [addReaction] = useAddReactionMutation({
-    onCompleted: () => Leafwatch.track(POST.LIKE, eventProperties),
     onError: (error) => {
       toggleReact();
       decrement();
@@ -72,7 +67,6 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   });
 
   const [undoReaction] = useUndoReactionMutation({
-    onCompleted: () => Leafwatch.track(POST.UNLIKE, eventProperties),
     onError: (error) => {
       toggleReact();
       increment();

@@ -1,7 +1,5 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { ChartBarIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { AnalyticsTabType } from "@hey/data/enums";
-import { ANALYTICS } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { FC } from "react";
 
@@ -10,12 +8,6 @@ interface AnalyticsTypeProps {
 }
 
 const AnalyticsType: FC<AnalyticsTypeProps> = ({ tabType }) => {
-  const handleSwitchTab = (type: AnalyticsTabType) => {
-    Leafwatch.track(ANALYTICS.SWITCH_ANALYTICS_TAB, {
-      analytics_type: type.toLowerCase()
-    });
-  };
-
   const tabs = [
     {
       icon: <ChartBarIcon className="size-4" />,
@@ -38,7 +30,6 @@ const AnalyticsType: FC<AnalyticsTypeProps> = ({ tabType }) => {
             icon={tab.icon}
             key={tab.type}
             name={tab.name}
-            onClick={() => handleSwitchTab(tab.type)}
             type={tab.type.toLowerCase()}
           />
         ))}
