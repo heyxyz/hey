@@ -7,7 +7,14 @@ import { persist } from "zustand/middleware";
 interface State {
   currentAccount: null | Account;
   fallbackToCuratedFeed: boolean;
-  setCurrentAccount: (currentAccount: null | Account) => void;
+  isSignlessEnabled: boolean;
+  setCurrentAccount: ({
+    currentAccount,
+    isSignlessEnabled
+  }: {
+    currentAccount: null | Account;
+    isSignlessEnabled: boolean;
+  }) => void;
   setFallbackToCuratedFeed: (fallbackToCuratedFeed: boolean) => void;
 }
 
@@ -16,7 +23,9 @@ const store = create(
     (set) => ({
       currentAccount: null,
       fallbackToCuratedFeed: false,
-      setCurrentAccount: (currentAccount) => set(() => ({ currentAccount })),
+      isSignlessEnabled: false,
+      setCurrentAccount: ({ currentAccount, isSignlessEnabled }) =>
+        set(() => ({ currentAccount, isSignlessEnabled })),
       setFallbackToCuratedFeed: (fallbackToCuratedFeed) =>
         set(() => ({ fallbackToCuratedFeed }))
     }),

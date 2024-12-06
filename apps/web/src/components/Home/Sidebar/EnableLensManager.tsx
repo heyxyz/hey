@@ -6,10 +6,10 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 
 const EnableLensManager: FC = () => {
-  const { currentAccount } = useAccountStore();
+  const { currentAccount, isSignlessEnabled } = useAccountStore();
   const { address } = useAccount();
 
-  if (currentAccount?.owner !== address) {
+  if (isSignlessEnabled || currentAccount?.owner !== address) {
     return null;
   }
 

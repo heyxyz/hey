@@ -51,7 +51,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { loading } = useMeQuery({
     onCompleted: ({ me }) => {
-      setCurrentAccount(me.loggedInAs.account as Account);
+      setCurrentAccount({
+        currentAccount: me.loggedInAs.account as Account,
+        isSignlessEnabled: me.isSignless
+      });
 
       // If the profile has no following, we should fallback to the curated feed
       // TODO: Lens v3
