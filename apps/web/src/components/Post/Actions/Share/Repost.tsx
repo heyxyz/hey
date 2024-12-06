@@ -73,6 +73,11 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     toast.success("Post has been mirrored!");
   };
 
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const [repost] = useRepostMutation({
     onCompleted: async ({ repost }) => {
       if (repost.__typename === "PostResponse") {
@@ -80,22 +85,26 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
       }
 
       if (walletClient) {
-        if (repost.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(repost.raw)
-          });
+        try {
+          if (repost.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(repost.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (repost.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(repost.raw)
-          });
+          if (repost.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(repost.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
@@ -103,10 +112,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
         return toast.error(repost.reason);
       }
     },
-    onError: (error) => {
-      setIsLoading(false);
-      errorToast(error);
-    }
+    onError
   });
 
   if (post.operations?.canRepost === TriStateValue.No) {

@@ -39,6 +39,11 @@ const UnlinkHandle: FC = () => {
     toast.success("Unlinked");
   };
 
+  const onError = (error: any) => {
+    setUnlinking(false);
+    errorToast(error);
+  };
+
   const [unassignUsernameFromAccount] = useUnassignUsernameFromAccountMutation({
     onCompleted: async ({ unassignUsernameFromAccount }) => {
       if (
@@ -48,28 +53,32 @@ const UnlinkHandle: FC = () => {
       }
 
       if (walletClient) {
-        if (
-          unassignUsernameFromAccount.__typename ===
-          "SponsoredTransactionRequest"
-        ) {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(unassignUsernameFromAccount.raw)
-          });
+        try {
+          if (
+            unassignUsernameFromAccount.__typename ===
+            "SponsoredTransactionRequest"
+          ) {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(unassignUsernameFromAccount.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (
-          unassignUsernameFromAccount.__typename ===
-          "SelfFundedTransactionRequest"
-        ) {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(unassignUsernameFromAccount.raw)
-          });
+          if (
+            unassignUsernameFromAccount.__typename ===
+            "SelfFundedTransactionRequest"
+          ) {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(unassignUsernameFromAccount.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
@@ -77,10 +86,7 @@ const UnlinkHandle: FC = () => {
         return toast.error(unassignUsernameFromAccount.reason);
       }
     },
-    onError: (error) => {
-      setUnlinking(false);
-      errorToast(error);
-    }
+    onError
   });
 
   const handleUnlink = async () => {
@@ -95,7 +101,7 @@ const UnlinkHandle: FC = () => {
     setUnlinking(true);
 
     return await unassignUsernameFromAccount({
-      variables: { request: currentAccount.address }
+      variables: { request: { namespace: currentAccount.username?.namespace } }
     });
   };
 

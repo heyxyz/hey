@@ -47,6 +47,11 @@ const LinkHandle: FC = () => {
     toast.success("Linked");
   };
 
+  const onError = (error: any) => {
+    setLinkingUsername(null);
+    errorToast(error);
+  };
+
   const { data, loading } = useUsernamesQuery({
     variables: { request: { owner: currentAccount?.owner } }
   });
@@ -58,26 +63,31 @@ const LinkHandle: FC = () => {
       }
 
       if (walletClient) {
-        if (
-          assignUsernameToAccount.__typename === "SponsoredTransactionRequest"
-        ) {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(assignUsernameToAccount.raw)
-          });
+        try {
+          if (
+            assignUsernameToAccount.__typename === "SponsoredTransactionRequest"
+          ) {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(assignUsernameToAccount.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (
-          assignUsernameToAccount.__typename === "SelfFundedTransactionRequest"
-        ) {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(assignUsernameToAccount.raw)
-          });
+          if (
+            assignUsernameToAccount.__typename ===
+            "SelfFundedTransactionRequest"
+          ) {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(assignUsernameToAccount.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
@@ -85,10 +95,7 @@ const LinkHandle: FC = () => {
         return toast.error(assignUsernameToAccount.reason);
       }
     },
-    onError: (error) => {
-      setLinkingUsername(null);
-      errorToast(error);
-    }
+    onError
   });
 
   const handleLink = async (username: string) => {

@@ -85,7 +85,13 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load sessions" />;
+    return (
+      <ErrorMessage
+        className="m-5"
+        error={error}
+        title="Failed to load sessions"
+      />
+    );
   }
 
   if (authenticatedSessions?.length === 0) {

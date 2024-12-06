@@ -59,24 +59,28 @@ const useCreatePost = ({
       }
 
       if (walletClient) {
-        if (post.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(post.raw)
-          });
-          addTransaction(generateOptimisticPublication({ txHash: hash }));
+        try {
+          if (post.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(post.raw)
+            });
+            addTransaction(generateOptimisticPublication({ txHash: hash }));
 
-          return onCompleted();
-        }
+            return onCompleted();
+          }
 
-        if (post.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(post.raw)
-          });
-          addTransaction(generateOptimisticPublication({ txHash: hash }));
+          if (post.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(post.raw)
+            });
+            addTransaction(generateOptimisticPublication({ txHash: hash }));
 
-          return onCompleted();
+            return onCompleted();
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
