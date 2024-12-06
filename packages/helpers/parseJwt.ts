@@ -17,6 +17,7 @@ const parseJwt = (
   token: string
 ): {
   sub: string;
+  exp: number;
   act: { sub: string };
 } => {
   try {
@@ -24,6 +25,7 @@ const parseJwt = (
   } catch {
     return {
       sub: "",
+      exp: 0,
       act: { sub: "" }
     };
   }

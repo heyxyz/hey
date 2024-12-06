@@ -105,7 +105,7 @@ const ChooseUsername: FC = () => {
         const metadataId = await uploadMetadata(metadata);
 
         return await createAccountWithUsername({
-          context: { headers: { Authorization: `Bearer ${accessToken}` } },
+          context: { headers: { "X-Access-Token": accessToken } },
           variables: {
             request: {
               username: { localName: username.toLowerCase() },

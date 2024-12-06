@@ -29,7 +29,7 @@ export const reportPost = async (
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`
+            "X-Access-Token": accessToken
           }
         }
       );
