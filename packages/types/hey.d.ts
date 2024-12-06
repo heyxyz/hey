@@ -31,17 +31,6 @@ export type CollectModuleType = {
     | null;
 };
 
-export type PostViewCount = {
-  id: string;
-  views: number;
-};
-
-export type PostTip = {
-  count: number;
-  id: string;
-  tipped: boolean;
-};
-
 type PollOption = {
   id: string;
   option: string;
