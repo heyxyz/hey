@@ -2,16 +2,12 @@ import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
-import hasOptimisticallyMirrored from "@helpers/optimistic/hasOptimisticallyMirrored";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
-import {
-  type CreateRepostRequest,
-  type Post,
-  TriStateValue,
-  useRepostMutation
-} from "@hey/indexer";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
+import { type Post, TriStateValue, useRepostMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
@@ -21,6 +17,8 @@ import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 
 interface RepostProps {
   isLoading: boolean;
@@ -31,17 +29,18 @@ interface RepostProps {
 const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { addTransaction } = useTransactionStore();
+  const { addTransaction, hasOptimisticallyReposted } = useTransactionStore();
   const hasReposted =
-    post.operations?.hasReposted || hasOptimisticallyMirrored(post.id);
+    post.operations?.hasReposted || hasOptimisticallyReposted(post.id);
 
   const [shares, { increment }] = useCounter(
     post.stats.reposts + post.stats.quotes
   );
 
   const { cache } = useApolloClient();
+  const { data: walletClient } = useWalletClient();
 
-  const generateOptimisticMirror = ({
+  const generateOptimisticRepost = ({
     txHash
   }: {
     txHash: string;
@@ -49,7 +48,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     return {
       repostOf: post?.id,
       txHash,
-      type: OptmisticPostType.Mirror
+      type: OptmisticPostType.Repost
     };
   };
 
@@ -68,51 +67,54 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     });
   };
 
-  const onError = (error?: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
-      return onError();
-    }
-
+  const onCompleted = (hash: string) => {
     setIsLoading(false);
     increment();
     updateCache();
+    addTransaction(generateOptimisticRepost({ txHash: hash }));
     toast.success("Post has been mirrored!");
-    Leafwatch.track(POST.MIRROR, { postId: post.id });
+    Leafwatch.track(POST.REPOST, { postId: post.id });
   };
 
-  // Onchain mutations
-  const [createRepost] = useRepostMutation({
-    onCompleted: ({ repost }) => {
+  const [repost] = useRepostMutation({
+    onCompleted: async ({ repost }) => {
       if (repost.__typename === "PostResponse") {
-        addTransaction(generateOptimisticMirror({ txHash: repost.hash }));
+        return onCompleted(repost.hash);
       }
-      onCompleted(repost.__typename);
+
+      if (walletClient) {
+        if (repost.__typename === "SponsoredTransactionRequest") {
+          const hash = await sendEip712Transaction(walletClient, {
+            account: walletClient.account,
+            ...sponsoredTransactionData(repost.raw)
+          });
+
+          return onCompleted(hash);
+        }
+
+        if (repost.__typename === "SelfFundedTransactionRequest") {
+          const hash = await sendTransaction(walletClient, {
+            account: walletClient.account,
+            ...selfFundedTransactionData(repost.raw)
+          });
+
+          return onCompleted(hash);
+        }
+      }
+
+      if (repost.__typename === "TransactionWillFail") {
+        return toast.error(repost.reason);
+      }
     },
-    onError
+    onError: (error) => {
+      setIsLoading(false);
+      errorToast(error);
+    }
   });
 
   if (post.operations?.canRepost === TriStateValue.No) {
     return null;
   }
-
-  const repost = async (request: CreateRepostRequest) => {
-    const { data } = await createRepost({ variables: { request } });
-    if (data?.repost.__typename === "TransactionWillFail") {
-      return await createOnchainMirrorTypedData({
-        variables: { request }
-      });
-    }
-  };
 
   const handleCreateRepost = async () => {
     if (!currentAccount) {
@@ -123,14 +125,9 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      const request: CreateRepostRequest = { post: post?.id };
+    setIsLoading(true);
 
-      return await repost(request);
-    } catch (error) {
-      onError(error);
-    }
+    return await repost({ variables: { request: { post: post.id } } });
   };
 
   return (

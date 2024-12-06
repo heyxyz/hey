@@ -6,7 +6,6 @@ import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Leafwatch } from "@helpers/leafwatch";
-import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
@@ -49,7 +48,8 @@ const CollectAction: FC<CollectActionProps> = ({
   const { id: sessionAccountId } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
-  const { addTransaction, isFollowPending } = useTransactionStore();
+  const { addTransaction, isFollowPending, hasOptimisticallyCollected } =
+    useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);

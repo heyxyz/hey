@@ -6,7 +6,6 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { HeyLensSignup } from "@hey/abis";
 import {
   APP_NAME,
   HANDLE_PREFIX,

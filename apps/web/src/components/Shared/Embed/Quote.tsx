@@ -1,9 +1,10 @@
 import QuotedPost from "@components/Post/QuotedPost";
+import type { NestedPost } from "@hey/indexer";
 import type { FC } from "react";
 import Wrapper from "./Wrapper";
 
 interface QuoteProps {
-  post: PrimaryPublication;
+  post: NestedPost;
 }
 
 const Quote: FC<QuoteProps> = ({ post }) => {

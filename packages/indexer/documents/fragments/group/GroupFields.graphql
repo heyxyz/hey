@@ -1,10 +1,12 @@
 fragment GroupFields on Group {
   address
+  isMember
   metadata {
     name
     slug
     description
     icon
+    coverPicture
   }
   timestamp
 }

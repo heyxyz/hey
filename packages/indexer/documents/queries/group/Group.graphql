@@ -1,5 +1,11 @@
-query Group($request: GroupRequest!) {
-  group(request: $request) {
+query Group(
+  $groupRequest: GroupRequest!
+  $groupStatsRequest: GroupStatsRequest!
+) {
+  group(request: $groupRequest) {
     ...GroupFields
+  }
+  groupStats(request: $groupStatsRequest) {
+    totalMembers
   }
 }

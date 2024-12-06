@@ -7,6 +7,7 @@ import getPostsViews, {
   GET_POSTS_VIEWS_QUERY_KEY
 } from "@hey/helpers/getPostsViews";
 import nFormatter from "@hey/helpers/nFormatter";
+import type { PostStats as IPostStats } from "@hey/indexer";
 import { Modal } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -16,7 +17,7 @@ import { memo, useState } from "react";
 
 interface PostStatsProps {
   postId: string;
-  postStats: IPublicationStats;
+  postStats: IPostStats;
 }
 
 const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
@@ -32,13 +33,13 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
   });
 
   const views = data?.[0]?.views || 0;
-  const { bookmarks, comments, countOpenActions, mirrors, quotes, reactions } =
+  const { bookmarks, comments, countOpenActions, reposts, quotes, reactions } =
     postStats;
 
   const showStats =
     comments > 0 ||
     reactions > 0 ||
-    mirrors > 0 ||
+    reposts > 0 ||
     quotes > 0 ||
     countOpenActions > 0 ||
     bookmarks > 0 ||
@@ -58,14 +59,14 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
             {plur("Comment", comments)}
           </span>
         ) : null}
-        {mirrors > 0 ? (
+        {reposts > 0 ? (
           <button
             className="outline-offset-2"
             onClick={() => setShowMirrorsModal(true)}
             type="button"
           >
-            <b className="text-black dark:text-white">{nFormatter(mirrors)}</b>{" "}
-            {plur("Mirror", mirrors)}
+            <b className="text-black dark:text-white">{nFormatter(reposts)}</b>{" "}
+            {plur("Repost", reposts)}
           </button>
         ) : null}
         {quotes > 0 ? (

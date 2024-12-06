@@ -15,10 +15,9 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MembersProps {
   address: string;
-  slug: string;
 }
 
-const Members: FC<MembersProps> = ({ address, slug }) => {
+const Members: FC<MembersProps> = ({ address }) => {
   const { currentAccount } = useAccountStore();
 
   const request: GroupMembersRequest = {
@@ -51,12 +50,7 @@ const Members: FC<MembersProps> = ({ address, slug }) => {
     return (
       <EmptyState
         icon={<UsersIcon className="size-8" />}
-        message={
-          <div>
-            <b className="mr-1">/{slug}</b>
-            <span>doesn't have any members.</span>
-          </div>
-        }
+        message="Group doesn't have any members."
         hideCard
       />
     );

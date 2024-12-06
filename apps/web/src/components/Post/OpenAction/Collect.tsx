@@ -1,5 +1,4 @@
 import { Leafwatch } from "@helpers/leafwatch";
-import hasOptimisticallyCollected from "@helpers/optimistic/hasOptimisticallyCollected";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import { POST } from "@hey/data/tracking";
 import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
@@ -8,6 +7,7 @@ import { Button, Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useState } from "react";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import CollectModule from "./CollectModule";
 
 interface CollectProps {
@@ -16,6 +16,7 @@ interface CollectProps {
 
 const Collect: FC<CollectProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
+  const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
   const postActions = post.actions.filter((action) =>
     allowedPostActionModules.includes(action.__typename)
