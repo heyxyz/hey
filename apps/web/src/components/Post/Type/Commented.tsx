@@ -1,12 +1,13 @@
+import type { Post } from "@hey/indexer";
 import type { FC } from "react";
 import ThreadBody from "../ThreadBody";
 
 interface CommentedProps {
-  post: Comment;
+  post: Post;
 }
 
 const Commented: FC<CommentedProps> = ({ post }) => {
-  const commentOn: any | Comment = post?.commentOn;
+  const commentOn = post.commentOn;
   const root = commentOn?.root;
 
   return (

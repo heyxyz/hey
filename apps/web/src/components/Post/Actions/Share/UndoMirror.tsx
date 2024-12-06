@@ -41,8 +41,8 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
 
   const [deletePost] = useDeletePostMutation({
     onCompleted: () => {
-      Leafwatch.track(POST.UNDO_MIRROR);
-      toast.success("Undone mirror");
+      Leafwatch.track(POST.UNDO_REPOST);
+      toast.success("Undone repost");
     },
     update: updateCache
   });

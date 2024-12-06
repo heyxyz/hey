@@ -24,7 +24,7 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
           transaction.type === OptmisticPostType.Unfollow ||
           transaction.type === OptmisticPostType.Block ||
           transaction.type === OptmisticPostType.Unblock ||
-          transaction.type === OptmisticPostType.Mirror ||
+          transaction.type === OptmisticPostType.Repost ||
           transaction.type === OptmisticPostType.Comment ||
           transaction.type === OptmisticPostType.Collect ? (
           <div className="text-sm">

@@ -16,7 +16,7 @@ describe("GET /analytics/overview", () => {
       expect(item).toHaveProperty("likes");
       expect(item).toHaveProperty("comments");
       expect(item).toHaveProperty("collects");
-      expect(item).toHaveProperty("mirrors");
+      expect(item).toHaveProperty("reposts");
       expect(item).toHaveProperty("quotes");
       expect(item).toHaveProperty("mentions");
       expect(item).toHaveProperty("follows");

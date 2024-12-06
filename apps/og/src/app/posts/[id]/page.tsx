@@ -87,7 +87,7 @@ export const generateMetadata = async ({
       "count:actions": targetPost.stats.countOpenActions,
       "count:comments": targetPost.stats.comments,
       "count:likes": targetPost.stats.reactions,
-      "count:mirrors": targetPost.stats.reposts,
+      "count:reposts": targetPost.stats.reposts,
       "count:quotes": targetPost.stats.quotes,
       "lens:id": targetPost.id,
       ...getCollectModuleMetadata(targetPost)
@@ -128,7 +128,7 @@ const Page = async ({ params }: Props) => {
             <a href={postUrl}>Likes: {metadata.other?.["count:likes"]}</a>
           </li>
           <li>
-            <a href={postUrl}>Mirrors: {metadata.other?.["count:mirrors"]}</a>
+            <a href={postUrl}>Reposts: {metadata.other?.["count:reposts"]}</a>
           </li>
           <li>
             <a href={`${postUrl}/quotes`}>

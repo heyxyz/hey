@@ -6,8 +6,8 @@ import {
   type Account,
   PageSize,
   PostReferenceType,
-  useWhoReferencedPostQuery,
-  type WhoReferencedPostRequest
+  type WhoReferencedPostRequest,
+  useWhoReferencedPostQuery
 } from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -53,7 +53,7 @@ const Reposts: FC<RepostsProps> = ({ postId }) => {
       <div className="p-5">
         <EmptyState
           icon={<ArrowsRightLeftIcon className="size-8" />}
-          message="No mirrors."
+          message="No reposts."
           hideCard
         />
       </div>
@@ -65,7 +65,7 @@ const Reposts: FC<RepostsProps> = ({ postId }) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load mirrors"
+        title="Failed to load reposts"
       />
     );
   }
@@ -84,7 +84,7 @@ const Reposts: FC<RepostsProps> = ({ postId }) => {
             account={account as Account}
             showBio
             showUserPreview={false}
-            source={AccountLinkSource.Mirrors}
+            source={AccountLinkSource.Reposts}
           />
         </div>
       )}

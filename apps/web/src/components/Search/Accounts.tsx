@@ -2,7 +2,12 @@ import SingleAccountsShimmer from "@components/Shared/Shimmer/SingleAccountsShim
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  type AccountSearchRequest,
+  PageSize,
+  useSearchAccountsQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -12,18 +17,17 @@ interface AccountsProps {
 }
 
 const Accounts: FC<AccountsProps> = ({ query }) => {
-  const request: ProfileSearchRequest = {
-    limit: LimitType.TwentyFive,
-    query,
-    where: { customFilters: [CustomFiltersType.Gardeners] }
+  const request: AccountSearchRequest = {
+    pageSize: PageSize.Fifty,
+    localName: query
   };
 
-  const { data, error, fetchMore, loading } = useSearchProfilesQuery({
+  const { data, error, fetchMore, loading } = useSearchAccountsQuery({
     skip: !query,
     variables: { request }
   });
 
-  const search = data?.searchProfiles;
+  const search = data?.searchAccounts;
   const accounts = search?.items;
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
