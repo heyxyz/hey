@@ -101,7 +101,7 @@ const UnlinkHandle: FC = () => {
     setUnlinking(true);
 
     return await unassignUsernameFromAccount({
-      variables: { request: currentAccount.address }
+      variables: { request: { namespace: currentAccount.username?.namespace } }
     });
   };
 
