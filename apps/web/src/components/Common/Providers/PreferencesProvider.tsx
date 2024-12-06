@@ -22,7 +22,7 @@ const GET_VERIFIED_MEMBERS_QUERY_KEY = "getVerifiedMembers";
 const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
 
 const PreferencesProvider: FC = () => {
-  const { id: sessionAccountId } = getCurrentSession();
+  const { address: sessionAccountAddress } = getCurrentSession();
   const { setTheme } = useAccountThemeStore();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
@@ -85,9 +85,9 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    enabled: Boolean(sessionAccountId),
+    enabled: Boolean(sessionAccountAddress),
     queryFn: getPreferencesData,
-    queryKey: [GET_PREFERENCES_QUERY_KEY, sessionAccountId || ""]
+    queryKey: [GET_PREFERENCES_QUERY_KEY, sessionAccountAddress || ""]
   });
   useQuery({
     queryFn: getVerifiedMembers,

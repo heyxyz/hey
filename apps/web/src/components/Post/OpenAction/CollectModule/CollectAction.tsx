@@ -43,7 +43,7 @@ const CollectAction: FC<CollectActionProps> = ({
   post
 }) => {
   const collectModule = getCollectModuleData(postAction as any);
-  const { id: sessionAccountId } = getCurrentSession();
+  const { address: sessionAccountAddress } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
   const { addTransaction, isFollowPending, hasOptimisticallyCollected } =
@@ -145,7 +145,7 @@ const CollectAction: FC<CollectActionProps> = ({
         );
         setAllowed(allowedAmount > amount);
       },
-      skip: !assetAddress || !sessionAccountId,
+      skip: !assetAddress || !sessionAccountAddress,
       variables: {
         request: {
           currencies: assetAddress,
@@ -223,7 +223,7 @@ const CollectAction: FC<CollectActionProps> = ({
     }
   };
 
-  if (!sessionAccountId) {
+  if (!sessionAccountAddress) {
     return (
       <LoginButton
         className="mt-5 w-full justify-center"

@@ -18,6 +18,7 @@ const parseJwt = (
 ): {
   sub: string;
   exp: number;
+  sid: string;
   act: { sub: string };
 } => {
   try {
@@ -26,6 +27,7 @@ const parseJwt = (
     return {
       sub: "",
       exp: 0,
+      sid: "",
       act: { sub: "" }
     };
   }
