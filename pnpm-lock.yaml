@@ -291,9 +291,12 @@ importers:
       '@hey/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@lens-network/sdk':
+        specifier: canary
+        version: 0.0.0-canary-20241203140504(viem@2.21.54(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8))
       '@lens-protocol/metadata':
-        specifier: ^1.2.0
-        version: 1.2.0(zod@3.23.8)
+        specifier: next
+        version: 2.0.0-next.1(zod@3.23.8)
       '@livepeer/react':
         specifier: ^4.2.8
         version: 4.2.8(@types/react-dom@18.3.1)(@types/react@18.3.12)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2758,8 +2761,32 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
+  '@lens-network/sdk@0.0.0-canary-20241203140504':
+    resolution: {integrity: sha512-w5mNEXQTP0pSkCq6b8sgM2/87dad1gFTP7hbaDxy4lXnM1fBrVA5OzxWRfCIJJY8/NGdw4RYhEzJoXf4IRR97w==}
+    engines: {node: '>=18', pnpm: '>=9.1.2'}
+    peerDependencies:
+      ethers: ^6.12.1
+      viem: ^2.12.0
+      zksync-ethers: ^6.7.1
+    peerDependenciesMeta:
+      ethers:
+        optional: true
+      viem:
+        optional: true
+      zksync-ethers:
+        optional: true
+
   '@lens-protocol/metadata@1.2.0':
     resolution: {integrity: sha512-fUB8+GvYiVt1uMqYJi/iN/aw/lzE+oEfpTjraTI87MqWPgYubbx0vFySjJs7uAdI7oftczvlwhthmMUl5DDuGA==}
+    engines: {node: '>=18 <21'}
+    peerDependencies:
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
+  '@lens-protocol/metadata@2.0.0-next.1':
+    resolution: {integrity: sha512-byuyH16wKl5Eq1vB5XubLAbwlIUwPWkyD1FWVl28qGfl/LqWZceVEA6kYhU2hzVyc2HLbprrjIsXHUrzB9OcQw==}
     engines: {node: '>=18 <21'}
     peerDependencies:
       zod: ^3.22.3
@@ -12414,7 +12441,18 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
+  '@lens-network/sdk@0.0.0-canary-20241203140504(viem@2.21.54(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8))':
+    optionalDependencies:
+      viem: 2.21.54(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.23.8)
+
   '@lens-protocol/metadata@1.2.0(zod@3.23.8)':
+    dependencies:
+      json-stable-stringify: 1.1.1
+      uuid: 9.0.1
+    optionalDependencies:
+      zod: 3.23.8
+
+  '@lens-protocol/metadata@2.0.0-next.1(zod@3.23.8)':
     dependencies:
       json-stable-stringify: 1.1.1
       uuid: 9.0.1

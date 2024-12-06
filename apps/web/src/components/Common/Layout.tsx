@@ -18,7 +18,6 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { isAddress } from "viem";
 import { useDisconnect } from "wagmi";
 import GlobalModals from "../Shared/GlobalModals";
 import Navbar from "../Shared/Navbar";
@@ -37,8 +36,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
 
-  const { id: sessionAccountId } = getCurrentSession();
+  const { address: sessionAccountAddress } = getCurrentSession();
 
+  console.log(sessionAccountAddress);
   const logout = (shouldReload = false) => {
     resetPreferences();
     resetStatus();
@@ -60,7 +60,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       // }
     },
     onError: () => logout(true),
-    skip: !sessionAccountId || isAddress(sessionAccountId)
+    skip: !sessionAccountAddress
   });
 
   const validateAuthentication = () => {

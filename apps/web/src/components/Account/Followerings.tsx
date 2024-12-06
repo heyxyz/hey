@@ -2,20 +2,32 @@ import Followers from "@components/Shared/Modal/Followers";
 import Following from "@components/Shared/Modal/Following";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
-import type { Account, AccountStats } from "@hey/indexer";
+import { type Account, useAccountStatsQuery } from "@hey/indexer";
 import { H4, Modal } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 
 interface FolloweringsProps {
   account: Account;
-  stats: AccountStats;
 }
 
-const Followerings: FC<FolloweringsProps> = ({ account, stats }) => {
+const Followerings: FC<FolloweringsProps> = ({ account }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const { graphFollowStats } = stats;
+
+  const { data, loading } = useAccountStatsQuery({
+    variables: { request: { account: account.address } }
+  });
+
+  if (loading) {
+    return null;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  const stats = data.accountStats.graphFollowStats;
 
   return (
     <div className="flex gap-8">
@@ -24,7 +36,7 @@ const Followerings: FC<FolloweringsProps> = ({ account, stats }) => {
         onClick={() => setShowFollowingModal(true)}
         type="button"
       >
-        <H4>{humanize(graphFollowStats?.following)}</H4>
+        <H4>{humanize(stats?.following)}</H4>
         <div className="ld-text-gray-500">Following</div>
       </button>
       <button
@@ -32,9 +44,9 @@ const Followerings: FC<FolloweringsProps> = ({ account, stats }) => {
         onClick={() => setShowFollowersModal(true)}
         type="button"
       >
-        <H4>{humanize(graphFollowStats?.followers)}</H4>
+        <H4>{humanize(stats?.followers)}</H4>
         <div className="ld-text-gray-500">
-          {plur("Follower", graphFollowStats?.followers)}
+          {plur("Follower", stats?.followers)}
         </div>
       </button>
       <Modal
