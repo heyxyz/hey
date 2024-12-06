@@ -73,11 +73,6 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
@@ -108,7 +103,10 @@ const Follow: FC<FollowProps> = ({
         return toast.error(follow.reason);
       }
     },
-    onError
+    onError: (error) => {
+      setIsLoading(false);
+      errorToast(error);
+    }
   });
 
   const handleCreateFollow = async () => {
@@ -121,14 +119,10 @@ const Follow: FC<FollowProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      return await follow({
-        variables: { request: { account: account.address } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    setIsLoading(true);
+    return await follow({
+      variables: { request: { account: account.address } }
+    });
   };
 
   return (

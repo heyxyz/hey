@@ -7,5 +7,7 @@ export enum OptmisticPostType {
   Quote = "Quote",
   Unfollow = "Unfollow",
   Block = "Block",
-  Unblock = "Unblock"
+  Unblock = "Unblock",
+  AssignUsername = "AssignUsername",
+  UnassignUsername = "UnassignUsername"
 }

@@ -73,11 +73,6 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
   const [unfollow] = useUnfollowMutation({
     onCompleted: async ({ unfollow }) => {
       if (unfollow.__typename === "UnfollowResponse") {
@@ -108,7 +103,10 @@ const Unfollow: FC<UnfollowProps> = ({
         return toast.error(unfollow.reason);
       }
     },
-    onError
+    onError: (error) => {
+      setIsLoading(false);
+      errorToast(error);
+    }
   });
 
   const handleCreateUnfollow = async () => {
@@ -121,14 +119,10 @@ const Unfollow: FC<UnfollowProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      return await unfollow({
-        variables: { request: { account: account.address } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    setIsLoading(true);
+    return await unfollow({
+      variables: { request: { account: account.address } }
+    });
   };
 
   return (
