@@ -1,5 +1,4 @@
 import MetaTags from "@components/Common/MetaTags";
-import SuperFollow from "@components/Settings/Account/SuperFollow";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
@@ -25,7 +24,6 @@ const AccountSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Email />
-        <SuperFollow />
         <RateLimits />
         <Verification />
       </GridItemEight>
