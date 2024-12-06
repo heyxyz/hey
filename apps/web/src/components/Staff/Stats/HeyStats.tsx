@@ -18,7 +18,6 @@ interface HeyStatsType {
   preferences: number;
   accountStatuses: number;
   profileThemes: number;
-  tips: number;
 }
 
 const HeyStats: FC = () => {
@@ -78,7 +77,6 @@ const HeyStats: FC = () => {
         />
         <NumberedStat count={data.preferences.toString()} name="Preferences" />
         <NumberedStat count={data.emails.toString()} name="Emails" />
-        <NumberedStat count={data.tips.toString()} name="Tips" />
         <NumberedStat
           count={data.membershipNfts.toString()}
           name="Membership NFTs"
