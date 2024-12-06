@@ -1,7 +1,12 @@
 import SingleImagePost from "@components/Post/SingleImagePost";
 import ImagePostsShimmer from "@components/Shared/Shimmer/ImagePostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { type AnyPost, MainContentFocus } from "@hey/indexer";
+import {
+  type AnyPost,
+  type MlexplorePostsRequest,
+  PageSize,
+  useMlPostsExploreQuery
+} from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 
@@ -12,22 +17,22 @@ interface ImageFeedProps {
 const ImageFeed: FC<ImageFeedProps> = ({
   feedType = ExplorePublicationsOrderByType.LensCurated
 }) => {
-  const request: ExplorePublicationRequest = {
-    limit: LimitType.Fifty,
-    orderBy: feedType,
-    where: {
-      customFilters: [CustomFiltersType.Gardeners],
-      metadata: {
-        mainContentFocus: [MainContentFocus.Image]
-      }
-    }
+  const request: MlexplorePostsRequest = {
+    pageSize: PageSize.Fifty
+    // orderBy: feedType,
+    // where: {
+    //   customFilters: [CustomFiltersType.Gardeners],
+    //   metadata: {
+    //     mainContentFocus: [MainContentFocus.Image]
+    //   }
+    // }
   };
 
-  const { data, error, loading } = useExplorePublicationsQuery({
+  const { data, error, loading } = useMlPostsExploreQuery({
     variables: { request }
   });
 
-  const posts = data?.explorePublications?.items;
+  const posts = data?.mlPostsExplore?.items;
 
   if (loading) {
     return <ImagePostsShimmer />;
