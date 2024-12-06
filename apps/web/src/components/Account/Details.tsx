@@ -98,7 +98,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
             className="text-sm sm:text-base"
             slug={getAccount(account).slugWithPrefix}
           />
-          {account.operations?.isFollowedByMe ? (
+          {account.operations?.isFollowingMe ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </div>

@@ -32,25 +32,34 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     setIsLoading(false);
   };
 
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const [enableSignless] = useEnableSignlessMutation({
     onCompleted: async ({ enableSignless }) => {
       if (walletClient) {
-        if (enableSignless.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(enableSignless.raw)
-          });
+        try {
+          if (enableSignless.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(enableSignless.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (enableSignless.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(enableSignless.raw)
-          });
+          if (enableSignless.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(enableSignless.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
@@ -58,10 +67,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
         return toast.error(enableSignless.reason);
       }
     },
-    onError: (error) => {
-      setIsLoading(false);
-      errorToast(error);
-    }
+    onError
   });
 
   const handleToggleDispatcher = async () => {
