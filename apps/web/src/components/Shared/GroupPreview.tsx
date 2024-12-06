@@ -1,7 +1,7 @@
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import { useGroupLazyQuery } from "@hey/indexer";
+import { type Group, useGroupLazyQuery } from "@hey/indexer";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import type { FC, ReactNode } from "react";
@@ -79,7 +79,7 @@ const GroupPreview: FC<GroupPreviewProps> = ({ children, handle }) => {
       <div className="space-y-3 p-4">
         <div className="flex items-center justify-between">
           <UserAvatar />
-          <JoinLeaveButton group={group} small />
+          <JoinLeaveButton group={group as Group} small />
         </div>
         <UserName />
         {group.metadata?.description && (
@@ -90,7 +90,7 @@ const GroupPreview: FC<GroupPreviewProps> = ({ children, handle }) => {
           </div>
         )}
         <div className="flex items-center space-x-1">
-          <div className="text-base">{nFormatter(club.totalMembers)}</div>
+          <div className="text-base">{nFormatter(group.totalMembers)}</div>
           <div className="ld-text-gray-500 text-sm">Members</div>
         </div>
       </div>
