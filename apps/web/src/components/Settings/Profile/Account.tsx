@@ -16,6 +16,8 @@ import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
@@ -43,6 +45,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
@@ -97,6 +101,8 @@ const AccountSettingsForm: FC = () => {
     useState("");
   const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
 
+  const { data: walletClient } = useWalletClient();
+
   const onCompleted = (hash: string) => {
     setIsLoading(false);
     toast.success(hash);
@@ -109,9 +115,39 @@ const AccountSettingsForm: FC = () => {
   };
 
   const [setAccountMetadata] = useSetAccountMetadataMutation({
-    onCompleted: ({ setAccountMetadata }) => {
+    onCompleted: async ({ setAccountMetadata }) => {
       if (setAccountMetadata.__typename === "SetAccountMetadataResponse") {
-        onCompleted(setAccountMetadata.hash);
+        return onCompleted(setAccountMetadata.hash);
+      }
+
+      if (walletClient) {
+        try {
+          if (setAccountMetadata.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(setAccountMetadata.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (
+            setAccountMetadata.__typename === "SelfFundedTransactionRequest"
+          ) {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(setAccountMetadata.raw)
+            });
+
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
+        }
+      }
+
+      if (setAccountMetadata.__typename === "TransactionWillFail") {
+        return toast.error(setAccountMetadata.reason);
       }
     },
     onError
