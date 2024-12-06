@@ -8,13 +8,13 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "easyinvoice": "^3.0.47",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.10.1",
     "typescript": "^5.7.2"
   }
 }
