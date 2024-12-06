@@ -10,7 +10,6 @@ interface State {
   isFollowPending: (profileAddress: string) => boolean;
   isUnfollowPending: (profileAddress: string) => boolean;
   isBlockOrUnblockPending: (profileAddress: string) => boolean;
-  hasOptimisticallyReposted: (repostOf: string) => boolean;
   hasOptimisticallyCollected: (collectOn: string) => boolean;
   removeTransaction: (hash: string) => void;
   reset: () => void;
@@ -33,8 +32,6 @@ const store = create(
         get().txnQueue.some((txn) => txn.unfollowOn === profileAddress),
       isBlockOrUnblockPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.blockOrUnblockOn === profileAddress),
-      hasOptimisticallyReposted: (repostOf) =>
-        get().txnQueue.some((txn) => txn.repostOf === repostOf),
       hasOptimisticallyCollected: (collectOn) =>
         get().txnQueue.some((txn) => txn.collectOn === collectOn),
       removeTransaction: (hash) =>

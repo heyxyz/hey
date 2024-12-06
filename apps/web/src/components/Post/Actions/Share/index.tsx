@@ -10,7 +10,6 @@ import { Spinner, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import Quote from "./Quote";
 import Repost from "./Repost";
 import UndoRepost from "./UndoRepost";
@@ -22,12 +21,10 @@ interface ShareMenuProps {
 
 const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { hasOptimisticallyReposted } = useTransactionStore();
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const hasShared =
-    targetPost.operations?.hasReposted ||
-    targetPost.operations?.hasQuoted ||
-    hasOptimisticallyReposted(post.id);
+    targetPost.operations?.hasReposted.optimistic ||
+    targetPost.operations?.hasQuoted.optimistic;
   const shares = targetPost.stats.reposts + targetPost.stats.quotes;
 
   const iconClassName = "w-[15px] sm:w-[18px]";
@@ -75,7 +72,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
               post={targetPost}
               setIsLoading={setIsLoading}
             />
-            {targetPost.operations?.hasReposted &&
+            {targetPost.operations?.hasReposted.optimistic &&
               targetPost.id !== post.id && (
                 <UndoRepost
                   isLoading={isLoading}

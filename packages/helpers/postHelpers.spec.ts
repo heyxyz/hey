@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isCommentPost, isRepost } from "./postHelpers";
+import { isRepost } from "./postHelpers";
 
 describe("postHelpers", () => {
   describe("isRepost", () => {
@@ -16,18 +16,6 @@ describe("postHelpers", () => {
     test("should return false for null", () => {
       const post = null;
       expect(isRepost(post)).toBe(false);
-    });
-  });
-
-  describe("isCommentPost", () => {
-    test("should return true for Comment post", () => {
-      const post: any = { __typename: "Comment" };
-      expect(isCommentPost(post)).toBe(true);
-    });
-
-    test("should return false for non-Comment post", () => {
-      const post: any = { __typename: "Article" };
-      expect(isCommentPost(post)).toBe(false);
     });
   });
 });
