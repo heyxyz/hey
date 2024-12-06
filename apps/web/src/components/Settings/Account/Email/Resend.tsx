@@ -1,9 +1,7 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
@@ -46,7 +44,6 @@ const Resend: FC = () => {
         { headers: getAuthApiHeaders() }
       );
       setSent(true);
-      Leafwatch.track(SETTINGS.ACCOUNT.RESEND_EMAIL_VERIFICATION);
 
       return toast.success("Email verification sent to your email!");
     } catch (error) {

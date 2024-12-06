@@ -1,10 +1,8 @@
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Post, TriStateValue, useRepostMutation } from "@hey/indexer";
@@ -73,7 +71,6 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     updateCache();
     addTransaction(generateOptimisticRepost({ txHash: hash }));
     toast.success("Post has been mirrored!");
-    Leafwatch.track(POST.REPOST, { postId: post.id });
   };
 
   const [repost] = useRepostMutation({

@@ -1,7 +1,5 @@
 import { MenuItem } from "@headlessui/react";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
@@ -28,7 +26,6 @@ const Share: FC<ShareProps> = ({ post }) => {
           `${location.origin}/posts/${post?.id}`
         );
         toast.success("Copied to clipboard!");
-        Leafwatch.track(POST.SHARE, { postId: post.id });
       }}
     >
       <div className="flex items-center space-x-2">

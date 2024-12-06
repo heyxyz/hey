@@ -1,7 +1,5 @@
 import errorToast from "@helpers/errorToast";
 import getAllowanceModule from "@helpers/getAllowanceModule";
-import { Leafwatch } from "@helpers/leafwatch";
-import { SETTINGS } from "@hey/data/tracking";
 import { PostActionType } from "@hey/indexer";
 import { Button, Modal, WarningMessage } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -53,11 +51,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       toast.success(allowed ? "Module disabled" : "Module enabled");
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
-        allowed: !allowed,
-        currency: module.allowance.asset.symbol,
-        module: module.moduleName
-      });
     }
 
     if (error) {

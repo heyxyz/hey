@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { POST } from "@hey/data/tracking";
 import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import type { Post } from "@hey/indexer";
 import { Button, Modal } from "@hey/ui";
@@ -32,13 +30,7 @@ const Collect: FC<CollectProps> = ({ post }) => {
   return (
     <>
       <Button
-        onClick={() => {
-          setShowCollectModal(true);
-          Leafwatch.track(POST.COLLECT_MODULE.OPEN_COLLECT, {
-            postId: post.id,
-            source: "button"
-          });
-        }}
+        onClick={() => setShowCollectModal(true)}
         outline={!hasActed}
         size="sm"
       >

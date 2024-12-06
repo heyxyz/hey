@@ -1,7 +1,5 @@
 import { MenuItem } from "@headlessui/react";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
-import { POST } from "@hey/data/tracking";
 import getPostData from "@hey/helpers/getPostData";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
@@ -29,7 +27,6 @@ const CopyPostText: FC<CopyPostTextProps> = ({ post }) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(filteredContent || "");
         toast.success("Content copied to clipboard!");
-        Leafwatch.track(POST.COPY_TEXT, { postId: post.id });
       }}
     >
       <div className="flex items-center space-x-2">

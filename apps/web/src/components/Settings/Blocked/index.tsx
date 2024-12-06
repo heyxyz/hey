@@ -1,8 +1,6 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import {
   Card,
   CardHeader,
@@ -11,17 +9,12 @@ import {
   GridLayout
 } from "@hey/ui";
 import type { NextPage } from "next";
-import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import List from "./List";
 
 const BlockedSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "blocked" });
-  }, []);
 
   if (!currentAccount) {
     return <NotLoggedIn />;

@@ -1,7 +1,5 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckBadgeIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
-import { SETTINGS } from "@hey/data/tracking";
 import getNumberOfDaysFromDate from "@hey/helpers/datetime/getNumberOfDaysFromDate";
 import { useAccountStatsQuery } from "@hey/indexer";
 import { Button, Card, H5 } from "@hey/ui";
@@ -86,7 +84,6 @@ const Verification: FC = () => {
             disabled={!hasAllRequirements}
             onClick={() => {
               // TODO: Migrate to Hey API
-              Leafwatch.track(SETTINGS.ACCOUNT.REQUEST_VERIFICATION);
               toast.success("Verification request sent to staff!");
             }}
           >
