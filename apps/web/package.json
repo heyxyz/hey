@@ -23,6 +23,7 @@
     "@hey/image-cropper": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/ui": "workspace:*",
+    "@lens-network/sdk": "canary",
     "@lens-protocol/metadata": "next",
     "@livepeer/react": "^4.2.8",
     "@next/bundle-analyzer": "^15.0.2",
