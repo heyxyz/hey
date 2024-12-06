@@ -20,7 +20,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
-import type { Account, AccountStats } from "@hey/indexer";
+import type { Account } from "@hey/indexer";
 import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
@@ -55,18 +55,15 @@ const MetaDetails = ({
 interface DetailsProps {
   isSuspended: boolean;
   account: Account;
-  stats: AccountStats;
 }
 
-const Details: FC<DetailsProps> = ({ isSuspended = false, account, stats }) => {
+const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
   const { push } = useRouter();
   const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);
   const { resolvedTheme } = useTheme();
-
-  const followType = account?.followModule?.type;
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
@@ -117,7 +114,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account, stats }) => {
       ) : null}
       <div className="space-y-5">
         <ScamWarning accountAddress={account.address} />
-        <Followerings account={account} stats={stats} />
+        <Followerings account={account} />
         <div className="flex items-center space-x-2">
           {currentAccount?.address === account.address ? (
             <>
@@ -126,7 +123,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account, stats }) => {
                 onClick={() => push("/settings")}
                 outline
               >
-                Edit Acc
+                Edit Account
               </Button>
               <Button
                 icon={<PaintBrushIcon className="size-5" />}
@@ -136,9 +133,9 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account, stats }) => {
                 Personalize
               </Button>
             </>
-          ) : followType !== FollowModuleType.RevertFollowModule ? (
+          ) : (
             <FollowUnfollowButton account={account} />
-          ) : null}
+          )}
           <AccountMenu account={account} />
         </div>
         {currentAccount?.address !== account.address ? (

@@ -96,10 +96,6 @@ const Follow: FC<FollowProps> = ({
       if (follow.__typename === "TransactionWillFail") {
         return toast.error(follow.reason);
       }
-    },
-    onError: (error) => {
-      setIsLoading(false);
-      errorToast(error);
     }
   });
 
@@ -114,9 +110,14 @@ const Follow: FC<FollowProps> = ({
     }
 
     setIsLoading(true);
-    return await follow({
-      variables: { request: { account: account.address } }
-    });
+    try {
+      return await follow({
+        variables: { request: { account: account.address } }
+      });
+    } catch (error) {
+      setIsLoading(false);
+      errorToast(error);
+    }
   };
 
   return (

@@ -9,11 +9,7 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
-import {
-  type Account,
-  type AccountStats,
-  useFullAccountQuery
-} from "@hey/indexer";
+import { type Account, useAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -53,15 +49,14 @@ const ViewProfile: NextPage = () => {
     data,
     error,
     loading: profileLoading
-  } = useFullAccountQuery({
+  } = useAccountQuery({
     skip: address ? !address : !username,
     variables: {
-      accountRequest: {
+      request: {
         ...(address
           ? { address }
           : { username: { localName: username as string } })
-      },
-      accountStatsRequest: { account: address }
+      }
     }
   });
 
@@ -112,7 +107,6 @@ const ViewProfile: NextPage = () => {
             <Details
               isSuspended={accountDetails?.isSuspended || false}
               account={account as Account}
-              stats={data?.accountStats as AccountStats}
             />
           )}
         </GridItemFour>

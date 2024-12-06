@@ -11,9 +11,14 @@ import {
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
     refresh(request: $request) {
-      accessToken
-      refreshToken
-      identityToken
+      ... on AuthenticationTokens {
+        accessToken
+        refreshToken
+        idToken
+      }
+      ... on ForbiddenError {
+        reason
+      }
     }
   }
 `;
@@ -50,7 +55,7 @@ const authLink = new ApolloLink((operation, forward) => {
       .then(({ data }) => {
         const accessToken = data?.data?.refresh?.accessToken;
         const refreshToken = data?.data?.refresh?.refreshToken;
-        const idToken = data?.data?.refresh?.identityToken;
+        const idToken = data?.data?.refresh?.idToken;
         operation.setContext({ headers: { "X-Access-Token": accessToken } });
         signIn({ accessToken, idToken, refreshToken });
 

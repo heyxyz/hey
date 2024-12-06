@@ -1,13 +1,9 @@
 import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Reposts from "@components/Shared/Modal/Reposts";
-import getPostsViews, {
-  GET_POSTS_VIEWS_QUERY_KEY
-} from "@hey/helpers/getPostsViews";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { PostStats as IPostStats } from "@hey/indexer";
 import { Modal } from "@hey/ui";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
@@ -23,16 +19,8 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const { data } = useQuery({
-    enabled: Boolean(postId),
-    queryFn: () => getPostsViews([postId]),
-    queryKey: [GET_POSTS_VIEWS_QUERY_KEY, postId],
-    refetchInterval: 5000
-  });
-
-  const views = data?.[0]?.views || 0;
-  const { bookmarks, comments, countOpenActions, reposts, quotes, reactions } =
-    postStats;
+  const { bookmarks, comments, reposts, quotes, reactions } = postStats;
+  postStats;
 
   const showStats =
     comments > 0 ||
@@ -40,8 +28,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
     reposts > 0 ||
     quotes > 0 ||
     countOpenActions > 0 ||
-    bookmarks > 0 ||
-    views > 0;
+    bookmarks > 0;
 
   if (!showStats) {
     return null;
@@ -103,12 +90,6 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
               {nFormatter(bookmarks)}
             </b>{" "}
             {plur("Bookmark", bookmarks)}
-          </span>
-        ) : null}
-        {views > 0 ? (
-          <span>
-            <b className="text-black dark:text-white">{nFormatter(views)}</b>{" "}
-            {plur("View", views)}
           </span>
         ) : null}
       </div>

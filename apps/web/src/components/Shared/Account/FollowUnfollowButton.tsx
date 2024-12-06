@@ -12,7 +12,6 @@ interface FollowUnfollowButtonProps {
   hideUnfollowButton?: boolean;
   account: Account;
   small?: boolean;
-  superFollowTitle?: string;
   unfollowTitle?: string;
 }
 
@@ -23,7 +22,6 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   hideUnfollowButton = false,
   account,
   small = false,
-  superFollowTitle = "Super Follow",
   unfollowTitle = "Following"
 }) => {
   const { currentAccount } = useAccountStore();
@@ -44,7 +42,7 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
           />
         ))}
       {!hideUnfollowButton &&
-        (account.operations.isFollowedByMe.value ? (
+        (account.operations?.isFollowedByMe ? (
           <Unfollow
             buttonClassName={buttonClassName}
             account={account}

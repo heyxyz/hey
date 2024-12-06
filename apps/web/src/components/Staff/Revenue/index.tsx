@@ -8,7 +8,6 @@ import Custom404 from "src/pages/404";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
 import NftRevenue from "./NftRevenue";
-import SignupRevenue from "./SignupRevenue";
 
 const Revenue: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -25,7 +24,6 @@ const Revenue: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <SignupRevenue />
         <NftRevenue />
       </GridItemEight>
     </GridLayout>
