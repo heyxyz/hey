@@ -1,3 +1,4 @@
+import { type MetadataAttribute, MetadataAttributeType } from "@hey/indexer";
 import { describe, expect, test } from "vitest";
 import getAccountAttribute from "./getAccountAttribute";
 
