@@ -5,7 +5,7 @@ import { CHAIN } from "src/constants";
 import { useAccount, useChainId } from "wagmi";
 import { create } from "zustand";
 import WalletSelector from "../WalletSelector";
-import ChooseHandle from "./ChooseHandle";
+import ChooseUsername from "./ChooseUsername";
 import Minting from "./Minting";
 import Success from "./Success";
 
@@ -42,7 +42,7 @@ const Signup: FC = () => {
     <div className="space-y-2.5">
       {chain === CHAIN.id ? (
         screen === "choose" ? (
-          <ChooseHandle />
+          <ChooseUsername />
         ) : screen === "minting" ? (
           <Minting />
         ) : (

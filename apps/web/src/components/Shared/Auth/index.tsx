@@ -6,7 +6,7 @@ import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModal
 import { useAccount } from "wagmi";
 import AuthMessage from "./AuthMessage";
 import Signup from "./Signup";
-import { SignupMessage } from "./Signup/ChooseHandle";
+import { SignupMessage } from "./Signup/ChooseUsername";
 
 const NotConnected = () => (
   <AuthMessage

@@ -292,8 +292,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@lens-protocol/metadata':
-        specifier: ^1.2.0
-        version: 1.2.0(zod@3.23.8)
+        specifier: next
+        version: 2.0.0-next.1(zod@3.23.8)
       '@livepeer/react':
         specifier: ^4.2.8
         version: 4.2.8(@types/react-dom@18.3.1)(@types/react@18.3.12)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2760,6 +2760,15 @@ packages:
 
   '@lens-protocol/metadata@1.2.0':
     resolution: {integrity: sha512-fUB8+GvYiVt1uMqYJi/iN/aw/lzE+oEfpTjraTI87MqWPgYubbx0vFySjJs7uAdI7oftczvlwhthmMUl5DDuGA==}
+    engines: {node: '>=18 <21'}
+    peerDependencies:
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
+  '@lens-protocol/metadata@2.0.0-next.1':
+    resolution: {integrity: sha512-byuyH16wKl5Eq1vB5XubLAbwlIUwPWkyD1FWVl28qGfl/LqWZceVEA6kYhU2hzVyc2HLbprrjIsXHUrzB9OcQw==}
     engines: {node: '>=18 <21'}
     peerDependencies:
       zod: ^3.22.3
@@ -12415,6 +12424,13 @@ snapshots:
   '@kwsites/promise-deferred@1.1.1': {}
 
   '@lens-protocol/metadata@1.2.0(zod@3.23.8)':
+    dependencies:
+      json-stable-stringify: 1.1.1
+      uuid: 9.0.1
+    optionalDependencies:
+      zod: 3.23.8
+
+  '@lens-protocol/metadata@2.0.0-next.1(zod@3.23.8)':
     dependencies:
       json-stable-stringify: 1.1.1
       uuid: 9.0.1
