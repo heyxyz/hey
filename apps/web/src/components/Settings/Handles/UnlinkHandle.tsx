@@ -30,7 +30,7 @@ const UnlinkHandle: FC = () => {
     try {
       setUnlinking(true);
       const request: UnlinkHandleFromProfileRequest = {
-        handle: currentAccount.username?.value
+        handle: currentAccount.username?.localName
       };
 
       return await createUnlinkHandleFromProfileTypedData({

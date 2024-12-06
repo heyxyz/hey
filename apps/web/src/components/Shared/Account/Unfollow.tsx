@@ -5,11 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { ACCOUNT } from "@hey/data/tracking";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import {
-  type Account,
-  type UnfollowResponse,
-  useUnfollowMutation
-} from "@hey/indexer";
+import { type Account, useUnfollowMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -66,11 +62,7 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const onCompleted = (hash: string, unfollow?: UnfollowResponse) => {
-    if (unfollow?.__typename !== "UnfollowResponse") {
-      return;
-    }
-
+  const onCompleted = (hash: string) => {
     updateCache();
     addTransaction(generateOptimisticUnfollow({ txHash: hash }));
     setIsLoading(false);
@@ -89,7 +81,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const [unfollow] = useUnfollowMutation({
     onCompleted: async ({ unfollow }) => {
       if (unfollow.__typename === "UnfollowResponse") {
-        return onCompleted(unfollow.hash, unfollow);
+        return onCompleted(unfollow.hash);
       }
 
       if (walletClient) {

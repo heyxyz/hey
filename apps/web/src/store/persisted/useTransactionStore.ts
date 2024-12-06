@@ -9,6 +9,7 @@ interface State {
   indexedPostHash: null | string;
   isFollowPending: (profileAddress: string) => boolean;
   isUnfollowPending: (profileAddress: string) => boolean;
+  isBlockOrUnblockPending: (profileAddress: string) => boolean;
   removeTransaction: (hash: string) => void;
   reset: () => void;
   setIndexedPostHash: (hash: string) => void;
@@ -28,6 +29,8 @@ const store = create(
         get().txnQueue.some((txn) => txn.followOn === profileAddress),
       isUnfollowPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.unfollowOn === profileAddress),
+      isBlockOrUnblockPending: (profileAddress) =>
+        get().txnQueue.some((txn) => txn.blockOrUnblockOn === profileAddress),
       removeTransaction: (hash) =>
         set((state) => ({
           txnQueue: state.txnQueue.filter((txn) => txn.txHash !== hash)

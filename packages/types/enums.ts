@@ -5,5 +5,7 @@ export enum OptmisticPostType {
   Mirror = "Mirror",
   Post = "Post",
   Quote = "Quote",
-  Unfollow = "Unfollow"
+  Unfollow = "Unfollow",
+  Block = "Block",
+  Unblock = "Unblock"
 }
