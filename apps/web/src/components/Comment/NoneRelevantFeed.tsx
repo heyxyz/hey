@@ -14,8 +14,6 @@ import { Card, StackedAvatars } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 interface NoneRelevantFeedProps {
   postId: string;
@@ -24,8 +22,6 @@ interface NoneRelevantFeedProps {
 const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const [showMore, setShowMore] = useState(false);
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
 
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
@@ -37,14 +33,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
   };
 
   const { data, fetchMore } = usePostReferencesQuery({
-    onCompleted: async ({ postReferences }) => {
-      const ids =
-        postReferences?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     skip: !postId,
     variables: { request }
   });
@@ -56,15 +44,9 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data?.postReferences?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

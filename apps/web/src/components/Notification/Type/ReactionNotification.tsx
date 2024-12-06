@@ -5,7 +5,6 @@ import type { ReactionNotification as TReactionNotification } from "@hey/indexer
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -27,8 +26,6 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     ? `and ${length} ${plur("other", length)} liked your`
     : "liked your";
   const type = notification?.post.__typename;
-
-  usePushToImpressions(notification.post.id);
 
   return (
     <div className="space-y-2">

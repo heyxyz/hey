@@ -1,7 +1,6 @@
 import PostWrapper from "@components/Shared/PostWrapper";
 import type { AnyPost } from "@hey/indexer";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
@@ -13,8 +12,6 @@ interface ThreadBodyProps {
 }
 
 const ThreadBody: FC<ThreadBodyProps> = ({ post }) => {
-  usePushToImpressions(post.id);
-
   return (
     <PostWrapper post={post}>
       <div className="relative flex items-start space-x-3 pb-3">
