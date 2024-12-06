@@ -96,8 +96,10 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const lastLogin = accountsAvailable?.lastLoggedInAccount;
 
   const remainingProfiles = lastLogin
-    ? allProfiles.filter(({ account }) => account.address !== lastLogin.address)
-    : allProfiles;
+    ? allProfiles
+        .filter(({ account }) => account.address !== lastLogin.address)
+        .map(({ account }) => account)
+    : allProfiles.map(({ account }) => account);
 
   const accounts = (
     lastLogin ? [lastLogin, ...remainingProfiles] : remainingProfiles

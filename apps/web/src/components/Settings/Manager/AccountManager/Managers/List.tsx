@@ -3,10 +3,13 @@ import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type AccountManagersRequest,
   PageSize,
-  useAccountManagersQuery
+  useAccountManagersQuery,
+  useRemoveAccountManagerMutation
 } from "@hey/indexer";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -14,11 +17,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import type { Address } from "viem";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useWalletClient } from "wagmi";
 
 const List: FC = () => {
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
+  const [removingAddress, setRemovingAddress] = useState<string | null>(null);
+  const { data: walletClient } = useWalletClient();
+
+  const onCompleted = (hash: string) => {
+    setRemovingAddress(null);
+    toast.success(hash);
+    toast.success("Manager removed successfully");
+  };
 
   const onError = (error: any) => {
     errorToast(error);
@@ -30,25 +43,53 @@ const List: FC = () => {
     variables: { request }
   });
 
-  const handleRemoveManager = async (address: Address) => {
+  const [removeAccountManager] = useRemoveAccountManagerMutation({
+    onCompleted: async ({ removeAccountManager }) => {
+      if (walletClient) {
+        try {
+          if (
+            removeAccountManager.__typename === "SponsoredTransactionRequest"
+          ) {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(removeAccountManager.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (
+            removeAccountManager.__typename === "SelfFundedTransactionRequest"
+          ) {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(removeAccountManager.raw)
+            });
+
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
+        }
+      }
+    },
+    onError
+  });
+
+  const handleRemoveManager = async (manager: string) => {
+    if (!currentAccount) {
+      return toast.error(Errors.SignWallet);
+    }
+
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setRemovingAddress(address);
-      return await createChangeProfileManagersTypedData({
-        variables: {
-          request: {
-            changeManagers: [
-              { action: ChangeProfileManagerActionType.Remove, address }
-            ]
-          }
-        }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    setRemovingAddress(manager);
+
+    return await removeAccountManager({
+      variables: { request: { manager } }
+    });
   };
 
   const accountManagers = data?.accountManagers.items.filter(

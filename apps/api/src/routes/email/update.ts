@@ -54,7 +54,7 @@ export const post = [
 
       if (!resend) {
         const foundEmail = await prisma.email.findUnique({
-          where: { id: payload.id }
+          where: { id: payload.act.sub }
         });
 
         if (foundEmail?.email === email) {
@@ -70,9 +70,9 @@ export const post = [
       };
 
       const upsertedEmail = await prisma.email.upsert({
-        create: { id: payload.id, ...baseData },
+        create: { id: payload.act.sub, ...baseData },
         update: baseData,
-        where: { id: payload.id }
+        where: { id: payload.act.sub }
       });
 
       sendEmail({
@@ -95,8 +95,8 @@ export const post = [
         subject: `Verify your ${APP_NAME} email address`
       });
 
-      await delRedis(`preference:${payload.id}`);
-      logger.info(`Email updated to ${email} for ${payload.id}`);
+      await delRedis(`preference:${payload.act.sub}`);
+      logger.info(`Email updated to ${email} for ${payload.act.sub}`);
 
       return res.status(200).json({ success: true });
     } catch (error) {

@@ -7,7 +7,7 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import toast from "react-hot-toast";
 import { object, string, type z } from "zod";
 
-const disputeSchema = object({
+const validationSchema = object({
   reason: string().min(5, {
     message: "Reason should be at least 5 characters"
   })
@@ -22,10 +22,10 @@ const Dispute: FC<DisputeProps> = ({ report, setShowDisputeModal }) => {
   const [modDisputeReport, { loading }] = useModDisputeReportMutation();
 
   const form = useZodForm({
-    schema: disputeSchema
+    schema: validationSchema
   });
 
-  const dispute = async ({ reason }: z.infer<typeof disputeSchema>) => {
+  const dispute = async ({ reason }: z.infer<typeof validationSchema>) => {
     try {
       await modDisputeReport({
         variables: {

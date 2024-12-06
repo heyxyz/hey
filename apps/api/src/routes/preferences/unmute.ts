@@ -41,11 +41,11 @@ export const post = [
       const payload = parseJwt(idToken);
 
       const mutedWord = await prisma.mutedWord.delete({
-        where: { id, profileId: payload.id }
+        where: { id, profileId: payload.act.sub }
       });
 
-      await delRedis(`preference:${payload.id}`);
-      logger.info(`Unmuted a word by ${payload.id}`);
+      await delRedis(`preference:${payload.act.sub}`);
+      logger.info(`Unmuted a word by ${payload.act.sub}`);
 
       return res.status(200).json({ result: mutedWord, success: true });
     } catch (error) {
