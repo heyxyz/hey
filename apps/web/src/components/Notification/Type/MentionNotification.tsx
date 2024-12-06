@@ -4,7 +4,6 @@ import getPostData from "@hey/helpers/getPostData";
 import type { MentionNotification as TMentionNotification } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -21,8 +20,6 @@ const MentionNotification: FC<MentionNotificationProps> = ({
 
   const text = "mentioned you in a";
   const type = notification.post.__typename;
-
-  usePushToImpressions(notification.post.id);
 
   return (
     <div className="space-y-2">

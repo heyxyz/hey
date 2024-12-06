@@ -29,7 +29,6 @@ The user asks questions about the following coding languages:
 - Radix
 - Express
 - Prisma with Postgres
-- Clickhouse
 - Redis
 - AWS S3, SES
 - OpenAI

@@ -13,8 +13,6 @@ import type { FC } from "react";
 import { useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -23,8 +21,6 @@ interface BookmarksFeedProps {
 }
 
 const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: PostBookmarksRequest = {
@@ -33,14 +29,6 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
   };
 
   const { data, error, fetchMore, loading } = usePostBookmarksQuery({
-    onCompleted: async ({ postBookmarks }) => {
-      const ids =
-        postBookmarks?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     variables: { request }
   });
 
@@ -58,15 +46,9 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data?.postBookmarks?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

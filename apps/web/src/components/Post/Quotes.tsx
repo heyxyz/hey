@@ -14,8 +14,6 @@ import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {
@@ -23,9 +21,6 @@ interface QuotesProps {
 }
 
 const Quotes: FC<QuotesProps> = ({ postId }) => {
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
-
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
     referenceTypes: [PostReferenceType.QuoteOf],
@@ -33,14 +28,6 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
   };
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
-    onCompleted: async ({ postReferences }) => {
-      const ids =
-        postReferences?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     skip: !postId,
     variables: { request }
   });
@@ -51,15 +38,9 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data?.postReferences?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

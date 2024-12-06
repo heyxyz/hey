@@ -1,10 +1,8 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
 import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { SETTINGS } from "@hey/data/tracking";
 import { Card, CardHeader, Tooltip } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
@@ -35,7 +33,6 @@ const AppIcon: FC = () => {
 
       setAppIcon(id);
       toast.success("App icon updated");
-      Leafwatch.track(SETTINGS.PREFERENCES.APP_ICON, { appIcon: id });
     } catch (error) {
       errorToast(error);
     } finally {

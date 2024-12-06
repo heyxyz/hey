@@ -1,4 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import {
   AtSymbolIcon,
   BellIcon,
@@ -7,7 +6,6 @@ import {
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
 import { NotificationFeedType } from "@hey/data/enums";
-import { NOTIFICATION } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { FC } from "react";
 
@@ -16,12 +14,6 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
-  const handleSwitchTab = (type: NotificationFeedType) => {
-    Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
-      notification_type: type.toLowerCase()
-    });
-  };
-
   const tabs = [
     {
       icon: <BellIcon className="size-4" />,
@@ -59,7 +51,6 @@ const FeedType: FC<FeedTypeProps> = ({ feedType }) => {
             icon={tab.icon}
             key={tab.type}
             name={tab.name}
-            onClick={() => handleSwitchTab(tab.type)}
             type={tab.type.toLowerCase()}
           />
         ))}

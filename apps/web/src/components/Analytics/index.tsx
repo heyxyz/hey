@@ -1,13 +1,10 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
 import { AnalyticsTabType } from "@hey/data/enums";
-import { PAGEVIEW } from "@hey/data/tracking";
 import { GridItemTwelve, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import AnalyticsType from "./AnalyticsType";
 import Impressions from "./Impressions";
@@ -18,10 +15,6 @@ const Analytics: NextPage = () => {
     query: { type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "analytics" });
-  }, []);
 
   const lowerCaseAnalyticsTabType = [
     AnalyticsTabType.Overview.toLowerCase(),

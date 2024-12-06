@@ -2,14 +2,12 @@ import WhoToFollow from "@components/Home/Sidebar/WhoToFollow";
 import FeedFocusType from "@components/Shared/FeedFocusType";
 import Footer from "@components/Shared/Footer";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { Leafwatch } from "@helpers/leafwatch";
-import { EXPLORE, PAGEVIEW } from "@hey/data/tracking";
 import { MainContentFocus } from "@hey/indexer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import ExploreFeed from "./ExploreFeed";
 import ImageFeed from "./ImageFeed";
@@ -18,10 +16,6 @@ const Explore: NextPage = () => {
   const router = useRouter();
   const { currentAccount } = useAccountStore();
   const [focus, setFocus] = useState<MainContentFocus>();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "explore" });
-  }, []);
 
   const tabs = [
     { name: "For you", type: ExplorePublicationsOrderByType.LensCurated },
@@ -57,11 +51,6 @@ const Explore: NextPage = () => {
                 }
                 defaultChecked={index === 1}
                 key={tab.type}
-                onClick={() => {
-                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
-                    explore_feed_type: tab.type.toLowerCase()
-                  });
-                }}
               >
                 {tab.name}
               </Tab>

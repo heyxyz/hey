@@ -1,10 +1,8 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { SwatchIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { SETTINGS } from "@hey/data/tracking";
 import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
@@ -27,10 +25,6 @@ const HighSignalNotificationFilter: FC = () => {
 
       setHighSignalNotificationFilter(!highSignalNotificationFilter);
       toast.success("Notification preference updated");
-      Leafwatch.track(
-        SETTINGS.PREFERENCES.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER,
-        { enabled: !highSignalNotificationFilter }
-      );
     } catch (error) {
       errorToast(error);
     } finally {

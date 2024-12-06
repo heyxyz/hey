@@ -7,16 +7,12 @@ import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const ForYou: FC = () => {
   const { currentAccount } = useAccountStore();
   const { txnQueue } = useTransactionStore();
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
 
   const request: PublicationForYouRequest = {
     for: currentAccount?.address,
@@ -24,11 +20,6 @@ const ForYou: FC = () => {
   };
 
   const { data, error, fetchMore, loading } = useForYouQuery({
-    onCompleted: async ({ forYou }) => {
-      const ids = forYou?.items?.map((p) => p.publication.id) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     variables: { request }
   });
 
@@ -38,12 +29,9 @@ const ForYou: FC = () => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.forYou?.items?.map((p) => p.publication.id) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

@@ -1,8 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { ACCOUNT } from "@hey/data/tracking";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Account, useFollowMutation } from "@hey/indexer";
@@ -67,10 +65,6 @@ const Follow: FC<FollowProps> = ({
     addTransaction(generateOptimisticFollow({ txHash: hash }));
     setIsLoading(false);
     toast.success("Followed");
-    Leafwatch.track(ACCOUNT.FOLLOW, {
-      path: pathname,
-      target: account?.address
-    });
   };
 
   const [follow] = useFollowMutation({

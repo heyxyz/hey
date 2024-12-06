@@ -1,6 +1,5 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HeyTipping } from "@hey/abis";
 import {
   APP_NAME,
@@ -11,7 +10,6 @@ import {
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import formatAddress from "@hey/helpers/formatAddress";
 import type { Post } from "@hey/indexer";
 import type { AllowedToken } from "@hey/types/hey";
@@ -143,10 +141,6 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
         args: [HEY_TIPPING, MAX_UINT256],
         functionName: "approve"
       });
-      Leafwatch.track(POST.TIP.ENABLE, {
-        address,
-        currency: selectedCurrency?.symbol
-      });
       return;
     } catch (error) {
       onError(error);
@@ -190,11 +184,6 @@ const Action: FC<ActionProps> = ({ closePopover, post, triggerConfetti }) => {
         { headers: getAuthApiHeaders() }
       );
 
-      Leafwatch.track(POST.TIP.TIP, {
-        address,
-        amount,
-        currency: selectedCurrency?.symbol
-      });
       addTip(post.id);
       closePopover();
       triggerConfetti();

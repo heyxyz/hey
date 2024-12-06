@@ -14,8 +14,6 @@ import type { FC } from "react";
 import { memo, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
@@ -24,8 +22,6 @@ let virtuosoState: any = { ranges: [], screenTop: 0 };
 const Timeline: FC = () => {
   const { currentAccount } = useAccountStore();
   const { txnQueue } = useTransactionStore();
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: TimelineRequest = {
@@ -34,14 +30,6 @@ const Timeline: FC = () => {
 
   const { data, error, fetchMore, loading } = useTimelineQuery({
     fetchPolicy: "cache-and-network",
-    onCompleted: async ({ timeline }) => {
-      const ids =
-        timeline?.items?.flatMap((p) => {
-          return [p.primary.id].filter((id) => id);
-        }) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     variables: { request }
   });
 
@@ -59,15 +47,9 @@ const Timeline: FC = () => {
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data.timeline?.items?.flatMap((p) => {
-          return [p.primary.id].filter((id) => id);
-        }) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

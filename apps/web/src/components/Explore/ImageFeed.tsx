@@ -4,8 +4,6 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { type AnyPost, MainContentFocus } from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 interface ImageFeedProps {
   feedType: ExplorePublicationsOrderByType;
@@ -14,9 +12,6 @@ interface ImageFeedProps {
 const ImageFeed: FC<ImageFeedProps> = ({
   feedType = ExplorePublicationsOrderByType.LensCurated
 }) => {
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
-
   const request: ExplorePublicationRequest = {
     limit: LimitType.Fifty,
     orderBy: feedType,
@@ -29,11 +24,6 @@ const ImageFeed: FC<ImageFeedProps> = ({
   };
 
   const { data, error, loading } = useExplorePublicationsQuery({
-    onCompleted: async ({ explorePublications }) => {
-      const ids = explorePublications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     variables: { request }
   });
 

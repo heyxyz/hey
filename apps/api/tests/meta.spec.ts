@@ -14,7 +14,6 @@ describe("GET /meta", () => {
         snapshot: "unknown"
       },
       responseTimes: expect.objectContaining({
-        clickhouse: expect.any(String),
         hey: expect.any(String),
         lens: expect.any(String),
         redis: expect.any(String),

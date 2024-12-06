@@ -7,8 +7,6 @@ import type { FC } from "react";
 import { useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -21,8 +19,6 @@ const ExploreFeed: FC<ExploreFeedProps> = ({
   feedType = ExplorePublicationsOrderByType.LensCurated,
   focus
 }) => {
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: ExplorePublicationRequest = {
@@ -35,11 +31,6 @@ const ExploreFeed: FC<ExploreFeedProps> = ({
   };
 
   const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
-    onCompleted: async ({ explorePublications }) => {
-      const ids = explorePublications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     variables: { request }
   });
 
@@ -57,12 +48,9 @@ const ExploreFeed: FC<ExploreFeedProps> = ({
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids = data?.explorePublications?.items?.map((p) => p.id) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

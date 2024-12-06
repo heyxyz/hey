@@ -1,10 +1,8 @@
 import SwitchNetwork from "@components/Shared/SwitchNetwork";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { AUTH } from "@hey/data/tracking";
 import {
   type Account,
   useAccountsAvailableQuery,
@@ -87,7 +85,6 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
         const refreshToken = auth.data?.authenticate.refreshToken;
         const idToken = auth.data?.authenticate.idToken;
         signIn({ accessToken, idToken, refreshToken });
-        Leafwatch.track(AUTH.LOGIN, { address: account, source: "login" });
         return reload();
       }
 
@@ -155,10 +152,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
         )}
         <button
           className="flex items-center space-x-1 text-sm underline"
-          onClick={() => {
-            disconnect?.();
-            Leafwatch.track(AUTH.CHANGE_WALLET);
-          }}
+          onClick={() => disconnect?.()}
           type="reset"
         >
           <KeyIcon className="size-4" />

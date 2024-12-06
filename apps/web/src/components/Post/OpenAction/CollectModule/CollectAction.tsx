@@ -5,9 +5,7 @@ import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
-import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
-import { POST } from "@hey/data/tracking";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
 import type { AnyPost, PostAction } from "@hey/indexer";
@@ -136,11 +134,6 @@ const CollectAction: FC<CollectActionProps> = ({
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected");
-    Leafwatch.track(POST.COLLECT_MODULE.COLLECT, {
-      amount,
-      collectModule: postAction?.__typename,
-      postId: post?.id
-    });
   };
 
   const { data: allowanceData, loading: allowanceLoading } =

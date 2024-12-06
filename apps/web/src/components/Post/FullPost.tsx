@@ -11,7 +11,6 @@ import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
@@ -34,8 +33,6 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { author, timestamp, app } = targetPost;
-
-  usePushToImpressions(targetPost.id);
 
   const { data: accountDetails } = useQuery({
     enabled: Boolean(author.address),

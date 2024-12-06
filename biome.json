@@ -12,7 +12,6 @@
       "**/artifacts/**",
       "**/node_modules/**",
       "**/.git/**",
-      "sw.js",
       "**/cache/**",
       ".openzeppelin",
       "typechain-types",

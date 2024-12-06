@@ -1,11 +1,9 @@
 import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { LensHub } from "@hey/abis";
 import { APP_NAME, LENS_HUB } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { SETTINGS } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
 import {
   Button,
@@ -32,7 +30,6 @@ const DeleteSettings: FC = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = () => {
-    Leafwatch.track(SETTINGS.DANGER.DELETE_ACCOUNT);
     signOut();
     disconnect?.();
     location.href = "/";

@@ -4,7 +4,6 @@ import getPostData from "@hey/helpers/getPostData";
 import type { QuoteNotification as TQuoteNotification } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -19,8 +18,6 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
 
   const text = "quoted your";
   const type = notification.quote.quoteOf?.__typename;
-
-  usePushToImpressions(notification.quote.id);
 
   return (
     <div className="space-y-2">

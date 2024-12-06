@@ -4,7 +4,6 @@ import type { AnyPost, TimelineItem } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
-import usePushToImpressions from "src/hooks/usePushToImpressions";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
@@ -36,7 +35,6 @@ const SinglePost: FC<SinglePostProps> = ({
   showType = true
 }) => {
   const rootPost = timelineItem ? timelineItem?.primary : post;
-  usePushToImpressions(rootPost.id);
 
   return (
     <PostWrapper

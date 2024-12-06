@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ACCOUNT } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 
@@ -20,9 +18,6 @@ const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({
 
   const handleDismiss = async () => {
     await dismissRecommendedAccount();
-    Leafwatch.track(ACCOUNT.DISMISS_RECOMMENDED_ACCOUNT, {
-      address: account.address
-    });
   };
 
   return (

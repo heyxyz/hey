@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { AUTH } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, MouseEvent } from "react";
@@ -23,7 +21,6 @@ const LoginButton: FC<LoginButtonProps> = ({
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setShowAuthModal(true);
-    Leafwatch.track(AUTH.OPEN_LOGIN);
   };
 
   return (

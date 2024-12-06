@@ -9,7 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import AccountOverview from "./AccountOverview";
 import AccountPreferences from "./AccountPreferences";
-import LeafwatchDetails from "./LeafwatchDetails";
 import ManagedAccounts from "./ManagedAccounts";
 import Permissions from "./Permissions";
 import Rank from "./Rank";
@@ -39,7 +38,6 @@ const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {
       {preferences ? <AccountPreferences preferences={preferences} /> : null}
       {IS_MAINNET ? (
         <>
-          <LeafwatchDetails address={account.address} />
           <div className="divider my-5 border-yellow-600 border-dashed" />
           <Rank
             handle={account.username?.localName}

@@ -1,9 +1,7 @@
 import HigherActions from "@components/Post/Actions/HigherActions";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { GARDENER } from "@hey/data/tracking";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
@@ -69,7 +67,6 @@ const SearchFeed: FC = () => {
         onSubmit={(event) => {
           event.preventDefault();
           setQuery(searchInput);
-          Leafwatch.track(GARDENER.SEARCH_POST, { query: searchInput });
         }}
       >
         <Input

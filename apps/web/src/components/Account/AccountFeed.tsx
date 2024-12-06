@@ -16,8 +16,6 @@ import { useEffect, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountFeedStore } from "src/store/non-persisted/useAccountFeedStore";
-import { useImpressionsStore } from "src/store/non-persisted/useImpressionsStore";
-import { useTipsStore } from "src/store/non-persisted/useTipsStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
@@ -42,8 +40,6 @@ const AccountFeed: FC<AccountFeedProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { mediaFeedFilters } = useAccountFeedStore();
-  const { fetchAndStoreViews } = useImpressionsStore();
-  const { fetchAndStoreTips } = useTipsStore();
   const { indexedPostHash } = useTransactionStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
@@ -85,14 +81,6 @@ const AccountFeed: FC<AccountFeedProps> = ({
   };
 
   const { data, error, fetchMore, loading, refetch } = usePostsQuery({
-    onCompleted: async ({ posts }) => {
-      const ids =
-        posts?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
-    },
     skip: !address,
     variables: { request }
   });
@@ -117,15 +105,9 @@ const AccountFeed: FC<AccountFeedProps> = ({
 
   const onEndReached = async () => {
     if (hasMore) {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
-      const ids =
-        data?.posts?.items?.map((post) =>
-          post.__typename === "Repost" ? post.repostOf?.id : post.id
-        ) || [];
-      await fetchAndStoreViews(ids);
-      await fetchAndStoreTips(ids);
     }
   };
 

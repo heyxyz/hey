@@ -1,7 +1,6 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
 import Collectors from "@components/Shared/Modal/Collectors";
 import Slug from "@components/Shared/Slug";
-import { Leafwatch } from "@helpers/leafwatch";
 import {
   BanknotesIcon,
   CheckCircleIcon,
@@ -16,7 +15,6 @@ import {
   COLLECT_FEES_ADDRESS,
   POLYGONSCAN_URL
 } from "@hey/data/constants";
-import { POST } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -270,10 +268,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
         </div>
       </div>
       <Modal
-        onClose={() => {
-          Leafwatch.track(POST.OPEN_COLLECTORS);
-          setShowCollectorsModal(false);
-        }}
+        onClose={() => setShowCollectorsModal(false)}
         show={showCollectorsModal}
         title="Collectors"
         size="md"
