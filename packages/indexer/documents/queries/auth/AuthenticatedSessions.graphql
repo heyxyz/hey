@@ -8,6 +8,7 @@ query AuthenticatedSessions($request: AuthenticatedSessionsRequest!) {
       os
       origin
       signer
+      expiresAt
       createdAt
       updatedAt
     }

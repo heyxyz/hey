@@ -90,6 +90,7 @@ export interface Emoji {
 }
 
 export interface OptimisticTransaction {
+  blockOrUnblockOn?: string;
   collectOn?: string;
   commentOn?: string;
   content?: string;

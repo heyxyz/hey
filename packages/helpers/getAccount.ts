@@ -24,9 +24,9 @@ const getAccount = (
   }
 
   const prefix = account.username ? "@" : "#";
-  const slug = account.username?.value || account.address;
+  const slug = account.username?.localName || account.address;
   const link = account.username
-    ? `/u/${account.username.value}`
+    ? `/u/${account.username.localName}`
     : `/account/${account.address}`;
 
   return {

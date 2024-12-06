@@ -15,28 +15,20 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
   return (
     <div className="flex items-center justify-between">
       <Tooltip content={transaction.txHash} placement="top">
-        {transaction.type === OptmisticPostType.Collect ? (
-          <div className="text-sm">
-            {transaction.type} on {transaction.collectOn}
-          </div>
-        ) : transaction.type === OptmisticPostType.Comment ? (
-          <div className="text-sm">
-            {transaction.type} on {transaction.commentOn}
-          </div>
-        ) : transaction.type === OptmisticPostType.Mirror ? (
-          <div className="text-sm">
-            {transaction.type} on {transaction.repostOf}
-          </div>
-        ) : transaction.type === OptmisticPostType.Post ||
-          transaction.type === OptmisticPostType.Quote ? (
+        {transaction.type === OptmisticPostType.Post ||
+        transaction.type === OptmisticPostType.Quote ||
+        transaction.type === OptmisticPostType.AssignUsername ||
+        transaction.type === OptmisticPostType.UnassignUsername ? (
           <div className="text-sm">{transaction.type}</div>
-        ) : transaction.type === OptmisticPostType.Follow ? (
+        ) : transaction.type === OptmisticPostType.Follow ||
+          transaction.type === OptmisticPostType.Unfollow ||
+          transaction.type === OptmisticPostType.Block ||
+          transaction.type === OptmisticPostType.Unblock ||
+          transaction.type === OptmisticPostType.Mirror ||
+          transaction.type === OptmisticPostType.Comment ||
+          transaction.type === OptmisticPostType.Collect ? (
           <div className="text-sm">
             {transaction.type} on {transaction.followOn}
-          </div>
-        ) : transaction.type === OptmisticPostType.Unfollow ? (
-          <div className="text-sm">
-            {transaction.type} on {transaction.unfollowOn}
           </div>
         ) : null}
       </Tooltip>

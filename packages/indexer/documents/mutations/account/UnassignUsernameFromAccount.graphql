@@ -1,0 +1,18 @@
+mutation UnassignUsernameFromAccount(
+  $request: UnassignUsernameFromAccountRequest!
+) {
+  unassignUsernameFromAccount(request: $request) {
+    ... on UnassignUsernameResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
