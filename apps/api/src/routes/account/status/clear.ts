@@ -16,11 +16,11 @@ export const post = [
       const payload = parseJwt(idToken);
 
       const accountStatus = await prisma.profileStatus.deleteMany({
-        where: { id: payload.id }
+        where: { id: payload.act.sub }
       });
 
-      await delRedis(`account:${payload.id}`);
-      logger.info(`Cleared profile status for ${payload.id}`);
+      await delRedis(`account:${payload.act.sub}`);
+      logger.info(`Cleared profile status for ${payload.act.sub}`);
 
       return res.status(200).json({ result: accountStatus, success: true });
     } catch (error) {

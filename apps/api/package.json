@@ -32,6 +32,7 @@
     "express-session": "^1.18.1",
     "fast-xml-parser": "^4.4.1",
     "graphql": "^16.9.0",
+    "jose": "^5.9.6",
     "linkedom": "^0.18.5",
     "openai": "^4.76.0",
     "rate-limit-redis": "^4.2.0",
