@@ -4,7 +4,6 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MenuTransition from "../MenuTransition";
-import Analytics from "./NavItems/Analytics";
 import Bookmarks from "./NavItems/Bookmarks";
 import Support from "./NavItems/Support";
 const MoreNavItems: FC = () => {
@@ -40,14 +39,6 @@ const MoreNavItems: FC = () => {
                     }
                   >
                     <Bookmarks />
-                  </MenuItem>
-                  <MenuItem
-                    as="div"
-                    className={({ focus }: { focus: boolean }) =>
-                      cn({ "dropdown-active": focus }, "m-2 rounded-lg")
-                    }
-                  >
-                    <Analytics />
                   </MenuItem>
                   <div className="divider" />
                 </>

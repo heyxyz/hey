@@ -25,8 +25,3 @@ export enum NotificationFeedType {
   Likes = "LIKES",
   Mentions = "MENTIONS"
 }
-
-export enum AnalyticsTabType {
-  Overview = "OVERVIEW",
-  Impressions = "IMPRESSIONS"
-}
