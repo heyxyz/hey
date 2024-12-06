@@ -12,13 +12,7 @@ export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const HEY_API_URL = IS_PRODUCTION
   ? "https://api.hey.xyz"
   : "http://localhost:4784";
-export const GRAPH = getEnvConfig().graph;
-export const LENS_HANDLES = getEnvConfig().lensHandles;
-export const TOKEN_HANDLE_REGISTRY = getEnvConfig().tokenHandleRegistry;
-export const HEY_LENS_SIGNUP = getEnvConfig().heyLensSignup;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
-export const PERMISSIONLESS_CREATOR = getEnvConfig().permissionlessCreator;
-export const HEY_TIPPING = getEnvConfig().heyTipping;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
