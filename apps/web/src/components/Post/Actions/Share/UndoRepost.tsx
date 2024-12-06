@@ -12,13 +12,13 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-interface MirrorProps {
+interface UndoRepostProps {
   isLoading: boolean;
   post: AnyPost;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
+const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
 
@@ -83,4 +83,4 @@ const UndoMirror: FC<MirrorProps> = ({ isLoading, post, setIsLoading }) => {
   );
 };
 
-export default UndoMirror;
+export default UndoRepost;

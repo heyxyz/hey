@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import Quote from "./Quote";
 import Repost from "./Repost";
-import UndoMirror from "./UndoMirror";
+import UndoRepost from "./UndoRepost";
 
 interface ShareMenuProps {
   post: AnyPost;
@@ -77,7 +77,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
             />
             {targetPost.operations?.hasReposted &&
               targetPost.id !== post.id && (
-                <UndoMirror
+                <UndoRepost
                   isLoading={isLoading}
                   post={post}
                   setIsLoading={setIsLoading}
