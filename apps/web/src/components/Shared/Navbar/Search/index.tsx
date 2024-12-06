@@ -1,8 +1,7 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { Leafwatch } from "@helpers/leafwatch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
@@ -50,7 +49,6 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
 
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    Leafwatch.track(SEARCH.SEARCH, { query: searchText });
     if (pathname === "/search") {
       push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
     } else {

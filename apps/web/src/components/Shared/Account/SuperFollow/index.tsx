@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import type { Account } from "@hey/indexer";
 import { Button, Modal } from "@hey/ui";
@@ -38,7 +36,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Leafwatch.track(ACCOUNT.OPEN_SUPER_FOLLOW);
         }}
         outline
         size={small ? "sm" : "md"}

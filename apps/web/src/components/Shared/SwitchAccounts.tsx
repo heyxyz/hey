@@ -1,8 +1,6 @@
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { ACCOUNT } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getLennyURL from "@hey/helpers/getLennyURL";
@@ -86,7 +84,6 @@ const SwitchAccounts: FC = () => {
         const idToken = auth.data?.authenticate.idToken;
         signOut();
         signIn({ accessToken, idToken, refreshToken });
-        Leafwatch.track(ACCOUNT.SWITCH_ACCOUNT, { address });
         return reload();
       }
 

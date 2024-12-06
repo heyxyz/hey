@@ -2,11 +2,9 @@ import MetaTags from "@components/Common/MetaTags";
 import Loader from "@components/Shared/Loader";
 import StaffSidebar from "@components/Staff/Sidebar";
 import AccountStaffTool from "@components/Staff/Users/Overview/Tool";
-import { Leafwatch } from "@helpers/leafwatch";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { PAGEVIEW } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
 import {
   Card,
@@ -19,7 +17,6 @@ import {
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
@@ -30,13 +27,6 @@ const Overview: NextPage = () => {
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, {
-      page: "staff-tools",
-      subpage: "profile-overview"
-    });
-  }, []);
 
   const { data, error, loading } = useProfileQuery({
     skip: !id || !isReady,

@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { ATTACHMENT } from "@hey/data/constants";
-import { POST } from "@hey/data/tracking";
 import imageKit from "@hey/helpers/imageKit";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { OG } from "@hey/types/misc";
@@ -10,21 +8,14 @@ import type { FC } from "react";
 
 interface EmbedProps {
   og: OG;
-  postId?: string;
 }
 
-const Embed: FC<EmbedProps> = ({ og, postId }) => {
+const Embed: FC<EmbedProps> = ({ og }) => {
   return (
     <div className="mt-4 w-full text-sm md:w-4/6">
       <Link
         href={og.url}
-        onClick={(event) => {
-          stopEventPropagation(event);
-          Leafwatch.track(POST.CLICK_OEMBED, {
-            ...(postId && { postId: postId }),
-            url: og.url
-          });
-        }}
+        onClick={stopEventPropagation}
         rel="noreferrer noopener"
         target={og.url.includes(location.host) ? "_self" : "_blank"}
       >

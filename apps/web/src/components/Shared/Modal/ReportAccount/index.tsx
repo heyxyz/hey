@@ -1,9 +1,7 @@
 import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import { ACCOUNT } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account, AccountReportReason } from "@hey/indexer";
 import { useReportAccountMutation } from "@hey/indexer";
@@ -44,11 +42,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
   const [
     createReport,
     { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportAccountMutation({
-    onCompleted: () => {
-      Leafwatch.track(ACCOUNT.REPORT, { address: account?.address });
-    }
-  });
+  ] = useReportAccountMutation();
 
   const reportProfile = async ({
     additionalComment

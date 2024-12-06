@@ -1,8 +1,6 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
-import { STAFFTOOLS } from "@hey/data/tracking";
 import type { Permission } from "@hey/types/hey";
 import { Button, Form, TextArea, useZodForm } from "@hey/ui";
 import axios from "axios";
@@ -41,7 +39,6 @@ const Assign: FC<AssignProps> = ({ permission, setShowAssignModal }) => {
       setAssigning(false);
       setShowAssignModal(false);
       toast.success(`Assigned permission to ${data.assigned} users`);
-      Leafwatch.track(STAFFTOOLS.PERMISSIONS.BULK_ASSIGN);
     } catch (error) {
       errorToast(error);
     }

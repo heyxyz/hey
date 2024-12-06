@@ -1,7 +1,5 @@
 import AccountPreview from "@components/Shared/AccountPreview";
 import Slug from "@components/Shared/Slug";
-import { Leafwatch } from "@helpers/leafwatch";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MarkupLinkProps } from "@hey/types/misc";
 import Link from "next/link";
@@ -39,12 +37,7 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
     <Link
       className="outline-none focus:underline"
       href={`/u/${getLocalNameFromFullHandle(handle)}`}
-      onClick={(event) => {
-        stopEventPropagation(event);
-        Leafwatch.track(POST.CLICK_MENTION, {
-          handle: getLocalNameFromFullHandle(handle)
-        });
-      }}
+      onClick={stopEventPropagation}
     >
       <AccountPreview handle={handle}>
         <Slug

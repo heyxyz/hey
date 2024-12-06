@@ -1,6 +1,4 @@
 import GroupPreview from "@components/Shared/GroupPreview";
-import { Leafwatch } from "@helpers/leafwatch";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MarkupLinkProps } from "@hey/types/misc";
 import Link from "next/link";
@@ -15,10 +13,7 @@ const Group: FC<MarkupLinkProps> = ({ title }) => {
     <Link
       className="cursor-pointer outline-none focus:underline"
       href={`/g/${title}`}
-      onClick={(event) => {
-        stopEventPropagation(event);
-        Leafwatch.track(POST.CLICK_GROUP, { group: title });
-      }}
+      onClick={stopEventPropagation}
     >
       <GroupPreview handle={title}>{title}</GroupPreview>
     </Link>

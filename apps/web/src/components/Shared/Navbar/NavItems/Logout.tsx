@@ -1,8 +1,6 @@
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
-import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
-import { AUTH } from "@hey/data/tracking";
 import { useRevokeAuthenticationMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
@@ -40,7 +38,6 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
           variables: { request: { authenticationId } }
         });
       }
-      Leafwatch.track(AUTH.LOGOUT);
       resetPreferences();
       signOut();
       disconnect?.();

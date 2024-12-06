@@ -1,8 +1,7 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { Leafwatch } from "@helpers/leafwatch";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource, SEARCH } from "@hey/data/tracking";
+import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { type Account, useAccountsQuery } from "@hey/indexer";
@@ -43,13 +42,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
         <div>
           <div className="flex items-center justify-between px-4 pt-1 pb-2">
             <b>Recent</b>
-            <button
-              onClick={() => {
-                clearProfiles();
-                Leafwatch.track(SEARCH.CLEAR_ALL_RECENT_SEARCH);
-              }}
-              type="button"
-            >
+            <button onClick={clearProfiles} type="button">
               <H6 className="ld-text-gray-500">Clear all</H6>
             </button>
           </div>

@@ -1,9 +1,7 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
-import { STAFFTOOLS } from "@hey/data/tracking";
 import type { AllowedToken } from "@hey/types/hey";
 import { Button, Form, Input, useZodForm } from "@hey/ui";
 import axios from "axios";
@@ -52,7 +50,6 @@ const Create: FC<CreateProps> = ({ setShowCreateModal, setTokens, tokens }) => {
       setTokens([...tokens, data?.result]);
       setShowCreateModal(false);
       toast.success("Token created");
-      Leafwatch.track(STAFFTOOLS.TOKENS.CREATE);
     } catch (error) {
       errorToast(error);
     } finally {

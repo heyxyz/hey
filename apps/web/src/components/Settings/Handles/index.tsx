@@ -1,9 +1,7 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import Slug from "@components/Shared/Slug";
-import { Leafwatch } from "@helpers/leafwatch";
 import { APP_NAME } from "@hey/data/constants";
-import { PAGEVIEW } from "@hey/data/tracking";
 import {
   Card,
   CardHeader,
@@ -12,7 +10,6 @@ import {
   GridLayout
 } from "@hey/ui";
 import type { NextPage } from "next";
-import { useEffect } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import LinkHandle from "./LinkHandle";
@@ -20,10 +17,6 @@ import UnlinkHandle from "./UnlinkHandle";
 
 const HandlesSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: "settings", subpage: "handles" });
-  }, []);
 
   if (!currentAccount) {
     return <NotLoggedIn />;

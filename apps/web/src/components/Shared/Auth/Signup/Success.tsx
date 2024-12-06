@@ -1,8 +1,6 @@
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { AUTH } from "@hey/data/tracking";
 import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import { Button, H4, Spinner } from "@hey/ui";
 import { useRouter } from "next/router";
@@ -57,7 +55,6 @@ const Success: FC = () => {
         const refreshToken = auth.data?.authenticate.refreshToken;
         const idToken = auth.data?.authenticate.idToken;
         signIn({ accessToken, idToken, refreshToken });
-        Leafwatch.track(AUTH.LOGIN, { address, source: "signup" });
         return reload();
       }
 

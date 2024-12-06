@@ -41,11 +41,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
   const [
     createReport,
     { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportPostMutation({
-    onCompleted: () => {
-      Leafwatch.track(POST.REPORT, { postId: postId });
-    }
-  });
+  ] = useReportPostMutation();
 
   const reportPost = async ({
     additionalComment

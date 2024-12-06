@@ -2,7 +2,6 @@ import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
 import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import {
@@ -13,7 +12,6 @@ import {
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import { SETTINGS } from "@hey/data/tracking";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
 import imageKit from "@hey/helpers/imageKit";
@@ -115,7 +113,6 @@ const AccountSettingsForm: FC = () => {
 
     setIsLoading(false);
     toast.success("Account updated");
-    Leafwatch.track(SETTINGS.ACCOUNT.UPDATE);
   };
 
   const onError = (error: any) => {

@@ -1,5 +1,3 @@
-import { Leafwatch } from "@helpers/leafwatch";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MarkupLinkProps } from "@hey/types/misc";
 import Link from "next/link";
@@ -21,10 +19,7 @@ const Cashtag: FC<MarkupLinkProps> = ({ title }) => {
         src: "link_click",
         type: "posts"
       })}
-      onClick={(event) => {
-        stopEventPropagation(event);
-        Leafwatch.track(POST.CLICK_CASHTAG, { cashtag: tag });
-      }}
+      onClick={stopEventPropagation}
     >
       {title}
     </Link>

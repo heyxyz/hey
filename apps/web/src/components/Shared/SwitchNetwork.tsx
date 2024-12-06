@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { SYSTEM } from "@hey/data/tracking";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useSwitchChain } from "wagmi";
@@ -27,7 +25,6 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
       onClick={() => {
         onSwitch?.();
         switchChain?.({ chainId: toChainId });
-        Leafwatch.track(SYSTEM.SWITCH_NETWORK, { chain: toChainId });
       }}
       type="button"
       variant="danger"

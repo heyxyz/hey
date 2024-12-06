@@ -1,5 +1,4 @@
 import errorToast from "@helpers/errorToast";
-import { Leafwatch } from "@helpers/leafwatch";
 import {
   CheckIcon,
   ExclamationTriangleIcon,
@@ -14,7 +13,6 @@ import {
   ZERO_ADDRESS
 } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
-import { AUTH } from "@hey/data/tracking";
 import { useAccountQuery } from "@hey/indexer";
 import { Button, Form, Input, Spinner, useZodForm } from "@hey/ui";
 import Script from "next/script";
@@ -81,7 +79,6 @@ const ChooseHandle: FC = () => {
     mutation: {
       onError: errorToast,
       onSuccess: (hash: string) => {
-        Leafwatch.track(AUTH.SIGNUP, { price: SIGNUP_PRICE, via: "crypto" });
         setTransactionHash(hash);
         setChoosedHandle(`${HANDLE_PREFIX}${handle.toLowerCase()}`);
         setScreen("minting");

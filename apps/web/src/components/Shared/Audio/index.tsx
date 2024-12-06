@@ -1,6 +1,4 @@
-import { Leafwatch } from "@helpers/leafwatch";
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
-import { POST } from "@hey/data/tracking";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { APITypes } from "plyr-react";
 import type { ChangeEvent, FC } from "react";
@@ -47,12 +45,10 @@ const Audio: FC<AudioProps> = ({
     const player = playerRef.current.plyr;
     if (player.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(POST.ATTACHMENT.AUDIO.PLAY);
       player.play();
     } else {
       setPlaying(false);
       player.pause();
-      Leafwatch.track(POST.ATTACHMENT.AUDIO.PAUSE);
     }
   };
 

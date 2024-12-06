@@ -1,9 +1,7 @@
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
-import { Leafwatch } from "@helpers/leafwatch";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { SETTINGS } from "@hey/data/tracking";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import getTimeAddedNDay from "@hey/helpers/datetime/getTimeAddedNDay";
 import { Button, Card, CardHeader, Checkbox, H5, Input } from "@hey/ui";
@@ -44,7 +42,6 @@ const MutedWords: FC = () => {
       setWord("");
       setExpiresIn(-1);
       toast.success("Muted word updated");
-      Leafwatch.track(SETTINGS.PREFERENCES.MUTE_WORD);
     } catch (error) {
       errorToast(error);
     } finally {
@@ -65,7 +62,6 @@ const MutedWords: FC = () => {
         mutedWords.filter((mutedWord) => mutedWord.id !== data.result.id)
       );
       toast.success("Muted word removed");
-      Leafwatch.track(SETTINGS.PREFERENCES.UNMUTE_WORD);
     } catch (error) {
       errorToast(error);
     } finally {
