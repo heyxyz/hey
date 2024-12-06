@@ -19,8 +19,7 @@ export const get = [
         prisma.pollResponse.count(),
         prisma.preference.count(),
         prisma.profileStatus.count(),
-        prisma.profileTheme.count(),
-        prisma.tip.count()
+        prisma.profileTheme.count()
       ]);
 
       logger.info("Fetched overview stats");
@@ -35,8 +34,7 @@ export const get = [
           pollResponses: result[5],
           preferences: result[6],
           accountStatuses: result[7],
-          profileThemes: result[8],
-          tips: result[9]
+          profileThemes: result[8]
         },
         success: true
       });

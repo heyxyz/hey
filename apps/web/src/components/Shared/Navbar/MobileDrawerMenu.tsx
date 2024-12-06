@@ -11,7 +11,6 @@ import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModal
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../Slug";
 import AccountStatus from "./NavItems/AccountStatus";
-import Analytics from "./NavItems/Analytics";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Logout from "./NavItems/Logout";
@@ -88,9 +87,6 @@ const MobileDrawerMenu: FC = () => {
               className={cn(itemClass, "px-4")}
               onClick={handleCloseDrawer}
             />
-            <Link href="/analytics" onClick={handleCloseDrawer}>
-              <Analytics className={cn(itemClass, "px-4")} />
-            </Link>
             <ThemeSwitch
               className={cn(itemClass, "px-4")}
               onClick={handleCloseDrawer}
