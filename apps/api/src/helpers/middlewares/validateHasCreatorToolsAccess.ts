@@ -34,7 +34,7 @@ const validateHasCreatorToolsAccess = async (
       params: {
         appName: "production",
         environment: "production",
-        userId: payload.id
+        userId: payload.act.sub
       }
     });
 

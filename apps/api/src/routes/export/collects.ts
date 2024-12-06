@@ -14,18 +14,18 @@ export const get = [
   rateLimiter({ requests: 10, within: 1 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
-    const { id } = req.query;
+    const { address } = req.query;
 
-    if (!id) {
+    if (!address) {
       return noBody(res);
     }
 
     try {
       const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
-      const targetAccountId = (id as string).split("-")[0];
+      const targetAccountAddress = (address as string).split("-")[0];
 
-      if (payload.id !== targetAccountId) {
+      if (payload.act.sub !== targetAccountAddress) {
         return catchedError(res, new Error(Errors.Unauthorized), 401);
       }
 
@@ -35,21 +35,21 @@ export const get = [
           FROM publication.open_action_module_collect_nft_ownership AS po
           WHERE po.publication_id = $1;
         `,
-        [id]
+        [address]
       );
 
       const fields = ["address"];
       const parser = new Parser({ fields });
       const csv = parser.parse(openActionModuleCollectNftOwnership);
 
-      logger.info(`[Lens] Exported collect addresses list for ${id}`);
+      logger.info(`[Lens] Exported collect addresses list for ${address}`);
 
       return res
         .status(200)
         .setHeader("Content-Type", "text/csv")
         .setHeader(
           "Content-Disposition",
-          `attachment; filename="collect_addresses_${id}.csv"`
+          `attachment; filename="collect_addresses_${address}.csv"`
         )
         .setHeader("Cache-Control", CACHE_AGE_30_MINS)
         .send(csv);
