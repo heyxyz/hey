@@ -3,7 +3,6 @@ import getUniswapURL from "@hey/helpers/getUniswapURL";
 import type { Amount } from "@hey/indexer";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
-import WrapWmatic from "./WrapWmatic";
 
 interface NoBalanceErrorProps {
   errorMessage?: ReactNode;
@@ -17,12 +16,6 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({
   const amount = moduleAmount?.value;
   const currency = moduleAmount?.asset?.symbol;
   const assetAddress = moduleAmount?.asset?.contract.address;
-
-  if (currency === "WMATIC") {
-    return (
-      <WrapWmatic errorMessage={errorMessage} moduleAmount={moduleAmount} />
-    );
-  }
 
   return (
     <div className="space-y-1">

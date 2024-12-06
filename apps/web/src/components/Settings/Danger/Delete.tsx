@@ -1,8 +1,6 @@
 import SingleAccount from "@components/Shared/SingleAccount";
-import errorToast from "@helpers/errorToast";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { LensHub } from "@hey/abis";
-import { APP_NAME, LENS_HUB } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import type { Account } from "@hey/indexer";
 import {
@@ -19,52 +17,22 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { signOut } from "src/store/persisted/useAuthStore";
-import { useDisconnect, useWriteContract } from "wagmi";
 
 const DeleteSettings: FC = () => {
   const { currentAccount } = useAccountStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { disconnect } = useDisconnect();
   const handleWrongNetwork = useHandleWrongNetwork();
-
-  const onCompleted = () => {
-    signOut();
-    disconnect?.();
-    location.href = "/";
-  };
-
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
-  const { writeContractAsync } = useWriteContract({
-    mutation: { onSuccess: onCompleted }
-  });
-
-  const write = async ({ args }: { args: any[] }) => {
-    return await writeContractAsync({
-      abi: LensHub,
-      address: LENS_HUB,
-      args,
-      functionName: "burn"
-    });
-  };
 
   const handleDelete = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
-    try {
-      setIsLoading(true);
-      await handleWrongNetwork();
-      return await write({ args: [currentAccount?.address] });
-    } catch (error) {
-      onError(error);
-    }
+    setIsLoading(true);
+    await handleWrongNetwork();
+    setIsLoading(false);
+    return toast.success("Feature not implemented yet");
   };
 
   return (
