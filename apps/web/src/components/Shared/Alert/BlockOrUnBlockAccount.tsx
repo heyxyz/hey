@@ -76,22 +76,26 @@ const BlockOrUnBlockAccount: FC = () => {
       }
 
       if (walletClient) {
-        if (block.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(block.raw)
-          });
+        try {
+          if (block.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(block.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (block.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(block.raw)
-          });
+          if (block.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(block.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
@@ -109,22 +113,26 @@ const BlockOrUnBlockAccount: FC = () => {
       }
 
       if (walletClient) {
-        if (unblock.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(unblock.raw)
-          });
+        try {
+          if (unblock.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(unblock.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (unblock.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(unblock.raw)
-          });
+          if (unblock.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(unblock.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 

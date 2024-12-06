@@ -7,7 +7,6 @@ import { type Account, useFollowMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
-import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -31,7 +30,6 @@ const Follow: FC<FollowProps> = ({
   small,
   title
 }) => {
-  const { pathname } = useRouter();
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useGlobalModalStateStore();
@@ -67,6 +65,11 @@ const Follow: FC<FollowProps> = ({
     toast.success("Followed");
   };
 
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
@@ -74,29 +77,34 @@ const Follow: FC<FollowProps> = ({
       }
 
       if (walletClient) {
-        if (follow.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(follow.raw)
-          });
+        try {
+          if (follow.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(follow.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (follow.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(follow.raw)
-          });
+          if (follow.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(follow.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
       if (follow.__typename === "TransactionWillFail") {
         return toast.error(follow.reason);
       }
-    }
+    },
+    onError
   });
 
   const handleCreateFollow = async () => {
@@ -110,14 +118,10 @@ const Follow: FC<FollowProps> = ({
     }
 
     setIsLoading(true);
-    try {
-      return await follow({
-        variables: { request: { account: account.address } }
-      });
-    } catch (error) {
-      setIsLoading(false);
-      errorToast(error);
-    }
+
+    return await follow({
+      variables: { request: { account: account.address } }
+    });
   };
 
   return (

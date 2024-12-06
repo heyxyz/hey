@@ -67,6 +67,11 @@ const Unfollow: FC<UnfollowProps> = ({
     toast.success("Unfollowed");
   };
 
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const [unfollow] = useUnfollowMutation({
     onCompleted: async ({ unfollow }) => {
       if (unfollow.__typename === "UnfollowResponse") {
@@ -74,22 +79,26 @@ const Unfollow: FC<UnfollowProps> = ({
       }
 
       if (walletClient) {
-        if (unfollow.__typename === "SponsoredTransactionRequest") {
-          const hash = await sendEip712Transaction(walletClient, {
-            account: walletClient.account,
-            ...sponsoredTransactionData(unfollow.raw)
-          });
+        try {
+          if (unfollow.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(unfollow.raw)
+            });
 
-          return onCompleted(hash);
-        }
+            return onCompleted(hash);
+          }
 
-        if (unfollow.__typename === "SelfFundedTransactionRequest") {
-          const hash = await sendTransaction(walletClient, {
-            account: walletClient.account,
-            ...selfFundedTransactionData(unfollow.raw)
-          });
+          if (unfollow.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(unfollow.raw)
+            });
 
-          return onCompleted(hash);
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
         }
       }
 
@@ -97,10 +106,7 @@ const Unfollow: FC<UnfollowProps> = ({
         return toast.error(unfollow.reason);
       }
     },
-    onError: (error) => {
-      setIsLoading(false);
-      errorToast(error);
-    }
+    onError
   });
 
   const handleCreateUnfollow = async () => {
