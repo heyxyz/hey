@@ -4,36 +4,18 @@ import LensEndpoint from "../lens-endpoints";
 
 const getEnvConfig = (): {
   defaultCollectToken: string;
-  heyLensSignup: `0x${string}`;
-  heyTipping: `0x${string}`;
   lensApiEndpoint: string;
-  lensHandles: `0x${string}`;
-  graph: `0x${string}`;
-  permissionlessCreator?: `0x${string}`;
-  tokenHandleRegistry: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
     case "testnet":
       return {
         defaultCollectToken: TestnetContracts.DefaultToken,
-        heyLensSignup: TestnetContracts.HeyLensSignup,
-        heyTipping: TestnetContracts.HeyTipping,
-        lensApiEndpoint: LensEndpoint.Testnet,
-        lensHandles: TestnetContracts.LensHandles,
-        graph: TestnetContracts.Graph,
-        permissionlessCreator: TestnetContracts.PermissionlessCreator,
-        tokenHandleRegistry: TestnetContracts.TokenHandleRegistry
+        lensApiEndpoint: LensEndpoint.Testnet
       };
     default:
       return {
         defaultCollectToken: MainnetContracts.DefaultToken,
-        heyLensSignup: MainnetContracts.HeyLensSignup,
-        heyTipping: MainnetContracts.HeyTipping,
-        lensApiEndpoint: LensEndpoint.Mainnet,
-        lensHandles: MainnetContracts.LensHandles,
-        graph: MainnetContracts.Graph,
-        permissionlessCreator: MainnetContracts.PermissionlessCreator,
-        tokenHandleRegistry: MainnetContracts.TokenHandleRegistry
+        lensApiEndpoint: LensEndpoint.Mainnet
       };
   }
 };
