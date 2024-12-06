@@ -12,7 +12,6 @@ import Comment from "./Comment";
 import Like from "./Like";
 import Mod from "./Mod";
 import ShareMenu from "./Share";
-import Tip from "./Tip";
 
 interface PostActionsProps {
   post: AnyPost;
@@ -36,7 +35,6 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
         {canAct && !showCount ? <OpenAction post={targetPost} /> : null}
-        <Tip post={targetPost} showCount={showCount} />
         {isGardener ? <Mod isFullPost={showCount} post={targetPost} /> : null}
       </span>
       {canAct ? <Collect post={targetPost} /> : null}
