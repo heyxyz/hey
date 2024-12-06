@@ -3,17 +3,19 @@ import Markup from "@components/Shared/Markup";
 import Slug from "@components/Shared/Slug";
 import getMentions from "@hey/helpers/getMentions";
 import humanize from "@hey/helpers/humanize";
-import type { Group } from "@hey/indexer";
+import type { Group, GroupStatsResponse } from "@hey/indexer";
 import { H3, H4, Image, LightBox } from "@hey/ui";
 import Link from "next/link";
+import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
 
 interface DetailsProps {
   group: Group;
+  stats: GroupStatsResponse;
 }
 
-const Details: FC<DetailsProps> = ({ group }) => {
+const Details: FC<DetailsProps> = ({ group, stats }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
 
   return (
@@ -47,10 +49,12 @@ const Details: FC<DetailsProps> = ({ group }) => {
       <div className="space-y-5">
         <Link
           className="text-left outline-offset-4"
-          href={`/g/${group.metadata?.slug}/members`}
+          href={`/g/${group.address}/members`}
         >
-          <H4>{humanize(group.totalMembers)}</H4>
-          <div className="ld-text-gray-500">Members</div>
+          <H4>{humanize(stats.totalMembers)}</H4>
+          <div className="ld-text-gray-500">
+            {plur("Member", stats.totalMembers)}
+          </div>
         </Link>
         <JoinLeaveButton group={group} />
       </div>

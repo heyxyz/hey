@@ -39,7 +39,7 @@ const Overview: FC = () => {
       likes: number;
       comments: number;
       collects: number;
-      mirrors: number;
+      reposts: number;
       quotes: number;
       mentions: number;
       follows: number;
@@ -79,7 +79,7 @@ const Overview: FC = () => {
     "Likes",
     "Comments",
     "Collects",
-    "Mirrors",
+    "Reposts",
     "Quotes",
     "Mentions",
     "Follows",

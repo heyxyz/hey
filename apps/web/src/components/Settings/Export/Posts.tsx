@@ -60,7 +60,7 @@ const Posts: FC = () => {
   return (
     <Card>
       <CardHeader
-        body="Export all your posts, comments and mirrors to a JSON file."
+        body="Export all your posts, comments and reposts to a JSON file."
         title="Export posts"
       />
       <div className="m-5">
