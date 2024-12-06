@@ -100,7 +100,6 @@ const ChooseUsername: FC = () => {
 
       if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
         const accessToken = auth.data?.authenticate.accessToken;
-
         const metadata = accountMetadata({ name: username });
         const metadataId = await uploadMetadata(metadata);
 
