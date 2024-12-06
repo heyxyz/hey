@@ -5,7 +5,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import ToggleLensManager from "./ToggleLensManager";
 
 const LensManager: FC = () => {
-  const { currentAccount } = useAccountStore();
+  const { isSignlessEnabled } = useAccountStore();
 
   return (
     <Card>
@@ -13,7 +13,7 @@ const LensManager: FC = () => {
         body={`You can enable Lens manager to interact with ${APP_NAME} without
         signing any of your transactions.`}
         title={
-          currentAccount?.isSignless
+          isSignlessEnabled
             ? "Disable signless transactions"
             : "Signless transactions"
         }
