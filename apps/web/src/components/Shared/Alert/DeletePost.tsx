@@ -1,4 +1,3 @@
-import errorToast from "@helpers/errorToast";
 import { Leafwatch } from "@helpers/leafwatch";
 import { Errors } from "@hey/data/errors";
 import { POST } from "@hey/data/tracking";
@@ -32,13 +31,9 @@ const DeletePost: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      return await deletePost({
-        variables: { request: { post: deletingPost?.id } }
-      });
-    } catch (error) {
-      errorToast(error);
-    }
+    return await deletePost({
+      variables: { request: { post: deletingPost?.id } }
+    });
   };
 
   return (
