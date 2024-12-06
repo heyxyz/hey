@@ -9,10 +9,10 @@ export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === "true";
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || "mainnet";
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
+export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const HEY_API_URL = IS_PRODUCTION
   ? "https://api.hey.xyz"
   : "http://localhost:4784";
-export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
@@ -22,7 +22,6 @@ export const APP_NAME = "Hey";
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = "#FB3A5D";
-export const MAX_UINT256 = 2n ** 256n - 1n;
 
 // Misc
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -30,10 +29,7 @@ export const COLLECT_FEES_ADDRESS =
   "0x698386C93513d6D0C58f296633A7A3e529bd4026";
 export const TEST_LENS_ID = "0x01e0b1";
 export const TEST_SUSPENDED_LENS_ID = "0x02";
-export const HEY_CURATED_ID = "0x0214f6";
 export const HANDLE_PREFIX = "lens/";
-export const SIGNUP_PRICE = IS_MAINNET ? 8 : 1;
-export const MONTHLY_PRO_PRICE = 5;
 export const HEY_MEMBERSHIP_NFT = IS_MAINNET
   ? "0x100372BBF7f975f6b1448fB11AB0F814b2740EEd"
   : "0x75120677aBF34ae95a916C6E9DbB610a06536CC3";
@@ -54,9 +50,6 @@ export const EVER_REGION = "4EVERLAND";
 export const EVER_BUCKET = "hey-media";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
-export const MOONPAY_URL = IS_MAINNET
-  ? "https://buy.moonpay.com"
-  : "https://buy-sandbox.moonpay.com";
 export const HEY_IMAGEKIT_URL = "https://ik.imagekit.io/lensterimg";
 
 // Tokens / Keys
