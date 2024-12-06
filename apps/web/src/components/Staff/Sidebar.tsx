@@ -4,8 +4,7 @@ import {
   ChartBarIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
-  UserIcon,
-  UserPlusIcon
+  UserIcon
 } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 
@@ -39,11 +38,6 @@ const sidebarItems = [
     icon: <AdjustmentsHorizontalIcon className="size-4" />,
     title: "Permissions",
     url: "/staff/permissions"
-  },
-  {
-    icon: <UserPlusIcon className="size-4" />,
-    title: "Signup",
-    url: "/staff/signup"
   }
 ];
 
