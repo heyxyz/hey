@@ -27,9 +27,8 @@ interface RepostProps {
 const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { addTransaction, hasOptimisticallyReposted } = useTransactionStore();
-  const hasReposted =
-    post.operations?.hasReposted || hasOptimisticallyReposted(post.id);
+  const { addTransaction } = useTransactionStore();
+  const hasReposted = post.operations?.hasReposted.optimistic;
 
   const [shares, { increment }] = useCounter(
     post.stats.reposts + post.stats.quotes

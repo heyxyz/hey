@@ -43,7 +43,8 @@ const IndexStatus: FC<IndexStatusProps> = ({
     if (
       loading ||
       !data?.transactionStatus ||
-      data.transactionStatus.__typename === "PendingTransactionStatus"
+      data.transactionStatus.__typename === "PendingTransactionStatus" ||
+      data.transactionStatus.__typename === "NotIndexedYetStatus"
     ) {
       return (
         <div className="flex items-center space-x-1.5">

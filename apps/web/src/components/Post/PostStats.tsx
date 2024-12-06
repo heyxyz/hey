@@ -23,12 +23,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
   postStats;
 
   const showStats =
-    comments > 0 ||
-    reactions > 0 ||
-    reposts > 0 ||
-    quotes > 0 ||
-    countOpenActions > 0 ||
-    bookmarks > 0;
+    comments > 0 || reactions > 0 || reposts > 0 || quotes > 0 || bookmarks > 0;
 
   if (!showStats) {
     return null;
@@ -70,18 +65,6 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
               {nFormatter(reactions)}
             </b>{" "}
             {plur("Like", reactions)}
-          </button>
-        ) : null}
-        {countOpenActions > 0 ? (
-          <button
-            className="outline-offset-2"
-            onClick={() => setShowCollectorsModal(true)}
-            type="button"
-          >
-            <b className="text-black dark:text-white">
-              {nFormatter(countOpenActions)}
-            </b>{" "}
-            {plur("Collect", countOpenActions)}
           </button>
         ) : null}
         {bookmarks > 0 ? (

@@ -3,7 +3,10 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { useEnableSignlessMutation } from "@hey/indexer";
+import {
+  useEnableSignlessMutation,
+  useRemoveSignlessMutation
+} from "@hey/indexer";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -21,7 +24,7 @@ interface ToggleLensManagerProps {
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = "md"
 }) => {
-  const { currentAccount } = useAccountStore();
+  const { isSignlessEnabled } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<`0x${string}` | null>(null);
@@ -70,6 +73,39 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     onError
   });
 
+  const [removeSignless] = useRemoveSignlessMutation({
+    onCompleted: async ({ removeSignless }) => {
+      if (walletClient) {
+        try {
+          if (removeSignless.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(removeSignless.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (removeSignless.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(removeSignless.raw)
+            });
+
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
+        }
+      }
+
+      if (removeSignless.__typename === "TransactionWillFail") {
+        return toast.error(removeSignless.reason);
+      }
+    },
+    onError
+  });
+
   const handleToggleDispatcher = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
@@ -77,7 +113,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
     setIsLoading(true);
 
-    return await enableSignless();
+    return isSignlessEnabled ? await removeSignless() : await enableSignless();
   };
 
   return txHash ? (
@@ -89,9 +125,9 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
       disabled={isLoading}
       onClick={handleToggleDispatcher}
-      variant={currentAccount?.isSignless ? "danger" : "primary"}
+      variant={isSignlessEnabled ? "danger" : "primary"}
     >
-      {currentAccount?.isSignless ? "Disable" : "Enable"}
+      {isSignlessEnabled ? "Disable" : "Enable"}
     </Button>
   );
 };
