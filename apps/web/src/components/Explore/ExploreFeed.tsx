@@ -1,7 +1,13 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import type { AnyPost, MainContentFocus } from "@hey/indexer";
+import {
+  type AnyPost,
+  type MainContentFocus,
+  type MlexplorePostsRequest,
+  PageSize,
+  useMlPostsExploreQuery
+} from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -21,21 +27,21 @@ const ExploreFeed: FC<ExploreFeedProps> = ({
 }) => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  const request: ExplorePublicationRequest = {
-    limit: LimitType.TwentyFive,
-    orderBy: feedType,
-    where: {
-      customFilters: [CustomFiltersType.Gardeners],
-      metadata: { ...(focus && { mainContentFocus: [focus] }) }
-    }
+  const request: MlexplorePostsRequest = {
+    pageSize: PageSize.Fifty
+    // orderBy: feedType,
+    // where: {
+    //   customFilters: [CustomFiltersType.Gardeners],
+    //   metadata: { ...(focus && { mainContentFocus: [focus] }) }
+    // }
   };
 
-  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
+  const { data, error, fetchMore, loading } = useMlPostsExploreQuery({
     variables: { request }
   });
 
-  const posts = data?.explorePublications?.items;
-  const pageInfo = data?.explorePublications?.pageInfo;
+  const posts = data?.mlPostsExplore?.items;
+  const pageInfo = data?.mlPostsExplore?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onScrolling = (scrolling: boolean) => {

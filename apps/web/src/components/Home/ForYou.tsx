@@ -2,7 +2,12 @@ import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
-import type { AnyPost } from "@hey/indexer";
+import {
+  type MlpostsForYouRequest,
+  PageSize,
+  type Post,
+  useMlPostsForYouQuery
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -14,17 +19,18 @@ const ForYou: FC = () => {
   const { currentAccount } = useAccountStore();
   const { txnQueue } = useTransactionStore();
 
-  const request: PublicationForYouRequest = {
-    for: currentAccount?.address,
-    limit: LimitType.TwentyFive
+  const request: MlpostsForYouRequest = {
+    pageSize: PageSize.Fifty,
+    account: currentAccount?.address,
+    shuffle: true
   };
 
-  const { data, error, fetchMore, loading } = useForYouQuery({
+  const { data, error, fetchMore, loading } = useMlPostsForYouQuery({
     variables: { request }
   });
 
-  const posts = data?.forYou?.items;
-  const pageInfo = data?.forYou?.pageInfo;
+  const posts = data?.mlPostsForYou.items;
+  const pageInfo = data?.mlPostsForYou.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -62,14 +68,14 @@ const ForYou: FC = () => {
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"
-          computeItemKey={(index, item) => `${item.publication.id}-${index}`}
+          computeItemKey={(index, item) => `${item.post.id}-${index}`}
           data={posts}
           endReached={onEndReached}
           itemContent={(index, item) => (
             <SinglePost
               isFirst={index === 0}
               isLast={index === (posts?.length || 0) - 1}
-              post={item.publication as AnyPost}
+              post={item.post as Post}
             />
           )}
           useWindowScroll

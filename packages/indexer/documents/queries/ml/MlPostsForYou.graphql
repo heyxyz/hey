@@ -1,0 +1,13 @@
+query MlPostsForYou($request: MlpostsForYouRequest!) {
+  mlPostsForYou(request: $request) {
+    items {
+      post {
+        ...PostFields
+      }
+      source
+    }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
+  }
+}

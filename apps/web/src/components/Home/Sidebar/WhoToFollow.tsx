@@ -2,7 +2,11 @@ import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAcco
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { AccountLinkSource } from "@hey/data/tracking";
-import type { Account } from "@hey/indexer";
+import {
+  type Account,
+  PageSize,
+  useMlAccountRecommendationsQuery
+} from "@hey/indexer";
 import { Card, ErrorMessage, H5, Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -15,11 +19,11 @@ const WhoToFollow: FC = () => {
   const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
-  const { data, error, loading } = useProfileRecommendationsQuery({
+  const { data, error, loading } = useMlAccountRecommendationsQuery({
     variables: {
       request: {
-        for: currentAccount?.address,
-        limit: LimitType.Fifty,
+        pageSize: PageSize.Fifty,
+        account: currentAccount?.address,
         shuffle: true
       }
     }
@@ -41,14 +45,13 @@ const WhoToFollow: FC = () => {
     );
   }
 
-  if (data?.profileRecommendations.items.length === 0) {
+  if (data?.mlAccountRecommendations.items.length === 0) {
     return null;
   }
 
-  const recommendedAccounts = data?.profileRecommendations.items.filter(
+  const recommendedAccounts = data?.mlAccountRecommendations.items.filter(
     (account) =>
-      !account.operations.isBlockedByMe.value &&
-      !account.operations.isFollowedByMe.value
+      !account.operations?.isBlockedByMe && !account.operations?.isFollowedByMe
   );
 
   if (recommendedAccounts?.length === 0) {
@@ -63,7 +66,7 @@ const WhoToFollow: FC = () => {
         {recommendedAccounts?.slice(0, 5).map((account) => (
           <div
             className="flex items-center space-x-3 truncate"
-            key={account?.id}
+            key={account?.address}
           >
             <div className="w-full">
               <SingleAccount
