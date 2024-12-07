@@ -13,6 +13,7 @@ import {
   useAccountManagersQuery,
   useRemoveAccountManagerMutation
 } from "@hey/indexer";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -20,6 +21,7 @@ import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -52,7 +54,10 @@ const List: FC = () => {
   const onCompleted = (hash: string) => {
     setRemovingAddress(null);
     updateCache(hash);
-    toast.success(hash);
+    addSimpleOptimisticTransaction(
+      hash,
+      OptmisticTransactionType.RemoveAccountManager
+    );
     toast.success("Manager removed successfully");
   };
 

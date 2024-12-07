@@ -10,5 +10,7 @@ export enum OptmisticTransactionType {
   Unblock = "Unblock",
   AssignUsername = "AssignUsername",
   UnassignUsername = "UnassignUsername",
-  SetAccountMetadata = "SetAccountMetadata"
+  SetAccountMetadata = "SetAccountMetadata",
+  AddAccountManager = "AddAccountManager",
+  RemoveAccountManager = "RemoveAccountManager"
 }

@@ -6,12 +6,14 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useAddAccountManagerMutation } from "@hey/indexer";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { isAddress } from "viem";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
@@ -38,7 +40,10 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const onCompleted = (hash: string) => {
     setIsLoading(false);
     setShowAddManagerModal(false);
-    toast.success(hash);
+    addSimpleOptimisticTransaction(
+      hash,
+      OptmisticTransactionType.AddAccountManager
+    );
     toast.success("Account manager added");
   };
 
@@ -127,7 +132,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
         />
         <ToggleWithHelper
           description="Allow the manager to transfer native tokens on your behalf"
-          heading="Can transfer native"
+          heading="Can transfer native tokens"
           on={canTransferNative}
           setOn={setCanTransferNative}
         />

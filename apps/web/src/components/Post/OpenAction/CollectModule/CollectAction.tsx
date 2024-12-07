@@ -16,7 +16,10 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import {
+  addOptimisticTransaction,
+  useTransactionStore
+} from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
@@ -45,8 +48,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const { address: sessionAccountAddress } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
-  const { addTransaction, isFollowPending, hasOptimisticallyCollected } =
-    useTransactionStore();
+  const { isFollowPending, hasOptimisticallyCollected } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
@@ -90,7 +92,7 @@ const CollectAction: FC<CollectActionProps> = ({
   }: {
     txHash: string;
   }) => {
-    addTransaction({
+    addOptimisticTransaction({
       collectOn: post?.id,
       txHash,
       type: OptmisticTransactionType.Collect

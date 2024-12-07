@@ -1,7 +1,6 @@
 fragment PostBaseFields on Post {
   id
   isDeleted
-  isEdited
   stats {
     ...PostStatsFields
   }
