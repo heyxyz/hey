@@ -1,8 +1,7 @@
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Post, useCreatePostMutation } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -29,28 +28,28 @@ const useCreatePost = ({
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOf);
 
-  const generateOptimisticPublication = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
+  }) => {
+    addTransaction({
       ...(isComment && { commentOn: commentOn?.id }),
       content: postContent,
       txHash,
       type: isComment
-        ? OptmisticPostType.Comment
+        ? OptmisticTransactionType.Comment
         : isQuote
-          ? OptmisticPostType.Quote
-          : OptmisticPostType.Post
-    };
+          ? OptmisticTransactionType.Quote
+          : OptmisticTransactionType.Post
+    });
   };
 
   // Onchain mutations
   const [createPost] = useCreatePostMutation({
     onCompleted: async ({ post }) => {
       if (post.__typename === "PostResponse") {
-        addTransaction(generateOptimisticPublication({ txHash: post.hash }));
+        updateTransactions({ txHash: post.hash });
         return onCompleted();
       }
 
@@ -61,7 +60,7 @@ const useCreatePost = ({
               account: walletClient.account,
               ...sponsoredTransactionData(post.raw)
             });
-            addTransaction(generateOptimisticPublication({ txHash: hash }));
+            updateTransactions({ txHash: hash });
 
             return onCompleted();
           }
@@ -71,7 +70,7 @@ const useCreatePost = ({
               account: walletClient.account,
               ...selfFundedTransactionData(post.raw)
             });
-            addTransaction(generateOptimisticPublication({ txHash: hash }));
+            updateTransactions({ txHash: hash });
 
             return onCompleted();
           }

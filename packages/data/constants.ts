@@ -40,9 +40,6 @@ export const STATIC_ASSETS_URL = "https://hey-assets.b-cdn.net";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   "https://ik.imagekit.io/lens/media-snapshot";
-export const POLYGONSCAN_URL = IS_MAINNET
-  ? "https://polygonscan.com"
-  : "https://amoy.polygonscan.com";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
 export const METADATA_ENDPOINT = "https://metadata.hey.xyz";
 export const EVER_API = "https://endpoint.4everland.co";

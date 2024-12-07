@@ -8,7 +8,7 @@ import {
   type TimelineRequest,
   useTimelineQuery
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { memo, useRef } from "react";
@@ -73,7 +73,7 @@ const Timeline: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type !== OptmisticPostType.Comment ? (
+        txn?.type !== OptmisticTransactionType.Comment ? (
           <QueuedPost key={txn.txHash} txn={txn} />
         ) : null
       )}

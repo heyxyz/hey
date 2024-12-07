@@ -1,6 +1,6 @@
 import getAllowanceModule from "@helpers/getAllowanceModule";
-import { POLYGONSCAN_URL } from "@hey/data/constants";
 import { Card } from "@hey/ui";
+import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
@@ -27,7 +27,7 @@ const Module: FC<ModuleProps> = ({ module }) => {
         </div>
         <Link
           className="ld-text-gray-500 truncate text-sm"
-          href={`${POLYGONSCAN_URL}/address/${module?.moduleContract.address}`}
+          href={`${chains.testnet.blockExplorers?.default.url}/address/${module?.moduleContract.address}`}
           rel="noreferrer noopener"
           target="_blank"
         >

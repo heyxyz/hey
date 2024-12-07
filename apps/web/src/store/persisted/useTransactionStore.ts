@@ -31,7 +31,10 @@ const store = create(
       isUnfollowPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.unfollowOn === profileAddress),
       isBlockOrUnblockPending: (profileAddress) =>
-        get().txnQueue.some((txn) => txn.blockOrUnblockOn === profileAddress),
+        get().txnQueue.some(
+          (txn) =>
+            txn.blockOn === profileAddress || txn.unblockOn === profileAddress
+        ),
       hasOptimisticallyCollected: (collectOn) =>
         get().txnQueue.some((txn) => txn.collectOn === collectOn),
       removeTransaction: (hash) =>

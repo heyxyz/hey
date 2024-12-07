@@ -1,4 +1,4 @@
-export enum OptmisticPostType {
+export enum OptmisticTransactionType {
   Collect = "Collect",
   Comment = "Comment",
   Follow = "Follow",
@@ -9,5 +9,6 @@ export enum OptmisticPostType {
   Block = "Block",
   Unblock = "Unblock",
   AssignUsername = "AssignUsername",
-  UnassignUsername = "UnassignUsername"
+  UnassignUsername = "UnassignUsername",
+  SetAccountMetadata = "SetAccountMetadata"
 }

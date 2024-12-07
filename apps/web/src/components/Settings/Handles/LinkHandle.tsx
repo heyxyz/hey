@@ -10,8 +10,7 @@ import {
   useAssignUsernameToAccountMutation,
   useUsernamesQuery
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -30,20 +29,20 @@ const LinkHandle: FC = () => {
   const [linkingUsername, setLinkingUsername] = useState<null | string>(null);
   const { data: walletClient } = useWalletClient();
 
-  const generateOptimisticAssignUsername = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
+  }) => {
+    addTransaction({
       txHash,
-      type: OptmisticPostType.AssignUsername
-    };
+      type: OptmisticTransactionType.AssignUsername
+    });
   };
 
   const onCompleted = (hash: string) => {
     setLinkingUsername(null);
-    addTransaction(generateOptimisticAssignUsername({ txHash: hash }));
+    updateTransactions({ txHash: hash });
     toast.success("Linked");
   };
 

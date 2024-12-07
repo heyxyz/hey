@@ -3,8 +3,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -22,20 +21,20 @@ const UnlinkHandle: FC = () => {
   const [unlinking, setUnlinking] = useState<boolean>(false);
   const { data: walletClient } = useWalletClient();
 
-  const generateOptimisticUnassignUsername = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
+  }) => {
+    addTransaction({
       txHash,
-      type: OptmisticPostType.UnassignUsername
-    };
+      type: OptmisticTransactionType.UnassignUsername
+    });
   };
 
   const onCompleted = (hash: string) => {
     setUnlinking(false);
-    addTransaction(generateOptimisticUnassignUsername({ txHash: hash }));
+    updateTransactions({ txHash: hash });
     toast.success("Unlinked");
   };
 

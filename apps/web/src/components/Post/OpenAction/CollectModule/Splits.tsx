@@ -1,9 +1,5 @@
 import Slug from "@components/Shared/Slug";
-import {
-  APP_NAME,
-  COLLECT_FEES_ADDRESS,
-  POLYGONSCAN_URL
-} from "@hey/data/constants";
+import { APP_NAME, COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -14,6 +10,7 @@ import {
   useAccountsQuery
 } from "@hey/indexer";
 import { Image } from "@hey/ui";
+import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
 import type { FC } from "react";
 
@@ -88,7 +85,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     </Link>
                   ) : (
                     <Link
-                      href={`${POLYGONSCAN_URL}/address/${address}`}
+                      href={`${chains.testnet.blockExplorers?.default.url}/address/${address}`}
                       rel="noreferrer noopener"
                       target="_blank"
                     >

@@ -11,8 +11,7 @@ import {
   TriStateValue,
   useRepostMutation
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -42,16 +41,16 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
 
-  const generateOptimisticRepost = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
+  }) => {
+    addTransaction({
       repostOf: post?.id,
       txHash,
-      type: OptmisticPostType.Repost
-    };
+      type: OptmisticTransactionType.Repost
+    });
   };
 
   const updateCache = () => {
@@ -73,7 +72,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     setIsLoading(false);
     increment();
     updateCache();
-    addTransaction(generateOptimisticRepost({ txHash: hash }));
+    updateTransactions({ txHash: hash });
     toast.success("Post has been reposted!");
   };
 

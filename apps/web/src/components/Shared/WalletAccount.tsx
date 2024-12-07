@@ -1,9 +1,9 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { POLYGONSCAN_URL } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import imageKit from "@hey/helpers/imageKit";
 import { Image } from "@hey/ui";
+import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
 import type { FC, SyntheticEvent } from "react";
 import useEnsName from "src/hooks/useEnsName";
@@ -33,7 +33,7 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
     <div className="flex items-center justify-between">
       <Link
         className="flex items-center space-x-3"
-        href={`${POLYGONSCAN_URL}/address/${address}`}
+        href={`${chains.testnet.blockExplorers?.default.url}/address/${address}`}
         rel="noreferrer noopener"
         target="_blank"
       >

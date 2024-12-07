@@ -10,11 +10,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import {
-  APP_NAME,
-  COLLECT_FEES_ADDRESS,
-  POLYGONSCAN_URL
-} from "@hey/data/constants";
+import { APP_NAME, COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -28,6 +24,7 @@ import type {
   SimpleCollectActionSettings
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
+import { chains } from "@lens-network/sdk/viem";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
@@ -229,7 +226,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  href={`${POLYGONSCAN_URL}/token/${collectModule.collectNft}`}
+                  href={`${chains.testnet.blockExplorers?.default.url}/address/${collectModule.collectNft}`}
                   rel="noreferrer noopener"
                   target="_blank"
                 >
