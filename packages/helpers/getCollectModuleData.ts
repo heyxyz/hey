@@ -1,7 +1,12 @@
+import type {
+  RecipientDataOutput,
+  SimpleCollectActionSettings
+} from "@hey/indexer";
+
 const getCollectModuleData = (
   collectModule:
-    | MultirecipientFeeCollectOpenActionSettings
-    | SimpleCollectOpenActionSettings
+    | MultirecipientFeeCollectActionSettings
+    | SimpleCollectActionSettings
 ): {
   amount?: number;
   assetAddress?: string;

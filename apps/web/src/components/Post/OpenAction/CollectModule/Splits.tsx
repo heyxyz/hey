@@ -8,7 +8,11 @@ import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
-import { useAccountsQuery, type Account } from "@hey/indexer";
+import {
+  type Account,
+  type RecipientDataOutput,
+  useAccountsQuery
+} from "@hey/indexer";
 import { Image } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -77,8 +81,10 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     src={account ? getAvatar(account) : getStampFyiURL(address)}
                   />
                   {account ? (
-                    <Link href={getAccount(account).link}>
-                      <Slug slug={getAccount(account).slugWithPrefix} />
+                    <Link href={getAccount(account as Account).link}>
+                      <Slug
+                        slug={getAccount(account as Account).slugWithPrefix}
+                      />
                     </Link>
                   ) : (
                     <Link
