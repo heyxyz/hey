@@ -4,7 +4,7 @@ import { type Post, useCreatePostMutation } from "@hey/indexer";
 import { OptmisticTransactionType } from "@hey/types/enums";
 import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -22,7 +22,6 @@ const useCreatePost = ({
   quoteOf
 }: CreatePostProps) => {
   const { postContent } = usePostStore();
-  const { addTransaction } = useTransactionStore();
   const { data: walletClient } = useWalletClient();
 
   const isComment = Boolean(commentOn);
@@ -33,7 +32,7 @@ const useCreatePost = ({
   }: {
     txHash: string;
   }) => {
-    addTransaction({
+    addOptimisticTransaction({
       ...(isComment && { commentOn: commentOn?.id }),
       content: postContent,
       txHash,

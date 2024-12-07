@@ -16,7 +16,10 @@ import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import {
+  addOptimisticTransaction,
+  useTransactionStore
+} from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -36,7 +39,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useGlobalModalStateStore();
-  const { addTransaction, isFollowPending } = useTransactionStore();
+  const { isFollowPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
@@ -47,7 +50,7 @@ const Unfollow: FC<UnfollowProps> = ({
   }: {
     txHash: string;
   }) => {
-    addTransaction({
+    addOptimisticTransaction({
       txHash,
       type: OptmisticTransactionType.Unfollow,
       unfollowOn: account.address

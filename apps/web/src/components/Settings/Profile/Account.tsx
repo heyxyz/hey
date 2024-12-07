@@ -46,7 +46,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import type { z } from "zod";
@@ -72,7 +72,6 @@ const validationSchema = object({
 const AccountSettingsForm: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { addTransaction } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
@@ -106,20 +105,12 @@ const AccountSettingsForm: FC = () => {
 
   const { data: walletClient } = useWalletClient();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addTransaction({
-      txHash,
-      type: OptmisticTransactionType.SetAccountMetadata
-    });
-  };
-
   const onCompleted = (hash: string) => {
     setIsLoading(false);
-    updateTransactions({ txHash: hash });
+    addSimpleOptimisticTransaction(
+      hash,
+      OptmisticTransactionType.SetAccountMetadata
+    );
     toast.success("Account updated");
   };
 

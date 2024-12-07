@@ -18,7 +18,10 @@ import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import {
+  addOptimisticTransaction,
+  useTransactionStore
+} from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -29,7 +32,7 @@ const BlockOrUnBlockAccount: FC = () => {
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
-  const { addTransaction, isBlockOrUnblockPending } = useTransactionStore();
+  const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
@@ -44,7 +47,7 @@ const BlockOrUnBlockAccount: FC = () => {
   }: {
     txHash: string;
   }) => {
-    addTransaction({
+    addOptimisticTransaction({
       ...(hasBlocked
         ? { unblockOn: blockingorUnblockingAccount?.address }
         : { blockOn: blockingorUnblockingAccount?.address }),
