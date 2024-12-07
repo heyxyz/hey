@@ -10,7 +10,7 @@ import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPost, Post } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
@@ -145,7 +145,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showSharingLink ? (
         <Oembed post={targetPost} url={metadata.sharingLink} />
       ) : null}
-      {showQuote ? <Quote post={targetPost.quoteOf} /> : null}
+      {showQuote ? <Quote post={targetPost.quoteOf as Post} /> : null}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );
