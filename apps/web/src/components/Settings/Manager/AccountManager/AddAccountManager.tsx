@@ -132,7 +132,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
         />
         <ToggleWithHelper
           description="Allow the manager to transfer native tokens on your behalf"
-          heading="Can transfer native"
+          heading="Can transfer native tokens"
           on={canTransferNative}
           setOn={setCanTransferNative}
         />
