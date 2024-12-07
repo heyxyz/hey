@@ -115,7 +115,10 @@ export const post = [
       }
 
       await prisma.profilePermission.deleteMany({
-        where: { permissionId: id as string, profileId: accountAddress as string }
+        where: {
+          permissionId: id as string,
+          profileId: accountAddress as string
+        }
       });
 
       await postUpdateTasks(accountAddress, id, false);
