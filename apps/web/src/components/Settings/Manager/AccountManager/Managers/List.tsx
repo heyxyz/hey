@@ -3,7 +3,6 @@ import LazySingleAccount from "@components/Shared/LazySingleAccount";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
@@ -163,51 +162,15 @@ const List: FC = () => {
       data={accountManagers}
       endReached={onEndReached}
       itemContent={(_, accountManager) => (
-        <div>
-          <div className="flex items-center justify-between py-2">
-            <LazySingleAccount address={accountManager.manager} />
-            <Button
-              disabled={removingAddress === accountManager.manager}
-              onClick={() => handleRemoveManager(accountManager.manager)}
-              outline
-            >
-              Remove
-            </Button>
-          </div>
-          <div className="ld-text-gray-500 mt-2 text-sm">
-            <div className="flex items-center space-x-2">
-              {accountManager.permissions.canExecuteTransactions ? (
-                <CheckCircleIcon className="size-4 text-green-500" />
-              ) : (
-                <XCircleIcon className="size-4 text-red-500" />
-              )}
-              <span>Can execute transactions</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              {accountManager.permissions.canSetMetadataUri ? (
-                <CheckCircleIcon className="size-4 text-green-500" />
-              ) : (
-                <XCircleIcon className="size-4 text-red-500" />
-              )}
-              <span>Can set metadata URI</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              {accountManager.permissions.canTransferNative ? (
-                <CheckCircleIcon className="size-4 text-green-500" />
-              ) : (
-                <XCircleIcon className="size-4 text-red-500" />
-              )}
-              <span>Can transfer native tokens</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              {accountManager.permissions.canTransferTokens ? (
-                <CheckCircleIcon className="size-4 text-green-500" />
-              ) : (
-                <XCircleIcon className="size-4 text-red-500" />
-              )}
-              <span>Can transfer tokens</span>
-            </div>
-          </div>
+        <div className="flex items-center justify-between py-2">
+          <LazySingleAccount address={accountManager.manager} />
+          <Button
+            disabled={removingAddress === accountManager.manager}
+            onClick={() => handleRemoveManager(accountManager.manager)}
+            outline
+          >
+            Remove
+          </Button>
         </div>
       )}
       useWindowScroll
