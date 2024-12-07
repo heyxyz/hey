@@ -1,5 +1,0 @@
-fragment SimplePaymentFollowRuleFields on SimplePaymentFollowRule {
-  amount {
-    ...AmountFields
-  }
-}

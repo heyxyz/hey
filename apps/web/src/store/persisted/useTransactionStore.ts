@@ -50,5 +50,5 @@ export const addOptimisticTransaction = store.getState().addTransaction;
 export const addSimpleOptimisticTransaction = (
   hash: string,
   type: OptmisticTransactionType
-) => addTransaction({ txHash: hash, type });
+) => store.getState().addTransaction({ txHash: hash, type });
 export const useTransactionStore = store;

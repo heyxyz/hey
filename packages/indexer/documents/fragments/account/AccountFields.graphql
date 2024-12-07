@@ -3,40 +3,12 @@ fragment AccountFields on Account {
   address
   score
   metadata {
-    name
-    bio
-    picture
-    coverPicture
-    attributes {
-      ...MetadataAttributeFields
-    }
+    ...AccountMetadata
   }
   username {
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
-  }
-  rules {
-    anyOf {
-      ... on SimplePaymentFollowRule {
-        ...SimplePaymentFollowRuleFields
-      }
-    }
-    required {
-      ... on SimplePaymentFollowRule {
-        ...SimplePaymentFollowRuleFields
-      }
-    }
+    ...LoggedInAccountOperationsFields
   }
 }
