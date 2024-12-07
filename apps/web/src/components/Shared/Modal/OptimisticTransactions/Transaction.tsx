@@ -21,30 +21,9 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
   return (
     <div className="flex items-center justify-between">
       <Tooltip content={transaction.txHash} placement="top">
-        {transaction.type === OptmisticTransactionType.Post ||
-        transaction.type === OptmisticTransactionType.Quote ||
-        transaction.type === OptmisticTransactionType.AssignUsername ||
-        transaction.type === OptmisticTransactionType.UnassignUsername ||
-        transaction.type === OptmisticTransactionType.SetAccountMetadata ? (
+        {Object.values(OptmisticTransactionType).includes(transaction.type) ? (
           <div className="text-sm">
             {convertEnumKeyToReadable(transaction.type)}
-          </div>
-        ) : transaction.type === OptmisticTransactionType.Follow ||
-          transaction.type === OptmisticTransactionType.Unfollow ||
-          transaction.type === OptmisticTransactionType.Block ||
-          transaction.type === OptmisticTransactionType.Unblock ||
-          transaction.type === OptmisticTransactionType.Repost ||
-          transaction.type === OptmisticTransactionType.Comment ||
-          transaction.type === OptmisticTransactionType.Collect ? (
-          <div className="text-sm">
-            {convertEnumKeyToReadable(transaction.type)} on{" "}
-            {transaction.followOn ||
-              transaction.unfollowOn ||
-              transaction.blockOn ||
-              transaction.unblockOn ||
-              transaction.repostOf ||
-              transaction.commentOn ||
-              transaction.collectOn}
           </div>
         ) : null}
       </Tooltip>
