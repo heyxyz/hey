@@ -1,4 +1,5 @@
 import SearchAccounts from "@components/Shared/SearchAccounts";
+import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import errorToast from "@helpers/errorToast";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -24,8 +25,14 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
+
   const [manager, setManager] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [canExecuteTransactions, setCanExecuteTransactions] = useState(true);
+  const [canSetMetadataUri, setCanSetMetadataUri] = useState(true);
+  const [canTransferNative, setCanTransferNative] = useState(true);
+  const [canTransferTokens, setCanTransferTokens] = useState(true);
+
   const { data: walletClient } = useWalletClient();
 
   const onCompleted = (hash: string) => {
@@ -85,10 +92,10 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
         request: {
           address: manager,
           permissions: {
-            canExecuteTransactions: true,
-            canSetMetadataUri: true,
-            canTransferNative: true,
-            canTransferTokens: true
+            canExecuteTransactions,
+            canSetMetadataUri,
+            canTransferNative,
+            canTransferTokens
           }
         }
       }
@@ -105,6 +112,32 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
         placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
         value={manager}
       />
+      <div className="space-y-3 py-3">
+        <ToggleWithHelper
+          description="Allow the manager to execute transactions on your behalf"
+          heading="Can execute transactions"
+          on={canExecuteTransactions}
+          setOn={setCanExecuteTransactions}
+        />
+        <ToggleWithHelper
+          description="Allow the manager to set the metadata URI on your behalf"
+          heading="Can set metadata URI"
+          on={canSetMetadataUri}
+          setOn={setCanSetMetadataUri}
+        />
+        <ToggleWithHelper
+          description="Allow the manager to transfer native tokens on your behalf"
+          heading="Can transfer native"
+          on={canTransferNative}
+          setOn={setCanTransferNative}
+        />
+        <ToggleWithHelper
+          description="Allow the manager to transfer tokens on your behalf"
+          heading="Can transfer tokens"
+          on={canTransferTokens}
+          setOn={setCanTransferTokens}
+        />
+      </div>
       <div className="flex">
         <Button
           className="ml-auto"

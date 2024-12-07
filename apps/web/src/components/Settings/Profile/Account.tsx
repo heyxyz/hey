@@ -22,6 +22,7 @@ import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import { useSetAccountMetadataMutation } from "@hey/indexer";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import {
   Button,
   Card,
@@ -45,6 +46,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import type { z } from "zod";
@@ -70,6 +72,7 @@ const validationSchema = object({
 const AccountSettingsForm: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
+  const { addTransaction } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
 
   // Cover Picture
@@ -103,9 +106,20 @@ const AccountSettingsForm: FC = () => {
 
   const { data: walletClient } = useWalletClient();
 
+  const updateTransactions = ({
+    txHash
+  }: {
+    txHash: string;
+  }) => {
+    addTransaction({
+      txHash,
+      type: OptmisticTransactionType.SetAccountMetadata
+    });
+  };
+
   const onCompleted = (hash: string) => {
     setIsLoading(false);
-    toast.success(hash);
+    updateTransactions({ txHash: hash });
     toast.success("Account updated");
   };
 

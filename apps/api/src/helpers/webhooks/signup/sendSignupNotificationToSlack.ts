@@ -1,4 +1,3 @@
-import { POLYGONSCAN_URL } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
 import type { Address, PublicClient } from "viem";
 import { createPublicClient, decodeEventLog, parseAbi } from "viem";
@@ -76,11 +75,6 @@ const sendSignupNotificationToSlack = async (hash: Address) => {
       channel: "#signups",
       color: "#22c55e",
       fields: [
-        {
-          short: false,
-          title: "Transaction",
-          value: `${POLYGONSCAN_URL}/tx/${hash}`
-        },
         {
           short: false,
           title: "Account",

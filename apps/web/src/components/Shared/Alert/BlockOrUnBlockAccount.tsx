@@ -10,8 +10,7 @@ import {
   useBlockMutation,
   useUnblockMutation
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -40,16 +39,20 @@ const BlockOrUnBlockAccount: FC = () => {
   const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
 
-  const generateOptimisticBlockOrUnblock = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
-      blockOrUnblockOn: blockingorUnblockingAccount?.address,
+  }) => {
+    addTransaction({
+      ...(hasBlocked
+        ? { unblockOn: blockingorUnblockingAccount?.address }
+        : { blockOn: blockingorUnblockingAccount?.address }),
       txHash,
-      type: hasBlocked ? OptmisticPostType.Unblock : OptmisticPostType.Block
-    };
+      type: hasBlocked
+        ? OptmisticTransactionType.Unblock
+        : OptmisticTransactionType.Block
+    });
   };
 
   const updateCache = () => {
@@ -64,7 +67,7 @@ const BlockOrUnBlockAccount: FC = () => {
 
   const onCompleted = (hash: string) => {
     updateCache();
-    addTransaction(generateOptimisticBlockOrUnblock({ txHash: hash }));
+    updateTransactions({ txHash: hash });
     setIsLoading(false);
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);

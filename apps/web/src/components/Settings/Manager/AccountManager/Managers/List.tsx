@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import LazySingleAccount from "@components/Shared/LazySingleAccount";
 import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
@@ -6,6 +7,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
+  AccountManagersDocument,
   type AccountManagersRequest,
   PageSize,
   useAccountManagersQuery,
@@ -25,10 +27,31 @@ const List: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [removingAddress, setRemovingAddress] = useState<string | null>(null);
+  const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
+
+  const updateCache = (hash: string) => {
+    if (hash && data?.accountManagers?.items) {
+      const updatedManagers = data.accountManagers.items.filter(
+        (item) => item.manager !== removingAddress
+      );
+
+      cache.writeQuery({
+        query: AccountManagersDocument,
+        variables: { request },
+        data: {
+          accountManagers: {
+            ...data.accountManagers,
+            items: updatedManagers
+          }
+        }
+      });
+    }
+  };
 
   const onCompleted = (hash: string) => {
     setRemovingAddress(null);
+    updateCache(hash);
     toast.success(hash);
     toast.success("Manager removed successfully");
   };

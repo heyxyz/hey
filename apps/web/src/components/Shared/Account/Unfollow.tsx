@@ -8,8 +8,7 @@ import {
   type LoggedInAccountOperations,
   useUnfollowMutation
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -43,16 +42,16 @@ const Unfollow: FC<UnfollowProps> = ({
   const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
 
-  const generateOptimisticUnfollow = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
+  }) => {
+    addTransaction({
       txHash,
-      type: OptmisticPostType.Unfollow,
+      type: OptmisticTransactionType.Unfollow,
       unfollowOn: account.address
-    };
+    });
   };
 
   const updateCache = () => {
@@ -64,7 +63,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const onCompleted = (hash: string) => {
     updateCache();
-    addTransaction(generateOptimisticUnfollow({ txHash: hash }));
+    updateTransactions({ txHash: hash });
     setIsLoading(false);
     toast.success("Unfollowed");
   };

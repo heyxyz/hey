@@ -8,7 +8,7 @@ import {
   type Post,
   useMlPostsForYouQuery
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -61,7 +61,7 @@ const ForYou: FC = () => {
   return (
     <>
       {txnQueue.map((txn) =>
-        txn?.type === OptmisticPostType.Post ? (
+        txn?.type === OptmisticTransactionType.Post ? (
           <QueuedPost key={txn.txHash} txn={txn} />
         ) : null
       )}
