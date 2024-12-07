@@ -1,5 +1,4 @@
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import { Card, Image } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -60,9 +59,6 @@ const NewPost: FC<NewPostProps> = ({ tags }) => {
           alt={currentAccount?.address}
           className="size-11 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           height={44}
-          onError={({ currentTarget }) => {
-            currentTarget.src = getLennyURL(currentAccount?.address);
-          }}
           src={getAvatar(currentAccount)}
           width={44}
         />

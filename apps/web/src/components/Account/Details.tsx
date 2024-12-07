@@ -18,7 +18,6 @@ import getAccount from "@hey/helpers/getAccount";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import type { Account } from "@hey/indexer";
 import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
@@ -73,9 +72,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           className="size-32 cursor-pointer rounded-full bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(account, EXPANDED_AVATAR))}
-          onError={({ currentTarget }) => {
-            currentTarget.src = getLennyURL(account.address);
-          }}
           src={getAvatar(account)}
           width={128}
         />

@@ -3,7 +3,6 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import {
   type Account,
   useAccountsAvailableQuery,
@@ -130,11 +129,6 @@ const SwitchAccounts: FC = () => {
               alt={accountAvailable.account.address}
               className="size-6 rounded-full border dark:border-gray-700"
               height={20}
-              onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(
-                  accountAvailable.account.address
-                );
-              }}
               src={getAvatar(accountAvailable.account)}
               width={20}
             />
