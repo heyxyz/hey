@@ -21,7 +21,11 @@ interface RankProps {
   accountAddress: string;
 }
 
-const Rank: FC<RankProps> = ({ handle, lensClassifierScore, accountAddress }) => {
+const Rank: FC<RankProps> = ({
+  handle,
+  lensClassifierScore,
+  accountAddress
+}) => {
   const getRank = async (strategy: string) => {
     try {
       const { data } = await axios.get(
