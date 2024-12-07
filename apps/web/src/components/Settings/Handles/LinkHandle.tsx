@@ -17,32 +17,23 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { addTransaction } = useTransactionStore();
 
   const [linkingUsername, setLinkingUsername] = useState<null | string>(null);
   const { data: walletClient } = useWalletClient();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addTransaction({
-      txHash,
-      type: OptmisticTransactionType.AssignUsername
-    });
-  };
-
   const onCompleted = (hash: string) => {
     setLinkingUsername(null);
-    updateTransactions({ txHash: hash });
+    addSimpleOptimisticTransaction(
+      hash,
+      OptmisticTransactionType.AssignUsername
+    );
     toast.success("Linked");
   };
 

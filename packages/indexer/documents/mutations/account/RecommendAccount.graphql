@@ -1,3 +1,0 @@
-mutation RecommendAccount($request: RecommendAccount!) {
-  recommendAccount(request: $request)
-}

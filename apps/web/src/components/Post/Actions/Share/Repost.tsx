@@ -18,7 +18,7 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -31,7 +31,6 @@ interface RepostProps {
 const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { addTransaction } = useTransactionStore();
   const hasReposted = post.operations?.hasReposted.optimistic;
 
   const [shares, { increment }] = useCounter(
@@ -46,7 +45,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   }: {
     txHash: string;
   }) => {
-    addTransaction({
+    addOptimisticTransaction({
       repostOf: post?.id,
       txHash,
       type: OptmisticTransactionType.Repost

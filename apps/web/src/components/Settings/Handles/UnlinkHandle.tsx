@@ -10,31 +10,22 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
 const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { addTransaction } = useTransactionStore();
   const [unlinking, setUnlinking] = useState<boolean>(false);
   const { data: walletClient } = useWalletClient();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addTransaction({
-      txHash,
-      type: OptmisticTransactionType.UnassignUsername
-    });
-  };
-
   const onCompleted = (hash: string) => {
     setUnlinking(false);
-    updateTransactions({ txHash: hash });
+    addSimpleOptimisticTransaction(
+      hash,
+      OptmisticTransactionType.UnassignUsername
+    );
     toast.success("Unlinked");
   };
 
