@@ -1,7 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -45,9 +44,6 @@ const MobileDrawerMenu: FC = () => {
             <Image
               alt={currentAccount?.address}
               className="size-12 cursor-pointer rounded-full border dark:border-gray-700"
-              onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(currentAccount?.address);
-              }}
               src={getAvatar(currentAccount as Account)}
             />
             <div>

@@ -10,7 +10,6 @@ import {
 } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -62,9 +61,6 @@ const BottomNavigation = () => {
             <Image
               alt={currentAccount.address}
               className="size-6 rounded-full border dark:border-gray-700"
-              onError={({ currentTarget }) => {
-                currentTarget.src = getLennyURL(currentAccount.address);
-              }}
               src={getAvatar(currentAccount)}
             />
           </Link>

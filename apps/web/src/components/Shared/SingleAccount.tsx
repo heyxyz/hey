@@ -1,7 +1,6 @@
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
@@ -48,9 +47,6 @@ const SingleAccount: FC<SingleAccountProps> = ({
       )}
       height={isBig ? 56 : 44}
       loading="lazy"
-      onError={({ currentTarget }) => {
-        currentTarget.src = getLennyURL(account.address);
-      }}
       src={getAvatar(account)}
       width={isBig ? 56 : 44}
     />

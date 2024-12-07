@@ -7,7 +7,7 @@ import DeletePost from "./Alert/DeletePost";
 
 const GlobalAlerts: FC = () => {
   const {
-    blockingorUnblockingProfile,
+    blockingorUnblockingAccount,
     modingPost,
     setShowGardenerActionsAlert,
     showGardenerActionsAlert
@@ -30,7 +30,7 @@ const GlobalAlerts: FC = () => {
           <GardenerActions post={modingPost} />
         </Alert>
       )}
-      {blockingorUnblockingProfile && <BlockOrUnBlockAccount />}
+      {blockingorUnblockingAccount && <BlockOrUnBlockAccount />}
     </>
   );
 };
