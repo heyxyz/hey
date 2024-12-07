@@ -3,7 +3,11 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { type Account, useFollowMutation } from "@hey/indexer";
+import {
+  type Account,
+  type LoggedInAccountOperations,
+  useFollowMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
@@ -54,7 +58,7 @@ const Follow: FC<FollowProps> = ({
   const updateCache = () => {
     cache.modify({
       fields: { isFollowedByMe: () => true },
-      id: cache.identify(account.operations)
+      id: cache.identify(account.operations as LoggedInAccountOperations)
     });
   };
 

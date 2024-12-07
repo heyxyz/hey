@@ -3,11 +3,14 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { type Account, useUnfollowMutation } from "@hey/indexer";
+import {
+  type Account,
+  type LoggedInAccountOperations,
+  useUnfollowMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button } from "@hey/ui";
-import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -31,7 +34,6 @@ const Unfollow: FC<UnfollowProps> = ({
   small,
   title
 }) => {
-  const { pathname } = useRouter();
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useGlobalModalStateStore();
@@ -56,7 +58,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const updateCache = () => {
     cache.modify({
       fields: { isFollowedByMe: () => false },
-      id: cache.identify(account.operations)
+      id: cache.identify(account.operations as LoggedInAccountOperations)
     });
   };
 
