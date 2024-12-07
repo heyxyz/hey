@@ -1,10 +1,6 @@
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import {
-  type Post,
-  type PostResponse,
-  useCreatePostMutation
-} from "@hey/indexer";
+import { type Post, useCreatePostMutation } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import toast from "react-hot-toast";
@@ -15,7 +11,7 @@ import { useWalletClient } from "wagmi";
 
 interface CreatePostProps {
   commentOn?: Post;
-  onCompleted: (post?: PostResponse) => void;
+  onCompleted: () => void;
   onError: (error: any) => void;
   quoteOf?: Post;
 }
@@ -55,7 +51,7 @@ const useCreatePost = ({
     onCompleted: async ({ post }) => {
       if (post.__typename === "PostResponse") {
         addTransaction(generateOptimisticPublication({ txHash: post.hash }));
-        return onCompleted(post);
+        return onCompleted();
       }
 
       if (walletClient) {

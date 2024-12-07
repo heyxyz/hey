@@ -3,12 +3,12 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  blockingorUnblockingProfile: null | Account;
+  blockingorUnblockingAccount: null | Account;
   deletingPost: AnyPost | null;
   modingPost: AnyPost | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
-    blockingorUnblockingProfile: null | Account
+    blockingorUnblockingAccount: null | Account
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
@@ -24,13 +24,13 @@ interface State {
 }
 
 const store = create<State>((set) => ({
-  blockingorUnblockingProfile: null,
+  blockingorUnblockingAccount: null,
   deletingPost: null,
   modingPost: null,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
-    blockingorUnblockingProfile
-  ) => set(() => ({ blockingorUnblockingProfile, showBlockOrUnblockAlert })),
+    blockingorUnblockingAccount
+  ) => set(() => ({ blockingorUnblockingAccount, showBlockOrUnblockAlert })),
   setShowGardenerActionsAlert: (showGardenerActionsAlert, modingPost) =>
     set(() => ({ modingPost, showGardenerActionsAlert })),
   setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>

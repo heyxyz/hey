@@ -5,7 +5,12 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { type Post, TriStateValue, useRepostMutation } from "@hey/indexer";
+import {
+  type LoggedInPostOperations,
+  type Post,
+  TriStateValue,
+  useRepostMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import cn from "@hey/ui/cn";
@@ -52,14 +57,14 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const updateCache = () => {
     cache.modify({
       fields: {
-        operations: (existingValue) => {
-          return { ...existingValue, hasMirrored: true };
+        hasReposted: (existingValue) => {
+          return { ...existingValue, optimistic: true };
         }
       },
-      id: cache.identify(post)
+      id: cache.identify(post.operations as LoggedInPostOperations)
     });
     cache.modify({
-      fields: { mirrors: () => shares + 1 },
+      fields: { reposts: () => shares + 1 },
       id: cache.identify(post.stats)
     });
   };
@@ -69,7 +74,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     increment();
     updateCache();
     addTransaction(generateOptimisticRepost({ txHash: hash }));
-    toast.success("Post has been mirrored!");
+    toast.success("Post has been reposted!");
   };
 
   const onError = (error: any) => {

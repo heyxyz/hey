@@ -3,7 +3,7 @@ import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Post } from "@hey/indexer";
+import type { LoggedInPostOperations, Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
@@ -21,12 +21,8 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     cache.modify({
-      fields: {
-        operations: (existingValue) => {
-          return { ...existingValue, isNotInterested: notInterested };
-        }
-      },
-      id: cache.identify(post)
+      fields: { isNotInterested: () => !notInterested },
+      id: cache.identify(post.operations as LoggedInPostOperations)
     });
   };
 
