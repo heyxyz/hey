@@ -7,20 +7,13 @@ import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import NewPublication from "./NewPublication";
 
-interface NewPostProps {
-  tags?: string[];
-}
-
-const NewPost: FC<NewPostProps> = ({ tags }) => {
+const NewPost: FC = () => {
   const { isReady, query } = useRouter();
   const { currentAccount } = useAccountStore();
-  const { setPostContent, setTags } = usePostStore();
+  const { setPostContent } = usePostStore();
   const [showComposer, setShowComposer] = useState(false);
 
   const handleOpenModal = () => {
-    if (tags) {
-      setTags(tags);
-    }
     setShowComposer(true);
   };
 
