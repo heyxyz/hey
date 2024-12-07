@@ -5,7 +5,6 @@ import { persist } from "zustand/middleware";
 
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
-  hydrateTxnQueue: () => OptimisticTransaction[];
   indexedPostHash: null | string;
   isFollowPending: (profileAddress: string) => boolean;
   isUnfollowPending: (profileAddress: string) => boolean;
@@ -22,9 +21,6 @@ const store = create(
     (set, get) => ({
       addTransaction: (txn) =>
         set((state) => ({ txnQueue: [...state.txnQueue, txn] })),
-      hydrateTxnQueue: () => {
-        return get().txnQueue;
-      },
       indexedPostHash: null,
       isFollowPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.followOn === profileAddress),
@@ -49,5 +45,4 @@ const store = create(
   )
 );
 
-export const hydrateTxnQueue = () => store.getState().hydrateTxnQueue();
 export const useTransactionStore = store;
