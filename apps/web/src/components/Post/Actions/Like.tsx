@@ -5,6 +5,7 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import nFormatter from "@hey/helpers/nFormatter";
 import {
+  type LoggedInPostOperations,
   type Post,
   PostReactionType,
   useAddReactionMutation,
@@ -34,16 +35,8 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      fields: {
-        operations: (existingValue) => {
-          return {
-            ...existingValue,
-            // TODO: This is a hack to make the cache update
-            'hasReacted({"request":{"type":"UPVOTE"}})': !hasReacted
-          };
-        }
-      },
-      id: cache.identify(post)
+      fields: { hasReacted: () => !hasReacted },
+      id: cache.identify(post.operations as LoggedInPostOperations)
     });
     cache.modify({
       fields: {

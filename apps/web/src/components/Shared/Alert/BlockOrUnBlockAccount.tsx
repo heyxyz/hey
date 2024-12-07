@@ -4,7 +4,12 @@ import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
+import {
+  type Account,
+  type LoggedInAccountOperations,
+  useBlockMutation,
+  useUnblockMutation
+} from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Alert } from "@hey/ui";
@@ -21,7 +26,7 @@ import { useWalletClient } from "wagmi";
 const BlockOrUnBlockAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const {
-    blockingorUnblockingProfile,
+    blockingorUnblockingAccount,
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useGlobalAlertStateStore();
@@ -29,7 +34,7 @@ const BlockOrUnBlockAccount: FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
-    blockingorUnblockingProfile?.operations?.isBlockedByMe
+    blockingorUnblockingAccount?.operations?.isBlockedByMe
   );
   const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
@@ -41,7 +46,7 @@ const BlockOrUnBlockAccount: FC = () => {
     txHash: string;
   }): OptimisticTransaction => {
     return {
-      blockOrUnblockOn: blockingorUnblockingProfile?.address,
+      blockOrUnblockOn: blockingorUnblockingAccount?.address,
       txHash,
       type: hasBlocked ? OptmisticPostType.Unblock : OptmisticPostType.Block
     };
@@ -50,9 +55,11 @@ const BlockOrUnBlockAccount: FC = () => {
   const updateCache = () => {
     cache.modify({
       fields: { isBlockedByMe: () => !hasBlocked },
-      id: `ProfileOperations:${blockingorUnblockingProfile?.address}`
+      id: cache.identify(
+        blockingorUnblockingAccount?.operations as LoggedInAccountOperations
+      )
     });
-    cache.evict({ id: `Profile:${blockingorUnblockingProfile?.address}` });
+    cache.evict({ id: cache.identify(blockingorUnblockingAccount as Account) });
   };
 
   const onCompleted = (hash: string) => {
@@ -159,7 +166,7 @@ const BlockOrUnBlockAccount: FC = () => {
       if (hasBlocked) {
         return await unblock({
           variables: {
-            request: { account: blockingorUnblockingProfile?.address }
+            request: { account: blockingorUnblockingAccount?.address }
           }
         });
       }
@@ -167,7 +174,7 @@ const BlockOrUnBlockAccount: FC = () => {
       // Block
       return await block({
         variables: {
-          request: { account: blockingorUnblockingProfile?.address }
+          request: { account: blockingorUnblockingAccount?.address }
         }
       });
     } catch (error) {
@@ -180,11 +187,11 @@ const BlockOrUnBlockAccount: FC = () => {
       confirmText={hasBlocked ? "Unblock" : "Block"}
       description={`Are you sure you want to ${
         hasBlocked ? "un-block" : "block"
-      } ${getAccount(blockingorUnblockingProfile).slugWithPrefix}?`}
+      } ${getAccount(blockingorUnblockingAccount).slugWithPrefix}?`}
       isDestructive
       isPerformingAction={
         isLoading ||
-        isBlockOrUnblockPending(blockingorUnblockingProfile?.address)
+        isBlockOrUnblockPending(blockingorUnblockingAccount?.address)
       }
       onClose={() => setShowBlockOrUnblockAlert(false, null)}
       onConfirm={blockOrUnblock}

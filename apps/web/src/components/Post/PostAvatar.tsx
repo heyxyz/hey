@@ -1,6 +1,5 @@
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPost, TimelineItem } from "@hey/indexer";
@@ -42,9 +41,6 @@ const PostAvatar: FC<PostAvatarProps> = ({
         height={quoted ? 25 : 44}
         loading="lazy"
         onClick={() => push(getAccount(account).link)}
-        onError={({ currentTarget }) => {
-          currentTarget.src = getLennyURL(account.address);
-        }}
         src={getAvatar(account)}
         width={quoted ? 25 : 44}
       />

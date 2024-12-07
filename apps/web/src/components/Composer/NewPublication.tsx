@@ -9,7 +9,7 @@ import { Errors } from "@hey/data/errors";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
-import type { Post, PostResponse } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, H6 } from "@hey/ui";
@@ -153,18 +153,9 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     errorToast(error);
   };
 
-  const onCompleted = (post?: PostResponse) => {
-    if (post?.__typename !== "PostResponse") {
-      return onError();
-    }
-
-    // Reset states
-    reset();
-  };
-
   const { createPost } = useCreatePost({
     commentOn: post,
-    onCompleted,
+    onCompleted: () => reset(),
     onError,
     quoteOf: quotedPost as Post
   });

@@ -27,9 +27,7 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
       fields: { reposts: () => targetPost.stats.reposts - 1 },
       id: cache.identify(targetPost.stats)
     });
-    cache.evict({
-      id: `${post?.__typename}:${post?.id}`
-    });
+    cache.evict({ id: cache.identify(post) });
   };
 
   const onError = (error?: any) => {

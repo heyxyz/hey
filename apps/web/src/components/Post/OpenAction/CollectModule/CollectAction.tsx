@@ -8,7 +8,7 @@ import getCurrentSession from "@helpers/getCurrentSession";
 import { Errors } from "@hey/data/errors";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
-import type { AnyPost, PostAction } from "@hey/indexer";
+import type { Post, PostAction } from "@hey/indexer";
 import { OptmisticPostType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Button, WarningMessage } from "@hey/ui";
@@ -29,7 +29,7 @@ interface CollectActionProps {
   noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
   postAction: PostAction;
-  post: AnyPost;
+  post: Post;
 }
 
 const CollectAction: FC<CollectActionProps> = ({

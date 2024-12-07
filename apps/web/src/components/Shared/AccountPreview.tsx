@@ -4,7 +4,6 @@ import getAccountDetails, {
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getLennyURL from "@hey/helpers/getLennyURL";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
@@ -122,9 +121,6 @@ const AccountPreview: FC<AccountPreviewProps> = ({
         className="size-12 rounded-full border bg-gray-200 dark:border-gray-700"
         height={48}
         loading="lazy"
-        onError={({ currentTarget }) => {
-          currentTarget.src = getLennyURL(account.address);
-        }}
         src={getAvatar(account)}
         width={48}
       />
