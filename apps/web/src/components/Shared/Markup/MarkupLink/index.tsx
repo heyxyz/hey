@@ -1,7 +1,7 @@
 import type { MarkupLinkProps } from "@hey/types/misc";
 import Cashtag from "./Cashtag";
-import Group from "./Group";
 import ExternalLink from "./ExternalLink";
+import Group from "./Group";
 import Hashtag from "./Hashtag";
 import Mention from "./Mention";
 
