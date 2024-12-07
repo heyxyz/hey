@@ -1,5 +1,5 @@
 import type { AccountMention, Maybe, MetadataLicenseType } from "@hey/indexer";
-import type { OptmisticPostType } from "./enums";
+import type { OptmisticTransactionType } from "./enums";
 
 export interface IPFSResponse {
   mimeType: string;
@@ -90,15 +90,16 @@ export interface Emoji {
 }
 
 export interface OptimisticTransaction {
-  blockOrUnblockOn?: string;
+  blockOn?: string;
+  unblockOn?: string;
   collectOn?: string;
   commentOn?: string;
-  content?: string;
-  followOn?: string;
   repostOf?: string;
-  txHash: string;
-  type: OptmisticPostType;
+  followOn?: string;
   unfollowOn?: string;
+  content?: string;
+  txHash: string;
+  type: OptmisticTransactionType;
 }
 
 export interface MarkupLinkProps {

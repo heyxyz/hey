@@ -9,8 +9,7 @@ import { Errors } from "@hey/data/errors";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
 import type { Post, PostAction } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
@@ -86,16 +85,16 @@ const CollectAction: FC<CollectActionProps> = ({
     ? true
     : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
 
-  const generateOptimisticCollect = ({
+  const updateTransactions = ({
     txHash
   }: {
     txHash: string;
-  }): OptimisticTransaction => {
-    return {
+  }) => {
+    addTransaction({
       collectOn: post?.id,
       txHash,
-      type: OptmisticPostType.Collect
-    };
+      type: OptmisticTransactionType.Collect
+    });
   };
 
   const updateCache = () => {
@@ -176,9 +175,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const [actOnOpenAction] = useActOnOpenActionMutation({
     onCompleted: ({ actOnOpenAction }) => {
       if (actOnOpenAction.__typename === "RelaySuccess") {
-        addTransaction(
-          generateOptimisticCollect({ txHash: actOnOpenAction.txHash })
-        );
+        updateTransactions({ txHash: actOnOpenAction.txHash });
       }
       onCompleted(actOnOpenAction.__typename);
     },

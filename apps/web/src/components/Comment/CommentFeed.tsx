@@ -11,7 +11,7 @@ import {
   PostVisibilityFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { OptmisticPostType } from "@hey/types/enums";
+import { OptmisticTransactionType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -44,7 +44,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   const hasMore = pageInfo?.next;
 
   const queuedComments = txnQueue.filter(
-    (o) => o.type === OptmisticPostType.Comment && o.commentOn === postId
+    (o) => o.type === OptmisticTransactionType.Comment && o.commentOn === postId
   );
   const queuedCount = queuedComments.length;
   const totalComments = comments?.length + queuedCount;
