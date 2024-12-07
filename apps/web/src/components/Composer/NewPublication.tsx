@@ -82,7 +82,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
   const { setShowNewPostModal } = useGlobalModalStateStore();
 
   // Post store
-  const { postContent, quotedPost, setPostContent, setQuotedPost, setTags } =
+  const { postContent, quotedPost, setPostContent, setQuotedPost } =
     usePostStore();
 
   // Audio store
@@ -133,7 +133,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
     editor?.setMarkdown("");
     setIsLoading(false);
     setPostContent("");
-    setTags(null);
     setShowPollEditor(false);
     resetPollConfig();
     setShowLiveVideoEditor(false);

@@ -68,14 +68,7 @@ const ViewGroup: NextPage = () => {
             <Members address={group.address} />
           ) : (
             <>
-              {currentAccount && group.isMember && (
-                <NewPost
-                  tags={[
-                    `orbcommunities${group.handle}`,
-                    `heyclubs${group.handle}`
-                  ]}
-                />
-              )}
+              {currentAccount && group.isMember && <NewPost />}
               <GroupFeed handle={group.handle} />
             </>
           )}

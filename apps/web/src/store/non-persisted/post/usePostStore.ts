@@ -7,17 +7,13 @@ interface State {
   quotedPost: Post | null;
   setPostContent: (postContent: string) => void;
   setQuotedPost: (quotedPost: Post | null) => void;
-  setTags: (tags: null | string[]) => void;
-  tags: null | string[];
 }
 
 const store = create<State>((set) => ({
   postContent: "",
   quotedPost: null,
   setPostContent: (postContent) => set(() => ({ postContent })),
-  setQuotedPost: (quotedPost) => set(() => ({ quotedPost })),
-  setTags: (tags) => set(() => ({ tags })),
-  tags: null
+  setQuotedPost: (quotedPost) => set(() => ({ quotedPost }))
 }));
 
 export const usePostStore = createTrackedSelector(store);
