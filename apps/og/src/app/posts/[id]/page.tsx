@@ -44,18 +44,15 @@ export const generateMetadata = async ({
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
-  const { displayName, link, slugWithPrefix } = getAccount(author);
+  const { name, link, slugWithPrefix } = getAccount(author);
   const title = `${targetPost.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 
   return {
     alternates: { canonical: `https://hey.xyz/posts/${targetPost.id}` },
     applicationName: APP_NAME,
-    authors: {
-      name: displayName,
-      url: `https://hey.xyz${link}`
-    },
-    creator: displayName,
+    authors: { name, url: `https://hey.xyz${link}` },
+    creator: name,
     description: description,
     keywords: [
       "hey",
@@ -72,7 +69,7 @@ export const generateMetadata = async ({
       "lens protocol",
       "decentralized",
       "web3",
-      displayName,
+      name,
       slugWithPrefix
     ],
     metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
@@ -92,7 +89,7 @@ export const generateMetadata = async ({
       "lens:id": targetPost.id,
       ...getCollectModuleMetadata(targetPost)
     },
-    publisher: displayName,
+    publisher: name,
     title: title,
     twitter: {
       card: assetIsAudio ? "summary" : "summary_large_image",
