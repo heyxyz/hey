@@ -30,8 +30,8 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
     referencedPost: postId,
     referenceTypes: [PostReferenceType.CommentOn],
     visibilityFilter: showHiddenComments
-      ? PostVisibilityFilter.Visible
-      : PostVisibilityFilter.Hidden
+      ? PostVisibilityFilter.Hidden
+      : PostVisibilityFilter.Visible
   };
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
