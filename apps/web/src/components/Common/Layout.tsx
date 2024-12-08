@@ -35,10 +35,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resetStatus } = useAccountStatus();
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
-
   const { address: sessionAccountAddress } = getCurrentSession();
 
-  console.log(sessionAccountAddress);
   const logout = (shouldReload = false) => {
     resetPreferences();
     resetStatus();
