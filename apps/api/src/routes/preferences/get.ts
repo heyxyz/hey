@@ -16,17 +16,19 @@ export const get = [
     try {
       const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
-      const { id } = payload;
+      const accountAddress = payload.act.sub;
 
-      if (!id) {
+      if (!accountAddress) {
         return noBody(res);
       }
 
-      const cacheKey = `preference:${id}`;
+      const cacheKey = `preference:${accountAddress}`;
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info(`(cached) Account preferences fetched for ${id}`);
+        logger.info(
+          `(cached) Account preferences fetched for ${accountAddress}`
+        );
         return res
           .status(200)
           .json({ result: JSON.parse(cachedData), success: true });
@@ -34,15 +36,15 @@ export const get = [
 
       const [preference, permissions, email, membershipNft, theme, mutedWords] =
         await prisma.$transaction([
-          prisma.preference.findUnique({ where: { id: id as string } }),
-          prisma.profilePermission.findMany({
+          prisma.preference.findUnique({ where: { accountAddress } }),
+          prisma.accountPermission.findMany({
             include: { permission: { select: { key: true } } },
-            where: { enabled: true, profileId: id as string }
+            where: { enabled: true, accountAddress }
           }),
-          prisma.email.findUnique({ where: { id: id as string } }),
-          prisma.membershipNft.findUnique({ where: { id: id as string } }),
-          prisma.profileTheme.findUnique({ where: { id: id as string } }),
-          prisma.mutedWord.findMany({ where: { profileId: id as string } })
+          prisma.email.findUnique({ where: { accountAddress } }),
+          prisma.membershipNft.findUnique({ where: { accountAddress } }),
+          prisma.accountTheme.findUnique({ where: { accountAddress } }),
+          prisma.mutedWord.findMany({ where: { accountAddress } })
         ]);
 
       const response: Preferences = {
@@ -66,7 +68,7 @@ export const get = [
       };
 
       await setRedis(cacheKey, response);
-      logger.info(`Account preferences fetched for ${id}`);
+      logger.info(`Account preferences fetched for ${accountAddress}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

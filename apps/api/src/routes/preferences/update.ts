@@ -48,9 +48,9 @@ export const post = [
 
       const data = { appIcon, highSignalNotificationFilter, developerMode };
       const preference = await prisma.preference.upsert({
-        create: { ...data, id: payload.act.sub },
+        create: { ...data, accountAddress: payload.act.sub },
         update: data,
-        where: { id: payload.act.sub }
+        where: { accountAddress: payload.act.sub }
       });
 
       await delRedis(`preference:${payload.act.sub}`);
