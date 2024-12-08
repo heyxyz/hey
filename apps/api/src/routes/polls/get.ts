@@ -42,7 +42,7 @@ export const get = [
               option: true,
               responses: {
                 select: { id: true },
-                where: { profileId: payload.act.sub }
+                where: { accountAddress: payload.act.sub }
               }
             }
           }

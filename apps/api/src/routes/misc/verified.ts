@@ -22,12 +22,14 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const accountPermission = await prisma.profilePermission.findMany({
-        select: { profileId: true },
+      const accountPermission = await prisma.accountPermission.findMany({
+        select: { accountAddress: true },
         where: { enabled: true, permissionId: PermissionId.Verified }
       });
 
-      const result = accountPermission.map(({ profileId }) => profileId);
+      const result = accountPermission.map(
+        ({ accountAddress }) => accountAddress
+      );
       await setRedis(cacheKey, result);
       logger.info("Verified accounts fetched");
 

@@ -11,22 +11,22 @@ export const get = [
   async (_: Request, res: Response) => {
     try {
       const result = await prisma.$transaction([
-        prisma.profilePermission.count(),
+        prisma.accountPermission.count(),
         prisma.email.count(),
         prisma.membershipNft.count(),
         prisma.poll.count(),
         prisma.pollOption.count(),
         prisma.pollResponse.count(),
         prisma.preference.count(),
-        prisma.profileStatus.count(),
-        prisma.profileTheme.count()
+        prisma.accountStatus.count(),
+        prisma.accountTheme.count()
       ]);
 
       logger.info("Fetched overview stats");
 
       return res.status(200).json({
         result: {
-          profilePermissions: result[0],
+          accountPermissions: result[0],
           emails: result[1],
           membershipNfts: result[2],
           polls: result[3],
@@ -34,7 +34,7 @@ export const get = [
           pollResponses: result[5],
           preferences: result[6],
           accountStatuses: result[7],
-          profileThemes: result[8]
+          accountThemes: result[8]
         },
         success: true
       });

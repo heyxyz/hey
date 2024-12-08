@@ -43,7 +43,7 @@ export const post = [
       const payload = parseJwt(idToken);
 
       const mutedWord = await prisma.mutedWord.create({
-        data: { word, expiresAt, profileId: payload.act.sub }
+        data: { word, expiresAt, accountAddress: payload.act.sub }
       });
 
       await delRedis(`preference:${payload.act.sub}`);

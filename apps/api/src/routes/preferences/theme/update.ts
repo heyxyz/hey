@@ -40,16 +40,16 @@ export const post = [
       const payload = parseJwt(idToken);
       const dbPayload = { fontStyle };
 
-      const profileTheme = await prisma.profileTheme.upsert({
-        create: { id: payload.act.sub, ...dbPayload },
+      const accountTheme = await prisma.accountTheme.upsert({
+        create: { accountAddress: payload.act.sub, ...dbPayload },
         update: dbPayload,
-        where: { id: payload.act.sub }
+        where: { accountAddress: payload.act.sub }
       });
 
       await delRedis(`preference:${payload.act.sub}`);
-      logger.info(`Updated profile theme for ${payload.act.sub}`);
+      logger.info(`Updated account theme for ${payload.act.sub}`);
 
-      return res.status(200).json({ result: profileTheme, success: true });
+      return res.status(200).json({ result: accountTheme, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

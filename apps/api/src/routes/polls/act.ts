@@ -56,7 +56,7 @@ export const post = [
       const existingPollResponse = await prisma.pollResponse.findFirst({
         where: {
           option: { pollId: poll as string },
-          profileId: payload.act.sub
+          accountAddress: payload.act.sub
         }
       });
 
@@ -68,7 +68,7 @@ export const post = [
       // End: Check if the poll exists and delete the existing response
 
       const pollResponse = await prisma.pollResponse.create({
-        data: { optionId: option, profileId: payload.act.sub }
+        data: { optionId: option, accountAddress: payload.act.sub }
       });
 
       await delRedis(`poll:${poll}`);
