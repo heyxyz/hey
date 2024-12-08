@@ -11,7 +11,7 @@ describe("GET /internal/account/get", () => {
   test("should return 200 and the internal account data", async () => {
     const preference = await prisma.preference.create({
       data: {
-        id: faker.string.uuid(),
+        accountAddress: faker.string.uuid(),
         appIcon: 1,
         highSignalNotificationFilter: true,
         developerMode: true
@@ -21,22 +21,31 @@ describe("GET /internal/account/get", () => {
     const [email] = await Promise.all([
       prisma.email.create({
         data: {
-          id: preference.id,
+          accountAddress: preference.accountAddress,
           email: faker.internet.email(),
           verified: true
         }
       }),
-      prisma.profilePermission.create({
-        data: { profileId: preference.id, permissionId: PermissionId.Beta }
+      prisma.accountPermission.create({
+        data: {
+          accountAddress: preference.accountAddress,
+          permissionId: PermissionId.Beta
+        }
       }),
       prisma.membershipNft.create({
-        data: { id: preference.id, dismissedOrMinted: true }
+        data: {
+          accountAddress: preference.accountAddress,
+          dismissedOrMinted: true
+        }
       })
     ]);
 
     const { data, status } = await axios.get(
       `${TEST_URL}/internal/account/get`,
-      { params: { id: preference.id }, headers: getTestAuthHeaders() }
+      {
+        params: { address: preference.accountAddress },
+        headers: getTestAuthHeaders()
+      }
     );
 
     expect(status).toBe(200);

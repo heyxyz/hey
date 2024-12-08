@@ -17,34 +17,38 @@ describe("GET /preferences/get", () => {
 
     const [, , , permission] = await Promise.all([
       prisma.preference.upsert({
-        where: { id: TEST_LENS_ID },
+        where: { accountAddress: TEST_LENS_ID },
         update: {
           appIcon: 2,
           highSignalNotificationFilter: true,
           developerMode: true
         },
         create: {
-          id: TEST_LENS_ID,
+          accountAddress: TEST_LENS_ID,
           appIcon: 2,
           highSignalNotificationFilter: true,
           developerMode: true
         }
       }),
       prisma.email.upsert({
-        where: { id: TEST_LENS_ID },
+        where: { accountAddress: TEST_LENS_ID },
         update: { email: testEmail, verified: true },
-        create: { id: TEST_LENS_ID, email: testEmail, verified: true }
+        create: {
+          accountAddress: TEST_LENS_ID,
+          email: testEmail,
+          verified: true
+        }
       }),
       prisma.membershipNft.upsert({
-        where: { id: TEST_LENS_ID },
+        where: { accountAddress: TEST_LENS_ID },
         update: { dismissedOrMinted: true },
-        create: { id: TEST_LENS_ID, dismissedOrMinted: true }
+        create: { accountAddress: TEST_LENS_ID, dismissedOrMinted: true }
       }),
       prisma.permission.create({ data: { key: testPermissionKey } })
     ]);
 
-    await prisma.profilePermission.create({
-      data: { profileId: TEST_LENS_ID, permissionId: permission.id }
+    await prisma.accountPermission.create({
+      data: { accountAddress: TEST_LENS_ID, permissionId: permission.id }
     });
   });
 
