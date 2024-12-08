@@ -22,9 +22,13 @@ interface ShareMenuProps {
 const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
-  const hasShared =
+  const hasReposted =
     targetPost.operations?.hasReposted.optimistic ||
-    targetPost.operations?.hasQuoted.optimistic;
+    targetPost.operations?.hasReposted.onChain;
+  const hasQuoted =
+    targetPost.operations?.hasQuoted.optimistic ||
+    targetPost.operations?.hasQuoted.onChain;
+  const hasShared = hasReposted || hasQuoted;
   const shares = targetPost.stats.reposts + targetPost.stats.quotes;
 
   const iconClassName = "w-[15px] sm:w-[18px]";
@@ -72,14 +76,13 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
               post={targetPost}
               setIsLoading={setIsLoading}
             />
-            {targetPost.operations?.hasReposted.optimistic &&
-              targetPost.id !== post.id && (
-                <UndoRepost
-                  isLoading={isLoading}
-                  post={post}
-                  setIsLoading={setIsLoading}
-                />
-              )}
+            {hasReposted && targetPost.id !== post.id && (
+              <UndoRepost
+                isLoading={isLoading}
+                post={post}
+                setIsLoading={setIsLoading}
+              />
+            )}
             <Quote post={targetPost} />
           </MenuItems>
         </MenuTransition>

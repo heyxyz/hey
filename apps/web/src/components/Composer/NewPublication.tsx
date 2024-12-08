@@ -267,8 +267,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         variables: {
           request: {
             contentUri: `${METADATA_ENDPOINT}/${metadataId}`,
-            ...(isComment && { commentOn: post?.id }),
-            ...(isQuote && { quoteOf: quotedPost?.id }),
+            ...(isComment && { commentOn: { post: post?.id } }),
+            ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectModule.type && {
               actions: [{ collectAction: collectModuleParams(collectModule) }]
             })
