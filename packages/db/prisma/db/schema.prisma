@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Preference {
-  id                           String   @id
+  accountAddress               String   @id
   appIcon                      Int?     @default(0)
   highSignalNotificationFilter Boolean  @default(false)
   developerMode                Boolean  @default(false)
@@ -16,7 +16,7 @@ model Preference {
 }
 
 model Email {
-  id                String    @id
+  accountAddress    String    @id
   email             String    @unique
   verified          Boolean   @default(false)
   verificationToken String?   @unique
@@ -25,7 +25,7 @@ model Email {
 }
 
 model MembershipNft {
-  id                String   @id
+  accountAddress    String   @id
   dismissedOrMinted Boolean  @default(false)
   createdAt         DateTime @default(now())
 }
@@ -54,16 +54,16 @@ model PollOption {
 }
 
 model PollResponse {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String
-  optionId  String   @db.Uuid
-  createdAt DateTime @default(now())
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  accountAddress String
+  optionId       String   @db.Uuid
+  createdAt      DateTime @default(now())
 
   // Relations
   option PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
 
   // Constraints
-  @@unique([profileId, optionId])
+  @@unique([accountAddress, optionId])
   // Indexes
   @@index([optionId])
 }
@@ -81,19 +81,6 @@ model AllowedToken {
   @@index([priority])
 }
 
-model Tip {
-  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  publicationId String
-  fromProfileId String
-  fromAddress   String
-  toProfileId   String
-  toAddress     String
-  tokenAddress  String
-  amount        Int
-  txHash        String
-  createdAt     DateTime @default(now())
-}
-
 model Permission {
   id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key       String         @unique
@@ -101,7 +88,7 @@ model Permission {
   createdAt DateTime       @default(now())
 
   // Relations
-  profiles ProfilePermission[]
+  accounts AccountPermission[]
 
   // Indexes
   @@index([type])
@@ -112,70 +99,39 @@ enum PermissionType {
   COHORT
 }
 
-model ProfilePermission {
-  profileId    String
-  permissionId String     @db.Uuid
-  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  enabled      Boolean    @default(true)
-  createdAt    DateTime   @default(now())
+model AccountPermission {
+  accountAddress String
+  permissionId   String     @db.Uuid
+  permission     Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  enabled        Boolean    @default(true)
+  createdAt      DateTime   @default(now())
 
-  @@id([profileId, permissionId])
+  @@id([accountAddress, permissionId])
   // Indexes
-  @@index([profileId])
+  @@index([accountAddress])
   @@index([permissionId])
 }
 
-model ProfileStatus {
-  id        String   @id
-  message   String
-  emoji     String
-  createdAt DateTime @default(now())
+model AccountStatus {
+  accountAddress String   @id
+  message        String
+  emoji          String
+  createdAt      DateTime @default(now())
 }
 
-model ProfileTheme {
-  id        String   @id
-  fontStyle String?
-  createdAt DateTime @default(now())
-}
-
-model List {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String
-  description String?
-  avatar      String?
-  createdBy   String
-  createdAt   DateTime @default(now())
-
-  // Relations
-  profiles   ListProfile[]
-  pinnedList PinnedList[]
-}
-
-model ListProfile {
-  profileId String
-  listId    String   @db.Uuid
-  list      List     @relation(fields: [listId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-
-  @@id([profileId, listId])
-}
-
-model PinnedList {
-  profileId String
-  listId    String   @db.Uuid
-  list      List     @relation(fields: [listId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-
-  @@id([profileId, listId])
+model AccountTheme {
+  accountAddress String   @id
+  fontStyle      String?
+  createdAt      DateTime @default(now())
 }
 
 model MutedWord {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String
-  word      String
-  expiresAt DateTime?
-  createdAt DateTime  @default(now())
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  accountAddress String
+  word           String
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
 
   // Indexes
-  @@index([profileId])
+  @@index([accountAddress])
 }
