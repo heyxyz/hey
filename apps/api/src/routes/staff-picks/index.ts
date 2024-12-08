@@ -30,8 +30,8 @@ export const get = [
           });
       }
 
-      const accountPermission = await prisma.profilePermission.findMany({
-        select: { profileId: true },
+      const accountPermission = await prisma.accountPermission.findMany({
+        select: { accountAddress: true },
         where: { enabled: true, permissionId: PermissionId.StaffPick }
       });
 

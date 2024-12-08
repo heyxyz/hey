@@ -17,8 +17,8 @@ describe("POST /internal/permissions/assign", () => {
     expect(status).toBe(200);
     expect(data.enabled).toBe(true);
 
-    const accountPermission = await prisma.profilePermission.findFirst({
-      where: { profileId: TEST_LENS_ID, permissionId: PermissionId.Beta }
+    const accountPermission = await prisma.accountPermission.findFirst({
+      where: { accountAddress: TEST_LENS_ID, permissionId: PermissionId.Beta }
     });
     expect(accountPermission?.permissionId).toBe(PermissionId.Beta);
   });
@@ -33,8 +33,8 @@ describe("POST /internal/permissions/assign", () => {
     expect(status).toBe(200);
     expect(data.enabled).toBe(false);
 
-    const accountPermission = await prisma.profilePermission.findFirst({
-      where: { profileId: TEST_LENS_ID, permissionId: PermissionId.Beta }
+    const accountPermission = await prisma.accountPermission.findFirst({
+      where: { accountAddress: TEST_LENS_ID, permissionId: PermissionId.Beta }
     });
     expect(accountPermission).toBeNull();
   });

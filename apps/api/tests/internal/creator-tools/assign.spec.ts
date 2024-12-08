@@ -25,8 +25,8 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.success).toBe(true);
     expect(data.enabled).toBe(true);
 
-    const accountPermission = await prisma.profilePermission.findFirst({
-      where: { profileId: accountAddress, permissionId }
+    const accountPermission = await prisma.accountPermission.findFirst({
+      where: { accountAddress, permissionId }
     });
     expect(accountPermission).toBeDefined();
   });
@@ -42,8 +42,8 @@ describe("POST /internal/creator-tools/assign", () => {
     expect(data.success).toBe(true);
     expect(data.enabled).toBe(false);
 
-    const accountPermission = await prisma.profilePermission.findFirst({
-      where: { profileId: accountAddress, permissionId }
+    const accountPermission = await prisma.accountPermission.findFirst({
+      where: { accountAddress, permissionId }
     });
     expect(accountPermission).toBeNull();
   });

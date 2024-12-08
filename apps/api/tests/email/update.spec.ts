@@ -46,7 +46,7 @@ describe("POST /email/update", () => {
     const email = faker.internet.email();
     try {
       await prisma.email.create({
-        data: { email, id: TEST_LENS_ID }
+        data: { email, accountAddress: TEST_LENS_ID }
       });
     } catch {}
 

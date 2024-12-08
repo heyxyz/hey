@@ -21,7 +21,7 @@ describe("POST /preferences/updateNftStatus", () => {
     expect(data.result.dismissedOrMinted).toBe(true);
 
     const membershipNft = await prisma.membershipNft.findUnique({
-      where: { id: TEST_LENS_ID }
+      where: { accountAddress: TEST_LENS_ID }
     });
     expect(membershipNft?.dismissedOrMinted).toBe(true);
   });
