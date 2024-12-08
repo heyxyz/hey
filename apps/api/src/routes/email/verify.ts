@@ -17,7 +17,7 @@ export const get = async (req: Request, res: Response) => {
       where: { verificationToken: token as string }
     });
 
-    await delRedis(`preference:${updatedEmail.id}`);
+    await delRedis(`preference:${updatedEmail.accountAddress}`);
     logger.info(`Email verified for ${updatedEmail.email}`);
 
     return res.redirect("https://hey.xyz");

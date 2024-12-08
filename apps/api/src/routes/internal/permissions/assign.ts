@@ -29,7 +29,7 @@ export const postUpdateTasks = async (
   if (permissionId === PermissionId.StaffPick) {
     if (enabled) {
       sendEmailToAccount({
-        id: accountAddress,
+        accountAddress,
         subject: `Your account on ${APP_NAME} has been Staff Picked!`,
         body: `
           <html>
@@ -51,7 +51,7 @@ export const postUpdateTasks = async (
   if (permissionId === PermissionId.Verified) {
     if (enabled) {
       sendEmailToAccount({
-        id: accountAddress,
+        accountAddress,
         subject: `Your account on ${APP_NAME} has been verified!`,
         body: `
           <html>
@@ -104,8 +104,8 @@ export const post = [
 
     try {
       if (enabled) {
-        await prisma.profilePermission.create({
-          data: { permissionId: id, profileId: accountAddress }
+        await prisma.accountPermission.create({
+          data: { permissionId: id, accountAddress }
         });
 
         await postUpdateTasks(accountAddress, id, true);
@@ -114,11 +114,8 @@ export const post = [
         return res.status(200).json({ enabled, success: true });
       }
 
-      await prisma.profilePermission.deleteMany({
-        where: {
-          permissionId: id as string,
-          profileId: accountAddress as string
-        }
+      await prisma.accountPermission.deleteMany({
+        where: { permissionId: id as string, accountAddress }
       });
 
       await postUpdateTasks(accountAddress, id, false);

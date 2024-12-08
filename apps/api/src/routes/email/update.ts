@@ -54,7 +54,7 @@ export const post = [
 
       if (!resend) {
         const foundEmail = await prisma.email.findUnique({
-          where: { id: payload.act.sub }
+          where: { accountAddress: payload.act.sub }
         });
 
         if (foundEmail?.email === email) {
@@ -70,9 +70,9 @@ export const post = [
       };
 
       const upsertedEmail = await prisma.email.upsert({
-        create: { id: payload.act.sub, ...baseData },
+        create: { accountAddress: payload.act.sub, ...baseData },
         update: baseData,
-        where: { id: payload.act.sub }
+        where: { accountAddress: payload.act.sub }
       });
 
       sendEmail({

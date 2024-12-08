@@ -41,8 +41,8 @@ export const post = [
 
     try {
       if (enabled) {
-        await prisma.profilePermission.create({
-          data: { permissionId: id, profileId: accountAddress }
+        await prisma.accountPermission.create({
+          data: { permissionId: id, accountAddress }
         });
 
         await postUpdateTasks(accountAddress, id, true);
@@ -51,10 +51,10 @@ export const post = [
         return res.status(200).json({ enabled, success: true });
       }
 
-      await prisma.profilePermission.deleteMany({
+      await prisma.accountPermission.deleteMany({
         where: {
           permissionId: id as string,
-          profileId: accountAddress as string
+          accountAddress
         }
       });
 

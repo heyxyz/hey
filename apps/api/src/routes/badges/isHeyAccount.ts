@@ -7,30 +7,22 @@ import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { noBody } from "src/helpers/responses";
-import type { Address } from "viem";
-import { getAddress } from "viem";
 
 export const get = [
   rateLimiter({ requests: 100, within: 1 }),
   async (req: Request, res: Response) => {
-    const { address, id } = req.query;
+    const { address } = req.query;
 
-    if (!id && !address) {
+    if (!address) {
       return noBody(res);
     }
 
     try {
-      const formattedAddress = address
-        ? getAddress(address as Address)
-        : undefined;
-
-      const cacheKey = `badge:hey-account:${id || address}`;
+      const cacheKey = `badge:hey-account:${address}`;
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData === "true") {
-        logger.info(
-          `(cached) Hey account badge fetched for ${id || formattedAddress}`
-        );
+        logger.info(`(cached) Hey account badge fetched for ${address}`);
 
         return res
           .status(200)
@@ -49,7 +41,7 @@ export const get = [
               AND o.onboarded_by_address = $3
           ) AS exists;
         `,
-        [id, formattedAddress, HEY_LENS_SIGNUP]
+        [address, HEY_LENS_SIGNUP]
       );
 
       const isHeyAccount = onboardingAccount[0]?.exists;
@@ -57,7 +49,7 @@ export const get = [
       if (isHeyAccount) {
         await setRedis(cacheKey, isHeyAccount);
       }
-      logger.info(`Hey account badge fetched for ${id || formattedAddress}`);
+      logger.info(`Hey account badge fetched for ${address}`);
 
       return res
         .status(200)
