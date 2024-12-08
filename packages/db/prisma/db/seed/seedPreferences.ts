@@ -7,7 +7,7 @@ const seedPreferences = async (): Promise<number> => {
 
   // Seed preferences
   const preferences = await prisma.preference.createMany({
-    data: [{ id: TEST_LENS_ID }]
+    data: [{ accountAddress: TEST_LENS_ID }]
   });
 
   return preferences.count;

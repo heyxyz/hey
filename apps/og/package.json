@@ -7,7 +7,6 @@
     "build": "next build",
     "dev": "next dev --port 4785",
     "start": "next start --port 4785",
-    "test": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -23,7 +22,6 @@
   "devDependencies": {
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.1",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "typescript": "^5.7.2"
   }
 }

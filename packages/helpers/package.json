@@ -4,7 +4,6 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "test": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -25,7 +24,6 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "typescript": "^5.7.2"
   }
 }

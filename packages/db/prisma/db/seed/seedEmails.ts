@@ -8,8 +8,8 @@ const seedEmails = async (): Promise<number> => {
   // Seed emails
   const emails = await prisma.email.createMany({
     data: [
-      { id: TEST_LENS_ID, email: "test@hey.xyz", verified: true },
-      { id: "0x0d", email: "hey@yoginth.com", verified: true }
+      { accountAddress: TEST_LENS_ID, email: "test@hey.xyz", verified: true },
+      { accountAddress: "0x0d", email: "hey@yoginth.com", verified: true }
     ]
   });
 

@@ -4,16 +4,16 @@ import prisma from "../client";
 
 const seedAccountPermission = async (): Promise<number> => {
   // Delete all profile permissions
-  await prisma.profilePermission.deleteMany();
+  await prisma.accountPermission.deleteMany();
 
   // Seed profile permissions
-  const accountPermissions = await prisma.profilePermission.createMany({
+  const accountPermissions = await prisma.accountPermission.createMany({
     data: [
-      { permissionId: PermissionId.Verified, profileId: TEST_LENS_ID },
-      { permissionId: PermissionId.StaffPick, profileId: TEST_LENS_ID },
+      { permissionId: PermissionId.Verified, accountAddress: TEST_LENS_ID },
+      { permissionId: PermissionId.StaffPick, accountAddress: TEST_LENS_ID },
       {
         permissionId: PermissionId.Suspended,
-        profileId: TEST_SUSPENDED_LENS_ID
+        accountAddress: TEST_SUSPENDED_LENS_ID
       }
     ]
   });

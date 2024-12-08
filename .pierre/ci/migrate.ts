@@ -21,17 +21,4 @@
 //   }
 // };
 
-// const migrateTestDb = async () => {
-//   await run("cd packages/db && pnpm prisma:migrate", {
-//     label: "Migrating Test DB",
-//     env: { DATABASE_URL: process.env.TEST_DATABASE_URL as string }
-//   });
-
-//   annotate({
-//     color: "fg",
-//     label: "Test DB Migration Complete",
-//     icon: Icons.Table
-//   });
-// };
-
-// export default [migrateProductionDb, migrateTestDb];
+// export default migrateProductionDb;

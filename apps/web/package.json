@@ -7,7 +7,6 @@
     "build": "next build",
     "dev": "next dev --port 4783",
     "start": "next start --port 4783",
-    "test": "vitest run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -83,7 +82,6 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "typescript": "^5.7.2"
   }
 }
