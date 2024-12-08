@@ -62,8 +62,13 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
       id: cache.identify(post.operations as LoggedInPostOperations)
     });
     cache.modify({
-      fields: { reposts: () => shares + 1 },
-      id: cache.identify(post.stats)
+      fields: {
+        stats: (existingData) => ({
+          ...existingData,
+          reposts: shares + 1
+        })
+      },
+      id: cache.identify(post)
     });
   };
 

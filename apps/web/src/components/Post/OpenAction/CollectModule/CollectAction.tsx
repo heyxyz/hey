@@ -109,8 +109,13 @@ const CollectAction: FC<CollectActionProps> = ({
       id: cache.identify(post)
     });
     cache.modify({
-      fields: { countOpenActions: () => countOpenActions + 1 },
-      id: cache.identify(post.stats)
+      fields: {
+        stats: (existingData) => ({
+          ...existingData,
+          countOpenActions: countOpenActions + 1
+        })
+      },
+      id: cache.identify(post)
     });
   };
 

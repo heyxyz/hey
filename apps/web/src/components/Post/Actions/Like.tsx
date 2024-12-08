@@ -40,9 +40,12 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
     });
     cache.modify({
       fields: {
-        reactions: () => (hasReacted ? reactions - 1 : reactions + 1)
+        stats: (existingData) => ({
+          ...existingData,
+          reactions: hasReacted ? reactions - 1 : reactions + 1
+        })
       },
-      id: cache.identify(post.stats)
+      id: cache.identify(post)
     });
   };
 

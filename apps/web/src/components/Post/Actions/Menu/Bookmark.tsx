@@ -36,9 +36,12 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
     });
     cache.modify({
       fields: {
-        bookmarks: () => (hasBookmarked ? bookmarks - 1 : bookmarks + 1)
+        stats: (existingData) => ({
+          ...existingData,
+          bookmarks: hasBookmarked ? bookmarks - 1 : bookmarks + 1
+        })
       },
-      id: cache.identify(post.stats)
+      id: cache.identify(post)
     });
 
     // Remove bookmarked post from bookmarks feed
