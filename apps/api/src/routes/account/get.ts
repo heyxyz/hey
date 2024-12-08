@@ -11,31 +11,33 @@ import { noBody } from "src/helpers/responses";
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
   async (req: Request, res: Response) => {
-    const { id } = req.query;
+    const { address } = req.query;
 
-    if (!id) {
+    if (!address) {
       return noBody(res);
     }
 
     try {
-      const cacheKey = `account:${id}`;
+      const cacheKey = `account:${address}`;
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info(`(cached) Account details fetched for ${id}`);
+        logger.info(`(cached) Account details fetched for ${address}`);
         return res
           .status(200)
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
       const [accountPermission, accountStatus] = await prisma.$transaction([
-        prisma.profilePermission.findFirst({
+        prisma.accountPermission.findFirst({
           where: {
             permissionId: PermissionId.Suspended,
-            profileId: id as string
+            accountAddress: address as string
           }
         }),
-        prisma.profileStatus.findUnique({ where: { id: id as string } })
+        prisma.accountStatus.findUnique({
+          where: { accountAddress: address as string }
+        })
       ]);
 
       const response: AccountDetails = {
@@ -44,7 +46,7 @@ export const get = [
       };
 
       await setRedis(cacheKey, response);
-      logger.info(`Account details fetched for ${id}`);
+      logger.info(`Account details fetched for ${address}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

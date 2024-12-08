@@ -41,10 +41,10 @@ export const post = [
       const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
 
-      const accountStatus = await prisma.profileStatus.upsert({
-        create: { message, emoji, id: payload.act.sub },
+      const accountStatus = await prisma.accountStatus.upsert({
+        create: { message, emoji, accountAddress: payload.act.sub },
         update: { message, emoji },
-        where: { id: payload.act.sub }
+        where: { accountAddress: payload.act.sub }
       });
 
       await delRedis(`account:${payload.act.sub}`);

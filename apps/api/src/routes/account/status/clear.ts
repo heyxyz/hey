@@ -15,8 +15,8 @@ export const post = [
       const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
 
-      const accountStatus = await prisma.profileStatus.deleteMany({
-        where: { id: payload.act.sub }
+      const accountStatus = await prisma.accountStatus.deleteMany({
+        where: { accountAddress: payload.act.sub }
       });
 
       await delRedis(`account:${payload.act.sub}`);

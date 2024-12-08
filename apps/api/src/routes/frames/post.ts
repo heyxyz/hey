@@ -61,13 +61,13 @@ export const post = [
       const accessToken = req.headers["x-access-token"] as string;
       const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
-      const { id } = payload;
+      const accountAddress = payload.act.sub;
 
       let request = {
         actionResponse: actionResponse || "",
         buttonIndex,
         inputText: inputText || "",
-        profileId: id,
+        profileId: accountAddress,
         pubId,
         specVersion: "1.0.0",
         state: state || "",
@@ -124,7 +124,9 @@ export const post = [
         }
       }
 
-      logger.info(`Open frame button clicked by ${id} on ${postUrl}`);
+      logger.info(
+        `Open frame button clicked by ${accountAddress} on ${postUrl}`
+      );
 
       if (buttonAction === "tx") {
         return res
