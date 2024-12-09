@@ -1,22 +1,22 @@
-import type { Account, AnyPost } from "@hey/indexer";
+import type { Account, Post } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   blockingorUnblockingAccount: null | Account;
-  deletingPost: AnyPost | null;
-  modingPost: AnyPost | null;
+  deletingPost: Post | null;
+  modingPost: Post | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingAccount: null | Account
   ) => void;
   setShowGardenerActionsAlert: (
     showGardenerActionsAlert: boolean,
-    modingPost: AnyPost | null
+    modingPost: Post | null
   ) => void;
   setShowPostDeleteAlert: (
     showPostDeleteAlert: boolean,
-    deletingPost: AnyPost | null
+    deletingPost: Post | null
   ) => void;
   showBlockOrUnblockAlert: boolean;
   showGardenerActionsAlert: boolean;

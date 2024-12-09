@@ -1,6 +1,6 @@
 import ActionType from "@components/Home/Timeline/EventType";
 import PostWrapper from "@components/Shared/PostWrapper";
-import type { AnyPost, TimelineItem } from "@hey/indexer";
+import type { Post, TimelineItem } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
@@ -16,7 +16,7 @@ interface SinglePostProps {
   header?: ReactNode;
   isFirst?: boolean;
   isLast?: boolean;
-  post: AnyPost;
+  post: Post;
   showActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;

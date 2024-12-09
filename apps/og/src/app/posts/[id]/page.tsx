@@ -5,7 +5,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import { type AnyPost, PostDocument } from "@hey/indexer";
 import { addTypenameToDocument } from "apollo-utilities";
 import { print } from "graphql";
 import type { Metadata } from "next";
@@ -22,8 +22,8 @@ export const generateMetadata = async ({
 
   const response = await fetch("https://api-v2.lens.dev", {
     body: JSON.stringify({
-      operationName: "Publication",
-      query: print(addTypenameToDocument(PublicationDocument)),
+      operationName: "Post",
+      query: print(addTypenameToDocument(PostDocument)),
       variables: { request: { forId: id } }
     }),
     cache: "no-store",
@@ -33,11 +33,11 @@ export const generateMetadata = async ({
 
   const result = await response.json();
 
-  if (!result.data.publication) {
+  if (!result.data.post) {
     return defaultMetadata;
   }
 
-  const post = result.data.publication as AnyPost;
+  const post = result.data.post as AnyPost;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { author, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";

@@ -2,12 +2,12 @@ import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import getCollectModuleData from "@hey/helpers/getCollectModuleData";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost, SimpleCollectActionSettings } from "@hey/indexer";
+import type { Post, SimpleCollectActionSettings } from "@hey/indexer";
 import type { FC } from "react";
 
 interface OpenActionPaidActionProps {
   latestActed: LatestActed[];
-  post: AnyPost;
+  post: Post;
 }
 
 const OpenActionPaidAction: FC<OpenActionPaidActionProps> = ({

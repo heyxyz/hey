@@ -13,8 +13,8 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
-  type AnyPost,
   PageSize,
+  type Post,
   PostReferenceType,
   PostVisibilityFilter,
   usePostQuery,
@@ -94,7 +94,7 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPost || (data?.post as AnyPost);
+  const post = preLoadedPost || (data?.post as Post);
   const targetPost = isRepost(post) ? post.repostOf : post;
   const suspended = isSuspended || isCommentSuspended;
 

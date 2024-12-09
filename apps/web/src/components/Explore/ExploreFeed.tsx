@@ -2,10 +2,10 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
-  type AnyPost,
   type MainContentFocus,
   type MlexplorePostsRequest,
   PageSize,
+  type Post,
   useMlPostsExploreQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
@@ -89,7 +89,7 @@ const ExploreFeed: FC<ExploreFeedProps> = ({
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as AnyPost}
+            post={post as Post}
           />
         )}
         ref={virtuoso}
