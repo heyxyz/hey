@@ -1,5 +1,6 @@
 import LicensePicker from "@components/Composer/LicensePicker";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import { PostActionType } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -23,7 +24,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   );
   const { setLicense } = usePostLicenseStore();
 
-  const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
+  const { SimpleCollectAction } = PostActionType;
   const recipients = collectModule.recipients || [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
@@ -55,7 +56,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       setLicense(null);
       reset();
     } else {
-      setCollectType({ type: SimpleCollectOpenActionModule });
+      setCollectType({ type: SimpleCollectAction });
     }
   };
 

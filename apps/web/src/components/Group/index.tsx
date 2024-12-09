@@ -69,7 +69,7 @@ const ViewGroup: NextPage = () => {
           ) : (
             <>
               {currentAccount && group.isMember && <NewPost />}
-              <GroupFeed handle={group.handle} />
+              <GroupFeed address={group.address} />
             </>
           )}
         </GridItemEight>

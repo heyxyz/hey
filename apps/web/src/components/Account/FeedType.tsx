@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import { TabButton } from "@hey/ui";
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { Dispatch, FC, JSX, SetStateAction } from "react";
 import MediaFilter from "./Filters/MediaFilter";
 
 interface FeedTypeProps {
