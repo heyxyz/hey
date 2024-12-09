@@ -4,12 +4,7 @@ import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import {
-  AVATAR,
-  COVER,
-  METADATA_ENDPOINT,
-  STATIC_IMAGES_URL
-} from "@hey/data/constants";
+import { AVATAR, COVER, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
@@ -233,12 +228,10 @@ const AccountSettingsForm: FC = () => {
           return m.key !== "" && Boolean(trimify(m.value));
         });
       const metadata = accountMetadata(preparedAccountMetadata);
-      const metadataId = await uploadMetadata(metadata);
+      const metadataUri = await uploadMetadata(metadata);
 
       return await setAccountMetadata({
-        variables: {
-          request: { metadataUri: `${METADATA_ENDPOINT}/${metadataId}` }
-        }
+        variables: { request: { metadataUri } }
       });
     } catch (error) {
       onError(error);

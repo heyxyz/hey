@@ -6,7 +6,7 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME, METADATA_ENDPOINT } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import {
@@ -101,14 +101,14 @@ const ChooseUsername: FC = () => {
       if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
         const accessToken = auth.data?.authenticate.accessToken;
         const metadata = accountMetadata({ name: username });
-        const metadataId = await uploadMetadata(metadata);
+        const metadataUri = await uploadMetadata(metadata);
 
         return await createAccountWithUsername({
           context: { headers: { "X-Access-Token": accessToken } },
           variables: {
             request: {
               username: { localName: username.toLowerCase() },
-              metadataUri: `${METADATA_ENDPOINT}/${metadataId}`
+              metadataUri
             }
           },
           onCompleted: ({ createAccountWithUsername }) => {

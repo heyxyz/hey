@@ -4,7 +4,7 @@ import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
-import { KNOWN_ATTRIBUTES, METADATA_ENDPOINT } from "@hey/data/constants";
+import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import collectModuleParams from "@hey/helpers/collectModuleParams";
 import getAccount from "@hey/helpers/getAccount";
@@ -261,12 +261,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       };
 
       const metadata = getMetadata({ baseMetadata });
-      const metadataId = await uploadMetadata(metadata);
+      const contentUri = await uploadMetadata(metadata);
 
       return await createPost({
         variables: {
           request: {
-            contentUri: `${METADATA_ENDPOINT}/${metadataId}`,
+            contentUri,
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectModule.type && {
