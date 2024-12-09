@@ -35,7 +35,7 @@ const getAccount = (
     slug,
     slugWithPrefix: `${prefix}${slug}`,
     sourceLink: source ? `${link}?source=${source}` : link,
-    staffLink: `/staff/users/${account.address}`
+    staffLink: `/staff/accounts/${account.address}`
   };
 };
 
