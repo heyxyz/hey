@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { FC } from "react";
 
 const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
-  const handle = title?.slice(1);
+  const handle = title;
 
   if (!handle) {
     return null;
@@ -26,29 +26,37 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
     return Boolean(foundMention?.account);
   };
 
-  const getLocalNameFromFullHandle = (handle: string) => {
+  const getNameFromMention = (handle: string): string => {
     const foundMention = mentions?.find(
       (mention) => mention.replace.from === handle
     );
-    return foundMention?.replace.from;
+
+    return foundMention?.replace.from.split("/")[1] || "";
+  };
+
+  const getAddressFromMention = (handle: string): string => {
+    const foundMention = mentions?.find(
+      (mention) => mention.replace.from === handle
+    );
+
+    return foundMention?.account;
   };
 
   return canShowUserPreview(handle) ? (
     <Link
       className="outline-none focus:underline"
-      href={`/u/${getLocalNameFromFullHandle(handle)}`}
+      href={`/u/${getNameFromMention(handle)}`}
       onClick={stopEventPropagation}
     >
-      <AccountPreview handle={handle}>
-        <Slug
-          prefix="@"
-          slug={getLocalNameFromFullHandle(handle)}
-          useBrandColor
-        />
+      <AccountPreview
+        handle={getNameFromMention(handle)}
+        address={getAddressFromMention(handle)}
+      >
+        <Slug prefix="@" slug={getNameFromMention(handle)} useBrandColor />
       </AccountPreview>
     </Link>
   ) : (
-    <Slug prefix="@" slug={getLocalNameFromFullHandle(handle)} useBrandColor />
+    <Slug prefix="@" slug={getNameFromMention(handle)} useBrandColor />
   );
 };
 
