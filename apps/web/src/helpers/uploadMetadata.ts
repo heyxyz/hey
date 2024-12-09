@@ -1,4 +1,3 @@
-import { HEY_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -12,12 +11,14 @@ import toast from "react-hot-toast";
  */
 const uploadMetadata = async (data: any): Promise<string> => {
   try {
-    const response = await axios.post(`${HEY_API_URL}/metadata`, {
-      ...data
-    });
-    const { id }: { id: string } = response.data;
+    const response = await axios.post(
+      "https://storage-api.testnet.lens.dev",
+      data
+    );
 
-    return id;
+    const { uri } = response.data[0];
+
+    return uri;
   } catch {
     toast.error(Errors.SomethingWentWrong);
     throw new Error(Errors.SomethingWentWrong);
