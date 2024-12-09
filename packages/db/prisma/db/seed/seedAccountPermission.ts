@@ -1,4 +1,3 @@
-import { TEST_LENS_ID, TEST_SUSPENDED_LENS_ID } from "@hey/data/constants";
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "../client";
 

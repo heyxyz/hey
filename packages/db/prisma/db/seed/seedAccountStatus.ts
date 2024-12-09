@@ -1,4 +1,3 @@
-import { TEST_LENS_ID } from "@hey/data/constants";
 import prisma from "../client";
 
 const seedAccountStatus = async (): Promise<number> => {
