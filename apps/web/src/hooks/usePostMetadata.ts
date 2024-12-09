@@ -12,7 +12,6 @@ import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAtta
 import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
-import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
 import { v4 as uuid } from "uuid";
 import { usePostAudioStore } from "../store/non-persisted/post/usePostAudioStore";
@@ -22,7 +21,6 @@ interface UsePostMetadataProps {
 }
 
 const usePostMetadata = () => {
-  const { tags } = usePostStore();
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPost } = usePostAudioStore();
   const { license } = usePostLicenseStore();
@@ -45,8 +43,7 @@ const usePostMetadata = () => {
             ? [...(baseMetadata.attributes || []), ...(attributes || [])]
             : undefined,
         id: uuid(),
-        locale: getUserLocale(),
-        tags: tags || undefined
+        locale: getUserLocale()
       };
 
       // Slice the first attachment because we upload the asset
@@ -128,8 +125,7 @@ const usePostMetadata = () => {
       videoThumbnail,
       showLiveVideoEditor,
       liveVideoConfig,
-      license,
-      tags
+      license
     ]
   );
 
