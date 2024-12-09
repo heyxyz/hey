@@ -8167,6 +8167,7 @@ const accounts = [
   "cobowallet",
   "archerd"
 ];
+const numberOfAccountsPerDay = accounts.length / 30;
 // Only Update these values
 
 const data: InvoiceData = {
@@ -8181,12 +8182,11 @@ const data: InvoiceData = {
     country: "India"
   },
   client: {
-    company: "All Users",
+    company: `GSTIN: ${forYogi ? "29AYKPY4219R1Z8" : "29JZXPS2474H1Z6"}`,
     address: "Consolidated Invoice for All Users",
-    country: "Worldwide"
+    zip: "Worldwide"
   },
   translate: { number: "Invoice Number" },
-  bottomNotice: `GSTIN: ${forYogi ? "29AYKPY4219R1Z8" : "29JZXPS2474H1Z6"}`,
   settings: {
     currency: "INR",
     taxNotation: "GST",
@@ -8196,8 +8196,6 @@ const data: InvoiceData = {
     marginBottom: 25
   }
 };
-
-const numberOfAccountsPerDay = accounts.length / 30;
 
 const generateInvoice = async () => {
   for (const invoiceNumber of Array.from({ length: 30 }, (_, i) => i + 1)) {
