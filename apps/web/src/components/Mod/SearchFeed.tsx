@@ -101,7 +101,7 @@ const SearchFeed: FC = () => {
                 <SinglePost
                   isFirst
                   isLast={false}
-                  post={post as AnyPost}
+                  post={post as Post}
                   showActions={false}
                   showThread={false}
                 />

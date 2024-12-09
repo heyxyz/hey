@@ -3,9 +3,9 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
-  type AnyPost,
   MainContentFocus,
   PageSize,
+  type Post,
   PostType,
   type PostsRequest,
   usePostsQuery
@@ -156,7 +156,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as AnyPost}
+            post={post as Post}
             showThread={
               type !== AccountFeedType.Media &&
               type !== AccountFeedType.Collects

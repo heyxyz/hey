@@ -2,8 +2,8 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
-  type AnyPost,
   PageSize,
+  type Post,
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
@@ -84,7 +84,7 @@ const GroupFeed: FC<GroupFeedProps> = ({ address }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as AnyPost}
+            post={post as Post}
           />
         )}
         ref={virtuoso}

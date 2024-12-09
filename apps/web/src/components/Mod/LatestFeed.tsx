@@ -3,7 +3,7 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { IS_MAINNET } from "@hey/data/constants";
-import type { AnyPost, Post } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useEffect } from "react";
@@ -88,7 +88,7 @@ const LatestFeed: FC = () => {
           <SinglePost
             isFirst
             isLast={false}
-            post={post as AnyPost}
+            post={post as Post}
             showActions={false}
             showThread={false}
           />

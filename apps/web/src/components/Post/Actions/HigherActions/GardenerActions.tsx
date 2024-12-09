@@ -3,7 +3,7 @@ import { getAuthApiHeadersWithAccessToken } from "@helpers/getAuthApiHeaders";
 import { BanknotesIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import { type AnyPost, PostReportReason } from "@hey/indexer";
+import { type Post, PostReportReason } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlert
 import StaffActions from "./StaffActions";
 
 interface GardenerActionsProps {
-  post: AnyPost;
+  post: Post;
 }
 
 const GardenerActions: FC<GardenerActionsProps> = ({ post }) => {
