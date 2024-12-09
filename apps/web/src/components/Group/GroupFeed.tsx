@@ -16,23 +16,22 @@ import { Virtuoso } from "react-virtuoso";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface GroupFeedProps {
-  handle: string;
+  address: string;
 }
 
-const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
+const GroupFeed: FC<GroupFeedProps> = ({ address }) => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
     virtuosoState = { ranges: [], screenTop: 0 };
-  }, [handle]);
+  }, [address]);
 
   const request: PostsRequest = {
-    pageSize: PageSize.Fifty,
-    filter: { metadata: { tags: { oneOf: [`orbcommunities${handle}`] } } }
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsQuery({
-    skip: !handle,
+    skip: !address,
     variables: { request }
   });
 
@@ -64,12 +63,7 @@ const GroupFeed: FC<GroupFeedProps> = ({ handle }) => {
     return (
       <EmptyState
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-        message={
-          <div>
-            <b className="mr-1">/{handle}</b>
-            <span>has no posts yet!</span>
-          </div>
-        }
+        message="Group has no posts yet!"
       />
     );
   }

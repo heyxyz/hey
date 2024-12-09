@@ -30,7 +30,7 @@ export const Regex = {
 };
 
 export const EditorRegex = {
-  // group looks like: /bonsai or /orbcommunities
+  // group looks like: /bonsai or /gho
   group: new RegExp(`${MATCH_BEHIND}\/(${EDITOR_GROUP})$`, "g"),
   emoji: new RegExp(`${MATCH_BEHIND}:\\w*$`, "g"),
   mention: new RegExp(`${MATCH_BEHIND}@${EDITOR_MENTION}$`, "g")
