@@ -31,7 +31,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
             {data?.lastLoggedInAccount ? (
               <div>
                 <Link
-                  href={`/staff/users/${data?.lastLoggedInAccount?.address}`}
+                  href={`/staff/accounts/${data?.lastLoggedInAccount?.address}`}
                 >
                   <SmallSingleAccount
                     account={data?.lastLoggedInAccount as Account}
@@ -42,7 +42,9 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
             ) : null}
             {data?.accountsAvailable.items.map((accountAvailable) => (
               <div key={accountAvailable.account.address}>
-                <Link href={`/staff/users/${accountAvailable.account.address}`}>
+                <Link
+                  href={`/staff/accounts/${accountAvailable.account.address}`}
+                >
                   <SmallSingleAccount
                     account={accountAvailable.account as Account}
                   />

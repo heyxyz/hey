@@ -1,6 +1,6 @@
 import MetaTags from "@components/Common/MetaTags";
 import Footer from "@components/Shared/Footer";
-import List from "@components/Staff/Users/List";
+import List from "@components/Staff/Accounts/List";
 import { APP_NAME } from "@hey/data/constants";
 import { ModFeedType } from "@hey/data/enums";
 import { FeatureFlag } from "@hey/data/feature-flags";

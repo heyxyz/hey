@@ -26,8 +26,8 @@ const sidebarItems = [
   },
   {
     icon: <UserIcon className="size-4" />,
-    title: "Users",
-    url: "/staff/users"
+    title: "Accounts",
+    url: "/staff/accounts"
   },
   {
     icon: <CurrencyDollarIcon className="size-4" />,

@@ -1,11 +1,11 @@
 import MetaTags from "@components/Common/MetaTags";
 import Loader from "@components/Shared/Loader";
+import AccountStaffTool from "@components/Staff/Accounts/Overview/Tool";
 import StaffSidebar from "@components/Staff/Sidebar";
-import AccountStaffTool from "@components/Staff/Users/Overview/Tool";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import type { Account } from "@hey/indexer";
+import { type Account, useAccountQuery } from "@hey/indexer";
 import {
   Card,
   EmptyState,
@@ -23,16 +23,16 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 const Overview: NextPage = () => {
   const {
     isReady,
-    query: { id }
+    query: { address }
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
-  const { data, error, loading } = useProfileQuery({
-    skip: !id || !isReady,
-    variables: { request: { forProfileId: id } }
+  const { data, error, loading } = useAccountQuery({
+    skip: !address || !isReady,
+    variables: { request: { address: address } }
   });
-  const account = data?.profile as Account;
+  const account = data?.account as Account;
 
   if (!currentAccount || !isStaff) {
     return <Custom404 />;

@@ -1,4 +1,4 @@
-import ToggleWrapper from "@components/Staff/Users/Overview/Tool/ToggleWrapper";
+import ToggleWrapper from "@components/Staff/Accounts/Overview/Tool/ToggleWrapper";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";

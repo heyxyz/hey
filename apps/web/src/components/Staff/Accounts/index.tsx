@@ -9,7 +9,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
 import List from "./List";
 
-const Users: NextPage = () => {
+const Accounts: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
 
@@ -30,4 +30,4 @@ const Users: NextPage = () => {
   );
 };
 
-export default Users;
+export default Accounts;
