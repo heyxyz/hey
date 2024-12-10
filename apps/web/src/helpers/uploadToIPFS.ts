@@ -12,17 +12,16 @@ const FALLBACK_TYPE = "image/jpeg";
  * @returns Array of MediaSet objects.
  */
 const uploadToIPFS = async (data: File[]): Promise<StorageNodeResponse[]> => {
-  try {
-    const { files } = await storageClient.uploadFolder(data);
-    const attachments = files.map(({ uri }, index) => {
-      return { mimeType: data[index].type || FALLBACK_TYPE, uri };
-    });
+	try {
+		const { files } = await storageClient.uploadFolder(data);
+		const attachments = files.map(({ gatewayUrl }, index) => {
+			return { mimeType: data[index].type || FALLBACK_TYPE, uri: gatewayUrl };
+		});
 
-    return attachments;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+		return attachments;
+	} catch {
+		return [];
+	}
 };
 
 /**
@@ -32,16 +31,16 @@ const uploadToIPFS = async (data: File[]): Promise<StorageNodeResponse[]> => {
  * @returns MediaSet object or null if the upload fails.
  */
 export const uploadFileToIPFS = async (
-  file: File
+	file: File,
 ): Promise<StorageNodeResponse> => {
-  try {
-    const response = await uploadToIPFS([file]);
-    const { uri, mimeType } = response[0];
+	try {
+		const response = await uploadToIPFS([file]);
+		const { uri, mimeType } = response[0];
 
-    return { mimeType, uri };
-  } catch {
-    return { mimeType: "", uri: "" };
-  }
+		return { mimeType, uri };
+	} catch {
+		return { mimeType: "", uri: "" };
+	}
 };
 
 export default uploadToIPFS;
