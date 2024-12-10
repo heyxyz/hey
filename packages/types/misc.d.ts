@@ -1,7 +1,7 @@
 import type { AccountMention, Maybe, MetadataLicenseType } from "@hey/indexer";
 import type { OptmisticTransactionType } from "./enums";
 
-export interface IPFSResponse {
+export interface StorageNodeResponse {
   mimeType: string;
   uri: string;
 }
