@@ -10,7 +10,7 @@
     "@hey/ui": "workspace:*",
     "normalize-wheel": "^1.0.1",
     "rc-slider": "^11.1.7",
-    "react": "^19.0.0"
+    "react": "18.3.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

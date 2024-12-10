@@ -1,4 +1,4 @@
-import type { IPFSResponse } from "@hey/types/misc";
+import type { StorageNodeResponse } from "@hey/types/misc";
 import { StorageClient, testnet } from "@lens-protocol/storage-node-client";
 
 const storageClient = StorageClient.create(testnet);
@@ -11,7 +11,7 @@ const FALLBACK_TYPE = "image/jpeg";
  * @param onProgress Callback to be called when the upload progress changes.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: File[]): Promise<IPFSResponse[]> => {
+const uploadToIPFS = async (data: File[]): Promise<StorageNodeResponse[]> => {
   try {
     const { files } = await storageClient.uploadFolder(data);
     const attachments = files.map(({ uri }, index) => {
@@ -30,14 +30,16 @@ const uploadToIPFS = async (data: File[]): Promise<IPFSResponse[]> => {
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (file: File): Promise<IPFSResponse> => {
+export const uploadFileToIPFS = async (
+  file: File
+): Promise<StorageNodeResponse> => {
   try {
-    const ipfsResponse = await uploadToIPFS([file]);
-    const metadata = ipfsResponse[0];
+    const response = await uploadToIPFS([file]);
+    const { uri, mimeType } = response[0];
 
-    return { mimeType: file.type || FALLBACK_TYPE, uri: metadata.uri };
+    return { mimeType, uri };
   } catch {
-    return { mimeType: file.type || FALLBACK_TYPE, uri: "" };
+    return { mimeType: "", uri: "" };
   }
 };
 
