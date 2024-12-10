@@ -64,7 +64,10 @@ const SingleAccount: FC<SingleAccountProps> = ({
         <Misuse address={account.address} iconClassName="ml-1 size-4" />
       </div>
       <div>
-        <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
+        <Slug
+          className="text-sm"
+          slug={getAccount(account).usernameWithPrefix}
+        />
         {timestamp && (
           <span className="ld-text-gray-500">
             <span className="mx-1.5">·</span>

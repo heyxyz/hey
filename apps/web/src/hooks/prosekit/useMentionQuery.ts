@@ -8,7 +8,7 @@ const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 export type MentionAccount = {
   displayUsername: string;
-  handle: string;
+  username: string;
   address: string;
   name: string;
   picture: string;
@@ -31,13 +31,13 @@ const useMentionQuery = (query: string): MentionAccount[] => {
         const accountsSearchResult = search;
         const accounts = accountsSearchResult?.items as Account[];
         const accountsResults = (accounts ?? []).map(
-          (profile): MentionAccount => ({
-            displayUsername: getAccount(profile).slugWithPrefix,
-            handle: getAccount(profile).slug,
-            address: profile?.address,
-            name: getAccount(profile).name,
-            picture: getAvatar(profile),
-            score: profile.score || 0
+          (account): MentionAccount => ({
+            displayUsername: getAccount(account).usernameWithPrefix,
+            username: getAccount(account).username,
+            address: account.address,
+            name: getAccount(account).name,
+            picture: getAvatar(account),
+            score: account.score || 0
           })
         );
 

@@ -28,7 +28,7 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, account }) => {
         onSelect={onSelect}
       >
         <Image
-          alt={account.handle}
+          alt={account.displayUsername}
           className="size-7 rounded-full border bg-gray-200 dark:border-gray-700"
           height="28"
           src={account.picture}
@@ -56,7 +56,7 @@ const MentionPicker: FC = () => {
     editor.commands.insertMention({
       id: account.address,
       kind: "account",
-      value: account.displayUsername
+      value: account.username
     });
     editor.commands.insertText({ text: " " });
   };

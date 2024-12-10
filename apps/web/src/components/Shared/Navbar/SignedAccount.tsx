@@ -65,7 +65,7 @@ const SignedAccount: FC = () => {
                 <div className="truncate">
                   <Slug
                     className="font-bold"
-                    slug={getAccount(currentAccount).slugWithPrefix}
+                    slug={getAccount(currentAccount).usernameWithPrefix}
                   />
                 </div>
               </div>

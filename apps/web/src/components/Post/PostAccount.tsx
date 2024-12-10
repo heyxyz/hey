@@ -47,7 +47,7 @@ const PostAccount: FC<PostAccountProps> = ({
         <span className="font-semibold">{getAccount(account).name}</span>
       </WrappedLink>
       <WrappedLink>
-        <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
+        <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
       </WrappedLink>
       <Verified address={account.address} iconClassName="size-4" />
       <Misuse address={account.address} iconClassName="size-4" />

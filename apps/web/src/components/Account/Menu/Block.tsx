@@ -32,7 +32,7 @@ const Block: FC<BlockProps> = ({ account }) => {
       <NoSymbolIcon className="size-4" />
       <div>
         {isBlockedByMe ? "Unblock" : "Block"}{" "}
-        {getAccount(account).slugWithPrefix}
+        {getAccount(account).usernameWithPrefix}
       </div>
     </MenuItem>
   );

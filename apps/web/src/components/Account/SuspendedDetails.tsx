@@ -28,7 +28,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
         <div>
           <Slug
             className="text-sm sm:text-base"
-            slug={profileData.slugWithPrefix}
+            slug={profileData.usernameWithPrefix}
           />
         </div>
       </div>

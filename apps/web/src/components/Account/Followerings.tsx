@@ -56,7 +56,7 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
         size="md"
       >
         <Following
-          handle={getAccount(account).slug}
+          handle={getAccount(account).username}
           address={account.address}
         />
       </Modal>
@@ -67,7 +67,7 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
         size="md"
       >
         <Followers
-          handle={getAccount(account).slug}
+          handle={getAccount(account).username}
           address={account.address}
         />
       </Modal>
