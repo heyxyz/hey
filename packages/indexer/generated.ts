@@ -4348,7 +4348,7 @@ export type Query = {
   group?: Maybe<Group>;
   /** Get the members of the group */
   groupMembers: PaginatedAccountsResult;
-  /** Get the groups managed by the given address. */
+  /** Get the number of members in a Group */
   groupStats: GroupStatsResponse;
   /** Get the groups this account is a member of */
   groups: PaginatedGroupsResult;
