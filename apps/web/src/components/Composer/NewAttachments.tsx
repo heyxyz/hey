@@ -2,7 +2,7 @@ import ChooseThumbnail from "@components/Composer/ChooseThumbnail";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { NewAttachment } from "@hey/types/misc";
-import { Image, ProgressBar, Tooltip } from "@hey/ui";
+import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
@@ -43,7 +43,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   hideDelete = false
 }) => {
   const { setAttachments } = usePostAttachmentStore((state) => state);
-  const { uploadedPercentage, setVideoDurationInSeconds } = usePostVideoStore();
+  const { setVideoDurationInSeconds } = usePostVideoStore();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const onDataLoaded = () => {
@@ -112,13 +112,6 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                   ref={videoRef}
                   src={attachment.previewUri}
                 />
-                {uploadedPercentage !== 100 && (
-                  <div className="my-5">
-                    <Tooltip content={`${uploadedPercentage}%`} placement="top">
-                      <ProgressBar max={100} value={uploadedPercentage || 0} />
-                    </Tooltip>
-                  </div>
-                )}
                 <ChooseThumbnail />
               </>
             ) : isAudio ? (

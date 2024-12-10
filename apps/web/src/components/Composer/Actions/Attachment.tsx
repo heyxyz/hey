@@ -74,7 +74,11 @@ const Attachment: FC = () => {
         );
       }
 
-      if (isTypeAllowed(files as FileList)) {
+      if (!files) {
+        return;
+      }
+
+      if (isTypeAllowed(files)) {
         await handleUploadAttachments(files);
         evt.target.value = "";
       } else {

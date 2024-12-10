@@ -289,8 +289,8 @@ importers:
         specifier: next
         version: 2.0.0-next.1(zod@3.23.8)
       '@lens-protocol/storage-node-client':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: next
+        version: 0.0.0-next-20241209200849
       '@livepeer/react':
         specifier: ^4.2.9
         version: 4.2.9(@types/react-dom@19.0.1)(@types/react@19.0.1)(immer@10.1.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -2151,8 +2151,8 @@ packages:
       zod:
         optional: true
 
-  '@lens-protocol/storage-node-client@0.0.2':
-    resolution: {integrity: sha512-Miza+o4MMAiQZQ5wowthMjCv21fV94+3825r/E9Mh0lVEcj7RL0cgHWXAxEUQTko+lI6633EKPw4jjnpWzxvlw==}
+  '@lens-protocol/storage-node-client@0.0.0-next-20241209200849':
+    resolution: {integrity: sha512-84UREP9dJvZCn1XlaEqvcJv7TbEuMvE9UzBnQkNXeiNeDB5SSHWf3OwKlnHv2BJaJQyZKfep3HbL25LI15HG9A==}
 
   '@lit-labs/ssr-dom-shim@1.2.1':
     resolution: {integrity: sha512-wx4aBmgeGvFmOKucFKY+8VFJSYZxs9poN3SDNQFF6lT6NrQUnHiPB2PWz2sc4ieEcAaYYzN+1uWahEeTq2aRIQ==}
@@ -10058,7 +10058,7 @@ snapshots:
     optionalDependencies:
       zod: 3.23.8
 
-  '@lens-protocol/storage-node-client@0.0.2': {}
+  '@lens-protocol/storage-node-client@0.0.0-next-20241209200849': {}
 
   '@lit-labs/ssr-dom-shim@1.2.1': {}
 
