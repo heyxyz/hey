@@ -14,7 +14,7 @@ const EDITOR_GROUP = "([\\dA-Za-z]\\w*)"; // This will start searching for group
 export const Regex = {
   cashtag: /(\$\w*[A-Za-z]\w*)/g,
   ethereumAddress: /^(0x)?[\da-f]{40}$/i,
-  username: /^[\dA-Za-z]\w{4,25}$/g,
+  username: /^[\dA-Za-z]\w{2,25}$/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
   // Match string like @lens/someone.
   mention: new RegExp(

@@ -36,7 +36,7 @@ export const SignupMessage = () => (
 
 const validationSchema = object({
   username: string()
-    .min(5, { message: "Username must be at least 5 characters long" })
+    .min(3, { message: "Username must be at least 3 characters long" })
     .max(26, { message: "Username must be at most 26 characters long" })
     .regex(Regex.username, {
       message:
@@ -64,7 +64,7 @@ const ChooseUsername: FC = () => {
 
   const username = form.watch("username");
 
-  const canCheck = Boolean(username && username.length > 4);
+  const canCheck = Boolean(username && username.length > 2);
   const isInvalid = !form.formState.isValid;
 
   useAccountQuery({

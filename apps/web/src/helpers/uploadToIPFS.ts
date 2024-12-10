@@ -19,7 +19,8 @@ const uploadToIPFS = async (data: File[]): Promise<StorageNodeResponse[]> => {
     });
 
     return attachments;
-  } catch {
+  } catch (error) {
+    console.error(error);
     return [];
   }
 };
