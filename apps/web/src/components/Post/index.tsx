@@ -104,7 +104,7 @@ const ViewPost: NextPage = () => {
         creator={getAccount(targetPost.author).name}
         description={getPostData(targetPost.metadata)?.content}
         title={`${targetPost.__typename} by ${
-          getAccount(targetPost.author).slugWithPrefix
+          getAccount(targetPost.author).usernameWithPrefix
         } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">

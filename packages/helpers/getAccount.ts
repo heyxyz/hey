@@ -7,8 +7,8 @@ const getAccount = (
 ): {
   name: string;
   link: string;
-  slug: string;
-  slugWithPrefix: string;
+  username: string;
+  usernameWithPrefix: string;
   sourceLink: string;
   staffLink: string;
 } => {
@@ -16,24 +16,24 @@ const getAccount = (
     return {
       name: "...",
       link: "",
-      slug: "...",
-      slugWithPrefix: "...",
+      username: "...",
+      usernameWithPrefix: "...",
       sourceLink: "",
       staffLink: ""
     };
   }
 
   const prefix = account.username ? "@" : "#";
-  const slug = account.username?.localName || account.address;
+  const username = account.username?.localName || account.address;
   const link = account.username
     ? `/u/${account.username.localName}`
     : `/account/${account.address}`;
 
   return {
-    name: sanitizeDisplayName(account.metadata?.name) || slug,
+    name: sanitizeDisplayName(account.metadata?.name) || username,
     link: link,
-    slug,
-    slugWithPrefix: `${prefix}${slug}`,
+    username,
+    usernameWithPrefix: `${prefix}${username}`,
     sourceLink: source ? `${link}?source=${source}` : link,
     staffLink: `/staff/accounts/${account.address}`
   };

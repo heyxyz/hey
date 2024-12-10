@@ -48,7 +48,10 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
       <Verified address={account.address} iconClassName="mr-1 size-4" />
       <Misuse address={account.address} iconClassName="mr-2 size-4" />
       {!hideSlug && (
-        <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
+        <Slug
+          className="text-sm"
+          slug={getAccount(account).usernameWithPrefix}
+        />
       )}
       {timestamp && (
         <span className="ld-text-gray-500">

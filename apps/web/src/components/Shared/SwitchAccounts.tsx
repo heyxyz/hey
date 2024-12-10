@@ -139,7 +139,10 @@ const SwitchAccounts: FC = () => {
                 "truncate"
               )}
             >
-              {getAccount(accountAvailable.account as Account).slugWithPrefix}
+              {
+                getAccount(accountAvailable.account as Account)
+                  .usernameWithPrefix
+              }
             </div>
           </span>
           {isLoading &&

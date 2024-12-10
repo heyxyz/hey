@@ -1,4 +1,4 @@
-import { HANDLE_PREFIX } from "@hey/data/constants";
+import { LENS_HANDLE_PREFIX } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import {
   defineBaseCommands,
@@ -76,16 +76,18 @@ const defineMentionSpec = () => {
       const value = attrs.value.toString();
 
       const children =
-        attrs.kind === "profile"
+        attrs.kind === "account"
           ? [
               ["span", "@"],
               // Hide the "lens/" part inside the editor, but it's still part
               // of the HTML output so that we can keep it when converting
               // HTML to Markdown.
-              ["span", { class: "hidden" }, HANDLE_PREFIX],
+              ["span", { class: "hidden" }, LENS_HANDLE_PREFIX],
               ["span", value]
             ]
           : [["span", value]];
+
+      console.log(children);
 
       return [
         "span",

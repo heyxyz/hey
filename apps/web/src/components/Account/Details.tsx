@@ -92,7 +92,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"
-            slug={getAccount(account).slugWithPrefix}
+            slug={getAccount(account).usernameWithPrefix}
           />
           {account.operations?.isFollowingMe ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
@@ -136,7 +136,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         </div>
         {currentAccount?.address !== account.address ? (
           <FollowersYouKnowOverview
-            handle={getAccount(account).slug}
+            handle={getAccount(account).username}
             address={account.address}
           />
         ) : null}

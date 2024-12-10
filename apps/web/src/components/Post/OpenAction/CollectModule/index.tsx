@@ -123,7 +123,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
         <div className="mb-4">
           <H4>
             {targetPost.__typename} by{" "}
-            <Slug slug={getAccount(targetPost.author).slugWithPrefix} />
+            <Slug slug={getAccount(targetPost.author).usernameWithPrefix} />
           </H4>
         </div>
         {amount ? (

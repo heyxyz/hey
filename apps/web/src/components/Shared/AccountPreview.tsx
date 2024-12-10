@@ -134,7 +134,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           <Misuse address={account.address} iconClassName="size-4" />
         </div>
         <span>
-          <Slug className="text-sm" slug={getAccount(account).slugWithPrefix} />
+          <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
           {account.operations?.isFollowingMe && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
@@ -178,7 +178,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
           </div>
           <div className="!text-xs">
             <FollowersYouKnowOverview
-              handle={getAccount(account).slug}
+              handle={getAccount(account).username}
               address={account.address}
               viaPopover
             />

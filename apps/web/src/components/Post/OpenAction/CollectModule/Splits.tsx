@@ -80,7 +80,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   {account ? (
                     <Link href={getAccount(account as Account).link}>
                       <Slug
-                        slug={getAccount(account as Account).slugWithPrefix}
+                        slug={getAccount(account as Account).usernameWithPrefix}
                       />
                     </Link>
                   ) : (

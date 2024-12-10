@@ -88,7 +88,7 @@ const ViewProfile: NextPage = () => {
         creator={getAccount(account).name}
         description={account.metadata?.bio || ""}
         title={`${getAccount(account).name} (${
-          getAccount(account).slugWithPrefix
+          getAccount(account).usernameWithPrefix
         }) • ${APP_NAME}`}
       />
       <Cover
@@ -127,7 +127,7 @@ const ViewProfile: NextPage = () => {
               feedType === AccountFeedType.Media ||
               feedType === AccountFeedType.Collects ? (
                 <AccountFeed
-                  handle={getAccount(account).slugWithPrefix}
+                  handle={getAccount(account).usernameWithPrefix}
                   accountDetailsLoading={accountDetailsLoading}
                   address={account.address}
                   type={feedType}

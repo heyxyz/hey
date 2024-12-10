@@ -233,7 +233,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         postContent.length > 0 ? postContent : undefined;
       const title = hasAudio
         ? audioPost.title
-        : `${getTitlePrefix()} by ${getAccount(currentAccount).slugWithPrefix}`;
+        : `${getTitlePrefix()} by ${getAccount(currentAccount).usernameWithPrefix}`;
       const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {

@@ -193,7 +193,7 @@ const BlockOrUnBlockAccount: FC = () => {
       confirmText={hasBlocked ? "Unblock" : "Block"}
       description={`Are you sure you want to ${
         hasBlocked ? "un-block" : "block"
-      } ${getAccount(blockingorUnblockingAccount).slugWithPrefix}?`}
+      } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
       isDestructive
       isPerformingAction={
         isLoading ||
