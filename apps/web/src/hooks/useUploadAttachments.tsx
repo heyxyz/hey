@@ -4,11 +4,9 @@ import imageCompression from "browser-image-compression";
 import { useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
-import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
 import { v4 as uuid } from "uuid";
 
 const useUploadAttachments = () => {
-  const { setUploadedPercentage } = usePostVideoStore();
   const {
     addAttachments,
     removeAttachments,
@@ -17,8 +15,8 @@ const useUploadAttachments = () => {
   } = usePostAttachmentStore((state) => state);
 
   const handleUploadAttachments = useCallback(
-    async (attachments: any): Promise<NewAttachment[]> => {
-      const validateFileSize = (file: any) => {
+    async (attachments: FileList): Promise<NewAttachment[]> => {
+      const validateFileSize = (file: File) => {
         const isImage = file.type.includes("image");
         const isVideo = file.type.includes("video");
         const isAudio = file.type.includes("audio");
@@ -57,7 +55,7 @@ const useUploadAttachments = () => {
       const attachmentIds: string[] = [];
 
       const compressedFiles = await Promise.all(
-        files.map(async (file: any) => {
+        files.map(async (file: File) => {
           if (file.type.includes("image") && !file.type.includes("gif")) {
             return await imageCompression(file, {
               exifOrientation: 1,
@@ -72,7 +70,7 @@ const useUploadAttachments = () => {
       );
 
       const previewAttachments: NewAttachment[] = compressedFiles.map(
-        (file: any) => {
+        (file: File) => {
           const attachmentId = uuid();
           attachmentIds.push(attachmentId);
 
@@ -94,10 +92,7 @@ const useUploadAttachments = () => {
         addAttachments(previewAttachments);
 
         try {
-          const attachmentsUploaded = await uploadToIPFS(
-            compressedFiles,
-            setUploadedPercentage
-          );
+          const attachmentsUploaded = await uploadToIPFS(compressedFiles);
           const attachmentsIPFS = attachmentsUploaded.map(
             (uploaded, index) => ({
               ...previewAttachments[index],
@@ -121,13 +116,7 @@ const useUploadAttachments = () => {
       setIsUploading(false);
       return [];
     },
-    [
-      addAttachments,
-      removeAttachments,
-      updateAttachments,
-      setIsUploading,
-      setUploadedPercentage
-    ]
+    [addAttachments, removeAttachments, updateAttachments, setIsUploading]
   );
 
   return { handleUploadAttachments };

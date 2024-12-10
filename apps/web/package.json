@@ -24,7 +24,7 @@
     "@hey/ui": "workspace:*",
     "@lens-network/sdk": "canary",
     "@lens-protocol/metadata": "next",
-    "@lens-protocol/storage-node-client": "^0.0.2",
+    "@lens-protocol/storage-node-client": "next",
     "@livepeer/react": "^4.2.9",
     "@next/bundle-analyzer": "^15.0.4",
     "@radix-ui/react-hover-card": "^1.1.2",
