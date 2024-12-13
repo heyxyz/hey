@@ -1,5 +1,6 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { PostActionType } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 import { RangeSlider } from "@hey/ui";
 import type { FC } from "react";
@@ -23,8 +24,8 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
           setCollectType({
             referralFee: collectModule.referralFee ? 0 : 25,
             type: collectModule.recipients?.length
-              ? CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-              : CollectOpenActionModuleType.SimpleCollectOpenActionModule
+              ? PostActionType.MultirecipientFeeCollectOpenActionModule
+              : PostActionType.SimpleCollectAction
           })
         }
       />

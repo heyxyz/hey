@@ -1,3 +1,5 @@
+import type { PostActionType } from "@hey/indexer";
+
 export type StaffPick = {
   accountAddress: string;
 };
@@ -26,8 +28,8 @@ export type CollectModuleType = {
   recipients?: RecipientDataInput[];
   referralFee?: number;
   type?:
-    | CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-    | CollectOpenActionModuleType.SimpleCollectOpenActionModule
+    | PostActionType.MultirecipientFeeCollectOpenActionModule
+    | PostActionType.SimpleCollectAction
     | null;
 };
 
