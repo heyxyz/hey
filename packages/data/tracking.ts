@@ -48,7 +48,6 @@ export const POST = {
   BOOKMARK: "Bookmark post",
   CLICK_CASHTAG: "Click post cashtag",
   CLICK_GROUP: "Click post group",
-  CLICK_FRAME_BUTTON: "Click post frame button",
   CLICK_HASHTAG: "Click post hashtag",
   CLICK_MENTION: "Click post mention",
   CLICK_OEMBED: "Click post oembed",
