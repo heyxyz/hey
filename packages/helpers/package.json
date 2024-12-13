@@ -7,7 +7,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.12.2",
+    "@apollo/client": "^3.12.3",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",
@@ -18,7 +18,7 @@
     "mailchecker": "^6.0.13",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.21.53",
+    "viem": "^2.21.55",
     "winston": "^3.16.0"
   },
   "devDependencies": {
