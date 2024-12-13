@@ -2,7 +2,7 @@ import GardenerActions from "@components/Post/Actions/HigherActions/GardenerActi
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import BlockOrUnBlockAccount from "./Alert/BlockOrUnBlockAccount";
+import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccounts";
 import DeletePost from "./Alert/DeletePost";
 
 const GlobalAlerts: FC = () => {
@@ -30,7 +30,7 @@ const GlobalAlerts: FC = () => {
           <GardenerActions post={modingPost} />
         </Alert>
       )}
-      {blockingorUnblockingAccount && <BlockOrUnBlockAccount />}
+      {blockingorUnblockingAccount && <BlockOrUnblockAccount />}
     </>
   );
 };

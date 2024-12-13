@@ -25,7 +25,7 @@ import {
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
-const BlockOrUnBlockAccount: FC = () => {
+const BlockOrUnblockAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const {
     blockingorUnblockingAccount,
@@ -207,4 +207,4 @@ const BlockOrUnBlockAccount: FC = () => {
   );
 };
 
-export default BlockOrUnBlockAccount;
+export default BlockOrUnblockAccount;
