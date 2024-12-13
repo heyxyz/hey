@@ -111,7 +111,7 @@ const Privacy: NextPage = () => {
               <p className="leading-7">
                 This Privacy Policy does not apply to websites, apps, products,
                 or services that we do not own or control. For example, your
-                interactions with Ethereum wallet are governed by the applicable
+                interactions with EVM wallet are governed by the applicable
                 privacy policies of that particular wallet.
               </p>
               {/* 4. Third-Parties ends */}

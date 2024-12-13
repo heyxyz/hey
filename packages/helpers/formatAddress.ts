@@ -1,11 +1,11 @@
 import { isAddress } from "viem";
 
 /**
- * Format the given Ethereum address by displaying only the first and last few characters.
+ * Format the given EVM address by displaying only the first and last few characters.
  *
- * @param address Complete Ethereum address
+ * @param address Complete EVM address
  * @param slice Number of characters to display from the start and end of the address
- * @returns Formatted Ethereum address
+ * @returns Formatted EVM address
  */
 const formatAddress = (address: null | string, slice = 4): string => {
   if (!address) {

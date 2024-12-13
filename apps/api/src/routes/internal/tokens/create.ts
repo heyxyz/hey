@@ -17,7 +17,7 @@ interface ExtensionRequest {
 }
 
 const validationSchema = object({
-  contractAddress: string().min(1).max(42).regex(Regex.ethereumAddress),
+  contractAddress: string().min(1).max(42).regex(Regex.evmAddress),
   decimals: number().min(0).max(18),
   name: string().min(1).max(100),
   symbol: string().min(1).max(100)

@@ -14,7 +14,7 @@ const validationSchema = object({
   contractAddress: string()
     .min(1)
     .max(42)
-    .regex(Regex.ethereumAddress, { message: "Invalid Ethereum address" }),
+    .regex(Regex.evmAddress, { message: "Invalid EVM address" }),
   decimals: string().min(1, { message: "Decimals is required" }),
   name: string().min(1, { message: "Name is required" }),
   symbol: string().min(1, { message: "Symbol is required" })
