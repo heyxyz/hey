@@ -7,8 +7,8 @@ import {
   type AnyPost,
   PageSize,
   type Post,
-  type SearchPostsRequest,
-  useSearchPostsQuery
+  type PostsRequest,
+  usePostsQuery
 } from "@hey/indexer";
 import { Button, Card, EmptyState, ErrorMessage, Input } from "@hey/ui";
 import type { FC } from "react";
@@ -28,23 +28,22 @@ const SearchFeed: FC = () => {
   const [searchInput, setSearchInput] = useState("");
   const [query, setQuery] = useState("");
 
-  const request: SearchPostsRequest = {
+  const request: PostsRequest = {
     pageSize: PageSize.Fifty,
-    query,
     filter: {
+      searchQuery: query,
       metadata: { mainContentFocus },
       postTypes: publicationTypes
     }
   };
 
-  const { data, error, fetchMore, loading, refetch } = useSearchPostsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     skip: !query,
     variables: { request }
   });
 
-  const search = data?.searchPosts;
-  const posts = search?.items as AnyPost[];
-  const pageInfo = search?.pageInfo;
+  const posts = data?.posts?.items as AnyPost[];
+  const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   useEffect(() => {

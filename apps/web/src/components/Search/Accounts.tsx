@@ -4,9 +4,9 @@ import { UsersIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
-  type AccountSearchRequest,
+  type AccountsRequest,
   PageSize,
-  useSearchAccountsQuery
+  useAccountsQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -17,19 +17,18 @@ interface AccountsProps {
 }
 
 const Accounts: FC<AccountsProps> = ({ query }) => {
-  const request: AccountSearchRequest = {
+  const request: AccountsRequest = {
     pageSize: PageSize.Fifty,
-    localName: query
+    filter: { searchBy: { localNameQuery: query } }
   };
 
-  const { data, error, fetchMore, loading } = useSearchAccountsQuery({
+  const { data, error, fetchMore, loading } = useAccountsQuery({
     skip: !query,
     variables: { request }
   });
 
-  const search = data?.searchAccounts;
-  const accounts = search?.items;
-  const pageInfo = search?.pageInfo;
+  const accounts = data?.accounts?.items;
+  const pageInfo = data?.accounts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {

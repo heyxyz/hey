@@ -5,9 +5,9 @@ import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
-  type AccountSearchRequest,
+  type AccountsRequest,
   PageSize,
-  useSearchAccountsLazyQuery
+  useAccountsLazyQuery
 } from "@hey/indexer";
 import { Card, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -40,7 +40,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   }) as MutableRefObject<HTMLDivElement>;
 
   const [searchAccounts, { loading: searchAccountsLoading }] =
-    useSearchAccountsLazyQuery();
+    useAccountsLazyQuery();
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -59,14 +59,14 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
 
   useEffect(() => {
     if (pathname !== "/search" && showDropdown && debouncedSearchText) {
-      const request: AccountSearchRequest = {
+      const request: AccountsRequest = {
         pageSize: PageSize.Fifty,
-        localName: debouncedSearchText
+        filter: { searchBy: { localNameQuery: debouncedSearchText } }
       };
 
       searchAccounts({ variables: { request } }).then((res) => {
-        if (res.data?.searchAccounts?.items) {
-          setAccounts(res.data.searchAccounts.items as Account[]);
+        if (res.data?.accounts?.items) {
+          setAccounts(res.data.accounts.items as Account[]);
         }
       });
     }
