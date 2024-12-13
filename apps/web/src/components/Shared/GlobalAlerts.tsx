@@ -2,12 +2,14 @@ import GardenerActions from "@components/Post/Actions/HigherActions/GardenerActi
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
-import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccounts";
+import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccount";
 import DeletePost from "./Alert/DeletePost";
+import MuteOrUnmuteAccount from "./Alert/MuteOrUnmuteAccount";
 
 const GlobalAlerts: FC = () => {
   const {
     blockingorUnblockingAccount,
+    mutingOrUnmutingAccount,
     modingPost,
     setShowGardenerActionsAlert,
     showGardenerActionsAlert
@@ -31,6 +33,7 @@ const GlobalAlerts: FC = () => {
         </Alert>
       )}
       {blockingorUnblockingAccount && <BlockOrUnblockAccount />}
+      {mutingOrUnmutingAccount && <MuteOrUnmuteAccount />}
     </>
   );
 };

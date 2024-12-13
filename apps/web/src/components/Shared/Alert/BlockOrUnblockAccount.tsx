@@ -74,7 +74,9 @@ const BlockOrUnblockAccount: FC = () => {
     setIsLoading(false);
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);
-    toast.success(hasBlocked ? "Unblocked" : "Blocked");
+    toast.success(
+      hasBlocked ? "Unblocked successfully" : "Blocked successfully"
+    );
   };
 
   const onError = (error: any) => {
