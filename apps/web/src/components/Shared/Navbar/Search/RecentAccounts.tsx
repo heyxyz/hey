@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import { type Account, useAccountsQuery } from "@hey/indexer";
+import { type Account, useAccountsBulkQuery } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -23,7 +23,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
     profiles: recentProfiles
   } = useSearchStore();
 
-  const { data, loading } = useAccountsQuery({
+  const { data, loading } = useAccountsBulkQuery({
     skip: recentProfiles.length === 0,
     variables: { request: { addresses: recentProfiles } }
   });
@@ -32,7 +32,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
     return null;
   }
 
-  const accounts = data?.accounts || [];
+  const accounts = data?.accountsBulk || [];
 
   return (
     <div>

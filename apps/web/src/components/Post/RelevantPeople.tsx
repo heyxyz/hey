@@ -4,7 +4,7 @@ import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   type AccountMention,
-  useAccountsQuery
+  useAccountsBulkQuery
 } from "@hey/indexer";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
 import type { FC } from "react";
@@ -24,7 +24,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
     (accountMention) => accountMention.account
   );
 
-  const { data, error, loading } = useAccountsQuery({
+  const { data, error, loading } = useAccountsBulkQuery({
     skip: accountAddresses.length <= 0,
     variables: { request: { addresses: accountAddresses } }
   });
@@ -48,11 +48,11 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
     );
   }
 
-  if (data?.accounts?.length === 0) {
+  if (data?.accountsBulk?.length === 0) {
     return null;
   }
 
-  const firstAccounts = data?.accounts?.slice(0, 5);
+  const firstAccounts = data?.accountsBulk?.slice(0, 5);
 
   return (
     <>
@@ -69,7 +69,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
             />
           </div>
         ))}
-        {(data?.accounts?.length || 0) > 5 && (
+        {(data?.accountsBulk?.length || 0) > 5 && (
           <button
             className="ld-text-gray-500 font-bold"
             onClick={() => setShowMore(true)}
@@ -84,7 +84,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
         show={showMore}
         title="Relevant people"
       >
-        <MoreRelevantPeople accounts={data?.accounts as Account[]} />
+        <MoreRelevantPeople accounts={data?.accountsBulk as Account[]} />
       </Modal>
     </>
   );
