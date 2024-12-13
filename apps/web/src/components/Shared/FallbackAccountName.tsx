@@ -20,13 +20,15 @@ const FallbackAccountName: FC<FallbackAccountNameProps> = ({
     return null;
   }
 
-  const { name, link, slugWithPrefix } = getAccount(account);
-  const accountName = account?.metadata?.name || <Slug slug={slugWithPrefix} />;
+  const { name, link, usernameWithPrefix } = getAccount(account);
+  const accountName = account?.metadata?.name || (
+    <Slug slug={usernameWithPrefix} />
+  );
 
   return (
     <>
       <Link
-        aria-label={`Account of ${name || slugWithPrefix}`}
+        aria-label={`Account of ${name || usernameWithPrefix}`}
         className={cn(
           "max-w-sm truncate outline-none hover:underline focus:underline",
           className
