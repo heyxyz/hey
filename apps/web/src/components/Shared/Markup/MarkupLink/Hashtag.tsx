@@ -1,5 +1,3 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { hashflags } from "@hey/data/hashflags";
 import { prideHashtags } from "@hey/data/pride-hashtags";
 import isPrideMonth from "@hey/helpers/isPrideMonth";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
@@ -14,7 +12,6 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   }
 
   const tag = title.slice(1).toLowerCase();
-  const hasHashflag = Object.prototype.hasOwnProperty.call(hashflags, tag);
   const isPrideHashtag = isPrideMonth() ? prideHashtags.includes(tag) : false;
 
   return (
@@ -32,14 +29,6 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
           {isPrideHashtag ? <span className="pride-text">{title}</span> : title}
         </Link>
       </span>
-      {hasHashflag ? (
-        <img
-          alt={tag}
-          className="!mr-0.5 h-4"
-          height={16}
-          src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[tag]}.png`}
-        />
-      ) : null}
     </span>
   );
 };
