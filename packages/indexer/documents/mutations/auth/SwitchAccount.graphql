@@ -1,0 +1,9 @@
+mutation SwitchAccount($request: SwitchAccountRequest!) {
+  switchAccount(request: $request) {
+    ... on AuthenticationTokens {
+      accessToken
+      refreshToken
+      idToken
+    }
+  }
+}

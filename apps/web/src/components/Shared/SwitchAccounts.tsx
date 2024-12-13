@@ -6,8 +6,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import {
   type Account,
   useAccountsAvailableQuery,
-  useAuthenticateMutation,
-  useChallengeMutation
+  useSwitchAccountMutation
 } from "@hey/indexer";
 import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -17,7 +16,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { signIn, signOut } from "src/store/persisted/useAuthStore";
-import { useAccount, useSignMessage } from "wagmi";
+import { useAccount } from "wagmi";
 import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
@@ -25,7 +24,7 @@ const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
   const { currentAccount } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [loggingInProfileId, setLoggingInProfileId] = useState<null | string>(
+  const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
   const { address } = useAccount();
@@ -35,52 +34,31 @@ const SwitchAccounts: FC = () => {
     errorToast(error);
   };
 
-  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-
   const { data, error, loading } = useAccountsAvailableQuery({
     variables: {
       lastLoggedInAccountRequest: { address },
       accountsAvailableRequest: { managedBy: address }
     }
   });
-  const [loadChallenge] = useChallengeMutation();
-  const [authenticate] = useAuthenticateMutation();
+  const [switchAccount] = useSwitchAccountMutation();
 
   if (loading) {
-    return <Loader className="my-5" message="Loading Profiles" />;
+    return <Loader className="my-5" message="Loading Accounts" />;
   }
 
   const accountsAvailable = data?.accountsAvailable.items || [];
 
-  const handleSwitchProfile = async (account: string) => {
+  const handleSwitchAccount = async (account: string) => {
     try {
-      setLoggingInProfileId(account);
+      setLoggingInAccountId(account);
       setIsLoading(true);
-      // Get challenge
-      const challenge = await loadChallenge({
-        variables: {
-          request: { accountOwner: { account, owner: address } }
-        }
-      });
 
-      if (!challenge?.data?.challenge?.text) {
-        return toast.error(Errors.SomethingWentWrong);
-      }
+      const auth = await switchAccount({ variables: { request: { account } } });
 
-      // Get signature
-      const signature = await signMessageAsync({
-        message: challenge?.data?.challenge?.text
-      });
-
-      // Auth profile and set cookies
-      const auth = await authenticate({
-        variables: { request: { id: challenge.data.challenge.id, signature } }
-      });
-
-      if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
-        const accessToken = auth.data?.authenticate.accessToken;
-        const refreshToken = auth.data?.authenticate.refreshToken;
-        const idToken = auth.data?.authenticate.idToken;
+      if (auth.data?.switchAccount.__typename === "AuthenticationTokens") {
+        const accessToken = auth.data?.switchAccount.accessToken;
+        const refreshToken = auth.data?.switchAccount.refreshToken;
+        const idToken = auth.data?.switchAccount.idToken;
         signOut();
         signIn({ accessToken, idToken, refreshToken });
         return reload();
@@ -112,15 +90,15 @@ const SwitchAccounts: FC = () => {
       <ErrorMessage
         className="m-2"
         error={error}
-        title="Failed to load profiles"
+        title="Failed to load accounts"
       />
       {accountsAvailable.map((accountAvailable, index) => (
         <button
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           key={accountAvailable?.account.address}
           onClick={async () => {
-            const selectedProfile = accountsAvailable[index].account as Account;
-            await handleSwitchProfile(selectedProfile.address);
+            const selectedAccount = accountsAvailable[index].account as Account;
+            await handleSwitchAccount(selectedAccount.address);
           }}
           type="button"
         >
@@ -146,7 +124,7 @@ const SwitchAccounts: FC = () => {
             </div>
           </span>
           {isLoading &&
-          accountAvailable.account.address === loggingInProfileId ? (
+          accountAvailable.account.address === loggingInAccountId ? (
             <Spinner size="xs" />
           ) : currentAccount?.address === accountAvailable.account.address ? (
             <CheckCircleIcon className="size-5 text-green-500" />
