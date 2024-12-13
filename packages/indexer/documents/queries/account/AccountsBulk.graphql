@@ -1,0 +1,5 @@
+query AccountsBulk($request: AccountsBulkRequest!) {
+  accountsBulk(request: $request) {
+    ...AccountFields
+  }
+}
