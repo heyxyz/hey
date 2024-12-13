@@ -1,4 +1,5 @@
 import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
+import { PostActionType } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 
 const collectModuleParams = (
@@ -57,9 +58,9 @@ const collectModuleParams = (
   });
 
   switch (collectModule.type) {
-    case CollectOpenActionModuleType.SimpleCollectOpenActionModule:
+    case PostActionType.SimpleCollectAction:
       return { simpleCollectOpenAction: baseCollectModuleParams };
-    case CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
+    case PostActionType.MultirecipientFeeCollectAction:
       return {
         multirecipientCollectOpenAction: {
           ...baseCollectModuleParams,
