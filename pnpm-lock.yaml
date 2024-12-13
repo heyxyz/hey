@@ -249,9 +249,6 @@ importers:
       '@apollo/client':
         specifier: ^3.12.2
         version: 3.12.2(@types/react@19.0.1)(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@aws-sdk/client-s3':
-        specifier: ^3.705.0
-        version: 3.705.0
       '@aws-sdk/lib-storage':
         specifier: ^3.705.0
         version: 3.705.0(@aws-sdk/client-s3@3.705.0)
