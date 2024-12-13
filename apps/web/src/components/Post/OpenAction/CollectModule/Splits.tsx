@@ -7,7 +7,7 @@ import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import {
   type Account,
   type RecipientDataOutput,
-  useAccountsQuery
+  useAccountsBulkQuery
 } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
@@ -19,7 +19,7 @@ interface SplitsProps {
 }
 
 const Splits: FC<SplitsProps> = ({ recipients }) => {
-  const { data: recipientProfilesData, loading } = useAccountsQuery({
+  const { data: recipientProfilesData, loading } = useAccountsBulkQuery({
     skip: !recipients?.length,
     variables: {
       request: { addresses: recipients?.map((r) => r.recipient) }
@@ -31,7 +31,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
   }
 
   const getAccountByAddress = (address: string) => {
-    const accounts = recipientProfilesData?.accounts;
+    const accounts = recipientProfilesData?.accountsBulk;
     if (accounts) {
       return accounts.find((a) => a.address === address);
     }
