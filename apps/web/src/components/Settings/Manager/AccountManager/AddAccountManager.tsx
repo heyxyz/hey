@@ -32,8 +32,6 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [canExecuteTransactions, setCanExecuteTransactions] = useState(true);
   const [canSetMetadataUri, setCanSetMetadataUri] = useState(true);
-  const [canTransferNative, setCanTransferNative] = useState(true);
-  const [canTransferTokens, setCanTransferTokens] = useState(true);
 
   const { data: walletClient } = useWalletClient();
 
@@ -99,8 +97,8 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
           permissions: {
             canExecuteTransactions,
             canSetMetadataUri,
-            canTransferNative,
-            canTransferTokens
+            canTransferNative: true,
+            canTransferTokens: true
           }
         }
       }
@@ -119,28 +117,16 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       />
       <div className="space-y-3 py-3">
         <ToggleWithHelper
-          description="Allow the manager to execute transactions"
-          heading="Can execute transactions"
+          description="The manager can spend and transfer funds on your behalf"
+          heading="Enable Financial Transactions"
           on={canExecuteTransactions}
           setOn={setCanExecuteTransactions}
         />
         <ToggleWithHelper
-          description="Allow the manager to set the metadata URI"
-          heading="Can set metadata URI"
+          description="The manager can update your profile"
+          heading="Enable Profile Updates"
           on={canSetMetadataUri}
           setOn={setCanSetMetadataUri}
-        />
-        <ToggleWithHelper
-          description="Allow the manager to transfer native tokens"
-          heading="Can transfer native tokens"
-          on={canTransferNative}
-          setOn={setCanTransferNative}
-        />
-        <ToggleWithHelper
-          description="Allow the manager to transfer tokens"
-          heading="Can transfer tokens"
-          on={canTransferTokens}
-          setOn={setCanTransferTokens}
         />
       </div>
       <div className="flex">
