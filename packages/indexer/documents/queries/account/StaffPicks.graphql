@@ -4,12 +4,18 @@ query StaffPicks(
   $batch3: [EvmAddress!]
 ) {
   batch1: accounts(request: { addresses: $batch1 }) {
-    ...AccountFields
+    items {
+      ...AccountFields
+    }
   }
   batch2: accounts(request: { addresses: $batch2 }) {
-    ...AccountFields
+    items {
+      ...AccountFields
+    }
   }
   batch3: accounts(request: { addresses: $batch3 }) {
-    ...AccountFields
+    items {
+      ...AccountFields
+    }
   }
 }
