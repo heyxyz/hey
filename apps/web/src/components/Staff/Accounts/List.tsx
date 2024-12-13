@@ -4,9 +4,9 @@ import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
-  type AccountSearchRequest,
+  type AccountsRequest,
   PageSize,
-  useSearchAccountsLazyQuery
+  useAccountsLazyQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -37,13 +37,13 @@ const List: FC = () => {
   });
 
   const [searchAccounts, { data: searchData, loading: searchLoading }] =
-    useSearchAccountsLazyQuery();
+    useAccountsLazyQuery();
 
   useEffect(() => {
     if (debouncedSearchText) {
-      const request: AccountSearchRequest = {
+      const request: AccountsRequest = {
         pageSize: PageSize.Fifty,
-        localName: debouncedSearchText
+        filter: { searchBy: { localNameQuery: debouncedSearchText } }
       };
 
       searchAccounts({ variables: { request } });
@@ -51,7 +51,7 @@ const List: FC = () => {
   }, [debouncedSearchText]);
 
   const accounts = searchText
-    ? searchData?.searchAccounts.items
+    ? searchData?.accounts?.items
     : data?.exploreProfiles.items;
   const pageInfo = data?.exploreProfiles?.pageInfo;
   const hasMore = pageInfo?.next;

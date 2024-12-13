@@ -1,4 +1,4 @@
-import { useSearchGroupsLazyQuery } from "@hey/indexer";
+import { useGroupsLazyQuery } from "@hey/indexer";
 import { useEffect, useState } from "react";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
@@ -13,7 +13,7 @@ export type GroupProfile = {
 
 const useGroupQuery = (query: string): GroupProfile[] => {
   const [results, setResults] = useState<GroupProfile[]>([]);
-  const [searchGroups] = useSearchGroupsLazyQuery();
+  const [searchGroups] = useGroupsLazyQuery();
 
   useEffect(() => {
     if (!query) {
@@ -21,12 +21,14 @@ const useGroupQuery = (query: string): GroupProfile[] => {
       return;
     }
 
-    searchGroups({ variables: { request: { query } } }).then(({ data }) => {
-      const groups = data?.searchGroups?.items;
+    searchGroups({
+      variables: { request: { filter: { searchQuery: query } } }
+    }).then(({ data }) => {
+      const groups = data?.groups?.items;
       const groupsResults = (groups ?? []).map(
         (group): GroupProfile => ({
-          slug: group.metadata?.slug || "",
-          handle: group.metadata?.slug || "",
+          slug: group.address || "",
+          handle: group.metadata?.name || "",
           address: group.address,
           name: group.metadata?.name || "",
           picture: group.metadata?.icon || ""

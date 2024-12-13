@@ -1,8 +1,8 @@
 import {
   type Account,
-  type AccountSearchRequest,
+  type AccountsRequest,
   PageSize,
-  useSearchAccountsLazyQuery
+  useAccountsLazyQuery
 } from "@hey/indexer";
 import { Card, Input } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
@@ -26,21 +26,21 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
   placeholder = "Search…",
   value
 }) => {
-  const [searchAccounts, { data, loading }] = useSearchAccountsLazyQuery();
+  const [searchAccounts, { data, loading }] = useAccountsLazyQuery();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event);
 
     const keyword = event.target.value;
-    const request: AccountSearchRequest = {
+    const request: AccountsRequest = {
       pageSize: PageSize.Fifty,
-      localName: keyword
+      filter: { searchBy: { localNameQuery: keyword } }
     };
 
     searchAccounts({ variables: { request } });
   };
 
-  const accounts = data?.searchAccounts.items as Account[];
+  const accounts = data?.accounts?.items as Account[];
 
   return (
     <div className="relative w-full">

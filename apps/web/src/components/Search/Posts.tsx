@@ -4,8 +4,9 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   type AnyPost,
   PageSize,
-  type SearchPostsRequest,
-  useSearchPostsQuery
+  type Post,
+  type PostsRequest,
+  usePostsQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -22,15 +23,17 @@ interface PostsProps {
 const Posts: FC<PostsProps> = ({ query }) => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 
-  const request: SearchPostsRequest = { pageSize: PageSize.Fifty, query };
+  const request: PostsRequest = {
+    pageSize: PageSize.Fifty,
+    filter: { searchQuery: query }
+  };
 
-  const { data, error, fetchMore, loading } = useSearchPostsQuery({
+  const { data, error, fetchMore, loading } = usePostsQuery({
     variables: { request }
   });
 
-  const search = data?.searchPosts;
-  const posts = search?.items as AnyPost[];
-  const pageInfo = search?.pageInfo;
+  const posts = data?.posts?.items as AnyPost[];
+  const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onScrolling = (scrolling: boolean) => {
@@ -82,7 +85,7 @@ const Posts: FC<PostsProps> = ({ query }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post}
+            post={post as Post}
           />
         )}
         ref={virtuoso}
