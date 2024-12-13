@@ -20,7 +20,7 @@ export const post = [
       });
 
       await delRedis(`account:${payload.act.sub}`);
-      logger.info(`Cleared profile status for ${payload.act.sub}`);
+      logger.info(`Cleared account status for ${payload.act.sub}`);
 
       return res.status(200).json({ result: accountStatus, success: true });
     } catch (error) {

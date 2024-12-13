@@ -10,7 +10,7 @@ const defaultMetadata: Metadata = {
     "hey.xyz",
     "social media",
     "lenster",
-    "polygon",
+    "zksync",
     "lens",
     "lens protocol",
     "decentralized",

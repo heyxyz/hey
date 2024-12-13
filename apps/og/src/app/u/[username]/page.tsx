@@ -54,7 +54,7 @@ export const generateMetadata = async ({
       "social media profile",
       "social media",
       "lenster",
-      "polygon",
+      "zksync",
       "profile",
       "lens",
       "lens protocol",
