@@ -3,7 +3,6 @@ fragment GroupFields on Group {
   isMember
   metadata {
     name
-    slug
     description
     icon
     coverPicture
