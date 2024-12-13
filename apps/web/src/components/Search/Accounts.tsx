@@ -5,9 +5,7 @@ import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   type AccountSearchRequest,
-  AccountsRequest,
   PageSize,
-  useAccountsQuery,
   useSearchAccountsQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
@@ -19,12 +17,12 @@ interface AccountsProps {
 }
 
 const Accounts: FC<AccountsProps> = ({ query }) => {
-  const request: AccountsRequest = {
+  const request: AccountSearchRequest = {
     pageSize: PageSize.Fifty,
     localName: query
   };
 
-  const { data, error, fetchMore, loading } = useAccountsQuery({
+  const { data, error, fetchMore, loading } = useSearchAccountsQuery({
     skip: !query,
     variables: { request }
   });
