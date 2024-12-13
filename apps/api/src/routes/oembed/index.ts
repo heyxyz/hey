@@ -1,4 +1,4 @@
-import { getRedis, setRedis } from "@hey/db/redisClient";
+import { getRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import sha256 from "@hey/helpers/sha256";
 import type { Request, Response } from "express";
@@ -35,17 +35,11 @@ export const get = [
         return res.status(200).json({ oembed: null, success: false });
       }
 
-      const skipCache = oembed.frame !== null;
-
-      if (!skipCache) {
-        await setRedis(cacheKey, oembed);
-      }
-
       logger.info(`Oembed generated for ${url}`);
 
       return res
         .status(200)
-        .setHeader("Cache-Control", skipCache ? "no-cache" : CACHE_AGE_1_DAY)
+        .setHeader("Cache-Control", CACHE_AGE_1_DAY)
         .json({ oembed, success: true });
     } catch (error) {
       return catchedError(res, error);

@@ -1,4 +1,3 @@
-import getCollectModuleMetadata from "@helpers/getCollectModuleMetadata";
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
@@ -86,8 +85,7 @@ export const generateMetadata = async ({
       "count:likes": targetPost.stats.reactions,
       "count:reposts": targetPost.stats.reposts,
       "count:quotes": targetPost.stats.quotes,
-      "lens:id": targetPost.id,
-      ...getCollectModuleMetadata(targetPost)
+      "lens:id": targetPost.id
     },
     publisher: name,
     title: title,

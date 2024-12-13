@@ -81,7 +81,7 @@ const PostBody: FC<PostBodyProps> = ({
   const showCheckin = metadata.__typename === "CheckingInMetadata";
   // Show quote
   const showQuote = targetPost.quoteOf;
-  // Show oembed if no NFT, no attachments, no quoted post
+  // Hide oembed if the post has the hide_oembed attribute
   const hideOembed =
     getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
     "true";
@@ -141,10 +141,8 @@ const PostBody: FC<PostBodyProps> = ({
         </div>
       ) : null}
       {showCheckin ? <Checkin post={targetPost} /> : null}
-      {showOembed ? <Oembed post={targetPost} url={urls[0]} /> : null}
-      {showSharingLink ? (
-        <Oembed post={targetPost} url={metadata.sharingLink} />
-      ) : null}
+      {showOembed ? <Oembed url={urls[0]} /> : null}
+      {showSharingLink ? <Oembed url={metadata.sharingLink} /> : null}
       {showQuote ? <Quote post={targetPost.quoteOf as Post} /> : null}
       <Metadata metadata={targetPost.metadata} />
     </div>
