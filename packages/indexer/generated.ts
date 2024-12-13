@@ -6426,6 +6426,13 @@ export type RefreshMutationVariables = Exact<{
 
 export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ForbiddenError', reason: string } };
 
+export type SwitchAccountMutationVariables = Exact<{
+  request: SwitchAccountRequest;
+}>;
+
+
+export type SwitchAccountMutation = { __typename?: 'Mutation', switchAccount: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ForbiddenError' } };
+
 export type CreateGroupMutationVariables = Exact<{
   request: CreateGroupRequest;
 }>;
@@ -7579,6 +7586,33 @@ export function useRefreshMutation(baseOptions?: Apollo.MutationHookOptions<Refr
 export type RefreshMutationHookResult = ReturnType<typeof useRefreshMutation>;
 export type RefreshMutationResult = Apollo.MutationResult<RefreshMutation>;
 export type RefreshMutationOptions = Apollo.BaseMutationOptions<RefreshMutation, RefreshMutationVariables>;
+export const SwitchAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SwitchAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SwitchAccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"switchAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AuthenticationTokens"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"idToken"}}]}}]}}]}}]} as unknown as DocumentNode;
+export type SwitchAccountMutationFn = Apollo.MutationFunction<SwitchAccountMutation, SwitchAccountMutationVariables>;
+
+/**
+ * __useSwitchAccountMutation__
+ *
+ * To run a mutation, you first call `useSwitchAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSwitchAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [switchAccountMutation, { data, loading, error }] = useSwitchAccountMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSwitchAccountMutation(baseOptions?: Apollo.MutationHookOptions<SwitchAccountMutation, SwitchAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SwitchAccountMutation, SwitchAccountMutationVariables>(SwitchAccountDocument, options);
+      }
+export type SwitchAccountMutationHookResult = ReturnType<typeof useSwitchAccountMutation>;
+export type SwitchAccountMutationResult = Apollo.MutationResult<SwitchAccountMutation>;
+export type SwitchAccountMutationOptions = Apollo.BaseMutationOptions<SwitchAccountMutation, SwitchAccountMutationVariables>;
 export const CreateGroupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateGroup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateGroupRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createGroup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateGroupResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type CreateGroupMutationFn = Apollo.MutationFunction<CreateGroupMutation, CreateGroupMutationVariables>;
 
