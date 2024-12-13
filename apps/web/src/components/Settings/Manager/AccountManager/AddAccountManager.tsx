@@ -119,25 +119,25 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       />
       <div className="space-y-3 py-3">
         <ToggleWithHelper
-          description="Allow the manager to execute transactions on your behalf"
+          description="Allow the manager to execute transactions"
           heading="Can execute transactions"
           on={canExecuteTransactions}
           setOn={setCanExecuteTransactions}
         />
         <ToggleWithHelper
-          description="Allow the manager to set the metadata URI on your behalf"
+          description="Allow the manager to set the metadata URI"
           heading="Can set metadata URI"
           on={canSetMetadataUri}
           setOn={setCanSetMetadataUri}
         />
         <ToggleWithHelper
-          description="Allow the manager to transfer native tokens on your behalf"
+          description="Allow the manager to transfer native tokens"
           heading="Can transfer native tokens"
           on={canTransferNative}
           setOn={setCanTransferNative}
         />
         <ToggleWithHelper
-          description="Allow the manager to transfer tokens on your behalf"
+          description="Allow the manager to transfer tokens"
           heading="Can transfer tokens"
           on={canTransferTokens}
           setOn={setCanTransferTokens}
