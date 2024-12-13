@@ -59,7 +59,7 @@ export const postUpdateTasks = async (
               <p>Hey Hey!</p>
               <br />
               <p>Yay! Your account on ${APP_NAME} has been verified! ✅</p>
-              <a href="https://hey.xyz/account/${accountAddress}">Visit your profile →</a>
+              <a href="https://hey.xyz/account/${accountAddress}">Visit your account →</a>
               <br />
               <p>Thanks,</p>
               <p>${APP_NAME} team</p>
