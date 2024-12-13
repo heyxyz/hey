@@ -39,8 +39,8 @@ export const generateMetadata = async ({
 
   const account = result.data.profile as Account;
   const stats = result.data.accountStats as AccountStats;
-  const { name, link, slugWithPrefix } = getAccount(account);
-  const title = `${name} (${slugWithPrefix}) • ${APP_NAME}`;
+  const { name, link, usernameWithPrefix } = getAccount(account);
+  const title = `${name} (${usernameWithPrefix}) • ${APP_NAME}`;
   const description = (account?.metadata?.bio || title).slice(0, 155);
 
   return {
@@ -61,7 +61,7 @@ export const generateMetadata = async ({
       "decentralized",
       "web3",
       name,
-      slugWithPrefix
+      usernameWithPrefix
     ],
     metadataBase: new URL(`https://hey.xyz${link}`),
     openGraph: {

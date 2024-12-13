@@ -43,8 +43,8 @@ export const generateMetadata = async ({
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
-  const { name, link, slugWithPrefix } = getAccount(author);
-  const title = `${targetPost.__typename} by ${slugWithPrefix} • ${APP_NAME}`;
+  const { name, link, usernameWithPrefix } = getAccount(author);
+  const title = `${targetPost.__typename} by ${usernameWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 
   return {
@@ -69,7 +69,7 @@ export const generateMetadata = async ({
       "decentralized",
       "web3",
       name,
-      slugWithPrefix
+      usernameWithPrefix
     ],
     metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
     openGraph: {
