@@ -46,7 +46,7 @@ const MuteOrUnmuteAccount: FC = () => {
     setIsLoading(false);
     setHasMuted(!hasMuted);
     setShowMuteOrUnmuteAlert(false, null);
-    toast.success(hasMuted ? "Unmuted" : "Muted");
+    toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
   };
 
   const onError = (error: any) => {

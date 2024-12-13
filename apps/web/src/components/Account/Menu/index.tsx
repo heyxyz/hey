@@ -10,6 +10,7 @@ import Block from "./Block";
 import CopyAddress from "./CopyAddress";
 import CopyID from "./CopyID";
 import CopyLink from "./CopyLink";
+import Mute from "./Mute";
 import Report from "./Report";
 
 interface AccountMenuProps {
@@ -42,6 +43,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
           {currentAccount && currentAccount?.address !== account.address ? (
             <>
               <Block account={account} />
+              <Mute account={account} />
               <Report account={account} />
             </>
           ) : null}
