@@ -1,6 +1,5 @@
 import JoinLeaveButton from "@components/Shared/Group/JoinLeaveButton";
 import Markup from "@components/Shared/Markup";
-import Slug from "@components/Shared/Slug";
 import getMentions from "@hey/helpers/getMentions";
 import humanize from "@hey/helpers/humanize";
 import type { Group, GroupStatsResponse } from "@hey/indexer";
@@ -31,14 +30,7 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
         />
         <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
       </div>
-      <div className="space-y-1 py-2">
-        <H3 className="truncate">{group.metadata?.name}</H3>
-        <Slug
-          className="text-sm sm:text-base"
-          prefix="/"
-          slug={group.metadata?.slug || ""}
-        />
-      </div>
+      <H3 className="truncate py-2">{group.metadata?.name}</H3>
       {group.metadata?.description ? (
         <div className="markup linkify mr-0 break-words text-md sm:mr-10">
           <Markup mentions={getMentions(group.metadata?.description)}>

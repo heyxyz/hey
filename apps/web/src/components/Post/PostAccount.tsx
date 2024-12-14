@@ -3,27 +3,24 @@ import Misuse from "@components/Shared/Account/Icons/Misuse";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
-import type { Account } from "@hey/indexer";
+import type { Account, App } from "@hey/indexer";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import AccountPreview from "../Shared/AccountPreview";
 import Slug from "../Shared/Slug";
-import GroupHandle from "./GroupHandle";
 
 interface PostAccountProps {
   account: Account;
   postId: string;
-  source?: string;
-  tags: string[];
+  app?: App;
   timestamp: Date;
 }
 
 const PostAccount: FC<PostAccountProps> = ({
   account,
   postId,
-  source,
-  tags,
+  app,
   timestamp
 }) => {
   const WrappedLink = ({ children }: { children: ReactNode }) => (
@@ -47,7 +44,10 @@ const PostAccount: FC<PostAccountProps> = ({
         <span className="font-semibold">{getAccount(account).name}</span>
       </WrappedLink>
       <WrappedLink>
-        <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
+        <Slug
+          className="text-sm"
+          slug={getAccount(account).usernameWithPrefix}
+        />
       </WrappedLink>
       <Verified address={account.address} iconClassName="size-4" />
       <Misuse address={account.address} iconClassName="size-4" />
@@ -59,8 +59,7 @@ const PostAccount: FC<PostAccountProps> = ({
           </Link>
         </span>
       ) : null}
-      <GroupHandle tags={tags} />
-      <Source publishedOn={source} />
+      {app ? <Source app={app} /> : null}
     </div>
   );
 };
