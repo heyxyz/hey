@@ -1,15 +1,16 @@
-import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
+import type { App } from "@hey/indexer";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 
 interface SourceProps {
-  publishedOn: string | undefined;
+  app: App;
 }
 
-const Source: FC<SourceProps> = ({ publishedOn }) => {
+const Source: FC<SourceProps> = ({ app }) => {
   const enabled = useFlag(FeatureFlag.Staff);
-  const show = publishedOn === APP_NAME.toLowerCase();
+  const show = app.metadata?.name.toLowerCase() === APP_NAME.toLowerCase();
 
   if (!enabled || !show) {
     return null;
@@ -22,7 +23,7 @@ const Source: FC<SourceProps> = ({ publishedOn }) => {
         alt="Logo"
         className="mt-0.5 h-3.5 rounded-sm"
         height={14}
-        src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
+        src={app.metadata?.logo}
       />
     </span>
   );

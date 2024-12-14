@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import Members from "../Shared/Modal/Members";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
 import GroupPageShimmer from "./Shimmer";
@@ -21,12 +20,9 @@ import GroupPageShimmer from "./Shimmer";
 const ViewGroup: NextPage = () => {
   const {
     isReady,
-    pathname,
     query: { address }
   } = useRouter();
   const { currentAccount } = useAccountStore();
-
-  const showMembers = pathname === "/g/[address]/members";
 
   const { data, loading, error } = useGroupQuery({
     variables: {
@@ -37,7 +33,7 @@ const ViewGroup: NextPage = () => {
   });
 
   if (!isReady || loading) {
-    return <GroupPageShimmer profileList={showMembers} />;
+    return <GroupPageShimmer />;
   }
 
   if (!data?.group) {
@@ -55,7 +51,7 @@ const ViewGroup: NextPage = () => {
     <>
       <MetaTags
         description={group.metadata?.description || ""}
-        title={`${group.metadata?.name} (/${group.metadata?.slug}) • ${APP_NAME}`}
+        title={`${group.metadata?.name} • ${APP_NAME}`}
       />
       <Cover
         cover={group.metadata?.icon || `${STATIC_IMAGES_URL}/patterns/2.svg`}
@@ -65,14 +61,8 @@ const ViewGroup: NextPage = () => {
           <Details group={group} stats={stats} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {showMembers ? (
-            <Members address={group.address} />
-          ) : (
-            <>
-              {currentAccount && group.isMember && <NewPost />}
-              <GroupFeed address={group.address} />
-            </>
-          )}
+          {currentAccount && group.isMember && <NewPost />}
+          <GroupFeed address={group.address} />
         </GridItemEight>
       </GridLayout>
     </>

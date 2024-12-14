@@ -35,8 +35,7 @@ const PostHeader: FC<PostHeaderProps> = ({
       <PostAccount
         account={account}
         postId={targetPost.id}
-        source={targetPost.app?.address}
-        tags={targetPost.metadata?.tags || []}
+        app={targetPost.app}
         timestamp={timestamp}
       />
       {!post.isDeleted && !quoted ? (

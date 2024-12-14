@@ -1,15 +1,8 @@
-import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
-import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
 
-interface GroupPageShimmerProps {
-  profileList?: boolean;
-}
-
-const GroupPageShimmer: FC<GroupPageShimmerProps> = ({
-  profileList = false
-}) => {
+const GroupPageShimmer: FC = () => {
   return (
     <>
       <div className="container mx-auto max-w-[1350px]">
@@ -39,13 +32,7 @@ const GroupPageShimmer: FC<GroupPageShimmerProps> = ({
           </div>
         </GridItemFour>
         <GridItemEight>
-          {profileList ? (
-            <Card>
-              <AccountListShimmer />
-            </Card>
-          ) : (
-            <PostsShimmer />
-          )}
+          <PostsShimmer />
         </GridItemEight>
       </GridLayout>
     </>
