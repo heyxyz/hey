@@ -1,59 +1,34 @@
-import errorToast from "@helpers/errorToast";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
+import { useSwitchAccountMutation } from "@hey/indexer";
 import { Button, H4, Spinner } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { signIn } from "src/store/persisted/useAuthStore";
-import { useAccount, useSignMessage } from "wagmi";
 import { useSignupStore } from ".";
 
 const Success: FC = () => {
   const { reload } = useRouter();
-  const { accountAddress } = useSignupStore();
+  const { accountAddress, onboardingToken } = useSignupStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { address } = useAccount();
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
-  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
-  const [loadChallenge] = useChallengeMutation();
-  const [authenticate] = useAuthenticateMutation();
+  const [switchAccount] = useSwitchAccountMutation();
 
   const handleSign = async () => {
     try {
       setIsLoading(true);
-      // Get challenge
-      const challenge = await loadChallenge({
-        variables: {
-          request: { accountOwner: { account: accountAddress, owner: address } }
-        }
+
+      const auth = await switchAccount({
+        context: { headers: { "X-Access-Token": onboardingToken } },
+        variables: { request: { account: accountAddress } }
       });
 
-      if (!challenge?.data?.challenge?.text) {
-        return toast.error(Errors.SomethingWentWrong);
-      }
-
-      // Get signature
-      const signature = await signMessageAsync({
-        message: challenge?.data?.challenge?.text
-      });
-
-      // Auth profile and set cookies
-      const auth = await authenticate({
-        variables: { request: { id: challenge.data.challenge.id, signature } }
-      });
-
-      if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
-        const accessToken = auth.data?.authenticate.accessToken;
-        const refreshToken = auth.data?.authenticate.refreshToken;
-        const idToken = auth.data?.authenticate.idToken;
+      if (auth.data?.switchAccount.__typename === "AuthenticationTokens") {
+        const accessToken = auth.data?.switchAccount.accessToken;
+        const refreshToken = auth.data?.switchAccount.refreshToken;
+        const idToken = auth.data?.switchAccount.idToken;
         signIn({ accessToken, idToken, refreshToken });
         return reload();
       }
