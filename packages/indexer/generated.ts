@@ -2555,7 +2555,7 @@ export type MeResult = {
  * "$ref": "#/$defs/EncryptableString"
  * },
  * "duration": {
- * "description": "How long the the audio is in seconds.",
+ * "description": "How long the audio is in seconds.",
  * "type": "integer",
  * "exclusiveMinimum": 0.0
  * },
@@ -2621,7 +2621,7 @@ export type MediaAudio = {
   cover?: Maybe<Scalars['Encryptable']['output']>;
   /** The credits for the audio. */
   credits?: Maybe<Scalars['Encryptable']['output']>;
-  /** How long the the audio is in seconds. */
+  /** How long the audio is in seconds. */
   duration?: Maybe<Scalars['Int']['output']>;
   /** The genre of the audio */
   genre?: Maybe<Scalars['Encryptable']['output']>;
@@ -2835,7 +2835,7 @@ export enum MediaImageType {
  * "$ref": "#/$defs/EncryptableUri"
  * },
  * "duration": {
- * "description": "How long the the video is in seconds",
+ * "description": "How long the video is in seconds",
  * "type": "integer",
  * "exclusiveMinimum": 0.0
  * },
@@ -2878,7 +2878,7 @@ export type MediaVideo = {
    */
   attributes: Array<MetadataAttribute>;
   cover?: Maybe<Scalars['Encryptable']['output']>;
-  /** How long the the video is in seconds */
+  /** How long the video is in seconds */
   duration?: Maybe<Scalars['Int']['output']>;
   item: Scalars['Encryptable']['output'];
   /** The license for the video */
