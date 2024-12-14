@@ -16,9 +16,6 @@ const REFRESH_AUTHENTICATION_MUTATION = `
         refreshToken
         idToken
       }
-      ... on ForbiddenError {
-        reason
-      }
     }
   }
 `;
