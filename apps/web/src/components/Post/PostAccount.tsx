@@ -3,7 +3,7 @@ import Misuse from "@components/Shared/Account/Icons/Misuse";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
-import type { Account, App } from "@hey/indexer";
+import type { Account, App, Maybe } from "@hey/indexer";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
@@ -13,7 +13,7 @@ import Slug from "../Shared/Slug";
 interface PostAccountProps {
   account: Account;
   postId: string;
-  app?: App;
+  app?: Maybe<App>;
   timestamp: Date;
 }
 
