@@ -45,7 +45,12 @@ const validationSchema = object({
 });
 
 const ChooseUsername: FC = () => {
-  const { setChoosedHandle, setScreen, setTransactionHash } = useSignupStore();
+  const {
+    setChoosedHandle,
+    setScreen,
+    setTransactionHash,
+    setOnboardingToken
+  } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
@@ -103,6 +108,7 @@ const ChooseUsername: FC = () => {
         const metadata = accountMetadata({ name: username });
         const metadataUri = await uploadMetadata(metadata);
 
+        setOnboardingToken(accessToken);
         return await createAccountWithUsername({
           context: { headers: { "X-Access-Token": accessToken } },
           variables: {
