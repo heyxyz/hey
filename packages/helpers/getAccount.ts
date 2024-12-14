@@ -1,4 +1,5 @@
 import type { Account } from "@hey/indexer";
+import formatAddress from "./formatAddress";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
@@ -24,7 +25,8 @@ const getAccount = (
   }
 
   const prefix = account.username ? "@" : "#";
-  const username = account.username?.localName || account.address;
+  const username =
+    account.username?.localName || formatAddress(account.address);
   const link = account.username
     ? `/u/${account.username.localName}`
     : `/account/${account.address}`;
