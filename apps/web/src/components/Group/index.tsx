@@ -32,7 +32,8 @@ const ViewGroup: NextPage = () => {
     variables: {
       groupRequest: { group: address },
       groupStatsRequest: { group: address }
-    }
+    },
+    skip: !address
   });
 
   if (!isReady || loading) {
