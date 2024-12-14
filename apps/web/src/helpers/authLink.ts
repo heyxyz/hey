@@ -28,7 +28,10 @@ const authLink = new ApolloLink((operation, forward) => {
     return forward(operation);
   }
 
-  const expiringSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
+  const tokenData = parseJwt(accessToken);
+  const expiringSoon = tokenData?.exp
+    ? Date.now() >= tokenData.exp * 1000 - 2 * 60 * 1000
+    : true;
 
   if (!expiringSoon) {
     operation.setContext({
