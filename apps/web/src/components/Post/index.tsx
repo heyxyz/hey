@@ -8,7 +8,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -143,7 +142,6 @@ const ViewPost: NextPage = () => {
             }
             account={targetPost.author}
             showBio
-            source={AccountLinkSource.Post}
           />
         </Card>
         <RelevantPeople mentions={targetPost.mentions} />

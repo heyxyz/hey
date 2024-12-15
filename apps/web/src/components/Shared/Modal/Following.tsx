@@ -1,7 +1,6 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account, FollowingRequest } from "@hey/indexer";
 import { PageSize, useFollowingQuery } from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
@@ -87,7 +86,6 @@ const Following: FC<FollowingProps> = ({ handle, address }) => {
             account={following.following as Account}
             showBio
             showUserPreview={false}
-            source={AccountLinkSource.Following}
           />
         </div>
       )}

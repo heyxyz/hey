@@ -1,5 +1,4 @@
 import SingleAccount from "@components/Shared/SingleAccount";
-import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -27,7 +26,6 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
               account={account as Account}
               showBio
               showUserPreview={false}
-              source={AccountLinkSource.WhoToFollow}
             />
           </div>
         )}

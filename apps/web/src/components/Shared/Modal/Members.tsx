@@ -1,7 +1,6 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   type GroupMembersRequest,
@@ -80,7 +79,6 @@ const Members: FC<MembersProps> = ({ address }) => {
             account={member as Account}
             showBio
             showUserPreview={false}
-            source={AccountLinkSource.Followers}
           />
         </div>
       )}

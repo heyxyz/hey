@@ -1,7 +1,6 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   PageSize,
@@ -84,7 +83,6 @@ const Likes: FC<LikesProps> = ({ postId }) => {
             account={like.account as Account}
             showBio
             showUserPreview={false}
-            source={AccountLinkSource.Likes}
           />
         </div>
       )}

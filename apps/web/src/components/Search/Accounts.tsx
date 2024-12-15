@@ -1,7 +1,6 @@
 import SingleAccountsShimmer from "@components/Shared/Shimmer/SingleAccountsShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   type AccountsRequest,
@@ -74,7 +73,6 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
             isBig
             account={account as Account}
             showBio
-            source={AccountLinkSource.Search}
           />
         </Card>
       )}

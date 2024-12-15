@@ -1,7 +1,6 @@
 import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAccount";
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   PageSize,
@@ -73,7 +72,6 @@ const WhoToFollow: FC = () => {
                 hideFollowButton={currentAccount?.address === account.address}
                 hideUnfollowButton={currentAccount?.address === account.address}
                 account={account as Account}
-                source={AccountLinkSource.WhoToFollow}
               />
             </div>
             <DismissRecommendedAccount account={account as Account} />

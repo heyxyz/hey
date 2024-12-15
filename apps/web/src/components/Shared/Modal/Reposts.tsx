@@ -1,7 +1,6 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   PageSize,
@@ -84,7 +83,6 @@ const Reposts: FC<RepostsProps> = ({ postId }) => {
             account={account as Account}
             showBio
             showUserPreview={false}
-            source={AccountLinkSource.Reposts}
           />
         </div>
       )}

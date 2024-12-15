@@ -23,7 +23,6 @@ interface SingleAccountProps {
   account: Account;
   showBio?: boolean;
   showUserPreview?: boolean;
-  source?: string;
   timestamp?: Date;
 }
 
@@ -35,7 +34,6 @@ const SingleAccount: FC<SingleAccountProps> = ({
   account,
   showBio = false,
   showUserPreview = true,
-  source,
   timestamp
 }) => {
   const UserAvatar: FC = () => (
@@ -112,10 +110,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
   return (
     <div className="flex items-center justify-between">
       {linkToAccount && account.address ? (
-        <Link
-          as={getAccount(account).link}
-          href={getAccount(account, source).sourceLink}
-        >
+        <Link href={getAccount(account).link}>
           <AccountInfo />
         </Link>
       ) : (
