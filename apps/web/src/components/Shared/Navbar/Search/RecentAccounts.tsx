@@ -1,7 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { type Account, useAccountsBulkQuery } from "@hey/indexer";
@@ -63,7 +62,6 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
                   linkToAccount={false}
                   account={account as Account}
                   showUserPreview={false}
-                  source={AccountLinkSource.RecentSearch}
                 />
               </div>
               <button

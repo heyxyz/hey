@@ -1,7 +1,6 @@
 import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAccount";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import type { Account } from "@hey/indexer";
 import { EmptyState } from "@hey/ui";
 import type { FC } from "react";
@@ -41,7 +40,6 @@ const Suggested: FC<SuggestedProps> = ({ accounts }) => {
                 account={account as Account}
                 showBio
                 showUserPreview={false}
-                source={AccountLinkSource.WhoToFollow}
               />
             </div>
             <DismissRecommendedAccount account={account as Account} />

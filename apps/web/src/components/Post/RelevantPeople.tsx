@@ -1,6 +1,5 @@
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { AccountLinkSource } from "@hey/data/tracking";
 import {
   type Account,
   type AccountMention,
@@ -65,7 +64,6 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
               hideUnfollowButton={currentAccount?.address === account.address}
               account={account as Account}
               showUserPreview={false}
-              source={AccountLinkSource.RelevantPeople}
             />
           </div>
         ))}

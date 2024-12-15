@@ -3,7 +3,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
-  BookmarkIcon,
   CircleStackIcon,
   CpuChipIcon,
   ExclamationTriangleIcon,
@@ -40,11 +39,6 @@ const SettingsSidebar: FC = () => {
       icon: <AdjustmentsVerticalIcon className="size-4" />,
       title: "Preferences",
       url: "/settings/preferences"
-    },
-    {
-      icon: <BookmarkIcon className="size-4" />,
-      title: "Interests",
-      url: "/settings/interests"
     },
     {
       icon: <FingerPrintIcon className="size-4" />,

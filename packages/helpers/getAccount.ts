@@ -3,14 +3,12 @@ import formatAddress from "./formatAddress";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
-  account: Account | null,
-  source?: string
+  account: Account | null
 ): {
   name: string;
   link: string;
   username: string;
   usernameWithPrefix: string;
-  sourceLink: string;
   staffLink: string;
 } => {
   if (!account) {
@@ -19,7 +17,6 @@ const getAccount = (
       link: "",
       username: "...",
       usernameWithPrefix: "...",
-      sourceLink: "",
       staffLink: ""
     };
   }
@@ -36,7 +33,6 @@ const getAccount = (
     link: link,
     username,
     usernameWithPrefix: `${prefix}${username}`,
-    sourceLink: source ? `${link}?source=${source}` : link,
     staffLink: `/staff/accounts/${account.address}`
   };
 };

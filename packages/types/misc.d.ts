@@ -26,11 +26,6 @@ export interface OG {
   url: string;
 }
 
-export interface ProfileInterest {
-  category: { id: string; label: string };
-  subCategories: { id: string; label: string }[];
-}
-
 export interface Emoji {
   aliases: string[];
   category: string;

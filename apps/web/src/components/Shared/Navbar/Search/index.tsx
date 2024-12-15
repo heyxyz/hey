@@ -1,7 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { AccountLinkSource } from "@hey/data/tracking";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
@@ -123,7 +122,6 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                       linkToAccount={false}
                       account={account}
                       showUserPreview={false}
-                      source={AccountLinkSource.Search}
                     />
                   </div>
                 ))}

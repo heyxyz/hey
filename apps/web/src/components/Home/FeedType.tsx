@@ -1,6 +1,5 @@
 import New from "@components/Shared/Badges/New";
 import { HomeFeedType } from "@hey/data/enums";
-import { HOME } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
 import type { FC, JSX } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -13,18 +12,15 @@ const FeedType: FC = () => {
   const tabs = [
     {
       name: fallbackToCuratedFeed ? "Curated Feed" : "Following",
-      track: HOME.SWITCH_FOLLOWING_FEED,
       type: HomeFeedType.FOLLOWING
     },
     {
       badge: <New />,
       name: "For You",
-      track: HOME.SWITCH_FORYOU_FEED,
       type: HomeFeedType.FORYOU
     },
     {
       name: "Premium",
-      track: HOME.SWITCH_PREMIUM_FEED,
       type: HomeFeedType.PREMIUM
     }
   ].filter(
@@ -33,7 +29,6 @@ const FeedType: FC = () => {
     ): tab is {
       badge?: JSX.Element;
       name: string;
-      track: string;
       type: HomeFeedType;
     } => Boolean(tab)
   );
