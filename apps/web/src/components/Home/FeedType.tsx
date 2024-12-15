@@ -2,7 +2,7 @@ import New from "@components/Shared/Badges/New";
 import { HomeFeedType } from "@hey/data/enums";
 import { HOME } from "@hey/data/tracking";
 import { TabButton } from "@hey/ui";
-import type { FC } from "react";
+import type { FC, JSX } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 
