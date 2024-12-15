@@ -44,7 +44,7 @@ const getPostData = (
             audioAttachments?.coverUri ||
             PLACEHOLDER_IMAGE,
           license: metadata.audio.license,
-          title: metadata.audio.name,
+          title: metadata.title || "Untitled",
           type: "Audio",
           uri: metadata.audio.item || audioAttachments?.uri
         },
