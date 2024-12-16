@@ -15,7 +15,7 @@
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
     "apollo-utilities": "^1.3.4",
-    "graphql": "^16.9.0",
+    "graphql": "^16.10.0",
     "next": "^15.1.0",
     "react": "18.3.1"
   },

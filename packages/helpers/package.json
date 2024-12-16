@@ -15,7 +15,7 @@
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
-    "mailchecker": "^6.0.13",
+    "mailchecker": "^6.0.14",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
     "viem": "^2.21.55",
