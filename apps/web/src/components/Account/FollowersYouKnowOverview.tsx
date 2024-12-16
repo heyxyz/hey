@@ -67,9 +67,9 @@ const FollowersYouKnowOverview: FC<FollowersYouKnowOverviewProps> = ({
     return null;
   }
 
-  const accountOne = accounts[0].follower;
-  const accountTwo = accounts[1].follower;
-  const accountThree = accounts[2].follower;
+  const accountOne = accounts[0]?.follower;
+  const accountTwo = accounts[1]?.follower;
+  const accountThree = accounts[2]?.follower;
 
   if (accounts?.length === 1) {
     return (
