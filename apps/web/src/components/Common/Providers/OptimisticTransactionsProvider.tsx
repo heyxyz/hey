@@ -28,7 +28,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
         return removeTransaction(transaction.txHash as string);
       }
     },
-    pollInterval: 3000,
+    pollInterval: 1000,
     variables: { request: { txHash: transaction.txHash } }
   });
 
