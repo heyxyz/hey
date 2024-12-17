@@ -10,9 +10,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.712.0",
-    "@aws-sdk/client-ses": "^3.712.0",
-    "@aws-sdk/client-sts": "^3.712.0",
+    "@aws-sdk/client-s3": "^3.713.0",
+    "@aws-sdk/client-ses": "^3.713.0",
+    "@aws-sdk/client-sts": "^3.713.0",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
