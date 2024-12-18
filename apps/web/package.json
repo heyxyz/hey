@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.12.3",
-    "@aws-sdk/lib-storage": "^3.713.0",
+    "@aws-sdk/lib-storage": "^3.714.0",
     "@headlessui/react": "2.2.0",
     "@heroicons/react": "^2.2.0",
     "@hey/abis": "workspace:*",
@@ -25,9 +25,9 @@
     "@lens-protocol/metadata": "next",
     "@lens-protocol/storage-node-client": "next",
     "@livepeer/react": "^4.2.9",
-    "@next/bundle-analyzer": "^15.1.0",
+    "@next/bundle-analyzer": "^15.1.1",
     "@radix-ui/react-hover-card": "^1.1.4",
-    "@tanstack/react-query": "^5.62.7",
+    "@tanstack/react-query": "^5.62.8",
     "@uidotdev/usehooks": "^2.4.1",
     "@unleash/proxy-client-react": "^4.4.0",
     "axios": "^1.7.9",
@@ -37,8 +37,8 @@
     "esbuild": "^0.24.0",
     "franc": "^6.2.0",
     "graphql": "^16.10.0",
-    "next": "^15.1.0",
-    "next-axiom": "^1.9.0",
+    "next": "^15.1.1",
+    "next-axiom": "^1.9.1",
     "next-themes": "^0.4.4",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
@@ -81,7 +81,7 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.16",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   }
 }
