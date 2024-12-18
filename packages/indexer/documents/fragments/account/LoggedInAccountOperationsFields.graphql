@@ -2,8 +2,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
