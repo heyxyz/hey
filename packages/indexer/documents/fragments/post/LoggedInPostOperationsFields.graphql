@@ -1,8 +1,5 @@
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   id
-  canComment
-  canQuote
-  canRepost
   hasBookmarked
   hasReacted
   hasReported

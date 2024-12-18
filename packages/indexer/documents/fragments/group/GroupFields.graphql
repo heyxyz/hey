@@ -1,6 +1,8 @@
 fragment GroupFields on Group {
   address
-  isMember
+  operations {
+    isMember
+  }
   metadata {
     name
     description

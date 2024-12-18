@@ -1,7 +1,9 @@
 query GroupMembers($request: GroupMembersRequest!) {
   groupMembers(request: $request) {
     items {
-      ...AccountFields
+      account {
+        ...AccountFields
+      }
     }
     pageInfo {
       ...PaginatedResultInfoFields
