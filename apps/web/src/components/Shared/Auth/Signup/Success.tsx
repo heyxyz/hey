@@ -1,10 +1,10 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { useSwitchAccountMutation } from "@hey/indexer";
-import { Button, H4, Spinner } from "@hey/ui";
+import { H4 } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
-import { useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { signIn } from "src/store/persisted/useAuthStore";
 import { useSignupStore } from ".";
@@ -12,14 +12,10 @@ import { useSignupStore } from ".";
 const Success: FC = () => {
   const { reload } = useRouter();
   const { accountAddress, onboardingToken } = useSignupStore();
-  const [isLoading, setIsLoading] = useState(false);
-
   const [switchAccount] = useSwitchAccountMutation();
 
-  const handleSign = async () => {
+  const handleAuth = async () => {
     try {
-      setIsLoading(true);
-
       const auth = await switchAccount({
         context: { headers: { "X-Access-Token": onboardingToken } },
         variables: { request: { account: accountAddress } }
@@ -37,6 +33,10 @@ const Success: FC = () => {
     } catch {}
   };
 
+  useEffect(() => {
+    handleAuth();
+  }, []);
+
   return (
     <div className="m-8 flex flex-col items-center justify-center">
       <H4>Waaa-hey! You got your profile!</H4>
@@ -49,26 +49,9 @@ const Success: FC = () => {
         className="mx-auto mt-8 size-14"
         src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
       />
-      <Button
-        className="mt-5"
-        disabled={isLoading}
-        icon={
-          isLoading ? (
-            <Spinner className="mr-0.5" size="xs" />
-          ) : (
-            <img
-              alt="Lens Logo"
-              className="h-3"
-              height={12}
-              src="/lens.svg"
-              width={19}
-            />
-          )
-        }
-        onClick={handleSign}
-      >
-        Sign in with Lens
-      </Button>
+      <i className="ld-text-gray-500 mt-8">
+        We are taking you to {APP_NAME}...
+      </i>
     </div>
   );
 };
