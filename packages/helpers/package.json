@@ -7,7 +7,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.12.3",
+    "@apollo/client": "^3.12.4",
     "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",

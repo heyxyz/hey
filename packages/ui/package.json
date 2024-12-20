@@ -17,7 +17,7 @@
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.6",
     "clsx": "^2.1.1",
-    "next": "^15.1.1",
+    "next": "^15.1.2",
     "react": "18.3.1",
     "react-hook-form": "^7.54.1",
     "tailwind-merge": "^2.5.5",
