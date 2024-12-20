@@ -1,10 +1,14 @@
 import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
-import { PostActionType } from "@hey/indexer";
+import {
+  type CollectActionInput,
+  PostActionType,
+  type SimpleCollectActionInput
+} from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 
 const collectModuleParams = (
   collectModule: CollectModuleType
-): CollectActionModuleInput | null => {
+): CollectActionInput | null => {
   const {
     amount,
     collectLimit,
@@ -14,7 +18,7 @@ const collectModuleParams = (
     referralFee
   } = collectModule;
 
-  const baseCollectModuleParams = {
+  const baseCollectModuleParams: SimpleCollectActionInput = {
     collectLimit: collectLimit || undefined,
     endsAt: endsAt || undefined,
     followerOnly: followerOnly || false
@@ -59,7 +63,7 @@ const collectModuleParams = (
 
   switch (collectModule.type) {
     case PostActionType.SimpleCollectAction:
-      return { simpleCollectOpenAction: baseCollectModuleParams };
+      return { simpleCollectAction: baseCollectModuleParams };
     case PostActionType.MultirecipientFeeCollectAction:
       return {
         multirecipientCollectOpenAction: {
