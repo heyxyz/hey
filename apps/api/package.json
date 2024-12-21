@@ -10,7 +10,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.716.0",
+    "@aws-sdk/client-s3": "^3.717.0",
     "@aws-sdk/client-ses": "^3.716.0",
     "@aws-sdk/client-sts": "^3.716.0",
     "@hey/data": "workspace:*",
@@ -37,7 +37,7 @@
     "ua-parser-js": "2.0.0",
     "urlcat": "^3.1.0",
     "uuid": "^11.0.2",
-    "viem": "^2.21.55",
+    "viem": "^2.21.56",
     "zod": "^3.24.1"
   },
   "devDependencies": {
