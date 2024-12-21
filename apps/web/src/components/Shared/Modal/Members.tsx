@@ -68,15 +68,19 @@ const Members: FC<MembersProps> = ({ address }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, member) => `${member.address}-${index}`}
+      computeItemKey={(index, member) => `${member.account.address}-${index}`}
       data={groupMembers}
       endReached={onEndReached}
       itemContent={(_, member) => (
         <div className="p-5">
           <SingleAccount
-            hideFollowButton={currentAccount?.address === member.address}
-            hideUnfollowButton={currentAccount?.address === member.address}
-            account={member as Account}
+            hideFollowButton={
+              currentAccount?.address === member.account.address
+            }
+            hideUnfollowButton={
+              currentAccount?.address === member.account.address
+            }
+            account={member.account as Account}
             showBio
             showUserPreview={false}
           />
