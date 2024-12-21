@@ -13,11 +13,11 @@ const JoinLeaveButton: FC<JoinLeaveButtonProps> = ({
   group,
   small = false
 }) => {
-  const [joined, setJoined] = useState(group.isMember);
+  const [joined, setJoined] = useState(group.operations?.isMember);
 
   useEffect(() => {
-    setJoined(group.isMember);
-  }, [group.isMember]);
+    setJoined(group.operations?.isMember);
+  }, [group.operations?.isMember]);
 
   return joined ? (
     <Leave address={group.address} setJoined={setJoined} small={small} />
