@@ -27,6 +27,7 @@ export type Scalars = {
   EvmAddress: { input: any; output: any; }
   GeneratedNotificationId: { input: any; output: any; }
   IdToken: { input: any; output: any; }
+  JSON: { input: any; output: any; }
   LegacyProfileId: { input: any; output: any; }
   LegacyPublicationId: { input: any; output: any; }
   LegacyRefreshToken: { input: any; output: any; }
@@ -101,6 +102,16 @@ export type AccountBlocked = {
   blockedAt: Scalars['DateTime']['output'];
 };
 
+export type AccountBlockedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountFeedsStats = {
   __typename?: 'AccountFeedsStats';
   /** The total number of collects. */
@@ -124,6 +135,13 @@ export type AccountFeedsStatsRequest = {
   account: Scalars['EvmAddress']['input'];
   /** The feeds to get stats for. */
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountFollowedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  followedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  follower?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountGraphsFollowStats = {
@@ -161,6 +179,11 @@ export type AccountManager = {
   manager: Scalars['EvmAddress']['output'];
   /** The permissions the account manager has. */
   permissions: AccountManagerPermissions;
+};
+
+export type AccountManagerAddedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountManagerChallengeRequest = {
@@ -202,6 +225,16 @@ export type AccountManagerPermissionsInput = {
   canTransferTokens: Scalars['Boolean']['input'];
 };
 
+export type AccountManagerRemovedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountManagerUpdatedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountManagersRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
@@ -220,6 +253,14 @@ export type AccountMention = {
    * Use to replace mentions in the post content.
    */
   replace: MentionReplace;
+};
+
+export type AccountMentionedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  mentionedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  mentionedUsername?: InputMaybe<Scalars['UsernameValue']['input']>;
 };
 
 export type AccountMetadata = {
@@ -269,6 +310,10 @@ export type AccountOwnerChallengeRequest = {
   owner: Scalars['EvmAddress']['input'];
 };
 
+export type AccountOwnershipTransferredNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountPostReaction = {
   __typename?: 'AccountPostReaction';
   account: Account;
@@ -280,6 +325,12 @@ export enum AccountReportReason {
   Other = 'OTHER',
   RepetitiveSpam = 'REPETITIVE_SPAM'
 }
+
+export type AccountReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reportedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 export type AccountRequest = {
   /** The account address. */
@@ -309,9 +360,36 @@ export type AccountStatsRequest = {
   forGraphs?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type AccountUnblockedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUnfollowedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  unfollowedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  unfollower?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUsernameAssignedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUsernameCreatedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountUsernameRequest = {
   /** The namespace to get account assigned username */
   namespace?: Scalars['EvmAddress']['input'];
+};
+
+export type AccountUsernameUnassignedNotificationAttributes = {
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  previousAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountsAvailableRequest = {
@@ -1093,6 +1171,22 @@ export type CreateRepostRequest = {
   post: Scalars['PostId']['input'];
 };
 
+export type CreateSnsSubscriptionRequest = {
+  /** The app to optionally assign this subscription to. */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The topics to subscribe to. You can subscribe to multiple topics at once. This cannot be
+   * changed once the subscription is created.
+   */
+  topics: Array<SnsTopicInput>;
+  /**
+   * The webhook URL to send notifications to. It must be an HTTP or HTTPS URL that is
+   * accessible by the Lens API and is owned by you as it will be used to confirm the
+   * subscription.
+   */
+  webhook: Scalars['String']['input'];
+};
+
 export type CreateUnfollowRequest = {
   /** The account to unfollow. */
   account: Scalars['EvmAddress']['input'];
@@ -1169,6 +1263,10 @@ export type DeletePostResponse = {
 };
 
 export type DeletePostResult = DeletePostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type DeleteSnsSubscriptionRequest = {
+  id: Scalars['UUID']['input'];
+};
 
 export type EditPostRequest = {
   contentUri: Scalars['URI']['input'];
@@ -1274,6 +1372,17 @@ export type EmbedMetadata = {
 export type EnableSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type EncryptionStrategy = LitProtocolEncryptionStrategy;
+
+export type EntityId = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  group?: InputMaybe<Scalars['EvmAddress']['input']>;
+  post?: InputMaybe<Scalars['PostId']['input']>;
+  sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
+  usernameNamespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 export enum EntityType {
   Account = 'ACCOUNT',
@@ -2060,6 +2169,14 @@ export type ForbiddenError = {
 export type GenerateNewAppServerApiKeyRequest = {
   /** The app to generate the new server side api key for */
   app: Scalars['EvmAddress']['input'];
+};
+
+export type GetSnsSubscriptionsRequest = {
+  /**
+   * The app to get subscriptions for. If not provided, all subscriptions owned by the logged in
+   * account will be returned.
+   */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type Graph = {
@@ -2887,6 +3004,10 @@ export enum MediaImageType {
   XMsBmp = 'X_MS_BMP'
 }
 
+export type MediaSnapshotNotificationAttributes = {
+  source?: InputMaybe<EntityId>;
+};
+
 /**
  * MediaVideo
  *
@@ -3072,6 +3193,10 @@ export enum MetadataLicenseType {
   TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL'
 }
 
+export type MetadataSnapshotNotificationAttributes = {
+  source?: InputMaybe<EntityId>;
+};
+
 export type MintMetadata = {
   __typename?: 'MintMetadata';
   /** The other attachments you want to include with it. */
@@ -3240,6 +3365,7 @@ export type Mutation = {
    * You MUST be authenticated to use this mutation.
    */
   createGroup: CreateGroupResult;
+  createSnsSubscriptions: Array<SnsSubscription>;
   /**
    * Create a username.
    *
@@ -3258,6 +3384,7 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   deletePost: DeletePostResult;
+  deleteSnsSubscription: Scalars['Void']['output'];
   /**
    * Edit a post.
    *
@@ -3593,6 +3720,11 @@ export type MutationCreateGroupArgs = {
 };
 
 
+export type MutationCreateSnsSubscriptionsArgs = {
+  request: CreateSnsSubscriptionRequest;
+};
+
+
 export type MutationCreateUsernameArgs = {
   request: CreateUsernameRequest;
 };
@@ -3605,6 +3737,11 @@ export type MutationCreateUsernameNamespaceArgs = {
 
 export type MutationDeletePostArgs = {
   request: DeletePostRequest;
+};
+
+
+export type MutationDeleteSnsSubscriptionArgs = {
+  request: DeleteSnsSubscriptionRequest;
 };
 
 
@@ -4201,6 +4338,7 @@ export type Post = {
   quoteOf?: Maybe<Post>;
   root?: Maybe<Post>;
   rules: PostRulesConfig;
+  slug: Scalars['PostId']['output'];
   stats: PostStats;
   timestamp: Scalars['DateTime']['output'];
 };
@@ -4251,15 +4389,40 @@ export type PostBookmarksRequest = {
   pageSize?: PageSize;
 };
 
+export type PostCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
+export type PostDeletedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
 export type PostEdit = {
   __typename?: 'PostEdit';
   metadata: PostMetadata;
   timestamp: Scalars['DateTime']['output'];
 };
 
+export type PostEditedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
 export type PostEditsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   pageSize?: PageSize;
+  /** The post ID. */
   post: Scalars['PostId']['input'];
 };
 
@@ -4297,10 +4460,24 @@ export type PostReaction = {
   reaction: PostReactionType;
 };
 
+export type PostReactionAddedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
+
 export enum PostReactionOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Default = 'DEFAULT'
 }
+
+export type PostReactionRemovedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
 
 export type PostReactionStatus = {
   __typename?: 'PostReactionStatus';
@@ -4374,6 +4551,13 @@ export enum PostReportReason {
   Unrelated = 'UNRELATED',
   Violence = 'VIOLENCE'
 }
+
+export type PostReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 /** You must provide either a txHash or a postId, not both. */
 export type PostRequest = {
@@ -4541,6 +4725,7 @@ export type Query = {
   followers: PaginatedFollowersResult;
   followersYouKnow: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
+  getSnsSubscriptions: Array<SnsSubscription>;
   graph?: Maybe<Graph>;
   /** Get the graphs. */
   graphs: PaginatedGraphsResult;
@@ -4728,6 +4913,11 @@ export type QueryFollowersYouKnowArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest;
+};
+
+
+export type QueryGetSnsSubscriptionsArgs = {
+  request: GetSnsSubscriptionsRequest;
 };
 
 
@@ -4984,6 +5174,7 @@ export type Repost = {
   id: Scalars['PostId']['output'];
   isDeleted: Scalars['Boolean']['output'];
   repostOf: Post;
+  slug: Scalars['PostId']['output'];
   timestamp: Scalars['DateTime']['output'];
 };
 
@@ -5173,6 +5364,83 @@ export type SimplePaymentUsernameNamespaceRule = {
   amount: Amount;
   recipient: Scalars['EvmAddress']['output'];
   rule: Scalars['EvmAddress']['output'];
+};
+
+export enum SnsNotificationType {
+  AccountBlocked = 'ACCOUNT_BLOCKED',
+  AccountContentConsumed = 'ACCOUNT_CONTENT_CONSUMED',
+  AccountCreated = 'ACCOUNT_CREATED',
+  AccountFollowed = 'ACCOUNT_FOLLOWED',
+  AccountFollowRulesUpdated = 'ACCOUNT_FOLLOW_RULES_UPDATED',
+  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
+  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
+  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
+  AccountMentioned = 'ACCOUNT_MENTIONED',
+  AccountMetadataUpdated = 'ACCOUNT_METADATA_UPDATED',
+  AccountOwnershipTransferred = 'ACCOUNT_OWNERSHIP_TRANSFERRED',
+  AccountReported = 'ACCOUNT_REPORTED',
+  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
+  AccountUnfollowed = 'ACCOUNT_UNFOLLOWED',
+  AccountUsernameAssigned = 'ACCOUNT_USERNAME_ASSIGNED',
+  AccountUsernameCreated = 'ACCOUNT_USERNAME_CREATED',
+  AccountUsernameUnassigned = 'ACCOUNT_USERNAME_UNASSIGNED',
+  CommentCreated = 'COMMENT_CREATED',
+  MediaSnapshotError = 'MEDIA_SNAPSHOT_ERROR',
+  MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
+  MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
+  MetadataSnapshotSuccess = 'METADATA_SNAPSHOT_SUCCESS',
+  MlProfileSignal = 'ML_PROFILE_SIGNAL',
+  PostActionCompleted = 'POST_ACTION_COMPLETED',
+  PostCollected = 'POST_COLLECTED',
+  PostCreated = 'POST_CREATED',
+  PostDeleted = 'POST_DELETED',
+  PostEdited = 'POST_EDITED',
+  PostReactionAdded = 'POST_REACTION_ADDED',
+  PostReactionRemoved = 'POST_REACTION_REMOVED',
+  PostReported = 'POST_REPORTED',
+  QuoteCreated = 'QUOTE_CREATED',
+  RepostCreated = 'REPOST_CREATED'
+}
+
+export type SnsSubscription = {
+  __typename?: 'SnsSubscription';
+  account: Scalars['EvmAddress']['output'];
+  app?: Maybe<Scalars['EvmAddress']['output']>;
+  attributes: Scalars['JSON']['output'];
+  id: Scalars['UUID']['output'];
+  topic: SnsNotificationType;
+  topicArn: Scalars['String']['output'];
+  webhook: Scalars['URL']['output'];
+};
+
+export type SnsTopicInput = {
+  accountBlocked?: InputMaybe<AccountBlockedNotificationAttributes>;
+  accountCreated?: InputMaybe<AccountCreatedNotificationAttributes>;
+  accountFollowed?: InputMaybe<AccountFollowedNotificationAttributes>;
+  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationAttributes>;
+  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationAttributes>;
+  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationAttributes>;
+  accountMentioned?: InputMaybe<AccountMentionedNotificationAttributes>;
+  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationAttributes>;
+  accountReported?: InputMaybe<AccountReportedNotificationAttributes>;
+  accountUnblocked?: InputMaybe<AccountUnblockedNotificationAttributes>;
+  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationAttributes>;
+  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
+  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
+  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
+  commentCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  postCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  postDeleted?: InputMaybe<PostDeletedNotificationAttributes>;
+  postEdited?: InputMaybe<PostEditedNotificationAttributes>;
+  postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
+  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
+  postReported?: InputMaybe<PostReportedNotificationAttributes>;
+  quoteCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  repostCreated?: InputMaybe<PostCreatedNotificationAttributes>;
 };
 
 export type SpaceMetadata = {
