@@ -1,4 +1,4 @@
-import type { AccountMention, Maybe, MetadataLicenseType } from "@hey/indexer";
+import type { Maybe, MetadataLicenseType, PostMention } from "@hey/indexer";
 import type { OptmisticTransactionType } from "./enums";
 
 export interface StorageNodeResponse {
@@ -48,7 +48,7 @@ export interface OptimisticTransaction {
 }
 
 export interface MarkupLinkProps {
-  mentions?: AccountMention[];
+  mentions?: PostMention[];
   title?: string;
 }
 
