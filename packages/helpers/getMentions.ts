@@ -1,7 +1,7 @@
 import { Regex } from "@hey/data/regex";
-import type { AccountMention } from "@hey/indexer";
+import type { AccountMention, PostMention } from "@hey/indexer";
 
-const getMentions = (text: string): [] | AccountMention[] => {
+const getMentions = (text: string): [] | PostMention[] => {
   if (!text) {
     return [];
   }

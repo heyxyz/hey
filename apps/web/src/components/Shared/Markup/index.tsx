@@ -1,6 +1,6 @@
 import { Regex } from "@hey/data/regex";
 import trimify from "@hey/helpers/trimify";
-import type { AccountMention } from "@hey/indexer";
+import type { PostMention } from "@hey/indexer";
 import type { FC } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
@@ -22,7 +22,7 @@ const plugins = [
 interface MarkupProps {
   children: string;
   className?: string;
-  mentions?: AccountMention[];
+  mentions?: PostMention[];
 }
 
 const Markup: FC<MarkupProps> = ({
