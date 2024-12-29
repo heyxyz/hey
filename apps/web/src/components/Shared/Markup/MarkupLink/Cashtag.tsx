@@ -9,8 +9,6 @@ const Cashtag: FC<MarkupLinkProps> = ({ title }) => {
     return null;
   }
 
-  const tag = title.slice(1).toLowerCase();
-
   return (
     <Link
       className="outline-none focus:underline"
