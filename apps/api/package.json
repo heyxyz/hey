@@ -10,9 +10,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.717.0",
-    "@aws-sdk/client-ses": "^3.716.0",
-    "@aws-sdk/client-sts": "^3.716.0",
+    "@aws-sdk/client-s3": "^3.722.0",
+    "@aws-sdk/client-ses": "^3.721.0",
+    "@aws-sdk/client-sts": "^3.721.0",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
@@ -30,14 +30,14 @@
     "fast-xml-parser": "^4.5.1",
     "graphql": "^16.10.0",
     "linkedom": "^0.18.6",
-    "openai": "^4.77.0",
+    "openai": "^4.77.3",
     "rate-limit-redis": "^4.2.0",
     "request-ip": "^3.3.0",
     "tsx": "^4.19.2",
     "ua-parser-js": "2.0.0",
     "urlcat": "^3.1.0",
     "uuid": "^11.0.2",
-    "viem": "^2.22.1",
+    "viem": "^2.22.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
-    "@types/node": "^22.10.3",
+    "@types/node": "^22.10.5",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
