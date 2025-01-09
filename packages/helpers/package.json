@@ -18,12 +18,12 @@
     "mailchecker": "^6.0.15",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.22.2",
+    "viem": "^2.22.5",
     "winston": "^3.16.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/omit-deep": "^0.3.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

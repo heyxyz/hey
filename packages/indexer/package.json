@@ -23,6 +23,6 @@
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.5.0",
     "@types/node": "^22.10.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

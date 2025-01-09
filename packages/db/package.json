@@ -14,7 +14,7 @@
   "dependencies": {
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@prisma/client": "^6.1.0",
+    "@prisma/client": "^6.2.1",
     "dotenv": "^16.4.7",
     "pg-promise": "^11.10.1",
     "redis": "^4.7.0"
@@ -22,8 +22,8 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/node": "^22.10.5",
-    "prisma": "^6.1.0",
+    "prisma": "^6.2.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }
