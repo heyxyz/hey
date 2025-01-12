@@ -10,8 +10,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.12.4",
-    "@aws-sdk/lib-storage": "^3.723.0",
+    "@apollo/client": "^3.12.5",
+    "@aws-sdk/lib-storage": "^3.726.1",
     "@headlessui/react": "2.2.0",
     "@heroicons/react": "^2.2.0",
     "@hey/abis": "workspace:*",
@@ -27,7 +27,7 @@
     "@livepeer/react": "^4.2.9",
     "@next/bundle-analyzer": "^15.1.4",
     "@radix-ui/react-hover-card": "^1.1.4",
-    "@tanstack/react-query": "^5.63.0",
+    "@tanstack/react-query": "^5.64.0",
     "@uidotdev/usehooks": "^2.4.1",
     "@unleash/proxy-client-react": "^4.4.0",
     "axios": "^1.7.9",
@@ -64,8 +64,8 @@
     "unist-util-visit-parents": "^6.0.1",
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
-    "uuid": "^11.0.4",
-    "viem": "^2.22.5",
+    "uuid": "^11.0.5",
+    "viem": "^2.22.7",
     "wagmi": "^2.14.7",
     "zod": "^3.24.1",
     "zustand": "5.0.3"
