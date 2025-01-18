@@ -17,7 +17,7 @@
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.6",
     "clsx": "^2.1.1",
-    "next": "^15.1.4",
+    "next": "^15.1.5",
     "react": "18.3.1",
     "react-hook-form": "^7.54.2",
     "tailwind-merge": "^2.6.0",
@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.10.5",
-    "@types/react": "^19.0.4",
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"
   }
