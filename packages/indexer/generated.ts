@@ -1918,6 +1918,7 @@ export type FailedTransactionStatus = {
   __typename?: 'FailedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   reason: Scalars['String']['output'];
+  summary: Array<SubOperationStatus>;
 };
 
 export type FeeFollowRuleInput = {
@@ -2007,6 +2008,7 @@ export type FeedsRequest = {
 export type FinishedTransactionStatus = {
   __typename?: 'FinishedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
+  summary: Array<SubOperationStatus>;
 };
 
 /** FollowCondition */
@@ -2422,6 +2424,12 @@ export type ImageMetadata = {
   /** The optional image title. */
   title?: Maybe<Scalars['String']['output']>;
 };
+
+export enum IndexingStatus {
+  Failed = 'FAILED',
+  Finished = 'FINISHED',
+  Pending = 'PENDING'
+}
 
 export type InvalidUsername = {
   __typename?: 'InvalidUsername';
@@ -3567,6 +3575,30 @@ export type Mutation = {
    * You MUST be authenticated as a builder to use this mutation.
    */
   setDefaultAppFeed: SetDefaultAppFeedResult;
+  /**
+   * Set metadata for a feed
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setFeedMetadata: SetFeedMetadataResult;
+  /**
+   * Set metadata for a graph
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGraphMetadata: SetGraphMetadataResult;
+  /**
+   * Set metadata for a group
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGroupMetadata: SetGroupMetadataResult;
+  /**
+   * Set metadata for a namespace
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setNamespaceMetadata: SetNamespaceMetadataResult;
   /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
   switchAccount: SwitchAccountResult;
   /**
@@ -3887,6 +3919,26 @@ export type MutationSetAppVerificationArgs = {
 
 export type MutationSetDefaultAppFeedArgs = {
   request: SetDefaultAppFeedRequest;
+};
+
+
+export type MutationSetFeedMetadataArgs = {
+  request: SetFeedMetadataRequest;
+};
+
+
+export type MutationSetGraphMetadataArgs = {
+  request: SetGraphMetadataRequest;
+};
+
+
+export type MutationSetGroupMetadataArgs = {
+  request: SetGroupMetadataRequest;
+};
+
+
+export type MutationSetNamespaceMetadataArgs = {
+  request: SetNamespaceMetadataRequest;
 };
 
 
@@ -4300,6 +4352,7 @@ export type PaymasterParams = {
 export type PendingTransactionStatus = {
   __typename?: 'PendingTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
+  summary: Array<SubOperationStatus>;
 };
 
 /** PhysicalAddress */
@@ -5310,6 +5363,42 @@ export type SetDefaultAppFeedRequest = {
 
 export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type SetFeedMetadataRequest = {
+  /** The feed to update */
+  feed: Scalars['EvmAddress']['input'];
+  /** The feed metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetFeedMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetGraphMetadataRequest = {
+  /** The graph to update */
+  graph: Scalars['EvmAddress']['input'];
+  /** The graph metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGraphMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetGroupMetadataRequest = {
+  /** The group to update */
+  group: Scalars['EvmAddress']['input'];
+  /** The group metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGroupMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetNamespaceMetadataRequest = {
+  /** The namespace metadata to set */
+  metadataUri: Scalars['String']['input'];
+  /** The namespace to update */
+  namespace: Scalars['EvmAddress']['input'];
+};
+
+export type SetNamespaceMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type SignedAuthChallenge = {
   id: Scalars['UUID']['input'];
   signature: Scalars['Signature']['input'];
@@ -5406,7 +5495,7 @@ export type SnsSubscription = {
   __typename?: 'SnsSubscription';
   account: Scalars['EvmAddress']['output'];
   app?: Maybe<Scalars['EvmAddress']['output']>;
-  attributes: Scalars['JSON']['output'];
+  filter: Scalars['JSON']['output'];
   id: Scalars['UUID']['output'];
   topic: SnsNotificationType;
   topicArn: Scalars['String']['output'];
@@ -5531,6 +5620,12 @@ export type StoryMetadata = {
   mainContentFocus: MainContentFocus;
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export type SubOperationStatus = {
+  __typename?: 'SubOperationStatus';
+  operation: TransactionOperation;
+  status: IndexingStatus;
 };
 
 export type SwitchAccountRequest = {
@@ -5741,6 +5836,97 @@ export type TransactionMetadata = {
   /** The type of transaction. */
   type: TransactionType;
 };
+
+export enum TransactionOperation {
+  AccessControlFactoryOwnerAdminDeployment = 'ACCESS_CONTROL_FACTORY_OWNER_ADMIN_DEPLOYMENT',
+  AccessControlRoleGranted = 'ACCESS_CONTROL_ROLE_GRANTED',
+  AccessControlRoleRevoked = 'ACCESS_CONTROL_ROLE_REVOKED',
+  AccountFactoryDeployment = 'ACCOUNT_FACTORY_DEPLOYMENT',
+  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
+  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
+  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
+  AccountMetadataUriSet = 'ACCOUNT_METADATA_URI_SET',
+  AccountOwnerTransferred = 'ACCOUNT_OWNER_TRANSFERRED',
+  AppAccessControlAdded = 'APP_ACCESS_CONTROL_ADDED',
+  AppAccessControlUpdated = 'APP_ACCESS_CONTROL_UPDATED',
+  AppDefaultFeedSet = 'APP_DEFAULT_FEED_SET',
+  AppExtraDataAdded = 'APP_EXTRA_DATA_ADDED',
+  AppExtraDataRemoved = 'APP_EXTRA_DATA_REMOVED',
+  AppExtraDataUpdated = 'APP_EXTRA_DATA_UPDATED',
+  AppFactoryDeployment = 'APP_FACTORY_DEPLOYMENT',
+  AppFeedAdded = 'APP_FEED_ADDED',
+  AppFeedRemoved = 'APP_FEED_REMOVED',
+  AppGraphAdded = 'APP_GRAPH_ADDED',
+  AppGraphRemoved = 'APP_GRAPH_REMOVED',
+  AppGroupAdded = 'APP_GROUP_ADDED',
+  AppGroupRemoved = 'APP_GROUP_REMOVED',
+  AppMetadataUriSet = 'APP_METADATA_URI_SET',
+  AppPaymasterAdded = 'APP_PAYMASTER_ADDED',
+  AppPaymasterRemoved = 'APP_PAYMASTER_REMOVED',
+  AppSignerAdded = 'APP_SIGNER_ADDED',
+  AppSignerRemoved = 'APP_SIGNER_REMOVED',
+  AppSourceStampVerificationSet = 'APP_SOURCE_STAMP_VERIFICATION_SET',
+  AppTreasurySet = 'APP_TREASURY_SET',
+  AppUsernameAdded = 'APP_USERNAME_ADDED',
+  AppUsernameRemoved = 'APP_USERNAME_REMOVED',
+  FeedAccessControlAdded = 'FEED_ACCESS_CONTROL_ADDED',
+  FeedAccessControlUpdated = 'FEED_ACCESS_CONTROL_UPDATED',
+  FeedExtraDataAdded = 'FEED_EXTRA_DATA_ADDED',
+  FeedExtraDataRemoved = 'FEED_EXTRA_DATA_REMOVED',
+  FeedExtraDataUpdated = 'FEED_EXTRA_DATA_UPDATED',
+  FeedFactoryDeployment = 'FEED_FACTORY_DEPLOYMENT',
+  FeedMetadataUriSet = 'FEED_METADATA_URI_SET',
+  FeedPostCreated = 'FEED_POST_CREATED',
+  FeedPostDeleted = 'FEED_POST_DELETED',
+  FeedPostEdited = 'FEED_POST_EDITED',
+  GraphAccessControlAdded = 'GRAPH_ACCESS_CONTROL_ADDED',
+  GraphAccessControlUpdated = 'GRAPH_ACCESS_CONTROL_UPDATED',
+  GraphExtraDataAdded = 'GRAPH_EXTRA_DATA_ADDED',
+  GraphExtraDataRemoved = 'GRAPH_EXTRA_DATA_REMOVED',
+  GraphExtraDataUpdated = 'GRAPH_EXTRA_DATA_UPDATED',
+  GraphFactoryDeployment = 'GRAPH_FACTORY_DEPLOYMENT',
+  GraphFollowed = 'GRAPH_FOLLOWED',
+  GraphMetadataUriSet = 'GRAPH_METADATA_URI_SET',
+  GraphUnfollowed = 'GRAPH_UNFOLLOWED',
+  GroupAccessControlAdded = 'GROUP_ACCESS_CONTROL_ADDED',
+  GroupAccessControlUpdated = 'GROUP_ACCESS_CONTROL_UPDATED',
+  GroupExtraDataAdded = 'GROUP_EXTRA_DATA_ADDED',
+  GroupExtraDataRemoved = 'GROUP_EXTRA_DATA_REMOVED',
+  GroupExtraDataUpdated = 'GROUP_EXTRA_DATA_UPDATED',
+  GroupFactoryDeployment = 'GROUP_FACTORY_DEPLOYMENT',
+  GroupMemberJoined = 'GROUP_MEMBER_JOINED',
+  GroupMemberLeft = 'GROUP_MEMBER_LEFT',
+  GroupMemberRemoved = 'GROUP_MEMBER_REMOVED',
+  GroupMetadataUriSet = 'GROUP_METADATA_URI_SET',
+  SponsorshipAccessControlAdded = 'SPONSORSHIP_ACCESS_CONTROL_ADDED',
+  SponsorshipAccessControlUpdated = 'SPONSORSHIP_ACCESS_CONTROL_UPDATED',
+  SponsorshipAddedToExclusionList = 'SPONSORSHIP_ADDED_TO_EXCLUSION_LIST',
+  SponsorshipFactoryDeployment = 'SPONSORSHIP_FACTORY_DEPLOYMENT',
+  SponsorshipFundsSpent = 'SPONSORSHIP_FUNDS_SPENT',
+  SponsorshipGrantedFunds = 'SPONSORSHIP_GRANTED_FUNDS',
+  SponsorshipGrantRevoked = 'SPONSORSHIP_GRANT_REVOKED',
+  SponsorshipMetadataUriSet = 'SPONSORSHIP_METADATA_URI_SET',
+  SponsorshipPaused = 'SPONSORSHIP_PAUSED',
+  SponsorshipRateLimitsChanged = 'SPONSORSHIP_RATE_LIMITS_CHANGED',
+  SponsorshipRemovedFromExclusionList = 'SPONSORSHIP_REMOVED_FROM_EXCLUSION_LIST',
+  SponsorshipSignerAdded = 'SPONSORSHIP_SIGNER_ADDED',
+  SponsorshipSignerRemoved = 'SPONSORSHIP_SIGNER_REMOVED',
+  SponsorshipUnpaused = 'SPONSORSHIP_UNPAUSED',
+  SponsorAddedToApprovedSigners = 'SPONSOR_ADDED_TO_APPROVED_SIGNERS',
+  SponsorFreePaymasterCreated = 'SPONSOR_FREE_PAYMASTER_CREATED',
+  SponsorMetadataUriChanged = 'SPONSOR_METADATA_URI_CHANGED',
+  UsernameAccessControlAdded = 'USERNAME_ACCESS_CONTROL_ADDED',
+  UsernameAccessControlUpdated = 'USERNAME_ACCESS_CONTROL_UPDATED',
+  UsernameAssigned = 'USERNAME_ASSIGNED',
+  UsernameCreated = 'USERNAME_CREATED',
+  UsernameExtraDataAdded = 'USERNAME_EXTRA_DATA_ADDED',
+  UsernameExtraDataRemoved = 'USERNAME_EXTRA_DATA_REMOVED',
+  UsernameExtraDataUpdated = 'USERNAME_EXTRA_DATA_UPDATED',
+  UsernameFactoryDeployment = 'USERNAME_FACTORY_DEPLOYMENT',
+  UsernameMetadataUriSet = 'USERNAME_METADATA_URI_SET',
+  UsernameRemoved = 'USERNAME_REMOVED',
+  UsernameUnassigned = 'USERNAME_UNASSIGNED'
+}
 
 export type TransactionStatusRequest = {
   txHash: Scalars['TxHash']['input'];
@@ -9715,6 +9901,26 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "TransactionWillFail"
     ],
     "SetDefaultAppFeedResult": [
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
+    ],
+    "SetFeedMetadataResult": [
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
+    ],
+    "SetGraphMetadataResult": [
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
+    ],
+    "SetGroupMetadataResult": [
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
+    ],
+    "SetNamespaceMetadataResult": [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
