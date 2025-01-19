@@ -40,10 +40,10 @@ export const get = async (req: Request, res: Response) => {
 
       const posts = await lensPg.query(
         `
-          SELECT pr.publication_id, pr.block_timestamp
-          FROM publication.record pr
-          WHERE pr.publication_type = 'POST' AND pr.is_hidden = false
-          ORDER BY pr.block_timestamp
+          SELECT pr.id, pr.timestamp
+          FROM post.record pr
+          WHERE pr.post_types = '{root}' AND pr.is_deleted = false
+          ORDER BY pr.timestamp
           LIMIT $1
           OFFSET $2;
         `,

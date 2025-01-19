@@ -59,7 +59,7 @@ export const post = [
       }
 
       const postMetadata = await lensPg.query(
-        "SELECT content FROM publication.metadata WHERE publication_id = $1",
+        "SELECT content FROM post.metadata WHERE post = $1",
         [id]
       );
 

@@ -20,8 +20,8 @@ export const get = async (req: Request, res: Response) => {
     } else {
       const posts = await lensPg.query(`
         SELECT COUNT(*) AS count
-        FROM publication.record pr
-        WHERE pr.publication_type = 'POST' AND pr.is_hidden = false
+        FROM post.record pr
+        WHERE pr.post_types = '{root}' AND pr.is_deleted = false
       `);
 
       totalPosts = Number(posts[0]?.count) || 0;
