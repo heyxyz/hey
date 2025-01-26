@@ -8,7 +8,6 @@ import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type LoggedInPostOperations,
   type Post,
-  TriStateValue,
   useRepostMutation
 } from "@hey/indexer";
 import { OptmisticTransactionType } from "@hey/types/enums";
@@ -123,10 +122,6 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     },
     onError
   });
-
-  if (post.operations?.canRepost === TriStateValue.No) {
-    return null;
-  }
 
   const handleCreateRepost = async () => {
     if (!currentAccount) {
