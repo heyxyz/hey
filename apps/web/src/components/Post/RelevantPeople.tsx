@@ -2,7 +2,7 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
   type Account,
-  type AccountMention,
+  PostMention,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
@@ -12,7 +12,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
-  mentions: AccountMention[];
+  mentions: PostMention[];
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
@@ -20,7 +20,10 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
   const [showMore, setShowMore] = useState(false);
 
   const accountAddresses = mentions.map(
-    (accountMention) => accountMention.account
+    (accountMention) =>
+      accountMention.__typename === "AccountMention"
+        ? accountMention.account
+        : accountMention.replace.from
   );
 
   const { data, error, loading } = useAccountsBulkQuery({
