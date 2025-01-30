@@ -24,7 +24,6 @@ export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = "#FB3A5D";
 
 // Misc
-export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const COLLECT_FEES_ADDRESS =
   "0x698386C93513d6D0C58f296633A7A3e529bd4026";
 export const LENS_HANDLE_PREFIX = "lens/";
