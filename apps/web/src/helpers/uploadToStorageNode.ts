@@ -5,13 +5,13 @@ const storageClient = StorageClient.create(testnet);
 const FALLBACK_TYPE = "image/jpeg";
 
 /**
- * Uploads a set of files to the IPFS network via S3 and returns an array of MediaSet objects.
+ * Uploads a set of files to the Lens Storage Node and returns an array of MediaSet objects.
  *
- * @param data Files to upload to IPFS.
+ * @param data Files to upload to Lens Storage Node.
  * @param onProgress Callback to be called when the upload progress changes.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: File[]): Promise<StorageNodeResponse[]> => {
+const uploadToStorageNode = async (data: File[]): Promise<StorageNodeResponse[]> => {
   try {
     const { files } = await storageClient.uploadFolder(data);
     const attachments = files.map(({ gatewayUrl }, index) => {
@@ -25,16 +25,16 @@ const uploadToIPFS = async (data: File[]): Promise<StorageNodeResponse[]> => {
 };
 
 /**
- * Uploads a file to the IPFS network via S3 and returns a MediaSet object.
+ * Uploads a file to the Lens Storage Node and returns a MediaSet object.
  *
- * @param file File to upload to IPFS.
+ * @param file File to upload to Lens Storage Node.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (
+export const uploadFileToStorageNode = async (
   file: File
 ): Promise<StorageNodeResponse> => {
   try {
-    const response = await uploadToIPFS([file]);
+    const response = await uploadToStorageNode([file]);
     const { uri, mimeType } = response[0];
 
     return { mimeType, uri };
@@ -43,4 +43,4 @@ export const uploadFileToIPFS = async (
   }
 };
 
-export default uploadToIPFS;
+export default uploadToStorageNode;

@@ -1,5 +1,5 @@
 import imageCompression from "browser-image-compression";
-import { uploadFileToIPFS } from "./uploadToIPFS";
+import { uploadFileToStorageNode } from "./uploadToStorageNode";
 
 /**
  * Read a file as a base64 string
@@ -36,7 +36,7 @@ const uploadCroppedImage = async (
     maxWidthOrHeight: 2000,
     useWebWorker: true
   });
-  const attachment = await uploadFileToIPFS(cleanedFile);
+  const attachment = await uploadFileToStorageNode(cleanedFile);
   const ipfsUrl = attachment.uri;
   if (!ipfsUrl) {
     throw new Error("uploadToIPFS failed");

@@ -30,7 +30,7 @@ const usePostMetadata = () => {
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePostMetadataProps) => {
-      const hasAttachments = attachments.length;
+      const hasAttachments = attachments.length > 0;
       const isImage = attachments[0]?.type === "Image";
       const isAudio = attachments[0]?.type === "Audio";
       const isVideo = attachments[0]?.type === "Video";

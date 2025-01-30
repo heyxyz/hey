@@ -1,4 +1,4 @@
-import uploadToIPFS from "@helpers/uploadToIPFS";
+import uploadToStorageNode from "@helpers/uploadToStorageNode";
 import type { NewAttachment } from "@hey/types/misc";
 import imageCompression from "browser-image-compression";
 import { useCallback } from "react";
@@ -92,7 +92,7 @@ const useUploadAttachments = () => {
         addAttachments(previewAttachments);
 
         try {
-          const attachmentsUploaded = await uploadToIPFS(compressedFiles);
+          const attachmentsUploaded = await uploadToStorageNode(compressedFiles);
           const attachmentsIPFS = attachmentsUploaded.map(
             (uploaded, index) => ({
               ...previewAttachments[index],
