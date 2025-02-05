@@ -23,7 +23,7 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
       (mention) => mention.replace.from === handle
     );
 
-    return Boolean(foundMention?.account);
+    return Boolean(foundMention?.replace);
   };
 
   const getNameFromMention = (handle: string): string => {
