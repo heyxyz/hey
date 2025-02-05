@@ -8297,6 +8297,19 @@ export type LeaveGroupMutation = { __typename?: 'Mutation', leaveGroup: { __type
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } };
 
+export type RemoveGroupMemberMutationVariables = Exact<{
+  request: RemoveGroupMemberRequest;
+}>;
+
+
+export type RemoveGroupMemberMutation = { __typename?: 'Mutation', removeGroupMember: { __typename?: 'GroupOperationValidationFailed', reason: string } | { __typename?: 'RemoveGroupMemberResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & SelfFundedTransactionRequestFieldsFragment
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & SponsoredTransactionRequestFieldsFragment
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
 export type SetGroupMetadataMutationVariables = Exact<{
   request: SetGroupMetadataRequest;
 }>;
@@ -8309,6 +8322,19 @@ export type SetGroupMetadataMutation = { __typename?: 'Mutation', setGroupMetada
     { __typename?: 'SponsoredTransactionRequest' }
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type UnbanGroupAccountMutationVariables = Exact<{
+  request: UnbanGroupAccountRequest;
+}>;
+
+
+export type UnbanGroupAccountMutation = { __typename?: 'Mutation', unbanGroupAccount: (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & SelfFundedTransactionRequestFieldsFragment
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & SponsoredTransactionRequestFieldsFragment
+  ) | { __typename?: 'TransactionWillFail', reason: string } | { __typename?: 'UnbanGroupAccountResponse', hash: any } };
 
 export type AddReactionMutationVariables = Exact<{
   request: AddReactionRequest;
@@ -9601,6 +9627,33 @@ export function useLeaveGroupMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LeaveGroupMutationHookResult = ReturnType<typeof useLeaveGroupMutation>;
 export type LeaveGroupMutationResult = Apollo.MutationResult<LeaveGroupMutation>;
 export type LeaveGroupMutationOptions = Apollo.BaseMutationOptions<LeaveGroupMutation, LeaveGroupMutationVariables>;
+export const RemoveGroupMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveGroupMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveGroupMemberRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeGroupMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveGroupMemberResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GroupOperationValidationFailed"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type RemoveGroupMemberMutationFn = Apollo.MutationFunction<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>;
+
+/**
+ * __useRemoveGroupMemberMutation__
+ *
+ * To run a mutation, you first call `useRemoveGroupMemberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveGroupMemberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeGroupMemberMutation, { data, loading, error }] = useRemoveGroupMemberMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemoveGroupMemberMutation(baseOptions?: Apollo.MutationHookOptions<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>(RemoveGroupMemberDocument, options);
+      }
+export type RemoveGroupMemberMutationHookResult = ReturnType<typeof useRemoveGroupMemberMutation>;
+export type RemoveGroupMemberMutationResult = Apollo.MutationResult<RemoveGroupMemberMutation>;
+export type RemoveGroupMemberMutationOptions = Apollo.BaseMutationOptions<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>;
 export const SetGroupMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetGroupMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetGroupMetadataRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setGroupMetadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 export type SetGroupMetadataMutationFn = Apollo.MutationFunction<SetGroupMetadataMutation, SetGroupMetadataMutationVariables>;
 
@@ -9628,6 +9681,33 @@ export function useSetGroupMetadataMutation(baseOptions?: Apollo.MutationHookOpt
 export type SetGroupMetadataMutationHookResult = ReturnType<typeof useSetGroupMetadataMutation>;
 export type SetGroupMetadataMutationResult = Apollo.MutationResult<SetGroupMetadataMutation>;
 export type SetGroupMetadataMutationOptions = Apollo.BaseMutationOptions<SetGroupMetadataMutation, SetGroupMetadataMutationVariables>;
+export const UnbanGroupAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UnbanGroupAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UnbanGroupAccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"unbanGroupAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnbanGroupAccountResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UnbanGroupAccountMutationFn = Apollo.MutationFunction<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>;
+
+/**
+ * __useUnbanGroupAccountMutation__
+ *
+ * To run a mutation, you first call `useUnbanGroupAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnbanGroupAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unbanGroupAccountMutation, { data, loading, error }] = useUnbanGroupAccountMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUnbanGroupAccountMutation(baseOptions?: Apollo.MutationHookOptions<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>(UnbanGroupAccountDocument, options);
+      }
+export type UnbanGroupAccountMutationHookResult = ReturnType<typeof useUnbanGroupAccountMutation>;
+export type UnbanGroupAccountMutationResult = Apollo.MutationResult<UnbanGroupAccountMutation>;
+export type UnbanGroupAccountMutationOptions = Apollo.BaseMutationOptions<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>;
 export const AddReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type AddReactionMutationFn = Apollo.MutationFunction<AddReactionMutation, AddReactionMutationVariables>;
 

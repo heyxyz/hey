@@ -1,0 +1,16 @@
+mutation UnbanGroupAccount($request: UnbanGroupAccountRequest!) {
+  unbanGroupAccount(request: $request) {
+    ... on UnbanGroupAccountResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
