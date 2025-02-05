@@ -1,0 +1,3 @@
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+}

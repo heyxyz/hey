@@ -1,6 +1,0 @@
-fragment AmountFields on Amount {
-  asset {
-    ...AssetFields
-  }
-  value
-}

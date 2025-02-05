@@ -1,0 +1,3 @@
+fragment UnknownActionFields on UnknownAction {
+  __typename
+}

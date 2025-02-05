@@ -1,3 +1,0 @@
-fragment UnknownActionSettingsFields on UnknownActionSettings {
-  __typename
-}

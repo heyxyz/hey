@@ -1,8 +1,8 @@
 fragment PostActionFields on PostAction {
-  ... on SimpleCollectActionSettings {
-    ...SimpleCollectActionSettingsFields
+  ... on SimpleCollectAction {
+    ...SimpleCollectActionFields
   }
-  ... on UnknownActionSettings {
-    ...UnknownActionSettingsFields
+  ... on UnknownAction {
+    ...UnknownActionFields
   }
 }
