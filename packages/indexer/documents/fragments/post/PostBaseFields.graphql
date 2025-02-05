@@ -1,5 +1,6 @@
 fragment PostBaseFields on Post {
   id
+  slug
   isDeleted
   stats {
     ...PostStatsFields
