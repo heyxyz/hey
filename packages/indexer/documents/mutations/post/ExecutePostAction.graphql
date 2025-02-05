@@ -1,0 +1,16 @@
+mutation ExecutePostAction($request: ExecutePostActionRequest!) {
+  executePostAction(request: $request) {
+    ... on ExecutePostActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
