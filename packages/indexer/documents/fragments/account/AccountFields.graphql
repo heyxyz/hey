@@ -2,6 +2,7 @@ fragment AccountFields on Account {
   owner
   address
   score
+  createdAt
   metadata {
     ...AccountMetadata
   }
