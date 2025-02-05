@@ -1,0 +1,13 @@
+mutation SetGroupMetadata($request: SetGroupMetadataRequest!) {
+  setGroupMetadata(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
