@@ -24,6 +24,7 @@ export type Scalars = {
   Cursor: { input: any; output: any; }
   DateTime: { input: any; output: any; }
   EvmAddress: { input: any; output: any; }
+  FixedBytes32: { input: any; output: any; }
   GeneratedNotificationId: { input: any; output: any; }
   GeoUri: { input: any; output: any; }
   IdToken: { input: any; output: any; }
@@ -80,13 +81,13 @@ export type AccountUsernameArgs = {
 
 export type AccountAction = TippingAccountAction | UnknownAction;
 
-export type AccountActionConfigInput = {
-  unknown?: InputMaybe<UnknownActionConfigInput>;
+export type AccountActionConfig = {
+  unknown?: InputMaybe<UnknownActionConfig>;
 };
 
-export type AccountActionExecuteInput = {
+export type AccountActionExecute = {
   tipping?: InputMaybe<AmountInput>;
-  unknown?: InputMaybe<UnknownActionExecuteInput>;
+  unknown?: InputMaybe<UnknownActionExecute>;
 };
 
 export enum AccountActionType {
@@ -532,7 +533,40 @@ export type AccountsRequest = {
 export type ActionFilter = {
   actionType?: InputMaybe<PostActionType>;
   address?: InputMaybe<Scalars['EvmAddress']['input']>;
-  category?: InputMaybe<PostActionCategoryType>;
+};
+
+export type ActionMetadata = {
+  __typename?: 'ActionMetadata';
+  /** List of authors email addresses. */
+  authors: Array<Scalars['String']['output']>;
+  /**
+   * An optional list of `ContractKeyValuePairDescriptor` that describes the `params` argument
+   * of the `configure` function.
+   */
+  configureParams: Array<KeyValuePair>;
+  /** Markdown formatted description of the Action. */
+  description: Scalars['String']['output'];
+  /**
+   * A list of `ContractKeyValuePairDescriptor` that describes the `params` argument of the
+   * `execute` function.
+   */
+  executeParams: Array<KeyValuePair>;
+  /**
+   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
+   * Use a UUID if unsure.
+   */
+  id: Scalars['String']['output'];
+  /** A short name for the Action. */
+  name: Scalars['String']['output'];
+  /**
+   * An optional list of `ContractKeyValuePairDescriptor` that describes the `params` argument
+   * of the `setDisabledParams` function.
+   */
+  setDisabledParams: Array<KeyValuePair>;
+  /** The link to the Action source code. Typically a GitHub repository. */
+  source: Scalars['URI']['output'];
+  /** The human-friendly title for the Action. */
+  title: Scalars['String']['output'];
 };
 
 export type AddAccountManagerRequest = {
@@ -1094,7 +1128,7 @@ export type CommentNotification = {
 
 export type ConfigureAccountActionRequest = {
   /** The action type and configuration. */
-  action: AccountActionConfigInput;
+  action: AccountActionConfig;
 };
 
 export type ConfigureAccountActionResponse = {
@@ -1105,10 +1139,8 @@ export type ConfigureAccountActionResponse = {
 export type ConfigureAccountActionResult = ConfigureAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ConfigurePostActionRequest = {
-  /** The feed that the post is on. */
-  feed: Scalars['EvmAddress']['input'];
   /** The post action configuration parameters. */
-  params: PostActionConfigInput;
+  params: PostActionConfig;
   /** The post to configure the action for. */
   post: Scalars['PostId']['input'];
 };
@@ -1246,7 +1278,7 @@ export type CreateNamespaceResponse = {
 
 export type CreatePostRequest = {
   /** The actions to attach to the post. */
-  actions?: InputMaybe<Array<PostActionConfigInput>>;
+  actions?: InputMaybe<Array<PostActionConfig>>;
   /** The post to comment on, if any. */
   commentOn?: InputMaybe<ReferencingPostInput>;
   /** The URI of the post metadata. */
@@ -1594,6 +1626,7 @@ export enum EntityType {
   Group = 'GROUP',
   Post = 'POST',
   PostAction = 'POST_ACTION',
+  Rule = 'RULE',
   Sponsorship = 'SPONSORSHIP',
   UsernameNamespace = 'USERNAME_NAMESPACE'
 }
@@ -2084,7 +2117,7 @@ export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
 
 export type ExecuteAccountActionRequest = {
   /** The action params. */
-  params: AccountActionExecuteInput;
+  params: AccountActionExecute;
   /** The target account to execute the action on. */
   targetAccount: Scalars['EvmAddress']['input'];
 };
@@ -2097,10 +2130,10 @@ export type ExecuteAccountActionResponse = {
 export type ExecuteAccountActionResult = ExecuteAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ExecutePostActionRequest = {
+  /** The action params. */
+  action: PostActionExecute;
   /** The target feed that the post is on. */
   feed: Scalars['EvmAddress']['input'];
-  /** The action params. */
-  params: PostActionExecuteInput;
   /** The target post to execute the action on. */
   post: Scalars['PostId']['input'];
 };
@@ -2237,8 +2270,8 @@ export type FeedRules = {
 };
 
 export type FeedRulesConfigInput = {
-  anyOf: Array<FeedRuleConfig>;
-  required: Array<FeedRuleConfig>;
+  anyOf?: InputMaybe<Array<FeedRuleConfig>>;
+  required?: InputMaybe<Array<FeedRuleConfig>>;
 };
 
 export type FeedRulesProcessingParams = {
@@ -2316,7 +2349,7 @@ export type FollowResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type FollowResult = FollowResponse | GraphOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type FollowResult = AccountFollowOperationValidationFailed | FollowResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type FollowStatusRequest = {
   pairs: Array<FollowPair>;
@@ -2493,12 +2526,6 @@ export type GraphOneOf = {
   graph?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
-export type GraphOperationValidationFailed = {
-  __typename?: 'GraphOperationValidationFailed';
-  reason: Scalars['String']['output'];
-  unsatisfiedRules?: Maybe<GraphUnsatisfiedRules>;
-};
-
 export type GraphRequest = {
   /** The graph */
   graph?: InputMaybe<Scalars['EvmAddress']['input']>;
@@ -2533,12 +2560,6 @@ export enum GraphRuleType {
   Unknown = 'UNKNOWN'
 }
 
-export enum GraphRuleUnsatisfiedReason {
-  AccountBlocked = 'ACCOUNT_BLOCKED',
-  GroupGatedNotAMember = 'GROUP_GATED_NOT_A_MEMBER',
-  TokenGatedNotATokenHolder = 'TOKEN_GATED_NOT_A_TOKEN_HOLDER'
-}
-
 export type GraphRules = {
   __typename?: 'GraphRules';
   anyOf: Array<GraphRule>;
@@ -2546,26 +2567,12 @@ export type GraphRules = {
 };
 
 export type GraphRulesConfigInput = {
-  anyOf: Array<GraphRuleConfig>;
-  required: Array<GraphRuleConfig>;
+  anyOf?: InputMaybe<Array<GraphRuleConfig>>;
+  required?: InputMaybe<Array<GraphRuleConfig>>;
 };
 
 export type GraphRulesProcessingParams = {
   unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
-};
-
-export type GraphUnsatisfiedRule = {
-  __typename?: 'GraphUnsatisfiedRule';
-  extraData: Array<ExtraData>;
-  message: Scalars['String']['output'];
-  reason: GraphRuleUnsatisfiedReason;
-  rule: Scalars['EvmAddress']['output'];
-};
-
-export type GraphUnsatisfiedRules = {
-  __typename?: 'GraphUnsatisfiedRules';
-  anyOf: Array<GraphUnsatisfiedRule>;
-  required: Array<GraphUnsatisfiedRule>;
 };
 
 export type GraphsFilter = {
@@ -2821,8 +2828,8 @@ export type GroupRules = {
 };
 
 export type GroupRulesConfigInput = {
-  anyOf: Array<GroupRuleConfig>;
-  required: Array<GroupRuleConfig>;
+  anyOf?: InputMaybe<Array<GroupRuleConfig>>;
+  required?: InputMaybe<Array<GroupRuleConfig>>;
 };
 
 export type GroupRulesProcessingParams = {
@@ -2957,6 +2964,16 @@ export type JoinGroupResponse = {
 };
 
 export type JoinGroupResult = GroupOperationValidationFailed | JoinGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type KeyValuePair = {
+  __typename?: 'KeyValuePair';
+  /** A unique 32 bytes long hexadecimal string key. */
+  key: Scalars['FixedBytes32']['output'];
+  /** The human-readable name of the parameter. */
+  name: Scalars['String']['output'];
+  /** The human-readable ABI description of the parameter. */
+  type: Scalars['String']['output'];
+};
 
 export type LastLoggedInAccountRequest = {
   /** The address to get the last logged in account for. */
@@ -3822,10 +3839,9 @@ export type Mutation = {
    */
   executeAccountAction: ExecuteAccountActionResult;
   /**
-   * Execute the given post action for the authenticated post.
+   * Execute the given post action.
    *
-   * You MUST be authenticated as the owner or manager of the account that authored this Post to
-   * use this mutation.
+   * You MUST be authenticated to use this mutation.
    */
   executePostAction: ExecutePostActionResult;
   /**
@@ -4766,8 +4782,8 @@ export type NamespaceRules = {
 };
 
 export type NamespaceRulesConfigInput = {
-  anyOf: Array<NamespaceRuleConfig>;
-  required: Array<NamespaceRuleConfig>;
+  anyOf?: InputMaybe<Array<NamespaceRuleConfig>>;
+  required?: InputMaybe<Array<NamespaceRuleConfig>>;
 };
 
 export type NamespaceRulesProcessingParams = {
@@ -4933,12 +4949,6 @@ export type PaginatedAccountsResult = {
   pageInfo: PaginatedResultInfo;
 };
 
-export type PaginatedActions = {
-  __typename?: 'PaginatedActions';
-  items: Array<PostAction>;
-  pageInfo: PaginatedResultInfo;
-};
-
 export type PaginatedActiveAuthenticationsResult = {
   __typename?: 'PaginatedActiveAuthenticationsResult';
   items: Array<AuthenticatedSession>;
@@ -5035,6 +5045,12 @@ export type PaginatedNamespaceReservedUsernamesResult = {
 export type PaginatedNotificationResult = {
   __typename?: 'PaginatedNotificationResult';
   items: Array<Notification>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostActionContracts = {
+  __typename?: 'PaginatedPostActionContracts';
+  items: Array<PostActionContract>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -5167,19 +5183,24 @@ export type PostAccountPair = {
 
 export type PostAction = SimpleCollectAction | TippingPostAction | UnknownAction;
 
-export enum PostActionCategoryType {
-  Collect = 'COLLECT'
-}
-
-export type PostActionConfigInput = {
-  simpleCollect?: InputMaybe<SimpleCollectActionConfigInput>;
-  unknown?: InputMaybe<UnknownActionConfigInput>;
+export type PostActionConfig = {
+  simpleCollect?: InputMaybe<SimpleCollectActionConfig>;
+  unknown?: InputMaybe<UnknownActionConfig>;
 };
 
-export type PostActionExecuteInput = {
+export type PostActionContract = SimpleCollectActionContract | TippingPostActionContract | UnknownPostActionContract;
+
+export type PostActionContractsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  includeUnknown?: Scalars['Boolean']['input'];
+  onlyCollectActions?: Scalars['Boolean']['input'];
+  pageSize?: PageSize;
+};
+
+export type PostActionExecute = {
   simpleCollect?: InputMaybe<AmountInput>;
   tipping?: InputMaybe<AmountInput>;
-  unknown?: InputMaybe<UnknownActionExecuteInput>;
+  unknown?: InputMaybe<UnknownActionExecute>;
 };
 
 export enum PostActionInput {
@@ -5189,17 +5210,10 @@ export enum PostActionInput {
 }
 
 export enum PostActionType {
-  SimpleCollectAction = 'SIMPLE_COLLECT_ACTION',
+  SimpleCollect = 'SIMPLE_COLLECT',
   Tipping = 'TIPPING',
-  UnknownAction = 'UNKNOWN_ACTION'
+  Unknown = 'UNKNOWN'
 }
-
-export type PostActionsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  includeUnknown?: Scalars['Boolean']['input'];
-  onlyCollectActions?: Scalars['Boolean']['input'];
-  pageSize?: PageSize;
-};
 
 export type PostBookmarksFilter = {
   /** The feeds to filter by. */
@@ -5458,8 +5472,8 @@ export type PostRules = {
 };
 
 export type PostRulesConfigInput = {
-  anyOf: Array<PostRuleConfig>;
-  required: Array<PostRuleConfig>;
+  anyOf?: InputMaybe<Array<PostRuleConfig>>;
+  required?: InputMaybe<Array<PostRuleConfig>>;
 };
 
 export type PostRulesProcessingParams = {
@@ -5668,7 +5682,8 @@ export type Query = {
    */
   notifications: PaginatedNotificationResult;
   post?: Maybe<AnyPost>;
-  postActions: PaginatedActions;
+  /** Lists all available Post Action contracts. */
+  postActionContracts: PaginatedPostActionContracts;
   postBookmarks: PaginatedAnyPostsResult;
   postEdits: PaginatedPostEditsResult;
   postReactionStatus: Array<PostReactionStatus>;
@@ -5919,8 +5934,8 @@ export type QueryPostArgs = {
 };
 
 
-export type QueryPostActionsArgs = {
-  request: PostActionsRequest;
+export type QueryPostActionContractsArgs = {
+  request: PostActionContractsRequest;
 };
 
 
@@ -6342,13 +6357,18 @@ export type SimpleCollectAction = {
   address: Scalars['EvmAddress']['output'];
 };
 
-export type SimpleCollectActionConfigInput = {
+export type SimpleCollectActionConfig = {
   amount?: InputMaybe<AmountInput>;
   collectLimit?: InputMaybe<Scalars['Int']['input']>;
   endsAt?: InputMaybe<Scalars['DateTime']['input']>;
   followerOnGraph?: InputMaybe<Scalars['EvmAddress']['input']>;
   isImmutable?: Scalars['Boolean']['input'];
   recipient?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type SimpleCollectActionContract = {
+  __typename?: 'SimpleCollectActionContract';
+  address: Scalars['EvmAddress']['output'];
 };
 
 export type SimplePaymentFeedRuleConfig = {
@@ -6857,6 +6877,11 @@ export type TippingPostAction = {
   address: Scalars['EvmAddress']['output'];
 };
 
+export type TippingPostActionContract = {
+  __typename?: 'TippingPostActionContract';
+  address: Scalars['EvmAddress']['output'];
+};
+
 export type TokenAmountInput = {
   /**
    * The token address. To represent the native token, use the
@@ -6956,14 +6981,14 @@ export enum TransactionOperation {
   AppGroupAdded = 'APP_GROUP_ADDED',
   AppGroupRemoved = 'APP_GROUP_REMOVED',
   AppMetadataUriSet = 'APP_METADATA_URI_SET',
-  AppNamespaceAdded = 'APP_NAMESPACE_ADDED',
-  AppNamespaceRemoved = 'APP_NAMESPACE_REMOVED',
   AppPaymasterAdded = 'APP_PAYMASTER_ADDED',
   AppPaymasterRemoved = 'APP_PAYMASTER_REMOVED',
   AppSignerAdded = 'APP_SIGNER_ADDED',
   AppSignerRemoved = 'APP_SIGNER_REMOVED',
   AppSourceStampVerificationSet = 'APP_SOURCE_STAMP_VERIFICATION_SET',
   AppTreasurySet = 'APP_TREASURY_SET',
+  AppUsernameAdded = 'AppUsernameAdded',
+  AppUsernameRemoved = 'AppUsernameRemoved',
   FeedAccessControlAdded = 'FEED_ACCESS_CONTROL_ADDED',
   FeedAccessControlUpdated = 'FEED_ACCESS_CONTROL_UPDATED',
   FeedExtraDataAdded = 'FEED_EXTRA_DATA_ADDED',
@@ -7170,7 +7195,7 @@ export type UnfollowResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type UnfollowResult = GraphOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnfollowResponse;
+export type UnfollowResult = AccountFollowOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnfollowResponse;
 
 export type UnhideManagedAccountRequest = {
   /** The account to unhide. */
@@ -7191,16 +7216,17 @@ export type UnknownAccountRuleConfig = {
 export type UnknownAction = {
   __typename?: 'UnknownAction';
   address: Scalars['EvmAddress']['output'];
+  metadata?: Maybe<ActionMetadata>;
 };
 
-export type UnknownActionConfigInput = {
+export type UnknownActionConfig = {
   /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
   /** Optional action configuration params */
   params: Array<ExtraDataInput>;
 };
 
-export type UnknownActionExecuteInput = {
+export type UnknownActionExecute = {
   /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
   /** Optional action execution params */
@@ -7237,6 +7263,12 @@ export type UnknownNamespaceRuleConfig = {
   executeOn: Array<NamespaceRuleExecuteOn>;
   /** Optional rule configuration parameters */
   params?: InputMaybe<Array<ExtraDataInput>>;
+};
+
+export type UnknownPostActionContract = {
+  __typename?: 'UnknownPostActionContract';
+  address: Scalars['EvmAddress']['output'];
+  metadata?: Maybe<ActionMetadata>;
 };
 
 export type UnknownPostRuleConfig = {
@@ -8084,7 +8116,7 @@ export type FollowMutationVariables = Exact<{
 }>;
 
 
-export type FollowMutation = { __typename?: 'Mutation', follow: { __typename?: 'FollowResponse', hash: any } | { __typename?: 'GraphOperationValidationFailed' } | (
+export type FollowMutation = { __typename?: 'Mutation', follow: { __typename?: 'AccountFollowOperationValidationFailed' } | { __typename?: 'FollowResponse', hash: any } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFieldsFragment
   ) | (
@@ -8188,7 +8220,7 @@ export type UnfollowMutationVariables = Exact<{
 }>;
 
 
-export type UnfollowMutation = { __typename?: 'Mutation', unfollow: { __typename?: 'GraphOperationValidationFailed' } | (
+export type UnfollowMutation = { __typename?: 'Mutation', unfollow: { __typename?: 'AccountFollowOperationValidationFailed' } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFieldsFragment
   ) | (
@@ -11328,8 +11360,8 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "FeedOperationValidationUnknown"
     ],
     "FollowResult": [
+      "AccountFollowOperationValidationFailed",
       "FollowResponse",
-      "GraphOperationValidationFailed",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
@@ -11375,6 +11407,11 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "SimpleCollectAction",
       "TippingPostAction",
       "UnknownAction"
+    ],
+    "PostActionContract": [
+      "SimpleCollectActionContract",
+      "TippingPostActionContract",
+      "UnknownPostActionContract"
     ],
     "PostMention": [
       "AccountMention",
@@ -11580,7 +11617,7 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "UndoReactionResponse"
     ],
     "UnfollowResult": [
-      "GraphOperationValidationFailed",
+      "AccountFollowOperationValidationFailed",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail",
