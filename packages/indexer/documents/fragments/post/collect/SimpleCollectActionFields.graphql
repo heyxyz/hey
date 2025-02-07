@@ -1,3 +1,4 @@
 fragment SimpleCollectActionFields on SimpleCollectAction {
   address
+  ...Erc20AmountFields
 }
