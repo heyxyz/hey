@@ -2,6 +2,7 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
   address
   recipient
   collectLimit
+  isImmutable
   endsAt
   amount {
     ...Erc20AmountFields
