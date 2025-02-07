@@ -81,19 +81,14 @@ export type AccountUsernameArgs = {
 
 export type AccountAction = TippingAccountAction | UnknownAction;
 
-export type AccountActionConfig = {
-  unknown?: InputMaybe<UnknownActionConfig>;
+export type AccountActionConfigInput = {
+  unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
-export type AccountActionExecute = {
+export type AccountActionExecuteInput = {
   tipping?: InputMaybe<AmountInput>;
-  unknown?: InputMaybe<UnknownActionExecute>;
+  unknown?: InputMaybe<UnknownActionExecuteInput>;
 };
-
-export enum AccountActionType {
-  Tipping = 'TIPPING',
-  Unknown = 'UNKNOWN'
-}
 
 export type AccountAvailable = AccountManaged | AccountOwned;
 
@@ -166,7 +161,7 @@ export type AccountFollowOperationValidationUnknown = {
 export type AccountFollowRule = {
   __typename?: 'AccountFollowRule';
   address: Scalars['EvmAddress']['output'];
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
   id: Scalars['RuleId']['output'];
   type: AccountFollowRuleType;
 };
@@ -203,7 +198,7 @@ export type AccountFollowRulesProcessingParams = {
 
 export type AccountFollowUnsatisfiedRule = {
   __typename?: 'AccountFollowUnsatisfiedRule';
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: AccountFollowRuleUnsatisfiedReason;
   rule: Scalars['EvmAddress']['output'];
@@ -427,8 +422,8 @@ export type AccountRequest = {
 };
 
 export type AccountRulesConfigInput = {
-  anyOf?: InputMaybe<Array<AccountFollowRuleConfig>>;
-  required?: InputMaybe<Array<AccountFollowRuleConfig>>;
+  anyOf?: Array<AccountFollowRuleConfig>;
+  required?: Array<AccountFollowRuleConfig>;
 };
 
 export type AccountStats = {
@@ -699,6 +694,12 @@ export type AmountInput = {
    * wei).
    */
   value: Scalars['BigDecimal']['input'];
+};
+
+export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
+
+export type AnyKeyValueInput = {
+  raw?: InputMaybe<RawKeyValueInput>;
 };
 
 /** AnyMedia */
@@ -1056,6 +1057,8 @@ export type BuilderChallengeRequest = {
   address: Scalars['EvmAddress']['input'];
 };
 
+export type CanCreateUsernameResult = NamespaceOperationValidationFailed | NamespaceOperationValidationPassed | NamespaceOperationValidationUnknown | UsernameTaken;
+
 export type CanFollowRequest = {
   graph: Scalars['EvmAddress']['input'];
 };
@@ -1128,7 +1131,7 @@ export type CommentNotification = {
 
 export type ConfigureAccountActionRequest = {
   /** The action type and configuration. */
-  action: AccountActionConfig;
+  action: AccountActionConfigInput;
 };
 
 export type ConfigureAccountActionResponse = {
@@ -1140,7 +1143,7 @@ export type ConfigureAccountActionResult = ConfigureAccountActionResponse | Self
 
 export type ConfigurePostActionRequest = {
   /** The post action configuration parameters. */
-  params: PostActionConfig;
+  params: PostActionConfigInput;
   /** The post to configure the action for. */
   post: Scalars['PostId']['input'];
 };
@@ -1278,7 +1281,7 @@ export type CreateNamespaceResponse = {
 
 export type CreatePostRequest = {
   /** The actions to attach to the post. */
-  actions?: InputMaybe<Array<PostActionConfig>>;
+  actions?: InputMaybe<Array<PostActionConfigInput>>;
   /** The post to comment on, if any. */
   commentOn?: InputMaybe<ReferencingPostInput>;
   /** The URI of the post metadata. */
@@ -1431,12 +1434,8 @@ export type DictionaryKeyValue = {
 };
 
 export type DisableAccountActionRequest = {
-  /** The account action to set. */
-  action: AccountActionType;
-  /** Set the action's contract address in case of unknown actions */
-  actionAddress?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The action params. */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  tipping?: InputMaybe<Scalars['Boolean']['input']>;
+  unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
 export type DisableAccountActionResponse = {
@@ -1446,13 +1445,13 @@ export type DisableAccountActionResponse = {
 
 export type DisableAccountActionResult = DisableAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type DisablePostActionParams = {
+  tipping?: InputMaybe<Scalars['Boolean']['input']>;
+  unknown?: InputMaybe<UnknownActionConfigInput>;
+};
+
 export type DisablePostActionRequest = {
-  /** The action to disable. */
-  action: PostActionInput;
-  /** Set the action's contract address in case of unknown actions */
-  actionAddress?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The feed that the post is on. */
-  feed: Scalars['EvmAddress']['input'];
+  action: DisablePostActionParams;
   /** The target post. */
   post: Scalars['PostId']['input'];
 };
@@ -1569,12 +1568,8 @@ export type EmbedMetadata = {
 };
 
 export type EnableAccountActionRequest = {
-  /** The account action to set. */
-  action: AccountActionType;
-  /** Set the action's contract address in case of unknown actions */
-  actionAddress?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The action params if any. */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  tipping?: InputMaybe<Scalars['Boolean']['input']>;
+  unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
 export type EnableAccountActionResponse = {
@@ -1584,14 +1579,14 @@ export type EnableAccountActionResponse = {
 
 export type EnableAccountActionResult = EnableAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type EnablePostActionParams = {
+  tipping?: InputMaybe<Scalars['Boolean']['input']>;
+  unknown?: InputMaybe<UnknownActionConfigInput>;
+};
+
 export type EnablePostActionRequest = {
-  /** The post action to set. */
-  action: PostActionInput;
-  /** The */
-  actionAddress?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The feed that the post is on. */
-  feed: Scalars['EvmAddress']['input'];
-  /** The post to set the action for. */
+  action: EnablePostActionParams;
+  /** The target post. */
   post: Scalars['PostId']['input'];
 };
 
@@ -1630,6 +1625,24 @@ export enum EntityType {
   Sponsorship = 'SPONSORSHIP',
   UsernameNamespace = 'USERNAME_NAMESPACE'
 }
+
+export type Erc20 = {
+  __typename?: 'Erc20';
+  contract: NetworkAddress;
+  decimals: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  symbol: Scalars['String']['output'];
+};
+
+export type Erc20Amount = {
+  __typename?: 'Erc20Amount';
+  asset: Erc20;
+  /**
+   * Token value in its main unit (e.g., 1.5 DAI), not in the smallest fraction (e.g.,
+   * wei).
+   */
+  value: Scalars['BigDecimal']['output'];
+};
 
 export type EventMetadata = {
   __typename?: 'EventMetadata';
@@ -2117,7 +2130,7 @@ export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
 
 export type ExecuteAccountActionRequest = {
   /** The action params. */
-  params: AccountActionExecute;
+  params: AccountActionExecuteInput;
   /** The target account to execute the action on. */
   targetAccount: Scalars['EvmAddress']['input'];
 };
@@ -2131,9 +2144,7 @@ export type ExecuteAccountActionResult = ExecuteAccountActionResponse | SelfFund
 
 export type ExecutePostActionRequest = {
   /** The action params. */
-  action: PostActionExecute;
-  /** The target feed that the post is on. */
-  feed: Scalars['EvmAddress']['input'];
+  action: PostActionExecuteInput;
   /** The target post to execute the action on. */
   post: Scalars['PostId']['input'];
 };
@@ -2149,12 +2160,6 @@ export type ExecutePostActionResult = ExecutePostActionResponse | SelfFundedTran
 export type ExpiredChallengeError = {
   __typename?: 'ExpiredChallengeError';
   reason: Scalars['String']['output'];
-};
-
-export type ExtraData = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
-
-export type ExtraDataInput = {
-  raw?: InputMaybe<RawKeyValueInput>;
 };
 
 /**
@@ -2228,7 +2233,8 @@ export type FeedRequest = {
 export type FeedRule = {
   __typename?: 'FeedRule';
   address: Scalars['EvmAddress']['output'];
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
+  executesOn: Array<FeedRuleExecuteOn>;
   id: Scalars['RuleId']['output'];
   type: FeedRuleType;
 };
@@ -2270,8 +2276,8 @@ export type FeedRules = {
 };
 
 export type FeedRulesConfigInput = {
-  anyOf?: InputMaybe<Array<FeedRuleConfig>>;
-  required?: InputMaybe<Array<FeedRuleConfig>>;
+  anyOf?: Array<FeedRuleConfig>;
+  required?: Array<FeedRuleConfig>;
 };
 
 export type FeedRulesProcessingParams = {
@@ -2280,7 +2286,7 @@ export type FeedRulesProcessingParams = {
 
 export type FeedUnsatisfiedRule = {
   __typename?: 'FeedUnsatisfiedRule';
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: FeedRuleUnsatisfiedReason;
   rule: Scalars['EvmAddress']['output'];
@@ -2371,6 +2377,17 @@ export type Follower = {
   follower: Account;
   /** The graph the follower is following on */
   graph: Scalars['EvmAddress']['output'];
+};
+
+export type FollowerOn = {
+  __typename?: 'FollowerOn';
+  globalGraph?: Maybe<Scalars['Boolean']['output']>;
+  graph?: Maybe<Scalars['EvmAddress']['output']>;
+};
+
+export type FollowerOnInput = {
+  globalGraph?: InputMaybe<Scalars['Boolean']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type FollowersFilter = {
@@ -2536,7 +2553,8 @@ export type GraphRequest = {
 export type GraphRule = {
   __typename?: 'GraphRule';
   address: Scalars['EvmAddress']['output'];
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
+  executesOn: Array<GraphRuleExecuteOn>;
   id: Scalars['RuleId']['output'];
   type: GraphRuleType;
 };
@@ -2567,8 +2585,8 @@ export type GraphRules = {
 };
 
 export type GraphRulesConfigInput = {
-  anyOf?: InputMaybe<Array<GraphRuleConfig>>;
-  required?: InputMaybe<Array<GraphRuleConfig>>;
+  anyOf?: Array<GraphRuleConfig>;
+  required?: Array<GraphRuleConfig>;
 };
 
 export type GraphRulesProcessingParams = {
@@ -2785,7 +2803,8 @@ export type GroupRequest = {
 export type GroupRule = {
   __typename?: 'GroupRule';
   address: Scalars['EvmAddress']['output'];
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
+  executesOn: Array<GroupRuleExecuteOn>;
   id: Scalars['RuleId']['output'];
   type: GroupRuleType;
 };
@@ -2828,8 +2847,8 @@ export type GroupRules = {
 };
 
 export type GroupRulesConfigInput = {
-  anyOf?: InputMaybe<Array<GroupRuleConfig>>;
-  required?: InputMaybe<Array<GroupRuleConfig>>;
+  anyOf?: Array<GroupRuleConfig>;
+  required?: Array<GroupRuleConfig>;
 };
 
 export type GroupRulesProcessingParams = {
@@ -2848,7 +2867,7 @@ export type GroupStatsResponse = {
 
 export type GroupUnsatisfiedRule = {
   __typename?: 'GroupUnsatisfiedRule';
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: GroupRuleUnsatisfiedReason;
   rule: Scalars['EvmAddress']['output'];
@@ -4740,7 +4759,8 @@ export type NamespaceReservedUsernamesRequest = {
 export type NamespaceRule = {
   __typename?: 'NamespaceRule';
   address: Scalars['EvmAddress']['output'];
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
+  executesOn: Array<NamespaceRuleExecuteOn>;
   id: Scalars['RuleId']['output'];
   type: NamespaceRuleType;
 };
@@ -4782,8 +4802,8 @@ export type NamespaceRules = {
 };
 
 export type NamespaceRulesConfigInput = {
-  anyOf?: InputMaybe<Array<NamespaceRuleConfig>>;
-  required?: InputMaybe<Array<NamespaceRuleConfig>>;
+  anyOf?: Array<NamespaceRuleConfig>;
+  required?: Array<NamespaceRuleConfig>;
 };
 
 export type NamespaceRulesProcessingParams = {
@@ -4792,7 +4812,7 @@ export type NamespaceRulesProcessingParams = {
 
 export type NamespaceUnsatisfiedRule = {
   __typename?: 'NamespaceUnsatisfiedRule';
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: NamespaceRuleUnsatisfiedReason;
   rule: Scalars['EvmAddress']['output'];
@@ -4834,6 +4854,12 @@ export type NamespacesResult = {
   __typename?: 'NamespacesResult';
   items: Array<UsernameNamespace>;
   pageInfo: PaginatedResultInfo;
+};
+
+export type NetworkAddress = {
+  __typename?: 'NetworkAddress';
+  address: Scalars['EvmAddress']['output'];
+  chainId: Scalars['Int']['output'];
 };
 
 /** The existence of the transaction is not yet indexed. Keep trying. */
@@ -5176,6 +5202,11 @@ export type Post = {
   timestamp: Scalars['DateTime']['output'];
 };
 
+
+export type PostActionsArgs = {
+  includeDisabled?: Scalars['Boolean']['input'];
+};
+
 export type PostAccountPair = {
   account: Scalars['EvmAddress']['input'];
   post: Scalars['PostId']['input'];
@@ -5183,9 +5214,9 @@ export type PostAccountPair = {
 
 export type PostAction = SimpleCollectAction | TippingPostAction | UnknownAction;
 
-export type PostActionConfig = {
-  simpleCollect?: InputMaybe<SimpleCollectActionConfig>;
-  unknown?: InputMaybe<UnknownActionConfig>;
+export type PostActionConfigInput = {
+  simpleCollect?: InputMaybe<SimpleCollectActionConfigInput>;
+  unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
 export type PostActionContract = SimpleCollectActionContract | TippingPostActionContract | UnknownPostActionContract;
@@ -5197,17 +5228,11 @@ export type PostActionContractsRequest = {
   pageSize?: PageSize;
 };
 
-export type PostActionExecute = {
-  simpleCollect?: InputMaybe<AmountInput>;
+export type PostActionExecuteInput = {
+  simpleCollect?: InputMaybe<Scalars['Boolean']['input']>;
   tipping?: InputMaybe<AmountInput>;
-  unknown?: InputMaybe<UnknownActionExecute>;
+  unknown?: InputMaybe<UnknownActionExecuteInput>;
 };
-
-export enum PostActionInput {
-  SimpleCollect = 'SIMPLE_COLLECT',
-  Tipping = 'TIPPING',
-  Unknown = 'UNKNOWN'
-}
 
 export enum PostActionType {
   SimpleCollect = 'SIMPLE_COLLECT',
@@ -5437,7 +5462,8 @@ export type PostResult = PostOperationValidationFailed | PostResponse | SelfFund
 export type PostRule = {
   __typename?: 'PostRule';
   address: Scalars['EvmAddress']['output'];
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
+  executesOn: Array<PostRuleExecuteOn>;
   id: Scalars['RuleId']['output'];
   type: PostRuleType;
 };
@@ -5472,8 +5498,8 @@ export type PostRules = {
 };
 
 export type PostRulesConfigInput = {
-  anyOf?: InputMaybe<Array<PostRuleConfig>>;
-  required?: InputMaybe<Array<PostRuleConfig>>;
+  anyOf?: Array<PostRuleConfig>;
+  required?: Array<PostRuleConfig>;
 };
 
 export type PostRulesProcessingParams = {
@@ -5534,7 +5560,7 @@ export enum PostType {
 
 export type PostUnsatisfiedRule = {
   __typename?: 'PostUnsatisfiedRule';
-  extraData: Array<ExtraData>;
+  config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: PostRuleUnsatisfiedReason;
   rule: Scalars['EvmAddress']['output'];
@@ -5629,6 +5655,12 @@ export type Query = {
    * You MUST be authenticated to use this query.
    */
   authenticatedSessions: PaginatedActiveAuthenticationsResult;
+  /**
+   * Checks if the given username can be created by the account
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  canCreateUsername: CanCreateUsernameResult;
   /**
    * Get the current authenticated session for the current account.
    *
@@ -5806,6 +5838,11 @@ export type QueryAppsArgs = {
 
 export type QueryAuthenticatedSessionsArgs = {
   request: AuthenticatedSessionsRequest;
+};
+
+
+export type QueryCanCreateUsernameArgs = {
+  request: UsernameInput;
 };
 
 
@@ -6355,13 +6392,19 @@ export type SignedAuthChallenge = {
 export type SimpleCollectAction = {
   __typename?: 'SimpleCollectAction';
   address: Scalars['EvmAddress']['output'];
+  amount?: Maybe<Erc20Amount>;
+  collectLimit?: Maybe<Scalars['Int']['output']>;
+  endsAt?: Maybe<Scalars['DateTime']['output']>;
+  followerOnGraph?: Maybe<FollowerOn>;
+  isImmutable: Scalars['Boolean']['output'];
+  recipient?: Maybe<Scalars['EvmAddress']['output']>;
 };
 
-export type SimpleCollectActionConfig = {
+export type SimpleCollectActionConfigInput = {
   amount?: InputMaybe<AmountInput>;
   collectLimit?: InputMaybe<Scalars['Int']['input']>;
   endsAt?: InputMaybe<Scalars['DateTime']['input']>;
-  followerOnGraph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  followerOnGraph?: InputMaybe<FollowerOnInput>;
   isImmutable?: Scalars['Boolean']['input'];
   recipient?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
@@ -6981,14 +7024,14 @@ export enum TransactionOperation {
   AppGroupAdded = 'APP_GROUP_ADDED',
   AppGroupRemoved = 'APP_GROUP_REMOVED',
   AppMetadataUriSet = 'APP_METADATA_URI_SET',
+  AppNamespaceAdded = 'APP_NAMESPACE_ADDED',
+  AppNamespaceRemoved = 'APP_NAMESPACE_REMOVED',
   AppPaymasterAdded = 'APP_PAYMASTER_ADDED',
   AppPaymasterRemoved = 'APP_PAYMASTER_REMOVED',
   AppSignerAdded = 'APP_SIGNER_ADDED',
   AppSignerRemoved = 'APP_SIGNER_REMOVED',
   AppSourceStampVerificationSet = 'APP_SOURCE_STAMP_VERIFICATION_SET',
   AppTreasurySet = 'APP_TREASURY_SET',
-  AppUsernameAdded = 'AppUsernameAdded',
-  AppUsernameRemoved = 'AppUsernameRemoved',
   FeedAccessControlAdded = 'FEED_ACCESS_CONTROL_ADDED',
   FeedAccessControlUpdated = 'FEED_ACCESS_CONTROL_UPDATED',
   FeedExtraDataAdded = 'FEED_EXTRA_DATA_ADDED',
@@ -7210,27 +7253,34 @@ export type UnknownAccountRuleConfig = {
   /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   /** Optional rule configuration parameters */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownAction = {
   __typename?: 'UnknownAction';
   address: Scalars['EvmAddress']['output'];
+  config: UnknownActionConfig;
   metadata?: Maybe<ActionMetadata>;
 };
 
 export type UnknownActionConfig = {
+  __typename?: 'UnknownActionConfig';
+  address: Scalars['EvmAddress']['output'];
+  params: Array<RawKeyValue>;
+};
+
+export type UnknownActionConfigInput = {
   /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
   /** Optional action configuration params */
-  params: Array<ExtraDataInput>;
+  params: Array<AnyKeyValueInput>;
 };
 
-export type UnknownActionExecute = {
+export type UnknownActionExecuteInput = {
   /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
   /** Optional action execution params */
-  params: Array<ExtraDataInput>;
+  params: Array<RawKeyValueInput>;
 };
 
 export type UnknownFeedRuleConfig = {
@@ -7238,7 +7288,7 @@ export type UnknownFeedRuleConfig = {
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<FeedRuleExecuteOn>;
   /** Optional rule configuration parameters */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownGraphRuleConfig = {
@@ -7246,7 +7296,7 @@ export type UnknownGraphRuleConfig = {
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<GraphRuleExecuteOn>;
   /** Optional rule configuration parameters */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownGroupRuleConfig = {
@@ -7254,7 +7304,7 @@ export type UnknownGroupRuleConfig = {
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<GroupRuleExecuteOn>;
   /** Optional rule configuration parameters */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownNamespaceRuleConfig = {
@@ -7262,7 +7312,7 @@ export type UnknownNamespaceRuleConfig = {
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<NamespaceRuleExecuteOn>;
   /** Optional rule configuration parameters */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownPostActionContract = {
@@ -7276,14 +7326,14 @@ export type UnknownPostRuleConfig = {
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<PostRuleExecuteOn>;
   /** Optional rule configuration parameters */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownRuleProcessingParams = {
   /** The rule id */
   id: Scalars['RuleId']['input'];
   /** The rule processing params */
-  params?: InputMaybe<Array<ExtraDataInput>>;
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UpdateAccountFollowRulesRequest = {
@@ -7527,6 +7577,7 @@ export type UsernameSearchInput = {
 export type UsernameTaken = {
   __typename?: 'UsernameTaken';
   ownedBy: Scalars['EvmAddress']['output'];
+  reason: Scalars['String']['output'];
 };
 
 export type UsernamesFilter = {
@@ -8468,6 +8519,29 @@ export type UnhideReplyMutationVariables = Exact<{
 
 
 export type UnhideReplyMutation = { __typename?: 'Mutation', unhideReply: any };
+
+export type CreateSponsorshipMutationVariables = Exact<{
+  request: CreateSponsorshipRequest;
+}>;
+
+
+export type CreateSponsorshipMutation = { __typename?: 'Mutation', createSponsorship: { __typename?: 'CreateSponsorshipResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & SelfFundedTransactionRequestFieldsFragment
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type UpdateSponsorshipLimitsMutationVariables = Exact<{
+  request: UpdateSponsorshipLimitsRequest;
+}>;
+
+
+export type UpdateSponsorshipLimitsMutation = { __typename?: 'Mutation', updateSponsorshipLimits: (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & SelfFundedTransactionRequestFieldsFragment
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & SponsoredTransactionRequestFieldsFragment
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
 
 export type TransactionStatusQueryVariables = Exact<{
   request: TransactionStatusRequest;
@@ -10037,6 +10111,60 @@ export function useUnhideReplyMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UnhideReplyMutationHookResult = ReturnType<typeof useUnhideReplyMutation>;
 export type UnhideReplyMutationResult = Apollo.MutationResult<UnhideReplyMutation>;
 export type UnhideReplyMutationOptions = Apollo.BaseMutationOptions<UnhideReplyMutation, UnhideReplyMutationVariables>;
+export const CreateSponsorshipDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSponsorship"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateSponsorshipRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSponsorship"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateSponsorshipResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode;
+export type CreateSponsorshipMutationFn = Apollo.MutationFunction<CreateSponsorshipMutation, CreateSponsorshipMutationVariables>;
+
+/**
+ * __useCreateSponsorshipMutation__
+ *
+ * To run a mutation, you first call `useCreateSponsorshipMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSponsorshipMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSponsorshipMutation, { data, loading, error }] = useCreateSponsorshipMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSponsorshipMutation(baseOptions?: Apollo.MutationHookOptions<CreateSponsorshipMutation, CreateSponsorshipMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSponsorshipMutation, CreateSponsorshipMutationVariables>(CreateSponsorshipDocument, options);
+      }
+export type CreateSponsorshipMutationHookResult = ReturnType<typeof useCreateSponsorshipMutation>;
+export type CreateSponsorshipMutationResult = Apollo.MutationResult<CreateSponsorshipMutation>;
+export type CreateSponsorshipMutationOptions = Apollo.BaseMutationOptions<CreateSponsorshipMutation, CreateSponsorshipMutationVariables>;
+export const UpdateSponsorshipLimitsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSponsorshipLimits"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateSponsorshipLimitsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateSponsorshipLimits"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UpdateSponsorshipLimitsMutationFn = Apollo.MutationFunction<UpdateSponsorshipLimitsMutation, UpdateSponsorshipLimitsMutationVariables>;
+
+/**
+ * __useUpdateSponsorshipLimitsMutation__
+ *
+ * To run a mutation, you first call `useUpdateSponsorshipLimitsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSponsorshipLimitsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSponsorshipLimitsMutation, { data, loading, error }] = useUpdateSponsorshipLimitsMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateSponsorshipLimitsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSponsorshipLimitsMutation, UpdateSponsorshipLimitsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSponsorshipLimitsMutation, UpdateSponsorshipLimitsMutationVariables>(UpdateSponsorshipLimitsDocument, options);
+      }
+export type UpdateSponsorshipLimitsMutationHookResult = ReturnType<typeof useUpdateSponsorshipLimitsMutation>;
+export type UpdateSponsorshipLimitsMutationResult = Apollo.MutationResult<UpdateSponsorshipLimitsMutation>;
+export type UpdateSponsorshipLimitsMutationOptions = Apollo.BaseMutationOptions<UpdateSponsorshipLimitsMutation, UpdateSponsorshipLimitsMutationVariables>;
 export const TransactionStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TransactionStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionStatusRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactionStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FinishedTransactionStatus"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PendingTransactionStatus"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NotIndexedYetStatus"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FailedTransactionStatus"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 
 /**
@@ -11190,6 +11318,17 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "AddReactionFailure",
       "AddReactionResponse"
     ],
+    "AnyKeyValue": [
+      "AddressKeyValue",
+      "ArrayKeyValue",
+      "BigDecimalKeyValue",
+      "BooleanKeyValue",
+      "DictionaryKeyValue",
+      "IntKeyValue",
+      "IntNullableKeyValue",
+      "RawKeyValue",
+      "StringKeyValue"
+    ],
     "AnyMedia": [
       "MediaAudio",
       "MediaImage",
@@ -11233,6 +11372,12 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "BlockResponse",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest"
+    ],
+    "CanCreateUsernameResult": [
+      "NamespaceOperationValidationFailed",
+      "NamespaceOperationValidationPassed",
+      "NamespaceOperationValidationUnknown",
+      "UsernameTaken"
     ],
     "CancelGroupMembershipRequestResult": [
       "CancelGroupMembershipRequestResponse",
@@ -11342,17 +11487,6 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
-    ],
-    "ExtraData": [
-      "AddressKeyValue",
-      "ArrayKeyValue",
-      "BigDecimalKeyValue",
-      "BooleanKeyValue",
-      "DictionaryKeyValue",
-      "IntKeyValue",
-      "IntNullableKeyValue",
-      "RawKeyValue",
-      "StringKeyValue"
     ],
     "FeedOperationValidationOutcome": [
       "FeedOperationValidationFailed",

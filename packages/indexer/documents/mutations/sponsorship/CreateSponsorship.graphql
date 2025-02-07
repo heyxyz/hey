@@ -1,0 +1,13 @@
+mutation CreateSponsorship($request: CreateSponsorshipRequest!) {
+  createSponsorship(request: $request) {
+    ... on CreateSponsorshipResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
