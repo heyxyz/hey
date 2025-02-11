@@ -271,9 +271,8 @@ export type AccountManagerChallengeRequest = {
    * The App you intend to authenticate with.
    *
    * It MUST be a valid App address.
-   * Note: On the testnet, it will default to `0x90C8C68D0ABFB40D4FCD72316A65E42161520BC3`, the
-   * playground app. This is to make it easier if you forget to set it. This may change in the
-   * future.
+   * Note: On the testnet, it will default to the playground app.
+   * This is to make it easier if you forget to set it. This may change in the future.
    */
   app?: Scalars['EvmAddress']['input'];
   /** The address of the Account Manager. */
@@ -379,9 +378,8 @@ export type AccountOwnerChallengeRequest = {
    * The App you intend to authenticate with.
    *
    * It MUST be a valid App address.
-   * Note: On the testnet, it will default to `0x90C8C68D0ABFB40D4FCD72316A65E42161520BC3`, the
-   * playground app. This is to make it easier if you forget to set it. This may change in the
-   * future.
+   * Note: On the testnet, it will default to the playground app.
+   * This is to make it easier if you forget to set it. This may change in the future.
    */
   app?: Scalars['EvmAddress']['input'];
   /** The address of the Account Owner. */
@@ -1175,7 +1173,7 @@ export type CreateAccountWithUsernameRequest = {
   username: UsernameInput;
 };
 
-export type CreateAccountWithUsernameResult = CreateAccountResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UsernameTaken;
+export type CreateAccountWithUsernameResult = CreateAccountResponse | NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UsernameTaken;
 
 export type CreateAppRequest = {
   /** List of admins who can manage this app */
@@ -1395,7 +1393,7 @@ export type CreateUsernameResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateUsernameResult = CreateUsernameResponse | NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type CreateUsernameResult = CreateUsernameResponse | NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UsernameTaken;
 
 export type DebugPostMetadataRequest = {
   json?: InputMaybe<Scalars['String']['input']>;
@@ -1446,7 +1444,7 @@ export type DisableAccountActionResponse = {
 export type DisableAccountActionResult = DisableAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type DisablePostActionParams = {
-  tipping?: InputMaybe<Scalars['Boolean']['input']>;
+  simpleCollect?: InputMaybe<Scalars['Boolean']['input']>;
   unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
@@ -1580,7 +1578,7 @@ export type EnableAccountActionResponse = {
 export type EnableAccountActionResult = EnableAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type EnablePostActionParams = {
-  tipping?: InputMaybe<Scalars['Boolean']['input']>;
+  simpleCollect?: InputMaybe<Scalars['Boolean']['input']>;
   unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
@@ -4771,6 +4769,7 @@ export type NamespaceRuleConfig = {
   usernameLengthRule?: InputMaybe<UsernameLengthNamespaceRuleConfig>;
   usernamePricePerLengthRule?: InputMaybe<UsernamePricePerLengthNamespaceRuleConfig>;
   usernameReservedRule?: InputMaybe<UsernameReservedNamespaceRuleConfig>;
+  usernameSimpleCharsetRule?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export enum NamespaceRuleExecuteOn {
@@ -4785,12 +4784,14 @@ export enum NamespaceRuleType {
   TokenGated = 'TOKEN_GATED',
   Unknown = 'UNKNOWN',
   UsernameLength = 'USERNAME_LENGTH',
-  UsernameReserved = 'USERNAME_RESERVED'
+  UsernameReserved = 'USERNAME_RESERVED',
+  UsernameSimpleCharset = 'USERNAME_SIMPLE_CHARSET'
 }
 
 export enum NamespaceRuleUnsatisfiedReason {
   TokenGatedNotATokenHolder = 'TOKEN_GATED_NOT_A_TOKEN_HOLDER',
   UsernameLengthNotWithinRange = 'USERNAME_LENGTH_NOT_WITHIN_RANGE',
+  UsernameNotASimpleCharset = 'USERNAME_NOT_A_SIMPLE_CHARSET',
   UsernamePricePerLengthNotEnoughBalance = 'USERNAME_PRICE_PER_LENGTH_NOT_ENOUGH_BALANCE',
   UsernameReserved = 'USERNAME_RESERVED'
 }
@@ -4933,9 +4934,8 @@ export type OnboardingUserChallengeRequest = {
    * The App you intend to authenticate with.
    *
    * It MUST be a valid App address.
-   * Note: On the testnet, it will default to `0x90C8C68D0ABFB40D4FCD72316A65E42161520BC3`, the
-   * playground app. This is to make it easier if you forget to set it. This may change in the
-   * future.
+   * Note: On the testnet, it will default to the playground app.
+   * This is to make it easier if you forget to set it. This may change in the future.
    */
   app?: Scalars['EvmAddress']['input'];
   /** The address of the EOA that needs to create their Lens Account. */
@@ -5204,7 +5204,7 @@ export type Post = {
 
 
 export type PostActionsArgs = {
-  includeDisabled?: Scalars['Boolean']['input'];
+  request?: PostActionsParams;
 };
 
 export type PostAccountPair = {
@@ -5229,7 +5229,7 @@ export type PostActionContractsRequest = {
 };
 
 export type PostActionExecuteInput = {
-  simpleCollect?: InputMaybe<SimpleCollectActionExecuteInput>;
+  simpleCollect?: InputMaybe<Scalars['Boolean']['input']>;
   tipping?: InputMaybe<AmountInput>;
   unknown?: InputMaybe<UnknownActionExecuteInput>;
 };
@@ -5239,6 +5239,10 @@ export enum PostActionType {
   Tipping = 'TIPPING',
   Unknown = 'UNKNOWN'
 }
+
+export type PostActionsParams = {
+  includeDisabled: Scalars['Boolean']['input'];
+};
 
 export type PostBookmarksFilter = {
   /** The feeds to filter by. */
@@ -6412,10 +6416,6 @@ export type SimpleCollectActionConfigInput = {
 export type SimpleCollectActionContract = {
   __typename?: 'SimpleCollectActionContract';
   address: Scalars['EvmAddress']['output'];
-};
-
-export type SimpleCollectActionExecuteInput = {
-  enable: Scalars['AlwaysTrue']['input'];
 };
 
 export type SimplePaymentFeedRuleConfig = {
@@ -8157,7 +8157,7 @@ export type CreateAccountWithUsernameMutationVariables = Exact<{
 }>;
 
 
-export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | (
+export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'NamespaceOperationValidationFailed' } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFieldsFragment
   ) | (
@@ -11338,6 +11338,7 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
     ],
     "CreateAccountWithUsernameResult": [
       "CreateAccountResponse",
+      "NamespaceOperationValidationFailed",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail",
@@ -11378,7 +11379,8 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "NamespaceOperationValidationFailed",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
-      "TransactionWillFail"
+      "TransactionWillFail",
+      "UsernameTaken"
     ],
     "DeletePostResult": [
       "DeletePostResponse",
