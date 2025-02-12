@@ -3,7 +3,13 @@ import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { LoggedInPostOperations, Post } from "@hey/indexer";
+import {
+  useAddPostNotInterestedMutation,
+  useUndoPostNotInterestedMutation,
+  type LoggedInPostOperations,
+  type Post,
+  type PostNotInterestedRequest
+} from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
@@ -15,8 +21,8 @@ interface NotInterestedProps {
 const NotInterested: FC<NotInterestedProps> = ({ post }) => {
   const notInterested = post.operations?.isNotInterested;
 
-  const request: PublicationNotInterestedRequest = {
-    on: post.id
+  const request: PostNotInterestedRequest = {
+    post: post.id
   };
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
@@ -30,7 +36,7 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
     errorToast(error);
   };
 
-  const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
+  const [addPostNotInterested] = useAddPostNotInterestedMutation({
     onCompleted: () => {
       toast.success("Marked as not Interested");
     },
@@ -39,22 +45,21 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
     variables: { request }
   });
 
-  const [undoPublicationNotInterested] =
-    useUndoPublicationNotInterestedMutation({
-      onCompleted: () => {
-        toast.success("Undo Not interested");
-      },
-      onError,
-      update: (cache) => updateCache(cache, false),
-      variables: { request }
-    });
+  const [undoPostNotInterested] = useUndoPostNotInterestedMutation({
+    onCompleted: () => {
+      toast.success("Undo Not interested");
+    },
+    onError,
+    update: (cache) => updateCache(cache, false),
+    variables: { request }
+  });
 
   const handleTogglePublicationProfileNotInterested = async () => {
     if (notInterested) {
-      return await undoPublicationNotInterested();
+      return await undoPostNotInterested();
     }
 
-    return await addPublicationNotInterested();
+    return await addPostNotInterested();
   };
 
   return (

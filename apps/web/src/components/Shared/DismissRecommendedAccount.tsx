@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import type { Account } from "@hey/indexer";
+import { useMlDismissRecommendedAccountsMutation, type Account } from "@hey/indexer";
 import type { FC } from "react";
 
 interface DismissRecommendedAccountProps {
@@ -9,11 +9,11 @@ interface DismissRecommendedAccountProps {
 const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({
   account
 }) => {
-  const [dismissRecommendedAccount] = useDismissRecommendedProfilesMutation({
+  const [dismissRecommendedAccount] = useMlDismissRecommendedAccountsMutation({
     update: (cache) => {
       cache.evict({ id: cache.identify(account) });
     },
-    variables: { request: { dismiss: [account.address] } }
+    variables: { request: { accounts: [account.address] } }
   });
 
   const handleDismiss = async () => {
