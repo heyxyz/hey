@@ -269,7 +269,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectModule.type && {
-              actions: [{ collectAction: collectModuleParams(collectModule) }]
+              actions: collectModuleParams(collectModule)
             })
           }
         }

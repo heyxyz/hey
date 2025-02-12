@@ -1461,6 +1461,10 @@ export type DisablePostActionResponse = {
 
 export type DisablePostActionResult = DisablePostActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type DismissRecommendedAccountsRequest = {
+  accounts: Array<Scalars['EvmAddress']['input']>;
+};
+
 export type EditPostRequest = {
   contentUri: Scalars['URI']['input'];
   /** The processing params for the feed rules. */
@@ -3687,6 +3691,12 @@ export type Mutation = {
    */
   addGroupMember: AddGroupMemberResult;
   /**
+   * Add a post not interested.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  addPostNotInterested: Scalars['Void']['output'];
+  /**
    * React to a post.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
@@ -3901,6 +3911,7 @@ export type Mutation = {
    * The HTTP Origin header MUST be present and match the app's domain.
    */
   legacyRolloverRefresh: RefreshResult;
+  mlDismissRecommendedAccounts: Scalars['Void']['output'];
   /**
    * Mute an account for the authenticated account.
    *
@@ -4126,6 +4137,12 @@ export type Mutation = {
    */
   undoBookmarkPost: Scalars['Void']['output'];
   /**
+   * Undo a post not interested.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  undoPostNotInterested: Scalars['Void']['output'];
+  /**
    * Undo reaction to a post.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
@@ -4263,6 +4280,11 @@ export type MutationAddAppSignersArgs = {
 
 export type MutationAddGroupMemberArgs = {
   request: AddGroupMemberRequest;
+};
+
+
+export type MutationAddPostNotInterestedArgs = {
+  request: PostNotInterestedRequest;
 };
 
 
@@ -4438,6 +4460,11 @@ export type MutationLeaveGroupArgs = {
 
 export type MutationLegacyRolloverRefreshArgs = {
   request: RolloverRefreshRequest;
+};
+
+
+export type MutationMlDismissRecommendedAccountsArgs = {
+  request: DismissRecommendedAccountsRequest;
 };
 
 
@@ -4623,6 +4650,11 @@ export type MutationUnblockArgs = {
 
 export type MutationUndoBookmarkPostArgs = {
   request: BookmarkPostRequest;
+};
+
+
+export type MutationUndoPostNotInterestedArgs = {
+  request: PostNotInterestedRequest;
 };
 
 
@@ -5319,6 +5351,10 @@ export type PostMetadataFilter = {
 export type PostMetadataTagsFilter = {
   all?: InputMaybe<Array<Scalars['String']['input']>>;
   oneOf?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type PostNotInterestedRequest = {
+  post: Scalars['PostId']['input'];
 };
 
 export type PostOperationValidationFailed = {
@@ -8433,6 +8469,20 @@ export type UnbanGroupAccountMutation = { __typename?: 'Mutation', unbanGroupAcc
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } | { __typename?: 'UnbanGroupAccountResponse', hash: any } };
 
+export type MlDismissRecommendedAccountsMutationVariables = Exact<{
+  request: DismissRecommendedAccountsRequest;
+}>;
+
+
+export type MlDismissRecommendedAccountsMutation = { __typename?: 'Mutation', mlDismissRecommendedAccounts: any };
+
+export type AddPostNotInterestedMutationVariables = Exact<{
+  request: PostNotInterestedRequest;
+}>;
+
+
+export type AddPostNotInterestedMutation = { __typename?: 'Mutation', addPostNotInterested: any };
+
 export type AddReactionMutationVariables = Exact<{
   request: AddReactionRequest;
 }>;
@@ -8519,6 +8569,13 @@ export type UndoBookmarkPostMutationVariables = Exact<{
 
 
 export type UndoBookmarkPostMutation = { __typename?: 'Mutation', undoBookmarkPost: any };
+
+export type UndoPostNotInterestedMutationVariables = Exact<{
+  request: PostNotInterestedRequest;
+}>;
+
+
+export type UndoPostNotInterestedMutation = { __typename?: 'Mutation', undoPostNotInterested: any };
 
 export type UndoReactionMutationVariables = Exact<{
   request: UndoReactionRequest;
@@ -9807,6 +9864,60 @@ export function useUnbanGroupAccountMutation(baseOptions?: Apollo.MutationHookOp
 export type UnbanGroupAccountMutationHookResult = ReturnType<typeof useUnbanGroupAccountMutation>;
 export type UnbanGroupAccountMutationResult = Apollo.MutationResult<UnbanGroupAccountMutation>;
 export type UnbanGroupAccountMutationOptions = Apollo.BaseMutationOptions<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>;
+export const MlDismissRecommendedAccountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MlDismissRecommendedAccounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DismissRecommendedAccountsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mlDismissRecommendedAccounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type MlDismissRecommendedAccountsMutationFn = Apollo.MutationFunction<MlDismissRecommendedAccountsMutation, MlDismissRecommendedAccountsMutationVariables>;
+
+/**
+ * __useMlDismissRecommendedAccountsMutation__
+ *
+ * To run a mutation, you first call `useMlDismissRecommendedAccountsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMlDismissRecommendedAccountsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [mlDismissRecommendedAccountsMutation, { data, loading, error }] = useMlDismissRecommendedAccountsMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useMlDismissRecommendedAccountsMutation(baseOptions?: Apollo.MutationHookOptions<MlDismissRecommendedAccountsMutation, MlDismissRecommendedAccountsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MlDismissRecommendedAccountsMutation, MlDismissRecommendedAccountsMutationVariables>(MlDismissRecommendedAccountsDocument, options);
+      }
+export type MlDismissRecommendedAccountsMutationHookResult = ReturnType<typeof useMlDismissRecommendedAccountsMutation>;
+export type MlDismissRecommendedAccountsMutationResult = Apollo.MutationResult<MlDismissRecommendedAccountsMutation>;
+export type MlDismissRecommendedAccountsMutationOptions = Apollo.BaseMutationOptions<MlDismissRecommendedAccountsMutation, MlDismissRecommendedAccountsMutationVariables>;
+export const AddPostNotInterestedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddPostNotInterested"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PostNotInterestedRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addPostNotInterested"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type AddPostNotInterestedMutationFn = Apollo.MutationFunction<AddPostNotInterestedMutation, AddPostNotInterestedMutationVariables>;
+
+/**
+ * __useAddPostNotInterestedMutation__
+ *
+ * To run a mutation, you first call `useAddPostNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPostNotInterestedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPostNotInterestedMutation, { data, loading, error }] = useAddPostNotInterestedMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddPostNotInterestedMutation(baseOptions?: Apollo.MutationHookOptions<AddPostNotInterestedMutation, AddPostNotInterestedMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddPostNotInterestedMutation, AddPostNotInterestedMutationVariables>(AddPostNotInterestedDocument, options);
+      }
+export type AddPostNotInterestedMutationHookResult = ReturnType<typeof useAddPostNotInterestedMutation>;
+export type AddPostNotInterestedMutationResult = Apollo.MutationResult<AddPostNotInterestedMutation>;
+export type AddPostNotInterestedMutationOptions = Apollo.BaseMutationOptions<AddPostNotInterestedMutation, AddPostNotInterestedMutationVariables>;
 export const AddReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type AddReactionMutationFn = Apollo.MutationFunction<AddReactionMutation, AddReactionMutationVariables>;
 
@@ -10050,6 +10161,33 @@ export function useUndoBookmarkPostMutation(baseOptions?: Apollo.MutationHookOpt
 export type UndoBookmarkPostMutationHookResult = ReturnType<typeof useUndoBookmarkPostMutation>;
 export type UndoBookmarkPostMutationResult = Apollo.MutationResult<UndoBookmarkPostMutation>;
 export type UndoBookmarkPostMutationOptions = Apollo.BaseMutationOptions<UndoBookmarkPostMutation, UndoBookmarkPostMutationVariables>;
+export const UndoPostNotInterestedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoPostNotInterested"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PostNotInterestedRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoPostNotInterested"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
+export type UndoPostNotInterestedMutationFn = Apollo.MutationFunction<UndoPostNotInterestedMutation, UndoPostNotInterestedMutationVariables>;
+
+/**
+ * __useUndoPostNotInterestedMutation__
+ *
+ * To run a mutation, you first call `useUndoPostNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUndoPostNotInterestedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [undoPostNotInterestedMutation, { data, loading, error }] = useUndoPostNotInterestedMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUndoPostNotInterestedMutation(baseOptions?: Apollo.MutationHookOptions<UndoPostNotInterestedMutation, UndoPostNotInterestedMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UndoPostNotInterestedMutation, UndoPostNotInterestedMutationVariables>(UndoPostNotInterestedDocument, options);
+      }
+export type UndoPostNotInterestedMutationHookResult = ReturnType<typeof useUndoPostNotInterestedMutation>;
+export type UndoPostNotInterestedMutationResult = Apollo.MutationResult<UndoPostNotInterestedMutation>;
+export type UndoPostNotInterestedMutationOptions = Apollo.BaseMutationOptions<UndoPostNotInterestedMutation, UndoPostNotInterestedMutationVariables>;
 export const UndoReactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UndoReaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"undoReaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UndoReactionFailure"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type UndoReactionMutationFn = Apollo.MutationFunction<UndoReactionMutation, UndoReactionMutationVariables>;
 

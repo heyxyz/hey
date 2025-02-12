@@ -1,0 +1,3 @@
+mutation UndoPostNotInterested($request: PostNotInterestedRequest!) {
+  undoPostNotInterested(request: $request)
+}
