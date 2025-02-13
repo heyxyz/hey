@@ -1,5 +1,4 @@
 import Slug from "@components/Shared/Slug";
-import { APP_NAME, COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -43,21 +42,6 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
       {recipients.map((recipient) => {
         const { address, percent } = recipient;
         const account = getAccountByAddress(address);
-
-        if (address === COLLECT_FEES_ADDRESS) {
-          return (
-            <div key={address}>
-              <div className="divider mt-3 mb-2" />
-              <div className="flex items-center justify-between text-sm">
-                <div className="ld-text-gray-500 flex w-full items-center space-x-2">
-                  <img alt="Hey" className="size-4" src="/logo.png" />
-                  <b>{APP_NAME} Fees</b>
-                </div>
-                <div className="font-bold">{percent}%</div>
-              </div>
-            </div>
-          );
-        }
 
         return (
           <div

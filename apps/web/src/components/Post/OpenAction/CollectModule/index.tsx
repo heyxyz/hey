@@ -9,7 +9,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME, COLLECT_FEES_ADDRESS } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -65,9 +65,6 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-  const hasHeyFees = recipients.some(
-    (recipient) => recipient.address === COLLECT_FEES_ADDRESS
-  );
 
   return (
     <>
@@ -141,21 +138,12 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
             <div className="mt-2">
               <HelpTooltip>
                 <div className="py-1">
-                  <b>Collect Fees</b>
                   <div className="flex items-start justify-between space-x-10">
-                    <div>Lens Protocol</div>
+                    <div>{APP_NAME}</div>
                     <b>
                       {(amount * 0.05).toFixed(2)} {currency} (5%)
                     </b>
                   </div>
-                  {hasHeyFees && (
-                    <div className="flex items-start justify-between space-x-10">
-                      <div>{APP_NAME}</div>
-                      <b>
-                        {(amount * 0.05).toFixed(2)} {currency} (5%)
-                      </b>
-                    </div>
-                  )}
                 </div>
               </HelpTooltip>
             </div>
