@@ -1,9 +1,9 @@
 import { useApolloClient } from "@apollo/client";
-import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
+import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import { useExecutePostActionMutation, type Post, type PostAction } from "@hey/indexer";
@@ -46,14 +46,13 @@ const CollectAction: FC<CollectActionProps> = ({
   const { address: sessionAccountAddress } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
-  const { isFollowPending, hasOptimisticallyCollected } = useTransactionStore();
+  const { hasOptimisticallyCollected } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
     collectModule?.amount
       ? false
-      : post.operations.hasActed.value || hasOptimisticallyCollected(post.id)
+      : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
   );
 
   const { address } = useAccount();
@@ -71,19 +70,9 @@ const CollectAction: FC<CollectActionProps> = ({
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isFreeCollectModule = !amount;
-  const isSimpleFreeCollectModule =
-    postAction.__typename === "SimpleCollectOpenActionSettings";
-  const isFollowersOnly = collectModule?.followerOnly;
-  const isFollowedByMe = isFollowersOnly
-    ? post?.author.operations?.isFollowedByMe
-    : true;
-  const isFollowFinalizedOnchain = isFollowersOnly
-    ? !isFollowPending(post.author.address)
-    : true;
-
   const canCollect = forceShowCollect
     ? true
-    : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+    : !hasActed || !isFreeCollectModule;
 
   const updateTransactions = ({
     txHash
@@ -158,51 +147,34 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Act
   const [executePostAction] = useExecutePostActionMutation({
-    onCompleted: ({ executePostAction }) => {
-      if (executePostAction.__typename === "RelaySuccess") {
-        updateTransactions({ txHash: executePostAction.txHash });
-      }
-      onCompleted(actOnOpenAction.__typename);
-    },
+    onCompleted: ({ executePostAction }) => { },
     onError
   });
-
-  // Act via Lens Manager
-  const actViaLensManager = async (
-    request: ActOnOpenActionLensManagerRequest
-  ) => {
-    const { data, errors } = await actOnOpenAction({ variables: { request } });
-
-    if (errors?.toString().includes("has already acted on")) {
-      return;
-    }
-
-    if (
-      !data?.actOnOpenAction ||
-      data?.actOnOpenAction.__typename === "LensProfileManagerRelayError"
-    ) {
-      return await createActOnOpenActionTypedData({ variables: { request } });
-    }
-  };
 
   const handleCreateCollect = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      const actOnRequest: ActOnOpenActionLensManagerRequest = {
-        actOn: { [getPostActionActOnKey(postAction.__typename)]: true },
-        for: post?.id
-      };
+    setIsLoading(true);
 
-      return await createActOnOpenActionTypedData({
-        variables: { request: actOnRequest }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    return await executePostAction({
+      variables: {
+        request: {
+          post: post.id,
+          action: {
+            simpleCollect: {
+              selected: true,
+              referrals: [
+                {
+                  address: COLLECT_FEES_ADDRESS,
+                  percent: 5
+                }]
+            }
+          }
+        }
+      }
+    });
   };
 
   if (!sessionAccountAddress) {
@@ -222,62 +194,17 @@ const CollectAction: FC<CollectActionProps> = ({
     return null;
   }
 
-  if (allowanceLoading) {
-    return (
-      <div
-        className={cn("shimmer mt-5 h-[34px] w-full rounded-full", className)}
-      />
-    );
-  }
-
-  if (!allowed) {
-    return (
-      <AllowanceButton
-        allowed={allowed}
-        className={cn("mt-5 w-full", className)}
-        module={
-          allowanceData
-            ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-        }
-        setAllowed={setAllowed}
-        title="Allow collect module"
-      />
-    );
-  }
-
-  if (
-    !hasAmount &&
-    (postAction.__typename === "SimpleCollectActionSettings" ||
-      postAction.__typename === "MultirecipientFeeCollectOpenActionSettings")
-  ) {
+  if (!hasAmount) {
     return (
       <WarningMessage
         className="mt-5 w-full"
         message={
           <NoBalanceError
             errorMessage={noBalanceErrorMessages}
-            moduleAmount={postAction.amount}
+            moduleAmount={amount}
           />
         }
       />
-    );
-  }
-
-  if (!isFollowedByMe) {
-    return (
-      <FollowUnfollowButton
-        buttonClassName="w-full mt-5"
-        followTitle="Follow to collect"
-        account={post.author}
-      />
-    );
-  }
-
-  if (!isFollowFinalizedOnchain) {
-    return (
-      <Button className="mt-5 w-full" disabled outline>
-        Follow finalizing onchain...
-      </Button>
     );
   }
 

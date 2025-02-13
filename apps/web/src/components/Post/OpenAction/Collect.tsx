@@ -17,11 +17,11 @@ const Collect: FC<CollectProps> = ({ post }) => {
   const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
   const postActions = post.actions.filter((action) =>
-    allowedCollectActionModules.includes(action.__typename)
+    allowedCollectActionModules.includes(action.__typename || "")
   );
 
   const hasActed =
-    post.operations?.hasActed.value || hasOptimisticallyCollected(post.id);
+    post.operations?.hasReacted || hasOptimisticallyCollected(post.id);
 
   if (!enabled) {
     return null;
