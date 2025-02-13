@@ -614,21 +614,21 @@ export type AddAppSignersRequest = {
 
 export type AddAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
-export type AddGroupMemberRequest = {
-  /** The account you want to add to the group. */
-  account: Scalars['EvmAddress']['input'];
+export type AddGroupMembersRequest = {
+  /** The accounts you want to add to the group. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
   /** The group you want to add member to. */
   group: Scalars['EvmAddress']['input'];
   /** The processing params for the add member rules. */
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
-export type AddGroupMemberResponse = {
-  __typename?: 'AddGroupMemberResponse';
+export type AddGroupMembersResponse = {
+  __typename?: 'AddGroupMembersResponse';
   hash: Scalars['TxHash']['output'];
 };
 
-export type AddGroupMemberResult = AddGroupMemberResponse | GroupOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type AddGroupMembersResult = AddGroupMembersResponse | GroupOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddReactionFailure = {
   __typename?: 'AddReactionFailure';
@@ -844,7 +844,27 @@ export type AppUsersRequest = {
   pageSize?: PageSize;
 };
 
+export type ApproveGroupMembershipRequest = {
+  /** The accounts you want to approve membership for. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
+  /** The group you want to add member to. */
+  group: Scalars['EvmAddress']['input'];
+  /** The processing params for the add member rules. */
+  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
+};
+
+export type ApproveGroupMembershipRequestsResponse = {
+  __typename?: 'ApproveGroupMembershipRequestsResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type ApproveGroupMembershipResult = ApproveGroupMembershipRequestsResponse | GroupOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type AppsFilter = {
+  /** The optional filter to get apps linked to feed */
+  linkedToFeed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The optional filter to get apps linked to graph */
+  linkedToGraph?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The optional filter to get apps managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -991,19 +1011,19 @@ export type BanAccountGroupRuleConfig = {
   enable?: InputMaybe<Scalars['AlwaysTrue']['input']>;
 };
 
-export type BanGroupAccountRequest = {
-  /** The account you want to ban on the group. */
-  account: Scalars['EvmAddress']['input'];
+export type BanGroupAccountsRequest = {
+  /** The accounts you want to ban on the group. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
   /** The group you want to ban member on. */
   group: Scalars['EvmAddress']['input'];
 };
 
-export type BanGroupAccountResponse = {
-  __typename?: 'BanGroupAccountResponse';
+export type BanGroupAccountsResponse = {
+  __typename?: 'BanGroupAccountsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
-export type BanGroupAccountResult = BanGroupAccountResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type BanGroupAccountsResult = BanGroupAccountsResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type BigDecimalKeyValue = {
   __typename?: 'BigDecimalKeyValue';
@@ -1167,8 +1187,14 @@ export type CreateAccountResponse = {
 export type CreateAccountWithUsernameRequest = {
   /** Any account managers you wish to add to the account */
   accountManager?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The processing params for the namespace assign rules. */
+  assignNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
+  /** The processing params for the namespace create rules. */
+  createNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
   /** The account metadata uri */
   metadataUri: Scalars['URI']['input'];
+  /** The processing params for the namespace account unassign rules. */
+  unassignAccountNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
   /** The username you wish to mint with the account */
   username: UsernameInput;
 };
@@ -1178,18 +1204,18 @@ export type CreateAccountWithUsernameResult = CreateAccountResponse | NamespaceO
 export type CreateAppRequest = {
   /** List of admins who can manage this app */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The default feed defaults to use the global feed */
-  defaultFeed?: Scalars['EvmAddress']['input'];
+  /** The app default feed */
+  defaultFeed: FeedChoiceOneOf;
   /** The app feeds defaults to use the global feed */
-  feeds?: Array<Scalars['EvmAddress']['input']>;
-  /** The app graph defaults to use the global graph */
-  graph?: Scalars['EvmAddress']['input'];
+  feeds?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The app default graph */
+  graph: GraphChoiceOneOf;
   /** The app groups leave empty if none */
   groups?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The app metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /** The app username leave empty to use the lens username */
-  namespace?: Scalars['EvmAddress']['input'];
+  /** The app username namespace */
+  namespace: UsernameNamespaceChoiceOneOf;
   /** The app paymaster leave empty if none */
   paymaster?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The app signers leave empty if none */
@@ -2186,6 +2212,12 @@ export type Feed = {
   rules: FeedRules;
 };
 
+export type FeedChoiceOneOf = {
+  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalFeed?: InputMaybe<Scalars['Boolean']['input']>;
+  none?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type FeedMetadata = {
   __typename?: 'FeedMetadata';
   /** Optional markdown formatted description of the Feed. */
@@ -2522,6 +2554,12 @@ export type Graph = {
   metadata?: Maybe<GraphMetadata>;
   owner: Scalars['EvmAddress']['output'];
   rules: GraphRules;
+};
+
+export type GraphChoiceOneOf = {
+  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalGraph?: InputMaybe<Scalars['Boolean']['input']>;
+  none?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type GraphMetadata = {
@@ -3153,6 +3191,7 @@ export type LoggedInGroupOperations = {
   canJoin: GroupOperationValidationOutcome;
   canLeave: GroupOperationValidationOutcome;
   canRemoveMember: GroupOperationValidationOutcome;
+  hasRequestedMembership: Scalars['Boolean']['output'];
   isBanned: Scalars['Boolean']['output'];
   isMember: Scalars['Boolean']['output'];
 };
@@ -3685,11 +3724,11 @@ export type Mutation = {
    */
   addAppSigners: AddAppSignersResult;
   /**
-   * Add group member
+   * Add group members
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
-  addGroupMember: AddGroupMemberResult;
+  addGroupMembers: AddGroupMembersResult;
   /**
    * Add a post not interested.
    *
@@ -3703,6 +3742,12 @@ export type Mutation = {
    */
   addReaction: AddReactionResult;
   /**
+   * Approve group members
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  approveGroupMembershipRequests: ApproveGroupMembershipResult;
+  /**
    * Assign a username to an account.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
@@ -3711,13 +3756,13 @@ export type Mutation = {
   /** Authenticate the user with the signed authentication challenge. */
   authenticate: AuthenticationResult;
   /**
-   * Ban account to join a group
-   * Banned account MUST not be a member of a group.
+   * Ban accounts to join a group
+   * Banned account MUST not be a member of the group.
    * Use `removeGroupMember` mutation with `ban` flag to remove and ban existing members
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
-  banGroupAccount: BanGroupAccountResult;
+  banGroupAccounts: BanGroupAccountsResult;
   /**
    * Block an account with the authenticated account.
    *
@@ -3939,11 +3984,11 @@ export type Mutation = {
   /** Refreshes the authentication tokens. */
   refresh: RefreshResult;
   /**
-   * Reject group membership request
+   * Reject group membership requests
    *
    * You MUST be a group owner or admin to use this mutation
    */
-  rejectGroupMembershipRequest: RejectGroupMembershipResult;
+  rejectGroupMembershipRequests: RejectGroupMembershipResult;
   /**
    * Remove an account manager to the authenticated account.
    *
@@ -3981,11 +4026,11 @@ export type Mutation = {
    */
   removeAppSigners: RemoveAppSignersResult;
   /**
-   * Remove group member
+   * Remove group members
    *
    * You MUST be a group owner or admin to use this mutation
    */
-  removeGroupMember: RemoveGroupMemberResult;
+  removeGroupMembers: RemoveGroupMembersResult;
   /**
    * Remove Signless experience for the authenticated account.
    *
@@ -4119,11 +4164,11 @@ export type Mutation = {
    */
   unassignUsernameFromAccount: UnassignUsernameToAccountResult;
   /**
-   * Unban account
+   * Unban accounts
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
-  unbanGroupAccount: UnbanGroupAccountResult;
+  unbanGroupAccounts: UnbanGroupAccountsResult;
   /**
    * Unblock an account with the authenticated account.
    *
@@ -4212,7 +4257,7 @@ export type Mutation = {
   /**
    * Update namespace rules
    *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   * You MUST be a namespace owner or admin to use this mutation
    */
   updateNamespaceRules: UpdateNamespaceRulesResult;
   /**
@@ -4278,8 +4323,8 @@ export type MutationAddAppSignersArgs = {
 };
 
 
-export type MutationAddGroupMemberArgs = {
-  request: AddGroupMemberRequest;
+export type MutationAddGroupMembersArgs = {
+  request: AddGroupMembersRequest;
 };
 
 
@@ -4293,6 +4338,11 @@ export type MutationAddReactionArgs = {
 };
 
 
+export type MutationApproveGroupMembershipRequestsArgs = {
+  request: ApproveGroupMembershipRequest;
+};
+
+
 export type MutationAssignUsernameToAccountArgs = {
   request: AssignUsernameToAccountRequest;
 };
@@ -4303,8 +4353,8 @@ export type MutationAuthenticateArgs = {
 };
 
 
-export type MutationBanGroupAccountArgs = {
-  request: BanGroupAccountRequest;
+export type MutationBanGroupAccountsArgs = {
+  request: BanGroupAccountsRequest;
 };
 
 
@@ -4493,7 +4543,7 @@ export type MutationRefreshArgs = {
 };
 
 
-export type MutationRejectGroupMembershipRequestArgs = {
+export type MutationRejectGroupMembershipRequestsArgs = {
   request: RejectGroupMembershipRequest;
 };
 
@@ -4528,8 +4578,8 @@ export type MutationRemoveAppSignersArgs = {
 };
 
 
-export type MutationRemoveGroupMemberArgs = {
-  request: RemoveGroupMemberRequest;
+export type MutationRemoveGroupMembersArgs = {
+  request: RemoveGroupMembersRequest;
 };
 
 
@@ -4638,8 +4688,8 @@ export type MutationUnassignUsernameFromAccountArgs = {
 };
 
 
-export type MutationUnbanGroupAccountArgs = {
-  request: UnbanGroupAccountRequest;
+export type MutationUnbanGroupAccountsArgs = {
+  request: UnbanGroupAccountsRequest;
 };
 
 
@@ -6148,18 +6198,18 @@ export type RefreshRequest = {
 export type RefreshResult = AuthenticationTokens | ForbiddenError;
 
 export type RejectGroupMembershipRequest = {
-  /** The account you want to reject membership request for. */
-  account: Scalars['EvmAddress']['input'];
+  /** The accounts you want to reject membership request for. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
   /** The group you want to reject membership request for. */
   group: Scalars['EvmAddress']['input'];
 };
 
-export type RejectGroupMembershipRequestResponse = {
-  __typename?: 'RejectGroupMembershipRequestResponse';
+export type RejectGroupMembershipRequestsResponse = {
+  __typename?: 'RejectGroupMembershipRequestsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
-export type RejectGroupMembershipResult = RejectGroupMembershipRequestResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type RejectGroupMembershipResult = RejectGroupMembershipRequestsResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAccountManagerRequest = {
   /** The address to remove as a manager. */
@@ -6209,9 +6259,9 @@ export type RemoveAppSignersRequest = {
 
 export type RemoveAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
-export type RemoveGroupMemberRequest = {
-  /** The account you want to remove from the group. */
-  account: Scalars['EvmAddress']['input'];
+export type RemoveGroupMembersRequest = {
+  /** The accounts you want to remove from the group. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
   /** Ban the account from the joining the group. */
   ban?: Scalars['Boolean']['input'];
   /** The group you want to join */
@@ -6220,12 +6270,12 @@ export type RemoveGroupMemberRequest = {
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
-export type RemoveGroupMemberResponse = {
-  __typename?: 'RemoveGroupMemberResponse';
+export type RemoveGroupMembersResponse = {
+  __typename?: 'RemoveGroupMembersResponse';
   hash: Scalars['TxHash']['output'];
 };
 
-export type RemoveGroupMemberResult = GroupOperationValidationFailed | RemoveGroupMemberResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type RemoveGroupMembersResult = GroupOperationValidationFailed | RemoveGroupMembersResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
@@ -6320,7 +6370,7 @@ export type SetAppGraphRequest = {
   /** The app to update */
   app: Scalars['EvmAddress']['input'];
   /** The app graph to set */
-  graph: Scalars['EvmAddress']['input'];
+  graph: GraphChoiceOneOf;
 };
 
 export type SetAppGraphResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
@@ -6356,7 +6406,7 @@ export type SetAppUsernameNamespaceRequest = {
   /** The app to update */
   app: Scalars['EvmAddress']['input'];
   /** The app username namespace to set */
-  usernameNamespace: Scalars['EvmAddress']['input'];
+  usernameNamespace: UsernameNamespaceChoiceOneOf;
 };
 
 export type SetAppUsernameNamespaceResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
@@ -6374,7 +6424,7 @@ export type SetDefaultAppFeedRequest = {
   /** The app to update */
   app: Scalars['EvmAddress']['input'];
   /** The app default feed to set */
-  feed: Scalars['EvmAddress']['input'];
+  feed: FeedChoiceOneOf;
 };
 
 export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
@@ -6492,7 +6542,7 @@ export enum SnsNotificationType {
   MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
   MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
   MetadataSnapshotSuccess = 'METADATA_SNAPSHOT_SUCCESS',
-  MlProfileSignal = 'ML_PROFILE_SIGNAL',
+  MlProfileSignal = 'MlProfileSignal',
   PostActionCompleted = 'POST_ACTION_COMPLETED',
   PostCollected = 'POST_COLLECTED',
   PostCreated = 'POST_CREATED',
@@ -7212,19 +7262,19 @@ export type UnassignUsernameResponse = {
 
 export type UnassignUsernameToAccountResult = NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnassignUsernameResponse;
 
-export type UnbanGroupAccountRequest = {
-  /** The account you want to unban on the group. */
-  account: Scalars['EvmAddress']['input'];
+export type UnbanGroupAccountsRequest = {
+  /** The accounts you want to unban on the group. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
   /** The group you want to unban member on. */
   group: Scalars['EvmAddress']['input'];
 };
 
-export type UnbanGroupAccountResponse = {
-  __typename?: 'UnbanGroupAccountResponse';
+export type UnbanGroupAccountsResponse = {
+  __typename?: 'UnbanGroupAccountsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
-export type UnbanGroupAccountResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnbanGroupAccountResponse;
+export type UnbanGroupAccountsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnbanGroupAccountsResponse;
 
 export type UnblockError = {
   __typename?: 'UnblockError';
@@ -7299,14 +7349,8 @@ export type UnknownAccountRuleConfig = {
 export type UnknownAction = {
   __typename?: 'UnknownAction';
   address: Scalars['EvmAddress']['output'];
-  config: UnknownActionConfig;
+  config: Array<RawKeyValue>;
   metadata?: Maybe<ActionMetadata>;
-};
-
-export type UnknownActionConfig = {
-  __typename?: 'UnknownActionConfig';
-  address: Scalars['EvmAddress']['output'];
-  params: Array<RawKeyValue>;
 };
 
 export type UnknownActionConfigInput = {
@@ -7379,7 +7423,9 @@ export type UnknownRuleProcessingParams = {
 export type UpdateAccountFollowRulesRequest = {
   /** The graph to update account follow rules for. */
   graph?: Scalars['EvmAddress']['input'];
+  /** The rules to add */
   toAdd?: AccountRulesConfigInput;
+  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
@@ -7401,64 +7447,56 @@ export type UpdateAccountManagerResult = SelfFundedTransactionRequest | Sponsore
 
 export type UpdateFeedRulesRequest = {
   /** The feed to update rules for */
-  feed?: Scalars['EvmAddress']['input'];
+  feed: Scalars['EvmAddress']['input'];
+  /** The rules to add */
   toAdd?: FeedRulesConfigInput;
+  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
-export type UpdateFeedRulesResponse = {
-  __typename?: 'UpdateFeedRulesResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type UpdateFeedRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateFeedRulesResponse;
+export type UpdateFeedRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateGraphRulesRequest = {
   /** The graph to update rules for */
-  graph?: Scalars['EvmAddress']['input'];
+  graph: Scalars['EvmAddress']['input'];
+  /** The rules to add */
   toAdd?: GraphRulesConfigInput;
+  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
-export type UpdateGraphRulesResponse = {
-  __typename?: 'UpdateGraphRulesResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type UpdateGraphRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateGraphRulesResponse;
+export type UpdateGraphRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateGroupRulesRequest = {
   /** The group to update rules for */
   group: Scalars['EvmAddress']['input'];
+  /** The rules to add */
   toAdd?: GroupRulesConfigInput;
+  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
-export type UpdateGroupRulesResponse = {
-  __typename?: 'UpdateGroupRulesResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type UpdateGroupRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateGroupRulesResponse;
+export type UpdateGroupRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateNamespaceRulesRequest = {
   /** The namespace to update rules for */
   namespace: Scalars['EvmAddress']['input'];
+  /** The rules to add */
   toAdd?: NamespaceRulesConfigInput;
+  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
-export type UpdateNamespaceRulesResponse = {
-  __typename?: 'UpdateNamespaceRulesResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type UpdateNamespaceRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateNamespaceRulesResponse;
+export type UpdateNamespaceRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdatePostRulesRequest = {
+  /** The processing params for the feed rules. */
+  feedRulesProcessingParams?: Array<FeedRulesProcessingParams>;
   /** The post to update rules for. */
   post: Scalars['PostId']['input'];
+  /** The rules to add */
   toAdd?: PostRulesConfigInput;
+  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
@@ -7561,6 +7599,12 @@ export type UsernameNamespace = {
   owner: Scalars['EvmAddress']['output'];
   rules: NamespaceRules;
   stats: UsernameNamespaceStats;
+};
+
+export type UsernameNamespaceChoiceOneOf = {
+  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalNamespace?: InputMaybe<Scalars['Boolean']['input']>;
+  none?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UsernameNamespaceMetadata = {
@@ -8371,32 +8415,6 @@ export type SwitchAccountMutationVariables = Exact<{
 
 export type SwitchAccountMutation = { __typename?: 'Mutation', switchAccount: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ForbiddenError' } };
 
-export type AddGroupMemberMutationVariables = Exact<{
-  request: AddGroupMemberRequest;
-}>;
-
-
-export type AddGroupMemberMutation = { __typename?: 'Mutation', addGroupMember: { __typename?: 'AddGroupMemberResponse', hash: any } | { __typename?: 'GroupOperationValidationFailed', reason: string } | (
-    { __typename?: 'SelfFundedTransactionRequest' }
-    & SelfFundedTransactionRequestFieldsFragment
-  ) | (
-    { __typename?: 'SponsoredTransactionRequest' }
-    & SponsoredTransactionRequestFieldsFragment
-  ) | { __typename?: 'TransactionWillFail', reason: string } };
-
-export type BanGroupAccountMutationVariables = Exact<{
-  request: BanGroupAccountRequest;
-}>;
-
-
-export type BanGroupAccountMutation = { __typename?: 'Mutation', banGroupAccount: { __typename?: 'BanGroupAccountResponse', hash: any } | (
-    { __typename?: 'SelfFundedTransactionRequest' }
-    & SelfFundedTransactionRequestFieldsFragment
-  ) | (
-    { __typename?: 'SponsoredTransactionRequest' }
-    & SponsoredTransactionRequestFieldsFragment
-  ) | { __typename?: 'TransactionWillFail', reason: string } };
-
 export type CreateGroupMutationVariables = Exact<{
   request: CreateGroupRequest;
 }>;
@@ -8430,19 +8448,6 @@ export type LeaveGroupMutation = { __typename?: 'Mutation', leaveGroup: { __type
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } };
 
-export type RemoveGroupMemberMutationVariables = Exact<{
-  request: RemoveGroupMemberRequest;
-}>;
-
-
-export type RemoveGroupMemberMutation = { __typename?: 'Mutation', removeGroupMember: { __typename?: 'GroupOperationValidationFailed', reason: string } | { __typename?: 'RemoveGroupMemberResponse', hash: any } | (
-    { __typename?: 'SelfFundedTransactionRequest' }
-    & SelfFundedTransactionRequestFieldsFragment
-  ) | (
-    { __typename?: 'SponsoredTransactionRequest' }
-    & SponsoredTransactionRequestFieldsFragment
-  ) | { __typename?: 'TransactionWillFail', reason: string } };
-
 export type SetGroupMetadataMutationVariables = Exact<{
   request: SetGroupMetadataRequest;
 }>;
@@ -8455,19 +8460,6 @@ export type SetGroupMetadataMutation = { __typename?: 'Mutation', setGroupMetada
     { __typename?: 'SponsoredTransactionRequest' }
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } };
-
-export type UnbanGroupAccountMutationVariables = Exact<{
-  request: UnbanGroupAccountRequest;
-}>;
-
-
-export type UnbanGroupAccountMutation = { __typename?: 'Mutation', unbanGroupAccount: (
-    { __typename?: 'SelfFundedTransactionRequest' }
-    & SelfFundedTransactionRequestFieldsFragment
-  ) | (
-    { __typename?: 'SponsoredTransactionRequest' }
-    & SponsoredTransactionRequestFieldsFragment
-  ) | { __typename?: 'TransactionWillFail', reason: string } | { __typename?: 'UnbanGroupAccountResponse', hash: any } };
 
 export type MlDismissRecommendedAccountsMutationVariables = Exact<{
   request: DismissRecommendedAccountsRequest;
@@ -9648,60 +9640,6 @@ export function useSwitchAccountMutation(baseOptions?: Apollo.MutationHookOption
 export type SwitchAccountMutationHookResult = ReturnType<typeof useSwitchAccountMutation>;
 export type SwitchAccountMutationResult = Apollo.MutationResult<SwitchAccountMutation>;
 export type SwitchAccountMutationOptions = Apollo.BaseMutationOptions<SwitchAccountMutation, SwitchAccountMutationVariables>;
-export const AddGroupMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddGroupMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddGroupMemberRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addGroupMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddGroupMemberResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GroupOperationValidationFailed"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type AddGroupMemberMutationFn = Apollo.MutationFunction<AddGroupMemberMutation, AddGroupMemberMutationVariables>;
-
-/**
- * __useAddGroupMemberMutation__
- *
- * To run a mutation, you first call `useAddGroupMemberMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddGroupMemberMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addGroupMemberMutation, { data, loading, error }] = useAddGroupMemberMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useAddGroupMemberMutation(baseOptions?: Apollo.MutationHookOptions<AddGroupMemberMutation, AddGroupMemberMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddGroupMemberMutation, AddGroupMemberMutationVariables>(AddGroupMemberDocument, options);
-      }
-export type AddGroupMemberMutationHookResult = ReturnType<typeof useAddGroupMemberMutation>;
-export type AddGroupMemberMutationResult = Apollo.MutationResult<AddGroupMemberMutation>;
-export type AddGroupMemberMutationOptions = Apollo.BaseMutationOptions<AddGroupMemberMutation, AddGroupMemberMutationVariables>;
-export const BanGroupAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"BanGroupAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BanGroupAccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"banGroupAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BanGroupAccountResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type BanGroupAccountMutationFn = Apollo.MutationFunction<BanGroupAccountMutation, BanGroupAccountMutationVariables>;
-
-/**
- * __useBanGroupAccountMutation__
- *
- * To run a mutation, you first call `useBanGroupAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useBanGroupAccountMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [banGroupAccountMutation, { data, loading, error }] = useBanGroupAccountMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useBanGroupAccountMutation(baseOptions?: Apollo.MutationHookOptions<BanGroupAccountMutation, BanGroupAccountMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<BanGroupAccountMutation, BanGroupAccountMutationVariables>(BanGroupAccountDocument, options);
-      }
-export type BanGroupAccountMutationHookResult = ReturnType<typeof useBanGroupAccountMutation>;
-export type BanGroupAccountMutationResult = Apollo.MutationResult<BanGroupAccountMutation>;
-export type BanGroupAccountMutationOptions = Apollo.BaseMutationOptions<BanGroupAccountMutation, BanGroupAccountMutationVariables>;
 export const CreateGroupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateGroup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateGroupRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createGroup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CreateGroupResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}}]} as unknown as DocumentNode;
 export type CreateGroupMutationFn = Apollo.MutationFunction<CreateGroupMutation, CreateGroupMutationVariables>;
 
@@ -9783,33 +9721,6 @@ export function useLeaveGroupMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LeaveGroupMutationHookResult = ReturnType<typeof useLeaveGroupMutation>;
 export type LeaveGroupMutationResult = Apollo.MutationResult<LeaveGroupMutation>;
 export type LeaveGroupMutationOptions = Apollo.BaseMutationOptions<LeaveGroupMutation, LeaveGroupMutationVariables>;
-export const RemoveGroupMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveGroupMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveGroupMemberRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeGroupMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveGroupMemberResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GroupOperationValidationFailed"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type RemoveGroupMemberMutationFn = Apollo.MutationFunction<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>;
-
-/**
- * __useRemoveGroupMemberMutation__
- *
- * To run a mutation, you first call `useRemoveGroupMemberMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveGroupMemberMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeGroupMemberMutation, { data, loading, error }] = useRemoveGroupMemberMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useRemoveGroupMemberMutation(baseOptions?: Apollo.MutationHookOptions<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>(RemoveGroupMemberDocument, options);
-      }
-export type RemoveGroupMemberMutationHookResult = ReturnType<typeof useRemoveGroupMemberMutation>;
-export type RemoveGroupMemberMutationResult = Apollo.MutationResult<RemoveGroupMemberMutation>;
-export type RemoveGroupMemberMutationOptions = Apollo.BaseMutationOptions<RemoveGroupMemberMutation, RemoveGroupMemberMutationVariables>;
 export const SetGroupMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetGroupMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SetGroupMetadataRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setGroupMetadata"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 export type SetGroupMetadataMutationFn = Apollo.MutationFunction<SetGroupMetadataMutation, SetGroupMetadataMutationVariables>;
 
@@ -9837,33 +9748,6 @@ export function useSetGroupMetadataMutation(baseOptions?: Apollo.MutationHookOpt
 export type SetGroupMetadataMutationHookResult = ReturnType<typeof useSetGroupMetadataMutation>;
 export type SetGroupMetadataMutationResult = Apollo.MutationResult<SetGroupMetadataMutation>;
 export type SetGroupMetadataMutationOptions = Apollo.BaseMutationOptions<SetGroupMetadataMutation, SetGroupMetadataMutationVariables>;
-export const UnbanGroupAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UnbanGroupAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UnbanGroupAccountRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"unbanGroupAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnbanGroupAccountResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export type UnbanGroupAccountMutationFn = Apollo.MutationFunction<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>;
-
-/**
- * __useUnbanGroupAccountMutation__
- *
- * To run a mutation, you first call `useUnbanGroupAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUnbanGroupAccountMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [unbanGroupAccountMutation, { data, loading, error }] = useUnbanGroupAccountMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useUnbanGroupAccountMutation(baseOptions?: Apollo.MutationHookOptions<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>(UnbanGroupAccountDocument, options);
-      }
-export type UnbanGroupAccountMutationHookResult = ReturnType<typeof useUnbanGroupAccountMutation>;
-export type UnbanGroupAccountMutationResult = Apollo.MutationResult<UnbanGroupAccountMutation>;
-export type UnbanGroupAccountMutationOptions = Apollo.BaseMutationOptions<UnbanGroupAccountMutation, UnbanGroupAccountMutationVariables>;
 export const MlDismissRecommendedAccountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MlDismissRecommendedAccounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DismissRecommendedAccountsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mlDismissRecommendedAccounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
 export type MlDismissRecommendedAccountsMutationFn = Apollo.MutationFunction<MlDismissRecommendedAccountsMutation, MlDismissRecommendedAccountsMutationVariables>;
 
@@ -11384,8 +11268,8 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
-    "AddGroupMemberResult": [
-      "AddGroupMemberResponse",
+    "AddGroupMembersResult": [
+      "AddGroupMembersResponse",
       "GroupOperationValidationFailed",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
@@ -11415,6 +11299,13 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "Post",
       "Repost"
     ],
+    "ApproveGroupMembershipResult": [
+      "ApproveGroupMembershipRequestsResponse",
+      "GroupOperationValidationFailed",
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
+    ],
     "ArrayData": [
       "AddressKeyValue",
       "BigDecimalKeyValue",
@@ -11438,8 +11329,8 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "ForbiddenError",
       "WrongSignerError"
     ],
-    "BanGroupAccountResult": [
-      "BanGroupAccountResponse",
+    "BanGroupAccountsResult": [
+      "BanGroupAccountsResponse",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
@@ -11677,7 +11568,7 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "ForbiddenError"
     ],
     "RejectGroupMembershipResult": [
-      "RejectGroupMembershipRequestResponse",
+      "RejectGroupMembershipRequestsResponse",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
@@ -11707,9 +11598,9 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
-    "RemoveGroupMemberResult": [
+    "RemoveGroupMembersResult": [
       "GroupOperationValidationFailed",
-      "RemoveGroupMemberResponse",
+      "RemoveGroupMembersResponse",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
@@ -11813,11 +11704,11 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
       "TransactionWillFail",
       "UnassignUsernameResponse"
     ],
-    "UnbanGroupAccountResult": [
+    "UnbanGroupAccountsResult": [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail",
-      "UnbanGroupAccountResponse"
+      "UnbanGroupAccountsResponse"
     ],
     "UnblockResult": [
       "SelfFundedTransactionRequest",
@@ -11850,26 +11741,22 @@ export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQ
     "UpdateFeedRulesResult": [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
-      "TransactionWillFail",
-      "UpdateFeedRulesResponse"
+      "TransactionWillFail"
     ],
     "UpdateGraphRulesResult": [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
-      "TransactionWillFail",
-      "UpdateGraphRulesResponse"
+      "TransactionWillFail"
     ],
     "UpdateGroupRulesResult": [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
-      "TransactionWillFail",
-      "UpdateGroupRulesResponse"
+      "TransactionWillFail"
     ],
     "UpdateNamespaceRulesResult": [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
-      "TransactionWillFail",
-      "UpdateNamespaceRulesResponse"
+      "TransactionWillFail"
     ],
     "UpdatePostRulesResult": [
       "SelfFundedTransactionRequest",
