@@ -26,6 +26,7 @@ export type CollectModuleType = {
   endsAt?: null | string;
   followerOnly?: boolean;
   recipients?: RecipientDataInput[];
+  referralShare?: number;
   type?: PostActionType.SimpleCollect | null;
 };
 

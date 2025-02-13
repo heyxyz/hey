@@ -7,7 +7,7 @@ const INITIAL_COLLECT_MODULE: CollectModuleType = {
   endsAt: null,
   followerOnly: false,
   recipients: [],
-  referralFee: 0,
+  referralShare: 0,
   type: null
 };
 
