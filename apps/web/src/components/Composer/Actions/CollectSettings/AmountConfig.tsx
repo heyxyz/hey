@@ -1,7 +1,6 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { PostActionType } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 import { Input, Select } from "@hey/ui";
 import type { FC } from "react";
@@ -34,10 +33,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
               : { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
             recipients: enabled
               ? []
-              : [{ recipient: currentAccount?.owner, split: 100 }],
-            type: enabled
-              ? PostActionType.SimpleCollectAction
-              : PostActionType.MultirecipientFeeCollectOpenActionModule
+              : [{ recipient: currentAccount?.owner, split: 100 }]
           });
         }}
       />

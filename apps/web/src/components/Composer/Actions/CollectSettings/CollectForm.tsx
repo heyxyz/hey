@@ -24,7 +24,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   );
   const { setLicense } = usePostLicenseStore();
 
-  const { SimpleCollectAction } = PostActionType;
+  const { SimpleCollect } = PostActionType;
   const recipients = collectModule.recipients || [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
@@ -56,7 +56,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       setLicense(null);
       reset();
     } else {
-      setCollectType({ type: SimpleCollectAction });
+      setCollectType({ type: SimpleCollect });
     }
   };
 

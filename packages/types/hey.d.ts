@@ -27,10 +27,7 @@ export type CollectModuleType = {
   followerOnly?: boolean;
   recipients?: RecipientDataInput[];
   referralFee?: number;
-  type?:
-    | PostActionType.MultirecipientFeeCollectOpenActionModule
-    | PostActionType.SimpleCollectAction
-    | null;
+  type?: PostActionType.SimpleCollect | null;
 };
 
 type PollOption = {
