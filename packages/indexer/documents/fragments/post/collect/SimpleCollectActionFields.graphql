@@ -1,9 +1,13 @@
 fragment SimpleCollectActionFields on SimpleCollectAction {
   address
-  recipient
+  referralShare
   collectLimit
   isImmutable
   endsAt
+  recipients {
+    address
+    percent
+  }
   amount {
     ...Erc20AmountFields
   }

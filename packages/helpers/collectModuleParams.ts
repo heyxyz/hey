@@ -11,7 +11,7 @@ const collectModuleParams = (
     amount,
     collectLimit,
     endsAt,
-    recipients,
+    recipients
   } = collectModule;
 
   switch (collectModule.type) {
@@ -20,7 +20,7 @@ const collectModuleParams = (
         amount: amount || undefined,
         collectLimit: collectLimit || undefined,
         endsAt: endsAt || undefined,
-        recipient: "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF"
+        recipients: recipients || undefined
       } };
     default:
       return null;

@@ -6,7 +6,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import {
   type Account,
-  type RecipientDataOutput,
+  RecipientPercent,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { Image } from "@hey/ui";
@@ -15,14 +15,14 @@ import Link from "next/link";
 import type { FC } from "react";
 
 interface SplitsProps {
-  recipients: RecipientDataOutput[];
+  recipients: RecipientPercent[];
 }
 
 const Splits: FC<SplitsProps> = ({ recipients }) => {
   const { data: recipientProfilesData, loading } = useAccountsBulkQuery({
     skip: !recipients?.length,
     variables: {
-      request: { addresses: recipients?.map((r) => r.recipient) }
+      request: { addresses: recipients?.map((r) => r.address) }
     }
   });
 
@@ -41,7 +41,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
     <div className="space-y-2 pt-3">
       <div className="mb-2 font-bold">Fee recipients</div>
       {recipients.map((recipient) => {
-        const { recipient: address, split } = recipient;
+        const { address, percent } = recipient;
         const account = getAccountByAddress(address);
 
         if (address === COLLECT_FEES_ADDRESS) {
@@ -53,7 +53,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   <img alt="Hey" className="size-4" src="/logo.png" />
                   <b>{APP_NAME} Fees</b>
                 </div>
-                <div className="font-bold">{split}%</div>
+                <div className="font-bold">{percent}%</div>
               </div>
             </div>
           );
@@ -95,7 +95,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 </>
               )}
             </div>
-            <div className="font-bold">{split}%</div>
+            <div className="font-bold">{percent}%</div>
           </div>
         );
       })}

@@ -55,11 +55,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
   const amount = Number.parseFloat(collectAction?.amount?.value || "0");
   const usdPrice = collectAction?.amount?.value;
   const currency = collectAction?.amount?.asset?.symbol;
-  const recipients = collectAction?.recipient;
-  const recipientsWithoutFees = recipients?.filter(
-    (split) => split.recipient !== COLLECT_FEES_ADDRESS
-  );
-  const isMultirecipientFeeCollectModule = recipients.length > 1;
+  const recipients = collectAction?.recipients || [];
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency || "");
@@ -70,7 +66,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
     ? countOpenActions >= collectLimit
     : false;
   const hasHeyFees = recipients.some(
-    (split) => split.recipient === COLLECT_FEES_ADDRESS
+    (split) => split.address === COLLECT_FEES_ADDRESS
   );
 
   return (
@@ -235,9 +231,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
               </div>
             </div>
           ) : null}
-          {isMultirecipientFeeCollectModule ? (
-            <Splits recipients={collectAction?.recipients} />
-          ) : null}
+          {recipients.length > 0 ? <Splits recipients={recipients} /> : null}
         </div>
         <div className="flex items-center space-x-2">
           <CollectAction
