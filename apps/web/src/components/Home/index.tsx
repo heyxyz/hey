@@ -8,7 +8,6 @@ import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
 import Hero from "./Hero";
-import PaidActions from "./PaidActions";
 import Sidebar from "./Sidebar";
 import Timeline from "./Timeline";
 
@@ -31,8 +30,6 @@ const Home: NextPage = () => {
                 <Timeline />
               ) : feedType === HomeFeedType.FORYOU ? (
                 <ForYou />
-              ) : feedType === HomeFeedType.PREMIUM ? (
-                <PaidActions />
               ) : null}
             </>
           ) : (

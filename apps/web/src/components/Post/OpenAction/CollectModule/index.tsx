@@ -21,7 +21,7 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import type {
   AnyPost,
   PostAction,
-  SimpleCollectActionSettings
+  SimpleCollectActionConfigInput
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
@@ -51,7 +51,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
 
   const collectModule = postAction as
     | MultirecipientFeeCollectActionSettings
-    | SimpleCollectActionSettings;
+    | SimpleCollectActionConfigInput;
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = Number.parseInt(collectModule?.collectLimit || "0");
