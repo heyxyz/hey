@@ -41,7 +41,6 @@ interface CollectModuleProps {
 const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
-
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
   const [countOpenActions, { increment }] = useCounter(
@@ -49,7 +48,6 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
   );
 
   const collectAction = postAction as SimpleCollectAction;
-
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = Number(collectAction?.collectLimit);
   const amount = Number.parseFloat(collectAction?.amount?.value || "0");
