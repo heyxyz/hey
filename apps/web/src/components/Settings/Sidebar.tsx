@@ -9,7 +9,6 @@ import {
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
-  ShareIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
@@ -44,11 +43,6 @@ const SettingsSidebar: FC = () => {
       icon: <FingerPrintIcon className="size-4" />,
       title: "Manager",
       url: "/settings/manager"
-    },
-    {
-      icon: <ShareIcon className="size-4" />,
-      title: "Allowance",
-      url: "/settings/allowance"
     },
     {
       icon: <GlobeAltIcon className="size-4" />,

@@ -1,5 +1,5 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
+import allowedCollectActionModules from "@hey/helpers/allowedCollectActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import type { Post } from "@hey/indexer";
@@ -16,7 +16,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
   const { countOpenActions } = post.stats;
   const postActions = post.actions.filter((action) =>
-    allowedPostActionModules.includes(action.__typename)
+    allowedCollectActionModules.includes(action.__typename)
   );
 
   return (

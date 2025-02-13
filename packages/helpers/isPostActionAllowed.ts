@@ -1,5 +1,5 @@
 import type { Maybe, PostAction } from "@hey/indexer";
-import allowedPostActionModules from "./allowedPostActionModules";
+import allowedCollectActionModules from "./allowedCollectActionModules";
 
 const isPostActionAllowed = (postActions?: Maybe<PostAction[]>): boolean => {
   if (!postActions?.length) {
@@ -9,7 +9,7 @@ const isPostActionAllowed = (postActions?: Maybe<PostAction[]>): boolean => {
   return postActions.some((postAction) => {
     const { __typename } = postAction;
 
-    return allowedPostActionModules.includes(__typename);
+    return allowedCollectActionModules.includes(__typename);
   });
 };
 
