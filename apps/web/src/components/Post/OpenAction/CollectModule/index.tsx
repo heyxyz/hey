@@ -66,7 +66,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
     ? countOpenActions >= collectLimit
     : false;
   const hasHeyFees = recipients.some(
-    (split) => split.address === COLLECT_FEES_ADDRESS
+    (recipient) => recipient.address === COLLECT_FEES_ADDRESS
   );
 
   return (

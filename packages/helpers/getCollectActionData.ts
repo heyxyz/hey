@@ -1,4 +1,5 @@
 import type {
+  RecipientPercent,
   SimpleCollectAction
 } from "@hey/indexer";
 
@@ -11,7 +12,7 @@ const getCollectActionData = (
   assetSymbol?: string;
   collectLimit?: number;
   endsAt?: string;
-  recipients?: RecipientDataOutput[];
+  recipients?: RecipientPercent[];
 } | null => {
   switch (collectAction.__typename) {
     case "SimpleCollectAction":
@@ -22,7 +23,7 @@ const getCollectActionData = (
         assetSymbol: collectAction.amount?.asset?.symbol,
         collectLimit: Number(collectAction.collectLimit),
         endsAt: collectAction.endsAt,
-        recipients: collectAction.recipient,
+        recipients: collectAction.recipients || []
       };
     default:
       return null;

@@ -23,7 +23,7 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
         on={Boolean(collectModule.collectLimit)}
         setOn={() =>
           setCollectType({
-            collectLimit: collectModule.collectLimit ? null : "1"
+            collectLimit: collectModule.collectLimit ? null : 1
           })
         }
       />
@@ -35,7 +35,7 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
             min="1"
             onChange={(event) => {
               setCollectType({
-                collectLimit: event.target.value ? event.target.value : "1"
+                collectLimit: Number(event.target.value || 1)
               });
             }}
             placeholder="5"

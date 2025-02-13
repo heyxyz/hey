@@ -26,20 +26,20 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
 
   const { SimpleCollect } = PostActionType;
   const recipients = collectModule.recipients || [];
-  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
+  const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
 
   const hasEmptyRecipients = recipients.some(
-    (recipient) => !recipient.recipient
+    (recipient) => !recipient.address
   );
   const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) => recipient.recipient && !isAddress(recipient.recipient)
+    (recipient) => recipient.address && !isAddress(recipient.address)
   );
-  const hasZeroSplits = recipients.some((recipient) => recipient.split === 0);
+  const hasZeroSplits = recipients.some((recipient) => recipient.percent === 0);
   const hasImproperSplits = recipients.length > 1 && splitTotal !== 100;
 
   const isRecipientsDuplicated = () => {
     const recipientsSet = new Set(
-      recipients.map((recipient) => recipient.recipient)
+      recipients.map((recipient) => recipient.address)
     );
     return recipientsSet.size !== recipients.length;
   };

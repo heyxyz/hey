@@ -32,16 +32,16 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const recipients = collectModule.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||
-      (recipients.length === 1 && recipients[0].recipient !== currentAddress)
+    (recipients.length === 1 && recipients[0].address !== currentAddress)
   );
-  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
+  const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
 
   const handleSplitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
     const splits = recipients.map((recipient, i) => {
       return {
-        recipient: recipient.recipient,
-        split: equalSplits[i]
+        address: recipient.address,
+        percent: equalSplits[i]
       };
     });
     setCollectType({
@@ -49,17 +49,17 @@ const SplitConfig: FC<SplitConfigProps> = ({
     });
   };
 
-  const onChangeRecipientOrSplit = (
+  const onChangeRecipientOrPercent = (
     index: number,
     value: string,
-    type: "recipient" | "split"
+    type: "address" | "percent"
   ) => {
     const getRecipients = (value: string) => {
       return recipients.map((recipient, i) => {
         if (i === index) {
           return {
             ...recipient,
-            [type]: type === "split" ? Number.parseInt(value) : value
+            [type]: type === "address" ? value : Number.parseInt(value)
           };
         }
         return recipient;
@@ -70,14 +70,14 @@ const SplitConfig: FC<SplitConfigProps> = ({
   };
 
   const updateRecipient = (index: number, value: string) => {
-    onChangeRecipientOrSplit(index, value, "recipient");
+    onChangeRecipientOrPercent(index, value, "address");
   };
 
   const handleRemoveRecipient = (index: number) => {
     const updatedRecipients = recipients.filter((_, i) => i !== index);
     if (updatedRecipients.length === 0) {
       setCollectType({
-        recipients: [{ recipient: currentAddress, split: 100 }]
+        recipients: [{ address: currentAddress, percent: 100 }]
       });
       setIsToggleOn(false);
     } else {
@@ -87,7 +87,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
 
   const toggleSplit = () => {
     setCollectType({
-      recipients: [{ recipient: currentAddress, split: 100 }]
+      recipients: [{ address: currentAddress, percent: 100 }]
     });
     setIsToggleOn(!isToggleOn);
   };
@@ -111,10 +111,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
               >
                 <SearchAccounts
                   error={
-                    recipient.recipient.length > 0 &&
-                    !isAddress(recipient.recipient)
+                    recipient.address.length > 0 &&
+                    !isAddress(recipient.address)
                   }
-                  hideDropdown={isAddress(recipient.recipient)}
+                  hideDropdown={isAddress(recipient.address)}
                   onChange={(event) =>
                     updateRecipient(index, event.target.value)
                   }
@@ -122,7 +122,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                     updateRecipient(index, account.owner)
                   }
                   placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
-                  value={recipient.recipient}
+                  value={recipient.address}
                 />
                 <div className="w-1/3">
                   <Input
@@ -130,15 +130,15 @@ const SplitConfig: FC<SplitConfigProps> = ({
                     max="100"
                     min="1"
                     onChange={(event) =>
-                      onChangeRecipientOrSplit(
+                      onChangeRecipientOrPercent(
                         index,
                         event.target.value,
-                        "split"
+                        "percent"
                       )
                     }
                     placeholder="5"
                     type="number"
-                    value={recipient.split}
+                    value={recipient.percent}
                   />
                 </div>
                 <button
@@ -158,7 +158,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 icon={<PlusIcon className="size-3" />}
                 onClick={() => {
                   setCollectType({
-                    recipients: [...recipients, { recipient: "", split: 0 }]
+                    recipients: [...recipients, { address: "", percent: 0 }]
                   });
                 }}
                 outline
