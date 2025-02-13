@@ -3,7 +3,7 @@ import type {
   SimpleCollectActionSettings
 } from "@hey/indexer";
 
-const getCollectModuleData = (
+const getCollectActionData = (
   collectModule:
     | MultirecipientFeeCollectActionSettings
     | SimpleCollectActionSettings
@@ -49,4 +49,4 @@ const getCollectModuleData = (
   }
 };
 
-export default getCollectModuleData;
+export default getCollectActionData;

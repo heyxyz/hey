@@ -1,14 +1,13 @@
 import { useApolloClient } from "@apollo/client";
-import AllowanceButton from "@components/Settings/Allowance/Button";
 import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Errors } from "@hey/data/errors";
-import getCollectModuleData from "@hey/helpers/getCollectModuleData";
+import getCollectActionData from "@hey/helpers/getCollectActionData";
 import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
-import type { Post, PostAction } from "@hey/indexer";
+import { useExecutePostActionMutation, type Post, type PostAction } from "@hey/indexer";
 import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -40,11 +39,11 @@ const CollectAction: FC<CollectActionProps> = ({
   countOpenActions,
   forceShowCollect = false,
   noBalanceErrorMessages,
-  onCollectSuccess = () => {},
+  onCollectSuccess = () => { },
   postAction,
   post
 }) => {
-  const collectModule = getCollectModuleData(postAction as any);
+  const collectModule = getCollectActionData(postAction as any);
   const { address: sessionAccountAddress } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
@@ -142,26 +141,6 @@ const CollectAction: FC<CollectActionProps> = ({
     toast.success("Collected");
   };
 
-  const { data: allowanceData, loading: allowanceLoading } =
-    useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: "no-cache",
-      onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        const allowedAmount = Number.parseFloat(
-          approvedModuleAllowanceAmount[0]?.allowance.value
-        );
-        setAllowed(allowedAmount > amount);
-      },
-      skip: !assetAddress || !sessionAccountAddress,
-      variables: {
-        request: {
-          currencies: assetAddress,
-          followModules: [],
-          openActionModules: [postAction.__typename],
-          referenceModules: []
-        }
-      }
-    });
-
   const { data: balanceData } = useBalance({
     address,
     query: { refetchInterval: 2000 },
@@ -179,10 +158,10 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   // Act
-  const [actOnOpenAction] = useActOnOpenActionMutation({
-    onCompleted: ({ actOnOpenAction }) => {
-      if (actOnOpenAction.__typename === "RelaySuccess") {
-        updateTransactions({ txHash: actOnOpenAction.txHash });
+  const [executePostAction] = useExecutePostActionMutation({
+    onCompleted: ({ executePostAction }) => {
+      if (executePostAction.__typename === "RelaySuccess") {
+        updateTransactions({ txHash: executePostAction.txHash });
       }
       onCompleted(actOnOpenAction.__typename);
     },
