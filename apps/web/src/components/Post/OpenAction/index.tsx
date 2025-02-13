@@ -16,7 +16,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
   const { countOpenActions } = post.stats;
   const postActions = post.actions.filter((action) =>
-    allowedCollectActionModules.includes(action.__typename)
+    allowedCollectActionModules.includes(action.__typename || "")
   );
 
   return (
