@@ -6,6 +6,8 @@ import getCurrentSession from "@helpers/getCurrentSession";
 import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useExecutePostActionMutation, type Post, type PostAction } from "@hey/indexer";
 import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
@@ -19,7 +21,8 @@ import {
   useTransactionStore
 } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
-import { useAccount, useBalance } from "wagmi";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useAccount, useBalance, useWalletClient } from "wagmi";
 
 interface CollectActionProps {
   buttonTitle?: string;
@@ -47,6 +50,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const { isSuspended } = useAccountStatus();
   const { hasOptimisticallyCollected } = useTransactionStore();
+  const { data: walletClient } = useWalletClient();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasActed, setHasActed] = useState(
@@ -111,19 +115,11 @@ const CollectAction: FC<CollectActionProps> = ({
     errorToast(error);
   };
 
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
-      return;
-    }
-
+  const onCompleted = (hash: string) => {
     // Should not disable the button if it's a paid collect module
     setHasActed(amount <= 0);
     setIsLoading(false);
+    updateTransactions({ txHash: hash });
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected");
@@ -147,7 +143,39 @@ const CollectAction: FC<CollectActionProps> = ({
 
   // Act
   const [executePostAction] = useExecutePostActionMutation({
-    onCompleted: ({ executePostAction }) => { },
+    onCompleted: async ({ executePostAction }) => {
+      if (executePostAction.__typename === "ExecutePostActionResponse") {
+        return onCompleted(executePostAction.hash);
+      }
+
+      if (walletClient) {
+        try {
+          if (executePostAction.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(executePostAction.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (executePostAction.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(executePostAction.raw)
+            });
+
+            return onCompleted(hash);
+          }
+        } catch (error) {
+          return onError(error);
+        }
+      }
+
+      if (executePostAction.__typename === "TransactionWillFail") {
+        return toast.error(executePostAction.reason);
+      }
+    },
     onError
   });
 
@@ -164,7 +192,7 @@ const CollectAction: FC<CollectActionProps> = ({
           post: post.id,
           action: {
             simpleCollect: {
-              selected: true,
+              selected: null,
               referrals: [
                 {
                   address: COLLECT_FEES_ADDRESS,
