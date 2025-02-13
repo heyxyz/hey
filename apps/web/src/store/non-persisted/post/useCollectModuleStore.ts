@@ -6,7 +6,7 @@ const INITIAL_COLLECT_MODULE: CollectModuleType = {
   collectLimit: null,
   endsAt: null,
   followerOnly: false,
-  recipients: [],
+  recipients: undefined,
   referralShare: 0,
   type: null
 };

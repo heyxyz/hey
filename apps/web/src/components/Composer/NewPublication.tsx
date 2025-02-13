@@ -262,8 +262,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       const metadata = getMetadata({ baseMetadata });
       const contentUri = await uploadMetadata(metadata);
 
-      console.log(collectModuleParams(collectModule));
-
       return await createPost({
         variables: {
           request: {

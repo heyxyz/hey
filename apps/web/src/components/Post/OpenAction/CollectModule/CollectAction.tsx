@@ -131,6 +131,8 @@ const CollectAction: FC<CollectActionProps> = ({
     token: assetAddress
   });
 
+  console.log(balanceData);
+
   let hasAmount = false;
   if (
     balanceData &&
@@ -192,7 +194,7 @@ const CollectAction: FC<CollectActionProps> = ({
           post: post.id,
           action: {
             simpleCollect: {
-              selected: null,
+              selected: true,
               referrals: [
                 {
                   address: COLLECT_FEES_ADDRESS,

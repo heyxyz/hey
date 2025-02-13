@@ -217,7 +217,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
               </div>
             </div>
           ) : null}
-          {recipients.length > 0 ? <Splits recipients={recipients} /> : null}
+          {recipients.length > 1 ? <Splits recipients={recipients} /> : null}
         </div>
         <div className="flex items-center space-x-2">
           <CollectAction
