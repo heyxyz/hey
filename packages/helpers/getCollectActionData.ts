@@ -1,12 +1,9 @@
 import type {
-  RecipientDataOutput,
-  SimpleCollectActionSettings
+  SimpleCollectAction
 } from "@hey/indexer";
 
 const getCollectActionData = (
-  collectModule:
-    | MultirecipientFeeCollectActionSettings
-    | SimpleCollectActionSettings
+  collectAction: SimpleCollectAction
 ): {
   amount?: number;
   assetAddress?: string;
@@ -14,35 +11,18 @@ const getCollectActionData = (
   assetSymbol?: string;
   collectLimit?: number;
   endsAt?: string;
-  followerOnly?: boolean;
-  recipient?: string;
   recipients?: RecipientDataOutput[];
-  referralFee?: number;
 } | null => {
-  switch (collectModule.__typename) {
-    case "SimpleCollectOpenActionSettings":
+  switch (collectAction.__typename) {
+    case "SimpleCollectAction":
       return {
-        amount: Number.parseFloat(collectModule.amount.value || "0"),
-        assetAddress: collectModule.amount.asset.contract.address,
-        assetDecimals: collectModule.amount.asset.decimals,
-        assetSymbol: collectModule.amount.asset.symbol,
-        collectLimit: Number.parseInt(collectModule.collectLimit || "0"),
-        endsAt: collectModule.endsAt,
-        followerOnly: collectModule.followerOnly,
-        recipient: collectModule.recipient,
-        referralFee: collectModule.referralFee
-      };
-    case "MultirecipientFeeCollectOpenActionSettings":
-      return {
-        amount: Number.parseFloat(collectModule.amount.value || "0"),
-        assetAddress: collectModule.amount.asset.contract.address,
-        assetDecimals: collectModule.amount.asset.decimals,
-        assetSymbol: collectModule.amount.asset.symbol,
-        collectLimit: Number.parseInt(collectModule.collectLimit || "0"),
-        endsAt: collectModule.endsAt,
-        followerOnly: collectModule.followerOnly,
-        recipients: collectModule.recipients,
-        referralFee: collectModule.referralFee
+        amount: Number.parseFloat(collectAction.amount?.value || "0"),
+        assetAddress: collectAction.amount?.asset?.contract?.address,
+        assetDecimals: collectAction.amount?.asset?.decimals,
+        assetSymbol: collectAction.amount?.asset?.symbol,
+        collectLimit: Number(collectAction.collectLimit),
+        endsAt: collectAction.endsAt,
+        recipients: collectAction.recipient,
       };
     default:
       return null;

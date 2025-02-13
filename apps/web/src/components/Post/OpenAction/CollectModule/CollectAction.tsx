@@ -6,7 +6,6 @@ import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
-import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
 import { useExecutePostActionMutation, type Post, type PostAction } from "@hey/indexer";
 import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
