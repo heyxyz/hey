@@ -9,7 +9,7 @@ const isPostActionAllowed = (postActions?: Maybe<PostAction[]>): boolean => {
   return postActions.some((postAction) => {
     const { __typename } = postAction;
 
-    return allowedCollectActionModules.includes(__typename);
+    return allowedCollectActionModules.includes(__typename || "");
   });
 };
 

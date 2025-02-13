@@ -22,7 +22,6 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
   const isGardener = useFlag(FeatureFlag.Gardener);
   const hasPostAction = (targetPost.actions?.length || 0) > 0;
-
   const canAct = hasPostAction && isPostActionAllowed(targetPost.actions);
 
   return (
