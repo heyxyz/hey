@@ -9,6 +9,7 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
+import getNamespace from "@hey/helpers/getNamespace";
 import { type Account, useAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -27,7 +28,7 @@ import SuspendedDetails from "./SuspendedDetails";
 const ViewProfile: NextPage = () => {
   const {
     isReady,
-    query: { username, address, type }
+    query: { namespace, username, address, type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);
@@ -55,7 +56,12 @@ const ViewProfile: NextPage = () => {
       request: {
         ...(address
           ? { address }
-          : { username: { localName: username as string } })
+          : {
+            username: {
+              namespace: getNamespace(namespace as string),
+              localName: username as string
+            }
+          })
       }
     }
   });
@@ -87,16 +93,15 @@ const ViewProfile: NextPage = () => {
       <MetaTags
         creator={getAccount(account).name}
         description={account.metadata?.bio || ""}
-        title={`${getAccount(account).name} (${
-          getAccount(account).usernameWithPrefix
-        }) • ${APP_NAME}`}
+        title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix
+          }) • ${APP_NAME}`}
       />
       <Cover
         cover={
           isSuspended
             ? `${STATIC_IMAGES_URL}/patterns/2.svg`
             : account?.metadata?.coverPicture ||
-              `${STATIC_IMAGES_URL}/patterns/2.svg`
+            `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout>
@@ -123,9 +128,9 @@ const ViewProfile: NextPage = () => {
                 <NewPost />
               ) : null}
               {feedType === AccountFeedType.Feed ||
-              feedType === AccountFeedType.Replies ||
-              feedType === AccountFeedType.Media ||
-              feedType === AccountFeedType.Collects ? (
+                feedType === AccountFeedType.Replies ||
+                feedType === AccountFeedType.Media ||
+                feedType === AccountFeedType.Collects ? (
                 <AccountFeed
                   handle={getAccount(account).usernameWithPrefix}
                   accountDetailsLoading={accountDetailsLoading}
