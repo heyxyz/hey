@@ -13,5 +13,7 @@ export enum OptmisticTransactionType {
   SetAccountMetadata = "SetAccountMetadata",
   AddAccountManager = "AddAccountManager",
   RemoveAccountManager = "RemoveAccountManager",
-  CreateGroup = "CreateGroup"
+  CreateGroup = "CreateGroup",
+  JoinGroup = "JoinGroup",
+  LeaveGroup = "LeaveGroup"
 }

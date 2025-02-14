@@ -42,6 +42,8 @@ export interface OptimisticTransaction {
   repostOf?: string;
   followOn?: string;
   unfollowOn?: string;
+  joinOn?: string;
+  leaveOn?: string;
   content?: string;
   txHash: string;
   type: OptmisticTransactionType;

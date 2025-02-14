@@ -90,17 +90,14 @@ const CreateGroupModal: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      const metadata = group({
-        name: data.name,
-        description: data.description
-      });
-      const metadataUri = await uploadMetadata(metadata);
-      return await createGroup({ variables: { request: { metadataUri } } });
-    } catch (error) {
-      errorToast(error);
-    }
+    setIsLoading(true);
+
+    const metadata = group({
+      name: data.name,
+      description: data.description
+    });
+    const metadataUri = await uploadMetadata(metadata);
+    return await createGroup({ variables: { request: { metadataUri } } });
   }
 
   return (
