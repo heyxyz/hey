@@ -20,9 +20,9 @@ const JoinLeaveButton: FC<JoinLeaveButtonProps> = ({
   }, [group.operations?.isMember]);
 
   return joined ? (
-    <Leave address={group.address} setJoined={setJoined} small={small} />
+    <Leave group={group} setJoined={setJoined} small={small} />
   ) : (
-    <Join address={group.address} setJoined={setJoined} small={small} />
+    <Join group={group} setJoined={setJoined} small={small} />
   );
 };
 

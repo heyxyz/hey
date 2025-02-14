@@ -1,5 +1,5 @@
 import type { Maybe, MetadataLicenseType, PostMention } from "@hey/indexer";
-import type { OptmisticTransactionType } from "./enums";
+import type { OptimisticTxType } from "./enums";
 
 export interface StorageNodeResponse {
   mimeType: string;
@@ -42,9 +42,11 @@ export interface OptimisticTransaction {
   repostOf?: string;
   followOn?: string;
   unfollowOn?: string;
+  joinOn?: string;
+  leaveOn?: string;
   content?: string;
   txHash: string;
-  type: OptmisticTransactionType;
+  type: OptimisticTxType;
 }
 
 export interface MarkupLinkProps {

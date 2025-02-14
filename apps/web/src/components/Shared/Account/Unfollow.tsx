@@ -8,7 +8,7 @@ import {
   type LoggedInAccountOperations,
   useUnfollowMutation
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -52,7 +52,7 @@ const Unfollow: FC<UnfollowProps> = ({
   }) => {
     addOptimisticTransaction({
       txHash,
-      type: OptmisticTransactionType.Unfollow,
+      type: OptimisticTxType.UNFOLLOW_ACCOUNT,
       unfollowOn: account.address
     });
   };
@@ -100,6 +100,10 @@ const Unfollow: FC<UnfollowProps> = ({
             });
 
             return onCompleted(hash);
+          }
+
+          if (unfollow.__typename === "TransactionWillFail") {
+            return toast.error(unfollow.reason);
           }
         } catch (error) {
           return onError(error);

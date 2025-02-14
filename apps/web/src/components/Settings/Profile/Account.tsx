@@ -17,7 +17,7 @@ import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import { useSetAccountMetadataMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import {
   Button,
   Card,
@@ -104,7 +104,7 @@ const AccountSettingsForm: FC = () => {
     setIsLoading(false);
     addSimpleOptimisticTransaction(
       hash,
-      OptmisticTransactionType.SetAccountMetadata
+      OptimisticTxType.SET_ACCOUNT_METADATA
     );
     toast.success("Account updated");
   };
@@ -140,6 +140,10 @@ const AccountSettingsForm: FC = () => {
             });
 
             return onCompleted(hash);
+          }
+
+          if (setAccountMetadata.__typename === "TransactionWillFail") {
+            return toast.error(setAccountMetadata.reason);
           }
         } catch (error) {
           return onError(error);
@@ -399,9 +403,9 @@ const AccountSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setCoverPictureSrc("");
-                setShowCoverPictureCropModal(false);
-              }
+              setCoverPictureSrc("");
+              setShowCoverPictureCropModal(false);
+            }
         }
         show={showCoverPictureCropModal}
         size="lg"
@@ -436,9 +440,9 @@ const AccountSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setProfilePictureSrc("");
-                setShowProfilePictureCropModal(false);
-              }
+              setProfilePictureSrc("");
+              setShowProfilePictureCropModal(false);
+            }
         }
         show={showProfilePictureCropModal}
         size="sm"

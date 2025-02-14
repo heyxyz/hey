@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Tooltip } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
@@ -21,7 +21,7 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
   return (
     <div className="flex items-center justify-between">
       <Tooltip content={transaction.txHash} placement="top">
-        {Object.values(OptmisticTransactionType).includes(transaction.type) ? (
+        {Object.values(OptimisticTxType).includes(transaction.type) ? (
           <div className="text-sm">
             {convertEnumKeyToReadable(transaction.type)}
           </div>

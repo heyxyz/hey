@@ -16,22 +16,23 @@ import { Virtuoso } from "react-virtuoso";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface GroupFeedProps {
-  address: string;
+  feed: string;
 }
 
-const GroupFeed: FC<GroupFeedProps> = ({ address }) => {
+const GroupFeed: FC<GroupFeedProps> = ({ feed }) => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
     virtuosoState = { ranges: [], screenTop: 0 };
-  }, [address]);
+  }, [feed]);
 
   const request: PostsRequest = {
+    filter: { feeds: [{ feed }] },
     pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsQuery({
-    skip: !address,
+    skip: !feed,
     variables: { request }
   });
 

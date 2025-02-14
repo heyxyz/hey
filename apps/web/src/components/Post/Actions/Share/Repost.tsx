@@ -10,7 +10,7 @@ import {
   type Post,
   useRepostMutation
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -49,7 +49,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     addOptimisticTransaction({
       repostOf: post?.id,
       txHash,
-      type: OptmisticTransactionType.Repost
+      type: OptimisticTxType.CREATE_REPOST
     });
   };
 

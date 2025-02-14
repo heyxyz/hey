@@ -3,7 +3,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -24,7 +24,7 @@ const UnlinkHandle: FC = () => {
     setUnlinking(false);
     addSimpleOptimisticTransaction(
       hash,
-      OptmisticTransactionType.UnassignUsername
+      OptimisticTxType.UNASSIGN_USERNAME
     );
     toast.success("Unlinked");
   };

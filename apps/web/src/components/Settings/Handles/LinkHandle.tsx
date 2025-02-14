@@ -10,7 +10,7 @@ import {
   useAssignUsernameToAccountMutation,
   useUsernamesQuery
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -32,7 +32,7 @@ const LinkHandle: FC = () => {
     setLinkingUsername(null);
     addSimpleOptimisticTransaction(
       hash,
-      OptmisticTransactionType.AssignUsername
+      OptimisticTxType.ASSIGN_USERNAME
     );
     toast.success("Linked");
   };

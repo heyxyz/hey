@@ -1,7 +1,7 @@
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Post, useCreatePostMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
@@ -37,10 +37,10 @@ const useCreatePost = ({
       content: postContent,
       txHash,
       type: isComment
-        ? OptmisticTransactionType.Comment
+        ? OptimisticTxType.CREATE_COMMENT
         : isQuote
-          ? OptmisticTransactionType.Quote
-          : OptmisticTransactionType.Post
+          ? OptimisticTxType.CREATE_QUOTE
+          : OptimisticTxType.CREATE_POST
     });
   };
 
@@ -72,6 +72,10 @@ const useCreatePost = ({
             updateTransactions({ txHash: hash });
 
             return onCompleted();
+          }
+
+          if (post.__typename === "TransactionWillFail") {
+            return toast.error(post.reason);
           }
         } catch (error) {
           return onError(error);
