@@ -44,7 +44,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   const hasMore = pageInfo?.next;
 
   const queuedComments = txnQueue.filter(
-    (o) => o.type === OptimisticTxType.COMMENT && o.commentOn === postId
+    (o) => o.type === OptimisticTxType.CREATE_COMMENT && o.commentOn === postId
   );
   const queuedCount = queuedComments.length;
   const totalComments = comments?.length + queuedCount;
