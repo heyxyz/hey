@@ -1,4 +1,3 @@
-import { LENS_HANDLE_PREFIX } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import {
   defineBaseCommands,
@@ -82,7 +81,7 @@ const defineMentionSpec = () => {
               // Hide the "lens/" part inside the editor, but it's still part
               // of the HTML output so that we can keep it when converting
               // HTML to Markdown.
-              ["span", { class: "hidden" }, LENS_HANDLE_PREFIX],
+              ["span", { class: "hidden" }, "lens/"],
               ["span", value]
             ]
           : [["span", value]];
