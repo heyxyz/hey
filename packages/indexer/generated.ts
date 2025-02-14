@@ -447,11 +447,13 @@ export type AccountStats = {
 
 export type AccountStatsRequest = {
   /** The account to get stats for. */
-  account: Scalars['EvmAddress']['input'];
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The feeds to get stats for. */
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
   /** The graphs to get stats for. */
   forGraphs?: Array<Scalars['EvmAddress']['input']>;
+  /** The username. */
+  username?: InputMaybe<UsernameInput>;
 };
 
 export type AccountUnblockedNotificationAttributes = {
