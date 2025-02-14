@@ -72,9 +72,10 @@ const LivestreamSettings = dynamic(
 interface NewPublicationProps {
   className?: string;
   post?: Post;
+  feed?: string;
 }
 
-const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
+const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
 
@@ -266,6 +267,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         variables: {
           request: {
             contentUri,
+            ...(feed && { feed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectModule.type && {
