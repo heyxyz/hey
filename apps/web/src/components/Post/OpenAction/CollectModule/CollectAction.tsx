@@ -45,7 +45,7 @@ const CollectAction: FC<CollectActionProps> = ({
   postAction,
   post
 }) => {
-  const collectModule = getCollectActionData(postAction as any);
+  const collectAction = getCollectActionData(postAction as any);
   const { address: sessionAccountAddress } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
@@ -54,7 +54,7 @@ const CollectAction: FC<CollectActionProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasActed, setHasActed] = useState(
-    collectModule?.amount
+    collectAction?.amount
       ? false
       : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
   );
@@ -62,11 +62,11 @@ const CollectAction: FC<CollectActionProps> = ({
   const { address } = useAccount();
   const { cache } = useApolloClient();
 
-  const endTimestamp = collectModule?.endsAt;
-  const collectLimit = collectModule?.collectLimit;
-  const amount = collectModule?.amount as number;
-  const assetAddress = collectModule?.assetAddress as any;
-  const assetDecimals = collectModule?.assetDecimals as number;
+  const endTimestamp = collectAction?.endsAt;
+  const collectLimit = collectAction?.collectLimit;
+  const amount = collectAction?.amount as number;
+  const assetAddress = collectAction?.assetAddress as any;
+  const assetDecimals = collectAction?.assetDecimals as number;
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
@@ -231,7 +231,7 @@ const CollectAction: FC<CollectActionProps> = ({
         message={
           <NoBalanceError
             errorMessage={noBalanceErrorMessages}
-            moduleAmount={amount}
+            assetSymbol={collectAction?.assetSymbol}
           />
         }
       />
