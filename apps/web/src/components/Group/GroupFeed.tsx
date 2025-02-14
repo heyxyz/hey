@@ -27,6 +27,7 @@ const GroupFeed: FC<GroupFeedProps> = ({ address }) => {
   }, [address]);
 
   const request: PostsRequest = {
+    filter: { feeds: [{ feed: address }] },
     pageSize: PageSize.Fifty
   };
 
