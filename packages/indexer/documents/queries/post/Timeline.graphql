@@ -9,7 +9,7 @@ query Timeline($request: TimelineRequest!) {
         ...PostFields
       }
       reposts {
-        ...PostFields
+        ...RepostFields
       }
     }
     pageInfo {
