@@ -36,7 +36,7 @@ const HandlesSettings: NextPage = () => {
               is no longer publicly displayed or associated with your profile."
               title={
                 <span>
-                  Unlink <Slug slug={currentAccount.username?.localName} /> from
+                  Unlink <Slug slug={currentAccount.username?.value} /> from
                   your profile
                 </span>
               }
