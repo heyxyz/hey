@@ -43,7 +43,7 @@ const LinkHandle: FC = () => {
   };
 
   const { data, loading } = useUsernamesQuery({
-    variables: { request: { filter: { owner: currentAccount?.owner } } }
+    variables: { request: { filter: { owner: currentAccount?.address } } }
   });
 
   const [assignUsernameToAccount] = useAssignUsernameToAccountMutation({
