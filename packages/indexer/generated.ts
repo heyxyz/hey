@@ -7259,6 +7259,7 @@ export enum TransactionOperation {
   UsernameRuleReconfigured = 'USERNAME_RULE_RECONFIGURED',
   UsernameRuleSelectorDisabled = 'USERNAME_RULE_SELECTOR_DISABLED',
   UsernameRuleSelectorEnabled = 'USERNAME_RULE_SELECTOR_ENABLED',
+  UsernameTransfer = 'USERNAME_TRANSFER',
   UsernameUnassigned = 'USERNAME_UNASSIGNED'
 }
 
