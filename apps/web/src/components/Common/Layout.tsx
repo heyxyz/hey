@@ -18,7 +18,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useDisconnect } from "wagmi";
+import { useBlockNumber, useDisconnect } from "wagmi";
 import GlobalModals from "../Shared/GlobalModals";
 import Navbar from "../Shared/Navbar";
 
@@ -36,6 +36,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const isMounted = useIsClient();
   const { disconnect } = useDisconnect();
   const { address: sessionAccountAddress } = getCurrentSession();
+
+  const { data: blockNumber } = useBlockNumber({ watch: true });
+
+  console.log("LENS BLOCK NUMBER", blockNumber);
 
   const logout = (shouldReload = false) => {
     resetPreferences();
