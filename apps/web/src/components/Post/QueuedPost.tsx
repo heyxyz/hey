@@ -18,24 +18,10 @@ interface QueuedPostProps {
 }
 
 const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
-  const { currentAccount } = useAccountStore();
-
-  const { cache } = useApolloClient();
   const txHash = txn?.txHash;
-
-  const [getPost] = usePostLazyQuery({
-    onCompleted: ({ post }) => {
-      if (post) {
-        cache.modify({
-          fields: {
-            posts: () => {
-              cache.writeQuery({ data: post, query: PostDocument });
-            }
-          }
-        });
-      }
-    }
-  });
+  const { currentAccount } = useAccountStore();
+  const { cache } = useApolloClient();
+  const [getPost] = usePostLazyQuery();
 
   useTransactionStatusQuery({
     notifyOnNetworkStatusChange: true,
@@ -44,7 +30,16 @@ const QueuedPost: FC<QueuedPostProps> = ({ txn }) => {
         transactionStatus?.__typename === "FinishedTransactionStatus" &&
         txn.commentOn
       ) {
-        await getPost({ variables: { request: { txHash } } });
+        const post = await getPost({ variables: { request: { txHash } } });
+        if (post) {
+          cache.modify({
+            fields: {
+              postReferences: () => {
+                cache.writeQuery({ data: post, query: PostDocument });
+              }
+            }
+          });
+        }
       }
     },
     pollInterval: 1000,
