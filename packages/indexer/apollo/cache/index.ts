@@ -3,6 +3,7 @@ import result from '../../generated';
 import createPostReactionsFieldPolicy from './createPostReactionsFieldPolicy';
 import createPostReferencesFieldPolicy from './createPostReferencesFieldPolicy';
 import createPostsFieldPolicy from './createPostsFieldPolicy';
+import createWhoReferencedPostFieldPolicy from './createWhoReferencedPostFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -11,7 +12,8 @@ const cache = new InMemoryCache({
       fields: {
         posts: createPostsFieldPolicy(),
         postReferences: createPostReferencesFieldPolicy(),
-        postReactions: createPostReactionsFieldPolicy()
+        postReactions: createPostReactionsFieldPolicy(),
+        whoReferencedPost: createWhoReferencedPostFieldPolicy()
       }
     }
   }
