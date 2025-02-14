@@ -83,6 +83,10 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
 
             return onCompleted(hash);
           }
+
+          if (joinGroup.__typename === "TransactionWillFail") {
+            return toast.error(joinGroup.reason);
+          }
         } catch (error) {
           return onError(error);
         }

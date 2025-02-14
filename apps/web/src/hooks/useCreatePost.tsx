@@ -73,6 +73,10 @@ const useCreatePost = ({
 
             return onCompleted();
           }
+
+          if (post.__typename === "TransactionWillFail") {
+            return toast.error(post.reason);
+          }
         } catch (error) {
           return onError(error);
         }

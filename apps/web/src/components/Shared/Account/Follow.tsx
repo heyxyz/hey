@@ -101,6 +101,10 @@ const Follow: FC<FollowProps> = ({
 
             return onCompleted(hash);
           }
+
+          if (follow.__typename === "TransactionWillFail") {
+            return toast.error(follow.reason);
+          }
         } catch (error) {
           return onError(error);
         }

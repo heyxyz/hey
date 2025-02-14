@@ -83,6 +83,10 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
 
             return onCompleted(hash);
           }
+
+          if (leaveGroup.__typename === "TransactionWillFail") {
+            return toast.error(leaveGroup.reason);
+          }
         } catch (error) {
           return onError(error);
         }

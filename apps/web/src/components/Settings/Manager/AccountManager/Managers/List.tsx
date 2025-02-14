@@ -96,6 +96,10 @@ const List: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (removeAccountManager.__typename === "TransactionWillFail") {
+            return toast.error(removeAccountManager.reason);
+          }
         } catch (error) {
           return onError(error);
         }

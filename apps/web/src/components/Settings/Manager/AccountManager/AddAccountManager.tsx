@@ -71,6 +71,10 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 
             return onCompleted(hash);
           }
+
+          if (addAccountManager.__typename === "TransactionWillFail") {
+            return toast.error(addAccountManager.reason);
+          }
         } catch (error) {
           return onError(error);
         }

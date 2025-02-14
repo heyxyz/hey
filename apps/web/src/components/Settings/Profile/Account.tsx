@@ -141,6 +141,10 @@ const AccountSettingsForm: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (setAccountMetadata.__typename === "TransactionWillFail") {
+            return toast.error(setAccountMetadata.reason);
+          }
         } catch (error) {
           return onError(error);
         }
@@ -399,9 +403,9 @@ const AccountSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setCoverPictureSrc("");
-                setShowCoverPictureCropModal(false);
-              }
+              setCoverPictureSrc("");
+              setShowCoverPictureCropModal(false);
+            }
         }
         show={showCoverPictureCropModal}
         size="lg"
@@ -436,9 +440,9 @@ const AccountSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-                setProfilePictureSrc("");
-                setShowProfilePictureCropModal(false);
-              }
+              setProfilePictureSrc("");
+              setShowProfilePictureCropModal(false);
+            }
         }
         show={showProfilePictureCropModal}
         size="sm"
