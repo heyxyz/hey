@@ -10,7 +10,7 @@ import {
   useBlockMutation,
   useUnblockMutation
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -53,8 +53,8 @@ const BlockOrUnblockAccount: FC = () => {
         : { blockOn: blockingorUnblockingAccount?.address }),
       txHash,
       type: hasBlocked
-        ? OptmisticTransactionType.Unblock
-        : OptmisticTransactionType.Block
+        ? OptimisticTxType.UNBLOCK_ACCOUNT
+        : OptimisticTxType.BLOCK_ACCOUNT
     });
   };
 

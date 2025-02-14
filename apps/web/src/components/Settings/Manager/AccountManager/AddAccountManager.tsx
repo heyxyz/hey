@@ -6,7 +6,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useAddAccountManagerMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
@@ -40,7 +40,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
     setShowAddManagerModal(false);
     addSimpleOptimisticTransaction(
       hash,
-      OptmisticTransactionType.AddAccountManager
+      OptimisticTxType.ADD_ACCOUNT_MANAGER
     );
     toast.success("Account manager added");
   };

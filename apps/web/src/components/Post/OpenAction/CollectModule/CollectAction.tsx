@@ -9,7 +9,7 @@ import getCollectActionData from "@hey/helpers/getCollectActionData";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useExecutePostActionMutation, type Post, type PostAction } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
@@ -86,7 +86,7 @@ const CollectAction: FC<CollectActionProps> = ({
     addOptimisticTransaction({
       collectOn: post?.id,
       txHash,
-      type: OptmisticTransactionType.Collect
+      type: OptimisticTxType.CREATE_COLLECT
     });
   };
 

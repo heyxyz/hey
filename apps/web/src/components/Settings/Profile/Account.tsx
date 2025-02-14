@@ -17,7 +17,7 @@ import trimify from "@hey/helpers/trimify";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import { useSetAccountMetadataMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import {
   Button,
   Card,
@@ -104,7 +104,7 @@ const AccountSettingsForm: FC = () => {
     setIsLoading(false);
     addSimpleOptimisticTransaction(
       hash,
-      OptmisticTransactionType.SetAccountMetadata
+      OptimisticTxType.SET_ACCOUNT_METADATA
     );
     toast.success("Account updated");
   };

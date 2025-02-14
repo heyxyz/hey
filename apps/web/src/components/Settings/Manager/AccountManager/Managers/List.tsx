@@ -13,7 +13,7 @@ import {
   useAccountManagersQuery,
   useRemoveAccountManagerMutation
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -56,7 +56,7 @@ const List: FC = () => {
     updateCache(hash);
     addSimpleOptimisticTransaction(
       hash,
-      OptmisticTransactionType.RemoveAccountManager
+      OptimisticTxType.REMOVE_ACCOUNT_MANAGER
     );
     toast.success("Manager removed successfully");
   };

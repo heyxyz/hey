@@ -4,7 +4,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { Group, LoggedInGroupOperations, useJoinGroupMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { useState, type FC } from "react";
 import toast from "react-hot-toast";
@@ -34,7 +34,7 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
     addOptimisticTransaction({
       joinOn: group.address,
       txHash,
-      type: OptmisticTransactionType.JoinGroup
+      type: OptimisticTxType.JOIN_GROUP
     });
   };
 

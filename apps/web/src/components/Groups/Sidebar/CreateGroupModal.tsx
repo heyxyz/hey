@@ -4,7 +4,7 @@ import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import { useCreateGroupMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import { group } from "@lens-protocol/metadata";
 import { useState, type FC } from "react";
@@ -42,7 +42,7 @@ const CreateGroupModal: FC = () => {
   }) => {
     addOptimisticTransaction({
       txHash,
-      type: OptmisticTransactionType.CreateGroup
+      type: OptimisticTxType.CREATE_GROUP
     });
   };
 

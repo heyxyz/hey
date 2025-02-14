@@ -4,7 +4,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { Group, LoggedInGroupOperations, useLeaveGroupMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { useState, type FC } from "react";
 import toast from "react-hot-toast";
@@ -34,7 +34,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
     addOptimisticTransaction({
       leaveOn: group.address,
       txHash,
-      type: OptmisticTransactionType.LeaveGroup
+      type: OptimisticTxType.LEAVE_GROUP
     });
   };
 
