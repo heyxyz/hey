@@ -1,8 +1,9 @@
+import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { useJoinGroupMutation } from "@hey/indexer";
+import { Group, LoggedInGroupOperations, useJoinGroupMutation } from "@hey/indexer";
 import { OptmisticTransactionType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { useState, type FC } from "react";
@@ -13,14 +14,16 @@ import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
 interface JoinProps {
-  address: string;
+  group: Group;
   setJoined: (joined: boolean) => void;
   small: boolean;
 }
 
-const Join: FC<JoinProps> = ({ address, setJoined, small }) => {
+const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
+
+  const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
 
   const updateTransactions = ({
@@ -29,13 +32,21 @@ const Join: FC<JoinProps> = ({ address, setJoined, small }) => {
     txHash: string;
   }) => {
     addOptimisticTransaction({
-      joinOn: address,
+      joinOn: group.address,
       txHash,
       type: OptmisticTransactionType.JoinGroup
     });
   };
 
+  const updateCache = () => {
+    cache.modify({
+      fields: { isMember: () => true },
+      id: cache.identify(group.operations as LoggedInGroupOperations)
+    });
+  };
+
   const onCompleted = (hash: string) => {
+    updateCache();
     updateTransactions({ txHash: hash });
     setIsLoading(false);
     setJoined(true);
@@ -91,7 +102,7 @@ const Join: FC<JoinProps> = ({ address, setJoined, small }) => {
 
     setIsLoading(true);
 
-    return await joinGroup({ variables: { request: { group: address } } });
+    return await joinGroup({ variables: { request: { group: group.address } } });
   };
 
   return (
