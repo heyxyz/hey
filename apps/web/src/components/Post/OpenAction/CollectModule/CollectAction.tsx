@@ -224,7 +224,7 @@ const CollectAction: FC<CollectActionProps> = ({
     return null;
   }
 
-  if (!hasAmount) {
+  if (hasAmount) {
     return (
       <WarningMessage
         className="mt-5 w-full"
