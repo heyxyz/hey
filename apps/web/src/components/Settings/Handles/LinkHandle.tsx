@@ -114,11 +114,9 @@ const LinkHandle: FC = () => {
     return <Loader className="py-10" />;
   }
 
-  const availableUsernames = data?.usernames.items.filter(
-    (handle) => handle.linkedTo !== currentAccount?.address
-  );
+  const usernames = data?.usernames.items;
 
-  if (!availableUsernames?.length) {
+  if (!usernames?.length) {
     return (
       <EmptyState
         hideCard
@@ -130,7 +128,7 @@ const LinkHandle: FC = () => {
 
   return (
     <div className="m-5 space-y-6">
-      {availableUsernames?.map((username) => (
+      {usernames?.map((username) => (
         <div
           className="flex flex-wrap items-center justify-between gap-3"
           key={username.value}
