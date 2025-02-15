@@ -1,4 +1,4 @@
 export const allowedNamespaces = [
   { "lens": "0xaFe49B3faA3C65c4C56C6b768C9047E3bF4076Bb" },
-  { "hey": "0x860B5624e7eba4F607A399439cF1a3a64A97Fae5" }
+  { "hey": "0x820396466F53FE43B6dcc932B33261193CE1Bc5A" }
 ];

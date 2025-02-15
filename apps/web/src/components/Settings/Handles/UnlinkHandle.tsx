@@ -96,7 +96,7 @@ const UnlinkHandle: FC = () => {
   };
 
   return (
-    <Button className="m-5" disabled={unlinking} onClick={handleUnlink} outline>
+    <Button disabled={unlinking} onClick={handleUnlink} outline>
       Un-link handle
     </Button>
   );
