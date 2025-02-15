@@ -1,23 +1,21 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import allowedCollectActionModules from "@hey/helpers/allowedCollectActionModules";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { Post } from "@hey/indexer";
+import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPost } from "@hey/indexer";
 import { Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 import CollectModule from "./CollectModule";
 
 interface OpenActionProps {
-  post: Post;
+  post: AnyPost;
 }
 
 const OpenAction: FC<OpenActionProps> = ({ post }) => {
+  const targetPost = isRepost(post) ? post.repostOf : post;
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const { countOpenActions } = post.stats;
-  const postActions = post.actions.filter((action) =>
-    allowedCollectActionModules.includes(action.__typename || "")
-  );
+  const { countOpenActions } = targetPost.stats;
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
@@ -48,13 +46,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        {postActions?.map((action) => (
-          <CollectModule
-            key={action.__typename}
-            postAction={action}
-            post={post}
-          />
-        ))}
+        <CollectModule post={post} />
       </Modal>
     </div>
   );

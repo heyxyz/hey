@@ -1,0 +1,16 @@
+query CollectAction($request: PostRequest!) {
+  post(request: $request) {
+    ... on Post {
+      actions {
+        ...PostActionFields
+      }
+    }
+    ... on Repost {
+      repostOf {
+        actions {
+          ...PostActionFields
+        }
+      }
+    }
+  }
+}

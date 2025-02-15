@@ -1,4 +1,4 @@
-import type { AmountInput, PostActionType } from "@hey/indexer";
+import type { AmountInput } from "@hey/indexer";
 
 export type StaffPick = {
   accountAddress: string;
@@ -21,13 +21,13 @@ export type AllowedToken = {
 };
 
 export type CollectModuleType = {
+  enabled?: boolean;
   amount?: AmountInput | null;
-  collectLimit?: null | number;
-  endsAt?: null | string;
-  followerOnly?: boolean;
   recipients?: RecipientDataInput[];
+  collectLimit?: null | number;
+  followerOnly?: boolean;
   referralShare?: number;
-  type?: PostActionType.SimpleCollect | null;
+  endsAt?: null | string;
 };
 
 type PollOption = {

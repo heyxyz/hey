@@ -33,7 +33,7 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
         <Comment post={targetPost} showCount={showCount} />
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
-        {canAct && !showCount ? <OpenAction post={targetPost} /> : null}
+        {canAct && !showCount ? <OpenAction post={post} /> : null}
         {isGardener ? <Mod isFullPost={showCount} post={targetPost} /> : null}
       </span>
       {canAct ? <Collect post={targetPost} /> : null}
