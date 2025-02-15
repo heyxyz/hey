@@ -1,6 +1,7 @@
 import JoinLeaveButton from "@components/Shared/Group/JoinLeaveButton";
 import Markup from "@components/Shared/Markup";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
 import humanize from "@hey/helpers/humanize";
 import type { Group, GroupStatsResponse } from "@hey/indexer";
@@ -29,8 +30,8 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
           alt={group.address}
           className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
-          onClick={() => setExpandedImage(group.metadata?.icon)}
-          src={group.metadata?.icon}
+          onClick={() => setExpandedImage(getAvatar(group))}
+          src={getAvatar(group)}
           width={128}
         />
         <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />

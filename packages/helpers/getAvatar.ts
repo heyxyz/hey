@@ -3,15 +3,16 @@ import imageKit from "./imageKit";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 /**
- * Returns the avatar image URL for a given profile.
+ * Returns the avatar image URL for a given profile or group.
  *
- * @param profile The profile object.
+ * @param entity The profile or group object.
  * @param namedTransform The named transform to use.
  * @returns The avatar image URL.
  */
-const getAvatar = (account: any, namedTransform = AVATAR): string => {
+const getAvatar = (entity: any, namedTransform = AVATAR): string => {
   const avatarUrl =
-    account?.metadata?.picture ||
+    entity?.metadata?.picture ||
+    entity?.metadata?.icon ||
     `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
