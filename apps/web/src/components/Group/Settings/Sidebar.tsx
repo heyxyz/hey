@@ -10,6 +10,7 @@ import Custom500 from "src/pages/500";
 const SettingsSidebar: FC = () => {
   const {
     isReady,
+    pathname,
     query: { address }
   } = useRouter();
 
@@ -17,7 +18,8 @@ const SettingsSidebar: FC = () => {
     {
       icon: <UserGroupIcon className="size-4" />,
       title: "Group",
-      url: `/g/${address}/settings`
+      url: `/g/${address}/settings`,
+      active: pathname === "/g/[address]/settings"
     }
   ];
 
