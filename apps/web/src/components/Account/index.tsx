@@ -27,7 +27,7 @@ import SuspendedDetails from "./SuspendedDetails";
 const ViewProfile: NextPage = () => {
   const {
     isReady,
-    query: { namespace, username, address, type }
+    query: { username, address, type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
   const isStaff = useFlag(FeatureFlag.Staff);

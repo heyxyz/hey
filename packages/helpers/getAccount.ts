@@ -25,7 +25,7 @@ const getAccount = (
   const username =
     account.username?.localName || formatAddress(account.address);
   const link = account.username
-    ? `/u/${account.username.value}`
+    ? `/u/${account.username.localName}`
     : `/account/${account.address}`;
 
   return {
