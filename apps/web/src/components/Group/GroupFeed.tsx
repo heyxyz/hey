@@ -12,6 +12,7 @@ import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -20,6 +21,7 @@ interface GroupFeedProps {
 }
 
 const GroupFeed: FC<GroupFeedProps> = ({ feed }) => {
+  const { indexedPostHash } = useTransactionStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const GroupFeed: FC<GroupFeedProps> = ({ feed }) => {
     pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = usePostsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     skip: !feed,
     variables: { request }
   });
@@ -39,6 +41,12 @@ const GroupFeed: FC<GroupFeedProps> = ({ feed }) => {
   const posts = data?.posts?.items;
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  useEffect(() => {
+    if (indexedPostHash) {
+      refetch();
+    }
+  }, [indexedPostHash]);
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {
