@@ -208,7 +208,9 @@ const LinkHandle: FC = () => {
                 linkingUsername ===
                 `${username.namespace}:${username.localName}`
               }
-              onClick={() => handleLink(username.namespace, username.localName)}
+              onClick={() =>
+                handleUnlink(username.namespace, username.localName)
+              }
               outline
             >
               Unlink
