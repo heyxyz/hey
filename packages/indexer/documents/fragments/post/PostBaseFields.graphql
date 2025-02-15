@@ -6,7 +6,7 @@ fragment PostBaseFields on Post {
     ...PostStatsFields
   }
   actions {
-    ...PostActionFields
+    __typename
   }
   author {
     ...AccountFields
