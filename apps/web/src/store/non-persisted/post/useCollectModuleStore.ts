@@ -8,7 +8,7 @@ const INITIAL_COLLECT_MODULE: CollectModuleType = {
   followerOnly: false,
   recipients: undefined,
   referralShare: 0,
-  type: null
+  enabled: false
 };
 
 interface State {

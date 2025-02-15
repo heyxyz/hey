@@ -270,7 +270,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
             ...(feed && { feed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
-            ...(collectModule.type && {
+            ...(collectModule.enabled && {
               actions: [{ ...collectModuleParams(collectModule) }]
             })
           }

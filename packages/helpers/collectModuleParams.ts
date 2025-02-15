@@ -1,7 +1,4 @@
-import {
-  PostActionConfigInput,
-  PostActionType
-} from "@hey/indexer";
+import { PostActionConfigInput } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 
 const collectModuleParams = (
@@ -15,20 +12,15 @@ const collectModuleParams = (
     referralShare
   } = collectModule;
 
-  switch (collectModule.type) {
-    case PostActionType.SimpleCollect:
-      return {
-        simpleCollect: {
-          amount: amount || undefined,
-          collectLimit: collectLimit || undefined,
-          endsAt: endsAt || undefined,
-          recipients: recipients || undefined,
-          referralShare: referralShare || undefined
-        }
-      };
-    default:
-      return null;
-  }
+  return {
+    simpleCollect: {
+      amount: amount || undefined,
+      collectLimit: collectLimit || undefined,
+      endsAt: endsAt || undefined,
+      recipients: recipients || undefined,
+      referralShare: referralShare || undefined
+    }
+  };
 };
 
 export default collectModuleParams;

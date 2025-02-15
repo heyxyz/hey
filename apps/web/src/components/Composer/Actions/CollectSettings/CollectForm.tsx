@@ -1,6 +1,5 @@
 import LicensePicker from "@components/Composer/LicensePicker";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
-import { PostActionType } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -24,7 +23,6 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   );
   const { setLicense } = usePostLicenseStore();
 
-  const { SimpleCollect } = PostActionType;
   const recipients = collectModule.recipients || [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
 
@@ -52,11 +50,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   };
 
   const toggleCollect = () => {
-    if (collectModule.type) {
+    if (collectModule.enabled) {
       setLicense(null);
       reset();
     } else {
-      setCollectType({ type: SimpleCollect });
+      setCollectType({ enabled: true });
     }
   };
 
@@ -66,12 +64,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <ToggleWithHelper
           description="This post can be collected"
           heading="Enable Collect"
-          on={collectModule.type !== null}
+          on={collectModule.enabled || false}
           setOn={toggleCollect}
         />
       </div>
       <div className="divider" />
-      {collectModule.type !== null ? (
+      {collectModule.enabled ? (
         <>
           <div className="m-5">
             <AmountConfig setCollectType={setCollectType} />
@@ -106,12 +104,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           outline
           variant="danger"
         >
-          {collectModule.type ? "Reset" : "Cancel"}
+          {collectModule.enabled ? "Reset" : "Cancel"}
         </Button>
         <Button
           disabled={
             (Number.parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.type !== null) ||
+              collectModule.enabled) ||
             hasImproperSplits ||
             hasEmptyRecipients ||
             hasZeroSplits ||

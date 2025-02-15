@@ -33,6 +33,7 @@ export type Scalars = {
   LegacyPublicationId: { input: any; output: any; }
   LegacyRefreshToken: { input: any; output: any; }
   Locale: { input: any; output: any; }
+  MarketplaceMetadataAttributeValue: { input: any; output: any; }
   MetadataId: { input: any; output: any; }
   PostId: { input: any; output: any; }
   RefreshToken: { input: any; output: any; }
@@ -1275,6 +1276,60 @@ export type CreateFollowRequest = {
   graphRulesProcessingParams?: InputMaybe<Array<GraphRulesProcessingParams>>;
 };
 
+export type CreateFrameEip712TypedData = {
+  __typename?: 'CreateFrameEIP712TypedData';
+  /** The domain */
+  domain: Eip712TypedDataDomain;
+  /** The types */
+  types: CreateFrameEip712TypedDataTypes;
+  /** The value */
+  value: CreateFrameEip712TypedDataValue;
+};
+
+export type CreateFrameEip712TypedDataInput = {
+  /** The typed data domain */
+  domain: Eip712TypedDataDomainInput;
+  /** The typed data types */
+  types: CreateFrameEip712TypedDataTypesInput;
+  /** The typed data value */
+  value: FrameEip712Request;
+};
+
+export type CreateFrameEip712TypedDataTypes = {
+  __typename?: 'CreateFrameEIP712TypedDataTypes';
+  /** The frame data */
+  frameData: Array<Eip712TypedDataField>;
+};
+
+export type CreateFrameEip712TypedDataTypesInput = {
+  /** The frame data */
+  frameData: Array<Eip712TypedDataFieldInput>;
+};
+
+export type CreateFrameEip712TypedDataValue = {
+  __typename?: 'CreateFrameEIP712TypedDataValue';
+  /** The account address */
+  account: Scalars['EvmAddress']['output'];
+  /** The app the frame is being executed from */
+  app: Scalars['EvmAddress']['output'];
+  /** The button index */
+  buttonIndex: Scalars['Int']['output'];
+  /** The deadline the typed data expires */
+  deadline: Scalars['Int']['output'];
+  /** The input text */
+  inputText: Scalars['String']['output'];
+  /** The post id */
+  postId: Scalars['PostId']['output'];
+  /** The frame spec version */
+  specVersion: Scalars['String']['output'];
+  /** The state */
+  state: Scalars['String']['output'];
+  /** The transaction id */
+  transactionId: Scalars['String']['output'];
+  /** The url */
+  url: Scalars['URI']['output'];
+};
+
 export type CreateGraphRequest = {
   /** List of admins who can manage this graph */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
@@ -1554,6 +1609,44 @@ export type Eip712TransactionRequest = {
   type: Scalars['Int']['output'];
   /** The transaction value (in wei). */
   value: Scalars['BigInt']['output'];
+};
+
+export type Eip712TypedDataDomain = {
+  __typename?: 'Eip712TypedDataDomain';
+  /** The chain id */
+  chainId: Scalars['Int']['output'];
+  /** The name of the domain */
+  name: Scalars['String']['output'];
+  /** The verifying contract */
+  verifyingContract: Scalars['EvmAddress']['output'];
+  /** The version of the domain */
+  version: Scalars['String']['output'];
+};
+
+export type Eip712TypedDataDomainInput = {
+  /** The chain id */
+  chainId: Scalars['Int']['input'];
+  /** The name of the domain */
+  name: Scalars['String']['input'];
+  /** The verifying contract */
+  verifyingContract: Scalars['EvmAddress']['input'];
+  /** The version of the domain */
+  version: Scalars['String']['input'];
+};
+
+export type Eip712TypedDataField = {
+  __typename?: 'Eip712TypedDataField';
+  /** The name of the field */
+  name: Scalars['String']['output'];
+  /** The type of the field */
+  type: Scalars['String']['output'];
+};
+
+export type Eip712TypedDataFieldInput = {
+  /** The name of the field */
+  name: Scalars['String']['input'];
+  /** The type of the field */
+  type: Scalars['String']['input'];
 };
 
 export type Eip1559TransactionRequest = {
@@ -2545,6 +2638,71 @@ export type ForbiddenError = {
   reason: Scalars['String']['output'];
 };
 
+export type FrameEip712Request = {
+  /** The account address */
+  account: Scalars['EvmAddress']['input'];
+  /** The app the frame is being executed from */
+  app: Scalars['EvmAddress']['input'];
+  /** The button index */
+  buttonIndex: Scalars['Int']['input'];
+  /** The deadline the typed data expires */
+  deadline: Scalars['Int']['input'];
+  /** The input text */
+  inputText: Scalars['String']['input'];
+  /** The post id */
+  post: Scalars['PostId']['input'];
+  /** The frame spec version */
+  specVersion: Scalars['String']['input'];
+  /** The state */
+  state: Scalars['String']['input'];
+  /** The transaction id */
+  transactionId: Scalars['String']['input'];
+  /** The url */
+  url: Scalars['URI']['input'];
+};
+
+export type FrameLensManagerSignatureResult = {
+  __typename?: 'FrameLensManagerSignatureResult';
+  /** The signature */
+  signature: Scalars['Signature']['output'];
+  /** The signed typed data */
+  signedTypedData: CreateFrameEip712TypedData;
+};
+
+export type FrameVerifySignature = {
+  /** The identity token */
+  identityToken: Scalars['IdToken']['input'];
+  /** The signature */
+  signature: Scalars['Signature']['input'];
+  /** The signed typed data */
+  signedTypedData: CreateFrameEip712TypedDataInput;
+};
+
+export enum FrameVerifySignatureResult {
+  /** The deadline has expired */
+  DeadlineExpired = 'DEADLINE_EXPIRED',
+  /** The identity token is not a valid identity token */
+  IdentityCannotUseAccount = 'IDENTITY_CANNOT_USE_ACCOUNT',
+  /** The identity token is not a valid identity token used with an account authentication */
+  IdentityTokenNotValid = 'IDENTITY_TOKEN_NOT_VALID',
+  /** The identity token is not authorized to use the frame */
+  IdentityUnauthorized = 'IDENTITY_UNAUTHORIZED',
+  /** The post does not exist */
+  PostDoesntExist = 'POST_DOESNT_EXIST',
+  /** The signature is not valid */
+  SignatureNotValid = 'SIGNATURE_NOT_VALID',
+  /** The signer address cannot use the account */
+  SignerAddressCannotUseAccount = 'SIGNER_ADDRESS_CANNOT_USE_ACCOUNT',
+  /** The typed data account is not matching the identity token account */
+  TypedDataAccountNotMatchingIdentityToken = 'TYPED_DATA_ACCOUNT_NOT_MATCHING_IDENTITY_TOKEN',
+  /** The typed data domain is not in the correct format */
+  TypedDataDomainIncorrect = 'TYPED_DATA_DOMAIN_INCORRECT',
+  /** The typed data types is not in the correct format */
+  TypedDataTypesIncorrectFields = 'TYPED_DATA_TYPES_INCORRECT_FIELDS',
+  /** The frame was verified */
+  Verified = 'VERIFIED'
+}
+
 export type GenerateNewAppServerApiKeyRequest = {
   /** The app to generate the new server side api key for */
   app: Scalars['EvmAddress']['input'];
@@ -3272,6 +3430,54 @@ export type ManagedBy = {
   /** Whether to include the owned primitives or just the ones the address is an admin of. */
   includeOwners?: Scalars['Boolean']['input'];
 };
+
+/**
+ * MarketplaceMetadataAttribute
+ *
+ * <details><summary>JSON schema</summary>
+ *
+ * ```json
+ * {
+ * "type": "object",
+ * "properties": {
+ * "display_type": {
+ * "type": "string",
+ * "enum": [
+ * "number",
+ * "string",
+ * "date"
+ * ]
+ * },
+ * "trait_type": {
+ * "description": "The name of the trait.",
+ * "$ref": "#/$defs/NonEmptyString"
+ * },
+ * "value": {
+ * "type": [
+ * "string",
+ * "number"
+ * ]
+ * }
+ * },
+ * "additionalProperties": true
+ * }
+ * ```
+ * </details>
+ */
+export type MarketplaceMetadataAttribute = {
+  __typename?: 'MarketplaceMetadataAttribute';
+  displayType?: Maybe<MarketplaceMetadataAttributeDisplayType>;
+  /** The name of the trait. */
+  traitType?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['MarketplaceMetadataAttributeValue']['output']>;
+};
+
+/** MarketplaceMetadataAttributeDisplayType */
+export enum MarketplaceMetadataAttributeDisplayType {
+  Date = 'DATE',
+  Number = 'NUMBER',
+  String = 'STRING'
+}
 
 export type MeResult = {
   __typename?: 'MeResult';
@@ -4158,6 +4364,12 @@ export type Mutation = {
    * You MUST be authenticated as a builder to use this mutation.
    */
   setSponsorshipMetadata: SetSponsorshipMetadataResult;
+  /**
+   * sign a frame action with the lens account manager
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  signFrameAction: FrameLensManagerSignatureResult;
   /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
   switchAccount: SwitchAccountResult;
   /**
@@ -4684,6 +4896,11 @@ export type MutationSetSponsorshipMetadataArgs = {
 };
 
 
+export type MutationSignFrameActionArgs = {
+  request: FrameEip712Request;
+};
+
+
 export type MutationSwitchAccountArgs = {
   request: SwitchAccountRequest;
 };
@@ -4954,6 +5171,35 @@ export type NetworkAddress = {
   __typename?: 'NetworkAddress';
   address: Scalars['EvmAddress']['output'];
   chainId: Scalars['Int']['output'];
+};
+
+export type NftMetadata = {
+  __typename?: 'NftMetadata';
+  /**
+   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4,
+   * M4V, OGV, and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
+   * Animation_url also supports HTML pages, allowing you to build rich experiences and
+   * interactive NFTs using JavaScript canvas, WebGL, and more. Scripts and relative paths
+   * within the HTML page are now supported. However, access to browser extensions is not
+   * supported.
+   */
+  animationUrl?: Maybe<Scalars['URI']['output']>;
+  /**
+   * These are the attributes for the item, which will show up on the OpenSea and others NFT
+   * trading websites on the item.
+   */
+  attributes: Array<MarketplaceMetadataAttribute>;
+  /** A human-readable description of the item. It could be plain text or markdown. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * This is the URL that will appear below the asset's image on OpenSea and others etc. and
+   * will allow users to leave OpenSea and view the item on the site.
+   */
+  externalUrl?: Maybe<Scalars['URI']['output']>;
+  /** NFT will store any image here. */
+  image?: Maybe<Scalars['URI']['output']>;
+  /** Name of the NFT item. */
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 /** The existence of the transaction is not yet indexed. Keep trying. */
@@ -5290,6 +5536,7 @@ export type Post = {
   actions: Array<PostAction>;
   app?: Maybe<App>;
   author: Account;
+  collectibleMetadata: NftMetadata;
   commentOn?: Maybe<Post>;
   contentUri: Scalars['URI']['output'];
   /** The feed address that the post belongs to. */
@@ -5792,6 +6039,8 @@ export type Query = {
    * You MUST be authenticated to use this mutation.
    */
   canCreateUsername: CanCreateUsernameResult;
+  /** Create a frame typed data */
+  createFrameTypedData: CreateFrameEip712TypedData;
   /**
    * Get the current authenticated session for the current account.
    *
@@ -5876,6 +6125,7 @@ export type Query = {
   username?: Maybe<Username>;
   /** Get the usernames for the account/owner. */
   usernames: PaginatedUsernamesResult;
+  verifyFrameSignature: FrameVerifySignatureResult;
   /** Get who acted on a post. */
   whoExecutedActionOnAccount: PaginatedAccountExecutedActionsResult;
   /** Get who acted on a post. */
@@ -5977,6 +6227,11 @@ export type QueryAuthenticatedSessionsArgs = {
 
 export type QueryCanCreateUsernameArgs = {
   request: UsernameInput;
+};
+
+
+export type QueryCreateFrameTypedDataArgs = {
+  request: FrameEip712Request;
 };
 
 
@@ -6187,6 +6442,11 @@ export type QueryUsernameArgs = {
 
 export type QueryUsernamesArgs = {
   request: UsernamesRequest;
+};
+
+
+export type QueryVerifyFrameSignatureArgs = {
+  request: FrameVerifySignature;
 };
 
 
@@ -6557,6 +6817,7 @@ export type SimpleCollectAction = {
   address: Scalars['EvmAddress']['output'];
   amount?: Maybe<Erc20Amount>;
   collectLimit?: Maybe<Scalars['Int']['output']>;
+  collectNftAddress: Scalars['EvmAddress']['output'];
   endsAt?: Maybe<Scalars['DateTime']['output']>;
   followerOnGraph?: Maybe<FollowerOn>;
   isImmutable: Scalars['Boolean']['output'];
