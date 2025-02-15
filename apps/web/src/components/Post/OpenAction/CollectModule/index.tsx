@@ -1,4 +1,5 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
+import Loader from "@components/Shared/Loader";
 import Collectors from "@components/Shared/Modal/Collectors";
 import Slug from "@components/Shared/Slug";
 import {
@@ -17,28 +18,27 @@ import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type {
-  AnyPost,
-  PostAction,
-  SimpleCollectAction
+import {
+  useCollectActionQuery,
+  type AnyPost,
+  type SimpleCollectAction
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
-import { type FC, useState } from "react";
+import { useState, type FC } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import CollectAction from "./CollectAction";
 import DownloadCollectors from "./DownloadCollectors";
 import Splits from "./Splits";
 
 interface CollectModuleProps {
-  postAction: PostAction;
   post: AnyPost;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
+const CollectModule: FC<CollectModuleProps> = ({ post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
@@ -47,7 +47,19 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
     targetPost.stats.countOpenActions
   );
 
-  const collectAction = postAction as SimpleCollectAction;
+  const { data, loading } = useCollectActionQuery({
+    variables: { request: { post: post.id } }
+  })
+
+  if (loading) {
+    return <Loader className="py-10" />;
+  }
+
+  const targetAction = data?.post?.__typename === "Post" ?
+    data?.post.actions.find((action) => action.__typename === "SimpleCollectAction") : data?.post?.__typename === 'Repost' ?
+      data?.post?.repostOf?.actions.find((action) => action.__typename === "SimpleCollectAction") : null;
+
+  const collectAction = targetAction as SimpleCollectAction;
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = Number(collectAction?.collectLimit);
   const amount = Number.parseFloat(collectAction?.amount?.value || "0");
@@ -223,7 +235,7 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
           <CollectAction
             countOpenActions={countOpenActions}
             onCollectSuccess={() => increment()}
-            postAction={postAction}
+            postAction={collectAction}
             post={targetPost}
           />
         </div>
