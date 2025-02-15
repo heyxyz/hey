@@ -9,7 +9,6 @@ import {
 import { APP_NAME } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import getNamespace from "@hey/helpers/getNamespace";
 import {
   useAccountQuery,
   useAuthenticateMutation,
@@ -77,12 +76,7 @@ const ChooseUsername: FC = () => {
     fetchPolicy: "no-cache",
     onCompleted: (data) => setIsAvailable(!data.account),
     variables: {
-      request: {
-        username: {
-          namespace: getNamespace("hey"),
-          localName: username?.toLowerCase()
-        }
-      }
+      request: { username: { localName: username?.toLowerCase() } }
     }
   });
 
@@ -121,10 +115,7 @@ const ChooseUsername: FC = () => {
           context: { headers: { "X-Access-Token": accessToken } },
           variables: {
             request: {
-              username: {
-                namespace: getNamespace("hey"),
-                localName: username.toLowerCase()
-              },
+              username: { localName: username.toLowerCase() },
               metadataUri
             }
           },

@@ -9,7 +9,6 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
-import getNamespace from "@hey/helpers/getNamespace";
 import { type Account, useAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -56,12 +55,7 @@ const ViewProfile: NextPage = () => {
       request: {
         ...(address
           ? { address }
-          : {
-              username: {
-                namespace: getNamespace(namespace as string),
-                localName: username as string
-              }
-            })
+          : { username: { localName: username as string } })
       }
     }
   });

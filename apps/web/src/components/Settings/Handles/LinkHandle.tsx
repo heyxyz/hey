@@ -86,7 +86,7 @@ const LinkHandle: FC = () => {
     onError
   });
 
-  const handleLink = async (namespace: string, localName: string) => {
+  const handleLink = async (localName: string) => {
     if (!currentAccount) {
       return;
     }
@@ -101,10 +101,10 @@ const LinkHandle: FC = () => {
       return;
     }
 
-    setLinkingUsername(`${namespace}:${localName}`);
+    setLinkingUsername(localName);
 
     return await assignUsernameToAccount({
-      variables: { request: { username: { namespace, localName } } }
+      variables: { request: { username: { localName } } }
     });
   };
 
@@ -204,24 +204,16 @@ const LinkHandle: FC = () => {
           </div>
           {username.linkedTo ? (
             <Button
-              disabled={
-                linkingUsername ===
-                `${username.namespace}:${username.localName}`
-              }
-              onClick={() =>
-                handleUnlink(username.namespace, username.localName)
-              }
+              disabled={linkingUsername === username.localName}
+              onClick={() => handleUnlink()}
               outline
             >
               Unlink
             </Button>
           ) : (
             <Button
-              disabled={
-                linkingUsername ===
-                `${username.namespace}:${username.localName}`
-              }
-              onClick={() => handleLink(username.namespace, username.localName)}
+              disabled={linkingUsername === username.localName}
+              onClick={() => handleLink(username.localName)}
               outline
             >
               Link
