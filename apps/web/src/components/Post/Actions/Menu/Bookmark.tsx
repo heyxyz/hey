@@ -33,7 +33,9 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
       fields: {
         stats: (existingData) => ({
           ...existingData,
-          bookmarks: hasBookmarked ? existingData.bookmarks + 1 : existingData.bookmarks - 1
+          bookmarks: hasBookmarked
+            ? existingData.bookmarks + 1
+            : existingData.bookmarks - 1
         })
       },
       id: cache.identify(post)

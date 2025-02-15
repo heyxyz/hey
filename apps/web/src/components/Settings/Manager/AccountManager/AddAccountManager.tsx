@@ -38,10 +38,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const onCompleted = (hash: string) => {
     setIsLoading(false);
     setShowAddManagerModal(false);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptimisticTxType.ADD_ACCOUNT_MANAGER
-    );
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.ADD_ACCOUNT_MANAGER);
     toast.success("Account manager added");
   };
 

@@ -1,5 +1,3 @@
-const allowedCollectActionModules = [
-  "SimpleCollectAction"
-];
+const allowedCollectActionModules = ["SimpleCollectAction"];
 
 export default allowedCollectActionModules;

@@ -1,5 +1,8 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useMlDismissRecommendedAccountsMutation, type Account } from "@hey/indexer";
+import {
+  type Account,
+  useMlDismissRecommendedAccountsMutation
+} from "@hey/indexer";
 import type { FC } from "react";
 
 interface DismissRecommendedAccountProps {

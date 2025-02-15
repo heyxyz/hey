@@ -3,10 +3,14 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { Group, LoggedInGroupOperations, useJoinGroupMutation } from "@hey/indexer";
+import {
+  type Group,
+  type LoggedInGroupOperations,
+  useJoinGroupMutation
+} from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
@@ -106,7 +110,9 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
 
     setIsLoading(true);
 
-    return await joinGroup({ variables: { request: { group: group.address } } });
+    return await joinGroup({
+      variables: { request: { group: group.address } }
+    });
   };
 
   return (

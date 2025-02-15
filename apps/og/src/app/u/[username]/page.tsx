@@ -3,10 +3,7 @@ import LensEndpoint from "@hey/data/lens-endpoints";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
-import {
-  type Account,
-  AccountDocument
-} from "@hey/indexer";
+import { type Account, AccountDocument } from "@hey/indexer";
 import { print } from "graphql";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";

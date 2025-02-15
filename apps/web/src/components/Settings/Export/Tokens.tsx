@@ -2,7 +2,7 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import { Button, Card, CardHeader, H6 } from "@hey/ui";
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
@@ -105,7 +105,7 @@ const Tokens: FC = () => {
           <Button onClick={handleGenerateBuilderToken} disabled={isLoading}>
             Generate builder token
           </Button>
-          {builderToken &&
+          {builderToken && (
             <button
               className="mt-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
               type="button"
@@ -116,7 +116,7 @@ const Tokens: FC = () => {
             >
               <H6>{builderToken}</H6>
             </button>
-          }
+          )}
         </div>
       </Card>
     </>

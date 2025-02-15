@@ -1,7 +1,4 @@
-import type {
-  RecipientPercent,
-  SimpleCollectAction
-} from "@hey/indexer";
+import type { RecipientPercent, SimpleCollectAction } from "@hey/indexer";
 
 const getCollectActionData = (
   collectAction: SimpleCollectAction

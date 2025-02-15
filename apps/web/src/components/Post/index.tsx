@@ -102,8 +102,9 @@ const ViewPost: NextPage = () => {
       <MetaTags
         creator={getAccount(targetPost.author).name}
         description={getPostData(targetPost.metadata)?.content}
-        title={`${targetPost.__typename} by ${getAccount(targetPost.author).usernameWithPrefix
-          } • ${APP_NAME}`}
+        title={`${targetPost.__typename} by ${
+          getAccount(targetPost.author).usernameWithPrefix
+        } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         {showQuotes ? (

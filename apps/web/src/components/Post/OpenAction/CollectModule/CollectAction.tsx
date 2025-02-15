@@ -8,7 +8,11 @@ import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { useExecutePostActionMutation, type Post, type PostAction } from "@hey/indexer";
+import {
+  type Post,
+  type PostAction,
+  useExecutePostActionMutation
+} from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -41,7 +45,7 @@ const CollectAction: FC<CollectActionProps> = ({
   countOpenActions,
   forceShowCollect = false,
   noBalanceErrorMessages,
-  onCollectSuccess = () => { },
+  onCollectSuccess = () => {},
   postAction,
   post
 }) => {
@@ -199,7 +203,8 @@ const CollectAction: FC<CollectActionProps> = ({
                 {
                   address: COLLECT_FEES_ADDRESS,
                   percent: 5
-                }]
+                }
+              ]
             }
           }
         }

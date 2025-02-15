@@ -32,7 +32,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const recipients = collectModule.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||
-    (recipients.length === 1 && recipients[0].address !== currentAddress)
+      (recipients.length === 1 && recipients[0].address !== currentAddress)
   );
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
 

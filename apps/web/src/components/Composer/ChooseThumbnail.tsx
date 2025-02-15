@@ -84,7 +84,7 @@ const ChooseThumbnail: FC = () => {
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
-    } catch { }
+    } catch {}
   };
 
   useEffect(() => {

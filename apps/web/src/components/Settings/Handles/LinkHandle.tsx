@@ -31,10 +31,7 @@ const LinkHandle: FC = () => {
 
   const onCompleted = (hash: string) => {
     setLinkingUsername(null);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptimisticTxType.ASSIGN_USERNAME
-    );
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.ASSIGN_USERNAME);
     toast.success("Linked");
   };
 
@@ -110,7 +107,6 @@ const LinkHandle: FC = () => {
       variables: { request: { username: { namespace, localName } } }
     });
   };
-
 
   const [unassignUsernameFromAccount] = useUnassignUsernameFromAccountMutation({
     onCompleted: async ({ unassignUsernameFromAccount }) => {
@@ -206,22 +202,29 @@ const LinkHandle: FC = () => {
               </div>
             ) : null}
           </div>
-          {username.linkedTo ?
+          {username.linkedTo ? (
             <Button
-              disabled={linkingUsername === `${username.namespace}:${username.localName}`}
+              disabled={
+                linkingUsername ===
+                `${username.namespace}:${username.localName}`
+              }
               onClick={() => handleLink(username.namespace, username.localName)}
               outline
             >
               Unlink
             </Button>
-            :
+          ) : (
             <Button
-              disabled={linkingUsername === `${username.namespace}:${username.localName}`}
+              disabled={
+                linkingUsername ===
+                `${username.namespace}:${username.localName}`
+              }
               onClick={() => handleLink(username.namespace, username.localName)}
               outline
             >
               Link
-            </Button>}
+            </Button>
+          )}
         </div>
       ))}
     </div>

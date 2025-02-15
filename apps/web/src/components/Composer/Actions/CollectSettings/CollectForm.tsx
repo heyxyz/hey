@@ -26,9 +26,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const recipients = collectModule.recipients || [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
 
-  const hasEmptyRecipients = recipients.some(
-    (recipient) => !recipient.address
-  );
+  const hasEmptyRecipients = recipients.some((recipient) => !recipient.address);
   const hasInvalidEthAddressInRecipients = recipients.some(
     (recipient) => recipient.address && !isAddress(recipient.address)
   );

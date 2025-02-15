@@ -92,7 +92,8 @@ const useUploadAttachments = () => {
         addAttachments(previewAttachments);
 
         try {
-          const attachmentsUploaded = await uploadToStorageNode(compressedFiles);
+          const attachmentsUploaded =
+            await uploadToStorageNode(compressedFiles);
           const attachmentsIPFS = attachmentsUploaded.map(
             (uploaded, index) => ({
               ...previewAttachments[index],

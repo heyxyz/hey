@@ -19,16 +19,16 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
-  useCollectActionQuery,
   type AnyPost,
-  type SimpleCollectAction
+  type SimpleCollectAction,
+  useCollectActionQuery
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import CollectAction from "./CollectAction";
 import DownloadCollectors from "./DownloadCollectors";
@@ -49,15 +49,22 @@ const CollectModule: FC<CollectModuleProps> = ({ post }) => {
 
   const { data, loading } = useCollectActionQuery({
     variables: { request: { post: post.id } }
-  })
+  });
 
   if (loading) {
     return <Loader className="py-10" />;
   }
 
-  const targetAction = data?.post?.__typename === "Post" ?
-    data?.post.actions.find((action) => action.__typename === "SimpleCollectAction") : data?.post?.__typename === 'Repost' ?
-      data?.post?.repostOf?.actions.find((action) => action.__typename === "SimpleCollectAction") : null;
+  const targetAction =
+    data?.post?.__typename === "Post"
+      ? data?.post.actions.find(
+          (action) => action.__typename === "SimpleCollectAction"
+        )
+      : data?.post?.__typename === "Repost"
+        ? data?.post?.repostOf?.actions.find(
+            (action) => action.__typename === "SimpleCollectAction"
+          )
+        : null;
 
   const collectAction = targetAction as SimpleCollectAction;
   const endTimestamp = collectAction?.endsAt;

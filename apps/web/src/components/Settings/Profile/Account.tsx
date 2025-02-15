@@ -102,10 +102,7 @@ const AccountSettingsForm: FC = () => {
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptimisticTxType.SET_ACCOUNT_METADATA
-    );
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.SET_ACCOUNT_METADATA);
     toast.success("Account updated");
   };
 
@@ -403,9 +400,9 @@ const AccountSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-              setCoverPictureSrc("");
-              setShowCoverPictureCropModal(false);
-            }
+                setCoverPictureSrc("");
+                setShowCoverPictureCropModal(false);
+              }
         }
         show={showCoverPictureCropModal}
         size="lg"
@@ -440,9 +437,9 @@ const AccountSettingsForm: FC = () => {
           isLoading
             ? undefined
             : () => {
-              setProfilePictureSrc("");
-              setShowProfilePictureCropModal(false);
-            }
+                setProfilePictureSrc("");
+                setShowProfilePictureCropModal(false);
+              }
         }
         show={showProfilePictureCropModal}
         size="sm"

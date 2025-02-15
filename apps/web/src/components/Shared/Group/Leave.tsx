@@ -3,10 +3,14 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
-import { Group, LoggedInGroupOperations, useLeaveGroupMutation } from "@hey/indexer";
+import {
+  type Group,
+  type LoggedInGroupOperations,
+  useLeaveGroupMutation
+} from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
@@ -14,7 +18,7 @@ import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
 interface LeaveProps {
-  group: Group
+  group: Group;
   setJoined: (joined: boolean) => void;
   small: boolean;
 }
@@ -106,7 +110,9 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
 
     setIsLoading(true);
 
-    return await leaveGroup({ variables: { request: { group: group.address } } });
+    return await leaveGroup({
+      variables: { request: { group: group.address } }
+    });
   };
 
   return (

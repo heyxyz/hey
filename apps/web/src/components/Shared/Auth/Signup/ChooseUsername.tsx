@@ -79,7 +79,7 @@ const ChooseUsername: FC = () => {
     variables: {
       request: {
         username: {
-          namespace: getNamespace('hey'),
+          namespace: getNamespace("hey"),
           localName: username?.toLowerCase()
         }
       }
@@ -121,7 +121,10 @@ const ChooseUsername: FC = () => {
           context: { headers: { "X-Access-Token": accessToken } },
           variables: {
             request: {
-              username: { namespace: getNamespace('hey'), localName: username.toLowerCase() },
+              username: {
+                namespace: getNamespace("hey"),
+                localName: username.toLowerCase()
+              },
               metadataUri
             }
           },

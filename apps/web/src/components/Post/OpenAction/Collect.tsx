@@ -15,8 +15,8 @@ const Collect: FC<CollectProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
   const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const postActions = post.actions.find((action) =>
-    action.__typename === "SimpleCollectAction"
+  const postActions = post.actions.find(
+    (action) => action.__typename === "SimpleCollectAction"
   );
 
   const hasActed =

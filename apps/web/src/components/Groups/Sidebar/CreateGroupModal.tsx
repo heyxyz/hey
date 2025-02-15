@@ -7,14 +7,13 @@ import { useCreateGroupMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import { group } from "@lens-protocol/metadata";
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
-import { object, string, z } from "zod";
-
+import { object, string, type z } from "zod";
 
 const validationSchema = object({
   name: string()
@@ -22,9 +21,10 @@ const validationSchema = object({
     .regex(Regex.accountNameValidator, {
       message: "Account name must not contain restricted symbols"
     }),
-  description: string().max(260, { message: "Description should not exceed 260 characters" }),
+  description: string().max(260, {
+    message: "Description should not exceed 260 characters"
+  })
 });
-
 
 const CreateGroupModal: FC = () => {
   const { isSuspended } = useAccountStatus();
@@ -98,15 +98,11 @@ const CreateGroupModal: FC = () => {
     });
     const metadataUri = await uploadMetadata(metadata);
     return await createGroup({ variables: { request: { metadataUri } } });
-  }
+  };
 
   return (
     <Form className="space-y-4 p-5" form={form} onSubmit={handleCreateGroup}>
-      <Input
-        label="Name"
-        placeholder="Name"
-        {...form.register("name")}
-      />
+      <Input label="Name" placeholder="Name" {...form.register("name")} />
       <TextArea
         label="Description"
         placeholder="Please provide additional details"

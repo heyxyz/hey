@@ -4,11 +4,11 @@ import errorToast from "@helpers/errorToast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
-  useAddPostNotInterestedMutation,
-  useUndoPostNotInterestedMutation,
   type LoggedInPostOperations,
   type Post,
-  type PostNotInterestedRequest
+  type PostNotInterestedRequest,
+  useAddPostNotInterestedMutation,
+  useUndoPostNotInterestedMutation
 } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";

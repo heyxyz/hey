@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import { type Post } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";

@@ -21,7 +21,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
         on={Boolean(collectModule.referralShare)}
         setOn={() =>
           setCollectType({
-            referralShare: collectModule.referralShare ? 0 : 25,
+            referralShare: collectModule.referralShare ? 0 : 25
           })
         }
       />

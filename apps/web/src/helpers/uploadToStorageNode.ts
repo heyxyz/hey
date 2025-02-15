@@ -11,7 +11,9 @@ const FALLBACK_TYPE = "image/jpeg";
  * @param onProgress Callback to be called when the upload progress changes.
  * @returns Array of MediaSet objects.
  */
-const uploadToStorageNode = async (data: File[]): Promise<StorageNodeResponse[]> => {
+const uploadToStorageNode = async (
+  data: File[]
+): Promise<StorageNodeResponse[]> => {
   try {
     const { files } = await storageClient.uploadFolder(data);
     const attachments = files.map(({ gatewayUrl }, index) => {

@@ -4,7 +4,7 @@ import catchedError from "src/helpers/catchedError";
 import { resolverAbi } from "src/helpers/ens/resolverAbi";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { invalidBody, noBody } from "src/helpers/responses";
-import { createPublicClient, fallback, http } from "viem";
+import { http, createPublicClient, fallback } from "viem";
 import { mainnet } from "viem/chains";
 import { array, object, string } from "zod";
 

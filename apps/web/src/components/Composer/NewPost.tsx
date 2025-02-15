@@ -33,8 +33,9 @@ const NewPost: FC<NewPostProps> = ({ feed }) => {
           .join("");
       }
 
-      const content = `${text}${processedHashtags ? ` ${processedHashtags} ` : ""
-        }${url ? `\n\n${url}` : ""}${via ? `\n\nvia @${via}` : ""}`;
+      const content = `${text}${
+        processedHashtags ? ` ${processedHashtags} ` : ""
+      }${url ? `\n\n${url}` : ""}${via ? `\n\nvia @${via}` : ""}`;
 
       handleOpenModal();
       setPostContent(content);

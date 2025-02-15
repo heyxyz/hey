@@ -2,7 +2,7 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
   type Account,
-  PostMention,
+  type PostMention,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
@@ -19,11 +19,10 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
   const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
-  const accountAddresses = mentions.map(
-    (accountMention) =>
-      accountMention.__typename === "AccountMention"
-        ? accountMention.account
-        : accountMention.replace.from
+  const accountAddresses = mentions.map((accountMention) =>
+    accountMention.__typename === "AccountMention"
+      ? accountMention.account
+      : accountMention.replace.from
   );
 
   const { data, error, loading } = useAccountsBulkQuery({

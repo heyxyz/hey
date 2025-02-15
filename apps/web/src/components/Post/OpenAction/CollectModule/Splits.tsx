@@ -5,7 +5,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import {
   type Account,
-  RecipientPercent,
+  type RecipientPercent,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { Image } from "@hey/ui";

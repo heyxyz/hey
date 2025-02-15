@@ -217,7 +217,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
       if (postContent.length === 0 && attachments.length === 0) {
         setIsLoading(false);
         return setPostContentError(
-          `${isComment ? "Comment" : isQuote ? "Quote" : "Post"
+          `${
+            isComment ? "Comment" : isQuote ? "Quote" : "Post"
           } should not be empty!`
         );
       }
@@ -243,12 +244,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
           attributes: [
             ...(pollId
               ? [
-                {
-                  key: KNOWN_ATTRIBUTES.POLL_ID,
-                  type: MetadataAttributeType.STRING,
-                  value: pollId
-                }
-              ]
+                  {
+                    key: KNOWN_ATTRIBUTES.POLL_ID,
+                    type: MetadataAttributeType.STRING,
+                    value: pollId
+                  }
+                ]
               : [])
           ]
         }),
@@ -293,7 +294,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
 
   const isSubmitDisabledByPoll = showPollEditor
     ? !pollConfig.options.length ||
-    pollConfig.options.some((option) => !option.length)
+      pollConfig.options.some((option) => !option.length)
     : false;
 
   return (

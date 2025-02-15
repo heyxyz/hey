@@ -87,16 +87,12 @@ const List: FC = () => {
             <Select
               className="w-72"
               defaultValue={orderBy}
-              onChange={(value) =>
-                setOrderBy(value as AccountsOrderBy)
-              }
-              options={Object.values(AccountsOrderBy).map(
-                (type) => ({
-                  label: type,
-                  selected: orderBy === type,
-                  value: type
-                })
-              )}
+              onChange={(value) => setOrderBy(value as AccountsOrderBy)}
+              options={Object.values(AccountsOrderBy).map((type) => ({
+                label: type,
+                selected: orderBy === type,
+                value: type
+              }))}
             />
             <button onClick={handleRefetch} type="button">
               <ArrowPathIcon

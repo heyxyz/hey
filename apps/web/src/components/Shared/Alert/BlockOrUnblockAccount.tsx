@@ -201,8 +201,9 @@ const BlockOrUnblockAccount: FC = () => {
   return (
     <Alert
       confirmText={hasBlocked ? "Unblock" : "Block"}
-      description={`Are you sure you want to ${hasBlocked ? "un-block" : "block"
-        } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
+      description={`Are you sure you want to ${
+        hasBlocked ? "un-block" : "block"
+      } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
       isDestructive
       isPerformingAction={
         isLoading ||

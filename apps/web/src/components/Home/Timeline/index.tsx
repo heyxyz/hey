@@ -98,8 +98,8 @@ const Timeline: FC = () => {
           restoreStateFrom={
             virtuosoState.ranges.length === 0
               ? virtuosoState?.current?.getState(
-                (state: StateSnapshot) => state
-              )
+                  (state: StateSnapshot) => state
+                )
               : virtuosoState
           }
           useWindowScroll

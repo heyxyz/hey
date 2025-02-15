@@ -12,13 +12,9 @@ const CreateGroup: FC = () => {
       <Card as="aside" className="space-y-4 p-5">
         <div className="space-y-1">
           <H5>Create a group</H5>
-          <div>
-            Create a new group on {APP_NAME}
-          </div>
+          <div>Create a new group on {APP_NAME}</div>
         </div>
-        <Button onClick={() => setShowModal(true)}>
-          Create group
-        </Button>
+        <Button onClick={() => setShowModal(true)}>Create group</Button>
       </Card>
       <Modal
         onClose={() => setShowModal(false)}

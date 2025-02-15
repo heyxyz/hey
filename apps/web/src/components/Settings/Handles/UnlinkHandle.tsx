@@ -22,10 +22,7 @@ const UnlinkHandle: FC = () => {
 
   const onCompleted = (hash: string) => {
     setUnlinking(false);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptimisticTxType.UNASSIGN_USERNAME
-    );
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.UNASSIGN_USERNAME);
     toast.success("Unlinked");
   };
 
