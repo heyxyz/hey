@@ -1,6 +1,7 @@
 fragment GroupFields on Group {
   address
   feed
+  owner
   operations {
     isMember
   }

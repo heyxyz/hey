@@ -1,13 +1,16 @@
 import JoinLeaveButton from "@components/Shared/Group/JoinLeaveButton";
 import Markup from "@components/Shared/Markup";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import getMentions from "@hey/helpers/getMentions";
 import humanize from "@hey/helpers/humanize";
 import type { Group, GroupStatsResponse } from "@hey/indexer";
-import { H3, H4, Image, LightBox } from "@hey/ui";
+import { Button, H3, H4, Image, LightBox } from "@hey/ui";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DetailsProps {
   group: Group;
@@ -15,6 +18,8 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ group, stats }) => {
+  const { push } = useRouter();
+  const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
 
   return (
@@ -48,7 +53,19 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
             {plur("Member", stats.totalMembers)}
           </div>
         </Link>
-        <JoinLeaveButton group={group} />
+        {currentAccount?.address === group.owner ? (
+          <>
+            <Button
+              icon={<Cog6ToothIcon className="size-5" />}
+              onClick={() => push(`/g/${group.address}/settings`)}
+              outline
+            >
+              Edit Group
+            </Button>
+          </>
+        ) : (
+          <JoinLeaveButton group={group} />
+        )}
       </div>
     </div>
   );
