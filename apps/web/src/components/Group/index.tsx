@@ -62,9 +62,9 @@ const ViewGroup: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           {currentAccount && group.operations?.isMember && (
-            <NewPost feed={group.address} />
+            <NewPost feed={group.feed} />
           )}
-          <GroupFeed feed={group.address} />
+          <GroupFeed feed={group.feed} />
         </GridItemEight>
       </GridLayout>
     </>
