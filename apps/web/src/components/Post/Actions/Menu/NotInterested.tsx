@@ -27,7 +27,7 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     cache.modify({
-      fields: { isNotInterested: () => !notInterested },
+      fields: { isNotInterested: () => notInterested },
       id: cache.identify(post.operations as LoggedInPostOperations)
     });
   };
