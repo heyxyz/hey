@@ -1,6 +1,5 @@
 import logger from "@hey/helpers/logger";
 import cron from "node-cron";
-import cleanEmailTokens from "./cleanEmailTokens";
 import cleanPreferences from "./cleanPreferences";
 import clearMutedWords from "./clearMutedWords";
 import dbVacuum from "./dbVacuum";
@@ -11,11 +10,6 @@ const startCronJobs = () => {
 
   cron.schedule("*/30 * * * * *", async () => {
     await heartbeat();
-    return;
-  });
-
-  cron.schedule("*/5 * * * *", async () => {
-    await cleanEmailTokens();
     return;
   });
 

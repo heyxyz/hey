@@ -56,8 +56,6 @@ export type MutedWord = {
 
 export type Preferences = {
   appIcon: number;
-  email: null | string;
-  emailVerified: boolean;
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
   developerMode: boolean;

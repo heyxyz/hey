@@ -15,15 +15,6 @@ model Preference {
   createdAt                    DateTime @default(now())
 }
 
-model Email {
-  accountAddress    String    @id
-  email             String    @unique
-  verified          Boolean   @default(false)
-  verificationToken String?   @unique
-  tokenExpiresAt    DateTime?
-  createdAt         DateTime  @default(now())
-}
-
 model MembershipNft {
   accountAddress    String   @id
   dismissedOrMinted Boolean  @default(false)

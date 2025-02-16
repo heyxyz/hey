@@ -34,14 +34,13 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [preference, permissions, email, membershipNft, theme, mutedWords] =
+      const [preference, permissions, membershipNft, theme, mutedWords] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { accountAddress } }),
           prisma.accountPermission.findMany({
             include: { permission: { select: { key: true } } },
             where: { enabled: true, accountAddress }
           }),
-          prisma.email.findUnique({ where: { accountAddress } }),
           prisma.membershipNft.findUnique({ where: { accountAddress } }),
           prisma.accountTheme.findUnique({ where: { accountAddress } }),
           prisma.mutedWord.findMany({ where: { accountAddress } })
@@ -49,8 +48,6 @@ export const get = [
 
       const response: Preferences = {
         appIcon: preference?.appIcon || 0,
-        email: email?.email || null,
-        emailVerified: Boolean(email?.verified),
         hasDismissedOrMintedMembershipNft: Boolean(
           membershipNft?.dismissedOrMinted
         ),

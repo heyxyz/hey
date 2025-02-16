@@ -1,11 +1,9 @@
-import { APP_NAME } from "@hey/data/constants";
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
-import sendEmailToAccount from "src/helpers/email/sendEmailToAccount";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
@@ -27,47 +25,10 @@ export const postUpdateTasks = async (
   });
 
   if (permissionId === PermissionId.StaffPick) {
-    if (enabled) {
-      sendEmailToAccount({
-        accountAddress,
-        subject: `Your account on ${APP_NAME} has been Staff Picked!`,
-        body: `
-          <html>
-            <body>
-              <p>Hey Hey!</p>
-              <br />
-              <p>Yay! Your account on ${APP_NAME} has been Staff Picked! 🌸</p>
-              <br />
-              <p>Thanks,</p>
-              <p>${APP_NAME} team</p>
-            </body>
-          </html>
-        `
-      });
-    }
     delRedis("staff-picks");
   }
 
   if (permissionId === PermissionId.Verified) {
-    if (enabled) {
-      sendEmailToAccount({
-        accountAddress,
-        subject: `Your account on ${APP_NAME} has been verified!`,
-        body: `
-          <html>
-            <body>
-              <p>Hey Hey!</p>
-              <br />
-              <p>Yay! Your account on ${APP_NAME} has been verified! ✅</p>
-              <a href="https://hey.xyz/account/${accountAddress}">Visit your account →</a>
-              <br />
-              <p>Thanks,</p>
-              <p>${APP_NAME} team</p>
-            </body>
-          </html>
-        `
-      });
-    }
     await delRedis("verified");
   }
 };
