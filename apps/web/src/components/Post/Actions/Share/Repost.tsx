@@ -117,7 +117,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
       }
 
       if (repost.__typename === "TransactionWillFail") {
-        return toast.error(repost.reason);
+        return onError({ message: repost.reason });
       }
     },
     onError
