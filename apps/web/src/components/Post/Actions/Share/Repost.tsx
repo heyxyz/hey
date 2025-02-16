@@ -111,13 +111,13 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
 
             return onCompleted(hash);
           }
+
+          if (repost.__typename === "TransactionWillFail") {
+            return onError({ message: repost.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (repost.__typename === "TransactionWillFail") {
-        return onError({ message: repost.reason });
       }
     },
     onError

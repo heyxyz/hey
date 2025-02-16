@@ -78,13 +78,13 @@ const CreateGroupModal: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (createGroup.__typename === "TransactionWillFail") {
+            return onError({ message: createGroup.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (createGroup.__typename === "TransactionWillFail") {
-        return toast.error(createGroup.reason);
       }
     },
     onError

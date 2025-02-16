@@ -87,15 +87,11 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
           }
 
           if (setGroupMetadata.__typename === "TransactionWillFail") {
-            return toast.error(setGroupMetadata.reason);
+            return onError({ message: setGroupMetadata.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (setGroupMetadata.__typename === "TransactionWillFail") {
-        return toast.error(setGroupMetadata.reason);
       }
     },
     onError
