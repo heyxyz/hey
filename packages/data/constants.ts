@@ -64,3 +64,5 @@ export const KNOWN_ATTRIBUTES = {
   HIDE_OEMBED: "hideOembed",
   POLL_ID: "heyPollId"
 };
+
+export const HEY_APP = "0x48655F062E48b31eb4b7B1e3Ec377d5770f6f78d";
