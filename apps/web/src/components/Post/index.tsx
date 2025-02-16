@@ -19,7 +19,13 @@ import {
   usePostQuery,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  WarningMessage
+} from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -96,6 +102,9 @@ const ViewPost: NextPage = () => {
   const post = preLoadedPost || (data?.post as Post);
   const targetPost = isRepost(post) ? post.repostOf : post;
   const suspended = isSuspended || isCommentSuspended;
+  const canComment =
+    targetPost.operations?.canComment.__typename ===
+    "PostOperationValidationPassed";
 
   return (
     <GridLayout>
@@ -119,7 +128,13 @@ const ViewPost: NextPage = () => {
               />
             </Card>
             {suspended ? <CommentSuspendedWarning /> : null}
-            {currentAccount && !post.isDeleted && !suspended ? (
+            {!canComment && (
+              <WarningMessage
+                title="You cannot comment on this post"
+                message="You don't have permission to comment on this post."
+              />
+            )}
+            {currentAccount && !post.isDeleted && !suspended && canComment ? (
               <NewPublication post={targetPost} />
             ) : null}
             {post.isDeleted ? null : (
