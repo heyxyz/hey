@@ -119,7 +119,6 @@ const List: FC = () => {
                     account={account as Account}
                     showBio={false}
                     showUserPreview={false}
-                    timestamp={account.createdAt}
                   />
                 </Link>
               </div>

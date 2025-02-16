@@ -1,4 +1,3 @@
-import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
@@ -23,7 +22,6 @@ interface SingleAccountProps {
   account: Account;
   showBio?: boolean;
   showUserPreview?: boolean;
-  timestamp?: Date;
   menu?: ReactNode;
 }
 
@@ -35,7 +33,6 @@ const SingleAccount: FC<SingleAccountProps> = ({
   account,
   showBio = false,
   showUserPreview = true,
-  timestamp,
   menu
 }) => {
   const UserAvatar: FC = () => (
@@ -63,20 +60,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
         <Verified address={account.address} iconClassName="ml-1 size-4" />
         <Misuse address={account.address} iconClassName="ml-1 size-4" />
       </div>
-      <div>
-        <Slug
-          className="text-sm"
-          slug={getAccount(account).usernameWithPrefix}
-        />
-        {timestamp && (
-          <span className="ld-text-gray-500">
-            <span className="mx-1.5">·</span>
-            <span className="text-xs">
-              {formatRelativeOrAbsolute(timestamp)}
-            </span>
-          </span>
-        )}
-      </div>
+      <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
     </>
   );
 
