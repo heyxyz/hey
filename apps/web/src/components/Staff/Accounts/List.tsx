@@ -17,7 +17,6 @@ import Link from "next/link";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-import ViewReports from "./ViewReports";
 
 const List: FC = () => {
   const [orderBy, setOrderBy] = useState<AccountsOrderBy>(
@@ -112,11 +111,9 @@ const List: FC = () => {
             data={accounts}
             endReached={onEndReached}
             itemContent={(_, account) => (
-              <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
+              <div className="pb-7">
                 <Link href={getAccount(account as Account).staffLink}>
                   <SingleAccount
-                    hideFollowButton
-                    hideUnfollowButton
                     isBig
                     linkToAccount={false}
                     account={account as Account}
@@ -125,9 +122,6 @@ const List: FC = () => {
                     timestamp={account.createdAt}
                   />
                 </Link>
-                <div>
-                  <ViewReports address={account.address} />
-                </div>
               </div>
             )}
             useWindowScroll
