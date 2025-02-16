@@ -26,7 +26,7 @@ const List: FC<ListProps> = ({ focus }) => {
         member: currentAccount?.address
       }),
       ...(focus === GroupsTabFocus.Managed && {
-        managedBy: currentAccount?.address
+        managedBy: { address: currentAccount?.address }
       })
     },
     pageSize: PageSize.Fifty
