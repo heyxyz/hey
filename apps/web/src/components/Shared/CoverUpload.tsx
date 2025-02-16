@@ -2,9 +2,9 @@ import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
 import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
-import { AVATAR } from "@hey/data/constants";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import { COVER, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import getAvatar from "@hey/helpers/getAvatar";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
@@ -15,18 +15,18 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-interface PFPUploadProps {
+interface CoverUploadProps {
   src: string;
   setSrc: (src: string) => void;
 }
 
-const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
+const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
   const { currentAccount } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
-  const [croppedPictureAreaPixels, setCroppedPictureAreaPixels] =
+  const [croppedPictureAreaPixels, setPictureCroppedAreaPixels] =
     useState<Area | null>(null);
   const [uploadedPictureUrl, setUploadedPictureUrl] = useState("");
   const [uploadingPicture, setUploadingPicture] = useState(false);
@@ -70,24 +70,28 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
     }
   };
 
-  const pictureUrl = getAvatar(currentAccount);
+  const pictureUrl =
+    currentAccount?.metadata?.coverPicture?.optimized?.uri ||
+    `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const renderPictureUrl = pictureUrl
-    ? imageKit(sanitizeDStorageUrl(pictureUrl), AVATAR)
+    ? imageKit(sanitizeDStorageUrl(pictureUrl), COVER)
     : "";
 
   return (
     <>
       <div className="space-y-1.5">
-        <div className="label">Avatar</div>
+        <div className="label">Cover</div>
         <div className="space-y-3">
-          <Image
-            alt="Account picture crop preview"
-            className="max-w-xs rounded-lg"
-            onError={({ currentTarget }) => {
-              currentTarget.src = sanitizeDStorageUrl(src);
-            }}
-            src={uploadedPictureUrl || renderPictureUrl}
-          />
+          <div>
+            <Image
+              alt="Cover picture crop preview"
+              className="h-[175px] w-[675px] rounded-lg object-cover"
+              onError={({ currentTarget }) => {
+                currentTarget.src = sanitizeDStorageUrl(src);
+              }}
+              src={uploadedPictureUrl || renderPictureUrl}
+            />
+          </div>
           <ChooseFile onChange={(event) => onFileChange(event)} />
         </div>
       </div>
@@ -101,26 +105,34 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
               }
         }
         show={showPictureCropModal}
-        size="sm"
-        title="Crop picture"
+        size="lg"
+        title="Crop cover picture"
       >
         <div className="p-5 text-right">
           <ImageCropperController
             imageSrc={pictureSrc}
-            setCroppedAreaPixels={setCroppedPictureAreaPixels}
-            targetSize={{ height: 300, width: 300 }}
+            setCroppedAreaPixels={setPictureCroppedAreaPixels}
+            targetSize={{ height: 350, width: 1350 }}
           />
-          <Button
-            disabled={uploadingPicture || !pictureSrc}
-            onClick={handleUploadAndSave}
-            type="submit"
-          >
-            Upload
-          </Button>
+          <div className="flex w-full flex-wrap items-center justify-between gap-y-3">
+            <div className="ld-text-gray-500 flex items-center space-x-1 text-left text-sm">
+              <InformationCircleIcon className="size-4" />
+              <div>
+                Optimal cover picture size is <b>1350x350</b>
+              </div>
+            </div>
+            <Button
+              disabled={uploadingPicture || !pictureSrc}
+              onClick={handleUploadAndSave}
+              type="submit"
+            >
+              Upload
+            </Button>
+          </div>
         </div>
       </Modal>
     </>
   );
 };
 
-export default PFPUpload;
+export default CoverUpload;
