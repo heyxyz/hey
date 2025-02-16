@@ -1,9 +1,6 @@
 import Sidebar from "@components/Shared/Sidebar";
 import SingleGroup from "@components/Shared/SingleGroup";
-import {
-  CursorArrowRaysIcon,
-  UserGroupIcon
-} from "@heroicons/react/24/outline";
+import { UserGroupIcon } from "@heroicons/react/24/outline";
 import type { Group } from "@hey/indexer";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -24,12 +21,6 @@ const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
       title: "Group",
       url: `/g/${address}/settings`,
       active: pathname === "/g/[address]/settings"
-    },
-    {
-      icon: <CursorArrowRaysIcon className="size-4" />,
-      title: "Rules",
-      url: `/g/${address}/settings/rules`,
-      active: pathname === "/g/[address]/settings/rules"
     }
   ];
 

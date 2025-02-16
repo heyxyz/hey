@@ -134,7 +134,7 @@ const AccountSettingsForm: FC = () => {
     schema: validationSchema
   });
 
-  const editAccount = async (data: z.infer<typeof validationSchema>) => {
+  const updateAccount = async (data: z.infer<typeof validationSchema>) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
@@ -201,7 +201,7 @@ const AccountSettingsForm: FC = () => {
 
   return (
     <Card className="p-5">
-      <Form className="space-y-4" form={form} onSubmit={editAccount}>
+      <Form className="space-y-4" form={form} onSubmit={updateAccount}>
         <Input
           disabled
           label="Account Id"

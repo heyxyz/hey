@@ -9,7 +9,7 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
-import GroupSettingsForm from "./Group";
+import GroupSettingsForm from "./Form";
 
 const GroupSettings: NextPage = () => {
   const {

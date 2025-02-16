@@ -52,7 +52,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
   const onCompleted = (hash: string) => {
     setIsLoading(false);
     addSimpleOptimisticTransaction(hash, OptimisticTxType.SET_ACCOUNT_METADATA);
-    toast.success("Account updated");
+    toast.success("Group updated");
   };
 
   const onError = (error: any) => {
@@ -109,7 +109,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
     schema: validationSchema
   });
 
-  const editGroup = async (data: z.infer<typeof validationSchema>) => {
+  const updateGroup = async (data: z.infer<typeof validationSchema>) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
@@ -139,7 +139,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
 
   return (
     <Card className="p-5">
-      <Form className="space-y-4" form={form} onSubmit={editGroup}>
+      <Form className="space-y-4" form={form} onSubmit={updateGroup}>
         <Input disabled label="Group Id" type="text" value={group.address} />
         <Input
           label="Name"
