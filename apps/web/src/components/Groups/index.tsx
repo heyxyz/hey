@@ -2,10 +2,11 @@ import MetaTags from "@components/Common/MetaTags";
 import Footer from "@components/Shared/Footer";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
-import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import List from "./List";
 import ListFocusType from "./ListFocusType";
 import CreateGroup from "./Sidebar/Create/CreateGroup";
 
@@ -27,7 +28,7 @@ const Groups: NextPage = () => {
       <MetaTags title={`Groups • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <ListFocusType focus={focus} setFocus={setFocus} />
-        <Card className="p-5">{focus}</Card>
+        <List focus={focus} />
       </GridItemEight>
       <GridItemFour>
         <CreateGroup />
