@@ -2,9 +2,8 @@ import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
 import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
-import { AVATAR } from "@hey/data/constants";
+import { AVATAR, IPFS_GATEWAY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import getAvatar from "@hey/helpers/getAvatar";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
@@ -13,7 +12,6 @@ import { Button, Image, Modal } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface PFPUploadProps {
   src: string;
@@ -21,9 +19,7 @@ interface PFPUploadProps {
 }
 
 const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
-  const { currentAccount } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
-
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
   const [croppedPictureAreaPixels, setCroppedPictureAreaPixels] =
@@ -70,7 +66,9 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
     }
   };
 
-  const pictureUrl = getAvatar(currentAccount);
+  const pictureUrl =
+    pictureSrc ||
+    `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
   const renderPictureUrl = pictureUrl
     ? imageKit(sanitizeDStorageUrl(pictureUrl), AVATAR)
     : "";

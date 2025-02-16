@@ -13,7 +13,6 @@ import { Button, Image, Modal } from "@hey/ui";
 import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface CoverUploadProps {
   src: string;
@@ -21,9 +20,7 @@ interface CoverUploadProps {
 }
 
 const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
-  const { currentAccount } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
-
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
   const [croppedPictureAreaPixels, setPictureCroppedAreaPixels] =
@@ -70,9 +67,7 @@ const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
     }
   };
 
-  const pictureUrl =
-    currentAccount?.metadata?.coverPicture?.optimized?.uri ||
-    `${STATIC_IMAGES_URL}/patterns/2.svg`;
+  const pictureUrl = pictureSrc || `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const renderPictureUrl = pictureUrl
     ? imageKit(sanitizeDStorageUrl(pictureUrl), COVER)
     : "";

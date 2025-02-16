@@ -51,8 +51,12 @@ const AccountSettingsForm: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
-  const [pfpUrl, setPfpUrl] = useState<string | undefined>();
-  const [coverUrl, setCoverUrl] = useState<string | undefined>();
+  const [pfpUrl, setPfpUrl] = useState<string | undefined>(
+    currentAccount?.metadata?.picture
+  );
+  const [coverUrl, setCoverUrl] = useState<string | undefined>(
+    currentAccount?.metadata?.coverPicture
+  );
 
   const { data: walletClient } = useWalletClient();
 
@@ -177,8 +181,8 @@ const AccountSettingsForm: FC = () => {
             value: new Date().toISOString()
           }
         ],
-        coverPicture: coverUrl,
-        picture: pfpUrl
+        coverPicture: coverUrl || undefined,
+        picture: pfpUrl || undefined
       };
       preparedAccountMetadata.attributes =
         preparedAccountMetadata.attributes?.filter((m) => {
