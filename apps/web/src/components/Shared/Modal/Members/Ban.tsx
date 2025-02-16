@@ -124,6 +124,10 @@ const Ban: FC<BanProps> = ({ group, account }) => {
     });
   };
 
+  if (group.owner !== currentAccount?.address) {
+    return null;
+  }
+
   if (group.owner === account.address) {
     return null;
   }
