@@ -1,6 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
-import { NoSymbolIcon, UserPlusIcon } from "@heroicons/react/24/outline";
+import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
@@ -30,8 +30,6 @@ const Ban: FC<BanProps> = ({ group, account }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
-
-  const isBanned = group.operations?.isBanned;
 
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
@@ -133,13 +131,9 @@ const Ban: FC<BanProps> = ({ group, account }) => {
   }
 
   return (
-    <Tooltip content={isBanned ? "Unban" : "Ban"} placement="top">
+    <Tooltip content="Ban" placement="top">
       <button onClick={handleBan} type="button" disabled={isLoading}>
-        {isBanned ? (
-          <UserPlusIcon className="size-4 text-green-500" />
-        ) : (
-          <NoSymbolIcon className="size-4 text-red-500" />
-        )}
+        <NoSymbolIcon className="size-4 text-red-500" />
       </button>
     </Tooltip>
   );
