@@ -3,28 +3,37 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   type Account,
-  type AccountsBlockedRequest,
+  type Group,
+  type GroupBannedAccountsRequest,
   PageSize,
-  useAccountsBlockedQuery
+  useGroupBannedAccountsQuery
 } from "@hey/indexer";
-import { Button, EmptyState, ErrorMessage } from "@hey/ui";
+import { Button, Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-const List: FC = () => {
-  const { currentAccount } = useAccountStore();
-  const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
+interface ListProps {
+  group: Group;
+}
 
-  const request: AccountsBlockedRequest = { pageSize: PageSize.Fifty };
-  const { data, error, fetchMore, loading } = useAccountsBlockedQuery({
+const List: FC<ListProps> = ({ group }) => {
+  const { currentAccount } = useAccountStore();
+  const { setShowBanOrUnbanAlert } = useGlobalAlertStateStore();
+
+  const request: GroupBannedAccountsRequest = {
+    group: group.address,
+    pageSize: PageSize.Fifty
+  };
+
+  const { data, error, fetchMore, loading } = useGroupBannedAccountsQuery({
     skip: !currentAccount?.address,
     variables: { request }
   });
 
-  const accountsBlocked = data?.accountsBlocked?.items;
-  const pageInfo = data?.accountsBlocked?.pageInfo;
+  const bannedAccounts = data?.groupBannedAccounts?.items;
+  const pageInfo = data?.groupBannedAccounts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -40,29 +49,27 @@ const List: FC = () => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage error={error} title="Failed to load blocked accounts" />
-    );
+    return <ErrorMessage error={error} title="Failed to load banned members" />;
   }
 
-  if (accountsBlocked?.length === 0) {
+  if (bannedAccounts?.length === 0) {
     return (
       <EmptyState
         hideCard
         icon={<NoSymbolIcon className="size-8" />}
-        message="You are not blocking any accounts!"
+        message="Group is not banning any members!"
       />
     );
   }
 
   return (
-    <div className="space-y-4">
+    <Card className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
         computeItemKey={(index, accountBlocked) =>
           `${accountBlocked.account.address}-${index}`
         }
-        data={accountsBlocked}
+        data={bannedAccounts}
         endReached={onEndReached}
         itemContent={(_, accountBlocked) => (
           <div className="flex items-center justify-between p-5">
@@ -73,19 +80,21 @@ const List: FC = () => {
             />
             <Button
               onClick={() =>
-                setShowBlockOrUnblockAlert(
+                setShowBanOrUnbanAlert(
                   true,
-                  accountBlocked.account as Account
+                  false,
+                  accountBlocked.account as Account,
+                  group.address
                 )
               }
             >
-              Unblock
+              Unban
             </Button>
           </div>
         )}
         useWindowScroll
       />
-    </div>
+    </Card>
   );
 };
 

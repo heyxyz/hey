@@ -4,12 +4,21 @@ import { create } from "zustand";
 
 interface State {
   blockingorUnblockingAccount: null | Account;
+  banningOrUnbanningAccount: null | Account;
+  banningGroupAddress: null | string;
+  banning: boolean;
   mutingOrUnmutingAccount: null | Account;
   deletingPost: Post | null;
   modingPost: Post | null;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
     blockingorUnblockingAccount: null | Account
+  ) => void;
+  setShowBanOrUnbanAlert: (
+    showBanOrUnbanAlert: boolean,
+    banning: boolean,
+    banningOrUnbanningAccount: null | Account,
+    banningGroupAddress: null | string
   ) => void;
   setShowMuteOrUnmuteAlert: (
     showMuteOrUnmuteAlert: boolean,
@@ -24,6 +33,7 @@ interface State {
     deletingPost: Post | null
   ) => void;
   showBlockOrUnblockAlert: boolean;
+  showBanOrUnbanAlert: boolean;
   showMuteOrUnmuteAlert: boolean;
   showGardenerActionsAlert: boolean;
   showPostDeleteAlert: boolean;
@@ -31,6 +41,9 @@ interface State {
 
 const store = create<State>((set) => ({
   blockingorUnblockingAccount: null,
+  banningOrUnbanningAccount: null,
+  banningGroupAddress: null,
+  banning: false,
   deletingPost: null,
   mutingOrUnmutingAccount: null,
   modingPost: null,
@@ -38,6 +51,18 @@ const store = create<State>((set) => ({
     showBlockOrUnblockAlert,
     blockingorUnblockingAccount
   ) => set(() => ({ blockingorUnblockingAccount, showBlockOrUnblockAlert })),
+  setShowBanOrUnbanAlert: (
+    showBanOrUnbanAlert,
+    banning,
+    banningOrUnbanningAccount,
+    banningGroupAddress
+  ) =>
+    set(() => ({
+      banning,
+      banningOrUnbanningAccount,
+      banningGroupAddress,
+      showBanOrUnbanAlert
+    })),
   setShowMuteOrUnmuteAlert: (showMuteOrUnmuteAlert, mutingOrUnmutingAccount) =>
     set(() => ({ mutingOrUnmutingAccount, showMuteOrUnmuteAlert })),
   setShowGardenerActionsAlert: (showGardenerActionsAlert, modingPost) =>
@@ -45,6 +70,7 @@ const store = create<State>((set) => ({
   setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>
     set(() => ({ deletingPost, showPostDeleteAlert })),
   showBlockOrUnblockAlert: false,
+  showBanOrUnbanAlert: false,
   showGardenerActionsAlert: false,
   showMuteOrUnmuteAlert: false,
   showPostDeleteAlert: false

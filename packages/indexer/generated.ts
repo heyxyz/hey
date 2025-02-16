@@ -8848,6 +8848,19 @@ export type SetGroupMetadataMutation = { __typename?: 'Mutation', setGroupMetada
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } };
 
+export type UnbanGroupAccountsMutationVariables = Exact<{
+  request: UnbanGroupAccountsRequest;
+}>;
+
+
+export type UnbanGroupAccountsMutation = { __typename?: 'Mutation', unbanGroupAccounts: (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & SelfFundedTransactionRequestFieldsFragment
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & SponsoredTransactionRequestFieldsFragment
+  ) | { __typename?: 'TransactionWillFail', reason: string } | { __typename?: 'UnbanGroupAccountsResponse', hash: any } };
+
 export type MlDismissRecommendedAccountsMutationVariables = Exact<{
   request: DismissRecommendedAccountsRequest;
 }>;
@@ -10210,6 +10223,33 @@ export function useSetGroupMetadataMutation(baseOptions?: Apollo.MutationHookOpt
 export type SetGroupMetadataMutationHookResult = ReturnType<typeof useSetGroupMetadataMutation>;
 export type SetGroupMetadataMutationResult = Apollo.MutationResult<SetGroupMetadataMutation>;
 export type SetGroupMetadataMutationOptions = Apollo.BaseMutationOptions<SetGroupMetadataMutation, SetGroupMetadataMutationVariables>;
+export const UnbanGroupAccountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UnbanGroupAccounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UnbanGroupAccountsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"unbanGroupAccounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnbanGroupAccountsResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type UnbanGroupAccountsMutationFn = Apollo.MutationFunction<UnbanGroupAccountsMutation, UnbanGroupAccountsMutationVariables>;
+
+/**
+ * __useUnbanGroupAccountsMutation__
+ *
+ * To run a mutation, you first call `useUnbanGroupAccountsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnbanGroupAccountsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unbanGroupAccountsMutation, { data, loading, error }] = useUnbanGroupAccountsMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUnbanGroupAccountsMutation(baseOptions?: Apollo.MutationHookOptions<UnbanGroupAccountsMutation, UnbanGroupAccountsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnbanGroupAccountsMutation, UnbanGroupAccountsMutationVariables>(UnbanGroupAccountsDocument, options);
+      }
+export type UnbanGroupAccountsMutationHookResult = ReturnType<typeof useUnbanGroupAccountsMutation>;
+export type UnbanGroupAccountsMutationResult = Apollo.MutationResult<UnbanGroupAccountsMutation>;
+export type UnbanGroupAccountsMutationOptions = Apollo.BaseMutationOptions<UnbanGroupAccountsMutation, UnbanGroupAccountsMutationVariables>;
 export const MlDismissRecommendedAccountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MlDismissRecommendedAccounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DismissRecommendedAccountsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"mlDismissRecommendedAccounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}]}]}}]} as unknown as DocumentNode;
 export type MlDismissRecommendedAccountsMutationFn = Apollo.MutationFunction<MlDismissRecommendedAccountsMutation, MlDismissRecommendedAccountsMutationVariables>;
 
