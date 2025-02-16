@@ -44,6 +44,7 @@ export interface OptimisticTransaction {
   unfollowOn?: string;
   joinOn?: string;
   leaveOn?: string;
+  banOn?: string;
   content?: string;
   txHash: string;
   type: OptimisticTxType;
