@@ -33,10 +33,7 @@ const SettingsSidebar: FC = () => {
   ];
 
   const { data, loading, error } = useGroupQuery({
-    variables: {
-      groupRequest: { group: address },
-      groupStatsRequest: { group: address }
-    },
+    variables: { request: { group: address } },
     skip: !address
   });
 

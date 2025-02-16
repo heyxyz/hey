@@ -2,11 +2,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
-import {
-  type Group,
-  type GroupStatsResponse,
-  useGroupQuery
-} from "@hey/indexer";
+import { type Group, useGroupQuery } from "@hey/indexer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -25,10 +21,7 @@ const ViewGroup: NextPage = () => {
   const { currentAccount } = useAccountStore();
 
   const { data, loading, error } = useGroupQuery({
-    variables: {
-      groupRequest: { group: address },
-      groupStatsRequest: { group: address }
-    },
+    variables: { request: { group: address } },
     skip: !address
   });
 
@@ -45,7 +38,6 @@ const ViewGroup: NextPage = () => {
   }
 
   const group = data.group as Group;
-  const stats = data.groupStats as GroupStatsResponse;
 
   return (
     <>
@@ -58,7 +50,7 @@ const ViewGroup: NextPage = () => {
       />
       <GridLayout>
         <GridItemFour>
-          <Details group={group} stats={stats} />
+          <Details group={group} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
           {currentAccount && group.operations?.isMember && (
