@@ -3,6 +3,7 @@ import SingleGroup from "@components/Shared/SingleGroup";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import {
   type Group,
+  GroupsOrderBy,
   type GroupsRequest,
   PageSize,
   useGroupsQuery
@@ -29,6 +30,7 @@ const List: FC<ListProps> = ({ focus }) => {
         managedBy: { address: currentAccount?.address }
       })
     },
+    orderBy: GroupsOrderBy.LatestFirst,
     pageSize: PageSize.Fifty
   };
 
