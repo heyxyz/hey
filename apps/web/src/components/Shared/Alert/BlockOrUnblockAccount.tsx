@@ -16,7 +16,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   addOptimisticTransaction,
@@ -31,7 +31,7 @@ const BlockOrUnblockAccount: FC = () => {
     blockingorUnblockingAccount,
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
-  } = useGlobalAlertStateStore();
+  } = useBlockAlertStateStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
