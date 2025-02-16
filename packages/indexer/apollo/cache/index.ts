@@ -1,5 +1,6 @@
 import { InMemoryCache } from '@apollo/client';
 import result from '../../generated';
+import createGroupsFieldPolicy from './createGroupsFieldPolicy';
 import createPostBookmarksFieldPolicy from './createPostBookmarksFieldPolicy';
 import createPostReactionsFieldPolicy from './createPostReactionsFieldPolicy';
 import createPostReferencesFieldPolicy from './createPostReferencesFieldPolicy';
@@ -18,6 +19,7 @@ const cache = new InMemoryCache({
         postReactions: createPostReactionsFieldPolicy(),
         whoReferencedPost: createWhoReferencedPostFieldPolicy(),
         postBookmarks: createPostBookmarksFieldPolicy(),
+        groups: createGroupsFieldPolicy(),
       }
     }
   }
