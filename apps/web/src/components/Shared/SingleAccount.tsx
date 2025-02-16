@@ -6,7 +6,7 @@ import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import FollowUnfollowButton from "./Account/FollowUnfollowButton";
 import Misuse from "./Account/Icons/Misuse";
@@ -24,6 +24,7 @@ interface SingleAccountProps {
   showBio?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
+  menu?: ReactNode;
 }
 
 const SingleAccount: FC<SingleAccountProps> = ({
@@ -34,7 +35,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
   account,
   showBio = false,
   showUserPreview = true,
-  timestamp
+  timestamp,
+  menu
 }) => {
   const UserAvatar: FC = () => (
     <Image
@@ -116,12 +118,15 @@ const SingleAccount: FC<SingleAccountProps> = ({
       ) : (
         <AccountInfo />
       )}
-      <FollowUnfollowButton
-        hideFollowButton={hideFollowButton}
-        hideUnfollowButton={hideUnfollowButton}
-        account={account}
-        small
-      />
+      <div className="flex items-center gap-2">
+        <FollowUnfollowButton
+          hideFollowButton={hideFollowButton}
+          hideUnfollowButton={hideUnfollowButton}
+          account={account}
+          small
+        />
+        {menu}
+      </div>
     </div>
   );
 };

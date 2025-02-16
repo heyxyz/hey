@@ -1,6 +1,6 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { UsersIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, UsersIcon } from "@heroicons/react/24/outline";
 import {
   type Account,
   type GroupMembersRequest,
@@ -83,6 +83,11 @@ const Members: FC<MembersProps> = ({ address }) => {
             account={member.account as Account}
             showBio
             showUserPreview={false}
+            menu={
+              <button type="button">
+                <TrashIcon className="size-4" />
+              </button>
+            }
           />
         </div>
       )}
