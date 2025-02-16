@@ -46,10 +46,10 @@ const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
 
       setUploadingPicture(true);
 
-      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const decentralizedUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL("image/png");
 
-      setSrc(ipfsUrl);
+      setSrc(decentralizedUrl);
       setUploadedPictureUrl(dataUrl);
     } catch (error) {
       onError(error);

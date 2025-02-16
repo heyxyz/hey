@@ -37,12 +37,12 @@ const uploadCroppedImage = async (
     useWebWorker: true
   });
   const attachment = await uploadFileToStorageNode(cleanedFile);
-  const ipfsUrl = attachment.uri;
-  if (!ipfsUrl) {
+  const decentralizedUrl = attachment.uri;
+  if (!decentralizedUrl) {
     throw new Error("uploadToIPFS failed");
   }
 
-  return ipfsUrl;
+  return decentralizedUrl;
 };
 
 export default uploadCroppedImage;

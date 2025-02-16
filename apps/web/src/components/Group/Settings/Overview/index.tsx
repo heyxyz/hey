@@ -9,7 +9,7 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
-import Verification from "./Verification";
+import GroupSettingsForm from "./Group";
 
 const GroupSettings: NextPage = () => {
   const {
@@ -48,7 +48,7 @@ const GroupSettings: NextPage = () => {
         <SettingsSidebar group={group} />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Verification />
+        <GroupSettingsForm group={group} />
       </GridItemEight>
     </GridLayout>
   );
