@@ -2,14 +2,14 @@ import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { GroupsTabFocus } from ".";
 
-interface FeedLinkProps {
+interface ListLinkProps {
   focus?: GroupsTabFocus;
   name: string;
   setFocus: Dispatch<SetStateAction<GroupsTabFocus>>;
   type: GroupsTabFocus;
 }
 
-const FeedLink: FC<FeedLinkProps> = ({ focus, name, setFocus, type }) => (
+const ListLink: FC<ListLinkProps> = ({ focus, name, setFocus, type }) => (
   <button
     aria-label={name}
     className={cn(
@@ -24,20 +24,20 @@ const FeedLink: FC<FeedLinkProps> = ({ focus, name, setFocus, type }) => (
   </button>
 );
 
-interface FeedFocusTypeProps {
+interface ListFocusTypeProps {
   focus?: GroupsTabFocus;
   setFocus: Dispatch<SetStateAction<GroupsTabFocus>>;
 }
 
-const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => (
+const ListFocusType: FC<ListFocusTypeProps> = ({ focus, setFocus }) => (
   <div className="mx-5 my-5 flex flex-wrap gap-3 sm:mx-0">
-    <FeedLink
+    <ListLink
       focus={focus}
       name="Your groups"
       setFocus={setFocus}
       type={GroupsTabFocus.Member}
     />
-    <FeedLink
+    <ListLink
       focus={focus}
       name="Managed groups"
       setFocus={setFocus}
@@ -46,4 +46,4 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => (
   </div>
 );
 
-export default FeedFocusType;
+export default ListFocusType;

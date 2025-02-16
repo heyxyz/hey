@@ -6,7 +6,7 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import FeedFocusType from "./FeedFocusType";
+import ListFocusType from "./ListFocusType";
 import CreateGroup from "./Sidebar/Create/CreateGroup";
 
 export enum GroupsTabFocus {
@@ -26,7 +26,7 @@ const Groups: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Groups • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
-        <FeedFocusType focus={focus} setFocus={setFocus} />
+        <ListFocusType focus={focus} setFocus={setFocus} />
         <Card className="p-5">{focus}</Card>
       </GridItemEight>
       <GridItemFour>
