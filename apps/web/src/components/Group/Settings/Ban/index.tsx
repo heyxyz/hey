@@ -2,14 +2,20 @@ import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
 import { type Group, useGroupQuery } from "@hey/indexer";
-import { GridItemEight, GridItemFour, GridLayout, PageLoading } from "@hey/ui";
+import {
+  Card,
+  CardHeader,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  PageLoading
+} from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
-import GroupSettingsForm from "./List";
 import List from "./List";
 
 const BanSettings: NextPage = () => {
@@ -49,7 +55,13 @@ const BanSettings: NextPage = () => {
         <SettingsSidebar group={group} />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <List group={group} />
+        <Card>
+          <CardHeader
+            body="This is a list of banned accounts. You can unban them at any time."
+            title="Banned accounts"
+          />
+          <List group={group} />
+        </Card>
       </GridItemEight>
     </GridLayout>
   );

@@ -64,12 +64,7 @@ const BanOrUnbanAccount: FC = () => {
     updateCache();
     updateTransactions({ txHash: hash });
     setIsLoading(false);
-    setShowBanOrUnbanAlert(
-      false,
-      banning,
-      banningOrUnbanningAccount,
-      banningGroupAddress
-    );
+    setShowBanOrUnbanAlert(false, banning, null, null);
     toast.success(banning ? "Banned successfully" : "Unbanned successfully");
   };
 
@@ -202,14 +197,7 @@ const BanOrUnbanAccount: FC = () => {
       isPerformingAction={
         isLoading || isBlockOrUnblockPending(banningOrUnbanningAccount?.address)
       }
-      onClose={() =>
-        setShowBanOrUnbanAlert(
-          false,
-          banning,
-          banningOrUnbanningAccount,
-          banningGroupAddress
-        )
-      }
+      onClose={() => setShowBanOrUnbanAlert(false, banning, null, null)}
       onConfirm={blockOrUnblock}
       show={showBanOrUnbanAlert}
       title="Ban Account"

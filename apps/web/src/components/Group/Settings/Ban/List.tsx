@@ -66,24 +66,24 @@ const List: FC<ListProps> = ({ group }) => {
     <Card className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, accountBlocked) =>
-          `${accountBlocked.account.address}-${index}`
+        computeItemKey={(index, bannedAccount) =>
+          `${bannedAccount.account.address}-${index}`
         }
         data={bannedAccounts}
         endReached={onEndReached}
-        itemContent={(_, accountBlocked) => (
+        itemContent={(_, bannedAccount) => (
           <div className="flex items-center justify-between p-5">
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={accountBlocked.account as Account}
+              account={bannedAccount.account as Account}
             />
             <Button
               onClick={() =>
                 setShowBanOrUnbanAlert(
                   true,
                   false,
-                  accountBlocked.account as Account,
+                  bannedAccount.account as Account,
                   group.address
                 )
               }
