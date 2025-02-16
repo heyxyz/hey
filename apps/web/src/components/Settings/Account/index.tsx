@@ -5,7 +5,6 @@ import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
-import Email from "./Email";
 import RateLimits from "./RateLimits";
 import Verification from "./Verification";
 
@@ -23,7 +22,6 @@ const AccountSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Email />
         <RateLimits />
         <Verification />
       </GridItemEight>

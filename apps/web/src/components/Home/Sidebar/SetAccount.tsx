@@ -5,7 +5,6 @@ import { Card, H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 
 interface StatusProps {
   finished: boolean;
@@ -25,13 +24,11 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 
 const SetAccount: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { email, loading } = usePreferencesStore();
 
   const doneSetup =
     Boolean(currentAccount?.metadata?.name) &&
     Boolean(currentAccount?.metadata?.bio) &&
-    Boolean(currentAccount?.metadata?.picture) &&
-    Boolean(loading || email);
+    Boolean(currentAccount?.metadata?.picture);
 
   if (doneSetup) {
     return null;
@@ -53,11 +50,6 @@ const SetAccount: FC = () => {
           finished={Boolean(currentAccount?.metadata?.picture)}
           title="Set your avatar"
         />
-        <div>
-          <Link href="/settings/account">
-            <Status finished={Boolean(email)} title="Set your email address" />
-          </Link>
-        </div>
       </div>
       <div className="font-bold">
         <Link href="/settings">Update profile now</Link>

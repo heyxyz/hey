@@ -29,24 +29,18 @@ const PreferencesProvider: FC = () => {
   const { setFiatRates } = useRatesStore();
   const {
     setAppIcon,
-    setEmail,
-    setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
     setDeveloperMode,
-    setMutedWords,
-    setLoading: setPreferencesLoading
+    setMutedWords
   } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
   const getPreferencesData = async () => {
-    setPreferencesLoading(true);
     const preferences = await getPreferences(getAuthApiHeaders());
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
     setAppIcon(preferences.appIcon);
-    setEmail(preferences.email);
-    setEmailVerified(preferences.emailVerified);
     setDeveloperMode(preferences.developerMode);
     setStatus({
       isCommentSuspended: preferences.permissions.includes(
@@ -58,7 +52,6 @@ const PreferencesProvider: FC = () => {
       preferences.hasDismissedOrMintedMembershipNft
     );
     setMutedWords(preferences.mutedWords);
-    setPreferencesLoading(false);
     setTheme({ fontStyle: preferences.theme?.fontStyle });
 
     return true;
