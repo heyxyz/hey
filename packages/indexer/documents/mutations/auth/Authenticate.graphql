@@ -5,5 +5,8 @@ mutation Authenticate($request: SignedAuthChallenge!) {
       refreshToken
       idToken
     }
+    ... on ForbiddenError {
+      reason
+    }
   }
 }
