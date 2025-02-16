@@ -31,7 +31,18 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
   const hasShared = hasReposted || hasQuoted;
   const shares = targetPost.stats.reposts + targetPost.stats.quotes;
 
+  const canRepost =
+    targetPost.operations?.canRepost.__typename ===
+    "PostOperationValidationPassed";
+  const canQuote =
+    targetPost.operations?.canQuote.__typename ===
+    "PostOperationValidationPassed";
+
   const iconClassName = "w-[15px] sm:w-[18px]";
+
+  if (!canRepost && !canQuote) {
+    return null;
+  }
 
   return (
     <div className="flex items-center space-x-1">
@@ -71,11 +82,13 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
             className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             static
           >
-            <Repost
-              isLoading={isLoading}
-              post={targetPost}
-              setIsLoading={setIsLoading}
-            />
+            {canRepost && (
+              <Repost
+                isLoading={isLoading}
+                post={targetPost}
+                setIsLoading={setIsLoading}
+              />
+            )}
             {hasReposted && targetPost.id !== post.id && (
               <UndoRepost
                 isLoading={isLoading}
@@ -83,7 +96,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
                 setIsLoading={setIsLoading}
               />
             )}
-            <Quote post={targetPost} />
+            {canQuote && <Quote post={targetPost} />}
           </MenuItems>
         </MenuTransition>
       </Menu>
