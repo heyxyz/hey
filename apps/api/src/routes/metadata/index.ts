@@ -4,10 +4,10 @@ import logger from "@hey/helpers/logger";
 import { signMetadata } from "@lens-protocol/metadata";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
+import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 import { noBody } from "src/helpers/responses";
 import { v4 as uuid } from "uuid";
-import { privateKeyToAccount } from "viem/accounts";
 
 export const post = [
   rateLimiter({ requests: 30, within: 1 }),
@@ -19,9 +19,8 @@ export const post = [
     }
 
     try {
-      const account = privateKeyToAccount(`0x${process.env.PRIVATE_KEY}`);
       const signed = await signMetadata(body, (message) =>
-        account.signMessage({ message })
+        heyWalletClient.signMessage({ message })
       );
 
       const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
