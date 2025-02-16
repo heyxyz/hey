@@ -4,15 +4,16 @@ import {
   CursorArrowRaysIcon,
   UserGroupIcon
 } from "@heroicons/react/24/outline";
-import { type Group, useGroupQuery } from "@hey/indexer";
-import { PageLoading } from "@hey/ui";
+import type { Group } from "@hey/indexer";
 import { useRouter } from "next/router";
 import type { FC } from "react";
-import Custom500 from "src/pages/500";
 
-const SettingsSidebar: FC = () => {
+interface SettingsSidebarProps {
+  group: Group;
+}
+
+const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
   const {
-    isReady,
     pathname,
     query: { address }
   } = useRouter();
@@ -31,21 +32,6 @@ const SettingsSidebar: FC = () => {
       active: pathname === "/g/[address]/settings/rules"
     }
   ];
-
-  const { data, loading, error } = useGroupQuery({
-    variables: { request: { group: address } },
-    skip: !address
-  });
-
-  if (!isReady || loading) {
-    return <PageLoading />;
-  }
-
-  if (error) {
-    return <Custom500 />;
-  }
-
-  const group = data?.group as Group;
 
   return (
     <div className="mb-4 px-3 sm:px-0">
