@@ -44,7 +44,7 @@ const CreateGroup: FC = () => {
       <Modal
         onClose={() => setShowModal(false)}
         show={showModal}
-        title="Create a group"
+        title={screen === "details" ? "Create a group" : undefined}
       >
         {screen === "details" ? (
           <CreateGroupModal />

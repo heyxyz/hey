@@ -6,14 +6,16 @@ import { useCreateGroupStore } from "./CreateGroup";
 
 const Success: FC = () => {
   const { push } = useRouter();
-  const { groupAddress } = useCreateGroupStore();
+  const { groupAddress, setScreen } = useCreateGroupStore();
 
   useEffect(() => {
     setTimeout(() => {
       if (groupAddress) {
-        push(`/g/${groupAddress}`);
+        push(`/g/${groupAddress}`).then(() => {
+          setScreen("details");
+        });
       }
-    }, 1000);
+    }, 3000);
   }, [groupAddress]);
 
   return (
