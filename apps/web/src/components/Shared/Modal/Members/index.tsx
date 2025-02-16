@@ -1,8 +1,9 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import { TrashIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   type Account,
+  type Group,
   type GroupMembersRequest,
   PageSize,
   useGroupMembersQuery
@@ -11,21 +12,22 @@ import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import Ban from "./Ban";
 
 interface MembersProps {
-  address: string;
+  group: Group;
 }
 
-const Members: FC<MembersProps> = ({ address }) => {
+const Members: FC<MembersProps> = ({ group }) => {
   const { currentAccount } = useAccountStore();
 
   const request: GroupMembersRequest = {
     pageSize: PageSize.Fifty,
-    group: address
+    group: group.address
   };
 
   const { data, loading, error, fetchMore } = useGroupMembersQuery({
-    skip: !address,
+    skip: !group.address,
     variables: { request }
   });
 
@@ -83,11 +85,7 @@ const Members: FC<MembersProps> = ({ address }) => {
             account={member.account as Account}
             showBio
             showUserPreview={false}
-            menu={
-              <button type="button">
-                <TrashIcon className="size-4" />
-              </button>
-            }
+            menu={<Ban group={group} account={member.account as Account} />}
           />
         </div>
       )}

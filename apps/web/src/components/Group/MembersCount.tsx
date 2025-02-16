@@ -41,7 +41,7 @@ const MembersCount: FC<MembersCountProps> = ({ group }) => {
         title="Members"
         size="md"
       >
-        <Members address={group.address} />
+        <Members group={group} />
       </Modal>
     </div>
   );
