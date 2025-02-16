@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import MembersCount from "./MembersCount";
 
 interface DetailsProps {
   group: Group;
@@ -41,28 +42,22 @@ const Details: FC<DetailsProps> = ({ group }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        {/* <Link
-          className="text-left outline-offset-4"
-          href={`/g/${group.address}/members`}
-        >
-          <H4>{humanize(stats.totalMembers)}</H4>
-          <div className="ld-text-gray-500">
-            {plur("Member", stats.totalMembers)}
-          </div>
-        </Link> */}
-        {currentAccount?.address === group.owner ? (
-          <>
-            <Button
-              icon={<Cog6ToothIcon className="size-5" />}
-              onClick={() => push(`/g/${group.address}/settings`)}
-              outline
-            >
-              Edit Group
-            </Button>
-          </>
-        ) : (
-          <JoinLeaveButton group={group} />
-        )}
+        <MembersCount group={group} />
+        <div>
+          {currentAccount?.address === group.owner ? (
+            <>
+              <Button
+                icon={<Cog6ToothIcon className="size-5" />}
+                onClick={() => push(`/g/${group.address}/settings`)}
+                outline
+              >
+                Edit Group
+              </Button>
+            </>
+          ) : (
+            <JoinLeaveButton group={group} />
+          )}
+        </div>
       </div>
     </div>
   );

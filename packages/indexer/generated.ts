@@ -9200,6 +9200,13 @@ export type GroupMembersQuery = { __typename?: 'Query', groupMembers: { __typena
       & PaginatedResultInfoFieldsFragment
     ) } };
 
+export type GroupStatsQueryVariables = Exact<{
+  request: GroupStatsRequest;
+}>;
+
+
+export type GroupStatsQuery = { __typename?: 'Query', groupStats: { __typename?: 'GroupStatsResponse', totalMembers: number } };
+
 export type GroupsQueryVariables = Exact<{
   request: GroupsRequest;
 }>;
@@ -11174,6 +11181,40 @@ export type GroupMembersQueryHookResult = ReturnType<typeof useGroupMembersQuery
 export type GroupMembersLazyQueryHookResult = ReturnType<typeof useGroupMembersLazyQuery>;
 export type GroupMembersSuspenseQueryHookResult = ReturnType<typeof useGroupMembersSuspenseQuery>;
 export type GroupMembersQueryResult = Apollo.QueryResult<GroupMembersQuery, GroupMembersQueryVariables>;
+export const GroupStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GroupStats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GroupStatsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"groupStats"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalMembers"}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useGroupStatsQuery__
+ *
+ * To run a query within a React component, call `useGroupStatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupStatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupStatsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useGroupStatsQuery(baseOptions: Apollo.QueryHookOptions<GroupStatsQuery, GroupStatsQueryVariables> & ({ variables: GroupStatsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GroupStatsQuery, GroupStatsQueryVariables>(GroupStatsDocument, options);
+      }
+export function useGroupStatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GroupStatsQuery, GroupStatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GroupStatsQuery, GroupStatsQueryVariables>(GroupStatsDocument, options);
+        }
+export function useGroupStatsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GroupStatsQuery, GroupStatsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GroupStatsQuery, GroupStatsQueryVariables>(GroupStatsDocument, options);
+        }
+export type GroupStatsQueryHookResult = ReturnType<typeof useGroupStatsQuery>;
+export type GroupStatsLazyQueryHookResult = ReturnType<typeof useGroupStatsLazyQuery>;
+export type GroupStatsSuspenseQueryHookResult = ReturnType<typeof useGroupStatsSuspenseQuery>;
+export type GroupStatsQueryResult = Apollo.QueryResult<GroupStatsQuery, GroupStatsQueryVariables>;
 export const GroupsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Groups"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GroupsRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"groups"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GroupFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginatedResultInfoFields"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginatedResultInfoFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PaginatedResultInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"prev"}},{"kind":"Field","name":{"kind":"Name","value":"next"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GroupFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Group"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"feed"}},{"kind":"Field","name":{"kind":"Name","value":"owner"}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LoggedInGroupOperationsFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"icon"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LoggedInGroupOperationsFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LoggedInGroupOperations"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isMember"}},{"kind":"Field","name":{"kind":"Name","value":"isBanned"}}]}}]} as unknown as DocumentNode;
 
 /**
