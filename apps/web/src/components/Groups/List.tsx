@@ -87,7 +87,7 @@ const List: FC<ListProps> = ({ focus }) => {
         endReached={onEndReached}
         itemContent={(_, group) => (
           <div className="p-5">
-            <SingleGroup group={group as Group} />
+            <SingleGroup group={group as Group} showDescription isBig />
           </div>
         )}
         useWindowScroll
