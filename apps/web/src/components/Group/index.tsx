@@ -3,7 +3,12 @@ import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { type Group, useGroupQuery } from "@hey/indexer";
-import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import {
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  WarningMessage
+} from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
@@ -38,6 +43,8 @@ const ViewGroup: NextPage = () => {
   }
 
   const group = data.group as Group;
+  const isMember = group.operations?.isMember;
+  const isBanned = group.operations?.isBanned;
 
   return (
     <>
@@ -53,7 +60,13 @@ const ViewGroup: NextPage = () => {
           <Details group={group} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {currentAccount && group.operations?.isMember && (
+          {isBanned && (
+            <WarningMessage
+              title="You are banned from this group"
+              message="Please contact the group owner to unban yourself."
+            />
+          )}
+          {currentAccount && isMember && !isBanned && (
             <NewPost feed={group.feed} />
           )}
           <GroupFeed feed={group.feed} />
