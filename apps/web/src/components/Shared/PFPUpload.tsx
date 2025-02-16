@@ -82,7 +82,7 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc, isSmall = false }) => {
         <div className="space-y-3">
           <Image
             alt="Account picture crop preview"
-            className={cn("rounded-lg", isSmall ? "max-w-xs" : "max-w-sm")}
+            className={cn("rounded-lg", isSmall ? "max-w-[200px]" : "max-w-sm")}
             onError={({ currentTarget }) => {
               currentTarget.src = sanitizeDStorageUrl(src);
             }}
