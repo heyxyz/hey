@@ -1,0 +1,4 @@
+fragment LoggedInGroupOperationsFields on LoggedInGroupOperations {
+  isMember
+  isBanned
+}

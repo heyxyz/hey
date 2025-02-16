@@ -3,7 +3,7 @@ fragment GroupFields on Group {
   feed
   owner
   operations {
-    isMember
+    ...LoggedInGroupOperationsFields
   }
   metadata {
     name
