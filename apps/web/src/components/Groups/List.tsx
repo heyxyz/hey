@@ -81,7 +81,7 @@ const List: FC<ListProps> = ({ focus }) => {
   return (
     <Card>
       <Virtuoso
-        className="virtual-account-list"
+        className="virtual-divider-list-window"
         computeItemKey={(index, group) => `${group.address}-${index}`}
         data={groups}
         endReached={onEndReached}
