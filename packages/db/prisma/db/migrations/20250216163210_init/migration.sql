@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "PermissionType" AS ENUM ('PERMISSION', 'COHORT');
+CREATE TYPE "PermissionType" AS ENUM ('PERMISSION', 'OPERATION', 'COHORT');
 
 -- CreateTable
 CREATE TABLE "Preference" (
