@@ -98,7 +98,7 @@ const List: FC = () => {
           }
 
           if (removeAccountManager.__typename === "TransactionWillFail") {
-            return toast.error(removeAccountManager.reason);
+            return onError({ message: removeAccountManager.reason });
           }
         } catch (error) {
           return onError(error);

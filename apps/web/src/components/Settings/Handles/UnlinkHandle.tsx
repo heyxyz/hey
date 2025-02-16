@@ -64,13 +64,15 @@ const UnlinkHandle: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (
+            unassignUsernameFromAccount.__typename === "TransactionWillFail"
+          ) {
+            return onError({ message: unassignUsernameFromAccount.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (unassignUsernameFromAccount.__typename === "TransactionWillFail") {
-        return toast.error(unassignUsernameFromAccount.reason);
       }
     },
     onError

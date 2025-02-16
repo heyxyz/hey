@@ -70,7 +70,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
           }
 
           if (addAccountManager.__typename === "TransactionWillFail") {
-            return toast.error(addAccountManager.reason);
+            return onError({ message: addAccountManager.reason });
           }
         } catch (error) {
           return onError(error);

@@ -103,15 +103,11 @@ const Follow: FC<FollowProps> = ({
           }
 
           if (follow.__typename === "TransactionWillFail") {
-            return toast.error(follow.reason);
+            return onError({ message: follow.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (follow.__typename === "TransactionWillFail") {
-        return toast.error(follow.reason);
       }
     },
     onError

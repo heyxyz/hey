@@ -173,13 +173,13 @@ const CollectAction: FC<CollectActionProps> = ({
 
             return onCompleted(hash);
           }
+
+          if (executePostAction.__typename === "TransactionWillFail") {
+            return onError({ message: executePostAction.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (executePostAction.__typename === "TransactionWillFail") {
-        return toast.error(executePostAction.reason);
       }
     },
     onError

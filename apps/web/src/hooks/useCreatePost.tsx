@@ -2,7 +2,6 @@ import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Post, useCreatePostMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
-import toast from "react-hot-toast";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
@@ -75,15 +74,11 @@ const useCreatePost = ({
           }
 
           if (post.__typename === "TransactionWillFail") {
-            return toast.error(post.reason);
+            return onError({ message: post.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (post.__typename === "TransactionWillFail") {
-        return toast.error(post.reason);
       }
     },
     onError

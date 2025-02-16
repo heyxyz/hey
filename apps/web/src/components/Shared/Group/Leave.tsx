@@ -89,15 +89,11 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
           }
 
           if (leaveGroup.__typename === "TransactionWillFail") {
-            return toast.error(leaveGroup.reason);
+            return onError({ message: leaveGroup.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (leaveGroup.__typename === "TransactionWillFail") {
-        return toast.error(leaveGroup.reason);
       }
     },
     onError

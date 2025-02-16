@@ -100,15 +100,11 @@ const AccountSettingsForm: FC = () => {
           }
 
           if (setAccountMetadata.__typename === "TransactionWillFail") {
-            return toast.error(setAccountMetadata.reason);
+            return onError({ message: setAccountMetadata.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (setAccountMetadata.__typename === "TransactionWillFail") {
-        return toast.error(setAccountMetadata.reason);
       }
     },
     onError

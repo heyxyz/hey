@@ -103,15 +103,11 @@ const Unfollow: FC<UnfollowProps> = ({
           }
 
           if (unfollow.__typename === "TransactionWillFail") {
-            return toast.error(unfollow.reason);
+            return onError({ message: unfollow.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (unfollow.__typename === "TransactionWillFail") {
-        return toast.error(unfollow.reason);
       }
     },
     onError

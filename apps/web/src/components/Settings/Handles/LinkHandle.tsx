@@ -74,13 +74,13 @@ const LinkHandle: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (assignUsernameToAccount.__typename === "TransactionWillFail") {
+            return onError({ message: assignUsernameToAccount.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (assignUsernameToAccount.__typename === "TransactionWillFail") {
-        return toast.error(assignUsernameToAccount.reason);
       }
     },
     onError
@@ -141,13 +141,15 @@ const LinkHandle: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (
+            unassignUsernameFromAccount.__typename === "TransactionWillFail"
+          ) {
+            return onError({ message: unassignUsernameFromAccount.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (unassignUsernameFromAccount.__typename === "TransactionWillFail") {
-        return toast.error(unassignUsernameFromAccount.reason);
       }
     },
     onError

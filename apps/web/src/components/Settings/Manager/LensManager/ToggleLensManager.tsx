@@ -63,15 +63,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           }
 
           if (enableSignless.__typename === "TransactionWillFail") {
-            return toast.error(enableSignless.reason);
+            return onError({ message: enableSignless.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (enableSignless.__typename === "TransactionWillFail") {
-        return toast.error(enableSignless.reason);
       }
     },
     onError
@@ -100,15 +96,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
           }
 
           if (removeSignless.__typename === "TransactionWillFail") {
-            return toast.error(removeSignless.reason);
+            return onError({ message: removeSignless.reason });
           }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (removeSignless.__typename === "TransactionWillFail") {
-        return toast.error(removeSignless.reason);
       }
     },
     onError
