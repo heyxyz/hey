@@ -16,8 +16,8 @@ const uploadToStorageNode = async (
 ): Promise<StorageNodeResponse[]> => {
   try {
     const { files } = await storageClient.uploadFolder(data);
-    const attachments = files.map(({ uri }, index) => {
-      return { mimeType: data[index].type || FALLBACK_TYPE, uri };
+    const attachments = files.map(({ gatewayUrl }, index) => {
+      return { mimeType: data[index].type || FALLBACK_TYPE, uri: gatewayUrl };
     });
 
     return attachments;
