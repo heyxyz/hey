@@ -3,22 +3,18 @@ import Markup from "@components/Shared/Markup";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
-import humanize from "@hey/helpers/humanize";
-import type { Group, GroupStatsResponse } from "@hey/indexer";
-import { Button, H3, H4, Image, LightBox } from "@hey/ui";
-import Link from "next/link";
+import type { Group } from "@hey/indexer";
+import { Button, H3, Image, LightBox } from "@hey/ui";
 import { useRouter } from "next/router";
-import plur from "plur";
 import type { FC } from "react";
 import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DetailsProps {
   group: Group;
-  stats: GroupStatsResponse;
 }
 
-const Details: FC<DetailsProps> = ({ group, stats }) => {
+const Details: FC<DetailsProps> = ({ group }) => {
   const { push } = useRouter();
   const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
@@ -45,7 +41,7 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <Link
+        {/* <Link
           className="text-left outline-offset-4"
           href={`/g/${group.address}/members`}
         >
@@ -53,7 +49,7 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
           <div className="ld-text-gray-500">
             {plur("Member", stats.totalMembers)}
           </div>
-        </Link>
+        </Link> */}
         {currentAccount?.address === group.owner ? (
           <>
             <Button

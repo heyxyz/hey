@@ -14,6 +14,7 @@ import { addOptimisticTransaction } from "src/store/persisted/useTransactionStor
 import { sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import { object, string, type z } from "zod";
+import { useCreateGroupStore } from "./CreateGroup";
 
 const validationSchema = object({
   name: string()
@@ -28,6 +29,7 @@ const validationSchema = object({
 
 const CreateGroupModal: FC = () => {
   const { isSuspended } = useAccountStatus();
+  const { setScreen, setTransactionHash } = useCreateGroupStore();
   const [isLoading, setIsLoading] = useState(false);
   const { data: walletClient } = useWalletClient();
 
@@ -49,6 +51,8 @@ const CreateGroupModal: FC = () => {
   const onCompleted = (hash: string) => {
     updateTransactions({ txHash: hash });
     setIsLoading(false);
+    setTransactionHash(hash);
+    setScreen("minting");
     toast.success("Followed");
   };
 

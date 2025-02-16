@@ -5,7 +5,7 @@ import { APP_NAME } from "@hey/data/constants";
 import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import CreateGroup from "./Sidebar/CreateGroup";
+import CreateGroup from "./Sidebar/Create/CreateGroup";
 
 const Groups: NextPage = () => {
   const { currentAccount } = useAccountStore();
