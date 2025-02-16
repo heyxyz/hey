@@ -26,7 +26,7 @@ const ChooseThumbnail: FC = () => {
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
   const { file } = attachments[0];
 
-  const uploadThumbnailToIpfs = async (fileToUpload: File) => {
+  const uploadThumbnailToStorageNode = async (fileToUpload: File) => {
     setVideoThumbnail({ ...videoThumbnail, uploading: true });
     const result = await uploadFileToStorageNode(fileToUpload);
     if (!result.uri) {
@@ -52,11 +52,11 @@ const ChooseThumbnail: FC = () => {
           if (!file) {
             return toast.error("Please upload a custom thumbnail");
           }
-          const ipfsResult = await uploadThumbnailToIpfs(file);
+          const result = await uploadThumbnailToStorageNode(file);
           setThumbnails(
             thumbnails.map((thumbnail, i) => {
               if (i === index) {
-                thumbnail.decentralizedUrl = ipfsResult.uri;
+                thumbnail.decentralizedUrl = result.uri;
               }
               return thumbnail;
             })
@@ -107,7 +107,7 @@ const ChooseThumbnail: FC = () => {
         setImageUploading(true);
         setSelectedThumbnailIndex(-1);
         const file = e.target.files[0];
-        const result = await uploadThumbnailToIpfs(file);
+        const result = await uploadThumbnailToStorageNode(file);
         const preview = window.URL?.createObjectURL(file);
         setThumbnails([
           { blobUrl: preview, decentralizedUrl: result.uri },

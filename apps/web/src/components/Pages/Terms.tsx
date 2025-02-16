@@ -124,11 +124,11 @@ const Terms: NextPage = () => {
                 </p>
                 <p className="leading-7">
                   Our Site allows you to upload a text, pictures, videos using
-                  hosted on a third-party provider IPFS and S3. We are not
-                  responsible for any action or omission taken by IPFS/S3 as it
-                  pertains to the user interface or otherwise. The use and
-                  access of any third-party products or services, including
-                  through the Site, is at your own risk.
+                  hosted on a third-party provider Lens Storage Node and S3. We
+                  are not responsible for any action or omission taken by Lens
+                  Storage Node/S3 as it pertains to the user interface or
+                  otherwise. The use and access of any third-party products or
+                  services, including through the Site, is at your own risk.
                 </p>
                 <p className="leading-7">
                   The Lens Protocol is deployed on blockchain-based networks,
