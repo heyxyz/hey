@@ -1,3 +1,4 @@
+import PFPUpload from "@components/Shared/PFPUpload";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
@@ -30,6 +31,7 @@ const validationSchema = object({
 const CreateGroupModal: FC = () => {
   const { isSuspended } = useAccountStatus();
   const { setScreen, setTransactionHash } = useCreateGroupStore();
+  const [pfpUrl, setPfpUrl] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const { data: walletClient } = useWalletClient();
 
@@ -97,7 +99,8 @@ const CreateGroupModal: FC = () => {
 
     const metadata = group({
       name: data.name,
-      description: data.description
+      description: data.description,
+      icon: pfpUrl
     });
     const metadataUri = await uploadMetadata(metadata);
     return await createGroup({
@@ -118,6 +121,7 @@ const CreateGroupModal: FC = () => {
         placeholder="Please provide additional details"
         {...form.register("description")}
       />
+      <PFPUpload src={pfpUrl || ""} setSrc={(src) => setPfpUrl(src)} isSmall />
       <Button
         className="flex w-full justify-center"
         disabled={isLoading}

@@ -9,6 +9,7 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import { getCroppedImg } from "@hey/image-cropper/cropUtils";
 import type { Area } from "@hey/image-cropper/types";
 import { Button, Image, Modal } from "@hey/ui";
+import cn from "@hey/ui/cn";
 import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -16,9 +17,10 @@ import toast from "react-hot-toast";
 interface PFPUploadProps {
   src: string;
   setSrc: (src: string) => void;
+  isSmall?: boolean;
 }
 
-const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
+const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc, isSmall = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
@@ -80,7 +82,7 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc }) => {
         <div className="space-y-3">
           <Image
             alt="Account picture crop preview"
-            className="max-w-xs rounded-lg"
+            className={cn("rounded-lg", isSmall ? "max-w-xs" : "max-w-sm")}
             onError={({ currentTarget }) => {
               currentTarget.src = sanitizeDStorageUrl(src);
             }}
