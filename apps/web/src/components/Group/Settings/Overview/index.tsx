@@ -16,7 +16,6 @@ const GroupSettings: NextPage = () => {
     isReady,
     query: { address }
   } = useRouter();
-
   const { currentAccount } = useAccountStore();
 
   const { data, loading, error } = useGroupQuery({
