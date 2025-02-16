@@ -21,7 +21,6 @@ const ImageFeed: FC<ImageFeedProps> = ({
     pageSize: PageSize.Fifty
     // orderBy: feedType,
     // where: {
-    //   customFilters: [CustomFiltersType.Gardeners],
     //   metadata: {
     //     mainContentFocus: [MainContentFocus.Image]
     //   }

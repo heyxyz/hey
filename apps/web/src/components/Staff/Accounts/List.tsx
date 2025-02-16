@@ -14,14 +14,12 @@ import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useDebounce } from "@uidotdev/usehooks";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import ViewReports from "./ViewReports";
 
 const List: FC = () => {
-  const { pathname } = useRouter();
   const [orderBy, setOrderBy] = useState<AccountsOrderBy>(
     AccountsOrderBy.AccountScore
   );
@@ -115,13 +113,7 @@ const List: FC = () => {
             endReached={onEndReached}
             itemContent={(_, account) => (
               <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
-                <Link
-                  href={
-                    pathname === "/mod"
-                      ? getAccount(account as Account).link
-                      : getAccount(account as Account).staffLink
-                  }
-                >
+                <Link href={getAccount(account as Account).staffLink}>
                   <SingleAccount
                     hideFollowButton
                     hideUnfollowButton
