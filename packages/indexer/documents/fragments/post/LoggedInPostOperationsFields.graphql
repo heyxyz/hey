@@ -13,4 +13,7 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   hasReposted {
     ...BooleanValueFields
   }
+  canQuote {
+    __typename
+  }
 }

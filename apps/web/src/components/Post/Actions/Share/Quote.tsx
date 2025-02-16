@@ -19,6 +19,12 @@ const Quote: FC<QuoteProps> = ({ post }) => {
   const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStateStore();
   const { setQuotedPost } = usePostStore();
   const { isSuspended } = useAccountStatus();
+  const canQuote =
+    post.operations?.canQuote.__typename === "PostOperationValidationPassed";
+
+  if (!canQuote) {
+    return null;
+  }
 
   return (
     <MenuItem
