@@ -31,7 +31,6 @@ const ExploreFeed: FC<ExploreFeedProps> = ({
     pageSize: PageSize.Fifty
     // orderBy: feedType,
     // where: {
-    //   customFilters: [CustomFiltersType.Gardeners],
     //   metadata: { ...(focus && { mainContentFocus: [focus] }) }
     // }
   };

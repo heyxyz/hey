@@ -3,13 +3,6 @@ export enum HomeFeedType {
   FORYOU = "FORYOU"
 }
 
-export enum ModFeedType {
-  LATEST = "LATEST",
-  PROFILES = "PROFILES",
-  REPORTS = "REPORTS",
-  SEARCH = "SEARCH"
-}
-
 export enum AccountFeedType {
   Collects = "COLLECTS",
   Feed = "FEED",
