@@ -53,7 +53,6 @@ const CreateGroupModal: FC = () => {
     setIsLoading(false);
     setTransactionHash(hash);
     setScreen("minting");
-    toast.success("Followed");
   };
 
   const onError = (error: any) => {
