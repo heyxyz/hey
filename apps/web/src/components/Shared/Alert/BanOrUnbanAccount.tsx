@@ -15,7 +15,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   addOptimisticTransaction,
@@ -32,7 +32,7 @@ const BanOrUnbanAccount: FC = () => {
     banning,
     setShowBanOrUnbanAlert,
     showBanOrUnbanAlert
-  } = useGlobalAlertStateStore();
+  } = useBanAlertStateStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);

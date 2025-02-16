@@ -5,7 +5,7 @@ import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
@@ -18,7 +18,7 @@ const Ban: FC<BanProps> = ({ group, account }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useGlobalModalStateStore();
-  const { setShowBanOrUnbanAlert } = useGlobalAlertStateStore();
+  const { setShowBanOrUnbanAlert } = useBanAlertStateStore();
 
   const handleBan = async () => {
     if (!currentAccount) {

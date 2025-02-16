@@ -1,6 +1,7 @@
 import GardenerActions from "@components/Post/Actions/HigherActions/GardenerActions";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
+import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
 import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
 import BanOrUnbanAccount from "./Alert/BanOrUnbanAccount";
 import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccount";
@@ -10,12 +11,12 @@ import MuteOrUnmuteAccount from "./Alert/MuteOrUnmuteAccount";
 const GlobalAlerts: FC = () => {
   const {
     blockingorUnblockingAccount,
-    banningOrUnbanningAccount,
     mutingOrUnmutingAccount,
     modingPost,
     setShowGardenerActionsAlert,
     showGardenerActionsAlert
   } = useGlobalAlertStateStore();
+  const { banningOrUnbanningAccount } = useBanAlertStateStore();
 
   const handleCloseGardenerActionsAlert = () => {
     setShowGardenerActionsAlert(false, null);
