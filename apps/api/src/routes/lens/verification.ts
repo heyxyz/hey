@@ -1,6 +1,7 @@
 import { APP_NAME, HEY_APP } from "@hey/data/constants";
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
+import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
@@ -30,9 +31,11 @@ export const post = [
     }
 
     const source = HEY_APP;
-    const { nonce, deadline, account } = body;
+    const { nonce, deadline, account, operation } = body;
 
     try {
+      logger.info(`Verification request received for ${operation}`);
+
       const [signature, accountPermission] = await Promise.all([
         heyWalletClient.signTypedData({
           domain,
@@ -47,6 +50,8 @@ export const post = [
           }
         })
       ]);
+
+      logger.info(`Verification request fullfilled for ${operation}`);
 
       if (accountPermission?.enabled) {
         return res.status(200).json({
