@@ -23,7 +23,9 @@ const getAccount = (
 
   const prefix = account.username ? "@" : "#";
   const username =
-    account.username?.localName || formatAddress(account.address);
+    (account.username?.value.includes("lens/")
+      ? account.username.localName
+      : account.username?.value) || formatAddress(account.address);
   const link = account.username
     ? `/u/${account.username.localName}`
     : `/account/${account.address}`;
