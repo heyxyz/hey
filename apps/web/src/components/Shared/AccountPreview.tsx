@@ -19,7 +19,6 @@ import plur from "plur";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import FollowUnfollowButton from "./Account/FollowUnfollowButton";
-import Misuse from "./Account/Icons/Misuse";
 import Verified from "./Account/Icons/Verified";
 import Markup from "./Markup";
 import Slug from "./Slug";
@@ -131,7 +130,6 @@ const AccountPreview: FC<AccountPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getAccount(account).name}</div>
           <Verified address={account.address} iconClassName="size-4" />
-          <Misuse address={account.address} iconClassName="size-4" />
         </div>
         <span>
           <Slug

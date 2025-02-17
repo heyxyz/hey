@@ -1,5 +1,4 @@
 import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
-import Misuse from "@components/Shared/Account/Icons/Misuse";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import Markup from "@components/Shared/Markup";
 import Slug from "@components/Shared/Slug";
@@ -35,7 +34,6 @@ import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import InternalTools from "./InternalTools";
 import AccountMenu from "./Menu";
-import ScamWarning from "./ScamWarning";
 import UpdateTheme from "./UpdateTheme";
 
 const MetaDetails = ({
@@ -81,7 +79,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
           <Verified address={account.address} showTooltip />
-          <Misuse address={account.address} showTooltip />
           {isSuspended ? (
             <Tooltip content="Suspended">
               <EyeSlashIcon className="size-6 text-brand-500" />
@@ -109,7 +106,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <ScamWarning accountAddress={account.address} />
         <Followerings account={account} />
         <div className="flex items-center space-x-2">
           {currentAccount?.address === account.address ? (
