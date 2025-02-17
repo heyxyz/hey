@@ -1,4 +1,4 @@
-import HighSignalNotificationFilter from "@components/Settings/Preferences/HighSignalNotificationFilter";
+import IncludeLowScore from "@components/Settings/Preferences/IncludeLowScore";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { Modal, Tooltip } from "@hey/ui";
 import type { FC } from "react";
@@ -28,7 +28,7 @@ const Settings: FC = () => {
         title="Notification settings"
       >
         <div className="p-5">
-          <HighSignalNotificationFilter />
+          <IncludeLowScore />
         </div>
       </Modal>
     </>

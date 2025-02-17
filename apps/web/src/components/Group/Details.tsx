@@ -1,20 +1,23 @@
 import JoinLeaveButton from "@components/Shared/Group/JoinLeaveButton";
 import Markup from "@components/Shared/Markup";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
-import humanize from "@hey/helpers/humanize";
-import type { Group, GroupStatsResponse } from "@hey/indexer";
-import { H3, H4, Image, LightBox } from "@hey/ui";
-import Link from "next/link";
-import plur from "plur";
+import type { Group } from "@hey/indexer";
+import { Button, H3, Image, LightBox } from "@hey/ui";
+import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
+import MembersCount from "./MembersCount";
 
 interface DetailsProps {
   group: Group;
-  stats: GroupStatsResponse;
 }
 
-const Details: FC<DetailsProps> = ({ group, stats }) => {
+const Details: FC<DetailsProps> = ({ group }) => {
+  const { push } = useRouter();
+  const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
 
   return (
@@ -24,8 +27,8 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
           alt={group.address}
           className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 sm:size-52 dark:bg-gray-700 dark:ring-black"
           height={128}
-          onClick={() => setExpandedImage(group.metadata?.icon)}
-          src={group.metadata?.icon}
+          onClick={() => setExpandedImage(getAvatar(group))}
+          src={getAvatar(group)}
           width={128}
         />
         <LightBox onClose={() => setExpandedImage(null)} url={expandedImage} />
@@ -39,16 +42,22 @@ const Details: FC<DetailsProps> = ({ group, stats }) => {
         </div>
       ) : null}
       <div className="space-y-5">
-        <Link
-          className="text-left outline-offset-4"
-          href={`/g/${group.address}/members`}
-        >
-          <H4>{humanize(stats.totalMembers)}</H4>
-          <div className="ld-text-gray-500">
-            {plur("Member", stats.totalMembers)}
-          </div>
-        </Link>
-        <JoinLeaveButton group={group} />
+        <MembersCount group={group} />
+        <div>
+          {currentAccount?.address === group.owner ? (
+            <>
+              <Button
+                icon={<Cog6ToothIcon className="size-5" />}
+                onClick={() => push(`/g/${group.address}/settings`)}
+                outline
+              >
+                Edit Group
+              </Button>
+            </>
+          ) : (
+            <JoinLeaveButton group={group} />
+          )}
+        </div>
       </div>
     </div>
   );

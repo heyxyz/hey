@@ -2,12 +2,9 @@ import CommentFeed from "@components/Comment/CommentFeed";
 import NoneRelevantFeed from "@components/Comment/NoneRelevantFeed";
 import MetaTags from "@components/Common/MetaTags";
 import NewPublication from "@components/Composer/NewPublication";
-import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning";
 import Footer from "@components/Shared/Footer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { APP_NAME } from "@hey/data/constants";
-import { FeatureFlag } from "@hey/data/feature-flags";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -19,8 +16,13 @@ import {
   usePostQuery,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  WarningMessage
+} from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { createTrackedSelector } from "react-tracked";
@@ -55,9 +57,8 @@ const ViewPost: NextPage = () => {
   } = useRouter();
 
   const { currentAccount } = useAccountStore();
-  const { isCommentSuspended, isSuspended } = useAccountStatus();
+  const { isSuspended } = useAccountStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
-  const isStaff = useFlag(FeatureFlag.Staff);
 
   const showQuotes = pathname === "/posts/[id]/quotes";
   const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
@@ -95,15 +96,18 @@ const ViewPost: NextPage = () => {
 
   const post = preLoadedPost || (data?.post as Post);
   const targetPost = isRepost(post) ? post.repostOf : post;
-  const suspended = isSuspended || isCommentSuspended;
+  const canComment =
+    targetPost.operations?.canComment.__typename ===
+    "PostOperationValidationPassed";
 
   return (
     <GridLayout>
       <MetaTags
         creator={getAccount(targetPost.author).name}
         description={getPostData(targetPost.metadata)?.content}
-        title={`${targetPost.__typename} by ${getAccount(targetPost.author).usernameWithPrefix
-          } • ${APP_NAME}`}
+        title={`${targetPost.__typename} by ${
+          getAccount(targetPost.author).usernameWithPrefix
+        } • ${APP_NAME}`}
       />
       <GridItemEight className="space-y-5">
         {showQuotes ? (
@@ -117,8 +121,13 @@ const ViewPost: NextPage = () => {
                 post={post}
               />
             </Card>
-            {suspended ? <CommentSuspendedWarning /> : null}
-            {currentAccount && !post.isDeleted && !suspended ? (
+            {!canComment && (
+              <WarningMessage
+                title="You cannot comment on this post"
+                message="You don't have permission to comment on this post."
+              />
+            )}
+            {currentAccount && !post.isDeleted && !isSuspended && canComment ? (
               <NewPublication post={targetPost} />
             ) : null}
             {post.isDeleted ? null : (
@@ -144,7 +153,6 @@ const ViewPost: NextPage = () => {
           />
         </Card>
         <RelevantPeople mentions={targetPost.mentions} />
-        {isStaff ? <PostStaffTool post={targetPost} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

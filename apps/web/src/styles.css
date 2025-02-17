@@ -84,9 +84,7 @@ body {
 
   & a,
   span[data-hashtag],
-  span[data-cashtag],
-  span[data-mention="account"],
-  span[data-mention="group"] {
+  span[data-mention="account"] {
     @apply text-brand-500;
   }
 
@@ -184,12 +182,6 @@ ul {
 }
 
 .virtual-divider-list-window {
-  @apply [&>div>div]:divide-y;
-  @apply [&>div>div]:dark:divide-gray-700;
-}
-
-/* react-virtuoso - Virtual notifications list */
-.virtual-notification-list {
   @apply [&>div>div]:divide-y;
   @apply [&>div>div]:dark:divide-gray-700;
 }

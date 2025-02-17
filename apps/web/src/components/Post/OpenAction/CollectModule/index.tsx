@@ -1,8 +1,8 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
+import Loader from "@components/Shared/Loader";
 import Collectors from "@components/Shared/Modal/Collectors";
 import Slug from "@components/Shared/Slug";
 import {
-  BanknotesIcon,
   CheckCircleIcon,
   ClockIcon,
   CurrencyDollarIcon,
@@ -10,7 +10,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME, COLLECT_FEES_ADDRESS } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -18,10 +18,10 @@ import getTokenImage from "@hey/helpers/getTokenImage";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type {
-  AnyPost,
-  PostAction,
-  SimpleCollectActionSettings
+import {
+  type AnyPost,
+  type SimpleCollectAction,
+  useCollectActionQuery
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
@@ -35,53 +35,53 @@ import DownloadCollectors from "./DownloadCollectors";
 import Splits from "./Splits";
 
 interface CollectModuleProps {
-  postAction: PostAction;
   post: AnyPost;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
+const CollectModule: FC<CollectModuleProps> = ({ post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
-
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
   const [countOpenActions, { increment }] = useCounter(
     targetPost.stats.countOpenActions
   );
 
-  const collectModule = postAction as
-    | MultirecipientFeeCollectActionSettings
-    | SimpleCollectActionSettings;
+  const { data, loading } = useCollectActionQuery({
+    variables: { request: { post: post.id } }
+  });
 
-  const endTimestamp = collectModule?.endsAt;
-  const collectLimit = Number.parseInt(collectModule?.collectLimit || "0");
-  const amount = Number.parseFloat(collectModule?.amount?.value || "0");
-  const usdPrice = collectModule?.amount?.asFiat?.value;
-  const currency = collectModule?.amount?.asset?.symbol;
-  const referralFee = collectModule?.referralFee;
-  const recipients =
-    (collectModule.__typename ===
-      "MultirecipientFeeCollectOpenActionSettings" &&
-      collectModule?.recipients) ||
-    [];
-  const recipientsWithoutFees = recipients?.filter(
-    (split) => split.recipient !== COLLECT_FEES_ADDRESS
-  );
-  const isMultirecipientFeeCollectModule =
-    collectModule.__typename === "MultirecipientFeeCollectOpenActionSettings" &&
-    recipientsWithoutFees.length > 1;
+  if (loading) {
+    return <Loader className="py-10" />;
+  }
+
+  const targetAction =
+    data?.post?.__typename === "Post"
+      ? data?.post.actions.find(
+          (action) => action.__typename === "SimpleCollectAction"
+        )
+      : data?.post?.__typename === "Repost"
+        ? data?.post?.repostOf?.actions.find(
+            (action) => action.__typename === "SimpleCollectAction"
+          )
+        : null;
+
+  const collectAction = targetAction as SimpleCollectAction;
+  const endTimestamp = collectAction?.endsAt;
+  const collectLimit = Number(collectAction?.collectLimit);
+  const amount = Number.parseFloat(collectAction?.amount?.value || "0");
+  const usdPrice = collectAction?.amount?.value;
+  const currency = collectAction?.amount?.asset?.symbol;
+  const recipients = collectAction?.recipients || [];
   const percentageCollected = (countOpenActions / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
-  const isTokenEnabled = enabledTokens?.includes(currency);
+  const isTokenEnabled = enabledTokens?.includes(currency || "");
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
-  const hasHeyFees = recipients.some(
-    (split) => split.recipient === COLLECT_FEES_ADDRESS
-  );
 
   return (
     <>
@@ -155,21 +155,12 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
             <div className="mt-2">
               <HelpTooltip>
                 <div className="py-1">
-                  <b>Collect Fees</b>
                   <div className="flex items-start justify-between space-x-10">
-                    <div>Lens Protocol</div>
+                    <div>{APP_NAME}</div>
                     <b>
                       {(amount * 0.05).toFixed(2)} {currency} (5%)
                     </b>
                   </div>
-                  {hasHeyFees && (
-                    <div className="flex items-start justify-between space-x-10">
-                      <div>{APP_NAME}</div>
-                      <b>
-                        {(amount * 0.05).toFixed(2)} {currency} (5%)
-                      </b>
-                    </div>
-                  )}
                 </div>
               </HelpTooltip>
             </div>
@@ -197,12 +188,6 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
                 </div>
               </div>
             ) : null}
-            {referralFee ? (
-              <div className="flex items-center space-x-2">
-                <BanknotesIcon className="ld-text-gray-500 size-4" />
-                <div className="font-bold">{referralFee}% referral fee</div>
-              </div>
-            ) : null}
           </div>
           {endTimestamp && !isAllCollected ? (
             <div className="flex items-center space-x-2">
@@ -219,18 +204,18 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
               </div>
             </div>
           ) : null}
-          {collectModule.collectNft ? (
+          {collectAction.address ? (
             <div className="flex items-center space-x-2">
               <PuzzlePieceIcon className="ld-text-gray-500 size-4" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  href={`${chains.testnet.blockExplorers?.default.url}/address/${collectModule.collectNft}`}
+                  href={`${chains.testnet.blockExplorers?.default.url}/address/${collectAction.address}`}
                   rel="noreferrer noopener"
                   target="_blank"
                 >
-                  {formatAddress(collectModule.collectNft)}
+                  {formatAddress(collectAction.address)}
                 </Link>
               </div>
             </div>
@@ -251,15 +236,13 @@ const CollectModule: FC<CollectModuleProps> = ({ postAction, post }) => {
               </div>
             </div>
           ) : null}
-          {isMultirecipientFeeCollectModule ? (
-            <Splits recipients={collectModule?.recipients} />
-          ) : null}
+          {recipients.length > 1 ? <Splits recipients={recipients} /> : null}
         </div>
         <div className="flex items-center space-x-2">
           <CollectAction
             countOpenActions={countOpenActions}
             onCollectSuccess={() => increment()}
-            postAction={postAction}
+            postAction={collectAction}
             post={targetPost}
           />
         </div>

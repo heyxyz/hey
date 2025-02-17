@@ -1,4 +1,3 @@
-import { LENS_HANDLE_PREFIX } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import {
   defineBaseCommands,
@@ -35,19 +34,6 @@ const defineHashtag = () => {
   ]);
 };
 
-const defineCashtag = () => {
-  return union([
-    defineMarkSpec({
-      name: "cashtag" as const,
-      toDOM: () => ["span", { "data-cashtag": "" }, 0]
-    }),
-    defineMarkRule({
-      regex: Regex.cashtag,
-      type: "cashtag"
-    })
-  ]);
-};
-
 const defineAutoLink = () => {
   return union([defineLinkSpec(), defineLinkMarkRule()]);
 };
@@ -79,15 +65,10 @@ const defineMentionSpec = () => {
         attrs.kind === "account"
           ? [
               ["span", "@"],
-              // Hide the "lens/" part inside the editor, but it's still part
-              // of the HTML output so that we can keep it when converting
-              // HTML to Markdown.
-              ["span", { class: "hidden" }, LENS_HANDLE_PREFIX],
+              ["span", { class: "hidden" }, "lens/"],
               ["span", value]
             ]
           : [["span", value]];
-
-      console.log(children);
 
       return [
         "span",
@@ -117,7 +98,6 @@ export const defineEditorExtension = () => {
     defineItalic(),
     defineBold(),
     defineHashtag(),
-    defineCashtag(),
     defineAutoLink(),
     defineVirtualSelection(),
     defineMention(),

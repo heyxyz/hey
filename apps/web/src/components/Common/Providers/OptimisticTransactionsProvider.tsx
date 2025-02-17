@@ -1,5 +1,5 @@
 import { useTransactionStatusQuery } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import type { FC } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -19,7 +19,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
       ) {
         // Trigger Account feed refetch
         if (
-          transaction.type === OptmisticTransactionType.Post &&
+          transaction.type === OptimisticTxType.CREATE_POST &&
           transactionStatus.__typename === "FinishedTransactionStatus"
         ) {
           setIndexedPostHash(transaction.txHash);

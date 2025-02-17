@@ -1,7 +1,7 @@
 import Sidebar from "@components/Shared/Sidebar";
 import {
   AdjustmentsHorizontalIcon,
-  ChartBarIcon,
+  BanknotesIcon,
   ClipboardIcon,
   CurrencyDollarIcon,
   UserIcon
@@ -15,19 +15,14 @@ const sidebarItems = [
     url: "/staff"
   },
   {
-    icon: <CurrencyDollarIcon className="size-4" />,
-    title: "Revenue",
-    url: "/staff/revenue"
-  },
-  {
-    icon: <ChartBarIcon className="size-4" />,
-    title: "Stats",
-    url: "/staff/stats"
-  },
-  {
     icon: <UserIcon className="size-4" />,
     title: "Accounts",
     url: "/staff/accounts"
+  },
+  {
+    icon: <BanknotesIcon className="size-4" />,
+    title: "Sponsorship",
+    url: "/staff/sponsorship"
   },
   {
     icon: <CurrencyDollarIcon className="size-4" />,

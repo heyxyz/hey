@@ -6,7 +6,11 @@ import { STATIC_IMAGES_URL } from "@hey/data/constants";
  * @param symbol The token symbol.
  * @returns The token image URL.
  */
-const getTokenImage = (symbol: string): string => {
+const getTokenImage = (symbol?: string): string => {
+  if (!symbol) {
+    return "";
+  }
+
   const symbolLowerCase = symbol?.toLowerCase() || "";
   return `${STATIC_IMAGES_URL}/tokens/${symbolLowerCase}.svg`;
 };

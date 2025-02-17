@@ -12,9 +12,7 @@ import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
-import DeveloperMode from "./DeveloperMode";
-import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
-import MutedWords from "./MutedWords";
+import IncludeLowScore from "./IncludeLowScore";
 
 const PreferencesSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -37,12 +35,10 @@ const PreferencesSettings: NextPage = () => {
             title="Your Preferences"
           />
           <div className="m-5 space-y-5">
-            <HighSignalNotificationFilter />
-            <DeveloperMode />
+            <IncludeLowScore />
           </div>
         </Card>
         <AppIcon />
-        <MutedWords />
       </GridItemEight>
     </GridLayout>
   );

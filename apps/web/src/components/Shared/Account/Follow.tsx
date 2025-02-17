@@ -8,7 +8,7 @@ import {
   type LoggedInAccountOperations,
   useFollowMutation
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -53,7 +53,7 @@ const Follow: FC<FollowProps> = ({
     addOptimisticTransaction({
       followOn: account.address,
       txHash,
-      type: OptmisticTransactionType.Follow
+      type: OptimisticTxType.FOLLOW_ACCOUNT
     });
   };
 
@@ -101,13 +101,13 @@ const Follow: FC<FollowProps> = ({
 
             return onCompleted(hash);
           }
+
+          if (follow.__typename === "TransactionWillFail") {
+            return onError({ message: follow.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (follow.__typename === "TransactionWillFail") {
-        return toast.error(follow.reason);
       }
     },
     onError

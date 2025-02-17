@@ -1,12 +1,10 @@
 import Slug from "@components/Shared/Slug";
-import { APP_NAME, COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import {
   type Account,
-  type RecipientDataOutput,
+  type RecipientPercent,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { Image } from "@hey/ui";
@@ -15,14 +13,14 @@ import Link from "next/link";
 import type { FC } from "react";
 
 interface SplitsProps {
-  recipients: RecipientDataOutput[];
+  recipients: RecipientPercent[];
 }
 
 const Splits: FC<SplitsProps> = ({ recipients }) => {
   const { data: recipientProfilesData, loading } = useAccountsBulkQuery({
     skip: !recipients?.length,
     variables: {
-      request: { addresses: recipients?.map((r) => r.recipient) }
+      request: { addresses: recipients?.map((r) => r.address) }
     }
   });
 
@@ -41,23 +39,8 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
     <div className="space-y-2 pt-3">
       <div className="mb-2 font-bold">Fee recipients</div>
       {recipients.map((recipient) => {
-        const { recipient: address, split } = recipient;
+        const { address, percent } = recipient;
         const account = getAccountByAddress(address);
-
-        if (address === COLLECT_FEES_ADDRESS) {
-          return (
-            <div key={address}>
-              <div className="divider mt-3 mb-2" />
-              <div className="flex items-center justify-between text-sm">
-                <div className="ld-text-gray-500 flex w-full items-center space-x-2">
-                  <img alt="Hey" className="size-4" src="/logo.png" />
-                  <b>{APP_NAME} Fees</b>
-                </div>
-                <div className="font-bold">{split}%</div>
-              </div>
-            </div>
-          );
-        }
 
         return (
           <div
@@ -75,7 +58,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   <Image
                     alt="Avatar"
                     className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
-                    src={account ? getAvatar(account) : getStampFyiURL(address)}
+                    src={getAvatar(account)}
                   />
                   {account ? (
                     <Link href={getAccount(account as Account).link}>
@@ -95,7 +78,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 </>
               )}
             </div>
-            <div className="font-bold">{split}%</div>
+            <div className="font-bold">{percent}%</div>
           </div>
         );
       })}

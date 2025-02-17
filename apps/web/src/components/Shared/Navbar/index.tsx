@@ -10,7 +10,6 @@ import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import MenuItems from "./MenuItems";
-import ModIcon from "./ModIcon";
 import MoreNavItems from "./MoreNavItems";
 import Search from "./Search";
 import StaffBar from "./StaffBar";
@@ -112,12 +111,7 @@ const Navbar: FC = () => {
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentAccount ? (
-              <>
-                <ModIcon />
-                <NotificationIcon />
-              </>
-            ) : null}
+            {currentAccount ? <NotificationIcon /> : null}
             <MenuItems />
           </div>
         </div>

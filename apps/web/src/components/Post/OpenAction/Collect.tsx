@@ -1,5 +1,4 @@
 import { FeatureFlag } from "@hey/data/feature-flags";
-import allowedPostActionModules from "@hey/helpers/allowedPostActionModules";
 import type { Post } from "@hey/indexer";
 import { Button, Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -16,12 +15,9 @@ const Collect: FC<CollectProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
   const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const postActions = post.actions.filter((action) =>
-    allowedPostActionModules.includes(action.__typename)
-  );
 
   const hasActed =
-    post.operations?.hasActed.value || hasOptimisticallyCollected(post.id);
+    post.operations?.hasReacted || hasOptimisticallyCollected(post.id);
 
   if (!enabled) {
     return null;
@@ -41,13 +37,7 @@ const Collect: FC<CollectProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        {postActions?.map((action) => (
-          <CollectModule
-            key={action.__typename}
-            postAction={action}
-            post={post}
-          />
-        ))}
+        <CollectModule post={post} />
       </Modal>
     </>
   );

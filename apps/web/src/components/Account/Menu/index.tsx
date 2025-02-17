@@ -7,8 +7,6 @@ import type { FC } from "react";
 import { Fragment } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Block from "./Block";
-import CopyAddress from "./CopyAddress";
-import CopyID from "./CopyID";
 import CopyLink from "./CopyLink";
 import Mute from "./Mute";
 import Report from "./Report";
@@ -38,8 +36,6 @@ const AccountMenu: FC<AccountMenuProps> = ({ account }) => {
           static
         >
           <CopyLink account={account} />
-          <CopyAddress address={account.owner} />
-          <CopyID id={account.address} />
           {currentAccount && currentAccount?.address !== account.address ? (
             <>
               <Block account={account} />

@@ -2,7 +2,7 @@ import type { FieldPolicy } from '@apollo/client';
 import cursorBasedPagination from '../helpers/cursorBasedPagination';
 
 const createPostsFieldPolicy = (): FieldPolicy => {
-  return cursorBasedPagination(['filter', 'forFeeds']);
+  return cursorBasedPagination(["request", ['filter']]);
 };
 
 export default createPostsFieldPolicy;

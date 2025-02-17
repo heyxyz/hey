@@ -1,4 +1,3 @@
-import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
@@ -6,10 +5,9 @@ import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import FollowUnfollowButton from "./Account/FollowUnfollowButton";
-import Misuse from "./Account/Icons/Misuse";
 import Verified from "./Account/Icons/Verified";
 import AccountPreview from "./AccountPreview";
 import Markup from "./Markup";
@@ -23,7 +21,7 @@ interface SingleAccountProps {
   account: Account;
   showBio?: boolean;
   showUserPreview?: boolean;
-  timestamp?: Date;
+  menu?: ReactNode;
 }
 
 const SingleAccount: FC<SingleAccountProps> = ({
@@ -34,7 +32,7 @@ const SingleAccount: FC<SingleAccountProps> = ({
   account,
   showBio = false,
   showUserPreview = true,
-  timestamp
+  menu
 }) => {
   const UserAvatar: FC = () => (
     <Image
@@ -59,22 +57,8 @@ const SingleAccount: FC<SingleAccountProps> = ({
           </div>
         </div>
         <Verified address={account.address} iconClassName="ml-1 size-4" />
-        <Misuse address={account.address} iconClassName="ml-1 size-4" />
       </div>
-      <div>
-        <Slug
-          className="text-sm"
-          slug={getAccount(account).usernameWithPrefix}
-        />
-        {timestamp && (
-          <span className="ld-text-gray-500">
-            <span className="mx-1.5">·</span>
-            <span className="text-xs">
-              {formatRelativeOrAbsolute(timestamp)}
-            </span>
-          </span>
-        )}
-      </div>
+      <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
     </>
   );
 
@@ -116,12 +100,15 @@ const SingleAccount: FC<SingleAccountProps> = ({
       ) : (
         <AccountInfo />
       )}
-      <FollowUnfollowButton
-        hideFollowButton={hideFollowButton}
-        hideUnfollowButton={hideUnfollowButton}
-        account={account}
-        small
-      />
+      <div className="flex items-center gap-3">
+        <FollowUnfollowButton
+          hideFollowButton={hideFollowButton}
+          hideUnfollowButton={hideUnfollowButton}
+          account={account}
+          small
+        />
+        {menu}
+      </div>
     </div>
   );
 };

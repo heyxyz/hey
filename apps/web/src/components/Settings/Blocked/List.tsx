@@ -10,12 +10,12 @@ import {
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
+  const { setShowBlockOrUnblockAlert } = useBlockAlertStateStore();
 
   const request: AccountsBlockedRequest = { pageSize: PageSize.Fifty };
   const { data, error, fetchMore, loading } = useAccountsBlockedQuery({
@@ -41,7 +41,7 @@ const List: FC = () => {
 
   if (error) {
     return (
-      <ErrorMessage error={error} title="Failed to load blocked profiles" />
+      <ErrorMessage error={error} title="Failed to load blocked accounts" />
     );
   }
 
@@ -50,7 +50,7 @@ const List: FC = () => {
       <EmptyState
         hideCard
         icon={<NoSymbolIcon className="size-8" />}
-        message="You are not blocking any profiles!"
+        message="You are not blocking any accounts!"
       />
     );
   }

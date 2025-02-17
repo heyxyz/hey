@@ -30,7 +30,7 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
-  const { highSignalNotificationFilter } = usePreferencesStore();
+  const { includeLowScore } = usePreferencesStore();
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -51,7 +51,7 @@ const List: FC<ListProps> = ({ feedType }) => {
 
   const request: NotificationRequest = {
     filter: {
-      includeLowScore: highSignalNotificationFilter,
+      includeLowScore,
       notificationTypes: getNotificationType()
     }
   };
@@ -99,7 +99,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   return (
     <Card>
       <Virtuoso
-        className="virtual-notification-list"
+        className="virtual-divider-list-window"
         computeItemKey={(index, notification) => `${notification.id}-${index}`}
         data={notifications}
         endReached={onEndReached}

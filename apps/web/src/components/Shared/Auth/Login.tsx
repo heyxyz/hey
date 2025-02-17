@@ -63,7 +63,9 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { accountOwner: { account, owner: address } } }
+        variables: {
+          request: { accountOwner: { owner: address, account } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {

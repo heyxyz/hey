@@ -3,7 +3,7 @@ import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -22,10 +22,7 @@ const UnlinkHandle: FC = () => {
 
   const onCompleted = (hash: string) => {
     setUnlinking(false);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptmisticTransactionType.UnassignUsername
-    );
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.UNASSIGN_USERNAME);
     toast.success("Unlinked");
   };
 
@@ -67,13 +64,15 @@ const UnlinkHandle: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (
+            unassignUsernameFromAccount.__typename === "TransactionWillFail"
+          ) {
+            return onError({ message: unassignUsernameFromAccount.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (unassignUsernameFromAccount.__typename === "TransactionWillFail") {
-        return toast.error(unassignUsernameFromAccount.reason);
       }
     },
     onError
@@ -96,7 +95,7 @@ const UnlinkHandle: FC = () => {
   };
 
   return (
-    <Button className="m-5" disabled={unlinking} onClick={handleUnlink} outline>
+    <Button disabled={unlinking} onClick={handleUnlink} outline>
       Un-link handle
     </Button>
   );

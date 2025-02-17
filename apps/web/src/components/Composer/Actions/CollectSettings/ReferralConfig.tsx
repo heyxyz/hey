@@ -1,6 +1,5 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { PostActionType } from "@hey/indexer";
 import type { CollectModuleType } from "@hey/types/hey";
 import { RangeSlider } from "@hey/ui";
 import type { FC } from "react";
@@ -19,27 +18,24 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
         description="Share your fee with people who amplify your content"
         heading="Mirror referral reward"
         icon={<ArrowsRightLeftIcon className="size-5" />}
-        on={Boolean(collectModule.referralFee)}
+        on={Boolean(collectModule.referralShare)}
         setOn={() =>
           setCollectType({
-            referralFee: collectModule.referralFee ? 0 : 25,
-            type: collectModule.recipients?.length
-              ? PostActionType.MultirecipientFeeCollectOpenActionModule
-              : PostActionType.SimpleCollectAction
+            referralShare: collectModule.referralShare ? 0 : 25
           })
         }
       />
-      {collectModule.referralFee ? (
+      {collectModule.referralShare ? (
         <div className="mt-4 ml-8 space-y-2 text-sm">
           <div>Referral fee</div>
           <RangeSlider
             showValueInThumb
             min={1}
             max={100}
-            displayValue={`${collectModule.referralFee.toString()}%`}
-            defaultValue={[collectModule.referralFee]}
+            displayValue={`${collectModule.referralShare.toString()}%`}
+            defaultValue={[collectModule.referralShare]}
             onValueChange={(value) =>
-              setCollectType({ referralFee: Number(value[0]) })
+              setCollectType({ referralShare: Number(value[0]) })
             }
           />
         </div>

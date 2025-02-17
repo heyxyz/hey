@@ -1,5 +1,5 @@
 import { Localstorage } from "@hey/data/storage";
-import type { OptmisticTransactionType } from "@hey/types/enums";
+import type { OptimisticTxType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -49,6 +49,6 @@ const store = create(
 export const addOptimisticTransaction = store.getState().addTransaction;
 export const addSimpleOptimisticTransaction = (
   hash: string,
-  type: OptmisticTransactionType
+  type: OptimisticTxType
 ) => store.getState().addTransaction({ txHash: hash, type });
 export const useTransactionStore = store;

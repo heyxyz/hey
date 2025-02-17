@@ -12,32 +12,41 @@ import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface GroupFeedProps {
-  address: string;
+  feed: string;
 }
 
-const GroupFeed: FC<GroupFeedProps> = ({ address }) => {
+const GroupFeed: FC<GroupFeedProps> = ({ feed }) => {
+  const { indexedPostHash } = useTransactionStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
     virtuosoState = { ranges: [], screenTop: 0 };
-  }, [address]);
+  }, [feed]);
 
   const request: PostsRequest = {
+    filter: { feeds: [{ feed }] },
     pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = usePostsQuery({
-    skip: !address,
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
+    skip: !feed,
     variables: { request }
   });
 
   const posts = data?.posts?.items;
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  useEffect(() => {
+    if (indexedPostHash) {
+      refetch();
+    }
+  }, [indexedPostHash]);
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {

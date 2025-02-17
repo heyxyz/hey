@@ -58,12 +58,6 @@ const nextConfig = {
           "https://explorer.gitcoin.co/#/round/42161/608/6?utm_source=hey.xyz",
         permanent: true,
         source: "/gitcoin"
-      },
-      // Redirect: hey.xyz/u/lens/<localname> > hey.xyz/u/<localname>
-      {
-        destination: "/u/:handle",
-        permanent: true,
-        source: "/u/:namespace/:handle"
       }
     ];
   },

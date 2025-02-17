@@ -72,9 +72,10 @@ const LivestreamSettings = dynamic(
 interface NewPublicationProps {
   className?: string;
   post?: Post;
+  feed?: string;
 }
 
-const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
+const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
 
@@ -216,7 +217,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
       if (postContent.length === 0 && attachments.length === 0) {
         setIsLoading(false);
         return setPostContentError(
-          `${isComment ? "Comment" : isQuote ? "Quote" : "Post"
+          `${
+            isComment ? "Comment" : isQuote ? "Quote" : "Post"
           } should not be empty!`
         );
       }
@@ -242,12 +244,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
           attributes: [
             ...(pollId
               ? [
-                {
-                  key: KNOWN_ATTRIBUTES.POLL_ID,
-                  type: MetadataAttributeType.STRING,
-                  value: pollId
-                }
-              ]
+                  {
+                    key: KNOWN_ATTRIBUTES.POLL_ID,
+                    type: MetadataAttributeType.STRING,
+                    value: pollId
+                  }
+                ]
               : [])
           ]
         }),
@@ -266,10 +268,11 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
         variables: {
           request: {
             contentUri,
+            ...(feed && { feed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
-            ...(collectModule.type && {
-              actions: [{ collectAction: collectModuleParams(collectModule) }]
+            ...(collectModule.enabled && {
+              actions: [{ ...collectModuleParams(collectModule) }]
             })
           }
         }
@@ -291,7 +294,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post }) => {
 
   const isSubmitDisabledByPoll = showPollEditor
     ? !pollConfig.options.length ||
-    pollConfig.options.some((option) => !option.length)
+      pollConfig.options.some((option) => !option.length)
     : false;
 
   return (

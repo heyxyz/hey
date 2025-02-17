@@ -7,7 +7,11 @@ import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import NewPublication from "./NewPublication";
 
-const NewPost: FC = () => {
+interface NewPostProps {
+  feed?: string;
+}
+
+const NewPost: FC<NewPostProps> = ({ feed }) => {
   const { isReady, query } = useRouter();
   const { currentAccount } = useAccountStore();
   const { setPostContent } = usePostStore();
@@ -39,7 +43,7 @@ const NewPost: FC = () => {
   }, [query]);
 
   if (showComposer) {
-    return <NewPublication />;
+    return <NewPublication feed={feed} />;
   }
 
   return (

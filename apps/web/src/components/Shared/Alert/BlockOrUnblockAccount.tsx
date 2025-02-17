@@ -10,13 +10,13 @@ import {
   useBlockMutation,
   useUnblockMutation
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   addOptimisticTransaction,
@@ -31,7 +31,7 @@ const BlockOrUnblockAccount: FC = () => {
     blockingorUnblockingAccount,
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
-  } = useGlobalAlertStateStore();
+  } = useBlockAlertStateStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -53,8 +53,8 @@ const BlockOrUnblockAccount: FC = () => {
         : { blockOn: blockingorUnblockingAccount?.address }),
       txHash,
       type: hasBlocked
-        ? OptmisticTransactionType.Unblock
-        : OptmisticTransactionType.Block
+        ? OptimisticTxType.UNBLOCK_ACCOUNT
+        : OptimisticTxType.BLOCK_ACCOUNT
     });
   };
 
@@ -109,6 +109,10 @@ const BlockOrUnblockAccount: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (block.__typename === "BlockError") {
+            return toast.error(block.error);
+          }
         } catch (error) {
           return onError(error);
         }
@@ -145,6 +149,10 @@ const BlockOrUnblockAccount: FC = () => {
             });
 
             return onCompleted(hash);
+          }
+
+          if (unblock.__typename === "UnblockError") {
+            return toast.error(unblock.error);
           }
         } catch (error) {
           return onError(error);

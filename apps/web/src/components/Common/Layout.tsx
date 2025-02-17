@@ -3,7 +3,6 @@ import GlobalAlerts from "@components/Shared/GlobalAlerts";
 import GlobalBanners from "@components/Shared/GlobalBanners";
 import BottomNavigation from "@components/Shared/Navbar/BottomNavigation";
 import PageMetatags from "@components/Shared/PageMetatags";
-import accountThemeFonts from "@helpers/accountThemeFonts";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
 import { type Account, useMeQuery } from "@hey/indexer";
@@ -15,7 +14,6 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useDisconnect } from "wagmi";
@@ -29,7 +27,6 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { reload } = useRouter();
   const { resolvedTheme } = useTheme();
-  const { theme } = useAccountThemeStore();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { resetPreferences } = usePreferencesStore();
   const { resetStatus } = useAccountStatus();
@@ -83,7 +80,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <main className={accountThemeFonts(theme?.fontStyle)}>
+    <main>
       <PageMetatags />
       <Toaster
         containerStyle={{ wordBreak: "break-word" }}

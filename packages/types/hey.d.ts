@@ -1,4 +1,4 @@
-import type { PostActionType } from "@hey/indexer";
+import type { AmountInput } from "@hey/indexer";
 
 export type StaffPick = {
   accountAddress: string;
@@ -21,16 +21,13 @@ export type AllowedToken = {
 };
 
 export type CollectModuleType = {
+  enabled?: boolean;
   amount?: AmountInput | null;
-  collectLimit?: null | string;
-  endsAt?: null | string;
-  followerOnly?: boolean;
   recipients?: RecipientDataInput[];
-  referralFee?: number;
-  type?:
-    | PostActionType.MultirecipientFeeCollectOpenActionModule
-    | PostActionType.SimpleCollectAction
-    | null;
+  collectLimit?: null | number;
+  followerOnly?: boolean;
+  referralShare?: number;
+  endsAt?: null | string;
 };
 
 type PollOption = {
@@ -47,26 +44,11 @@ export type Poll = {
   options: PollOption[];
 };
 
-export type AccountTheme = {
-  fontStyle?: string;
-};
-
-export type MutedWord = {
-  id: string;
-  word: string;
-  expiresAt: Date | null;
-};
-
 export type Preferences = {
   appIcon: number;
-  email: null | string;
-  emailVerified: boolean;
   hasDismissedOrMintedMembershipNft: boolean;
-  highSignalNotificationFilter: boolean;
-  developerMode: boolean;
+  includeLowScore: boolean;
   permissions: string[];
-  mutedWords: MutedWord[];
-  theme: AccountTheme | null;
 };
 
 export type InternalAccount = Preferences;

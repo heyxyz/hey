@@ -15,8 +15,7 @@ const plugins = [
   remarkBreaks,
   linkifyRegex(Regex.url),
   linkifyRegex(Regex.mention),
-  linkifyRegex(Regex.hashtag),
-  linkifyRegex(Regex.cashtag)
+  linkifyRegex(Regex.hashtag)
 ];
 
 interface MarkupProps {

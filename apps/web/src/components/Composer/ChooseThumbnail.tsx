@@ -15,7 +15,7 @@ export const THUMBNAIL_GENERATE_COUNT = 4;
 
 interface Thumbnail {
   blobUrl: string;
-  ipfsUrl: string;
+  decentralizedUrl: string;
 }
 
 const ChooseThumbnail: FC = () => {
@@ -26,7 +26,7 @@ const ChooseThumbnail: FC = () => {
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
   const { file } = attachments[0];
 
-  const uploadThumbnailToIpfs = async (fileToUpload: File) => {
+  const uploadThumbnailToStorageNode = async (fileToUpload: File) => {
     setVideoThumbnail({ ...videoThumbnail, uploading: true });
     const result = await uploadFileToStorageNode(fileToUpload);
     if (!result.uri) {
@@ -43,7 +43,7 @@ const ChooseThumbnail: FC = () => {
 
   const handleSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
-    if (thumbnails[index]?.ipfsUrl === "") {
+    if (thumbnails[index]?.decentralizedUrl === "") {
       setVideoThumbnail({ ...videoThumbnail, uploading: true });
       getFileFromDataURL(
         thumbnails[index].blobUrl,
@@ -52,11 +52,11 @@ const ChooseThumbnail: FC = () => {
           if (!file) {
             return toast.error("Please upload a custom thumbnail");
           }
-          const ipfsResult = await uploadThumbnailToIpfs(file);
+          const result = await uploadThumbnailToStorageNode(file);
           setThumbnails(
             thumbnails.map((thumbnail, i) => {
               if (i === index) {
-                thumbnail.ipfsUrl = ipfsResult.uri;
+                thumbnail.decentralizedUrl = result.uri;
               }
               return thumbnail;
             })
@@ -67,7 +67,7 @@ const ChooseThumbnail: FC = () => {
       setVideoThumbnail({
         ...videoThumbnail,
         uploading: false,
-        url: thumbnails[index]?.ipfsUrl
+        url: thumbnails[index]?.decentralizedUrl
       });
     }
   };
@@ -80,11 +80,11 @@ const ChooseThumbnail: FC = () => {
       );
       const thumbnailList: Thumbnail[] = [];
       for (const thumbnailBlob of thumbnailArray) {
-        thumbnailList.push({ blobUrl: thumbnailBlob, ipfsUrl: "" });
+        thumbnailList.push({ blobUrl: thumbnailBlob, decentralizedUrl: "" });
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
-    } catch { }
+    } catch {}
   };
 
   useEffect(() => {
@@ -107,10 +107,10 @@ const ChooseThumbnail: FC = () => {
         setImageUploading(true);
         setSelectedThumbnailIndex(-1);
         const file = e.target.files[0];
-        const result = await uploadThumbnailToIpfs(file);
+        const result = await uploadThumbnailToStorageNode(file);
         const preview = window.URL?.createObjectURL(file);
         setThumbnails([
-          { blobUrl: preview, ipfsUrl: result.uri },
+          { blobUrl: preview, decentralizedUrl: result.uri },
           ...thumbnails
         ]);
         setSelectedThumbnailIndex(0);
@@ -149,9 +149,9 @@ const ChooseThumbnail: FC = () => {
           )}
         </label>
         {thumbnails.length ? null : <ThumbnailsShimmer />}
-        {thumbnails.map(({ blobUrl, ipfsUrl }, index) => {
+        {thumbnails.map(({ blobUrl, decentralizedUrl }, index) => {
           const isSelected = selectedThumbnailIndex === index;
-          const isUploaded = ipfsUrl === videoThumbnail.url;
+          const isUploaded = decentralizedUrl === videoThumbnail.url;
 
           return (
             <button
@@ -167,7 +167,7 @@ const ChooseThumbnail: FC = () => {
                 draggable={false}
                 src={blobUrl}
               />
-              {ipfsUrl && isSelected && isUploaded ? (
+              {decentralizedUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
                   <CheckCircleIcon className="size-6" />
                 </div>

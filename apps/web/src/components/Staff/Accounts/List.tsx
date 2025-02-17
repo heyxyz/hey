@@ -1,38 +1,33 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
-import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
+  AccountsOrderBy,
   type AccountsRequest,
   PageSize,
-  useAccountsLazyQuery
+  useAccountsLazyQuery,
+  useAccountsQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useDebounce } from "@uidotdev/usehooks";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
-import ViewReports from "./ViewReports";
 
 const List: FC = () => {
-  const { pathname } = useRouter();
-  const [orderBy, setOrderBy] = useState<ExploreProfilesOrderByType>(
-    ExploreProfilesOrderByType.LatestCreated
+  const [orderBy, setOrderBy] = useState<AccountsOrderBy>(
+    AccountsOrderBy.AccountScore
   );
   const [searchText, setSearchText] = useState("");
   const [refetching, setRefetching] = useState(false);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
-  const request: ExploreProfilesRequest = {
-    limit: LimitType.Fifty,
-    orderBy
-  };
+  const request: AccountsRequest = { orderBy };
 
-  const { data, error, fetchMore, loading, refetch } = useExploreProfilesQuery({
+  const { data, error, fetchMore, loading, refetch } = useAccountsQuery({
     variables: { request }
   });
 
@@ -52,8 +47,8 @@ const List: FC = () => {
 
   const accounts = searchText
     ? searchData?.accounts?.items
-    : data?.exploreProfiles.items;
-  const pageInfo = data?.exploreProfiles?.pageInfo;
+    : data?.accounts?.items;
+  const pageInfo = data?.accounts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -88,16 +83,12 @@ const List: FC = () => {
             <Select
               className="w-72"
               defaultValue={orderBy}
-              onChange={(value) =>
-                setOrderBy(value as ExploreProfilesOrderByType)
-              }
-              options={Object.values(ExploreProfilesOrderByType).map(
-                (type) => ({
-                  label: type,
-                  selected: orderBy === type,
-                  value: type
-                })
-              )}
+              onChange={(value) => setOrderBy(value as AccountsOrderBy)}
+              options={Object.values(AccountsOrderBy).map((type) => ({
+                label: type,
+                selected: orderBy === type,
+                value: type
+              }))}
             />
             <button onClick={handleRefetch} type="button">
               <ArrowPathIcon
@@ -119,28 +110,16 @@ const List: FC = () => {
             data={accounts}
             endReached={onEndReached}
             itemContent={(_, account) => (
-              <div className="flex flex-wrap items-center justify-between gap-y-5 pb-7">
-                <Link
-                  href={
-                    pathname === "/mod"
-                      ? getAccount(account as Account).link
-                      : getAccount(account as Account).staffLink
-                  }
-                >
+              <div className="pb-7">
+                <Link href={`/staff/accounts/${account.address}`}>
                   <SingleAccount
-                    hideFollowButton
-                    hideUnfollowButton
                     isBig
                     linkToAccount={false}
                     account={account as Account}
                     showBio={false}
                     showUserPreview={false}
-                    timestamp={account.createdAt}
                   />
                 </Link>
-                <div>
-                  <ViewReports address={account.address} />
-                </div>
               </div>
             )}
             useWindowScroll

@@ -1,0 +1,5 @@
+query GroupStats($request: GroupStatsRequest!) {
+  groupStats(request: $request) {
+    totalMembers
+  }
+}

@@ -4,7 +4,7 @@ mutation CreateGroup($request: CreateGroupRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      reason
+      ...SelfFundedTransactionRequestFields
     }
     ... on TransactionWillFail {
       reason

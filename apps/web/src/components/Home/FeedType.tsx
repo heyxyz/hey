@@ -18,10 +18,6 @@ const FeedType: FC = () => {
       badge: <New />,
       name: "For You",
       type: HomeFeedType.FORYOU
-    },
-    {
-      name: "Premium",
-      type: HomeFeedType.PREMIUM
     }
   ].filter(
     (

@@ -4,11 +4,7 @@ import logger from "@hey/helpers/logger";
 const cleanPreferences = async () => {
   try {
     await prisma.preference.deleteMany({
-      where: {
-        appIcon: 0,
-        highSignalNotificationFilter: false,
-        developerMode: false
-      }
+      where: { appIcon: 0, includeLowScore: false }
     });
 
     logger.info("[Cron] cleanPreferences - Cleaned up Preference");

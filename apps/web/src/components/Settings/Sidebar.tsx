@@ -3,13 +3,12 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
-  CircleStackIcon,
+  CodeBracketIcon,
   CpuChipIcon,
   ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
-  ShareIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
@@ -46,11 +45,6 @@ const SettingsSidebar: FC = () => {
       url: "/settings/manager"
     },
     {
-      icon: <ShareIcon className="size-4" />,
-      title: "Allowance",
-      url: "/settings/allowance"
-    },
-    {
       icon: <GlobeAltIcon className="size-4" />,
       title: "Sessions",
       url: "/settings/sessions"
@@ -61,9 +55,9 @@ const SettingsSidebar: FC = () => {
       url: "/settings/blocked"
     },
     {
-      icon: <CircleStackIcon className="size-4" />,
-      title: "Export",
-      url: "/settings/export"
+      icon: <CodeBracketIcon className="size-4" />,
+      title: "Developer",
+      url: "/settings/developer"
     },
     {
       icon: <ExclamationTriangleIcon className="size-4 text-red-500" />,

@@ -6,9 +6,9 @@ const INITIAL_COLLECT_MODULE: CollectModuleType = {
   collectLimit: null,
   endsAt: null,
   followerOnly: false,
-  recipients: [],
-  referralFee: 0,
-  type: null
+  recipients: undefined,
+  referralShare: 0,
+  enabled: false
 };
 
 interface State {

@@ -8,20 +8,10 @@ datasource db {
 }
 
 model Preference {
-  accountAddress               String   @id
-  appIcon                      Int?     @default(0)
-  highSignalNotificationFilter Boolean  @default(false)
-  developerMode                Boolean  @default(false)
-  createdAt                    DateTime @default(now())
-}
-
-model Email {
-  accountAddress    String    @id
-  email             String    @unique
-  verified          Boolean   @default(false)
-  verificationToken String?   @unique
-  tokenExpiresAt    DateTime?
-  createdAt         DateTime  @default(now())
+  accountAddress  String   @id
+  appIcon         Int?     @default(0)
+  includeLowScore Boolean  @default(false)
+  createdAt       DateTime @default(now())
 }
 
 model MembershipNft {
@@ -117,21 +107,4 @@ model AccountStatus {
   message        String
   emoji          String
   createdAt      DateTime @default(now())
-}
-
-model AccountTheme {
-  accountAddress String   @id
-  fontStyle      String?
-  createdAt      DateTime @default(now())
-}
-
-model MutedWord {
-  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  accountAddress String
-  word           String
-  expiresAt      DateTime?
-  createdAt      DateTime  @default(now())
-
-  // Indexes
-  @@index([accountAddress])
 }

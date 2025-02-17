@@ -5,6 +5,7 @@ import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MenuTransition from "../MenuTransition";
 import Bookmarks from "./NavItems/Bookmarks";
+import Groups from "./NavItems/Groups";
 import Support from "./NavItems/Support";
 const MoreNavItems: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -32,6 +33,14 @@ const MoreNavItems: FC = () => {
             >
               {currentAccount ? (
                 <>
+                  <MenuItem
+                    as="div"
+                    className={({ focus }: { focus: boolean }) =>
+                      cn({ "dropdown-active": focus }, "m-2 rounded-lg")
+                    }
+                  >
+                    <Groups />
+                  </MenuItem>
                   <MenuItem
                     as="div"
                     className={({ focus }: { focus: boolean }) =>

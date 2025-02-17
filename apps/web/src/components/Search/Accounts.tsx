@@ -67,13 +67,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
       endReached={onEndReached}
       itemContent={(_, account) => (
         <Card className="p-5">
-          <SingleAccount
-            hideFollowButton
-            hideUnfollowButton
-            isBig
-            account={account as Account}
-            showBio
-          />
+          <SingleAccount isBig account={account as Account} showBio />
         </Card>
       )}
       useWindowScroll

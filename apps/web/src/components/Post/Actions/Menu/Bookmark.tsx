@@ -11,7 +11,6 @@ import {
   useUndoBookmarkPostMutation
 } from "@hey/indexer";
 import cn from "@hey/ui/cn";
-import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
@@ -22,23 +21,21 @@ interface BookmarkProps {
 
 const Bookmark: FC<BookmarkProps> = ({ post }) => {
   const { pathname } = useRouter();
-  const [hasBookmarked, toggleHasBookmarked] = useToggle(
-    post.operations?.hasBookmarked
-  );
-  const [bookmarks, { decrement, increment }] = useCounter(
-    post.stats.bookmarks
-  );
+  const hasBookmarked = post.operations?.hasBookmarked;
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = (cache: ApolloCache<any>, hasBookmarked: boolean) => {
     cache.modify({
-      fields: { hasBookmarked: () => !hasBookmarked },
+      fields: { hasBookmarked: () => hasBookmarked },
       id: cache.identify(post.operations as LoggedInPostOperations)
     });
+
     cache.modify({
       fields: {
         stats: (existingData) => ({
           ...existingData,
-          bookmarks: hasBookmarked ? bookmarks - 1 : bookmarks + 1
+          bookmarks: hasBookmarked
+            ? existingData.bookmarks + 1
+            : existingData.bookmarks - 1
         })
       },
       id: cache.identify(post)
@@ -58,12 +55,8 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
     onCompleted: () => {
       toast.success("Publication bookmarked!");
     },
-    onError: (error) => {
-      toggleHasBookmarked();
-      decrement();
-      onError(error);
-    },
-    update: updateCache,
+    onError,
+    update: (cache) => updateCache(cache, true),
     variables: { request: { post: post.id } }
   });
 
@@ -71,24 +64,16 @@ const Bookmark: FC<BookmarkProps> = ({ post }) => {
     onCompleted: () => {
       toast.success("Removed publication bookmark!");
     },
-    onError: (error) => {
-      toggleHasBookmarked();
-      increment();
-      onError(error);
-    },
-    update: updateCache,
+    onError,
+    update: (cache) => updateCache(cache, false),
     variables: { request: { post: post.id } }
   });
 
   const handleTogglePublicationProfileBookmark = async () => {
-    toggleHasBookmarked();
-
     if (hasBookmarked) {
-      decrement();
       return await undoBookmarkPost();
     }
 
-    increment();
     return await bookmarkPost();
   };
 

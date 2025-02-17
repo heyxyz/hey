@@ -75,7 +75,9 @@ const ChooseUsername: FC = () => {
   useAccountQuery({
     fetchPolicy: "no-cache",
     onCompleted: (data) => setIsAvailable(!data.account),
-    variables: { request: { username: { localName: username?.toLowerCase() } } }
+    variables: {
+      request: { username: { localName: username?.toLowerCase() } }
+    }
   });
 
   const handleSignup = async ({

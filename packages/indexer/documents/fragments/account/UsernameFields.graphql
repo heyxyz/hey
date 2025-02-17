@@ -1,4 +1,5 @@
 fragment UsernameFields on Username {
+  namespace
   localName
   linkedTo
   ownedBy

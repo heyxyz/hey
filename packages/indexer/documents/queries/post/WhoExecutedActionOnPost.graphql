@@ -1,0 +1,12 @@
+query WhoExecutedActionOnPost($request: WhoExecutedActionOnPostRequest!) {
+  whoExecutedActionOnPost(request: $request) {
+    items {
+      account {
+        ...AccountFields
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfoFields
+    }
+  }
+}

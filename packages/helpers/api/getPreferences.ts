@@ -19,14 +19,9 @@ const getPreferences = async (headers: any): Promise<Preferences> => {
   } catch {
     return {
       appIcon: 0,
-      email: null,
-      emailVerified: false,
       hasDismissedOrMintedMembershipNft: true,
-      highSignalNotificationFilter: false,
-      developerMode: false,
-      permissions: [],
-      mutedWords: [],
-      theme: null
+      includeLowScore: false,
+      permissions: []
     };
   }
 };

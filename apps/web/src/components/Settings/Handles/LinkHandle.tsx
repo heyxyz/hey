@@ -8,9 +8,10 @@ import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   useAssignUsernameToAccountMutation,
+  useUnassignUsernameFromAccountMutation,
   useUsernamesQuery
 } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -30,10 +31,7 @@ const LinkHandle: FC = () => {
 
   const onCompleted = (hash: string) => {
     setLinkingUsername(null);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptmisticTransactionType.AssignUsername
-    );
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.ASSIGN_USERNAME);
     toast.success("Linked");
   };
 
@@ -43,7 +41,7 @@ const LinkHandle: FC = () => {
   };
 
   const { data, loading } = useUsernamesQuery({
-    variables: { request: { filter: { owner: currentAccount?.owner } } }
+    variables: { request: { filter: { owner: currentAccount?.address } } }
   });
 
   const [assignUsernameToAccount] = useAssignUsernameToAccountMutation({
@@ -76,19 +74,19 @@ const LinkHandle: FC = () => {
 
             return onCompleted(hash);
           }
+
+          if (assignUsernameToAccount.__typename === "TransactionWillFail") {
+            return onError({ message: assignUsernameToAccount.reason });
+          }
         } catch (error) {
           return onError(error);
         }
-      }
-
-      if (assignUsernameToAccount.__typename === "TransactionWillFail") {
-        return toast.error(assignUsernameToAccount.reason);
       }
     },
     onError
   });
 
-  const handleLink = async (username: string) => {
+  const handleLink = async (localName: string) => {
     if (!currentAccount) {
       return;
     }
@@ -103,10 +101,73 @@ const LinkHandle: FC = () => {
       return;
     }
 
-    setLinkingUsername(username);
+    setLinkingUsername(localName);
 
     return await assignUsernameToAccount({
-      variables: { request: { username: { localName: username } } }
+      variables: { request: { username: { localName } } }
+    });
+  };
+
+  const [unassignUsernameFromAccount] = useUnassignUsernameFromAccountMutation({
+    onCompleted: async ({ unassignUsernameFromAccount }) => {
+      if (
+        unassignUsernameFromAccount.__typename === "UnassignUsernameResponse"
+      ) {
+        return onCompleted(unassignUsernameFromAccount.hash);
+      }
+
+      if (walletClient) {
+        try {
+          if (
+            unassignUsernameFromAccount.__typename ===
+            "SponsoredTransactionRequest"
+          ) {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(unassignUsernameFromAccount.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (
+            unassignUsernameFromAccount.__typename ===
+            "SelfFundedTransactionRequest"
+          ) {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(unassignUsernameFromAccount.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (
+            unassignUsernameFromAccount.__typename === "TransactionWillFail"
+          ) {
+            return onError({ message: unassignUsernameFromAccount.reason });
+          }
+        } catch (error) {
+          return onError(error);
+        }
+      }
+    },
+    onError
+  });
+
+  const handleUnlink = async () => {
+    if (!currentAccount) {
+      return;
+    }
+
+    if (isSuspended) {
+      return toast.error(Errors.Suspended);
+    }
+
+    setLinkingUsername(null);
+
+    return await unassignUsernameFromAccount({
+      variables: { request: { namespace: currentAccount.username?.namespace } }
     });
   };
 
@@ -114,11 +175,9 @@ const LinkHandle: FC = () => {
     return <Loader className="py-10" />;
   }
 
-  const availableUsernames = data?.usernames.items.filter(
-    (handle) => handle.linkedTo !== currentAccount?.address
-  );
+  const usernames = data?.usernames.items;
 
-  if (!availableUsernames?.length) {
+  if (!usernames?.length) {
     return (
       <EmptyState
         hideCard
@@ -130,7 +189,7 @@ const LinkHandle: FC = () => {
 
   return (
     <div className="m-5 space-y-6">
-      {availableUsernames?.map((username) => (
+      {usernames?.map((username) => (
         <div
           className="flex flex-wrap items-center justify-between gap-3"
           key={username.value}
@@ -145,13 +204,23 @@ const LinkHandle: FC = () => {
               </div>
             ) : null}
           </div>
-          <Button
-            disabled={linkingUsername === username.value}
-            onClick={() => handleLink(username.value)}
-            outline
-          >
-            {username.linkedTo ? "Unlink and Link" : "Link"}
-          </Button>
+          {username.linkedTo ? (
+            <Button
+              disabled={linkingUsername === username.localName}
+              onClick={() => handleUnlink()}
+              outline
+            >
+              Unlink
+            </Button>
+          ) : (
+            <Button
+              disabled={linkingUsername === username.localName}
+              onClick={() => handleLink(username.localName)}
+              outline
+            >
+              Link
+            </Button>
+          )}
         </div>
       ))}
     </div>

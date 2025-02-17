@@ -12,7 +12,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useAccountThemeStore } from "src/store/persisted/useAccountThemeStore";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useRatesStore } from "src/store/persisted/useRatesStore";
@@ -23,43 +22,27 @@ const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
 
 const PreferencesProvider: FC = () => {
   const { address: sessionAccountAddress } = getCurrentSession();
-  const { setTheme } = useAccountThemeStore();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
   const {
     setAppIcon,
-    setEmail,
-    setEmailVerified,
     setHasDismissedOrMintedMembershipNft,
-    setHighSignalNotificationFilter,
-    setDeveloperMode,
-    setMutedWords,
-    setLoading: setPreferencesLoading
+    setIncludeLowScore
   } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
   const getPreferencesData = async () => {
-    setPreferencesLoading(true);
     const preferences = await getPreferences(getAuthApiHeaders());
 
-    setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
+    setIncludeLowScore(preferences.includeLowScore);
     setAppIcon(preferences.appIcon);
-    setEmail(preferences.email);
-    setEmailVerified(preferences.emailVerified);
-    setDeveloperMode(preferences.developerMode);
     setStatus({
-      isCommentSuspended: preferences.permissions.includes(
-        Permission.CommentSuspended
-      ),
       isSuspended: preferences.permissions.includes(Permission.Suspended)
     });
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
     );
-    setMutedWords(preferences.mutedWords);
-    setPreferencesLoading(false);
-    setTheme({ fontStyle: preferences.theme?.fontStyle });
 
     return true;
   };

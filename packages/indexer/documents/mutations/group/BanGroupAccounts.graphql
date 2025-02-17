@@ -1,0 +1,16 @@
+mutation BanGroupAccounts($request: BanGroupAccountsRequest!) {
+  banGroupAccounts(request: $request) {
+    ... on BanGroupAccountsResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

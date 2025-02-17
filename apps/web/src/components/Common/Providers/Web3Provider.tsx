@@ -2,7 +2,7 @@ import { APP_NAME, WALLETCONNECT_PROJECT_ID } from "@hey/data/constants";
 import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
 import type { FC, ReactNode } from "react";
-import { createConfig, fallback, http, WagmiProvider } from "wagmi";
+import { http, WagmiProvider, createConfig, fallback } from "wagmi";
 import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
 const connectors = [

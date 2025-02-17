@@ -1,15 +1,19 @@
 import { useApolloClient } from "@apollo/client";
-import AllowanceButton from "@components/Settings/Allowance/Button";
-import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
+import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import getCollectModuleData from "@hey/helpers/getCollectModuleData";
-import getPostActionActOnKey from "@hey/helpers/getPostActionActOnKey";
-import type { Post, PostAction } from "@hey/indexer";
-import { OptmisticTransactionType } from "@hey/types/enums";
+import getCollectActionData from "@hey/helpers/getCollectActionData";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
+import {
+  type Post,
+  type PostAction,
+  useExecutePostActionMutation
+} from "@hey/indexer";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, ReactNode } from "react";
@@ -21,7 +25,8 @@ import {
   useTransactionStore
 } from "src/store/persisted/useTransactionStore";
 import { formatUnits } from "viem";
-import { useAccount, useBalance } from "wagmi";
+import { sendEip712Transaction, sendTransaction } from "viem/zksync";
+import { useAccount, useBalance, useWalletClient } from "wagmi";
 
 interface CollectActionProps {
   buttonTitle?: string;
@@ -44,28 +49,28 @@ const CollectAction: FC<CollectActionProps> = ({
   postAction,
   post
 }) => {
-  const collectModule = getCollectModuleData(postAction as any);
+  const collectAction = getCollectActionData(postAction as any);
   const { address: sessionAccountAddress } = getCurrentSession();
 
   const { isSuspended } = useAccountStatus();
-  const { isFollowPending, hasOptimisticallyCollected } = useTransactionStore();
+  const { hasOptimisticallyCollected } = useTransactionStore();
+  const { data: walletClient } = useWalletClient();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [allowed, setAllowed] = useState(true);
   const [hasActed, setHasActed] = useState(
-    collectModule?.amount
+    collectAction?.amount
       ? false
-      : post.operations.hasActed.value || hasOptimisticallyCollected(post.id)
+      : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
   );
 
   const { address } = useAccount();
   const { cache } = useApolloClient();
 
-  const endTimestamp = collectModule?.endsAt;
-  const collectLimit = collectModule?.collectLimit;
-  const amount = collectModule?.amount as number;
-  const assetAddress = collectModule?.assetAddress as any;
-  const assetDecimals = collectModule?.assetDecimals as number;
+  const endTimestamp = collectAction?.endsAt;
+  const collectLimit = collectAction?.collectLimit;
+  const amount = collectAction?.amount as number;
+  const assetAddress = collectAction?.assetAddress as any;
+  const assetDecimals = collectAction?.assetDecimals as number;
   const isAllCollected = collectLimit
     ? countOpenActions >= collectLimit
     : false;
@@ -73,19 +78,9 @@ const CollectAction: FC<CollectActionProps> = ({
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isFreeCollectModule = !amount;
-  const isSimpleFreeCollectModule =
-    postAction.__typename === "SimpleCollectOpenActionSettings";
-  const isFollowersOnly = collectModule?.followerOnly;
-  const isFollowedByMe = isFollowersOnly
-    ? post?.author.operations?.isFollowedByMe
-    : true;
-  const isFollowFinalizedOnchain = isFollowersOnly
-    ? !isFollowPending(post.author.address)
-    : true;
-
   const canCollect = forceShowCollect
     ? true
-    : !hasActed || (!isFreeCollectModule && !isSimpleFreeCollectModule);
+    : !hasActed || !isFreeCollectModule;
 
   const updateTransactions = ({
     txHash
@@ -95,7 +90,7 @@ const CollectAction: FC<CollectActionProps> = ({
     addOptimisticTransaction({
       collectOn: post?.id,
       txHash,
-      type: OptmisticTransactionType.Collect
+      type: OptimisticTxType.CREATE_COLLECT
     });
   };
 
@@ -124,49 +119,23 @@ const CollectAction: FC<CollectActionProps> = ({
     errorToast(error);
   };
 
-  const onCompleted = (
-    __typename?: "LensProfileManagerRelayError" | "RelayError" | "RelaySuccess"
-  ) => {
-    if (
-      __typename === "RelayError" ||
-      __typename === "LensProfileManagerRelayError"
-    ) {
-      return;
-    }
-
+  const onCompleted = (hash: string) => {
     // Should not disable the button if it's a paid collect module
     setHasActed(amount <= 0);
     setIsLoading(false);
+    updateTransactions({ txHash: hash });
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected");
   };
-
-  const { data: allowanceData, loading: allowanceLoading } =
-    useApprovedModuleAllowanceAmountQuery({
-      fetchPolicy: "no-cache",
-      onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        const allowedAmount = Number.parseFloat(
-          approvedModuleAllowanceAmount[0]?.allowance.value
-        );
-        setAllowed(allowedAmount > amount);
-      },
-      skip: !assetAddress || !sessionAccountAddress,
-      variables: {
-        request: {
-          currencies: assetAddress,
-          followModules: [],
-          openActionModules: [postAction.__typename],
-          referenceModules: []
-        }
-      }
-    });
 
   const { data: balanceData } = useBalance({
     address,
     query: { refetchInterval: 2000 },
     token: assetAddress
   });
+
+  console.log(balanceData);
 
   let hasAmount = false;
   if (
@@ -179,52 +148,68 @@ const CollectAction: FC<CollectActionProps> = ({
   }
 
   // Act
-  const [actOnOpenAction] = useActOnOpenActionMutation({
-    onCompleted: ({ actOnOpenAction }) => {
-      if (actOnOpenAction.__typename === "RelaySuccess") {
-        updateTransactions({ txHash: actOnOpenAction.txHash });
+  const [executePostAction] = useExecutePostActionMutation({
+    onCompleted: async ({ executePostAction }) => {
+      if (executePostAction.__typename === "ExecutePostActionResponse") {
+        return onCompleted(executePostAction.hash);
       }
-      onCompleted(actOnOpenAction.__typename);
+
+      if (walletClient) {
+        try {
+          if (executePostAction.__typename === "SponsoredTransactionRequest") {
+            const hash = await sendEip712Transaction(walletClient, {
+              account: walletClient.account,
+              ...sponsoredTransactionData(executePostAction.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (executePostAction.__typename === "SelfFundedTransactionRequest") {
+            const hash = await sendTransaction(walletClient, {
+              account: walletClient.account,
+              ...selfFundedTransactionData(executePostAction.raw)
+            });
+
+            return onCompleted(hash);
+          }
+
+          if (executePostAction.__typename === "TransactionWillFail") {
+            return onError({ message: executePostAction.reason });
+          }
+        } catch (error) {
+          return onError(error);
+        }
+      }
     },
     onError
   });
-
-  // Act via Lens Manager
-  const actViaLensManager = async (
-    request: ActOnOpenActionLensManagerRequest
-  ) => {
-    const { data, errors } = await actOnOpenAction({ variables: { request } });
-
-    if (errors?.toString().includes("has already acted on")) {
-      return;
-    }
-
-    if (
-      !data?.actOnOpenAction ||
-      data?.actOnOpenAction.__typename === "LensProfileManagerRelayError"
-    ) {
-      return await createActOnOpenActionTypedData({ variables: { request } });
-    }
-  };
 
   const handleCreateCollect = async () => {
     if (isSuspended) {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      const actOnRequest: ActOnOpenActionLensManagerRequest = {
-        actOn: { [getPostActionActOnKey(postAction.__typename)]: true },
-        for: post?.id
-      };
+    setIsLoading(true);
 
-      return await createActOnOpenActionTypedData({
-        variables: { request: actOnRequest }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    return await executePostAction({
+      variables: {
+        request: {
+          post: post.id,
+          action: {
+            simpleCollect: {
+              selected: true,
+              referrals: [
+                {
+                  address: COLLECT_FEES_ADDRESS,
+                  percent: 5
+                }
+              ]
+            }
+          }
+        }
+      }
+    });
   };
 
   if (!sessionAccountAddress) {
@@ -244,62 +229,17 @@ const CollectAction: FC<CollectActionProps> = ({
     return null;
   }
 
-  if (allowanceLoading) {
-    return (
-      <div
-        className={cn("shimmer mt-5 h-[34px] w-full rounded-full", className)}
-      />
-    );
-  }
-
-  if (!allowed) {
-    return (
-      <AllowanceButton
-        allowed={allowed}
-        className={cn("mt-5 w-full", className)}
-        module={
-          allowanceData
-            ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
-        }
-        setAllowed={setAllowed}
-        title="Allow collect module"
-      />
-    );
-  }
-
-  if (
-    !hasAmount &&
-    (postAction.__typename === "SimpleCollectActionSettings" ||
-      postAction.__typename === "MultirecipientFeeCollectOpenActionSettings")
-  ) {
+  if (!hasAmount) {
     return (
       <WarningMessage
         className="mt-5 w-full"
         message={
           <NoBalanceError
             errorMessage={noBalanceErrorMessages}
-            moduleAmount={postAction.amount}
+            assetSymbol={collectAction?.assetSymbol}
           />
         }
       />
-    );
-  }
-
-  if (!isFollowedByMe) {
-    return (
-      <FollowUnfollowButton
-        buttonClassName="w-full mt-5"
-        followTitle="Follow to collect"
-        account={post.author}
-      />
-    );
-  }
-
-  if (!isFollowFinalizedOnchain) {
-    return (
-      <Button className="mt-5 w-full" disabled outline>
-        Follow finalizing onchain...
-      </Button>
     );
   }
 

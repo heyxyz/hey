@@ -39,7 +39,9 @@ const Mention: FC<MarkupLinkProps> = ({ mentions, title }) => {
       (mention) => mention.replace.from === handle
     );
 
-    return foundMention?.account;
+    return foundMention?.__typename === "AccountMention"
+      ? foundMention.account
+      : "";
   };
 
   return canShowUserPreview(handle) ? (

@@ -13,7 +13,7 @@ const Commented: FC<CommentedProps> = ({ post }) => {
   return (
     <>
       {root ? <ThreadBody post={root} /> : null}
-      <ThreadBody post={commentOn} />
+      <ThreadBody post={commentOn as Post} />
     </>
   );
 };

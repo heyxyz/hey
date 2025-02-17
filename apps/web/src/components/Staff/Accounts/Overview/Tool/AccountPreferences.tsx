@@ -2,7 +2,6 @@ import MetaDetails from "@components/Shared/MetaDetails";
 import {
   BellIcon,
   CursorArrowRaysIcon,
-  EnvelopeIcon,
   SparklesIcon
 } from "@heroicons/react/24/outline";
 import {
@@ -33,18 +32,6 @@ const AccountPreferences: FC<AccountPreferencesProps> = ({ preferences }) => {
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
-          icon={<EnvelopeIcon className="ld-text-gray-500 size-4" />}
-          title="Email"
-          value={preferences.email || "Not set"}
-        >
-          <div className="flex items-center space-x-1">
-            <div>{preferences.email || "Not set"}</div>
-            {preferences.emailVerified ? (
-              <CheckCircleIcon className="size-4 text-green-500" />
-            ) : null}
-          </div>
-        </MetaDetails>
-        <MetaDetails
           icon={<CursorArrowRaysIcon className="ld-text-gray-500 size-4" />}
           title="App Icon"
         >
@@ -70,7 +57,7 @@ const AccountPreferences: FC<AccountPreferencesProps> = ({ preferences }) => {
           icon={<BellIcon className="ld-text-gray-500 size-4" />}
           title="High signal notification filter"
         >
-          {preferences.highSignalNotificationFilter ? (
+          {preferences.includeLowScore ? (
             <CheckCircleIcon className="size-4 text-green-500" />
           ) : (
             <XCircleIcon className="size-4 text-red-500" />
