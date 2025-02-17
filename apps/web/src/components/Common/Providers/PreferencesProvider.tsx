@@ -28,8 +28,7 @@ const PreferencesProvider: FC = () => {
   const {
     setAppIcon,
     setHasDismissedOrMintedMembershipNft,
-    setIncludeLowScore,
-    setMutedWords
+    setIncludeLowScore
   } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
@@ -44,7 +43,6 @@ const PreferencesProvider: FC = () => {
     setHasDismissedOrMintedMembershipNft(
       preferences.hasDismissedOrMintedMembershipNft
     );
-    setMutedWords(preferences.mutedWords);
 
     return true;
   };

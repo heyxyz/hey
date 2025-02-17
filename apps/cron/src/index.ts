@@ -1,7 +1,6 @@
 import logger from "@hey/helpers/logger";
 import cron from "node-cron";
 import cleanPreferences from "./cleanPreferences";
-import clearMutedWords from "./clearMutedWords";
 import dbVacuum from "./dbVacuum";
 import heartbeat from "./heartbeat";
 
@@ -15,11 +14,6 @@ const startCronJobs = () => {
 
   cron.schedule("*/5 * * * *", async () => {
     await cleanPreferences();
-    return;
-  });
-
-  cron.schedule("*/5 * * * *", async () => {
-    await clearMutedWords();
     return;
   });
 

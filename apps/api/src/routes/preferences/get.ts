@@ -34,15 +34,14 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [preference, permissions, membershipNft, mutedWords] =
+      const [preference, permissions, membershipNft] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { accountAddress } }),
           prisma.accountPermission.findMany({
             include: { permission: { select: { key: true } } },
             where: { enabled: true, accountAddress }
           }),
-          prisma.membershipNft.findUnique({ where: { accountAddress } }),
-          prisma.mutedWord.findMany({ where: { accountAddress } })
+          prisma.membershipNft.findUnique({ where: { accountAddress } })
         ]);
 
       const response: Preferences = {
@@ -51,12 +50,7 @@ export const get = [
           membershipNft?.dismissedOrMinted
         ),
         includeLowScore: Boolean(preference?.includeLowScore),
-        permissions: permissions.map(({ permission }) => permission.key),
-        mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
-          id,
-          word,
-          expiresAt
-        }))
+        permissions: permissions.map(({ permission }) => permission.key)
       };
 
       await setRedis(cacheKey, response);

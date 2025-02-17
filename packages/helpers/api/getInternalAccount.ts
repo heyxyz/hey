@@ -26,8 +26,7 @@ const getInternalAccount = async (
       appIcon: 0,
       hasDismissedOrMintedMembershipNft: true,
       includeLowScore: false,
-      permissions: [],
-      mutedWords: []
+      permissions: []
     };
   }
 };

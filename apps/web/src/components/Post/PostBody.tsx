@@ -16,12 +16,10 @@ import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
 import Link from "next/link";
 import type { FC } from "react";
-import { memo, useState } from "react";
+import { memo } from "react";
 import { isIOS, isMobile } from "react-device-detect";
-import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import Checkin from "./Checkin";
 import Metadata from "./Metadata";
-import MutedPost from "./MutedPost";
 import NotSupportedPost from "./NotSupportedPost";
 import Poll from "./Poll";
 
@@ -38,9 +36,6 @@ const PostBody: FC<PostBodyProps> = ({
   quoted = false,
   showMore = false
 }) => {
-  const { mutedWords } = usePreferencesStore();
-  const [showMutedPost, setShowMutedPost] = useState(false);
-
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { id, metadata } = targetPost;
 
@@ -94,22 +89,6 @@ const PostBody: FC<PostBodyProps> = ({
     !showAttachments &&
     !quoted &&
     !showQuote;
-
-  if (
-    mutedWords
-      ?.map((word) => word.word)
-      .some((word) =>
-        filteredContent.toLowerCase().includes(word.toLowerCase())
-      ) &&
-    !showMutedPost
-  ) {
-    return (
-      <MutedPost
-        type={targetPost.__typename}
-        setShowMutedPost={setShowMutedPost}
-      />
-    );
-  }
 
   return (
     <div className="break-words">
