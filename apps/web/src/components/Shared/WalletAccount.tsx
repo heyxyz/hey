@@ -1,10 +1,10 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { IPFS_GATEWAY } from "@hey/data/constants";
+import { DEFAULT_AVATAR } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import { Image } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
-import type { FC, SyntheticEvent } from "react";
+import type { FC } from "react";
 import useEnsName from "src/hooks/useEnsName";
 import type { Address } from "viem";
 import Slug from "./Slug";
@@ -18,11 +18,6 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
     address,
     enabled: Boolean(address)
   });
-
-  const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
-    const target = event.currentTarget;
-    target.src = `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
-  };
 
   const displayName = loading
     ? formatAddress(address)
@@ -40,8 +35,7 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
           alt={address}
           className="size-10 rounded-full border bg-gray-200"
           height={40}
-          onError={handleImageError}
-          src={`${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`}
+          src={DEFAULT_AVATAR}
           width={40}
         />
         <div>

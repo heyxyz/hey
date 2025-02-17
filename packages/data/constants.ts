@@ -44,6 +44,7 @@ export const EVER_API = "https://endpoint.4everland.co";
 export const EVER_REGION = "4EVERLAND";
 export const EVER_BUCKET = "hey-media";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
+export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const HEY_IMAGEKIT_URL = "https://ik.imagekit.io/lensterimg";
 

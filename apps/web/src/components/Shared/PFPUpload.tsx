@@ -2,7 +2,7 @@ import ChooseFile from "@components/Shared/ChooseFile";
 import ImageCropperController from "@components/Shared/ImageCropperController";
 import uploadCroppedImage, { readFile } from "@helpers/accountPictureUtils";
 import errorToast from "@helpers/errorToast";
-import { AVATAR, IPFS_GATEWAY } from "@hey/data/constants";
+import { AVATAR, DEFAULT_AVATAR } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
@@ -68,9 +68,7 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc, isSmall = false }) => {
     }
   };
 
-  const pictureUrl =
-    pictureSrc ||
-    `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
+  const pictureUrl = pictureSrc || DEFAULT_AVATAR;
   const renderPictureUrl = pictureUrl
     ? imageKit(sanitizeDStorageUrl(pictureUrl), AVATAR)
     : "";
