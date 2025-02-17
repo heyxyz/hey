@@ -9452,6 +9452,13 @@ export type WhoReferencedPostQuery = { __typename?: 'Query', whoReferencedPost: 
       & PaginatedResultInfoFieldsFragment
     ) } };
 
+export type SponsorshipQueryVariables = Exact<{
+  request: SponsorshipRequest;
+}>;
+
+
+export type SponsorshipQuery = { __typename?: 'Query', sponsorship?: { __typename?: 'Sponsorship', address: any, balance?: any | null, limits?: { __typename?: 'SponsorshipLimits', global?: { __typename?: 'SponsorshipRateLimit', limit: number, window: SponsorshipRateLimitWindow } | null, user?: { __typename?: 'SponsorshipRateLimit', limit: number, window: SponsorshipRateLimitWindow } | null } | null } | null };
+
 export const PaginatedResultInfoFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginatedResultInfoFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PaginatedResultInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"prev"}},{"kind":"Field","name":{"kind":"Name","value":"next"}}]}}]} as unknown as DocumentNode;
 export const SelfFundedTransactionRequestFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode;
 export const SponsoredTransactionRequestFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
@@ -11821,6 +11828,40 @@ export type WhoReferencedPostQueryHookResult = ReturnType<typeof useWhoReference
 export type WhoReferencedPostLazyQueryHookResult = ReturnType<typeof useWhoReferencedPostLazyQuery>;
 export type WhoReferencedPostSuspenseQueryHookResult = ReturnType<typeof useWhoReferencedPostSuspenseQuery>;
 export type WhoReferencedPostQueryResult = Apollo.QueryResult<WhoReferencedPostQuery, WhoReferencedPostQueryVariables>;
+export const SponsorshipDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Sponsorship"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SponsorshipRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sponsorship"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"limits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"global"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"window"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"window"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+
+/**
+ * __useSponsorshipQuery__
+ *
+ * To run a query within a React component, call `useSponsorshipQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSponsorshipQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSponsorshipQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSponsorshipQuery(baseOptions: Apollo.QueryHookOptions<SponsorshipQuery, SponsorshipQueryVariables> & ({ variables: SponsorshipQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SponsorshipQuery, SponsorshipQueryVariables>(SponsorshipDocument, options);
+      }
+export function useSponsorshipLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SponsorshipQuery, SponsorshipQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SponsorshipQuery, SponsorshipQueryVariables>(SponsorshipDocument, options);
+        }
+export function useSponsorshipSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SponsorshipQuery, SponsorshipQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SponsorshipQuery, SponsorshipQueryVariables>(SponsorshipDocument, options);
+        }
+export type SponsorshipQueryHookResult = ReturnType<typeof useSponsorshipQuery>;
+export type SponsorshipLazyQueryHookResult = ReturnType<typeof useSponsorshipLazyQuery>;
+export type SponsorshipSuspenseQueryHookResult = ReturnType<typeof useSponsorshipSuspenseQuery>;
+export type SponsorshipQueryResult = Apollo.QueryResult<SponsorshipQuery, SponsorshipQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

@@ -4,7 +4,7 @@ import { Card } from "./Card";
 import { H4 } from "./Typography";
 
 interface NumberedStatsProps {
-  count: string;
+  count?: string;
   name: ReactNode;
   suffix?: string;
 }
