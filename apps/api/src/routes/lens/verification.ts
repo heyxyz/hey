@@ -6,12 +6,13 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
+import type { Address } from "viem";
 
 const domain = {
   name: "Lens Source",
   version: "1",
   chainId: 37111,
-  verifyingContract: HEY_APP
+  verifyingContract: HEY_APP as Address
 } as const;
 
 const types = {
@@ -30,7 +31,7 @@ export const post = [
       return noBody(res);
     }
 
-    const source = HEY_APP;
+    const source = HEY_APP as Address;
     const { nonce, deadline, account, operation } = body;
 
     try {

@@ -13,6 +13,7 @@ export const post = [
 
     try {
       logger.info("Authorization request received");
+      logger.info("Authorization request fullfilled");
 
       return res.status(200).json({
         allowed: true,
