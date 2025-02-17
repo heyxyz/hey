@@ -27,8 +27,7 @@ const getInternalAccount = async (
       hasDismissedOrMintedMembershipNft: true,
       includeLowScore: false,
       permissions: [],
-      mutedWords: [],
-      theme: null
+      mutedWords: []
     };
   }
 };

@@ -22,8 +22,7 @@ const getPreferences = async (headers: any): Promise<Preferences> => {
       hasDismissedOrMintedMembershipNft: true,
       includeLowScore: false,
       permissions: [],
-      mutedWords: [],
-      theme: null
+      mutedWords: []
     };
   }
 };
