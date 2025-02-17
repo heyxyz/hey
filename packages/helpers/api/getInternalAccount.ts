@@ -25,7 +25,7 @@ const getInternalAccount = async (
     return {
       appIcon: 0,
       hasDismissedOrMintedMembershipNft: true,
-      highSignalNotificationFilter: false,
+      includeLowScore: false,
       permissions: [],
       mutedWords: [],
       theme: null

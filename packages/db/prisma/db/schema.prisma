@@ -8,10 +8,10 @@ datasource db {
 }
 
 model Preference {
-  accountAddress               String   @id
-  appIcon                      Int?     @default(0)
-  highSignalNotificationFilter Boolean  @default(false)
-  createdAt                    DateTime @default(now())
+  accountAddress  String   @id
+  appIcon         Int?     @default(0)
+  includeLowScore Boolean  @default(false)
+  createdAt       DateTime @default(now())
 }
 
 model MembershipNft {

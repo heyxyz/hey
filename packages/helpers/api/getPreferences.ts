@@ -20,7 +20,7 @@ const getPreferences = async (headers: any): Promise<Preferences> => {
     return {
       appIcon: 0,
       hasDismissedOrMintedMembershipNft: true,
-      highSignalNotificationFilter: false,
+      includeLowScore: false,
       permissions: [],
       mutedWords: [],
       theme: null

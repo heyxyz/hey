@@ -57,7 +57,7 @@ export type MutedWord = {
 export type Preferences = {
   appIcon: number;
   hasDismissedOrMintedMembershipNft: boolean;
-  highSignalNotificationFilter: boolean;
+  includeLowScore: boolean;
   permissions: string[];
   mutedWords: MutedWord[];
   theme: AccountTheme | null;

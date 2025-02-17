@@ -30,7 +30,7 @@ const PreferencesProvider: FC = () => {
   const {
     setAppIcon,
     setHasDismissedOrMintedMembershipNft,
-    setHighSignalNotificationFilter,
+    setIncludeLowScore,
     setMutedWords
   } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
@@ -38,7 +38,7 @@ const PreferencesProvider: FC = () => {
   const getPreferencesData = async () => {
     const preferences = await getPreferences(getAuthApiHeaders());
 
-    setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
+    setIncludeLowScore(preferences.includeLowScore);
     setAppIcon(preferences.appIcon);
     setStatus({
       isSuspended: preferences.permissions.includes(Permission.Suspended)
