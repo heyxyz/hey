@@ -86,8 +86,6 @@ const defineMentionSpec = () => {
             ]
           : [["span", value]];
 
-      console.log(children);
-
       return [
         "span",
         {
