@@ -1,0 +1,16 @@
+query Sponsorship($request: SponsorshipRequest!) {
+  sponsorship(request: $request) {
+    address
+    balance
+    limits {
+      global {
+        limit
+        window
+      }
+      user {
+        limit
+        window
+      }
+    }
+  }
+}
