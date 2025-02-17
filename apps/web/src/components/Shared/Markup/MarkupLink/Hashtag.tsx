@@ -1,5 +1,3 @@
-import { prideHashtags } from "@hey/data/pride-hashtags";
-import isPrideMonth from "@hey/helpers/isPrideMonth";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MarkupLinkProps } from "@hey/types/misc";
 import Link from "next/link";
@@ -10,9 +8,6 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
   if (!title) {
     return null;
   }
-
-  const tag = title.slice(1).toLowerCase();
-  const isPrideHashtag = isPrideMonth() ? prideHashtags.includes(tag) : false;
 
   return (
     <span className="inline-flex items-center space-x-1">
@@ -26,7 +21,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
           })}
           onClick={stopEventPropagation}
         >
-          {isPrideHashtag ? <span className="pride-text">{title}</span> : title}
+          {title}
         </Link>
       </span>
     </span>
