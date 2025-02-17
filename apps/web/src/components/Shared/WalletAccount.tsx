@@ -1,7 +1,6 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { IPFS_GATEWAY } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
-import getStampFyiURL from "@hey/helpers/getStampFyiURL";
-import imageKit from "@hey/helpers/imageKit";
 import { Image } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
@@ -22,7 +21,7 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     const target = event.currentTarget;
-    target.src = getStampFyiURL(address);
+    target.src = `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
   };
 
   const displayName = loading
@@ -42,7 +41,7 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
           className="size-10 rounded-full border bg-gray-200"
           height={40}
           onError={handleImageError}
-          src={imageKit(getStampFyiURL(address))}
+          src={`${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`}
           width={40}
         />
         <div>

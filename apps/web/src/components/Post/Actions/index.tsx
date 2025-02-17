@@ -1,4 +1,3 @@
-import isPostActionAllowed from "@hey/helpers/isPostActionAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPost } from "@hey/indexer";
@@ -18,7 +17,11 @@ interface PostActionsProps {
 const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
   const hasPostAction = (targetPost.actions?.length || 0) > 0;
-  const canAct = hasPostAction && isPostActionAllowed(targetPost.actions);
+  const canAct =
+    hasPostAction &&
+    targetPost.actions.some(
+      (action) => action.__typename === "SimpleCollectAction"
+    );
 
   return (
     <span

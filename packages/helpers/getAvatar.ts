@@ -10,10 +10,14 @@ import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
  * @returns The avatar image URL.
  */
 const getAvatar = (entity: any, namedTransform = AVATAR): string => {
+  const defaultAvatar = `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
+
+  if (!entity) {
+    return defaultAvatar;
+  }
+
   const avatarUrl =
-    entity?.metadata?.picture ||
-    entity?.metadata?.icon ||
-    `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
+    entity?.metadata?.picture || entity?.metadata?.icon || defaultAvatar;
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

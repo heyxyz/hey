@@ -2,7 +2,6 @@ import Slug from "@components/Shared/Slug";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import getStampFyiURL from "@hey/helpers/getStampFyiURL";
 import {
   type Account,
   type RecipientPercent,
@@ -59,7 +58,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   <Image
                     alt="Avatar"
                     className="size-5 rounded-full border bg-gray-200 dark:border-gray-700"
-                    src={account ? getAvatar(account) : getStampFyiURL(address)}
+                    src={getAvatar(account)}
                   />
                   {account ? (
                     <Link href={getAccount(account as Account).link}>
