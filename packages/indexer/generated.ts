@@ -1387,8 +1387,6 @@ export type CreatePostRequest = {
 };
 
 export type CreateRepostRequest = {
-  /** The feed to repost to. If not provided, the global feed is used. */
-  feed?: Scalars['EvmAddress']['input'];
   /** The processing params for the feed rules. */
   feedRulesProcessingParams?: InputMaybe<Array<FeedRulesProcessingParams>>;
   /** The post to reference. */
@@ -3913,7 +3911,7 @@ export type Mutation = {
   /**
    * Add admins to a graph/app/sponsor/feed/username/group.
    *
-   * You MUST be authenticated as Account Owner to use this mutation.
+   * You MUST be authenticated as Builder to use this mutation.
    */
   addAdmins: AddAdminsResult;
   /**
@@ -4215,7 +4213,7 @@ export type Mutation = {
   /**
    * Remove admins from a graph/app/sponsor/feed/username/group.
    *
-   * You MUST be authenticated as Account Owner to use this mutation.
+   * You MUST be authenticated as Builder to use this mutation.
    */
   removeAdmins: RemoveAdminsResult;
   /**
@@ -4375,7 +4373,7 @@ export type Mutation = {
   /**
    * Transfer primitive ownership for the graph/app/sponsor/feed/username/group.
    *
-   * You MUST be authenticated as Account Owner to use this mutation.
+   * You MUST be authenticated as Builder to use this mutation.
    */
   transferPrimitiveOwnership: TransferPrimitiveOwnershipResult;
   /**
