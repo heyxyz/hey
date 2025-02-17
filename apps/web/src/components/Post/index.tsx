@@ -4,9 +4,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPublication from "@components/Composer/NewPublication";
 import Footer from "@components/Shared/Footer";
 import SingleAccount from "@components/Shared/SingleAccount";
-import PostStaffTool from "@components/StaffTools/Panels/Post";
 import { APP_NAME } from "@hey/data/constants";
-import { FeatureFlag } from "@hey/data/feature-flags";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -25,7 +23,6 @@ import {
   GridLayout,
   WarningMessage
 } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { createTrackedSelector } from "react-tracked";
@@ -62,7 +59,6 @@ const ViewPost: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
-  const isStaff = useFlag(FeatureFlag.Staff);
 
   const showQuotes = pathname === "/posts/[id]/quotes";
   const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
@@ -157,7 +153,6 @@ const ViewPost: NextPage = () => {
           />
         </Card>
         <RelevantPeople mentions={targetPost.mentions} />
-        {isStaff ? <PostStaffTool post={targetPost} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>
