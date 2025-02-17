@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
-  CircleStackIcon,
+  CodeBracketIcon,
   CpuChipIcon,
   ExclamationTriangleIcon,
   FingerPrintIcon,
@@ -55,9 +55,9 @@ const SettingsSidebar: FC = () => {
       url: "/settings/blocked"
     },
     {
-      icon: <CircleStackIcon className="size-4" />,
-      title: "Export",
-      url: "/settings/export"
+      icon: <CodeBracketIcon className="size-4" />,
+      title: "Developer",
+      url: "/settings/developer"
     },
     {
       icon: <ExclamationTriangleIcon className="size-4 text-red-500" />,
