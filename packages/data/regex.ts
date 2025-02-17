@@ -9,10 +9,8 @@ const MATCH_BEHIND = regexLookbehindAvailable ? "(?<=^|\\s)" : "";
 const MENTION_NAMESPACE = "\\w+\\/";
 const MENTION_BODY = "([\\dA-Za-z]\\w{2,25})";
 const EDITOR_MENTION = "([\\dA-Za-z]\\w*)"; // This will start searching for mentions after the first character
-const EDITOR_GROUP = "([\\dA-Za-z]\\w*)"; // This will start searching for groups after the first character
 
 export const Regex = {
-  cashtag: /(\$\w*[A-Za-z]\w*)/g,
   evmAddress: /^(0x)?[\da-f]{40}$/i,
   username: /^[\dA-Za-z]\w{2,25}$/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
@@ -30,8 +28,6 @@ export const Regex = {
 };
 
 export const EditorRegex = {
-  // group looks like: /bonsai or /gho
-  group: new RegExp(`${MATCH_BEHIND}\/(${EDITOR_GROUP})$`, "g"),
   emoji: new RegExp(`${MATCH_BEHIND}:\\w*$`, "g"),
   mention: new RegExp(`${MATCH_BEHIND}@${EDITOR_MENTION}$`, "g")
 };
