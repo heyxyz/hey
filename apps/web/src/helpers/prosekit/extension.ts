@@ -34,19 +34,6 @@ const defineHashtag = () => {
   ]);
 };
 
-const defineCashtag = () => {
-  return union([
-    defineMarkSpec({
-      name: "cashtag" as const,
-      toDOM: () => ["span", { "data-cashtag": "" }, 0]
-    }),
-    defineMarkRule({
-      regex: Regex.cashtag,
-      type: "cashtag"
-    })
-  ]);
-};
-
 const defineAutoLink = () => {
   return union([defineLinkSpec(), defineLinkMarkRule()]);
 };
@@ -111,7 +98,6 @@ export const defineEditorExtension = () => {
     defineItalic(),
     defineBold(),
     defineHashtag(),
-    defineCashtag(),
     defineAutoLink(),
     defineVirtualSelection(),
     defineMention(),

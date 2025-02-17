@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import EmojiPicker from "./EmojiPicker";
-import GroupPicker from "./GroupPicker";
 import InlineMenu from "./InlineMenu";
 import MentionPicker from "./MentionPicker";
 
@@ -9,7 +8,6 @@ const EditorMenus: FC = () => {
     <>
       <InlineMenu />
       <MentionPicker />
-      <GroupPicker />
       <EmojiPicker />
     </>
   );
