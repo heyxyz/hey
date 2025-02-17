@@ -93,15 +93,6 @@ CREATE TABLE "AccountStatus" (
 );
 
 -- CreateTable
-CREATE TABLE "AccountTheme" (
-    "accountAddress" TEXT NOT NULL,
-    "fontStyle" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "AccountTheme_pkey" PRIMARY KEY ("accountAddress")
-);
-
--- CreateTable
 CREATE TABLE "MutedWord" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "accountAddress" TEXT NOT NULL,

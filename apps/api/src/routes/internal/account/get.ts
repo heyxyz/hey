@@ -1,6 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
-import type { AccountTheme, InternalAccount } from "@hey/types/hey";
+import type { InternalAccount } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -18,7 +18,7 @@ export const get = [
     }
 
     try {
-      const [preference, permissions, membershipNft, theme, mutedWords] =
+      const [preference, permissions, membershipNft, mutedWords] =
         await prisma.$transaction([
           prisma.preference.findUnique({ where: { accountAddress } }),
           prisma.accountPermission.findMany({
@@ -26,7 +26,6 @@ export const get = [
             where: { enabled: true, accountAddress }
           }),
           prisma.membershipNft.findUnique({ where: { accountAddress } }),
-          prisma.accountTheme.findUnique({ where: { accountAddress } }),
           prisma.mutedWord.findMany({ where: { accountAddress } })
         ]);
 
@@ -36,7 +35,6 @@ export const get = [
           membershipNft?.dismissedOrMinted
         ),
         includeLowScore: Boolean(preference?.includeLowScore),
-        theme: (theme as AccountTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
         mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
           id,

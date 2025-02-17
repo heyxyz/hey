@@ -6,7 +6,6 @@ import {
   ClockIcon,
   Cog6ToothIcon,
   MapPinIcon,
-  PaintBrushIcon,
   ShieldCheckIcon
 } from "@heroicons/react/24/outline";
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
@@ -19,7 +18,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getMentions from "@hey/helpers/getMentions";
 import type { Account } from "@hey/indexer";
-import { Button, Drawer, H3, Image, LightBox, Tooltip } from "@hey/ui";
+import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -34,7 +33,6 @@ import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import InternalTools from "./InternalTools";
 import AccountMenu from "./Menu";
-import UpdateTheme from "./UpdateTheme";
 
 const MetaDetails = ({
   children,
@@ -58,7 +56,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
   const { push } = useRouter();
   const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
-  const [showPersonalizeModal, setShowPersonalizeModal] = useState(false);
   const isStaff = useFlag(FeatureFlag.Staff);
   const { resolvedTheme } = useTheme();
 
@@ -109,22 +106,13 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         <Followerings account={account} />
         <div className="flex items-center space-x-2">
           {currentAccount?.address === account.address ? (
-            <>
-              <Button
-                icon={<Cog6ToothIcon className="size-5" />}
-                onClick={() => push("/settings")}
-                outline
-              >
-                Edit Account
-              </Button>
-              <Button
-                icon={<PaintBrushIcon className="size-5" />}
-                onClick={() => setShowPersonalizeModal(true)}
-                outline
-              >
-                Personalize
-              </Button>
-            </>
+            <Button
+              icon={<Cog6ToothIcon className="size-5" />}
+              onClick={() => push("/settings")}
+              outline
+            >
+              Edit Account
+            </Button>
           ) : (
             <FollowUnfollowButton account={account} />
           )}
@@ -226,13 +214,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
       </div>
       <Badges address={account.address} />
       <InternalTools account={account} />
-      <Drawer
-        title="Personalize"
-        onClose={() => setShowPersonalizeModal(false)}
-        show={showPersonalizeModal}
-      >
-        <UpdateTheme />
-      </Drawer>
     </div>
   );
 };

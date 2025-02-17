@@ -109,12 +109,6 @@ model AccountStatus {
   createdAt      DateTime @default(now())
 }
 
-model AccountTheme {
-  accountAddress String   @id
-  fontStyle      String?
-  createdAt      DateTime @default(now())
-}
-
 model MutedWord {
   id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   accountAddress String

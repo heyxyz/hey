@@ -44,10 +44,6 @@ export type Poll = {
   options: PollOption[];
 };
 
-export type AccountTheme = {
-  fontStyle?: string;
-};
-
 export type MutedWord = {
   id: string;
   word: string;
@@ -60,7 +56,6 @@ export type Preferences = {
   includeLowScore: boolean;
   permissions: string[];
   mutedWords: MutedWord[];
-  theme: AccountTheme | null;
 };
 
 export type InternalAccount = Preferences;
