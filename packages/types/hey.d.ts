@@ -44,18 +44,11 @@ export type Poll = {
   options: PollOption[];
 };
 
-export type MutedWord = {
-  id: string;
-  word: string;
-  expiresAt: Date | null;
-};
-
 export type Preferences = {
   appIcon: number;
   hasDismissedOrMintedMembershipNft: boolean;
   includeLowScore: boolean;
   permissions: string[];
-  mutedWords: MutedWord[];
 };
 
 export type InternalAccount = Preferences;

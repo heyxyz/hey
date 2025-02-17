@@ -13,7 +13,6 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
 import IncludeLowScore from "./IncludeLowScore";
-import MutedWords from "./MutedWords";
 
 const PreferencesSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -40,7 +39,6 @@ const PreferencesSettings: NextPage = () => {
           </div>
         </Card>
         <AppIcon />
-        <MutedWords />
       </GridItemEight>
     </GridLayout>
   );
