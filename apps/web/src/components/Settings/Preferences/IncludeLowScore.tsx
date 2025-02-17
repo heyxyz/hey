@@ -9,21 +9,20 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 
-const HighSignalNotificationFilter: FC = () => {
-  const { highSignalNotificationFilter, setHighSignalNotificationFilter } =
-    usePreferencesStore();
+const IncludeLowScore: FC = () => {
+  const { includeLowScore, setIncludeLowScore } = usePreferencesStore();
   const [updating, setUpdating] = useState(false);
 
-  const toggleHighSignalNotificationFilter = async () => {
+  const toggleIncludeLowScore = async () => {
     try {
       setUpdating(true);
       await axios.post(
         `${HEY_API_URL}/preferences/update`,
-        { highSignalNotificationFilter: !highSignalNotificationFilter },
+        { includeLowScore: !includeLowScore },
         { headers: getAuthApiHeaders() }
       );
 
-      setHighSignalNotificationFilter(!highSignalNotificationFilter);
+      setIncludeLowScore(!includeLowScore);
       toast.success("Notification preference updated");
     } catch (error) {
       errorToast(error);
@@ -34,14 +33,14 @@ const HighSignalNotificationFilter: FC = () => {
 
   return (
     <ToggleWithHelper
-      description="Turn on high-signal notification filter"
+      description="Turn on low-signal notification filter"
       disabled={updating}
       heading="Notification Signal filter"
       icon={<SwatchIcon className="size-5" />}
-      on={highSignalNotificationFilter}
-      setOn={toggleHighSignalNotificationFilter}
+      on={includeLowScore}
+      setOn={toggleIncludeLowScore}
     />
   );
 };
 
-export default HighSignalNotificationFilter;
+export default IncludeLowScore;

@@ -57,7 +57,7 @@ const AccountPreferences: FC<AccountPreferencesProps> = ({ preferences }) => {
           icon={<BellIcon className="ld-text-gray-500 size-4" />}
           title="High signal notification filter"
         >
-          {preferences.highSignalNotificationFilter ? (
+          {preferences.includeLowScore ? (
             <CheckCircleIcon className="size-4 text-green-500" />
           ) : (
             <XCircleIcon className="size-4 text-red-500" />

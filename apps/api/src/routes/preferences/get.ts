@@ -51,9 +51,7 @@ export const get = [
         hasDismissedOrMintedMembershipNft: Boolean(
           membershipNft?.dismissedOrMinted
         ),
-        highSignalNotificationFilter: Boolean(
-          preference?.highSignalNotificationFilter
-        ),
+        includeLowScore: Boolean(preference?.includeLowScore),
         theme: (theme as AccountTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
         mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({

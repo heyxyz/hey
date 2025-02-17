@@ -7,16 +7,14 @@ import { persist } from "zustand/middleware";
 interface State {
   appIcon: number;
   hasDismissedOrMintedMembershipNft: boolean;
-  highSignalNotificationFilter: boolean;
+  includeLowScore: boolean;
   mutedWords: MutedWord[];
   resetPreferences: () => void;
   setAppIcon: (appIcon: number) => void;
   setHasDismissedOrMintedMembershipNft: (
     hasDismissedOrMintedMembershipNft: boolean
   ) => void;
-  setHighSignalNotificationFilter: (
-    highSignalNotificationFilter: boolean
-  ) => void;
+  setIncludeLowScore: (includeLowScore: boolean) => void;
   setMutedWords: (mutedWords: MutedWord[]) => void;
 }
 
@@ -25,19 +23,18 @@ const store = create(
     (set) => ({
       appIcon: 0,
       hasDismissedOrMintedMembershipNft: true,
-      highSignalNotificationFilter: false,
+      includeLowScore: false,
       mutedWords: [],
       resetPreferences: () =>
         set(() => ({
           hasDismissedOrMintedMembershipNft: true,
-          highSignalNotificationFilter: false
+          includeLowScore: false
         })),
       setAppIcon: (appIcon) => set(() => ({ appIcon })),
       setHasDismissedOrMintedMembershipNft: (
         hasDismissedOrMintedMembershipNft
       ) => set(() => ({ hasDismissedOrMintedMembershipNft })),
-      setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
-        set(() => ({ highSignalNotificationFilter })),
+      setIncludeLowScore: (includeLowScore) => set(() => ({ includeLowScore })),
       setMutedWords: (mutedWords) => set(() => ({ mutedWords }))
     }),
     { name: Localstorage.PreferencesStore }

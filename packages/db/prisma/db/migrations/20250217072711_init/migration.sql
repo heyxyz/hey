@@ -5,7 +5,7 @@ CREATE TYPE "PermissionType" AS ENUM ('PERMISSION', 'OPERATION', 'COHORT');
 CREATE TABLE "Preference" (
     "accountAddress" TEXT NOT NULL,
     "appIcon" INTEGER DEFAULT 0,
-    "highSignalNotificationFilter" BOOLEAN NOT NULL DEFAULT false,
+    "includeLowScore" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Preference_pkey" PRIMARY KEY ("accountAddress")
