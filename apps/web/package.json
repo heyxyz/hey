@@ -40,6 +40,7 @@
     "next": "^15.1.7",
     "next-axiom": "^1.9.1",
     "next-themes": "^0.4.4",
+    "nextjs-google-analytics": "^2.3.7",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
     "prosekit": "^0.11.5",
