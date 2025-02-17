@@ -32,9 +32,6 @@ const nextConfig = {
       }
     ];
   },
-  typescript: {
-    ignoreBuildErrors: true
-  },
   poweredByHeader: false,
   productionBrowserSourceMaps: true,
   reactStrictMode: false,

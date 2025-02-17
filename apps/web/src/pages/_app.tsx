@@ -8,7 +8,7 @@ import "../styles.css";
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Providers>
-      <GoogleAnalytics strategy="afterInteractive" trackPageViews />
+      <GoogleAnalytics strategy="lazyOnload" trackPageViews />
       <style global jsx>{`
         body {
           font-family: ${heyFont.style.fontFamily};
