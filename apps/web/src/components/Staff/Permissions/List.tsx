@@ -57,8 +57,7 @@ const List: FC = () => {
                   <div className="flex items-center space-x-2">
                     <b
                       className={cn(
-                        (permission.key === Permission.Suspended ||
-                          permission.key === Permission.CommentSuspended) &&
+                        permission.key === Permission.Suspended &&
                           "text-red-500"
                       )}
                     >

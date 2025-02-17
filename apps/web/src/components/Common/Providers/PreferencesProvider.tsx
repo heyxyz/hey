@@ -43,9 +43,6 @@ const PreferencesProvider: FC = () => {
     setAppIcon(preferences.appIcon);
     setDeveloperMode(preferences.developerMode);
     setStatus({
-      isCommentSuspended: preferences.permissions.includes(
-        Permission.CommentSuspended
-      ),
       isSuspended: preferences.permissions.includes(Permission.Suspended)
     });
     setHasDismissedOrMintedMembershipNft(

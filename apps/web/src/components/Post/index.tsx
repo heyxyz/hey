@@ -2,7 +2,6 @@ import CommentFeed from "@components/Comment/CommentFeed";
 import NoneRelevantFeed from "@components/Comment/NoneRelevantFeed";
 import MetaTags from "@components/Common/MetaTags";
 import NewPublication from "@components/Composer/NewPublication";
-import CommentSuspendedWarning from "@components/Shared/CommentSuspendedWarning";
 import Footer from "@components/Shared/Footer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import PostStaffTool from "@components/StaffTools/Panels/Post";
@@ -61,7 +60,7 @@ const ViewPost: NextPage = () => {
   } = useRouter();
 
   const { currentAccount } = useAccountStore();
-  const { isCommentSuspended, isSuspended } = useAccountStatus();
+  const { isSuspended } = useAccountStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
   const isStaff = useFlag(FeatureFlag.Staff);
 
@@ -101,7 +100,6 @@ const ViewPost: NextPage = () => {
 
   const post = preLoadedPost || (data?.post as Post);
   const targetPost = isRepost(post) ? post.repostOf : post;
-  const suspended = isSuspended || isCommentSuspended;
   const canComment =
     targetPost.operations?.canComment.__typename ===
     "PostOperationValidationPassed";
@@ -127,14 +125,13 @@ const ViewPost: NextPage = () => {
                 post={post}
               />
             </Card>
-            {suspended ? <CommentSuspendedWarning /> : null}
             {!canComment && (
               <WarningMessage
                 title="You cannot comment on this post"
                 message="You don't have permission to comment on this post."
               />
             )}
-            {currentAccount && !post.isDeleted && !suspended && canComment ? (
+            {currentAccount && !post.isDeleted && !isSuspended && canComment ? (
               <NewPublication post={targetPost} />
             ) : null}
             {post.isDeleted ? null : (
