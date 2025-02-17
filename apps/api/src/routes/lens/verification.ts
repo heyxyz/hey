@@ -30,14 +30,9 @@ export const post = [
     }
 
     const source = HEY_APP;
-    const signedBy = body.signedBy;
     const { nonce, deadline, account } = body;
 
     try {
-      if (signedBy) {
-        return res.status(200).json({ allowed: true, sponsored: true });
-      }
-
       const [signature, accountPermission] = await Promise.all([
         heyWalletClient.signTypedData({
           domain,
