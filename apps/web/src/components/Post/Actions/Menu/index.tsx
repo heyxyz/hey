@@ -8,7 +8,6 @@ import type { FC } from "react";
 import { Fragment } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Bookmark from "./Bookmark";
-import CopyID from "./CopyID";
 import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
 import HideComment from "./HideComment";
@@ -53,7 +52,6 @@ const PostMenu: FC<PostMenuProps> = ({ post }) => {
           <div className="divider" />
           <Share post={post} />
           <CopyPostText post={post} />
-          <CopyID id={post.id} />
           <div className="divider" />
           {currentAccount?.address === post?.author?.address ? (
             <Delete post={post} />

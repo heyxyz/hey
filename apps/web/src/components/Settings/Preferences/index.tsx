@@ -12,7 +12,6 @@ import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import AppIcon from "./AppIcon";
-import DeveloperMode from "./DeveloperMode";
 import HighSignalNotificationFilter from "./HighSignalNotificationFilter";
 import MutedWords from "./MutedWords";
 
@@ -38,7 +37,6 @@ const PreferencesSettings: NextPage = () => {
           />
           <div className="m-5 space-y-5">
             <HighSignalNotificationFilter />
-            <DeveloperMode />
           </div>
         </Card>
         <AppIcon />

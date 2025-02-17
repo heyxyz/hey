@@ -6,8 +6,7 @@ const cleanPreferences = async () => {
     await prisma.preference.deleteMany({
       where: {
         appIcon: 0,
-        highSignalNotificationFilter: false,
-        developerMode: false
+        highSignalNotificationFilter: false
       }
     });
 

@@ -8,7 +8,6 @@ interface State {
   appIcon: number;
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
-  developerMode: boolean;
   mutedWords: MutedWord[];
   resetPreferences: () => void;
   setAppIcon: (appIcon: number) => void;
@@ -18,7 +17,6 @@ interface State {
   setHighSignalNotificationFilter: (
     highSignalNotificationFilter: boolean
   ) => void;
-  setDeveloperMode: (developerMode: boolean) => void;
   setMutedWords: (mutedWords: MutedWord[]) => void;
 }
 
@@ -28,7 +26,6 @@ const store = create(
       appIcon: 0,
       hasDismissedOrMintedMembershipNft: true,
       highSignalNotificationFilter: false,
-      developerMode: false,
       mutedWords: [],
       resetPreferences: () =>
         set(() => ({
@@ -41,7 +38,6 @@ const store = create(
       ) => set(() => ({ hasDismissedOrMintedMembershipNft })),
       setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
         set(() => ({ highSignalNotificationFilter })),
-      setDeveloperMode: (developerMode) => set(() => ({ developerMode })),
       setMutedWords: (mutedWords) => set(() => ({ mutedWords }))
     }),
     { name: Localstorage.PreferencesStore }
