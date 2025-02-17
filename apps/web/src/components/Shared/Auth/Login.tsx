@@ -2,7 +2,6 @@ import SwitchNetwork from "@components/Shared/SwitchNetwork";
 import errorToast from "@helpers/errorToast";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
-import { HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
   type Account,
@@ -65,7 +64,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
       // Get challenge
       const challenge = await loadChallenge({
         variables: {
-          request: { accountOwner: { app: HEY_APP, owner: address, account } }
+          request: { accountOwner: { owner: address, account } }
         }
       });
 
