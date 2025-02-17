@@ -1,7 +1,6 @@
 import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
-import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
   AccountsOrderBy,
@@ -112,7 +111,7 @@ const List: FC = () => {
             endReached={onEndReached}
             itemContent={(_, account) => (
               <div className="pb-7">
-                <Link href={getAccount(account as Account).staffLink}>
+                <Link href={`/staff/accounts/${account.address}`}>
                   <SingleAccount
                     isBig
                     linkToAccount={false}

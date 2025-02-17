@@ -9,15 +9,13 @@ const getAccount = (
   link: string;
   username: string;
   usernameWithPrefix: string;
-  staffLink: string;
 } => {
   if (!account) {
     return {
       name: "...",
       link: "",
       username: "...",
-      usernameWithPrefix: "...",
-      staffLink: ""
+      usernameWithPrefix: "..."
     };
   }
 
@@ -34,8 +32,7 @@ const getAccount = (
     name: sanitizeDisplayName(account.metadata?.name) || username,
     link: link,
     username,
-    usernameWithPrefix: `${prefix}${username}`,
-    staffLink: `/staff/accounts/${account.address}`
+    usernameWithPrefix: `${prefix}${username}`
   };
 };
 

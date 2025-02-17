@@ -144,7 +144,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
             >
               <Link
                 className="text-yellow-600"
-                href={getAccount(account).staffLink}
+                href={`/staff/accounts/${account.address}`}
               >
                 Open in Staff Tools
               </Link>
