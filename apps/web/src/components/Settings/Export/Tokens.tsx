@@ -87,7 +87,7 @@ const Tokens: FC = () => {
         </button>
       </Card>
       <Card>
-        <CardHeader title="Your temporary id token" />
+        <CardHeader title="Your temporary ID token" />
         <button
           className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           type="button"
