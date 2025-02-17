@@ -5,8 +5,8 @@ import { Image } from "@hey/ui";
 import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
 import type { FC } from "react";
-import useEnsName from "src/hooks/useEnsName";
 import type { Address } from "viem";
+import { useEnsName } from "wagmi";
 import Slug from "./Slug";
 
 interface WalletAccountProps {
@@ -14,14 +14,11 @@ interface WalletAccountProps {
 }
 
 const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
-  const { ens, loading } = useEnsName({
-    address,
-    enabled: Boolean(address)
-  });
+  const { data, isLoading } = useEnsName({ address });
 
-  const displayName = loading
+  const displayName = isLoading
     ? formatAddress(address)
-    : ens || formatAddress(address);
+    : data || formatAddress(address);
 
   return (
     <div className="flex items-center justify-between">
