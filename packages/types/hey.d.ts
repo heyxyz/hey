@@ -58,7 +58,6 @@ export type Preferences = {
   appIcon: number;
   hasDismissedOrMintedMembershipNft: boolean;
   highSignalNotificationFilter: boolean;
-  developerMode: boolean;
   permissions: string[];
   mutedWords: MutedWord[];
   theme: AccountTheme | null;

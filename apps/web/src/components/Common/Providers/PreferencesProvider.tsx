@@ -31,7 +31,6 @@ const PreferencesProvider: FC = () => {
     setAppIcon,
     setHasDismissedOrMintedMembershipNft,
     setHighSignalNotificationFilter,
-    setDeveloperMode,
     setMutedWords
   } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
@@ -41,7 +40,6 @@ const PreferencesProvider: FC = () => {
 
     setHighSignalNotificationFilter(preferences.highSignalNotificationFilter);
     setAppIcon(preferences.appIcon);
-    setDeveloperMode(preferences.developerMode);
     setStatus({
       isSuspended: preferences.permissions.includes(Permission.Suspended)
     });

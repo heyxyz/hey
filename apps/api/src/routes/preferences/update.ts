@@ -13,14 +13,12 @@ interface ExtensionRequest {
   id?: string;
   appIcon?: number;
   highSignalNotificationFilter?: boolean;
-  developerMode?: boolean;
 }
 
 const validationSchema = object({
   id: string().optional(),
   appIcon: number().optional(),
-  highSignalNotificationFilter: boolean().optional(),
-  developerMode: boolean().optional()
+  highSignalNotificationFilter: boolean().optional()
 });
 
 export const post = [
@@ -39,14 +37,13 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { appIcon, highSignalNotificationFilter, developerMode } =
-      body as ExtensionRequest;
+    const { appIcon, highSignalNotificationFilter } = body as ExtensionRequest;
 
     try {
       const idToken = req.headers["x-id-token"] as string;
       const payload = parseJwt(idToken);
 
-      const data = { appIcon, highSignalNotificationFilter, developerMode };
+      const data = { appIcon, highSignalNotificationFilter };
       const preference = await prisma.preference.upsert({
         create: { ...data, accountAddress: payload.act.sub },
         update: data,

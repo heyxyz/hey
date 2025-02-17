@@ -54,7 +54,6 @@ export const get = [
         highSignalNotificationFilter: Boolean(
           preference?.highSignalNotificationFilter
         ),
-        developerMode: Boolean(preference?.developerMode),
         theme: (theme as AccountTheme) || null,
         permissions: permissions.map(({ permission }) => permission.key),
         mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
