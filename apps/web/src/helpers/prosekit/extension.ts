@@ -78,9 +78,6 @@ const defineMentionSpec = () => {
         attrs.kind === "account"
           ? [
               ["span", "@"],
-              // Hide the "lens/" part inside the editor, but it's still part
-              // of the HTML output so that we can keep it when converting
-              // HTML to Markdown.
               ["span", { class: "hidden" }, "lens/"],
               ["span", value]
             ]
