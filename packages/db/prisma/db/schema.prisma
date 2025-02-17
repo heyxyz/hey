@@ -86,7 +86,6 @@ model Permission {
 
 enum PermissionType {
   PERMISSION
-  OPERATION
   COHORT
 }
 
