@@ -21,7 +21,6 @@ import { isIOS, isMobile } from "react-device-detect";
 import Checkin from "./Checkin";
 import Metadata from "./Metadata";
 import NotSupportedPost from "./NotSupportedPost";
-import Poll from "./Poll";
 
 interface PostBodyProps {
   contentClassName?: string;
@@ -64,12 +63,6 @@ const PostBody: FC<PostBodyProps> = ({
   const showLive = metadata.__typename === "LivestreamMetadata";
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
-  // Show poll
-  const pollId = getPostAttribute(
-    metadata.attributes,
-    KNOWN_ATTRIBUTES.POLL_ID
-  );
-  const showPoll = Boolean(pollId);
   // Show sharing link
   const showSharingLink = metadata.__typename === "LinkMetadata";
   // Show checking in
@@ -112,8 +105,6 @@ const PostBody: FC<PostBodyProps> = ({
       {showAttachments ? (
         <Attachments asset={filteredAsset} attachments={filteredAttachments} />
       ) : null}
-      {/* Poll */}
-      {showPoll ? <Poll id={pollId} /> : null}
       {showLive ? (
         <div className="mt-3">
           <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />

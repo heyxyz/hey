@@ -12,35 +12,6 @@ CREATE TABLE "Preference" (
 );
 
 -- CreateTable
-CREATE TABLE "Poll" (
-    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "endsAt" TIMESTAMP(3),
-
-    CONSTRAINT "Poll_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "PollOption" (
-    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "option" TEXT NOT NULL,
-    "index" INTEGER NOT NULL DEFAULT 0,
-    "pollId" UUID NOT NULL,
-
-    CONSTRAINT "PollOption_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "PollResponse" (
-    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "accountAddress" TEXT NOT NULL,
-    "optionId" UUID NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "PollResponse_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "AllowedToken" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "name" TEXT NOT NULL,
@@ -84,15 +55,6 @@ CREATE TABLE "AccountStatus" (
 );
 
 -- CreateIndex
-CREATE INDEX "PollOption_pollId_idx" ON "PollOption"("pollId");
-
--- CreateIndex
-CREATE INDEX "PollResponse_optionId_idx" ON "PollResponse"("optionId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "PollResponse_accountAddress_optionId_key" ON "PollResponse"("accountAddress", "optionId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "AllowedToken_contractAddress_key" ON "AllowedToken"("contractAddress");
 
 -- CreateIndex
@@ -109,12 +71,6 @@ CREATE INDEX "AccountPermission_accountAddress_idx" ON "AccountPermission"("acco
 
 -- CreateIndex
 CREATE INDEX "AccountPermission_permissionId_idx" ON "AccountPermission"("permissionId");
-
--- AddForeignKey
-ALTER TABLE "PollOption" ADD CONSTRAINT "PollOption_pollId_fkey" FOREIGN KEY ("pollId") REFERENCES "Poll"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "PollResponse" ADD CONSTRAINT "PollResponse_optionId_fkey" FOREIGN KEY ("optionId") REFERENCES "PollOption"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AccountPermission" ADD CONSTRAINT "AccountPermission_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES "Permission"("id") ON DELETE CASCADE ON UPDATE CASCADE;

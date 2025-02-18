@@ -60,6 +60,5 @@ export const ATTACHMENT = "tr:w-1000";
 
 // Known Lens Protocol Attributes
 export const KNOWN_ATTRIBUTES = {
-  HIDE_OEMBED: "hideOembed",
-  POLL_ID: "heyPollId"
+  HIDE_OEMBED: "hideOembed"
 };
