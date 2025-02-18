@@ -8,7 +8,6 @@ declare namespace NodeJS {
     LENS_DATABASE_PASSWORD: string;
     PRIVATE_KEY: string;
     SECRET: string;
-    SLACK_WEBHOOK_URL: string;
     OPENAI_API_KEY: string;
   }
 }
