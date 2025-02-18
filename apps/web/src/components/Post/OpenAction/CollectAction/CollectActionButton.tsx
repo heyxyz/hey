@@ -95,11 +95,6 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     });
   };
 
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
-  };
-
   const onCompleted = (hash: string) => {
     // Should not disable the button if it's a paid collect module
     setHasActed(amount <= 0);
@@ -108,6 +103,11 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected");
+  };
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
   };
 
   const { data: balanceData } = useBalance({
@@ -126,7 +126,6 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     hasAmount = true;
   }
 
-  // Act
   const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {

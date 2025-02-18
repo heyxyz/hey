@@ -5,6 +5,7 @@ import type { FC } from "react";
 import { memo } from "react";
 import CollectAction from "../OpenAction/CollectAction";
 import SmallCollectButton from "../OpenAction/CollectAction/SmallCollectButton";
+import TipAction from "../OpenAction/TipAction";
 import Comment from "./Comment";
 import Like from "./Like";
 import ShareMenu from "./Share";
@@ -33,6 +34,7 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
         {canAct && !showCount ? <CollectAction post={post} /> : null}
+        <TipAction post={post} showCount={showCount} />
       </span>
       {canAct ? <SmallCollectButton post={targetPost} /> : null}
     </span>
