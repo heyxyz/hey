@@ -19,12 +19,12 @@ type DatabaseQuery = string;
 
 class Database {
   private _connectionBase: IConnectionParameters = {
-    database: "social_production_lens_v2_polygon",
-    host: "lens.hey.xyz",
+    database: "testnet-backend-api",
+    host: "production-lens-proxy-int-pg-50f1887a205d06c9.elb.us-east-1.amazonaws.com",
     idleTimeoutMillis: 30000,
     max: 1500,
     password: process.env.LENS_DATABASE_PASSWORD,
-    port: 6969,
+    port: 5432,
     user: "hey"
   };
 
