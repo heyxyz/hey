@@ -19,9 +19,9 @@ export const readFile = (file: Blob): Promise<string> => {
 };
 
 /**
- * Upload cropped image to IPFS
+ * Upload cropped image to storage node
  * @param image Image
- * @returns IPFS URL
+ * @returns storage node URL
  */
 const uploadCroppedImage = async (
   image: HTMLCanvasElement
@@ -39,7 +39,7 @@ const uploadCroppedImage = async (
   const attachment = await uploadFileToStorageNode(cleanedFile);
   const decentralizedUrl = attachment.uri;
   if (!decentralizedUrl) {
-    throw new Error("uploadToIPFS failed");
+    throw new Error("uploadFileToStorageNode failed");
   }
 
   return decentralizedUrl;

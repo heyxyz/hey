@@ -30,15 +30,15 @@ import Link from "next/link";
 import plur from "plur";
 import { type FC, useState } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import CollectAction from "./CollectAction";
+import CollectActionButton from "./CollectActionButton";
 import DownloadCollectors from "./DownloadCollectors";
 import Splits from "./Splits";
 
-interface CollectModuleProps {
+interface CollectActionProps {
   post: AnyPost;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ post }) => {
+const CollectAction: FC<CollectActionProps> = ({ post }) => {
   const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
@@ -239,7 +239,7 @@ const CollectModule: FC<CollectModuleProps> = ({ post }) => {
           {recipients.length > 1 ? <Splits recipients={recipients} /> : null}
         </div>
         <div className="flex items-center space-x-2">
-          <CollectAction
+          <CollectActionButton
             countOpenActions={countOpenActions}
             onCollectSuccess={() => increment()}
             postAction={collectAction}
@@ -259,4 +259,4 @@ const CollectModule: FC<CollectModuleProps> = ({ post }) => {
   );
 };
 
-export default CollectModule;
+export default CollectAction;

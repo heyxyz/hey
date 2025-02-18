@@ -20,7 +20,7 @@ export type AllowedToken = {
   symbol: string;
 };
 
-export type CollectModuleType = {
+export type CollectActionType = {
   enabled?: boolean;
   amount?: AmountInput | null;
   recipients?: RecipientDataInput[];

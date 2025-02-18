@@ -1,7 +1,7 @@
 import {
   HEY_IMAGEKIT_URL,
-  IPFS_GATEWAY,
-  LENS_MEDIA_SNAPSHOT_URL
+  LENS_MEDIA_SNAPSHOT_URL,
+  STORAGE_NODE_URL
 } from "@hey/data/constants";
 
 /**
@@ -23,7 +23,7 @@ const imageKit = (url: string, name?: string): string => {
     return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
   }
 
-  if (url.includes(IPFS_GATEWAY)) {
+  if (url.includes(STORAGE_NODE_URL)) {
     return name ? `${HEY_IMAGEKIT_URL}/fallback/${name}/${url}` : url;
   }
 

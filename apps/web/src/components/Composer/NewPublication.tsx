@@ -5,7 +5,7 @@ import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
-import collectModuleParams from "@hey/helpers/collectModuleParams";
+import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import type { Post } from "@hey/indexer";
@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreatePost from "src/hooks/useCreatePost";
 import usePostMetadata from "src/hooks/usePostMetadata";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import {
@@ -95,7 +95,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { setLicense } = usePostLicenseStore();
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+  const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
     (state) => state
   );
 
@@ -159,8 +159,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   }, [postContent]);
 
   const getAnimationUrl = () => {
-    const fallback =
-      "ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4";
+    const fallback = `${STATIC_IMAGES_URL}/thumbnail.png`;
 
     if (attachments.length > 0 || hasAudio || hasVideo) {
       return attachments[0]?.uri || fallback;
@@ -236,8 +235,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
             ...(feed && { feed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
-            ...(collectModule.enabled && {
-              actions: [{ ...collectModuleParams(collectModule) }]
+            ...(collectAction.enabled && {
+              actions: [{ ...collectActionParams(collectAction) }]
             })
           }
         }
