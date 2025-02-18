@@ -1,0 +1,16 @@
+mutation ExecuteAccountAction($request: ExecuteAccountActionRequest!) {
+  executeAccountAction(request: $request) {
+    ... on ExecuteAccountActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

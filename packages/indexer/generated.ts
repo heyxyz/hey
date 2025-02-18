@@ -2523,8 +2523,8 @@ export type Follower = {
 
 export type FollowerOn = {
   __typename?: 'FollowerOn';
-  globalGraph?: Maybe<Scalars['Boolean']['output']>;
-  graph?: Maybe<Scalars['EvmAddress']['output']>;
+  globalGraph: Scalars['Boolean']['output'];
+  graph: Scalars['EvmAddress']['output'];
 };
 
 export type FollowerOnInput = {
@@ -8623,6 +8623,19 @@ export type EnableSignlessMutation = { __typename?: 'Mutation', enableSignless: 
     & SponsoredTransactionRequestFieldsFragment
   ) | { __typename?: 'TransactionWillFail', reason: string } };
 
+export type ExecuteAccountActionMutationVariables = Exact<{
+  request: ExecuteAccountActionRequest;
+}>;
+
+
+export type ExecuteAccountActionMutation = { __typename?: 'Mutation', executeAccountAction: { __typename?: 'ExecuteAccountActionResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & SelfFundedTransactionRequestFieldsFragment
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & SponsoredTransactionRequestFieldsFragment
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
 export type FollowMutationVariables = Exact<{
   request: CreateFollowRequest;
 }>;
@@ -9633,6 +9646,33 @@ export function useEnableSignlessMutation(baseOptions?: Apollo.MutationHookOptio
 export type EnableSignlessMutationHookResult = ReturnType<typeof useEnableSignlessMutation>;
 export type EnableSignlessMutationResult = Apollo.MutationResult<EnableSignlessMutation>;
 export type EnableSignlessMutationOptions = Apollo.BaseMutationOptions<EnableSignlessMutation, EnableSignlessMutationVariables>;
+export const ExecuteAccountActionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ExecuteAccountAction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ExecuteAccountActionRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"executeAccountAction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ExecuteAccountActionResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
+export type ExecuteAccountActionMutationFn = Apollo.MutationFunction<ExecuteAccountActionMutation, ExecuteAccountActionMutationVariables>;
+
+/**
+ * __useExecuteAccountActionMutation__
+ *
+ * To run a mutation, you first call `useExecuteAccountActionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useExecuteAccountActionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [executeAccountActionMutation, { data, loading, error }] = useExecuteAccountActionMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useExecuteAccountActionMutation(baseOptions?: Apollo.MutationHookOptions<ExecuteAccountActionMutation, ExecuteAccountActionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ExecuteAccountActionMutation, ExecuteAccountActionMutationVariables>(ExecuteAccountActionDocument, options);
+      }
+export type ExecuteAccountActionMutationHookResult = ReturnType<typeof useExecuteAccountActionMutation>;
+export type ExecuteAccountActionMutationResult = Apollo.MutationResult<ExecuteAccountActionMutation>;
+export type ExecuteAccountActionMutationOptions = Apollo.BaseMutationOptions<ExecuteAccountActionMutation, ExecuteAccountActionMutationVariables>;
 export const FollowDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Follow"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateFollowRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"follow"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FollowResponse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hash"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequestFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMutationVariables>;
 
