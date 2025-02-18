@@ -17,7 +17,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
-import useTransactionLifecycle from "src/hooks/useTransactionHandler";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";

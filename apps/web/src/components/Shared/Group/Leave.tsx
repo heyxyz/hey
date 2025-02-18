@@ -10,7 +10,7 @@ import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
-import useTransactionLifecycle from "src/hooks/useTransactionHandler";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 

@@ -9,7 +9,7 @@ import { Button, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import { group } from "@lens-protocol/metadata";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
-import useTransactionLifecycle from "src/hooks/useTransactionHandler";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { object, string, type z } from "zod";

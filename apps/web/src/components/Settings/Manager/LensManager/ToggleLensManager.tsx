@@ -10,7 +10,7 @@ import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useTransactionLifecycle from "src/hooks/useTransactionHandler";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Hex } from "viem";

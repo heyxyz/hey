@@ -2,7 +2,7 @@ import { type Post, useCreatePostMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import useTransactionLifecycle from "./useTransactionHandler";
+import useTransactionLifecycle from "./useTransactionLifecycle";
 
 interface CreatePostProps {
   commentOn?: Post;
