@@ -41,18 +41,6 @@ const Unfollow: FC<UnfollowProps> = ({
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      txHash,
-      type: OptimisticTxType.UNFOLLOW_ACCOUNT,
-      unfollowOn: account.address
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: { isFollowedByMe: () => false },
@@ -61,8 +49,13 @@ const Unfollow: FC<UnfollowProps> = ({
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      txHash: hash,
+      type: OptimisticTxType.UNFOLLOW_ACCOUNT,
+      unfollowOn: account.address
+    });
+
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     toast.success("Unfollowed");
   };

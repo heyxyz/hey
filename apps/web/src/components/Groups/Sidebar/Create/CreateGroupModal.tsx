@@ -11,7 +11,7 @@ import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { object, string, type z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 
@@ -37,19 +37,8 @@ const CreateGroupModal: FC = () => {
     schema: validationSchema
   });
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      txHash,
-      type: OptimisticTxType.CREATE_GROUP
-    });
-  };
-
   const onCompleted = (hash: string) => {
-    updateTransactions({ txHash: hash });
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_GROUP);
     setIsLoading(false);
     setTransactionHash(hash);
     setScreen("minting");

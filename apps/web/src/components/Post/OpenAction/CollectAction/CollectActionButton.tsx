@@ -61,18 +61,6 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     : false;
   const canCollect = !hasActed || !amount;
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      collectOn: post?.id,
-      txHash,
-      type: OptimisticTxType.CREATE_COLLECT
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: {
@@ -94,10 +82,15 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      collectOn: post?.id,
+      txHash: hash,
+      type: OptimisticTxType.CREATE_COLLECT
+    });
+
     // Should not disable the button if it's a paid collect module
     setHasActed(amount <= 0);
     setIsLoading(false);
-    updateTransactions({ txHash: hash });
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected");

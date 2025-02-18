@@ -23,25 +23,18 @@ const useCreatePost = ({
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOf);
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
+  const onCompletedWithTransaction = (hash: string) => {
     addOptimisticTransaction({
       ...(isComment && { commentOn: commentOn?.id }),
       content: postContent,
-      txHash,
+      txHash: hash,
       type: isComment
         ? OptimisticTxType.CREATE_COMMENT
         : isQuote
           ? OptimisticTxType.CREATE_QUOTE
           : OptimisticTxType.CREATE_POST
     });
-  };
 
-  const onCompletedWithTransaction = (hash: string) => {
-    updateTransactions({ txHash: hash });
     return onCompleted();
   };
 

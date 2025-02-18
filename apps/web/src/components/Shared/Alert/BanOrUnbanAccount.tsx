@@ -36,29 +36,22 @@ const BanOrUnbanAccount: FC = () => {
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      ...(banning
-        ? { banOn: banningOrUnbanningAccount?.address }
-        : { unbanOn: banningOrUnbanningAccount?.address }),
-      txHash,
-      type: banning
-        ? OptimisticTxType.BAN_GROUP_ACCOUNT
-        : OptimisticTxType.UNBAN_GROUP_ACCOUNT
-    });
-  };
-
   const updateCache = () => {
     cache.evict({ id: cache.identify(banningOrUnbanningAccount as Account) });
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      ...(banning
+        ? { banOn: banningOrUnbanningAccount?.address }
+        : { unbanOn: banningOrUnbanningAccount?.address }),
+      txHash: hash,
+      type: banning
+        ? OptimisticTxType.BAN_GROUP_ACCOUNT
+        : OptimisticTxType.UNBAN_GROUP_ACCOUNT
+    });
+
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     setShowBanOrUnbanAlert(false, banning, null, null);
     toast.success(banning ? "Banned successfully" : "Unbanned successfully");

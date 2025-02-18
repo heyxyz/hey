@@ -42,18 +42,6 @@ const Follow: FC<FollowProps> = ({
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      followOn: account.address,
-      txHash,
-      type: OptimisticTxType.FOLLOW_ACCOUNT
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: { isFollowedByMe: () => true },
@@ -62,8 +50,13 @@ const Follow: FC<FollowProps> = ({
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      followOn: account.address,
+      txHash: hash,
+      type: OptimisticTxType.FOLLOW_ACCOUNT
+    });
+
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     toast.success("Followed");
   };

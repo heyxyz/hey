@@ -36,18 +36,6 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      repostOf: post?.id,
-      txHash,
-      type: OptimisticTxType.CREATE_REPOST
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: {
@@ -69,10 +57,15 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      repostOf: post?.id,
+      txHash: hash,
+      type: OptimisticTxType.CREATE_REPOST
+    });
+
     setIsLoading(false);
     increment();
     updateCache();
-    updateTransactions({ txHash: hash });
     toast.success("Post has been reposted!");
   };
 

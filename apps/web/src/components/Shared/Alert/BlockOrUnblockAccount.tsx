@@ -42,22 +42,6 @@ const BlockOrUnblockAccount: FC = () => {
   const { cache } = useApolloClient();
   const { data: walletClient } = useWalletClient();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      ...(hasBlocked
-        ? { unblockOn: blockingorUnblockingAccount?.address }
-        : { blockOn: blockingorUnblockingAccount?.address }),
-      txHash,
-      type: hasBlocked
-        ? OptimisticTxType.UNBLOCK_ACCOUNT
-        : OptimisticTxType.BLOCK_ACCOUNT
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: { isBlockedByMe: () => !hasBlocked },
@@ -69,8 +53,17 @@ const BlockOrUnblockAccount: FC = () => {
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      ...(hasBlocked
+        ? { unblockOn: blockingorUnblockingAccount?.address }
+        : { blockOn: blockingorUnblockingAccount?.address }),
+      txHash: hash,
+      type: hasBlocked
+        ? OptimisticTxType.UNBLOCK_ACCOUNT
+        : OptimisticTxType.BLOCK_ACCOUNT
+    });
+
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);

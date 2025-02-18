@@ -26,18 +26,6 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      leaveOn: group.address,
-      txHash,
-      type: OptimisticTxType.LEAVE_GROUP
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: { isMember: () => false },
@@ -46,8 +34,13 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      leaveOn: group.address,
+      txHash: hash,
+      type: OptimisticTxType.LEAVE_GROUP
+    });
+
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     setJoined(false);
     toast.success("Left group");

@@ -26,18 +26,6 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      joinOn: group.address,
-      txHash,
-      type: OptimisticTxType.JOIN_GROUP
-    });
-  };
-
   const updateCache = () => {
     cache.modify({
       fields: { isMember: () => true },
@@ -46,8 +34,13 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
   };
 
   const onCompleted = (hash: string) => {
+    addOptimisticTransaction({
+      joinOn: group.address,
+      txHash: hash,
+      type: OptimisticTxType.JOIN_GROUP
+    });
+
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     setJoined(true);
     toast.success("Joined group");
