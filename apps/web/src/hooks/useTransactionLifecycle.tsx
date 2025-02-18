@@ -2,9 +2,11 @@ import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
+import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 const useTransactionLifecycle = () => {
   const { data } = useWalletClient();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const handleTransactionLifecycle = async ({
     transactionData,
@@ -19,6 +21,7 @@ const useTransactionLifecycle = () => {
 
     try {
       if (transactionData.__typename === "SponsoredTransactionRequest") {
+        await handleWrongNetwork();
         const hash = await sendEip712Transaction(data, {
           account: data.account,
           ...sponsoredTransactionData(transactionData.raw)
@@ -27,6 +30,7 @@ const useTransactionLifecycle = () => {
       }
 
       if (transactionData.__typename === "SelfFundedTransactionRequest") {
+        await handleWrongNetwork();
         const hash = await sendTransaction(data, {
           account: data.account,
           ...selfFundedTransactionData(transactionData.raw)
