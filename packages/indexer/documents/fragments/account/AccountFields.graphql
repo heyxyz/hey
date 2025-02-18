@@ -3,6 +3,9 @@ fragment AccountFields on Account {
   address
   score
   createdAt
+  action {
+    ...AccountActionFields
+  }
   metadata {
     ...AccountMetadata
   }
