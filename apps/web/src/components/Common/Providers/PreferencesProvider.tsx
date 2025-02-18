@@ -25,11 +25,7 @@ const PreferencesProvider: FC = () => {
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
   const { setFiatRates } = useRatesStore();
-  const {
-    setAppIcon,
-    setHasDismissedOrMintedMembershipNft,
-    setIncludeLowScore
-  } = usePreferencesStore();
+  const { setAppIcon, setIncludeLowScore } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
   const getPreferencesData = async () => {
@@ -40,9 +36,6 @@ const PreferencesProvider: FC = () => {
     setStatus({
       isSuspended: preferences.permissions.includes(Permission.Suspended)
     });
-    setHasDismissedOrMintedMembershipNft(
-      preferences.hasDismissedOrMintedMembershipNft
-    );
 
     return true;
   };
