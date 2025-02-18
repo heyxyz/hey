@@ -5,11 +5,11 @@ import type { Account } from "@hey/indexer";
 import { H3, Image } from "@hey/ui";
 import type { FC } from "react";
 
-interface SuspendedDetailsProps {
+interface DeletedDetailsProps {
   account: Account;
 }
 
-const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
+const DeletedDetails: FC<DeletedDetailsProps> = ({ account }) => {
   const accountData = getAccount(account);
 
   return (
@@ -24,7 +24,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
         />
       </div>
       <div className="space-y-1 py-2">
-        <H3 className="truncate">Suspended</H3>
+        <H3 className="truncate">{accountData.name}</H3>
         <div>
           <Slug
             className="text-sm sm:text-base"
@@ -36,4 +36,4 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
   );
 };
 
-export default SuspendedDetails;
+export default DeletedDetails;

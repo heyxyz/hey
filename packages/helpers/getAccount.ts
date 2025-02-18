@@ -1,5 +1,6 @@
 import type { Account } from "@hey/indexer";
 import formatAddress from "./formatAddress";
+import isAccountDeleted from "./isAccountDeleted";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
@@ -16,6 +17,15 @@ const getAccount = (
       link: "",
       username: "...",
       usernameWithPrefix: "..."
+    };
+  }
+
+  if (isAccountDeleted(account)) {
+    return {
+      name: "Deleted Account",
+      link: "",
+      username: "deleted",
+      usernameWithPrefix: "@deleted"
     };
   }
 

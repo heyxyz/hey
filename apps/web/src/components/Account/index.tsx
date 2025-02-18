@@ -9,6 +9,7 @@ import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
+import isAccountDeleted from "@hey/helpers/isAccountDeleted";
 import { type Account, useAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +20,7 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import AccountFeed from "./AccountFeed";
+import DeletedDetails from "./DeletedDetails";
 import Details from "./Details";
 import FeedType from "./FeedType";
 import AccountPageShimmer from "./Shimmer";
@@ -81,6 +83,7 @@ const ViewProfile: NextPage = () => {
   }
 
   const isSuspended = isStaff ? false : accountDetails?.isSuspended;
+  const isDeleted = isAccountDeleted(account);
 
   return (
     <>
@@ -101,7 +104,9 @@ const ViewProfile: NextPage = () => {
       />
       <GridLayout>
         <GridItemFour>
-          {isSuspended ? (
+          {isDeleted ? (
+            <DeletedDetails account={account as Account} />
+          ) : isSuspended ? (
             <SuspendedDetails account={account as Account} />
           ) : (
             <Details
@@ -111,7 +116,12 @@ const ViewProfile: NextPage = () => {
           )}
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {isSuspended ? (
+          {isDeleted ? (
+            <EmptyState
+              icon={<NoSymbolIcon className="size-8" />}
+              message="Account Deleted"
+            />
+          ) : isSuspended ? (
             <EmptyState
               icon={<NoSymbolIcon className="size-8" />}
               message="Account Suspended"

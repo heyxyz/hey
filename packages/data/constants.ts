@@ -18,6 +18,7 @@ export const HEY_API_URL = IS_PRODUCTION
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
+export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // Application
 export const APP_NAME = "Hey";
