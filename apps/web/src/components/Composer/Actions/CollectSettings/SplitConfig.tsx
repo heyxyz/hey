@@ -17,7 +17,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { isAddress } from "viem";
 
 interface SplitConfigProps {
-  isRecipientsDuplicated: () => boolean;
+  isRecipientsDuplicated: boolean;
   setCollectType: (data: CollectActionType) => void;
 }
 
@@ -184,7 +184,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
               Splits cannot be less than 100%. Total: <span>{splitTotal}</span>%
             </H6>
           ) : null}
-          {isRecipientsDuplicated() ? (
+          {isRecipientsDuplicated ? (
             <H6 className="text-red-500">Duplicate recipient address found</H6>
           ) : null}
         </div>

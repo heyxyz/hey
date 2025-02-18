@@ -18,33 +18,26 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const { collectAction, reset, setCollectAction } = useCollectActionStore(
-    (state) => state
-  );
+  const { collectAction, reset, setCollectAction } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
   const recipients = collectAction.recipients || [];
-  const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
+  const splitTotal = recipients.reduce((acc, { percent }) => acc + percent, 0);
 
-  const hasEmptyRecipients = recipients.some((recipient) => !recipient.address);
-  const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) => recipient.address && !isAddress(recipient.address)
-  );
-  const hasZeroSplits = recipients.some((recipient) => recipient.percent === 0);
-  const hasImproperSplits = recipients.length > 1 && splitTotal !== 100;
-
-  const isRecipientsDuplicated = () => {
-    const recipientsSet = new Set(
-      recipients.map((recipient) => recipient.address)
-    );
-    return recipientsSet.size !== recipients.length;
+  const validationChecks = {
+    hasEmptyRecipients: recipients.some(({ address }) => !address),
+    hasInvalidEthAddress: recipients.some(
+      ({ address }) => address && !isAddress(address)
+    ),
+    hasZeroSplits: recipients.some(({ percent }) => percent === 0),
+    hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
+    isRecipientsDuplicated:
+      new Set(recipients.map(({ address }) => address)).size !==
+      recipients.length
   };
 
   const setCollectType = (data: CollectActionType) => {
-    setCollectAction({
-      ...collectAction,
-      ...data
-    });
+    setCollectAction({ ...collectAction, ...data });
   };
 
   const toggleCollect = () => {
@@ -54,6 +47,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     } else {
       setCollectType({ enabled: true });
     }
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setLicense(null);
+    reset();
   };
 
   return (
@@ -67,19 +66,21 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         />
       </div>
       <div className="divider" />
-      {collectAction.enabled ? (
+      {collectAction.enabled && (
         <>
           <div className="m-5">
             <AmountConfig setCollectType={setCollectType} />
-            {collectAction.amount?.value ? (
+            {collectAction.amount?.value && (
               <>
                 <ReferralConfig setCollectType={setCollectType} />
                 <SplitConfig
-                  isRecipientsDuplicated={isRecipientsDuplicated}
+                  isRecipientsDuplicated={
+                    validationChecks.isRecipientsDuplicated
+                  }
                   setCollectType={setCollectType}
                 />
               </>
-            ) : null}
+            )}
             <CollectLimitConfig setCollectType={setCollectType} />
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
@@ -90,15 +91,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           </div>
           <div className="divider" />
         </>
-      ) : null}
+      )}
       <div className="flex space-x-2 p-5">
         <Button
           className="ml-auto"
-          onClick={() => {
-            setShowModal(false);
-            setLicense(null);
-            reset();
-          }}
+          onClick={handleClose}
           outline
           variant="danger"
         >
@@ -108,11 +105,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           disabled={
             (Number.parseFloat(collectAction.amount?.value as string) <= 0 &&
               collectAction.enabled) ||
-            hasImproperSplits ||
-            hasEmptyRecipients ||
-            hasZeroSplits ||
-            hasInvalidEthAddressInRecipients ||
-            isRecipientsDuplicated()
+            Object.values(validationChecks).some(Boolean)
           }
           onClick={() => setShowModal(false)}
         >
