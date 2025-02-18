@@ -74,7 +74,7 @@ const AccountSettingsForm: FC = () => {
         return onCompleted(setAccountMetadata.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: setAccountMetadata,
         onCompleted,
         onError

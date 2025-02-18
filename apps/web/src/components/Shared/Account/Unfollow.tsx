@@ -79,7 +79,7 @@ const Unfollow: FC<UnfollowProps> = ({
         return onCompleted(unfollow.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: unfollow,
         onCompleted,
         onError

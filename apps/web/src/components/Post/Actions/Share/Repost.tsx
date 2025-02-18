@@ -89,7 +89,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
         return onCompleted(repost.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: repost,
         onCompleted,
         onError

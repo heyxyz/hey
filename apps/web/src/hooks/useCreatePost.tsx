@@ -52,7 +52,7 @@ const useCreatePost = ({
         return onCompletedWithTransaction(post.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: post,
         onCompleted: onCompletedWithTransaction,
         onError

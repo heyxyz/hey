@@ -63,7 +63,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
       //   return onCompleted(setGroupMetadata.hash);
       // }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: setGroupMetadata,
         onCompleted,
         onError

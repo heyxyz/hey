@@ -70,7 +70,7 @@ const List: FC = () => {
 
   const [removeAccountManager] = useRemoveAccountManagerMutation({
     onCompleted: async ({ removeAccountManager }) => {
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: removeAccountManager,
         onCompleted,
         onError

@@ -136,7 +136,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
         return onCompleted(executePostAction.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: executePostAction,
         onCompleted,
         onError

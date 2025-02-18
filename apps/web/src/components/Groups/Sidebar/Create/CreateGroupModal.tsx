@@ -66,7 +66,7 @@ const CreateGroupModal: FC = () => {
         return onCompleted(createGroup.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: createGroup,
         onCompleted,
         onError

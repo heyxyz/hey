@@ -36,7 +36,7 @@ const UnlinkHandle: FC = () => {
         return onCompleted(unassignUsernameFromAccount.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: unassignUsernameFromAccount,
         onCompleted,
         onError

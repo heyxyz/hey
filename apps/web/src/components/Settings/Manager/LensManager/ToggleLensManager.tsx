@@ -40,7 +40,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
   const [enableSignless] = useEnableSignlessMutation({
     onCompleted: async ({ enableSignless }) => {
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: enableSignless,
         onCompleted,
         onError
@@ -51,7 +51,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
   const [removeSignless] = useRemoveSignlessMutation({
     onCompleted: async ({ removeSignless }) => {
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: removeSignless,
         onCompleted,
         onError

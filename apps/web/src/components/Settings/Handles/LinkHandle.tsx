@@ -47,7 +47,7 @@ const LinkHandle: FC = () => {
         return onCompleted(assignUsernameToAccount.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: assignUsernameToAccount,
         onCompleted,
         onError
@@ -86,7 +86,7 @@ const LinkHandle: FC = () => {
         return onCompleted(unassignUsernameFromAccount.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: unassignUsernameFromAccount,
         onCompleted,
         onError

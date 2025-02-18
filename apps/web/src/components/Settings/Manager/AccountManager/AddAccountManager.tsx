@@ -46,7 +46,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 
   const [addAccountManager] = useAddAccountManagerMutation({
     onCompleted: async ({ addAccountManager }) => {
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: addAccountManager,
         onCompleted,
         onError

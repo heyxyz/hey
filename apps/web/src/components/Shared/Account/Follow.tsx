@@ -79,7 +79,7 @@ const Follow: FC<FollowProps> = ({
         return onCompleted(follow.hash);
       }
 
-      await handleTransactionLifecycle({
+      return await handleTransactionLifecycle({
         transactionData: follow,
         onCompleted,
         onError
