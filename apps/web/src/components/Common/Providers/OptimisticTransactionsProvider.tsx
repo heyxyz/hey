@@ -1,12 +1,14 @@
 import { useTransactionStatusQuery } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
+import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
   transaction
 }) => {
+  const { reload } = useRouter();
   const { removeTransaction, setIndexedPostHash } = useTransactionStore();
 
   useTransactionStatusQuery({
@@ -23,6 +25,14 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
           transactionStatus.__typename === "FinishedTransactionStatus"
         ) {
           setIndexedPostHash(transaction.txHash);
+        }
+
+        // Reload the page when signless toggle is successful
+        if (
+          transaction.type === OptimisticTxType.TOGGLE_SIGNLESS &&
+          transactionStatus.__typename === "FinishedTransactionStatus"
+        ) {
+          reload();
         }
 
         return removeTransaction(transaction.txHash as string);

@@ -1,10 +1,10 @@
-import IndexStatus from "@components/Shared/IndexStatus";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import {
   useEnableSignlessMutation,
   useRemoveSignlessMutation
 } from "@hey/indexer";
+import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -13,7 +13,10 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import type { Hex } from "viem";
+import {
+  addSimpleOptimisticTransaction,
+  useTransactionStore
+} from "src/store/persisted/useTransactionStore";
 
 interface ToggleLensManagerProps {
   buttonSize?: "sm";
@@ -24,12 +27,16 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 }) => {
   const { isSignlessEnabled } = useAccountStore();
   const { isSuspended } = useAccountStatus();
+  const { txnQueue } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [txHash, setTxHash] = useState<Hex | null>(null);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
+  const isIndexing = txnQueue.some(
+    (txn) => txn.type === OptimisticTxType.TOGGLE_SIGNLESS
+  );
+
   const onCompleted = (hash: string) => {
-    setTxHash(hash as Hex);
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.TOGGLE_SIGNLESS);
     setIsLoading(false);
   };
 
@@ -70,14 +77,10 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     return isSignlessEnabled ? await removeSignless() : await enableSignless();
   };
 
-  return txHash ? (
-    <div className="mt-2">
-      <IndexStatus shouldReload txHash={txHash} />
-    </div>
-  ) : (
+  return (
     <Button
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
-      disabled={isLoading}
+      disabled={isLoading || isIndexing}
       onClick={handleToggleDispatcher}
       variant={isSignlessEnabled ? "danger" : "primary"}
     >
