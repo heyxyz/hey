@@ -26,7 +26,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<Hex | null>(null);
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setTxHash(hash as Hex);

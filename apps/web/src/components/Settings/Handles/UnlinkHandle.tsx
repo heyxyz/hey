@@ -15,7 +15,7 @@ const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [unlinking, setUnlinking] = useState<boolean>(false);
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setUnlinking(false);

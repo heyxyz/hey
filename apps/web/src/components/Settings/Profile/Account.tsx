@@ -54,8 +54,7 @@ const AccountSettingsForm: FC = () => {
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
     currentAccount?.metadata?.coverPicture
   );
-
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);

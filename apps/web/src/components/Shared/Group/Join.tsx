@@ -23,9 +23,8 @@ interface JoinProps {
 const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
-
   const { cache } = useApolloClient();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash

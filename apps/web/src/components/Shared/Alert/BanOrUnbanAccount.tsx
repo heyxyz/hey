@@ -31,11 +31,10 @@ const BanOrUnbanAccount: FC = () => {
     showBanOrUnbanAlert
   } = useBanAlertStateStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
-
   const [isLoading, setIsLoading] = useState(false);
   const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash

@@ -30,13 +30,11 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const hasReposted =
     post.operations?.hasReposted.optimistic ||
     post.operations?.hasReposted.onChain;
-
   const [shares, { increment }] = useCounter(
     post.stats.reposts + post.stats.quotes
   );
-
   const { cache } = useApolloClient();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash

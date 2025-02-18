@@ -18,7 +18,7 @@ const useCreatePost = ({
   quoteOf
 }: CreatePostProps) => {
   const { postContent } = usePostStore();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const isComment = Boolean(commentOn);
   const isQuote = Boolean(quoteOf);

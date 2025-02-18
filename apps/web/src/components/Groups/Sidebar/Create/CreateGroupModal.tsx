@@ -31,7 +31,7 @@ const CreateGroupModal: FC = () => {
   const { setScreen, setTransactionHash } = useCreateGroupStore();
   const [pfpUrl, setPfpUrl] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const form = useZodForm({
     schema: validationSchema

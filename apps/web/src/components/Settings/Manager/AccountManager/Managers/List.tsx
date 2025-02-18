@@ -27,7 +27,7 @@ const List: FC = () => {
   const { isSuspended } = useAccountStatus();
   const [removingAddress, setRemovingAddress] = useState<string | null>(null);
   const { cache } = useApolloClient();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateCache = (hash: string) => {
     if (hash && data?.accountManagers?.items) {

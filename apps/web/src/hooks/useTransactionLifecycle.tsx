@@ -22,20 +22,22 @@ const useTransactionLifecycle = () => {
     try {
       if (transactionData.__typename === "SponsoredTransactionRequest") {
         await handleWrongNetwork();
-        const hash = await sendEip712Transaction(data, {
-          account: data.account,
-          ...sponsoredTransactionData(transactionData.raw)
-        });
-        return onCompleted(hash);
+        return onCompleted(
+          await sendEip712Transaction(data, {
+            account: data.account,
+            ...sponsoredTransactionData(transactionData.raw)
+          })
+        );
       }
 
       if (transactionData.__typename === "SelfFundedTransactionRequest") {
         await handleWrongNetwork();
-        const hash = await sendTransaction(data, {
-          account: data.account,
-          ...selfFundedTransactionData(transactionData.raw)
-        });
-        return onCompleted(hash);
+        return onCompleted(
+          await sendTransaction(data, {
+            account: data.account,
+            ...selfFundedTransactionData(transactionData.raw)
+          })
+        );
       }
 
       if (transactionData.__typename === "TransactionWillFail") {
@@ -46,7 +48,7 @@ const useTransactionLifecycle = () => {
     }
   };
 
-  return { handleTransactionLifecycle };
+  return handleTransactionLifecycle;
 };
 
 export default useTransactionLifecycle;

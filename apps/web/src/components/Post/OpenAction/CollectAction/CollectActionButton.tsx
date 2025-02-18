@@ -39,19 +39,16 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
 }) => {
   const collectAction = getCollectActionData(postAction as any);
   const { address: sessionAccountAddress } = getCurrentSession();
-
   const { isSuspended } = useAccountStatus();
   const { hasOptimisticallyCollected } = useTransactionStore();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
-
   const [isLoading, setIsLoading] = useState(false);
   const [hasActed, setHasActed] = useState(
     collectAction?.amount
       ? false
       : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
   );
-
   const { cache } = useApolloClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;

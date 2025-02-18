@@ -43,8 +43,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
     group.metadata?.coverPicture
   );
-
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);

@@ -37,10 +37,9 @@ const Unfollow: FC<UnfollowProps> = ({
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { isFollowPending } = useTransactionStore();
-
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash

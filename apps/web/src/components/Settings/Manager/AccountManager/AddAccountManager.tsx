@@ -24,13 +24,11 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-
   const [manager, setManager] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [canExecuteTransactions, setCanExecuteTransactions] = useState(true);
   const [canSetMetadataUri, setCanSetMetadataUri] = useState(true);
-
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);

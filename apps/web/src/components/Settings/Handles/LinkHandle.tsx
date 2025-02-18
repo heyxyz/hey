@@ -22,9 +22,8 @@ import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransacti
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-
   const [linkingUsername, setLinkingUsername] = useState<null | string>(null);
-  const { handleTransactionLifecycle } = useTransactionLifecycle();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setLinkingUsername(null);
