@@ -4,13 +4,11 @@ import batchLink from "./batchLink";
 import cache from "./cache";
 import retryLink from "./retryLink";
 
-const apolloClient = (authLink?: ApolloLink) =>
+const apolloClient = (authLink: ApolloLink) =>
   new ApolloClient({
     cache,
     connectToDevTools: true,
-    link: authLink
-      ? from([authLink, retryLink, batchLink])
-      : from([retryLink, batchLink])
+    link: from([authLink, retryLink, batchLink])
   });
 
 export default apolloClient;
