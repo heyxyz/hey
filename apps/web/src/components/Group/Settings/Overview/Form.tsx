@@ -4,8 +4,6 @@ import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { type Group, useSetGroupMetadataMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
@@ -13,11 +11,10 @@ import { group as groupMetadata } from "@lens-protocol/metadata";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 import type { z } from "zod";
 import { object, string } from "zod";
 
@@ -46,8 +43,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
     group.metadata?.coverPicture
   );
-
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);
@@ -66,33 +62,11 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
       //   return onCompleted(setGroupMetadata.hash);
       // }
 
-      if (walletClient) {
-        try {
-          if (setGroupMetadata.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(setGroupMetadata.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (setGroupMetadata.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(setGroupMetadata.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (setGroupMetadata.__typename === "TransactionWillFail") {
-            return onError({ message: setGroupMetadata.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: setGroupMetadata,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

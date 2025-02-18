@@ -1,8 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Group,
   type LoggedInGroupOperations,
@@ -12,10 +10,9 @@ import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 interface JoinProps {
   group: Group;
@@ -26,9 +23,8 @@ interface JoinProps {
 const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
-
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash
@@ -68,33 +64,11 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
         return onCompleted(joinGroup.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (joinGroup.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(joinGroup.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (joinGroup.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(joinGroup.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (joinGroup.__typename === "TransactionWillFail") {
-            return onError({ message: joinGroup.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: joinGroup,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

@@ -5,8 +5,6 @@ import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Post,
   type PostAction,
@@ -17,14 +15,14 @@ import { Button, WarningMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import {
   addOptimisticTransaction,
   useTransactionStore
 } from "src/store/persisted/useTransactionStore";
 import { type Address, formatUnits } from "viem";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useBalance, useWalletClient } from "wagmi";
+import { useBalance } from "wagmi";
 
 interface CollectActionButtonProps {
   countOpenActions: number;
@@ -41,19 +39,16 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
 }) => {
   const collectAction = getCollectActionData(postAction as any);
   const { address: sessionAccountAddress } = getCurrentSession();
-
   const { isSuspended } = useAccountStatus();
   const { hasOptimisticallyCollected } = useTransactionStore();
-  const { data: walletClient } = useWalletClient();
-
   const [isLoading, setIsLoading] = useState(false);
   const [hasActed, setHasActed] = useState(
     collectAction?.amount
       ? false
       : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
   );
-
   const { cache } = useApolloClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
@@ -138,33 +133,11 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
         return onCompleted(executePostAction.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (executePostAction.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(executePostAction.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (executePostAction.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(executePostAction.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (executePostAction.__typename === "TransactionWillFail") {
-            return onError({ message: executePostAction.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: executePostAction,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

@@ -1,8 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Account,
   type LoggedInAccountOperations,
@@ -13,6 +11,7 @@ import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -20,8 +19,6 @@ import {
   addOptimisticTransaction,
   useTransactionStore
 } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 interface FollowProps {
   buttonClassName: string;
@@ -43,7 +40,7 @@ const Follow: FC<FollowProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash
@@ -82,33 +79,11 @@ const Follow: FC<FollowProps> = ({
         return onCompleted(follow.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (follow.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(follow.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (follow.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(follow.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (follow.__typename === "TransactionWillFail") {
-            return onError({ message: follow.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: follow,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

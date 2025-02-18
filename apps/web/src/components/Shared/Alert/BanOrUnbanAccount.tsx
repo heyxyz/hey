@@ -2,8 +2,6 @@ import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Account,
   useBanGroupAccountsMutation,
@@ -14,6 +12,7 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -21,8 +20,6 @@ import {
   addOptimisticTransaction,
   useTransactionStore
 } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 const BanOrUnbanAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -34,11 +31,10 @@ const BanOrUnbanAccount: FC = () => {
     showBanOrUnbanAlert
   } = useBanAlertStateStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
-
   const [isLoading, setIsLoading] = useState(false);
   const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash
@@ -79,33 +75,11 @@ const BanOrUnbanAccount: FC = () => {
         return onCompleted(banGroupAccounts.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (banGroupAccounts.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(banGroupAccounts.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (banGroupAccounts.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(banGroupAccounts.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (banGroupAccounts.__typename === "TransactionWillFail") {
-            return onError({ message: banGroupAccounts.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: banGroupAccounts,
+        onCompleted,
+        onError
+      });
     },
     onError
   });
@@ -116,35 +90,11 @@ const BanOrUnbanAccount: FC = () => {
         return onCompleted(unbanGroupAccounts.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (unbanGroupAccounts.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(unbanGroupAccounts.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            unbanGroupAccounts.__typename === "SelfFundedTransactionRequest"
-          ) {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(unbanGroupAccounts.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (unbanGroupAccounts.__typename === "TransactionWillFail") {
-            return onError({ message: unbanGroupAccounts.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: unbanGroupAccounts,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

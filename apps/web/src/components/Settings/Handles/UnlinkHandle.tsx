@@ -1,24 +1,21 @@
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [unlinking, setUnlinking] = useState<boolean>(false);
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setUnlinking(false);
@@ -39,41 +36,11 @@ const UnlinkHandle: FC = () => {
         return onCompleted(unassignUsernameFromAccount.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (
-            unassignUsernameFromAccount.__typename ===
-            "SponsoredTransactionRequest"
-          ) {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(unassignUsernameFromAccount.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            unassignUsernameFromAccount.__typename ===
-            "SelfFundedTransactionRequest"
-          ) {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(unassignUsernameFromAccount.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            unassignUsernameFromAccount.__typename === "TransactionWillFail"
-          ) {
-            return onError({ message: unassignUsernameFromAccount.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: unassignUsernameFromAccount,
+        onCompleted,
+        onError
+      });
     },
     onError
   });
