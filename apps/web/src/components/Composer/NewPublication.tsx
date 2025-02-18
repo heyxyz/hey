@@ -2,8 +2,10 @@ import NewAttachments from "@components/Composer/NewAttachments";
 import QuotedPost from "@components/Post/QuotedPost";
 import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
+import EmojiPicker from "@components/Shared/EmojiPicker";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
@@ -12,7 +14,6 @@ import type { Post } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, H6 } from "@hey/ui";
-import dynamic from "next/dynamic";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -35,30 +36,13 @@ import {
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import Attachment from "./Actions/Attachment";
+import CollectSettings from "./Actions/CollectSettings";
+import Gif from "./Actions/Gif";
+import LivestreamSettings from "./Actions/LivestreamSettings";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
-
-const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
-
-const Attachment = dynamic(
-  () => import("@components/Composer/Actions/Attachment"),
-  { loading: () => Shimmer }
-);
-const EmojiPicker = dynamic(() => import("@components/Shared/EmojiPicker"), {
-  loading: () => Shimmer
-});
-const Gif = dynamic(() => import("@components/Composer/Actions/Gif"), {
-  loading: () => Shimmer
-});
-const CollectSettings = dynamic(
-  () => import("@components/Composer/Actions/CollectSettings"),
-  { loading: () => Shimmer }
-);
-const LivestreamSettings = dynamic(
-  () => import("@components/Composer/Actions/LivestreamSettings"),
-  { loading: () => Shimmer }
-);
 
 interface NewPublicationProps {
   className?: string;
