@@ -28,7 +28,6 @@ import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import urlcat from "urlcat";
 import AccountStatus from "./AccountStatus";
-import Badges from "./Badges";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import InternalTools from "./InternalTools";
@@ -212,7 +211,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
           </MetaDetails>
         </div>
       </div>
-      <Badges address={account.address} />
       <InternalTools account={account} />
     </div>
   );
