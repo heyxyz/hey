@@ -1,3 +1,0 @@
-fragment TippingAccountActionFields on TippingAccountAction {
-  address
-}
