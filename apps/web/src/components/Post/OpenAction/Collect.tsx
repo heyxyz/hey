@@ -5,7 +5,7 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useState } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import CollectModule from "./CollectModule";
+import CollectAction from "./CollectAction";
 
 interface CollectProps {
   post: Post;
@@ -37,7 +37,7 @@ const Collect: FC<CollectProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        <CollectModule post={post} />
+        <CollectAction post={post} />
       </Modal>
     </>
   );

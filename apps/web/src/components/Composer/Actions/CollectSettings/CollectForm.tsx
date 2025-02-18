@@ -1,9 +1,9 @@
 import LicensePicker from "@components/Composer/LicensePicker";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
-import type { CollectModuleType } from "@hey/types/hey";
+import type { CollectActionType } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 import { isAddress } from "viem";
 import AmountConfig from "./AmountConfig";
@@ -18,12 +18,12 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const { collectModule, reset, setCollectModule } = useCollectModuleStore(
+  const { collectAction, reset, setCollectAction } = useCollectActionStore(
     (state) => state
   );
   const { setLicense } = usePostLicenseStore();
 
-  const recipients = collectModule.recipients || [];
+  const recipients = collectAction.recipients || [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
 
   const hasEmptyRecipients = recipients.some((recipient) => !recipient.address);
@@ -40,15 +40,15 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     return recipientsSet.size !== recipients.length;
   };
 
-  const setCollectType = (data: CollectModuleType) => {
-    setCollectModule({
-      ...collectModule,
+  const setCollectType = (data: CollectActionType) => {
+    setCollectAction({
+      ...collectAction,
       ...data
     });
   };
 
   const toggleCollect = () => {
-    if (collectModule.enabled) {
+    if (collectAction.enabled) {
       setLicense(null);
       reset();
     } else {
@@ -62,16 +62,16 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <ToggleWithHelper
           description="This post can be collected"
           heading="Enable Collect"
-          on={collectModule.enabled || false}
+          on={collectAction.enabled || false}
           setOn={toggleCollect}
         />
       </div>
       <div className="divider" />
-      {collectModule.enabled ? (
+      {collectAction.enabled ? (
         <>
           <div className="m-5">
             <AmountConfig setCollectType={setCollectType} />
-            {collectModule.amount?.value ? (
+            {collectAction.amount?.value ? (
               <>
                 <ReferralConfig setCollectType={setCollectType} />
                 <SplitConfig
@@ -102,12 +102,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           outline
           variant="danger"
         >
-          {collectModule.enabled ? "Reset" : "Cancel"}
+          {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>
         <Button
           disabled={
-            (Number.parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.enabled) ||
+            (Number.parseFloat(collectAction.amount?.value as string) <= 0 &&
+              collectAction.enabled) ||
             hasImproperSplits ||
             hasEmptyRecipients ||
             hasZeroSplits ||

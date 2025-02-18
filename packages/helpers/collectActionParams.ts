@@ -1,11 +1,11 @@
 import type { PostActionConfigInput } from "@hey/indexer";
-import type { CollectModuleType } from "@hey/types/hey";
+import type { CollectActionType } from "@hey/types/hey";
 
-const collectModuleParams = (
-  collectModule: CollectModuleType
+const collectActionParams = (
+  collectAction: CollectActionType
 ): PostActionConfigInput | null => {
   const { amount, collectLimit, endsAt, recipients, referralShare } =
-    collectModule;
+    collectAction;
 
   return {
     simpleCollect: {
@@ -18,4 +18,4 @@ const collectModuleParams = (
   };
 };
 
-export default collectModuleParams;
+export default collectActionParams;

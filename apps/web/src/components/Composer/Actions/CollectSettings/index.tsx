@@ -2,12 +2,12 @@ import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { Modal, Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 import CollectForm from "./CollectForm";
 
 const CollectSettings: FC = () => {
-  const { reset } = useCollectModuleStore((state) => state);
+  const { reset } = useCollectActionStore((state) => state);
   const { setLicense } = usePostLicenseStore();
   const [showModal, setShowModal] = useState(false);
 

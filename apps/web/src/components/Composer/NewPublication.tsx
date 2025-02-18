@@ -6,7 +6,7 @@ import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import collectModuleParams from "@hey/helpers/collectModuleParams";
+import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import type { Post } from "@hey/indexer";
@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePost from "src/hooks/useCreatePost";
 import usePostMetadata from "src/hooks/usePostMetadata";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import {
@@ -108,7 +108,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { setLicense } = usePostLicenseStore();
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+  const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
     (state) => state
   );
 
@@ -271,8 +271,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
             ...(feed && { feed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
-            ...(collectModule.enabled && {
-              actions: [{ ...collectModuleParams(collectModule) }]
+            ...(collectAction.enabled && {
+              actions: [{ ...collectActionParams(collectAction) }]
             })
           }
         }

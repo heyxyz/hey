@@ -6,7 +6,7 @@ import type { AnyPost } from "@hey/indexer";
 import { Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
-import CollectModule from "./CollectModule";
+import CollectAction from "./CollectAction";
 
 interface OpenActionProps {
   post: AnyPost;
@@ -46,7 +46,7 @@ const OpenAction: FC<OpenActionProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        <CollectModule post={post} />
+        <CollectAction post={post} />
       </Modal>
     </div>
   );

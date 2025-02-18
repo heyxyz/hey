@@ -26,14 +26,14 @@ import { type Address, formatUnits } from "viem";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useBalance, useWalletClient } from "wagmi";
 
-interface CollectActionProps {
+interface CollectActionButtonProps {
   countOpenActions: number;
   onCollectSuccess?: () => void;
   postAction: PostAction;
   post: Post;
 }
 
-const CollectAction: FC<CollectActionProps> = ({
+const CollectActionButton: FC<CollectActionButtonProps> = ({
   countOpenActions,
   onCollectSuccess = () => {},
   postAction,
@@ -66,8 +66,7 @@ const CollectAction: FC<CollectActionProps> = ({
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const isFreeCollectModule = !amount;
-  const canCollect = !hasActed || !isFreeCollectModule;
+  const canCollect = !hasActed || !amount;
 
   const updateTransactions = ({
     txHash
@@ -121,8 +120,6 @@ const CollectAction: FC<CollectActionProps> = ({
     query: { refetchInterval: 2000 },
     token: assetAddress
   });
-
-  console.log(balanceData);
 
   let hasAmount = false;
   if (
@@ -230,4 +227,4 @@ const CollectAction: FC<CollectActionProps> = ({
   );
 };
 
-export default CollectAction;
+export default CollectActionButton;
