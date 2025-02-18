@@ -42,9 +42,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
-  const [countOpenActions, { increment }] = useCounter(
-    targetPost.stats.countOpenActions
-  );
+  const [collects, { increment }] = useCounter(targetPost.stats.collects);
 
   const { data, loading } = useCollectActionQuery({
     variables: { request: { post: post.id } }
@@ -72,15 +70,13 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
   const usdPrice = collectAction?.amount?.value;
   const currency = collectAction?.amount?.asset?.symbol;
   const recipients = collectAction?.recipients || [];
-  const percentageCollected = (countOpenActions / collectLimit) * 100;
+  const percentageCollected = (collects / collectLimit) * 100;
   const enabledTokens = allowedTokens?.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency || "");
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const isAllCollected = collectLimit
-    ? countOpenActions >= collectLimit
-    : false;
+  const isAllCollected = collectLimit ? collects >= collectLimit : false;
 
   return (
     <>
@@ -174,8 +170,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
                 onClick={() => setShowCollectorsModal(true)}
                 type="button"
               >
-                {humanize(countOpenActions)}{" "}
-                {plur("collector", countOpenActions)}
+                {humanize(collects)} {plur("collector", collects)}
               </button>
               <DownloadCollectors post={targetPost} />
             </div>
@@ -183,7 +178,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="ld-text-gray-500 size-4" />
                 <div className="font-bold">
-                  {collectLimit - countOpenActions} available
+                  {collectLimit - collects} available
                 </div>
               </div>
             ) : null}
@@ -225,11 +220,11 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
               <div className="space-x-1.5">
                 <span>Revenue:</span>
                 <Tooltip
-                  content={`${humanize(amount * countOpenActions)} ${currency}`}
+                  content={`${humanize(amount * collects)} ${currency}`}
                   placement="top"
                 >
                   <span className="font-bold text-gray-600">
-                    {nFormatter(amount * countOpenActions)} {currency}
+                    {nFormatter(amount * collects)} {currency}
                   </span>
                 </Tooltip>
               </div>
@@ -239,7 +234,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
         </div>
         <div className="flex items-center space-x-2">
           <CollectActionButton
-            countOpenActions={countOpenActions}
+            collects={collects}
             onCollectSuccess={() => increment()}
             postAction={collectAction}
             post={targetPost}

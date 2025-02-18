@@ -25,14 +25,14 @@ import { type Address, formatUnits } from "viem";
 import { useBalance } from "wagmi";
 
 interface CollectActionButtonProps {
-  countOpenActions: number;
+  collects: number;
   onCollectSuccess?: () => void;
   postAction: PostAction;
   post: Post;
 }
 
 const CollectActionButton: FC<CollectActionButtonProps> = ({
-  countOpenActions,
+  collects,
   onCollectSuccess = () => {},
   postAction,
   post
@@ -55,9 +55,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const amount = collectAction?.amount as number;
   const assetAddress = collectAction?.assetAddress as any;
   const assetDecimals = collectAction?.assetDecimals as number;
-  const isAllCollected = collectLimit
-    ? countOpenActions >= collectLimit
-    : false;
+  const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
@@ -88,7 +86,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
       fields: {
         stats: (existingData) => ({
           ...existingData,
-          countOpenActions: countOpenActions + 1
+          collects: collects + 1
         })
       },
       id: cache.identify(post)
