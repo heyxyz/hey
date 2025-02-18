@@ -4,8 +4,6 @@ import Loader from "@components/Shared/Loader";
 import errorToast from "@helpers/errorToast";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   AccountManagersDocument,
   type AccountManagersRequest,
@@ -19,18 +17,17 @@ import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
+import useTransactionLifecycle from "src/hooks/useTransactionHandler";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [removingAddress, setRemovingAddress] = useState<string | null>(null);
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
+  const { handleTransactionLifecycle } = useTransactionLifecycle();
 
   const updateCache = (hash: string) => {
     if (hash && data?.accountManagers?.items) {
@@ -73,37 +70,11 @@ const List: FC = () => {
 
   const [removeAccountManager] = useRemoveAccountManagerMutation({
     onCompleted: async ({ removeAccountManager }) => {
-      if (walletClient) {
-        try {
-          if (
-            removeAccountManager.__typename === "SponsoredTransactionRequest"
-          ) {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(removeAccountManager.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            removeAccountManager.__typename === "SelfFundedTransactionRequest"
-          ) {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(removeAccountManager.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (removeAccountManager.__typename === "TransactionWillFail") {
-            return onError({ message: removeAccountManager.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      await handleTransactionLifecycle({
+        transactionData: removeAccountManager,
+        onCompleted,
+        onError
+      });
     },
     onError
   });
