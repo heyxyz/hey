@@ -6240,7 +6240,7 @@ export type QueryCreateFrameTypedDataArgs = {
 
 
 export type QueryDebugMetadataArgs = {
-  request: DebugPostMetadataRequest;
+  debugMetadataRequest: DebugPostMetadataRequest;
 };
 
 
