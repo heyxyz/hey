@@ -1,8 +1,7 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { DEFAULT_AVATAR } from "@hey/data/constants";
+import { BLOCKEXPLORER_URL, DEFAULT_AVATAR } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import { Image } from "@hey/ui";
-import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
 import type { FC } from "react";
 import type { Address } from "viem";
@@ -24,7 +23,7 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
     <div className="flex items-center justify-between">
       <Link
         className="flex items-center space-x-3"
-        href={`${chains.testnet.blockExplorers?.default.url}/address/${address}`}
+        href={`${BLOCKEXPLORER_URL}/address/${address}`}
         rel="noreferrer noopener"
         target="_blank"
       >

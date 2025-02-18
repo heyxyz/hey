@@ -10,7 +10,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, BLOCKEXPLORER_URL } from "@hey/data/constants";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -24,7 +24,6 @@ import {
   useCollectActionQuery
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
-import { chains } from "@lens-network/sdk/viem";
 import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
@@ -211,7 +210,7 @@ const CollectAction: FC<CollectActionProps> = ({ post }) => {
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  href={`${chains.testnet.blockExplorers?.default.url}/address/${collectAction.address}`}
+                  href={`${BLOCKEXPLORER_URL}/address/${collectAction.address}`}
                   rel="noreferrer noopener"
                   target="_blank"
                 >

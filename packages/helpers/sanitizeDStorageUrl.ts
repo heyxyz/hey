@@ -11,7 +11,7 @@ const sanitizeDStorageUrl = (hash?: string): string => {
     return "";
   }
 
-  return hash.replace("lens://", STORAGE_NODE_URL);
+  return hash.replace("lens://", `${STORAGE_NODE_URL}/`);
 };
 
 export default sanitizeDStorageUrl;

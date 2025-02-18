@@ -1,8 +1,8 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { BLOCKEXPLORER_URL } from "@hey/data/constants";
 import { OptimisticTxType } from "@hey/types/enums";
 import type { OptimisticTransaction } from "@hey/types/misc";
 import { Tooltip } from "@hey/ui";
-import { chains } from "@lens-network/sdk/viem";
 import Link from "next/link";
 import type { FC } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -30,7 +30,7 @@ const Transaction: FC<TransactionProps> = ({ transaction }) => {
       <div className="flex items-center space-x-2">
         <Tooltip content="Indexing" placement="top">
           <Link
-            href={`${chains.testnet.blockExplorers?.default.url}/tx/${transaction.txHash}`}
+            href={`${BLOCKEXPLORER_URL}/tx/${transaction.txHash}`}
             target="_blank"
           >
             <div className="flex size-4 items-center justify-center rounded-full bg-gray-200">
