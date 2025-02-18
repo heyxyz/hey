@@ -30,20 +30,6 @@ export type CollectActionType = {
   endsAt?: null | string;
 };
 
-type PollOption = {
-  id: string;
-  option: string;
-  percentage: number;
-  responses: number;
-  voted: boolean;
-};
-
-export type Poll = {
-  endsAt: Date;
-  id: string;
-  options: PollOption[];
-};
-
 export type Preferences = {
   appIcon: number;
   includeLowScore: boolean;
