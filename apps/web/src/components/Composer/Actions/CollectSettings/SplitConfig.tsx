@@ -44,9 +44,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         percent: equalSplits[i]
       };
     });
-    setCollectType({
-      recipients: [...splits]
-    });
+    setCollectType({ recipients: [...splits] });
   };
 
   const onChangeRecipientOrPercent = (

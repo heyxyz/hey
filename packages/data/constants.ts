@@ -25,10 +25,6 @@ export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionle
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = "#FB3A5D";
 
-// Misc
-export const COLLECT_FEES_ADDRESS =
-  "0x698386C93513d6D0C58f296633A7A3e529bd4026";
-
 // URLs
 export const STATIC_ASSETS_URL = "https://hey-assets.b-cdn.net";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
