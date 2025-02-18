@@ -4,6 +4,7 @@ import { LENS_API_URL } from "@hey/data/constants";
 const httpLink = new HttpLink({
   fetch,
   fetchOptions: "no-cors",
+  headers: { "x-lens-app-hey": "djcmi8NsEhjS5yDr8kTqdLfBrFYNKyjrmH9pcTYp" },
   uri: LENS_API_URL
 });
 
