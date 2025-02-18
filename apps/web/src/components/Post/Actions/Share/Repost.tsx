@@ -3,8 +3,6 @@ import { MenuItem } from "@headlessui/react";
 import errorToast from "@helpers/errorToast";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type LoggedInPostOperations,
   type Post,
@@ -15,11 +13,10 @@ import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionHandler";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 interface RepostProps {
   isLoading: boolean;
@@ -39,7 +36,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   );
 
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
+  const { handleTransactionLifecycle } = useTransactionLifecycle();
 
   const updateTransactions = ({
     txHash
@@ -92,33 +89,11 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
         return onCompleted(repost.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (repost.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(repost.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (repost.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(repost.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (repost.__typename === "TransactionWillFail") {
-            return onError({ message: repost.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      await handleTransactionLifecycle({
+        transactionData: repost,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

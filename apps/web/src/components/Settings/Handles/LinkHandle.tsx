@@ -4,8 +4,6 @@ import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   useAssignUsernameToAccountMutation,
   useUnassignUsernameFromAccountMutation,
@@ -16,18 +14,17 @@ import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionHandler";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
 
   const [linkingUsername, setLinkingUsername] = useState<null | string>(null);
-  const { data: walletClient } = useWalletClient();
+  const { handleTransactionLifecycle } = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setLinkingUsername(null);
@@ -50,38 +47,11 @@ const LinkHandle: FC = () => {
         return onCompleted(assignUsernameToAccount.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (
-            assignUsernameToAccount.__typename === "SponsoredTransactionRequest"
-          ) {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(assignUsernameToAccount.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            assignUsernameToAccount.__typename ===
-            "SelfFundedTransactionRequest"
-          ) {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(assignUsernameToAccount.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (assignUsernameToAccount.__typename === "TransactionWillFail") {
-            return onError({ message: assignUsernameToAccount.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      await handleTransactionLifecycle({
+        transactionData: assignUsernameToAccount,
+        onCompleted,
+        onError
+      });
     },
     onError
   });
@@ -116,41 +86,11 @@ const LinkHandle: FC = () => {
         return onCompleted(unassignUsernameFromAccount.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (
-            unassignUsernameFromAccount.__typename ===
-            "SponsoredTransactionRequest"
-          ) {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(unassignUsernameFromAccount.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            unassignUsernameFromAccount.__typename ===
-            "SelfFundedTransactionRequest"
-          ) {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(unassignUsernameFromAccount.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            unassignUsernameFromAccount.__typename === "TransactionWillFail"
-          ) {
-            return onError({ message: unassignUsernameFromAccount.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      await handleTransactionLifecycle({
+        transactionData: unassignUsernameFromAccount,
+        onCompleted,
+        onError
+      });
     },
     onError
   });
