@@ -177,7 +177,7 @@ const ChooseUsername: FC = () => {
           ) : canCheck && isInvalid ? (
             <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
               <ExclamationTriangleIcon className="size-4" />
-              <b>{form.formState.errors.username?.message}</b>
+              <b>{form.formState.errors.username?.message?.toString()}</b>
             </div>
           ) : (
             <div className="ld-text-gray-500 mt-2 flex items-center space-x-1 text-sm">
