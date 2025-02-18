@@ -111,7 +111,7 @@ const List: FC = () => {
             endReached={onEndReached}
             itemContent={(_, account) => (
               <div className="pb-7">
-                <Link href={`/staff/accounts/${account.address}`}>
+                {/* <Link href={`/staff/accounts/${account.address}`}> */}
                   <SingleAccount
                     isBig
                     linkToAccount={false}
@@ -119,7 +119,7 @@ const List: FC = () => {
                     showBio={false}
                     showUserPreview={false}
                   />
-                </Link>
+                {/* </Link> */}
               </div>
             )}
             useWindowScroll
