@@ -12,15 +12,6 @@ CREATE TABLE "Preference" (
 );
 
 -- CreateTable
-CREATE TABLE "MembershipNft" (
-    "accountAddress" TEXT NOT NULL,
-    "dismissedOrMinted" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "MembershipNft_pkey" PRIMARY KEY ("accountAddress")
-);
-
--- CreateTable
 CREATE TABLE "Poll" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

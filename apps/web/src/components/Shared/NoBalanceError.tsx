@@ -1,23 +1,13 @@
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 
 interface NoBalanceErrorProps {
-  errorMessage?: ReactNode;
   assetSymbol?: string;
 }
 
-const NoBalanceError: FC<NoBalanceErrorProps> = ({
-  errorMessage,
-  assetSymbol
-}) => {
+const NoBalanceError: FC<NoBalanceErrorProps> = ({ assetSymbol }) => {
   return (
     <div className="text-sm">
-      {errorMessage ? (
-        errorMessage
-      ) : (
-        <span>
-          You don't have enough <b>{assetSymbol || "funds"}</b>
-        </span>
-      )}
+      You don't have enough <b>{assetSymbol || "funds"}</b>
     </div>
   );
 };

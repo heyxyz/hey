@@ -14,12 +14,6 @@ model Preference {
   createdAt       DateTime @default(now())
 }
 
-model MembershipNft {
-  accountAddress    String   @id
-  dismissedOrMinted Boolean  @default(false)
-  createdAt         DateTime @default(now())
-}
-
 model Poll {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime  @default(now())

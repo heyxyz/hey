@@ -46,7 +46,6 @@ export type Poll = {
 
 export type Preferences = {
   appIcon: number;
-  hasDismissedOrMintedMembershipNft: boolean;
   includeLowScore: boolean;
   permissions: string[];
 };

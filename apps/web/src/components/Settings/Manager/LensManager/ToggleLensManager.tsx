@@ -14,6 +14,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import type { Hex } from "viem";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -27,11 +28,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const { isSignlessEnabled } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
-  const [txHash, setTxHash] = useState<`0x${string}` | null>(null);
+  const [txHash, setTxHash] = useState<Hex | null>(null);
   const { data: walletClient } = useWalletClient();
 
   const onCompleted = (hash: string) => {
-    setTxHash(hash as `0x${string}`);
+    setTxHash(hash as Hex);
     setIsLoading(false);
   };
 

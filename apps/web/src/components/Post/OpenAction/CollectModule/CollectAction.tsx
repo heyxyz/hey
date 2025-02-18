@@ -3,7 +3,6 @@ import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
-import { COLLECT_FEES_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
@@ -15,8 +14,7 @@ import {
 } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
-import cn from "@hey/ui/cn";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
@@ -24,27 +22,19 @@ import {
   addOptimisticTransaction,
   useTransactionStore
 } from "src/store/persisted/useTransactionStore";
-import { formatUnits } from "viem";
+import { type Address, formatUnits } from "viem";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useAccount, useBalance, useWalletClient } from "wagmi";
+import { useBalance, useWalletClient } from "wagmi";
 
 interface CollectActionProps {
-  buttonTitle?: string;
-  className?: string;
   countOpenActions: number;
-  forceShowCollect?: boolean;
-  noBalanceErrorMessages?: ReactNode;
   onCollectSuccess?: () => void;
   postAction: PostAction;
   post: Post;
 }
 
 const CollectAction: FC<CollectActionProps> = ({
-  buttonTitle = "Collect now",
-  className = "",
   countOpenActions,
-  forceShowCollect = false,
-  noBalanceErrorMessages,
   onCollectSuccess = () => {},
   postAction,
   post
@@ -63,7 +53,6 @@ const CollectAction: FC<CollectActionProps> = ({
       : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
   );
 
-  const { address } = useAccount();
   const { cache } = useApolloClient();
 
   const endTimestamp = collectAction?.endsAt;
@@ -78,9 +67,7 @@ const CollectAction: FC<CollectActionProps> = ({
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isFreeCollectModule = !amount;
-  const canCollect = forceShowCollect
-    ? true
-    : !hasActed || !isFreeCollectModule;
+  const canCollect = !hasActed || !isFreeCollectModule;
 
   const updateTransactions = ({
     txHash
@@ -130,7 +117,7 @@ const CollectAction: FC<CollectActionProps> = ({
   };
 
   const { data: balanceData } = useBalance({
-    address,
+    address: sessionAccountAddress as Address,
     query: { refetchInterval: 2000 },
     token: assetAddress
   });
@@ -198,13 +185,7 @@ const CollectAction: FC<CollectActionProps> = ({
           post: post.id,
           action: {
             simpleCollect: {
-              selected: true,
-              referrals: [
-                {
-                  address: COLLECT_FEES_ADDRESS,
-                  percent: 5
-                }
-              ]
+              selected: true
             }
           }
         }
@@ -233,23 +214,18 @@ const CollectAction: FC<CollectActionProps> = ({
     return (
       <WarningMessage
         className="mt-5 w-full"
-        message={
-          <NoBalanceError
-            errorMessage={noBalanceErrorMessages}
-            assetSymbol={collectAction?.assetSymbol}
-          />
-        }
+        message={<NoBalanceError assetSymbol={collectAction?.assetSymbol} />}
       />
     );
   }
 
   return (
     <Button
-      className={cn("mt-5 w-full justify-center", className)}
+      className="mt-5 w-full justify-center"
       disabled={isLoading}
       onClick={handleCreateCollect}
     >
-      {buttonTitle}
+      Collect now
     </Button>
   );
 };
