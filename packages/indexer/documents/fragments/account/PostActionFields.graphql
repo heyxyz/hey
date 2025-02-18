@@ -1,0 +1,8 @@
+fragment AccountActionFields on AccountAction {
+  ... on TippingAccountAction {
+    ...TippingAccountActionFields
+  }
+  ... on UnknownAction {
+    ...UnknownActionFields
+  }
+}
