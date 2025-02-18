@@ -34,11 +34,7 @@ export const STATIC_ASSETS_URL = "https://hey-assets.b-cdn.net";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   "https://ik.imagekit.io/lens/media-snapshot";
-export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
-export const METADATA_ENDPOINT = "https://metadata.hey.xyz";
-export const EVER_API = "https://endpoint.4everland.co";
-export const EVER_REGION = "4EVERLAND";
-export const EVER_BUCKET = "hey-media";
+export const STORAGE_NODE_URL = "https://storage-api.testnet.lens.dev/";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;

@@ -4,7 +4,7 @@ import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
-import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import { KNOWN_ATTRIBUTES, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
@@ -175,8 +175,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   }, [postContent]);
 
   const getAnimationUrl = () => {
-    const fallback =
-      "ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4";
+    const fallback = `${STATIC_IMAGES_URL}/thumbnail.png`;
 
     if (attachments.length > 0 || hasAudio || hasVideo) {
       return attachments[0]?.uri || fallback;
