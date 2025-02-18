@@ -1,6 +1,6 @@
-mutation EnableAccountAction($request: EnableAccountActionRequest!) {
-  enableAccountAction(request: $request) {
-    ... on EnableAccountActionResponse {
+mutation DisableAccountAction($request: DisableAccountActionRequest!) {
+  disableAccountAction(request: $request) {
+    ... on DisableAccountActionResponse {
       hash
     }
     ... on SelfFundedTransactionRequest {
