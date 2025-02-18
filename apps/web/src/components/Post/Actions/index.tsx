@@ -3,8 +3,8 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPost } from "@hey/indexer";
 import type { FC } from "react";
 import { memo } from "react";
-import OpenAction from "../OpenAction";
-import Collect from "../OpenAction/Collect";
+import CollectAction from "../OpenAction/CollectAction";
+import SmallCollectButton from "../OpenAction/CollectAction/SmallCollectButton";
 import Comment from "./Comment";
 import Like from "./Like";
 import ShareMenu from "./Share";
@@ -32,9 +32,9 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
         <Comment post={targetPost} showCount={showCount} />
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
-        {canAct && !showCount ? <OpenAction post={post} /> : null}
+        {canAct && !showCount ? <CollectAction post={post} /> : null}
       </span>
-      {canAct ? <Collect post={targetPost} /> : null}
+      {canAct ? <SmallCollectButton post={targetPost} /> : null}
     </span>
   );
 };

@@ -5,13 +5,13 @@ import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useState } from "react";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
-import CollectAction from "./CollectAction";
+import CollectActionBody from "./CollectActionBody";
 
-interface CollectProps {
+interface SmallCollectButtonProps {
   post: Post;
 }
 
-const Collect: FC<CollectProps> = ({ post }) => {
+const SmallCollectButton: FC<SmallCollectButtonProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
   const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
@@ -37,10 +37,10 @@ const Collect: FC<CollectProps> = ({ post }) => {
         show={showCollectModal}
         title="Collect"
       >
-        <CollectAction post={post} />
+        <CollectActionBody post={post} />
       </Modal>
     </>
   );
 };
 
-export default Collect;
+export default SmallCollectButton;
