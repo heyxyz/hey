@@ -24,7 +24,6 @@
     "express-file-routing": "^3.0.3",
     "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
-    "fast-xml-parser": "^4.5.2",
     "graphql": "^16.10.0",
     "linkedom": "^0.18.9",
     "openai": "^4.85.1",
