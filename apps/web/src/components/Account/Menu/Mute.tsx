@@ -5,14 +5,14 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/alert/useGlobalAlertStateStore";
+import { useMuteAlertStateStore } from "src/store/non-persisted/alert/useMuteAlertStateStore";
 
 interface MuteProps {
   account: Account;
 }
 
 const Mute: FC<MuteProps> = ({ account }) => {
-  const { setShowMuteOrUnmuteAlert } = useGlobalAlertStateStore();
+  const { setShowMuteOrUnmuteAlert } = useMuteAlertStateStore();
   const isMutedByMe = account.operations?.isMutedByMe;
 
   return (

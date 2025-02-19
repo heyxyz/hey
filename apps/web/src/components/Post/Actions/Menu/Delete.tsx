@@ -4,14 +4,14 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/alert/useGlobalAlertStateStore";
+import { useDeletePostAlertStateStore } from "src/store/non-persisted/alert/useDeletePostAlertStateStore";
 
 interface DeleteProps {
   post: Post;
 }
 
 const Delete: FC<DeleteProps> = ({ post }) => {
-  const { setShowPostDeleteAlert } = useGlobalAlertStateStore();
+  const { setShowPostDeleteAlert } = useDeletePostAlertStateStore();
 
   return (
     <MenuItem

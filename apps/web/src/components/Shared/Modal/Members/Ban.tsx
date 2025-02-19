@@ -4,8 +4,8 @@ import type { Account, Group } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { useBanAlertStateStoreStore } from "src/store/non-persialert/useBanAlertStateStorenAlertStateStore";
-import { useAccountStatusom "src/store/non-persisted/useAcuseAccountStatus
+import { useBanAlertStateStore } from "src/store/non-persisted/alert/useBanAlertStateStore";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 

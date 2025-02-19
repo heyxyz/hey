@@ -6,13 +6,13 @@ interface State {
   banningOrUnbanningAccount: null | Account;
   banningGroupAddress: null | string;
   banning: boolean;
+  showBanOrUnbanAlert: boolean;
   setShowBanOrUnbanAlert: (
     showBanOrUnbanAlert: boolean,
     banning: boolean,
     banningOrUnbanningAccount: null | Account,
     banningGroupAddress: null | string
   ) => void;
-  showBanOrUnbanAlert: boolean;
 }
 
 const store = create<State>((set) => ({

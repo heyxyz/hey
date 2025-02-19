@@ -3,12 +3,12 @@ import { useDeletePostMutation } from "@hey/indexer";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
-import { useGlobalAlertStateStoreateStore } from "src/store/non-pealert/useGlobalAlertStateStoreeGlobalAlertStateStore";
-import { useAccountStatus"src/store/non-persisted/useAccouuseAccountStatus
+import { useDeletePostAlertStateStore } from "src/store/non-persisted/alert/useDeletePostAlertStateStore";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 const DeletePost: FC = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
-    useGlobalAlertStateStore();
+    useDeletePostAlertStateStore();
   const { isSuspended } = useAccountStatus();
 
   const [deletePost, { loading }] = useDeletePostMutation({

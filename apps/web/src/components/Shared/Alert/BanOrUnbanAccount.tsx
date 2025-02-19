@@ -13,8 +13,8 @@ import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
-import { useBanAlertStateStoreStore } from "src/store/non-persialert/useBanAlertStateStorenAlertStateStore";
-import { useAccountStatusom "src/store/non-persisted/useAcuseAccountStatus
+import { useBanAlertStateStore } from "src/store/non-persisted/alert/useBanAlertStateStore";
+import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   addOptimisticTransaction,
