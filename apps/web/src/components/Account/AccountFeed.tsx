@@ -16,8 +16,6 @@ import { useEffect, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountFeedStore } from "src/store/non-persisted/useAccountFeedStore";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
@@ -38,9 +36,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   address,
   type
 }) => {
-  const { currentAccount } = useAccountStore();
   const { mediaFeedFilters } = useAccountFeedStore();
-  const { indexedPostHash } = useTransactionStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
@@ -80,7 +76,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
     filter: { metadata, postTypes, authors: [address] }
   };
 
-  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
+  const { data, error, fetchMore, loading } = usePostsQuery({
     skip: !address,
     variables: { request }
   });
@@ -88,12 +84,6 @@ const AccountFeed: FC<AccountFeedProps> = ({
   const posts = data?.posts?.items;
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
-
-  useEffect(() => {
-    if (indexedPostHash && currentAccount?.address === address) {
-      refetch();
-    }
-  }, [indexedPostHash]);
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling) {
