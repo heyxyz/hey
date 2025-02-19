@@ -18,4 +18,4 @@ const store = create<State>((set) => ({
     set(() => ({ disablingPost, showDisableCollectAlert }))
 }));
 
-export const useDisableCollectAlertStateStore = createTrackedSelector(store);
+export const useDisableCollectAlertStore = createTrackedSelector(store);

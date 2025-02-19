@@ -7,13 +7,13 @@ import { Alert } from "@hey/ui";
 import { type FC, useState } from "react";
 import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
-import { useDisableCollectAlertStateStore } from "src/store/non-persisted/alert/useDisableCollectAlertStateStore";
+import { useDisableCollectAlertStore } from "src/store/non-persisted/alert/useDisableCollectAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const DisableCollect: FC = () => {
   const { disablingPost, setShowDisableCollectAlert, showDisableCollectAlert } =
-    useDisableCollectAlertStateStore();
+    useDisableCollectAlertStore();
   const { isSuspended } = useAccountStatus();
   const [loading, setLoading] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
