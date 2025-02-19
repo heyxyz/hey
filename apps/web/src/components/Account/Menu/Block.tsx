@@ -5,7 +5,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
+import { useBlockAlertStateStore } from "src/store/non-persisted/alert/useBlockAlertStateStore";
 
 interface BlockProps {
   account: Account;

@@ -5,7 +5,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/alert/useGlobalAlertStateStore";
 
 interface MuteProps {
   account: Account;

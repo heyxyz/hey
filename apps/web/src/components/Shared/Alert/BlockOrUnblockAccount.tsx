@@ -15,8 +15,8 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
+import { useBlockAlertStateStoreteStore } from "src/store/non-peralert/useBlockAlertStateStoreBlockAlertStateStore";
+import { useAccountStatus "src/store/non-persisted/useAccouseAccountStatus
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   addOptimisticTransaction,

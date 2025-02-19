@@ -11,7 +11,7 @@ import {
 import { Button, Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
+import { useBanAlertStateStore } from "src/store/non-persisted/alert/useBanAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface ListProps {

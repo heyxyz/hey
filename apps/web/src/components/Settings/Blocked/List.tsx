@@ -10,7 +10,7 @@ import {
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
+import { useBlockAlertStateStore } from "src/store/non-persisted/alert/useBlockAlertStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {

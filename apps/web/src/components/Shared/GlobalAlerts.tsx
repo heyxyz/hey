@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
-import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useBanAlertStateStore } from "src/store/non-persisted/alert/useBanAlertStateStore";
+import { useBlockAlertStateStore } from "src/store/non-persisted/alert/useBlockAlertStateStore";
+import { useGlobalAlertStateStore } from "src/store/non-persisted/alert/useGlobalAlertStateStore";
 import BanOrUnbanAccount from "./Alert/BanOrUnbanAccount";
 import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccount";
 import DeletePost from "./Alert/DeletePost";

@@ -11,8 +11,8 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalAlertStateStore } from "src/store/non-persisted/useGlobalAlertStateStore";
+import { useGlobalAlertStateStoreateStore } from "src/store/non-pealert/useGlobalAlertStateStoreeGlobalAlertStateStore";
+import { useAccountStatus"src/store/non-persisted/useAccouuseAccountStatus
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
