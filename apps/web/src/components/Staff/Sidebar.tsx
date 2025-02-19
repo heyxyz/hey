@@ -3,7 +3,6 @@ import {
   AdjustmentsHorizontalIcon,
   BanknotesIcon,
   ClipboardIcon,
-  CurrencyDollarIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
 import type { FC } from "react";
@@ -23,11 +22,6 @@ const sidebarItems = [
     icon: <BanknotesIcon className="size-4" />,
     title: "Sponsorship",
     url: "/staff/sponsorship"
-  },
-  {
-    icon: <CurrencyDollarIcon className="size-4" />,
-    title: "Tokens",
-    url: "/staff/tokens"
   },
   {
     icon: <AdjustmentsHorizontalIcon className="size-4" />,
