@@ -32,5 +32,4 @@ export type InternalAccount = Preferences;
 
 export type AccountDetails = {
   isSuspended: boolean;
-  status: { emoji: string; message: string } | null;
 };

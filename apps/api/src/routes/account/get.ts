@@ -28,21 +28,17 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [accountPermission, accountStatus] = await prisma.$transaction([
+      const [accountPermission] = await prisma.$transaction([
         prisma.accountPermission.findFirst({
           where: {
             permissionId: PermissionId.Suspended,
             accountAddress: address as string
           }
-        }),
-        prisma.accountStatus.findUnique({
-          where: { accountAddress: address as string }
         })
       ]);
 
       const response: AccountDetails = {
-        isSuspended: accountPermission?.permissionId === PermissionId.Suspended,
-        status: accountStatus || null
+        isSuspended: accountPermission?.permissionId === PermissionId.Suspended
       };
 
       await setRedis(cacheKey, response);

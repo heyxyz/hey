@@ -27,7 +27,6 @@ import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import urlcat from "urlcat";
-import AccountStatus from "./AccountStatus";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import InternalTools from "./InternalTools";
@@ -80,7 +79,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
               <EyeSlashIcon className="size-6 text-brand-500" />
             </Tooltip>
           ) : null}
-          <AccountStatus address={account.address} />
         </div>
         <div className="flex items-center space-x-3">
           <Slug

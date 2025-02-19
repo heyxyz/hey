@@ -44,10 +44,3 @@ model AccountPermission {
   @@index([accountAddress])
   @@index([permissionId])
 }
-
-model AccountStatus {
-  accountAddress String   @id
-  message        String
-  emoji          String
-  createdAt      DateTime @default(now())
-}

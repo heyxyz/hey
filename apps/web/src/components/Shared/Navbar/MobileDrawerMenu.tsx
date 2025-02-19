@@ -9,7 +9,6 @@ import type { FC } from "react";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../Slug";
-import AccountStatus from "./NavItems/AccountStatus";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
@@ -61,11 +60,6 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchAccount className={cn(itemClass, "px-4")} />
-          <div className="divider" />
-          <AccountStatus
-            className={cn(itemClass, "px-4")}
-            id={currentAccount?.address}
-          />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
