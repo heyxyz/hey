@@ -7,7 +7,6 @@ import { useAccount } from "wagmi";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
-import AccountStatus from "./Modal/AccountStatus";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
@@ -28,9 +27,7 @@ const GlobalModals: FC = () => {
     showOptimisticTransactionsModal,
     showAccountSwitchModal,
     showPostReportModal,
-    showReportAccountModal,
-    showEditStatusModal,
-    setShowEditStatusModal
+    showReportAccountModal
   } = useGlobalModalStore();
 
   const { screen: signupScreen } = useSignupStore();
@@ -89,13 +86,6 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
-      </Modal>
-      <Modal
-        onClose={() => setShowEditStatusModal(false)}
-        show={showEditStatusModal}
-        title="Edit Status"
-      >
-        <AccountStatus />
       </Modal>
     </>
   );

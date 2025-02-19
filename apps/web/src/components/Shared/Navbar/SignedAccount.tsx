@@ -11,7 +11,6 @@ import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
 import { NextLink } from "./MenuItems";
 import MobileDrawerMenu from "./MobileDrawerMenu";
-import AccountStatus from "./NavItems/AccountStatus";
 import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import OptimisticTransactions from "./NavItems/OptimisticTransactions";
@@ -81,18 +80,6 @@ const SignedAccount: FC = () => {
               }
             >
               <SwitchAccount />
-            </MenuItem>
-            <div className="divider" />
-            <MenuItem
-              as="div"
-              className={({ focus }: { focus: boolean }) =>
-                cn(
-                  { "dropdown-active": focus },
-                  "m-2 rounded-lg border dark:border-gray-700"
-                )
-              }
-            >
-              <AccountStatus id={currentAccount?.address} />
             </MenuItem>
             <div className="divider" />
             <MenuItem
