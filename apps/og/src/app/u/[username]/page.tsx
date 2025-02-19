@@ -1,9 +1,9 @@
-import { APP_NAME, LENS_API_URL } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
 import { type Account, AccountDocument } from "@hey/indexer";
-import { print } from "graphql";
+import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
@@ -16,24 +16,16 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { username } = await params;
 
-  const response = await fetch(LENS_API_URL, {
-    body: JSON.stringify({
-      operationName: "Account",
-      query: print(AccountDocument),
-      variables: { request: { username: { localName: username } } }
-    }),
-    cache: "no-store",
-    headers: { "Content-Type": "application/json" },
-    method: "POST"
+  const { data } = await apolloClient().query({
+    query: AccountDocument,
+    variables: { request: { username: { localName: username } } }
   });
 
-  const result = await response.json();
-
-  if (!result.data.account) {
+  if (!data.account) {
     return defaultMetadata;
   }
 
-  const account = result.data.account as Account;
+  const account = data.account as Account;
   const { name, link, usernameWithPrefix } = getAccount(account);
   const title = `${name} (${usernameWithPrefix}) • ${APP_NAME}`;
   const description = (account?.metadata?.bio || title).slice(0, 155);

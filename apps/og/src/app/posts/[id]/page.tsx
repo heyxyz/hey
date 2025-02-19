@@ -1,12 +1,11 @@
 import getPostOGImages from "@helpers/getPostOGImages";
-import { APP_NAME, LENS_API_URL } from "@hey/data/constants";
+import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPost, PostDocument } from "@hey/indexer";
-import { addTypenameToDocument } from "apollo-utilities";
-import { print } from "graphql";
+import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
@@ -19,24 +18,16 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { id } = await params;
 
-  const response = await fetch(LENS_API_URL, {
-    body: JSON.stringify({
-      operationName: "Post",
-      query: print(addTypenameToDocument(PostDocument)),
-      variables: { request: { post: id } }
-    }),
-    cache: "no-store",
-    headers: { "Content-Type": "application/json" },
-    method: "POST"
+  const { data } = await apolloClient().query({
+    query: PostDocument,
+    variables: { request: { post: id } }
   });
 
-  const result = await response.json();
-
-  if (!result.data.post) {
+  if (!data.post) {
     return defaultMetadata;
   }
 
-  const post = result.data.post as AnyPost;
+  const post = data.post as AnyPost;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { author, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
