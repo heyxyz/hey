@@ -12,7 +12,6 @@ import {
 import { Card, EmptyState, ErrorMessage, Input, Select } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useDebounce } from "@uidotdev/usehooks";
-import Link from "next/link";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -112,13 +111,13 @@ const List: FC = () => {
             itemContent={(_, account) => (
               <div className="pb-7">
                 {/* <Link href={`/staff/accounts/${account.address}`}> */}
-                  <SingleAccount
-                    isBig
-                    linkToAccount={false}
-                    account={account as Account}
-                    showBio={false}
-                    showUserPreview={false}
-                  />
+                <SingleAccount
+                  isBig
+                  linkToAccount={false}
+                  account={account as Account}
+                  showBio={false}
+                  showUserPreview={false}
+                />
                 {/* </Link> */}
               </div>
             )}
