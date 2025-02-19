@@ -66,4 +66,4 @@ const store = create<State>((set) => ({
     set(() => ({ showEditStatusModal }))
 }));
 
-export const useGlobalModalStateStore = createTrackedSelector(store);
+export const useGlobalModalStore = createTrackedSelector(store);

@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import type { Address } from "viem";
@@ -27,7 +27,7 @@ interface ActionProps {
 
 const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { currentAccount } = useAccountStore();
-  const { setShowAuthModal } = useGlobalModalStateStore();
+  const { setShowAuthModal } = useGlobalModalStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(2);

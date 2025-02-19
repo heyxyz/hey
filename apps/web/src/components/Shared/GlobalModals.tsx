@@ -2,7 +2,7 @@ import NewPublication from "@components/Composer/NewPublication";
 import ReportPost from "@components/Shared/Modal/ReportPost";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
@@ -31,7 +31,7 @@ const GlobalModals: FC = () => {
     showReportAccountModal,
     showEditStatusModal,
     setShowEditStatusModal
-  } = useGlobalModalStateStore();
+  } = useGlobalModalStore();
 
   const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();

@@ -11,13 +11,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import EmojiPicker from "../EmojiPicker";
 
 const AccountStatus: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowEditStatusModal } = useGlobalModalStateStore();
+  const { setShowEditStatusModal } = useGlobalModalStore();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [emoji, setEmoji] = useState<string | null>(null);

@@ -6,7 +6,7 @@ import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../Slug";
 import AccountStatus from "./NavItems/AccountStatus";
@@ -22,7 +22,7 @@ import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowMobileDrawer } = useGlobalModalStateStore();
+  const { setShowMobileDrawer } = useGlobalModalStore();
 
   const handleCloseDrawer = () => {
     setShowMobileDrawer(false);

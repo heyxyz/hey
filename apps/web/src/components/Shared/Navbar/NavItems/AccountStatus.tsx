@@ -5,7 +5,7 @@ import getAccountDetails, {
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 
 interface AccountStatusProps {
   id: string;
@@ -13,7 +13,7 @@ interface AccountStatusProps {
 }
 
 const AccountStatus: FC<AccountStatusProps> = ({ id, className = "" }) => {
-  const { setShowEditStatusModal } = useGlobalModalStateStore();
+  const { setShowEditStatusModal } = useGlobalModalStore();
 
   const { data, isLoading } = useQuery({
     enabled: Boolean(id),
