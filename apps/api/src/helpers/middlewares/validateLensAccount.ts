@@ -4,7 +4,7 @@ import type { NextFunction, Request, Response } from "express";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 import catchedError from "../catchedError";
 
-const jwksUri = `${LENS_API_URL}/.well-known/jwks.json`;
+const jwksUri = `${LENS_API_URL.replace("/graphql", "")}/.well-known/jwks.json`;
 const JWKS = createRemoteJWKSet(new URL(jwksUri));
 
 /**
