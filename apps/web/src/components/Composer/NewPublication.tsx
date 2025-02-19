@@ -34,7 +34,7 @@ import {
   usePostVideoStore
 } from "src/store/non-persisted/post/usePostVideoStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Attachment from "./Actions/Attachment";
 import CollectSettings from "./Actions/CollectSettings";
@@ -55,7 +55,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { isSuspended } = useAccountStatus();
 
   // Global modal store
-  const { setShowNewPostModal } = useGlobalModalStateStore();
+  const { setShowNewPostModal } = useGlobalModalStore();
 
   // Post store
   const { postContent, quotedPost, setPostContent, setQuotedPost } =

@@ -11,7 +11,7 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useMuteAlertStateStore } from "src/store/non-persisted/alert/useMuteAlertStateStore";
+import { useMuteAlertStore } from "src/store/non-persisted/alert/useMuteAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
@@ -22,7 +22,7 @@ const MuteOrUnmuteAccount: FC = () => {
     mutingOrUnmutingAccount,
     setShowMuteOrUnmuteAlert,
     showMuteOrUnmuteAlert
-  } = useMuteAlertStateStore();
+  } = useMuteAlertStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);

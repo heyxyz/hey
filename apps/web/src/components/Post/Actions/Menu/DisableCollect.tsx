@@ -4,14 +4,14 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useDisableCollectAlertStateStore } from "src/store/non-persisted/alert/useDisableCollectAlertStateStore";
+import { useDisableCollectAlertStore } from "src/store/non-persisted/alert/useDisableCollectAlertStore";
 
 interface DisableCollectProps {
   post: Post;
 }
 
 const DisableCollect: FC<DisableCollectProps> = ({ post }) => {
-  const { setShowDisableCollectAlert } = useDisableCollectAlertStateStore();
+  const { setShowDisableCollectAlert } = useDisableCollectAlertStore();
   const enabled = post.actions.some(
     (action) => action.__typename === "SimpleCollectAction"
   );

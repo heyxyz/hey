@@ -18,4 +18,4 @@ const store = create<State>((set) => ({
     set(() => ({ deletingPost, showPostDeleteAlert }))
 }));
 
-export const useDeletePostAlertStateStore = createTrackedSelector(store);
+export const useDeletePostAlertStore = createTrackedSelector(store);

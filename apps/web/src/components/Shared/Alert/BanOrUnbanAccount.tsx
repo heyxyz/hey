@@ -13,7 +13,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
-import { useBanAlertStateStore } from "src/store/non-persisted/alert/useBanAlertStateStore";
+import { useBanAlertStore } from "src/store/non-persisted/alert/useBanAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
@@ -29,7 +29,7 @@ const BanOrUnbanAccount: FC = () => {
     banning,
     setShowBanOrUnbanAlert,
     showBanOrUnbanAlert
-  } = useBanAlertStateStore();
+  } = useBanAlertStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
   const { isSuspended } = useAccountStatus();

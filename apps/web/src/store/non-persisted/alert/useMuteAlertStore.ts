@@ -18,4 +18,4 @@ const store = create<State>((set) => ({
     set(() => ({ mutingOrUnmutingAccount, showMuteOrUnmuteAlert }))
 }));
 
-export const useMuteAlertStateStore = createTrackedSelector(store);
+export const useMuteAlertStore = createTrackedSelector(store);

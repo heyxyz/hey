@@ -13,7 +13,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
   addOptimisticTransaction,
@@ -35,7 +35,7 @@ const Unfollow: FC<UnfollowProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { setShowAuthModal } = useGlobalModalStateStore();
+  const { setShowAuthModal } = useGlobalModalStore();
   const { isFollowPending } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();

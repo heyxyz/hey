@@ -15,7 +15,7 @@ import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useBlockAlertStateStore } from "src/store/non-persisted/alert/useBlockAlertStateStore";
+import { useBlockAlertStore } from "src/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import {
@@ -31,7 +31,7 @@ const BlockOrUnblockAccount: FC = () => {
     blockingorUnblockingAccount,
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
-  } = useBlockAlertStateStore();
+  } = useBlockAlertStore();
   const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
