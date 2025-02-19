@@ -1,6 +1,5 @@
 import getPostOGImages from "@helpers/getPostOGImages";
-import { APP_NAME } from "@hey/data/constants";
-import LensEndpoint from "@hey/data/lens-endpoints";
+import { APP_NAME, LENS_API_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
@@ -20,7 +19,7 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { id } = await params;
 
-  const response = await fetch(LensEndpoint.Testnet, {
+  const response = await fetch(LENS_API_URL, {
     body: JSON.stringify({
       operationName: "Post",
       query: print(addTypenameToDocument(PostDocument)),

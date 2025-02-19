@@ -1,5 +1,4 @@
-import { APP_NAME } from "@hey/data/constants";
-import LensEndpoint from "@hey/data/lens-endpoints";
+import { APP_NAME, LENS_API_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
@@ -17,7 +16,7 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { username } = await params;
 
-  const response = await fetch(LensEndpoint.Testnet, {
+  const response = await fetch(LENS_API_URL, {
     body: JSON.stringify({
       operationName: "Account",
       query: print(AccountDocument),

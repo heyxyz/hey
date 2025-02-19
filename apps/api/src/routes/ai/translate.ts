@@ -51,7 +51,7 @@ export const post = [
       const cacheKey = `ai:translation:${id}`;
       const cachedData = await getRedis(cacheKey);
 
-      if (!cachedData) {
+      if (cachedData) {
         logger.info(`(cached) AI Translation fetched for ${id}`);
         return res
           .status(200)

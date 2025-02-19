@@ -1,9 +1,10 @@
+import { LENS_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import type { NextFunction, Request, Response } from "express";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 import catchedError from "../catchedError";
 
-const jwksUri = "https://api.testnet.lens.dev/.well-known/jwks.json";
+const jwksUri = `${LENS_API_URL}/.well-known/jwks.json`;
 const JWKS = createRemoteJWKSet(new URL(jwksUri));
 
 /**
