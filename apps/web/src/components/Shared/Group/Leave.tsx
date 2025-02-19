@@ -12,7 +12,7 @@ import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface LeaveProps {
   group: Group;
@@ -34,12 +34,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   };
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      leaveOn: group.address,
-      txHash: hash,
-      type: OptimisticTxType.LEAVE_GROUP
-    });
-
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.LEAVE_GROUP);
     updateCache();
     setIsLoading(false);
     setJoined(false);

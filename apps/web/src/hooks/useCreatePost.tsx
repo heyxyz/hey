@@ -1,6 +1,5 @@
 import { type Post, useCreatePostMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
-import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 
@@ -17,7 +16,6 @@ const useCreatePost = ({
   onError,
   quoteOf
 }: CreatePostProps) => {
-  const { postContent } = usePostStore();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const isComment = Boolean(commentOn);
@@ -26,7 +24,6 @@ const useCreatePost = ({
   const onCompletedWithTransaction = (hash: string) => {
     addOptimisticTransaction({
       ...(isComment && { commentOn: commentOn?.id }),
-      content: postContent,
       txHash: hash,
       type: isComment
         ? OptimisticTxType.CREATE_COMMENT

@@ -14,7 +14,6 @@ import { toast } from "react-hot-toast";
 import { useMuteAlertStore } from "src/store/non-persisted/alert/useMuteAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const MuteOrUnmuteAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -23,7 +22,6 @@ const MuteOrUnmuteAccount: FC = () => {
     setShowMuteOrUnmuteAlert,
     showMuteOrUnmuteAlert
   } = useMuteAlertStore();
-  const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasMuted, setHasMuted] = useState(
@@ -103,9 +101,7 @@ const MuteOrUnmuteAccount: FC = () => {
         hasMuted ? "un-mute" : "mute"
       } ${getAccount(mutingOrUnmutingAccount).usernameWithPrefix}?`}
       isDestructive
-      isPerformingAction={
-        isLoading || isBlockOrUnblockPending(mutingOrUnmutingAccount?.address)
-      }
+      isPerformingAction={isLoading}
       onClose={() => setShowMuteOrUnmuteAlert(false, null)}
       onConfirm={muteOrUnmute}
       show={showMuteOrUnmuteAlert}

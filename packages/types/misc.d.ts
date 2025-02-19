@@ -35,18 +35,10 @@ export interface Emoji {
 }
 
 export interface OptimisticTransaction {
-  blockOn?: string;
-  unblockOn?: string;
   collectOn?: string;
   commentOn?: string;
-  repostOf?: string;
   followOn?: string;
   unfollowOn?: string;
-  joinOn?: string;
-  leaveOn?: string;
-  banOn?: string;
-  unbanOn?: string;
-  content?: string;
   txHash: string;
   type: OptimisticTxType;
 }

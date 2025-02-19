@@ -12,7 +12,7 @@ import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface JoinProps {
   group: Group;
@@ -34,12 +34,7 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
   };
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      joinOn: group.address,
-      txHash: hash,
-      type: OptimisticTxType.JOIN_GROUP
-    });
-
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.JOIN_GROUP);
     updateCache();
     setIsLoading(false);
     setJoined(true);

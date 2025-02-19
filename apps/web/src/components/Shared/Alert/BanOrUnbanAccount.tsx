@@ -16,10 +16,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useBanAlertStore } from "src/store/non-persisted/alert/useBanAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import {
-  addOptimisticTransaction,
-  useTransactionStore
-} from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const BanOrUnbanAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -30,7 +27,6 @@ const BanOrUnbanAccount: FC = () => {
     setShowBanOrUnbanAlert,
     showBanOrUnbanAlert
   } = useBanAlertStore();
-  const { isBlockOrUnblockPending } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
   const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
@@ -41,15 +37,12 @@ const BanOrUnbanAccount: FC = () => {
   };
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      ...(banning
-        ? { banOn: banningOrUnbanningAccount?.address }
-        : { unbanOn: banningOrUnbanningAccount?.address }),
-      txHash: hash,
-      type: banning
+    addSimpleOptimisticTransaction(
+      hash,
+      banning
         ? OptimisticTxType.BAN_GROUP_ACCOUNT
         : OptimisticTxType.UNBAN_GROUP_ACCOUNT
-    });
+    );
 
     updateCache();
     setIsLoading(false);
@@ -137,9 +130,7 @@ const BanOrUnbanAccount: FC = () => {
         banning ? "ban" : "un-ban"
       } ${getAccount(banningOrUnbanningAccount).usernameWithPrefix}?`}
       isDestructive
-      isPerformingAction={
-        isLoading || isBlockOrUnblockPending(banningOrUnbanningAccount?.address)
-      }
+      isPerformingAction={isLoading}
       onClose={() => setShowBanOrUnbanAlert(false, banning, null, null)}
       onConfirm={blockOrUnblock}
       show={showBanOrUnbanAlert}

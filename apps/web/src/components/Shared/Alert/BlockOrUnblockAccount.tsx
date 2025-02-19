@@ -18,10 +18,7 @@ import { toast } from "react-hot-toast";
 import { useBlockAlertStore } from "src/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import {
-  addOptimisticTransaction,
-  useTransactionStore
-} from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 
@@ -32,7 +29,6 @@ const BlockOrUnblockAccount: FC = () => {
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useBlockAlertStore();
-  const { isBlockOrUnblockPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
@@ -53,15 +49,12 @@ const BlockOrUnblockAccount: FC = () => {
   };
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      ...(hasBlocked
-        ? { unblockOn: blockingorUnblockingAccount?.address }
-        : { blockOn: blockingorUnblockingAccount?.address }),
-      txHash: hash,
-      type: hasBlocked
+    addSimpleOptimisticTransaction(
+      hash,
+      hasBlocked
         ? OptimisticTxType.UNBLOCK_ACCOUNT
         : OptimisticTxType.BLOCK_ACCOUNT
-    });
+    );
 
     updateCache();
     setIsLoading(false);
@@ -198,10 +191,7 @@ const BlockOrUnblockAccount: FC = () => {
         hasBlocked ? "un-block" : "block"
       } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
       isDestructive
-      isPerformingAction={
-        isLoading ||
-        isBlockOrUnblockPending(blockingorUnblockingAccount?.address)
-      }
+      isPerformingAction={isLoading}
       onClose={() => setShowBlockOrUnblockAlert(false, null)}
       onConfirm={blockOrUnblock}
       show={showBlockOrUnblockAlert}

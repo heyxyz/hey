@@ -8,7 +8,6 @@ interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
   isFollowPending: (profileAddress: string) => boolean;
   isUnfollowPending: (profileAddress: string) => boolean;
-  isBlockOrUnblockPending: (profileAddress: string) => boolean;
   hasOptimisticallyCollected: (collectOn: string) => boolean;
   removeTransaction: (hash: string) => void;
   reset: () => void;
@@ -24,11 +23,6 @@ const store = create(
         get().txnQueue.some((txn) => txn.followOn === profileAddress),
       isUnfollowPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.unfollowOn === profileAddress),
-      isBlockOrUnblockPending: (profileAddress) =>
-        get().txnQueue.some(
-          (txn) =>
-            txn.blockOn === profileAddress || txn.unblockOn === profileAddress
-        ),
       hasOptimisticallyCollected: (collectOn) =>
         get().txnQueue.some((txn) => txn.collectOn === collectOn),
       removeTransaction: (hash) =>

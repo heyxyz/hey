@@ -16,7 +16,7 @@ import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface RepostProps {
   isLoading: boolean;
@@ -57,12 +57,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      repostOf: post?.id,
-      txHash: hash,
-      type: OptimisticTxType.CREATE_REPOST
-    });
-
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_REPOST);
     setIsLoading(false);
     increment();
     updateCache();
