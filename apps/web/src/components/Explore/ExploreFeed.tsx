@@ -2,7 +2,6 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
-  type MainContentFocus,
   type MlexplorePostsRequest,
   PageSize,
   type Post,
@@ -17,14 +16,11 @@ import { Virtuoso } from "react-virtuoso";
 let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface ExploreFeedProps {
-  feedType?: ExplorePublicationsOrderByType;
-  focus?: MainContentFocus;
+  feedType?: any;
+  focus?: any;
 }
 
-const ExploreFeed: FC<ExploreFeedProps> = ({
-  feedType = ExplorePublicationsOrderByType.LensCurated,
-  focus
-}) => {
+const ExploreFeed: FC<ExploreFeedProps> = ({ feedType = "", focus }) => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: MlexplorePostsRequest = {

@@ -9,7 +9,7 @@ import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface ActedNotificationProps {
-  notification: TActedNotification;
+  notification: any;
 }
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
@@ -32,7 +32,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
       <div className="flex items-center space-x-3">
         <ShoppingBagIcon className="size-6" />
         <div className="flex items-center space-x-1">
-          {actions.slice(0, 10).map((action) => (
+          {actions.slice(0, 10).map((action: any) => (
             <div key={action.by.id}>
               <NotificationAccountAvatar account={action.by} />
             </div>
