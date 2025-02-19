@@ -59,9 +59,6 @@ importers:
       express-session:
         specifier: ^1.18.1
         version: 1.18.1
-      fast-xml-parser:
-        specifier: ^4.5.2
-        version: 4.5.2
       graphql:
         specifier: ^16.10.0
         version: 16.10.0
@@ -4227,10 +4224,6 @@ packages:
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
-  fast-xml-parser@4.5.2:
-    resolution: {integrity: sha512-xmnYV9o0StIz/0ArdzmWTxn9oDy0lH8Z80/8X/TD2EUQKXY4DHxoT9mYBqgGIG17DgddCJtH1M6DriMbalNsAA==}
-    hasBin: true
-
   fastq@1.19.0:
     resolution: {integrity: sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==}
 
@@ -6489,9 +6482,6 @@ packages:
 
   strip-markdown@6.0.0:
     resolution: {integrity: sha512-mSa8FtUoX3ExJYDkjPUTC14xaBAn4Ik5GPQD45G5E2egAmeV3kHgVSTfIoSDggbF6Pk9stahVgqsLCNExv6jHw==}
-
-  strnum@1.0.5:
-    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
 
   style-to-object@1.0.8:
     resolution: {integrity: sha512-xT47I/Eo0rwJmaXC4oilDGDWLohVhR6o/xAQcPQN8q6QBuZVL8qMYL85kLmST5cPjAorwvqIA4qXTRQoYHaL6g==}
@@ -11723,10 +11713,6 @@ snapshots:
 
   fast-safe-stringify@2.1.1: {}
 
-  fast-xml-parser@4.5.2:
-    dependencies:
-      strnum: 1.0.5
-
   fastq@1.19.0:
     dependencies:
       reusify: 1.0.4
@@ -14315,8 +14301,6 @@ snapshots:
   strip-markdown@6.0.0:
     dependencies:
       '@types/mdast': 4.0.4
-
-  strnum@1.0.5: {}
 
   style-to-object@1.0.8:
     dependencies:
