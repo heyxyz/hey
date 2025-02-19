@@ -30,7 +30,6 @@ import plur from "plur";
 import { type FC, useState } from "react";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import CollectActionButton from "./CollectActionButton";
-import DownloadCollectors from "./DownloadCollectors";
 import Splits from "./Splits";
 
 interface CollectActionBodyProps {
@@ -172,7 +171,6 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
               >
                 {humanize(collects)} {plur("collector", collects)}
               </button>
-              <DownloadCollectors post={targetPost} />
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">
