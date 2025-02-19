@@ -1,5 +1,6 @@
 import lensPg from "@hey/db/lensPg";
 import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
+import decimalToHex from "@hey/helpers/decimalToHex";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import OpenAI from "openai";
@@ -60,7 +61,7 @@ export const post = [
 
       const postMetadata = await lensPg.query(
         "SELECT content FROM post.metadata WHERE post = $1",
-        [id]
+        [decimalToHex(id)]
       );
 
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
