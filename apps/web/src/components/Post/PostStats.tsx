@@ -16,7 +16,7 @@ interface PostStatsProps {
 
 const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
-  const [showMirrorsModal, setShowMirrorsModal] = useState(false);
+  const [showRepostsModal, setShowRepostsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   const { bookmarks, comments, reposts, quotes, reactions } = postStats;
@@ -42,7 +42,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         {reposts > 0 ? (
           <button
             className="outline-offset-2"
-            onClick={() => setShowMirrorsModal(true)}
+            onClick={() => setShowRepostsModal(true)}
             type="button"
           >
             <b className="text-black dark:text-white">{nFormatter(reposts)}</b>{" "}
@@ -85,8 +85,8 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         <Likes postId={postId} />
       </Modal>
       <Modal
-        onClose={() => setShowMirrorsModal(false)}
-        show={showMirrorsModal}
+        onClose={() => setShowRepostsModal(false)}
+        show={showRepostsModal}
         title="Reposts"
         size="md"
       >

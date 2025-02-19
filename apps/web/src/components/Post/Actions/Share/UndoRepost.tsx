@@ -42,7 +42,7 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
     update: updateCache
   });
 
-  const handleUndoMirror = async () => {
+  const handleUndoRepost = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
@@ -68,11 +68,11 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
         )
       }
       disabled={isLoading}
-      onClick={handleUndoMirror}
+      onClick={handleUndoRepost}
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="size-4" />
-        <div>Undo mirror</div>
+        <div>Undo repost</div>
       </div>
     </MenuItem>
   );

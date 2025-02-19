@@ -48,7 +48,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
     <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
         <MenuButton
-          aria-label="Mirror"
+          aria-label="Repost"
           className={cn(
             hasShared
               ? "text-brand-500 hover:bg-brand-300/20"
@@ -67,8 +67,8 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
             <Tooltip
               content={
                 shares > 0
-                  ? `${humanize(shares)} Mirrors and Quotes`
-                  : "Mirror or Quote"
+                  ? `${humanize(shares)} Reposts and Quotes`
+                  : "Repost or Quote"
               }
               placement="top"
               withDelay
