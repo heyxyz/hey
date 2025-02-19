@@ -1,10 +1,9 @@
 import errorToast from "@helpers/errorToast";
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { DEFAULT_COLLECT_TOKEN, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { type AnyPost, useExecutePostActionMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
-import type { AllowedToken } from "@hey/types/hey";
-import { Button, Input, Select, Spinner } from "@hey/ui";
+import { Button, Input, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { ChangeEvent, FC, RefObject } from "react";
 import { useRef, useState } from "react";
@@ -14,8 +13,6 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
-import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import type { Address } from "viem";
 import { formatUnits } from "viem";
@@ -30,26 +27,20 @@ interface ActionProps {
 
 const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { currentAccount } = useAccountStore();
-  const { allowedTokens } = useAllowedTokensStore();
-  const { fiatRates } = useRatesStore();
   const { setShowAuthModal } = useGlobalModalStateStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<AllowedToken | null>(
-    allowedTokens.find(
-      (token) => token.contractAddress === DEFAULT_COLLECT_TOKEN
-    ) || null
-  );
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
+  const symbol = IS_MAINNET ? "GHO" : "WGRASS";
 
   const { data: balanceData } = useBalance({
     address: currentAccount?.address,
     query: { refetchInterval: 2000 },
-    token: selectedCurrency?.contractAddress as Address
+    token: DEFAULT_COLLECT_TOKEN as Address
   });
 
   const onCompleted = (hash: string) => {
@@ -61,7 +52,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
 
     setIsLoading(false);
     closePopover();
-    toast.success(`Tipped ${amount} ${selectedCurrency?.symbol}`);
+    toast.success(`Tipped ${amount} ${symbol}`);
   };
 
   const onError = (error: any) => {
@@ -69,16 +60,10 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     errorToast(error);
   };
 
-  const usdRate =
-    fiatRates.find(
-      (rate) => rate.address === selectedCurrency?.contractAddress.toLowerCase()
-    )?.fiat || 0;
-  const cryptoRate = usdRate ? Number((amount / usdRate).toFixed(2)) : amount;
+  const cryptoRate = Number(amount.toFixed(2));
 
   const balance = balanceData
-    ? Number.parseFloat(
-        formatUnits(balanceData.value, selectedCurrency?.decimals || 18)
-      ).toFixed(3)
+    ? Number.parseFloat(formatUnits(balanceData.value, 18)).toFixed(3)
     : 0;
   const canTip = Number(balance) >= cryptoRate;
 
@@ -120,7 +105,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           post: post.id,
           action: {
             tipping: {
-              currency: selectedCurrency?.contractAddress as Address,
+              currency: DEFAULT_COLLECT_TOKEN as Address,
               value: cryptoRate.toString()
             }
           }
@@ -153,29 +138,11 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   return (
     <div className="m-5 space-y-3">
       <div className="space-y-2">
-        <Select
-          className="py-1.5 text-sm"
-          iconClassName="size-4"
-          onChange={(value) => {
-            setAmount(2);
-            setSelectedCurrency(
-              allowedTokens?.find((token) => token.contractAddress === value) ||
-                null
-            );
-          }}
-          options={allowedTokens?.map((token) => ({
-            icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
-            label: token.name,
-            selected:
-              token.contractAddress === selectedCurrency?.contractAddress,
-            value: token.contractAddress
-          }))}
-        />
         <div className="ld-text-gray-500 flex items-center space-x-1 text-xs">
           <span>Balance:</span>
           <span>
             {balanceData ? (
-              `${balance} ${selectedCurrency?.symbol}`
+              `${balance} ${symbol}`
             ) : (
               <div className="shimmer h-2.5 w-14 rounded-full" />
             )}
@@ -189,7 +156,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           outline={amount !== 2}
           size="sm"
         >
-          {usdRate ? "$" : ""}2
+          $2
         </Button>
         <Button
           disabled={amountDisabled}
@@ -197,7 +164,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           outline={amount !== 5}
           size="sm"
         >
-          {usdRate ? "$" : ""}5
+          $5
         </Button>
         <Button
           disabled={amountDisabled}
@@ -205,7 +172,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           outline={amount !== 10}
           size="sm"
         >
-          {usdRate ? "$" : ""}10
+          $10
         </Button>
         <Button
           disabled={amountDisabled}
@@ -244,18 +211,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           disabled={!amount || isLoading || !canTip}
           onClick={handleTip}
         >
-          {usdRate ? (
-            <>
-              <b>Tip ${amount}</b>{" "}
-              <span className="font-light">
-                ({cryptoRate} {selectedCurrency?.symbol})
-              </span>
-            </>
-          ) : (
-            <b>
-              Tip {amount} {selectedCurrency?.symbol}
-            </b>
-          )}
+          <b>Tip ${amount}</b>
         </Button>
       )}
     </div>

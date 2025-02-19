@@ -14,17 +14,14 @@ import type { FC } from "react";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useRatesStore } from "src/store/persisted/useRatesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
 const GET_VERIFIED_MEMBERS_QUERY_KEY = "getVerifiedMembers";
-const GET_FIAT_RATES_QUERY_KEY = "getFiatRates";
 
 const PreferencesProvider: FC = () => {
   const { address: sessionAccountAddress } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
   const { setAllowedTokens } = useAllowedTokensStore();
-  const { setFiatRates } = useRatesStore();
   const { setAppIcon, setIncludeLowScore } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
@@ -50,16 +47,6 @@ const PreferencesProvider: FC = () => {
     }
   };
 
-  const getFiatRates = async () => {
-    try {
-      const { data } = await axios.get(`${HEY_API_URL}/lens/rate`);
-      setFiatRates(data.result || []);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
   useQuery({
     enabled: Boolean(sessionAccountAddress),
     queryFn: getPreferencesData,
@@ -76,11 +63,6 @@ const PreferencesProvider: FC = () => {
         return tokens;
       }),
     queryKey: [GET_ALL_TOKENS_QUERY_KEY]
-  });
-  useQuery({
-    queryFn: getFiatRates,
-    queryKey: [GET_FIAT_RATES_QUERY_KEY],
-    refetchInterval: 10000
   });
 
   return null;

@@ -4,7 +4,6 @@ export const Localstorage = {
   AllowedTokensStore: "allowed-tokens.store",
   PreferencesStore: "preferences.store",
   AccountStore: "account.store",
-  RateStore: "rate.store",
   SearchStore: "search.store",
   TransactionStore: "transaction.store",
   VerifiedMembersStore: "verified-members.store",
