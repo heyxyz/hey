@@ -6,6 +6,7 @@ export enum OptimisticTxType {
   CREATE_REPOST = "CREATE_REPOST",
   CREATE_COLLECT = "CREATE_COLLECT",
   CREATE_TIP = "CREATE_TIP",
+  DISABLE_COLLECT = "DISABLE_COLLECT",
 
   // Account-related actions
   FOLLOW_ACCOUNT = "FOLLOW_ACCOUNT",
