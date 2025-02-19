@@ -119,7 +119,7 @@ const Privacy: NextPage = () => {
               <H4 className="mt-8 mb-5">5. Analytics</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  We use <b>Google Analytics</b> to collect various events from
+                  We use <b>Simple Analytics</b> to collect various events from
                   user actions to analyse and make decisions for Site
                   improvements.
                 </p>
