@@ -34,4 +34,4 @@ const store = create<State>((set) => ({
     }))
 }));
 
-export const useBanAlertStateStore = createTrackedSelector(store);
+export const useBanAlertStore = createTrackedSelector(store);

@@ -20,4 +20,4 @@ const store = create<State>((set) => ({
   ) => set(() => ({ blockingorUnblockingAccount, showBlockOrUnblockAlert }))
 }));
 
-export const useBlockAlertStateStore = createTrackedSelector(store);
+export const useBlockAlertStore = createTrackedSelector(store);

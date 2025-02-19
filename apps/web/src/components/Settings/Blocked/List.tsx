@@ -10,12 +10,12 @@ import {
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useBlockAlertStateStore } from "src/store/non-persisted/alert/useBlockAlertStateStore";
+import { useBlockAlertStore } from "src/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowBlockOrUnblockAlert } = useBlockAlertStateStore();
+  const { setShowBlockOrUnblockAlert } = useBlockAlertStore();
 
   const request: AccountsBlockedRequest = { pageSize: PageSize.Fifty };
   const { data, error, fetchMore, loading } = useAccountsBlockedQuery({
