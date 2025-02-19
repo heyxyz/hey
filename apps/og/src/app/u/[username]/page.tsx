@@ -35,21 +35,6 @@ export const generateMetadata = async ({
     applicationName: APP_NAME,
     creator: name,
     description: description,
-    keywords: [
-      "hey",
-      "hey.xyz",
-      "social media profile",
-      "social media",
-      "lenster",
-      "zksync",
-      "profile",
-      "lens",
-      "lens protocol",
-      "decentralized",
-      "web3",
-      name,
-      usernameWithPrefix
-    ],
     metadataBase: new URL(`https://hey.xyz${link}`),
     openGraph: {
       description: description,
