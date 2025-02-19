@@ -16,7 +16,6 @@
     "@hey/helpers": "workspace:*",
     "@prisma/client": "^6.3.1",
     "dotenv": "^16.4.7",
-    "pg-promise": "^11.10.1",
     "redis": "^4.7.0"
   },
   "devDependencies": {
