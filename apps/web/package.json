@@ -13,7 +13,6 @@
     "@apollo/client": "^3.13.1",
     "@headlessui/react": "2.2.0",
     "@heroicons/react": "^2.2.0",
-    "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",

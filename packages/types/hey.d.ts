@@ -12,14 +12,6 @@ export type Permission = {
   type: "COHORT" | "PERMISSION";
 };
 
-export type AllowedToken = {
-  contractAddress: string;
-  decimals: number;
-  id: string;
-  name: string;
-  symbol: string;
-};
-
 export type CollectActionType = {
   enabled?: boolean;
   amount?: AmountInput | null;

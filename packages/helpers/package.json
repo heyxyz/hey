@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.1",
-    "@hey/abis": "workspace:*",
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",

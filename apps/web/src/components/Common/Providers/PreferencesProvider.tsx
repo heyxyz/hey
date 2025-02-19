@@ -2,9 +2,6 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import getCurrentSession from "@helpers/getCurrentSession";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission } from "@hey/data/permissions";
-import getAllTokens, {
-  GET_ALL_TOKENS_QUERY_KEY
-} from "@hey/helpers/api/getAllTokens";
 import getPreferences, {
   GET_PREFERENCES_QUERY_KEY
 } from "@hey/helpers/api/getPreferences";
@@ -12,7 +9,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import { useVerifiedMembersStore } from "src/store/persisted/useVerifiedMembersStore";
 
@@ -21,7 +17,6 @@ const GET_VERIFIED_MEMBERS_QUERY_KEY = "getVerifiedMembers";
 const PreferencesProvider: FC = () => {
   const { address: sessionAccountAddress } = getCurrentSession();
   const { setVerifiedMembers } = useVerifiedMembersStore();
-  const { setAllowedTokens } = useAllowedTokensStore();
   const { setAppIcon, setIncludeLowScore } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
@@ -55,14 +50,6 @@ const PreferencesProvider: FC = () => {
   useQuery({
     queryFn: getVerifiedMembers,
     queryKey: [GET_VERIFIED_MEMBERS_QUERY_KEY]
-  });
-  useQuery({
-    queryFn: () =>
-      getAllTokens().then((tokens) => {
-        setAllowedTokens(tokens);
-        return tokens;
-      }),
-    queryKey: [GET_ALL_TOKENS_QUERY_KEY]
   });
 
   return null;
