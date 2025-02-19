@@ -2,7 +2,7 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import type { AnyPost } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { AxiosResponse } from "axios";
@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface DownloadCollectorsProps {
-  post: AnyPost;
+  post: Post;
 }
 
 const DownloadCollectors: FC<DownloadCollectorsProps> = ({ post }) => {

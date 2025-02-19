@@ -1,7 +1,6 @@
-import { Errors } from "@hey/data/errors";
 import lensPg from "@hey/db/lensPg";
+import dbId from "@hey/helpers/dbId";
 import logger from "@hey/helpers/logger";
-import parseJwt from "@hey/helpers/parseJwt";
 import { Parser } from "@json2csv/plainjs";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -14,42 +13,34 @@ export const get = [
   rateLimiter({ requests: 10, within: 1 }),
   validateLensAccount,
   async (req: Request, res: Response) => {
-    const { address } = req.query;
+    const { id } = req.query;
 
-    if (!address) {
+    if (!id) {
       return noBody(res);
     }
 
     try {
-      const idToken = req.headers["x-id-token"] as string;
-      const payload = parseJwt(idToken);
-      const targetAccountAddress = (address as string).split("-")[0];
-
-      if (payload.act.sub !== targetAccountAddress) {
-        return catchedError(res, new Error(Errors.Unauthorized), 401);
-      }
-
-      const openActionModuleCollectNftOwnership = await lensPg.query(
+      const actionExecuted = await lensPg.query(
         `
-          SELECT po.owner_address as address
-          FROM publication.open_action_module_collect_nft_ownership AS po
-          WHERE po.publication_id = $1;
+          SELECT ae.account as address
+          FROM post.action_executed AS ae
+          WHERE ae.post_id = $1;
         `,
-        [address]
+        [dbId(id as string)]
       );
 
       const fields = ["address"];
       const parser = new Parser({ fields });
-      const csv = parser.parse(openActionModuleCollectNftOwnership);
+      const csv = parser.parse(actionExecuted);
 
-      logger.info(`[Lens] Exported collect addresses list for ${address}`);
+      logger.info(`[Lens] Exported collect addresses list for ${id}`);
 
       return res
         .status(200)
         .setHeader("Content-Type", "text/csv")
         .setHeader(
           "Content-Disposition",
-          `attachment; filename="collect_addresses_${address}.csv"`
+          `attachment; filename="collect_addresses_${id}.csv"`
         )
         .setHeader("Cache-Control", CACHE_AGE_30_MINS)
         .send(csv);
