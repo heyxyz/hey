@@ -1,0 +1,16 @@
+mutation DisablePostAction($request: DisablePostActionRequest!) {
+  disablePostAction(request: $request) {
+    ... on DisablePostActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
