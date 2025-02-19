@@ -14,19 +14,6 @@ model Preference {
   createdAt       DateTime @default(now())
 }
 
-model AllowedToken {
-  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name            String
-  symbol          String
-  decimals        Int      @default(18)
-  contractAddress String   @unique
-  priority        Int      @default(0)
-  createdAt       DateTime @default(now())
-
-  // Indexes
-  @@index([priority])
-}
-
 model Permission {
   id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key       String         @unique

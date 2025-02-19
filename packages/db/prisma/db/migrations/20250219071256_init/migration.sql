@@ -12,19 +12,6 @@ CREATE TABLE "Preference" (
 );
 
 -- CreateTable
-CREATE TABLE "AllowedToken" (
-    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "name" TEXT NOT NULL,
-    "symbol" TEXT NOT NULL,
-    "decimals" INTEGER NOT NULL DEFAULT 18,
-    "contractAddress" TEXT NOT NULL,
-    "priority" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "AllowedToken_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Permission" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "key" TEXT NOT NULL,
@@ -53,12 +40,6 @@ CREATE TABLE "AccountStatus" (
 
     CONSTRAINT "AccountStatus_pkey" PRIMARY KEY ("accountAddress")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "AllowedToken_contractAddress_key" ON "AllowedToken"("contractAddress");
-
--- CreateIndex
-CREATE INDEX "AllowedToken_priority_idx" ON "AllowedToken"("priority");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Permission_key_key" ON "Permission"("key");

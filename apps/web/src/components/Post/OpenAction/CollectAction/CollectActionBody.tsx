@@ -11,6 +11,7 @@ import {
   UsersIcon
 } from "@heroicons/react/24/outline";
 import { APP_NAME, BLOCKEXPLORER_URL } from "@hey/data/constants";
+import { tokens } from "@hey/data/tokens";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -28,7 +29,6 @@ import { useCounter } from "@uidotdev/usehooks";
 import Link from "next/link";
 import plur from "plur";
 import { type FC, useState } from "react";
-import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 import CollectActionButton from "./CollectActionButton";
 import Splits from "./Splits";
 
@@ -37,7 +37,6 @@ interface CollectActionBodyProps {
 }
 
 const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
-  const { allowedTokens } = useAllowedTokensStore();
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
@@ -70,7 +69,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
   const currency = collectAction?.amount?.asset?.symbol;
   const recipients = collectAction?.recipients || [];
   const percentageCollected = (collects / collectLimit) * 100;
-  const enabledTokens = allowedTokens?.map((t) => t.symbol);
+  const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(currency || "");
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000

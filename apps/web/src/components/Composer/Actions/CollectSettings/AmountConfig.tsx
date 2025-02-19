@@ -1,12 +1,12 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { tokens } from "@hey/data/tokens";
 import type { CollectActionType } from "@hey/types/hey";
 import { Input, Select } from "@hey/ui";
 import type { FC } from "react";
 import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useAllowedTokensStore } from "src/store/persisted/useAllowedTokensStore";
 
 interface AmountConfigProps {
   setCollectType: (data: CollectActionType) => void;
@@ -15,7 +15,6 @@ interface AmountConfigProps {
 const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
-  const { allowedTokens } = useAllowedTokensStore();
 
   const enabled = Boolean(collectAction.amount?.value);
 
@@ -68,7 +67,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
                     }
                   });
                 }}
-                options={allowedTokens?.map((token) => ({
+                options={tokens.map((token) => ({
                   icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol}.svg`,
                   label: token.name,
                   selected:

@@ -1,7 +1,6 @@
 export const Localstorage = {
   AuthStore: "auth.store",
   NotificationStore: "notification.store",
-  AllowedTokensStore: "allowed-tokens.store",
   PreferencesStore: "preferences.store",
   AccountStore: "account.store",
   SearchStore: "search.store",

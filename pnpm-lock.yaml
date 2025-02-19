@@ -237,9 +237,6 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@18.3.1)
-      '@hey/abis':
-        specifier: workspace:*
-        version: link:../../packages/abis
       '@hey/data':
         specifier: workspace:*
         version: link:../../packages/data
@@ -443,15 +440,6 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
 
-  packages/abis:
-    devDependencies:
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../config
-      typescript:
-        specifier: ^5.7.3
-        version: 5.7.3
-
   packages/config: {}
 
   packages/data:
@@ -505,9 +493,6 @@ importers:
       '@apollo/client':
         specifier: ^3.13.1
         version: 3.13.1(@types/react@19.0.10)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@hey/abis':
-        specifier: workspace:*
-        version: link:../abis
       '@hey/data':
         specifier: workspace:*
         version: link:../data
