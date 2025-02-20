@@ -1,4 +1,5 @@
 import Members from "@components/Shared/Modal/Members";
+import GraphStatsShimmer from "@components/Shared/Shimmer/GraphStatsShimmer";
 import humanize from "@hey/helpers/humanize";
 import { type Group, useGroupStatsQuery } from "@hey/indexer";
 import { H4, Modal } from "@hey/ui";
@@ -16,7 +17,7 @@ const MembersCount: FC<MembersCountProps> = ({ group }) => {
   });
 
   if (loading) {
-    return null;
+    return <GraphStatsShimmer count={1} />;
   }
 
   if (!data) {

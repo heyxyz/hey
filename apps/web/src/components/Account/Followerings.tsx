@@ -1,5 +1,6 @@
 import Followers from "@components/Shared/Modal/Followers";
 import Following from "@components/Shared/Modal/Following";
+import GraphStatsShimmer from "@components/Shared/Shimmer/GraphStatsShimmer";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
 import { type Account, useAccountStatsQuery } from "@hey/indexer";
@@ -20,7 +21,7 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
   });
 
   if (loading) {
-    return null;
+    return <GraphStatsShimmer count={2} />;
   }
 
   if (!data) {

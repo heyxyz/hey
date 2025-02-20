@@ -16,7 +16,6 @@ const GroupPageShimmer: FC = () => {
             </div>
             <div className="space-y-3">
               <div className="shimmer h-5 w-1/3 rounded-lg" />
-              <div className="shimmer h-3 w-1/4 rounded-lg" />
             </div>
             <div className="space-y-5">
               <div className="space-y-2">

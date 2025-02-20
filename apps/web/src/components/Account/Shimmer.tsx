@@ -1,3 +1,4 @@
+import GraphStatsShimmer from "@components/Shared/Shimmer/GraphStatsShimmer";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { FC } from "react";
@@ -23,14 +24,7 @@ const AccountPageShimmer: FC = () => {
                 <div className="shimmer h-3 w-7/12 rounded-lg" />
                 <div className="shimmer h-3 w-1/3 rounded-lg" />
               </div>
-              <div className="flex gap-5 pb-1">
-                {Array.from({ length: 2 }).map((_, index) => (
-                  <div className="space-y-2" key={index}>
-                    <div className="shimmer size-7 rounded-lg" />
-                    <div className="shimmer h-3 w-20 rounded-lg" />
-                  </div>
-                ))}
-              </div>
+              <GraphStatsShimmer count={2} />
               <div className="shimmer h-[34px] w-20 rounded-full" />
               <div className="space-y-2">
                 {Array.from({ length: 2 }).map((_, index) => (
