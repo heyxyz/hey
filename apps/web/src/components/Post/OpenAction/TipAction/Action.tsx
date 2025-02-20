@@ -44,7 +44,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const symbol = IS_MAINNET ? "GHO" : "WGRASS";
 
-  const { data: balanceData } = useBalance({
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address,
     query: { refetchInterval: 2000 },
     token: DEFAULT_COLLECT_TOKEN as Address
@@ -218,7 +218,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           />
         </div>
       ) : null}
-      {isLoading ? (
+      {isLoading || balanceLoading ? (
         <Button
           className={cn("flex justify-center", submitButtonClassName)}
           disabled
