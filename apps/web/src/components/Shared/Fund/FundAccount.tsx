@@ -4,22 +4,29 @@ import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { type Address, formatUnits } from "viem";
 import { useAccount, useBalance } from "wagmi";
+import Loader from "../Loader";
 
 const FundAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const { address } = useAccount();
 
-  const { data: accountBalanceData } = useBalance({
-    address: currentAccount?.address,
-    token: DEFAULT_COLLECT_TOKEN as Address,
-    query: { refetchInterval: 2000 }
-  });
+  const { data: accountBalanceData, isLoading: accountBalanceLoading } =
+    useBalance({
+      address: currentAccount?.address,
+      token: DEFAULT_COLLECT_TOKEN as Address,
+      query: { refetchInterval: 2000 }
+    });
 
-  const { data: walletBalanceData } = useBalance({
-    address,
-    token: DEFAULT_COLLECT_TOKEN as Address,
-    query: { refetchInterval: 2000 }
-  });
+  const { data: walletBalanceData, isLoading: walletBalanceLoading } =
+    useBalance({
+      address,
+      token: DEFAULT_COLLECT_TOKEN as Address,
+      query: { refetchInterval: 2000 }
+    });
+
+  if (accountBalanceLoading || walletBalanceLoading) {
+    return <Loader message="Loading balance..." className="my-10" />;
+  }
 
   const accountBalance = accountBalanceData
     ? Number.parseFloat(formatUnits(accountBalanceData.value, 18)).toFixed(2)
