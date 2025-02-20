@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCreatePost from "src/hooks/useCreatePost";
 import usePostMetadata from "src/hooks/usePostMetadata";
+import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
 import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
@@ -34,7 +35,6 @@ import {
   usePostVideoStore
 } from "src/store/non-persisted/post/usePostVideoStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Attachment from "./Actions/Attachment";
 import CollectSettings from "./Actions/CollectSettings";
@@ -54,8 +54,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
 
-  // Global modal store
-  const { setShowNewPostModal } = useGlobalModalStore();
+  // New post modal store
+  const { setShowNewPostModal } = useNewPostModalStore();
 
   // Post store
   const { postContent, quotedPost, setPostContent, setQuotedPost } =

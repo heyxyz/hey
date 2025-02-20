@@ -4,6 +4,7 @@ import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
+import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
@@ -17,14 +18,13 @@ import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
   const {
-    setShowNewPostModal,
     setShowOptimisticTransactionsModal,
     setShowAccountSwitchModal,
-    showNewPostModal,
     showOptimisticTransactionsModal,
     showAccountSwitchModal
   } = useGlobalModalStore();
 
+  const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
   const {
