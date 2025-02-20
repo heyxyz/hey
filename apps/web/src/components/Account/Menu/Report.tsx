@@ -3,14 +3,14 @@ import { FlagIcon } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 
 interface ReportProps {
   account: Account;
 }
 
 const Report: FC<ReportProps> = ({ account }) => {
-  const { setShowReportAccountModal } = useGlobalModalStore();
+  const { setShowReportAccountModal } = useReportAccountModalStore();
 
   return (
     <MenuItem

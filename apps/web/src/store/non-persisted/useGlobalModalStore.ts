@@ -22,17 +22,12 @@ interface State {
     showPostReportModal: boolean,
     reportingPostId: null | string
   ) => void;
-  setShowReportAccountModal: (
-    reportAccountModal: boolean,
-    reportingAccount: null | Account
-  ) => void;
   showAuthModal: boolean;
   showMobileDrawer: boolean;
   showNewPostModal: boolean;
   showOptimisticTransactionsModal: boolean;
   showAccountSwitchModal: boolean;
   showPostReportModal: boolean;
-  showReportAccountModal: boolean;
   showEditStatusModal: boolean;
   setShowEditStatusModal: (showEditStatusModal: boolean) => void;
 }
@@ -52,15 +47,12 @@ const store = create<State>((set) => ({
     set(() => ({ showAccountSwitchModal })),
   setShowPostReportModal: (showPostReportModal, reportingPostId) =>
     set(() => ({ reportingPostId, showPostReportModal })),
-  setShowReportAccountModal: (showReportAccountModal, reportingAccount) =>
-    set(() => ({ reportingAccount, showReportAccountModal })),
   showAuthModal: false,
   showMobileDrawer: false,
   showNewPostModal: false,
   showOptimisticTransactionsModal: false,
   showAccountSwitchModal: false,
   showPostReportModal: false,
-  showReportAccountModal: false,
   showEditStatusModal: false,
   setShowEditStatusModal: (showEditStatusModal) =>
     set(() => ({ showEditStatusModal }))

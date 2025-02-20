@@ -3,6 +3,7 @@ import ReportPost from "@components/Shared/Modal/ReportPost";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
+import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
@@ -22,14 +23,15 @@ const GlobalModals: FC = () => {
     setShowOptimisticTransactionsModal,
     setShowAccountSwitchModal,
     setShowPostReportModal,
-    setShowReportAccountModal,
     showAuthModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showAccountSwitchModal,
-    showPostReportModal,
-    showReportAccountModal
+    showPostReportModal
   } = useGlobalModalStore();
+
+  const { showReportAccountModal, setShowReportAccountModal } =
+    useReportAccountModalStore();
   const { showFundModal, setShowFundModal } = useFundModalStore();
 
   const { screen: signupScreen } = useSignupStore();
