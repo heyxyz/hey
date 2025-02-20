@@ -1,4 +1,5 @@
 import { useApolloClient } from "@apollo/client";
+import FundButton from "@components/Shared/Fund/FundButton";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -223,7 +224,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           disabled
           icon={<Spinner className="my-0.5" size="xs" />}
         />
-      ) : (
+      ) : canTip ? (
         <Button
           className={submitButtonClassName}
           disabled={!amount || isLoading || !canTip}
@@ -231,6 +232,8 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
         >
           <b>Tip ${amount}</b>
         </Button>
+      ) : (
+        <FundButton className="w-full" />
       )}
     </div>
   );
