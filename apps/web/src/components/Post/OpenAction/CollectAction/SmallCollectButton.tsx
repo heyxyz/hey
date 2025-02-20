@@ -16,8 +16,8 @@ const SmallCollectButton: FC<SmallCollectButtonProps> = ({ post }) => {
   const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
 
-  const hasActed =
-    post.operations?.hasReacted || hasOptimisticallyCollected(post.id);
+  const hasSimpleCollected =
+    post.operations?.hasSimpleCollected || hasOptimisticallyCollected(post.id);
 
   if (!enabled) {
     return null;
@@ -27,10 +27,10 @@ const SmallCollectButton: FC<SmallCollectButtonProps> = ({ post }) => {
     <>
       <Button
         onClick={() => setShowCollectModal(true)}
-        outline={!hasActed}
+        outline={!hasSimpleCollected}
         size="sm"
       >
-        {hasActed ? "Collected" : "Collect"}
+        {hasSimpleCollected ? "Collected" : "Collect"}
       </Button>
       <Modal
         onClose={() => setShowCollectModal(false)}

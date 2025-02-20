@@ -3,6 +3,7 @@ import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
 import getCurrentSession from "@helpers/getCurrentSession";
+import { COLLECT_FEES_WALLET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import {
@@ -42,10 +43,11 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const { isSuspended } = useAccountStatus();
   const { hasOptimisticallyCollected } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [hasActed, setHasActed] = useState(
+  const [hasSimpleCollected, setHasSimpleCollected] = useState(
     collectAction?.amount
       ? false
-      : post.operations?.hasReacted || hasOptimisticallyCollected(post.id)
+      : post.operations?.hasSimpleCollected ||
+          hasOptimisticallyCollected(post.id)
   );
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -59,13 +61,13 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const canCollect = !hasActed || !amount;
+  const canCollect = !hasSimpleCollected || !amount;
 
   const updateCache = () => {
     cache.modify({
       fields: {
         operations: (existingValue) => {
-          return { ...existingValue, hasActed: { value: true } };
+          return { ...existingValue, hasSimpleCollected: true };
         }
       },
       id: cache.identify(post)
@@ -89,7 +91,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     });
 
     // Should not disable the button if it's a paid collect module
-    setHasActed(amount <= 0);
+    setHasSimpleCollected(amount <= 0);
     setIsLoading(false);
     onCollectSuccess?.();
     updateCache();
@@ -145,7 +147,8 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
           post: post.id,
           action: {
             simpleCollect: {
-              selected: true
+              selected: true,
+              referrals: [{ address: COLLECT_FEES_WALLET, percent: 5 }]
             }
           }
         }
