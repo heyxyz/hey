@@ -70,7 +70,7 @@ const FundAccount: FC = () => {
 
       return toast.success(`Transaction sent: ${hash}`);
     } catch (error) {
-      errorToast(error);
+      return errorToast(error);
     }
   };
 
