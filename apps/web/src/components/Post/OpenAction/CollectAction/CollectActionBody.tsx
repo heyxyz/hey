@@ -67,7 +67,6 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = Number(collectAction?.collectLimit);
   const amount = Number.parseFloat(collectAction?.amount?.value || "0");
-  const usdPrice = collectAction?.amount?.value;
   const currency = collectAction?.amount?.asset?.symbol;
   const recipients = collectAction?.recipients || [];
   const percentageCollected = (collects / collectLimit) * 100;
@@ -138,14 +137,6 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
             <span className="space-x-1">
               <H3 as="span">{amount}</H3>
               <span className="text-xs">{currency}</span>
-              {isTokenEnabled && usdPrice ? (
-                <>
-                  <span className="ld-text-gray-500 px-0.5">·</span>
-                  <span className="ld-text-gray-500 font-bold text-xs">
-                    ${usdPrice}
-                  </span>
-                </>
-              ) : null}
             </span>
             <div className="mt-2">
               <HelpTooltip>
