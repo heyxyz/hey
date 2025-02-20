@@ -5,6 +5,7 @@ import type { FC } from "react";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
+import { useOptimisticTransactionsModalStore } from "src/store/non-persisted/modal/useOptimisticTransactionsModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
@@ -17,13 +18,13 @@ import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
-  const {
-    setShowOptimisticTransactionsModal,
-    setShowAccountSwitchModal,
-    showOptimisticTransactionsModal,
-    showAccountSwitchModal
-  } = useGlobalModalStore();
+  const { setShowAccountSwitchModal, showAccountSwitchModal } =
+    useGlobalModalStore();
 
+  const {
+    showOptimisticTransactionsModal,
+    setShowOptimisticTransactionsModal
+  } = useOptimisticTransactionsModalStore();
   const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();

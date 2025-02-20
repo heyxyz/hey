@@ -1,7 +1,7 @@
 import { CircleStackIcon } from "@heroicons/react/24/outline";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useOptimisticTransactionsModalStore } from "src/store/non-persisted/modal/useOptimisticTransactionsModalStore";
 import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface OptimisticTransactionsProps {
@@ -12,7 +12,8 @@ const OptimisticTransactions: FC<OptimisticTransactionsProps> = ({
   className = ""
 }) => {
   const { txnQueue } = useTransactionStore();
-  const { setShowOptimisticTransactionsModal } = useGlobalModalStore();
+  const { setShowOptimisticTransactionsModal } =
+    useOptimisticTransactionsModalStore();
 
   if (txnQueue.length === 0) {
     return null;
