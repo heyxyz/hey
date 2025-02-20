@@ -35,7 +35,6 @@ export interface Emoji {
 }
 
 export interface OptimisticTransaction {
-  collectOn?: string;
   commentOn?: string;
   followOn?: string;
   unfollowOn?: string;

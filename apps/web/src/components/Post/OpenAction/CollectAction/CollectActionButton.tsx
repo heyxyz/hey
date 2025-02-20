@@ -7,6 +7,7 @@ import { COLLECT_FEES_WALLET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import {
+  type LoggedInPostOperations,
   type Post,
   type PostAction,
   useExecutePostActionMutation
@@ -18,10 +19,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import {
-  addOptimisticTransaction,
-  useTransactionStore
-} from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { type Address, formatUnits } from "viem";
 import { useBalance } from "wagmi";
 
@@ -41,13 +39,9 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const collectAction = getCollectActionData(postAction as any);
   const { address: sessionAccountAddress } = getCurrentSession();
   const { isSuspended } = useAccountStatus();
-  const { hasOptimisticallyCollected } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
-    collectAction?.amount
-      ? false
-      : post.operations?.hasSimpleCollected ||
-          hasOptimisticallyCollected(post.id)
+    collectAction?.amount ? false : post.operations?.hasSimpleCollected
   );
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -65,12 +59,8 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
 
   const updateCache = () => {
     cache.modify({
-      fields: {
-        operations: (existingValue) => {
-          return { ...existingValue, hasSimpleCollected: true };
-        }
-      },
-      id: cache.identify(post)
+      fields: { hasSimpleCollected: () => true },
+      id: cache.identify(post.operations as LoggedInPostOperations)
     });
     cache.modify({
       fields: {
@@ -84,12 +74,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   };
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      collectOn: post?.id,
-      txHash: hash,
-      type: OptimisticTxType.CREATE_COLLECT
-    });
-
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_COLLECT);
     // Should not disable the button if it's a paid collect module
     setHasSimpleCollected(amount <= 0);
     setIsLoading(false);

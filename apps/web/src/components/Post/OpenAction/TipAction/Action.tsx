@@ -13,7 +13,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import type { Address } from "viem";
 import { formatUnits } from "viem";
 import { useBalance } from "wagmi";
@@ -44,12 +44,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   });
 
   const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      collectOn: post?.id,
-      txHash: hash,
-      type: OptimisticTxType.CREATE_TIP
-    });
-
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_TIP);
     setIsLoading(false);
     closePopover();
     toast.success(`Tipped ${amount} ${symbol}`);

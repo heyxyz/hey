@@ -1,21 +1,19 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import { Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 import CollectActionBody from "./CollectActionBody";
 
 interface CollectActionProps {
-  post: AnyPost;
+  post: Post;
 }
 
 const CollectAction: FC<CollectActionProps> = ({ post }) => {
-  const targetPost = isRepost(post) ? post.repostOf : post;
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const simpleCollectCount = targetPost.operations?.simpleCollectCount || 0;
+  const simpleCollectCount = post.operations?.simpleCollectCount || 0;
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">

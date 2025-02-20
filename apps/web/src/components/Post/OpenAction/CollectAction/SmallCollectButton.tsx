@@ -4,7 +4,6 @@ import { Button, Modal } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useState } from "react";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 import CollectActionBody from "./CollectActionBody";
 
 interface SmallCollectButtonProps {
@@ -13,11 +12,8 @@ interface SmallCollectButtonProps {
 
 const SmallCollectButton: FC<SmallCollectButtonProps> = ({ post }) => {
   const enabled = useFlag(FeatureFlag.Collect);
-  const { hasOptimisticallyCollected } = useTransactionStore();
   const [showCollectModal, setShowCollectModal] = useState(false);
-
-  const hasSimpleCollected =
-    post.operations?.hasSimpleCollected || hasOptimisticallyCollected(post.id);
+  const hasSimpleCollected = post.operations?.hasSimpleCollected;
 
   if (!enabled) {
     return null;
