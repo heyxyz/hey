@@ -4,6 +4,7 @@ import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
+import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
@@ -16,22 +17,23 @@ import SwitchAccounts from "./SwitchAccounts";
 const GlobalModals: FC = () => {
   const {
     authModalType,
-    reportingAccount,
-    reportingPostId,
     setShowAuthModal,
     setShowNewPostModal,
     setShowOptimisticTransactionsModal,
     setShowAccountSwitchModal,
-    setShowPostReportModal,
     showAuthModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
-    showAccountSwitchModal,
-    showPostReportModal
+    showAccountSwitchModal
   } = useGlobalModalStore();
 
-  const { showReportAccountModal, setShowReportAccountModal } =
-    useReportAccountModalStore();
+  const {
+    reportingAccount,
+    showReportAccountModal,
+    setShowReportAccountModal
+  } = useReportAccountModalStore();
+  const { reportingPostId, showReportPostModal, setShowReportPostModal } =
+    useReportPostModalStore();
   const { showFundModal, setShowFundModal } = useFundModalStore();
 
   const { screen: signupScreen } = useSignupStore();
@@ -48,8 +50,8 @@ const GlobalModals: FC = () => {
     <>
       <GlobalModalsFromUrl />
       <Modal
-        onClose={() => setShowPostReportModal(false, reportingPostId)}
-        show={showPostReportModal}
+        onClose={() => setShowReportPostModal(false, reportingPostId)}
+        show={showReportPostModal}
         title="Report Post"
       >
         <ReportPost postId={reportingPostId} />

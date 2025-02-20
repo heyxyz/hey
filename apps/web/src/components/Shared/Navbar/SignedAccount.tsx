@@ -5,7 +5,7 @@ import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useMobileDrawerModalStore } from "src/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
@@ -21,7 +21,7 @@ import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStore();
+  const { setShowMobileDrawer, showMobileDrawer } = useMobileDrawerModalStore();
 
   const Avatar = () => (
     <Image

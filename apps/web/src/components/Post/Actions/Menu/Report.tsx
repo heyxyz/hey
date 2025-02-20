@@ -4,14 +4,14 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 
 interface ReportProps {
   post: Post;
 }
 
 const Report: FC<ReportProps> = ({ post }) => {
-  const { setShowPostReportModal } = useGlobalModalStore();
+  const { setShowReportPostModal } = useReportPostModalStore();
 
   return (
     <MenuItem
@@ -24,7 +24,7 @@ const Report: FC<ReportProps> = ({ post }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPostReportModal(true, post.id);
+        setShowReportPostModal(true, post.id);
       }}
     >
       <div className="flex items-center space-x-2">

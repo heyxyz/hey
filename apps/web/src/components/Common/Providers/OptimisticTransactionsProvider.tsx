@@ -57,6 +57,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
             const post = await getPost({
               variables: { request: { txHash: transaction.txHash } }
             });
+
             if (post) {
               cache.modify({
                 fields: {
