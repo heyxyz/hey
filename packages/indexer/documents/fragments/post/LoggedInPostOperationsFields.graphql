@@ -3,6 +3,8 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   hasBookmarked
   hasReacted
   hasReported
+  hasSimpleCollected
+  hasTipped
   isNotInterested
   hasCommented {
     ...BooleanValueFields
@@ -13,6 +15,7 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   hasReposted {
     ...BooleanValueFields
   }
+  canTip
   canRepost {
     __typename
   }
@@ -22,4 +25,9 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   canComment {
     __typename
   }
+  canSimpleCollect {
+    __typename
+  }
+  simpleCollectCount
+  postTipCount
 }
