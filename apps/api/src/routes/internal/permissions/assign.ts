@@ -7,22 +7,14 @@ import catchedError from "src/helpers/catchedError";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
 import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
-import sendSlackMessage from "src/helpers/slack";
 import { boolean, object, string } from "zod";
 
 export const postUpdateTasks = async (
   accountAddress: string,
-  permissionId: string,
-  enabled: boolean
+  permissionId: string
 ) => {
   await delRedis(`preference:${accountAddress}`);
   await delRedis(`account:${accountAddress}`);
-
-  await sendSlackMessage({
-    channel: "#permissions",
-    color: enabled ? "#16a34a" : "#dc2626",
-    text: `:hey: Permission: ${permissionId} has been ${enabled ? "enabled" : "disabled"} for ${accountAddress}`
-  });
 
   if (permissionId === PermissionId.StaffPick) {
     delRedis("staff-picks");
@@ -69,7 +61,7 @@ export const post = [
           data: { permissionId: id, accountAddress }
         });
 
-        await postUpdateTasks(accountAddress, id, true);
+        await postUpdateTasks(accountAddress, id);
         logger.info(`Enabled permissions for ${accountAddress}`);
 
         return res.status(200).json({ enabled, success: true });
@@ -79,7 +71,7 @@ export const post = [
         where: { permissionId: id as string, accountAddress }
       });
 
-      await postUpdateTasks(accountAddress, id, false);
+      await postUpdateTasks(accountAddress, id);
       logger.info(`Disabled permissions for ${accountAddress}`);
 
       return res.status(200).json({ enabled, success: true });

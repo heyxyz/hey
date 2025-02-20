@@ -1,13 +1,11 @@
 import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME } from "@hey/data/constants";
-import LensEndpoint from "@hey/data/lens-endpoints";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPost, PostDocument } from "@hey/indexer";
-import { addTypenameToDocument } from "apollo-utilities";
-import { print } from "graphql";
+import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
@@ -20,24 +18,16 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { id } = await params;
 
-  const response = await fetch(LensEndpoint.Testnet, {
-    body: JSON.stringify({
-      operationName: "Post",
-      query: print(addTypenameToDocument(PostDocument)),
-      variables: { request: { post: id } }
-    }),
-    cache: "no-store",
-    headers: { "Content-Type": "application/json" },
-    method: "POST"
+  const { data } = await apolloClient().query({
+    query: PostDocument,
+    variables: { request: { post: id } }
   });
 
-  const result = await response.json();
-
-  if (!result.data.post) {
+  if (!data.post) {
     return defaultMetadata;
   }
 
-  const post = result.data.post as AnyPost;
+  const post = data.post as AnyPost;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { author, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
@@ -54,24 +44,6 @@ export const generateMetadata = async ({
     authors: { name, url: `https://hey.xyz${link}` },
     creator: name,
     description: description,
-    keywords: [
-      "hey",
-      "hey.xyz",
-      "social media post",
-      "social media",
-      "lenster",
-      "zksync",
-      "account post",
-      "like",
-      "share",
-      "post",
-      "lens",
-      "lens protocol",
-      "decentralized",
-      "web3",
-      name,
-      usernameWithPrefix
-    ],
     metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
     openGraph: {
       description: description,
@@ -81,7 +53,7 @@ export const generateMetadata = async ({
       url: `https://hey.xyz/posts/${targetPost.id}`
     },
     other: {
-      "count:actions": targetPost.stats.countOpenActions,
+      "count:actions": targetPost.stats.collects,
       "count:comments": targetPost.stats.comments,
       "count:likes": targetPost.stats.reactions,
       "count:reposts": targetPost.stats.reposts,

@@ -8,17 +8,17 @@ import {
 } from "@heroicons/react/24/outline";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import splitNumber from "@hey/helpers/splitNumber";
-import type { CollectModuleType } from "@hey/types/hey";
+import type { CollectActionType } from "@hey/types/hey";
 import { Button, H6, Input } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { isAddress } from "viem";
 
 interface SplitConfigProps {
-  isRecipientsDuplicated: () => boolean;
-  setCollectType: (data: CollectModuleType) => void;
+  isRecipientsDuplicated: boolean;
+  setCollectType: (data: CollectActionType) => void;
 }
 
 const SplitConfig: FC<SplitConfigProps> = ({
@@ -26,10 +26,10 @@ const SplitConfig: FC<SplitConfigProps> = ({
   setCollectType
 }) => {
   const { currentAccount } = useAccountStore();
-  const { collectModule } = useCollectModuleStore((state) => state);
+  const { collectAction } = useCollectActionStore((state) => state);
 
   const currentAddress = currentAccount?.owner || "";
-  const recipients = collectModule.recipients || [];
+  const recipients = collectAction.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||
       (recipients.length === 1 && recipients[0].address !== currentAddress)
@@ -44,9 +44,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         percent: equalSplits[i]
       };
     });
-    setCollectType({
-      recipients: [...splits]
-    });
+    setCollectType({ recipients: [...splits] });
   };
 
   const onChangeRecipientOrPercent = (
@@ -186,7 +184,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
               Splits cannot be less than 100%. Total: <span>{splitTotal}</span>%
             </H6>
           ) : null}
-          {isRecipientsDuplicated() ? (
+          {isRecipientsDuplicated ? (
             <H6 className="text-red-500">Duplicate recipient address found</H6>
           ) : null}
         </div>

@@ -15,7 +15,7 @@
     "@hey/helpers": "workspace:*",
     "dotenv": "^16.4.7",
     "node-cron": "^3.0.3",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

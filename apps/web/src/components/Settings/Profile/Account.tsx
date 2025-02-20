@@ -5,8 +5,6 @@ import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import trimify from "@hey/helpers/trimify";
 import { useSetAccountMetadataMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
@@ -22,11 +20,10 @@ import {
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
@@ -57,8 +54,7 @@ const AccountSettingsForm: FC = () => {
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
     currentAccount?.metadata?.coverPicture
   );
-
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);
@@ -77,35 +73,11 @@ const AccountSettingsForm: FC = () => {
         return onCompleted(setAccountMetadata.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (setAccountMetadata.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(setAccountMetadata.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (
-            setAccountMetadata.__typename === "SelfFundedTransactionRequest"
-          ) {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(setAccountMetadata.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (setAccountMetadata.__typename === "TransactionWillFail") {
-            return onError({ message: setAccountMetadata.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: setAccountMetadata,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

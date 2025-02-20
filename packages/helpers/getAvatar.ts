@@ -1,4 +1,4 @@
-import { AVATAR, IPFS_GATEWAY } from "@hey/data/constants";
+import { AVATAR, DEFAULT_AVATAR } from "@hey/data/constants";
 import imageKit from "./imageKit";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
@@ -10,10 +10,12 @@ import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
  * @returns The avatar image URL.
  */
 const getAvatar = (entity: any, namedTransform = AVATAR): string => {
+  if (!entity) {
+    return DEFAULT_AVATAR;
+  }
+
   const avatarUrl =
-    entity?.metadata?.picture ||
-    entity?.metadata?.icon ||
-    `${IPFS_GATEWAY}/Qmb4XppdMDCsS7KCL8nCJo8pukEWeqL4bTghURYwYiG83i/cropped_image.png`;
+    entity?.metadata?.picture || entity?.metadata?.icon || DEFAULT_AVATAR;
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

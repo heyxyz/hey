@@ -1,5 +1,4 @@
 import Source from "@components/Post/Source";
-import Misuse from "@components/Shared/Account/Icons/Misuse";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
@@ -50,7 +49,6 @@ const PostAccount: FC<PostAccountProps> = ({
         />
       </WrappedLink>
       <Verified address={account.address} iconClassName="size-4" />
-      <Misuse address={account.address} iconClassName="size-4" />
       {timestamp ? (
         <span className="ld-text-gray-500">
           <span className="mr-1">·</span>

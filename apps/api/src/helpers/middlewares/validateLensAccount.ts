@@ -1,10 +1,12 @@
+import { LENS_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import type { NextFunction, Request, Response } from "express";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 import catchedError from "../catchedError";
 
-const jwksUri = "https://api.testnet.lens.dev/.well-known/jwks.json";
-const JWKS = createRemoteJWKSet(new URL(jwksUri));
+const jwksUri = `${LENS_API_URL.replace("/graphql", "")}/.well-known/jwks.json`;
+// Cache the JWKS for 12 hours
+const JWKS = createRemoteJWKSet(new URL(jwksUri), { cacheMaxAge: 60 * 60 * 12 });
 
 /**
  * Middleware to validate Lens account

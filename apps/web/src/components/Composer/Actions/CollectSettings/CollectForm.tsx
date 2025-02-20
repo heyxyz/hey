@@ -1,9 +1,9 @@
 import LicensePicker from "@components/Composer/LicensePicker";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
-import type { CollectModuleType } from "@hey/types/hey";
+import type { CollectActionType } from "@hey/types/hey";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 import { isAddress } from "viem";
 import AmountConfig from "./AmountConfig";
@@ -18,42 +18,41 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const { collectModule, reset, setCollectModule } = useCollectModuleStore(
-    (state) => state
-  );
+  const { collectAction, reset, setCollectAction } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
-  const recipients = collectModule.recipients || [];
-  const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
+  const recipients = collectAction.recipients || [];
+  const splitTotal = recipients.reduce((acc, { percent }) => acc + percent, 0);
 
-  const hasEmptyRecipients = recipients.some((recipient) => !recipient.address);
-  const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) => recipient.address && !isAddress(recipient.address)
-  );
-  const hasZeroSplits = recipients.some((recipient) => recipient.percent === 0);
-  const hasImproperSplits = recipients.length > 1 && splitTotal !== 100;
-
-  const isRecipientsDuplicated = () => {
-    const recipientsSet = new Set(
-      recipients.map((recipient) => recipient.address)
-    );
-    return recipientsSet.size !== recipients.length;
+  const validationChecks = {
+    hasEmptyRecipients: recipients.some(({ address }) => !address),
+    hasInvalidEthAddress: recipients.some(
+      ({ address }) => address && !isAddress(address)
+    ),
+    hasZeroSplits: recipients.some(({ percent }) => percent === 0),
+    hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
+    isRecipientsDuplicated:
+      new Set(recipients.map(({ address }) => address)).size !==
+      recipients.length
   };
 
-  const setCollectType = (data: CollectModuleType) => {
-    setCollectModule({
-      ...collectModule,
-      ...data
-    });
+  const setCollectType = (data: CollectActionType) => {
+    setCollectAction({ ...collectAction, ...data });
   };
 
   const toggleCollect = () => {
-    if (collectModule.enabled) {
+    if (collectAction.enabled) {
       setLicense(null);
       reset();
     } else {
       setCollectType({ enabled: true });
     }
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setLicense(null);
+    reset();
   };
 
   return (
@@ -62,24 +61,26 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <ToggleWithHelper
           description="This post can be collected"
           heading="Enable Collect"
-          on={collectModule.enabled || false}
+          on={collectAction.enabled || false}
           setOn={toggleCollect}
         />
       </div>
       <div className="divider" />
-      {collectModule.enabled ? (
+      {collectAction.enabled && (
         <>
           <div className="m-5">
             <AmountConfig setCollectType={setCollectType} />
-            {collectModule.amount?.value ? (
+            {collectAction.amount?.value && (
               <>
                 <ReferralConfig setCollectType={setCollectType} />
                 <SplitConfig
-                  isRecipientsDuplicated={isRecipientsDuplicated}
+                  isRecipientsDuplicated={
+                    validationChecks.isRecipientsDuplicated
+                  }
                   setCollectType={setCollectType}
                 />
               </>
-            ) : null}
+            )}
             <CollectLimitConfig setCollectType={setCollectType} />
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
@@ -90,29 +91,21 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           </div>
           <div className="divider" />
         </>
-      ) : null}
+      )}
       <div className="flex space-x-2 p-5">
         <Button
           className="ml-auto"
-          onClick={() => {
-            setShowModal(false);
-            setLicense(null);
-            reset();
-          }}
+          onClick={handleClose}
           outline
           variant="danger"
         >
-          {collectModule.enabled ? "Reset" : "Cancel"}
+          {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>
         <Button
           disabled={
-            (Number.parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.enabled) ||
-            hasImproperSplits ||
-            hasEmptyRecipients ||
-            hasZeroSplits ||
-            hasInvalidEthAddressInRecipients ||
-            isRecipientsDuplicated()
+            (Number.parseFloat(collectAction.amount?.value as string) <= 0 &&
+              collectAction.enabled) ||
+            Object.values(validationChecks).some(Boolean)
           }
           onClick={() => setShowModal(false)}
         >

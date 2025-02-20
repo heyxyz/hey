@@ -6,10 +6,9 @@ import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Slug from "../Slug";
-import AccountStatus from "./NavItems/AccountStatus";
 import AppVersion from "./NavItems/AppVersion";
 import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
@@ -22,7 +21,7 @@ import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowMobileDrawer } = useGlobalModalStateStore();
+  const { setShowMobileDrawer } = useGlobalModalStore();
 
   const handleCloseDrawer = () => {
     setShowMobileDrawer(false);
@@ -61,11 +60,6 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchAccount className={cn(itemClass, "px-4")} />
-          <div className="divider" />
-          <AccountStatus
-            className={cn(itemClass, "px-4")}
-            id={currentAccount?.address}
-          />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">

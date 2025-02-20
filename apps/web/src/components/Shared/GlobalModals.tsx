@@ -2,12 +2,11 @@ import NewPublication from "@components/Composer/NewPublication";
 import ReportPost from "@components/Shared/Modal/ReportPost";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
-import AccountStatus from "./Modal/AccountStatus";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
@@ -28,10 +27,8 @@ const GlobalModals: FC = () => {
     showOptimisticTransactionsModal,
     showAccountSwitchModal,
     showPostReportModal,
-    showReportAccountModal,
-    showEditStatusModal,
-    setShowEditStatusModal
-  } = useGlobalModalStateStore();
+    showReportAccountModal
+  } = useGlobalModalStore();
 
   const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
@@ -89,13 +86,6 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
-      </Modal>
-      <Modal
-        onClose={() => setShowEditStatusModal(false)}
-        show={showEditStatusModal}
-        title="Edit Status"
-      >
-        <AccountStatus />
       </Modal>
     </>
   );

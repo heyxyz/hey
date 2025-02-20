@@ -18,6 +18,7 @@ export const HEY_API_URL = IS_PRODUCTION
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
+export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // Application
 export const APP_NAME = "Hey";
@@ -25,27 +26,19 @@ export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionle
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = "#FB3A5D";
 
-// Misc
-export const COLLECT_FEES_ADDRESS =
-  "0x698386C93513d6D0C58f296633A7A3e529bd4026";
-export const HEY_MEMBERSHIP_NFT = IS_MAINNET
-  ? "0x100372BBF7f975f6b1448fB11AB0F814b2740EEd"
-  : "0x75120677aBF34ae95a916C6E9DbB610a06536CC3";
-export const HEY_MEMBERSHIP_NFT_POST_ID = "0x020b69-0x01";
-
 // URLs
 export const STATIC_ASSETS_URL = "https://hey-assets.b-cdn.net";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   "https://ik.imagekit.io/lens/media-snapshot";
-export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
-export const METADATA_ENDPOINT = "https://metadata.hey.xyz";
-export const EVER_API = "https://endpoint.4everland.co";
-export const EVER_REGION = "4EVERLAND";
-export const EVER_BUCKET = "hey-media";
+export const STORAGE_NODE_URL = "https://storage-api.testnet.lens.dev";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
+export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const HEY_IMAGEKIT_URL = "https://ik.imagekit.io/lensterimg";
+export const BLOCKEXPLORER_URL = IS_MAINNET
+  ? "https://block-explorer.testnet.lens.dev"
+  : "https://block-explorer.testnet.lens.dev";
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
@@ -63,6 +56,5 @@ export const ATTACHMENT = "tr:w-1000";
 
 // Known Lens Protocol Attributes
 export const KNOWN_ATTRIBUTES = {
-  HIDE_OEMBED: "hideOembed",
-  POLL_ID: "heyPollId"
+  HIDE_OEMBED: "hideOembed"
 };

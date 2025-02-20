@@ -5,13 +5,12 @@ import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MenuTransition from "../MenuTransition";
 import Slug from "../Slug";
 import { NextLink } from "./MenuItems";
 import MobileDrawerMenu from "./MobileDrawerMenu";
-import AccountStatus from "./NavItems/AccountStatus";
 import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import OptimisticTransactions from "./NavItems/OptimisticTransactions";
@@ -22,7 +21,7 @@ import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStateStore();
+  const { setShowMobileDrawer, showMobileDrawer } = useGlobalModalStore();
 
   const Avatar = () => (
     <Image
@@ -81,18 +80,6 @@ const SignedAccount: FC = () => {
               }
             >
               <SwitchAccount />
-            </MenuItem>
-            <div className="divider" />
-            <MenuItem
-              as="div"
-              className={({ focus }: { focus: boolean }) =>
-                cn(
-                  { "dropdown-active": focus },
-                  "m-2 rounded-lg border dark:border-gray-700"
-                )
-              }
-            >
-              <AccountStatus id={currentAccount?.address} />
             </MenuItem>
             <div className="divider" />
             <MenuItem

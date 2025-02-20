@@ -5,14 +5,14 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useBlockAlertStateStore } from "src/store/non-persisted/useBlockAlertStateStore";
+import { useBlockAlertStore } from "src/store/non-persisted/alert/useBlockAlertStore";
 
 interface BlockProps {
   account: Account;
 }
 
 const Block: FC<BlockProps> = ({ account }) => {
-  const { setShowBlockOrUnblockAlert } = useBlockAlertStateStore();
+  const { setShowBlockOrUnblockAlert } = useBlockAlertStore();
   const isBlockedByMe = account.operations?.isBlockedByMe;
 
   return (

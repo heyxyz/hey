@@ -1,0 +1,46 @@
+import { FeatureFlag } from "@hey/data/feature-flags";
+import type { Post } from "@hey/indexer";
+import { Button, Modal } from "@hey/ui";
+import { useFlag } from "@unleash/proxy-client-react";
+import type { FC } from "react";
+import { useState } from "react";
+import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import CollectActionBody from "./CollectActionBody";
+
+interface SmallCollectButtonProps {
+  post: Post;
+}
+
+const SmallCollectButton: FC<SmallCollectButtonProps> = ({ post }) => {
+  const enabled = useFlag(FeatureFlag.Collect);
+  const { hasOptimisticallyCollected } = useTransactionStore();
+  const [showCollectModal, setShowCollectModal] = useState(false);
+
+  const hasActed =
+    post.operations?.hasReacted || hasOptimisticallyCollected(post.id);
+
+  if (!enabled) {
+    return null;
+  }
+
+  return (
+    <>
+      <Button
+        onClick={() => setShowCollectModal(true)}
+        outline={!hasActed}
+        size="sm"
+      >
+        {hasActed ? "Collected" : "Collect"}
+      </Button>
+      <Modal
+        onClose={() => setShowCollectModal(false)}
+        show={showCollectModal}
+        title="Collect"
+      >
+        <CollectActionBody post={post} />
+      </Modal>
+    </>
+  );
+};
+
+export default SmallCollectButton;

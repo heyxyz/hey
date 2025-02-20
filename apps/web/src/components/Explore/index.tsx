@@ -18,13 +18,13 @@ const Explore: NextPage = () => {
   const [focus, setFocus] = useState<MainContentFocus>();
 
   const tabs = [
-    { name: "For you", type: ExplorePublicationsOrderByType.LensCurated },
-    { name: "Popular", type: ExplorePublicationsOrderByType.TopCommented },
+    { name: "For you", type: "LensCurated" },
+    { name: "Popular", type: "TopCommented" },
     {
       name: "Trending",
-      type: ExplorePublicationsOrderByType.TopCollectedOpenAction
+      type: "TopCollectedOpenAction"
     },
-    { name: "Interesting", type: ExplorePublicationsOrderByType.TopMirrored }
+    { name: "Interesting", type: "TopMirrored" }
   ];
 
   return (

@@ -22,14 +22,7 @@ const getInternalAccount = async (
 
     return data.result;
   } catch {
-    return {
-      appIcon: 0,
-      hasDismissedOrMintedMembershipNft: true,
-      includeLowScore: false,
-      permissions: [],
-      mutedWords: [],
-      theme: null
-    };
+    return { appIcon: 0, includeLowScore: false, permissions: [] };
   }
 };
 

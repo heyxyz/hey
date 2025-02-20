@@ -1,5 +1,6 @@
 import type { Account } from "@hey/indexer";
 import formatAddress from "./formatAddress";
+import isAccountDeleted from "./isAccountDeleted";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
@@ -9,21 +10,30 @@ const getAccount = (
   link: string;
   username: string;
   usernameWithPrefix: string;
-  staffLink: string;
 } => {
   if (!account) {
     return {
       name: "...",
       link: "",
       username: "...",
-      usernameWithPrefix: "...",
-      staffLink: ""
+      usernameWithPrefix: "..."
+    };
+  }
+
+  if (isAccountDeleted(account)) {
+    return {
+      name: "Deleted Account",
+      link: "",
+      username: "deleted",
+      usernameWithPrefix: "@deleted"
     };
   }
 
   const prefix = account.username ? "@" : "#";
   const username =
-    account.username?.localName || formatAddress(account.address);
+    (account.username?.value.includes("lens/")
+      ? account.username.localName
+      : account.username?.value) || formatAddress(account.address);
   const link = account.username
     ? `/u/${account.username.localName}`
     : `/account/${account.address}`;
@@ -32,8 +42,7 @@ const getAccount = (
     name: sanitizeDisplayName(account.metadata?.name) || username,
     link: link,
     username,
-    usernameWithPrefix: `${prefix}${username}`,
-    staffLink: `/staff/accounts/${account.address}`
+    usernameWithPrefix: `${prefix}${username}`
   };
 };
 

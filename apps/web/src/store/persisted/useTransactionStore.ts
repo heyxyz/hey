@@ -6,14 +6,11 @@ import { persist } from "zustand/middleware";
 
 interface State {
   addTransaction: (txn: OptimisticTransaction) => void;
-  indexedPostHash: null | string;
   isFollowPending: (profileAddress: string) => boolean;
   isUnfollowPending: (profileAddress: string) => boolean;
-  isBlockOrUnblockPending: (profileAddress: string) => boolean;
   hasOptimisticallyCollected: (collectOn: string) => boolean;
   removeTransaction: (hash: string) => void;
   reset: () => void;
-  setIndexedPostHash: (hash: string) => void;
   txnQueue: OptimisticTransaction[];
 }
 
@@ -22,16 +19,10 @@ const store = create(
     (set, get) => ({
       addTransaction: (txn) =>
         set((state) => ({ txnQueue: [...state.txnQueue, txn] })),
-      indexedPostHash: null,
       isFollowPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.followOn === profileAddress),
       isUnfollowPending: (profileAddress) =>
         get().txnQueue.some((txn) => txn.unfollowOn === profileAddress),
-      isBlockOrUnblockPending: (profileAddress) =>
-        get().txnQueue.some(
-          (txn) =>
-            txn.blockOn === profileAddress || txn.unblockOn === profileAddress
-        ),
       hasOptimisticallyCollected: (collectOn) =>
         get().txnQueue.some((txn) => txn.collectOn === collectOn),
       removeTransaction: (hash) =>
@@ -39,7 +30,6 @@ const store = create(
           txnQueue: state.txnQueue.filter((txn) => txn.txHash !== hash)
         })),
       reset: () => set({ txnQueue: [] }),
-      setIndexedPostHash: (hash) => set({ indexedPostHash: hash }),
       txnQueue: []
     }),
     { name: Localstorage.TransactionStore }

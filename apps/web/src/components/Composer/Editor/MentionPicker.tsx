@@ -1,4 +1,3 @@
-import Misuse from "@components/Shared/Account/Icons/Misuse";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import type { EditorExtension } from "@helpers/prosekit/extension";
 import { EditorRegex } from "@hey/data/regex";
@@ -38,7 +37,6 @@ const MentionItem: FC<MentionItemProps> = ({ onSelect, account }) => {
           <div className="flex items-center space-x-1 text-sm">
             <span>{account.name}</span>
             <Verified address={account.address} iconClassName="size-4" />
-            <Misuse address={account.address} iconClassName="size-4" />
           </div>
           <span className="text-xs">{account.displayUsername}</span>
         </div>

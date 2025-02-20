@@ -20,7 +20,7 @@
     "@biomejs/biome": "^1.9.4",
     "husky": "^9.1.7"
   },
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">=18.x <=22.x"
   }

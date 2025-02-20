@@ -1,5 +1,4 @@
 import { UNLEASH_API_TOKEN } from "@hey/data/constants";
-import lensPg from "@hey/db/lensPg";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis } from "@hey/db/redisClient";
 import axios from "axios";
@@ -25,9 +24,6 @@ export const get = [
       const heyPromise = measureQueryTime(
         () => prisma.$queryRaw`SELECT 1 as count;`
       );
-      const lensPromise = measureQueryTime(() =>
-        lensPg.query("SELECT 1 as count;")
-      );
       const redisPromise = measureQueryTime(() => getRedis("ping"));
       const unleashPromise = measureQueryTime(() =>
         axios.get(UNLEASH_API_URL, {
@@ -36,23 +32,19 @@ export const get = [
       );
 
       // Execute all promises simultaneously
-      const [heyResult, lensResult, redisResult, unleashResult] =
-        await Promise.all([
-          heyPromise,
-          lensPromise,
-          redisPromise,
-          unleashPromise
-        ]);
+      const [heyResult, redisResult, unleashResult] = await Promise.all([
+        heyPromise,
+        redisPromise,
+        unleashPromise
+      ]);
 
       // Check responses
       const [hey, heyTime] = heyResult;
-      const [lens, lensTime] = lensResult;
       const [redis, redisTime] = redisResult;
       const [unleash, unleashTime] = unleashResult;
 
       if (
         Number(hey[0].count) !== 1 ||
-        Number(lens[0].count) !== 1 ||
         redis.toString() !== "pong" ||
         unleash.data.toggles.length === 0
       ) {
@@ -68,7 +60,6 @@ export const get = [
         },
         responseTimes: {
           hey: `${Number(heyTime / BigInt(1000000))}ms`,
-          lens: `${Number(lensTime / BigInt(1000000))}ms`,
           redis: `${Number(redisTime / BigInt(1000000))}ms`,
           unleash: `${Number(unleashTime / BigInt(1000000))}ms`
         }

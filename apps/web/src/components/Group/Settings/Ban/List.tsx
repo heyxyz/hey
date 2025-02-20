@@ -11,7 +11,7 @@ import {
 import { Button, Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useBanAlertStateStore } from "src/store/non-persisted/useBanAlertStateStore";
+import { useBanAlertStore } from "src/store/non-persisted/alert/useBanAlertStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface ListProps {
@@ -20,7 +20,7 @@ interface ListProps {
 
 const List: FC<ListProps> = ({ group }) => {
   const { currentAccount } = useAccountStore();
-  const { setShowBanOrUnbanAlert } = useBanAlertStateStore();
+  const { setShowBanOrUnbanAlert } = useBanAlertStore();
 
   const request: GroupBannedAccountsRequest = {
     group: group.address,

@@ -18,11 +18,10 @@ class HeyDocument extends Document {
           <link href="/32x32.png" rel="icon" sizes="32x32" type="image/png" />
           <link href="/16x16.png" rel="icon" sizes="16x16" type="image/png" />
 
-          {/* Umami Analytics */}
+          {/* Simple Analytics */}
           <Script
-            defer
-            src="https://cloud.umami.is/script.js"
-            data-website-id="aa3b1679-7098-49f4-8843-58f5785bbd30"
+            async
+            src="https://scripts.simpleanalyticscdn.com/latest.js"
           />
         </Head>
         <body>

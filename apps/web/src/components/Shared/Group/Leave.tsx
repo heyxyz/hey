@@ -1,8 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Group,
   type LoggedInGroupOperations,
@@ -12,10 +10,9 @@ import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface LeaveProps {
   group: Group;
@@ -26,21 +23,8 @@ interface LeaveProps {
 const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
-
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
-
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      leaveOn: group.address,
-      txHash,
-      type: OptimisticTxType.LEAVE_GROUP
-    });
-  };
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateCache = () => {
     cache.modify({
@@ -50,8 +34,8 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   };
 
   const onCompleted = (hash: string) => {
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.LEAVE_GROUP);
     updateCache();
-    updateTransactions({ txHash: hash });
     setIsLoading(false);
     setJoined(false);
     toast.success("Left group");
@@ -68,33 +52,11 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
         return onCompleted(leaveGroup.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (leaveGroup.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(leaveGroup.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (leaveGroup.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(leaveGroup.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (leaveGroup.__typename === "TransactionWillFail") {
-            return onError({ message: leaveGroup.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: leaveGroup,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

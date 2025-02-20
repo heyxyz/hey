@@ -6,7 +6,7 @@ fragment AccountFields on Account {
   metadata {
     ...AccountMetadata
   }
-  username {
+  username(request: { autoResolve: true }) {
     ...UsernameFields
   }
   operations {

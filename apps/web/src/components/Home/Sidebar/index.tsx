@@ -1,11 +1,9 @@
 import SignupCard from "@components/Shared/Auth/SignupCard";
 import Footer from "@components/Shared/Footer";
-import { IS_MAINNET } from "@hey/data/constants";
 import type { FC } from "react";
 import { memo } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import EnableLensManager from "./EnableLensManager";
-import HeyMembershipNft from "./HeyMembershipNft";
 import SetAccount from "./SetAccount";
 import StaffPicks from "./StaffPicks";
 import WhoToFollow from "./WhoToFollow";
@@ -18,9 +16,7 @@ const Sidebar: FC = () => {
   return (
     <>
       {/* <Gitcoin /> */}
-      {loggedOut && <SignupCard />}
-      {loggedInWithProfile && IS_MAINNET && <HeyMembershipNft />}
-      {/* Onboarding steps */}
+      {loggedOut && <SignupCard />} {/* Onboarding steps */}
       {loggedInWithProfile && (
         <>
           <EnableLensManager />

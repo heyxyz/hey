@@ -2,7 +2,7 @@ import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
-import type { AccountTheme, Preferences } from "@hey/types/hey";
+import type { Preferences } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
@@ -34,31 +34,18 @@ export const get = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const [preference, permissions, membershipNft, theme, mutedWords] =
-        await prisma.$transaction([
-          prisma.preference.findUnique({ where: { accountAddress } }),
-          prisma.accountPermission.findMany({
-            include: { permission: { select: { key: true } } },
-            where: { enabled: true, accountAddress }
-          }),
-          prisma.membershipNft.findUnique({ where: { accountAddress } }),
-          prisma.accountTheme.findUnique({ where: { accountAddress } }),
-          prisma.mutedWord.findMany({ where: { accountAddress } })
-        ]);
+      const [preference, permissions] = await prisma.$transaction([
+        prisma.preference.findUnique({ where: { accountAddress } }),
+        prisma.accountPermission.findMany({
+          include: { permission: { select: { key: true } } },
+          where: { enabled: true, accountAddress }
+        })
+      ]);
 
       const response: Preferences = {
         appIcon: preference?.appIcon || 0,
-        hasDismissedOrMintedMembershipNft: Boolean(
-          membershipNft?.dismissedOrMinted
-        ),
         includeLowScore: Boolean(preference?.includeLowScore),
-        theme: (theme as AccountTheme) || null,
-        permissions: permissions.map(({ permission }) => permission.key),
-        mutedWords: mutedWords.map(({ id, word, expiresAt }) => ({
-          id,
-          word,
-          expiresAt
-        }))
+        permissions: permissions.map(({ permission }) => permission.key)
       };
 
       await setRedis(cacheKey, response);

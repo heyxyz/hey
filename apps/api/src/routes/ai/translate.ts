@@ -1,13 +1,14 @@
-import lensPg from "@hey/db/lensPg";
 import { generateForeverExpiry, getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
+import { isRepost } from "@hey/helpers/postHelpers";
+import { type Post, PostDocument } from "@hey/indexer";
+import apolloClient from "@hey/indexer/apollo/client";
 import type { Request, Response } from "express";
 import OpenAI from "openai";
 import { zodFunction } from "openai/helpers/zod";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_INDEFINITE } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
-import validateLensAccount from "src/helpers/middlewares/validateLensAccount";
 import { invalidBody, noBody } from "src/helpers/responses";
 import { object, string, type z } from "zod";
 
@@ -30,7 +31,7 @@ const validationSchema = object({
 
 export const post = [
   rateLimiter({ requests: 50, within: 1 }),
-  validateLensAccount,
+  // validateLensAccount,
   async (req: Request, res: Response) => {
     const { body } = req;
 
@@ -58,10 +59,14 @@ export const post = [
           .json({ result: JSON.parse(cachedData), success: true });
       }
 
-      const postMetadata = await lensPg.query(
-        "SELECT content FROM post.metadata WHERE post = $1",
-        [id]
-      );
+      const { data } = await apolloClient().query({
+        query: PostDocument,
+        variables: { request: { post: id } }
+      });
+      const targetPost: Post = isRepost(data.post)
+        ? data.post.repostOf
+        : data.post;
+      const postContent = targetPost.metadata.content;
 
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const translatedResponseSchema = object({
@@ -72,7 +77,7 @@ export const post = [
         messages: [
           {
             role: "user",
-            content: TEMPLATE.replace("{text}", postMetadata[0].content)
+            content: TEMPLATE.replace("{text}", postContent)
           }
         ],
         tools: [
@@ -87,10 +92,7 @@ export const post = [
       const translated = response.choices[0].message.tool_calls[0].function
         .parsed_arguments as responseSchema;
 
-      const finalResult = {
-        original: postMetadata[0].content,
-        ...translated
-      };
+      const finalResult = { original: postContent, ...translated };
 
       await setRedis(
         cacheKey,
@@ -104,6 +106,7 @@ export const post = [
         .setHeader("Cache-Control", CACHE_AGE_INDEFINITE)
         .json({ result: finalResult, success: true });
     } catch (error) {
+      console.log(error);
       return catchedError(res, error);
     }
   }

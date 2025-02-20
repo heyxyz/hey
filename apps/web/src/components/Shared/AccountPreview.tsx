@@ -1,7 +1,4 @@
 import FollowersYouKnowOverview from "@components/Account/FollowersYouKnowOverview";
-import getAccountDetails, {
-  GET_ACCOUNT_DETAILS_QUERY_KEY
-} from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
@@ -14,12 +11,10 @@ import {
 } from "@hey/indexer";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
-import { useQuery } from "@tanstack/react-query";
 import plur from "plur";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
 import FollowUnfollowButton from "./Account/FollowUnfollowButton";
-import Misuse from "./Account/Icons/Misuse";
 import Verified from "./Account/Icons/Verified";
 import Markup from "./Markup";
 import Slug from "./Slug";
@@ -93,28 +88,6 @@ const AccountPreview: FC<AccountPreviewProps> = ({
       );
     }
 
-    const AccountStatus: FC = () => {
-      const { data: accountDetails } = useQuery({
-        enabled: Boolean(address),
-        queryFn: () => getAccountDetails(address as string),
-        queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, address]
-      });
-
-      if (!accountDetails?.status) {
-        return null;
-      }
-
-      return (
-        <div>
-          <div className="rounded-t-xl bg-yellow-50 px-4 py-2">
-            <span>{accountDetails.status.emoji}</span>
-            <b className="ml-2 text-sm">{accountDetails.status.message}</b>
-          </div>
-          <div className="divider" />
-        </div>
-      );
-    };
-
     const UserAvatar: FC = () => (
       <Image
         alt={account.address}
@@ -131,7 +104,6 @@ const AccountPreview: FC<AccountPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getAccount(account).name}</div>
           <Verified address={account.address} iconClassName="size-4" />
-          <Misuse address={account.address} iconClassName="size-4" />
         </div>
         <span>
           <Slug
@@ -149,7 +121,6 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     return (
       <>
-        <AccountStatus />
         <div className="space-y-3 p-4">
           <div className="flex items-center justify-between">
             <UserAvatar />

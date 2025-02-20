@@ -1,15 +1,15 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
-import type { CollectModuleType } from "@hey/types/hey";
+import type { CollectActionType } from "@hey/types/hey";
 import type { FC } from "react";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 
 interface FollowersConfigProps {
-  setCollectType: (data: CollectModuleType) => void;
+  setCollectType: (data: CollectActionType) => void;
 }
 
 const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
-  const { collectModule } = useCollectModuleStore((state) => state);
+  const { collectAction } = useCollectActionStore((state) => state);
 
   return (
     <div className="mt-5">
@@ -17,9 +17,9 @@ const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
         description="Only followers can collect"
         heading="Exclusivity"
         icon={<UserGroupIcon className="size-5" />}
-        on={collectModule.followerOnly || false}
+        on={collectAction.followerOnly || false}
         setOn={() =>
-          setCollectType({ followerOnly: !collectModule.followerOnly })
+          setCollectType({ followerOnly: !collectAction.followerOnly })
         }
       />
     </div>

@@ -79,7 +79,7 @@ const Terms: NextPage = () => {
                 </p>
                 <p className="leading-7">
                   The Site allow you to interact with the Lens Protocol,
-                  including posts, mirrors, comments and other content related
+                  including posts, reposts, comments and other content related
                   actions.
                 </p>
                 <p className="leading-7">

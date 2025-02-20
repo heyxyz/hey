@@ -2,26 +2,24 @@ import NewAttachments from "@components/Composer/NewAttachments";
 import QuotedPost from "@components/Post/QuotedPost";
 import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
+import EmojiPicker from "@components/Shared/EmojiPicker";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
-import { KNOWN_ATTRIBUTES } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import collectModuleParams from "@hey/helpers/collectModuleParams";
+import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
 import type { Post } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, H6 } from "@hey/ui";
-import { MetadataAttributeType } from "@lens-protocol/metadata";
-import dynamic from "next/dynamic";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import useCreatePoll from "src/hooks/useCreatePoll";
 import useCreatePost from "src/hooks/useCreatePost";
 import usePostMetadata from "src/hooks/usePostMetadata";
-import { useCollectModuleStore } from "src/store/non-persisted/post/useCollectModuleStore";
+import { useCollectActionStore } from "src/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAttributesStore } from "src/store/non-persisted/post/usePostAttributesStore";
 import {
@@ -30,44 +28,21 @@ import {
 } from "src/store/non-persisted/post/usePostAudioStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
-import { usePostPollStore } from "src/store/non-persisted/post/usePostPollStore";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "src/store/non-persisted/post/usePostVideoStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
+import Attachment from "./Actions/Attachment";
+import CollectSettings from "./Actions/CollectSettings";
+import Gif from "./Actions/Gif";
+import LivestreamSettings from "./Actions/LivestreamSettings";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
-import PollEditor from "./Actions/PollSettings/PollEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
-
-const Shimmer = <div className="shimmer mb-1 size-5 rounded-lg" />;
-
-const Attachment = dynamic(
-  () => import("@components/Composer/Actions/Attachment"),
-  { loading: () => Shimmer }
-);
-const EmojiPicker = dynamic(() => import("@components/Shared/EmojiPicker"), {
-  loading: () => Shimmer
-});
-const Gif = dynamic(() => import("@components/Composer/Actions/Gif"), {
-  loading: () => Shimmer
-});
-const CollectSettings = dynamic(
-  () => import("@components/Composer/Actions/CollectSettings"),
-  { loading: () => Shimmer }
-);
-const PollSettings = dynamic(
-  () => import("@components/Composer/Actions/PollSettings"),
-  { loading: () => Shimmer }
-);
-const LivestreamSettings = dynamic(
-  () => import("@components/Composer/Actions/LivestreamSettings"),
-  { loading: () => Shimmer }
-);
 
 interface NewPublicationProps {
   className?: string;
@@ -80,7 +55,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { isSuspended } = useAccountStatus();
 
   // Global modal store
-  const { setShowNewPostModal } = useGlobalModalStateStore();
+  const { setShowNewPostModal } = useGlobalModalStore();
 
   // Post store
   const { postContent, quotedPost, setPostContent, setQuotedPost } =
@@ -100,15 +75,11 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { addAttachments, attachments, isUploading, setAttachments } =
     usePostAttachmentStore((state) => state);
 
-  // Poll store
-  const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePostPollStore();
-
   // License store
   const { setLicense } = usePostLicenseStore();
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+  const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
     (state) => state
   );
 
@@ -122,7 +93,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
-  const createPoll = useCreatePoll();
   const getMetadata = usePostMetadata();
 
   const isComment = Boolean(post);
@@ -134,8 +104,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
     editor?.setMarkdown("");
     setIsLoading(false);
     setPostContent("");
-    setShowPollEditor(false);
-    resetPollConfig();
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
@@ -175,8 +143,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   }, [postContent]);
 
   const getAnimationUrl = () => {
-    const fallback =
-      "ipfs://bafkreiaoua5s4iyg4gkfjzl6mzgenw4qw7mwgxj7zf7ev7gga72o5d3lf4";
+    const fallback = `${STATIC_IMAGES_URL}/thumbnail.png`;
 
     if (attachments.length > 0 || hasAudio || hasVideo) {
       return attachments[0]?.uri || fallback;
@@ -225,34 +192,15 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
 
       setPostContentError("");
 
-      let pollId: string | undefined;
-      if (showPollEditor) {
-        pollId = await createPoll();
-      }
-
       const processedPostContent =
         postContent.length > 0 ? postContent : undefined;
       const title = hasAudio
         ? audioPost.title
         : `${getTitlePrefix()} by ${getAccount(currentAccount).usernameWithPrefix}`;
-      const hasAttributes = Boolean(pollId);
 
       const baseMetadata = {
         content: processedPostContent,
         title,
-        ...(hasAttributes && {
-          attributes: [
-            ...(pollId
-              ? [
-                  {
-                    key: KNOWN_ATTRIBUTES.POLL_ID,
-                    type: MetadataAttributeType.STRING,
-                    value: pollId
-                  }
-                ]
-              : [])
-          ]
-        }),
         marketplace: {
           animation_url: getAnimationUrl(),
           description: processedPostContent,
@@ -271,8 +219,8 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
             ...(feed && { feed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
-            ...(collectModule.enabled && {
-              actions: [{ ...collectModuleParams(collectModule) }]
+            ...(collectAction.enabled && {
+              actions: [{ ...collectActionParams(collectAction) }]
             })
           }
         }
@@ -292,18 +240,12 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
     addAttachments([attachment]);
   };
 
-  const isSubmitDisabledByPoll = showPollEditor
-    ? !pollConfig.options.length ||
-      pollConfig.options.some((option) => !option.length)
-    : false;
-
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
       <Editor />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
       ) : null}
-      {showPollEditor ? <PollEditor /> : null}
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       <LinkPreviews />
       <NewAttachments attachments={attachments} />
@@ -326,7 +268,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
-          <PollSettings />
           {!isComment && <LivestreamSettings />}
         </div>
         <div className="mt-2 ml-auto sm:mt-0">
@@ -334,7 +275,6 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
             disabled={
               isLoading ||
               isUploading ||
-              isSubmitDisabledByPoll ||
               videoThumbnail.uploading ||
               exceededMentionsLimit
             }

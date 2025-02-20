@@ -10,6 +10,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Bookmark from "./Bookmark";
 import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
+import DisableCollect from "./DisableCollect";
 import HideComment from "./HideComment";
 import NotInterested from "./NotInterested";
 import Report from "./Report";
@@ -47,6 +48,7 @@ const PostMenu: FC<PostMenuProps> = ({ post }) => {
               <NotInterested post={post} />
               <HideComment post={post} />
               <Bookmark post={post} />
+              <DisableCollect post={post} />
             </>
           ) : null}
           <div className="divider" />

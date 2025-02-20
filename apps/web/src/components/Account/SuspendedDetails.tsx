@@ -10,7 +10,7 @@ interface SuspendedDetailsProps {
 }
 
 const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
-  const profileData = getAccount(account);
+  const accountData = getAccount(account);
 
   return (
     <div className="space-y-5 px-5 sm:px-0">
@@ -28,7 +28,7 @@ const SuspendedDetails: FC<SuspendedDetailsProps> = ({ account }) => {
         <div>
           <Slug
             className="text-sm sm:text-base"
-            slug={profileData.usernameWithPrefix}
+            slug={accountData.usernameWithPrefix}
           />
         </div>
       </div>

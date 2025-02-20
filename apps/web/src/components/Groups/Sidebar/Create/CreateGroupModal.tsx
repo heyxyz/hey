@@ -3,17 +3,15 @@ import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import { useCreateGroupMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import { group } from "@lens-protocol/metadata";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
+import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { object, string, type z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 
@@ -33,25 +31,14 @@ const CreateGroupModal: FC = () => {
   const { setScreen, setTransactionHash } = useCreateGroupStore();
   const [pfpUrl, setPfpUrl] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const form = useZodForm({
     schema: validationSchema
   });
 
-  const updateTransactions = ({
-    txHash
-  }: {
-    txHash: string;
-  }) => {
-    addOptimisticTransaction({
-      txHash,
-      type: OptimisticTxType.CREATE_GROUP
-    });
-  };
-
   const onCompleted = (hash: string) => {
-    updateTransactions({ txHash: hash });
+    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_GROUP);
     setIsLoading(false);
     setTransactionHash(hash);
     setScreen("minting");
@@ -68,24 +55,11 @@ const CreateGroupModal: FC = () => {
         return onCompleted(createGroup.hash);
       }
 
-      if (walletClient) {
-        try {
-          if (createGroup.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(createGroup.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (createGroup.__typename === "TransactionWillFail") {
-            return onError({ message: createGroup.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: createGroup,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

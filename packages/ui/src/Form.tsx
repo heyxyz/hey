@@ -16,7 +16,7 @@ interface UseZodFormProps<T extends ZodSchema<FieldValues>>
   schema: T;
 }
 
-export const useZodForm = <T extends ZodSchema<FieldValues>>({
+export const useZodForm = <T extends ZodSchema<any>>({
   schema,
   ...formConfig
 }: UseZodFormProps<T>) => {

@@ -1,5 +1,4 @@
 import { useHiddenCommentFeedStore } from "@components/Post";
-import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
@@ -11,18 +10,15 @@ import {
   PostVisibilityFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 interface CommentFeedProps {
   postId: string;
 }
 
 const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
-  const { txnQueue } = useTransactionStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
   const request: PostReferencesRequest = {
@@ -43,12 +39,6 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
   const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const queuedComments = txnQueue.filter(
-    (o) => o.type === OptimisticTxType.CREATE_COMMENT && o.commentOn === postId
-  );
-  const queuedCount = queuedComments.length;
-  const totalComments = comments?.length + queuedCount;
-
   const onEndReached = async () => {
     if (hasMore) {
       await fetchMore({
@@ -65,7 +55,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
     return <ErrorMessage error={error} title="Failed to load comment feed" />;
   }
 
-  if (totalComments === 0) {
+  if (comments?.length === 0) {
     return (
       <EmptyState
         icon={<ChatBubbleLeftIcon className="size-8" />}
@@ -76,9 +66,6 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
 
   return (
     <>
-      {queuedComments.map((txn) => (
-        <QueuedPost key={txn.txHash} txn={txn} />
-      ))}
       <Card>
         <Virtuoso
           className="virtual-divider-list-window"

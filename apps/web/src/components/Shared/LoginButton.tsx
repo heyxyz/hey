@@ -1,7 +1,7 @@
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, MouseEvent } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 
 interface LoginButtonProps {
   className?: string;
@@ -16,7 +16,7 @@ const LoginButton: FC<LoginButtonProps> = ({
   isFullWidth = false,
   title = "Login"
 }) => {
-  const { setShowAuthModal } = useGlobalModalStateStore();
+  const { setShowAuthModal } = useGlobalModalStore();
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

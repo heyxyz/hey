@@ -7,25 +7,13 @@ import getAllPermissions, {
 } from "@hey/helpers/api/getAllPermissions";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import type { Permission as TPermission } from "@hey/types/hey";
-import {
-  Badge,
-  Button,
-  Card,
-  CardHeader,
-  EmptyState,
-  ErrorMessage,
-  Modal
-} from "@hey/ui";
+import { Badge, Card, CardHeader, EmptyState, ErrorMessage } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import { useState } from "react";
-import Assign from "./Assign";
 
 const List: FC = () => {
-  const [showAssignModal, setShowAssignModal] = useState(false);
-  const [selectedPermission, setSelectedPermission] =
-    useState<null | TPermission>(null);
   const [permissions, setPermissions] = useState<[] | TPermission[]>([]);
 
   const { error, isLoading } = useQuery({
@@ -74,18 +62,6 @@ const List: FC = () => {
                     Created on {formatDate(permission.createdAt)}
                   </div>
                 </div>
-                <div className="mt-2 space-x-2">
-                  <Button
-                    onClick={() => {
-                      setSelectedPermission(permission);
-                      setShowAssignModal(!showAssignModal);
-                    }}
-                    outline
-                    size="sm"
-                  >
-                    Assign
-                  </Button>
-                </div>
               </div>
             ))}
           </div>
@@ -97,18 +73,6 @@ const List: FC = () => {
           />
         )}
       </div>
-      <Modal
-        onClose={() => setShowAssignModal(false)}
-        show={showAssignModal}
-        title={`Assign permission - ${selectedPermission?.key}`}
-      >
-        {selectedPermission ? (
-          <Assign
-            permission={selectedPermission}
-            setShowAssignModal={setShowAssignModal}
-          />
-        ) : null}
-      </Modal>
     </Card>
   );
 };

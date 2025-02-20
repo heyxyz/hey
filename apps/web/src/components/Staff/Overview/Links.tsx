@@ -39,15 +39,6 @@ const Links: FC = () => {
           />
         </ul>
       </div>
-      <div>
-        <p className="mb-4 font-bold">Forms 📜</p>
-        <ul className="mt-0 mb-3 list-disc space-y-1 pl-5">
-          <ListItem
-            link="https://hey.xyz/-/token-request"
-            title="Token Allowlist Request"
-          />
-        </ul>
-      </div>
     </div>
   );
 };

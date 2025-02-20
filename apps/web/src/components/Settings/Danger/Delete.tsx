@@ -1,6 +1,6 @@
 import SingleAccount from "@components/Shared/SingleAccount";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, BLOCKEXPLORER_URL, NULL_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import type { Account } from "@hey/indexer";
 import {
@@ -12,6 +12,7 @@ import {
   Spinner,
   WarningMessage
 } from "@hey/ui";
+import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -38,7 +39,7 @@ const DeleteSettings: FC = () => {
   return (
     <Card>
       <CardHeader
-        body={`This will permanently delete your Account NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
+        body={`This will permanently delete your Account on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
         title={<div className="text-red-500">Delete Lens profile</div>}
       />
       <div className="m-5 space-y-5">
@@ -66,9 +67,15 @@ const DeleteSettings: FC = () => {
             Some account information may still be available in search engines,
             such as Google or Bing.
           </p>
-          <p className="py-3">
-            Your @handle will be released immediately after deleting the
-            account.
+          <p className="linkify py-3">
+            Your account will be transferred to a{" "}
+            <Link href={`${BLOCKEXPLORER_URL}/address/${NULL_ADDRESS}`}>
+              null address
+            </Link>{" "}
+            after deletion.
+          </p>
+          <p className="py-3 font-bold text-red-500">
+            Your @handle will not be available for reuse.
           </p>
         </div>
         <Button

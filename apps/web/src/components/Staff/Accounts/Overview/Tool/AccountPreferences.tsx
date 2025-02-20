@@ -1,9 +1,5 @@
 import MetaDetails from "@components/Shared/MetaDetails";
-import {
-  BellIcon,
-  CursorArrowRaysIcon,
-  SparklesIcon
-} from "@heroicons/react/24/outline";
+import { BellIcon, CursorArrowRaysIcon } from "@heroicons/react/24/outline";
 import {
   CheckCircleIcon,
   Cog6ToothIcon,
@@ -42,16 +38,6 @@ const AccountPreferences: FC<AccountPreferencesProps> = ({ preferences }) => {
             src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
             width={16}
           />
-        </MetaDetails>
-        <MetaDetails
-          icon={<SparklesIcon className="ld-text-gray-500 size-4" />}
-          title="Dismissed or minted membership NFT"
-        >
-          {preferences.hasDismissedOrMintedMembershipNft ? (
-            <CheckCircleIcon className="size-4 text-green-500" />
-          ) : (
-            <XCircleIcon className="size-4 text-red-500" />
-          )}
         </MetaDetails>
         <MetaDetails
           icon={<BellIcon className="ld-text-gray-500 size-4" />}

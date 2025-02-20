@@ -14,63 +14,6 @@ model Preference {
   createdAt       DateTime @default(now())
 }
 
-model MembershipNft {
-  accountAddress    String   @id
-  dismissedOrMinted Boolean  @default(false)
-  createdAt         DateTime @default(now())
-}
-
-model Poll {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime  @default(now())
-  endsAt    DateTime?
-
-  // Relations
-  options PollOption[]
-}
-
-model PollOption {
-  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  option String
-  index  Int    @default(0)
-
-  // Relations
-  pollId    String         @db.Uuid
-  poll      Poll           @relation(fields: [pollId], references: [id], onDelete: Cascade)
-  responses PollResponse[]
-
-  // Indexes
-  @@index([pollId])
-}
-
-model PollResponse {
-  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  accountAddress String
-  optionId       String   @db.Uuid
-  createdAt      DateTime @default(now())
-
-  // Relations
-  option PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
-
-  // Constraints
-  @@unique([accountAddress, optionId])
-  // Indexes
-  @@index([optionId])
-}
-
-model AllowedToken {
-  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name            String
-  symbol          String
-  decimals        Int      @default(18)
-  contractAddress String   @unique
-  priority        Int      @default(0)
-  createdAt       DateTime @default(now())
-
-  // Indexes
-  @@index([priority])
-}
-
 model Permission {
   id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   key       String         @unique
@@ -100,28 +43,4 @@ model AccountPermission {
   // Indexes
   @@index([accountAddress])
   @@index([permissionId])
-}
-
-model AccountStatus {
-  accountAddress String   @id
-  message        String
-  emoji          String
-  createdAt      DateTime @default(now())
-}
-
-model AccountTheme {
-  accountAddress String   @id
-  fontStyle      String?
-  createdAt      DateTime @default(now())
-}
-
-model MutedWord {
-  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  accountAddress String
-  word           String
-  expiresAt      DateTime?
-  createdAt      DateTime  @default(now())
-
-  // Indexes
-  @@index([accountAddress])
 }

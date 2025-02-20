@@ -3,20 +3,17 @@ import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
 import errorToast from "@helpers/errorToast";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { useAddAccountManagerMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { isAddress } from "viem";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;
@@ -27,13 +24,11 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-
   const [manager, setManager] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [canExecuteTransactions, setCanExecuteTransactions] = useState(true);
   const [canSetMetadataUri, setCanSetMetadataUri] = useState(true);
-
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = (hash: string) => {
     setIsLoading(false);
@@ -49,33 +44,11 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
 
   const [addAccountManager] = useAddAccountManagerMutation({
     onCompleted: async ({ addAccountManager }) => {
-      if (walletClient) {
-        try {
-          if (addAccountManager.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(addAccountManager.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (addAccountManager.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(addAccountManager.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (addAccountManager.__typename === "TransactionWillFail") {
-            return onError({ message: addAccountManager.reason });
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
+      return await handleTransactionLifecycle({
+        transactionData: addAccountManager,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

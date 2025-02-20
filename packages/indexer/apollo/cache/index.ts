@@ -1,10 +1,9 @@
 import { InMemoryCache } from '@apollo/client';
 import result from '../../generated';
-import createGroupsFieldPolicy from './createGroupsFieldPolicy';
-import createPostBookmarksFieldPolicy from './createPostBookmarksFieldPolicy';
+import createAccountsFieldPolicy from './createAccountsFieldPolicy';
+import createBasicFieldPolicy from './createBasicFieldPolicy';
 import createPostReactionsFieldPolicy from './createPostReactionsFieldPolicy';
 import createPostReferencesFieldPolicy from './createPostReferencesFieldPolicy';
-import createPostsFieldPolicy from './createPostsFieldPolicy';
 import createTimelineFieldPolicy from './createTimelineFieldPolicy';
 import createWhoReferencedPostFieldPolicy from './createWhoReferencedPostFieldPolicy';
 
@@ -14,12 +13,18 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         timeline: createTimelineFieldPolicy(),
-        posts: createPostsFieldPolicy(),
+        posts: createBasicFieldPolicy(),
         postReferences: createPostReferencesFieldPolicy(),
         postReactions: createPostReactionsFieldPolicy(),
         whoReferencedPost: createWhoReferencedPostFieldPolicy(),
-        postBookmarks: createPostBookmarksFieldPolicy(),
-        groups: createGroupsFieldPolicy(),
+        postBookmarks: createBasicFieldPolicy(),
+        groups: createBasicFieldPolicy(),
+        accounts: createAccountsFieldPolicy(),
+        accountsBlocked: createBasicFieldPolicy(),
+        accountManagers: createBasicFieldPolicy(),
+        authenticatedSessions: createBasicFieldPolicy(),
+        usernames: createBasicFieldPolicy(),
+        notifications: createBasicFieldPolicy(),
       }
     }
   }

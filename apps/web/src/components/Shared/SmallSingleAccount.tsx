@@ -7,7 +7,6 @@ import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC } from "react";
 import { memo } from "react";
-import Misuse from "./Account/Icons/Misuse";
 import Verified from "./Account/Icons/Verified";
 import Slug from "./Slug";
 
@@ -46,7 +45,6 @@ const SmallSingleAccount: FC<SmallSingleAccountProps> = ({
         {getAccount(account).name}
       </div>
       <Verified address={account.address} iconClassName="mr-1 size-4" />
-      <Misuse address={account.address} iconClassName="mr-2 size-4" />
       {!hideSlug && (
         <Slug
           className="text-sm"

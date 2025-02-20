@@ -11,12 +11,10 @@ import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 
 interface ImageFeedProps {
-  feedType: ExplorePublicationsOrderByType;
+  feedType: any;
 }
 
-const ImageFeed: FC<ImageFeedProps> = ({
-  feedType = ExplorePublicationsOrderByType.LensCurated
-}) => {
+const ImageFeed: FC<ImageFeedProps> = ({ feedType = "" }) => {
   const request: MlexplorePostsRequest = {
     pageSize: PageSize.Fifty
     // orderBy: feedType,

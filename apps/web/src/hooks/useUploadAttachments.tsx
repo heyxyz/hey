@@ -94,18 +94,16 @@ const useUploadAttachments = () => {
         try {
           const attachmentsUploaded =
             await uploadToStorageNode(compressedFiles);
-          const attachmentsIPFS = attachmentsUploaded.map(
-            (uploaded, index) => ({
-              ...previewAttachments[index],
-              mimeType: uploaded.mimeType,
-              uri: uploaded.uri
-            })
-          );
+          const attachments = attachmentsUploaded.map((uploaded, index) => ({
+            ...previewAttachments[index],
+            mimeType: uploaded.mimeType,
+            uri: uploaded.uri
+          }));
 
-          updateAttachments(attachmentsIPFS);
+          updateAttachments(attachments);
           setIsUploading(false);
 
-          return attachmentsIPFS;
+          return attachments;
         } catch {
           toast.error("Something went wrong while uploading!");
           removeAttachments(attachmentIds);

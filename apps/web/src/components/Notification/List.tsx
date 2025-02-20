@@ -17,7 +17,6 @@ import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
-import ActedNotification from "./Type/ActedNotification";
 import CommentNotification from "./Type/CommentNotification";
 import FollowNotification from "./Type/FollowNotification";
 import MentionNotification from "./Type/MentionNotification";
@@ -42,8 +41,6 @@ const List: FC<ListProps> = ({ feedType }) => {
         return [NotificationType.Commented];
       case NotificationFeedType.Likes:
         return [NotificationType.Reacted];
-      case NotificationFeedType.Actions:
-        return [NotificationType.Acted];
       default:
         return;
     }
@@ -137,11 +134,6 @@ const List: FC<ListProps> = ({ feedType }) => {
             {notification.__typename === "QuoteNotification" && (
               <QuoteNotification
                 notification={notification as TQuoteNotification}
-              />
-            )}
-            {notification.__typename === "ActedNotification" && (
-              <ActedNotification
-                notification={notification as ActedNotificationType}
               />
             )}
           </div>

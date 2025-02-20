@@ -1,4 +1,3 @@
-import QueuedPost from "@components/Post/QueuedPost";
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
@@ -8,16 +7,13 @@ import {
   type Post,
   useMlPostsForYouQuery
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
 
 const ForYou: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { txnQueue } = useTransactionStore();
 
   const request: MlpostsForYouRequest = {
     pageSize: PageSize.Fifty,
@@ -59,29 +55,22 @@ const ForYou: FC = () => {
   }
 
   return (
-    <>
-      {txnQueue.map((txn) =>
-        txn?.type === OptimisticTxType.CREATE_POST ? (
-          <QueuedPost key={txn.txHash} txn={txn} />
-        ) : null
-      )}
-      <Card>
-        <Virtuoso
-          className="virtual-divider-list-window"
-          computeItemKey={(index, item) => `${item.post.id}-${index}`}
-          data={posts}
-          endReached={onEndReached}
-          itemContent={(index, item) => (
-            <SinglePost
-              isFirst={index === 0}
-              isLast={index === (posts?.length || 0) - 1}
-              post={item.post as Post}
-            />
-          )}
-          useWindowScroll
-        />
-      </Card>
-    </>
+    <Card>
+      <Virtuoso
+        className="virtual-divider-list-window"
+        computeItemKey={(index, item) => `${item.post.id}-${index}`}
+        data={posts}
+        endReached={onEndReached}
+        itemContent={(index, item) => (
+          <SinglePost
+            isFirst={index === 0}
+            isLast={index === (posts?.length || 0) - 1}
+            post={item.post as Post}
+          />
+        )}
+        useWindowScroll
+      />
+    </Card>
   );
 };
 

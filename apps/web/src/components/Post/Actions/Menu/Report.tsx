@@ -4,14 +4,14 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
-import { useGlobalModalStateStore } from "src/store/non-persisted/useGlobalModalStateStore";
+import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 
 interface ReportProps {
   post: Post;
 }
 
 const Report: FC<ReportProps> = ({ post }) => {
-  const { setShowPostReportModal } = useGlobalModalStateStore();
+  const { setShowPostReportModal } = useGlobalModalStore();
 
   return (
     <MenuItem
