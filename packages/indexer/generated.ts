@@ -2292,6 +2292,10 @@ export type ExecutePostActionResponse = {
 
 export type ExecutePostActionResult = ExecutePostActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type ExecutedUnknownActionRequest = {
+  address: Scalars['EvmAddress']['input'];
+};
+
 /** The challenge has expired or was not found. */
 export type ExpiredChallengeError = {
   __typename?: 'ExpiredChallengeError';
@@ -3376,14 +3380,33 @@ export type LoggedInPostOperations = {
   canEdit: PostOperationValidationOutcome;
   canQuote: PostOperationValidationOutcome;
   canRepost: PostOperationValidationOutcome;
+  canSimpleCollect: SimpleCollectValidationOutcome;
+  canTip: Scalars['Boolean']['output'];
+  executedUnknownActionCount: Scalars['Int']['output'];
   hasBookmarked: Scalars['Boolean']['output'];
   hasCommented: BooleanValue;
+  hasExecutedUnknownAction: Scalars['Boolean']['output'];
   hasQuoted: BooleanValue;
   hasReacted: Scalars['Boolean']['output'];
   hasReported: Scalars['Boolean']['output'];
   hasReposted: BooleanValue;
+  hasSimpleCollected: Scalars['Boolean']['output'];
+  hasTipped: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   isNotInterested: Scalars['Boolean']['output'];
+  lastTip?: Maybe<PostTip>;
+  postTipCount: Scalars['Int']['output'];
+  simpleCollectCount: Scalars['Int']['output'];
+};
+
+
+export type LoggedInPostOperationsExecutedUnknownActionCountArgs = {
+  request: ExecutedUnknownActionRequest;
+};
+
+
+export type LoggedInPostOperationsHasExecutedUnknownActionArgs = {
+  request: ExecutedUnknownActionRequest;
 };
 
 
@@ -5933,6 +5956,12 @@ export type PostTagsRequest = {
   pageSize?: PageSize;
 };
 
+export type PostTip = {
+  __typename?: 'PostTip';
+  amount: Erc20Amount;
+  date: Scalars['DateTime']['output'];
+};
+
 export enum PostType {
   Comment = 'COMMENT',
   Quote = 'QUOTE',
@@ -6847,6 +6876,27 @@ export type SimpleCollectActionContract = {
 export type SimpleCollectExecuteInput = {
   referrals?: InputMaybe<Array<ReferralCut>>;
   selected: Scalars['AlwaysTrue']['input'];
+};
+
+export type SimpleCollectValidationFailed = {
+  __typename?: 'SimpleCollectValidationFailed';
+  reason: Scalars['String']['output'];
+  reasonType: SimpleCollectValidationFailedReason;
+};
+
+export enum SimpleCollectValidationFailedReason {
+  EndDateReached = 'END_DATE_REACHED',
+  LimitReached = 'LIMIT_REACHED',
+  NotAFollower = 'NOT_A_FOLLOWER',
+  NotEnabled = 'NOT_ENABLED',
+  NotEnoughBalance = 'NOT_ENOUGH_BALANCE'
+}
+
+export type SimpleCollectValidationOutcome = SimpleCollectValidationFailed | SimpleCollectValidationPassed;
+
+export type SimpleCollectValidationPassed = {
+  __typename?: 'SimpleCollectValidationPassed';
+  passed: Scalars['AlwaysTrue']['output'];
 };
 
 export type SimplePaymentFeedRuleConfig = {
@@ -12361,6 +12411,10 @@ export type SponsorshipQueryResult = Apollo.QueryResult<SponsorshipQuery, Sponso
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
+    ],
+    "SimpleCollectValidationOutcome": [
+      "SimpleCollectValidationFailed",
+      "SimpleCollectValidationPassed"
     ],
     "SwitchAccountResult": [
       "AuthenticationTokens",
