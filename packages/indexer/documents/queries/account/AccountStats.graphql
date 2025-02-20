@@ -7,7 +7,6 @@ query AccountStats($request: AccountStatsRequest!) {
       quotes
       reacted
       reactions
-      collects
     }
     graphFollowStats {
       followers

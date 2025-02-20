@@ -40,7 +40,9 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
-  const [collects, { increment }] = useCounter(targetPost.stats.collects);
+  const [collects, { increment }] = useCounter(
+    targetPost.operations?.simpleCollectCount || 0
+  );
 
   const { data, loading } = useCollectActionQuery({
     variables: { request: { post: post.id } }

@@ -7,7 +7,6 @@ query FullAccount(
   }
   accountStats(request: $accountStatsRequest) {
     feedStats {
-      collects
       comments
       posts
       quotes

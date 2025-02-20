@@ -15,7 +15,7 @@ interface CollectActionProps {
 const CollectAction: FC<CollectActionProps> = ({ post }) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const { collects } = targetPost.stats;
+  const simpleCollectCount = targetPost.operations?.simpleCollectCount || 0;
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
@@ -26,15 +26,17 @@ const CollectAction: FC<CollectActionProps> = ({ post }) => {
         type="button"
       >
         <Tooltip
-          content={`${humanize(collects)} ${plur("Collect", collects)}`}
+          content={`${humanize(simpleCollectCount)} ${plur("Collect", simpleCollectCount)}`}
           placement="top"
           withDelay
         >
           <ShoppingBagIcon className="w-[15px] sm:w-[18px]" />
         </Tooltip>
       </button>
-      {collects > 0 ? (
-        <span className="text-[11px] sm:text-xs">{nFormatter(collects)}</span>
+      {simpleCollectCount > 0 ? (
+        <span className="text-[11px] sm:text-xs">
+          {nFormatter(simpleCollectCount)}
+        </span>
       ) : null}
       <Modal
         onClose={() => setShowCollectModal(false)}

@@ -34,7 +34,7 @@ const PostActions: FC<PostActionsProps> = ({ post, showCount = false }) => {
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
         {canAct && !showCount ? <CollectAction post={post} /> : null}
-        <TipAction post={post} showCount={showCount} />
+        <TipAction post={targetPost} showCount={showCount} />
       </span>
       {canAct ? <SmallCollectButton post={targetPost} /> : null}
     </span>

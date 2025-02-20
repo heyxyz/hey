@@ -2,19 +2,19 @@ import MenuTransition from "@components/Shared/MenuTransition";
 import { TipIcon } from "@components/Shared/TipIcon";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPost } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import Action from "./Action";
 
 interface TipActionProps {
-  post: AnyPost;
+  post: Post;
   showCount: boolean;
 }
 
 const TipAction: FC<TipActionProps> = ({ post, showCount }) => {
-  const hasTipped = false;
+  const hasTipped = post.operations?.hasTipped;
 
   const iconClassName = showCount
     ? "w-[17px] sm:w-[20px]"

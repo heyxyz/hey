@@ -53,7 +53,7 @@ export const generateMetadata = async ({
       url: `https://hey.xyz/posts/${targetPost.id}`
     },
     other: {
-      "count:actions": targetPost.stats.collects,
+      "count:actions": targetPost.operations?.simpleCollectCount || 0,
       "count:comments": targetPost.stats.comments,
       "count:likes": targetPost.stats.reactions,
       "count:reposts": targetPost.stats.reposts,
