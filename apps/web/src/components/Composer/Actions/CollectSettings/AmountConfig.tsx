@@ -32,7 +32,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ setCollectType }) => {
               : { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
             recipients: enabled
               ? undefined
-              : [{ address: currentAccount?.owner, percent: 100 }]
+              : [{ address: currentAccount?.address, percent: 100 }]
           });
         }}
       />

@@ -28,7 +28,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
 
-  const currentAddress = currentAccount?.owner || "";
+  const currentAddress = currentAccount?.address || "";
   const recipients = collectAction.recipients || [];
   const [isToggleOn, setIsToggleOn] = useState(
     recipients.length > 1 ||
