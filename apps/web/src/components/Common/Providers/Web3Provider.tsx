@@ -2,7 +2,7 @@ import { APP_NAME, WALLETCONNECT_PROJECT_ID } from "@hey/data/constants";
 import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
 import type { FC, ReactNode } from "react";
-import { http, WagmiProvider, createConfig, fallback } from "wagmi";
+import { createConfig, fallback, http, WagmiProvider } from "wagmi";
 import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
 const connectors = [
@@ -15,8 +15,12 @@ const wagmiConfig = createConfig({
   chains: [chains.testnet, chains.testnet],
   connectors,
   transports: {
-    [chains.testnet.id]: fallback(LENS_TESTNET_RPCS.map((rpc) => http(rpc))),
-    [chains.testnet.id]: fallback(LENS_TESTNET_RPCS.map((rpc) => http(rpc)))
+    [chains.testnet.id]: fallback(
+      LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
+    ),
+    [chains.testnet.id]: fallback(
+      LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
+    )
   }
 });
 

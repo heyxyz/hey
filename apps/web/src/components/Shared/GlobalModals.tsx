@@ -12,6 +12,7 @@ import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwi
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
+import FundAccount from "./Fund/FundAccount";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportAccount from "./Modal/ReportAccount";
@@ -98,9 +99,8 @@ const GlobalModals: FC = () => {
         onClose={() => setShowFundModal(false)}
         show={showFundModal}
         title="Fund account"
-        size="lg"
       >
-        <div>WIP</div>
+        <FundAccount />
       </Modal>
     </>
   );
