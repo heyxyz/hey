@@ -2,6 +2,7 @@ import NewPublication from "@components/Composer/NewPublication";
 import ReportPost from "@components/Shared/Modal/ReportPost";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
+import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
@@ -29,6 +30,7 @@ const GlobalModals: FC = () => {
     showPostReportModal,
     showReportAccountModal
   } = useGlobalModalStore();
+  const { showFundModal, setShowFundModal } = useFundModalStore();
 
   const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
@@ -86,6 +88,13 @@ const GlobalModals: FC = () => {
         title="Optimistic Transactions"
       >
         <OptimisticTransactions />
+      </Modal>
+      <Modal
+        onClose={() => setShowFundModal(false)}
+        show={showFundModal}
+        title="Fund account"
+      >
+        <div>WIP</div>
       </Modal>
     </>
   );
