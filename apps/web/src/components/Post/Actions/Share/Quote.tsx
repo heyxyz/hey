@@ -5,6 +5,7 @@ import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
+import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
@@ -16,7 +17,8 @@ interface QuoteProps {
 
 const Quote: FC<QuoteProps> = ({ post }) => {
   const { currentAccount } = useAccountStore();
-  const { setShowAuthModal, setShowNewPostModal } = useGlobalModalStore();
+  const { setShowAuthModal } = useAuthModalStore();
+  const { setShowNewPostModal } = useGlobalModalStore();
   const { setQuotedPost } = usePostStore();
   const { isSuspended } = useAccountStatus();
 

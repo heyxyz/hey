@@ -1,11 +1,11 @@
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Button, Card } from "@hey/ui";
 import type { FC } from "react";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useSignupStore } from "./Signup";
 
 const SignupCard: FC = () => {
-  const { setShowAuthModal } = useGlobalModalStore();
+  const { setShowAuthModal } = useAuthModalStore();
   const { setScreen } = useSignupStore();
 
   const handleSignupClick = () => {

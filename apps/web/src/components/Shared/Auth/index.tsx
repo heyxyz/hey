@@ -2,7 +2,7 @@ import Login from "@components/Shared/Auth/Login";
 import { APP_NAME } from "@hey/data/constants";
 import type { FC } from "react";
 import { useState } from "react";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useAccount } from "wagmi";
 import AuthMessage from "./AuthMessage";
 import Signup from "./Signup";
@@ -16,7 +16,7 @@ const NotConnected = () => (
 );
 
 const Auth: FC = () => {
-  const { authModalType } = useGlobalModalStore();
+  const { authModalType } = useAuthModalStore();
   const [hasAccounts, setHasAccounts] = useState(true);
   const { isConnected } = useAccount();
 

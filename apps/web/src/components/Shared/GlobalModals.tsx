@@ -2,6 +2,7 @@ import NewPublication from "@components/Composer/NewPublication";
 import ReportPost from "@components/Shared/Modal/ReportPost";
 import { Modal } from "@hey/ui";
 import type { FC } from "react";
+import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
@@ -16,17 +17,16 @@ import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
   const {
-    authModalType,
-    setShowAuthModal,
     setShowNewPostModal,
     setShowOptimisticTransactionsModal,
     setShowAccountSwitchModal,
-    showAuthModal,
     showNewPostModal,
     showOptimisticTransactionsModal,
     showAccountSwitchModal
   } = useGlobalModalStore();
 
+  const { authModalType, showAuthModal, setShowAuthModal } =
+    useAuthModalStore();
   const {
     reportingAccount,
     showReportAccountModal,
