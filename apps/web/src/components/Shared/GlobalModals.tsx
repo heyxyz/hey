@@ -8,7 +8,7 @@ import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostMo
 import { useOptimisticTransactionsModalStore } from "src/store/non-persisted/modal/useOptimisticTransactionsModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
-import { useGlobalModalStore } from "src/store/non-persisted/useGlobalModalStore";
+import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwitchAccountModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
@@ -18,8 +18,8 @@ import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
-  const { setShowAccountSwitchModal, showAccountSwitchModal } =
-    useGlobalModalStore();
+  const { setShowSwitchAccountModal, showSwitchAccountModal } =
+    useSwitchAccountModalStore();
 
   const {
     showOptimisticTransactionsModal,
@@ -65,8 +65,8 @@ const GlobalModals: FC = () => {
         <ReportAccount account={reportingAccount} />
       </Modal>
       <Modal
-        onClose={() => setShowAccountSwitchModal(false)}
-        show={showAccountSwitchModal}
+        onClose={() => setShowSwitchAccountModal(false)}
+        show={showSwitchAccountModal}
         size={address ? "xs" : "sm"}
         title="Switch Account"
       >
