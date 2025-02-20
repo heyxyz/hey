@@ -10,7 +10,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "easyinvoice": "^3.0.47",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
