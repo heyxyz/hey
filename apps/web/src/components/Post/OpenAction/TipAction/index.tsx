@@ -23,7 +23,7 @@ const TipAction: FC<TipActionProps> = ({ post, showCount }) => {
     : "w-[15px] sm:w-[18px]";
 
   return (
-    <div className="ld-text-gray-500">
+    <div className="ld-text-gray-500 flex items-center space-x-1">
       <Menu as="div" className="relative">
         <MenuButton
           aria-label="Tip"
