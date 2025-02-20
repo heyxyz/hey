@@ -15,7 +15,6 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   hasReposted {
     ...BooleanValueFields
   }
-  canTip
   canRepost {
     __typename
   }
@@ -23,9 +22,6 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
     __typename
   }
   canComment {
-    __typename
-  }
-  canSimpleCollect {
     __typename
   }
   simpleCollectCount
